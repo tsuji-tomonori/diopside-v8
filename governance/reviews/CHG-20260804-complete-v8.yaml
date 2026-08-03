@@ -19,7 +19,7 @@ impact_flags:
   code_change: true
   typed_code_change: true
   behavior_change: true
-  bug_fix: false
+  bug_fix: true
   generated_change: true
   sql_change: false
   e2e_change: true
@@ -102,7 +102,7 @@ selected_checks:
     result: pass
     evidence:
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
-    note: TypeScript strictのブラウザ・Node両projectを検査する
+    note: PRの実コミットをNode.js 22.13.0でcheckoutし、TypeScript strictのブラウザ・Node両projectを検査する
   - id: FAST-003
     class: Invariant
     result: pass
@@ -117,6 +117,13 @@ selected_checks:
       - test:src/domain/validation.test.ts
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
     note: 正常系・境界・失敗経路を50件の単体・統合試験で検証する
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:.github/workflows/verify.yml
+      - workflow:要件・品質ゲート#ソースを取得
+    note: PR合成マージコミットでレビュー契約が失敗する条件をrun 30840386815で再現し、PR headのcheckoutへ修正した
   - id: FAST-006
     class: Invariant
     result: pass

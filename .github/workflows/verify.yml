@@ -22,10 +22,12 @@ jobs:
     steps:
       - name: ソースを取得
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Node.jsを準備
         uses: actions/setup-node@v4
         with:
-          node-version: 22.12.0
+          node-version: 22.13.0
       - name: 固定依存を導入
         run: npm ci
       - name: レビュー検証依存を導入
