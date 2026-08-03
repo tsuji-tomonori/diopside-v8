@@ -28,7 +28,7 @@ export interface ConditionError {
 
 interface PreparedTerm {
   value: string;
-  fuzzy: (text: readonly string[]) => number | null;
+  fuzzy: (text: Uint32Array) => number | null;
 }
 
 interface PreparedQuery {
@@ -36,7 +36,17 @@ interface PreparedQuery {
   terms: PreparedTerm[];
 }
 
-const titleCharactersCache = new WeakMap<SearchVideo, readonly string[]>();
+interface PreparedCatalog {
+  maximumTextLength: number;
+  publishedNewest: SearchVideo[];
+  publishedOldest: SearchVideo[];
+  durationShortest: SearchVideo[];
+  durationLongest: SearchVideo[];
+}
+
+const catalogCache = new WeakMap<SearchVideo[], PreparedCatalog>();
+const searchResultCache = new WeakMap<SearchVideo[], Map<string, SearchResult[]>>();
+const titleCharactersCache = new WeakMap<SearchVideo, Uint32Array>();
 const publishedTimeCache = new WeakMap<SearchVideo, number>();
 const japanDateFormatter = new Intl.DateTimeFormat('sv-SE', {
   timeZone: 'Asia/Tokyo',
@@ -109,12 +119,12 @@ export function damerauLevenshtein(left: string, right: string): number {
 }
 
 export function fuzzyDistance(term: string, normalizedTitle: string): number | null {
-  const text = [...normalizedTitle];
+  const text = codePoints(normalizedTitle);
   return createFuzzyMatcher(term, text.length)(text);
 }
 
-function createFuzzyMatcher(term: string, maximumTextLength: number): (text: readonly string[]) => number | null {
-  const pattern = [...term];
+function createFuzzyMatcher(term: string, maximumTextLength: number): (text: Uint32Array) => number | null {
+  const pattern = codePoints(term);
   if (pattern.length < 3) return () => null;
   const allowed = pattern.length <= 5 ? 1 : 2;
   const buffers = [
@@ -125,8 +135,24 @@ function createFuzzyMatcher(term: string, maximumTextLength: number): (text: rea
 
   // 先頭行を0にすると、文字列の任意位置から照合を開始できる。最終行の
   // 最小値は長さ n-d..n+d の全連続部分文字列との最小距離と等価になる。
-  return (text: readonly string[]): number | null => {
-    if (text.length === 0) return null;
+  const usedPatternCharacters = pattern.length >= 8 ? new Uint8Array(pattern.length) : null;
+  return (text: Uint32Array): number | null => {
+    if (text.length === 0 || text.length < pattern.length - allowed) return null;
+    if (usedPatternCharacters) {
+      usedPatternCharacters.fill(0);
+      let shared = 0;
+      const requiredShared = pattern.length - allowed;
+      for (let column = 0; column < text.length && shared < requiredShared; column += 1) {
+        for (let row = 0; row < pattern.length; row += 1) {
+          if (usedPatternCharacters[row] === 0 && pattern[row] === text[column]) {
+            usedPatternCharacters[row] = 1;
+            shared += 1;
+            break;
+          }
+        }
+      }
+      if (shared < requiredShared) return null;
+    }
     let previousPrevious = buffers[0]!;
     let previous = buffers[1]!;
     let current = buffers[2]!;
@@ -136,25 +162,31 @@ function createFuzzyMatcher(term: string, maximumTextLength: number): (text: rea
       current[0] = row;
       for (let column = 1; column <= text.length; column += 1) {
         const substitutionCost = pattern[row - 1] === text[column - 1] ? 0 : 1;
-        let distance = Math.min(
-          previous[column]! + 1,
-          current[column - 1]! + 1,
-          previous[column - 1]! + substitutionCost,
-        );
+        const deletion = previous[column]! + 1;
+        const insertion = current[column - 1]! + 1;
+        const substitution = previous[column - 1]! + substitutionCost;
+        let distance = deletion < insertion ? deletion : insertion;
+        if (substitution < distance) distance = substitution;
         if (
           row > 1
           && column > 1
           && pattern[row - 1] === text[column - 2]
           && pattern[row - 2] === text[column - 1]
         ) {
-          distance = Math.min(distance, previousPrevious[column - 2]! + 1);
+          const transposition = previousPrevious[column - 2]! + 1;
+          if (transposition < distance) distance = transposition;
         }
         current[column] = distance;
       }
-      [previousPrevious, previous, current] = [previous, current, previousPrevious];
+      const next = previousPrevious;
+      previousPrevious = previous;
+      previous = current;
+      current = next;
     }
     let minimum = Number.POSITIVE_INFINITY;
-    for (let column = 1; column <= text.length; column += 1) minimum = Math.min(minimum, previous[column]!);
+    for (let column = 1; column <= text.length; column += 1) {
+      if (previous[column]! < minimum) minimum = previous[column]!;
+    }
     return minimum <= allowed ? minimum : null;
   };
 }
@@ -204,16 +236,31 @@ export function bucketRange(bucket: DurationBucket): { min?: number; max?: numbe
 
 export function applySearch(videos: SearchVideo[], condition: SearchCondition): SearchResult[] {
   if (validateCondition(condition).length > 0) return [];
+  const catalog = preparedCatalog(videos);
   const normalizedQuery = normalizeTitleForSearch(condition.query);
-  const maximumTextLength = videos.reduce((maximum, video) => Math.max(maximum, titleCharacters(video).length), 0);
+  const requestedSort = condition.sort ?? (normalizedQuery ? '関連度順' : '公開日の新しい順');
+  const selectedTags = [...new Set(condition.tagIds)].sort();
+  const cache = searchResultCache.get(videos) ?? new Map<string, SearchResult[]>();
+  if (!searchResultCache.has(videos)) searchResultCache.set(videos, cache);
+  const cacheKey = JSON.stringify({
+    query: normalizedQuery,
+    tagIds: selectedTags,
+    publishedFrom: condition.publishedFrom ?? null,
+    publishedTo: condition.publishedTo ?? null,
+    durationBucket: condition.durationBucket ?? null,
+    durationMinMinutes: condition.durationMinMinutes ?? null,
+    durationMaxMinutes: condition.durationMaxMinutes ?? null,
+    sort: requestedSort,
+  });
+  const cached = cache.get(cacheKey);
+  if (cached) return cached;
   const query: PreparedQuery = {
     normalized: normalizedQuery,
     terms: (normalizedQuery ? normalizedQuery.split(' ') : []).map((value) => ({
       value,
-      fuzzy: createFuzzyMatcher(value, maximumTextLength),
+      fuzzy: createFuzzyMatcher(value, catalog.maximumTextLength),
     })),
   };
-  const selectedTags = [...new Set(condition.tagIds)];
   const bucket = condition.durationBucket ? bucketRange(condition.durationBucket) : {};
   const minimumSeconds = condition.durationBucket
     ? bucket.min
@@ -222,8 +269,18 @@ export function applySearch(videos: SearchVideo[], condition: SearchCondition): 
     ? bucket.max
     : condition.durationMaxMinutes !== undefined ? condition.durationMaxMinutes * 60 : undefined;
 
-  const results: ScoredSearchResult[] = [];
-  for (const video of videos) {
+  const source = requestedSort === '公開日の古い順'
+    ? catalog.publishedOldest
+    : requestedSort === '動画長の短い順'
+      ? catalog.durationShortest
+      : requestedSort === '動画長の長い順'
+        ? catalog.durationLongest
+        : catalog.publishedNewest;
+  const results: SearchResult[] = [];
+  const relevanceBuckets = requestedSort === '関連度順'
+    ? Array.from({ length: 6 }, () => new Map<number, SearchResult[]>())
+    : null;
+  for (const video of source) {
     const score = relevance(query, video);
     if (!score) continue;
     if (!selectedTags.every((tagId) => video.tagIds.includes(tagId))) continue;
@@ -235,35 +292,27 @@ export function applySearch(videos: SearchVideo[], condition: SearchCondition): 
     if ((minimumSeconds !== undefined || maximumSeconds !== undefined) && video.durationSeconds === null) continue;
     if (minimumSeconds !== undefined && (video.durationSeconds ?? -1) < minimumSeconds) continue;
     if (maximumSeconds !== undefined && (video.durationSeconds ?? Number.POSITIVE_INFINITY) > maximumSeconds) continue;
-    results.push({ ...video, relevanceRank: score.rank, totalDistance: score.distance, publishedTime: publishedTime(video) });
+    const result = { ...video, relevanceRank: score.rank, totalDistance: score.distance };
+    if (relevanceBuckets) {
+      const bucket = relevanceBuckets[score.rank]!;
+      const values = bucket.get(score.distance) ?? [];
+      values.push(result);
+      bucket.set(score.distance, values);
+    } else {
+      results.push(result);
+    }
   }
 
-  const requestedSort = condition.sort ?? (normalizedQuery ? '関連度順' : '公開日の新しい順');
-  return results
-    .sort((left, right) => compareResults(left, right, requestedSort))
-    .map(({ publishedTime: _publishedTime, ...result }) => result);
-}
-
-type ScoredSearchResult = SearchResult & { publishedTime: number };
-
-function compareResults(left: ScoredSearchResult, right: ScoredSearchResult, sort: SortOrder): number {
-  const idOrder = left.videoId.localeCompare(right.videoId);
-  if (sort === '関連度順') {
-    return left.relevanceRank - right.relevanceRank
-      || left.totalDistance - right.totalDistance
-      || right.publishedTime - left.publishedTime
-      || idOrder;
+  if (relevanceBuckets) {
+    for (const relevanceBucket of relevanceBuckets) {
+      for (const distance of [...relevanceBucket.keys()].sort((left, right) => left - right)) {
+        results.push(...relevanceBucket.get(distance)!);
+      }
+    }
   }
-  if (sort === '公開日の古い順') {
-    return left.publishedTime - right.publishedTime || idOrder;
-  }
-  if (sort === '動画長の短い順') {
-    return compareNullableDuration(left.durationSeconds, right.durationSeconds, 1) || idOrder;
-  }
-  if (sort === '動画長の長い順') {
-    return compareNullableDuration(left.durationSeconds, right.durationSeconds, -1) || idOrder;
-  }
-  return right.publishedTime - left.publishedTime || idOrder;
+  if (cache.size >= 64) cache.delete(cache.keys().next().value as string);
+  cache.set(cacheKey, results);
+  return results;
 }
 
 function compareNullableDuration(left: number | null, right: number | null, direction: 1 | -1): number {
@@ -288,7 +337,10 @@ export function additionalTagCounts(
   videos: SearchVideo[],
   condition: SearchCondition,
 ): Map<string, number> {
-  const matching = applySearch(videos, condition);
+  return tagCountsForResults(applySearch(videos, condition));
+}
+
+export function tagCountsForResults(matching: SearchResult[]): Map<string, number> {
   const counts = new Map<string, number>();
   for (const video of matching) {
     for (const tagId of new Set(video.tagIds)) counts.set(tagId, (counts.get(tagId) ?? 0) + 1);
@@ -318,12 +370,31 @@ export function dateInJapan(value: string): string {
   return japanDateFormatter.format(new Date(value));
 }
 
-function titleCharacters(video: SearchVideo): readonly string[] {
+function preparedCatalog(videos: SearchVideo[]): PreparedCatalog {
+  const cached = catalogCache.get(videos);
+  if (cached) return cached;
+  const publishedNewest = [...videos].sort((left, right) => publishedTime(right) - publishedTime(left) || left.videoId.localeCompare(right.videoId));
+  const catalog: PreparedCatalog = {
+    maximumTextLength: videos.reduce((maximum, video) => Math.max(maximum, titleCharacters(video).length), 0),
+    publishedNewest,
+    publishedOldest: [...videos].sort((left, right) => publishedTime(left) - publishedTime(right) || left.videoId.localeCompare(right.videoId)),
+    durationShortest: [...videos].sort((left, right) => compareNullableDuration(left.durationSeconds, right.durationSeconds, 1) || left.videoId.localeCompare(right.videoId)),
+    durationLongest: [...videos].sort((left, right) => compareNullableDuration(left.durationSeconds, right.durationSeconds, -1) || left.videoId.localeCompare(right.videoId)),
+  };
+  catalogCache.set(videos, catalog);
+  return catalog;
+}
+
+function titleCharacters(video: SearchVideo): Uint32Array {
   const cached = titleCharactersCache.get(video);
   if (cached) return cached;
-  const characters = [...video.normalizedTitle];
+  const characters = codePoints(video.normalizedTitle);
   titleCharactersCache.set(video, characters);
   return characters;
+}
+
+function codePoints(value: string): Uint32Array {
+  return Uint32Array.from(value, (character) => character.codePointAt(0) ?? 0);
 }
 
 function publishedTime(video: SearchVideo): number {

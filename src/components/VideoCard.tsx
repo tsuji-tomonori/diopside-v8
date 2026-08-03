@@ -9,7 +9,14 @@ export function VideoCard({ video }: { video: PublicVideoSummary }): React.JSX.E
   const store = useDeviceStore();
   const [favorite, setFavorite] = useState(false);
   useEffect(() => {
-    void store.isFavorite(video.videoId).then(setFavorite);
+    let active = true;
+    setFavorite(false);
+    void store.isFavorite(video.videoId).then((value) => {
+      if (active) setFavorite(value);
+    });
+    return () => {
+      active = false;
+    };
   }, [store, video.videoId]);
 
   return (

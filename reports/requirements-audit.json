@@ -1,8 +1,20 @@
 {
   "schemaVersion": "1.0.0",
+  "acceptancePassed": false,
   "requirementCount": 142,
-  "completedCount": 142,
-  "incompleteCount": 0,
+  "completedCount": 137,
+  "incompleteCount": 5,
+  "externalGates": {
+    "productOwnerApproval": {
+      "status": "未実施",
+      "approvedAt": null,
+      "evidenceUrl": null,
+      "finding": "Issue #1の要件ベースライン候補について、プロダクト責任者の明示承認がまだない。"
+    },
+    "findings": [
+      "Issue #1の要件ベースライン候補について、プロダクト責任者の明示承認がまだない。"
+    ]
+  },
   "rows": [
     {
       "id": "V8-SEARCH-001",
@@ -573,8 +585,10 @@
       "acceptanceCriteria": "Pagesの公開元がbranch方式の `main/docs` で、独自の公開Actionsを必要としない。",
       "verification": "リポジトリ設定確認・公開確認",
       "evidence": "tests/operations.test.ts, tests/generated.test.ts",
-      "status": "完了",
-      "findings": []
+      "status": "未完了",
+      "findings": [
+        "PR #2は未マージでmainに/docsがないため、main/docsのPages設定と公開確認は人手承認後に実施する。"
+      ]
     },
     {
       "id": "V8-OPS-013",
@@ -1398,8 +1412,10 @@
       "acceptanceCriteria": "本人・外部、字幕あり・なし、作成者時刻あり・なしを含み、全件が決定的検証、事実確認、編集確認に合格する。",
       "verification": "固定評価データによる受入試験",
       "evidence": "src/domain/validation.test.ts, tests/pilot-timestamps.test.ts",
-      "status": "完了",
-      "findings": []
+      "status": "未完了",
+      "findings": [
+        "固定30動画は内容品質合格5件・棄却25件で、全件合格の完了条件を満たさない。"
+      ]
     },
     {
       "id": "V8-TIME-037",
@@ -1420,8 +1436,10 @@
       "acceptanceCriteria": "GitHub、配信、データ取得、保存、検索、監視、ドメイン、外部APIの月次請求額がすべて0円である。既存端末、電気、通信回線は算定外とする。",
       "verification": "月次請求確認",
       "evidence": "tests/repository-policy.test.ts",
-      "status": "完了",
-      "findings": []
+      "status": "未完了",
+      "findings": [
+        "公開リポジトリと0円構成は確認済みだが、所有者の請求画面による月次請求0円確認は未実施。"
+      ]
     },
     {
       "id": "V8-COST-002",
@@ -1431,8 +1449,10 @@
       "acceptanceCriteria": "リポジトリは公開設定で、独自ドメインと有料プランを必要としない。",
       "verification": "リポジトリ・Pages設定確認",
       "evidence": "tests/repository-policy.test.ts",
-      "status": "完了",
-      "findings": []
+      "status": "未完了",
+      "findings": [
+        "PR #2は未マージでmainに/docsがないため、main/docsのPages設定と公開確認は人手承認後に実施する。"
+      ]
     },
     {
       "id": "V8-COST-003",
@@ -1486,8 +1506,10 @@
       "acceptanceCriteria": "375画素幅の代表5課題中4課題以上を60秒以内に完了する。",
       "verification": "利用者試験",
       "evidence": "src, tests, e2e",
-      "status": "完了",
-      "findings": []
+      "status": "未完了",
+      "findings": [
+        "初見利用者による代表5課題の実測は未実施。自動E2Eは利用者試験の代替にしない。"
+      ]
     },
     {
       "id": "V8-QUALITY-003",

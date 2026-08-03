@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0.0",
+  "updatedAt": "2026-08-04T04:00:34+09:00",
+  "productOwnerApproval": {
+    "status": "未実施",
+    "approvedAt": null,
+    "evidenceUrl": null,
+    "finding": "Issue #1の要件ベースライン候補について、プロダクト責任者の明示承認がまだない。"
+  },
+  "pagesPublication": {
+    "status": "未実施",
+    "sourceBranch": null,
+    "sourceFolder": null,
+    "publicUrl": null,
+    "verifiedAt": null,
+    "finding": "PR #2は未マージでmainに/docsがないため、main/docsのPages設定と公開確認は人手承認後に実施する。"
+  },
+  "monthlyCost": {
+    "status": "未実施",
+    "month": "2026-08",
+    "totalServiceChargeJpy": null,
+    "verifiedAt": null,
+    "evidenceUrl": null,
+    "finding": "公開リポジトリと0円構成は確認済みだが、所有者の請求画面による月次請求0円確認は未実施。"
+  },
+  "mobileUsability": {
+    "status": "未実施",
+    "viewport": "375x812",
+    "taskCount": 0,
+    "passedWithin60Seconds": 0,
+    "results": [],
+    "finding": "初見利用者による代表5課題の実測は未実施。自動E2Eは利用者試験の代替にしない。"
+  },
+  "searchPerformance": {
+    "status": "合格",
+    "videoCount": 2500,
+    "viewport": "375x812",
+    "cpuThrottlingRate": 4,
+    "browser": "Chromium 149.0.7827.0",
+    "sampleCount": 20,
+    "p95Milliseconds": 24.1,
+    "limitMilliseconds": 100,
+    "verifiedAt": "2026-08-04T04:00:34+09:00",
+    "finding": "実ブラウザの代表20検索で、結果表示までの95パーセンタイル24.1ミリ秒を確認した。"
+  }
+}

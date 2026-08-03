@@ -117,6 +117,7 @@
 | `src/domain/search.ts` | TypeAliasDeclaration | `SearchVideo` |
 | `src/domain/search.ts` | FunctionDeclaration | `serializeCondition` |
 | `src/domain/search.ts` | TypeAliasDeclaration | `SortOrder` |
+| `src/domain/search.ts` | FunctionDeclaration | `tagCountsForResults` |
 | `src/domain/search.ts` | FunctionDeclaration | `tokenizeQuery` |
 | `src/domain/search.ts` | FunctionDeclaration | `validateCondition` |
 | `src/domain/validation.ts` | FunctionDeclaration | `scanPublicBoundary` |
@@ -143,4 +144,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力35ファイル、公開契約87件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力35ファイル、公開契約88件です。

@@ -35,4 +35,7 @@ jobs:
       - name: Chromiumを導入
         run: npx playwright install --with-deps chromium
       - name: 142要件の品質ゲートを実行
-        run: npm run verify
+        run: npm run verify:quality
+      - name: 142要件の受入結果を監査
+        if: always()
+        run: npm run audit:requirements

@@ -116,7 +116,7 @@ selected_checks:
       - test:src/domain/search.test.ts
       - test:src/domain/validation.test.ts
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
-    note: 正常系・境界・失敗経路を50件の単体・統合試験で検証する
+    note: 正常系・境界・失敗経路と公開状態の復元訓練を51件の単体・統合試験で検証する
   - id: FAST-005
     class: Risk-selected
     result: pass
@@ -173,7 +173,7 @@ selected_checks:
     evidence:
       - test:tests/operations.test.ts
       - path:docs/operations/manual-content-update.md
-    note: 失敗状態を日本語表示し、候補0件、1動画1PR、費用停止条件を運用化した
+    note: 失敗状態を日本語表示し、候補0件、1動画1PR、費用停止条件に加えて変更取消後のdocs完全復元を試験した
   - id: FAST-016
     class: Risk-selected
     result: pass
@@ -202,8 +202,8 @@ selected_checks:
     evidence:
       - path:spec/requirements/requirements.json
       - test:src/domain/search.test.ts
-      - test:e2e/helpers.ts
-    note: 100ms、44px、2,500件などの閾値を正本と試験で一致させた
+      - test:e2e/search.spec.ts
+    note: 375×812画素・Chromium・CPU4倍・2,500件・20検索でp95 24.1msを実測し、100ms閾値と一致させた
   - id: REV-001
     class: Invariant
     result: pass
@@ -221,7 +221,7 @@ selected_checks:
     result: pass
     evidence:
       - path:reports/requirements-audit.json
-    note: 142件の要件影響と受入証跡を1行ずつ監査した
+    note: 142件を1行ずつ実結果まで監査し、完了137件と未完了5件を区別した
   - id: REV-004
     class: Invariant
     result: pass
@@ -241,7 +241,8 @@ selected_checks:
     evidence:
       - path:reports/requirements-audit.json
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
-    note: 各受入条件に具体的な証跡があり、同じgateをCIで再実行する
+      - workflow:要件・品質ゲート#142要件の受入結果を監査
+    note: 必要な自動試験をCIで実行し、外部確認を含む受入結果は意味論監査で未完了のまま停止させる
   - id: REV-007
     class: Invariant
     result: pass
@@ -288,4 +289,8 @@ selected_checks:
     note: 長期判断をIssue #1とADR-0001へ固定した
 advisories: []
 residual_risks:
+  - Issue #1の要件ベースライン候補に対するプロダクト責任者の明示承認が未完了である
   - PRのmergeとmain/docsの初回公開はIssue #1の人手承認ゲート後にだけ実行できる
+  - 固定30動画は内容品質合格5件・棄却25件で、全30件の独立確認が未完了である
+  - 初見利用者による375画素幅の代表5課題実測が未完了である
+  - GitHubその他の所有者請求画面による2026-08月の0円確認が未完了である

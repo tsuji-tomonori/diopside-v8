@@ -5,11 +5,11 @@ import { VideoCard } from '../../components/VideoCard.tsx';
 import { useBundle, useDeviceStore } from '../../contexts.ts';
 import {
   applySearch,
-  additionalTagCounts,
   durationBuckets,
   normalizeTagAlias,
   parseCondition,
   serializeCondition,
+  tagCountsForResults,
   validateCondition,
   type SearchCondition,
   type SortOrder,
@@ -28,7 +28,10 @@ export function SearchPage(): React.JSX.Element {
   const [tagError, setTagError] = useState('');
   const [visibleCount, setVisibleCount] = useState(pageSize);
   const [resultAnnouncement, setResultAnnouncement] = useState('');
+  const [appliedCondition, setAppliedCondition] = useState<SearchCondition | null>(null);
   const searchStartedAt = useRef<number | null>(null);
+  const searchComputationMs = useRef(0);
+  const pendingParams = useRef<URLSearchParams | null>(null);
   const parsedCondition = useMemo(() => parseCondition(params), [params]);
   const summaries = useMemo(() => new Map(bundle.index.videos.map((video) => [video.videoId, video])), [bundle.index.videos]);
   const tags = useMemo(() => bundle.tagIndex.categories.flatMap((category) => category.subcategories.flatMap((subcategory) => subcategory.tags)), [bundle.tagIndex.categories]);
@@ -38,36 +41,55 @@ export function SearchPage(): React.JSX.Element {
     for (const tag of tags) index.set(normalizeTagAlias(tag.canonicalName), tag.tagId);
     return index;
   }, [bundle.aliasIndex.aliases, tags]);
-  const condition = useMemo(() => ({
+  const urlCondition = useMemo(() => ({
     ...parsedCondition,
     tagIds: [...new Set(parsedCondition.tagIds.flatMap((value) => {
       const resolved = knownTagIds.has(value) ? value : tagInputIndex.get(normalizeTagAlias(value));
       return resolved ? [resolved] : [];
     }))],
   }), [knownTagIds, parsedCondition, tagInputIndex]);
+  const condition = appliedCondition ?? urlCondition;
   const errors = validateCondition(condition);
-  const results = useMemo(() => applySearch(bundle.searchIndex.videos, condition), [bundle.searchIndex.videos, condition]);
+  const results = useMemo(() => {
+    const startedAt = performance.now();
+    const nextResults = applySearch(bundle.searchIndex.videos, condition);
+    searchComputationMs.current = performance.now() - startedAt;
+    return nextResults;
+  }, [bundle.searchIndex.videos, condition]);
   const selected = new Set(draft.tagIds);
-  const draftResultCount = useMemo(() => applySearch(bundle.searchIndex.videos, draft).length, [bundle.searchIndex.videos, draft]);
-  const tagCounts = useMemo(() => additionalTagCounts(bundle.searchIndex.videos, draft), [bundle.searchIndex.videos, draft]);
+  const draftResults = useMemo(() => applySearch(bundle.searchIndex.videos, draft), [bundle.searchIndex.videos, draft]);
+  const draftResultCount = draftResults.length;
+  const tagCounts = useMemo(() => tagCountsForResults(draftResults), [draftResults]);
 
   useEffect(() => {
     setDraft(condition);
     setVisibleCount(pageSize);
   }, [condition]);
 
+  useEffect(() => {
+    if (appliedCondition && serializeCondition(appliedCondition).toString() === serializeCondition(urlCondition).toString()) {
+      setAppliedCondition(null);
+    }
+  }, [appliedCondition, urlCondition]);
+
   useLayoutEffect(() => {
     if (searchStartedAt.current === null) return;
     const elapsed = performance.now() - searchStartedAt.current;
     searchStartedAt.current = null;
     setResultAnnouncement(`${results.length}件の検索結果へ更新しました。処理時間は${elapsed.toFixed(1)}ミリ秒です。`);
-  }, [results.length, condition]);
+    const nextParams = pendingParams.current;
+    if (nextParams) {
+      pendingParams.current = null;
+      requestAnimationFrame(() => setParams(nextParams));
+    }
+  }, [results.length, condition, setParams]);
 
   const submit = (): void => {
     const nextErrors = validateCondition(draft);
     if (nextErrors.length > 0) return;
     searchStartedAt.current = performance.now();
-    setParams(serializeCondition(draft));
+    pendingParams.current = serializeCondition(draft);
+    setAppliedCondition(draft);
     void store.saveRecentSearch(draft);
   };
 
@@ -77,7 +99,8 @@ export function SearchPage(): React.JSX.Element {
     setTagInput('');
     setTagError('');
     searchStartedAt.current = performance.now();
-    setParams(new URLSearchParams());
+    pendingParams.current = new URLSearchParams();
+    setAppliedCondition(empty);
   };
 
   const addTagByName = (): void => {
@@ -229,13 +252,14 @@ export function SearchPage(): React.JSX.Element {
             <select value={condition.sort ?? (condition.query ? '関連度順' : '公開日の新しい順')} onChange={(event) => {
               const next = { ...condition, sort: event.target.value as SortOrder };
               searchStartedAt.current = performance.now();
-              setParams(serializeCondition(next));
+              pendingParams.current = serializeCondition(next);
+              setAppliedCondition(next);
             }}>
               {sortOrders.map((sort) => <option key={sort}>{sort}</option>)}
             </select>
           </label>
         </div>
-        <p className="screen-reader-only" role="status" data-testid="result-update-status">{resultAnnouncement}</p>
+        <p className="screen-reader-only" role="status" data-testid="result-update-status" data-search-computation-ms={searchComputationMs.current.toFixed(1)}>{resultAnnouncement}</p>
         {results.length === 0 && errors.length === 0 ? (
           <div className="empty-state">
             <h3>一致する動画がありません</h3>
@@ -244,9 +268,9 @@ export function SearchPage(): React.JSX.Element {
           </div>
         ) : (
           <div className="video-grid">
-            {results.slice(0, visibleCount).flatMap((result) => {
+            {results.slice(0, visibleCount).flatMap((result, index) => {
               const video = summaries.get(result.videoId);
-              return video ? [<VideoCard key={video.videoId} video={video} />] : [];
+              return video ? [<VideoCard key={`result-slot-${index}`} video={video} />] : [];
             })}
           </div>
         )}

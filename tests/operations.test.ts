@@ -1,5 +1,6 @@
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { cpSync, existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
@@ -108,6 +109,35 @@ describe('手動動画更新運用', () => {
     expect(stdout).toContain('全編根拠で境界を再確認したため');
     expect(stdout).toContain('区間内容を直接示す名称へ直したため');
   });
+
+  it('承認済み変更を取り消すと直前と同一のdocs公開状態を再生成できる', () => {
+    const directory = workDirectory();
+    const drillRoot = path.join(directory, 'repository');
+    try {
+      cpSync(root, drillRoot, {
+        recursive: true,
+        filter: (source) => {
+          const relativePath = path.relative(root, source).split(path.sep).join('/');
+          return !/^(?:\.git|node_modules|reports)(?:\/|$)/u.test(relativePath);
+        },
+      });
+      symlinkSync(path.join(root, 'node_modules'), path.join(drillRoot, 'node_modules'), 'dir');
+      build(drillRoot);
+      const baseline = directoryDigest(path.join(drillRoot, 'docs'));
+      const videoPath = path.join(drillRoot, 'content/videos/1zmhIOGGqls.json');
+      const original = readFileSync(videoPath, 'utf8');
+      const changed = JSON.parse(original) as { title: string };
+      changed.title = `${changed.title} 復元訓練用変更`;
+      writeFileSync(videoPath, `${JSON.stringify(changed, null, 2)}\n`);
+      build(drillRoot);
+      expect(directoryDigest(path.join(drillRoot, 'docs'))).not.toBe(baseline);
+      writeFileSync(videoPath, original);
+      build(drillRoot);
+      expect(directoryDigest(path.join(drillRoot, 'docs'))).toBe(baseline);
+    } finally {
+      rmSync(directory, { recursive: true, force: true });
+    }
+  }, 60_000);
 });
 
 function snapshot(videos: CanonicalVideo[]): {
@@ -177,6 +207,31 @@ function workDirectory(): string {
 
 function writeJson(file: string, value: unknown): void {
   writeFileSync(file, `${JSON.stringify(value, null, 2)}\n`);
+}
+
+function build(directory: string): void {
+  execFileSync('npm', ['run', 'build'], {
+    cwd: directory,
+    encoding: 'utf8',
+    env: { ...process.env, npm_config_cache: '/tmp/diopside-v8-npm-cache' },
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+}
+
+function directoryDigest(directory: string): string {
+  const hash = createHash('sha256');
+  for (const file of walk(directory)) {
+    hash.update(path.relative(directory, file).split(path.sep).join('/'));
+    hash.update(readFileSync(file));
+  }
+  return hash.digest('hex');
+}
+
+function walk(directory: string): string[] {
+  return readdirSync(directory).sort().flatMap((name) => {
+    const target = path.join(directory, name);
+    return statSync(target).isDirectory() ? walk(target) : [target];
+  });
 }
 
 function json(relativePath: string): unknown {
