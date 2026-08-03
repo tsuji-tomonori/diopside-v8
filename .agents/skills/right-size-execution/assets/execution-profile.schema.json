@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/dev-standard/execution-profile.schema.json",
+  "title": "dev-standard execution profile",
+  "type": "object",
+  "required": ["schema_version", "policy_revision", "selector_revision", "rollout_phase", "status", "created_at", "updated_at", "estimate", "expansions", "observations", "selection", "actual", "stop"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "policy_revision": {"type": "integer", "minimum": 1},
+    "selector_revision": {"type": "string", "minLength": 1},
+    "rollout_phase": {"type": "string", "minLength": 1},
+    "status": {"enum": ["estimated", "executing", "verification-failed", "success", "failed"]},
+    "created_at": {"type": "string", "minLength": 1},
+    "updated_at": {"type": "string", "minLength": 1},
+    "estimate": {
+      "type": "object",
+      "required": ["scope", "assurance", "compute", "mode", "confidence", "budget_profile", "context_budget", "tool_budget", "required_verification", "expected_files", "expected_domains", "artifact_tags", "risk_tags", "changed_paths", "acceptance_criteria", "metadata_probes"],
+      "properties": {
+        "scope": {"$ref": "#/$defs/evidencedScope"},
+        "assurance": {"$ref": "#/$defs/evidencedAssurance"},
+        "compute": {"$ref": "#/$defs/compute"},
+        "mode": {"$ref": "#/$defs/evidencedMode"},
+        "confidence": {"$ref": "#/$defs/confidence"},
+        "budget_profile": {"type": "string", "minLength": 1},
+        "context_budget": {"type": "object"},
+        "tool_budget": {"type": "object"},
+        "required_verification": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+        "expected_files": {"type": "integer", "minimum": 0},
+        "expected_domains": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "artifact_tags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "risk_tags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "changed_paths": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "acceptance_criteria": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "metadata_probes": {"type": "array", "maxItems": 1, "items": {"type": "object"}}
+      },
+      "additionalProperties": false
+    },
+    "expansions": {"type": "array"},
+    "observations": {"type": "array"},
+    "actual": {"type": "object"},
+    "selection": {"type": "object"},
+    "stop": {"type": ["object", "null"]}
+  },
+  "$defs": {
+    "evidence": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+    "evidencedScope": {"type": "object", "required": ["value", "evidence"], "properties": {"value": {"enum": ["local", "module", "repository"]}, "evidence": {"$ref": "#/$defs/evidence"}}, "additionalProperties": false},
+    "evidencedAssurance": {"type": "object", "required": ["value", "floor_reasons"], "properties": {"value": {"enum": ["standard", "elevated", "critical"]}, "floor_reasons": {"$ref": "#/$defs/evidence"}}, "additionalProperties": false},
+    "evidencedMode": {"type": "object", "required": ["value", "evidence"], "properties": {"value": {"enum": ["direct-edit", "agent", "agent-with-review"]}, "evidence": {"$ref": "#/$defs/evidence"}}, "additionalProperties": false},
+    "compute": {"type": "object", "required": ["model_tier", "reasoning_effort", "evidence"], "properties": {"model_tier": {"enum": ["economy", "standard", "capable"]}, "reasoning_effort": {"enum": ["low", "medium", "high"]}, "evidence": {"$ref": "#/$defs/evidence"}}, "additionalProperties": false},
+    "confidence": {"type": "object", "required": ["band", "method", "score", "evidence"], "properties": {"band": {"enum": ["low", "medium", "high"]}, "method": {"const": "deterministic-features-v1"}, "score": {"type": ["number", "null"], "minimum": 0, "maximum": 1}, "evidence": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}}, "additionalProperties": false}
+  },
+  "additionalProperties": false
+}

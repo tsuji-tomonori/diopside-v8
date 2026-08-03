@@ -1,0 +1,18 @@
+# 費用0円の確認
+
+公開更新前と月初に `operations/cost-policy.json`、リポジトリ公開設定、Pages公開元、依存、通信先を確認する。
+
+- 既存のChatGPT／Codex契約以外の月次サービス請求は0円である。
+- GitHubリポジトリは公開で、Pagesは既定の `github.io` URLと `main/docs` のbranch方式だけを使う。
+- CIは公開リポジトリで追加請求が生じない範囲のGitHub Actionsだけを使い、予定実行、生成運用、Pages公開を行わない。
+- AWS、外部検索、データベース、解析、広告、監視、生成、配信、独自ドメイン、従量課金APIを使わない。
+- 実行時通信は同じPages配下の静的ファイル、サムネイル、利用者が明示的に開くYouTubeだけである。
+
+無償条件の変更、請求、利用量上限、ライセンスを確認できない場合は、課金して続行せず公開更新を停止し、運用者へ判断を求める。
+
+## 公式条件（2026-08-04確認）
+
+- [GitHub Pagesのbranch公開](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site): 公開元に任意branchの `/docs` を選べ、公開リポジトリのGitHub Freeで利用できる。
+- [GitHub Actionsの料金](https://docs.github.com/billing/managing-billing-for-github-actions/about-billing-for-github-actions): 公開リポジトリの標準GitHub-hosted runnerは無料。larger runner、成果物保存、外部有料サービスは使わない。
+
+条件は変更され得るため、上記の日付を最終確認日として扱い、月初確認時に更新する。

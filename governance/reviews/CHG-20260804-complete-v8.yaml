@@ -1,0 +1,284 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260804-complete-v8
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: true
+  iac_change: false
+  dependency_change: true
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: true
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: true
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: Issue #1の142件を正本化し、全件の影響を追跡した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 静的公開、公開JSON、端末内保存、生成設計への影響を判定した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 公開契約・重要UI・依存・運用を含むためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:operations/pages-policy.json
+    note: GitHub branch、PR、Sheets、Pages設定への外部書込みを識別した
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/data/deviceStore.test.ts
+      - test:e2e/library.spec.ts
+    note: IndexedDBの4種類の端末内データと削除・利用不能時を検証した
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/domain/content.ts
+      - test:tests/generated.test.ts
+    note: 公開JSONをZod schemaと決定的生成試験へ接続した
+  - id: IMP-010
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:package-lock.json
+    note: manifestとlockfileでブラウザ・検証依存を固定した
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: Viteの本番buildを品質ゲートへ含めた
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: TypeScript strictのブラウザ・Node両projectを検査する
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: src、scripts、tests、E2E、設定を警告0でlintする
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/domain/search.test.ts
+      - test:src/domain/validation.test.ts
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: 正常系・境界・失敗経路を50件の単体・統合試験で検証する
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/generated.test.ts
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: 要件、公開版、設計、docsを再生成してdriftを拒否する
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/repository-policy.test.ts
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: token、秘密鍵、生資料、追跡・認証実装を方針検査で拒否する
+  - id: FAST-008
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:package-lock.json
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: npm ciで固定依存の整合性を再現する
+  - id: FAST-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - test:tests/generated.test.ts
+    note: 公開JSON schemaと生成版の破壊的な不整合を拒否する
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/search.spec.ts
+      - test:e2e/detail.spec.ts
+      - test:e2e/library.spec.ts
+    note: loading、empty、error、保存不能、success、recoveryを実ブラウザで確認した
+  - id: FAST-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/helpers.ts
+      - test:e2e/search.spec.ts
+    note: WCAG重大違反、44px操作対象、キーボード、スキップリンクを検査した
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence:
+      - test:tests/operations.test.ts
+      - path:docs/operations/manual-content-update.md
+    note: 失敗状態を日本語表示し、候補0件、1動画1PR、費用停止条件を運用化した
+  - id: FAST-016
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/domain/content.ts
+      - path:spec/requirements/requirements.json
+      - test:tests/content-validation.test.ts
+    note: 公開schema、正本、検証を三点接続した
+  - id: FAST-017
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/videos/Oq6BZEyCMEQ.json
+      - test:tests/content-validation.test.ts
+    note: 公開データsampleを本番schemaと同じ検証へ通した
+  - id: FAST-018
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/data/deviceStore.test.ts
+      - test:e2e/library.spec.ts
+    note: 端末内データの作成、読取、個別削除、一括削除をE2Eと整合させた
+  - id: FAST-022
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - test:src/domain/search.test.ts
+      - test:e2e/helpers.ts
+    note: 100ms、44px、2,500件などの閾値を正本と試験で一致させた
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: Issue #1のv8完成という一目的へ変更を限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 7節と必須trailerを持つCommit Commentを作成した
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:reports/requirements-audit.json
+    note: 142件の要件影響と受入証跡を1行ずつ監査した
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+    note: 実装由来設計を生成し、手書きとの二重管理を避けた
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:reports/requirements-audit.json
+    note: Issue要件、設計、実装、試験、証跡を全142行で接続した
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:reports/requirements-audit.json
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: 各受入条件に具体的な証跡があり、同じgateをCIで再実行する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+      - workflow:要件・品質ゲート#レビュー検証依存を導入
+    note: 選択したcheckだけをこのreviewへ保存し、CIでschemaとCommit Commentを検証する
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 未選択checkをN/A行として保存していない
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/generated.test.ts
+      - path:public/data/latest.json
+    note: 版付き公開JSONとlatest pointerの決定性・参照整合性を確認した
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:reports/screenshots/search-mobile.jpg
+      - path:reports/screenshots/library-mobile.jpg
+      - path:reports/screenshots/detail-desktop.jpg
+    note: 検索、端末内リスト、詳細を実ブラウザのタスク単位で確認し、証跡用日本語fontは本番配布から分離した
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:docs/operations/manual-content-update.md
+      - path:docs/operations/cost-check.md
+      - path:docs/operations/privacy-and-safety.md
+    note: 手動更新、0円、個人情報・生資料禁止、Pagesの運用正本を更新した
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:operations/pages-policy.json
+      - path:docs/decisions/ADR-0001-zero-cost-static-pages.md
+    note: 長期判断をIssue #1とADR-0001へ固定した
+advisories: []
+residual_risks:
+  - PRのmergeとmain/docsの初回公開はIssue #1の人手承認ゲート後にだけ実行できる

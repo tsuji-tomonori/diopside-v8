@@ -1,0 +1,82 @@
+import { readFileSync, readdirSync } from 'node:fs';
+import path from 'node:path';
+
+import {
+  canonicalVideoSchema,
+  publicIndexSchema,
+  tagAliasesSchema,
+  tagTaxonomySchema,
+} from '../src/domain/content.ts';
+import { normalizeTagAlias } from '../src/domain/search.ts';
+import { scanPublicBoundary, validateCanonicalVideo, validateTaxonomy } from '../src/domain/validation.ts';
+
+const root = process.cwd();
+const taxonomyInput = json('content/taxonomy/tag-taxonomy.json');
+const aliasesInput = json('content/taxonomy/tag-aliases.json');
+const taxonomy = tagTaxonomySchema.parse(taxonomyInput);
+const aliases = tagAliasesSchema.parse(aliasesInput);
+const videos = readdirSync(path.join(root, 'content/videos'))
+  .filter((file) => file.endsWith('.json'))
+  .sort()
+  .map((file) => canonicalVideoSchema.parse(json(`content/videos/${file}`)));
+
+describe('タグ・動画正本と公開境界', () => {
+  it('7大分類・30小分類・不変タグID・別名を一貫して検証する', () => {
+    expect(validateTaxonomy(taxonomyInput, aliasesInput)).toEqual([]);
+    const subcategories = taxonomy.categories.flatMap((category) => category.subcategories);
+    const tags = subcategories.flatMap((subcategory) => subcategory.tags);
+    expect(taxonomy.categories).toHaveLength(7);
+    expect(subcategories).toHaveLength(30);
+    expect(new Set(tags.map((tag) => tag.tagId)).size).toBe(tags.length);
+    for (const alias of aliases.aliases) {
+      expect(alias.normalizedAlias).toBe(normalizeTagAlias(alias.alias));
+      expect(tags.some((tag) => tag.tagId === alias.tagId && tag.active)).toBe(true);
+    }
+  });
+
+  it('承認済み8動画の必須タグ、基数、根拠、未作成理由を全件検証する', () => {
+    expect(videos).toHaveLength(8);
+    for (const video of videos) {
+      expect(validateCanonicalVideo(video, taxonomy, aliases), video.videoId).toEqual([]);
+      expect(video.approval.status).toBe('承認済み');
+      expect(video.tagAssignments.every((assignment) => ['高', '中'].includes(assignment.confidence))).toBe(true);
+      expect(video.timestamps.status).toBe('未作成');
+      expect(video.wordCloud.status).toBe('未作成');
+    }
+    const manifest = json('content/content-manifest.json') as { videoCount: number; assignmentCount: number };
+    expect(manifest.videoCount).toBe(videos.length);
+    expect(manifest.assignmentCount).toBe(videos.reduce((sum, video) => sum + video.tagAssignments.length, 0));
+  });
+
+  it('未知タグ、重複タグ、解決不能な根拠を公開候補として拒否する', () => {
+    const video = structuredClone(videos[0]!);
+    video.tagAssignments[0] = { ...video.tagAssignments[0]!, tagId: 'tag-unknown', evidenceRefs: ['evidence-missing'] };
+    video.tagAssignments.push(structuredClone(video.tagAssignments[1]!));
+    const codes = validateCanonicalVideo(video, taxonomy, aliases).map((item) => item.code);
+    expect(codes).toEqual(expect.arrayContaining(['TAG_UNKNOWN', 'TAG_DUPLICATED']));
+    expect(codes).toContain('TAG_EVIDENCE_MISSING');
+  });
+
+  it('除外記録の動画を正本へ同時に置かず、再追加防止境界を維持する', () => {
+    const exclusions = json('content/exclusions.json') as { records: Array<{ videoId: string }> };
+    const canonicalIds = new Set(videos.map((video) => video.videoId));
+    expect(exclusions.records.every((record) => !canonicalIds.has(record.videoId))).toBe(true);
+  });
+
+  it('公開JSONには不変タグIDだけを持たせ、生資料・付与理由・投稿者を出さない', () => {
+    const latest = json('public/data/latest.json') as { indexPath: string };
+    const index = publicIndexSchema.parse(json(`public/${latest.indexPath}`));
+    for (const video of index.videos) {
+      expect(video.tagIds.every((tagId) => tagId.startsWith('tag-'))).toBe(true);
+      expect('tagAssignments' in video).toBe(false);
+      expect('evidence' in video).toBe(false);
+      expect('description' in video).toBe(false);
+    }
+    expect(scanPublicBoundary(index)).toEqual([]);
+    expect(JSON.stringify(index)).not.toMatch(/(?:transcript|subtitles|comments|chat|authorId)/iu);
+  });
+});
+
+function json(relativePath: string): unknown {
+  return JSON.parse(readFileSync(path.join(root, relativePath), 'utf8')) as unknown;
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "constraints": [
+    {"id": "RSE-PROFILE-001", "condition": "risk is critical but impact is local", "expected_behavior": "scope remains local and assurance becomes critical"},
+    {"id": "RSE-CONFIDENCE-001", "condition": "an initial profile is estimated", "expected_behavior": "confidence uses deterministic evidence and has no uncalibrated score"},
+    {"id": "RSE-EXPAND-001", "condition": "new evidence invalidates one axis", "expected_behavior": "exactly one axis expands without a global count cap"},
+    {"id": "RSE-STOP-001", "condition": "decisive success is recorded", "expected_behavior": "positive-cost exploration is rejected or audited"},
+    {"id": "RSE-SELECT-001", "condition": "critical mandatory controls are curated", "expected_behavior": "selector records zero mandatory misses and audits exclusions"},
+    {"id": "RSE-ROLLOUT-001", "condition": "rollout phase is shadow", "expected_behavior": "efficiency findings remain advisory while assurance violations block"}
+  ]
+}

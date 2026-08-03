@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0.0",
+  "normalizationVersion": "1.0.0",
+  "cases": [
+    { "id": "完全一致", "title": "白雪巴 雑談", "query": "白雪巴 雑談", "match": true, "rank": 0 },
+    { "id": "先頭一致", "title": "白雪巴 雑談アーカイブ", "query": "白雪巴", "match": true, "rank": 1 },
+    { "id": "部分一致", "title": "今夜は白雪巴の雑談", "query": "白雪巴", "match": true, "rank": 2 },
+    { "id": "かな表記差", "title": "カラオケ配信", "query": "からおけ", "match": true, "rank": 1 },
+    { "id": "全半角差", "title": "ＡＢＣ企画", "query": "abc", "match": true, "rank": 1 },
+    { "id": "空白差", "title": "朝活   雑談", "query": "朝活 雑談", "match": true, "rank": 0 },
+    { "id": "記号差", "title": "歌枠！夏祭り", "query": "歌枠 夏祭り", "match": true, "rank": 0 },
+    { "id": "一文字誤り", "title": "ゲーム実況", "query": "ゲエム", "match": true, "rank": 4 },
+    { "id": "一文字脱字", "title": "マインクラフト", "query": "マイクラフト", "match": true, "rank": 4 },
+    { "id": "一文字余字", "title": "お絵描き配信", "query": "お絵絵描き", "match": true, "rank": 4 },
+    { "id": "隣接入替", "title": "ホラーゲーム", "query": "ホラゲーーム", "match": true, "rank": 4 },
+    { "id": "複数語順不同", "title": "深夜のまったり雑談", "query": "雑談 深夜", "match": true, "rank": 3 },
+    { "id": "複数語不足", "title": "深夜のゲーム配信", "query": "深夜 雑談", "match": false },
+    { "id": "二文字は正確", "title": "朝活配信", "query": "朝歌", "match": false },
+    { "id": "一文字は正確", "title": "歌枠", "query": "曲", "match": false },
+    { "id": "距離超過三文字", "title": "ゲーム大会", "query": "ケソム", "match": false },
+    { "id": "距離二以内六文字", "title": "マインクラフト実況", "query": "マエンクラト", "match": true, "rank": 4 },
+    { "id": "距離超過六文字", "title": "マインクラフト実況", "query": "マエソクラト", "match": false },
+    { "id": "長文中の脱字", "title": "夏休み特別マインクラフト大型企画", "query": "マイクラフト", "match": true, "rank": 4 },
+    { "id": "英字小文字化", "title": "ASMRでおやすみ", "query": "asmr", "match": true, "rank": 1 },
+    { "id": "長音保持", "title": "ホラーゲーム", "query": "ほらーげーむ", "match": true, "rank": 0 },
+    { "id": "誤一致防止", "title": "朗読と声劇", "query": "料理配信", "match": false }
+  ]
+}

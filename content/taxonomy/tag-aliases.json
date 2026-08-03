@@ -1,0 +1,318 @@
+{
+  "schemaVersion": "1.0.0",
+  "aliasVersion": "8.0.0",
+  "normalizationOrder": [
+    "Unicode NFKC",
+    "前後空白除去",
+    "連続空白統合",
+    "英字小文字化",
+    "先頭の#除去"
+  ],
+  "aliases": [
+    {
+      "alias": "ゲーム実況",
+      "normalizedAlias": "ゲーム実況",
+      "tagId": "tag-content-primary-0dbfa3115896"
+    },
+    {
+      "alias": "Short",
+      "normalizedAlias": "short",
+      "tagId": "tag-format-media-03673af45dd7"
+    },
+    {
+      "alias": "踊ってみた",
+      "normalizedAlias": "踊ってみた",
+      "tagId": "tag-content-primary-0a9abf497e7e"
+    },
+    {
+      "alias": "ノベルゲーム",
+      "normalizedAlias": "ノベルゲーム",
+      "tagId": "tag-content-gameGenre-75b81f24091b"
+    },
+    {
+      "alias": "アクションゲーム",
+      "normalizedAlias": "アクションゲーム",
+      "tagId": "tag-content-gameGenre-62278ec71bd0"
+    },
+    {
+      "alias": "レーシングゲーム",
+      "normalizedAlias": "レーシングゲーム",
+      "tagId": "tag-content-gameGenre-7a9a6ca1057e"
+    },
+    {
+      "alias": "リズムゲーム",
+      "normalizedAlias": "リズムゲーム",
+      "tagId": "tag-content-gameGenre-bc4b0b2d33a6"
+    },
+    {
+      "alias": "格闘ゲーム",
+      "normalizedAlias": "格闘ゲーム",
+      "tagId": "tag-content-gameGenre-a198f0577b83"
+    },
+    {
+      "alias": "ルイスさん",
+      "normalizedAlias": "ルイスさん",
+      "tagId": "tag-people-performer-b1f239b005c7"
+    },
+    {
+      "alias": "綺沙良さん",
+      "normalizedAlias": "綺沙良さん",
+      "tagId": "tag-people-performer-328275186806"
+    },
+    {
+      "alias": "#女王と会長",
+      "normalizedAlias": "女王と会長",
+      "tagId": "tag-people-unit-d5b1de96b450"
+    },
+    {
+      "alias": "誕生祭",
+      "normalizedAlias": "誕生祭",
+      "tagId": "tag-context-occasion-0c807041f530"
+    },
+    {
+      "alias": "生誕祭",
+      "normalizedAlias": "生誕祭",
+      "tagId": "tag-context-occasion-0c807041f530"
+    },
+    {
+      "alias": "罵倒/SM",
+      "normalizedAlias": "罵倒/sm",
+      "tagId": "tag-context-theme-9a8ebb022842"
+    }
+  ],
+  "decompositions": [
+    {
+      "legacy": "えま★おうがすと・・来栖夏芽",
+      "normalizedLegacy": "えま★おうがすと・・来栖夏芽",
+      "targetTagIds": [
+        "tag-people-performer-f1576533a080"
+      ],
+      "unresolvedTargets": [
+        {
+          "field": "people.performer",
+          "value": "えま★おうがすと"
+        }
+      ],
+      "discardedFragments": [],
+      "autoApply": false,
+      "note": "複数の出演者名が区切り記号で連結された旧値。各出演者タグへ分離し、連結値自体は保存しない"
+    },
+    {
+      "legacy": "安土桃・緑仙・・えま★おうがすと",
+      "normalizedLegacy": "安土桃・緑仙・・えま★おうがすと",
+      "targetTagIds": [
+        "tag-people-performer-df844103ce1a"
+      ],
+      "unresolvedTargets": [
+        {
+          "field": "people.performer",
+          "value": "安土桃"
+        },
+        {
+          "field": "people.performer",
+          "value": "えま★おうがすと"
+        }
+      ],
+      "discardedFragments": [],
+      "autoApply": false,
+      "note": "複数の出演者名が区切り記号で連結された旧値。各出演者タグへ分離し、連結値自体は保存しない"
+    },
+    {
+      "legacy": "聖女れりあ・・健屋花那",
+      "normalizedLegacy": "聖女れりあ・・健屋花那",
+      "targetTagIds": [],
+      "unresolvedTargets": [
+        {
+          "field": "people.performer",
+          "value": "聖女れりあ"
+        },
+        {
+          "field": "people.performer",
+          "value": "健屋花那"
+        }
+      ],
+      "discardedFragments": [],
+      "autoApply": false,
+      "note": "複数の出演者名が区切り記号で連結された旧値。各出演者タグへ分離し、連結値自体は保存しない"
+    },
+    {
+      "legacy": "聖女れりあ・概要読んでね",
+      "normalizedLegacy": "聖女れりあ・概要読んでね",
+      "targetTagIds": [],
+      "unresolvedTargets": [
+        {
+          "field": "people.performer",
+          "value": "聖女れりあ"
+        }
+      ],
+      "discardedFragments": [
+        "概要読んでね"
+      ],
+      "autoApply": false,
+      "note": "出演者名の後ろに混入した案内文はタグ化せず破棄する"
+    },
+    {
+      "legacy": "鏑木ろこ￤",
+      "normalizedLegacy": "鏑木ろこ¦",
+      "targetTagIds": [],
+      "unresolvedTargets": [
+        {
+          "field": "people.performer",
+          "value": "鏑木ろこ"
+        }
+      ],
+      "discardedFragments": [
+        "￤"
+      ],
+      "autoApply": false,
+      "note": "出演者名の末尾に混入した区切り記号を除去する"
+    },
+    {
+      "legacy": "コラボ雑談",
+      "normalizedLegacy": "コラボ雑談",
+      "targetTagIds": [
+        "tag-content-primary-af7be42add09",
+        "tag-context-participation-a4911ea059bb"
+      ],
+      "unresolvedTargets": [],
+      "discardedFragments": [],
+      "autoApply": false,
+      "note": "複合した旧値を原子的なタグへ分解する"
+    },
+    {
+      "legacy": "振り返り雑談",
+      "normalizedLegacy": "振り返り雑談",
+      "targetTagIds": [
+        "tag-content-primary-af7be42add09",
+        "tag-content-talkStyle-db54f7c2b29f"
+      ],
+      "unresolvedTargets": [],
+      "discardedFragments": [],
+      "autoApply": false,
+      "note": "複合した旧値を原子的なタグへ分解する"
+    },
+    {
+      "legacy": "記念雑談",
+      "normalizedLegacy": "記念雑談",
+      "targetTagIds": [
+        "tag-content-primary-af7be42add09"
+      ],
+      "unresolvedTargets": [
+        {
+          "field": "context.occasion",
+          "value": "要個別判定"
+        }
+      ],
+      "discardedFragments": [],
+      "autoApply": false,
+      "note": "複合した旧値を原子的なタグへ分解する"
+    },
+    {
+      "legacy": "百合ゲー",
+      "normalizedLegacy": "百合ゲー",
+      "targetTagIds": [
+        "tag-context-theme-ae8c2b2f1d2b"
+      ],
+      "unresolvedTargets": [
+        {
+          "field": "content.gameGenre",
+          "value": "作品ごとに個別判定"
+        }
+      ],
+      "discardedFragments": [],
+      "autoApply": false,
+      "note": "複合した旧値を原子的なタグへ分解する"
+    },
+    {
+      "legacy": "イベント",
+      "normalizedLegacy": "イベント",
+      "targetTagIds": [],
+      "unresolvedTargets": [
+        {
+          "field": "content.primary",
+          "value": "実際の内容から再判定"
+        },
+        {
+          "field": "program.event or context.occasion",
+          "value": "固有名または記念種別"
+        }
+      ],
+      "discardedFragments": [],
+      "autoApply": false,
+      "note": "複合した旧値を原子的なタグへ分解する"
+    },
+    {
+      "legacy": "お披露目",
+      "normalizedLegacy": "お披露目",
+      "targetTagIds": [],
+      "unresolvedTargets": [
+        {
+          "field": "content.primary",
+          "value": "実際の内容から再判定"
+        },
+        {
+          "field": "context.occasion",
+          "value": "新衣装お披露目 or 3Dお披露目"
+        }
+      ],
+      "discardedFragments": [],
+      "autoApply": false,
+      "note": "複合した旧値を原子的なタグへ分解する"
+    },
+    {
+      "legacy": "単発ゲーム",
+      "normalizedLegacy": "単発ゲーム",
+      "targetTagIds": [
+        "tag-content-primary-0dbfa3115896",
+        "tag-context-feature-22cf1eb5df88"
+      ],
+      "unresolvedTargets": [],
+      "discardedFragments": [],
+      "autoApply": false,
+      "note": "複合した旧値を原子的なタグへ分解する"
+    },
+    {
+      "legacy": "にじさんじ",
+      "normalizedLegacy": "にじさんじ",
+      "targetTagIds": [],
+      "unresolvedTargets": [],
+      "discardedFragments": [],
+      "autoApply": false,
+      "note": "動画タグから除外し、チャンネルの所属メタデータとして管理する"
+    }
+  ],
+  "reviewRequired": [
+    {
+      "legacy": "えま★おうがすと・・来栖夏芽 / 安土桃・緑仙・・えま★おうがすと",
+      "reason": "一部の出演者タグが未登録のため、登録済み人物だけを自動適用せず出演実態と全員分の正規タグを確認する"
+    },
+    {
+      "legacy": "聖女れりあ・・健屋花那 / 聖女れりあ・概要読んでね / 鏑木ろこ￤",
+      "reason": "人物タグが未解決、または案内文・区切り記号が混入しているため、人物名と出演実態を個別確認する"
+    },
+    {
+      "legacy": "対戦・アクションゲーム",
+      "reason": "対戦形式とゲームジャンルを混合しているため、作品ごとにアクション、FPS/TPS、テーブルゲーム等へ再分類する"
+    },
+    {
+      "legacy": "企画",
+      "reason": "ゲーム大会、同時視聴、記念配信などが混在しているため、主ジャンルを内容から再判定する"
+    },
+    {
+      "legacy": "新衣装 / 白雪巴新衣装 / #白雪巴新衣装 / #白雪新衣装",
+      "reason": "初公開、撮影会、後日の新衣装使用が混在し得るため、タイトルと内容を確認して新衣装お披露目を付ける"
+    },
+    {
+      "legacy": "ドS",
+      "reason": "人物像の言及と罵倒・SMを主題にした内容を区別し、後者だけ中心テーマへ移す"
+    },
+    {
+      "legacy": "その他",
+      "reason": "情報を持たず検索精度を下げるため、原則として具体タグへ置換する"
+    },
+    {
+      "legacy": "その他企画",
+      "reason": "情報を持たず検索精度を下げるため、企画内容または配信特性へ置換する"
+    }
+  ]
+}

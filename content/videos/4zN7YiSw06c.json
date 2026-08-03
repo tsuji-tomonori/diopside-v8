@@ -1,0 +1,98 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "4zN7YiSw06c",
+  "title": "七夕なのでみんなの願いを聞きます🎋🌟【白雪巴/にじさんじ】",
+  "publishedAt": "2026-07-07T14:52:59Z",
+  "durationSeconds": 6187,
+  "durationIso": "PT1H43M7S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/4zN7YiSw06c/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=4zN7YiSw06c",
+  "taxonomyVersion": "8.0.0",
+  "aliasVersion": "8.0.0",
+  "tagRulesVersion": "8.0.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-video-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "5717dfcbbdb2769a88e32c0904cac77d1c10c408b2481abc64af1a69d8a7b104"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開チャンネル名",
+      "inputFingerprint": "01026da879b2a998cf43c5f22dd2f6375a082bc78ceb29c6a6fe16ce378cafa9"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "c782e3ded740e1e3096af4892c8bf5f2fb46e15ef0a04660dcdf780a1809abd1"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-af7be42add09",
+      "reason": "全件主ジャンル監査で「雑談」と判定: 視聴者の願いを聞く会話・投稿紹介が中心（判定タグ: 雑談）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-video-title"
+      ],
+      "reviewedAt": "2026-08-03T00:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-talkStyle-4691146b71bb",
+      "reason": "他の定型雑談種別に該当せず会話が中心（判定タグ: フリートーク）",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-video-title"
+      ],
+      "reviewedAt": "2026-08-03T00:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "動画メタデータの公開チャンネル（判定タグ: 白雪 巴/Shirayuki Tomoe）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-03T00:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "長尺かつ収録動画・Shortsの明示がないため配信アーカイブと判定（判定タグ: 配信）",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-03T00:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "未作成",
+    "reason": "全編確認不足",
+    "detail": "作成者の時刻一覧または動画全編を覆う根拠を確認できていません。",
+    "updatedAt": "2026-08-03T00:00:00+09:00"
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-03T00:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "cb7445566a2bc2189089c153759c3d00b1ce2fc4204cb496a5b41db272f410e6",
+    "generatorVersion": "v8-initial-migration-1.0.0",
+    "generatedAt": "2026-08-03T00:00:00+09:00",
+    "reviewPullRequest": "Issue #1を参照する初期実装プルリクエスト"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-03T00:00:00+09:00",
+    "basis": "受領したv7タグ監査スナップショットから公開禁止情報を除外して移行"
+  }
+}

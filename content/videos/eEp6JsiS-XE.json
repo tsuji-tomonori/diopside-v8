@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "eEp6JsiS-XE",
+  "title": "【同時視聴】超！話題のネトフリ映画「超かぐや姫！」を初見で観てみる！🌟【白雪 巴/にじさんじ】",
+  "publishedAt": "2026-02-06T16:35:22Z",
+  "durationSeconds": 12230,
+  "durationIso": "PT3H23M50S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/eEp6JsiS-XE/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=eEp6JsiS-XE",
+  "taxonomyVersion": "8.0.0",
+  "aliasVersion": "8.0.0",
+  "tagRulesVersion": "8.0.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-video-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "591465964b598386e1c2b1d4f0f7bd6bb4f0a0c145516dfbcff70c53d1413676"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開チャンネル名",
+      "inputFingerprint": "01026da879b2a998cf43c5f22dd2f6375a082bc78ceb29c6a6fe16ce378cafa9"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "26c5b170c516008dd4b9731e78366d861a23079b0c6ce809e474bd9935b502d3"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-13262dbadb96",
+      "reason": "全件主ジャンル監査で「同時視聴」と判定: タイトルに同時視聴・観賞会（判定タグ: 同時視聴）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-video-title"
+      ],
+      "reviewedAt": "2026-08-03T00:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-watchMedia-75071aaaf7e8",
+      "reason": "タイトルの視聴対象種別から判定（判定タグ: 映画）",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-video-title"
+      ],
+      "reviewedAt": "2026-08-03T00:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-watchedTitle-a78173139c27",
+      "reason": "同時視聴対象の作品名（判定タグ: 超かぐや姫！）",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-video-title"
+      ],
+      "reviewedAt": "2026-08-03T00:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "動画メタデータの公開チャンネル（判定タグ: 白雪 巴/Shirayuki Tomoe）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-03T00:00:00+09:00"
+    },
+    {
+      "tagId": "tag-context-feature-721db69c48bf",
+      "reason": "タイトルが進行特性「初見」を明示（判定タグ: 初見）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-video-title"
+      ],
+      "reviewedAt": "2026-08-03T00:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "長尺かつ収録動画・Shortsの明示がないため配信アーカイブと判定（判定タグ: 配信）",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-03T00:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "未作成",
+    "reason": "全編確認不足",
+    "detail": "作成者の時刻一覧または動画全編を覆う根拠を確認できていません。",
+    "updatedAt": "2026-08-03T00:00:00+09:00"
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-03T00:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "f93952d6ae000d5d4db95546ef6b36562f6f4b92b95d91f60cd16f1e0e3d358d",
+    "generatorVersion": "v8-initial-migration-1.0.0",
+    "generatedAt": "2026-08-03T00:00:00+09:00",
+    "reviewPullRequest": "Issue #1を参照する初期実装プルリクエスト"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-03T00:00:00+09:00",
+    "basis": "受領したv7タグ監査スナップショットから公開禁止情報を除外して移行"
+  }
+}

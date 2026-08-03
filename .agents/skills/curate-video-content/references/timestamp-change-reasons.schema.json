@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "videoId", "reasons"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "videoId": { "type": "string", "pattern": "^[A-Za-z0-9_-]{11}$" },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "timestampId", "reason"],
+        "properties": {
+          "kind": { "enum": ["追加", "削除", "移動", "改名"] },
+          "timestampId": { "type": "string" },
+          "reason": { "type": "string", "minLength": 2, "maxLength": 240 }
+        }
+      }
+    }
+  }
+}

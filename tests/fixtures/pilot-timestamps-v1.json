@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "1.0.0",
+  "fixtureType": "初回公開前の固定品質確認",
+  "source": "添付資料 docs/timestamp-generation-plan.md のパイロット節と版管理済みタグ資料",
+  "limitations": "添付資料は30件と集計結果を示すが、動画ごとの結果対応表は含まない。個々の章候補を合格扱いせず、集計された品質判断と公開停止条件だけを受入証拠にする。",
+  "sample": [
+    { "videoId": "-Ngrfez9qzo", "genre": "ゲーム", "scope": "外部チャンネル", "durationIso": "PT2H7M7S" },
+    { "videoId": "-SyE7817PR0", "genre": "ゲーム", "scope": "外部チャンネル", "durationIso": "PT1H25M18S" },
+    { "videoId": "-kB9YnJ_ezQ", "genre": "ゲーム", "scope": "外部チャンネル", "durationIso": "PT2H29M21S" },
+    { "videoId": "-tvof0bgups", "genre": "ゲーム", "scope": "外部チャンネル", "durationIso": "PT1H49M1S" },
+    { "videoId": "-5DG5CkFSdY", "genre": "ゲーム", "scope": "本人チャンネル", "durationIso": "PT5H34M10S" },
+    { "videoId": "-9FORuRCQ8k", "genre": "ゲーム", "scope": "本人チャンネル", "durationIso": "PT2H52M56S" },
+    { "videoId": "-9KPzXpz8fI", "genre": "ゲーム", "scope": "本人チャンネル", "durationIso": "PT1H44M47S" },
+    { "videoId": "-A8XU5FBBew", "genre": "ゲーム", "scope": "本人チャンネル", "durationIso": "PT1H42M25S" },
+
+    { "videoId": "GoWhHtJmIbk", "genre": "企画", "scope": "本人チャンネル", "durationIso": "PT4H6M11S" },
+    { "videoId": "hoSGKshWnHM", "genre": "企画", "scope": "本人チャンネル", "durationIso": "PT3H28M1S" },
+    { "videoId": "t9yCZMgo7dg", "genre": "企画", "scope": "本人チャンネル", "durationIso": "PT1H13M37S" },
+    { "videoId": "AZBrkNzvVIU", "genre": "企画", "scope": "本人チャンネル", "durationIso": "PT3H53M18S" },
+    { "videoId": "OJIUciNXDtg", "genre": "企画", "scope": "本人チャンネル", "durationIso": "PT2H40M31S" },
+    { "videoId": "eQx5WhXIFuU", "genre": "企画", "scope": "本人チャンネル", "durationIso": "PT2H32M34S" },
+
+    { "videoId": "-fEoNkAgJn8", "genre": "雑談", "scope": "外部チャンネル", "durationIso": "PT1H40M17S" },
+    { "videoId": "5CeuOh7n7xY", "genre": "雑談", "scope": "外部チャンネル", "durationIso": "PT1H1S" },
+    { "videoId": "-NSRhQGmYdA", "genre": "雑談", "scope": "本人チャンネル", "durationIso": "PT1H54M39S" },
+    { "videoId": "-h21QjAo7i8", "genre": "雑談", "scope": "本人チャンネル", "durationIso": "PT2H25M42S" },
+    { "videoId": "-xYB74nhTJ8", "genre": "雑談", "scope": "本人チャンネル", "durationIso": "PT1H41M30S" },
+
+    { "videoId": "TOYdSB8pIr0", "genre": "ASMR", "scope": "外部チャンネル", "durationIso": "PT26M14S" },
+    { "videoId": "sMbOupTFpHI", "genre": "ASMR", "scope": "外部チャンネル", "durationIso": "PT54M58S" },
+    { "videoId": "0P81fmWi1r0", "genre": "ASMR", "scope": "本人チャンネル", "durationIso": "PT48M20S" },
+
+    { "videoId": "70r74US1uHc", "genre": "歌", "scope": "外部チャンネル", "durationIso": "PT2H24M12S" },
+    { "videoId": "0A83iSf96PU", "genre": "歌", "scope": "本人チャンネル", "durationIso": "PT3H56M" },
+
+    { "videoId": "pmNR4b5LSDQ", "genre": "朗読・声劇", "scope": "外部チャンネル", "durationIso": "PT2H19M53S" },
+    { "videoId": "3Ad9fBm2xg4", "genre": "朗読・声劇", "scope": "本人チャンネル", "durationIso": "PT1H46M16S" },
+
+    { "videoId": "vinrUGGVPmw", "genre": "同時視聴", "scope": "外部チャンネル", "durationIso": "PT6H14M21S" },
+    { "videoId": "-9qGfDN1hSA", "genre": "同時視聴", "scope": "本人チャンネル", "durationIso": "PT2H36M3S" },
+
+    { "videoId": "ZDejiMnoR2I", "genre": "TRPG", "scope": "外部チャンネル", "durationIso": "PT2H47M13S" },
+    { "videoId": "wNcyHAjZxCw", "genre": "TRPG", "scope": "本人チャンネル", "durationIso": "PT4H44M4S" }
+  ],
+  "reportedCoverage": {
+    "captionAvailable": 25,
+    "captionUnavailableWithCommentCandidates": 5,
+    "creatorTimestampAvailable": 5,
+    "creatorTimestampUnavailable": 25
+  },
+  "reportedEvaluation": {
+    "youtubeFormatPassed": 30,
+    "contentQualityPassed": 5,
+    "creatorDescriptionRoute": { "evaluated": 5, "passed": 5 },
+    "commentCandidateRoute": { "evaluated": 20, "passed": 0 },
+    "subtitleKeywordRoute": { "evaluated": 5, "passed": 0 },
+    "rejectedBeforePublication": 25,
+    "approvedForPublicCanonicalData": 0,
+    "decision": "動画ごとの全編根拠、事実確認、編集確認、人の最終承認が揃わない候補は公開しない"
+  }
+}

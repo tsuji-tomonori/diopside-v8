@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "currency": "JPY",
+  "maximumMonthlyServiceCost": 0,
+  "excludedExistingContracts": [
+    "ChatGPT",
+    "Codex"
+  ],
+  "allowedRuntimeServices": [
+    {
+      "service": "GitHub Pages",
+      "condition": "公開リポジトリの標準github.io URL、branch方式 main/docs、追加請求0円"
+    }
+  ],
+  "forbidden": [
+    "独自ドメイン",
+    "有料クラウド",
+    "従量課金API",
+    "外部検索・データベース",
+    "アクセス解析・広告・監視",
+    "外部生成・配信サービス"
+  ],
+  "stopCondition": "追加請求が0円と確認できない場合は公開更新を停止し、人へ判断を求める",
+  "reviewedAt": "2026-08-03"
+}

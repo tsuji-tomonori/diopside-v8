@@ -1,0 +1,142 @@
+{
+  "schema_version": 2,
+  "variants": ["current", "fixed-small", "fixed-full", "legacy-levels", "multi-axis"],
+  "cases": [
+    {
+      "id": "wording-local",
+      "request": "READMEの誤字を1箸所直す",
+      "expected_files": 1,
+      "domains": ["docs"],
+      "artifact_tags": ["documentation"],
+      "risk_tags": [],
+      "changed_paths": ["README.md"],
+      "acceptance_criteria": ["誤字がなくなる"],
+      "expected": {"scope": "local", "assurance": "standard", "model_tier": "economy", "mode": "direct-edit"}
+    },
+    {
+      "id": "authorization-local-critical",
+      "paraphrase_group": "authorization-local",
+      "request": "認可判定の局所的な不具合を修正する",
+      "expected_files": 1,
+      "domains": ["security"],
+      "artifact_tags": ["implementation"],
+      "risk_tags": ["authorization"],
+      "changed_paths": ["src/auth/policy.py"],
+      "acceptance_criteria": ["権限のない主体を拒否する"],
+      "mandatory_control_ids": ["DES-021", "CON-044", "SEC-106"],
+      "expected": {"scope": "local", "assurance": "critical", "model_tier": "standard", "mode": "agent-with-review"}
+    },
+    {
+      "id": "repository-mechanical-rename",
+      "request": "repository全体で識別子を機械的にrenameする",
+      "expected_files": 30,
+      "domains": ["api", "web"],
+      "artifact_tags": ["implementation"],
+      "risk_tags": [],
+      "changed_paths": [],
+      "acceptance_criteria": ["旧識別子が残らない"],
+      "expected": {"scope": "repository", "assurance": "standard", "model_tier": "economy", "mode": "agent"}
+    },
+    {
+      "id": "indirect-dependency",
+      "request": "間接依存を持つmodule内の局所変更",
+      "expected_files": 3,
+      "domains": ["core"],
+      "artifact_tags": ["implementation"],
+      "risk_tags": ["dependency"],
+      "changed_paths": ["src/core/service.py"],
+      "acceptance_criteria": ["直接・間接呼出しが維持される"],
+      "expected": {"scope": "module", "assurance": "elevated", "model_tier": "standard", "mode": "agent"}
+    },
+    {
+      "id": "public-api",
+      "request": "公開API contractを変更する",
+      "expected_files": 4,
+      "domains": ["api"],
+      "artifact_tags": ["public-api"],
+      "risk_tags": ["public-api"],
+      "changed_paths": ["src/api/router.py"],
+      "acceptance_criteria": ["OpenAPIと契約テストが一致する"],
+      "expected": {"scope": "module", "assurance": "elevated", "model_tier": "standard", "mode": "agent"}
+    },
+    {
+      "id": "database-migration",
+      "request": "DB migrationを追加する",
+      "expected_files": 3,
+      "domains": ["database"],
+      "artifact_tags": ["database"],
+      "risk_tags": ["migration"],
+      "changed_paths": ["migrations/004_add_index.sql"],
+      "acceptance_criteria": ["前進・rollbackが検証できる"],
+      "expected": {"scope": "module", "assurance": "elevated", "model_tier": "standard", "mode": "agent"}
+    },
+    {
+      "id": "iac-permission",
+      "request": "CDKのpermissionを局所修正する",
+      "expected_files": 1,
+      "domains": ["infra"],
+      "artifact_tags": ["iac"],
+      "risk_tags": ["permissions"],
+      "changed_paths": ["infra/stack.py"],
+      "acceptance_criteria": ["最小権限を維持する"],
+      "expected": {"scope": "local", "assurance": "critical", "model_tier": "standard", "mode": "agent-with-review"}
+    },
+    {
+      "id": "governance-change",
+      "request": "永続要件とgovernance generatorを更新する",
+      "expected_files": 12,
+      "domains": ["requirements", "governance"],
+      "artifact_tags": ["requirements", "generator"],
+      "risk_tags": ["durable-requirements", "governance", "generator"],
+      "changed_paths": ["spec/requirements/requirements.json", "tools/devflow.py"],
+      "acceptance_criteria": ["正本と生成文書が一致する"],
+      "expected": {"scope": "repository", "assurance": "elevated", "model_tier": "standard", "mode": "agent"}
+    },
+    {
+      "id": "semantic-refactor",
+      "request": "複数domainにまたがる意味的な大規模リファクタリングを行う",
+      "expected_files": 25,
+      "domains": ["api", "core", "web"],
+      "artifact_tags": ["implementation"],
+      "risk_tags": [],
+      "changed_paths": [],
+      "acceptance_criteria": ["外部挙動を維持する"],
+      "expected": {"scope": "repository", "assurance": "standard", "model_tier": "capable", "mode": "agent"}
+    },
+    {
+      "id": "intentional-underestimate",
+      "request": "局所修正として開始するが依存影響を検証する",
+      "expected_files": 1,
+      "domains": ["core"],
+      "artifact_tags": ["implementation"],
+      "risk_tags": [],
+      "changed_paths": ["src/core/value.py"],
+      "acceptance_criteria": ["依存先回帰を防ぐ"],
+      "expected": {"scope": "local", "assurance": "standard", "model_tier": "standard", "mode": "direct-edit"},
+      "expansion": {"axis": "scope", "reason_code": "dependency-discovered", "evidence": "call graphで別moduleの利用を確認", "expected_value": "module"}
+    },
+    {
+      "id": "deceptive-test-pass",
+      "request": "一部テストだけがPassする認可修正を検証する",
+      "expected_files": 1,
+      "domains": ["security"],
+      "artifact_tags": ["implementation", "test"],
+      "risk_tags": ["authorization"],
+      "changed_paths": ["src/auth/policy.py"],
+      "acceptance_criteria": ["拒否境界を含む"],
+      "expected": {"scope": "local", "assurance": "critical", "model_tier": "standard", "mode": "agent-with-review"}
+    },
+    {
+      "id": "authorization-paraphrase",
+      "paraphrase_group": "authorization-local",
+      "request": "許可されていない利用者を通す判定だけを直す",
+      "expected_files": 1,
+      "domains": ["security"],
+      "artifact_tags": ["implementation"],
+      "risk_tags": ["authorization"],
+      "changed_paths": ["src/auth/policy.py"],
+      "acceptance_criteria": ["権限のない主体を拒否する"],
+      "expected": {"scope": "local", "assurance": "critical", "model_tier": "standard", "mode": "agent-with-review"}
+    }
+  ]
+}
