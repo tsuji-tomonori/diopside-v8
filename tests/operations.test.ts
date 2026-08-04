@@ -56,7 +56,7 @@ describe('手動動画更新運用', () => {
 
   it('通常の動画PRは正本1動画と生成物だけを許可する', () => {
     const allowed = validateVideoPrScopeFiles([
-      'content/videos/Oq6BZEyCMEQ.json',
+      'content/videos/c9TnpjK3ZZE.json',
       'content/content-manifest.json',
       'public/data/latest.json',
       'src/generated/release.ts',
@@ -64,8 +64,8 @@ describe('手動動画更新運用', () => {
       'reports/screenshots/detail-desktop.png',
     ]);
     expect(allowed.valid).toBe(true);
-    expect(validateVideoPrScopeFiles(['content/videos/Oq6BZEyCMEQ.json', 'content/videos/GoWhHtJmIbk.json']).valid).toBe(false);
-    expect(validateVideoPrScopeFiles(['content/videos/Oq6BZEyCMEQ.json', 'scripts/build-public-data.ts']).errors).toContain('保守PRへ分離してください: scripts/build-public-data.ts');
+    expect(validateVideoPrScopeFiles(['content/videos/c9TnpjK3ZZE.json', 'content/videos/GoWhHtJmIbk.json']).valid).toBe(false);
+    expect(validateVideoPrScopeFiles(['content/videos/c9TnpjK3ZZE.json', 'scripts/build-public-data.ts']).errors).toContain('保守PRへ分離してください: scripts/build-public-data.ts');
   });
 
   it('PR本文へ外部入力を命令として展開せずMarkdownとHTMLを無害化する', () => {
@@ -124,7 +124,7 @@ describe('手動動画更新運用', () => {
       symlinkSync(path.join(root, 'node_modules'), path.join(drillRoot, 'node_modules'), 'dir');
       build(drillRoot);
       const baseline = directoryDigest(path.join(drillRoot, 'docs'));
-      const videoPath = path.join(drillRoot, 'content/videos/1zmhIOGGqls.json');
+      const videoPath = path.join(drillRoot, 'content/videos/c9TnpjK3ZZE.json');
       const original = readFileSync(videoPath, 'utf8');
       const changed = JSON.parse(original) as { title: string };
       changed.title = `${changed.title} 復元訓練用変更`;

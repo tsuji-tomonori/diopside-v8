@@ -66,6 +66,7 @@
 | `src/data/loadPublicData.ts` | FunctionDeclaration | `loadVideoDetail` |
 | `src/data/loadPublicData.ts` | InterfaceDeclaration | `PublicBundle` |
 | `src/data/loadPublicData.ts` | ClassDeclaration | `PublicDataError` |
+| `src/domain/content.ts` | VariableStatement | `approvedTimestampMigrationReviewSchema` |
 | `src/domain/content.ts` | FunctionDeclaration | `buildTaxonomyLookup` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `CanonicalVideo` |
 | `src/domain/content.ts` | VariableStatement | `canonicalVideoSchema` |
@@ -144,4 +145,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力35ファイル、公開契約88件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力35ファイル、公開契約89件です。

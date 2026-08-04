@@ -49,7 +49,7 @@ interface VideoSample {
 const root = path.resolve(import.meta.dirname, '..');
 const source = JSON.parse(readFileSync(path.join(root, 'spec/sources/tag-taxonomy-v2.json'), 'utf8')) as SourceTaxonomy;
 const sourceAliases = JSON.parse(readFileSync(path.join(root, 'spec/sources/tag-aliases-v2.json'), 'utf8')) as SourceAliases;
-const videoSample = JSON.parse(readFileSync(path.join(root, 'spec/sources/video-tags-sample.json'), 'utf8')) as VideoSample;
+const videoSample = JSON.parse(readFileSync(path.join(root, 'spec/sources/video-tags-available-30.json'), 'utf8')) as VideoSample;
 const outDir = path.join(root, 'content/taxonomy');
 
 const dynamicValues = new Map<string, Set<string>>();
@@ -131,18 +131,26 @@ const aliases = sourceAliases.exactAliases.flatMap((entry) => {
   return entry.aliases.map((alias) => ({ alias, normalizedAlias: normalized(alias), tagId: id }));
 });
 
-const decompositions = sourceAliases.decompositions.map((entry) => ({
-  legacy: entry.legacy,
-  normalizedLegacy: normalized(entry.legacy),
-  targetTagIds: entry.targets.flatMap((target) => {
-    const id = tagLookup.get(`${target.field}\0${target.value}`);
-    return id ? [id] : [];
-  }),
-  unresolvedTargets: entry.targets.filter((target) => !tagLookup.has(`${target.field}\0${target.value}`)),
-  discardedFragments: entry.discardedFragments ?? [],
-  autoApply: Boolean(entry.autoApply),
-  note: entry.note ?? '複合した旧値を原子的なタグへ分解する',
-}));
+const decompositions = sourceAliases.decompositions.map((entry) => {
+  const unresolvedTargets = entry.targets.filter((target) => !tagLookup.has(`${target.field}\0${target.value}`));
+  return {
+    legacy: entry.legacy,
+    normalizedLegacy: normalized(entry.legacy),
+    targetTagIds: entry.targets.flatMap((target) => {
+      const id = tagLookup.get(`${target.field}\0${target.value}`);
+      return id ? [id] : [];
+    }),
+    unresolvedTargets,
+    discardedFragments: entry.discardedFragments ?? [],
+    autoApply: Boolean(entry.autoApply && unresolvedTargets.length === 0),
+    note: entry.note ?? '複合した旧値を原子的なタグへ分解する',
+  };
+});
+const unresolvedDecompositions = decompositions
+  .filter((entry) => entry.unresolvedTargets.length > 0)
+  .map((entry) => ({ legacy: entry.legacy, reason: '明示30件のタグ体系に分解先がないため自動適用せず、人手確認する' }));
+const reviewRequired = [...sourceAliases.reviewRequired, ...unresolvedDecompositions]
+  .filter((entry, index, values) => values.findIndex((candidate) => candidate.legacy === entry.legacy) === index);
 
 mkdirSync(outDir, { recursive: true });
 writeFileSync(path.join(outDir, 'tag-taxonomy.json'), `${JSON.stringify({
@@ -163,7 +171,7 @@ writeFileSync(path.join(outDir, 'tag-aliases.json'), `${JSON.stringify({
   normalizationOrder: ['Unicode NFKC', '前後空白除去', '連続空白統合', '英字小文字化', '先頭の#除去'],
   aliases,
   decompositions,
-  reviewRequired: sourceAliases.reviewRequired,
+  reviewRequired,
 }, null, 2)}\n`);
 
 console.log(`7大分類・30小分類・${tagLookup.size}タグを取り込みました。`);

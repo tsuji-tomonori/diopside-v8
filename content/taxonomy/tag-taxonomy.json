@@ -579,8 +579,57 @@
           "extensible": true,
           "tags": [
             {
-              "tagId": "tag-works-gameTitle-942446bc56ac",
-              "canonicalName": "SILENT HILL2",
+              "tagId": "tag-works-gameTitle-c75dc3d3bf93",
+              "canonicalName": "Detroit: Become Human",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-d74d846399d7",
+              "canonicalName": "Mouthwashing",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-2b8b254beeba",
+              "canonicalName": "SILENT HILL f",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-688027024e3d",
+              "canonicalName": "スプラトゥーン3",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-96c0a0b3fc4a",
+              "canonicalName": "ダレカレ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-ffd8ee56185b",
+              "canonicalName": "雀魂 -じゃんたま-",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-fe020a2f4d1e",
+              "canonicalName": "都市伝説解体センター",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-edada2d2723c",
+              "canonicalName": "崩壊：スターレイル",
               "active": true,
               "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
@@ -594,7 +643,15 @@
           "cardinality": "0..n",
           "valueRule": "シリーズを横断して探す需要があり、同一シリーズが2作品以上ある場合に付ける",
           "extensible": true,
-          "tags": []
+          "tags": [
+            {
+              "tagId": "tag-works-gameSeries-c71b0b73767b",
+              "canonicalName": "スプラトゥーン",
+              "active": true,
+              "inclusionCriteria": "ゲームシリーズ名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
         },
         {
           "subcategoryId": "watchedTitle",
@@ -605,8 +662,15 @@
           "extensible": true,
           "tags": [
             {
-              "tagId": "tag-works-watchedTitle-a78173139c27",
-              "canonicalName": "超かぐや姫！",
+              "tagId": "tag-works-watchedTitle-d2641adea798",
+              "canonicalName": "ホーム・アローン",
+              "active": true,
+              "inclusionCriteria": "同時視聴作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-watchedTitle-e9d10e0e9b37",
+              "canonicalName": "ホーム・アローン2",
               "active": true,
               "inclusionCriteria": "同時視聴作品名として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
@@ -621,6 +685,13 @@
           "valueRule": "システム名とシナリオ名を別タグとして保持する",
           "extensible": true,
           "tags": [
+            {
+              "tagId": "tag-works-trpgTitle-3d3533795662",
+              "canonicalName": "カタシロ",
+              "active": true,
+              "inclusionCriteria": "TRPGシステム・シナリオ名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
             {
               "tagId": "tag-works-trpgTitle-feda84efa4eb",
               "canonicalName": "魔法使いの愛した子",
@@ -637,7 +708,29 @@
           "cardinality": "0..n",
           "valueRule": "単曲動画または検索価値の高い代表曲だけ。通常の歌枠の全セットリストには付けない",
           "extensible": true,
-          "tags": []
+          "tags": [
+            {
+              "tagId": "tag-works-songTitle-1422e26c9150",
+              "canonicalName": "IRIS OUT",
+              "active": true,
+              "inclusionCriteria": "楽曲名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-songTitle-afb266cbd64f",
+              "canonicalName": "にぎにじダンス",
+              "active": true,
+              "inclusionCriteria": "楽曲名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-songTitle-bdef921ce876",
+              "canonicalName": "輝夜の城で踊りたい",
+              "active": true,
+              "inclusionCriteria": "楽曲名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
         }
       ]
     },
@@ -655,6 +748,13 @@
           "valueRule": "YouTubeチャンネル名をメタデータから保持し、手入力しない",
           "extensible": true,
           "tags": [
+            {
+              "tagId": "tag-people-channel-5a3152797231",
+              "canonicalName": "えま★おうがすと / Emma★August【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
             {
               "tagId": "tag-people-channel-e0fc18a727d8",
               "canonicalName": "白雪 巴/Shirayuki Tomoe",
@@ -674,6 +774,27 @@
           "extensible": true,
           "tags": [
             {
+              "tagId": "tag-people-performer-b2d66d295542",
+              "canonicalName": "えま★おうがすと",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-584f6b5f5e50",
+              "canonicalName": "える",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-f345990d95ee",
+              "canonicalName": "オリバー・エバンス",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
               "tagId": "tag-people-performer-b0469a7d02e8",
               "canonicalName": "フミ",
               "active": true,
@@ -681,8 +802,57 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
-              "tagId": "tag-people-performer-b1f239b005c7",
-              "canonicalName": "ルイス・キャミー",
+              "tagId": "tag-people-performer-540180f79a49",
+              "canonicalName": "ベルモンド・バンデラス",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-9b7bb3c1a969",
+              "canonicalName": "ミラン・ケストレル",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-d713eb6bf949",
+              "canonicalName": "レヴィ・エリファ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-c6b8ade39e95",
+              "canonicalName": "愛園愛美",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-ff73184f923e",
+              "canonicalName": "四季凪アキラ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-b3a697b2d354",
+              "canonicalName": "七瀬すず菜",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-7bc053e314a8",
+              "canonicalName": "神田笑一",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-1c769eb2f6a6",
+              "canonicalName": "白雪巴",
               "active": true,
               "inclusionCriteria": "出演者として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
@@ -714,6 +884,13 @@
               "active": true,
               "inclusionCriteria": "出演者として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-ac1b4b510dc9",
+              "canonicalName": "蝸堂みかる",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             }
           ]
         },
@@ -727,8 +904,8 @@
           "extensible": true,
           "tags": [
             {
-              "tagId": "tag-people-unit-844344849374",
-              "canonicalName": "ふるとな",
+              "tagId": "tag-people-unit-0afa15239a0a",
+              "canonicalName": "セクスィー色に染まらなイカ？",
               "active": true,
               "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
@@ -736,6 +913,13 @@
             {
               "tagId": "tag-people-unit-d5b1de96b450",
               "canonicalName": "女王と会長",
+              "active": true,
+              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-unit-56355048805b",
+              "canonicalName": "八月の雪",
               "active": true,
               "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
@@ -755,7 +939,15 @@
           "order": 1,
           "cardinality": "0..n",
           "extensible": true,
-          "tags": []
+          "tags": [
+            {
+              "tagId": "tag-program-recurringSeries-4eb7f61b38ea",
+              "canonicalName": "いっ杯晩酌",
+              "active": true,
+              "inclusionCriteria": "定期・連続企画名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
         },
         {
           "subcategoryId": "event",
@@ -765,6 +957,20 @@
           "valueRule": "公式名称を使い、年ごとに内容が分かれるイベントは西暦4桁を末尾に付ける。先頭の#は付けない",
           "extensible": true,
           "tags": [
+            {
+              "tagId": "tag-program-event-181442cbb2bd",
+              "canonicalName": "にじイカ祭り2025",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-7978e9063aa7",
+              "canonicalName": "にじさんじ麻雀杯2026",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
             {
               "tagId": "tag-program-event-c20649aaa08c",
               "canonicalName": "白雪巴誕生日2026",
@@ -1021,7 +1227,50 @@
           "cardinality": "0..n",
           "valueRule": "配信中に話題として触れた人物の正規名。実出演者、チャンネル主、タイトル・概要欄だけに記載された人物は含めない",
           "extensible": true,
-          "tags": []
+          "tags": [
+            {
+              "tagId": "tag-reference-mentionedPerson-04b8b9b50b93",
+              "canonicalName": "アンジュ・カトリーナ",
+              "active": true,
+              "inclusionCriteria": "言及人物として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-mentionedPerson-6c4dbb19cfc2",
+              "canonicalName": "フミ",
+              "active": true,
+              "inclusionCriteria": "言及人物として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-mentionedPerson-de6d08acbed5",
+              "canonicalName": "ベルモンド・バンデラス",
+              "active": true,
+              "inclusionCriteria": "言及人物として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-mentionedPerson-5dda4e571706",
+              "canonicalName": "愛園愛美",
+              "active": true,
+              "inclusionCriteria": "言及人物として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-mentionedPerson-cc812a0d12ea",
+              "canonicalName": "来栖夏芽",
+              "active": true,
+              "inclusionCriteria": "言及人物として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-mentionedPerson-6bd8d91e5724",
+              "canonicalName": "戌亥とこ",
+              "active": true,
+              "inclusionCriteria": "言及人物として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
         },
         {
           "subcategoryId": "mentionedContent",
@@ -1030,7 +1279,15 @@
           "cardinality": "0..n",
           "valueRule": "配信中に感想・紹介・告知等で触れた別配信、動画、イベント、大会、楽曲の正規名。現在の動画そのものは含めない",
           "extensible": true,
-          "tags": []
+          "tags": [
+            {
+              "tagId": "tag-reference-mentionedContent-0652f837a30e",
+              "canonicalName": "超かぐや姫！",
+              "active": true,
+              "inclusionCriteria": "言及配信・動画名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
         },
         {
           "subcategoryId": "contentType",

@@ -34,18 +34,38 @@ describe('タグ・動画正本と公開境界', () => {
     }
   });
 
-  it('承認済み8動画の必須タグ、基数、根拠、未作成理由を全件検証する', () => {
-    expect(videos).toHaveLength(8);
+  it('提供された30動画・225タグと、存在する23件のタイムスタンプだけを全件検証する', () => {
+    expect(videos).toHaveLength(30);
+    expect(videos.reduce((total, video) => total + video.tagAssignments.length, 0)).toBe(225);
+    expect(videos.filter((video) => video.timestamps.status === '作成済み')).toHaveLength(23);
+    expect(videos.filter((video) => video.timestamps.status === '未作成')).toHaveLength(7);
     for (const video of videos) {
       expect(validateCanonicalVideo(video, taxonomy, aliases), video.videoId).toEqual([]);
       expect(video.approval.status).toBe('承認済み');
       expect(video.tagAssignments.every((assignment) => ['高', '中'].includes(assignment.confidence))).toBe(true);
-      expect(video.timestamps.status).toBe('未作成');
       expect(video.wordCloud.status).toBe('未作成');
     }
     const manifest = json('content/content-manifest.json') as { videoCount: number; assignmentCount: number };
     expect(manifest.videoCount).toBe(videos.length);
     expect(manifest.assignmentCount).toBe(videos.reduce((sum, video) => sum + video.tagAssignments.length, 0));
+  });
+
+  it('明示30件の順序と、タイムスタンプ23件・未提供7件の集合を入力JSONから再現する', () => {
+    const tagSource = json('spec/sources/video-tags-available-30.json') as {
+      selection: { videoIds: string[]; videoCount: number; tagAssignmentCount: number };
+      videos: Array<{ videoId: string }>;
+    };
+    const timestampSource = json('spec/sources/video-timestamps-available-30.json') as {
+      selection: { requestedVideoIds: string[]; availableVideoCount: number; unavailableVideoIds: string[] };
+      records: Array<{ videoId: string }>;
+    };
+    expect(tagSource.selection.videoCount).toBe(30);
+    expect(tagSource.selection.tagAssignmentCount).toBe(225);
+    expect(tagSource.videos.map((video) => video.videoId)).toEqual(tagSource.selection.videoIds);
+    expect(timestampSource.selection.requestedVideoIds).toEqual(tagSource.selection.videoIds);
+    expect(timestampSource.records).toHaveLength(timestampSource.selection.availableVideoCount);
+    expect(timestampSource.records).toHaveLength(23);
+    expect(timestampSource.selection.unavailableVideoIds).toHaveLength(7);
   });
 
   it('未知タグ、重複タグ、解決不能な根拠を公開候補として拒否する', () => {

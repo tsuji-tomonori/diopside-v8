@@ -32,11 +32,11 @@
     },
     {
       "path": "scripts/import-reference-taxonomy.ts",
-      "sha256": "325d93969fb6c68646de277349a54452626f34aea5191cb69ff8388017ea6b7a"
+      "sha256": "55ef4741ab5b81c2ef954e193fd96b72b303522f686acd8548d67bf2702592db"
     },
     {
       "path": "scripts/import-reference-videos.ts",
-      "sha256": "b7472015ad95ffd7ce61415f52db8f5551bd5c79378efdb2d10db86df2844742"
+      "sha256": "67a6671d6413891f7612a34bedf3854c3747bba991ebbc69864eb6485519077f"
     },
     {
       "path": "scripts/lib.ts",
@@ -92,7 +92,7 @@
     },
     {
       "path": "src/data/loadPublicData.test.ts",
-      "sha256": "f433955c4f207cf1bcee7d73a8cbc21fb777f7d4f3ffc3cc33dd2ba1d98e02c3"
+      "sha256": "3044527d7ff0c67ee384d23d9a187c8476c9258d6a05e22710d9a6bc70a39c2a"
     },
     {
       "path": "src/data/loadPublicData.ts",
@@ -100,7 +100,7 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "59d95573205f224db521bf7c41de0538f17f3762eb26131824c5a37ef07be1de"
+      "sha256": "a105eab13ef3953892712005359087e85e57c3dcbad06783f20891898f9bb7fb"
     },
     {
       "path": "src/domain/search.test.ts",
@@ -112,11 +112,11 @@
     },
     {
       "path": "src/domain/validation.test.ts",
-      "sha256": "19145f90ed69e7800b6580ad000b57e1bba9ff4a9f72ee9c20bd267e01108a10"
+      "sha256": "438f77e1717c5568cf5d5426d2c218fba5584ae9cb731469fdf075b33bf0215a"
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "b152e6faca1362c4343e5333c2038d454bed889db383f6ffd81cc5d92aecbaed"
+      "sha256": "6afcf0f2ed359e0bc27960feafb7e4be479d65f8e429f0657ebac32a159232ea"
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
@@ -136,7 +136,7 @@
     },
     {
       "path": "src/generated/release.ts",
-      "sha256": "c4825bdd9f229559f24c9749b21e282bcd65e9bd7da2e229b9e5b34ad284a823"
+      "sha256": "e14666cbdace7078ad02945dad7ecb90bc4452c3b1217c7e639dcec48965af4e"
     },
     {
       "path": "src/main.tsx",
@@ -258,6 +258,11 @@
       "file": "src/data/loadPublicData.ts",
       "name": "PublicDataError",
       "kind": "ClassDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "approvedTimestampMigrationReviewSchema",
+      "kind": "VariableStatement"
     },
     {
       "file": "src/domain/content.ts",

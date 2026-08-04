@@ -2,7 +2,8 @@ import { createHash } from 'node:crypto';
 
 import aliasesInput from '../../content/taxonomy/tag-aliases.json';
 import taxonomyInput from '../../content/taxonomy/tag-taxonomy.json';
-import canonicalInput from '../../content/videos/Oq6BZEyCMEQ.json';
+import canonicalInput from '../../content/videos/7keH8yrqabc.json';
+import migratedTimestampInput from '../../content/videos/c9TnpjK3ZZE.json';
 import { canonicalVideoSchema, tagAliasesSchema, tagTaxonomySchema } from './content.ts';
 import { scanPublicBoundary, validateCanonicalVideo, validateTaxonomy } from './validation.ts';
 
@@ -52,6 +53,24 @@ describe('正本検証', () => {
       },
     };
     expect(validateCanonicalVideo(video, taxonomy, aliases)).toEqual([]);
+  });
+
+  it('既存承認済み時刻の移行元revision・承認状態・入力指紋を追跡する', () => {
+    const video = canonicalVideoSchema.parse(migratedTimestampInput);
+    expect(video.timestamps.status).toBe('作成済み');
+    expect(validateCanonicalVideo(video, taxonomy, aliases)).toEqual([]);
+    if (video.timestamps.status !== '作成済み' || !('mode' in video.timestamps.review)) {
+      throw new Error('移行済みタイムスタンプではありません。');
+    }
+    expect(video.timestamps.review.source).toMatchObject({
+      status: 'approved',
+      revision: '0de21fbeb0a572d6d26f2a907c4856481c9281c8',
+      pullRequest: 'https://github.com/tsuji-tomonori/diopside-v7/pull/3',
+    });
+    const broken = structuredClone(video);
+    if (broken.timestamps.status !== '作成済み') throw new Error('移行済みタイムスタンプではありません。');
+    broken.timestamps.inputFingerprint = 'f'.repeat(64);
+    expect(validateCanonicalVideo(broken, taxonomy, aliases).map((item) => item.code)).toContain('TIMESTAMP_MIGRATION_EVIDENCE_MISSING');
   });
 
   it('境界間隔、ネタバレ名、根拠なし、候補版ずれを拒否する', () => {

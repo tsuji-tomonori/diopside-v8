@@ -341,8 +341,10 @@ function validateTimestamps(
     }
   }
   const review = timestamps.review;
-  const hashes = [timestamps.candidateHash, review.factCheck.candidateHash, review.editorialCheck.candidateHash, review.finalHumanCheck.candidateHash];
-  if (new Set(hashes).size !== 1) issues.push(issue('TIMESTAMP_REVIEW_VERSION_MISMATCH', 'timestamps.review', '三つの確認は同じ候補ハッシュへ合格する必要があります。'));
+  const hashes = 'mode' in review
+    ? [timestamps.candidateHash, review.candidateHash, review.finalHumanCheck.candidateHash]
+    : [timestamps.candidateHash, review.factCheck.candidateHash, review.editorialCheck.candidateHash, review.finalHumanCheck.candidateHash];
+  if (new Set(hashes).size !== 1) issues.push(issue('TIMESTAMP_REVIEW_VERSION_MISMATCH', 'timestamps.review', 'すべての確認は同じ候補ハッシュへ合格する必要があります。'));
 
   const genreNames = new Set(
     tags
@@ -358,12 +360,29 @@ function validateTimestamps(
   }
 
   const generatedAt = Date.parse(timestamps.generatedAt);
-  const reviewTimes = [review.factCheck.reviewedAt, review.editorialCheck.reviewedAt, review.finalHumanCheck.reviewedAt].map(Date.parse);
+  const reviewTimes = ('mode' in review
+    ? [review.validatedAt, review.finalHumanCheck.reviewedAt]
+    : [review.factCheck.reviewedAt, review.editorialCheck.reviewedAt, review.finalHumanCheck.reviewedAt]
+  ).map(Date.parse);
   if (reviewTimes.some((reviewedAt) => reviewedAt < generatedAt)) {
     issues.push(issue('TIMESTAMP_REVIEW_BEFORE_GENERATION', 'timestamps.review', '候補生成後に事実確認・編集確認・最終確認を行ってください。'));
   }
-  if (reviewTimes[2]! < Math.max(reviewTimes[0]!, reviewTimes[1]!)) {
-    issues.push(issue('TIMESTAMP_FINAL_REVIEW_ORDER', 'timestamps.review.finalHumanCheck', '人の最終確認は二つの独立確認後に行ってください。'));
+  if (reviewTimes.at(-1)! < Math.max(...reviewTimes.slice(0, -1))) {
+    issues.push(issue('TIMESTAMP_FINAL_REVIEW_ORDER', 'timestamps.review.finalHumanCheck', '人の最終確認は先行する検証後に行ってください。'));
+  }
+
+  if ('mode' in review) {
+    if (timestamps.origin !== 'diopsideで作成した時刻一覧') {
+      issues.push(issue('TIMESTAMP_MIGRATION_ORIGIN', 'timestamps.origin', '既存承認済みデータの移行はdiopside作成の時刻一覧として表示してください。'));
+    }
+    const migratedInput = video.evidence.some((evidence) => (
+      evidence.type === '既存の承認済みタイムスタンプ'
+      && evidence.inputFingerprint === timestamps.inputFingerprint
+    ));
+    if (!migratedInput) {
+      issues.push(issue('TIMESTAMP_MIGRATION_EVIDENCE_MISSING', 'timestamps.inputFingerprint', '既存承認済みタイムスタンプの入力指紋を根拠へ解決できません。'));
+    }
+    return;
   }
 
   const creatorOrigin = timestamps.origin !== 'diopsideで作成した時刻一覧';

@@ -25,7 +25,7 @@ describe('公開データ読込', () => {
     const store = new DeviceStore();
     const bundle = await loadPublicBundle(store, repositoryFetcher());
     expect(bundle.latest.releaseId).toBe(embeddedReleaseId);
-    expect(bundle.index.videos).toHaveLength(8);
+    expect(bundle.index.videos).toHaveLength(30);
     expect((await store.readPublicCache())?.releaseId).toBe(embeddedReleaseId);
   });
 
@@ -52,7 +52,7 @@ describe('公開データ読込', () => {
   });
 
   it('動画詳細の動画IDと公開版を検証する', async () => {
-    const videoId = 'Oq6BZEyCMEQ';
+    const videoId = 'c9TnpjK3ZZE';
     const detail = await loadVideoDetail(videoId, latest.releaseId, repositoryFetcher());
     expect(detail.videoId).toBe(videoId);
     expect(detail.releaseId).toBe(embeddedReleaseId);

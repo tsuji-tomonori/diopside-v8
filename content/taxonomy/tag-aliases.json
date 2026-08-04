@@ -50,14 +50,29 @@
       "tagId": "tag-content-gameGenre-a198f0577b83"
     },
     {
-      "alias": "ルイスさん",
-      "normalizedAlias": "ルイスさん",
-      "tagId": "tag-people-performer-b1f239b005c7"
+      "alias": "Splatoon3",
+      "normalizedAlias": "splatoon3",
+      "tagId": "tag-works-gameTitle-688027024e3d"
+    },
+    {
+      "alias": "雀魂",
+      "normalizedAlias": "雀魂",
+      "tagId": "tag-works-gameTitle-ffd8ee56185b"
+    },
+    {
+      "alias": "愛園 愛美",
+      "normalizedAlias": "愛園 愛美",
+      "tagId": "tag-people-performer-c6b8ade39e95"
     },
     {
       "alias": "綺沙良さん",
       "normalizedAlias": "綺沙良さん",
       "tagId": "tag-people-performer-328275186806"
+    },
+    {
+      "alias": "白雪 巴",
+      "normalizedAlias": "白雪 巴",
+      "tagId": "tag-people-performer-1c769eb2f6a6"
     },
     {
       "alias": "#女王と会長",
@@ -85,32 +100,25 @@
       "legacy": "えま★おうがすと・・来栖夏芽",
       "normalizedLegacy": "えま★おうがすと・・来栖夏芽",
       "targetTagIds": [
+        "tag-people-performer-b2d66d295542",
         "tag-people-performer-f1576533a080"
       ],
-      "unresolvedTargets": [
-        {
-          "field": "people.performer",
-          "value": "えま★おうがすと"
-        }
-      ],
+      "unresolvedTargets": [],
       "discardedFragments": [],
-      "autoApply": false,
+      "autoApply": true,
       "note": "複数の出演者名が区切り記号で連結された旧値。各出演者タグへ分離し、連結値自体は保存しない"
     },
     {
       "legacy": "安土桃・緑仙・・えま★おうがすと",
       "normalizedLegacy": "安土桃・緑仙・・えま★おうがすと",
       "targetTagIds": [
-        "tag-people-performer-df844103ce1a"
+        "tag-people-performer-df844103ce1a",
+        "tag-people-performer-b2d66d295542"
       ],
       "unresolvedTargets": [
         {
           "field": "people.performer",
           "value": "安土桃"
-        },
-        {
-          "field": "people.performer",
-          "value": "えま★おうがすと"
         }
       ],
       "discardedFragments": [],
@@ -283,14 +291,6 @@
   ],
   "reviewRequired": [
     {
-      "legacy": "えま★おうがすと・・来栖夏芽 / 安土桃・緑仙・・えま★おうがすと",
-      "reason": "一部の出演者タグが未登録のため、登録済み人物だけを自動適用せず出演実態と全員分の正規タグを確認する"
-    },
-    {
-      "legacy": "聖女れりあ・・健屋花那 / 聖女れりあ・概要読んでね / 鏑木ろこ￤",
-      "reason": "人物タグが未解決、または案内文・区切り記号が混入しているため、人物名と出演実態を個別確認する"
-    },
-    {
       "legacy": "対戦・アクションゲーム",
       "reason": "対戦形式とゲームジャンルを混合しているため、作品ごとにアクション、FPS/TPS、テーブルゲーム等へ再分類する"
     },
@@ -313,6 +313,38 @@
     {
       "legacy": "その他企画",
       "reason": "情報を持たず検索精度を下げるため、企画内容または配信特性へ置換する"
+    },
+    {
+      "legacy": "安土桃・緑仙・・えま★おうがすと",
+      "reason": "明示30件のタグ体系に分解先がないため自動適用せず、人手確認する"
+    },
+    {
+      "legacy": "聖女れりあ・・健屋花那",
+      "reason": "明示30件のタグ体系に分解先がないため自動適用せず、人手確認する"
+    },
+    {
+      "legacy": "聖女れりあ・概要読んでね",
+      "reason": "明示30件のタグ体系に分解先がないため自動適用せず、人手確認する"
+    },
+    {
+      "legacy": "鏑木ろこ￤",
+      "reason": "明示30件のタグ体系に分解先がないため自動適用せず、人手確認する"
+    },
+    {
+      "legacy": "記念雑談",
+      "reason": "明示30件のタグ体系に分解先がないため自動適用せず、人手確認する"
+    },
+    {
+      "legacy": "百合ゲー",
+      "reason": "明示30件のタグ体系に分解先がないため自動適用せず、人手確認する"
+    },
+    {
+      "legacy": "イベント",
+      "reason": "明示30件のタグ体系に分解先がないため自動適用せず、人手確認する"
+    },
+    {
+      "legacy": "お披露目",
+      "reason": "明示30件のタグ体系に分解先がないため自動適用せず、人手確認する"
     }
   ]
 }

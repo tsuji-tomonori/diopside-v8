@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 
+import { embeddedReleaseId } from '../src/generated/release.ts';
+
 import {
   capture,
   expectMinimumTargets,
@@ -28,7 +30,7 @@ test.describe('動画検索', () => {
     await expect(page.getByRole('heading', { name: '0件の動画' })).toBeVisible();
     await expect(page.getByRole('heading', { name: '一致する動画がありません' })).toBeVisible();
     await page.getByRole('button', { name: '条件をすべて解除' }).click();
-    await expect(page.getByRole('heading', { name: '8件の動画' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: '30件の動画' })).toBeVisible();
 
     await capture(page, testInfo, 'モバイル', 'search-mobile.jpg');
     expectOnlyAllowedRequests(requests);
@@ -61,7 +63,7 @@ test.describe('動画検索', () => {
     await page.getByLabel('最小（分）').fill('');
     await page.getByLabel('最大（分）').fill('');
     await page.getByLabel('並び順').selectOption('公開日の古い順');
-    await expect(page.locator('.video-card').first()).toHaveAttribute('data-video-id', 'kOvsSm2Apoo');
+    await expect(page.locator('.video-card').first()).toHaveAttribute('data-video-id', 'LKHqpGQ3myA');
 
     await page.reload();
     await page.keyboard.press('Tab');
@@ -132,7 +134,7 @@ function performanceDataset(): {
   index: Record<string, unknown>;
   search: { videos: Array<Record<string, unknown>> } & Record<string, unknown>;
 } {
-  const releaseId = 'release-9772f110379e220a';
+  const releaseId = embeddedReleaseId;
   const videos = Array.from({ length: 2500 }, (_, index) => {
     const videoId = `perf${String(index).padStart(7, '0')}`;
     const title = `検索符号${searchCode(index)} 第${index}回 マインクラフト 雑談 配信`;

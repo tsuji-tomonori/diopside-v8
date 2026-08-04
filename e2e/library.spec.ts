@@ -17,7 +17,7 @@ test.describe('端末内リスト', () => {
     await card.getByRole('link', { name: '詳細を見る', exact: true }).click();
     await expect(page.getByRole('heading', { level: 1 })).toContainText('誕生日2026');
     await page.getByRole('link', { name: '動画を探す' }).click();
-    await page.getByLabel('動画タイトル').fill('七夕');
+    await page.getByLabel('動画タイトル').fill('新年');
     await page.getByRole('button', { name: 'この条件で探す' }).click();
     await page.getByRole('link', { name: '端末内リスト' }).click();
     await expect(page.getByRole('heading', { name: /お気に入り/u })).toContainText('1件');
@@ -39,8 +39,8 @@ test.describe('端末内リスト', () => {
   test('一括削除は確認後にdiopsideの4種類の端末データを消す', async ({ page }) => {
     await preparePage(page);
     await openSearch(page);
-    await page.locator('[data-video-id="4zN7YiSw06c"]').getByRole('button', { name: 'お気に入りに追加' }).click();
-    await page.locator('[data-video-id="4zN7YiSw06c"]').getByRole('link', { name: '詳細を見る', exact: true }).click();
+    await page.locator('[data-video-id="RPK0UVHEYVY"]').getByRole('button', { name: 'お気に入りに追加' }).click();
+    await page.locator('[data-video-id="RPK0UVHEYVY"]').getByRole('link', { name: '詳細を見る', exact: true }).click();
     await page.getByRole('link', { name: '端末内リスト' }).click();
     page.once('dialog', async (dialog) => {
       expect(dialog.message()).toContain('端末内データをすべて削除');
@@ -59,7 +59,7 @@ test.describe('端末内リスト', () => {
     await openSearch(page);
     await page.locator('.video-card').first().getByRole('button', { name: 'お気に入りに追加' }).click();
     await expect(page.locator('.storage-notice')).toContainText('端末内への保存を利用できません');
-    await expect(page.getByRole('heading', { name: '8件の動画' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: '30件の動画' })).toBeVisible();
     await page.locator('.video-card').first().getByRole('link', { name: '詳細を見る', exact: true }).click();
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expectNoSeriousAccessibilityViolations(page);

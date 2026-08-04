@@ -25,6 +25,7 @@ export const evidenceTypeSchema = z.enum([
   '全編ローカル音声認識',
   '運用者提供の公開本文',
   '既存の承認済みタグ',
+  '既存の承認済みタイムスタンプ',
   '動画長',
   '公開チャンネル',
 ]);
@@ -73,6 +74,13 @@ const editorialReviewChecksSchema = z.object({
   spoilerSafety: z.literal(true),
 }).strict();
 
+const finalHumanCheckSchema = z.object({
+  status: z.literal('承認済み'),
+  candidateHash: z.string().regex(/^[a-f0-9]{64}$/u),
+  reviewedAt: isoDateTime,
+  pullRequest: z.string().regex(/^https:\/\/github\.com\/[^/]+\/[^/]+\/pull\/\d+$/u),
+}).strict();
+
 export const independentReviewSchema = z.object({
   factCheck: reviewResultSchema.extend({
     route: z.enum(['作成者一覧の採用', '全編根拠による生成']),
@@ -82,12 +90,32 @@ export const independentReviewSchema = z.object({
     factCheckResultWasHidden: z.literal(true),
     checks: editorialReviewChecksSchema,
   }).strict(),
-  finalHumanCheck: z.object({
-    status: z.literal('承認済み'),
-    candidateHash: z.string().regex(/^[a-f0-9]{64}$/u),
-    reviewedAt: isoDateTime,
+  finalHumanCheck: finalHumanCheckSchema,
+}).strict();
+
+export const approvedTimestampMigrationReviewSchema = z.object({
+  mode: z.literal('既存承認済みデータ移行'),
+  candidateHash: z.string().regex(/^[a-f0-9]{64}$/u),
+  source: z.object({
+    status: z.literal('approved'),
+    repository: z.string().regex(/^https:\/\/github\.com\/[^/]+\/[^/]+$/u),
+    revision: z.string().regex(/^[a-f0-9]{40}$/u),
     pullRequest: z.string().regex(/^https:\/\/github\.com\/[^/]+\/[^/]+\/pull\/\d+$/u),
+    releaseId: z.string().min(1),
+    sourceKind: z.string().min(1),
   }).strict(),
+  checks: z.object({
+    sourceApproval: z.literal(true),
+    minimumItems: z.literal(true),
+    startsAtZero: z.literal(true),
+    ascendingOrder: z.literal(true),
+    minimumInterval: z.literal(true),
+    inDurationRange: z.literal(true),
+    allowedConfidence: z.literal(true),
+    publicLabels: z.literal(true),
+  }).strict(),
+  validatedAt: isoDateTime,
+  finalHumanCheck: finalHumanCheckSchema,
 }).strict();
 
 export const timestampItemSchema = z.object({
@@ -107,7 +135,7 @@ const timestampsCreatedSchema = z.object({
   rulesVersion: z.string().min(1),
   generatedAt: isoDateTime,
   updatedAt: isoDateTime,
-  review: independentReviewSchema,
+  review: z.union([independentReviewSchema, approvedTimestampMigrationReviewSchema]),
 }).strict();
 
 const timestampsMissingSchema = z.object({

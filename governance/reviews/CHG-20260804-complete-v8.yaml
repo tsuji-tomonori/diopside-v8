@@ -186,9 +186,9 @@ selected_checks:
     class: Risk-selected
     result: pass
     evidence:
-      - path:content/videos/Oq6BZEyCMEQ.json
+      - path:content/videos/c9TnpjK3ZZE.json
       - test:tests/content-validation.test.ts
-    note: 公開データsampleを本番schemaと同じ検証へ通し、8動画のreview来歴をPR #2へ固定した
+    note: 明示30動画・225タグと、存在する23動画・471章の承認済み時刻を本番schemaで検証し、review来歴をPR #2へ固定した
   - id: FAST-018
     class: Risk-selected
     result: pass
@@ -292,5 +292,6 @@ residual_risks:
   - Issue #1の要件ベースライン候補に対するプロダクト責任者の明示承認が未完了である
   - PRのmergeとmain/docsの初回公開はIssue #1の人手承認ゲート後にだけ実行できる
   - 固定30動画は内容品質合格5件・棄却25件で、全30件の独立確認が未完了である
+  - 明示30動画のうち7件には承認済みタイムスタンプがなく、未作成状態を維持している
   - 初見利用者による375画素幅の代表5課題実測が未完了である
   - GitHubその他の所有者請求画面による2026-08月の0円確認が未完了である

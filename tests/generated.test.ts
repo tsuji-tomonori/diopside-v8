@@ -42,6 +42,20 @@ describe('決定的な公開成果物', () => {
     const aliases = publicAliasIndexSchema.parse(json(`public/${latest.aliasIndexPath}`));
     expect(new Set([latest.releaseId, index.releaseId, search.releaseId, tags.releaseId, aliases.releaseId, embeddedReleaseId]).size).toBe(1);
     expect(index.videos.map((video) => video.videoId)).toEqual(search.videos.map((video) => video.videoId));
+    expect(index.videos).toHaveLength(30);
+  });
+
+  it('公開詳細JSONは30件すべてを持ち、提供済み23件・471章だけを作成済みにする', () => {
+    const details = readdirSync(path.join(releaseRoot, 'videos'))
+      .filter((file) => file.endsWith('.json'))
+      .sort()
+      .map((file) => json(`public/data/releases/${latest.releaseId}/videos/${file}`) as {
+        timestamps: { status: string; items?: unknown[] };
+      });
+    expect(details).toHaveLength(30);
+    expect(details.filter((detail) => detail.timestamps.status === '作成済み')).toHaveLength(23);
+    expect(details.filter((detail) => detail.timestamps.status === '未作成')).toHaveLength(7);
+    expect(details.reduce((total, detail) => total + (detail.timestamps.items?.length ?? 0), 0)).toBe(471);
   });
 
   it('版マニフェストの全ファイル指紋が実ファイルと一致する', () => {
@@ -50,7 +64,7 @@ describe('決定的な公開成果物', () => {
       files: Array<{ path: string; sha256: string }>;
     };
     expect(manifest.releaseId).toBe(latest.releaseId);
-    expect(manifest.files).toHaveLength(12);
+    expect(manifest.files).toHaveLength(34);
     for (const file of manifest.files) {
       expect(sha256(readFileSync(path.join(releaseRoot, file.path)))).toBe(file.sha256);
     }
