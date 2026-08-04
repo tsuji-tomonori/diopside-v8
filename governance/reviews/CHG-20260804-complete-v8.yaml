@@ -130,7 +130,7 @@ selected_checks:
     evidence:
       - test:tests/generated.test.ts
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
-    note: 要件、公開版、設計、docsを再生成してdriftを拒否する
+    note: 要件、公開版、設計、docsを再生成してdriftを拒否する。run 30876110094で検出した旧docs公開版35ファイルと旧asset 1件を除去し、現行版だけで差分0へ戻した
   - id: FAST-007
     class: Invariant
     result: pass
