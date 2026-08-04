@@ -1,0 +1,356 @@
+{
+  "schemaVersion": "2.0.0",
+  "matchingNormalization": [
+    "前後の空白を除去する",
+    "Unicode NFKCを適用する",
+    "連続する空白を1個のASCII空白にする",
+    "英字の大文字小文字を無視する",
+    "照合時だけ先頭の#を除去する"
+  ],
+  "exactAliases": [
+    {
+      "field": "content.primary",
+      "canonical": "ゲーム",
+      "aliases": ["ゲーム実況"]
+    },
+    {
+      "field": "format.media",
+      "canonical": "Shorts",
+      "aliases": ["Short"]
+    },
+    {
+      "field": "content.primary",
+      "canonical": "ダンス",
+      "aliases": ["踊ってみた"]
+    },
+    {
+      "field": "content.gameGenre",
+      "canonical": "ビジュアルノベル",
+      "aliases": ["ノベルゲーム"]
+    },
+    {
+      "field": "content.gameGenre",
+      "canonical": "アクション",
+      "aliases": ["アクションゲーム"]
+    },
+    {
+      "field": "content.gameGenre",
+      "canonical": "レーシング",
+      "aliases": ["レーシングゲーム"]
+    },
+    {
+      "field": "content.gameGenre",
+      "canonical": "リズム",
+      "aliases": ["リズムゲーム"]
+    },
+    {
+      "field": "content.gameGenre",
+      "canonical": "格闘",
+      "aliases": ["格闘ゲーム"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "Apex Legends",
+      "aliases": ["APEX"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "Among Us",
+      "aliases": ["Among US"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "Dead by Daylight",
+      "aliases": ["DbD"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "Minecraft",
+      "aliases": ["マイクラ"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "NieR:Automata",
+      "aliases": ["NieR:Automata -ニーアオートマタ-"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "SUPER BOMBERMAN R 2",
+      "aliases": ["SUPER BOMBERMAN R2", "SUPER BOMBERMAN Ｒ２"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "We Were Here Too",
+      "aliases": ["WE WERE HERE Too"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "テトリス99",
+      "aliases": ["Tetris 99"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "こだわりラーメン館",
+      "aliases": ["こだわりラーメン館 ＃１", "こだわりラーメン館 ＃２", "こだわりラーメン館 ＃３"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "行方不明",
+      "aliases": ["行方不明～後編～"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "スプラトゥーン2",
+      "aliases": ["Splatoon2"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "スプラトゥーン3",
+      "aliases": ["Splatoon3"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "バイオハザード RE:2",
+      "aliases": ["バイオRE:2", "BIOHAZARD RE:2"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "バイオハザード RE:3",
+      "aliases": ["バイオRE:3", "BIOHAZARD RE:3"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "マリオカート8 デラックス",
+      "aliases": ["マリオカート8DX", "マリオカート８DX"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "大乱闘スマッシュブラザーズ SPECIAL",
+      "aliases": ["スマブラSP", "大乱闘スマッシュブラザーズ"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "ポケットモンスター ソード・シールド",
+      "aliases": ["ポケモン剣盾"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "ポケットモンスター スカーレット・バイオレット",
+      "aliases": ["ポケモンSV"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "ポケモンレジェンズ アルセウス",
+      "aliases": ["ポケモンレジェンズアルセウス"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "雀魂 -じゃんたま-",
+      "aliases": ["雀魂"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "勝利の女神：NIKKE",
+      "aliases": ["NIKKE"]
+    },
+    {
+      "field": "works.gameTitle",
+      "canonical": "8番出口",
+      "aliases": ["８番出口"]
+    },
+    {
+      "field": "people.performer",
+      "canonical": "健屋花那",
+      "aliases": ["健屋さん", "すこやさん"]
+    },
+    {
+      "field": "people.performer",
+      "canonical": "ルイス・キャミー",
+      "aliases": ["ルイスさん"]
+    },
+    {
+      "field": "people.performer",
+      "canonical": "愛園愛美",
+      "aliases": ["愛園 愛美"]
+    },
+    {
+      "field": "people.performer",
+      "canonical": "綺沙良",
+      "aliases": ["綺沙良さん"]
+    },
+    {
+      "field": "people.performer",
+      "canonical": "白雪巴",
+      "aliases": ["白雪 巴"]
+    },
+    {
+      "field": "people.unit",
+      "canonical": "Crossick",
+      "aliases": ["#Crossick", "にじさんじ性癖コンビ", "#にじさんじ性癖コンビ", "性癖コンビ"]
+    },
+    {
+      "field": "people.unit",
+      "canonical": "フルトイ",
+      "aliases": ["#フルトイ", "フルートイトイ", "#フルートイトイ"]
+    },
+    {
+      "field": "people.unit",
+      "canonical": "女王と会長",
+      "aliases": ["#女王と会長"]
+    },
+    {
+      "field": "people.unit",
+      "canonical": "夜王国",
+      "aliases": ["#夜王国"]
+    },
+    {
+      "field": "people.unit",
+      "canonical": "スノーベル",
+      "aliases": ["#スノーベル"]
+    },
+    {
+      "field": "context.occasion",
+      "canonical": "誕生日記念",
+      "aliases": ["誕生祭", "生誕祭"]
+    },
+    {
+      "field": "context.theme",
+      "canonical": "罵倒・SM",
+      "aliases": ["罵倒/SM"]
+    }
+  ],
+  "decompositions": [
+    {
+      "legacy": "えま★おうがすと・・来栖夏芽",
+      "targets": [
+        {"field": "people.performer", "value": "えま★おうがすと"},
+        {"field": "people.performer", "value": "来栖夏芽"}
+      ],
+      "autoApply": true,
+      "separateInInventory": true,
+      "note": "複数の出演者名が区切り記号で連結された旧値。各出演者タグへ分離し、連結値自体は保存しない"
+    },
+    {
+      "legacy": "安土桃・緑仙・・えま★おうがすと",
+      "targets": [
+        {"field": "people.performer", "value": "安土桃"},
+        {"field": "people.performer", "value": "緑仙"},
+        {"field": "people.performer", "value": "えま★おうがすと"}
+      ],
+      "autoApply": true,
+      "separateInInventory": true,
+      "note": "複数の出演者名が区切り記号で連結された旧値。各出演者タグへ分離し、連結値自体は保存しない"
+    },
+    {
+      "legacy": "聖女れりあ・・健屋花那",
+      "targets": [
+        {"field": "people.performer", "value": "聖女れりあ"},
+        {"field": "people.performer", "value": "健屋花那"}
+      ],
+      "autoApply": true,
+      "separateInInventory": true,
+      "note": "複数の出演者名が区切り記号で連結された旧値。各出演者タグへ分離し、連結値自体は保存しない"
+    },
+    {
+      "legacy": "聖女れりあ・概要読んでね",
+      "targets": [
+        {"field": "people.performer", "value": "聖女れりあ"}
+      ],
+      "discardedFragments": ["概要読んでね"],
+      "autoApply": true,
+      "separateInInventory": true,
+      "note": "出演者名の後ろに混入した案内文はタグ化せず破棄する"
+    },
+    {
+      "legacy": "鏑木ろこ￤",
+      "targets": [
+        {"field": "people.performer", "value": "鏑木ろこ"}
+      ],
+      "discardedFragments": ["￤"],
+      "autoApply": true,
+      "separateInInventory": true,
+      "note": "出演者名の末尾に混入した区切り記号を除去する"
+    },
+    {
+      "legacy": "コラボ雑談",
+      "targets": [
+        {"field": "content.primary", "value": "雑談"},
+        {"field": "context.participation", "value": "コラボ"}
+      ]
+    },
+    {
+      "legacy": "振り返り雑談",
+      "targets": [
+        {"field": "content.primary", "value": "雑談"},
+        {"field": "content.talkStyle", "value": "振り返り"}
+      ]
+    },
+    {
+      "legacy": "記念雑談",
+      "targets": [
+        {"field": "content.primary", "value": "雑談"},
+        {"field": "context.occasion", "value": "要個別判定"}
+      ]
+    },
+    {
+      "legacy": "百合ゲー",
+      "targets": [
+        {"field": "context.theme", "value": "百合"},
+        {"field": "content.gameGenre", "value": "作品ごとに個別判定"}
+      ]
+    },
+    {
+      "legacy": "イベント",
+      "targets": [
+        {"field": "content.primary", "value": "実際の内容から再判定"},
+        {"field": "program.event or context.occasion", "value": "固有名または記念種別"}
+      ]
+    },
+    {
+      "legacy": "お披露目",
+      "targets": [
+        {"field": "content.primary", "value": "実際の内容から再判定"},
+        {"field": "context.occasion", "value": "新衣装お披露目 or 3Dお披露目"}
+      ]
+    },
+    {
+      "legacy": "単発ゲーム",
+      "targets": [
+        {"field": "content.primary", "value": "ゲーム"},
+        {"field": "context.feature", "value": "単発"}
+      ]
+    },
+    {
+      "legacy": "にじさんじ",
+      "targets": [],
+      "note": "動画タグから除外し、チャンネルの所属メタデータとして管理する"
+    }
+  ],
+  "reviewRequired": [
+    {
+      "legacy": "対戦・アクションゲーム",
+      "reason": "対戦形式とゲームジャンルを混合しているため、作品ごとにアクション、FPS/TPS、テーブルゲーム等へ再分類する"
+    },
+    {
+      "legacy": "企画",
+      "reason": "ゲーム大会、同時視聴、記念配信などが混在しているため、主ジャンルを内容から再判定する"
+    },
+    {
+      "legacy": "新衣装 / 白雪巴新衣装 / #白雪巴新衣装 / #白雪新衣装",
+      "reason": "初公開、撮影会、後日の新衣装使用が混在し得るため、タイトルと内容を確認して新衣装お披露目を付ける"
+    },
+    {
+      "legacy": "ドS",
+      "reason": "人物像の言及と罵倒・SMを主題にした内容を区別し、後者だけ中心テーマへ移す"
+    },
+    {
+      "legacy": "その他",
+      "reason": "情報を持たず検索精度を下げるため、原則として具体タグへ置換する"
+    },
+    {
+      "legacy": "その他企画",
+      "reason": "情報を持たず検索精度を下げるため、企画内容または配信特性へ置換する"
+    }
+  ]
+}
+

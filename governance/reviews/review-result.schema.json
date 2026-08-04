@@ -1,0 +1,356 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tsuji-tomonori/dev-standard/governance/reviews/review-result.schema.json",
+  "title": "dev-standard review result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "catalog_version",
+    "catalog_digest",
+    "change_id",
+    "profile",
+    "source_ref",
+    "completed_timings",
+    "impact_flags",
+    "selected_checks",
+    "advisories",
+    "residual_risks"
+  ],
+  "properties": {
+    "schema_version": {
+      "enum": [1, 2]
+    },
+    "catalog_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "catalog_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "change_id": {
+      "type": "string",
+      "pattern": "^CHG-[0-9]{8}-[a-z0-9][a-z0-9-]{1,80}$"
+    },
+    "profile": {
+      "enum": ["direct", "assured", "regulated"]
+    },
+    "source_ref": {
+      "const": "self"
+    },
+    "completed_timings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["impact", "implementation", "pre-pr", "pre-merge", "post-deploy", "periodic"]
+      }
+    },
+    "impact_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "external_write",
+        "irreversible_operation",
+        "auth_change",
+        "data_change",
+        "public_api_change",
+        "iac_change",
+        "dependency_change",
+        "code_change",
+        "typed_code_change",
+        "behavior_change",
+        "bug_fix",
+        "generated_change",
+        "sql_change",
+        "e2e_change",
+        "migration",
+        "ui_change",
+        "interactive_ui_change",
+        "operational_impact",
+        "requirements_impact",
+        "public_contract_change",
+        "critical_change",
+        "important_ui_change",
+        "long_term_decision",
+        "squash",
+        "external_side_effect",
+        "production_deploy",
+        "major_incident",
+        "periodic_cycle",
+        "monthly_cycle",
+        "recheck_due",
+        "as_built_adoption",
+        "quality_threshold_change"
+      ],
+      "properties": {
+        "external_write": {"type": "boolean"},
+        "irreversible_operation": {"type": "boolean"},
+        "auth_change": {"type": "boolean"},
+        "data_change": {"type": "boolean"},
+        "public_api_change": {"type": "boolean"},
+        "iac_change": {"type": "boolean"},
+        "dependency_change": {"type": "boolean"},
+        "code_change": {"type": "boolean"},
+        "typed_code_change": {"type": "boolean"},
+        "behavior_change": {"type": "boolean"},
+        "bug_fix": {"type": "boolean"},
+        "generated_change": {"type": "boolean"},
+        "sql_change": {"type": "boolean"},
+        "e2e_change": {"type": "boolean"},
+        "migration": {"type": "boolean"},
+        "ui_change": {"type": "boolean"},
+        "interactive_ui_change": {"type": "boolean"},
+        "operational_impact": {"type": "boolean"},
+        "requirements_impact": {"type": "boolean"},
+        "public_contract_change": {"type": "boolean"},
+        "critical_change": {"type": "boolean"},
+        "important_ui_change": {"type": "boolean"},
+        "long_term_decision": {"type": "boolean"},
+        "squash": {"type": "boolean"},
+        "external_side_effect": {"type": "boolean"},
+        "production_deploy": {"type": "boolean"},
+        "major_incident": {"type": "boolean"},
+        "periodic_cycle": {"type": "boolean"},
+        "monthly_cycle": {"type": "boolean"},
+        "recheck_due": {"type": "boolean"},
+        "as_built_standard_change": {"type": "boolean"},
+        "as_built_adoption": {"type": "boolean"},
+        "quality_threshold_change": {"type": "boolean"}
+      }
+    },
+    "impact_details": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["as_built_adoption"],
+      "properties": {
+        "as_built_adoption": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["scope", "exclusions"],
+          "properties": {
+            "scope": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {"type": "string", "minLength": 1}
+            },
+            "exclusions": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    },
+    "selected_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "class", "result", "evidence"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "class": {
+            "enum": ["Invariant", "Risk-selected", "Advisory", "Periodic"]
+          },
+          "result": {
+            "enum": ["pass", "fail", "na"]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^(path|test|commit|workflow):.+$"
+            }
+          },
+          "note": {
+            "type": "string"
+          },
+          "issue": {
+            "type": "string"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "result": {
+                  "const": "pass"
+                }
+              },
+              "required": ["result"]
+            },
+            "then": {
+              "properties": {
+                "evidence": {
+                  "minItems": 1
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "result": {
+                  "const": "na"
+                }
+              },
+              "required": ["result"]
+            },
+            "then": {
+              "required": ["note"],
+              "properties": {
+                "note": {
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "advisories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "disposition", "note"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "disposition": {
+            "enum": ["fixed", "issue", "residual-risk"]
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1
+          },
+          "issue": {
+            "type": "string"
+          },
+          "risk": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {"disposition": {"const": "issue"}},
+              "required": ["disposition"]
+            },
+            "then": {
+              "required": ["issue"],
+              "properties": {"issue": {"minLength": 1}}
+            }
+          },
+          {
+            "if": {
+              "properties": {"disposition": {"const": "residual-risk"}},
+              "required": ["disposition"]
+            },
+            "then": {
+              "required": ["risk"]
+            }
+          }
+        ]
+      }
+    },
+    "residual_risks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"schema_version": {"const": 2}},
+        "required": ["schema_version"]
+      },
+      "then": {
+        "required": ["impact_details"],
+        "properties": {
+          "impact_flags": {
+            "required": ["as_built_standard_change"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {
+            "properties": {"schema_version": {"const": 2}},
+            "required": ["schema_version"]
+          },
+          {
+            "properties": {
+              "impact_flags": {
+                "properties": {"as_built_adoption": {"const": true}},
+                "required": ["as_built_adoption"]
+              }
+            },
+            "required": ["impact_flags"]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "impact_details": {
+            "properties": {
+              "as_built_adoption": {
+                "properties": {
+                  "scope": {"minItems": 1}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {
+            "properties": {"schema_version": {"const": 2}},
+            "required": ["schema_version"]
+          },
+          {
+            "properties": {
+              "impact_flags": {
+                "properties": {"as_built_adoption": {"const": false}},
+                "required": ["as_built_adoption"]
+              }
+            },
+            "required": ["impact_flags"]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "impact_details": {
+            "properties": {
+              "as_built_adoption": {
+                "properties": {
+                  "scope": {"maxItems": 0},
+                  "exclusions": {"maxItems": 0}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

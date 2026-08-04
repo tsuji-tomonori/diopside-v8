@@ -1,0 +1,4328 @@
+{
+  "schemaVersion": "1.0.0",
+  "taxonomyVersion": "8.1.0",
+  "sourceVersion": "2.0.0",
+  "aliasVersion": "8.1.0",
+  "rulesVersion": "8.1.0",
+  "effectiveDate": "2026-08-04",
+  "categoryCount": 7,
+  "subcategoryCount": 30,
+  "prohibitedCanonicalNames": [
+    "",
+    "その他",
+    "不明",
+    "要確認",
+    "未分類"
+  ],
+  "categories": [
+    {
+      "categoryId": "content",
+      "name": "内容",
+      "order": 1,
+      "subcategories": [
+        {
+          "subcategoryId": "primary",
+          "name": "主ジャンル",
+          "order": 1,
+          "cardinality": "1",
+          "extensible": false,
+          "tags": [
+            {
+              "tagId": "tag-content-primary-82503dd90204",
+              "canonicalName": "ASMR",
+              "active": true,
+              "inclusionCriteria": "主ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-primary-63939ad6aca3",
+              "canonicalName": "TRPG",
+              "active": true,
+              "inclusionCriteria": "主ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-primary-0dbfa3115896",
+              "canonicalName": "ゲーム",
+              "active": true,
+              "inclusionCriteria": "主ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-primary-0a9abf497e7e",
+              "canonicalName": "ダンス",
+              "active": true,
+              "inclusionCriteria": "主ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-primary-90289feaebbf",
+              "canonicalName": "歌",
+              "active": true,
+              "inclusionCriteria": "主ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-primary-9eedbc0013d1",
+              "canonicalName": "企画",
+              "active": true,
+              "inclusionCriteria": "主ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-primary-af7be42add09",
+              "canonicalName": "雑談",
+              "active": true,
+              "inclusionCriteria": "主ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-primary-13262dbadb96",
+              "canonicalName": "同時視聴",
+              "active": true,
+              "inclusionCriteria": "主ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-primary-557f61fa4ae4",
+              "canonicalName": "朗読・声劇",
+              "active": true,
+              "inclusionCriteria": "主ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "secondary",
+          "name": "副ジャンル",
+          "order": 2,
+          "cardinality": "0..2",
+          "extensible": true,
+          "tags": [
+            {
+              "tagId": "tag-content-secondary-719d346e31e3",
+              "canonicalName": "ASMR",
+              "active": true,
+              "inclusionCriteria": "副ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-secondary-6b50d463e58a",
+              "canonicalName": "TRPG",
+              "active": true,
+              "inclusionCriteria": "副ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-secondary-164dbab60187",
+              "canonicalName": "ゲーム",
+              "active": true,
+              "inclusionCriteria": "副ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-secondary-900d07849d03",
+              "canonicalName": "ダンス",
+              "active": true,
+              "inclusionCriteria": "副ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-secondary-f86130d9b03d",
+              "canonicalName": "歌",
+              "active": true,
+              "inclusionCriteria": "副ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-secondary-51d7ff1287db",
+              "canonicalName": "企画",
+              "active": true,
+              "inclusionCriteria": "副ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-secondary-89482aac6eea",
+              "canonicalName": "雑談",
+              "active": true,
+              "inclusionCriteria": "副ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-secondary-d0fde07421b1",
+              "canonicalName": "同時視聴",
+              "active": true,
+              "inclusionCriteria": "副ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-secondary-3307f50f4f6e",
+              "canonicalName": "朗読・声劇",
+              "active": true,
+              "inclusionCriteria": "副ジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "gameGenre",
+          "name": "ゲームジャンル",
+          "order": 3,
+          "cardinality": "1..3 when applicable",
+          "requiredWhen": "動画内でゲームをプレイしている",
+          "appliesWhen": "content.primary or content.secondary is ゲーム",
+          "extensible": false,
+          "tags": [
+            {
+              "tagId": "tag-content-gameGenre-f021e7c4e2e7",
+              "canonicalName": "FPS/TPS",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-bbfe93fa8679",
+              "canonicalName": "MOBA",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-b0f2de7922c1",
+              "canonicalName": "RPG",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-62278ec71bd0",
+              "canonicalName": "アクション",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-2ec4e38c680d",
+              "canonicalName": "アドベンチャー",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-9796af29a119",
+              "canonicalName": "サンドボックス",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-9709322940c3",
+              "canonicalName": "シミュレーション",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-a964de1c7ab3",
+              "canonicalName": "ストラテジー",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-a8c7165fc58a",
+              "canonicalName": "スポーツ",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-fc55c08efe24",
+              "canonicalName": "テーブルゲーム",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-e39b9f75edc2",
+              "canonicalName": "パーティーゲーム",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-d579d1081076",
+              "canonicalName": "パズル",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-75b81f24091b",
+              "canonicalName": "ビジュアルノベル",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-d47cbdac01e9",
+              "canonicalName": "フィットネス",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-1cc53dc4a37d",
+              "canonicalName": "ホラー",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-bc4b0b2d33a6",
+              "canonicalName": "リズム",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-7a9a6ca1057e",
+              "canonicalName": "レーシング",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-a198f0577b83",
+              "canonicalName": "格闘",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-de523e90da5e",
+              "canonicalName": "教育・学習",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-1cff1b833661",
+              "canonicalName": "人狼・正体隠匿",
+              "active": true,
+              "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "talkStyle",
+          "name": "雑談種別",
+          "order": 4,
+          "cardinality": "1..3 when applicable",
+          "requiredWhen": "content.primary or content.secondary is 雑談",
+          "appliesWhen": "content.primary or content.secondary is 雑談",
+          "extensible": false,
+          "tags": [
+            {
+              "tagId": "tag-content-talkStyle-a707d85f714f",
+              "canonicalName": "お悩み相談",
+              "active": true,
+              "inclusionCriteria": "雑談種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-talkStyle-8cb9d4e8e44e",
+              "canonicalName": "スパチャ読み",
+              "active": true,
+              "inclusionCriteria": "雑談種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-talkStyle-4691146b71bb",
+              "canonicalName": "フリートーク",
+              "active": true,
+              "inclusionCriteria": "雑談種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-talkStyle-48f19af6d466",
+              "canonicalName": "作業",
+              "active": true,
+              "inclusionCriteria": "雑談種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-talkStyle-db54f7c2b29f",
+              "canonicalName": "振り返り",
+              "active": true,
+              "inclusionCriteria": "雑談種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-talkStyle-c07399132e89",
+              "canonicalName": "体験談",
+              "active": true,
+              "inclusionCriteria": "雑談種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-talkStyle-abaaf0bfb9f2",
+              "canonicalName": "投稿紹介",
+              "active": true,
+              "inclusionCriteria": "雑談種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-talkStyle-31e7221b9607",
+              "canonicalName": "晩酌",
+              "active": true,
+              "inclusionCriteria": "雑談種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-talkStyle-938ec4dc6e4a",
+              "canonicalName": "報告・告知",
+              "active": true,
+              "inclusionCriteria": "雑談種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "musicType",
+          "name": "歌種別",
+          "order": 5,
+          "cardinality": "0..2",
+          "appliesWhen": "content.primary or content.secondary is 歌",
+          "extensible": false,
+          "tags": [
+            {
+              "tagId": "tag-content-musicType-a53d20d0815e",
+              "canonicalName": "オリジナル曲",
+              "active": true,
+              "inclusionCriteria": "歌種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-musicType-6e13442a66c1",
+              "canonicalName": "ライブ",
+              "active": true,
+              "inclusionCriteria": "歌種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-musicType-7769d4384653",
+              "canonicalName": "歌ってみた",
+              "active": true,
+              "inclusionCriteria": "歌種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-musicType-6ceedfab4a0a",
+              "canonicalName": "歌リレー",
+              "active": true,
+              "inclusionCriteria": "歌種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-musicType-c959fb47bb30",
+              "canonicalName": "歌枠",
+              "active": true,
+              "inclusionCriteria": "歌種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "asmrType",
+          "name": "ASMR種別",
+          "order": 6,
+          "cardinality": "0..3",
+          "appliesWhen": "content.primary or content.secondary is ASMR",
+          "extensible": false,
+          "tags": [
+            {
+              "tagId": "tag-content-asmrType-0c8eafd79cef",
+              "canonicalName": "ささやき",
+              "active": true,
+              "inclusionCriteria": "ASMR種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-asmrType-bcfc44bb2eae",
+              "canonicalName": "ロールプレイ",
+              "active": true,
+              "inclusionCriteria": "ASMR種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-asmrType-f8f7eed9c57e",
+              "canonicalName": "甘やかし",
+              "active": true,
+              "inclusionCriteria": "ASMR種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-asmrType-b1356a9219b3",
+              "canonicalName": "看病",
+              "active": true,
+              "inclusionCriteria": "ASMR種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-asmrType-500df0243c5e",
+              "canonicalName": "耳かき",
+              "active": true,
+              "inclusionCriteria": "ASMR種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-asmrType-5a2ba184f51e",
+              "canonicalName": "添い寝",
+              "active": true,
+              "inclusionCriteria": "ASMR種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "watchMedia",
+          "name": "同時視聴メディア",
+          "order": 7,
+          "cardinality": "0..1",
+          "appliesWhen": "content.primary or content.secondary is 同時視聴",
+          "extensible": false,
+          "tags": [
+            {
+              "tagId": "tag-content-watchMedia-a3fe609f1266",
+              "canonicalName": "アニメ",
+              "active": true,
+              "inclusionCriteria": "同時視聴メディアとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-watchMedia-d0e1c75a3ea9",
+              "canonicalName": "イベント",
+              "active": true,
+              "inclusionCriteria": "同時視聴メディアとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-watchMedia-781e3109fbfa",
+              "canonicalName": "ライブ",
+              "active": true,
+              "inclusionCriteria": "同時視聴メディアとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-watchMedia-75071aaaf7e8",
+              "canonicalName": "映画",
+              "active": true,
+              "inclusionCriteria": "同時視聴メディアとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-watchMedia-498b0fa3480d",
+              "canonicalName": "番組",
+              "active": true,
+              "inclusionCriteria": "同時視聴メディアとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "readingType",
+          "name": "朗読・声劇種別",
+          "order": 8,
+          "cardinality": "0..1",
+          "appliesWhen": "content.primary or content.secondary is 朗読・声劇",
+          "extensible": false,
+          "tags": [
+            {
+              "tagId": "tag-content-readingType-84ce37966d8d",
+              "canonicalName": "参加型声劇",
+              "active": true,
+              "inclusionCriteria": "朗読・声劇種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-readingType-e162551c9543",
+              "canonicalName": "声劇",
+              "active": true,
+              "inclusionCriteria": "朗読・声劇種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-readingType-76b0bb0f14c9",
+              "canonicalName": "朗読",
+              "active": true,
+              "inclusionCriteria": "朗読・声劇種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "categoryId": "works",
+      "name": "作品",
+      "order": 2,
+      "subcategories": [
+        {
+          "subcategoryId": "gameTitle",
+          "name": "ゲーム作品名",
+          "order": 1,
+          "cardinality": "1..n when applicable",
+          "requiredWhen": "動画内でゲームをプレイしている",
+          "valueRule": "公式の日本語タイトルを優先し、存在しなければ公式原題を使う。版・DLCが内容を区別する場合だけ残す",
+          "extensible": true,
+          "tags": [
+            {
+              "tagId": "tag-works-gameTitle-a8ecb134448f",
+              "canonicalName": "[Chilla's Art] Parasocial | パラソーシャル",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-7be1f63b4fa8",
+              "canonicalName": "[Chilla's Art] The Kidnap |誘拐事件",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-7718684dffa6",
+              "canonicalName": "[Chilla's Art] The Radio Station | 深夜放送",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-e1c7f53e6774",
+              "canonicalName": "#人狼怪画",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-4aca9592ad76",
+              "canonicalName": "8番出口",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-becff98f2afe",
+              "canonicalName": "Amanda the Adventurer",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-61851f3b4204",
+              "canonicalName": "Among the Sleep",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-14a91f9986dd",
+              "canonicalName": "Among Us",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-55a3f9970f16",
+              "canonicalName": "Apex Legends",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-08190f07f5dc",
+              "canonicalName": "ASTRONEER",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-728943ff7eee",
+              "canonicalName": "CLOSED NIGHTMARE",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-8a9a50ef8c7f",
+              "canonicalName": "CONTROL",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-82597a45f7ec",
+              "canonicalName": "Crime Scene Cleaner",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-b6d156b61e90",
+              "canonicalName": "Cry of Fear",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-f3722c8270d5",
+              "canonicalName": "Crystal Isles - ARK Expansion Map",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-64d688b5640c",
+              "canonicalName": "Dark Deception",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-ae339bbfb19c",
+              "canonicalName": "Dead by Daylight",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-c75dc3d3bf93",
+              "canonicalName": "Detroit: Become Human",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-da5ff6ada922",
+              "canonicalName": "DEVOUR",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-8e646f8ada5c",
+              "canonicalName": "DON'T SCREAM",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-c2da3a8d02d0",
+              "canonicalName": "Echocalypse -緋紅の神約-",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-00e04f8a5a8d",
+              "canonicalName": "Fall Guys",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-0a0574d2b8f0",
+              "canonicalName": "Fast Food Simulator",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-28b8b3f4042b",
+              "canonicalName": "FIVE NIGHTS AT FREDDY'S: HELP WANTED",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-fbc42dad1eb4",
+              "canonicalName": "Friday the 13th: The Game",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-01732b4e2e27",
+              "canonicalName": "Gartic Phone",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-1d9e914abb4c",
+              "canonicalName": "Getting Over It with Bennett Foddy",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-a04a70d7701e",
+              "canonicalName": "Ghostwire: Tokyo",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-0468c3877c3f",
+              "canonicalName": "Good Job!",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-1ecfd5eb0711",
+              "canonicalName": "Grand Theft Auto V (GTA5)",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-2f9257c56555",
+              "canonicalName": "Hand Simulator",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-72f566928a35",
+              "canonicalName": "HEAVY RAIN 心の軋むとき",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-381bf864effc",
+              "canonicalName": "Ib",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-ead65c254a96",
+              "canonicalName": "IdentityV 第五人格",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-8c885948369a",
+              "canonicalName": "Infliction",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-c043b6f0e559",
+              "canonicalName": "Knockout City",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-235c20239239",
+              "canonicalName": "Layers of Fear",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-c8da985b0705",
+              "canonicalName": "Layers of Fear: Inheritance",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-7077a447e23b",
+              "canonicalName": "LIMBO",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-37a757236cf7",
+              "canonicalName": "LITTLE NIGHTMARES",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-a9b1cc2d2f73",
+              "canonicalName": "LITTLE NIGHTMARES Ⅱ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-5168a0f83814",
+              "canonicalName": "Minecraft",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-283350d839cb",
+              "canonicalName": "MOOZ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-d74d846399d7",
+              "canonicalName": "Mouthwashing",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-edea0c17df4c",
+              "canonicalName": "NEEDY GIRL OVERDOSE",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-4885eb15c5eb",
+              "canonicalName": "NieR:Automata",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-fe593f10b5b5",
+              "canonicalName": "Niji_AmongUs",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-64f059dd8c96",
+              "canonicalName": "NIJIPuyoTetris2023",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-44ffcf49bd94",
+              "canonicalName": "Only Up!",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-1c78635b9990",
+              "canonicalName": "OUTLAST",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-0297c2c88ec8",
+              "canonicalName": "OUTLAST2",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-f770f0c9a3e5",
+              "canonicalName": "PAON",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-74e9148f6898",
+              "canonicalName": "Papers, Please",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-dab11a9a39c3",
+              "canonicalName": "Paranormal Cleanup",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-f1c4c85dae55",
+              "canonicalName": "PIEN",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-4941ac957a37",
+              "canonicalName": "Pineapple on pizza",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-0a2921b44ca8",
+              "canonicalName": "Pokémon LEGENDS アルセウス",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-59b3336cade9",
+              "canonicalName": "Project Winter",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-c92c05d8bb14",
+              "canonicalName": "PUBG LITE",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-e7fe75f14eec",
+              "canonicalName": "Q REMASTERED",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-47d75fa13c17",
+              "canonicalName": "SCP：極秘ファイル",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-895d309cc7cb",
+              "canonicalName": "Seven Nights Ghost",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-3cab25014dbb",
+              "canonicalName": "Shadow Corridor 2 雨ノ四葩",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-ff5bfe81e366",
+              "canonicalName": "Sharks and Minnows",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-2b8b254beeba",
+              "canonicalName": "SILENT HILL f",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-942446bc56ac",
+              "canonicalName": "SILENT HILL2",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-d103b429fa1d",
+              "canonicalName": "Slither.io",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-9c2c7890727e",
+              "canonicalName": "SUPER BOMBERMAN R2",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-d35d1efd7a57",
+              "canonicalName": "Super Bunny Man",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-7cb5ff93c2f9",
+              "canonicalName": "TEKE TEKE",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-f3423e2fa8b1",
+              "canonicalName": "TETRIS 99",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-821681443e28",
+              "canonicalName": "The Medium",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-f15cd532dd84",
+              "canonicalName": "The Outlast Trials",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-ce14dba42114",
+              "canonicalName": "TOKYO DARK",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-3688db82667b",
+              "canonicalName": "TOMB RAIDER",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-35c28c7dcd25",
+              "canonicalName": "Tormented Souls",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-1a607faeba23",
+              "canonicalName": "Unknown Tapes",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-fda0c5568cdc",
+              "canonicalName": "unpacking",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-8ea29b83c2de",
+              "canonicalName": "VALORANT",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-b56a6bb30369",
+              "canonicalName": "Vampire Survivors",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-9f158462e7d6",
+              "canonicalName": "Visage",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-e9555bb8d212",
+              "canonicalName": "We Were Here Forever",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-b41bcddfac81",
+              "canonicalName": "We Were Here Together",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-1141c600307e",
+              "canonicalName": "WE WERE HERE Too",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-c259147c7784",
+              "canonicalName": "Within Skerry",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-dee2b46c1526",
+              "canonicalName": "World of Warships Legends",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-22f9f62cf602",
+              "canonicalName": "Your Toy",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-41f28266ebfd",
+              "canonicalName": "アーテリーギア-機動戦姫-",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-853b8d0d11c2",
+              "canonicalName": "あつまれどうぶつの森",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-dc9278477a4c",
+              "canonicalName": "いえのあじ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-1b9ad2682297",
+              "canonicalName": "うちには天使がいる！",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-10e0c9a0878e",
+              "canonicalName": "ウツロマユ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-92c41fcfac81",
+              "canonicalName": "ウマ娘 プリティーダービー",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-81cebfdd098d",
+              "canonicalName": "エスカレーター",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-ba178f281dba",
+              "canonicalName": "おくだけドリル 小学6年生漢字",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-8989d5a94e0a",
+              "canonicalName": "おしゃべりキング！",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-a95417cb508f",
+              "canonicalName": "おすそわけるメイドインワリオ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-7bbb68b436e8",
+              "canonicalName": "ガールズコントラクト",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-b11fb542316c",
+              "canonicalName": "ギャルゲー",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-f884c36b4b9b",
+              "canonicalName": "ごく普通の鹿のゲーム DEEEER Simulator",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-7c028d806b16",
+              "canonicalName": "こちら、母なる星より",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-f20aeb2bf5c1",
+              "canonicalName": "ことばのパズル　もじぴったんアンコール",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-912abd1d30f6",
+              "canonicalName": "サチ江-死道-",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-bf91b3d4c4f4",
+              "canonicalName": "じごくのインターネッツ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-39d0e5b607df",
+              "canonicalName": "じんるいのみなさまへ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-6e7f328d9936",
+              "canonicalName": "スイカゲーム",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-6f49059e303b",
+              "canonicalName": "スーパーボンバーマンRオンライン",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-3862e49e02c6",
+              "canonicalName": "スーパーマリオパーティ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-4856b0183444",
+              "canonicalName": "スーパー野田ゲーWORLD",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-1c1498727840",
+              "canonicalName": "ストレッチャーズ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-fdbee30f2eef",
+              "canonicalName": "スプラトゥーン2",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-688027024e3d",
+              "canonicalName": "スプラトゥーン3",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-8085bceb232a",
+              "canonicalName": "せどまいり",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-96c0a0b3fc4a",
+              "canonicalName": "ダレカレ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-584c48672609",
+              "canonicalName": "チックタック：二人のための物語",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-ce78b1de6509",
+              "canonicalName": "チョコボGP",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-774e093de019",
+              "canonicalName": "つぐのひ -忌み夜の喰霊品店-",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-df0d57cd9b0e",
+              "canonicalName": "つぐのひ -昭和からの呼び声-",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-1ef2c2a2da10",
+              "canonicalName": "つぐのひ -彁名縛りの部屋-",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-75c10a27113e",
+              "canonicalName": "トゥーム レイダー",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-5d9d297b817e",
+              "canonicalName": "にじARK",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-83810d05f234",
+              "canonicalName": "にじテトグランプリ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-82907b475ab9",
+              "canonicalName": "にじニケリターンズ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-b8d484a2b65b",
+              "canonicalName": "にじワイテ人狼RPG",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-b787b77b7011",
+              "canonicalName": "バイオハザード",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-df0520fcdac4",
+              "canonicalName": "バイオハザード RE:2",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-34abec779d96",
+              "canonicalName": "バイオハザード RE:3",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-6d46f8a766df",
+              "canonicalName": "バイオハザード RE:4",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-5707278519bc",
+              "canonicalName": "バイオハザード0",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-6aff515a527a",
+              "canonicalName": "バイオハザード6",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-e06c5cd34c2c",
+              "canonicalName": "バイオハザード7",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-d44383c30079",
+              "canonicalName": "バイオハザード7：Banned Footage Vol.1＆Vol.2",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-ae6e64f4e7e7",
+              "canonicalName": "バイオハザード7：End of Zoe",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-7654f0cb72c2",
+              "canonicalName": "バイオハザード7：Not A Hero",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-b4a345b7de8e",
+              "canonicalName": "バイオハザード8 ヴィレッジ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-e3cf9bf3e479",
+              "canonicalName": "バイオハザード8：Shadows of Rose",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-972a8b1f2d21",
+              "canonicalName": "バイオハザードリベレーションズ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-1527a995a0e8",
+              "canonicalName": "バイオハザードリベレーションズ2",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-2d901659df60",
+              "canonicalName": "ハツリバーブ-HAZE REVERB-",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-7aa2b8e65200",
+              "canonicalName": "パラノマサイト FILE38 伊勢人魚物語",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-a8c98a8bf723",
+              "canonicalName": "ピクミン3",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-fbb8d63a7723",
+              "canonicalName": "ピクミン4",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-9ee3a9603559",
+              "canonicalName": "ファッションドリーマー",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-f82c9f041937",
+              "canonicalName": "フードデリバリーサービス",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-e877f98df2f2",
+              "canonicalName": "ぷよぷよテトリス2",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-c01d44a61c89",
+              "canonicalName": "ブルーアーカイブ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-f0f2d2ce829c",
+              "canonicalName": "ブレッドとフレッド",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-87288fa3b906",
+              "canonicalName": "ポーカーチェイス-Poker Chase-",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-8636dd90c2ca",
+              "canonicalName": "ボク姫PROJECT",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-6c57f52fe2b4",
+              "canonicalName": "ポケットモンスター スカーレット・バイオレット",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-f54fa2688956",
+              "canonicalName": "ポケットモンスター ソード・シールド",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-350d3afce98e",
+              "canonicalName": "ポケモンユナイト",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-ee18988fa907",
+              "canonicalName": "ママにゲーム隠された1,2",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-300f40e5e0db",
+              "canonicalName": "マリオカート8 デラックス",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-65defbe31894",
+              "canonicalName": "マリオパーティ スーパースターズ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-4e0bb95d05c7",
+              "canonicalName": "マリカにじさんじ最弱王決定戦",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-8e5081928b7d",
+              "canonicalName": "みんなで空気読み。",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-a04ead31eae6",
+              "canonicalName": "みんなで空気読み。２",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-9f20ad0e5f1e",
+              "canonicalName": "やわらかあたま塾",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-f6d016d8546f",
+              "canonicalName": "ラジオを止めろ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-14e9d02a36af",
+              "canonicalName": "リップ・トリップ～編集長（ボス）はわたしの解熱剤～",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-01da1a2e8541",
+              "canonicalName": "リングフィット アドベンチャー",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-eea6b0e21631",
+              "canonicalName": "ロードモバイル",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-1674a7d514fe",
+              "canonicalName": "ロリアモアス",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-ea18b3c09633",
+              "canonicalName": "ワガママハイスペック",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-91041fb36d20",
+              "canonicalName": "暗示",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-6df257c755e8",
+              "canonicalName": "違う冬のぼくら(BOKURA)",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-7d82038b2fe8",
+              "canonicalName": "影廊 -Shadow Corridor-",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-2de112df4359",
+              "canonicalName": "花子さん",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-59c16c76134e",
+              "canonicalName": "塊魂",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-bad7ac652f80",
+              "canonicalName": "塊魂アンコール",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-b77809b72dde",
+              "canonicalName": "塊魂アンコール＋王様プチメモリー",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-1c8d375ac9b5",
+              "canonicalName": "漢字でGO!",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-7f387aa24e60",
+              "canonicalName": "看病がかり",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-a9173ed56522",
+              "canonicalName": "偽夢",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-bc8d3eab75d7",
+              "canonicalName": "銀河英雄伝説 戦いの輪舞曲",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-b7295c2ba652",
+              "canonicalName": "公式切り抜き",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-275fcafb3955",
+              "canonicalName": "公衆電話",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-c7335574d85c",
+              "canonicalName": "行方不明",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-7c50dbd99157",
+              "canonicalName": "最恐 -青鬼- Absolute Fear -AOONI-",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-e7a1ba8ce2a2",
+              "canonicalName": "死刑囚の既読",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-b2d20673041d",
+              "canonicalName": "自撮-Jisatsu-",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-731b67d33710",
+              "canonicalName": "呪われたデジカメ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-c8a7fbde112b",
+              "canonicalName": "寿司打",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-78e7d3114bba",
+              "canonicalName": "終焉介護",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-f4048f224918",
+              "canonicalName": "勝利の女神：NIKKE",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-6e95c0d25f92",
+              "canonicalName": "心霊物件",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-4b0450cf1d84",
+              "canonicalName": "新幹線0号",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-c87d91197009",
+              "canonicalName": "深夜廻",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-42095e08025e",
+              "canonicalName": "真砂楼",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-7928cc9548bc",
+              "canonicalName": "推しのラブより恋のラブ",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-ffd8ee56185b",
+              "canonicalName": "雀魂 -じゃんたま-",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-7533c687b358",
+              "canonicalName": "雀魂-じゃんたま-",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-67a3943af230",
+              "canonicalName": "世界のアソビ大全51",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-70e76ca01acb",
+              "canonicalName": "星のカービィ ディスカバリー",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-221bc85e4a0d",
+              "canonicalName": "青鬼",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-03440c8e7d81",
+              "canonicalName": "太鼓の達人",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-d6130127c781",
+              "canonicalName": "大乱闘スマッシュブラザーズ SPECIAL",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-fe020a2f4d1e",
+              "canonicalName": "都市伝説解体センター",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-7de4793e61b9",
+              "canonicalName": "桃太郎電鉄",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-377330c94fbe",
+              "canonicalName": "動作不良 - System Malfunction -",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-7850d212d2b4",
+              "canonicalName": "白衣性恋愛症候群RE:Therapy",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-3243ae517902",
+              "canonicalName": "白羽つきみ 消えたVtuberを知ってください",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-c45f1a817134",
+              "canonicalName": "番外編",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-626ea6c607c5",
+              "canonicalName": "秘密のキスは甘くやさしく",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-fedba8183325",
+              "canonicalName": "閉店事件",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-edada2d2723c",
+              "canonicalName": "崩壊：スターレイル",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-78cb85f0f441",
+              "canonicalName": "崩壊3rd",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-853c914659e4",
+              "canonicalName": "僕、アルバイトォォ！！",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-8ebdef6fba7e",
+              "canonicalName": "魔界戦記ディスガイア７",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-7cf7f50f8bb0",
+              "canonicalName": "麻雀",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-34ad69f3308d",
+              "canonicalName": "無期迷途",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-5c956e3da3a4",
+              "canonicalName": "迷宮校舎",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-95529254b2b9",
+              "canonicalName": "夜、灯す",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-07dae4de2ec0",
+              "canonicalName": "夜廻",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-d090a68c211e",
+              "canonicalName": "夜廻三",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-45653b1de6a0",
+              "canonicalName": "夜間警備",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-c6a61e11463e",
+              "canonicalName": "幽霊列車",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-580be5d8fc56",
+              "canonicalName": "誘拐事件",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-2f04dcbd8559",
+              "canonicalName": "夕鬼",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-2541a0f03017",
+              "canonicalName": "夕鬼 零 -Yuoni: ゼロ-",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameTitle-d30f08a49d52",
+              "canonicalName": "恋愛ゲーム",
+              "active": true,
+              "inclusionCriteria": "ゲーム作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "gameSeries",
+          "name": "ゲームシリーズ名",
+          "order": 2,
+          "cardinality": "0..n",
+          "valueRule": "シリーズを横断して探す需要があり、同一シリーズが2作品以上ある場合に付ける",
+          "extensible": true,
+          "tags": [
+            {
+              "tagId": "tag-works-gameSeries-c71b0b73767b",
+              "canonicalName": "スプラトゥーン",
+              "active": true,
+              "inclusionCriteria": "ゲームシリーズ名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameSeries-4202d561449c",
+              "canonicalName": "バイオハザード",
+              "active": true,
+              "inclusionCriteria": "ゲームシリーズ名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-gameSeries-4152eaae5317",
+              "canonicalName": "ポケモン",
+              "active": true,
+              "inclusionCriteria": "ゲームシリーズ名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "watchedTitle",
+          "name": "同時視聴作品名",
+          "order": 3,
+          "cardinality": "0..n",
+          "valueRule": "映画・アニメ・ライブ等の公式作品名。話数はタグに含めない",
+          "extensible": true,
+          "tags": [
+            {
+              "tagId": "tag-works-watchedTitle-ed78a301dd0b",
+              "canonicalName": "#フルトイ",
+              "active": true,
+              "inclusionCriteria": "同時視聴作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-watchedTitle-d4bcb24990a7",
+              "canonicalName": "アサルトリリィ Last Bullet",
+              "active": true,
+              "inclusionCriteria": "同時視聴作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-watchedTitle-8714f74c36b6",
+              "canonicalName": "ウマ娘 プリティーダービー",
+              "active": true,
+              "inclusionCriteria": "同時視聴作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-watchedTitle-25754df80ca0",
+              "canonicalName": "スプラトゥーン2",
+              "active": true,
+              "inclusionCriteria": "同時視聴作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-watchedTitle-d2641adea798",
+              "canonicalName": "ホーム・アローン",
+              "active": true,
+              "inclusionCriteria": "同時視聴作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-watchedTitle-e9d10e0e9b37",
+              "canonicalName": "ホーム・アローン2",
+              "active": true,
+              "inclusionCriteria": "同時視聴作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-watchedTitle-517ac5f4ec03",
+              "canonicalName": "箪笥",
+              "active": true,
+              "inclusionCriteria": "同時視聴作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-watchedTitle-a78173139c27",
+              "canonicalName": "超かぐや姫！",
+              "active": true,
+              "inclusionCriteria": "同時視聴作品名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "trpgTitle",
+          "name": "TRPGシステム・シナリオ名",
+          "order": 4,
+          "cardinality": "0..2",
+          "valueRule": "システム名とシナリオ名を別タグとして保持する",
+          "extensible": true,
+          "tags": [
+            {
+              "tagId": "tag-works-trpgTitle-b958f1d61013",
+              "canonicalName": "#にじワイテ",
+              "active": true,
+              "inclusionCriteria": "TRPGシステム・シナリオ名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-trpgTitle-b3d2716e96b2",
+              "canonicalName": "#にじワイテ人狼RPG",
+              "active": true,
+              "inclusionCriteria": "TRPGシステム・シナリオ名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-trpgTitle-94771b9f706d",
+              "canonicalName": "エモクロアTRPG",
+              "active": true,
+              "inclusionCriteria": "TRPGシステム・シナリオ名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-trpgTitle-888a1b94debf",
+              "canonicalName": "エモクロアTRPGシナリオ アンデッド・デット・デビルズ",
+              "active": true,
+              "inclusionCriteria": "TRPGシステム・シナリオ名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-trpgTitle-3d3533795662",
+              "canonicalName": "カタシロ",
+              "active": true,
+              "inclusionCriteria": "TRPGシステム・シナリオ名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-trpgTitle-feda84efa4eb",
+              "canonicalName": "魔法使いの愛した子",
+              "active": true,
+              "inclusionCriteria": "TRPGシステム・シナリオ名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "songTitle",
+          "name": "楽曲名",
+          "order": 5,
+          "cardinality": "0..n",
+          "valueRule": "単曲動画または検索価値の高い代表曲だけ。通常の歌枠の全セットリストには付けない",
+          "extensible": true,
+          "tags": [
+            {
+              "tagId": "tag-works-songTitle-1422e26c9150",
+              "canonicalName": "IRIS OUT",
+              "active": true,
+              "inclusionCriteria": "楽曲名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-songTitle-afb266cbd64f",
+              "canonicalName": "にぎにじダンス",
+              "active": true,
+              "inclusionCriteria": "楽曲名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-works-songTitle-bdef921ce876",
+              "canonicalName": "輝夜の城で踊りたい",
+              "active": true,
+              "inclusionCriteria": "楽曲名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "categoryId": "people",
+      "name": "人物・グループ",
+      "order": 3,
+      "subcategories": [
+        {
+          "subcategoryId": "channel",
+          "name": "公開チャンネル",
+          "order": 1,
+          "cardinality": "1",
+          "source": "metadata.channel_title",
+          "valueRule": "YouTubeチャンネル名をメタデータから保持し、手入力しない",
+          "extensible": true,
+          "tags": [
+            {
+              "tagId": "tag-people-channel-0891569a7a45",
+              "canonicalName": " 宗谷いちか / Ichika Channel【ななしいんく】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-0ca82b30d4df",
+              "canonicalName": "Choco Ch. 癒月ちょこ",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-96f685c3cd73",
+              "canonicalName": "Kanae Channel",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-4f85d29bc207",
+              "canonicalName": "Kazaki Ch. ‐ 森中花咲 ‐",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-656dce996720",
+              "canonicalName": "Matsuri Channel 夏色まつり",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-8f1882ba2760",
+              "canonicalName": "Roboco Ch. - ロボ子",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-8a48172a1b54",
+              "canonicalName": "Shien Ch.影山シエン",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-5c93c5985121",
+              "canonicalName": "Suisei Channel",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-9315b17de32c",
+              "canonicalName": "Tamaki Ch. 犬山たまき / 佃煮のりお",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-8aa4ac312c16",
+              "canonicalName": "Yuhi Riri Official",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-fb74058dcff3",
+              "canonicalName": "あおぎり高校 - Aogiri Vtuber High School",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-e7f900f48e7f",
+              "canonicalName": "エクス・アルビオ -Ex Albio-",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-5a3152797231",
+              "canonicalName": "えま★おうがすと / Emma★August【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-da3380d34860",
+              "canonicalName": "エリー・コニファー / Eli Conifer【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-4c30f3e57934",
+              "canonicalName": "える / Elu【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-e8914888bf35",
+              "canonicalName": "オリバー・エバンス / Oliver Evans 【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-7aa1717d3587",
+              "canonicalName": "グウェル・オス・ガール / Gwelu Os Gar 【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-ae7834bf4908",
+              "canonicalName": "こまるCh. - Komaru Kurikoma -/あおぎり高校",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-add94c5a159c",
+              "canonicalName": "シェリン・バーガンディ -Shellin Burgundy- 【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-b4a761859187",
+              "canonicalName": "シスター・クレア -SisterClaire-",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-79d6c0de8e30",
+              "canonicalName": "ジョー・力一 Joe Rikiichi",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-50248bdaaf42",
+              "canonicalName": "ソフィア・ヴァレンタイン / Sophia Valentine【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-113289a13c00",
+              "canonicalName": "たみーCh / 民安ともえ",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-3d0e5d30ff85",
+              "canonicalName": "ディズム",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-ad41013d9d7e",
+              "canonicalName": "でびでび・でびる",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-bf6ea22c6db9",
+              "canonicalName": "にじさんじ",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-fa67bf3ca86b",
+              "canonicalName": "ニュイ・ソシエール //[Nui Sociere]",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-81b44bf81b23",
+              "canonicalName": "バーチャル債務者youtuber天開司",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-2ce43a2a7504",
+              "canonicalName": "フミ/にじさんじ",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-60ac48d85d80",
+              "canonicalName": "フレン・E・ルスタリオ",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-02984e753915",
+              "canonicalName": "ベルモンド・バンデラス",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-8b7e4f302ccd",
+              "canonicalName": "ましろ",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-7f48ce0de9e0",
+              "canonicalName": "リゼ・ヘルエスタ -Lize Helesta-",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-ccc360e015c5",
+              "canonicalName": "ルイス・キャミー",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-21fd10887706",
+              "canonicalName": "レイン・パターソン／Lain Paterson【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-d0e07fabc1db",
+              "canonicalName": "レヴィ・エリファ-Levi Elipha-",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-a3e249dbe9bc",
+              "canonicalName": "レオス・ヴィンセント / Leos.Vincent【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-07a5776c6698",
+              "canonicalName": "ローレン・イロアス / Lauren Iroas【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-272cc057a996",
+              "canonicalName": "愛園 愛美/Aizono Manami",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-3cb4624b074d",
+              "canonicalName": "安土桃",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-8e3d261a69da",
+              "canonicalName": "一橋綾人 / Hitotsubashi Ayato【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-1b483744616e",
+              "canonicalName": "稲荷いろはInari Iroha",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-6206fc13c93f",
+              "canonicalName": "因幡はねる / Haneru Channel【ななしいんく】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-04b0178b5ae2",
+              "canonicalName": "宇志海いちご",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-ada71f8c837c",
+              "canonicalName": "雲母たまこ / Kirara Tamako【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-9239ec9a9842",
+              "canonicalName": "花京院ちえり / Kakyoin Chieri",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-3fbb52fb2de8",
+              "canonicalName": "海妹四葉 / Umise Yotsuha 【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-9abe8dfacc67",
+              "canonicalName": "鬼灯わらべHoozuki Warabe【卒業】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-4b763faa7325",
+              "canonicalName": "月ノ美兎",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-7cc7affe2c5e",
+              "canonicalName": "健屋花那【にじさんじ】KanaSukoya",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-19b7aafd3b39",
+              "canonicalName": "剣持刀也",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-5424480b2242",
+              "canonicalName": "弦月 藤士郎 / Genzuki Tojiro【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-90855fb875a3",
+              "canonicalName": "五十嵐梨花 / Igarashi Rika 【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-32ac959abf16",
+              "canonicalName": "甲斐田 晴 / Kaida Haru【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-45aa4585fb3f",
+              "canonicalName": "笹木咲 / Sasaki Saku",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-d168c7cc51db",
+              "canonicalName": "三枝明那 / Saegusa Akina",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-a64c719ae517",
+              "canonicalName": "山神 カルタ / Karuta Yamagami",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-03668b12c34b",
+              "canonicalName": "四季凪アキラ / Shikinagi Akira",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-1f5a9519f0f4",
+              "canonicalName": "獅子堂 あかり / Shishido Akari【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-261946661828",
+              "canonicalName": "七瀬 すず菜 / Nanase Suzuna【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-4b08c7701aa5",
+              "canonicalName": "社築",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-940bec0b3033",
+              "canonicalName": "神田笑一 / Kanda Shoichi【 にじさんじ 】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-eb7ca5dc8822",
+              "canonicalName": "人生 つみこ (ホラーゲーム専門Vtuber)",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-d82451995a89",
+              "canonicalName": "成瀬 鳴 / Naruse Naru【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-5d730171e19a",
+              "canonicalName": "星川サラ / Sara Hoshikawa",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-40802e867f1a",
+              "canonicalName": "聖女れりあ / Hijirime_Laeria",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-29424032d7e7",
+              "canonicalName": "西園チグサ / Nishizono Chigusa",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-a5f030fee12b",
+              "canonicalName": "西園寺メアリ / Mary Channel【ななしいんく】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-0a5aab6ba8a6",
+              "canonicalName": "雪城眞尋/Yukishiro Mahiro【にじさんじ所属】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-2b1227a97900",
+              "canonicalName": "叢雲カゲツ / Murakumo Kagetsu【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-a6f970513af5",
+              "canonicalName": "早乙女 ベリー / Saotome Berry【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-9718fabc4aa6",
+              "canonicalName": "早瀬 走 / Hayase Sou【にじさんじ所属】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-1c1ebb3fe580",
+              "canonicalName": "相羽ういは〖Aiba Uiha〗にじさんじ所属",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-8740628bb5d1",
+              "canonicalName": "黛 灰 / Kai Mayuzumi【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-1020ceb31b4c",
+              "canonicalName": "長尾 景 / Nagao Kei【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-84200ae571aa",
+              "canonicalName": "椎名唯華 / Shiina Yuika",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-cfb8ba032bc3",
+              "canonicalName": "鏑木ろこ / Kaburaki Roco【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-15587ca2b142",
+              "canonicalName": "天宮 こころ / Amamya Ch.",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-b94dd5ab54af",
+              "canonicalName": "奈羅花 - Naraka -",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-5a0023d79c52",
+              "canonicalName": "猫瀬乃しんNekozeno Shin",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-e0fc18a727d8",
+              "canonicalName": "白雪 巴/Shirayuki Tomoe",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-35e7a6408355",
+              "canonicalName": "白雪みしろShirayuki Mishiro",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-168c473f9057",
+              "canonicalName": "樋口楓【にじさんじ所属】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-c6f82758f470",
+              "canonicalName": "姫咲ゆずる / Himesaki Yuzuru",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-e8937fb1ae4e",
+              "canonicalName": "不破 湊 / Fuwa Minato【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-36b1b76d5486",
+              "canonicalName": "風見くく /  Kuku Channel 【ななしいんく】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-44d0caa3845c",
+              "canonicalName": "伏見ガク【にじさんじ所属】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-eb3340521618",
+              "canonicalName": "文野環【にじさんじの野良猫】ふみのたまき",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-91af38c2789c",
+              "canonicalName": "北小路ヒスイ / Kitakoji Hisui 【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-e34deba93bce",
+              "canonicalName": "本間ひまわり - Himawari Honma -",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-6829ef1953a3",
+              "canonicalName": "魔界ノりりむ",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-a5c54a1cad7f",
+              "canonicalName": "魔使マオ -matsukai mao-",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-21bb1935af53",
+              "canonicalName": "夢追翔のJUKE BOX",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-6bb287685f67",
+              "canonicalName": "夜見れな/yorumi rena【にじさんじ所属】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-4bf056ca723d",
+              "canonicalName": "柚原いづみ / Izumi Channel 【ななしいんく】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-a782d9cc8bec",
+              "canonicalName": "来栖 夏芽-kurusu natsume-【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-daaae97c6f26",
+              "canonicalName": "竜胆 尊 / Rindou Mikoto",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-c3a581638fed",
+              "canonicalName": "緑仙 / Ryushen",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-fee12ff057c7",
+              "canonicalName": "鈴木勝 / Suzuki Masaru【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-cdfaac710e9c",
+              "canonicalName": "栞葉るり / Shioriha Ruri【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-37b3bec1cd6e",
+              "canonicalName": "綺沙良 / Kisara【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-channel-aa46d7ad10e6",
+              "canonicalName": "蝸堂みかる / Kadou Mikaru【にじさんじ】",
+              "active": true,
+              "inclusionCriteria": "公開チャンネルとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "performer",
+          "name": "出演者",
+          "order": 2,
+          "cardinality": "0..n",
+          "requiredWhen": "チャンネル主以外の出演者がいる",
+          "valueRule": "実際に出演・通話参加した人物だけ。チャンネル主、言及のみの人物、クレジット制作者は含めない",
+          "extensible": true,
+          "tags": [
+            {
+              "tagId": "tag-people-performer-a7e976de3a7f",
+              "canonicalName": "Kotoka Torahime",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-5d3cc9d97a40",
+              "canonicalName": "エクス・アルビオ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-b2d66d295542",
+              "canonicalName": "えま★おうがすと",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-069e7901a09f",
+              "canonicalName": "エリー・コニファー",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-584f6b5f5e50",
+              "canonicalName": "える",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-f345990d95ee",
+              "canonicalName": "オリバー・エバンス",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-628c281ac2b2",
+              "canonicalName": "グウェル・オス・ガール",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-0207878fda2c",
+              "canonicalName": "シェリン・バーガンディ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-645d829c903b",
+              "canonicalName": "ニュイ・ソシエール",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-76685a0cf91c",
+              "canonicalName": "ぱぱびっぷ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-b0469a7d02e8",
+              "canonicalName": "フミ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-ddcd28e5c2b8",
+              "canonicalName": "フレン・E・ルスタリオ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-540180f79a49",
+              "canonicalName": "ベルモンド・バンデラス",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-052450927d44",
+              "canonicalName": "まにお先生",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-9b7bb3c1a969",
+              "canonicalName": "ミラン・ケストレル",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-fb8a8fee57cb",
+              "canonicalName": "モイラ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-f00ad185b550",
+              "canonicalName": "ゆあま先生",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-b1f239b005c7",
+              "canonicalName": "ルイス・キャミー",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-d713eb6bf949",
+              "canonicalName": "レヴィ・エリファ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-8d29f55cba38",
+              "canonicalName": "ロボ子さん",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-c6b8ade39e95",
+              "canonicalName": "愛園愛美",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-c181b03441ef",
+              "canonicalName": "影山シエン",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-474a7dae5855",
+              "canonicalName": "花畑チャイカ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-a59ba9a795f8",
+              "canonicalName": "樫風先生",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-a5908d49ae14",
+              "canonicalName": "葛葉",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-ae5fcfb1bfdc",
+              "canonicalName": "月ノ美兎",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-0d5a94165597",
+              "canonicalName": "健屋花那",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-4696822c8855",
+              "canonicalName": "甲斐田晴",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-ff73184f923e",
+              "canonicalName": "四季凪アキラ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-b3a697b2d354",
+              "canonicalName": "七瀬すず菜",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-5ae24f2f030c",
+              "canonicalName": "周央サンゴ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-d46d0d9c38f3",
+              "canonicalName": "宗谷いちか",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-7bc053e314a8",
+              "canonicalName": "神田笑一",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-4cc05c74e89c",
+              "canonicalName": "西園寺メアリ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-cd70f74ae508",
+              "canonicalName": "相羽ういは",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-abc9dbad5e96",
+              "canonicalName": "黛灰",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-8193cb5bc594",
+              "canonicalName": "椎名唯華",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-482d2ce7d54a",
+              "canonicalName": "天宮こころ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-0959d22cd9c9",
+              "canonicalName": "猫瀬乃しん",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-6a98384c4ce5",
+              "canonicalName": "白雪みしろ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-1c769eb2f6a6",
+              "canonicalName": "白雪巴",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-9bffa950df44",
+              "canonicalName": "姫咲ゆずる",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-3c46214bce41",
+              "canonicalName": "不破湊",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-0b93a4dd3fbf",
+              "canonicalName": "舞元啓介",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-7dff9d09de99",
+              "canonicalName": "伏見ガク",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-62b4233dc752",
+              "canonicalName": "文野環",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-4ae4f4527489",
+              "canonicalName": "夜見れな",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-66421c08fb15",
+              "canonicalName": "癒月ちょこ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-e877def1ca57",
+              "canonicalName": "夕陽リリ",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-f1576533a080",
+              "canonicalName": "来栖夏芽",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-c57eeb79e4c5",
+              "canonicalName": "竜胆尊",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-df844103ce1a",
+              "canonicalName": "緑仙",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-328275186806",
+              "canonicalName": "綺沙良",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-ac1b4b510dc9",
+              "canonicalName": "蝸堂みかる",
+              "active": true,
+              "inclusionCriteria": "出演者として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "unit",
+          "name": "ユニット・チーム",
+          "order": 3,
+          "cardinality": "0..n",
+          "requiredWhen": "group_aliases_v2.jsonにあるグループとして活動している",
+          "valueRule": "group_aliases_v2.jsonの正規名を使う。旧名・別名・ハッシュタグは検索別名として統合し、先頭の#は付けない",
+          "extensible": true,
+          "tags": [
+            {
+              "tagId": "tag-people-unit-01148a0ec454",
+              "canonicalName": "Crossick",
+              "active": true,
+              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-unit-17a77babcac5",
+              "canonicalName": "W白雪コラボ",
+              "active": true,
+              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-unit-5e1fb31fdec9",
+              "canonicalName": "スノーベル",
+              "active": true,
+              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-unit-0afa15239a0a",
+              "canonicalName": "セクスィー色に染まらなイカ？",
+              "active": true,
+              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-unit-70e59966e56e",
+              "canonicalName": "フミとも",
+              "active": true,
+              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-unit-9b39bdef3a33",
+              "canonicalName": "らぶスノ",
+              "active": true,
+              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-unit-d5b1de96b450",
+              "canonicalName": "女王と会長",
+              "active": true,
+              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-unit-56355048805b",
+              "canonicalName": "八月の雪",
+              "active": true,
+              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-unit-31175672222e",
+              "canonicalName": "夜王国",
+              "active": true,
+              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "categoryId": "program",
+      "name": "企画・シリーズ",
+      "order": 4,
+      "subcategories": [
+        {
+          "subcategoryId": "recurringSeries",
+          "name": "定期・連続企画名",
+          "order": 1,
+          "cardinality": "0..n",
+          "extensible": true,
+          "tags": [
+            {
+              "tagId": "tag-program-recurringSeries-45a573f8f035",
+              "canonicalName": "IF雪メイキング",
+              "active": true,
+              "inclusionCriteria": "定期・連続企画名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-recurringSeries-4eb7f61b38ea",
+              "canonicalName": "いっ杯晩酌",
+              "active": true,
+              "inclusionCriteria": "定期・連続企画名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-recurringSeries-cad9e4ccd609",
+              "canonicalName": "ガチレポ！",
+              "active": true,
+              "inclusionCriteria": "定期・連続企画名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-recurringSeries-aa969170e5da",
+              "canonicalName": "バーチャル3分劇場",
+              "active": true,
+              "inclusionCriteria": "定期・連続企画名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-recurringSeries-71ce198a2808",
+              "canonicalName": "リアル百合エピソード",
+              "active": true,
+              "inclusionCriteria": "定期・連続企画名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-recurringSeries-5d282cc1bde4",
+              "canonicalName": "百合漫画家様対談コラボ",
+              "active": true,
+              "inclusionCriteria": "定期・連続企画名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "event",
+          "name": "イベント・大会名",
+          "order": 2,
+          "cardinality": "0..n",
+          "valueRule": "公式名称を使い、年ごとに内容が分かれるイベントは西暦4桁を末尾に付ける。先頭の#は付けない",
+          "extensible": true,
+          "tags": [
+            {
+              "tagId": "tag-program-event-e6883b382ff4",
+              "canonicalName": "APEX部2434キルリレー",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-763e0c668987",
+              "canonicalName": "いっ杯晩酌",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-e9d0d192a85d",
+              "canonicalName": "おえもりにじさんじ杯",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-181442cbb2bd",
+              "canonicalName": "にじイカ祭り2025",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-c727fb36f39c",
+              "canonicalName": "にじさんじ 4th Anniversary「FANTASIA」DAY1",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-cbb57d04bee2",
+              "canonicalName": "にじさんじ6周年",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-e9f439165789",
+              "canonicalName": "にじさんじDBD大会",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-48a754515935",
+              "canonicalName": "にじさんじアイラブ歌リレー",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-6e814bd1d6fe",
+              "canonicalName": "にじさんじスプラ杯",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-c1d7842c112e",
+              "canonicalName": "にじさんじスマブラ杯",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-4501145c5c22",
+              "canonicalName": "にじさんじポケユナ大会",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-121b9ab1fe4e",
+              "canonicalName": "にじさんじ歌リレー",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-853735d3a2ec",
+              "canonicalName": "にじさんじ麻雀杯",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-850215d3f479",
+              "canonicalName": "にじさんじ麻雀杯2025",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-7978e9063aa7",
+              "canonicalName": "にじさんじ麻雀杯2026",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-0a087cea8f4d",
+              "canonicalName": "にじさんじ壺カップ",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-25c7bab3dac7",
+              "canonicalName": "にじスプラ祭り",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-98107d7e011f",
+              "canonicalName": "にじスプラ大会",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-d354f0d00c65",
+              "canonicalName": "にじフェス2022",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-e1a501000641",
+              "canonicalName": "にじフェス2023",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-1dddd9722e25",
+              "canonicalName": "にじ鯖夏祭り",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-5e93b3ca8315",
+              "canonicalName": "ファンミーティング",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-f49cab45081f",
+              "canonicalName": "フェス",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-05936cb5f641",
+              "canonicalName": "フルトイ企画3Dカラオケ選手権",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-cc199ba5e703",
+              "canonicalName": "ふるとな3D運動会",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-4e013de1f94b",
+              "canonicalName": "マリカにじさんじ杯",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-35043881d039",
+              "canonicalName": "レバガチャスマブラ運動会",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-ea47ec2d34fe",
+              "canonicalName": "歌リレー",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-727f073ab3ab",
+              "canonicalName": "祭り",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-be236d3812e8",
+              "canonicalName": "周年記念",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-08c3ea003283",
+              "canonicalName": "大会",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-7deca1156702",
+              "canonicalName": "誕生祭",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-b372d6532f03",
+              "canonicalName": "白雪巴2周年",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-747c6ff2ecae",
+              "canonicalName": "白雪巴4周年",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-6c32d7276451",
+              "canonicalName": "白雪巴5周年",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-16477f34662d",
+              "canonicalName": "白雪巴ファンミーティング",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-bd9be20254d0",
+              "canonicalName": "白雪巴誕生祭",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-c20649aaa08c",
+              "canonicalName": "白雪巴誕生日2026",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-program-event-98482b1227ea",
+              "canonicalName": "和風歌50曲耐久3Dコラボ",
+              "active": true,
+              "inclusionCriteria": "イベント・大会名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "categoryId": "context",
+      "name": "配信特性",
+      "order": 5,
+      "subcategories": [
+        {
+          "subcategoryId": "participation",
+          "name": "参加形態",
+          "order": 1,
+          "cardinality": "0..3",
+          "requiredValues": {
+            "コラボ": "チャンネル主以外の出演者と共同で内容を行っている場合"
+          },
+          "extensible": false,
+          "tags": [
+            {
+              "tagId": "tag-context-participation-146c997ef71c",
+              "canonicalName": "オフコラボ",
+              "active": true,
+              "inclusionCriteria": "参加形態として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-participation-a4911ea059bb",
+              "canonicalName": "コラボ",
+              "active": true,
+              "inclusionCriteria": "参加形態として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-participation-6cfc03593618",
+              "canonicalName": "視聴者参加型",
+              "active": true,
+              "inclusionCriteria": "参加形態として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "occasion",
+          "name": "記念・お披露目",
+          "order": 2,
+          "cardinality": "0..2",
+          "extensible": false,
+          "tags": [
+            {
+              "tagId": "tag-context-occasion-54a88d4138cf",
+              "canonicalName": "3Dお披露目",
+              "active": true,
+              "inclusionCriteria": "記念・お披露目として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-occasion-937b0b165b9c",
+              "canonicalName": "デビュー",
+              "active": true,
+              "inclusionCriteria": "記念・お披露目として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-occasion-a1593b617b1d",
+              "canonicalName": "周年記念",
+              "active": true,
+              "inclusionCriteria": "記念・お披露目として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-occasion-2c2388f2000e",
+              "canonicalName": "新衣装お披露目",
+              "active": true,
+              "inclusionCriteria": "記念・お披露目として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-occasion-0c807041f530",
+              "canonicalName": "誕生日記念",
+              "active": true,
+              "inclusionCriteria": "記念・お披露目として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-occasion-b524e9e02f1b",
+              "canonicalName": "登録者数記念",
+              "active": true,
+              "inclusionCriteria": "記念・お披露目として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "feature",
+          "name": "進行・企画特性",
+          "order": 3,
+          "cardinality": "0..3",
+          "extensible": false,
+          "tags": [
+            {
+              "tagId": "tag-context-feature-eb18048aa7fd",
+              "canonicalName": "ゲリラ",
+              "active": true,
+              "inclusionCriteria": "進行・企画特性として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-feature-d4f76aec0d7a",
+              "canonicalName": "逆凸",
+              "active": true,
+              "inclusionCriteria": "進行・企画特性として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-feature-c2bc264d3d9a",
+              "canonicalName": "検証・チャレンジ",
+              "active": true,
+              "inclusionCriteria": "進行・企画特性として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-feature-721db69c48bf",
+              "canonicalName": "初見",
+              "active": true,
+              "inclusionCriteria": "進行・企画特性として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-feature-aee386a782a1",
+              "canonicalName": "耐久",
+              "active": true,
+              "inclusionCriteria": "進行・企画特性として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-feature-500a8919343a",
+              "canonicalName": "大会",
+              "active": true,
+              "inclusionCriteria": "進行・企画特性として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-feature-22cf1eb5df88",
+              "canonicalName": "単発",
+              "active": true,
+              "inclusionCriteria": "進行・企画特性として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "theme",
+          "name": "中心テーマ",
+          "order": 4,
+          "cardinality": "0..3",
+          "extensible": true,
+          "tags": [
+            {
+              "tagId": "tag-context-theme-49f68ab6a996",
+              "canonicalName": "ホラー",
+              "active": true,
+              "inclusionCriteria": "中心テーマとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-theme-1011e29f272d",
+              "canonicalName": "飲酒",
+              "active": true,
+              "inclusionCriteria": "中心テーマとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-theme-9a8ebb022842",
+              "canonicalName": "罵倒・SM",
+              "active": true,
+              "inclusionCriteria": "中心テーマとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-theme-ae8c2b2f1d2b",
+              "canonicalName": "百合",
+              "active": true,
+              "inclusionCriteria": "中心テーマとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-context-theme-004bdbed4131",
+              "canonicalName": "恋愛",
+              "active": true,
+              "inclusionCriteria": "中心テーマとして公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "warning",
+          "name": "注意情報",
+          "order": 5,
+          "cardinality": "0..n",
+          "extensible": false,
+          "tags": [
+            {
+              "tagId": "tag-context-warning-90e9f242fb9e",
+              "canonicalName": "ネタバレあり",
+              "active": true,
+              "inclusionCriteria": "注意情報として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "submissionSource",
+          "name": "投稿媒体",
+          "order": 6,
+          "cardinality": "0..n",
+          "valueRule": "視聴者投稿を受け取った媒体。話の内容を表す雑談種別とは分離する",
+          "extensible": false,
+          "tags": [
+            {
+              "tagId": "tag-context-submissionSource-b0958cbfae4f",
+              "canonicalName": "マシュマロ",
+              "active": true,
+              "inclusionCriteria": "投稿媒体として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "categoryId": "reference",
+      "name": "言及・関連",
+      "order": 6,
+      "subcategories": [
+        {
+          "subcategoryId": "mentionedPerson",
+          "name": "言及人物",
+          "order": 1,
+          "cardinality": "0..n",
+          "valueRule": "配信中に話題として触れた人物の正規名。実出演者、チャンネル主、タイトル・概要欄だけに記載された人物は含めない",
+          "extensible": true,
+          "tags": [
+            {
+              "tagId": "tag-reference-mentionedPerson-04b8b9b50b93",
+              "canonicalName": "アンジュ・カトリーナ",
+              "active": true,
+              "inclusionCriteria": "言及人物として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-mentionedPerson-6c4dbb19cfc2",
+              "canonicalName": "フミ",
+              "active": true,
+              "inclusionCriteria": "言及人物として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-mentionedPerson-de6d08acbed5",
+              "canonicalName": "ベルモンド・バンデラス",
+              "active": true,
+              "inclusionCriteria": "言及人物として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-mentionedPerson-5dda4e571706",
+              "canonicalName": "愛園愛美",
+              "active": true,
+              "inclusionCriteria": "言及人物として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-mentionedPerson-cc812a0d12ea",
+              "canonicalName": "来栖夏芽",
+              "active": true,
+              "inclusionCriteria": "言及人物として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-mentionedPerson-6bd8d91e5724",
+              "canonicalName": "戌亥とこ",
+              "active": true,
+              "inclusionCriteria": "言及人物として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "mentionedContent",
+          "name": "言及配信・動画名",
+          "order": 2,
+          "cardinality": "0..n",
+          "valueRule": "配信中に感想・紹介・告知等で触れた別配信、動画、イベント、大会、楽曲の正規名。現在の動画そのものは含めない",
+          "extensible": true,
+          "tags": [
+            {
+              "tagId": "tag-reference-mentionedContent-0652f837a30e",
+              "canonicalName": "超かぐや姫！",
+              "active": true,
+              "inclusionCriteria": "言及配信・動画名として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "contentType",
+          "name": "言及対象種別",
+          "order": 3,
+          "cardinality": "0..n",
+          "extensible": false,
+          "tags": [
+            {
+              "tagId": "tag-reference-contentType-d82c94ffd31d",
+              "canonicalName": "イベント",
+              "active": true,
+              "inclusionCriteria": "言及対象種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-contentType-373978b13f7d",
+              "canonicalName": "ライブ",
+              "active": true,
+              "inclusionCriteria": "言及対象種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-contentType-468469690925",
+              "canonicalName": "歌ってみた",
+              "active": true,
+              "inclusionCriteria": "言及対象種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-contentType-ca44f112e0ba",
+              "canonicalName": "企画",
+              "active": true,
+              "inclusionCriteria": "言及対象種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-contentType-ff0ab3e07934",
+              "canonicalName": "大会",
+              "active": true,
+              "inclusionCriteria": "言及対象種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-contentType-da420ef26735",
+              "canonicalName": "動画",
+              "active": true,
+              "inclusionCriteria": "言及対象種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-contentType-b060559ebbc1",
+              "canonicalName": "配信",
+              "active": true,
+              "inclusionCriteria": "言及対象種別として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "relation",
+          "name": "言及関係",
+          "order": 4,
+          "cardinality": "0..n",
+          "extensible": false,
+          "tags": [
+            {
+              "tagId": "tag-reference-relation-3b130aa9bad3",
+              "canonicalName": "一般言及",
+              "active": true,
+              "inclusionCriteria": "言及関係として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-relation-dad95e963d98",
+              "canonicalName": "感想・振り返り",
+              "active": true,
+              "inclusionCriteria": "言及関係として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-relation-ba60558478fa",
+              "canonicalName": "告知・予定",
+              "active": true,
+              "inclusionCriteria": "言及関係として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-reference-relation-4efb5f04cd57",
+              "canonicalName": "紹介・おすすめ",
+              "active": true,
+              "inclusionCriteria": "言及関係として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "categoryId": "format",
+      "name": "公開形式",
+      "order": 7,
+      "subcategories": [
+        {
+          "subcategoryId": "media",
+          "name": "動画形式",
+          "order": 1,
+          "cardinality": "1",
+          "valueRule": "YouTubeメタデータを優先する。Shortsは内容ジャンルにしない",
+          "extensible": false,
+          "tags": [
+            {
+              "tagId": "tag-format-media-03673af45dd7",
+              "canonicalName": "Shorts",
+              "active": true,
+              "inclusionCriteria": "動画形式として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-format-media-cfa9f93bab20",
+              "canonicalName": "動画",
+              "active": true,
+              "inclusionCriteria": "動画形式として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-format-media-45323ed44f37",
+              "canonicalName": "配信",
+              "active": true,
+              "inclusionCriteria": "動画形式として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        },
+        {
+          "subcategoryId": "production",
+          "name": "制作・表示形式",
+          "order": 2,
+          "cardinality": "0..3",
+          "extensible": false,
+          "tags": [
+            {
+              "tagId": "tag-format-production-0c5e5bff646c",
+              "canonicalName": "3D",
+              "active": true,
+              "inclusionCriteria": "制作・表示形式として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-format-production-359239883777",
+              "canonicalName": "MV",
+              "active": true,
+              "inclusionCriteria": "制作・表示形式として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-format-production-ea9554adbef9",
+              "canonicalName": "公式切り抜き",
+              "active": true,
+              "inclusionCriteria": "制作・表示形式として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-format-production-20130a560dac",
+              "canonicalName": "縦型",
+              "active": true,
+              "inclusionCriteria": "制作・表示形式として公開情報から直接確認できること",
+              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

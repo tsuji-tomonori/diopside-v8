@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/dev-standard/execution-policy.schema.json",
+  "type": "object",
+  "required": [
+    "schema_version", "policy_revision", "selector_version", "rollout_phase",
+    "max_metadata_probes", "scope_order", "assurance_order", "compute_order",
+    "mode_order", "expansion_axes", "assurance_floors", "scope_profiles",
+    "assurance_profiles", "budget_multipliers", "compute_profiles", "stagnation"
+  ],
+  "properties": {
+    "schema_version": {"const": 2},
+    "policy_revision": {"type": "integer", "minimum": 1},
+    "selector_version": {"type": "string", "minLength": 1},
+    "rollout_phase": {"enum": ["telemetry", "shadow", "soft-routing", "assurance-enforcement", "calibrated", "limited-blocking"]},
+    "max_metadata_probes": {"const": 1},
+    "scope_order": {"const": ["local", "module", "repository"]},
+    "assurance_order": {"const": ["standard", "elevated", "critical"]},
+    "compute_order": {"const": ["economy", "standard", "capable"]},
+    "mode_order": {"const": ["direct-edit", "agent", "agent-with-review"]},
+    "expansion_axes": {"const": ["scope", "assurance", "verification", "review", "compute"]},
+    "assurance_floors": {"type": "object"},
+    "scope_profiles": {"type": "object"},
+    "assurance_profiles": {"type": "object"},
+    "budget_multipliers": {"type": "object"},
+    "compute_profiles": {"type": "object"},
+    "stagnation": {"type": "object"}
+  },
+  "additionalProperties": false
+}

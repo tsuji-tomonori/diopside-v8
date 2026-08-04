@@ -1,0 +1,332 @@
+{
+  "schemaVersion": "1.0.0",
+  "fixtureType": "承認済み旧データ移行の固定30動画品質確認",
+  "source": "diopside-v7 release 20260804-001、PR #3、2026-08-04プロダクト所有者指示",
+  "previousRejectedPilot": "tests/fixtures/pilot-timestamps-v1.json",
+  "selectionRule": "主ジャンル別に動画ID順で固定し、各候補は承認済み移行経路とv8決定的検証に合格すること",
+  "expectedGenreCounts": {
+    "ゲーム": 8,
+    "企画": 6,
+    "雑談": 5,
+    "ASMR": 3,
+    "歌": 2,
+    "朗読・声劇": 2,
+    "同時視聴": 2,
+    "TRPG": 2
+  },
+  "scopeCounts": {
+    "本人チャンネル": 4,
+    "外部チャンネル": 26
+  },
+  "sample": [
+    {
+      "videoId": "_aJYqE1LQ18",
+      "genre": "ゲーム",
+      "scope": "外部チャンネル",
+      "durationIso": "PT2H4M52S",
+      "timestampItemCount": 16,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "-kB9YnJ_ezQ",
+      "genre": "ゲーム",
+      "scope": "外部チャンネル",
+      "durationIso": "PT2H29M21S",
+      "timestampItemCount": 19,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "0AtHd6vaRTg",
+      "genre": "ゲーム",
+      "scope": "外部チャンネル",
+      "durationIso": "PT2H24M37S",
+      "timestampItemCount": 15,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "0OHVlhousQY",
+      "genre": "ゲーム",
+      "scope": "外部チャンネル",
+      "durationIso": "PT2H35M22S",
+      "timestampItemCount": 17,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "0qxhgUT1rvc",
+      "genre": "ゲーム",
+      "scope": "外部チャンネル",
+      "durationIso": "PT2H11M34S",
+      "timestampItemCount": 15,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "0wXC1zwP-ko",
+      "genre": "ゲーム",
+      "scope": "外部チャンネル",
+      "durationIso": "PT2H3M1S",
+      "timestampItemCount": 26,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "19IRQnj4Dts",
+      "genre": "ゲーム",
+      "scope": "外部チャンネル",
+      "durationIso": "PT2H24M3S",
+      "timestampItemCount": 15,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "1n4hlaizmfM",
+      "genre": "ゲーム",
+      "scope": "外部チャンネル",
+      "durationIso": "PT2H12M28S",
+      "timestampItemCount": 15,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "_4YoV9BLXRk",
+      "genre": "企画",
+      "scope": "外部チャンネル",
+      "durationIso": "PT28M9S",
+      "timestampItemCount": 9,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "_HPez9Rp90w",
+      "genre": "企画",
+      "scope": "外部チャンネル",
+      "durationIso": "PT4H19M23S",
+      "timestampItemCount": 29,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "_kbTrf1m2zA",
+      "genre": "企画",
+      "scope": "外部チャンネル",
+      "durationIso": "PT3H33M54S",
+      "timestampItemCount": 35,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "_WrWZ5f1t3U",
+      "genre": "企画",
+      "scope": "外部チャンネル",
+      "durationIso": "PT11H40S",
+      "timestampItemCount": 53,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "-RjGnKcJN5o",
+      "genre": "企画",
+      "scope": "外部チャンネル",
+      "durationIso": "PT17M56S",
+      "timestampItemCount": 8,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "-SyE7817PR0",
+      "genre": "企画",
+      "scope": "外部チャンネル",
+      "durationIso": "PT1H25M18S",
+      "timestampItemCount": 18,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "5FQklZQ7jso",
+      "genre": "雑談",
+      "scope": "外部チャンネル",
+      "durationIso": "PT1H44M47S",
+      "timestampItemCount": 19,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "82c9r10SBu4",
+      "genre": "雑談",
+      "scope": "外部チャンネル",
+      "durationIso": "PT2H56M42S",
+      "timestampItemCount": 22,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "eeNAoKiZIFA",
+      "genre": "雑談",
+      "scope": "外部チャンネル",
+      "durationIso": "PT1H22M56S",
+      "timestampItemCount": 33,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "j52M8qK0VTM",
+      "genre": "雑談",
+      "scope": "外部チャンネル",
+      "durationIso": "PT20M49S",
+      "timestampItemCount": 15,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "kqisvOZfk7g",
+      "genre": "雑談",
+      "scope": "外部チャンネル",
+      "durationIso": "PT4H11M17S",
+      "timestampItemCount": 19,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "4-ce3nsH1Lk",
+      "genre": "ASMR",
+      "scope": "本人チャンネル",
+      "durationIso": "PT1H5M8S",
+      "timestampItemCount": 14,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "5RevVT_N1fQ",
+      "genre": "ASMR",
+      "scope": "本人チャンネル",
+      "durationIso": "PT29M51S",
+      "timestampItemCount": 16,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "cvi2wZUBMcM",
+      "genre": "ASMR",
+      "scope": "本人チャンネル",
+      "durationIso": "PT1H52M12S",
+      "timestampItemCount": 17,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "70r74US1uHc",
+      "genre": "歌",
+      "scope": "外部チャンネル",
+      "durationIso": "PT2H24M12S",
+      "timestampItemCount": 35,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "fmSDOuVco5w",
+      "genre": "歌",
+      "scope": "外部チャンネル",
+      "durationIso": "PT1H4M5S",
+      "timestampItemCount": 17,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "pmNR4b5LSDQ",
+      "genre": "朗読・声劇",
+      "scope": "外部チャンネル",
+      "durationIso": "PT2H19M53S",
+      "timestampItemCount": 20,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "tTx6TJPEZOk",
+      "genre": "朗読・声劇",
+      "scope": "外部チャンネル",
+      "durationIso": "PT2H5M47S",
+      "timestampItemCount": 26,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "xXZP4uqOsRI",
+      "genre": "同時視聴",
+      "scope": "外部チャンネル",
+      "durationIso": "PT3H6M31S",
+      "timestampItemCount": 17,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "AX39sFEZSRg",
+      "genre": "同時視聴",
+      "scope": "本人チャンネル",
+      "durationIso": "PT4H36M1S",
+      "timestampItemCount": 21,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "u-B6sNP9dK8",
+      "genre": "TRPG",
+      "scope": "外部チャンネル",
+      "durationIso": "PT2H22M23S",
+      "timestampItemCount": 22,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    },
+    {
+      "videoId": "V81cfGLXKaU",
+      "genre": "TRPG",
+      "scope": "外部チャンネル",
+      "durationIso": "PT2H46M43S",
+      "timestampItemCount": 14,
+      "sourceApproval": true,
+      "deterministicValidation": true,
+      "labelSafety": true
+    }
+  ],
+  "evaluation": {
+    "sourceApprovalPassed": 30,
+    "deterministicValidationPassed": 30,
+    "labelSafetyPassed": 30,
+    "rejectedBeforePublication": 0,
+    "approvedForPublicCanonicalData": 30,
+    "decision": "旧パイロットの不合格25件を合格へ読み替えず、別途確認できた承認済みデータから固定30件を選び直して移行受入を行う"
+  },
+  "sampleFingerprint": "7ecf6136eee774c6f979830c4210aafee572ed67c252b2fa6c5a31386261dce4"
+}

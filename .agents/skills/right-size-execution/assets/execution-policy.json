@@ -1,0 +1,63 @@
+{
+  "schema_version": 2,
+  "policy_revision": 2,
+  "selector_version": "execution-selector-v2",
+  "rollout_phase": "shadow",
+  "max_metadata_probes": 1,
+  "scope_order": ["local", "module", "repository"],
+  "assurance_order": ["standard", "elevated", "critical"],
+  "compute_order": ["economy", "standard", "capable"],
+  "mode_order": ["direct-edit", "agent", "agent-with-review"],
+  "expansion_axes": ["scope", "assurance", "verification", "review", "compute"],
+  "assurance_floors": {
+    "critical": [
+      "security", "authentication", "authorization", "permissions", "data-loss",
+      "confidential", "pii", "irreversible", "production-operation"
+    ],
+    "elevated": [
+      "database-schema", "migration", "public-api", "event-contract", "iac",
+      "network", "dependency", "lockfile", "durable-requirements", "governance",
+      "checklist", "generator", "external-side-effect"
+    ]
+  },
+  "scope_profiles": {
+    "local": {
+      "context_budget": {"unique_files": 4, "read_bytes": 60000, "read_ranges": 12},
+      "tool_budget": {"search_calls": 2, "tool_calls": 16, "subagent_calls": 0},
+      "functional_verification": ["targeted-test", "syntax", "affected-lint"]
+    },
+    "module": {
+      "context_budget": {"unique_files": 16, "read_bytes": 240000, "read_ranges": 40},
+      "tool_budget": {"search_calls": 5, "tool_calls": 40, "subagent_calls": 0},
+      "functional_verification": ["module-test", "type-check", "related-lint"]
+    },
+    "repository": {
+      "context_budget": {"unique_files": 48, "read_bytes": 900000, "read_ranges": 120},
+      "tool_budget": {"search_calls": 10, "tool_calls": 96, "subagent_calls": 1},
+      "functional_verification": ["full-gate", "regression-test", "ci"]
+    }
+  },
+  "assurance_profiles": {
+    "standard": {"verification": [], "minimum_mode": "direct-edit"},
+    "elevated": {"verification": ["acceptance-criteria", "affected-contract"], "minimum_mode": "agent"},
+    "critical": {
+      "verification": ["acceptance-criteria", "boundary-test", "invariant-check", "security-review", "independent-review"],
+      "minimum_mode": "agent-with-review"
+    }
+  },
+  "budget_multipliers": {
+    "standard": 1.0,
+    "elevated": 1.25,
+    "critical": 1.5
+  },
+  "compute_profiles": {
+    "economy": {"reasoning_effort": "low"},
+    "standard": {"reasoning_effort": "medium"},
+    "capable": {"reasoning_effort": "high"}
+  },
+  "stagnation": {
+    "reject_duplicate_evidence": true,
+    "reject_unchanged_axis": true,
+    "warn_repeated_failure_signature": 2
+  }
+}

@@ -1,0 +1,1658 @@
+{
+  "schemaVersion": "1.0.0",
+  "shardId": "d7",
+  "itemCount": 7,
+  "videos": [
+    {
+      "schemaVersion": "1.0.0",
+      "videoId": "1wVqoDgrqpc",
+      "title": "【サチ江-死道-】サチ江さああああああああああああん【白雪 巴/にじさんじ】",
+      "publishedAt": "2022-08-05T16:50:45Z",
+      "durationSeconds": 12207,
+      "durationIso": "PT3H23M27S",
+      "thumbnail": {
+        "url": "https://i.ytimg.com/vi/1wVqoDgrqpc/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "youtubeUrl": "https://www.youtube.com/watch?v=1wVqoDgrqpc",
+      "taxonomyVersion": "8.1.0",
+      "aliasVersion": "8.1.0",
+      "tagRulesVersion": "8.1.0",
+      "evidence": [
+        {
+          "evidenceId": "evidence-title",
+          "type": "動画タイトル",
+          "sourceLabel": "公開動画タイトル",
+          "inputFingerprint": "bd3291764820a5a8c0ec0b058cf4dd39e3624cd541cd7da7384602999f6214e4"
+        },
+        {
+          "evidenceId": "evidence-channel",
+          "type": "公開チャンネル",
+          "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+          "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+        },
+        {
+          "evidenceId": "evidence-duration",
+          "type": "動画長",
+          "sourceLabel": "公開動画長",
+          "inputFingerprint": "df57585f63dbd17d6bafd8ab04803a502c11120a753c60c5837e109e31c57e71"
+        },
+        {
+          "evidenceId": "evidence-approved-tags",
+          "type": "既存の承認済みタグ",
+          "sourceLabel": "旧diopsideの承認済みタグ正本",
+          "inputFingerprint": "9a146d7394de746685a028945681738a2fa17ce15817188f7035faae63aa71d4"
+        },
+        {
+          "evidenceId": "evidence-approved-timestamps",
+          "type": "既存の承認済みタイムスタンプ",
+          "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+          "inputFingerprint": "bd0511d3b60f6ac15942fbf23074c7bdf8c15bf32175e3549ebeab05a1d5e496"
+        }
+      ],
+      "tagAssignments": [
+        {
+          "tagId": "tag-content-primary-0dbfa3115896",
+          "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-approved-tags"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-people-channel-e0fc18a727d8",
+          "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-channel"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-format-media-45323ed44f37",
+          "reason": "動画長と既存形式から動画形式「配信」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-duration"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-works-gameTitle-912abd1d30f6",
+          "reason": "公開タイトルまたは既存タグからゲーム作品「サチ江-死道-」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-approved-tags"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-1cc53dc4a37d",
+          "reason": "既存分類と作品名からゲームジャンル「ホラー」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-approved-tags"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-62278ec71bd0",
+          "reason": "既存分類と作品名からゲームジャンル「アクション」を確認",
+          "confidence": "中",
+          "evidenceRefs": [
+            "evidence-title"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        }
+      ],
+      "timestamps": {
+        "status": "作成済み",
+        "origin": "diopsideで作成した時刻一覧",
+        "items": [
+          {
+            "timestampId": "timestamp-0-249cd609",
+            "startSeconds": 0,
+            "label": "配信開始・ゲーム紹介",
+            "confidence": "中",
+            "evidenceRefs": []
+          },
+          {
+            "timestampId": "timestamp-330-3303003c",
+            "startSeconds": 330,
+            "label": "操作チュートリアル・帰り道探索",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-688-594ce855",
+            "startSeconds": 688,
+            "label": "ゴミ拾いと帰り道の探索",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-1888-30f9adf5",
+            "startSeconds": 1888,
+            "label": "ゲーム進行と操作の確認",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-2324-1e6c28ae",
+            "startSeconds": 2324,
+            "label": "2回戦のゴミ拾い",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3170-cf5ecd9a",
+            "startSeconds": 3170,
+            "label": "新しい道で追跡を回避",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3839-184aeba1",
+            "startSeconds": 3839,
+            "label": "空き缶遊びと手掛かり探索",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-4515-1e39deb5",
+            "startSeconds": 4515,
+            "label": "ゴミ回収の進行を確認",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-5101-1bc49706",
+            "startSeconds": 5101,
+            "label": "体力管理でゴミ拾いを進める",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-5900-eece5c3a",
+            "startSeconds": 5900,
+            "label": "墓の手入れと電話の判断",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-7331-de006813",
+            "startSeconds": 7331,
+            "label": "翌日の花と新しい課題",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-7644-4f1e1c6a",
+            "startSeconds": 7644,
+            "label": "新しいゴミと電話の課題",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-8316-d5778225",
+            "startSeconds": 8316,
+            "label": "終盤の逃走チャレンジ",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-9171-8a3b4637",
+            "startSeconds": 9171,
+            "label": "逃走ルートと操作手順を分析",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-10076-7bc50bba",
+            "startSeconds": 10076,
+            "label": "正規ルートを試す",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-10563-c1936680",
+            "startSeconds": 10563,
+            "label": "攻略確認と操作手順の実践",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-11217-fd490fc1",
+            "startSeconds": 11217,
+            "label": "仕事帰りの物語パート",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-11578-3a7a7a9e",
+            "startSeconds": 11578,
+            "label": "開発者メッセージ",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-11869-95c49fe8",
+            "startSeconds": 11869,
+            "label": "感想・告知・スーパーチャット",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          }
+        ],
+        "candidateHash": "e4bacc9f5b884ac9aafa70b54a97263fe6a604d4cddd9bac27e88d5623913ed9",
+        "inputFingerprint": "bd0511d3b60f6ac15942fbf23074c7bdf8c15bf32175e3549ebeab05a1d5e496",
+        "rulesVersion": "8.1.0",
+        "generatedAt": "2026-07-22T20:38:48Z",
+        "updatedAt": "2026-08-04T15:00:00+09:00",
+        "review": {
+          "mode": "既存承認済みデータ移行",
+          "candidateHash": "e4bacc9f5b884ac9aafa70b54a97263fe6a604d4cddd9bac27e88d5623913ed9",
+          "source": {
+            "status": "approved",
+            "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+            "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+            "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+            "releaseId": "20260804-001",
+            "sourceKind": "get_archives_info_v1"
+          },
+          "checks": {
+            "sourceApproval": true,
+            "minimumItems": true,
+            "startsAtZero": true,
+            "ascendingOrder": true,
+            "minimumInterval": true,
+            "inDurationRange": true,
+            "allowedConfidence": true,
+            "publicLabels": true
+          },
+          "validatedAt": "2026-08-04T15:00:00+09:00",
+          "finalHumanCheck": {
+            "status": "承認済み",
+            "candidateHash": "e4bacc9f5b884ac9aafa70b54a97263fe6a604d4cddd9bac27e88d5623913ed9",
+            "reviewedAt": "2026-08-04T15:00:00+09:00",
+            "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+          }
+        }
+      },
+      "wordCloud": {
+        "status": "未作成",
+        "reason": "資料不足",
+        "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+        "updatedAt": "2026-08-04T15:00:00+09:00"
+      },
+      "provenance": {
+        "inputFingerprint": "74f4190d8c06fc9d33b2ec6a6116728f9ef49ea604e3272d922d259c235fc851",
+        "generatorVersion": "v8-legacy-migration-1.0.0",
+        "generatedAt": "2026-08-04T15:00:00+09:00",
+        "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      },
+      "approval": {
+        "status": "承認済み",
+        "approvedAt": "2026-08-04T15:00:00+09:00",
+        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "videoId": "E_zPBE1gu6A",
+      "title": "【深夜企画】ちょこおじが幼児化？！逆凸で色気を取り戻せ！【ホロライブ/癒月ちょこ】",
+      "publishedAt": "2021-01-16T16:19:39Z",
+      "durationSeconds": 4151,
+      "durationIso": "PT1H9M11S",
+      "thumbnail": {
+        "url": "https://i.ytimg.com/vi/E_zPBE1gu6A/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "youtubeUrl": "https://www.youtube.com/watch?v=E_zPBE1gu6A",
+      "taxonomyVersion": "8.1.0",
+      "aliasVersion": "8.1.0",
+      "tagRulesVersion": "8.1.0",
+      "evidence": [
+        {
+          "evidenceId": "evidence-title",
+          "type": "動画タイトル",
+          "sourceLabel": "公開動画タイトル",
+          "inputFingerprint": "09a961bdaa9d20eeac1dd5d027bbd95f030c24c5150fd72e643e1d719d6e7b7b"
+        },
+        {
+          "evidenceId": "evidence-channel",
+          "type": "公開チャンネル",
+          "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+          "inputFingerprint": "edb8205d5388852480857fe070cd48d6ad45e4b5920ded3157004d60af742829"
+        },
+        {
+          "evidenceId": "evidence-duration",
+          "type": "動画長",
+          "sourceLabel": "公開動画長",
+          "inputFingerprint": "d09c181552cbc21fee9ef728737c689eebe0c63f6ca4c7b5f20bd7f6c3fca87c"
+        },
+        {
+          "evidenceId": "evidence-approved-timestamps",
+          "type": "既存の承認済みタイムスタンプ",
+          "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+          "inputFingerprint": "d945aa91a9bc3f8c8ec0af0e023cf925f592523fd2723b01430f9c56778b1d32"
+        }
+      ],
+      "tagAssignments": [
+        {
+          "tagId": "tag-content-primary-9eedbc0013d1",
+          "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-title"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-people-channel-0ca82b30d4df",
+          "reason": "公開台帳のチャンネル「Choco Ch. 癒月ちょこ」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-channel"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-format-media-45323ed44f37",
+          "reason": "動画長と既存形式から動画形式「配信」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-duration"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-context-feature-d4f76aec0d7a",
+          "reason": "公開タイトルから企画特性「逆凸」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-title"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        }
+      ],
+      "timestamps": {
+        "status": "作成済み",
+        "origin": "diopsideで作成した時刻一覧",
+        "items": [
+          {
+            "timestampId": "timestamp-0-a63f7e7c",
+            "startSeconds": 0,
+            "label": "企画説明・逆凸準備",
+            "confidence": "中",
+            "evidenceRefs": []
+          },
+          {
+            "timestampId": "timestamp-269-37df3045",
+            "startSeconds": 269,
+            "label": "最初の通話",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-513-b5f295c4",
+            "startSeconds": 513,
+            "label": "二人目の通話",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-905-ec388ca8",
+            "startSeconds": 905,
+            "label": "三人目の通話",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-1190-940772ab",
+            "startSeconds": 1190,
+            "label": "四人目の通話",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-1503-d9d19546",
+            "startSeconds": 1503,
+            "label": "五人目の通話",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-1857-1d198e23",
+            "startSeconds": 1857,
+            "label": "六人目の通話",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-2148-24b3f64b",
+            "startSeconds": 2148,
+            "label": "七人目の通話",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-2397-0d0978c7",
+            "startSeconds": 2397,
+            "label": "八人目の通話",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-2667-784d2872",
+            "startSeconds": 2667,
+            "label": "九人目の通話",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3046-b433ae26",
+            "startSeconds": 3046,
+            "label": "十人目の通話",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3419-5fdb0f29",
+            "startSeconds": 3419,
+            "label": "十一人目の通話",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3642-62f3e0df",
+            "startSeconds": 3642,
+            "label": "企画全体を振り返る",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3780-499d715f",
+            "startSeconds": 3780,
+            "label": "次回企画の話・最後の通話",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-4027-a7dc35f1",
+            "startSeconds": 4027,
+            "label": "エンディング",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          }
+        ],
+        "candidateHash": "e9faed0d772c82fc5eca0ac3c79150ba3a54f26f54f4c6393b74e694834c698f",
+        "inputFingerprint": "d945aa91a9bc3f8c8ec0af0e023cf925f592523fd2723b01430f9c56778b1d32",
+        "rulesVersion": "8.1.0",
+        "generatedAt": "2026-07-19T09:36:52Z",
+        "updatedAt": "2026-08-04T15:00:00+09:00",
+        "review": {
+          "mode": "既存承認済みデータ移行",
+          "candidateHash": "e9faed0d772c82fc5eca0ac3c79150ba3a54f26f54f4c6393b74e694834c698f",
+          "source": {
+            "status": "approved",
+            "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+            "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+            "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+            "releaseId": "20260804-001",
+            "sourceKind": "get_archives_info_v1"
+          },
+          "checks": {
+            "sourceApproval": true,
+            "minimumItems": true,
+            "startsAtZero": true,
+            "ascendingOrder": true,
+            "minimumInterval": true,
+            "inDurationRange": true,
+            "allowedConfidence": true,
+            "publicLabels": true
+          },
+          "validatedAt": "2026-08-04T15:00:00+09:00",
+          "finalHumanCheck": {
+            "status": "承認済み",
+            "candidateHash": "e9faed0d772c82fc5eca0ac3c79150ba3a54f26f54f4c6393b74e694834c698f",
+            "reviewedAt": "2026-08-04T15:00:00+09:00",
+            "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+          }
+        }
+      },
+      "wordCloud": {
+        "status": "未作成",
+        "reason": "資料不足",
+        "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+        "updatedAt": "2026-08-04T15:00:00+09:00"
+      },
+      "provenance": {
+        "inputFingerprint": "719b68d61fdc3163018f8fba7d4bf2732036e0030caf92659a01dd1840239472",
+        "generatorVersion": "v8-legacy-migration-1.0.0",
+        "generatedAt": "2026-08-04T15:00:00+09:00",
+        "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      },
+      "approval": {
+        "status": "承認済み",
+        "approvedAt": "2026-08-04T15:00:00+09:00",
+        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "videoId": "I6uPZpIZqSc",
+      "title": "【雑談】GW中の出来事をマシンガントーク！【白雪 巴/にじさんじ】",
+      "publishedAt": "2022-05-09T14:14:30Z",
+      "durationSeconds": 7479,
+      "durationIso": "PT2H4M39S",
+      "thumbnail": {
+        "url": "https://i.ytimg.com/vi/I6uPZpIZqSc/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "youtubeUrl": "https://www.youtube.com/watch?v=I6uPZpIZqSc",
+      "taxonomyVersion": "8.1.0",
+      "aliasVersion": "8.1.0",
+      "tagRulesVersion": "8.1.0",
+      "evidence": [
+        {
+          "evidenceId": "evidence-title",
+          "type": "動画タイトル",
+          "sourceLabel": "公開動画タイトル",
+          "inputFingerprint": "0e6c7d0ed168bec8e6f978fbe8074eb8b1331e9b6440c1045a83599526591f0a"
+        },
+        {
+          "evidenceId": "evidence-channel",
+          "type": "公開チャンネル",
+          "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+          "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+        },
+        {
+          "evidenceId": "evidence-duration",
+          "type": "動画長",
+          "sourceLabel": "公開動画長",
+          "inputFingerprint": "222a4e67caf1177b16d53a5c889ef720159f008d194b0f85be77cfaa393f0315"
+        },
+        {
+          "evidenceId": "evidence-approved-tags",
+          "type": "既存の承認済みタグ",
+          "sourceLabel": "旧diopsideの承認済みタグ正本",
+          "inputFingerprint": "97181fec5a600bf0c2844d1a6f7227b688240b106bd3728559839012f8115718"
+        },
+        {
+          "evidenceId": "evidence-approved-timestamps",
+          "type": "既存の承認済みタイムスタンプ",
+          "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+          "inputFingerprint": "b236b2dd086d17d89261a690f775e93e419b1a66e7bf8145715643bcaebfd9fe"
+        }
+      ],
+      "tagAssignments": [
+        {
+          "tagId": "tag-content-primary-af7be42add09",
+          "reason": "公開タイトルと既存分類から主ジャンル「雑談」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-approved-tags"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-people-channel-e0fc18a727d8",
+          "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-channel"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-format-media-45323ed44f37",
+          "reason": "動画長と既存形式から動画形式「配信」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-duration"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-talkStyle-4691146b71bb",
+          "reason": "既存タグ「フリートーク」から雑談種別「フリートーク」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-approved-tags"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        }
+      ],
+      "timestamps": {
+        "status": "作成済み",
+        "origin": "diopsideで作成した時刻一覧",
+        "items": [
+          {
+            "timestampId": "timestamp-0-b4fe5b79",
+            "startSeconds": 0,
+            "label": "配信開始・GW雑談の導入",
+            "confidence": "中",
+            "evidenceRefs": []
+          },
+          {
+            "timestampId": "timestamp-415-88c0334c",
+            "startSeconds": 415,
+            "label": "衣替えと家の片付け",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-600-d0ef5f82",
+            "startSeconds": 600,
+            "label": "GW中のSMS詐欺体験",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-1763-ee0d32be",
+            "startSeconds": 1763,
+            "label": "連休後半の食事と外出",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-2581-58fe92b4",
+            "startSeconds": 2581,
+            "label": "温泉と動物の話",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3178-dbe17e00",
+            "startSeconds": 3178,
+            "label": "実家の過ごし方とものまね",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3409-cd5a3b0b",
+            "startSeconds": 3409,
+            "label": "宅配弁当ナッシュの話",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3658-b3ee0771",
+            "startSeconds": 3658,
+            "label": "ゲーム配信と今後の予定",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3903-8ce7eef6",
+            "startSeconds": 3903,
+            "label": "絡まったアクセサリーをほどく",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-4270-cb468920",
+            "startSeconds": 4270,
+            "label": "ゲーム配信の振り返り",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-4636-3bad1144",
+            "startSeconds": 4636,
+            "label": "ライブ・イベントのお知らせ",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-4780-ed21558f",
+            "startSeconds": 4780,
+            "label": "SmartNews Q&Aと配信予定",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-5109-54512a14",
+            "startSeconds": 5109,
+            "label": "活動2年半とASMRの話",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-5280-0ecae5fc",
+            "startSeconds": 5280,
+            "label": "家族への贈り物と家族の話",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-5689-0b7e6daa",
+            "startSeconds": 5689,
+            "label": "きょうだいと真ん中っ子の話",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-6185-d7905b20",
+            "startSeconds": 6185,
+            "label": "ゲーム配信の今後の予定",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-6330-4becedcc",
+            "startSeconds": 6330,
+            "label": "新アイテムとライブ・ボイス告知",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-6633-da1c0aab",
+            "startSeconds": 6633,
+            "label": "サッカー観戦と連休明けの話",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-7249-d92c45d6",
+            "startSeconds": 7249,
+            "label": "振替ライブの案内と配信終了",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          }
+        ],
+        "candidateHash": "15ab36eab77c60cb75f8d245be524de05b6fad73393441b8343c1fb841407155",
+        "inputFingerprint": "b236b2dd086d17d89261a690f775e93e419b1a66e7bf8145715643bcaebfd9fe",
+        "rulesVersion": "8.1.0",
+        "generatedAt": "2026-07-22T22:51:08.803297Z",
+        "updatedAt": "2026-08-04T15:00:00+09:00",
+        "review": {
+          "mode": "既存承認済みデータ移行",
+          "candidateHash": "15ab36eab77c60cb75f8d245be524de05b6fad73393441b8343c1fb841407155",
+          "source": {
+            "status": "approved",
+            "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+            "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+            "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+            "releaseId": "20260804-001",
+            "sourceKind": "get_archives_info_v1"
+          },
+          "checks": {
+            "sourceApproval": true,
+            "minimumItems": true,
+            "startsAtZero": true,
+            "ascendingOrder": true,
+            "minimumInterval": true,
+            "inDurationRange": true,
+            "allowedConfidence": true,
+            "publicLabels": true
+          },
+          "validatedAt": "2026-08-04T15:00:00+09:00",
+          "finalHumanCheck": {
+            "status": "承認済み",
+            "candidateHash": "15ab36eab77c60cb75f8d245be524de05b6fad73393441b8343c1fb841407155",
+            "reviewedAt": "2026-08-04T15:00:00+09:00",
+            "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+          }
+        }
+      },
+      "wordCloud": {
+        "status": "未作成",
+        "reason": "資料不足",
+        "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+        "updatedAt": "2026-08-04T15:00:00+09:00"
+      },
+      "provenance": {
+        "inputFingerprint": "ef63560b3c633b1eed4995bceb2c7d9a91daf741fe0e312ac347aa01bdfa07d2",
+        "generatorVersion": "v8-legacy-migration-1.0.0",
+        "generatedAt": "2026-08-04T15:00:00+09:00",
+        "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      },
+      "approval": {
+        "status": "承認済み",
+        "approvedAt": "2026-08-04T15:00:00+09:00",
+        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "videoId": "M6DvhIW6Kck",
+      "title": "#4【ピクミン3】ダレモシナセタクナイ完全初見ピクミン【白雪 巴/にじさんじ】",
+      "publishedAt": "2021-07-27T14:33:51Z",
+      "durationSeconds": 7747,
+      "durationIso": "PT2H9M7S",
+      "thumbnail": {
+        "url": "https://i.ytimg.com/vi/M6DvhIW6Kck/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "youtubeUrl": "https://www.youtube.com/watch?v=M6DvhIW6Kck",
+      "taxonomyVersion": "8.1.0",
+      "aliasVersion": "8.1.0",
+      "tagRulesVersion": "8.1.0",
+      "evidence": [
+        {
+          "evidenceId": "evidence-title",
+          "type": "動画タイトル",
+          "sourceLabel": "公開動画タイトル",
+          "inputFingerprint": "a969487da5db004ec59deb6eb64be131a4cff3cbfaaa127432ebc8172f0aa756"
+        },
+        {
+          "evidenceId": "evidence-channel",
+          "type": "公開チャンネル",
+          "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+          "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+        },
+        {
+          "evidenceId": "evidence-duration",
+          "type": "動画長",
+          "sourceLabel": "公開動画長",
+          "inputFingerprint": "9a257eab1dda33a0833bcd139259adbaa0a095fd3094855bdb48ba04662e0113"
+        },
+        {
+          "evidenceId": "evidence-approved-tags",
+          "type": "既存の承認済みタグ",
+          "sourceLabel": "旧diopsideの承認済みタグ正本",
+          "inputFingerprint": "8d86381ef5cfd3f840fae36e5b8c8f8ce120eb18385c84b281c584c11246ab3b"
+        }
+      ],
+      "tagAssignments": [
+        {
+          "tagId": "tag-content-primary-0dbfa3115896",
+          "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-approved-tags"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-people-channel-e0fc18a727d8",
+          "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-channel"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-format-media-45323ed44f37",
+          "reason": "動画長と既存形式から動画形式「配信」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-duration"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-works-gameTitle-a8c98a8bf723",
+          "reason": "公開タイトルまたは既存タグからゲーム作品「ピクミン3」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-approved-tags"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-d579d1081076",
+          "reason": "既存分類と作品名からゲームジャンル「パズル」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-approved-tags"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-9709322940c3",
+          "reason": "既存分類と作品名からゲームジャンル「シミュレーション」を確認",
+          "confidence": "中",
+          "evidenceRefs": [
+            "evidence-title"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-62278ec71bd0",
+          "reason": "既存分類と作品名からゲームジャンル「アクション」を確認",
+          "confidence": "中",
+          "evidenceRefs": [
+            "evidence-title"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-context-feature-721db69c48bf",
+          "reason": "公開タイトルから企画特性「初見」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-title"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        }
+      ],
+      "timestamps": {
+        "status": "未作成",
+        "reason": "全編確認不足",
+        "detail": "承認済みの全編タイムスタンプが移行元にありません。",
+        "updatedAt": "2026-08-04T15:00:00+09:00"
+      },
+      "wordCloud": {
+        "status": "未作成",
+        "reason": "資料不足",
+        "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+        "updatedAt": "2026-08-04T15:00:00+09:00"
+      },
+      "provenance": {
+        "inputFingerprint": "30caa36794487e2a6ef9614e3ca6dc56df2d80fe00352b9f107557df4a28958a",
+        "generatorVersion": "v8-legacy-migration-1.0.0",
+        "generatedAt": "2026-08-04T15:00:00+09:00",
+        "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      },
+      "approval": {
+        "status": "承認済み",
+        "approvedAt": "2026-08-04T15:00:00+09:00",
+        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "videoId": "nob7v6lvpuM",
+      "title": "【凶寓】このホラゲーまじでヤバイ。猟奇事件の真相を解明する【白雪 巴/にじさんじ】",
+      "publishedAt": "2025-08-02T16:53:17Z",
+      "durationSeconds": 9743,
+      "durationIso": "PT2H42M23S",
+      "thumbnail": {
+        "url": "https://i.ytimg.com/vi/nob7v6lvpuM/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "youtubeUrl": "https://www.youtube.com/watch?v=nob7v6lvpuM",
+      "taxonomyVersion": "8.1.0",
+      "aliasVersion": "8.1.0",
+      "tagRulesVersion": "8.1.0",
+      "evidence": [
+        {
+          "evidenceId": "evidence-title",
+          "type": "動画タイトル",
+          "sourceLabel": "公開動画タイトル",
+          "inputFingerprint": "edb5c59901ed94d2eb0075c6758ba711aeaa7d8e5847756a53c031a3885c3af8"
+        },
+        {
+          "evidenceId": "evidence-channel",
+          "type": "公開チャンネル",
+          "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+          "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+        },
+        {
+          "evidenceId": "evidence-duration",
+          "type": "動画長",
+          "sourceLabel": "公開動画長",
+          "inputFingerprint": "dab183c6d820f10d35d8083acf3b6637cf8036488c2cd8f1d619376b4eed1189"
+        },
+        {
+          "evidenceId": "evidence-approved-timestamps",
+          "type": "既存の承認済みタイムスタンプ",
+          "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+          "inputFingerprint": "607a9cb058c09b2ac65aec39675b3125a19b843fefa1b06d715fb639b58a09f2"
+        }
+      ],
+      "tagAssignments": [
+        {
+          "tagId": "tag-content-primary-9eedbc0013d1",
+          "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-title"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-people-channel-e0fc18a727d8",
+          "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-channel"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-format-media-45323ed44f37",
+          "reason": "動画長と既存形式から動画形式「配信」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-duration"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        }
+      ],
+      "timestamps": {
+        "status": "作成済み",
+        "origin": "diopsideで作成した時刻一覧",
+        "items": [
+          {
+            "timestampId": "timestamp-0-5461fca6",
+            "startSeconds": 0,
+            "label": "配信開始・導入",
+            "confidence": "高",
+            "evidenceRefs": []
+          },
+          {
+            "timestampId": "timestamp-230-cb541cac",
+            "startSeconds": 230,
+            "label": "『凶寓』ゲーム開始",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-814-ca1cafa7",
+            "startSeconds": 814,
+            "label": "204号室を調査",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-1331-edea94d7",
+            "startSeconds": 1331,
+            "label": "一日目の記録開始",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-1667-18843652",
+            "startSeconds": 1667,
+            "label": "107号室の探索",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-2122-258dd510",
+            "startSeconds": 2122,
+            "label": "物音を追って翌朝へ",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-2505-6cd800f5",
+            "startSeconds": 2505,
+            "label": "夜の迷路",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-2838-e55a7d02",
+            "startSeconds": 2838,
+            "label": "二日目の調査",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3191-7e2d6945",
+            "startSeconds": 3191,
+            "label": "屋敷を離れる試み",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3319-98af30ef",
+            "startSeconds": 3319,
+            "label": "カメラを手に夜の調査",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3669-4c9357d8",
+            "startSeconds": 3669,
+            "label": "三日目の記録開始",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-4155-cad96ca7",
+            "startSeconds": 4155,
+            "label": "新たな部屋を調査",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-4590-d7be485d",
+            "startSeconds": 4590,
+            "label": "204号室へ戻る",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-5105-c36d3829",
+            "startSeconds": 5105,
+            "label": "逃走パート開始",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-5413-408f1944",
+            "startSeconds": 5413,
+            "label": "鏡のような館",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-5932-765fa0fc",
+            "startSeconds": 5932,
+            "label": "テレビとラジオの仕掛け",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-7246-707f39d1",
+            "startSeconds": 7246,
+            "label": "次のエリアへ",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-7371-b8f5854f",
+            "startSeconds": 7371,
+            "label": "子供部屋の手がかり",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-7834-ec2336ad",
+            "startSeconds": 7834,
+            "label": "物語の終盤へ",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-8160-29c1fa09",
+            "startSeconds": 8160,
+            "label": "エピローグ",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-8321-14730362",
+            "startSeconds": 8321,
+            "label": "ゲームの振り返り",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-8587-4afddadf",
+            "startSeconds": 8587,
+            "label": "ストーリー考察",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-8740-8f2fbf35",
+            "startSeconds": 8740,
+            "label": "次回配信のお知らせ",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-8839-e4402d8b",
+            "startSeconds": 8839,
+            "label": "スパチャ読み",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-9687-a7dc35f1",
+            "startSeconds": 9687,
+            "label": "エンディング",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          }
+        ],
+        "candidateHash": "ce0c40a023bbc39f5a98e667a4e0f022d1c98b3f49b73dcfd669408c869d168d",
+        "inputFingerprint": "607a9cb058c09b2ac65aec39675b3125a19b843fefa1b06d715fb639b58a09f2",
+        "rulesVersion": "8.1.0",
+        "generatedAt": "2026-07-16T15:41:34Z",
+        "updatedAt": "2026-08-04T15:00:00+09:00",
+        "review": {
+          "mode": "既存承認済みデータ移行",
+          "candidateHash": "ce0c40a023bbc39f5a98e667a4e0f022d1c98b3f49b73dcfd669408c869d168d",
+          "source": {
+            "status": "approved",
+            "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+            "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+            "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+            "releaseId": "20260804-001",
+            "sourceKind": "get_archives_info_v1"
+          },
+          "checks": {
+            "sourceApproval": true,
+            "minimumItems": true,
+            "startsAtZero": true,
+            "ascendingOrder": true,
+            "minimumInterval": true,
+            "inDurationRange": true,
+            "allowedConfidence": true,
+            "publicLabels": true
+          },
+          "validatedAt": "2026-08-04T15:00:00+09:00",
+          "finalHumanCheck": {
+            "status": "承認済み",
+            "candidateHash": "ce0c40a023bbc39f5a98e667a4e0f022d1c98b3f49b73dcfd669408c869d168d",
+            "reviewedAt": "2026-08-04T15:00:00+09:00",
+            "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+          }
+        }
+      },
+      "wordCloud": {
+        "status": "未作成",
+        "reason": "資料不足",
+        "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+        "updatedAt": "2026-08-04T15:00:00+09:00"
+      },
+      "provenance": {
+        "inputFingerprint": "08a3ca174bdc852c1b3a0380151a6630b17f6ea024a14bfce4921486428a1f3c",
+        "generatorVersion": "v8-legacy-migration-1.0.0",
+        "generatedAt": "2026-08-04T15:00:00+09:00",
+        "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      },
+      "approval": {
+        "status": "承認済み",
+        "approvedAt": "2026-08-04T15:00:00+09:00",
+        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "videoId": "PPAcGwB5hjE",
+      "title": "10000000連ガチャSSR【白雪 巴/にじさんじ】#shorts #vtuber #varkshorts",
+      "publishedAt": "2023-07-10T14:00:11Z",
+      "durationSeconds": 15,
+      "durationIso": "PT15S",
+      "thumbnail": {
+        "url": "https://i.ytimg.com/vi/PPAcGwB5hjE/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "youtubeUrl": "https://www.youtube.com/watch?v=PPAcGwB5hjE",
+      "taxonomyVersion": "8.1.0",
+      "aliasVersion": "8.1.0",
+      "tagRulesVersion": "8.1.0",
+      "evidence": [
+        {
+          "evidenceId": "evidence-title",
+          "type": "動画タイトル",
+          "sourceLabel": "公開動画タイトル",
+          "inputFingerprint": "b1ea0e73aa1d9085b672ec7bcedf687fdb670c11085fbc94880bc1b761aa85d7"
+        },
+        {
+          "evidenceId": "evidence-channel",
+          "type": "公開チャンネル",
+          "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+          "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+        },
+        {
+          "evidenceId": "evidence-duration",
+          "type": "動画長",
+          "sourceLabel": "公開動画長",
+          "inputFingerprint": "fe000263c567d5f68aef64abdbea26fc3e7f57726aa7a9cffc8f2bdb17d63d13"
+        },
+        {
+          "evidenceId": "evidence-approved-tags",
+          "type": "既存の承認済みタグ",
+          "sourceLabel": "旧diopsideの承認済みタグ正本",
+          "inputFingerprint": "f4093124f5942d1db36c4cb57ff4c68431cd05a8441ebab0722d2fdba01d0c94"
+        }
+      ],
+      "tagAssignments": [
+        {
+          "tagId": "tag-content-primary-9eedbc0013d1",
+          "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-title"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-people-channel-e0fc18a727d8",
+          "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-channel"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-format-media-03673af45dd7",
+          "reason": "動画長と既存形式から動画形式「Shorts」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-duration"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-context-feature-22cf1eb5df88",
+          "reason": "既存タグ「単発ゲーム」から企画特性「単発」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-approved-tags"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-format-production-20130a560dac",
+          "reason": "既存Shortsタグから制作形式「縦型」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-approved-tags"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        }
+      ],
+      "timestamps": {
+        "status": "未作成",
+        "reason": "短尺",
+        "detail": "30秒未満のため、移動用目次の対象外です。",
+        "updatedAt": "2026-08-04T15:00:00+09:00"
+      },
+      "wordCloud": {
+        "status": "未作成",
+        "reason": "資料不足",
+        "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+        "updatedAt": "2026-08-04T15:00:00+09:00"
+      },
+      "provenance": {
+        "inputFingerprint": "809808e564e84882a94eefc7890c44a1fdeb4ef438166b9d0900f9705c7c5456",
+        "generatorVersion": "v8-legacy-migration-1.0.0",
+        "generatedAt": "2026-08-04T15:00:00+09:00",
+        "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      },
+      "approval": {
+        "status": "承認済み",
+        "approvedAt": "2026-08-04T15:00:00+09:00",
+        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "videoId": "YpPm6lD8Tiw",
+      "title": "【Minecraft】24時ぴったりにいた場所で誕生日を迎えるマイクラ【白雪 巴/にじさんじ】",
+      "publishedAt": "2023-02-07T15:52:50Z",
+      "durationSeconds": 5081,
+      "durationIso": "PT1H24M41S",
+      "thumbnail": {
+        "url": "https://i.ytimg.com/vi/YpPm6lD8Tiw/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "youtubeUrl": "https://www.youtube.com/watch?v=YpPm6lD8Tiw",
+      "taxonomyVersion": "8.1.0",
+      "aliasVersion": "8.1.0",
+      "tagRulesVersion": "8.1.0",
+      "evidence": [
+        {
+          "evidenceId": "evidence-title",
+          "type": "動画タイトル",
+          "sourceLabel": "公開動画タイトル",
+          "inputFingerprint": "1d2e3f3fe38f69618408d4aa1e0f58f79316f22d2e3efcd93b5fe379ec3a8602"
+        },
+        {
+          "evidenceId": "evidence-channel",
+          "type": "公開チャンネル",
+          "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+          "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+        },
+        {
+          "evidenceId": "evidence-duration",
+          "type": "動画長",
+          "sourceLabel": "公開動画長",
+          "inputFingerprint": "ad834b46dcf64b038aeab58f07da263f63bfc6e54f229963a62685fbce43f1d3"
+        },
+        {
+          "evidenceId": "evidence-approved-tags",
+          "type": "既存の承認済みタグ",
+          "sourceLabel": "旧diopsideの承認済みタグ正本",
+          "inputFingerprint": "1bb7bfc65193f91aeec7b2df9cfb234bc23d85dce64ccb4cba7107ca2f8095be"
+        }
+      ],
+      "tagAssignments": [
+        {
+          "tagId": "tag-content-primary-0dbfa3115896",
+          "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-approved-tags"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-people-channel-e0fc18a727d8",
+          "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-channel"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-format-media-45323ed44f37",
+          "reason": "動画長と既存形式から動画形式「配信」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-duration"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-works-gameTitle-5168a0f83814",
+          "reason": "公開タイトルまたは既存タグからゲーム作品「Minecraft」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-approved-tags"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-9796af29a119",
+          "reason": "既存分類と作品名からゲームジャンル「サンドボックス」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-approved-tags"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-1cc53dc4a37d",
+          "reason": "既存分類と作品名からゲームジャンル「ホラー」を確認",
+          "confidence": "中",
+          "evidenceRefs": [
+            "evidence-title"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-context-occasion-0c807041f530",
+          "reason": "公開タイトルまたは既存タグから記念区分「誕生日記念」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-title"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        }
+      ],
+      "timestamps": {
+        "status": "未作成",
+        "reason": "全編確認不足",
+        "detail": "承認済みの全編タイムスタンプが移行元にありません。",
+        "updatedAt": "2026-08-04T15:00:00+09:00"
+      },
+      "wordCloud": {
+        "status": "未作成",
+        "reason": "資料不足",
+        "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+        "updatedAt": "2026-08-04T15:00:00+09:00"
+      },
+      "provenance": {
+        "inputFingerprint": "269412b422f3f3922847f4b25c097bc770f8fcb58428b671bd34f5751819e17c",
+        "generatorVersion": "v8-legacy-migration-1.0.0",
+        "generatedAt": "2026-08-04T15:00:00+09:00",
+        "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      },
+      "approval": {
+        "status": "承認済み",
+        "approvedAt": "2026-08-04T15:00:00+09:00",
+        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+      }
+    }
+  ]
+}

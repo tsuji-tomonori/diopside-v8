@@ -1,0 +1,663 @@
+{
+  "schemaVersion": "1.0.0",
+  "shardId": "d0",
+  "itemCount": 2,
+  "videos": [
+    {
+      "schemaVersion": "1.0.0",
+      "videoId": "DB2fy_BM2OE",
+      "title": "【作業配信】作業するけど一緒いてくれる？【白雪 巴/にじさんじ】",
+      "publishedAt": "2024-05-16T17:58:19Z",
+      "durationSeconds": 17106,
+      "durationIso": "PT4H45M6S",
+      "thumbnail": {
+        "url": "https://i.ytimg.com/vi/DB2fy_BM2OE/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "youtubeUrl": "https://www.youtube.com/watch?v=DB2fy_BM2OE",
+      "taxonomyVersion": "8.1.0",
+      "aliasVersion": "8.1.0",
+      "tagRulesVersion": "8.1.0",
+      "evidence": [
+        {
+          "evidenceId": "evidence-title",
+          "type": "動画タイトル",
+          "sourceLabel": "公開動画タイトル",
+          "inputFingerprint": "1ae2f17f8e3082d9ff230c9f07031055e49b1590a8b1f0604dea64ac6ed81b69"
+        },
+        {
+          "evidenceId": "evidence-channel",
+          "type": "公開チャンネル",
+          "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+          "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+        },
+        {
+          "evidenceId": "evidence-duration",
+          "type": "動画長",
+          "sourceLabel": "公開動画長",
+          "inputFingerprint": "132c078e0d780cbb775681ca540ee3a391ba3eddf1ece5d8cccd8a5c37540fdf"
+        },
+        {
+          "evidenceId": "evidence-approved-tags",
+          "type": "既存の承認済みタグ",
+          "sourceLabel": "旧diopsideの承認済みタグ正本",
+          "inputFingerprint": "da42d8ce16a4ac9fdb4e8d426d895e44227742175252319cea39d19d24279c3e"
+        },
+        {
+          "evidenceId": "evidence-approved-timestamps",
+          "type": "既存の承認済みタイムスタンプ",
+          "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+          "inputFingerprint": "a4401ff9fdc54f59d1f235030b1f7f76249cc282e25a81354ad3caa4d46a6139"
+        }
+      ],
+      "tagAssignments": [
+        {
+          "tagId": "tag-content-primary-af7be42add09",
+          "reason": "公開タイトルと既存分類から主ジャンル「雑談」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-approved-tags"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-people-channel-e0fc18a727d8",
+          "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-channel"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-format-media-45323ed44f37",
+          "reason": "動画長と既存形式から動画形式「配信」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-duration"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-talkStyle-48f19af6d466",
+          "reason": "既存タグ「作業配信」から雑談種別「作業」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-approved-tags"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        }
+      ],
+      "timestamps": {
+        "status": "作成済み",
+        "origin": "diopsideで作成した時刻一覧",
+        "items": [
+          {
+            "timestampId": "timestamp-0-6da7a9dc",
+            "startSeconds": 0,
+            "label": "配信開始・作業内容の説明",
+            "confidence": "高",
+            "evidenceRefs": []
+          },
+          {
+            "timestampId": "timestamp-341-5b7657e6",
+            "startSeconds": 341,
+            "label": "ペット先輩と日々の作業",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-1260-3448ca3f",
+            "startSeconds": 1260,
+            "label": "PC作業と作業BGM",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-1821-6ea3773f",
+            "startSeconds": 1821,
+            "label": "対談質問の確認・百合談義",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-2431-99021239",
+            "startSeconds": 2431,
+            "label": "定型質問の設計",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3779-edfa5a1b",
+            "startSeconds": 3779,
+            "label": "作品と恋愛観の雑談",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-5669-52b0afa7",
+            "startSeconds": 5669,
+            "label": "距離感と応援メッセージ",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-6038-4e2aaed7",
+            "startSeconds": 6038,
+            "label": "質問の絞り込み・時間設計",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-7002-86bbc9ae",
+            "startSeconds": 7002,
+            "label": "質問表をまとめる",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-7737-fcb7b159",
+            "startSeconds": 7737,
+            "label": "対談相手への連絡文作成",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-8999-8284b0cb",
+            "startSeconds": 8999,
+            "label": "配信画面の設計",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-9598-21d558f9",
+            "startSeconds": 9598,
+            "label": "背景と漫画風レイアウト",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-10800-8bfd7c40",
+            "startSeconds": 10800,
+            "label": "質問パネルを調整",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-12067-36d95703",
+            "startSeconds": 12067,
+            "label": "ラベルと背景素材の制作",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-12882-11f09717",
+            "startSeconds": 12882,
+            "label": "背景候補を整理",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-13781-7c365975",
+            "startSeconds": 13781,
+            "label": "質問吹き出しと名札の制作",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-14665-08560ab1",
+            "startSeconds": 14665,
+            "label": "漫画風タイトルを整える",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-15299-b491c7ef",
+            "startSeconds": 15299,
+            "label": "質問テンプレートと装飾",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-16295-c39df98c",
+            "startSeconds": 16295,
+            "label": "作業完了の確認",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-16426-135acc76",
+            "startSeconds": 16426,
+            "label": "終了挨拶・今後の予定",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-16648-92e05bf7",
+            "startSeconds": 16648,
+            "label": "スーパーチャット読み",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-17009-664194c6",
+            "startSeconds": 17009,
+            "label": "最終感謝・終了",
+            "confidence": "高",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          }
+        ],
+        "candidateHash": "ebeab93be804033abc9708cead52d0c49f9f1e064c7167a6b256830b95853769",
+        "inputFingerprint": "a4401ff9fdc54f59d1f235030b1f7f76249cc282e25a81354ad3caa4d46a6139",
+        "rulesVersion": "8.1.0",
+        "generatedAt": "2026-07-17T15:38:08Z",
+        "updatedAt": "2026-08-04T15:00:00+09:00",
+        "review": {
+          "mode": "既存承認済みデータ移行",
+          "candidateHash": "ebeab93be804033abc9708cead52d0c49f9f1e064c7167a6b256830b95853769",
+          "source": {
+            "status": "approved",
+            "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+            "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+            "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+            "releaseId": "20260804-001",
+            "sourceKind": "get_archives_info_v1"
+          },
+          "checks": {
+            "sourceApproval": true,
+            "minimumItems": true,
+            "startsAtZero": true,
+            "ascendingOrder": true,
+            "minimumInterval": true,
+            "inDurationRange": true,
+            "allowedConfidence": true,
+            "publicLabels": true
+          },
+          "validatedAt": "2026-08-04T15:00:00+09:00",
+          "finalHumanCheck": {
+            "status": "承認済み",
+            "candidateHash": "ebeab93be804033abc9708cead52d0c49f9f1e064c7167a6b256830b95853769",
+            "reviewedAt": "2026-08-04T15:00:00+09:00",
+            "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+          }
+        }
+      },
+      "wordCloud": {
+        "status": "未作成",
+        "reason": "資料不足",
+        "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+        "updatedAt": "2026-08-04T15:00:00+09:00"
+      },
+      "provenance": {
+        "inputFingerprint": "4357a1ef4f6d691741dddf4cd24f9a0544aa0c41f809f8f12ea71b81e691266b",
+        "generatorVersion": "v8-legacy-migration-1.0.0",
+        "generatedAt": "2026-08-04T15:00:00+09:00",
+        "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      },
+      "approval": {
+        "status": "承認済み",
+        "approvedAt": "2026-08-04T15:00:00+09:00",
+        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+      }
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "videoId": "n8fVm99CwWU",
+      "title": "【Among Us コラボ】#Niji_AmongUs 突発参加でぶちかます【シェリン/にじさんじ】",
+      "publishedAt": "2020-11-18T13:51:43Z",
+      "durationSeconds": 8813,
+      "durationIso": "PT2H26M53S",
+      "thumbnail": {
+        "url": "https://i.ytimg.com/vi/n8fVm99CwWU/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "youtubeUrl": "https://www.youtube.com/watch?v=n8fVm99CwWU",
+      "taxonomyVersion": "8.1.0",
+      "aliasVersion": "8.1.0",
+      "tagRulesVersion": "8.1.0",
+      "evidence": [
+        {
+          "evidenceId": "evidence-title",
+          "type": "動画タイトル",
+          "sourceLabel": "公開動画タイトル",
+          "inputFingerprint": "ffa4cc44c266f3241c178ca61d25dd12f4a676225f6f4a36c73b625a487eec1f"
+        },
+        {
+          "evidenceId": "evidence-channel",
+          "type": "公開チャンネル",
+          "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+          "inputFingerprint": "76931945bd8d6bb8c36416ea36df7a7687fc29674090452fddb0364048bc25eb"
+        },
+        {
+          "evidenceId": "evidence-duration",
+          "type": "動画長",
+          "sourceLabel": "公開動画長",
+          "inputFingerprint": "f37ec8ac42de29146f066cbe72911afd8e89d97087e5d4309dc4a02d90d331a2"
+        },
+        {
+          "evidenceId": "evidence-approved-timestamps",
+          "type": "既存の承認済みタイムスタンプ",
+          "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+          "inputFingerprint": "59f345c0267775c15f20947e4aa3c238183e09815dda8c7d39feac871cb431fc"
+        }
+      ],
+      "tagAssignments": [
+        {
+          "tagId": "tag-content-primary-0dbfa3115896",
+          "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-title"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-people-channel-add94c5a159c",
+          "reason": "公開台帳のチャンネル「シェリン・バーガンディ -Shellin Burgundy- 【にじさんじ】」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-channel"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-format-media-45323ed44f37",
+          "reason": "動画長と既存形式から動画形式「配信」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-duration"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-works-gameTitle-fe593f10b5b5",
+          "reason": "公開タイトルまたは既存タグからゲーム作品「Niji_AmongUs」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-title"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-works-gameTitle-14a91f9986dd",
+          "reason": "公開タイトルまたは既存タグからゲーム作品「Among Us」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-title"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-62278ec71bd0",
+          "reason": "既存分類と作品名からゲームジャンル「アクション」を確認",
+          "confidence": "中",
+          "evidenceRefs": [
+            "evidence-title"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-1cff1b833661",
+          "reason": "既存分類と作品名からゲームジャンル「人狼・正体隠匿」を確認",
+          "confidence": "中",
+          "evidenceRefs": [
+            "evidence-title"
+          ],
+          "reviewedAt": "2026-08-04T15:00:00+09:00"
+        }
+      ],
+      "timestamps": {
+        "status": "作成済み",
+        "origin": "diopsideで作成した時刻一覧",
+        "items": [
+          {
+            "timestampId": "timestamp-0-009fe37b",
+            "startSeconds": 0,
+            "label": "配信導入・ルール確認",
+            "confidence": "中",
+            "evidenceRefs": []
+          },
+          {
+            "timestampId": "timestamp-803-807c49dd",
+            "startSeconds": 803,
+            "label": "第1ゲーム：開始と序盤の進行",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-1593-835f346c",
+            "startSeconds": 1593,
+            "label": "第1ゲーム：会議とアリバイ整理",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-2391-2d3c1e3e",
+            "startSeconds": 2391,
+            "label": "第1ゲーム：行動経路をめぐる議論",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3298-52e9362b",
+            "startSeconds": 3298,
+            "label": "第1ゲーム：終盤・リザルト確認",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3630-d63cc8f8",
+            "startSeconds": 3630,
+            "label": "第2ゲーム：開始と初回会議",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-3901-8ab87079",
+            "startSeconds": 3901,
+            "label": "第2ゲーム：行動経路と設定確認",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-4350-c5915fd8",
+            "startSeconds": 4350,
+            "label": "第2ゲーム：中盤から終盤の議論",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-5204-2823d807",
+            "startSeconds": 5204,
+            "label": "第2ゲーム後の振り返り",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-5395-ef7a05cc",
+            "startSeconds": 5395,
+            "label": "第3ゲーム：開始と初回会議",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-6004-20c65fa6",
+            "startSeconds": 6004,
+            "label": "第3ゲーム：探索と長い会議",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-6869-c95686d8",
+            "startSeconds": 6869,
+            "label": "第3ゲーム：終盤の進行",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-7241-a4eab938",
+            "startSeconds": 7241,
+            "label": "第4ゲーム：開始と序盤の進行",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-7644-83284129",
+            "startSeconds": 7644,
+            "label": "第4ゲーム：停電後の議論と探索",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-8151-1937bbc2",
+            "startSeconds": 8151,
+            "label": "第4ゲーム：終盤の会議",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-8600-74c96207",
+            "startSeconds": 8600,
+            "label": "プレイ後の感想",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          },
+          {
+            "timestampId": "timestamp-8683-0145cb7a",
+            "startSeconds": 8683,
+            "label": "告知・終了挨拶",
+            "confidence": "中",
+            "evidenceRefs": [
+              "evidence-approved-timestamps"
+            ]
+          }
+        ],
+        "candidateHash": "bd84eeb3dff0f3d5ecabda9a8dd336302f01fb239b4710762567826cd96d2fe4",
+        "inputFingerprint": "59f345c0267775c15f20947e4aa3c238183e09815dda8c7d39feac871cb431fc",
+        "rulesVersion": "8.1.0",
+        "generatedAt": "2026-07-28T08:36:52Z",
+        "updatedAt": "2026-08-04T15:00:00+09:00",
+        "review": {
+          "mode": "既存承認済みデータ移行",
+          "candidateHash": "bd84eeb3dff0f3d5ecabda9a8dd336302f01fb239b4710762567826cd96d2fe4",
+          "source": {
+            "status": "approved",
+            "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+            "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+            "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+            "releaseId": "20260804-001",
+            "sourceKind": "get_archives_info_v1"
+          },
+          "checks": {
+            "sourceApproval": true,
+            "minimumItems": true,
+            "startsAtZero": true,
+            "ascendingOrder": true,
+            "minimumInterval": true,
+            "inDurationRange": true,
+            "allowedConfidence": true,
+            "publicLabels": true
+          },
+          "validatedAt": "2026-08-04T15:00:00+09:00",
+          "finalHumanCheck": {
+            "status": "承認済み",
+            "candidateHash": "bd84eeb3dff0f3d5ecabda9a8dd336302f01fb239b4710762567826cd96d2fe4",
+            "reviewedAt": "2026-08-04T15:00:00+09:00",
+            "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+          }
+        }
+      },
+      "wordCloud": {
+        "status": "未作成",
+        "reason": "資料不足",
+        "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+        "updatedAt": "2026-08-04T15:00:00+09:00"
+      },
+      "provenance": {
+        "inputFingerprint": "1cffaff50b825cc0024ba8c8a450ec0ec4322629a5598e612999e82bf467e5fe",
+        "generatorVersion": "v8-legacy-migration-1.0.0",
+        "generatedAt": "2026-08-04T15:00:00+09:00",
+        "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      },
+      "approval": {
+        "status": "承認済み",
+        "approvedAt": "2026-08-04T15:00:00+09:00",
+        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+      }
+    }
+  ]
+}

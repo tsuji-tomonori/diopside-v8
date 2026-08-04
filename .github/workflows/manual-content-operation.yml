@@ -1,0 +1,64 @@
+name: 手動コンテンツ運用
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 実行する操作
+        required: true
+        type: choice
+        default: validate-current
+        options:
+          - validate-current
+          - detect-candidates
+      snapshot_path:
+        description: 候補検出で読むoperations/inbox配下の公開情報JSON
+        required: false
+        type: string
+        default: operations/inbox/public-video-snapshot.json
+
+permissions:
+  contents: read
+
+concurrency:
+  group: manual-content-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  operate:
+    name: 人が選んだ検証または候補検出
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: ソースを取得
+        uses: actions/checkout@v4
+      - name: Node.jsを準備
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.0
+      - name: 固定依存を導入
+        run: npm ci
+      - name: 現在の正本を検証
+        if: inputs.operation == 'validate-current'
+        run: npm run typecheck && npm run validate:content && npm run validate:policy
+      - name: 公開情報から候補を検出
+        if: inputs.operation == 'detect-candidates'
+        env:
+          SNAPSHOT_PATH: ${{ inputs.snapshot_path }}
+        run: |
+          case "$SNAPSHOT_PATH" in
+            operations/inbox/*.json) ;;
+            *) echo "snapshot_pathはoperations/inbox配下のJSONに限定します。" >&2; exit 1 ;;
+          esac
+          test -f "$SNAPSHOT_PATH"
+          npm run candidate:detect -- --input "$SNAPSHOT_PATH" --output /tmp/diopside-candidates.json
+          {
+            echo '### 候補検出結果'
+            if test -f /tmp/diopside-candidates.json; then
+              echo '```json'
+              sed -n '1,400p' /tmp/diopside-candidates.json
+              echo '```'
+            else
+              echo '候補は0件です。'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

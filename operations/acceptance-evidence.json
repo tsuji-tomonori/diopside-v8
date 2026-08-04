@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0.0",
+  "updatedAt": "2026-08-04T15:00:00+09:00",
+  "productOwnerApproval": {
+    "status": "合格",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "evidenceUrl": "https://github.com/tsuji-tomonori/diopside-v8/pull/2",
+    "finding": "2026-08-04の所有者指示により、旧承認済みデータ移行、手動Actions入口、品質確認後のmainマージが明示承認された。"
+  },
+  "pagesPublication": {
+    "status": "未実施",
+    "sourceBranch": null,
+    "sourceFolder": null,
+    "publicUrl": null,
+    "verifiedAt": null,
+    "finding": "PR #2は未マージでmainに/docsがない。所有者指示どおり品質確認後にmainへマージし、main/docsのPages設定と公開を確認する。"
+  },
+  "monthlyCost": {
+    "status": "未実施",
+    "month": "2026-08",
+    "totalServiceChargeJpy": null,
+    "verifiedAt": null,
+    "evidenceUrl": null,
+    "finding": "公開リポジトリと0円構成は確認済みだが、所有者の請求画面による月次請求0円確認は未実施。"
+  },
+  "mobileUsability": {
+    "status": "未実施",
+    "viewport": "375x812",
+    "taskCount": 0,
+    "passedWithin60Seconds": 0,
+    "results": [],
+    "finding": "初見利用者による代表5課題の実測は未実施。自動E2Eは利用者試験の代替にしない。"
+  },
+  "searchPerformance": {
+    "status": "合格",
+    "videoCount": 2500,
+    "viewport": "375x812",
+    "cpuThrottlingRate": 4,
+    "browser": "Chromium 149.0.7827.0",
+    "sampleCount": 20,
+    "p95Milliseconds": 19.4,
+    "limitMilliseconds": 100,
+    "verifiedAt": "2026-08-04T12:40:53+09:00",
+    "finding": "1,681件の公開データ移行後、実ブラウザの代表20検索で、結果表示までの95パーセンタイル19.4ミリ秒を確認した。"
+  }
+}

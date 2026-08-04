@@ -1,0 +1,696 @@
+schema_version: 1
+catalog_version: 3
+authority: governance/checks/catalog.yaml
+initial_import: dev-standard_checklist_restructured.xlsx の 01_必要チェック
+item_count: 69
+items:
+- id: IMP-001
+  class: Invariant
+  timing: impact
+  area: Impact
+  trigger: 常時
+  check: 要件影響を判定する
+  acceptance: 利用者向け挙動、業務ルール、受入条件、非機能閾値、権限要件の変更有無を判定する。Fail条件「要件影響が未判定」に該当しない
+  required_evidence: Commit Commentの「要件影響」
+  enforcement: blocking
+  execution_point: 実装開始前
+- id: IMP-002
+  class: Invariant
+  timing: impact
+  area: Impact
+  trigger: 常時
+  check: 設計影響を判定する
+  acceptance: 生成設計、ADR、公開契約、データモデル、構成の変更有無を判定する。Fail条件「設計影響が未判定」に該当しない
+  required_evidence: Commit Commentの「設計影響」
+  enforcement: blocking
+  execution_point: 実装開始前
+- id: IMP-003
+  class: Invariant
+  timing: impact
+  area: Impact
+  trigger: 常時
+  check: 実行プロファイルを選択する
+  acceptance: direct / assured / regulatedを変更範囲、リスク、権限、不可逆性から選択する。Fail条件「プロファイルが未選択」に該当しない
+  required_evidence: レビュー結果ファイルのprofile
+  enforcement: blocking
+  execution_point: 実装開始前
+- id: IMP-004
+  class: Invariant
+  timing: impact
+  area: Authority
+  trigger: 外部書込み時
+  check: 外部書込みを識別する
+  acceptance: GitHub、クラウド、外部API、通知、公開先への書込みを列挙する。Fail条件「未承認の外部書込みがある」に該当しない
+  required_evidence: Commit Commentの「互換性・リスク」
+  enforcement: blocking
+  execution_point: 外部操作前
+- id: IMP-005
+  class: Invariant
+  timing: impact
+  area: Authority
+  trigger: 不可逆操作時
+  check: 不可逆操作を識別する
+  acceptance: 削除、データ変換、production変更、課金、公開、mergeを判定する。Fail条件「権限境界が不明」に該当しない
+  required_evidence: Commit Commentと明示承認
+  enforcement: blocking
+  execution_point: 不可逆操作前
+- id: IMP-006
+  class: Invariant
+  timing: impact
+  area: Security
+  trigger: 認証・認可変更時
+  check: 認証・認可影響を識別する
+  acceptance: 認証方式、権限、テナント境界、最小権限への影響を判定する。Fail条件「critical profile未選択」に該当しない
+  required_evidence: selected_checksと対象テスト
+  enforcement: blocking
+  execution_point: 実装開始前
+- id: IMP-007
+  class: Risk-selected
+  timing: impact
+  area: Data
+  trigger: DB・永続データ変更時
+  check: データ変更を識別する
+  acceptance: schema、migration、削除、互換性、rollbackの必要性を判定する。Fail条件「migration検証が未選択」に該当しない
+  required_evidence: selected_checks
+  enforcement: blocking-when-selected
+  execution_point: 実装開始前
+- id: IMP-008
+  class: Risk-selected
+  timing: impact
+  area: Contract
+  trigger: 公開API・イベント変更時
+  check: 公開契約影響を識別する
+  acceptance: OpenAPI、イベント、CLI、ファイル形式、外部利用者への互換性を判定する。Fail条件「契約差分検証が未選択」に該当しない
+  required_evidence: selected_checks
+  enforcement: blocking-when-selected
+  execution_point: 実装開始前
+- id: IMP-009
+  class: Risk-selected
+  timing: impact
+  area: Infrastructure
+  trigger: IaC変更時
+  check: IaC影響を識別する
+  acceptance: resource、権限、network、削除・置換、費用への影響を判定する。Fail条件「synth/diff検証が未選択」に該当しない
+  required_evidence: selected_checks
+  enforcement: blocking-when-selected
+  execution_point: 実装開始前
+- id: IMP-010
+  class: Risk-selected
+  timing: impact
+  area: Dependency
+  trigger: 依存更新時
+  check: 依存変更を識別する
+  acceptance: lockfile、license、脆弱性、破壊的変更、transitive dependencyを判定する。Fail条件「依存検証が未選択」に該当しない
+  required_evidence: selected_checks
+  enforcement: blocking-when-selected
+  execution_point: 実装開始前
+- id: FAST-001
+  class: Invariant
+  timing: implementation
+  area: Build
+  trigger: コード変更時
+  check: 構文・ビルドを確認する
+  acceptance: 対象言語・対象モジュールの最小ビルドまたは構文検査を実行する。Fail条件「ビルド不能」に該当しない
+  required_evidence: CI外部サービス
+  enforcement: blocking
+  execution_point: 各実装スライス後
+- id: FAST-002
+  class: Invariant
+  timing: implementation
+  area: Static
+  trigger: 型付きコード変更時
+  check: 型検査を実行する
+  acceptance: 変更範囲に対応するtype checkを実行する。Fail条件「型エラー」に該当しない
+  required_evidence: CI外部サービス
+  enforcement: blocking
+  execution_point: 各実装スライス後
+- id: FAST-003
+  class: Invariant
+  timing: implementation
+  area: Static
+  trigger: コード変更時
+  check: 対象lintを実行する
+  acceptance: 変更ファイルまたは関連モジュールへlintを実行する。Fail条件「blocking lint」に該当しない
+  required_evidence: CI外部サービス
+  enforcement: blocking
+  execution_point: 各実装スライス後
+- id: FAST-004
+  class: Invariant
+  timing: implementation
+  area: Test
+  trigger: 振る舞い変更時
+  check: 対象単体テストを実行する
+  acceptance: 変更した振る舞いと失敗経路を直接検証する。Fail条件「対象テスト失敗」に該当しない
+  required_evidence: CI外部サービス
+  enforcement: blocking
+  execution_point: 各実装スライス後
+- id: FAST-005
+  class: Risk-selected
+  timing: implementation
+  area: Test
+  trigger: 不具合修正時
+  check: 再現テストを確認する
+  acceptance: 修正前に失敗する条件をテストまたは再現手順で固定する。Fail条件「不具合再発を検出できない」に該当しない
+  required_evidence: テストコードとCI
+  enforcement: blocking-when-selected
+  execution_point: 修正確定前
+- id: FAST-006
+  class: Invariant
+  timing: implementation
+  area: Generated
+  trigger: 生成対象変更時
+  check: 生成物driftを検査する
+  acceptance: 宣言済み生成対象を同一logicのgenerate/check modeで決定論的に再生成し、差分pathを列挙する。Fail条件「生成元との不一致または非決定出力」に該当しない
+  required_evidence: 生成物とCI
+  enforcement: blocking
+  execution_point: 生成元変更後
+- id: FAST-007
+  class: Invariant
+  timing: implementation
+  area: Security
+  trigger: 全変更
+  check: 秘密情報混入を検査する
+  acceptance: credential、token、個人情報、production dumpをGitへ追加していないことを検査する。Fail条件「秘密情報または機密データ」に該当しない
+  required_evidence: secret scan / staged diff
+  enforcement: blocking
+  execution_point: commit前
+- id: FAST-008
+  class: Risk-selected
+  timing: implementation
+  area: Dependency
+  trigger: 依存更新時
+  check: lock整合性を検査する
+  acceptance: manifestとlockfile、解決結果、不要依存の混入を検査する。Fail条件「lock不整合」に該当しない
+  required_evidence: CI外部サービス
+  enforcement: blocking-when-selected
+  execution_point: 依存更新後
+- id: FAST-009
+  class: Risk-selected
+  timing: implementation
+  area: API
+  trigger: 公開API変更時
+  check: 契約差分を検査する
+  acceptance: OpenAPIまたはschemaのbreaking changeを機械比較する。Fail条件「未承認のbreaking change」に該当しない
+  required_evidence: CI artifact / external service
+  enforcement: blocking-when-selected
+  execution_point: API変更後
+- id: FAST-010
+  class: Risk-selected
+  timing: implementation
+  area: Database
+  trigger: SQL変更時
+  check: SQLを構文解析する
+  acceptance: 生SQLをASTで解析し、対象テーブルと操作を確認する。Fail条件「未解析SQL」に該当しない
+  required_evidence: CI外部サービス
+  enforcement: blocking-when-selected
+  execution_point: SQL変更後
+- id: FAST-011
+  class: Risk-selected
+  timing: implementation
+  area: Database
+  trigger: migration時
+  check: migration往復を検査する
+  acceptance: forward、rollbackまたは復旧手順、既存データ互換性を確認する。Fail条件「データ損失・復旧不能」に該当しない
+  required_evidence: CI外部サービス
+  enforcement: blocking-when-selected
+  execution_point: migration変更後
+- id: FAST-012
+  class: Risk-selected
+  timing: implementation
+  area: IaC
+  trigger: IaC変更時
+  check: synthと差分を検査する
+  acceptance: 生成template、resource replacement、permission、network差分を確認する。Fail条件「未意図の置換・削除」に該当しない
+  required_evidence: CI artifact / external service
+  enforcement: blocking-when-selected
+  execution_point: IaC変更後
+- id: FAST-013
+  class: Risk-selected
+  timing: implementation
+  area: Frontend
+  trigger: UI変更時
+  check: 主要状態を実装する
+  acceptance: loading、empty、error、permission、success、recoveryの適用状態を確認する。Fail条件「重要状態の欠落」に該当しない
+  required_evidence: component/E2E test
+  enforcement: blocking-when-selected
+  execution_point: UIスライス完了時
+- id: FAST-014
+  class: Risk-selected
+  timing: implementation
+  area: Accessibility
+  trigger: 対話UI変更時
+  check: キーボード・意味構造を確認する
+  acceptance: semantic element、accessible name、focus、keyboard、reduced motionを確認する。Fail条件「重要操作が利用不能」に該当しない
+  required_evidence: component test / review
+  enforcement: blocking-when-selected
+  execution_point: UIスライス完了時
+- id: FAST-015
+  class: Advisory
+  timing: implementation
+  area: Observability
+  trigger: 運用影響時
+  check: 観測可能性を確認する
+  acceptance: 失敗が検知可能で、必要なlog・metric・traceがあることを確認する。Fail条件「運用時の診断性低下」に該当しない
+  required_evidence: テストまたは設計差分
+  enforcement: advisory
+  execution_point: 関連実装後
+- id: FAST-016
+  class: Risk-selected
+  timing: implementation
+  area: As-built API
+  trigger: 公開API変更時
+  check: 実装・仕様・sampleの三点整合を検査する
+  acceptance: handler登録、設計metadata、error分岐、error sampleを静的解析する。Fail条件「登録漏れ、metadata欠落、sample不足」に該当しない
+  required_evidence: static check / CI外部サービス
+  enforcement: blocking-when-selected
+  execution_point: API・OpenAPI・sample変更後
+- id: FAST-017
+  class: Risk-selected
+  timing: implementation
+  area: As-built Sample
+  trigger: 公開API変更時
+  check: sampleとtestの整合を検査する
+  acceptance: 設計掲載sampleが対応testから参照され、実responseとのassertに使われることをASTで確認する。Fail条件「未testのsample」に該当しない
+  required_evidence: static check / test code / CI外部サービス
+  enforcement: blocking-when-selected
+  execution_point: API sample変更後
+- id: FAST-018
+  class: Risk-selected
+  timing: implementation
+  area: As-built E2E
+  trigger: SQLまたはE2E変更時
+  check: CRUDとE2E状態検証の整合を検査する
+  acceptance: C/U/D APIの正常系E2EがDBまたは外部状態を検証し、異常系が状態不変または理由付き許可変化を検証する。Fail条件「状態assert欠落」に該当しない
+  required_evidence: static check / E2E test / CI外部サービス
+  enforcement: blocking-when-selected
+  execution_point: SQL・CRUD・E2E変更後
+- id: FAST-019
+  class: Advisory
+  timing: implementation
+  area: As-built Coverage
+  trigger: as-built規約適用時
+  check: C0・C1 coverage目標を測定する
+  acceptance: C0命令網羅95%以上、C1分岐網羅90%以上を測定し、未達を導入時のAdvisoryとして報告する。Fail条件「測定不能または目標未達」に該当しない
+  required_evidence: coverage result / CI外部サービス
+  enforcement: advisory
+  execution_point: as-built規約の導入・拡張後
+- id: FAST-020
+  class: Advisory
+  timing: implementation
+  area: As-built Test Structure
+  trigger: as-built規約適用時
+  check: AAA・GWTとtest記述規約を評価する
+  acceptance: unit testのAAA、E2EのGWT、docstring、1 case 1関数をASTで評価する。Fail条件「生成可能なtest構造を満たさない」に該当しない
+  required_evidence: static check / test code
+  enforcement: advisory
+  execution_point: as-built規約の導入・拡張後
+- id: FAST-021
+  class: Advisory
+  timing: implementation
+  area: As-built Implementation
+  trigger: as-built規約適用時
+  check: 解析可能な実装規約を評価する
+  acceptance: endpoint layout、layer分離、生SQL、運用log、generator tool構造を評価する。Fail条件「静的解析でflowまたは一次情報を追跡できない」に該当しない
+  required_evidence: static check / design review
+  enforcement: advisory
+  execution_point: as-built規約の導入・拡張後
+- id: FAST-022
+  class: Risk-selected
+  timing: implementation
+  area: As-built Thresholds
+  trigger: 定量閾値変更時
+  check: 規約・設定・委譲先の定量値を一致させる
+  acceptance: 標準Rule ID、machine-readable設定、linter delegationの閾値を比較する。Fail条件「値または委譲mappingの不一致」に該当しない
+  required_evidence: standard / config / static check
+  enforcement: blocking-when-selected
+  execution_point: 閾値またはlinter設定変更後
+- id: FAST-023
+  class: Advisory
+  timing: implementation
+  area: As-built Evidence
+  trigger: as-built規約適用時
+  check: 品質結果を外部report基盤へ集約する
+  acceptance: 選択したtest、static analysis、規約check、coverageの結果を単一の外部workflowまたはreport viewから確認でき、repositoryへ実行結果本文を保存しない。Fail条件「結果が分散し確認不能またはrepositoryへ複製」に該当しない
+  required_evidence: external workflow / report view / artifact policy
+  enforcement: advisory
+  execution_point: as-built規約の導入・拡張後
+- id: FAST-024
+  class: Risk-selected
+  timing: implementation
+  area: As-built Contract
+  trigger: as-built標準変更時
+  check: as-built標準の正本・配布契約・traceを整合させる
+  acceptance: 要件正本、標準文書、check catalog、generator contract、配布定義、Rule・check・test traceの変更が相互整合し、第二正本を作らない。Fail条件「標準contract間の不一致または回帰test欠落」に該当しない
+  required_evidence: standard / catalog / contract test / distribution test
+  enforcement: blocking-when-selected
+  execution_point: as-built標準・catalog・generator契約変更後
+- id: REV-001
+  class: Invariant
+  timing: pre-pr
+  area: Scope
+  trigger: 常時
+  check: 差分の目的を一つに保つ
+  acceptance: 依頼と無関係な変更、生成物以外のノイズ、偶発的変更を含めない。Fail条件「無関係な変更が混在」に該当しない
+  required_evidence: git diff / PR diff
+  enforcement: blocking
+  execution_point: PR作成前
+- id: REV-002
+  class: Invariant
+  timing: pre-pr
+  area: Commit
+  trigger: 常時
+  check: Commit Commentを完成させる
+  acceptance: 目的、変更、要件影響、設計影響、チェックリスト、検証契約、リスクを記載する。Fail条件「必須節が欠落」に該当しない
+  required_evidence: commit message
+  enforcement: blocking
+  execution_point: commit時
+- id: REV-003
+  class: Invariant
+  timing: pre-pr
+  area: Requirements
+  trigger: 常時
+  check: 要件影響の理由を確認する
+  acceptance: ありの場合は要件IDを更新し、なしの場合も外部挙動が変わらない根拠を記載する。Fail条件「影響判定と差分が不一致」に該当しない
+  required_evidence: commit message / requirements.json
+  enforcement: blocking
+  execution_point: PR作成前
+- id: REV-004
+  class: Invariant
+  timing: pre-pr
+  area: Design
+  trigger: 常時
+  check: 設計影響の理由を確認する
+  acceptance: 生成設計更新、ADR作成、設計影響なしのいずれかと根拠を記載する。Fail条件「設計影響が不明」に該当しない
+  required_evidence: commit message / generated design / ADR
+  enforcement: blocking
+  execution_point: PR作成前
+- id: REV-005
+  class: Risk-selected
+  timing: pre-pr
+  area: Trace
+  trigger: 要件影響あり
+  check: 要件からテストまで接続する
+  acceptance: 要件IDが実装、テスト、生成設計へ到達できることを確認する。Fail条件「要件が未接続」に該当しない
+  required_evidence: source annotations / generated trace
+  enforcement: blocking-when-selected
+  execution_point: PR作成前
+- id: REV-006
+  class: Invariant
+  timing: pre-pr
+  area: Test
+  trigger: 常時
+  check: 受入条件に対応する証拠を確認する
+  acceptance: 変更に必要なテストが存在し、CIで実行されることを確認する。Fail条件「必要な検証がCIにない」に該当しない
+  required_evidence: test code / workflow config
+  enforcement: blocking
+  execution_point: PR作成前
+- id: REV-007
+  class: Invariant
+  timing: pre-pr
+  area: Review
+  trigger: 常時
+  check: 選択チェック結果を保存する
+  acceptance: 選択されたチェックのみをgovernance/reviews/<change-id>.yamlへ記録する。Fail条件「レビュー用結果がない」に該当しない
+  required_evidence: review result YAML
+  enforcement: blocking
+  execution_point: PR作成前
+- id: REV-008
+  class: Invariant
+  timing: pre-pr
+  area: Review
+  trigger: 常時
+  check: 未選択をN/Aにしない
+  acceptance: selectorで選ばれなかった項目は結果ファイルへ登録しない。Fail条件「大量の形式的N/A」に該当しない
+  required_evidence: review result YAML
+  enforcement: blocking
+  execution_point: PR作成前
+- id: REV-009
+  class: Risk-selected
+  timing: pre-pr
+  area: Review
+  trigger: N/A使用時
+  check: N/A根拠を確認する
+  acceptance: 選択後に適用外と判明した具体的事実を記載する。Fail条件「根拠のないN/A」に該当しない
+  required_evidence: review result YAML
+  enforcement: blocking-when-selected
+  execution_point: PR作成前
+- id: REV-010
+  class: Invariant
+  timing: pre-pr
+  area: Review
+  trigger: Fail時
+  check: Failの扱いを決定する
+  acceptance: blockingは修正、advisoryは修正またはIssue化、残存リスクを記載する。Fail条件「未処理のblocking fail」に該当しない
+  required_evidence: review result YAML / Issue
+  enforcement: blocking
+  execution_point: PR作成前
+- id: REV-011
+  class: Risk-selected
+  timing: pre-pr
+  area: Compatibility
+  trigger: 公開契約変更時
+  check: 互換性を確認する
+  acceptance: consumer、migration、versioning、deprecation、rollbackを確認する。Fail条件「未管理の互換性破壊」に該当しない
+  required_evidence: contract diff / tests
+  enforcement: blocking-when-selected
+  execution_point: PR作成前
+- id: REV-012
+  class: Risk-selected
+  timing: pre-pr
+  area: Security
+  trigger: critical変更時
+  check: 独立レビューを行う
+  acceptance: 認可、秘密情報、データ損失、不可逆操作は別oracleまたはread-only reviewerで確認する。Fail条件「独立検証なし」に該当しない
+  required_evidence: review result YAML
+  enforcement: blocking-when-selected
+  execution_point: PR作成前
+- id: REV-013
+  class: Risk-selected
+  timing: pre-pr
+  area: Frontend
+  trigger: 重要UI変更時
+  check: タスク単位で確認する
+  acceptance: 見た目だけでなく主要タスク、状態、keyboard、responsiveを確認する。Fail条件「主要タスクが未検証」に該当しない
+  required_evidence: E2E/component test / screenshots
+  enforcement: blocking-when-selected
+  execution_point: PR作成前
+- id: REV-014
+  class: Risk-selected
+  timing: pre-pr
+  area: Operations
+  trigger: 運用影響時
+  check: 運用正本を更新する
+  acceptance: monitoring、recovery、runbook、migration、互換性の恒久的変更だけを更新する。Fail条件「運用変更が未反映」に該当しない
+  required_evidence: 運用文書差分
+  enforcement: blocking-when-selected
+  execution_point: PR作成前
+- id: REV-015
+  class: Advisory
+  timing: pre-pr
+  area: ADR
+  trigger: 長期判断時
+  check: ADR要否を確認する
+  acceptance: 将来を制約し、コードだけでは理由が分からない判断にADRを作成する。Fail条件「重要判断の理由が消失」に該当しない
+  required_evidence: ADR / commit message
+  enforcement: advisory
+  execution_point: PR作成前
+- id: MRG-001
+  class: Invariant
+  timing: pre-merge
+  area: Revision
+  trigger: 常時
+  check: 最新HEADのCIを確認する
+  acceptance: すべてのblocking workflowが現在のPR HEADを対象として成功していることを確認する。Fail条件「古いSHAの結果」に該当しない
+  required_evidence: GitHub Actions
+  enforcement: blocking
+  execution_point: merge直前
+- id: MRG-002
+  class: Invariant
+  timing: pre-merge
+  area: Generated
+  trigger: 生成対象変更時
+  check: 生成物が最新である
+  acceptance: check modeで生成元と生成物の一致を確認する。Fail条件「生成物drift」に該当しない
+  required_evidence: GitHub Actions
+  enforcement: blocking
+  execution_point: merge直前
+- id: MRG-003
+  class: Invariant
+  timing: pre-merge
+  area: Review
+  trigger: 常時
+  check: blocking checkを解消する
+  acceptance: レビュー結果YAMLに未解決blocking failがないことを確認する。Fail条件「blocking fail残存」に該当しない
+  required_evidence: review result YAML
+  enforcement: blocking
+  execution_point: merge直前
+- id: MRG-004
+  class: Invariant
+  timing: pre-merge
+  area: Review
+  trigger: advisory存在時
+  check: advisoryの扱いを明示する
+  acceptance: 修正済み、Issue化、残存リスク受容のいずれかを記録する。Fail条件「未処理advisory」に該当しない
+  required_evidence: review result YAML / Issue
+  enforcement: blocking
+  execution_point: merge直前
+- id: MRG-005
+  class: Invariant
+  timing: pre-merge
+  area: Commit
+  trigger: squash時
+  check: 最終Commit Commentを保持する
+  acceptance: squash commit本文へ要件・設計影響、チェックリスト、検証契約、リスクを統合する。Fail条件「変更証跡がPRにしか残らない」に該当しない
+  required_evidence: squash commit message
+  enforcement: blocking
+  execution_point: merge時
+- id: MRG-006
+  class: Invariant
+  timing: pre-merge
+  area: Authority
+  trigger: 外部副作用時
+  check: 権限境界を再確認する
+  acceptance: merge、release、deploy、公開、削除が承認された範囲であることを確認する。Fail条件「権限外操作」に該当しない
+  required_evidence: PR / approval
+  enforcement: blocking
+  execution_point: 操作直前
+- id: MRG-007
+  class: Invariant
+  timing: pre-merge
+  area: Scope
+  trigger: 常時
+  check: 未判定影響を残さない
+  acceptance: 要件影響、設計影響、残存リスクがunknownまたはTBDでないことを確認する。Fail条件「未確定事項」に該当しない
+  required_evidence: commit message / review YAML
+  enforcement: blocking
+  execution_point: merge直前
+- id: DEP-001
+  class: Invariant
+  timing: post-deploy
+  area: Deployment
+  trigger: production deploy時
+  check: deploy結果を確認する
+  acceptance: 対象環境、対象revision、deploy statusを外部サービスで確認する。Fail条件「deploy失敗または対象不明」に該当しない
+  required_evidence: deployment service / GitHub Actions
+  enforcement: blocking
+  execution_point: deploy直後
+- id: DEP-002
+  class: Invariant
+  timing: post-deploy
+  area: Smoke
+  trigger: production deploy時
+  check: 主要smoke testを実行する
+  acceptance: 主要な利用経路とhealthを対象環境で確認する。Fail条件「主要経路失敗」に該当しない
+  required_evidence: external service
+  enforcement: blocking
+  execution_point: deploy直後
+- id: DEP-003
+  class: Invariant
+  timing: post-deploy
+  area: Migration
+  trigger: migration時
+  check: migration結果を確認する
+  acceptance: 適用version、件数、エラー、復旧可能性を確認する。Fail条件「migration異常」に該当しない
+  required_evidence: deployment service / DB tooling
+  enforcement: blocking
+  execution_point: migration直後
+- id: DEP-004
+  class: Risk-selected
+  timing: post-deploy
+  area: Monitoring
+  trigger: 運用影響時
+  check: 主要指標を確認する
+  acceptance: error rate、latency、queue、resource、business KPIの異常を確認する。Fail条件「重大な回帰」に該当しない
+  required_evidence: monitoring service
+  enforcement: blocking-when-selected
+  execution_point: deploy後観測窓
+- id: DEP-005
+  class: Invariant
+  timing: post-deploy
+  area: Rollback
+  trigger: 重大異常時
+  check: rollback判断を実行する
+  acceptance: 定義済み閾値を超えた場合に停止・rollback・roll-forwardを行う。Fail条件「復旧不能」に該当しない
+  required_evidence: deployment service / incident record
+  enforcement: blocking
+  execution_point: 異常検知時
+- id: AUD-001
+  class: Periodic
+  timing: periodic
+  area: Checklist
+  trigger: 月次またはリリース単位
+  check: false blockerを分析する
+  acceptance: 品質欠陥を防がず作業だけを止めたチェックを特定する。Fail条件「手続きの自己目的化」に該当しない
+  required_evidence: audit report / issue
+  enforcement: periodic
+  execution_point: 月次
+- id: AUD-002
+  class: Periodic
+  timing: periodic
+  area: Checklist
+  trigger: 月次またはリリース単位
+  check: 見逃しを分析する
+  acceptance: escaped defectから不足チェック、selector miss、証拠不足を特定する。Fail条件「重要チェック不足」に該当しない
+  required_evidence: incident / defect data
+  enforcement: periodic
+  execution_point: 月次
+- id: AUD-003
+  class: Periodic
+  timing: periodic
+  area: Skills
+  trigger: 月次
+  check: Skill競合を分析する
+  acceptance: 重複指示、相反ルール、不要な自動起動、hook再注入を確認する。Fail条件「LLM活動阻害」に該当しない
+  required_evidence: instruction audit
+  enforcement: periodic
+  execution_point: 月次
+- id: AUD-004
+  class: Periodic
+  timing: periodic
+  area: Efficiency
+  trigger: 月次
+  check: 実行コストを分析する
+  acceptance: tool call、read bytes、質問数、reviewer数、CI再試行を集計する。Fail条件「過剰統制」に該当しない
+  required_evidence: external telemetry
+  enforcement: periodic
+  execution_point: 月次
+- id: AUD-005
+  class: Periodic
+  timing: periodic
+  area: Standards
+  trigger: 再確認期限時
+  check: 標準出典を更新する
+  acceptance: 公式資料の版・適用範囲・差分を確認する。Fail条件「陳腐化した参照」に該当しない
+  required_evidence: standards registry
+  enforcement: periodic
+  execution_point: 期限到来時
+- id: AUD-006
+  class: Periodic
+  timing: periodic
+  area: Artifacts
+  trigger: 月次
+  check: 不要成果物を検出する
+  acceptance: 生成されるが参照されない文書、孤立trace、古い一時ファイルを確認する。Fail条件「情報量だけ増加」に該当しない
+  required_evidence: repository audit
+  enforcement: periodic
+  execution_point: 月次
+- id: AUD-007
+  class: Periodic
+  timing: periodic
+  area: Reviews
+  trigger: 月次
+  check: advisory滞留を確認する
+  acceptance: 同一advisoryの反復、期限超過、Issue未作成を確認する。Fail条件「既知債務の放置」に該当しない
+  required_evidence: review YAML / Issues
+  enforcement: periodic
+  execution_point: 月次
+- id: AUD-008
+  class: Periodic
+  timing: periodic
+  area: Suppressions
+  trigger: 月次
+  check: Rule ID抑制一覧を監査する
+  acceptance: ignore[Rule ID]のpath、理由、重複、失効、孤児を確認する。Fail条件「理由なし抑制または恒久化した不要抑制」に該当しない
+  required_evidence: suppression inventory / audit report
+  enforcement: periodic
+  execution_point: 月次

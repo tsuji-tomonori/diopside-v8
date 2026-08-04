@@ -1,0 +1,425 @@
+{
+  "schemaVersion": "2.0.0",
+  "name": "diopside tag taxonomy",
+  "basis": {
+    "metadataRecords": 1378,
+    "legacyTaggedRecords": 1175,
+    "legacyCoverage": 0.8527,
+    "observedAt": "2026-07-10",
+    "sources": [
+      "output/*/*_metadata.json",
+      "output/*/*.vtt",
+      "output/*/*_comments.json",
+      "output/*.json",
+      "tags/tag_master.json",
+      "tags/archive_index.p0.json"
+    ]
+  },
+  "rules": {
+    "required": [
+      "content.primary",
+      "format.media"
+    ],
+    "multipleTagsPerVideo": true,
+    "multipleTagRule": "主ジャンルと動画形式は各1個。それ以外は該当するタグを複数付与できる",
+    "conditionallyRequired": [
+      {
+        "field": "works.gameTitle",
+        "when": "動画内でゲームをプレイしている"
+      },
+      {
+        "field": "content.gameGenre",
+        "when": "動画内でゲームをプレイしている"
+      },
+      {
+        "field": "content.talkStyle",
+        "when": "主ジャンルまたは副ジャンルが雑談"
+      },
+      {
+        "field": "context.participation:コラボ",
+        "when": "チャンネル主以外の出演者と共同で内容を行っている"
+      },
+      {
+        "field": "people.performer",
+        "when": "チャンネル主以外の出演者がいる"
+      },
+      {
+        "field": "people.unit",
+        "when": "既知グループとして活動している"
+      }
+    ],
+    "derivedMetadata": [
+      "people.channel"
+    ],
+    "primaryContentCardinality": 1,
+    "secondaryContentMaximum": 2,
+    "recommendedMaximumExcludingPeople": 12,
+    "unknownValue": null,
+    "unclassifiedWorkflowState": "未分類・要レビュー",
+    "unclassifiedRule": "判定不能な動画へ「その他」タグを保存せず、レビュー完了まで未分類状態にする"
+  },
+  "categories": [
+    {
+      "id": "content",
+      "name": "内容",
+      "subcategories": [
+        {
+          "id": "primary",
+          "name": "主ジャンル",
+          "cardinality": "1",
+          "values": [
+            "ゲーム",
+            "雑談",
+            "歌",
+            "ASMR",
+            "企画",
+            "同時視聴",
+            "TRPG",
+            "朗読・声劇",
+            "ダンス"
+          ]
+        },
+        {
+          "id": "secondary",
+          "name": "副ジャンル",
+          "cardinality": "0..2",
+          "valuesFrom": "content.primary"
+        },
+        {
+          "id": "gameGenre",
+          "name": "ゲームジャンル",
+          "cardinality": "1..3 when applicable",
+          "requiredWhen": "動画内でゲームをプレイしている",
+          "appliesWhen": "content.primary or content.secondary is ゲーム",
+          "values": [
+            "RPG",
+            "アクション",
+            "アドベンチャー",
+            "ホラー",
+            "FPS/TPS",
+            "MOBA",
+            "人狼・正体隠匿",
+            "シミュレーション",
+            "パズル",
+            "サンドボックス",
+            "ストラテジー",
+            "テーブルゲーム",
+            "パーティーゲーム",
+            "ビジュアルノベル",
+            "レーシング",
+            "リズム",
+            "スポーツ",
+            "格闘",
+            "教育・学習",
+            "フィットネス"
+          ]
+        },
+        {
+          "id": "talkStyle",
+          "name": "雑談種別",
+          "cardinality": "1..3 when applicable",
+          "requiredWhen": "content.primary or content.secondary is 雑談",
+          "appliesWhen": "content.primary or content.secondary is 雑談",
+          "values": [
+            "フリートーク",
+            "お悩み相談",
+            "投稿紹介",
+            "振り返り",
+            "体験談",
+            "晩酌",
+            "作業",
+            "報告・告知",
+            "スパチャ読み"
+          ]
+        },
+        {
+          "id": "musicType",
+          "name": "歌種別",
+          "cardinality": "0..2",
+          "appliesWhen": "content.primary or content.secondary is 歌",
+          "values": [
+            "歌枠",
+            "歌ってみた",
+            "オリジナル曲",
+            "歌リレー",
+            "ライブ"
+          ]
+        },
+        {
+          "id": "asmrType",
+          "name": "ASMR種別",
+          "cardinality": "0..3",
+          "appliesWhen": "content.primary or content.secondary is ASMR",
+          "values": [
+            "ささやき",
+            "耳かき",
+            "添い寝",
+            "甘やかし",
+            "ロールプレイ",
+            "看病"
+          ]
+        },
+        {
+          "id": "watchMedia",
+          "name": "同時視聴メディア",
+          "cardinality": "0..1",
+          "appliesWhen": "content.primary or content.secondary is 同時視聴",
+          "values": [
+            "アニメ",
+            "映画",
+            "ライブ",
+            "イベント",
+            "番組"
+          ]
+        },
+        {
+          "id": "readingType",
+          "name": "朗読・声劇種別",
+          "cardinality": "0..1",
+          "appliesWhen": "content.primary or content.secondary is 朗読・声劇",
+          "values": [
+            "朗読",
+            "声劇",
+            "参加型声劇"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "works",
+      "name": "作品",
+      "subcategories": [
+        {
+          "id": "gameTitle",
+          "name": "ゲーム作品名",
+          "cardinality": "1..n when applicable",
+          "requiredWhen": "動画内でゲームをプレイしている",
+          "valueRule": "公式の日本語タイトルを優先し、存在しなければ公式原題を使う。版・DLCが内容を区別する場合だけ残す"
+        },
+        {
+          "id": "gameSeries",
+          "name": "ゲームシリーズ名",
+          "cardinality": "0..n",
+          "valueRule": "シリーズを横断して探す需要があり、同一シリーズが2作品以上ある場合に付ける"
+        },
+        {
+          "id": "watchedTitle",
+          "name": "同時視聴作品名",
+          "cardinality": "0..n",
+          "valueRule": "映画・アニメ・ライブ等の公式作品名。話数はタグに含めない"
+        },
+        {
+          "id": "trpgTitle",
+          "name": "TRPGシステム・シナリオ名",
+          "cardinality": "0..2",
+          "valueRule": "システム名とシナリオ名を別タグとして保持する"
+        },
+        {
+          "id": "songTitle",
+          "name": "楽曲名",
+          "cardinality": "0..n",
+          "valueRule": "単曲動画または検索価値の高い代表曲だけ。通常の歌枠の全セットリストには付けない"
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "name": "人物・グループ",
+      "subcategories": [
+        {
+          "id": "channel",
+          "name": "公開チャンネル",
+          "cardinality": "1",
+          "source": "metadata.channel_title",
+          "valueRule": "YouTubeチャンネル名をメタデータから保持し、手入力しない"
+        },
+        {
+          "id": "performer",
+          "name": "出演者",
+          "cardinality": "0..n",
+          "requiredWhen": "チャンネル主以外の出演者がいる",
+          "valueRule": "実際に出演・通話参加した人物だけ。チャンネル主、言及のみの人物、クレジット制作者は含めない"
+        },
+        {
+          "id": "unit",
+          "name": "ユニット・チーム",
+          "cardinality": "0..n",
+          "requiredWhen": "group_aliases_v2.jsonにあるグループとして活動している",
+          "valueRule": "group_aliases_v2.jsonの正規名を使う。旧名・別名・ハッシュタグは検索別名として統合し、先頭の#は付けない"
+        }
+      ]
+    },
+    {
+      "id": "program",
+      "name": "企画・シリーズ",
+      "subcategories": [
+        {
+          "id": "recurringSeries",
+          "name": "定期・連続企画名",
+          "cardinality": "0..n",
+          "examples": [
+            "いっ杯晩酌",
+            "バーチャル3分劇場",
+            "リアル百合エピソード",
+            "百合漫画家対談",
+            "ガチレポ！"
+          ]
+        },
+        {
+          "id": "event",
+          "name": "イベント・大会名",
+          "cardinality": "0..n",
+          "valueRule": "公式名称を使い、年ごとに内容が分かれるイベントは西暦4桁を末尾に付ける。先頭の#は付けない"
+        }
+      ]
+    },
+    {
+      "id": "context",
+      "name": "配信特性",
+      "subcategories": [
+        {
+          "id": "participation",
+          "name": "参加形態",
+          "cardinality": "0..3",
+          "requiredValues": {
+            "コラボ": "チャンネル主以外の出演者と共同で内容を行っている場合"
+          },
+          "values": [
+            "コラボ",
+            "オフコラボ",
+            "視聴者参加型"
+          ]
+        },
+        {
+          "id": "occasion",
+          "name": "記念・お披露目",
+          "cardinality": "0..2",
+          "values": [
+            "誕生日記念",
+            "周年記念",
+            "登録者数記念",
+            "デビュー",
+            "新衣装お披露目",
+            "3Dお披露目"
+          ]
+        },
+        {
+          "id": "feature",
+          "name": "進行・企画特性",
+          "cardinality": "0..3",
+          "values": [
+            "耐久",
+            "ゲリラ",
+            "初見",
+            "逆凸",
+            "大会",
+            "検証・チャレンジ",
+            "単発"
+          ]
+        },
+        {
+          "id": "theme",
+          "name": "中心テーマ",
+          "cardinality": "0..3",
+          "values": [
+            "百合",
+            "ホラー",
+            "恋愛",
+            "飲酒",
+            "罵倒・SM"
+          ],
+          "extensible": true
+        },
+        {
+          "id": "warning",
+          "name": "注意情報",
+          "cardinality": "0..n",
+          "values": [
+            "ネタバレあり"
+          ]
+        },
+        {
+          "id": "submissionSource",
+          "name": "投稿媒体",
+          "cardinality": "0..n",
+          "values": [
+            "マシュマロ"
+          ],
+          "valueRule": "視聴者投稿を受け取った媒体。話の内容を表す雑談種別とは分離する"
+        }
+      ]
+    },
+    {
+      "id": "reference",
+      "name": "言及・関連",
+      "subcategories": [
+        {
+          "id": "mentionedPerson",
+          "name": "言及人物",
+          "cardinality": "0..n",
+          "valueRule": "配信中に話題として触れた人物の正規名。実出演者、チャンネル主、タイトル・概要欄だけに記載された人物は含めない"
+        },
+        {
+          "id": "mentionedContent",
+          "name": "言及配信・動画名",
+          "cardinality": "0..n",
+          "valueRule": "配信中に感想・紹介・告知等で触れた別配信、動画、イベント、大会、楽曲の正規名。現在の動画そのものは含めない"
+        },
+        {
+          "id": "contentType",
+          "name": "言及対象種別",
+          "cardinality": "0..n",
+          "values": [
+            "配信",
+            "大会",
+            "歌ってみた",
+            "ライブ",
+            "動画",
+            "イベント",
+            "企画"
+          ]
+        },
+        {
+          "id": "relation",
+          "name": "言及関係",
+          "cardinality": "0..n",
+          "values": [
+            "感想・振り返り",
+            "紹介・おすすめ",
+            "告知・予定",
+            "一般言及"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "format",
+      "name": "公開形式",
+      "subcategories": [
+        {
+          "id": "media",
+          "name": "動画形式",
+          "cardinality": "1",
+          "values": [
+            "配信",
+            "動画",
+            "Shorts"
+          ],
+          "valueRule": "YouTubeメタデータを優先する。Shortsは内容ジャンルにしない"
+        },
+        {
+          "id": "production",
+          "name": "制作・表示形式",
+          "cardinality": "0..3",
+          "values": [
+            "3D",
+            "縦型",
+            "公式切り抜き",
+            "MV"
+          ]
+        }
+      ]
+    }
+  ]
+}
+

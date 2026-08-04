@@ -1,0 +1,410 @@
+{
+  "schemaVersion": "1.0.0",
+  "source": {
+    "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+    "commit": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+    "releaseId": "20260804-001",
+    "releaseRoot": "backend/data/public/releases/20260804-001",
+    "approvalReport": "reports/working/20260731-0900-pr3-on-pr4-integration.md",
+    "importReport": "reports/working/20260729-001-archive-timestamps.md",
+    "capturedAt": "2026-08-04T00:00:00+09:00",
+    "excludedFixtureVideoIds": [
+      "G2m9kPq8xJv",
+      "Xn3uH0dL8sY",
+      "rY4A7Lxk12Q"
+    ],
+    "videoCount": 1207,
+    "chapterCount": 22830
+  },
+  "snapshotFingerprint": "e781759dfb39ae3b79e3ce9234a94bb47d4ccbcaa1e53b6092b5848e6e201189",
+  "itemField": "videos",
+  "itemCount": 1207,
+  "shardCount": 64,
+  "shardAlgorithm": "sha256(videoId) modulo shardCount",
+  "shards": [
+    {
+      "shardId": "00",
+      "path": "spec/sources/legacy-timestamps-v1/00.json",
+      "itemCount": 18,
+      "fingerprint": "033927c52d4fd15ddaa5aa9d996aca1a1d3563e1f68f8bb63cd541a9a94a1b42"
+    },
+    {
+      "shardId": "01",
+      "path": "spec/sources/legacy-timestamps-v1/01.json",
+      "itemCount": 16,
+      "fingerprint": "b4599550d7213a134cae738d4bdae974e92b835b08adedd0037be78cfddbf059"
+    },
+    {
+      "shardId": "02",
+      "path": "spec/sources/legacy-timestamps-v1/02.json",
+      "itemCount": 17,
+      "fingerprint": "ef60b0966612c9760999a2a7f6f66053d7563da2a7e27c9bde6d6a1de2c82c04"
+    },
+    {
+      "shardId": "03",
+      "path": "spec/sources/legacy-timestamps-v1/03.json",
+      "itemCount": 17,
+      "fingerprint": "03009b67de10dc9d632c4c6295be69f88e43f8853554673fc6f34a2842b22e24"
+    },
+    {
+      "shardId": "04",
+      "path": "spec/sources/legacy-timestamps-v1/04.json",
+      "itemCount": 19,
+      "fingerprint": "35c241fa767fc11814c69af037448b24f11efaaa877766bf4fa872406e3c1c4a"
+    },
+    {
+      "shardId": "05",
+      "path": "spec/sources/legacy-timestamps-v1/05.json",
+      "itemCount": 15,
+      "fingerprint": "0da53aa1626ec08efeecd46e71a6d751d1e338d4d7eb8f056a0b1676930f39a3"
+    },
+    {
+      "shardId": "06",
+      "path": "spec/sources/legacy-timestamps-v1/06.json",
+      "itemCount": 22,
+      "fingerprint": "fe30877ed063102cab6052c3fd0e50ed2a6e0e5841cb3797ecdd231c44fea52e"
+    },
+    {
+      "shardId": "07",
+      "path": "spec/sources/legacy-timestamps-v1/07.json",
+      "itemCount": 18,
+      "fingerprint": "fd897febb687c58c071e6709cb4821028e2d916dc5ca08fde63e488e5c00a967"
+    },
+    {
+      "shardId": "08",
+      "path": "spec/sources/legacy-timestamps-v1/08.json",
+      "itemCount": 21,
+      "fingerprint": "76b4966a8c1e28a01df278744e9397896b9d76722df88962ec21acf17a24a6c1"
+    },
+    {
+      "shardId": "09",
+      "path": "spec/sources/legacy-timestamps-v1/09.json",
+      "itemCount": 19,
+      "fingerprint": "860a783e604b3c7bfd7f40a805028302dedcffa9c66a4b5f514986b9b8c1c5d5"
+    },
+    {
+      "shardId": "0a",
+      "path": "spec/sources/legacy-timestamps-v1/0a.json",
+      "itemCount": 21,
+      "fingerprint": "60e96276326e36fb6067a8986f44bfaa3c1ec0faf413f18ab18d69e856caa4e4"
+    },
+    {
+      "shardId": "0b",
+      "path": "spec/sources/legacy-timestamps-v1/0b.json",
+      "itemCount": 17,
+      "fingerprint": "aed77d27d39a9f1849f2245f471ddcb1b56e056bb2b29893f978ae7de180d6bc"
+    },
+    {
+      "shardId": "0c",
+      "path": "spec/sources/legacy-timestamps-v1/0c.json",
+      "itemCount": 17,
+      "fingerprint": "21e4ed560a06f4f036c4a4b91c5b0ac350fc10a9dead7fce1d50baf0d2905379"
+    },
+    {
+      "shardId": "0d",
+      "path": "spec/sources/legacy-timestamps-v1/0d.json",
+      "itemCount": 19,
+      "fingerprint": "71606e3d621969eadca7b74074ed173a9825bcf125f2d42275bcd1256d04c3f2"
+    },
+    {
+      "shardId": "0e",
+      "path": "spec/sources/legacy-timestamps-v1/0e.json",
+      "itemCount": 21,
+      "fingerprint": "4f8024c00010e393e21c0389df10df1618ddfb5ae6f97ec973a90afc60bdf6aa"
+    },
+    {
+      "shardId": "0f",
+      "path": "spec/sources/legacy-timestamps-v1/0f.json",
+      "itemCount": 17,
+      "fingerprint": "f1141a68b362bbbafaee78045494deb43b550816294e5dbf497f4b145e8c8029"
+    },
+    {
+      "shardId": "10",
+      "path": "spec/sources/legacy-timestamps-v1/10.json",
+      "itemCount": 12,
+      "fingerprint": "fa8f9256c241c8bfb834b6ab8c63edc9083511d01433cfd302ffe3256d30a180"
+    },
+    {
+      "shardId": "11",
+      "path": "spec/sources/legacy-timestamps-v1/11.json",
+      "itemCount": 20,
+      "fingerprint": "8a3308662643e78fce13095d2df5da6907d27c1c48dcb478682688f24450b727"
+    },
+    {
+      "shardId": "12",
+      "path": "spec/sources/legacy-timestamps-v1/12.json",
+      "itemCount": 18,
+      "fingerprint": "e2e6350a26b20173bd3706bb2ed7c90c14370e4176c4615126b85c55a3901c2d"
+    },
+    {
+      "shardId": "13",
+      "path": "spec/sources/legacy-timestamps-v1/13.json",
+      "itemCount": 18,
+      "fingerprint": "07e6a13bc5d5514cf8910fc3f73154e90bd2a5dce0377cb6dbc3439cce3e39c7"
+    },
+    {
+      "shardId": "14",
+      "path": "spec/sources/legacy-timestamps-v1/14.json",
+      "itemCount": 27,
+      "fingerprint": "b1ec42d64bdf8540d2ac3b87d708dc5aaf99cb794d399f47621f6a225ae847d8"
+    },
+    {
+      "shardId": "15",
+      "path": "spec/sources/legacy-timestamps-v1/15.json",
+      "itemCount": 21,
+      "fingerprint": "3eb391b18f32b67f10a873b5b725d1c9ccc85f17bf8ac8c2376c2eff779dbf8c"
+    },
+    {
+      "shardId": "16",
+      "path": "spec/sources/legacy-timestamps-v1/16.json",
+      "itemCount": 14,
+      "fingerprint": "16a5fc9aa08960b5ac00f9ca5b8595bb616d850d7de4c45364c7e036100ab4a6"
+    },
+    {
+      "shardId": "17",
+      "path": "spec/sources/legacy-timestamps-v1/17.json",
+      "itemCount": 18,
+      "fingerprint": "71ef2d971a03bdbe9506dfc6e6540cee8091d2ea15ee8ec925da2a4f7f3327f3"
+    },
+    {
+      "shardId": "18",
+      "path": "spec/sources/legacy-timestamps-v1/18.json",
+      "itemCount": 22,
+      "fingerprint": "420691d8360defa24f0464291dece13f14cee2eaa470463823922d53ba01279e"
+    },
+    {
+      "shardId": "19",
+      "path": "spec/sources/legacy-timestamps-v1/19.json",
+      "itemCount": 18,
+      "fingerprint": "9eb80183972911f18dd344ecb495435dab619dc3a76965176a72add31badd4e2"
+    },
+    {
+      "shardId": "1a",
+      "path": "spec/sources/legacy-timestamps-v1/1a.json",
+      "itemCount": 12,
+      "fingerprint": "86e67c004e4d0319bca9264904e0bd28c24b672c9d33343675419cf59f87fe92"
+    },
+    {
+      "shardId": "1b",
+      "path": "spec/sources/legacy-timestamps-v1/1b.json",
+      "itemCount": 16,
+      "fingerprint": "3a95c5f145837fc39a80d96c981f459eacc9364bc86a6f094dad27f8e6dc891b"
+    },
+    {
+      "shardId": "1c",
+      "path": "spec/sources/legacy-timestamps-v1/1c.json",
+      "itemCount": 18,
+      "fingerprint": "43cc7b980372990a4703685774cc30e1be22202b378f0664a291fc851f0073fc"
+    },
+    {
+      "shardId": "1d",
+      "path": "spec/sources/legacy-timestamps-v1/1d.json",
+      "itemCount": 28,
+      "fingerprint": "b6050e0accab66b4a65855e664d7fc7b4eea2dc5ad5d6c8b165a8be8b6c483a2"
+    },
+    {
+      "shardId": "1e",
+      "path": "spec/sources/legacy-timestamps-v1/1e.json",
+      "itemCount": 15,
+      "fingerprint": "0ba0edb28c2a7f74b2ca9e9d5aaa22accc583c921e6971fe10549c041f7e4666"
+    },
+    {
+      "shardId": "1f",
+      "path": "spec/sources/legacy-timestamps-v1/1f.json",
+      "itemCount": 25,
+      "fingerprint": "cd63735ac713d8eedf27f647dcf5238577ecc3b9adfc135b4ef4b4b68894cbb1"
+    },
+    {
+      "shardId": "20",
+      "path": "spec/sources/legacy-timestamps-v1/20.json",
+      "itemCount": 19,
+      "fingerprint": "6ada66008e784acf4ee06a5d60b34bd4191adc76729ca7517d1d0540491fe222"
+    },
+    {
+      "shardId": "21",
+      "path": "spec/sources/legacy-timestamps-v1/21.json",
+      "itemCount": 17,
+      "fingerprint": "a2ce1bd88e975596233e1a9dd5eddd86fa58103620e443c6a6f754214f3975c2"
+    },
+    {
+      "shardId": "22",
+      "path": "spec/sources/legacy-timestamps-v1/22.json",
+      "itemCount": 19,
+      "fingerprint": "2e45abc0e36dd5710cb5108c504fff86a399b227f884a4da2f2b3f091b8963d3"
+    },
+    {
+      "shardId": "23",
+      "path": "spec/sources/legacy-timestamps-v1/23.json",
+      "itemCount": 31,
+      "fingerprint": "c3091db042a1c045fbec222a86eb03dc2c25e535daf77a9f9a93f865cb35fbb1"
+    },
+    {
+      "shardId": "24",
+      "path": "spec/sources/legacy-timestamps-v1/24.json",
+      "itemCount": 14,
+      "fingerprint": "c4e762ed9bb76e7c051ae5ea35c73e8fc5c1a236c8295c443202c94f8cfc9e38"
+    },
+    {
+      "shardId": "25",
+      "path": "spec/sources/legacy-timestamps-v1/25.json",
+      "itemCount": 16,
+      "fingerprint": "9c5cd2b5ec0668e9fbfd35c0f93dabb11f37ae5d05734c549866083f47a73e2a"
+    },
+    {
+      "shardId": "26",
+      "path": "spec/sources/legacy-timestamps-v1/26.json",
+      "itemCount": 17,
+      "fingerprint": "27dd4bf5f3f399a058c717e8872001291b66ed12c58f336f7029f57947833102"
+    },
+    {
+      "shardId": "27",
+      "path": "spec/sources/legacy-timestamps-v1/27.json",
+      "itemCount": 12,
+      "fingerprint": "99053038eccf8f5703f5faa7ddb129595caaabd2314f97591d371d9b3ec591f6"
+    },
+    {
+      "shardId": "28",
+      "path": "spec/sources/legacy-timestamps-v1/28.json",
+      "itemCount": 26,
+      "fingerprint": "29ff64726e0d05c17ebd03930e779247d12806e0ef599f0a32fde830e14de8c4"
+    },
+    {
+      "shardId": "29",
+      "path": "spec/sources/legacy-timestamps-v1/29.json",
+      "itemCount": 24,
+      "fingerprint": "49c65bfc8097d9b7c6c6f31bbddf786156ca456fbfa6a7f5225054d5c50d2625"
+    },
+    {
+      "shardId": "2a",
+      "path": "spec/sources/legacy-timestamps-v1/2a.json",
+      "itemCount": 22,
+      "fingerprint": "ca008841e6285815016bbdeacf0e3f2827ee5d0fba426aa2a4a0fb828d8d9c3f"
+    },
+    {
+      "shardId": "2b",
+      "path": "spec/sources/legacy-timestamps-v1/2b.json",
+      "itemCount": 23,
+      "fingerprint": "a9d6e51c334790cc20c0d43bb2d78fca6ceea3db0281e9bc9f8865513eddb9b9"
+    },
+    {
+      "shardId": "2c",
+      "path": "spec/sources/legacy-timestamps-v1/2c.json",
+      "itemCount": 21,
+      "fingerprint": "04d1b6b7d83285da14e59adf35b82435af7e32cdb6f13bb0770a850622e365ee"
+    },
+    {
+      "shardId": "2d",
+      "path": "spec/sources/legacy-timestamps-v1/2d.json",
+      "itemCount": 14,
+      "fingerprint": "92e0758adbbd4fbcd9a24b7bf8818de5f024d909747be9e766c06ee54cb9aa52"
+    },
+    {
+      "shardId": "2e",
+      "path": "spec/sources/legacy-timestamps-v1/2e.json",
+      "itemCount": 18,
+      "fingerprint": "0358780b2167b9d9efca6974f384a33c22db6a7a79ff449a212d83a57d532217"
+    },
+    {
+      "shardId": "2f",
+      "path": "spec/sources/legacy-timestamps-v1/2f.json",
+      "itemCount": 18,
+      "fingerprint": "908786aae7e5eb2cd02936f8e11200525530acff5a97f77f489eafa75b5fc3c5"
+    },
+    {
+      "shardId": "30",
+      "path": "spec/sources/legacy-timestamps-v1/30.json",
+      "itemCount": 20,
+      "fingerprint": "3ab2f6bdd700f25c8ae50922f070bb4a64f8876aa0d250b78f8e97d1557af1d0"
+    },
+    {
+      "shardId": "31",
+      "path": "spec/sources/legacy-timestamps-v1/31.json",
+      "itemCount": 16,
+      "fingerprint": "c2c0e474e6a2d53f2db2bd44037d4ba5d24eca27db7f0213c47ecd8b9b24c104"
+    },
+    {
+      "shardId": "32",
+      "path": "spec/sources/legacy-timestamps-v1/32.json",
+      "itemCount": 21,
+      "fingerprint": "9121d3a9e18e91de06b2e5f23534eec3fe3b8b8b81860ec0cd395020e27cab49"
+    },
+    {
+      "shardId": "33",
+      "path": "spec/sources/legacy-timestamps-v1/33.json",
+      "itemCount": 19,
+      "fingerprint": "6814428eaca819f8c3b831d47ea28bc02c694227744e02711cbbb1ac47843c4f"
+    },
+    {
+      "shardId": "34",
+      "path": "spec/sources/legacy-timestamps-v1/34.json",
+      "itemCount": 20,
+      "fingerprint": "5cc115f49b4d54eac67321ca59955e2580d1c82537c726c3dd24d733479456fe"
+    },
+    {
+      "shardId": "35",
+      "path": "spec/sources/legacy-timestamps-v1/35.json",
+      "itemCount": 13,
+      "fingerprint": "0cccbcfc8068f36c72a33639bd091133ae8536f6fa4f16af7e24bb2870ec00bd"
+    },
+    {
+      "shardId": "36",
+      "path": "spec/sources/legacy-timestamps-v1/36.json",
+      "itemCount": 19,
+      "fingerprint": "616696f3cf1eb69c2640a323c9e55b61fee7f02b5c6482c177ecc8ffb38dfb89"
+    },
+    {
+      "shardId": "37",
+      "path": "spec/sources/legacy-timestamps-v1/37.json",
+      "itemCount": 10,
+      "fingerprint": "fe9aee7c3a46b4c5380835b996aed1e84eaceb68b5a1f7138b1f529704927ed2"
+    },
+    {
+      "shardId": "38",
+      "path": "spec/sources/legacy-timestamps-v1/38.json",
+      "itemCount": 18,
+      "fingerprint": "0d83f9b40f78e1845ba00dbedcae3dc5fbc0189060a1f70781de4f6bb44c47ed"
+    },
+    {
+      "shardId": "39",
+      "path": "spec/sources/legacy-timestamps-v1/39.json",
+      "itemCount": 16,
+      "fingerprint": "9727d661607388d00c900ef9115c29bf8880579baeaedd020323a3fdd7af8ab9"
+    },
+    {
+      "shardId": "3a",
+      "path": "spec/sources/legacy-timestamps-v1/3a.json",
+      "itemCount": 22,
+      "fingerprint": "9d8a04929688181635a98507f025671262c8819aadd9d3790c81fdbf21dbae47"
+    },
+    {
+      "shardId": "3b",
+      "path": "spec/sources/legacy-timestamps-v1/3b.json",
+      "itemCount": 28,
+      "fingerprint": "26314202f1ff495710bc38dd83eee94c7eb0e9aed28d186b04e6a70c3453f47f"
+    },
+    {
+      "shardId": "3c",
+      "path": "spec/sources/legacy-timestamps-v1/3c.json",
+      "itemCount": 20,
+      "fingerprint": "f25b301d316dcf1a5e1069dd4fac830ca1d4c725be170c1ce0e0c3051d85a604"
+    },
+    {
+      "shardId": "3d",
+      "path": "spec/sources/legacy-timestamps-v1/3d.json",
+      "itemCount": 23,
+      "fingerprint": "22f1b1beb92abc00828fc6946f7dfd8e89ec03b8a1c3bca8d99b18ec0c5ede04"
+    },
+    {
+      "shardId": "3e",
+      "path": "spec/sources/legacy-timestamps-v1/3e.json",
+      "itemCount": 18,
+      "fingerprint": "c4c01263118ee5bb46e70f04098a7fc35c6155a7fc74fb9448d0597411ea3950"
+    },
+    {
+      "shardId": "3f",
+      "path": "spec/sources/legacy-timestamps-v1/3f.json",
+      "itemCount": 17,
+      "fingerprint": "af63def1cc9c6e0d2ffaf6690150b52010258019a137132db5d1764eee273bb3"
+    }
+  ]
+}

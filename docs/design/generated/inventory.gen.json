@@ -1,0 +1,729 @@
+{
+  "schemaVersion": "1.0.0",
+  "generator": "scripts/generate-design.ts",
+  "sourceDigests": [
+    {
+      "path": "scripts/audit-requirements.ts",
+      "sha256": "9f58768e07805720ab9334d856e8b4f3db0f1570ec100ab452f789080c6b0539"
+    },
+    {
+      "path": "scripts/build-public-data.ts",
+      "sha256": "226c322a8e640bafa6e82aba7e850da7cab5086cd601af660c011090243ef79c"
+    },
+    {
+      "path": "scripts/canonical-store.ts",
+      "sha256": "c1e9ca4e2ec1ab164585cb9c20671fcdcbeb1ade90434ac650f45e683eed73ed"
+    },
+    {
+      "path": "scripts/detect-video-candidates.ts",
+      "sha256": "0451d14521f6a40d26ad7f8f051cdffd5d0abaadaa55688ea597e97c53b7847a"
+    },
+    {
+      "path": "scripts/diff-timestamps.ts",
+      "sha256": "b42ec842562098a6559603e4e40dde66041c477d8519b7f3c737548790cd5234"
+    },
+    {
+      "path": "scripts/generate-design.ts",
+      "sha256": "2ffed59a7a74e80083c263dba7cf77e766645aa1454a6dbc83d8791e875bab24"
+    },
+    {
+      "path": "scripts/generate-requirements.ts",
+      "sha256": "0d7bfd05e3195d459d40172988d91b2a3b61702b343bfd5eaf33626b209bc98e"
+    },
+    {
+      "path": "scripts/generate-video-pr-body.ts",
+      "sha256": "16c0ec3eba3560303b8763903687c2c407212843e15bfcb4047fa68caf1ae324"
+    },
+    {
+      "path": "scripts/import-legacy-content.ts",
+      "sha256": "e8a6ba1a69dcf72681d21c1b1421ea45d3182c11d81c122be4dd52bb71814c50"
+    },
+    {
+      "path": "scripts/import-reference-taxonomy.ts",
+      "sha256": "be8b47ded984aa0546fdc727f82498bc1594417bf1bcb1ab85e3a2c48bed83da"
+    },
+    {
+      "path": "scripts/import-reference-videos.ts",
+      "sha256": "67a6671d6413891f7612a34bedf3854c3747bba991ebbc69864eb6485519077f"
+    },
+    {
+      "path": "scripts/legacy-content.ts",
+      "sha256": "b4c03b4039fb0aec56c688f618314ca8b0f5a3d5d89a06c0ce0463669a8a1895"
+    },
+    {
+      "path": "scripts/lib.ts",
+      "sha256": "a06c8b55d786b6d621a767012951cb746bcbdc134abdf1b02b4f70a1646590a3"
+    },
+    {
+      "path": "scripts/postbuild.ts",
+      "sha256": "a68e16f043390ce886cce6e4466629d00d42736c14d765f317ce6d48cc681a0e"
+    },
+    {
+      "path": "scripts/prepare-site.ts",
+      "sha256": "49346a97de9a3fb8623c2d389b0854f7df39899fe558c8ebb9147f23094c33f0"
+    },
+    {
+      "path": "scripts/source-shards.ts",
+      "sha256": "931dcc5b53ed28f6bf4fcd75af343e8ae925395dc9f24c71dedf4c2e550fdaa7"
+    },
+    {
+      "path": "scripts/validate-content.ts",
+      "sha256": "482c618d3be290d7955d7967f818ff8ef8a49ee6816d086fea9ede780bcc8763"
+    },
+    {
+      "path": "scripts/validate-taxonomy-change.ts",
+      "sha256": "d3e3c0ebad8d39b70f703c696b1bcff3beed849a1e436e8d1a5de2437c0904b8"
+    },
+    {
+      "path": "scripts/validate-video-pr-scope.ts",
+      "sha256": "07c23b66f2e0079739f39e7a25d1f87221849b3a4919e4e5cfea5e54c952709b"
+    },
+    {
+      "path": "scripts/verify-repository-policy.ts",
+      "sha256": "7132f52037f9be3dbc460f5a2926bd2ef286f70881d2a97ed404b9dcd7dc455e"
+    },
+    {
+      "path": "src/App.tsx",
+      "sha256": "76d77c305bc0bcc8a2f0c57ac7f16d7a7d348b43ade87ac4612cbd4117f51eb2"
+    },
+    {
+      "path": "src/components/Header.tsx",
+      "sha256": "6ae0349c657e22b58417ccdeda5cd8dc60d89eb0d0b5f8390b507dc3a1445d98"
+    },
+    {
+      "path": "src/components/VideoCard.tsx",
+      "sha256": "a07731988b005943327e8fe5fec0ba2bb5d010971f1dad48372296015bdaee01"
+    },
+    {
+      "path": "src/contexts.ts",
+      "sha256": "939427584590d3e4ed32f133427d0a473d597e6861f209ff7c509403507c3bc4"
+    },
+    {
+      "path": "src/data/deviceStore.test.ts",
+      "sha256": "6780f1f53ba1e420a473ffe99814452d9373fbbc397b61a5e99d4fdc7c84cfdc"
+    },
+    {
+      "path": "src/data/deviceStore.ts",
+      "sha256": "af9d75f474c09a18bc190c1887428d6567ac9bf3cc404fb0b995b49dffbd6005"
+    },
+    {
+      "path": "src/data/loadPublicData.test.ts",
+      "sha256": "877abb5c6d246112fb205c11ef4ad8d44d740811c2472f7fa5ea810cf7343bf7"
+    },
+    {
+      "path": "src/data/loadPublicData.ts",
+      "sha256": "6666073cf8b335c46c9693c46a2a65e417f2029c433e7974181290e71b54d550"
+    },
+    {
+      "path": "src/domain/content.ts",
+      "sha256": "e66703c1f90fced2be6215b241b256072334eee945098db3f44a388744d5829a"
+    },
+    {
+      "path": "src/domain/search.test.ts",
+      "sha256": "45d801cf77238a8ff4cc19dbde615148417a0651879c7b8068aed75b2b322c9b"
+    },
+    {
+      "path": "src/domain/search.ts",
+      "sha256": "aa90bc679cfd06431533b812cc0db1878cbe1c8fecaa3a37bc1bbd47f8bd5b34"
+    },
+    {
+      "path": "src/domain/validation.test.ts",
+      "sha256": "438f77e1717c5568cf5d5426d2c218fba5584ae9cb731469fdf075b33bf0215a"
+    },
+    {
+      "path": "src/domain/validation.ts",
+      "sha256": "d700d0c8358e9a60a6131923d6cf2b344b5f83b6c7570f554643398fada6abaf"
+    },
+    {
+      "path": "src/features/detail/VideoDetailPage.tsx",
+      "sha256": "3a9832646991655267086a08561e28c1def5b318f53949cea9b6640aaa6f8aa9"
+    },
+    {
+      "path": "src/features/library/DeviceLibraryPage.tsx",
+      "sha256": "70e219303f5c441543451088ad7f38bc36cc0498e21ef5af6670bbcda44034f9"
+    },
+    {
+      "path": "src/features/search/SearchPage.tsx",
+      "sha256": "3df98132927fb18a131e39115eb9db1a8afb71e8915087a1018f630392c81ce8"
+    },
+    {
+      "path": "src/format.ts",
+      "sha256": "d17d9b04d9e08947d9678d0803c355b7c0d2f98798ba2cda373bb3377a210937"
+    },
+    {
+      "path": "src/generated/release.ts",
+      "sha256": "3c0ca576ba6c07fb3bc647546c77b2d2d2bbd27f277a389b2afc2ab3db671528"
+    },
+    {
+      "path": "src/main.tsx",
+      "sha256": "23b8393dd7ef44b8c8780e996c3c9fe9465aa85787de23f3604a173d53b2f745"
+    }
+  ],
+  "exports": [
+    {
+      "file": "scripts/canonical-store.ts",
+      "name": "readCanonicalVideos",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "buildLegacyContext",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "ClassifiableVideo",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "classifyLegacyVideo",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "LegacyContext",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "LegacyLedgerRow",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "LegacyTagVideo",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "LegacyTimestampVideo",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "LogicalTag",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "normalizeLegacyGeneratedAt",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "normalizeLegacyTimestampItems",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "parseIsoDuration",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "unresolvedLegacyTags",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/lib.ts",
+      "name": "canonicalJson",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/lib.ts",
+      "name": "prettyJson",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/lib.ts",
+      "name": "readJson",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/lib.ts",
+      "name": "sha256",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/source-shards.ts",
+      "name": "readSourceShards",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/source-shards.ts",
+      "name": "shardIdForKey",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/source-shards.ts",
+      "name": "SourceShardEntry",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/source-shards.ts",
+      "name": "SourceShardManifest",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/source-shards.ts",
+      "name": "writeSourceShards",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/validate-video-pr-scope.ts",
+      "name": "validateVideoPrScopeFiles",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/validate-video-pr-scope.ts",
+      "name": "VideoPrScopeResult",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/App.tsx",
+      "name": "App",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/components/Header.tsx",
+      "name": "Header",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/components/VideoCard.tsx",
+      "name": "VideoCard",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/contexts.ts",
+      "name": "BundleContext",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/contexts.ts",
+      "name": "DeviceStoreContext",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/contexts.ts",
+      "name": "useBundle",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/contexts.ts",
+      "name": "useDeviceStore",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/data/deviceStore.ts",
+      "name": "CachedBundle",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/data/deviceStore.ts",
+      "name": "DeviceStore",
+      "kind": "ClassDeclaration"
+    },
+    {
+      "file": "src/data/deviceStore.ts",
+      "name": "FavoriteEntry",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/data/deviceStore.ts",
+      "name": "HistoryEntry",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/data/deviceStore.ts",
+      "name": "RecentSearchEntry",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/data/loadPublicData.ts",
+      "name": "LoadFailureKind",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/data/loadPublicData.ts",
+      "name": "loadPublicBundle",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/data/loadPublicData.ts",
+      "name": "loadVideoDetail",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/data/loadPublicData.ts",
+      "name": "PublicBundle",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/data/loadPublicData.ts",
+      "name": "PublicDataError",
+      "kind": "ClassDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "approvedTimestampMigrationReviewSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "buildTaxonomyLookup",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "CanonicalVideo",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "canonicalVideoSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "confidenceSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "evidenceReferenceSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "evidenceTypeSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "findTagId",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "independentReviewSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "LatestRelease",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "latestReleaseSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "PublicAliasIndex",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "publicAliasIndexSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "PublicIndex",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "publicIndexSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "PublicTagIndex",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "publicTagIndexSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "PublicVideoDetail",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "publicVideoDetailSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "PublicVideoShard",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "publicVideoShardSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "PublicVideoSummary",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "publicVideoSummarySchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "SearchIndex",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "searchIndexSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "TagAliases",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "tagAliasesSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "tagAssignmentSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "TagTaxonomy",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "tagTaxonomySchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "TaxonomyLookupItem",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "timestampItemSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "timestampMissingReasonSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "timestampOriginSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "videoShardId",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "wordCloudMissingReasonSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "additionalTagCounts",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "applySearch",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "bucketRange",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "ConditionError",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "countWithAdditionalTag",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "damerauLevenshtein",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "dateInJapan",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "DurationBucket",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "durationBuckets",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "fuzzyDistance",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "normalizeTagAlias",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "normalizeTitleForSearch",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "parseCondition",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "resolveTagAlias",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "SearchCondition",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "SearchResult",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "SearchVideo",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "serializeCondition",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "SortOrder",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "tagCountsForResults",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "tokenizeQuery",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "validateCondition",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/validation.ts",
+      "name": "scanPublicBoundary",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/validation.ts",
+      "name": "validateCanonicalVideo",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/validation.ts",
+      "name": "validateTaxonomy",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/validation.ts",
+      "name": "ValidationIssue",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/features/detail/VideoDetailPage.tsx",
+      "name": "VideoDetailPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/library/DeviceLibraryPage.tsx",
+      "name": "DeviceLibraryPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/search/SearchPage.tsx",
+      "name": "SearchPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/format.ts",
+      "name": "formatDate",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/format.ts",
+      "name": "formatDuration",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/format.ts",
+      "name": "formatTimestamp",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/generated/release.ts",
+      "name": "embeddedReleaseId",
+      "kind": "VariableStatement"
+    }
+  ],
+  "routes": [
+    "*",
+    "/",
+    "/library",
+    "/video/:videoId"
+  ],
+  "tests": [
+    "e2e/detail.spec.ts",
+    "e2e/library.spec.ts",
+    "e2e/search.spec.ts",
+    "src/data/deviceStore.test.ts",
+    "src/data/loadPublicData.test.ts",
+    "src/domain/search.test.ts",
+    "src/domain/validation.test.ts"
+  ]
+}

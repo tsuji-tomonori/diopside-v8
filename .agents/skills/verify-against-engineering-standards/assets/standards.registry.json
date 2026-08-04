@@ -1,0 +1,224 @@
+{
+  "schema_version": 2,
+  "sources": [
+    {
+      "id": "SWEBOK-V4A",
+      "authority": "IEEE Computer Society",
+      "title": "Guide to the Software Engineering Body of Knowledge, Version 4.0a",
+      "version": "4.0a / 2025-09",
+      "url": "https://www.computer.org/education/bodies-of-knowledge/software-engineering",
+      "checked_at": "2026-07-18",
+      "refresh_days": 180,
+      "profiles": [
+        "CORE"
+      ],
+      "scope": "18 Knowledge Areaを対応付ける。KA 1〜10・12・13を直接参照、KA 11・14・15を部分整合、KA 16〜18を前提知識として理由付き対象外とする。",
+      "change_checked_at": "2026-07-18",
+      "change_summary": "v4.0から2025年9月の軽微改訂版v4.0aへ更新。完全準拠ではなく、対象範囲を明示した参照・整合として扱う。",
+      "artifact_sha256": "b3cb8028fecb9607f757504c861947fa3bf423087ea8bf08c58020f0ba3596dc"
+    },
+    {
+      "id": "AWS-WAF",
+      "authority": "Amazon Web Services",
+      "title": "AWS Well-Architected Framework",
+      "version": "2025-02-25",
+      "url": "https://docs.aws.amazon.com/wellarchitected/2025-02-25/framework/welcome.html",
+      "checked_at": "2026-07-18",
+      "refresh_days": 90,
+      "profiles": [
+        "CLOUD-COMMON",
+        "AWS-DELTA"
+      ],
+      "scope": "AWSおよびクラウド共通の設計判断、リスク、柱間トレードオフ。",
+      "change_checked_at": "2026-07-18",
+      "change_summary": "基準日付きURLを維持し、案件のSLO、RTO/RPO、データ分類、規制、コスト制約に応じて適用する方針を明示。",
+      "artifact_sha256": null
+    },
+    {
+      "id": "AWS-GENAI-LENS",
+      "authority": "Amazon Web Services",
+      "title": "AWS Well-Architected Generative AI Lens",
+      "version": "2025-11-19",
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-lens.html",
+      "checked_at": "2026-07-18",
+      "refresh_days": 90,
+      "profiles": [
+        "AI-CONDITIONAL",
+        "AWS-DELTA"
+      ],
+      "scope": "基盤モデル、生成AI、RAG、プロンプト、生成AIライフサイクルを持つAWSワークロード。",
+      "change_checked_at": "2026-07-18",
+      "change_summary": "公開日2025年11月19日の現行Lensを登録し、従来型MLとエージェントAIから用途を分離。",
+      "artifact_sha256": null
+    },
+    {
+      "id": "AWS-RAI-LENS",
+      "authority": "Amazon Web Services",
+      "title": "AWS Well-Architected Responsible AI Lens",
+      "version": "2025-11-19",
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/responsible-ai-lens/responsible-ai-lens.html",
+      "checked_at": "2026-07-18",
+      "refresh_days": 90,
+      "profiles": [
+        "AI-CONDITIONAL",
+        "AWS-DELTA"
+      ],
+      "scope": "特定AIユースケースの便益・リスク、責任あるAIの判断。法令準拠チェックリストとしては使用しない。",
+      "change_checked_at": "2026-07-18",
+      "change_summary": "2025年11月19日公開のLensを追加。各考慮事項を案件固有に適用し、一律要件・保証表明にしない。",
+      "artifact_sha256": null
+    },
+    {
+      "id": "AWS-ML-LENS",
+      "authority": "Amazon Web Services",
+      "title": "AWS Well-Architected Machine Learning Lens",
+      "version": "2025-11-19",
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/machine-learning-lens/machine-learning-lens.html",
+      "checked_at": "2026-07-18",
+      "refresh_days": 90,
+      "profiles": [
+        "AI-CONDITIONAL",
+        "AWS-DELTA"
+      ],
+      "scope": "教師あり・教師なし学習、予測、分類、回帰等を含む従来型MLライフサイクル。",
+      "change_checked_at": "2026-07-18",
+      "change_summary": "2025年11月19日公開の独立Lensを追加し、Generative AI Lensとの適用境界を明示。",
+      "artifact_sha256": null
+    },
+    {
+      "id": "AWS-AGENTIC-LENS",
+      "authority": "Amazon Web Services",
+      "title": "AWS Well-Architected Agentic AI Lens",
+      "version": "2026-06-10",
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentic-ai-lens.html",
+      "checked_at": "2026-07-18",
+      "refresh_days": 60,
+      "profiles": [
+        "AI-CONDITIONAL",
+        "AWS-DELTA"
+      ],
+      "scope": "自律的ツール利用、メモリ、反復推論、複数エージェント、現実世界への作用を持つエージェントAI。",
+      "change_checked_at": "2026-07-18",
+      "change_summary": "2026年6月10日公開のLensを追加。境界付き自律性、追跡可能性、リスク比例の人間監督、実行予算を反映。",
+      "artifact_sha256": null
+    },
+    {
+      "id": "AZURE-WAF",
+      "authority": "Microsoft",
+      "title": "Azure Well-Architected Framework",
+      "version": "継続更新",
+      "url": "https://learn.microsoft.com/en-us/azure/well-architected/",
+      "checked_at": "2026-07-18",
+      "refresh_days": 90,
+      "profiles": [
+        "CLOUD-COMMON",
+        "AZURE-DELTA"
+      ],
+      "scope": "Azureおよびクラウド共通の柱、設計原則、ワークロード固有のトレードオフ。",
+      "change_checked_at": "2026-07-18",
+      "change_summary": "継続更新型資料として変更確認日を固定し、採用ベンダー差分だけをCloud Commonへ追加する。",
+      "artifact_sha256": null
+    },
+    {
+      "id": "AZURE-AI-WAF",
+      "authority": "Microsoft",
+      "title": "AI Workload Documentation - Azure Well-Architected Framework",
+      "version": "継続更新",
+      "url": "https://learn.microsoft.com/en-us/azure/well-architected/ai/",
+      "checked_at": "2026-07-18",
+      "refresh_days": 90,
+      "profiles": [
+        "AI-CONDITIONAL",
+        "AZURE-DELTA"
+      ],
+      "scope": "非決定的挙動、データ、モデル、AIアプリケーション、AI運用を含むAzure AIワークロード。",
+      "change_checked_at": "2026-07-18",
+      "change_summary": "Azure AI Workload資料を独立出典として登録し、一般WAFとの重複は差分プロファイルで扱う。",
+      "artifact_sha256": null
+    },
+    {
+      "id": "GCP-WAF",
+      "authority": "Google Cloud",
+      "title": "Google Cloud Well-Architected Framework",
+      "version": "継続更新",
+      "url": "https://docs.cloud.google.com/docs/get-started/well-architected-framework",
+      "checked_at": "2026-07-18",
+      "refresh_days": 90,
+      "profiles": [
+        "CLOUD-COMMON",
+        "GCP-DELTA"
+      ],
+      "scope": "Google Cloudおよびクラウド共通の設計原則、柱、運用上のトレードオフ。",
+      "change_checked_at": "2026-07-18",
+      "change_summary": "継続更新型資料として変更確認日を固定し、Cloud CommonとGCP固有差分の重複規則を適用。",
+      "artifact_sha256": null
+    },
+    {
+      "id": "GCP-AIML-WAF",
+      "authority": "Google Cloud",
+      "title": "Google Cloud Well-Architected Framework: AI and ML perspective",
+      "version": "継続更新",
+      "url": "https://cloud.google.com/architecture/framework/perspectives/ai-ml",
+      "checked_at": "2026-07-18",
+      "refresh_days": 90,
+      "profiles": [
+        "AI-CONDITIONAL",
+        "GCP-DELTA"
+      ],
+      "scope": "Google Cloud上のAI/MLデータ、モデル、運用、責任あるAIの設計観点。",
+      "change_checked_at": "2026-07-18",
+      "change_summary": "AI/ML perspectiveを一般WAFから分離し、AI-CONDITIONALとGCP差分に対応付け。",
+      "artifact_sha256": null
+    },
+    {
+      "id": "OCI-WAF",
+      "authority": "Oracle",
+      "title": "Best practices framework for Oracle Cloud Infrastructure",
+      "version": "F29550-09 / 2025-05",
+      "url": "https://docs.oracle.com/en/solutions/oci-best-practices/",
+      "checked_at": "2026-07-18",
+      "refresh_days": 90,
+      "profiles": [
+        "CLOUD-COMMON",
+        "OCI-DELTA"
+      ],
+      "scope": "OCIおよびクラウド共通の設計原則とベンダー固有差分。",
+      "change_checked_at": "2026-07-18",
+      "change_summary": "文書版F29550-09を維持し、Cloud Common評価後にOCI固有差分だけを追加する。",
+      "artifact_sha256": null
+    },
+    {
+      "id": "DEVSTD-AS-BUILT",
+      "authority": "dev-standard maintainers",
+      "title": "as-built設計標準",
+      "version": "2026-07-21.1",
+      "url": "https://github.com/tsuji-tomonori/dev-standard/blob/main/docs/standards/AS-BUILT-DESIGN.md",
+      "checked_at": "2026-07-21",
+      "refresh_days": 180,
+      "profiles": [
+        "CORE"
+      ],
+      "scope": "実装由来設計の決定論的生成、専用path、整合check、解析可能な実装・test規約、profile連携。標準contract変更とrepository採用scopeを別flagで管理する。",
+      "change_checked_at": "2026-07-21",
+      "change_summary": "as_built_standard_changeとas_built_adoptionを分離し、規範強度・採用scope・enforcement stateを独立した軸として明文化。",
+      "artifact_sha256": "5eae0d50abea38bd8c612d85ce791e99209b53744860fb8333fa3b9a0bb5d9aa"
+    },
+    {
+      "id": "DEVSTD-AWS-CDK-AS-BUILT",
+      "authority": "dev-standard maintainers",
+      "title": "AWS CDK実装・as-built設計標準",
+      "version": "2026-07-29",
+      "url": "https://github.com/tsuji-tomonori/dev-standard/blob/main/docs/standards/AWS-CDK-AS-BUILT-DESIGN.md",
+      "checked_at": "2026-07-29",
+      "refresh_days": 180,
+      "profiles": [
+        "CORE",
+        "AWS-DELTA"
+      ],
+      "scope": "AWS CDK固有の規範・採用義務と、実装済みcapabilityを区別するas-built設計標準。",
+      "change_checked_at": "2026-07-29",
+      "change_summary": "AWS CDK固有deltaを追加し、single-templateの現行能力とplanned・adopter-required・periodic能力を分離。",
+      "artifact_sha256": "60c80483cfdbc132ea5c0daddd0e5ca3fc51eb1488341406b4794fc66f634cae"
+    }
+  ]
+}
