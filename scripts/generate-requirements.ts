@@ -164,7 +164,7 @@ const requirements = sourceRequirements.map((item) => {
   const id = canonicalId(item.sourceId);
   const classification = classify(item);
   const title = item.requirement.replace(/[。．]$/u, '').slice(0, 80);
-  return {
+  const requirement = {
     id,
     revision: 1,
     status: 'active',
@@ -191,14 +191,40 @@ const requirements = sourceRequirements.map((item) => {
     },
     last_changed_by: 'ISSUE-1-IMPLEMENTATION',
   };
+  if (id === 'V8-OPS-003') {
+    requirement.revision = 2;
+    requirement.source_refs.push('owner-directive:2026-08-04');
+    requirement.acceptance_criteria[0]!.then = '`.github/workflows` に予定実行と独自公開処理が存在しない。人が開始する `workflow_dispatch` は、読取専用の検証と候補検出に限定される。';
+    requirement.traces.implementation.push('.github/workflows/manual-content-operation.yml');
+    requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-04';
+  }
+  if (['V8-TIME-027', 'V8-TIME-028', 'V8-TIME-029'].includes(id)) {
+    requirement.revision = 2;
+    requirement.title = `${requirement.title}（新規・変更候補。承認済み旧データ移行は別経路）`;
+    requirement.object = `${requirement.object} 新規・変更候補にはIssue #1の独立確認を適用する。既存承認済みデータは、承認元・入力指紋・同一候補ハッシュ・v8決定的検証・現在の所有者承認を解決できる場合に限り移行できる。`;
+    requirement.source_refs.push('owner-directive:2026-08-04');
+    requirement.acceptance_criteria[0]!.then = '新規・変更候補はIssue #1の独立確認に合格する。承認済み旧データ移行は、承認元、同一候補ハッシュ、決定的検証、現在の所有者承認をすべて持つ。';
+    requirement.traces.implementation.push('scripts/import-legacy-content.ts');
+    requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-04';
+  }
+  if (id === 'V8-TIME-036') {
+    requirement.revision = 2;
+    requirement.title = '初回公開前に、指定8ジャンルの固定30動画で新規経路または承認済み旧データ移行経路の品質を確認しなければならない';
+    requirement.object = '初回公開前に、ゲーム8件、企画6件、雑談5件、ASMR3件、歌2件、朗読・声劇2件、同時視聴2件、TRPG2件の固定30動画で品質を確認しなければならない。承認済み旧データを使う場合は、旧パイロットの不合格を合格へ読み替えず、別の承認済み固定30件を選び、承認元とv8決定的検証を確認する。';
+    requirement.source_refs.push('owner-directive:2026-08-04');
+    requirement.acceptance_criteria[0]!.then = '本人・外部を含む固定30件が、承認元の解決、v8決定的検証、ラベル安全検査に全件合格する。旧パイロットの不合格記録は保持する。';
+    requirement.traces.implementation.push('scripts/import-legacy-content.ts');
+    requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-04';
+  }
+  return requirement;
 });
 
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: 1,
+  catalog_revision: 2,
   product: 'diopside v8',
-  updated_at: '2026-08-03',
+  updated_at: '2026-08-04',
   requirements,
 }, null, 2)}\n`);
 writeFileSync(mapPath, `${JSON.stringify({

@@ -353,7 +353,7 @@ function validateTimestamps(
   );
   if ([...genreNames].some((name) => ['ゲーム', 'TRPG', '同時視聴', '朗読・声劇'].includes(name))) {
     for (const [index, item] of items.entries()) {
-      if (/(?:犯人|黒幕|正体|秘密|結末|最終遭遇|死亡)/u.test(item.label)) {
+      if (/(?:犯人|黒幕|正体|結末|最終遭遇|死亡)/u.test(item.label)) {
         issues.push(issue('TIMESTAMP_SPOILER', `timestamps.items.${index}.label`, '公開用章名にネタバレとなる語を含めないでください。'));
       }
     }

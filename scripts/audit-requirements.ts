@@ -82,11 +82,12 @@ const acceptanceEvidenceSchema = z.object({
   }).strict(),
 }).strict();
 
-const pilotEvaluationSchema = z.object({
+const migrationEvaluationSchema = z.object({
   sample: z.array(z.unknown()).length(30),
-  reportedEvaluation: z.object({
-    youtubeFormatPassed: z.number().int(),
-    contentQualityPassed: z.number().int(),
+  evaluation: z.object({
+    sourceApprovalPassed: z.number().int(),
+    deterministicValidationPassed: z.number().int(),
+    labelSafetyPassed: z.number().int(),
     rejectedBeforePublication: z.number().int(),
     approvedForPublicCanonicalData: z.number().int(),
   }).passthrough(),
@@ -95,7 +96,7 @@ const pilotEvaluationSchema = z.object({
 const root = path.resolve(import.meta.dirname, '..');
 const catalog = catalogSchema.parse(readJson(path.join(root, 'spec/requirements/requirements.json')));
 const acceptanceEvidence = acceptanceEvidenceSchema.parse(readJson(path.join(root, 'operations/acceptance-evidence.json')));
-const pilotEvaluation = pilotEvaluationSchema.parse(readJson(path.join(root, 'tests/fixtures/pilot-timestamps-v1.json')));
+const migrationEvaluation = migrationEvaluationSchema.parse(readJson(path.join(root, 'tests/fixtures/legacy-migration-acceptance-v1.json')));
 const sourceMap = z.object({
   mappings: z.array(z.object({
     sourceId: z.string().min(1),
@@ -190,12 +191,14 @@ function acceptanceFindings(requirementId: string): string[] {
       : [evidence.finding];
   }
   if (requirementId === 'V8-TIME-036') {
-    const evaluation = pilotEvaluation.reportedEvaluation;
-    return evaluation.youtubeFormatPassed === 30
-      && evaluation.contentQualityPassed === 30
+    const evaluation = migrationEvaluation.evaluation;
+    return evaluation.sourceApprovalPassed === 30
+      && evaluation.deterministicValidationPassed === 30
+      && evaluation.labelSafetyPassed === 30
       && evaluation.rejectedBeforePublication === 0
+      && evaluation.approvedForPublicCanonicalData === 30
       ? []
-      : [`固定30動画は内容品質合格${evaluation.contentQualityPassed}件・棄却${evaluation.rejectedBeforePublication}件で、全件合格の完了条件を満たさない。`];
+      : ['承認済み旧データ移行の固定30動画が、承認元・決定的検証・ラベル安全へ全件合格していない。'];
   }
   if (requirementId === 'V8-OPS-012' || requirementId === 'V8-COST-002') {
     const evidence = acceptanceEvidence.pagesPublication;

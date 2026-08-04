@@ -3,11 +3,12 @@ import path from 'node:path';
 
 import { expect, test } from '@playwright/test';
 
+import { videoShardId } from '../src/domain/content.ts';
+
 import {
   capture,
   expectNoSeriousAccessibilityViolations,
   expectOnlyAllowedRequests,
-  openSearch,
   preparePage,
 } from './helpers.ts';
 
@@ -17,8 +18,7 @@ const latest = JSON.parse(readFileSync(path.join(root, 'public/data/latest.json'
 test.describe('動画詳細', () => {
   test('基本情報、確認済みタグ、未提供のタイムスタンプ、更新日、YouTubeリンクを表示する', async ({ page }) => {
     const requests = await preparePage(page);
-    await openSearch(page);
-    await page.locator('[data-video-id="7keH8yrqabc"]').getByRole('link', { name: '詳細を見る', exact: true }).click();
+    await page.goto('/diopside-v8/#/video/7keH8yrqabc');
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Detroit: Become Human');
     await expect(page.getByRole('heading', { name: 'タグ' })).toBeVisible();
     await expect(page.getByText('YouTube公式タグではありません')).toBeVisible();
@@ -50,8 +50,10 @@ test.describe('動画詳細', () => {
   test('承認済みワードクラウドを20語以上で描画する', async ({ page }) => {
     await preparePage(page);
     const videoId = 'c9TnpjK3ZZE';
-    const relative = `public/data/releases/${latest.releaseId}/videos/${videoId}.json`;
-    const detail = JSON.parse(readFileSync(path.join(root, relative), 'utf8')) as Record<string, unknown>;
+    const shardId = videoShardId(videoId);
+    const relative = `public/data/releases/${latest.releaseId}/video-shards/${shardId}.json`;
+    const shard = JSON.parse(readFileSync(path.join(root, relative), 'utf8')) as { videos: Record<string, Record<string, unknown>> };
+    const detail = shard.videos[videoId]!;
     detail.wordCloud = {
       status: '作成済み',
       words: Array.from({ length: 20 }, (_, index) => ({ term: `確認語${String(index + 1).padStart(2, '0')}`, weight: 100 - index })),
@@ -60,14 +62,15 @@ test.describe('動画詳細', () => {
       rulesVersion: '8.0.0',
       updatedAt: '2026-08-03T00:00:00+09:00',
     };
-    await page.route(`**/data/releases/${latest.releaseId}/videos/${videoId}.json`, async (route) => route.fulfill({ json: detail }));
+    await page.route(`**/data/releases/${latest.releaseId}/video-shards/${shardId}.json`, async (route) => route.fulfill({ json: shard }));
     await page.goto(`/diopside-v8/#/video/${videoId}`);
     await expect(page.getByLabel('ワードクラウド').locator('span')).toHaveCount(20);
   });
 
   test('詳細JSONの構造不適合を日本語で停止表示する', async ({ page }) => {
     await preparePage(page);
-    await page.route(`**/data/releases/${latest.releaseId}/videos/c9TnpjK3ZZE.json`, async (route) => route.fulfill({ json: { broken: true } }));
+    const shardId = videoShardId('c9TnpjK3ZZE');
+    await page.route(`**/data/releases/${latest.releaseId}/video-shards/${shardId}.json`, async (route) => route.fulfill({ json: { broken: true } }));
     await page.goto('/diopside-v8/#/video/c9TnpjK3ZZE');
     await expect(page.getByRole('heading', { name: '構造不適合' })).toBeVisible();
     await expect(page.getByText('動画詳細の形式を確認できませんでした。')).toBeVisible();

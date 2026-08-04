@@ -76,7 +76,7 @@ ${[...categoryCounts].sort(([left], [right]) => left.localeCompare(right)).map((
 
 ## 公開データの流れ
 
-\`content/videos\` + \`content/taxonomy\` → 構造・意味・公開境界検証 → release ID算出 → \`public/data/releases/<release-id>\` → Vite → \`docs\`
+\`content/catalog\` + \`content/videos\`（1動画上書き）+ \`content/taxonomy\` → 構造・意味・公開境界検証 → release ID算出 → \`public/data/releases/<release-id>\` → Vite → \`docs\`
 
 ## TypeScript公開契約
 

@@ -4,15 +4,19 @@
   "sourceDigests": [
     {
       "path": "scripts/audit-requirements.ts",
-      "sha256": "56e0a02cf24085bbaba2747244bb632727edc9272082ba3c02ae6423126eca57"
+      "sha256": "9f58768e07805720ab9334d856e8b4f3db0f1570ec100ab452f789080c6b0539"
     },
     {
       "path": "scripts/build-public-data.ts",
-      "sha256": "eeb90b81a528282d6f41dde070ca0da66bda2eea1ae6951ce647b8daa93a2230"
+      "sha256": "226c322a8e640bafa6e82aba7e850da7cab5086cd601af660c011090243ef79c"
+    },
+    {
+      "path": "scripts/canonical-store.ts",
+      "sha256": "c1e9ca4e2ec1ab164585cb9c20671fcdcbeb1ade90434ac650f45e683eed73ed"
     },
     {
       "path": "scripts/detect-video-candidates.ts",
-      "sha256": "5fe785f990d940246597dd797ffe5b5c181079516bc43115e479a632e80b4f1a"
+      "sha256": "0451d14521f6a40d26ad7f8f051cdffd5d0abaadaa55688ea597e97c53b7847a"
     },
     {
       "path": "scripts/diff-timestamps.ts",
@@ -20,23 +24,31 @@
     },
     {
       "path": "scripts/generate-design.ts",
-      "sha256": "b09aa36c2f2f34d09ca34684853fe9ba0cea6cd3ad1284991210b4be9d5ad010"
+      "sha256": "2ffed59a7a74e80083c263dba7cf77e766645aa1454a6dbc83d8791e875bab24"
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "42d05d499266c391fad592c7f3965c644b6030fa503526d8a620e0190049c01d"
+      "sha256": "0d7bfd05e3195d459d40172988d91b2a3b61702b343bfd5eaf33626b209bc98e"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
       "sha256": "16c0ec3eba3560303b8763903687c2c407212843e15bfcb4047fa68caf1ae324"
     },
     {
+      "path": "scripts/import-legacy-content.ts",
+      "sha256": "e8a6ba1a69dcf72681d21c1b1421ea45d3182c11d81c122be4dd52bb71814c50"
+    },
+    {
       "path": "scripts/import-reference-taxonomy.ts",
-      "sha256": "55ef4741ab5b81c2ef954e193fd96b72b303522f686acd8548d67bf2702592db"
+      "sha256": "be8b47ded984aa0546fdc727f82498bc1594417bf1bcb1ab85e3a2c48bed83da"
     },
     {
       "path": "scripts/import-reference-videos.ts",
       "sha256": "67a6671d6413891f7612a34bedf3854c3747bba991ebbc69864eb6485519077f"
+    },
+    {
+      "path": "scripts/legacy-content.ts",
+      "sha256": "b4c03b4039fb0aec56c688f618314ca8b0f5a3d5d89a06c0ce0463669a8a1895"
     },
     {
       "path": "scripts/lib.ts",
@@ -51,12 +63,16 @@
       "sha256": "49346a97de9a3fb8623c2d389b0854f7df39899fe558c8ebb9147f23094c33f0"
     },
     {
+      "path": "scripts/source-shards.ts",
+      "sha256": "931dcc5b53ed28f6bf4fcd75af343e8ae925395dc9f24c71dedf4c2e550fdaa7"
+    },
+    {
       "path": "scripts/validate-content.ts",
-      "sha256": "21a5958615611822cb246af389fdcd60c250eee2d711ce7a8aa34ad7d8bb765d"
+      "sha256": "482c618d3be290d7955d7967f818ff8ef8a49ee6816d086fea9ede780bcc8763"
     },
     {
       "path": "scripts/validate-taxonomy-change.ts",
-      "sha256": "2e3e60fc6e6cd1ee4bd1de379c00df968aab07b4321fda82f684c05b060ae8de"
+      "sha256": "d3e3c0ebad8d39b70f703c696b1bcff3beed849a1e436e8d1a5de2437c0904b8"
     },
     {
       "path": "scripts/validate-video-pr-scope.ts",
@@ -92,15 +108,15 @@
     },
     {
       "path": "src/data/loadPublicData.test.ts",
-      "sha256": "3044527d7ff0c67ee384d23d9a187c8476c9258d6a05e22710d9a6bc70a39c2a"
+      "sha256": "877abb5c6d246112fb205c11ef4ad8d44d740811c2472f7fa5ea810cf7343bf7"
     },
     {
       "path": "src/data/loadPublicData.ts",
-      "sha256": "59508403bcf609203b7d1e49fb12d312eb2cae9a41a2292062ad124000f356d4"
+      "sha256": "6666073cf8b335c46c9693c46a2a65e417f2029c433e7974181290e71b54d550"
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "a105eab13ef3953892712005359087e85e57c3dcbad06783f20891898f9bb7fb"
+      "sha256": "e66703c1f90fced2be6215b241b256072334eee945098db3f44a388744d5829a"
     },
     {
       "path": "src/domain/search.test.ts",
@@ -116,7 +132,7 @@
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "6afcf0f2ed359e0bc27960feafb7e4be479d65f8e429f0657ebac32a159232ea"
+      "sha256": "d700d0c8358e9a60a6131923d6cf2b344b5f83b6c7570f554643398fada6abaf"
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
@@ -136,7 +152,7 @@
     },
     {
       "path": "src/generated/release.ts",
-      "sha256": "e14666cbdace7078ad02945dad7ecb90bc4452c3b1217c7e639dcec48965af4e"
+      "sha256": "3c0ca576ba6c07fb3bc647546c77b2d2d2bbd27f277a389b2afc2ab3db671528"
     },
     {
       "path": "src/main.tsx",
@@ -144,6 +160,71 @@
     }
   ],
   "exports": [
+    {
+      "file": "scripts/canonical-store.ts",
+      "name": "readCanonicalVideos",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "buildLegacyContext",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "ClassifiableVideo",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "classifyLegacyVideo",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "LegacyContext",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "LegacyLedgerRow",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "LegacyTagVideo",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "LegacyTimestampVideo",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "LogicalTag",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "normalizeLegacyGeneratedAt",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "normalizeLegacyTimestampItems",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "parseIsoDuration",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/legacy-content.ts",
+      "name": "unresolvedLegacyTags",
+      "kind": "FunctionDeclaration"
+    },
     {
       "file": "scripts/lib.ts",
       "name": "canonicalJson",
@@ -162,6 +243,31 @@
     {
       "file": "scripts/lib.ts",
       "name": "sha256",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/source-shards.ts",
+      "name": "readSourceShards",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/source-shards.ts",
+      "name": "shardIdForKey",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/source-shards.ts",
+      "name": "SourceShardEntry",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/source-shards.ts",
+      "name": "SourceShardManifest",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/source-shards.ts",
+      "name": "writeSourceShards",
       "kind": "FunctionDeclaration"
     },
     {
@@ -356,6 +462,16 @@
     },
     {
       "file": "src/domain/content.ts",
+      "name": "PublicVideoShard",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "publicVideoShardSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
       "name": "PublicVideoSummary",
       "kind": "TypeAliasDeclaration"
     },
@@ -418,6 +534,11 @@
       "file": "src/domain/content.ts",
       "name": "timestampOriginSchema",
       "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "videoShardId",
+      "kind": "FunctionDeclaration"
     },
     {
       "file": "src/domain/content.ts",

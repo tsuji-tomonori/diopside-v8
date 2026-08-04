@@ -33,7 +33,8 @@
     "audit:requirements": "node --experimental-strip-types scripts/audit-requirements.ts",
     "candidate:detect": "node --experimental-strip-types scripts/detect-video-candidates.ts",
     "candidate:pr-body": "node --experimental-strip-types scripts/generate-video-pr-body.ts",
-    "validate:video-pr-scope": "node --experimental-strip-types scripts/validate-video-pr-scope.ts"
+    "validate:video-pr-scope": "node --experimental-strip-types scripts/validate-video-pr-scope.ts",
+    "migrate:legacy": "node --experimental-strip-types scripts/import-reference-taxonomy.ts && node --experimental-strip-types scripts/import-reference-videos.ts && node --experimental-strip-types scripts/import-legacy-content.ts"
   },
   "dependencies": {
     "react": "19.2.8",

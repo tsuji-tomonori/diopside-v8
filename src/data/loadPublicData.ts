@@ -4,7 +4,9 @@ import {
   publicIndexSchema,
   publicTagIndexSchema,
   publicVideoDetailSchema,
+  publicVideoShardSchema,
   searchIndexSchema,
+  videoShardId,
   type LatestRelease,
   type PublicAliasIndex,
   type PublicIndex,
@@ -83,7 +85,10 @@ export async function loadVideoDetail(
   fetcher: typeof fetch = fetch,
 ): Promise<PublicVideoDetail> {
   try {
-    const detail = publicVideoDetailSchema.parse(await fetchJson(`data/releases/${releaseId}/videos/${videoId}.json`, fetcher));
+    const shardId = videoShardId(videoId);
+    const shard = publicVideoShardSchema.parse(await fetchJson(`data/releases/${releaseId}/video-shards/${shardId}.json`, fetcher));
+    const detail = publicVideoDetailSchema.parse(shard.videos[videoId]);
+    if (shard.releaseId !== releaseId || shard.shardId !== shardId) throw mismatch();
     if (detail.releaseId !== releaseId || releaseId !== embeddedReleaseId) throw mismatch();
     return detail;
   } catch (error) {

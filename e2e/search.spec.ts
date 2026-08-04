@@ -15,11 +15,11 @@ test.describe('動画検索', () => {
   test('タイトルだけを検索し、0件と条件解除を区別する', async ({ page }, testInfo) => {
     const requests = await preparePage(page);
     await openSearch(page);
-    await page.getByLabel('動画タイトル').fill('誕生日2026');
+    await page.getByLabel('動画タイトル').fill('【#白雪巴誕生日2026】ケーキを食べてパーッとお祝いしちゃおうかしら🎉🎉🎉【白雪巴/にじさんじ】');
     await page.getByRole('button', { name: 'この条件で探す' }).click();
     await expect(page.getByRole('heading', { name: '1件の動画' })).toBeVisible();
     await expect(page.locator('.video-card')).toHaveCount(1);
-    await expect(page.locator('.video-card')).toContainText('白雪巴誕生日2026');
+    await expect(page.locator('.video-card')).toHaveAttribute('data-video-id', 'GoWhHtJmIbk');
     const status = page.getByTestId('result-update-status');
     await expect(status).toContainText('1件の検索結果へ更新しました');
     const elapsed = Number((await status.textContent())?.match(/([\d.]+)ミリ秒/u)?.[1]);
@@ -30,7 +30,7 @@ test.describe('動画検索', () => {
     await expect(page.getByRole('heading', { name: '0件の動画' })).toBeVisible();
     await expect(page.getByRole('heading', { name: '一致する動画がありません' })).toBeVisible();
     await page.getByRole('button', { name: '条件をすべて解除' }).click();
-    await expect(page.getByRole('heading', { name: '30件の動画' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: '1681件の動画' })).toBeVisible();
 
     await capture(page, testInfo, 'モバイル', 'search-mobile.jpg');
     expectOnlyAllowedRequests(requests);
@@ -63,7 +63,7 @@ test.describe('動画検索', () => {
     await page.getByLabel('最小（分）').fill('');
     await page.getByLabel('最大（分）').fill('');
     await page.getByLabel('並び順').selectOption('公開日の古い順');
-    await expect(page.locator('.video-card').first()).toHaveAttribute('data-video-id', 'LKHqpGQ3myA');
+    await expect(page.locator('.video-card').first()).toHaveAttribute('data-video-id', 'qp-w9AZJuLs');
 
     await page.reload();
     await page.keyboard.press('Tab');

@@ -1,24 +1,22 @@
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 import {
-  canonicalVideoSchema,
   publicIndexSchema,
   tagAliasesSchema,
   tagTaxonomySchema,
 } from '../src/domain/content.ts';
 import { normalizeTagAlias } from '../src/domain/search.ts';
 import { scanPublicBoundary, validateCanonicalVideo, validateTaxonomy } from '../src/domain/validation.ts';
+import { readCanonicalVideos } from '../scripts/canonical-store.ts';
+import { readSourceShards } from '../scripts/source-shards.ts';
 
 const root = process.cwd();
 const taxonomyInput = json('content/taxonomy/tag-taxonomy.json');
 const aliasesInput = json('content/taxonomy/tag-aliases.json');
 const taxonomy = tagTaxonomySchema.parse(taxonomyInput);
 const aliases = tagAliasesSchema.parse(aliasesInput);
-const videos = readdirSync(path.join(root, 'content/videos'))
-  .filter((file) => file.endsWith('.json'))
-  .sort()
-  .map((file) => canonicalVideoSchema.parse(json(`content/videos/${file}`)));
+const videos = readCanonicalVideos(root);
 
 describe('タグ・動画正本と公開境界', () => {
   it('7大分類・30小分類・不変タグID・別名を一貫して検証する', () => {
@@ -34,11 +32,11 @@ describe('タグ・動画正本と公開境界', () => {
     }
   });
 
-  it('提供された30動画・225タグと、存在する23件のタイムスタンプだけを全件検証する', () => {
-    expect(videos).toHaveLength(30);
-    expect(videos.reduce((total, video) => total + video.tagAssignments.length, 0)).toBe(225);
-    expect(videos.filter((video) => video.timestamps.status === '作成済み')).toHaveLength(23);
-    expect(videos.filter((video) => video.timestamps.status === '未作成')).toHaveLength(7);
+  it('探索した既存データとv8固有動画を全件検証する', () => {
+    expect(videos).toHaveLength(1681);
+    expect(videos.reduce((total, video) => total + video.tagAssignments.length, 0)).toBe(9015);
+    expect(videos.filter((video) => video.timestamps.status === '作成済み')).toHaveLength(1207);
+    expect(videos.reduce((total, video) => total + (video.timestamps.status === '作成済み' ? video.timestamps.items.length : 0), 0)).toBe(22827);
     for (const video of videos) {
       expect(validateCanonicalVideo(video, taxonomy, aliases), video.videoId).toEqual([]);
       expect(video.approval.status).toBe('承認済み');
@@ -48,6 +46,16 @@ describe('タグ・動画正本と公開境界', () => {
     const manifest = json('content/content-manifest.json') as { videoCount: number; assignmentCount: number };
     expect(manifest.videoCount).toBe(videos.length);
     expect(manifest.assignmentCount).toBe(videos.reduce((sum, video) => sum + video.tagAssignments.length, 0));
+  });
+
+  it('旧正本のタグ1,175動画とタイムスタンプ1,207動画を指紋付きシャードから欠落なく読める', () => {
+    const legacyTags = readSourceShards(root, 'spec/sources/legacy-video-tags-v1/manifest.json', 'videos');
+    const legacyTimestamps = readSourceShards(root, 'spec/sources/legacy-timestamps-v1/manifest.json', 'videos');
+    const catalog = readSourceShards(root, 'content/catalog/manifest.json', 'videos');
+    expect(legacyTags.items).toHaveLength(1175);
+    expect(legacyTimestamps.items).toHaveLength(1207);
+    expect(catalog.items).toHaveLength(1651);
+    expect((json('content/pending-imports.json') as { records: unknown[] }).records).toEqual([]);
   });
 
   it('明示30件の順序と、タイムスタンプ23件・未提供7件の集合を入力JSONから再現する', () => {

@@ -31,7 +31,7 @@ export async function preparePage(page: Page): Promise<string[]> {
 export async function openSearch(page: Page): Promise<void> {
   await page.goto('/diopside-v8/');
   await expect(page.getByRole('heading', { name: '記憶のかけらから 動画へたどり着く。' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: '30件の動画' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: '1681件の動画' })).toBeVisible();
 }
 
 export function expectOnlyAllowedRequests(requests: string[]): void {

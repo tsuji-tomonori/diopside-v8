@@ -5,13 +5,11 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 
 import { canonicalVideoSchema, type CanonicalVideo } from '../src/domain/content.ts';
+import { readCanonicalVideos } from '../scripts/canonical-store.ts';
 import { validateVideoPrScopeFiles } from '../scripts/validate-video-pr-scope.ts';
 
 const root = process.cwd();
-const canonicalVideos = readdirSync(path.join(root, 'content/videos'))
-  .filter((file) => file.endsWith('.json'))
-  .sort()
-  .map((file) => canonicalVideoSchema.parse(json(`content/videos/${file}`)));
+const canonicalVideos = readCanonicalVideos(root);
 
 describe('手動動画更新運用', () => {
   it('差分0件では候補ファイルを作らない', () => {
@@ -232,8 +230,4 @@ function walk(directory: string): string[] {
     const target = path.join(directory, name);
     return statSync(target).isDirectory() ? walk(target) : [target];
   });
-}
-
-function json(relativePath: string): unknown {
-  return JSON.parse(readFileSync(path.join(root, relativePath), 'utf8')) as unknown;
 }

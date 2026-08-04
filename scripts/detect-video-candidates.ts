@@ -1,8 +1,8 @@
-import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { z } from 'zod';
 
-import { canonicalVideoSchema } from '../src/domain/content.ts';
+import { readCanonicalVideos } from './canonical-store.ts';
 import { canonicalJson, prettyJson, readJson, sha256 } from './lib.ts';
 
 const snapshotSchema = z.object({
@@ -44,7 +44,7 @@ const exclusionsPath = exclusionsArg
 const exclusions = exclusionSchema.parse(readJson(exclusionsPath));
 const excludedIds = new Set(exclusions.records.map((record) => record.videoId));
 const canonical = new Map(
-  readCanonicalVideos().map((video) => [video.videoId, video]),
+  readCanonicalVideos(root).map((video) => [video.videoId, video]),
 );
 const current = new Map(snapshot.videos.map((video) => [video.videoId, video]));
 type Candidate =
@@ -79,14 +79,6 @@ if (candidates.length === 0) {
   if (outputArg) writeFileSync(path.resolve(process.cwd(), outputArg), prettyJson(result));
   console.log(`${candidates.length}件の候補を検出しました。${outputArg ? ` ${outputArg} へ保存しました。` : ''}`);
   console.log(candidates.map((candidate) => `${candidate.kind}: ${candidate.videoId}`).join('\n'));
-}
-
-function readCanonicalVideos(): Array<z.infer<typeof canonicalVideoSchema>> {
-  const directory = path.join(root, 'content/videos');
-  return readdirSync(directory)
-    .filter((file) => file.endsWith('.json'))
-    .sort()
-    .map((file) => canonicalVideoSchema.parse(readJson(path.join(directory, file))));
 }
 
 function fingerprint(value: unknown): string {

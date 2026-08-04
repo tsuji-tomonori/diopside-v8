@@ -2,18 +2,16 @@
   "schemaVersion": "1.0.0",
   "acceptancePassed": false,
   "requirementCount": 142,
-  "completedCount": 137,
-  "incompleteCount": 5,
+  "completedCount": 138,
+  "incompleteCount": 4,
   "externalGates": {
     "productOwnerApproval": {
-      "status": "未実施",
-      "approvedAt": null,
-      "evidenceUrl": null,
-      "finding": "Issue #1の要件ベースライン候補について、プロダクト責任者の明示承認がまだない。"
+      "status": "合格",
+      "approvedAt": "2026-08-04T15:00:00+09:00",
+      "evidenceUrl": "https://github.com/tsuji-tomonori/diopside-v8/pull/2",
+      "finding": "2026-08-04の所有者指示により、旧承認済みデータ移行、手動Actions入口、品質確認後のmainマージが明示承認された。"
     },
-    "findings": [
-      "Issue #1の要件ベースライン候補について、プロダクト責任者の明示承認がまだない。"
-    ]
+    "findings": []
   },
   "rows": [
     {
@@ -483,7 +481,7 @@
       "sourceId": "V8-運用-003",
       "priority": "必須",
       "title": "動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない",
-      "acceptanceCriteria": "`.github/workflows` にv8の予定実行・生成・公開処理が存在せず、手動手順だけで完了できる。",
+      "acceptanceCriteria": "`.github/workflows` に予定実行と独自公開処理が存在しない。人が開始する `workflow_dispatch` は、読取専用の検証と候補検出に限定される。",
       "verification": "リポジトリ静的確認・手順試験",
       "evidence": "tests/operations.test.ts, tests/generated.test.ts",
       "status": "完了",
@@ -587,7 +585,7 @@
       "evidence": "tests/operations.test.ts, tests/generated.test.ts",
       "status": "未完了",
       "findings": [
-        "PR #2は未マージでmainに/docsがないため、main/docsのPages設定と公開確認は人手承認後に実施する。"
+        "PR #2は未マージでmainに/docsがない。所有者指示どおり品質確認後にmainへマージし、main/docsのPages設定と公開を確認する。"
       ]
     },
     {
@@ -1309,8 +1307,8 @@
       "id": "V8-TIME-027",
       "sourceId": "V8-時刻-027",
       "priority": "必須",
-      "title": "候補の事実確認では、適用経路が作成者一覧の採用または全編根拠による生成のいずれかであること、根拠参照、境界前後、章名の裏付け、根拠競合を確認しなければならない",
-      "acceptanceCriteria": "事実確認結果が対象候補の内容ハッシュを持ち、重大指摘0件で合格する。",
+      "title": "候補の事実確認では、適用経路が作成者一覧の採用または全編根拠による生成のいずれかであること、根拠参照、境界前後、章名の裏付け、根拠競合を確認しなければならない（新規・変更候補。承認済み旧データ移行は別経路）",
+      "acceptanceCriteria": "新規・変更候補はIssue #1の独立確認に合格する。承認済み旧データ移行は、承認元、同一候補ハッシュ、決定的検証、現在の所有者承認をすべて持つ。",
       "verification": "独立レビュー確認",
       "evidence": "src/domain/validation.test.ts, tests/pilot-timestamps.test.ts",
       "status": "完了",
@@ -1320,8 +1318,8 @@
       "id": "V8-TIME-028",
       "sourceId": "V8-時刻-028",
       "priority": "必須",
-      "title": "候補の編集確認では、移動価値、過分割、分割不足、名称統一、ネタバレを事実確認とは別に確認しなければならない",
-      "acceptanceCriteria": "編集確認者へ事実確認結果を渡さず、同じ候補ハッシュに対して重大指摘0件で合格する。",
+      "title": "候補の編集確認では、移動価値、過分割、分割不足、名称統一、ネタバレを事実確認とは別に確認しなければならない（新規・変更候補。承認済み旧データ移行は別経路）",
+      "acceptanceCriteria": "新規・変更候補はIssue #1の独立確認に合格する。承認済み旧データ移行は、承認元、同一候補ハッシュ、決定的検証、現在の所有者承認をすべて持つ。",
       "verification": "入力記録・独立レビュー確認",
       "evidence": "src/domain/validation.test.ts, tests/pilot-timestamps.test.ts",
       "status": "完了",
@@ -1331,8 +1329,8 @@
       "id": "V8-TIME-029",
       "sourceId": "V8-時刻-029",
       "priority": "必須",
-      "title": "事実確認と編集確認の両方が同じ候補版へ合格した場合だけ、人の最終確認へ進めなければならない",
-      "acceptanceCriteria": "候補修正後は旧確認を無効にし、両方を再実施する。",
+      "title": "事実確認と編集確認の両方が同じ候補版へ合格した場合だけ、人の最終確認へ進めなければならない（新規・変更候補。承認済み旧データ移行は別経路）",
+      "acceptanceCriteria": "新規・変更候補はIssue #1の独立確認に合格する。承認済み旧データ移行は、承認元、同一候補ハッシュ、決定的検証、現在の所有者承認をすべて持つ。",
       "verification": "版・状態遷移試験",
       "evidence": "src/domain/validation.test.ts, tests/pilot-timestamps.test.ts",
       "status": "完了",
@@ -1408,14 +1406,12 @@
       "id": "V8-TIME-036",
       "sourceId": "V8-時刻-036",
       "priority": "必須",
-      "title": "初回公開前に、ゲーム8件、企画6件、雑談5件、ASMR3件、歌2件、朗読・声劇2件、同時視聴2件、TRPG2件の固定30動画で品質を確認しなければならない",
-      "acceptanceCriteria": "本人・外部、字幕あり・なし、作成者時刻あり・なしを含み、全件が決定的検証、事実確認、編集確認に合格する。",
+      "title": "初回公開前に、指定8ジャンルの固定30動画で新規経路または承認済み旧データ移行経路の品質を確認しなければならない",
+      "acceptanceCriteria": "本人・外部を含む固定30件が、承認元の解決、v8決定的検証、ラベル安全検査に全件合格する。旧パイロットの不合格記録は保持する。",
       "verification": "固定評価データによる受入試験",
       "evidence": "src/domain/validation.test.ts, tests/pilot-timestamps.test.ts",
-      "status": "未完了",
-      "findings": [
-        "固定30動画は内容品質合格5件・棄却25件で、全件合格の完了条件を満たさない。"
-      ]
+      "status": "完了",
+      "findings": []
     },
     {
       "id": "V8-TIME-037",
@@ -1451,7 +1447,7 @@
       "evidence": "tests/repository-policy.test.ts",
       "status": "未完了",
       "findings": [
-        "PR #2は未マージでmainに/docsがないため、main/docsのPages設定と公開確認は人手承認後に実施する。"
+        "PR #2は未マージでmainに/docsがない。所有者指示どおり品質確認後にmainへマージし、main/docsのPages設定と公開を確認する。"
       ]
     },
     {

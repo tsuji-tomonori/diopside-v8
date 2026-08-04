@@ -2,6 +2,16 @@ import { createHash } from 'node:crypto';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 
+import {
+  buildLegacyContext,
+  classifyLegacyVideo,
+  parseIsoDuration,
+  type LegacyLedgerRow,
+  type LegacyTagVideo,
+  type LegacyTimestampVideo,
+} from './legacy-content.ts';
+import { readSourceShards } from './source-shards.ts';
+
 interface SourceSubcategory {
   id: string;
   name: string;
@@ -42,6 +52,7 @@ interface SourceAliases {
 
 interface VideoSample {
   videos: Array<{
+    videoId: string;
     tags: Array<{ categoryId: string; subcategoryId: string; canonicalName: string }>;
   }>;
 }
@@ -51,10 +62,39 @@ const source = JSON.parse(readFileSync(path.join(root, 'spec/sources/tag-taxonom
 const sourceAliases = JSON.parse(readFileSync(path.join(root, 'spec/sources/tag-aliases-v2.json'), 'utf8')) as SourceAliases;
 const videoSample = JSON.parse(readFileSync(path.join(root, 'spec/sources/video-tags-available-30.json'), 'utf8')) as VideoSample;
 const outDir = path.join(root, 'content/taxonomy');
+const legacyTags = readSourceShards<LegacyTagVideo>(root, 'spec/sources/legacy-video-tags-v1/manifest.json', 'videos').items;
+const legacyTimestamps = readSourceShards<LegacyTimestampVideo>(root, 'spec/sources/legacy-timestamps-v1/manifest.json', 'videos').items;
+const ledgerRows = readSourceShards<LegacyLedgerRow>(root, 'spec/sources/v7-timestamp-ledger-v1/manifest.json', 'rows').items;
 
 const dynamicValues = new Map<string, Set<string>>();
 for (const video of videoSample.videos) {
   for (const tag of video.tags) {
+    const field = `${tag.categoryId}.${tag.subcategoryId}`;
+    const values = dynamicValues.get(field) ?? new Set<string>();
+    values.add(tag.canonicalName);
+    dynamicValues.set(field, values);
+  }
+}
+const legacyContext = buildLegacyContext(legacyTags);
+const tagsById = new Map(legacyTags.map((video) => [video.videoId, video]));
+const timestampsById = new Map(legacyTimestamps.map((video) => [video.videoId, video]));
+const ledgerById = new Map(ledgerRows.map((row) => [row.videoId, row]));
+const legacyVideoIds = [...new Set([...tagsById.keys(), ...timestampsById.keys()])].sort();
+for (const videoId of legacyVideoIds) {
+  const tagVideo = tagsById.get(videoId);
+  const timestampVideo = timestampsById.get(videoId);
+  const ledger = ledgerById.get(videoId);
+  if (ledger?.excluded) continue;
+  if (!tagVideo && !timestampVideo) continue;
+  const logicalTags = classifyLegacyVideo({
+    videoId,
+    title: timestampVideo?.title ?? tagVideo!.title,
+    durationSeconds: timestampVideo?.durationSeconds ?? parseIsoDuration(tagVideo!.durationIso),
+    channelName: ledger?.channelName || '白雪 巴/Shirayuki Tomoe',
+    legacyTags: tagVideo?.legacyTags ?? [],
+    hasApprovedTimestamps: Boolean(timestampVideo),
+  }, legacyContext);
+  for (const tag of logicalTags) {
     const field = `${tag.categoryId}.${tag.subcategoryId}`;
     const values = dynamicValues.get(field) ?? new Set<string>();
     values.add(tag.canonicalName);
@@ -125,11 +165,18 @@ for (const category of categories) {
   }
 }
 
-const aliases = sourceAliases.exactAliases.flatMap((entry) => {
+const aliasesByNormalized = new Map<string, { alias: string; normalizedAlias: string; tagId: string }>();
+for (const entry of sourceAliases.exactAliases) {
   const id = tagLookup.get(`${entry.field}\0${entry.canonical}`);
-  if (!id) return [];
-  return entry.aliases.map((alias) => ({ alias, normalizedAlias: normalized(alias), tagId: id }));
-});
+  if (!id) continue;
+  for (const alias of entry.aliases) {
+    const normalizedAlias = normalized(alias);
+    const prior = aliasesByNormalized.get(normalizedAlias);
+    if (prior && prior.tagId !== id) throw new Error(`別名「${alias}」が複数タグへ解決されます。`);
+    aliasesByNormalized.set(normalizedAlias, { alias, normalizedAlias, tagId: id });
+  }
+}
+const aliases = [...aliasesByNormalized.values()].sort((left, right) => left.normalizedAlias.localeCompare(right.normalizedAlias, 'ja'));
 
 const decompositions = sourceAliases.decompositions.map((entry) => {
   const unresolvedTargets = entry.targets.filter((target) => !tagLookup.has(`${target.field}\0${target.value}`));
@@ -148,18 +195,18 @@ const decompositions = sourceAliases.decompositions.map((entry) => {
 });
 const unresolvedDecompositions = decompositions
   .filter((entry) => entry.unresolvedTargets.length > 0)
-  .map((entry) => ({ legacy: entry.legacy, reason: '明示30件のタグ体系に分解先がないため自動適用せず、人手確認する' }));
+  .map((entry) => ({ legacy: entry.legacy, reason: '移行対象の公開資料に分解先がないため自動適用せず、人手確認する' }));
 const reviewRequired = [...sourceAliases.reviewRequired, ...unresolvedDecompositions]
   .filter((entry, index, values) => values.findIndex((candidate) => candidate.legacy === entry.legacy) === index);
 
 mkdirSync(outDir, { recursive: true });
 writeFileSync(path.join(outDir, 'tag-taxonomy.json'), `${JSON.stringify({
   schemaVersion: '1.0.0',
-  taxonomyVersion: '8.0.0',
+  taxonomyVersion: '8.1.0',
   sourceVersion: source.schemaVersion,
-  aliasVersion: '8.0.0',
-  rulesVersion: '8.0.0',
-  effectiveDate: '2026-08-03',
+  aliasVersion: '8.1.0',
+  rulesVersion: '8.1.0',
+  effectiveDate: '2026-08-04',
   categoryCount: categories.length,
   subcategoryCount,
   prohibitedCanonicalNames: ['', 'その他', '不明', '要確認', '未分類'],
@@ -167,11 +214,25 @@ writeFileSync(path.join(outDir, 'tag-taxonomy.json'), `${JSON.stringify({
 }, null, 2)}\n`);
 writeFileSync(path.join(outDir, 'tag-aliases.json'), `${JSON.stringify({
   schemaVersion: '1.0.0',
-  aliasVersion: '8.0.0',
+  aliasVersion: '8.1.0',
   normalizationOrder: ['Unicode NFKC', '前後空白除去', '連続空白統合', '英字小文字化', '先頭の#除去'],
   aliases,
   decompositions,
   reviewRequired,
+}, null, 2)}\n`);
+const affectedVideoCount = new Set([...legacyVideoIds, ...videoSample.videos.map((video) => video.videoId)]).size;
+writeFileSync(path.join(outDir, 'change-record.json'), `${JSON.stringify({
+  schemaVersion: '1.0.0',
+  changeType: '保守変更',
+  previousTaxonomyVersion: '8.0.0',
+  previousAliasVersion: '8.0.0',
+  taxonomyVersion: '8.1.0',
+  aliasVersion: '8.1.0',
+  rulesVersion: '8.1.0',
+  affectedTagIds: [...tagLookup.values()].sort(),
+  affectedVideoCount,
+  migration: '旧diopside、diopside-v7、公開進捗台帳から確認できた既存承認済みタグと時刻を、所有者指示に基づきv8正本へ決定的に移行する。',
+  reviewedAt: '2026-08-04T15:00:00+09:00',
 }, null, 2)}\n`);
 
 console.log(`7大分類・30小分類・${tagLookup.size}タグを取り込みました。`);

@@ -23,7 +23,7 @@ impact_flags:
   generated_change: true
   sql_change: false
   e2e_change: true
-  migration: false
+  migration: true
   ui_change: true
   interactive_ui_change: true
   operational_impact: true
@@ -116,7 +116,7 @@ selected_checks:
       - test:src/domain/search.test.ts
       - test:src/domain/validation.test.ts
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
-    note: 正常系・境界・失敗経路と公開状態の復元訓練を51件の単体・統合試験で検証する
+    note: 正常系・境界・失敗経路、旧版データ移行、公開状態の復元訓練を56件の単体・統合試験で検証する
   - id: FAST-005
     class: Risk-selected
     result: pass
@@ -137,7 +137,7 @@ selected_checks:
     evidence:
       - test:tests/repository-policy.test.ts
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
-    note: token、秘密鍵、生資料、追跡・認証実装を方針検査で拒否する
+    note: token、秘密鍵、生の字幕・コメント・チャット、追跡・認証実装を方針検査で拒否し、移行元snapshotは公開可能な構造化メタデータだけに限定する
   - id: FAST-008
     class: Risk-selected
     result: pass
@@ -152,6 +152,15 @@ selected_checks:
       - test:tests/content-validation.test.ts
       - test:tests/generated.test.ts
     note: 公開JSON schemaと生成版の破壊的な不整合を拒否する
+  - id: FAST-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:scripts/import-legacy-content.ts
+      - test:tests/content-validation.test.ts
+      - test:tests/generated.test.ts
+      - test:tests/operations.test.ts
+    note: shard snapshotからのforward移行を決定的に再実行でき、明示30件overrideを保持し、変更取消後は正本からdocsを完全復元できることを確認した
   - id: FAST-013
     class: Risk-selected
     result: pass
@@ -188,7 +197,7 @@ selected_checks:
     evidence:
       - path:content/videos/c9TnpjK3ZZE.json
       - test:tests/content-validation.test.ts
-    note: 明示30動画・225タグと、存在する23動画・471章の承認済み時刻を本番schemaで検証し、review来歴をPR #2へ固定した
+    note: 明示30件を上書き正本として維持しつつ、追跡可能な旧版全件を移行して1,681動画・9,015タグ割当・1,207動画の22,827時刻区間を本番schemaで検証した
   - id: FAST-018
     class: Risk-selected
     result: pass
@@ -203,7 +212,7 @@ selected_checks:
       - path:spec/requirements/requirements.json
       - test:src/domain/search.test.ts
       - test:e2e/search.spec.ts
-    note: 375×812画素・Chromium・CPU4倍・2,500件・20検索でp95 24.1msを実測し、100ms閾値と一致させた
+    note: 1,681件移行後も375×812画素・Chromium・CPU4倍・2,500件・20検索でp95 19.4msを実測し、100ms閾値と一致させた
   - id: REV-001
     class: Invariant
     result: pass
@@ -221,7 +230,7 @@ selected_checks:
     result: pass
     evidence:
       - path:reports/requirements-audit.json
-    note: 142件を1行ずつ実結果まで監査し、完了137件と未完了5件を区別した
+    note: 142件を1行ずつ実結果まで監査し、所有者承認と固定30件移行を反映した完了138件・未完了4件を区別した
   - id: REV-004
     class: Invariant
     result: pass
@@ -242,7 +251,7 @@ selected_checks:
       - path:reports/requirements-audit.json
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
       - workflow:要件・品質ゲート#142要件の受入結果を監査
-    note: 必要な自動試験をCIで実行し、外部確認を含む受入結果は意味論監査で未完了のまま停止させる
+    note: 必要な自動試験をCIで実行し、Pages公開・月次請求・初見利用者試験を含む残り4件は意味論監査で未完了のまま停止させる
   - id: REV-007
     class: Invariant
     result: pass
@@ -278,7 +287,7 @@ selected_checks:
       - path:docs/operations/manual-content-update.md
       - path:docs/operations/cost-check.md
       - path:docs/operations/privacy-and-safety.md
-    note: 手動更新、0円、個人情報・生資料禁止、Pagesの運用正本を更新した
+    note: 手動更新、手動workflow_dispatch、0円、個人情報・生資料禁止、Pagesの運用正本を更新した
   - id: REV-015
     class: Advisory
     result: pass
@@ -289,9 +298,6 @@ selected_checks:
     note: 長期判断をIssue #1とADR-0001へ固定した
 advisories: []
 residual_risks:
-  - Issue #1の要件ベースライン候補に対するプロダクト責任者の明示承認が未完了である
-  - PRのmergeとmain/docsの初回公開はIssue #1の人手承認ゲート後にだけ実行できる
-  - 固定30動画は内容品質合格5件・棄却25件で、全30件の独立確認が未完了である
-  - 明示30動画のうち7件には承認済みタイムスタンプがなく、未作成状態を維持している
+  - PRのmerge後にmain/docsのPages設定と標準github.io URLの公開確認が必要である
   - 初見利用者による375画素幅の代表5課題実測が未完了である
   - GitHubその他の所有者請求画面による2026-08月の0円確認が未完了である

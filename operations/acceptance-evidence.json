@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.0.0",
-  "updatedAt": "2026-08-04T04:00:34+09:00",
+  "updatedAt": "2026-08-04T15:00:00+09:00",
   "productOwnerApproval": {
-    "status": "未実施",
-    "approvedAt": null,
-    "evidenceUrl": null,
-    "finding": "Issue #1の要件ベースライン候補について、プロダクト責任者の明示承認がまだない。"
+    "status": "合格",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "evidenceUrl": "https://github.com/tsuji-tomonori/diopside-v8/pull/2",
+    "finding": "2026-08-04の所有者指示により、旧承認済みデータ移行、手動Actions入口、品質確認後のmainマージが明示承認された。"
   },
   "pagesPublication": {
     "status": "未実施",
@@ -13,7 +13,7 @@
     "sourceFolder": null,
     "publicUrl": null,
     "verifiedAt": null,
-    "finding": "PR #2は未マージでmainに/docsがないため、main/docsのPages設定と公開確認は人手承認後に実施する。"
+    "finding": "PR #2は未マージでmainに/docsがない。所有者指示どおり品質確認後にmainへマージし、main/docsのPages設定と公開を確認する。"
   },
   "monthlyCost": {
     "status": "未実施",
@@ -38,9 +38,9 @@
     "cpuThrottlingRate": 4,
     "browser": "Chromium 149.0.7827.0",
     "sampleCount": 20,
-    "p95Milliseconds": 24.1,
+    "p95Milliseconds": 19.4,
     "limitMilliseconds": 100,
-    "verifiedAt": "2026-08-04T04:00:34+09:00",
-    "finding": "実ブラウザの代表20検索で、結果表示までの95パーセンタイル24.1ミリ秒を確認した。"
+    "verifiedAt": "2026-08-04T12:40:53+09:00",
+    "finding": "1,681件の公開データ移行後、実ブラウザの代表20検索で、結果表示までの95パーセンタイル19.4ミリ秒を確認した。"
   }
 }

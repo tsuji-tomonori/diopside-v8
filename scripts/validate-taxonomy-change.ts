@@ -1,9 +1,9 @@
 import { execFileSync } from 'node:child_process';
-import { readdirSync } from 'node:fs';
 import path from 'node:path';
 import { z } from 'zod';
 
 import { tagAliasesSchema, tagTaxonomySchema } from '../src/domain/content.ts';
+import { readCanonicalVideos } from './canonical-store.ts';
 import { canonicalJson, readJson } from './lib.ts';
 
 const recordSchema = z.object({
@@ -70,10 +70,9 @@ function compareWithBase(baseRef: string): void {
   const changedIds = new Set([...priorTags.keys(), ...nextTags.keys()].filter((tagId) => canonicalJson(priorTags.get(tagId)) !== canonicalJson(nextTags.get(tagId))));
   const recordedIds = new Set(record.affectedTagIds);
   for (const tagId of changedIds) if (!recordedIds.has(tagId)) errors.push(`${tagId}: 影響タグ一覧にありません。`);
-  const affectedVideos = readdirSync(path.join(root, 'content/videos')).filter((file) => file.endsWith('.json')).filter((file) => {
-    const video = readJson(path.join(root, 'content/videos', file)) as { tagAssignments?: Array<{ tagId?: string }> };
-    return video.tagAssignments?.some((assignment) => assignment.tagId && changedIds.has(assignment.tagId)) ?? false;
-  }).length;
+  const affectedVideos = readCanonicalVideos(root).filter((video) => (
+    video.tagAssignments.some((assignment) => changedIds.has(assignment.tagId))
+  )).length;
   if (record.affectedVideoCount !== affectedVideos) errors.push(`影響動画件数が一致しません（記録${record.affectedVideoCount}件、実際${affectedVideos}件）。`);
 }
 

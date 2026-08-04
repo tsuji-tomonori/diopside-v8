@@ -1,23 +1,25 @@
-import { mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 
 import {
   buildTaxonomyLookup,
-  canonicalVideoSchema,
   latestReleaseSchema,
   publicAliasIndexSchema,
   publicIndexSchema,
   publicTagIndexSchema,
   publicVideoDetailSchema,
+  publicVideoShardSchema,
   searchIndexSchema,
   tagAliasesSchema,
   tagTaxonomySchema,
   type CanonicalVideo,
   type PublicVideoDetail,
   type PublicVideoSummary,
+  videoShardId,
 } from '../src/domain/content.ts';
 import { normalizeTitleForSearch } from '../src/domain/search.ts';
 import { scanPublicBoundary, validateCanonicalVideo, validateTaxonomy } from '../src/domain/validation.ts';
+import { readCanonicalVideos } from './canonical-store.ts';
 import { canonicalJson, prettyJson, readJson, sha256 } from './lib.ts';
 
 interface ContentManifest {
@@ -36,10 +38,7 @@ const contentManifest = readJson(path.join(root, 'content/content-manifest.json'
 const taxonomyIssues = validateTaxonomy(taxonomyInput, aliasesInput);
 if (taxonomyIssues.length > 0) throw new Error(taxonomyIssues.map((item) => `${item.code}:${item.path}:${item.message}`).join('\n'));
 
-const videos = readdirSync(path.join(root, 'content/videos'))
-  .filter((file) => file.endsWith('.json'))
-  .sort()
-  .map((file) => canonicalVideoSchema.parse(readJson(path.join(root, 'content/videos', file))));
+const videos = readCanonicalVideos(root);
 for (const video of videos) {
   const issues = validateCanonicalVideo(video, taxonomy, aliases);
   if (issues.length > 0) throw new Error(`${video.videoId}\n${issues.map((item) => `${item.code}:${item.path}:${item.message}`).join('\n')}`);
@@ -52,9 +51,8 @@ const releaseSeed = {
 };
 const releaseId = `release-${sha256(canonicalJson(releaseSeed)).slice(0, 16)}`;
 const releaseDir = path.join(publicDataDir, 'releases', releaseId);
-const videoDir = path.join(releaseDir, 'videos');
 rmSync(publicDataDir, { recursive: true, force: true });
-mkdirSync(videoDir, { recursive: true });
+mkdirSync(releaseDir, { recursive: true });
 mkdirSync(generatedSourceDir, { recursive: true });
 
 const summaries = videos
@@ -124,8 +122,22 @@ const outputFiles = new Map<string, unknown>([
   ['tag-index.json', tagIndex],
   ['alias-index.json', aliasIndex],
 ]);
+const detailShards = new Map<string, Record<string, PublicVideoDetail>>();
 for (const video of videos) {
-  outputFiles.set(`videos/${video.videoId}.json`, publicVideoDetailSchema.parse(toDetail(video, releaseId)));
+  const detail = publicVideoDetailSchema.parse(toDetail(video, releaseId));
+  const shardId = videoShardId(video.videoId);
+  const shard = detailShards.get(shardId) ?? {};
+  shard[video.videoId] = detail;
+  detailShards.set(shardId, shard);
+}
+for (let index = 0; index < 256; index += 1) {
+  const shardId = index.toString(16).padStart(2, '0');
+  outputFiles.set(`video-shards/${shardId}.json`, publicVideoShardSchema.parse({
+    schemaVersion: '1.0.0',
+    releaseId,
+    shardId,
+    videos: Object.fromEntries(Object.entries(detailShards.get(shardId) ?? {}).sort(([left], [right]) => left.localeCompare(right))),
+  }));
 }
 
 for (const [relativePath, value] of outputFiles) {
@@ -159,6 +171,8 @@ const latest = latestReleaseSchema.parse({
   tagIndexPath: `${base}/tag-index.json`,
   aliasIndexPath: `${base}/alias-index.json`,
   manifestPath: `${base}/manifest.json`,
+  videoShardCount: 256,
+  videoShardPathTemplate: `${base}/video-shards/{shard}.json`,
 });
 writeFileSync(path.join(publicDataDir, 'latest.json'), prettyJson(latest));
 writeFileSync(path.join(generatedSourceDir, 'release.ts'), `export const embeddedReleaseId = '${releaseId}' as const;\n`);

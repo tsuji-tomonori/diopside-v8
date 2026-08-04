@@ -307,6 +307,13 @@ export const publicVideoDetailSchema = publicVideoSummarySchema.extend({
   }).strict(),
 }).strict();
 
+export const publicVideoShardSchema = z.object({
+  schemaVersion: z.literal('1.0.0'),
+  releaseId: z.string(),
+  shardId: z.string().regex(/^[a-f0-9]{2}$/u),
+  videos: z.record(videoId, publicVideoDetailSchema),
+}).strict();
+
 export const latestReleaseSchema = z.object({
   schemaVersion: z.literal('1.0.0'),
   releaseId: z.string().regex(/^release-[a-f0-9]{16}$/u),
@@ -316,6 +323,8 @@ export const latestReleaseSchema = z.object({
   tagIndexPath: z.string(),
   aliasIndexPath: z.string(),
   manifestPath: z.string(),
+  videoShardCount: z.literal(256),
+  videoShardPathTemplate: z.string().includes('{shard}'),
 }).strict();
 
 export const publicIndexSchema = z.object({
@@ -373,6 +382,7 @@ export type TagTaxonomy = z.infer<typeof tagTaxonomySchema>;
 export type TagAliases = z.infer<typeof tagAliasesSchema>;
 export type PublicVideoSummary = z.infer<typeof publicVideoSummarySchema>;
 export type PublicVideoDetail = z.infer<typeof publicVideoDetailSchema>;
+export type PublicVideoShard = z.infer<typeof publicVideoShardSchema>;
 export type LatestRelease = z.infer<typeof latestReleaseSchema>;
 export type PublicIndex = z.infer<typeof publicIndexSchema>;
 export type SearchIndex = z.infer<typeof searchIndexSchema>;
@@ -418,4 +428,14 @@ export function findTagId(
     ?.subcategories.find((subcategory) => subcategory.subcategoryId === subcategoryId)
     ?.tags.find((tag) => tag.canonicalName === canonicalName)
     ?.tagId;
+}
+
+export function videoShardId(videoIdValue: string, shardCount = 256): string {
+  if (!Number.isInteger(shardCount) || shardCount < 1 || shardCount > 256) throw new Error('動画詳細のシャード数が不正です。');
+  let hash = 0x811c9dc5;
+  for (const character of videoIdValue) {
+    hash ^= character.codePointAt(0) ?? 0;
+    hash = Math.imul(hash, 0x01000193);
+  }
+  return ((hash >>> 0) % shardCount).toString(16).padStart(2, '0');
 }

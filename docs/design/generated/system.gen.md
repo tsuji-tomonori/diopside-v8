@@ -37,16 +37,34 @@
 
 ## 公開データの流れ
 
-`content/videos` + `content/taxonomy` → 構造・意味・公開境界検証 → release ID算出 → `public/data/releases/<release-id>` → Vite → `docs`
+`content/catalog` + `content/videos`（1動画上書き）+ `content/taxonomy` → 構造・意味・公開境界検証 → release ID算出 → `public/data/releases/<release-id>` → Vite → `docs`
 
 ## TypeScript公開契約
 
 | ファイル | 種別 | 名前 |
 |---|---|---|
+| `scripts/canonical-store.ts` | FunctionDeclaration | `readCanonicalVideos` |
+| `scripts/legacy-content.ts` | FunctionDeclaration | `buildLegacyContext` |
+| `scripts/legacy-content.ts` | InterfaceDeclaration | `ClassifiableVideo` |
+| `scripts/legacy-content.ts` | FunctionDeclaration | `classifyLegacyVideo` |
+| `scripts/legacy-content.ts` | InterfaceDeclaration | `LegacyContext` |
+| `scripts/legacy-content.ts` | InterfaceDeclaration | `LegacyLedgerRow` |
+| `scripts/legacy-content.ts` | InterfaceDeclaration | `LegacyTagVideo` |
+| `scripts/legacy-content.ts` | InterfaceDeclaration | `LegacyTimestampVideo` |
+| `scripts/legacy-content.ts` | InterfaceDeclaration | `LogicalTag` |
+| `scripts/legacy-content.ts` | FunctionDeclaration | `normalizeLegacyGeneratedAt` |
+| `scripts/legacy-content.ts` | FunctionDeclaration | `normalizeLegacyTimestampItems` |
+| `scripts/legacy-content.ts` | FunctionDeclaration | `parseIsoDuration` |
+| `scripts/legacy-content.ts` | FunctionDeclaration | `unresolvedLegacyTags` |
 | `scripts/lib.ts` | FunctionDeclaration | `canonicalJson` |
 | `scripts/lib.ts` | FunctionDeclaration | `prettyJson` |
 | `scripts/lib.ts` | FunctionDeclaration | `readJson` |
 | `scripts/lib.ts` | FunctionDeclaration | `sha256` |
+| `scripts/source-shards.ts` | FunctionDeclaration | `readSourceShards` |
+| `scripts/source-shards.ts` | FunctionDeclaration | `shardIdForKey` |
+| `scripts/source-shards.ts` | InterfaceDeclaration | `SourceShardEntry` |
+| `scripts/source-shards.ts` | InterfaceDeclaration | `SourceShardManifest` |
+| `scripts/source-shards.ts` | FunctionDeclaration | `writeSourceShards` |
 | `scripts/validate-video-pr-scope.ts` | FunctionDeclaration | `validateVideoPrScopeFiles` |
 | `scripts/validate-video-pr-scope.ts` | InterfaceDeclaration | `VideoPrScopeResult` |
 | `src/App.tsx` | FunctionDeclaration | `App` |
@@ -85,6 +103,8 @@
 | `src/domain/content.ts` | VariableStatement | `publicTagIndexSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `PublicVideoDetail` |
 | `src/domain/content.ts` | VariableStatement | `publicVideoDetailSchema` |
+| `src/domain/content.ts` | TypeAliasDeclaration | `PublicVideoShard` |
+| `src/domain/content.ts` | VariableStatement | `publicVideoShardSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `PublicVideoSummary` |
 | `src/domain/content.ts` | VariableStatement | `publicVideoSummarySchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `SearchIndex` |
@@ -98,6 +118,7 @@
 | `src/domain/content.ts` | VariableStatement | `timestampItemSchema` |
 | `src/domain/content.ts` | VariableStatement | `timestampMissingReasonSchema` |
 | `src/domain/content.ts` | VariableStatement | `timestampOriginSchema` |
+| `src/domain/content.ts` | FunctionDeclaration | `videoShardId` |
 | `src/domain/content.ts` | VariableStatement | `wordCloudMissingReasonSchema` |
 | `src/domain/search.ts` | FunctionDeclaration | `additionalTagCounts` |
 | `src/domain/search.ts` | FunctionDeclaration | `applySearch` |
@@ -145,4 +166,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力35ファイル、公開契約89件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力39ファイル、公開契約110件です。

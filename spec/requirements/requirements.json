@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "catalog_revision": 1,
+  "catalog_revision": 2,
   "product": "diopside v8",
-  "updated_at": "2026-08-03",
+  "updated_at": "2026-08-04",
   "requirements": [
     {
       "id": "V8-SEARCH-001",
@@ -1920,7 +1920,8 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          ".github/workflows/manual-content-operation.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -1969,7 +1970,8 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          ".github/workflows/manual-content-operation.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -1984,7 +1986,7 @@
     },
     {
       "id": "V8-OPS-003",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "project",
       "category": "nonfunctional",
@@ -1996,14 +1998,15 @@
       "rationale": "候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。",
       "source_refs": [
         "Issue #1 V8-運用-003",
-        "user:2026-08-03"
+        "user:2026-08-03",
+        "owner-directive:2026-08-04"
       ],
       "acceptance_criteria": [
         {
           "id": "AC-V8-OPS-003-1",
           "given": "V8-運用-003の前提を満たす公開データまたは操作がある",
           "when": "リポジトリ静的確認・手順試験",
-          "then": "`.github/workflows` にv8の予定実行・生成・公開処理が存在せず、手動手順だけで完了できる。"
+          "then": "`.github/workflows` に予定実行と独自公開処理が存在しない。人が開始する `workflow_dispatch` は、読取専用の検証と候補検出に限定される。"
         }
       ],
       "verification": {
@@ -2018,7 +2021,8 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          ".github/workflows/manual-content-operation.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2029,7 +2033,7 @@
           "dev-standard default profile"
         ]
       },
-      "last_changed_by": "ISSUE-1-IMPLEMENTATION"
+      "last_changed_by": "OWNER-DIRECTIVE-2026-08-04"
     },
     {
       "id": "V8-OPS-004",
@@ -2067,7 +2071,8 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          ".github/workflows/manual-content-operation.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2116,7 +2121,8 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          ".github/workflows/manual-content-operation.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2165,7 +2171,8 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          ".github/workflows/manual-content-operation.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2214,7 +2221,8 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          ".github/workflows/manual-content-operation.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2263,7 +2271,8 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          ".github/workflows/manual-content-operation.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2312,7 +2321,8 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          ".github/workflows/manual-content-operation.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2361,7 +2371,8 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          ".github/workflows/manual-content-operation.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2410,7 +2421,8 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          ".github/workflows/manual-content-operation.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2459,7 +2471,8 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          ".github/workflows/manual-content-operation.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2508,7 +2521,8 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          ".github/workflows/manual-content-operation.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2557,7 +2571,8 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          ".github/workflows/manual-content-operation.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2606,7 +2621,8 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          ".github/workflows/manual-content-operation.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2655,7 +2671,8 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          ".github/workflows/manual-content-operation.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -4383,7 +4400,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -4431,7 +4452,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -4479,7 +4504,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -4527,7 +4556,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -4575,7 +4608,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -4623,7 +4660,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -4671,7 +4712,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -4719,7 +4764,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -4767,7 +4816,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -4815,7 +4868,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -4863,7 +4920,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -4911,7 +4972,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -4959,7 +5024,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5007,7 +5076,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5055,7 +5128,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5103,7 +5180,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5151,7 +5232,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5199,7 +5284,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5247,7 +5336,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5295,7 +5388,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5343,7 +5440,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5391,7 +5492,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5439,7 +5544,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5487,7 +5596,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5535,7 +5648,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5583,7 +5700,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5598,26 +5719,27 @@
     },
     {
       "id": "V8-TIME-027",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "product",
       "category": "functional",
       "type": "data",
-      "title": "候補の事実確認では、適用経路が作成者一覧の採用または全編根拠による生成のいずれかであること、根拠参照、境界前後、章名の裏付け、根拠競合を確認しなければならない",
+      "title": "候補の事実確認では、適用経路が作成者一覧の採用または全編根拠による生成のいずれかであること、根拠参照、境界前後、章名の裏付け、根拠競合を確認しなければならない（新規・変更候補。承認済み旧データ移行は別経路）",
       "subject": "diopside v8の時刻",
       "action": "satisfy",
-      "object": "候補の事実確認では、適用経路が作成者一覧の採用または全編根拠による生成のいずれかであること、根拠参照、境界前後、章名の裏付け、根拠競合を確認しなければならない。",
+      "object": "候補の事実確認では、適用経路が作成者一覧の採用または全編根拠による生成のいずれかであること、根拠参照、境界前後、章名の裏付け、根拠競合を確認しなければならない。 新規・変更候補にはIssue #1の独立確認を適用する。既存承認済みデータは、承認元・入力指紋・同一候補ハッシュ・v8決定的検証・現在の所有者承認を解決できる場合に限り移行できる。",
       "rationale": "見どころ偏重ではなく、動画全体を安全に移動できる目次を提供するため。",
       "source_refs": [
         "Issue #1 V8-時刻-027",
-        "user:2026-08-03"
+        "user:2026-08-03",
+        "owner-directive:2026-08-04"
       ],
       "acceptance_criteria": [
         {
           "id": "AC-V8-TIME-027-1",
           "given": "V8-時刻-027の前提を満たす公開データまたは操作がある",
           "when": "独立レビュー確認",
-          "then": "事実確認結果が対象候補の内容ハッシュを持ち、重大指摘0件で合格する。"
+          "then": "新規・変更候補はIssue #1の独立確認に合格する。承認済み旧データ移行は、承認元、同一候補ハッシュ、決定的検証、現在の所有者承認をすべて持つ。"
         }
       ],
       "verification": {
@@ -5631,7 +5753,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5642,30 +5768,31 @@
           "dev-standard default profile"
         ]
       },
-      "last_changed_by": "ISSUE-1-IMPLEMENTATION"
+      "last_changed_by": "OWNER-DIRECTIVE-2026-08-04"
     },
     {
       "id": "V8-TIME-028",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "product",
       "category": "functional",
       "type": "data",
-      "title": "候補の編集確認では、移動価値、過分割、分割不足、名称統一、ネタバレを事実確認とは別に確認しなければならない",
+      "title": "候補の編集確認では、移動価値、過分割、分割不足、名称統一、ネタバレを事実確認とは別に確認しなければならない（新規・変更候補。承認済み旧データ移行は別経路）",
       "subject": "diopside v8の時刻",
       "action": "satisfy",
-      "object": "候補の編集確認では、移動価値、過分割、分割不足、名称統一、ネタバレを事実確認とは別に確認しなければならない。",
+      "object": "候補の編集確認では、移動価値、過分割、分割不足、名称統一、ネタバレを事実確認とは別に確認しなければならない。 新規・変更候補にはIssue #1の独立確認を適用する。既存承認済みデータは、承認元・入力指紋・同一候補ハッシュ・v8決定的検証・現在の所有者承認を解決できる場合に限り移行できる。",
       "rationale": "見どころ偏重ではなく、動画全体を安全に移動できる目次を提供するため。",
       "source_refs": [
         "Issue #1 V8-時刻-028",
-        "user:2026-08-03"
+        "user:2026-08-03",
+        "owner-directive:2026-08-04"
       ],
       "acceptance_criteria": [
         {
           "id": "AC-V8-TIME-028-1",
           "given": "V8-時刻-028の前提を満たす公開データまたは操作がある",
           "when": "入力記録・独立レビュー確認",
-          "then": "編集確認者へ事実確認結果を渡さず、同じ候補ハッシュに対して重大指摘0件で合格する。"
+          "then": "新規・変更候補はIssue #1の独立確認に合格する。承認済み旧データ移行は、承認元、同一候補ハッシュ、決定的検証、現在の所有者承認をすべて持つ。"
         }
       ],
       "verification": {
@@ -5679,7 +5806,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5690,30 +5821,31 @@
           "dev-standard default profile"
         ]
       },
-      "last_changed_by": "ISSUE-1-IMPLEMENTATION"
+      "last_changed_by": "OWNER-DIRECTIVE-2026-08-04"
     },
     {
       "id": "V8-TIME-029",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "product",
       "category": "functional",
       "type": "data",
-      "title": "事実確認と編集確認の両方が同じ候補版へ合格した場合だけ、人の最終確認へ進めなければならない",
+      "title": "事実確認と編集確認の両方が同じ候補版へ合格した場合だけ、人の最終確認へ進めなければならない（新規・変更候補。承認済み旧データ移行は別経路）",
       "subject": "diopside v8の時刻",
       "action": "satisfy",
-      "object": "事実確認と編集確認の両方が同じ候補版へ合格した場合だけ、人の最終確認へ進めなければならない。",
+      "object": "事実確認と編集確認の両方が同じ候補版へ合格した場合だけ、人の最終確認へ進めなければならない。 新規・変更候補にはIssue #1の独立確認を適用する。既存承認済みデータは、承認元・入力指紋・同一候補ハッシュ・v8決定的検証・現在の所有者承認を解決できる場合に限り移行できる。",
       "rationale": "見どころ偏重ではなく、動画全体を安全に移動できる目次を提供するため。",
       "source_refs": [
         "Issue #1 V8-時刻-029",
-        "user:2026-08-03"
+        "user:2026-08-03",
+        "owner-directive:2026-08-04"
       ],
       "acceptance_criteria": [
         {
           "id": "AC-V8-TIME-029-1",
           "given": "V8-時刻-029の前提を満たす公開データまたは操作がある",
           "when": "版・状態遷移試験",
-          "then": "候補修正後は旧確認を無効にし、両方を再実施する。"
+          "then": "新規・変更候補はIssue #1の独立確認に合格する。承認済み旧データ移行は、承認元、同一候補ハッシュ、決定的検証、現在の所有者承認をすべて持つ。"
         }
       ],
       "verification": {
@@ -5727,7 +5859,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5738,7 +5874,7 @@
           "dev-standard default profile"
         ]
       },
-      "last_changed_by": "ISSUE-1-IMPLEMENTATION"
+      "last_changed_by": "OWNER-DIRECTIVE-2026-08-04"
     },
     {
       "id": "V8-TIME-030",
@@ -5775,7 +5911,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5823,7 +5963,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5871,7 +6015,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5919,7 +6067,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -5967,7 +6119,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -6015,7 +6171,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -6030,26 +6190,27 @@
     },
     {
       "id": "V8-TIME-036",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "product",
       "category": "functional",
       "type": "data",
-      "title": "初回公開前に、ゲーム8件、企画6件、雑談5件、ASMR3件、歌2件、朗読・声劇2件、同時視聴2件、TRPG2件の固定30動画で品質を確認しなければならない",
+      "title": "初回公開前に、指定8ジャンルの固定30動画で新規経路または承認済み旧データ移行経路の品質を確認しなければならない",
       "subject": "diopside v8の時刻",
       "action": "satisfy",
-      "object": "初回公開前に、ゲーム8件、企画6件、雑談5件、ASMR3件、歌2件、朗読・声劇2件、同時視聴2件、TRPG2件の固定30動画で品質を確認しなければならない。",
+      "object": "初回公開前に、ゲーム8件、企画6件、雑談5件、ASMR3件、歌2件、朗読・声劇2件、同時視聴2件、TRPG2件の固定30動画で品質を確認しなければならない。承認済み旧データを使う場合は、旧パイロットの不合格を合格へ読み替えず、別の承認済み固定30件を選び、承認元とv8決定的検証を確認する。",
       "rationale": "見どころ偏重ではなく、動画全体を安全に移動できる目次を提供するため。",
       "source_refs": [
         "Issue #1 V8-時刻-036",
-        "user:2026-08-03"
+        "user:2026-08-03",
+        "owner-directive:2026-08-04"
       ],
       "acceptance_criteria": [
         {
           "id": "AC-V8-TIME-036-1",
           "given": "V8-時刻-036の前提を満たす公開データまたは操作がある",
           "when": "固定評価データによる受入試験",
-          "then": "本人・外部、字幕あり・なし、作成者時刻あり・なしを含み、全件が決定的検証、事実確認、編集確認に合格する。"
+          "then": "本人・外部を含む固定30件が、承認元の解決、v8決定的検証、ラベル安全検査に全件合格する。旧パイロットの不合格記録は保持する。"
         }
       ],
       "verification": {
@@ -6063,7 +6224,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",
@@ -6074,7 +6239,7 @@
           "dev-standard default profile"
         ]
       },
-      "last_changed_by": "ISSUE-1-IMPLEMENTATION"
+      "last_changed_by": "OWNER-DIRECTIVE-2026-08-04"
     },
     {
       "id": "V8-TIME-037",
@@ -6111,7 +6276,11 @@
         ],
         "implementation": [
           "src/domain/content.ts",
-          "scripts/diff-timestamps.ts"
+          "scripts/diff-timestamps.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts",
+          "scripts/import-legacy-content.ts"
         ],
         "tests": [
           "src/domain/validation.test.ts",

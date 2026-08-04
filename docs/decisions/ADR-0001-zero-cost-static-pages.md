@@ -15,7 +15,7 @@ React／TypeScriptの画面と版付きJSONをビルド済み静的成果物と�
 ## 採用しない案
 
 - AWS上の収集・API・DB・配信: 費用0円と保守範囲に反する。
-- GitHub Actionsの予定生成・AI呼出し: 人が開始する承認境界に反する。
+- GitHub Actionsの予定生成・外部生成呼出し: 人が開始する承認境界に反する。`workflow_dispatch` による読取専用の検証・候補検出は許可する。
 - 独自のPages公開Action: `main/docs` のbranch公開で足り、公開経路を増やす必要がない。
 
 ## 再検討条件

@@ -24,6 +24,18 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).not.toMatch(/actions\/(?:upload-artifact|cache)@/iu);
   });
 
+  it('手動運用は明示起動・読取専用・候補0件時無出力で、予定実行や公開処理を持たない', () => {
+    const workflow = text('.github/workflows/manual-content-operation.yml');
+    expect(workflow).toMatch(/workflow_dispatch:/u);
+    expect(workflow).toMatch(/validate-current/u);
+    expect(workflow).toMatch(/detect-candidates/u);
+    expect(workflow).toMatch(/candidate:detect/u);
+    expect(workflow).toMatch(/permissions:\s*\n\s+contents: read/u);
+    expect(workflow).toMatch(/候補は0件/u);
+    expect(workflow).not.toMatch(/(?:pull_request:|push:|schedule:|cron:|openai|codex|chatgpt|deploy-pages|upload-pages-artifact|configure-pages)/iu);
+    expect(workflow).not.toMatch(/actions\/(?:upload-artifact|cache)@/iu);
+  });
+
   it('Pagesは公開リポジトリのmain/docs・標準URL・branch方式だけを宣言する', () => {
     const policy = json('operations/pages-policy.json') as Record<string, unknown>;
     expect(policy).toMatchObject({
@@ -44,7 +56,10 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
       stopCondition: string;
     };
     expect(policy.maximumMonthlyServiceCost).toBe(0);
-    expect(policy.allowedRuntimeServices).toEqual([{ service: 'GitHub Pages', condition: expect.stringContaining('main/docs') }]);
+    expect(policy.allowedRuntimeServices).toEqual(expect.arrayContaining([
+      { service: 'GitHub Pages', condition: expect.stringContaining('main/docs') },
+      { service: 'GitHub Actions', condition: expect.stringContaining('手動') },
+    ]));
     expect(policy.stopCondition).toContain('停止');
     expect(policy.stopCondition).toContain('人へ判断');
   });
