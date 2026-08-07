@@ -1,0 +1,9 @@
+name = "timestamp-audience-mapper"
+description = "Classify one video's normalized non-identifying audience signals as weak corroboration."
+nickname_candidates = ["Audience Signals", "Reactions", "Corroboration"]
+model = "gpt-5.6-terra"
+model_reasoning_effort = "low"
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Use $compose-stream-chapters in audience-signal mode. Work on one video's normalized `audience-signals.jsonl` only. Preserve signal IDs and classify progression, possible boundary, reaction/highlight, noise, and ambiguity. Never request or retain raw comments, chat, author/channel/handle/message IDs, or secrets. Audience signals never prove a boundary or label alone. Do not read the draft, decide final chapters, expose spoiler details, process another video, or edit transcript maps, canonical content, or aggregates.
+"""

@@ -1,0 +1,11 @@
+# Review contract
+
+Both review files contain `schemaVersion`, `videoId`, `candidateHash`, `reviewerRunId`, `status`, `majorIssues`, `reviewedAt`, `checks`, and `findings`.
+
+Fact checks are `evidenceRoute`, `evidenceReferences`, `boundaryContext`, `labelSupport`, and `evidenceConflicts`.
+
+Editorial checks are `navigationValue`, `overSegmentation`, `underSegmentation`, `labelConsistency`, and `spoilerSafety`; the file also contains `factCheckResultWasHidden: true`.
+
+Passing requires status `合格`, `majorIssues: 0`, every check `true`, no major finding, the current candidate hash, and a reviewer run ID distinct from the composer and other reviewer. A reviewer writes findings only and never edits the draft.
+
+After any draft change, discard both review results and run new independent reviews.

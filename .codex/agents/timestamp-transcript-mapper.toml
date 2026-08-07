@@ -1,0 +1,9 @@
+name = "timestamp-transcript-mapper"
+description = "Map every temporary transcript chunk for one video into evidence-linked semantic spans."
+nickname_candidates = ["Transcript Map", "Timeline", "Chunk Reader"]
+model = "gpt-5.6-terra"
+model_reasoning_effort = "high"
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Use $compose-stream-chapters in transcript-mapping mode. Accept one videoId and verify all transcript chunk IDs declared by state.json. Read every chunk and overlap. Record sustained topics, matches, segments, scenes, songs, breaks, and explicit transitions with exact cue IDs and seconds; reconcile adjacent overlaps and report uncovered ranges. Do not read audience signals, select a fixed chapter count, infer from elapsed time, write chapter_draft.json, review your own output, process another video, or edit canonical/aggregate data.
+"""

@@ -1,0 +1,177 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260807-timestamp-generation-tools
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: true
+  code_change: true
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: false
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: Issue #1と既存V8-TIME要件を実行可能にする内部toolingであり、利用者向け挙動・受入条件・閾値は変更しない
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/generate-stream-timestamps/SKILL.md
+      - path:.codex/agents/timestamp-finalizer.toml
+    note: 4 skill、8 agent、決定的scriptから成る人手起動の運用構成を追加し、公開契約・データモデル・IaCは変更しない
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 複数skill、agent、script、CI検証契約にまたがるためassuredを選択した
+  - id: IMP-010
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:governance/reviews/requirements.txt
+      - path:package.json
+    note: Python lintをCIでも再現するためruff 0.13.3を固定し、実行経路をverify:localへ接続した
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/generate-stream-timestamps/scripts/init_work_item.py
+      - path:.agents/skills/audit-stream-chapters/scripts/validate_candidate.py
+      - test:tests/timestamp_tools_test.py
+    note: Python構文検査、skill quick validation、agent TOML parseを対象範囲へ実行した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:package.json
+      - test:tests/timestamp_tools_test.py
+    note: lint:timestamp-toolsを追加し、対象Pythonへruff checkを実行した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/timestamp_tools_test.py
+    note: 全編根拠と二重独立reviewの正常系、全編不足、投稿者識別子、4 skill・8 agent・禁止実装の失敗経路を検証した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/prepare-stream-evidence/scripts/prepare_evidence.py
+      - test:tests/timestamp_tools_test.py
+    note: raw audience識別fieldを拒否し、有料API endpoint、無人queue、cookie取得実装を含まないことを対象差分で確認した
+  - id: FAST-008
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:governance/reviews/requirements.txt
+      - workflow:要件・品質ゲート#レビュー検証依存を導入
+    note: ruffを完全版固定し、既存のCI pip install経路から導入する
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:.agents/skills/generate-stream-timestamps/scripts/timestamp_common.py
+      - path:.agents/skills/generate-stream-timestamps/references/workflow.md
+    note: ignored state.jsonにstage、fingerprint、candidate hash、時刻を残し、失敗はoperator向けblockerとして診断できる
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/generate-stream-timestamps/SKILL.md
+      - path:.agents/skills/prepare-stream-evidence/SKILL.md
+      - path:.agents/skills/compose-stream-chapters/SKILL.md
+      - path:.agents/skills/audit-stream-chapters/SKILL.md
+      - path:tests/timestamp_tools_test.py
+    note: Issue #1に基づくタイムスタンプ生成toolingへ限定し、作業treeに先在する無関係な変更は対象外とした
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更内容、要件・設計影響、review path、検証契約、互換性・残存リスクを持つCommit Commentを作成した
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+      - path:spec/requirements/requirements.json
+    note: 要件正本の既存V8-TIME-001〜037とIssue #1を弱めず実装し、要件本文は変更しない
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+      - path:.agents/skills/generate-stream-timestamps/references/workflow.md
+    note: 恒久的な内部運用構成はskill、agent、script自身を正本とし、生成設計対象・ADR・公開契約の変更はない
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/timestamp_tools_test.py
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: 専用unit testとlintをverify:localへ接続し、既存PR workflowから実行される
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260807-timestamp-generation-tools.yaml
+    note: 今回選択したcheckだけを保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260807-timestamp-generation-tools.yaml
+    note: 未選択checkをN/Aとして保存していない
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:.agents/skills/generate-stream-timestamps/references/workflow.md
+      - path:.agents/skills/prepare-stream-evidence/references/local-asr.md
+    note: 人手起動、1動画、ignored一時領域、公開無認証取得、回復・停止境界を運用正本へ明記した
+advisories: []
+residual_risks:
+  - 実動画の音声取得とfaster-whisper実行はネットワーク・任意依存・処理時間を伴うため、この変更ではdry-runとfixture試験までとした
+  - 意味論的な章構成、独立review、人の最終承認、1動画PRは実動画ごとの人手実行時に必要であり、自動化していない
