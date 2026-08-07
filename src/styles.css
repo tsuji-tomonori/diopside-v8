@@ -41,7 +41,7 @@ main { width: min(1180px, calc(100% - 2rem)); margin-inline: auto; }
 
 .search-panel, .detail-section, .page-intro, .library-section { background: var(--paper); border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow); }
 .search-panel { padding: clamp(1.25rem, 4vw, 2.5rem); }
-.search-panel > h2, .detail-section h2, .library-section h2 { font: 600 clamp(1.45rem, 3vw, 2rem) Georgia, "Yu Mincho", serif; margin: 0; }
+.search-panel > h1, .detail-section h2, .library-section h2 { font: 600 clamp(1.45rem, 3vw, 2rem) Georgia, "Yu Mincho", serif; margin: 0; }
 .search-label { display: block; margin: 1.5rem 0 .5rem; font-weight: 700; }
 .search-row { display: grid; grid-template-columns: 1fr auto; gap: .75rem; }
 input, select { min-height: 48px; border: 1px solid #bbb3cb; border-radius: 12px; padding: .65rem .8rem; color: var(--ink); background: white; }
@@ -56,6 +56,9 @@ input[type="search"] { font-size: 1.05rem; }
 fieldset { border: 0; padding: 0; margin: 1.25rem 0; }
 legend { font-weight: 800; margin-bottom: .4rem; }
 .hint, .notice, .origin { color: var(--muted); font-size: .9rem; line-height: 1.7; }
+.tag-filter-toolbar { position: sticky; z-index: 4; top: 72px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .5rem 0; background: var(--paper); }
+.tag-filter-toolbar .hint { margin: 0; }
+.tag-filter-toolbar .button { flex: 0 0 auto; }
 .tag-group { padding: .85rem 0; border-bottom: 1px solid #eeeaf3; }
 .tag-input-label { display: block; margin-top: 1rem; color: var(--ink); font-size: .86rem; font-weight: 700; }
 .tag-input-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .65rem; margin: .45rem 0 1rem; }
@@ -135,6 +138,7 @@ footer { padding: 2.5rem 1rem; text-align: center; color: var(--muted); border-t
   .brand { font-size: 1.2rem; }
   main { width: min(100% - 1rem, 1180px); }
   .hero { padding-top: 3rem; }
+  .tag-filter-toolbar { top: 64px; align-items: stretch; flex-direction: column; }
   .search-row { grid-template-columns: 1fr; }
   .tag-input-row { grid-template-columns: 1fr; }
   .filter-grid, .video-grid { grid-template-columns: 1fr; }

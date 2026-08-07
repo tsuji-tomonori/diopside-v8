@@ -53,6 +53,28 @@ test.describe('動画検索', () => {
     expect(page.url()).toContain('tag=tag-people-unit-d5b1de96b450');
   });
 
+  test('タグ選択後は0件候補を隠し、タグ欄を閉じて動画へ戻れる', async ({ page }) => {
+    await preparePage(page);
+    await openSearch(page);
+    await page.getByText('タグ・公開日・動画長で絞り込む').click();
+    await page.getByLabel('タグ名または別名から追加').fill('#女王と会長');
+    await page.getByRole('button', { name: 'タグを追加' }).click();
+
+    await expect(page.locator('.tag-choice[aria-pressed="false"]', { hasText: '0件' })).toHaveCount(0);
+    const closeButton = page.getByRole('button', { name: 'タグを閉じて動画を見る' });
+    await expect(closeButton).toHaveAttribute('aria-expanded', 'true');
+    await closeButton.click();
+
+    const resultsHeading = page.locator('#results-heading');
+    await expect(resultsHeading).toBeFocused();
+    await expect(resultsHeading).not.toHaveText('1681件の動画');
+    await expect(page.getByLabel('タグ名または別名から追加')).toBeHidden();
+    const openButton = page.getByRole('button', { name: 'タグを開く（選択1件）' });
+    await expect(openButton).toHaveAttribute('aria-expanded', 'false');
+    await openButton.click();
+    await expect(page.getByRole('button', { name: /女王と会長/u })).toHaveAttribute('aria-pressed', 'true');
+  });
+
   test('入力矛盾を日本語で示し、並び替えとキーボード操作を提供する', async ({ page }) => {
     await preparePage(page);
     await openSearch(page);

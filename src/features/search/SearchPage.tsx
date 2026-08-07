@@ -26,12 +26,14 @@ export function SearchPage(): React.JSX.Element {
   const [draft, setDraft] = useState<SearchCondition>(() => parseCondition(params));
   const [tagInput, setTagInput] = useState('');
   const [tagError, setTagError] = useState('');
+  const [tagsExpanded, setTagsExpanded] = useState(true);
   const [visibleCount, setVisibleCount] = useState(pageSize);
   const [resultAnnouncement, setResultAnnouncement] = useState('');
   const [appliedCondition, setAppliedCondition] = useState<SearchCondition | null>(null);
   const searchStartedAt = useRef<number | null>(null);
   const searchComputationMs = useRef(0);
   const pendingParams = useRef<URLSearchParams | null>(null);
+  const resultsHeadingRef = useRef<HTMLHeadingElement>(null);
   const parsedCondition = useMemo(() => parseCondition(params), [params]);
   const summaries = useMemo(() => new Map(bundle.index.videos.map((video) => [video.videoId, video])), [bundle.index.videos]);
   const tags = useMemo(() => bundle.tagIndex.categories.flatMap((category) => category.subcategories.flatMap((subcategory) => subcategory.tags)), [bundle.tagIndex.categories]);
@@ -60,6 +62,9 @@ export function SearchPage(): React.JSX.Element {
   const draftResults = useMemo(() => applySearch(bundle.searchIndex.videos, draft), [bundle.searchIndex.videos, draft]);
   const draftResultCount = draftResults.length;
   const tagCounts = useMemo(() => tagCountsForResults(draftResults), [draftResults]);
+  const availableTagIds = new Set(tags.flatMap((tag) => (
+    selected.has(tag.tagId) || (tagCounts.get(tag.tagId) ?? 0) > 0 ? [tag.tagId] : []
+  )));
 
   useEffect(() => {
     setDraft(condition);
@@ -84,13 +89,23 @@ export function SearchPage(): React.JSX.Element {
     }
   }, [results.length, condition, setParams]);
 
-  const submit = (): void => {
+  const submit = (): boolean => {
     const nextErrors = validateCondition(draft);
-    if (nextErrors.length > 0) return;
+    if (nextErrors.length > 0) return false;
     searchStartedAt.current = performance.now();
     pendingParams.current = serializeCondition(draft);
     setAppliedCondition(draft);
     void store.saveRecentSearch(draft);
+    return true;
+  };
+
+  const closeTagsAndShowResults = (): void => {
+    if (!submit()) return;
+    setTagsExpanded(false);
+    requestAnimationFrame(() => {
+      resultsHeadingRef.current?.focus({ preventScroll: true });
+      resultsHeadingRef.current?.scrollIntoView({ block: 'start' });
+    });
   };
 
   const clear = (): void => {
@@ -145,13 +160,12 @@ export function SearchPage(): React.JSX.Element {
     <main>
       <section className="hero">
         <p className="eyebrow">にじさんじアーカイブを、もう一度見つける</p>
-        <h1>記憶のかけらから<br />動画へたどり着く。</h1>
         <p>タイトルの断片と、diopsideが整理・確認したタグから探せます。</p>
         <p className="updated">公開データ最終更新: {formatDate(bundle.latest.updatedAt)}</p>
       </section>
 
       <section className="search-panel" aria-labelledby="search-heading">
-        <h2 id="search-heading">動画を検索</h2>
+        <h1 id="search-heading">動画を検索</h1>
         <form onSubmit={(event) => { event.preventDefault(); submit(); }}>
           <label className="search-label" htmlFor="query">動画タイトル</label>
           <div className="search-row">
@@ -170,47 +184,64 @@ export function SearchPage(): React.JSX.Element {
             <summary>タグ・公開日・動画長で絞り込む</summary>
             <fieldset className="tag-filter">
               <legend>タグ</legend>
-              <p className="hint">タグ名はタイトル検索へ自動では追加されません。複数選択は「すべて含む」です。</p>
-              <label className="tag-input-label" htmlFor="tag-name">タグ名または別名から追加</label>
-              <div className="tag-input-row">
-                <input id="tag-name" list="tag-name-options" value={tagInput} onChange={(event) => setTagInput(event.target.value)} />
-                <datalist id="tag-name-options">
-                  {tags.map((tag) => <option key={tag.tagId} value={tag.canonicalName} />)}
-                  {Object.keys(bundle.aliasIndex.aliases).map((alias) => <option key={`alias-${alias}`} value={alias} />)}
-                </datalist>
-                <button className="button secondary" type="button" onClick={addTagByName}>タグを追加</button>
+              <div className="tag-filter-toolbar">
+                <p className="hint">タグ名はタイトル検索へ自動では追加されません。複数選択は「すべて含む」です。</p>
+                <button
+                  className="button secondary"
+                  type="button"
+                  aria-controls="tag-filter-content"
+                  aria-expanded={tagsExpanded}
+                  onClick={() => tagsExpanded ? closeTagsAndShowResults() : setTagsExpanded(true)}
+                >
+                  {tagsExpanded ? 'タグを閉じて動画を見る' : `タグを開く（選択${selected.size}件）`}
+                </button>
               </div>
-              {tagError && <p className="form-error" role="alert">{tagError}</p>}
-              {bundle.tagIndex.categories.map((category) => {
-                const visible = category.subcategories.flatMap((subcategory) => subcategory.tags).filter((tag) => tag.count > 0 || selected.has(tag.tagId));
-                if (visible.length === 0) return null;
-                return (
-                  <div className="tag-group" key={category.categoryId}>
-                    <h3>{category.name}</h3>
-                    <div className="tag-choices">
-                      {visible.map((tag) => {
-                        const count = selected.has(tag.tagId) ? draftResultCount : (tagCounts.get(tag.tagId) ?? 0);
-                        return (
-                          <button
-                            type="button"
-                            key={tag.tagId}
-                            className="tag-choice"
-                            aria-pressed={selected.has(tag.tagId)}
-                            onClick={() => setDraft((current) => ({
-                              ...current,
-                              tagIds: selected.has(tag.tagId)
-                                ? current.tagIds.filter((id) => id !== tag.tagId)
-                                : [...current.tagIds, tag.tagId],
-                            }))}
-                          >
-                            {tag.canonicalName}<span>{count}件</span>
-                          </button>
-                        );
-                      })}
+              <div id="tag-filter-content" hidden={!tagsExpanded}>
+                <label className="tag-input-label" htmlFor="tag-name">タグ名または別名から追加</label>
+                <div className="tag-input-row">
+                  <input id="tag-name" list="tag-name-options" value={tagInput} onChange={(event) => setTagInput(event.target.value)} />
+                  <datalist id="tag-name-options">
+                    {tags.filter((tag) => availableTagIds.has(tag.tagId)).map((tag) => <option key={tag.tagId} value={tag.canonicalName} />)}
+                    {Object.entries(bundle.aliasIndex.aliases)
+                      .filter(([, tagId]) => availableTagIds.has(tagId))
+                      .map(([alias]) => <option key={`alias-${alias}`} value={alias} />)}
+                  </datalist>
+                  <button className="button secondary" type="button" onClick={addTagByName}>タグを追加</button>
+                </div>
+                {tagError && <p className="form-error" role="alert">{tagError}</p>}
+                {bundle.tagIndex.categories.map((category) => {
+                  const visible = category.subcategories
+                    .flatMap((subcategory) => subcategory.tags)
+                    .filter((tag) => availableTagIds.has(tag.tagId));
+                  if (visible.length === 0) return null;
+                  return (
+                    <div className="tag-group" key={category.categoryId}>
+                      <h3>{category.name}</h3>
+                      <div className="tag-choices">
+                        {visible.map((tag) => {
+                          const count = selected.has(tag.tagId) ? draftResultCount : (tagCounts.get(tag.tagId) ?? 0);
+                          return (
+                            <button
+                              type="button"
+                              key={tag.tagId}
+                              className="tag-choice"
+                              aria-pressed={selected.has(tag.tagId)}
+                              onClick={() => setDraft((current) => ({
+                                ...current,
+                                tagIds: selected.has(tag.tagId)
+                                  ? current.tagIds.filter((id) => id !== tag.tagId)
+                                  : [...current.tagIds, tag.tagId],
+                              }))}
+                            >
+                              {tag.canonicalName}<span>{count}件</span>
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </fieldset>
 
             <div className="filter-grid">
@@ -246,7 +277,7 @@ export function SearchPage(): React.JSX.Element {
         <div className="results-heading">
           <div>
             <p className="eyebrow">検索結果</p>
-            <h2 id="results-heading" aria-live="polite">{errors.length > 0 ? '条件を確認してください' : `${results.length}件の動画`}</h2>
+            <h2 ref={resultsHeadingRef} id="results-heading" tabIndex={-1} aria-live="polite">{errors.length > 0 ? '条件を確認してください' : `${results.length}件の動画`}</h2>
           </div>
           <label>並び順
             <select value={condition.sort ?? (condition.query ? '関連度順' : '公開日の新しい順')} onChange={(event) => {

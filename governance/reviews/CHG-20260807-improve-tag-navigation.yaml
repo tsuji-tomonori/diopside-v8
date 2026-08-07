@@ -1,0 +1,179 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260807-improve-tag-navigation
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: false
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: true
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: タグ候補の表示と動画一覧への復帰という利用者向け挙動をV8-SEARCH-008 revision 2へ反映した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+    note: 検索画面と要件生成器のas-built入力hashが更新され、ADRを要する長期判断はない
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 永続要件、生成物、重要な検索UIを変更するためassuredを選択した
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+      - path:docs/index.html
+    note: Vite本番buildとPages用postbuildを完了した
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: TypeScriptのブラウザ・Node両projectの型検査に合格した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: src、scripts、tests、e2eのlintに合格した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/domain/search.test.ts
+      - test:e2e/search.spec.ts
+    note: 検索単体10件とタグ導線を含む検索E2Eで変更挙動を確認した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:docs/requirements/REQUIREMENTS.md
+      - path:docs/design/generated/inventory.gen.json
+      - path:docs/index.html
+    note: 要件、人向け表示、as-built inventory、Pages静的成果物を正本から再生成した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 対象差分にcredential、token、個人情報、production dumpを追加していない
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/search.spec.ts
+    note: タグ候補の通常、0件除外、折り畳み、再展開、検索結果復帰を確認した
+  - id: FAST-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/search.spec.ts
+    note: aria-expanded、aria-controls、見出しフォーカス、キーボード操作、重大なaxe違反0件を確認した
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 本変更は検索UI、V8-SEARCH-008、対応E2E、決定的生成物に限定し、共有workspaceの別作業差分は対象外とした
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクを含むCommit Commentを準備した
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: 利用者向けタグ導線の変更とV8-SEARCH-008 revision 2が一致する
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+    note: 実装由来の入力hashを再生成し、コードから自明な局所UI変更のためADRは不要と判定した
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - test:e2e/search.spec.ts
+    note: V8-SEARCH-008からSearchPage実装とタグ候補E2Eへtraceできる
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:e2e/search.spec.ts
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: 2つの受入条件をデスクトップ・モバイルE2Eで検証し、既存CIの検索E2E対象に含めた
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260807-improve-tag-navigation.yaml
+    note: 選択checkだけをreview YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260807-improve-tag-navigation.yaml
+    note: 未選択checkをN/Aとして登録していない
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/search.spec.ts
+      - path:reports/screenshots/search-mobile.jpg
+    note: タグ選択から動画一覧へ戻る主要タスクをmobile・desktop・keyboard・responsiveで確認した
+advisories: []
+residual_risks: []

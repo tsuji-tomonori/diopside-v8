@@ -198,6 +198,31 @@ const requirements = sourceRequirements.map((item) => {
     requirement.traces.implementation.push('.github/workflows/manual-content-operation.yml');
     requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-04';
   }
+  if (id === 'V8-SEARCH-008') {
+    requirement.revision = 2;
+    requirement.title = 'タグ補助候補欄は検索欄と分離し、該当する候補だけを表示して折り畳めなければならない';
+    requirement.object = 'タグ補助候補欄は検索欄と分離し、選択可能な日本語名と追加選択後の該当件数を表示しなければならない。現在の条件では該当件数が0件になる未選択タグを表示してはならない。利用者はタグ補助候補欄を折り畳み、選択条件を反映した動画一覧へ移動できなければならない。';
+    requirement.source_refs.push('owner-directive:2026-08-07');
+    requirement.acceptance_criteria = [
+      {
+        id: 'AC-V8-SEARCH-008-1',
+        given: 'タイトル・公開日・動画長・選択済みタグの現在条件がある',
+        when: 'タグ候補の画面試験・件数契約試験',
+        then: '候補タグを1件追加した場合の件数が1件以上の未選択タグと、解除できる選択済みタグだけを日本語名と件数付きで示す。検索語を入力してもタグは自動選択されない。',
+      },
+      {
+        id: 'AC-V8-SEARCH-008-2',
+        given: '利用者がタグ候補を選択している',
+        when: 'タグ候補欄の折り畳み操作試験',
+        then: 'タグ候補欄を折り畳む操作で選択条件を反映し、動画件数見出しへフォーカスと表示位置が移る。再度タグ候補欄を開くと選択状態を維持している。',
+      },
+    ];
+    requirement.verification = {
+      method: 'タグ候補の画面試験・件数契約試験・折り畳み操作試験',
+      evidence: 'src/domain/search.test.ts, e2e/search.spec.ts',
+    };
+    requirement.last_changed_by = 'CHG-20260807-improve-tag-navigation';
+  }
   if (['V8-TIME-027', 'V8-TIME-028', 'V8-TIME-029'].includes(id)) {
     requirement.revision = 2;
     requirement.title = `${requirement.title}（新規・変更候補。承認済み旧データ移行は別経路）`;
@@ -222,9 +247,9 @@ const requirements = sourceRequirements.map((item) => {
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: 2,
+  catalog_revision: 3,
   product: 'diopside v8',
-  updated_at: '2026-08-04',
+  updated_at: '2026-08-07',
   requirements,
 }, null, 2)}\n`);
 writeFileSync(mapPath, `${JSON.stringify({

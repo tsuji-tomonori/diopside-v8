@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "catalog_revision": 2,
+  "catalog_revision": 3,
   "product": "diopside v8",
-  "updated_at": "2026-08-04",
+  "updated_at": "2026-08-07",
   "requirements": [
     {
       "id": "V8-SEARCH-001",
@@ -335,30 +335,37 @@
     },
     {
       "id": "V8-SEARCH-008",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "product",
       "category": "functional",
       "type": "functional",
-      "title": "タグは検索欄とは分離し、選択可能な補助候補として日本語名と追加選択後の該当件数を表示しなければならない",
+      "title": "タグ補助候補欄は検索欄と分離し、該当する候補だけを表示して折り畳めなければならない",
       "subject": "diopside v8の検索",
       "action": "satisfy",
-      "object": "タグは検索欄とは分離し、選択可能な補助候補として日本語名と追加選択後の該当件数を表示しなければならない。",
+      "object": "タグ補助候補欄は検索欄と分離し、選択可能な日本語名と追加選択後の該当件数を表示しなければならない。現在の条件では該当件数が0件になる未選択タグを表示してはならない。利用者はタグ補助候補欄を折り畳み、選択条件を反映した動画一覧へ移動できなければならない。",
       "rationale": "利用者が題名の断片や表記揺れから、意図した公開アーカイブを速く再発見できるようにするため。",
       "source_refs": [
         "Issue #1 V8-検索-008",
-        "user:2026-08-03"
+        "user:2026-08-03",
+        "owner-directive:2026-08-07"
       ],
       "acceptance_criteria": [
         {
           "id": "AC-V8-SEARCH-008-1",
-          "given": "V8-検索-008の前提を満たす公開データまたは操作がある",
-          "when": "画面試験・件数契約試験",
-          "then": "現在のタイトル・公開日・動画長・選択済みタグへ候補タグを1件追加した場合の件数を示す。検索語を入力してもタグは自動選択されない。"
+          "given": "タイトル・公開日・動画長・選択済みタグの現在条件がある",
+          "when": "タグ候補の画面試験・件数契約試験",
+          "then": "候補タグを1件追加した場合の件数が1件以上の未選択タグと、解除できる選択済みタグだけを日本語名と件数付きで示す。検索語を入力してもタグは自動選択されない。"
+        },
+        {
+          "id": "AC-V8-SEARCH-008-2",
+          "given": "利用者がタグ候補を選択している",
+          "when": "タグ候補欄の折り畳み操作試験",
+          "then": "タグ候補欄を折り畳む操作で選択条件を反映し、動画件数見出しへフォーカスと表示位置が移る。再度タグ候補欄を開くと選択状態を維持している。"
         }
       ],
       "verification": {
-        "method": "画面試験・件数契約試験",
+        "method": "タグ候補の画面試験・件数契約試験・折り畳み操作試験",
         "evidence": "src/domain/search.test.ts, e2e/search.spec.ts"
       },
       "traces": {
@@ -378,7 +385,7 @@
           "dev-standard default profile"
         ]
       },
-      "last_changed_by": "ISSUE-1-IMPLEMENTATION"
+      "last_changed_by": "CHG-20260807-improve-tag-navigation"
     },
     {
       "id": "V8-SEARCH-009",
