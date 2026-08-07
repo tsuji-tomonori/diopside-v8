@@ -118,6 +118,12 @@ selected_checks:
     evidence:
       - test:e2e/search.spec.ts
     note: aria-expanded、aria-controls、見出しフォーカス、キーボード操作、重大なaxe違反0件を確認した
+  - id: FAST-018
+    class: Risk-selected
+    result: na
+    evidence:
+      - test:e2e/search.spec.ts
+    note: 選択後に、対象E2Eは静的ブラウザ内UIだけを操作し、C/U/D API、DB、外部状態変更を含まないと確認した
   - id: REV-001
     class: Invariant
     result: pass
@@ -168,6 +174,12 @@ selected_checks:
     evidence:
       - path:governance/reviews/CHG-20260807-improve-tag-navigation.yaml
     note: 未選択checkをN/Aとして登録していない
+  - id: REV-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/search.spec.ts
+    note: FAST-018はE2E変更triggerで選択された後、CRUD・DB・外部状態を持たない静的UI試験と判明したためN/A根拠を記録した
   - id: REV-013
     class: Risk-selected
     result: pass
