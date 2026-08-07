@@ -1,0 +1,144 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260807-refresh-acceptance-evidence
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: false
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 要件本文・受入条件・閾値は変更せず、既存要件の外部証拠だけを更新した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 月次請求確認と初見利用者試験の運用手順を追加し、実装、生成設計、ADR、公開契約、Pages構成は変更していない
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 運用証拠とgovernance生成物にまたがるためassuredを選択した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:reports/requirements-audit.json
+      - path:scripts/audit-requirements.ts
+    note: HEADの分離snapshotへ今回の受入証拠だけを適用して監査JSONを再生成し、140件完了・2件未完了の同一出力を確認した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:operations/acceptance-evidence.json
+      - path:operations/manual-acceptance-checks.md
+    note: 請求明細、個人情報、秘密情報、生の利用者資料を保存せず、最小の確認結果だけを記録する
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:operations/manual-acceptance-checks.md
+      - path:reports/requirements-audit.json
+    note: 未完了2件を監査結果と最小の手動確認手順から診断できるようにした
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:operations/acceptance-evidence.json
+      - path:operations/manual-acceptance-checks.md
+      - path:reports/requirements-audit.json
+    note: Pages公開証拠の反映と残る外部受入確認の実施手順に限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更内容、要件・設計影響、review path、検証契約、残存リスクを持つCommit Comment案を作成した
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+      - path:spec/requirements/requirements.json
+    note: 要件正本を変更せず、V8-OPS-012とV8-COST-002の既存受入条件へ実証結果を接続した
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 運用governanceへ手動受入手順を追加し、コード・公開契約・Pages構成は不変のため生成設計とADRは対象外と判定した
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/audit-requirements.ts
+      - path:reports/requirements-audit.json
+    note: HEADの分離snapshotで142件の意味論監査を実行し、Pagesの2要件を完了へ更新して、未実施の請求確認と初見利用者試験だけを未完了として終了コード1で停止することを確認した
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260807-refresh-acceptance-evidence.yaml
+    note: 今回選択したcheckだけを保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260807-refresh-acceptance-evidence.yaml
+    note: 未選択checkをN/Aとして保存していない
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:operations/manual-acceptance-checks.md
+    note: 月次請求確認と初見利用者試験について、公開禁止情報を保存しない最小手順を追加した
+advisories: []
+residual_risks:
+  - V8-COST-001は、所有者による2026-08月の請求0円確認と確認記録URLが未取得である
+  - V8-QUALITY-002は、初見利用者による375×812画素の代表5課題実測が未実施である
