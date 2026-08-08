@@ -80,12 +80,18 @@ class TimestampToolsTest(unittest.TestCase):
             "generatedAt": generated_at, "composerRunId": "composer-test-1",
             "items": [
                 {"startSeconds": 0, "label": "導入と本日の説明", "confidence": "高", "evidenceRefs": [], "internalTopic": "非公開の詳細"},
-                {"startSeconds": 600, "label": "最初の話題", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-                {"startSeconds": min(1200, duration - 10), "label": "次の話題と終了", "confidence": "中", "evidenceRefs": ["evidence-full-transcript"]},
+                {"startSeconds": 600, "label": "最初の話題", "confidence": "高", "evidenceRefs": ["evidence-full-transcript", "cue-boundary-600"]},
+                {"startSeconds": min(1200, duration - 10), "label": "次の話題と終了", "confidence": "中", "evidenceRefs": ["evidence-full-transcript", "cue-boundary-1200"]},
             ],
         })
         draft_result = json.loads(self.invoke(VALIDATE, VIDEO_ID, "--draft-only").stdout)
         candidate_hash = draft_result["candidateHash"]
+        revised_draft = json.loads((self.work / "chapter_draft.json").read_text(encoding="utf-8"))
+        revised_draft["items"][1]["evidenceRefs"][1] = "cue-boundary-601"
+        revised_draft["items"][2]["evidenceRefs"][1] = "cue-boundary-1201"
+        json_file(self.work / "chapter_draft.json", revised_draft)
+        revised_result = json.loads(self.invoke(VALIDATE, VIDEO_ID, "--draft-only").stdout)
+        self.assertEqual(revised_result["candidateHash"], candidate_hash)
         json_file(self.work / "fact_review.json", {
             "schemaVersion": "1.0.0", "videoId": VIDEO_ID, "reviewType": "事実確認",
             "candidateHash": candidate_hash, "reviewerRunId": "fact-test-1", "status": "合格", "majorIssues": 0,
@@ -103,6 +109,10 @@ class TimestampToolsTest(unittest.TestCase):
         self.invoke(VALIDATE, VIDEO_ID)
         preview = json.loads((self.work / "candidate-preview.json").read_text(encoding="utf-8"))
         self.assertEqual(preview["timestamps"]["candidateHash"], candidate_hash)
+        self.assertEqual(preview["timestamps"]["items"][0]["evidenceRefs"], [])
+        for item in preview["timestamps"]["items"][1:]:
+            self.assertEqual(item["evidenceRefs"], ["evidence-full-transcript"])
+        self.assertNotIn("cue-boundary", json.dumps(preview, ensure_ascii=False))
         self.assertNotIn("internalTopic", json.dumps(preview, ensure_ascii=False))
         self.assertNotIn("finalHumanCheck", preview["timestamps"]["review"])
 
