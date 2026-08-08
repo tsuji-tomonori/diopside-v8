@@ -67,6 +67,13 @@ selected_checks:
     evidence:
       - path:.agents/skills/prepare-stream-timestamp-batch/SKILL.md
     note: 永続要件、複数Skill、状態機械、公開schema、決定的生成にまたがるためassuredを選択した
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/domain/content.ts
+      - test:src/domain/validation.test.ts
+    note: 永続JSONのreview unionを追加するがlegacy形式を維持し、migration不要かつcommit revertで復元できる
   - id: FAST-001
     class: Invariant
     result: pass
@@ -184,6 +191,29 @@ selected_checks:
     evidence:
       - path:governance/reviews/CHG-20260808-timestamp-batch-pr-review.yaml
     note: 未選択checkをN/Aとして保存していない
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/domain/content.ts
+      - test:src/domain/validation.test.ts
+      - test:tests/finalize_candidate_pr_merge_test.py
+    note: legacy reviewを読み取り互換に保ち、新規materializerだけをpull-request-merge gateへ限定した
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:AGENTS.md
+      - path:.agents/skills/prepare-stream-timestamp-batch/SKILL.md
+      - path:spec/sources/owner-directive-2026-08-08-timestamp-batch.md
+    note: 有限集合、失敗隔離、再開、1動画1PR、人手merge承認の恒久運用をrepository規則とSkillへ反映した
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:spec/sources/owner-directive-2026-08-08-timestamp-batch.md
+      - path:spec/requirements/requirements.json
+    note: 所有者判断の理由と将来制約をowner directiveと要件正本へ保存したため、別ADRによる二重管理は不要と判定した
 advisories: []
 residual_risks:
   - legacyのfinalHumanCheck形式は既存公開データ互換のため受理を継続し、新規materializerだけをpull-request-merge gateへ限定する
