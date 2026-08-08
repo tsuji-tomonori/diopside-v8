@@ -97,8 +97,9 @@ selected_checks:
     result: pass
     evidence:
       - test:tests/timestamp_tools_test.py
+      - test:tests/content-validation.test.ts
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
-    note: 公開previewへの集約参照、cue非公開、candidateHash安定性を直接検証する
+    note: 公開previewへの集約参照、cue非公開、candidateHash安定性に加え、増分timestamp正本と生成manifestの集計一致を直接検証する
   - id: FAST-005
     class: Risk-selected
     result: pass
@@ -116,7 +117,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: 差分を公開evidence参照境界の修正、契約文書、回帰test、選択review結果だけに限定した
+    note: 差分をtimestamp PRの公開evidence参照境界、増分正本の集計test、契約文書、回帰test、選択review結果だけに限定した
   - id: REV-002
     class: Invariant
     result: pass
@@ -141,8 +142,9 @@ selected_checks:
     result: pass
     evidence:
       - test:tests/timestamp_tools_test.py
+      - test:tests/content-validation.test.ts
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
-    note: timestamp toolのunit testとlintは既存CI workflowで実行される
+    note: timestamp toolと増分正本集計のunit test、lintは既存CI workflowで実行される
   - id: REV-007
     class: Invariant
     result: pass
