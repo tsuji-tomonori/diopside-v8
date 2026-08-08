@@ -141,7 +141,7 @@ def main() -> int:
         updated_at = max(fact_time, editorial_time).isoformat()
         preview = {"schemaVersion": "1.0.0", "videoId": args.video_id, "evidence": evidence, "timestamps": {"status": "作成済み", "origin": draft["origin"], "items": draft["items"], "candidateHash": candidate_hash, "inputFingerprint": draft["inputFingerprint"], "rulesVersion": draft["rulesVersion"], "generatedAt": draft["generatedAt"], "updatedAt": updated_at, "review": {"factCheck": {**fact, "route": draft["route"]}, "editorialCheck": editorial}}}
         atomic_json(directory / "candidate-preview.json", preview)
-        state.update({"stage": "ready_for_human_review", "candidateHash": candidate_hash, "updatedAt": preview["timestamps"]["updatedAt"]})
+        state.update({"stage": "ready_for_pr", "candidateHash": candidate_hash, "updatedAt": preview["timestamps"]["updatedAt"]})
         write_state(args.video_id, state)
         print(json.dumps({"videoId": args.video_id, "candidateHash": candidate_hash, "stage": state["stage"], "preview": str(directory / "candidate-preview.json")}, ensure_ascii=False))
         return 0

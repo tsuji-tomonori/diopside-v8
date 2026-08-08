@@ -28,11 +28,11 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "47f1c21b2fe7ee72eadd869f92f80597a4bf9a2c7576f28aec69935b7d3348d1"
+      "sha256": "9cc3b307a730bf42170619aa0f082956e4488b518e45472273ab40eed4a4a8f3"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
-      "sha256": "16c0ec3eba3560303b8763903687c2c407212843e15bfcb4047fa68caf1ae324"
+      "sha256": "aabe94784567a34968dbdeefc04bf727ba331a80017e12f3ea31919bb25bd98f"
     },
     {
       "path": "scripts/import-legacy-content.ts",
@@ -116,7 +116,7 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "e66703c1f90fced2be6215b241b256072334eee945098db3f44a388744d5829a"
+      "sha256": "1acc11f97dedca7b81c5de5db2b0b22f351ae42b054ba2b69c55dbf996e65ffb"
     },
     {
       "path": "src/domain/search.test.ts",
@@ -128,11 +128,11 @@
     },
     {
       "path": "src/domain/validation.test.ts",
-      "sha256": "438f77e1717c5568cf5d5426d2c218fba5584ae9cb731469fdf075b33bf0215a"
+      "sha256": "ac590c669c652f8943f38b3d318c23ae9e2363e62ee7c2d80d72862c504d8c04"
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "d700d0c8358e9a60a6131923d6cf2b344b5f83b6c7570f554643398fada6abaf"
+      "sha256": "c75f95fa91a22f5acb054ed1546df131bc68e18aeb531e7a2b073c22e47d1115"
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
@@ -422,6 +422,11 @@
     },
     {
       "file": "src/domain/content.ts",
+      "name": "legacyIndependentReviewSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
       "name": "PublicAliasIndex",
       "kind": "TypeAliasDeclaration"
     },
@@ -478,6 +483,11 @@
     {
       "file": "src/domain/content.ts",
       "name": "publicVideoSummarySchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "pullRequestMergeIndependentReviewSchema",
       "kind": "VariableStatement"
     },
     {
