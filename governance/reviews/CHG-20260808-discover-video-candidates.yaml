@@ -132,7 +132,7 @@ selected_checks:
       - test:tests/discover_video_candidates_test.py
       - test:tests/caption_tools_test.py
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
-    note: 変更した収集・縮約・拒否経路を対象試験が直接検証し、CIのverify:localから実行される
+    note: 変更した収集・縮約・拒否経路を対象試験が直接検証し、GitHub Actionsの品質ゲートから実行される
   - id: REV-007
     class: Invariant
     result: pass
