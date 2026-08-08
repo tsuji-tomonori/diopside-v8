@@ -96,6 +96,13 @@ selected_checks:
     evidence:
       - test:tests/operations.test.ts
     note: 必須review YAMLがscope検証で拒否される再現条件を回帰testへ固定した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - workflow:要件・品質ゲート
+    note: generate:designで実装SHAを再計算し、生成差分検査でdriftを拒否する
   - id: FAST-007
     class: Invariant
     result: pass
