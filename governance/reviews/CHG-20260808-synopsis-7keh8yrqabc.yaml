@@ -1,0 +1,119 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260808-synopsis-7keh8yrqabc
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:content/videos/7keH8yrqabc.json]
+    note: 既存V8-DISPLAY-011に従う1動画のあらすじ追加で要件正本は変更しない
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 正本データと決定的公開成果物だけを更新しschema・生成設計・ADRへの影響はない
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 全尺字幕と補完ASRを確認したあらすじ・本人引用を公開するためassuredを選択した
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/videos/7keH8yrqabc.json]
+    note: synopsisは任意項目で必要時は本動画の追加部分だけをrevertできる
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/content-validation.test.ts, workflow:要件・品質ゲート]
+    note: 正本全件検証と公開変換を既存test・workflowで確認する
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:public/data/latest.json, path:docs/data/latest.json, workflow:要件・品質ゲート]
+    note: 正本から公開data・Pages成果物を再生成しdrift check対象へ含める
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 生字幕・transcript・音声・コメント・投稿者識別子・秘密情報を差分へ含めない
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 正本動画は7keH8yrqabcの1件だけでSkill・要件・検証実装・UI変更を含めない
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 目的・変更・要件設計影響・review path・検証契約・残存リスクをCommit Commentへ記載する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:content/videos/7keH8yrqabc.json]
+    note: V8-DISPLAY-011を弱めず全尺根拠と本人引用で受入条件を満たす
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 公開schemaと画面構造を変えない局所的な正本更新で生成設計・ADRは不要と判定した
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/content-validation.test.ts, workflow:要件・品質ゲート]
+    note: 正本検証・あらすじ契約・build・生成差分を既存CI契約で実行する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260808-synopsis-7keh8yrqabc.yaml]
+    note: 選択checkだけを本review YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260808-synopsis-7keh8yrqabc.yaml]
+    note: 未選択checkをN/Aとして登録していない
+advisories: []
+residual_risks:
+  - 公開字幕を主体に不足区間をローカルASRで補完したため引用は公開字幕原文と時刻をPRレビューで最終照合する
