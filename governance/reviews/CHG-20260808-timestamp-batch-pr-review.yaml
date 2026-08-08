@@ -154,7 +154,7 @@ selected_checks:
     result: pass
     evidence:
       - path:docs/design/generated/system.gen.md
-      - path:docs/design/generated/inventory.gen.md
+      - path:docs/design/generated/inventory.gen.json
     note: finite batchとPR merge承認のas-built設計を実装から決定的に生成した
   - id: REV-005
     class: Risk-selected
