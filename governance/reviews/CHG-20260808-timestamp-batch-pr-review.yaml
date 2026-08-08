@@ -1,0 +1,190 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260808-timestamp-batch-pr-review
+profile: assured
+source_ref: spec/sources/owner-directive-2026-08-08-timestamp-batch.md
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: true
+  squash: true
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:spec/sources/owner-directive-2026-08-08-timestamp-batch.md
+    note: 有限対象固定、失敗分離、動画ごとのchat停止廃止、1動画1PR、人によるmerge承認を既存6要件へ反映した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/domain/content.ts
+      - path:.agents/skills/generate-stream-timestamps/references/workflow.md
+    note: worker状態機械と公開タイムスタンプreview unionを変更し、旧finalHumanCheckデータは互換経路として維持した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/prepare-stream-timestamp-batch/SKILL.md
+    note: 永続要件、複数Skill、状態機械、公開schema、決定的生成にまたがるためassuredを選択した
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/generate-requirements.ts
+      - path:.agents/skills/prepare-stream-timestamp-batch/scripts/init_batch.py
+    note: 変更したTypeScript生成器とPython運用scriptを対象検査し、既存の品質workflowから実行できる
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/domain/validation.test.ts
+    note: TypeScript strictのブラウザ・Node両projectに合格した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/timestamp_tools_test.py
+      - path:package.json
+    note: ESLintと、新規batch scriptを含むruff対象に合格した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/timestamp_tools_test.py
+      - test:tests/finalize_candidate_pr_merge_test.py
+      - test:src/domain/validation.test.ts
+      - test:tests/operations.test.ts
+    note: immutable manifest、原子的claim、失敗分離、旧stage移行、PR merge gate、legacy互換を直接検証した
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/finalize_candidate_pr_merge_test.py
+    note: PRの人手merge前に候補を公開済みとして確定する循環が再発しないことを固定した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:docs/requirements/REQUIREMENTS.md
+      - path:docs/design/generated/system.gen.md
+    note: 要件とas-built設計を正本から再生成し、要件validateとcheckに合格した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:AGENTS.md
+      - path:.agents/skills/prepare-stream-timestamp-batch/references/workflow.md
+    note: batch metadataをvideo ID、状態、hash、制御済みreason codeへ限定し、生字幕等はgitignore済み.devflow/runだけに保持した
+  - id: FAST-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/domain/content.ts
+      - test:src/domain/validation.test.ts
+    note: pull-request-merge公開gateを追加しつつlegacy reviewと承認済み移行schemaをunionで維持した
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:.agents/skills/prepare-stream-timestamp-batch/scripts/batch_status.py
+    note: ignored manifestからpending、claimed、ready_for_pr、blockedと制御済み理由を安全に再開・診断できる
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: maintenance変更をbatch運用契約とPR承認境界へ限定し、各動画の正本反映は別の1動画PRに残した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件・設計影響、review path、検証、互換性、残存リスクを含むCommit Comment候補を準備した
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/sources/owner-directive-2026-08-08-timestamp-batch.md
+      - path:spec/requirements/requirements.json
+    note: ユーザー承認とV8-OPS-001/005/009/010、V8-TIME-029/030の受入条件が一致する
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+      - path:docs/design/generated/inventory.gen.md
+    note: finite batchとPR merge承認のas-built設計を実装から決定的に生成した
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:.agents/skills/prepare-stream-timestamp-batch/SKILL.md
+      - test:tests/timestamp_tools_test.py
+    note: 変更要件からSkill、script、状態機械、契約testへ追跡できる
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/timestamp_tools_test.py
+      - test:tests/finalize_candidate_pr_merge_test.py
+      - test:src/domain/validation.test.ts
+    note: finite batch、materializer、公開review schemaの成功・失敗・互換経路を対象testで確認した
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-timestamp-batch-pr-review.yaml
+    note: 選択checkだけを本review YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-timestamp-batch-pr-review.yaml
+    note: 未選択checkをN/Aとして保存していない
+advisories: []
+residual_risks:
+  - legacyのfinalHumanCheck形式は既存公開データ互換のため受理を継続し、新規materializerだけをpull-request-merge gateへ限定する
+  - batchはignoredな一時manifestで再開可能だが、予定実行・Actions AI・自動PR・自動merge・自動公開は行わないため、実行sessionの継続と各PRの人手mergeが必要である

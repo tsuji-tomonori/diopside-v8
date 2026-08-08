@@ -343,8 +343,13 @@ function validateTimestamps(
   const review = timestamps.review;
   const hashes = 'mode' in review
     ? [timestamps.candidateHash, review.candidateHash, review.finalHumanCheck.candidateHash]
-    : [timestamps.candidateHash, review.factCheck.candidateHash, review.editorialCheck.candidateHash, review.finalHumanCheck.candidateHash];
+    : 'publicationGate' in review
+      ? [timestamps.candidateHash, review.factCheck.candidateHash, review.editorialCheck.candidateHash, review.publicationGate.candidateHash]
+      : [timestamps.candidateHash, review.factCheck.candidateHash, review.editorialCheck.candidateHash, review.finalHumanCheck.candidateHash];
   if (new Set(hashes).size !== 1) issues.push(issue('TIMESTAMP_REVIEW_VERSION_MISMATCH', 'timestamps.review', 'すべての確認は同じ候補ハッシュへ合格する必要があります。'));
+  if ('publicationGate' in review && review.publicationGate.pullRequest !== video.provenance.reviewPullRequest) {
+    issues.push(issue('TIMESTAMP_PUBLICATION_PR_MISMATCH', 'timestamps.review.publicationGate.pullRequest', '公開ゲートとprovenanceは同じpull requestを参照する必要があります。'));
+  }
 
   const genreNames = new Set(
     tags
@@ -362,12 +367,17 @@ function validateTimestamps(
   const generatedAt = Date.parse(timestamps.generatedAt);
   const reviewTimes = ('mode' in review
     ? [review.validatedAt, review.finalHumanCheck.reviewedAt]
-    : [review.factCheck.reviewedAt, review.editorialCheck.reviewedAt, review.finalHumanCheck.reviewedAt]
+    : 'publicationGate' in review
+      ? [review.factCheck.reviewedAt, review.editorialCheck.reviewedAt]
+      : [review.factCheck.reviewedAt, review.editorialCheck.reviewedAt, review.finalHumanCheck.reviewedAt]
   ).map(Date.parse);
   if (reviewTimes.some((reviewedAt) => reviewedAt < generatedAt)) {
-    issues.push(issue('TIMESTAMP_REVIEW_BEFORE_GENERATION', 'timestamps.review', '候補生成後に事実確認・編集確認・最終確認を行ってください。'));
+    const message = 'publicationGate' in review
+      ? '候補生成後に事実確認・編集確認を行ってください。'
+      : '候補生成後に事実確認・編集確認・最終確認を行ってください。';
+    issues.push(issue('TIMESTAMP_REVIEW_BEFORE_GENERATION', 'timestamps.review', message));
   }
-  if (reviewTimes.at(-1)! < Math.max(...reviewTimes.slice(0, -1))) {
+  if (!('publicationGate' in review) && reviewTimes.at(-1)! < Math.max(...reviewTimes.slice(0, -1))) {
     issues.push(issue('TIMESTAMP_FINAL_REVIEW_ORDER', 'timestamps.review.finalHumanCheck', '人の最終確認は先行する検証後に行ってください。'));
   }
 
