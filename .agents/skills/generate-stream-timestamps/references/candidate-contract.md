@@ -11,4 +11,4 @@
 
 The deterministic validator derives stable timestamp IDs and a SHA-256 candidate hash. Reviews must cite that exact hash. The preview contains only the evidence reference and canonical timestamp fields needed for finalization; it never contains transcript text, audience records, internal topics, or human approval.
 
-`finalize_candidate.py` requires a GitHub PR URL and an ISO 8601 human review time. Updating existing approved timestamps additionally requires a reason file matching `curate-video-content/references/timestamp-change-reasons.schema.json`.
+`finalize_candidate.py` requires a GitHub PR URL. Updating existing approved timestamps additionally requires a reason file matching `curate-video-content/references/timestamp-change-reasons.schema.json`.

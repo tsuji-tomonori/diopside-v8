@@ -95,6 +95,7 @@
 | `src/domain/content.ts` | VariableStatement | `independentReviewSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `LatestRelease` |
 | `src/domain/content.ts` | VariableStatement | `latestReleaseSchema` |
+| `src/domain/content.ts` | VariableStatement | `legacyIndependentReviewSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `PublicAliasIndex` |
 | `src/domain/content.ts` | VariableStatement | `publicAliasIndexSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `PublicIndex` |
@@ -107,6 +108,7 @@
 | `src/domain/content.ts` | VariableStatement | `publicVideoShardSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `PublicVideoSummary` |
 | `src/domain/content.ts` | VariableStatement | `publicVideoSummarySchema` |
+| `src/domain/content.ts` | VariableStatement | `pullRequestMergeIndependentReviewSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `SearchIndex` |
 | `src/domain/content.ts` | VariableStatement | `searchIndexSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `TagAliases` |
@@ -166,4 +168,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力39ファイル、公開契約110件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力39ファイル、公開契約112件です。

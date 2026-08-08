@@ -93,6 +93,26 @@ describe('手動動画更新運用', () => {
     expect(body).toContain(`https://www.youtube.com/watch?v=${video.videoId}`);
   });
 
+  it('PR本文へ候補版・独立確認・PRマージ承認チェックを安全に表示する', () => {
+    const directory = workDirectory();
+    const videoPath = path.join(directory, 'video.json');
+    const output = path.join(directory, 'body.md');
+    const video = withCreatedTimestamps(canonicalVideos[0]!);
+    writeJson(videoPath, video);
+    run('scripts/generate-video-pr-body.ts', ['--video', videoPath, '--output', output]);
+    const body = readFileSync(output, 'utf8');
+    expect(body).toContain(`候補ハッシュ: \`${'a'.repeat(64)}\``);
+    expect(body).toContain('事実確認: 合格 / 重大指摘 0件');
+    expect(body).toContain('編集確認: 合格 / 重大指摘 0件');
+    expect(body).toContain('公開ゲート: pull-request-merge');
+    expect(body).toContain('https://github.com/tsuji-tomonori/diopside-v8/pull/1');
+    expect(body).toContain(`https://www.youtube.com/watch?v=${video.videoId}`);
+    expect(body).toContain('人によるマージ承認チェックリスト');
+    expect(body).toContain('このPRのmergeをタイムスタンプ公開承認として扱う');
+    expect(body).toContain('根拠メタデータ（生資料なし）');
+    expect(body).not.toContain('transcriptText');
+  });
+
   it('既存タイムスタンプの移動・改名には差分ごとの理由を必須にする', () => {
     const directory = workDirectory();
     const beforePath = path.join(directory, 'before.json');
@@ -171,6 +191,7 @@ function withCreatedTimestamps(source: CanonicalVideo): CanonicalVideo {
     coverageStartSeconds: 0,
     coverageEndSeconds: video.durationSeconds,
   });
+  video.provenance.reviewPullRequest = 'https://github.com/tsuji-tomonori/diopside-v8/pull/1';
   video.timestamps = {
     status: '作成済み',
     origin: 'diopsideで作成した時刻一覧',
@@ -193,8 +214,8 @@ function withCreatedTimestamps(source: CanonicalVideo): CanonicalVideo {
         status: '合格', factCheckResultWasHidden: true, candidateHash, majorIssues: 0, reviewedAt: '2026-08-03T01:00:00+09:00',
         checks: { navigationValue: true, overSegmentation: true, underSegmentation: true, labelConsistency: true, spoilerSafety: true },
       },
-      finalHumanCheck: {
-        status: '承認済み', candidateHash, reviewedAt: '2026-08-03T02:00:00+09:00', pullRequest: 'https://github.com/tsuji-tomonori/diopside-v8/pull/1',
+      publicationGate: {
+        mode: 'pull-request-merge', candidateHash, pullRequest: 'https://github.com/tsuji-tomonori/diopside-v8/pull/1',
       },
     },
   };

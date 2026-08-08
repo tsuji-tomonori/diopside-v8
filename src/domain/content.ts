@@ -81,7 +81,7 @@ const finalHumanCheckSchema = z.object({
   pullRequest: z.string().regex(/^https:\/\/github\.com\/[^/]+\/[^/]+\/pull\/\d+$/u),
 }).strict();
 
-export const independentReviewSchema = z.object({
+const independentReviewResultsSchema = z.object({
   factCheck: reviewResultSchema.extend({
     route: z.enum(['作成者一覧の採用', '全編根拠による生成']),
     checks: factReviewChecksSchema,
@@ -90,8 +90,26 @@ export const independentReviewSchema = z.object({
     factCheckResultWasHidden: z.literal(true),
     checks: editorialReviewChecksSchema,
   }).strict(),
+});
+
+const pullRequestMergeGateSchema = z.object({
+  mode: z.literal('pull-request-merge'),
+  candidateHash: z.string().regex(/^[a-f0-9]{64}$/u),
+  pullRequest: z.string().regex(/^https:\/\/github\.com\/[^/]+\/[^/]+\/pull\/\d+$/u),
+}).strict();
+
+export const legacyIndependentReviewSchema = independentReviewResultsSchema.extend({
   finalHumanCheck: finalHumanCheckSchema,
 }).strict();
+
+export const pullRequestMergeIndependentReviewSchema = independentReviewResultsSchema.extend({
+  publicationGate: pullRequestMergeGateSchema,
+}).strict();
+
+export const independentReviewSchema = z.union([
+  pullRequestMergeIndependentReviewSchema,
+  legacyIndependentReviewSchema,
+]);
 
 export const approvedTimestampMigrationReviewSchema = z.object({
   mode: z.literal('既存承認済みデータ移行'),
