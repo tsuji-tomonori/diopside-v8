@@ -28,7 +28,8 @@ test.describe('動画詳細', () => {
     await expect(page.locator('.unavailable strong').nth(0)).toContainText('未作成 — 全編確認不足');
     await expect(page.locator('.unavailable strong').nth(1)).toContainText('未作成 — 資料不足');
     await expect(page.getByRole('link', { name: 'YouTubeで見る' })).toHaveAttribute('href', 'https://www.youtube.com/watch?v=7keH8yrqabc');
-    await expect(page.getByText(/最終更新:/u)).toHaveCount(3);
+    const synopsisCount = await page.getByRole('heading', { name: 'あらすじ' }).count();
+    await expect(page.getByText(/最終更新:/u)).toHaveCount(synopsisCount === 1 ? 4 : 3);
     expect(requests.some((url) => url.includes('youtube.com'))).toBe(false);
     expectOnlyAllowedRequests(requests);
     await expectNoSeriousAccessibilityViolations(page);

@@ -220,7 +220,7 @@ selected_checks:
     evidence:
       - path:src/domain/content.ts
       - test:tests/content-validation.test.ts
-    note: synopsisは公開詳細の任意項目で、既存インデックス・端末保存・synopsisなし動画との後方互換性を維持する
+    note: synopsisは公開詳細の任意項目で、正本件数を固定せずmanifestとの一致を検証し、詳細画面の更新日表示追加をE2Eへ反映して後方互換性を維持する
   - id: REV-013
     class: Risk-selected
     result: pass
