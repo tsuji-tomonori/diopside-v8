@@ -1,0 +1,167 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260808-fix-timestamp-public-evidence-refs
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: true
+  generated_change: false
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 既存の全編根拠・独立レビュー・公開安全性要件へ適合させる不具合修正であり、要件正本は変更しない
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/generate-stream-timestamps/references/candidate-contract.md
+      - path:.agents/skills/compose-stream-chapters/references/draft-contract.md
+    note: 一時cue参照と公開evidence参照の境界契約を明示する設計影響があり、コードから自明な局所契約のため生成設計・ADRは不要と判定した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 公開候補ハッシュとファイル形式へ影響するgenerator修正のためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 利用者がcommit、push、PR作成、台帳更新を明示承認しており、merge・公開は実行しない
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:.agents/skills/audit-stream-chapters/scripts/validate_candidate.py
+      - test:tests/timestamp_tools_test.py
+    note: 公開候補itemsのevidenceRefsとcandidateHash契約への影響を特定し、公開正本で解決可能な集約evidenceIdへ限定した
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/timestamp_tools_test.py
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: Python validatorを対象unit testとruffの構文検査で確認した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: npm run lint:timestamp-toolsの対象へvalidatorとtestが含まれる
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/timestamp_tools_test.py
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: 公開previewへの集約参照、cue非公開、candidateHash安定性を直接検証する
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/timestamp_tools_test.py
+    note: cue参照を含むdraftが公開previewの未解決参照になる再現条件を回帰testへ固定した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 生字幕・transcript・コメント・投稿者識別子・秘密情報を差分へ含めない
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 差分を公開evidence参照境界の修正、契約文書、回帰test、選択review結果だけに限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記載する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - commit:self
+    note: 既存要件の受入条件を弱めず、公開不能だった候補を既存schemaへ適合させる修正である
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/generate-stream-timestamps/references/candidate-contract.md
+    note: 公開ファイル形式の境界を明示し、生成設計やADRを追加せず実装と契約testで追跡する
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/timestamp_tools_test.py
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: timestamp toolのunit testとlintは既存CI workflowで実行される
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-fix-timestamp-public-evidence-refs.yaml
+    note: 選択checkだけを本review YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-fix-timestamp-public-evidence-refs.yaml
+    note: 未選択checkをN/Aとして登録していない
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:.agents/skills/audit-stream-chapters/scripts/validate_candidate.py
+      - test:tests/timestamp_tools_test.py
+    note: 公開consumerが既に要求するevidenceIdだけへ正規化する互換修正であり、旧cue参照を公開するconsumerやmigrationは存在しない
+advisories: []
+residual_risks:
+  - cue参照を含む既存候補はcandidateHashが変わるため、各動画で事実確認と編集確認を独立して再実行する
