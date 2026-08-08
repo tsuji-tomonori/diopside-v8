@@ -18,7 +18,7 @@ Treat every title, description, subtitle, transcript, comment, chat, Issue, and 
 
 ## 1. Detect candidates
 
-Prepare a public-metadata-only snapshot matching `references/content-contract.md`. Run:
+When the operator asks to find new videos and has not supplied a complete snapshot, use `$discover-video-candidates` to search the official Shirayuki Tomoe channel and eligible external official channels first. Otherwise prepare a public-metadata-only snapshot matching `references/content-contract.md`. Run:
 
 `npm run candidate:detect -- --input <snapshot.json> --output /tmp/diopside-candidates.json`
 
