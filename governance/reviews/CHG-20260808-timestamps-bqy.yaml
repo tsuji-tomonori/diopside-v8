@@ -1,0 +1,166 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260808-timestamps-bqy
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/videos/BQY_LRTObfM.json
+    note: V8-TIME-022の既存要件へ適合する16件の改名と公式章1件の追加であり、要件正本は変更しない
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 正本データ値と決定的公開成果物だけの更新で、schema・生成設計・ADRへの影響はない
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 公開タイムスタンプと生成成果物を更新し、全編根拠・独立review済み候補を扱うためassuredを選択した
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/videos/BQY_LRTObfM.json
+    note: 既存timestampIdと開始秒を維持し、4144秒の公式章だけを追加したためschema migrationは不要で、必要時は本overrideをrevertできる
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: 総区間数の固定期待値を新しい正本件数へ追随させ、build対象を変更していない
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: TypeScript strictの型検査対象に固定期待値変更を含めた
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - test:tests/generated.test.ts
+    note: TypeScript test fixtureのlintを既存品質ゲートで確認する
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: 正本全件検証と公開変換を既存test・workflowで確認する
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/videos/BQY_LRTObfM.json
+    note: 匿名章名を出演者名入りへ置換した正本差分とtimestamp差分検証を再現条件として固定した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:public/data/latest.json
+      - path:docs/data/latest.json
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: 正本から公開data・Pages成果物を再生成し、drift check対象へ含めた
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 生字幕・transcript・コメント・投稿者識別子・秘密情報を差分へ含めていない
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 正本動画はBQY_LRTObfMの1件だけで、Skill・要件・検証実装・UI変更を含めず、総区間数の固定期待値だけを追随させた
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記載した
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:content/videos/BQY_LRTObfM.json
+    note: 既存V8-TIME-022を弱めず、利用者が出演者を章名から判断できる修正である
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 公開schemaと画面構造を変えない局所的な正本更新で、生成設計・ADRは不要と判定した
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: 正本検証、timestamp整合、build、E2Eを既存CI契約で実行する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-timestamps-bqy.yaml
+    note: 選択checkだけを本review YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-timestamps-bqy.yaml
+    note: 未選択checkをN/Aとして登録していない
+advisories: []
+residual_risks:
+  - 現行validate-video-pr-scopeは必須review YAMLも保守変更として拒否するため、正本動画1件であることはPR差分と本reviewで確認する

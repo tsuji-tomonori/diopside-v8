@@ -36,7 +36,7 @@ describe('タグ・動画正本と公開境界', () => {
     expect(videos).toHaveLength(1681);
     expect(videos.reduce((total, video) => total + video.tagAssignments.length, 0)).toBe(9015);
     expect(videos.filter((video) => video.timestamps.status === '作成済み')).toHaveLength(1207);
-    expect(videos.reduce((total, video) => total + (video.timestamps.status === '作成済み' ? video.timestamps.items.length : 0), 0)).toBe(22827);
+    expect(videos.reduce((total, video) => total + (video.timestamps.status === '作成済み' ? video.timestamps.items.length : 0), 0)).toBe(22828);
     for (const video of videos) {
       expect(validateCanonicalVideo(video, taxonomy, aliases), video.videoId).toEqual([]);
       expect(video.approval.status).toBe('承認済み');

@@ -42,14 +42,14 @@ describe('決定的な公開成果物', () => {
     expect(index.videos).toHaveLength(1681);
   });
 
-  it('公開詳細シャードは1,681件すべてを持ち、承認済み1,207動画・22,827区間を作成済みにする', () => {
+  it('公開詳細シャードは1,681件すべてを持ち、承認済み1,207動画・22,828区間を作成済みにする', () => {
     const details = Array.from({ length: latest.videoShardCount }, (_, index) => {
       const shardId = index.toString(16).padStart(2, '0');
       return publicVideoShardSchema.parse(json(`public/data/releases/${latest.releaseId}/video-shards/${shardId}.json`));
     }).flatMap((shard) => Object.values(shard.videos));
     expect(details).toHaveLength(1681);
     expect(details.filter((detail) => detail.timestamps.status === '作成済み')).toHaveLength(1207);
-    expect(details.reduce((total, detail) => total + (detail.timestamps.status === '作成済み' ? detail.timestamps.items.length : 0), 0)).toBe(22827);
+    expect(details.reduce((total, detail) => total + (detail.timestamps.status === '作成済み' ? detail.timestamps.items.length : 0), 0)).toBe(22828);
   });
 
   it('版マニフェストの全ファイル指紋が実ファイルと一致する', () => {
