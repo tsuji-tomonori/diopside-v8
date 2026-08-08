@@ -26,7 +26,7 @@
 
 # diopside v8 固有ルール
 
-- `spec/requirements/requirements.json` の142件とIssue #1を正本として扱い、受入条件を弱めない。
+- Issue #1由来の142件と、それ以後の所有者指示を反映した`spec/requirements/requirements.json`を正本として扱い、受入条件を弱めない。
 - TypeScript strictを維持し、公開画面・検索・端末内保存は静的なブラウザ内処理だけで完結させる。
 - 動画更新は人がChatGPT／Codex画面から開始する。ActionsからAI/APIを呼ばず、予定実行・独自生成・独自公開Actionsを追加しない。
 - 通常の動画追加は1動画1PRとし、タグ体系、スキル、検証、画面、Pages設定の変更を同梱しない。

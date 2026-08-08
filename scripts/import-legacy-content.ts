@@ -159,10 +159,12 @@ writeFileSync(path.join(root, 'content/content-manifest.json'), prettyJson({
   tagRulesVersion: taxonomy.rulesVersion,
   timestampRulesVersion: '8.1.0',
   wordCloudRulesVersion: '8.0.0',
+  synopsisRulesVersion: '1.0.0',
   generatedAt: importedAt,
   inputs: [
     'spec/sources/issue-1.md',
     'spec/sources/owner-directive-2026-08-04.md',
+    'spec/sources/owner-directive-2026-08-08-video-synopsis.md',
     'spec/sources/tag-taxonomy-v2.json',
     'spec/sources/tag-aliases-v2.json',
     'spec/sources/video-tags-available-30.json',
@@ -181,6 +183,7 @@ writeFileSync(path.join(root, 'content/content-manifest.json'), prettyJson({
   assignmentCount,
   createdTimestampVideoCount: createdTimestampVideos.length,
   timestampItemCount: chapterCount,
+  createdSynopsisVideoCount: allVideos.filter((video) => video.synopsis !== undefined).length,
 }));
 writeFileSync(path.join(root, 'content/exclusions.json'), prettyJson({
   schemaVersion: '1.0.0',

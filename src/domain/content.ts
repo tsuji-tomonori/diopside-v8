@@ -166,6 +166,19 @@ const wordCloudMissingSchema = z.object({
   updatedAt: isoDateTime,
 }).strict();
 
+export const synopsisSchema = z.object({
+  body: z.string().min(1).max(150),
+  bodyEvidenceRefs: z.array(z.string()).min(1),
+  featuredQuote: z.object({
+    text: z.string().min(1).max(50),
+    atSeconds: z.number().int().nonnegative(),
+    evidenceRefs: z.array(z.string()).min(1),
+  }).strict(),
+  inputFingerprint: z.string().regex(/^[a-f0-9]{64}$/u),
+  rulesVersion: z.string().min(1),
+  updatedAt: isoDateTime,
+}).strict();
+
 export const canonicalVideoSchema = z.object({
   schemaVersion: z.literal('1.0.0'),
   videoId,
@@ -185,6 +198,7 @@ export const canonicalVideoSchema = z.object({
   evidence: z.array(evidenceReferenceSchema).min(1),
   tagAssignments: z.array(tagAssignmentSchema).min(3),
   overTagReviewReason: z.string().min(1).optional(),
+  synopsis: synopsisSchema.optional(),
   timestamps: z.discriminatedUnion('status', [timestampsCreatedSchema, timestampsMissingSchema]),
   wordCloud: z.discriminatedUnion('status', [wordCloudCreatedSchema, wordCloudMissingSchema]),
   provenance: z.object({
@@ -294,10 +308,21 @@ const publicWordCloudSchema = z.discriminatedUnion('status', [
   wordCloudMissingSchema,
 ]);
 
+const publicSynopsisSchema = z.object({
+  body: z.string().min(1).max(150),
+  featuredQuote: z.object({
+    text: z.string().min(1).max(50),
+    atSeconds: z.number().int().nonnegative(),
+    youtubeUrl: z.url(),
+  }).strict(),
+  updatedAt: isoDateTime,
+}).strict();
+
 export const publicVideoDetailSchema = publicVideoSummarySchema.extend({
   releaseId: z.string(),
   taxonomyVersion: z.string(),
   tagsUpdatedAt: isoDateTime,
+  synopsis: publicSynopsisSchema.optional(),
   timestamps: publicTimestampSchema,
   wordCloud: publicWordCloudSchema,
   provenance: z.object({

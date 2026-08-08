@@ -26,14 +26,14 @@
 |---|---:|
 | COST | 5 |
 | DEVICE | 11 |
-| DISPLAY | 10 |
+| DISPLAY | 11 |
 | OPS | 16 |
 | QUALITY | 5 |
 | SAFETY | 4 |
 | SEARCH | 19 |
 | TAG | 35 |
 | TIME | 37 |
-| **合計** | **142** |
+| **合計** | **143** |
 
 ## 公開データの流れ
 
@@ -109,6 +109,7 @@
 | `src/domain/content.ts` | VariableStatement | `publicVideoSummarySchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `SearchIndex` |
 | `src/domain/content.ts` | VariableStatement | `searchIndexSchema` |
+| `src/domain/content.ts` | VariableStatement | `synopsisSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `TagAliases` |
 | `src/domain/content.ts` | VariableStatement | `tagAliasesSchema` |
 | `src/domain/content.ts` | VariableStatement | `tagAssignmentSchema` |
@@ -166,4 +167,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力39ファイル、公開契約110件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力39ファイル、公開契約111件です。

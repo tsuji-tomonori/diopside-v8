@@ -244,13 +244,63 @@ const requirements = sourceRequirements.map((item) => {
   return requirement;
 });
 
+const ownerDirectiveRequirements = [
+  {
+    id: 'V8-DISPLAY-011',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'data',
+    title: '動画詳細は、ネタバレを避けた100〜150字のあらすじを、白雪巴の特徴的なセリフで締めて表示しなければならない',
+    subject: 'diopside v8の表示',
+    action: 'satisfy',
+    object: '全編根拠を確認できる動画の詳細は、視聴意欲を促しつつ結末、正体、勝敗等のネタバレを避けた日本語あらすじを表示しなければならない。本文と末尾の引用符付きセリフは合計100〜150文字とし、最後に対象配信で白雪巴が実際に発した特徴的なセリフを一つ置かなければならない。',
+    rationale: '利用者が結末を知らずに動画の雰囲気と見どころを把握し、安心して視聴を選べるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-08-video-synopsis.md', 'user:2026-08-08'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-011-1',
+        given: '全編根拠と承認済みのあらすじ候補を持つ動画がある',
+        when: 'あらすじ候補検証・公開データ検証・動画詳細画面試験',
+        then: '本文と末尾の引用符付きセリフが100〜150文字で、結末、正体、勝敗等を明かさず、最後に根拠時刻へ移動できる白雪巴の特徴的なセリフを一つ表示する。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-011-2',
+        given: '全編字幕または文字起こしを使ってあらすじ候補を作る',
+        when: '公開境界検査・repository差分確認',
+        then: '生字幕・文字起こしをGitまたは公開成果物へ含めず、安全な根拠ラベル、入力指紋、全編範囲だけを正本へ保持する。',
+      },
+    ],
+    verification: {
+      method: 'あらすじ候補検証・公開データ検証・動画詳細画面試験・公開境界検査',
+      evidence: 'src/domain/validation.test.ts, tests/content-validation.test.ts, e2e/detail.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: [
+        '.agents/skills/generate-video-synopses',
+        'src/domain/content.ts',
+        'src/domain/validation.ts',
+        'scripts/build-public-data.ts',
+        'src/features/detail/VideoDetailPage.tsx',
+        'src/styles.css',
+      ],
+      tests: ['src/domain/validation.test.ts', 'tests/content-validation.test.ts', 'e2e/detail.spec.ts'],
+      standards: ['Issue #1', 'spec/sources/owner-directive-2026-08-08-video-synopsis.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260808-add-video-synopses',
+  },
+];
+const canonicalRequirements = [...requirements, ...ownerDirectiveRequirements];
+
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: 3,
+  catalog_revision: 4,
   product: 'diopside v8',
-  updated_at: '2026-08-07',
-  requirements,
+  updated_at: '2026-08-08',
+  requirements: canonicalRequirements,
 }, null, 2)}\n`);
 writeFileSync(mapPath, `${JSON.stringify({
   schemaVersion: 1,
@@ -263,4 +313,4 @@ writeFileSync(mapPath, `${JSON.stringify({
   })),
 }, null, 2)}\n`);
 
-console.log(`Issue #1から${requirements.length}件の要件正本を生成しました。`);
+console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length}件の要件正本を生成しました。`);

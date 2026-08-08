@@ -47,6 +47,20 @@ test.describe('動画詳細', () => {
     await capture(page, testInfo, 'デスクトップ', 'detail-desktop.jpg');
   });
 
+  test('ネタバレを避けたあらすじと末尾の特徴的なセリフを表示する', async ({ page }) => {
+    await preparePage(page);
+    const videoId = 'ewtbVStzFUc';
+    await page.goto(`/diopside-v8/#/video/${videoId}`);
+    await expect(page.getByRole('heading', { name: 'あらすじ' })).toBeVisible();
+    await expect(page.locator('.synopsis-copy')).toContainText('新作グラコロと限定ソース');
+    await expect(page.locator('.featured-quote')).toContainText('これ明日も食べたいね。');
+    await expect(page.getByRole('link', { name: 'この場面から見る' })).toHaveAttribute(
+      'href',
+      `https://www.youtube.com/watch?v=${videoId}&t=651s`,
+    );
+    await expectNoSeriousAccessibilityViolations(page);
+  });
+
   test('承認済みワードクラウドを20語以上で描画する', async ({ page }) => {
     await preparePage(page);
     const videoId = 'c9TnpjK3ZZE';

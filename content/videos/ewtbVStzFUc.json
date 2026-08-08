@@ -26,6 +26,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "ece9e656e6fed31da217f164a983ea42ca95e9a942407949a7cba1e44aa1b64b"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開の日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "a45346d9a29ddcc5123b918db772469a5910d69b432d1aa8fed0da7c2742fcd0",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 4102
     }
   ],
   "tagAssignments": [
@@ -66,6 +74,18 @@
       "reviewedAt": "2026-08-04T12:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "新作グラコロと限定ソースを前に、ひと口ごとの驚きをにぎやかに実況。食べ方のこだわりや好み、クリスマスの理想の過ごし方へ話が広がり、いっしょに夜食を囲んでいるような気分になれる食レポ雑談。",
+    "bodyEvidenceRefs": ["evidence-synopsis-transcript"],
+    "featuredQuote": {
+      "text": "これ明日も食べたいね。",
+      "atSeconds": 651,
+      "evidenceRefs": ["evidence-synopsis-transcript"]
+    },
+    "inputFingerprint": "a45346d9a29ddcc5123b918db772469a5910d69b432d1aa8fed0da7c2742fcd0",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T11:37:12+09:00"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",

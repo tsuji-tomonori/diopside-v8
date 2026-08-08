@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0.0",
   "acceptancePassed": false,
-  "requirementCount": 142,
+  "requirementCount": 143,
   "completedCount": 140,
-  "incompleteCount": 2,
+  "incompleteCount": 3,
   "externalGates": {
     "productOwnerApproval": {
       "status": "合格",
@@ -95,9 +95,9 @@
       "id": "V8-SEARCH-008",
       "sourceId": "V8-検索-008",
       "priority": "必須",
-      "title": "タグは検索欄とは分離し、選択可能な補助候補として日本語名と追加選択後の該当件数を表示しなければならない",
-      "acceptanceCriteria": "現在のタイトル・公開日・動画長・選択済みタグへ候補タグを1件追加した場合の件数を示す。検索語を入力してもタグは自動選択されない。",
-      "verification": "画面試験・件数契約試験",
+      "title": "タグ補助候補欄は検索欄と分離し、該当する候補だけを表示して折り畳めなければならない",
+      "acceptanceCriteria": "候補タグを1件追加した場合の件数が1件以上の未選択タグと、解除できる選択済みタグだけを日本語名と件数付きで示す。検索語を入力してもタグは自動選択されない。 / タグ候補欄を折り畳む操作で選択条件を反映し、動画件数見出しへフォーカスと表示位置が移る。再度タグ候補欄を開くと選択状態を維持している。",
+      "verification": "タグ候補の画面試験・件数契約試験・折り畳み操作試験",
       "evidence": "src/domain/search.test.ts, e2e/search.spec.ts",
       "status": "完了",
       "findings": []
@@ -1579,6 +1579,19 @@
       "evidence": "tests/content-validation.test.ts, tests/repository-policy.test.ts",
       "status": "完了",
       "findings": []
+    },
+    {
+      "id": "V8-DISPLAY-011",
+      "sourceId": "",
+      "priority": "",
+      "title": "動画詳細は、ネタバレを避けた100〜150字のあらすじを、白雪巴の特徴的なセリフで締めて表示しなければならない",
+      "acceptanceCriteria": "本文と末尾の引用符付きセリフが100〜150文字で、結末、正体、勝敗等を明かさず、最後に根拠時刻へ移動できる白雪巴の特徴的なセリフを一つ表示する。 / 生字幕・文字起こしをGitまたは公開成果物へ含めず、安全な根拠ラベル、入力指紋、全編範囲だけを正本へ保持する。",
+      "verification": "あらすじ候補検証・公開データ検証・動画詳細画面試験・公開境界検査",
+      "evidence": "src/domain/validation.test.ts, tests/content-validation.test.ts, e2e/detail.spec.ts",
+      "status": "未完了",
+      "findings": [
+        "Issue要件ID対応なし"
+      ]
     }
   ]
 }

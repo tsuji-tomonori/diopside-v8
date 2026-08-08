@@ -166,6 +166,7 @@ export function validateCanonicalVideo(
   const tags = [...assigned.values()];
   validateDeclaredCardinality(taxonomy, tags, issues);
   validateConditionalTags(video, tags, issues);
+  validateSynopsis(video, issues);
   validateTimestamps(video, tags, issues);
   validateWordCloud(video, issues);
   const latestTagReview = video.tagAssignments.map((assignment) => Date.parse(assignment.reviewedAt)).sort((left, right) => right - left)[0] ?? 0;
@@ -173,6 +174,38 @@ export function validateCanonicalVideo(
     issues.push(issue('APPROVAL_BEFORE_REVIEW', 'approval.approvedAt', '最終承認はタグ確認後に行ってください。'));
   }
   return issues;
+}
+
+function validateSynopsis(video: CanonicalVideo, issues: ValidationIssue[]): void {
+  if (!video.synopsis) return;
+  const synopsis = video.synopsis;
+  const evidenceById = new Map(video.evidence.map((evidence) => [evidence.evidenceId, evidence]));
+  const totalLength = [...`${synopsis.body}「${synopsis.featuredQuote.text}」`].length;
+  if (totalLength < 100 || totalLength > 150) {
+    issues.push(issue('SYNOPSIS_LENGTH', 'synopsis', `本文と末尾引用は100〜150文字にしてください（現在${totalLength}文字）。`));
+  }
+  if (/(?:犯人|黒幕|真犯人|正体は|死亡する|殺される|生存する|最終エンド|エンディングで|結末は)/u.test(synopsis.body)) {
+    issues.push(issue('SYNOPSIS_SPOILER', 'synopsis.body', 'あらすじ本文に結末を特定し得る語を含めないでください。'));
+  }
+  if (/^[「『]|[」』]$/u.test(synopsis.featuredQuote.text)) {
+    issues.push(issue('SYNOPSIS_QUOTE_BRACKETS', 'synopsis.featuredQuote.text', '特徴的なセリフの括弧は表示時に付けるため、正本には含めないでください。'));
+  }
+  const allReferences = [...synopsis.bodyEvidenceRefs, ...synopsis.featuredQuote.evidenceRefs];
+  if (allReferences.some((reference) => !evidenceById.has(reference))) {
+    issues.push(issue('SYNOPSIS_EVIDENCE_MISSING', 'synopsis', 'あらすじまたはセリフの根拠参照を解決できません。'));
+  }
+  if (video.durationSeconds === null || synopsis.featuredQuote.atSeconds >= video.durationSeconds) {
+    issues.push(issue('SYNOPSIS_QUOTE_OUT_OF_RANGE', 'synopsis.featuredQuote.atSeconds', '特徴的なセリフの開始秒は動画長未満にしてください。'));
+  }
+  const inputResolved = video.evidence.some((evidence) => (
+    evidence.inputFingerprint === synopsis.inputFingerprint
+    && ['公開の日本語原文字幕', '公開の日本語字幕', '全編ローカル音声認識', '運用者提供の公開本文'].includes(evidence.type)
+    && evidence.coverageStartSeconds === 0
+    && evidence.coverageEndSeconds === video.durationSeconds
+  ));
+  if (!inputResolved) {
+    issues.push(issue('SYNOPSIS_FULL_EVIDENCE_MISSING', 'synopsis.inputFingerprint', 'あらすじの入力指紋を0秒から動画末尾までの許可された全編根拠へ解決できません。'));
+  }
 }
 
 function validateYouTubeReferences(video: CanonicalVideo, issues: ValidationIssue[]): void {

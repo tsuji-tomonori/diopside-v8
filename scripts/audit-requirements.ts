@@ -27,7 +27,7 @@ const requirementSchema = z.object({
 const catalogSchema = z.object({
   schema_version: z.literal(1),
   catalog_revision: z.number().int().positive(),
-  requirements: z.array(requirementSchema).length(142),
+  requirements: z.array(requirementSchema).length(143),
 }).passthrough();
 
 const resultStatusSchema = z.enum(['未実施', '不合格', '合格']);

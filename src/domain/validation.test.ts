@@ -73,6 +73,26 @@ describe('正本検証', () => {
     expect(validateCanonicalVideo(broken, taxonomy, aliases).map((item) => item.code)).toContain('TIMESTAMP_MIGRATION_EVIDENCE_MISSING');
   });
 
+  it('あらすじの文字数、全編根拠、引用時刻を検証する', () => {
+    const video = structuredClone(canonicalVideoSchema.parse(migratedTimestampInput));
+    expect(video.synopsis).toBeDefined();
+    expect(validateCanonicalVideo(video, taxonomy, aliases)).toEqual([]);
+
+    const broken = structuredClone(video);
+    if (!broken.synopsis) throw new Error('あらすじ付き固定動画ではありません。');
+    broken.synopsis.body = '短い本文';
+    broken.synopsis.inputFingerprint = 'f'.repeat(64);
+    broken.synopsis.featuredQuote.atSeconds = broken.durationSeconds ?? 0;
+    broken.synopsis.bodyEvidenceRefs = ['evidence-missing'];
+    const codes = validateCanonicalVideo(broken, taxonomy, aliases).map((item) => item.code);
+    expect(codes).toEqual(expect.arrayContaining([
+      'SYNOPSIS_LENGTH',
+      'SYNOPSIS_EVIDENCE_MISSING',
+      'SYNOPSIS_QUOTE_OUT_OF_RANGE',
+      'SYNOPSIS_FULL_EVIDENCE_MISSING',
+    ]));
+  });
+
   it('境界間隔、ネタバレ名、根拠なし、候補版ずれを拒否する', () => {
     const candidateHash = 'a'.repeat(64);
     const video = structuredClone(canonicalVideoSchema.parse(canonicalInput));

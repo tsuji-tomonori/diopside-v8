@@ -26,6 +26,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "83072cc7c75f8c33fe9866806a9ffd0f79129d7a4bc6277edc24120759c8402c"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開の日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "4b4ca62805c8e70e6a0903c352230b717bd6e842578fd321c86474d67ab3b318",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8874
     }
   ],
   "tagAssignments": [
@@ -84,6 +92,18 @@
       "reviewedAt": "2026-08-04T12:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "にじイカ祭り本番を翌日に控え、武器やギア、立ち回りを視聴者と相談しながら徹底練習。勝ちたい気持ちと楽しく遊びたい思いの間で悩みつつ、試行錯誤の末に自信をつかんでいく熱い一枠。",
+    "bodyEvidenceRefs": ["evidence-synopsis-transcript"],
+    "featuredQuote": {
+      "text": "いや、これマジ今日やってよかったわ。",
+      "atSeconds": 8481,
+      "evidenceRefs": ["evidence-synopsis-transcript"]
+    },
+    "inputFingerprint": "4b4ca62805c8e70e6a0903c352230b717bd6e842578fd321c86474d67ab3b318",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T11:37:12+09:00"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",

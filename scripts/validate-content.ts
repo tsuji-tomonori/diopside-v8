@@ -16,6 +16,7 @@ const manifestSchema = z.object({
   tagRulesVersion: z.string(),
   timestampRulesVersion: z.string(),
   wordCloudRulesVersion: z.string(),
+  synopsisRulesVersion: z.string(),
   generatedAt: z.iso.datetime({ offset: true }),
   inputs: z.array(z.string()).min(1),
   sourceVideoCount: z.number().int().nonnegative(),
@@ -27,6 +28,7 @@ const manifestSchema = z.object({
   assignmentCount: z.number().int().nonnegative(),
   createdTimestampVideoCount: z.number().int().nonnegative(),
   timestampItemCount: z.number().int().nonnegative(),
+  createdSynopsisVideoCount: z.number().int().nonnegative(),
 }).strict();
 
 const root = path.resolve(import.meta.dirname, '..');
@@ -51,6 +53,8 @@ const createdTimestampVideos = videos.filter((video) => video.timestamps.status 
 if (manifest.createdTimestampVideoCount !== createdTimestampVideos.length) errors.push('content-manifest:TIMESTAMP_VIDEO_COUNT:作成済みタイムスタンプ動画数が一致しません。');
 const timestampItemCount = createdTimestampVideos.reduce((total, video) => total + (video.timestamps.status === '作成済み' ? video.timestamps.items.length : 0), 0);
 if (manifest.timestampItemCount !== timestampItemCount) errors.push('content-manifest:TIMESTAMP_ITEM_COUNT:タイムスタンプ区間数が一致しません。');
+const createdSynopsisVideoCount = videos.filter((video) => video.synopsis !== undefined).length;
+if (manifest.createdSynopsisVideoCount !== createdSynopsisVideoCount) errors.push('content-manifest:SYNOPSIS_VIDEO_COUNT:作成済みあらすじ動画数が一致しません。');
 if (manifest.taxonomyVersion !== taxonomy.taxonomyVersion) errors.push('content-manifest:TAXONOMY_VERSION:タグ体系版が一致しません。');
 if (manifest.aliasVersion !== aliases.aliasVersion) errors.push('content-manifest:ALIAS_VERSION:別名版が一致しません。');
 if (manifest.tagRulesVersion !== taxonomy.rulesVersion) errors.push('content-manifest:RULES_VERSION:規則版が一致しません。');

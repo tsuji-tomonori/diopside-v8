@@ -26,6 +26,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "86b07cb128400263033cc99e063ffdef6dfa133b5feabbf585c15615bb831419"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開の日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "ae228ba74756ad7f531dcedd6bf6cf841dee529952555f11c7223601c32f73f8",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8869
     }
   ],
   "tagAssignments": [
@@ -93,6 +101,18 @@
       "reviewedAt": "2026-08-04T12:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "一杯を片手に、最近の本や映画、コラボの裏話から家族や学生時代、来年の過ごし方まで。コメントに寄り添いながら、軽やかな笑いと率直な本音が行き来する、夜更けに似合う晩酌雑談。",
+    "bodyEvidenceRefs": ["evidence-synopsis-transcript"],
+    "featuredQuote": {
+      "text": "もうあなたたちは親と言っても過言じゃない。",
+      "atSeconds": 4119,
+      "evidenceRefs": ["evidence-synopsis-transcript"]
+    },
+    "inputFingerprint": "ae228ba74756ad7f531dcedd6bf6cf841dee529952555f11c7223601c32f73f8",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T11:37:12+09:00"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
