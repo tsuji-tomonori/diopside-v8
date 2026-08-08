@@ -1,0 +1,347 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "_scYZygT2cM",
+  "title": "【作業配信】一緒に作業しよっ？【白雪 巴/にじさんじ】",
+  "publishedAt": "2023-10-03T17:54:52Z",
+  "durationSeconds": 16287,
+  "durationIso": "PT4H31M27S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/_scYZygT2cM/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=_scYZygT2cM",
+  "taxonomyVersion": "8.1.0",
+  "aliasVersion": "8.1.0",
+  "tagRulesVersion": "8.1.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "2edac82b9a25a96d8168623f2d6c7e7727e32ea64d3541676d8c580ae39c76ed"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "17e68f64f190caf8baf58d1622141ae850e32d29ed2c3c32d3a3c02cd8a8677f"
+    },
+    {
+      "evidenceId": "evidence-approved-tags",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "旧diopsideの承認済みタグ正本",
+      "inputFingerprint": "6a26dc47d161db213e3b2ebae50867c8ac400c325f5f150ada33d0fc5798a61b"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "9c53d9eaf18ad19b2c577db629816fe00b69054128e3e944fd98b79dc9acf95c"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "98a6882af132bd1f9397d41271e8cb8d5db0bd49467bf2d6b9288c7a11e1f46a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 16287
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-af7be42add09",
+      "reason": "公開タイトルと既存分類から主ジャンル「雑談」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-talkStyle-48f19af6d466",
+      "reason": "既存タグ「作業配信」から雑談種別「作業」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-f06d4843",
+        "startSeconds": 0,
+        "label": "配信開始・作業内容の紹介",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-731-edf63c71",
+        "startSeconds": 731,
+        "label": "Slack整理・作業環境の確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1707-ce33096a",
+        "startSeconds": 1707,
+        "label": "間食・食事と運動の雑談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2412-8db9726e",
+        "startSeconds": 2412,
+        "label": "申請資料探し・作品談義",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2802-ed969c49",
+        "startSeconds": 2802,
+        "label": "申請状況の確認・企画準備の雑談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4097-14b4eddf",
+        "startSeconds": 4097,
+        "label": "スイカゲーム・音響と作業BGM",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4662-c6184277",
+        "startSeconds": 4662,
+        "label": "声・美容・Xの雑談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5232-94c31492",
+        "startSeconds": 5232,
+        "label": "申請完了・切り抜き確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5591-97caa37e",
+        "startSeconds": 5591,
+        "label": "声真似・声の話",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6201-515a2ec1",
+        "startSeconds": 6201,
+        "label": "家族の話・恋愛観",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6941-3a2d0bd4",
+        "startSeconds": 6941,
+        "label": "切り抜き確認・タスク完了",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7208-7e644ccc",
+        "startSeconds": 7208,
+        "label": "歌枠準備・曲候補の整理",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7547-11e2c0d8",
+        "startSeconds": 7547,
+        "label": "歯磨き・嗅覚の雑談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7849-1571b99b",
+        "startSeconds": 7849,
+        "label": "幼少期の犬・アニメ談義",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8220-6d829f1d",
+        "startSeconds": 8220,
+        "label": "しっとり歌枠の候補曲探し",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-10393-014b041f",
+        "startSeconds": 10393,
+        "label": "歌候補の検索・アニメ曲確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-12069-9ef94cb9",
+        "startSeconds": 12069,
+        "label": "歌候補の追加・深夜の雑談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13418-65f69a60",
+        "startSeconds": 13418,
+        "label": "懐かしい曲の候補整理",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-14750-8c72ff4a",
+        "startSeconds": 14750,
+        "label": "歌枠準備の仕上げ・タスク完了",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-15933-e43ecb98",
+        "startSeconds": 15933,
+        "label": "スーパーチャット読み・終了挨拶",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "f88c2facee1865bb7b4c906ede47ca1ec85fcd72ad5bbbb3c4dcb0b76d84164d",
+    "inputFingerprint": "9c53d9eaf18ad19b2c577db629816fe00b69054128e3e944fd98b79dc9acf95c",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-22T03:50:00Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "f88c2facee1865bb7b4c906ede47ca1ec85fcd72ad5bbbb3c4dcb0b76d84164d",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "f88c2facee1865bb7b4c906ede47ca1ec85fcd72ad5bbbb3c4dcb0b76d84164d",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "e5fc95e816c25c83f2144d63e3c212fc10720487fda2913c59265d4ec9664bdb",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "たまった仕事を視聴者と一緒に片づける深夜の作業配信。連絡や申請、切り抜きの確認を進め、しっとり歌枠の候補を音源や歌いやすさまで一曲ずつ検討する。声真似や映画、音響、懐かしい曲の雑談へ寄り道しながら、歌詞カードと共有資料の準備まで黙々と仕上げる。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "よしできた終わったよみんな",
+      "atSeconds": 15918,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "98a6882af132bd1f9397d41271e8cb8d5db0bd49467bf2d6b9288c7a11e1f46a",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-09T01:09:45+09:00"
+  }
+}
+
