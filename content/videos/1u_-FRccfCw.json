@@ -26,6 +26,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "15ad12839813619fc3fac193c10565ce3101f83029050fd260ceaa7d14ddb413"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "e1f152015126edf6cad706e1c2b4727cb8c69859cf249f0e6a942ad4f755fb00",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7078
     }
   ],
   "tagAssignments": [
@@ -406,6 +414,14 @@
     "reason": "資料不足",
     "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
     "updatedAt": "2026-08-04T12:00:00+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が大勢のライバーと、一斗缶いっぱいのビリヤニを囲む3D忘年会へ。カレーを食べ比べ、恋愛タイプ診断で相性を語ったあとは、宇宙、ゲーム、ボイス、漫画へと雑談が寄り道。満腹になっても宴はゆるやかに続き、最後は歌で年を締めくくる。",
+    "bodyEvidenceRefs": ["evidence-synopsis-transcript"],
+    "featuredQuote": {"text": "どういう場なんですか？この場。", "atSeconds": 470, "evidenceRefs": ["evidence-synopsis-transcript"]},
+    "inputFingerprint": "e1f152015126edf6cad706e1c2b4727cb8c69859cf249f0e6a942ad4f755fb00",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T19:24:15+09:00"
   },
   "provenance": {
     "inputFingerprint": "d6005fcfa6d3586b0cb8548c9de6a39ae3b2bd21a742fa3864885dd58aede518",
