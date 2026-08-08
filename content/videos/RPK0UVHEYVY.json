@@ -20,6 +20,14 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "提供されたv2タグ監査済みスナップショット",
       "inputFingerprint": "6c1502e155b3edfd238dd1f66fd5d6559a947ed702fba6a2db9f8cae2cdd3486"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "公開日本語原文字幕を主体に不足区間を全編ローカルASRで補完（あらすじ確認用）",
+      "inputFingerprint": "9503bad2e94cad45b65bae5c342625b7bb4bdc67c452579048af6434746b3960",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8491
     }
   ],
   "tagAssignments": [
@@ -71,6 +79,22 @@
     "reason": "資料不足",
     "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
     "updatedAt": "2026-08-04T12:00:00+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴の2026年初ソロ配信。元日の3D餅つきコラボや和風50曲カラオケを、準備や当日の工夫まで振り返る。後半は長編ゲームとの向き合い方、休み方と仕事のバランス、食生活の目標を語り、応援への感謝とともに自分らしい一年を思い描く。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "今みんなと喋ってても超楽しいしね。",
+      "atSeconds": 7095,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "9503bad2e94cad45b65bae5c342625b7bb4bdc67c452579048af6434746b3960",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T17:52:14+09:00"
   },
   "provenance": {
     "inputFingerprint": "5c450baeb958a5c2ea14174fe8ac458aaea36dd7feb2b1c07ac432c8c9e2a915",
