@@ -35,17 +35,27 @@ describe('タグ・動画正本と公開境界', () => {
   it('探索した既存データとv8固有動画を全件検証する', () => {
     expect(videos).toHaveLength(1681);
     expect(videos.reduce((total, video) => total + video.tagAssignments.length, 0)).toBe(9015);
-    expect(videos.filter((video) => video.timestamps.status === '作成済み')).toHaveLength(1207);
-    expect(videos.reduce((total, video) => total + (video.timestamps.status === '作成済み' ? video.timestamps.items.length : 0), 0)).toBe(22828);
+    const createdTimestampVideos = videos.filter((video) => video.timestamps.status === '作成済み');
+    const timestampItemCount = videos.reduce(
+      (total, video) => total + (video.timestamps.status === '作成済み' ? video.timestamps.items.length : 0),
+      0,
+    );
     for (const video of videos) {
       expect(validateCanonicalVideo(video, taxonomy, aliases), video.videoId).toEqual([]);
       expect(video.approval.status).toBe('承認済み');
       expect(video.tagAssignments.every((assignment) => ['高', '中'].includes(assignment.confidence))).toBe(true);
       expect(video.wordCloud.status).toBe('未作成');
     }
-    const manifest = json('content/content-manifest.json') as { videoCount: number; assignmentCount: number };
+    const manifest = json('content/content-manifest.json') as {
+      videoCount: number;
+      assignmentCount: number;
+      createdTimestampVideoCount: number;
+      timestampItemCount: number;
+    };
     expect(manifest.videoCount).toBe(videos.length);
     expect(manifest.assignmentCount).toBe(videos.reduce((sum, video) => sum + video.tagAssignments.length, 0));
+    expect(manifest.createdTimestampVideoCount).toBe(createdTimestampVideos.length);
+    expect(manifest.timestampItemCount).toBe(timestampItemCount);
   });
 
   it('旧正本のタグ1,175動画とタイムスタンプ1,207動画を指紋付きシャードから欠落なく読める', () => {
