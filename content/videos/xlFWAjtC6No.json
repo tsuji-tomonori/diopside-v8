@@ -26,6 +26,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "80489e9d49d7f36fe126ced2226c07b1e6ff93d50851775947eb37522af58638"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "公開日本語原文字幕を主体に不足区間を全編ローカルASRで補完（あらすじ確認用）",
+      "inputFingerprint": "d962b3218e49af85b4d76ccb6133906adc8f8fa76038a35a3ff6ce987e5c73d9",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 12197
     }
   ],
   "tagAssignments": [
@@ -262,6 +270,22 @@
     "reason": "資料不足",
     "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
     "updatedAt": "2026-08-04T12:00:00+09:00"
+  },
+  "synopsis": {
+    "body": "『崩壊：スターレイル』オンパロス編第54回。白雪巴が記憶を巡るメインストーリーを進め、遺構の仕掛けや長いアーカイブを丹念に追う。難解な対話へ率直にツッコミ、キャラクターの思いには感情を重ねながら、探索や戦闘に挑んで次の局面を目指す。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "進みたいんですけど。進みたいんですけど。分からんのよ。",
+      "atSeconds": 2482,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "d962b3218e49af85b4d76ccb6133906adc8f8fa76038a35a3ff6ce987e5c73d9",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T16:45:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "b5b64c1936a4edab61cc561034bac11fc05b941ca6f39c0edbf6e7e7692347ec",
