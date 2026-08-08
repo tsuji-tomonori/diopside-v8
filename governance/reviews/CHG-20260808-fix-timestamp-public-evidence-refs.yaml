@@ -99,8 +99,9 @@ selected_checks:
     evidence:
       - test:tests/timestamp_tools_test.py
       - test:tests/content-validation.test.ts
+      - test:tests/generated.test.ts
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
-    note: 公開previewへの集約参照、cue非公開、candidateHash安定性に加え、増分timestamp正本と生成manifestの集計一致を直接検証する
+    note: 公開previewへの集約参照、cue非公開、candidateHash安定性に加え、増分timestamp正本・生成manifest・公開shardの集計一致を直接検証する
   - id: FAST-005
     class: Risk-selected
     result: pass
