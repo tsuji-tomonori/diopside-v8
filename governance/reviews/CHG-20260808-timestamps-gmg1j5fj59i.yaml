@@ -1,0 +1,166 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260808-timestamps-gmg1j5fj59i
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/videos/gMg1j5fj59I.json
+    note: 既存の有限batch・1動画1PR・人手merge承認要件に従う正本追加であり、要件正本は変更しない
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 既存schemaに沿った1動画正本と決定生成物を更新し、schema・ADR・公開契約を変更しない
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/videos/gMg1j5fj59I.json
+    note: 全編根拠と正規化hashへのfresh事実・編集確認を経た公開候補を扱うためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 利用者がcommit、push、PR、再レビュー、台帳更新を明示承認しており、merge・公開は行わない
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/videos/gMg1j5fj59I.json
+    note: 既存カタログ動画への可逆なoverride追加でschema migrationや削除はなく、必要時は本PRをrevertできる
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: npm run buildで正本からreleaseとPages成果物を決定生成した
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/generated/release.ts
+    note: 生成release参照を含むTypeScript strict型検査に合格した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: 既存lint契約の対象外形式だけを生成し、品質workflowで全対象lintを確認する
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - test:tests/generated.test.ts
+    note: 正本schema、タイムスタンプ整合、release ID、公開shardを既存testで確認した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:public/data/latest.json
+      - path:src/generated/release.ts
+      - path:docs/data/latest.json
+    note: npm run build後にverify:generatedを実行し、正本から生成したrelease-4e9681762f224f67とPages成果物のdriftがないことを確認した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 生字幕・transcript・内部map・review原本・秘密情報を差分へ含めていない
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 正本動画gMg1j5fj59Iの1件、manifest、そこからの決定生成物、本review YAMLだけに差分を限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記載する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:content/videos/gMg1j5fj59I.json
+    note: V8-TIME-029の同一正規化hashへの独立reviewとV8-OPS-005の1動画1PR境界を満たし、受入条件を変更しない
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+    note: 既存generatorが正本入力追加をinventoryへ反映し、手書き設計やADRを追加していない
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - test:tests/generated.test.ts
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: 正本、生成物、型、review、1動画scopeを対象検証し、同じ品質workflowがPR HEADを検証する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-timestamps-gmg1j5fj59i.yaml
+    note: 選択したcheckだけを本review YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-timestamps-gmg1j5fj59i.yaml
+    note: 未選択checkをN/Aとして登録していない
+advisories: []
+residual_risks:
+  - 人によるPRマージまではpublicationGateが未充足であり、この作業ではmerge・公開を行わない
