@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "updatedAt": "2026-08-04T15:00:00+09:00",
+  "updatedAt": "2026-08-07T23:08:06+09:00",
   "productOwnerApproval": {
     "status": "合格",
     "approvedAt": "2026-08-04T15:00:00+09:00",
@@ -8,12 +8,12 @@
     "finding": "2026-08-04の所有者指示により、旧承認済みデータ移行、手動Actions入口、品質確認後のmainマージが明示承認された。"
   },
   "pagesPublication": {
-    "status": "未実施",
-    "sourceBranch": null,
-    "sourceFolder": null,
-    "publicUrl": null,
-    "verifiedAt": null,
-    "finding": "PR #2は未マージでmainに/docsがない。所有者指示どおり品質確認後にmainへマージし、main/docsのPages設定と公開を確認する。"
+    "status": "合格",
+    "sourceBranch": "main",
+    "sourceFolder": "/docs",
+    "publicUrl": "https://tsuji-tomonori.github.io/diopside-v8/",
+    "verifiedAt": "2026-08-07T23:08:06+09:00",
+    "finding": "GitHub Pages APIでbranch方式のmain/docs、build_type=legacy、独自ドメインなし、HTTPS強制、公開状態builtを確認し、標準github.io URLのHTTP 200応答を確認した。"
   },
   "monthlyCost": {
     "status": "未実施",

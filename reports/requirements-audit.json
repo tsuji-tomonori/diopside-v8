@@ -2,8 +2,8 @@
   "schemaVersion": "1.0.0",
   "acceptancePassed": false,
   "requirementCount": 142,
-  "completedCount": 138,
-  "incompleteCount": 4,
+  "completedCount": 140,
+  "incompleteCount": 2,
   "externalGates": {
     "productOwnerApproval": {
       "status": "合格",
@@ -583,10 +583,8 @@
       "acceptanceCriteria": "Pagesの公開元がbranch方式の `main/docs` で、独自の公開Actionsを必要としない。",
       "verification": "リポジトリ設定確認・公開確認",
       "evidence": "tests/operations.test.ts, tests/generated.test.ts",
-      "status": "未完了",
-      "findings": [
-        "PR #2は未マージでmainに/docsがない。所有者指示どおり品質確認後にmainへマージし、main/docsのPages設定と公開を確認する。"
-      ]
+      "status": "完了",
+      "findings": []
     },
     {
       "id": "V8-OPS-013",
@@ -1445,10 +1443,8 @@
       "acceptanceCriteria": "リポジトリは公開設定で、独自ドメインと有料プランを必要としない。",
       "verification": "リポジトリ・Pages設定確認",
       "evidence": "tests/repository-policy.test.ts",
-      "status": "未完了",
-      "findings": [
-        "PR #2は未マージでmainに/docsがない。所有者指示どおり品質確認後にmainへマージし、main/docsのPages設定と公開を確認する。"
-      ]
+      "status": "完了",
+      "findings": []
     },
     {
       "id": "V8-COST-003",
