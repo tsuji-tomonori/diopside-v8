@@ -26,6 +26,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "83563a9ca26c39ff7ab46e63c213b94b75fca04e99148612197e747a4d0d0dfa"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "公開日本語原文字幕を主体に不足区間を全編ローカルASRで補完（あらすじ確認用）",
+      "inputFingerprint": "24d41b87e4fd61337b4e31b6dc96ed0d3fba030f70c3c712afb7405e95cae9bb",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 23668
     }
   ],
   "tagAssignments": [
@@ -307,6 +315,14 @@
     "reason": "資料不足",
     "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
     "updatedAt": "2026-08-04T12:00:00+09:00"
+  },
+  "synopsis": {
+    "body": "『SILENT HILL f』5周目前半。白雪巴が過去周の記憶と照らしながら町を再探索。台詞や演出の差分を見比べ、取り逃した資料を探しつつ、人物の言動と物語のつながりをじっくり考察する。",
+    "bodyEvidenceRefs": ["evidence-synopsis-transcript"],
+    "featuredQuote": {"text": "だからサクサク行ければクリアまでやっちゃいたいんだけど探索はしっかりする予定です。", "atSeconds": 1827, "evidenceRefs": ["evidence-synopsis-transcript"]},
+    "inputFingerprint": "24d41b87e4fd61337b4e31b6dc96ed0d3fba030f70c3c712afb7405e95cae9bb",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T18:51:31+09:00"
   },
   "provenance": {
     "inputFingerprint": "fcba9a2339970a2ee3ea7629bd65f424e60e3141740b372515eadddbfb940f98",
