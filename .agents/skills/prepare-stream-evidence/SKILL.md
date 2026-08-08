@@ -11,13 +11,19 @@ Work on one initialized video dossier. Produce evidence and coverage artifacts; 
 
 1. Read `references/evidence-contract.md`. For local ASR also read `references/local-asr.md`.
 2. Prefer a valid creator timestamp list. Otherwise use public `ja-orig`, then public `ja`, then an operator transcript, then free full-duration local ASR.
-3. For a prepared input snapshot run:
+3. For public YouTube captions, inspect and then explicitly retrieve a temporary normalized snapshot:
+
+   `python3 scripts/download_captions.py <video-id>`
+
+   `python3 scripts/download_captions.py <video-id> --execute`
+
+4. For a prepared input snapshot run:
 
    `python3 scripts/prepare_evidence.py <video-id> --transcript <snapshot.json>`
 
    Add `--creator-timestamps <file>` when available and `--audience-signals <file>` only for already normalized, non-identifying weak signals.
-4. If captions are unavailable, inspect the public-audio plan with `download_audio.py`; network use requires the human-triggered `--execute` flag. Then run `transcribe_local_asr.py --execute` and pass its output to `prepare_evidence.py`.
-5. Stop with a Japanese blocker when coverage is incomplete, audio is inaccessible, dependencies are unavailable, or identifiers/raw audience records are present.
+5. If captions are unavailable, inspect the public-audio plan with `download_audio.py`; network use requires the human-triggered `--execute` flag. Then run `transcribe_local_asr.py --execute` and pass its output to `prepare_evidence.py`.
+6. Stop with a Japanese blocker when coverage is incomplete, audio is inaccessible, dependencies are unavailable, or identifiers/raw audience records are present.
 
 ## Gates
 

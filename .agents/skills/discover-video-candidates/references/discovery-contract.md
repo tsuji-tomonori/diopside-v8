@@ -1,0 +1,33 @@
+# 動画候補探索契約
+
+候補URLは、本人の公式YouTubeチャンネル、既存の承認済み出演者、またはにじさんじWikiから得る。後二者は探索範囲を広げる手掛かりであり、出演・タグ・タイムスタンプの確定根拠ではない。
+
+一時lead manifest:
+
+```json
+{
+  "schemaVersion": "1.0.0",
+  "canonicalChannelName": "白雪 巴/Shirayuki Tomoe",
+  "leads": [
+    {
+      "videoUrl": "https://www.youtube.com/watch?v=abcdefghijk",
+      "scope": "外部チャンネル",
+      "leadType": "にじさんじWiki",
+      "sourceLabel": "白雪巴 - にじさんじWiki 2026年欄",
+      "observedAt": "2026-08-08T12:00:00+09:00"
+    }
+  ]
+}
+```
+
+- `leadType`: `本人公式チャンネル`、`既存承認済み出演者`、`にじさんじWiki` のいずれか。
+- `scope`: `本人チャンネル` または `外部チャンネル`。
+- 同じ動画IDを重複させない。
+- `sourceLabel` は人が出所を識別できる一般名とし、ハンドル、投稿者識別子、検索クエリ全文を含めない。
+- `observedAt` は確認時刻。動画の公開時刻ではない。
+
+collectorはYouTubeから動画ID、タイトル、公開時刻、長さ、公開状態、公開チャンネル名だけを一時取得し、`curate-video-content`の公開動画候補スナップショットと安全な探索reportへ縮約する。説明文などの取得元応答を保存・表示しない。
+
+新規探索では`--canonical-root`を必ず指定し、正本動画を公開中の基準線としてsnapshotへ含める。部分的なlead一覧に存在しないことを削除根拠として扱わない。削除確認は全件を観測できる別の完全snapshotで行う。
+
+外部チャンネル候補は、選定後に動画固有の作成者記述、公式参加者表記、または全編根拠で白雪巴の出演を再確認する。確認できなければ正本化しない。
