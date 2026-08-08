@@ -20,7 +20,7 @@ impact_flags:
   typed_code_change: true
   behavior_change: true
   bug_fix: true
-  generated_change: false
+  generated_change: true
   sql_change: false
   e2e_change: false
   migration: false
@@ -58,7 +58,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: validatorと回帰testだけの修正で、生成設計・ADR・公開契約への影響はない
+    note: validatorと回帰testに加え、実装SHAを持つ生成済みinventoryだけを決定的に同期し、ADR・公開契約は変更しない
   - id: IMP-003
     class: Invariant
     result: pass
@@ -107,7 +107,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: 動画内容・要件・UI・生成物を変更せずvalidator契約修正に限定した
+    note: 動画内容・要件・UI・公開生成物を変更せず、validator契約と生成済みinventoryの同期に限定した
   - id: REV-002
     class: Invariant
     result: pass
@@ -125,7 +125,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: 実装由来設計や長期判断を変えないため生成設計・ADRは不要と判定した
+    note: 実装由来inventoryを決定的に再生成し、長期判断を変えないためADRは不要と判定した
   - id: REV-006
     class: Invariant
     result: pass
