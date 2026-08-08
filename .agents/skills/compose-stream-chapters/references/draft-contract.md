@@ -4,6 +4,7 @@ Write `.devflow/run/timestamps/{videoId}/chapter_draft.json` atomically. Follow 
 
 - Read every `transcript_chunks/chunk-*.json`; list all processed chunk IDs.
 - Preserve exact cue IDs in boundary evidence.
+- Keep cue IDs in the temporary draft only. The deterministic validator reduces public `evidenceRefs` to the dossier-level `evidenceId` before hashing or preview generation.
 - A nonzero boundary must cite the dossier's full transcript/ASR evidence ID or creator-list evidence ID.
 - Audience signals may be recorded in `candidateRefs`, but not as the only evidence reference.
 - Keep `internalTopic` temporary. `label` is the only public title candidate.
