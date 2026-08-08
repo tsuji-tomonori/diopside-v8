@@ -20,7 +20,7 @@ impact_flags:
   typed_code_change: true
   behavior_change: true
   bug_fix: false
-  generated_change: false
+  generated_change: true
   sql_change: false
   e2e_change: false
   migration: false
@@ -92,6 +92,13 @@ selected_checks:
       - path:scripts/audit-requirements.ts
       - test:tests/audit-requirements.test.ts
     note: 2件が許可済み未完了、blocking未完了0件、acceptancePassed=false、authorizationPassed=trueとなる回帰テストを追加した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - path:scripts/generate-design.ts
+    note: 宣言済み入力である監査スクリプトのSHA-256を正規generatorで更新し、再生成とcheck modeでbyte driftがないことを確認した
   - id: FAST-007
     class: Invariant
     result: pass
@@ -112,7 +119,8 @@ selected_checks:
       - path:scripts/audit-requirements.ts
       - test:tests/audit-requirements.test.ts
       - path:governance/reviews/CHG-20260808-accept-incomplete-requirements.yaml
-    note: 今回の所有者許可記録と監査判定だけを対象にした
+      - path:docs/design/generated/inventory.gen.json
+    note: 今回の所有者許可記録、監査判定、直接必要な生成設計digestだけを対象にした
   - id: REV-002
     class: Invariant
     result: pass
@@ -131,7 +139,8 @@ selected_checks:
     result: pass
     evidence:
       - path:scripts/audit-requirements.ts
-    note: governance上の監査状態と出力schemaには影響するが、生成設計やADRを要するproduct構造変更はない
+      - path:docs/design/generated/inventory.gen.json
+    note: governance上の監査状態と出力schemaに影響するため生成設計digestを更新し、長期architecture判断ではないためADRは追加していない
   - id: REV-006
     class: Invariant
     result: pass
