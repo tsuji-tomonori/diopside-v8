@@ -219,5 +219,5 @@ selected_checks:
 advisories: []
 residual_risks:
   - legacyのfinalHumanCheck形式は既存公開データ互換のため受理を継続し、新規materializerだけをpull-request-merge gateへ限定する
-  - 動画追加後の公開件数はcontent manifestから導出し、内部cue参照は候補検証時に公開可能なdossier evidenceIdへ正規化する
+  - 動画追加後の公開件数はcontent manifestから導出し、内部cue参照は候補検証時に公開可能なdossier evidenceIdへ正規化する。前提PRのHEAD検証契約も満たしている
   - batchはignoredな一時manifestで再開可能だが、予定実行・Actions AI・自動PR・自動merge・自動公開は行わないため、実行sessionの継続と各PRの人手mergeが必要である
