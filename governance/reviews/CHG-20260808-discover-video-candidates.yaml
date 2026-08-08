@@ -77,7 +77,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence:
-      - workflow:verify:local#lint:timestamp-tools
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
     note: 新規Skill scriptと対応テストをCI対象へ追加し、対象ruffに合格した
   - id: FAST-004
     class: Invariant
@@ -85,7 +85,7 @@ selected_checks:
     evidence:
       - test:tests/discover_video_candidates_test.py
       - test:tests/caption_tools_test.py
-      - workflow:verify:local#test:timestamp-tools
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
     note: 正本shard基準線、本人・外部channel照合、機微field非保持、字幕json3縮約を含む14件の対象Python試験に合格した
   - id: FAST-007
     class: Invariant
