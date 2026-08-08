@@ -116,7 +116,9 @@ selected_checks:
       - path:spec/requirements/requirements.json
       - path:docs/requirements/REQUIREMENTS.md
       - path:docs/design/generated/system.gen.md
-    note: 要件とas-built設計を正本から再生成し、要件validateとcheckに合格した
+      - path:docs/index.html
+      - path:docs/assets/index-CCJ7yRnx.js
+    note: 要件、as-built設計、schema変更を含む静的siteを正本から再生成し、生成drift検査に合格した
   - id: FAST-007
     class: Invariant
     result: pass
