@@ -145,6 +145,14 @@ selected_checks:
     evidence:
       - path:governance/reviews/CHG-20260808-discover-video-candidates.yaml
     note: 未選択checkをN/Aとして登録していない
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:.agents/skills/discover-video-candidates/SKILL.md
+      - path:.agents/skills/curate-video-content/SKILL.md
+      - path:.agents/skills/prepare-stream-evidence/SKILL.md
+    note: 人手起動、無料公開情報、非公開資料非保持、1動画PRの運用境界を新規Skillと接続先Skillへ反映した
 advisories: []
 residual_risks:
   - YouTubeとにじさんじWikiの可用性・表示仕様に依存するため、取得不能時は有料APIや認証回避へ切り替えず理由付きで停止する
