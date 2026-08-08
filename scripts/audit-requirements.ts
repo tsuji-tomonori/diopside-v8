@@ -31,8 +31,17 @@ const catalogSchema = z.object({
 }).passthrough();
 
 const resultStatusSchema = z.enum(['未実施', '不合格', '合格']);
+const acceptedIncompleteRequirementSchema = z.object({
+  requirementId: z.enum(['V8-COST-001', 'V8-QUALITY-002']),
+  decision: z.literal('non-blocking'),
+  acceptedAt: z.iso.datetime({ offset: true }),
+  acceptedBy: z.literal('product-owner'),
+  sourceRef: z.literal('user:2026-08-08'),
+  scope: z.literal('GitHub Actionsの受入監査における非blocking扱い。merge・公開の承認は含まない。'),
+  finding: z.string().min(1),
+}).strict();
 const acceptanceEvidenceSchema = z.object({
-  schemaVersion: z.literal('1.0.0'),
+  schemaVersion: z.literal('1.1.0'),
   updatedAt: z.iso.datetime({ offset: true }),
   productOwnerApproval: z.object({
     status: resultStatusSchema,
@@ -40,6 +49,11 @@ const acceptanceEvidenceSchema = z.object({
     evidenceUrl: z.url().nullable(),
     finding: z.string().min(1),
   }).strict(),
+  acceptedIncompleteRequirements: z.array(acceptedIncompleteRequirementSchema).length(2).superRefine((items, context) => {
+    if (new Set(items.map((item) => item.requirementId)).size !== items.length) {
+      context.addIssue({ code: 'custom', message: '許可済み未完了要件のIDが重複しています。' });
+    }
+  }),
   pagesPublication: z.object({
     status: resultStatusSchema,
     sourceBranch: z.string().nullable(),
@@ -105,6 +119,9 @@ const sourceMap = z.object({
   }).strict()).length(142),
 }).passthrough().parse(readJson(path.join(root, 'spec/requirements/source-id-map.json')));
 const sourceByCanonicalId = new Map(sourceMap.mappings.map((item) => [item.canonicalId, item]));
+const acceptedIncompleteById = new Map<string, (typeof acceptanceEvidence.acceptedIncompleteRequirements)[number]>(
+  acceptanceEvidence.acceptedIncompleteRequirements.map((item) => [item.requirementId, item]),
+);
 const ids = new Set<string>();
 const rows = catalog.requirements.map((requirement) => {
   const findings: string[] = [];
@@ -121,7 +138,12 @@ const rows = catalog.requirements.map((requirement) => {
   for (const evidencePath of requirement.verification.evidence.split(',').map((value) => value.trim()).filter(Boolean)) {
     if (!existsSync(safePath(evidencePath))) findings.push(`検証証跡なし: ${evidencePath}`);
   }
-  findings.push(...acceptanceFindings(requirement.id));
+  const requirementAcceptanceFindings = acceptanceFindings(requirement.id);
+  const structuralFindingCount = findings.length;
+  findings.push(...requirementAcceptanceFindings);
+  const acceptedIncomplete = structuralFindingCount === 0 && requirementAcceptanceFindings.length > 0
+    ? acceptedIncompleteById.get(requirement.id)
+    : undefined;
   return {
     id: requirement.id,
     sourceId: source?.sourceId ?? '',
@@ -130,23 +152,29 @@ const rows = catalog.requirements.map((requirement) => {
     acceptanceCriteria: requirement.acceptance_criteria.map((criterion) => criterion.then).join(' / '),
     verification: requirement.verification.method,
     evidence: requirement.verification.evidence,
-    status: findings.length === 0 ? '完了' : '未完了',
+    status: findings.length === 0 ? '完了' : acceptedIncomplete ? '許可済み未完了' : '未完了',
     findings,
+    acceptedIncomplete: acceptedIncomplete ?? null,
   };
 });
 
 const incomplete = rows.filter((row) => row.status !== '完了');
+const blockingIncomplete = rows.filter((row) => row.status === '未完了');
+const acceptedIncomplete = rows.filter((row) => row.status === '許可済み未完了');
 const externalGateFindings = acceptanceEvidence.productOwnerApproval.status === '合格'
   && acceptanceEvidence.productOwnerApproval.approvedAt !== null
   && acceptanceEvidence.productOwnerApproval.evidenceUrl !== null
   ? []
   : [acceptanceEvidence.productOwnerApproval.finding];
 const output = {
-  schemaVersion: '1.0.0',
+  schemaVersion: '1.1.0',
   acceptancePassed: incomplete.length === 0 && externalGateFindings.length === 0,
+  authorizationPassed: blockingIncomplete.length === 0 && externalGateFindings.length === 0,
   requirementCount: rows.length,
   completedCount: rows.length - incomplete.length,
   incompleteCount: incomplete.length,
+  blockingIncompleteCount: blockingIncomplete.length,
+  acceptedIncompleteCount: acceptedIncomplete.length,
   externalGates: {
     productOwnerApproval: acceptanceEvidence.productOwnerApproval,
     findings: externalGateFindings,
@@ -157,13 +185,18 @@ const outputArg = argument('--output');
 const outputPath = outputArg ? path.resolve(process.cwd(), outputArg) : path.join(root, 'reports/requirements-audit.json');
 mkdirSync(path.dirname(outputPath), { recursive: true });
 writeFileSync(outputPath, prettyJson(output));
-if (incomplete.length > 0 || externalGateFindings.length > 0) {
+if (blockingIncomplete.length > 0 || externalGateFindings.length > 0) {
   const findings = [
-    ...incomplete.map((row) => `${row.id}: ${row.findings.join('、')}`),
+    ...blockingIncomplete.map((row) => `${row.id}: ${row.findings.join('、')}`),
     ...externalGateFindings.map((finding) => `外部ゲート（プロダクト責任者承認）: ${finding}`),
   ];
   console.error(findings.join('\n'));
   process.exitCode = 1;
+} else if (acceptedIncomplete.length > 0) {
+  console.warn([
+    `要件追跡監査許可: ${rows.length - incomplete.length}件完了、${acceptedIncomplete.length}件は所有者許可済み未完了です。`,
+    ...acceptedIncomplete.map((row) => `${row.id}: ${row.findings.join('、')}（${row.acceptedIncomplete?.finding}）`),
+  ].join('\n'));
 } else {
   console.log(`要件追跡監査合格: ${rows.length}件すべてに受入条件・検証方法・実装・試験証跡があります。`);
 }

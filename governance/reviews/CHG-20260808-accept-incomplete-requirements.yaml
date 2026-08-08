@@ -1,0 +1,166 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260808-accept-incomplete-requirements
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: false
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:operations/acceptance-evidence.json
+    note: V8-COST-001とV8-QUALITY-002の本文、受入条件、閾値は変更せず、未実施の事実と所有者のnon-blocking許可を分けて記録した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/audit-requirements.ts
+    note: 公開画面や生成設計は変更せず、要件監査のgovernance出力へ合格、未完了、許可済み未完了の区別を追加した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-accept-incomplete-requirements.yaml
+    note: 所有者承認記録とblocking判定に影響するgovernance変更のためassuredを選択した
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/audit-requirements.ts
+    note: npm run audit:requirementsの実行で監査スクリプトが正常終了することを確認した
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/audit-requirements.ts
+    note: npm run typecheckで変更したTypeScriptを確認した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/audit-requirements.ts
+    note: ESLintを変更スクリプトと回帰テストへ実行した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:operations/acceptance-evidence.json
+      - path:scripts/audit-requirements.ts
+      - test:tests/audit-requirements.test.ts
+    note: 2件が許可済み未完了、blocking未完了0件、acceptancePassed=false、authorizationPassed=trueとなる回帰テストを追加した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:operations/acceptance-evidence.json
+    note: 所有者をproduct-ownerとだけ記録し、請求画面、請求額、利用者識別子、秘密情報を保存していない
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:scripts/audit-requirements.ts
+    note: 監査出力で合格と許可済み未完了を混同せず、対象ID、未実施理由、許可理由を診断できる
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:operations/acceptance-evidence.json
+      - path:scripts/audit-requirements.ts
+      - test:tests/audit-requirements.test.ts
+      - path:governance/reviews/CHG-20260808-accept-incomplete-requirements.yaml
+    note: 今回の所有者許可記録と監査判定だけを対象にした
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性と残存リスクを持つCommit Commentを作成した
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:operations/acceptance-evidence.json
+    note: 永続要件を変更せず、今回の明示的な残存リスク受容を受入証拠へ記録した
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/audit-requirements.ts
+    note: governance上の監査状態と出力schemaには影響するが、生成設計やADRを要するproduct構造変更はない
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/audit-requirements.ts
+      - test:tests/audit-requirements.test.ts
+      - workflow:要件・品質ゲート#142要件の受入結果を監査
+    note: ローカル監査、型検査、lint、回帰テストで確認し、同じ監査commandをGitHub Actionsが現在HEADで実行する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-accept-incomplete-requirements.yaml
+    note: 今回選択したcheckだけを保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-accept-incomplete-requirements.yaml
+    note: 未選択checkをN/Aとして保存していない
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:operations/acceptance-evidence.json
+      - path:scripts/audit-requirements.ts
+    note: 運用正本へ対象、時刻、権限者、範囲、未実施の事実を保存し、監査が同じ記録を参照する
+advisories: []
+residual_risks:
+  - V8-COST-001の月次請求0円確認は未実施であり、0円を実証した記録ではない
+  - V8-QUALITY-002の初見利用者試験は未実施であり、利用者試験へ合格した記録ではない
+  - 今回の許可はGitHub Actionsのnon-blocking扱いだけであり、merge・公開の承認を含まない
