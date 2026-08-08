@@ -49,11 +49,11 @@
 | `V8-DEVICE-011` | 1 | 有効 | 機能 | diopside v8の端末は、利用者行動を解析・追跡する外部送信を行ってはならない。を**satisfy** | 通信監査・依存関係確認 |
 | `V8-OPS-001` | 2 | 有効 | 運用 | diopside v8の運用は、タイムスタンプ一括処理は、運用者による1回の明示的なChatGPT／Codex要求で指定された識別子または有限の選定条件から、今回処理する適格動画の有限集合を開始時に固定しなければならない。固定後は、動画ごとの追加チャット承認を開始条件としてはならない。を**satisfy** | 一括処理の開始境界・対象集合固定・状態遷移試験 |
 | `V8-OPS-002` | 1 | 有効 | 運用 | diopside v8の運用は、GitHub ActionsからChatGPT／Codexを呼び出してはならない。を**satisfy** | リポジトリ静的確認 |
-| `V8-OPS-003` | 2 | 有効 | 運用 | diopside v8の運用は、動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない。を**satisfy** | リポジトリ静的確認・手順試験 |
+| `V8-OPS-003` | 3 | 有効 | 運用 | diopside v8の運用は、動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない。を**satisfy** | リポジトリ静的確認・手順試験 |
 | `V8-OPS-004` | 1 | 有効 | 運用 | diopside v8の運用は、ChatGPT／Codexの利用は、運用者が契約済みの画面上の利用範囲に限定しなければならない。を**satisfy** | 構成確認・秘密情報確認 |
 | `V8-OPS-005` | 2 | 有効 | 運用 | diopside v8の運用は、1回の明示要求で固定した有限の適格タイムスタンプ対象集合は、各動画が1動画だけを対象とするPRのレビュー可能状態、または根拠を示した処理不能状態のいずれかへ到達するまで処理しなければならない。ある動画の失敗を理由に、集合内の未処理動画を停止してはならない。を**satisfy** | 対象集合の固定データ・一括処理の終端・失敗分離試験 |
 | `V8-OPS-006` | 1 | 有効 | 運用 | diopside v8の運用は、対象候補が0件の場合は、生成物、ブランチ、プルリクエストを作成してはならない。を**satisfy** | 否定試験 |
-| `V8-OPS-007` | 1 | 有効 | 運用 | diopside v8の運用は、通常の動画追加プルリクエストは、1動画だけを内容確認の対象としなければならない。を**satisfy** | 変更範囲試験 |
+| `V8-OPS-007` | 2 | 有効 | 運用 | diopside v8の運用は、通常の動画追加プルリクエストは、正本動画データを1件だけ変更対象とし、公開用のrelease ID、版付きJSON、画面bundle、`main/docs`を含めてはならない。静的公開成果物は人が当該プルリクエストをmainへマージした後に生成しなければならない。を**satisfy** | 変更範囲試験 |
 | `V8-OPS-008` | 1 | 有効 | 運用 | diopside v8の運用は、通常の動画追加プルリクエストでは、スキル、生成規則、タグ体系、構造定義、検証スクリプト、画面実装、Pages設定を変更してはならない。を**satisfy** | 変更範囲の否定試験 |
 | `V8-OPS-009` | 2 | 有効 | 運用 | diopside v8の運用は、プルリクエスト作成前に、構造、タグ、タイムスタンプ、ワードクラウド、検索索引、公開禁止情報、静的画面を動画ごとに決定的スクリプトで検証しなければならない。不合格は当該動画のプルリクエスト作成だけを止め、理由付き処理不能として記録し、同じ有限集合の他の動画の処理を止めてはならない。を**satisfy** | 不正データ試験・動画単位の失敗分離試験・手順試験 |
 | `V8-OPS-010` | 2 | 有効 | 運用 | diopside v8の運用は、PRレビュー可能な動画のプルリクエスト本文は、対象動画、タグ候補、タイムスタンプ候補、ワードクラウド語句、根拠、検証結果、YouTube確認リンクを日本語で示さなければならない。処理不能の動画は、失敗した段階と根拠を含む理由を日本語で示さなければならない。を**satisfy** | プルリクエスト・一括処理結果の表示確認 |
@@ -149,6 +149,7 @@
 | `V8-SAFETY-002` | 1 | 有効 | 制約 | diopside v8の安全は、生の字幕、生のコメント、生のチャット、投稿者識別子をGit履歴またはPagesへ保存してはならない。を**satisfy** | 公開境界試験 |
 | `V8-SAFETY-003` | 1 | 有効 | 制約 | diopside v8の安全は、秘密情報をリポジトリ、プルリクエスト、確認報告、Pagesへ含めてはならない。を**satisfy** | 秘密情報検査 |
 | `V8-SAFETY-004` | 1 | 有効 | 制約 | diopside v8の安全は、削除、非公開化、対象外化が確認された動画を次の公開版から除外し、再追加を防止しなければならない。を**satisfy** | 削除・再追加試験 |
+| `V8-OPS-017` | 1 | 有効 | 運用 | diopside v8の運用は、release ID、版付き公開JSON、画面bundle、`main/docs`は、mainの品質ゲートに合格した人承認済み正本から決定的に生成し、差分がある場合だけmainへrelease commitしなければならない。生成中にmainが更新された場合は古い結果をcommitしてはならない。を**satisfy** | post-merge生成workflow契約試験・Pages公開経路試験 |
 
 ## V8-SEARCH-001: 文字検索は、承認済み動画の動画タイトルだけを検索対象としなければならない
 
@@ -791,11 +792,11 @@ diopside v8の運用は、動画確認、候補生成、検証、静的成果物
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-OPS-003-1` 前提: V8-運用-003の前提を満たす公開データまたは操作がある。条件: リポジトリ静的確認・手順試験。期待結果: `.github/workflows` に予定実行と独自公開処理が存在しない。人が開始する `workflow_dispatch` は、読取専用の検証と候補検出に限定される。。
+- `AC-V8-OPS-003-1` 前提: V8-運用-003の前提を満たす公開データまたは操作がある。条件: リポジトリ静的確認・手順試験。期待結果: `.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。人が開始する `workflow_dispatch` は読取専用の検証と候補検出に限定し、静的成果物生成は検証済みmainだけを入力とする。。
 
-要求源: Issue #1 V8-運用-003, user:2026-08-03, owner-directive:2026-08-04
+要求源: Issue #1 V8-運用-003, user:2026-08-03, owner-directive:2026-08-04, spec/sources/owner-directive-2026-08-08-post-merge-release.md
 検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml,.github/workflows/update-generated-release.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-OPS-004: ChatGPT／Codexの利用は、運用者が契約済みの画面上の利用範囲に限定しなければならない
 
@@ -845,18 +846,18 @@ diopside v8の運用は、対象候補が0件の場合は、生成物、ブラ�
 
 ## V8-OPS-007: 通常の動画追加プルリクエストは、1動画だけを内容確認の対象としなければならない
 
-diopside v8の運用は、通常の動画追加プルリクエストは、1動画だけを内容確認の対象としなければならない。を**satisfy**。
+diopside v8の運用は、通常の動画追加プルリクエストは、正本動画データを1件だけ変更対象とし、公開用のrelease ID、版付きJSON、画面bundle、`main/docs`を含めてはならない。静的公開成果物は人が当該プルリクエストをmainへマージした後に生成しなければならない。を**satisfy**。
 
 根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-OPS-007-1` 前提: V8-運用-007の前提を満たす公開データまたは操作がある。条件: 変更範囲試験。期待結果: 1件の正本動画データと、それから決定的に生成される索引・詳細・ワードクラウド・確認報告だけを変更する。。
+- `AC-V8-OPS-007-1` 前提: V8-運用-007の前提を満たす公開データまたは操作がある。条件: 変更範囲試験。期待結果: 1件の正本動画データと、その正本件数・更新日時を持つmanifestおよび確認用資料だけを変更し、release ID、版付き公開JSON、画面bundle、`main/docs`を差分に含めない。。
 
-要求源: Issue #1 V8-運用-007, user:2026-08-03
+要求源: Issue #1 V8-運用-007, user:2026-08-03, spec/sources/owner-directive-2026-08-08-post-merge-release.md
 検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,scripts/validate-video-pr-scope.ts,scripts/validate-release-pr-scope.ts,.github/workflows/update-generated-release.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-OPS-008: 通常の動画追加プルリクエストでは、スキル、生成規則、タグ体系、構造定義、検証スクリプト、画面実装、Pages設定を変更してはならない
 
@@ -2285,3 +2286,19 @@ diopside v8の安全は、削除、非公開化、対象外化が確認された
 要求源: Issue #1 V8-安全-004, user:2026-08-03
 検証証跡: tests/content-validation.test.ts, tests/repository-policy.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,docs/operations/privacy-and-safety.md; 実装=scripts/validate-content.ts,scripts/verify-repository-policy.ts; テスト=tests/content-validation.test.ts,tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-017: 静的公開成果物は、検証済みmainマージ後にだけ自動生成してrelease commitしなければならない
+
+diopside v8の運用は、release ID、版付き公開JSON、画面bundle、`main/docs`は、mainの品質ゲートに合格した人承認済み正本から決定的に生成し、差分がある場合だけmainへrelease commitしなければならない。生成中にmainが更新された場合は古い結果をcommitしてはならない。を**satisfy**。
+
+根拠: 内容レビュー対象の正本と機械生成される公開版を分離し、通常プルリクエストごとの全公開物差分とrelease ID競合をなくしながら、人のマージ承認後だけ一貫した静的版を公開するため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-017-1` 前提: 人が正本変更をmainへマージし、そのmain commitの品質ゲートが合格した。条件: post-merge生成workflow契約試験。期待結果: 同じ検証済みcommitから静的成果物を生成・検証し、後続main更新がなく生成差分がある場合だけrelease commitする。。
+- `AC-V8-OPS-017-2` 前提: release commitがmainへ追加された。条件: Pages公開経路試験。期待結果: 独自deploy artifactを使わず、既存のmain/docs branch方式Pages buildを要求する。。
+
+要求源: spec/sources/owner-directive-2026-08-08-post-merge-release.md, user:2026-08-08
+検証証跡: tests/repository-policy.test.ts, tests/operations.test.ts, tests/generated.test.ts
+トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/design/generated/system.gen.md; 実装=.github/workflows/update-generated-release.yml,scripts/build-public-data.ts,scripts/validate-video-pr-scope.ts,scripts/validate-release-pr-scope.ts,scripts/verify-generated-source.ts; テスト=tests/repository-policy.test.ts,tests/operations.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-08-post-merge-release.md,dev-standard default profile

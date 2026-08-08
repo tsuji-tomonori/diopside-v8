@@ -6,6 +6,7 @@ import path from 'node:path';
 
 import { canonicalVideoSchema, type CanonicalVideo } from '../src/domain/content.ts';
 import { readCanonicalVideos } from '../scripts/canonical-store.ts';
+import { releaseGeneratedFiles } from '../scripts/validate-release-pr-scope.ts';
 import { validateVideoPrScopeFiles } from '../scripts/validate-video-pr-scope.ts';
 
 const root = process.cwd();
@@ -52,17 +53,25 @@ describe('手動動画更新運用', () => {
     expect(() => run('scripts/detect-video-candidates.ts', ['--input', input])).toThrow(/重複/u);
   });
 
-  it('通常の動画PRは正本1動画と生成物だけを許可する', () => {
+  it('通常の動画PRは正本1動画だけを許可し、公開生成物をmainマージ後へ分離する', () => {
     const allowed = validateVideoPrScopeFiles([
+      'content/videos/c9TnpjK3ZZE.json',
+      'content/content-manifest.json',
+      'reports/screenshots/detail-desktop.png',
+      'governance/reviews/CHG-20260808-video-c9TnpjK3ZZE.yaml',
+    ]);
+    expect(allowed.valid).toBe(true);
+    expect(validateVideoPrScopeFiles([
       'content/videos/c9TnpjK3ZZE.json',
       'content/content-manifest.json',
       'public/data/latest.json',
       'src/generated/release.ts',
       'docs/index.html',
-      'reports/screenshots/detail-desktop.png',
-      'governance/reviews/CHG-20260808-video-c9TnpjK3ZZE.yaml',
-    ]);
-    expect(allowed.valid).toBe(true);
+    ]).errors).toEqual(expect.arrayContaining([
+      '生成物はmainマージ後に自動更新します: public/data/latest.json',
+      '生成物はmainマージ後に自動更新します: src/generated/release.ts',
+      '生成物はmainマージ後に自動更新します: docs/index.html',
+    ]));
     expect(validateVideoPrScopeFiles(['content/videos/c9TnpjK3ZZE.json', 'content/videos/GoWhHtJmIbk.json']).valid).toBe(false);
     expect(validateVideoPrScopeFiles(['content/videos/c9TnpjK3ZZE.json', 'scripts/build-public-data.ts']).errors).toContain('保守PRへ分離してください: scripts/build-public-data.ts');
     expect(validateVideoPrScopeFiles([
@@ -74,6 +83,29 @@ describe('手動動画更新運用', () => {
       'content/videos/c9TnpjK3ZZE.json',
       'governance/checks/catalog.yaml',
     ]).errors).toContain('保守PRへ分離してください: governance/checks/catalog.yaml');
+  });
+
+  it('すべてのPRからrelease IDを含む配信用生成物だけを除外する', () => {
+    expect(releaseGeneratedFiles([
+      'content/videos/c9TnpjK3ZZE.json',
+      'docs/requirements/REQUIREMENTS.md',
+      'docs/design/generated/system.gen.md',
+      'public/data/latest.json',
+      'src/generated/release.ts',
+      'docs/data/latest.json',
+      'docs/assets/index-example.js',
+      'docs/index.html',
+      'docs/404.html',
+      'docs/.nojekyll',
+    ])).toEqual([
+      'public/data/latest.json',
+      'src/generated/release.ts',
+      'docs/data/latest.json',
+      'docs/assets/index-example.js',
+      'docs/index.html',
+      'docs/404.html',
+      'docs/.nojekyll',
+    ]);
   });
 
   it('PR本文へ外部入力を命令として展開せずMarkdownとHTMLを無害化する', () => {

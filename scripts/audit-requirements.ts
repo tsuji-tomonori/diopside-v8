@@ -27,7 +27,7 @@ const requirementSchema = z.object({
 const catalogSchema = z.object({
   schema_version: z.literal(1),
   catalog_revision: z.number().int().positive(),
-  requirements: z.array(requirementSchema).length(142),
+  requirements: z.array(requirementSchema).min(142),
 }).passthrough();
 
 const resultStatusSchema = z.enum(['未実施', '不合格', '合格']);
@@ -126,7 +126,8 @@ const ids = new Set<string>();
 const rows = catalog.requirements.map((requirement) => {
   const findings: string[] = [];
   const source = sourceByCanonicalId.get(requirement.id);
-  if (!source) findings.push('Issue要件ID対応なし');
+  const ownerDirective = requirement.source_refs.find((reference) => reference.startsWith('spec/sources/owner-directive-'));
+  if (!source && !ownerDirective) findings.push('Issue要件IDまたは所有者指示対応なし');
   if (ids.has(requirement.id)) findings.push('要件ID重複');
   ids.add(requirement.id);
   const tracePaths = [...requirement.traces.design, ...requirement.traces.implementation, ...requirement.traces.tests];
@@ -146,8 +147,8 @@ const rows = catalog.requirements.map((requirement) => {
     : undefined;
   return {
     id: requirement.id,
-    sourceId: source?.sourceId ?? '',
-    priority: source?.priority ?? '',
+    sourceId: source?.sourceId ?? ownerDirective ?? '',
+    priority: source?.priority ?? (ownerDirective ? '所有者指示' : ''),
     title: requirement.title,
     acceptanceCriteria: requirement.acceptance_criteria.map((criterion) => criterion.then).join(' / '),
     verification: requirement.verification.method,
