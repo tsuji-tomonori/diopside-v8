@@ -102,7 +102,7 @@ selected_checks:
       - test:tests/finalize_candidate_pr_merge_test.py
       - test:src/domain/validation.test.ts
       - test:tests/operations.test.ts
-    note: immutable manifest、原子的claim、失敗分離、旧stage移行、PR merge gate、legacy互換を直接検証した
+    note: immutable manifest、原子的claim、失敗分離、旧stage移行、PR merge gate、公開evidence参照正規化、legacy互換を直接検証した
   - id: FAST-005
     class: Risk-selected
     result: pass
@@ -219,4 +219,5 @@ selected_checks:
 advisories: []
 residual_risks:
   - legacyのfinalHumanCheck形式は既存公開データ互換のため受理を継続し、新規materializerだけをpull-request-merge gateへ限定する
+  - 動画追加後の公開件数はcontent manifestから導出し、内部cue参照は候補検証時に公開可能なdossier evidenceIdへ正規化する
   - batchはignoredな一時manifestで再開可能だが、予定実行・Actions AI・自動PR・自動merge・自動公開は行わないため、実行sessionの継続と各PRの人手mergeが必要である
