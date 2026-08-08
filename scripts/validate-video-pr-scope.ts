@@ -9,8 +9,10 @@ export interface VideoPrScopeResult {
 
 export function validateVideoPrScopeFiles(files: string[]): VideoPrScopeResult {
   const canonicalVideos = files.filter((file) => /^content\/videos\/[A-Za-z0-9_-]{11}\.json$/u.test(file));
+  const reviewFiles = files.filter((file) => /^governance\/reviews\/CHG-[A-Za-z0-9-]+\.yaml$/u.test(file));
   const forbidden = files.filter((file) => (
     /^(?:\.agents|\.github|scripts|src\/(?!generated\/)|content\/taxonomy|governance|operations|package(?:-lock)?\.json|vite\.config|playwright\.config)/u.test(file)
+    && !reviewFiles.includes(file)
   ));
   const allowed = files.filter((file) => (
     /^content\/videos\//u.test(file)
@@ -20,9 +22,11 @@ export function validateVideoPrScopeFiles(files: string[]): VideoPrScopeResult {
     || file === 'src/generated/release.ts'
     || /^docs\//u.test(file)
     || /^reports\/screenshots\//u.test(file)
+    || reviewFiles.includes(file)
   ));
   const errors = [
     ...(canonicalVideos.length === 1 ? [] : [`通常動画PRは正本動画1件だけが必要です（現在${canonicalVideos.length}件）。`]),
+    ...(reviewFiles.length === 1 ? [] : [`通常動画PRは選択チェック結果1件だけが必要です（現在${reviewFiles.length}件）。`]),
     ...forbidden.map((file) => `保守PRへ分離してください: ${file}`),
     ...files.filter((file) => !allowed.includes(file)).map((file) => `許可範囲外です: ${file}`),
   ];

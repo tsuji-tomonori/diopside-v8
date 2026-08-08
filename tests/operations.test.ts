@@ -60,10 +60,20 @@ describe('手動動画更新運用', () => {
       'src/generated/release.ts',
       'docs/index.html',
       'reports/screenshots/detail-desktop.png',
+      'governance/reviews/CHG-20260808-video-c9TnpjK3ZZE.yaml',
     ]);
     expect(allowed.valid).toBe(true);
     expect(validateVideoPrScopeFiles(['content/videos/c9TnpjK3ZZE.json', 'content/videos/GoWhHtJmIbk.json']).valid).toBe(false);
     expect(validateVideoPrScopeFiles(['content/videos/c9TnpjK3ZZE.json', 'scripts/build-public-data.ts']).errors).toContain('保守PRへ分離してください: scripts/build-public-data.ts');
+    expect(validateVideoPrScopeFiles([
+      'content/videos/c9TnpjK3ZZE.json',
+      'governance/reviews/CHG-one.yaml',
+      'governance/reviews/CHG-two.yaml',
+    ]).valid).toBe(false);
+    expect(validateVideoPrScopeFiles([
+      'content/videos/c9TnpjK3ZZE.json',
+      'governance/checks/catalog.yaml',
+    ]).errors).toContain('保守PRへ分離してください: governance/checks/catalog.yaml');
   });
 
   it('PR本文へ外部入力を命令として展開せずMarkdownとHTMLを無害化する', () => {
