@@ -20,7 +20,7 @@ impact_flags:
   typed_code_change: false
   behavior_change: true
   bug_fix: true
-  generated_change: false
+  generated_change: true
   sql_change: false
   e2e_change: false
   migration: false
@@ -59,7 +59,8 @@ selected_checks:
     evidence:
       - path:.agents/skills/generate-stream-timestamps/references/candidate-contract.md
       - path:.agents/skills/compose-stream-chapters/references/draft-contract.md
-    note: 一時cue参照と公開evidence参照の境界契約を明示する設計影響があり、コードから自明な局所契約のため生成設計・ADRは不要と判定した
+      - path:docs/design/generated/inventory.gen.json
+    note: 一時cue参照と公開evidence参照の境界契約を明示し、既存generatorで保守基底のinventoryを同期した。コードから自明な局所契約のためADRは不要と判定した
   - id: IMP-003
     class: Invariant
     result: pass
@@ -106,6 +107,13 @@ selected_checks:
     evidence:
       - test:tests/timestamp_tools_test.py
     note: cue参照を含むdraftが公開previewの未解決参照になる再現条件を回帰testへ固定した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: npm run generate:designで基底validatorのhashをinventoryへ決定的に同期し、build後driftを解消した
   - id: FAST-007
     class: Invariant
     result: pass
