@@ -26,6 +26,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "e6d0155d96d09f17195110a6686dc808752d2b89d6dbac2b40c3729a21ead366"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "公開日本語原文字幕を主体に不足区間を全編ローカルASRで補完（あらすじ確認用）",
+      "inputFingerprint": "0662f4494e07a260b882bd6373afc3e4a9be1c8d001070be582d347ed11cba29",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7726
     }
   ],
   "tagAssignments": [
@@ -253,6 +261,22 @@
     "reason": "資料不足",
     "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
     "updatedAt": "2026-08-04T12:00:00+09:00"
+  },
+  "synopsis": {
+    "body": "『崩壊：スターレイル』第52.5回。白雪巴がダリアのガチャに挑み、好みのポイントを熱く語りながらモーションをじっくり鑑賞。育成や遺物を相談し、新編成の操作感を試した後は、オンパロスの景色を巡ってダリアとの“デート”気分を存分に味わう。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ちょっとデートしてくるか。",
+      "atSeconds": 5821,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "0662f4494e07a260b882bd6373afc3e4a9be1c8d001070be582d347ed11cba29",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T18:22:06+09:00"
   },
   "provenance": {
     "inputFingerprint": "8c8464af866922912b4c0c655d9f9ba1fce622dcb6a81b3fe4bbac670cde7508",
