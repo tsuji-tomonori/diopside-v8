@@ -26,6 +26,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "909e30d42aaaa7cbb12b95741b5984320d615694571780313f284008c16b9dd9"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "公開日本語原文字幕を主体に不足区間を全編ローカルASRで補完（あらすじ確認用）",
+      "inputFingerprint": "85936a43483f58d2b3bd5377a2074531fcdc4baaab3bd2060c7f7738b38b303f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 21790
     }
   ],
   "tagAssignments": [
@@ -300,5 +308,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T12:00:00+09:00",
     "basis": "提供データの明示30件を全件移行し、時刻は既存承認済み23件だけを収録"
+  },
+  "synopsis": {
+    "body": "『SILENT HILL f』5周目後半。白雪巴が既プレイの記憶を頼りに町や新たな地域を巡り、過去周との台詞・演出の違いを丹念に確かめる。謎解きや戦闘を進めた後もプレイ記録から未確認箇所を洗い直し、人物の思いと物語全体をじっくり考察する。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "全然付き合うよ。6周目も7周目も。",
+      "atSeconds": 17404,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "85936a43483f58d2b3bd5377a2074531fcdc4baaab3bd2060c7f7738b38b303f",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T18:46:35+09:00"
   }
 }
