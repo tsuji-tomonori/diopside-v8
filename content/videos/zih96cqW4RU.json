@@ -26,6 +26,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "942c3195ef554eea84d8558dbbb4106a42391f2ae1b4d6e8897397ce236ef741"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "公開日本語原文字幕を主体に不足区間を全編ローカルASRで補完（あらすじ確認用）",
+      "inputFingerprint": "e0bb3e42a1e12df722526a491af31513e7a0a3fe585c5aa22fad08e43dec62eb",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10424
     }
   ],
   "tagAssignments": [
@@ -309,5 +317,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T12:00:00+09:00",
     "basis": "提供データの明示30件を全件移行し、時刻は既存承認済み23件だけを収録"
+  },
+  "synopsis": {
+    "body": "来栖夏芽と白雪巴が、魔法使いと子供を演じるストーリープレイング『魔法使いの愛した子』。個別の情報を読み込み、五日間の会話をほぼアドリブで紡いでいく。互いの言葉を受け止めながら役の心情に寄り添い、何度も迷い考える二人の物語体験。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私も大丈夫かなと思ったけど、なんか全然大丈夫だったね。",
+      "atSeconds": 10117,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "e0bb3e42a1e12df722526a491af31513e7a0a3fe585c5aa22fad08e43dec62eb",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T17:46:31+09:00"
   }
 }
