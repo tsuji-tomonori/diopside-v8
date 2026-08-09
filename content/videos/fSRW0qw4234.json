@@ -26,6 +26,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "223f9b0d5a0ae84da79db7a3c1449d2b81f67e4e7f894fb9750c4dac32d98871"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "公開日本語原文字幕を主体に不足区間を全編ローカルASRで補完（あらすじ確認用）",
+      "inputFingerprint": "b277ccee6fe4276536fda1954f2ac2d3295caea029ddaceee9f82d12db517f75",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 4865
     }
   ],
   "tagAssignments": [
@@ -282,5 +290,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T12:00:00+09:00",
     "basis": "提供データの明示30件を全件移行し、時刻は既存承認済み23件だけを収録"
+  },
+  "synopsis": {
+    "body": "4人がそろうまでウォームアップを重ね、合同練習試合へ。白雪巴は仲間と前後の役割や武器の持ち替えを相談し、声を掛け合って孤立や突っ込みすぎを修正する。試合後も生存意識を課題に挙げ、次の練習へ意欲をつなぐ。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "できることをやるのみです。",
+      "atSeconds": 4814,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "b277ccee6fe4276536fda1954f2ac2d3295caea029ddaceee9f82d12db517f75",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T19:11:00+09:00"
   }
 }
