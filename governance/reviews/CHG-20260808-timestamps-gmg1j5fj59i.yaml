@@ -82,7 +82,7 @@ selected_checks:
     result: pass
     evidence:
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
-    note: npm run buildで正本からreleaseとPages成果物を決定生成した
+    note: 最新mainを非破壊mergeし、npm run buildでmain正本とgMg1j5fj59IからreleaseとPages成果物を決定再生成した
   - id: FAST-002
     class: Invariant
     result: pass
@@ -109,7 +109,7 @@ selected_checks:
       - path:public/data/latest.json
       - path:src/generated/release.ts
       - path:docs/data/latest.json
-    note: npm run build後にverify:generatedを実行し、正本から生成したrelease-4e9681762f224f67とPages成果物のdriftがないことを確認した
+    note: npm run build後にverify:generatedを実行し、正本から生成したrelease-605443db4f6d80f3とPages成果物のdriftがないことを確認した
   - id: FAST-007
     class: Invariant
     result: pass
@@ -121,7 +121,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: 正本動画gMg1j5fj59Iの1件、manifest、そこからの決定生成物、本review YAMLだけに差分を限定した
+    note: origin/mainとの差分を正本動画gMg1j5fj59Iの1件、manifest、そこからの決定生成物、本review YAMLだけに限定した
   - id: REV-002
     class: Invariant
     result: pass
@@ -148,7 +148,7 @@ selected_checks:
       - test:tests/content-validation.test.ts
       - test:tests/generated.test.ts
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
-    note: 正本、生成物、型、review、1動画scopeを対象検証し、同じ品質workflowがPR HEADを検証する
+    note: origin/main基準で正本、生成物、型、review、1動画scopeを対象検証し、同じ品質workflowがPR HEADを検証する
   - id: REV-007
     class: Invariant
     result: pass
