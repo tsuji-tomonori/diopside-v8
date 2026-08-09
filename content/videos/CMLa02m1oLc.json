@@ -26,6 +26,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "c4005fa6a0ca8b663915b259b14074f329a3dafce4126f8763f5eff934f6eba8"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "公開日本語原文字幕を主体に不足区間を全編ローカルASRで補完（あらすじ確認用）",
+      "inputFingerprint": "192b132dcc6a1d51d1156275704beb24cb87e05542a4e5f6c69ed2a22ff38638",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 17267
     }
   ],
   "tagAssignments": [
@@ -327,5 +335,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T12:00:00+09:00",
     "basis": "提供データの明示30件を全件移行し、時刻は既存承認済み23件だけを収録"
+  },
+  "synopsis": {
+    "body": "にじイカ祭りへ向けたチーム3の初顔合わせ。白雪巴がメンバーと武器やギアを試し、塗り・生存・集合判断を相談しながら連戦する。全員で同じ武器を持つ実験や休憩中の雑談も挟み、明るい空気のまま役割とステージ別の動きを少しずつ整えていく。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "いいチームだ。楽しみだね。",
+      "atSeconds": 17200,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "192b132dcc6a1d51d1156275704beb24cb87e05542a4e5f6c69ed2a22ff38638",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T19:15:21+09:00"
   }
 }
