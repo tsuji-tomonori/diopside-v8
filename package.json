@@ -30,7 +30,7 @@
     "validate:requirements": "python .agents/skills/maintain-canonical-requirements/scripts/specflow.py validate && python .agents/skills/maintain-canonical-requirements/scripts/specflow.py check",
     "validate:review": "python governance/reviews/validate.py --root . --commit HEAD",
     "verify:generated": "node --experimental-strip-types scripts/verify-generated-source.ts",
-    "verify:local": "npm run typecheck && npm run lint && npm run lint:timestamp-tools && npm run test && npm run test:timestamp-tools && npm run validate:requirements && npm run validate:content && npm run validate:taxonomy-change && npm run validate:policy && npm run validate:review && npm run build",
+    "verify:local": "npm run verify:generated && npm run build && npm run typecheck && npm run lint && npm run lint:timestamp-tools && npm run test && npm run test:timestamp-tools && npm run validate:requirements && npm run validate:content && npm run validate:taxonomy-change && npm run validate:policy && npm run validate:review",
     "verify:quality": "npm run verify:local && npm run verify:generated && npm run test:e2e:run",
     "verify": "npm run verify:quality && npm run audit:requirements",
     "audit:requirements": "node --experimental-strip-types scripts/audit-requirements.ts",

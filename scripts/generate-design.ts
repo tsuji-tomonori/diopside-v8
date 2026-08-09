@@ -27,6 +27,7 @@ const requirements = JSON.parse(readFileSync(path.join(root, 'spec/requirements/
 const sources = ['src', 'scripts']
   .flatMap((directory) => walk(path.join(root, directory)))
   .filter((file) => /\.(?:ts|tsx)$/u.test(file))
+  .filter((file) => relative(file) !== 'src/generated/release.ts')
   .sort();
 const tests = walk(path.join(root, 'src')).concat(existsSync(path.join(root, 'e2e')) ? walk(path.join(root, 'e2e')) : [])
   .filter((file) => /(?:\.test\.[jt]sx?|\.spec\.[jt]s)$/u.test(file))
