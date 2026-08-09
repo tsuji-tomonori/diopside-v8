@@ -148,7 +148,7 @@ selected_checks:
       - test:tests/content-validation.test.ts
       - test:tests/generated.test.ts
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
-    note: origin/main基準で正本、生成物、型、review、1動画scopeを対象検証し、同じ品質workflowがPR HEADを検証する
+    note: origin/main基準で正本、生成物、型、review、1動画scopeを対象検証し、PR #51のbaseをmainへ変更後に同じ品質workflowで現在HEADを再検証する
   - id: REV-007
     class: Invariant
     result: pass
