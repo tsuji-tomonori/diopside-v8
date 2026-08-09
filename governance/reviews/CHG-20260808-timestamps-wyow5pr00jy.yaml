@@ -9,7 +9,7 @@ completed_timings:
   - implementation
   - pre-pr
 impact_flags:
-  external_write: false
+  external_write: true
   irreversible_operation: false
   auth_change: false
   data_change: true
@@ -33,7 +33,7 @@ impact_flags:
   important_ui_change: false
   long_term_decision: false
   squash: false
-  external_side_effect: false
+  external_side_effect: true
   production_deploy: false
   major_incident: false
   periodic_cycle: false
@@ -66,6 +66,12 @@ selected_checks:
     evidence:
       - path:content/videos/Wyow5Pr00JY.json
     note: 全編根拠と独立した事実・編集確認を経た公開候補を扱うためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 利用者が最新mainの非破壊merge、通常push、PR baseのmain変更、Draft維持を明示承認している
   - id: IMP-007
     class: Risk-selected
     result: pass
@@ -84,11 +90,11 @@ selected_checks:
     result: pass
     evidence:
       - path:content/content-manifest.json
-      - path:public/data/releases/release-f4f0e7713e0af9b6/manifest.json
+      - path:public/data/releases/release-890fc3b014525d36/manifest.json
       - path:src/generated/release.ts
       - path:docs/data/latest.json
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
-    note: 正本増分に合わせて作成済み動画数を1件、区間数を14件増やし、npm run buildでrelease-f4f0e7713e0af9b6のpublic・docs・埋込release IDを同一logicから決定生成した
+    note: 最新mainの1223作成済み動画・23018区間へWyow5Pr00JYの1動画・14区間を加え、npm run buildでrelease-890fc3b014525d36のpublic・docs・埋込release IDを同一logicから決定生成した
   - id: FAST-007
     class: Invariant
     result: pass
@@ -100,7 +106,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: 正本動画Wyow5Pr00JYの1件、件数manifest、その正本から決定生成したpublic・docs・release参照、本review YAMLだけに差分を限定した
+    note: origin/mainとの差分を正本動画Wyow5Pr00JYの1件、件数manifest、その正本から決定生成したpublic・docs・release参照、本review YAMLだけに限定した
   - id: REV-002
     class: Invariant
     result: pass
@@ -128,7 +134,7 @@ selected_checks:
       - path:scripts/validate-content.ts
       - path:tests/generated.test.ts
       - workflow:要件・品質ゲート#142要件の品質ゲートを実行
-    note: 正本全件検証、決定生成drift、generated test、1動画PR範囲検証をローカルで実行し、同じ検証を品質workflowがPR HEADへ実行する
+    note: 最新origin/main基準で正本全件検証、決定生成drift、generated test、1動画PR範囲検証を実行し、同じ検証を品質workflowがPR HEADへ実行する
   - id: REV-007
     class: Invariant
     result: pass
@@ -143,4 +149,4 @@ selected_checks:
     note: 未選択checkをN/Aとして登録していない
 advisories: []
 residual_risks:
-  - 人によるPRマージまではpublicationGateが未充足であり、この作業ではmerge・Pages deploy・公開を行わない
+  - PR baseをmainへ変更しても、人によるPRマージまではpublicationGateが未充足であり、この作業ではmerge・Pages deploy・公開を行わない
