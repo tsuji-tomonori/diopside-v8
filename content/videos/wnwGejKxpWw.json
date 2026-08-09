@@ -26,6 +26,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "53677ca1cf1196f795061367c7fad5751e896dbdcc698960b0431c254b2c2f45"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "公開日本語原文字幕を主体に不足区間を全編ローカルASRで補完（あらすじ確認用）",
+      "inputFingerprint": "df2f3d4c8281e2199c7d39a79d63bb9e637533e0f55d50489cbc206bed0059ef",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 17041
     }
   ],
   "tagAssignments": [
@@ -354,5 +362,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T12:00:00+09:00",
     "basis": "提供データの明示30件を全件移行し、時刻は既存承認済み23件だけを収録"
+  },
+  "synopsis": {
+    "body": "『都市伝説解体センター』第三話。白雪巴が正体不明のミステリーツアーへ潜入し、街の複数スポットで噂や仕掛けを検証する。参加者への聞き込みとSNS調査を行き来し、不穏な空気には率直に怯えつつ、散らばる情報を丁寧に拾って推理を進める。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "いやいや、怖くなるから考えるのやめよう。",
+      "atSeconds": 1248,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "df2f3d4c8281e2199c7d39a79d63bb9e637533e0f55d50489cbc206bed0059ef",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T17:17:02+09:00"
   }
 }
