@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "gL17LIJCzz0",
+  "title": "【Minecraft】にじ鯖で唯一！？雪の家をつくる！！！【白雪 巴/にじさんじ】",
+  "publishedAt": "2023-03-17T18:30:56Z",
+  "durationSeconds": 14051,
+  "durationIso": "PT3H54M11S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/gL17LIJCzz0/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=gL17LIJCzz0",
+  "taxonomyVersion": "8.1.0",
+  "aliasVersion": "8.1.0",
+  "tagRulesVersion": "8.1.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "6da92f6b069b8c9a44a90ddc1bfef8414bc389a962bba4d6192573c516dc61da"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "a2beec1190dab0badd6a6d2f35844aafdd50e0685f2b008693bd8e477502fffd"
+    },
+    {
+      "evidenceId": "evidence-approved-tags",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "旧diopsideの承認済みタグ正本",
+      "inputFingerprint": "a451480c6e52fdb1dc47c663d27837f47ce016863559dbbb303da10007c10318"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "2d4131d6ed3ec6d4c192a971df6bab1ca799bba0fb1e7dd975ace9318b9f8443",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 14051
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-5168a0f83814",
+      "reason": "公開タイトルまたは既存タグからゲーム作品「Minecraft」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-9796af29a119",
+      "reason": "既存分類と作品名からゲームジャンル「サンドボックス」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-1cc53dc4a37d",
+      "reason": "既存分類と作品名からゲームジャンル「ホラー」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "未作成",
+    "reason": "全編確認不足",
+    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "dcd55cbcfc2155030bd207f92d362d33326e9721ccb8dfbf7bca116de126f598",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "前日の続きから、参考動画を頼りに雪の家づくりを進める白雪巴。壁や屋根の形を確かめ、資材不足には採掘へ出かけ、白いガラスや階段を一段ずつ調整する。二階を露天温泉にするひらめきも加え、豆腐建築を脱する外観を目指して試行錯誤を重ねる。",
+    "featuredQuote": {
+      "text": "お待たせしました雪ブロックの出番です",
+      "atSeconds": 7173,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "2d4131d6ed3ec6d4c192a971df6bab1ca799bba0fb1e7dd975ace9318b9f8443",
+    "rulesVersion": "1.0.0",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "updatedAt": "2026-08-09T21:46:03+09:00"
+  }
+}
