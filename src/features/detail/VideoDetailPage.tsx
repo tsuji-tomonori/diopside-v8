@@ -56,6 +56,23 @@ export function VideoDetailPage(): React.JSX.Element {
           </div>
         </div>
 
+        {detail.synopsis ? (
+          <section className="detail-section synopsis-section" aria-labelledby="synopsis-heading">
+            <div className="section-heading">
+              <div><p className="eyebrow">動画を見る前のひとこと</p><h2 id="synopsis-heading">あらすじ</h2></div>
+              <p>最終更新: {formatDate(detail.synopsis.updatedAt)}</p>
+            </div>
+            <p className="synopsis-copy">{detail.synopsis.body}</p>
+            <blockquote className="featured-quote">
+              <p>「{detail.synopsis.featuredQuote.text}」</p>
+              <footer>
+                <span>巴さん、この配信のひとこと</span>
+                <a href={detail.synopsis.featuredQuote.youtubeUrl} target="_blank" rel="noreferrer">この場面から見る</a>
+              </footer>
+            </blockquote>
+          </section>
+        ) : null}
+
         <section className="detail-section" aria-labelledby="tags-heading">
           <div className="section-heading">
             <div><p className="eyebrow">diopsideが整理・確認した情報</p><h2 id="tags-heading">タグ</h2></div>

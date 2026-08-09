@@ -8,7 +8,7 @@
     },
     {
       "path": "scripts/build-public-data.ts",
-      "sha256": "226c322a8e640bafa6e82aba7e850da7cab5086cd601af660c011090243ef79c"
+      "sha256": "7f0dcd60a2feb41b77892cb3b29c169b21ca10dcf7ebe428044801f2f216d8f0"
     },
     {
       "path": "scripts/canonical-store.ts",
@@ -28,7 +28,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "4622eeb4ed4a5c294df79590350e7fa6b789f210d28fb26665f1186e96563418"
+      "sha256": "6250814d800aac9d61be00daf4b42434d3c8eb96e223135f09d936e1b5ac3bed"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -36,7 +36,7 @@
     },
     {
       "path": "scripts/import-legacy-content.ts",
-      "sha256": "e8a6ba1a69dcf72681d21c1b1421ea45d3182c11d81c122be4dd52bb71814c50"
+      "sha256": "a8cac2bcac44598641837bff72341ce8a842b482224dba55b7870dd6102d054f"
     },
     {
       "path": "scripts/import-reference-taxonomy.ts",
@@ -68,7 +68,7 @@
     },
     {
       "path": "scripts/validate-content.ts",
-      "sha256": "482c618d3be290d7955d7967f818ff8ef8a49ee6816d086fea9ede780bcc8763"
+      "sha256": "756e24d9d7f1812ad6df2ee49bad11bd7790ab1865d9ed42244e167e273465f7"
     },
     {
       "path": "scripts/validate-release-pr-scope.ts",
@@ -124,7 +124,7 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "1acc11f97dedca7b81c5de5db2b0b22f351ae42b054ba2b69c55dbf996e65ffb"
+      "sha256": "501066620f21b7c4369a890d38c7782045002ba4a1116d2089ba6aa43fd1c0f6"
     },
     {
       "path": "src/domain/search.test.ts",
@@ -136,15 +136,15 @@
     },
     {
       "path": "src/domain/validation.test.ts",
-      "sha256": "ac590c669c652f8943f38b3d318c23ae9e2363e62ee7c2d80d72862c504d8c04"
+      "sha256": "c2344311d2db59ddfd43d6ff3458dfbf7786ebf90f25ca5e77b60efa518d8431"
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "c75f95fa91a22f5acb054ed1546df131bc68e18aeb531e7a2b073c22e47d1115"
+      "sha256": "7b20183df7657a20382fa401feabbabc4914871b0f5efe2ca1cb862ef582c4b2"
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
-      "sha256": "3a9832646991655267086a08561e28c1def5b318f53949cea9b6640aaa6f8aa9"
+      "sha256": "04c3540097a2b9c742651379df95bcae0ae1d4bbd0198173b17d5b5f1d05f481"
     },
     {
       "path": "src/features/library/DeviceLibraryPage.tsx",
@@ -160,7 +160,7 @@
     },
     {
       "path": "src/generated/release.ts",
-      "sha256": "c35c76d294fe0143ef4b0163e7ccce7b6aa7763e94ae538cab49c2046fc03500"
+      "sha256": "5871e21130efd0fc3290e9a5d3c2e8deab5c7729381d3065129958aa1e6d6ed7"
     },
     {
       "path": "src/main.tsx",
@@ -511,6 +511,11 @@
     {
       "file": "src/domain/content.ts",
       "name": "searchIndexSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "synopsisSchema",
       "kind": "VariableStatement"
     },
     {

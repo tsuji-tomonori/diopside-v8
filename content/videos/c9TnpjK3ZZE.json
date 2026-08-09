@@ -26,6 +26,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "9a8ef554774135332589b419d1340e1c1c4fbe1d74c3f519d38e523397294acf"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開の日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "d3d4922eef8b93b6147d8f342ca11a340572fb45a8f7fd43da4b7d862c9b6171",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 13120
     }
   ],
   "tagAssignments": [
@@ -75,6 +83,18 @@
       "reviewedAt": "2026-08-04T12:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "『崩壊：スターレイル』オンパロス編の続きを、登場人物の言葉や記憶の手がかりを一つずつ拾いながら進行。物語への考察と愛あるリアクションを交え、長く追ってきたからこその期待が高まるシリーズ回。",
+    "bodyEvidenceRefs": ["evidence-synopsis-transcript"],
+    "featuredQuote": {
+      "text": "面白くなってきたし。終焉は近づいていってる。",
+      "atSeconds": 12412,
+      "evidenceRefs": ["evidence-synopsis-transcript"]
+    },
+    "inputFingerprint": "d3d4922eef8b93b6147d8f342ca11a340572fb45a8f7fd43da4b7d862c9b6171",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T11:37:12+09:00"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",

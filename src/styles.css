@@ -101,6 +101,11 @@ legend { font-weight: 800; margin-bottom: .4rem; }
 .section-heading { align-items: start; }
 .section-heading > p { color: var(--muted); font-size: .8rem; }
 .notice { padding: .8rem 1rem; background: #f7f3fb; border-left: 3px solid var(--lavender); }
+.synopsis-copy { max-width: 54rem; margin: 1.5rem 0; font-size: 1.05rem; line-height: 2; }
+.featured-quote { margin: 0; padding: 1.25rem 1.5rem; border-left: 4px solid var(--lavender); border-radius: 0 14px 14px 0; background: #f7f3fb; }
+.featured-quote p { margin: 0; font: 600 clamp(1.15rem, 2.5vw, 1.45rem)/1.7 Georgia, "Yu Mincho", serif; color: var(--lavender-dark); }
+.featured-quote footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem; padding: .75rem 0 0; border: 0; text-align: left; }
+.featured-quote a { min-height: 44px; display: inline-flex; align-items: center; color: var(--lavender-dark); }
 .detail-tag-group { margin-top: 1.25rem; }
 .detail-tag-group h3 { font-size: .88rem; color: var(--muted); }
 .detail-tags { display: flex; flex-wrap: wrap; gap: .55rem; }

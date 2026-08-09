@@ -51,11 +51,13 @@ describe('タグ・動画正本と公開境界', () => {
       assignmentCount: number;
       createdTimestampVideoCount: number;
       timestampItemCount: number;
+      createdSynopsisVideoCount: number;
     };
     expect(manifest.videoCount).toBe(videos.length);
     expect(manifest.assignmentCount).toBe(videos.reduce((sum, video) => sum + video.tagAssignments.length, 0));
     expect(manifest.createdTimestampVideoCount).toBe(createdTimestampVideos.length);
     expect(manifest.timestampItemCount).toBe(timestampItemCount);
+    expect(manifest.createdSynopsisVideoCount).toBe(videos.filter((video) => video.synopsis !== undefined).length);
   });
 
   it('旧正本のタグ1,175動画とタイムスタンプ1,207動画を指紋付きシャードから欠落なく読める', () => {

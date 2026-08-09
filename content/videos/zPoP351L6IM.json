@@ -26,6 +26,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "e3ad627c1ec97d0f0cfd727828983d7015e3fb9cb06d3fbf39d3047fbb38bffb"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開の日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "848ea6fba2e08f07962657d289bb3c8821ed8a7d1ccb5701940074976493daf0",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 14485
     }
   ],
   "tagAssignments": [
@@ -102,6 +110,18 @@
       "reviewedAt": "2026-08-04T12:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "夜見サンタから贈られた『Mouthwashing』を完全初見で実況。閉ざされた宇宙貨物船を進みながら、不穏な会話や次々と現れる謎に鋭く反応し、予想を何度も塗り替えられていく一夜。",
+    "bodyEvidenceRefs": ["evidence-synopsis-transcript"],
+    "featuredQuote": {
+      "text": "ちょっとハッピーエンドを浴びたいね。",
+      "atSeconds": 13174,
+      "evidenceRefs": ["evidence-synopsis-transcript"]
+    },
+    "inputFingerprint": "848ea6fba2e08f07962657d289bb3c8821ed8a7d1ccb5701940074976493daf0",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T11:37:12+09:00"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",

@@ -236,6 +236,17 @@ function toDetail(video: CanonicalVideo, currentReleaseId: string): PublicVideoD
     releaseId: currentReleaseId,
     taxonomyVersion: video.taxonomyVersion,
     tagsUpdatedAt: tagDates.at(-1) ?? contentManifest.generatedAt,
+    synopsis: video.synopsis
+      ? {
+          body: video.synopsis.body,
+          featuredQuote: {
+            text: video.synopsis.featuredQuote.text,
+            atSeconds: video.synopsis.featuredQuote.atSeconds,
+            youtubeUrl: `https://www.youtube.com/watch?v=${video.videoId}&t=${video.synopsis.featuredQuote.atSeconds}s`,
+          },
+          updatedAt: video.synopsis.updatedAt,
+        }
+      : undefined,
     timestamps,
     wordCloud,
     provenance: {

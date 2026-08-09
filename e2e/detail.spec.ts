@@ -28,7 +28,8 @@ test.describe('動画詳細', () => {
     await expect(page.locator('.unavailable strong').nth(0)).toContainText('未作成 — 全編確認不足');
     await expect(page.locator('.unavailable strong').nth(1)).toContainText('未作成 — 資料不足');
     await expect(page.getByRole('link', { name: 'YouTubeで見る' })).toHaveAttribute('href', 'https://www.youtube.com/watch?v=7keH8yrqabc');
-    await expect(page.getByText(/最終更新:/u)).toHaveCount(3);
+    const synopsisCount = await page.getByRole('heading', { name: 'あらすじ' }).count();
+    await expect(page.getByText(/最終更新:/u)).toHaveCount(synopsisCount === 1 ? 4 : 3);
     expect(requests.some((url) => url.includes('youtube.com'))).toBe(false);
     expectOnlyAllowedRequests(requests);
     await expectNoSeriousAccessibilityViolations(page);
@@ -45,6 +46,20 @@ test.describe('動画詳細', () => {
     await expect(links.nth(1)).toHaveAttribute('href', `https://www.youtube.com/watch?v=${videoId}&t=221s`);
     await expect(page.getByText('未作成 — 資料不足')).toBeVisible();
     await capture(page, testInfo, 'デスクトップ', 'detail-desktop.jpg');
+  });
+
+  test('ネタバレを避けたあらすじと末尾の特徴的なセリフを表示する', async ({ page }) => {
+    await preparePage(page);
+    const videoId = 'ewtbVStzFUc';
+    await page.goto(`/diopside-v8/#/video/${videoId}`);
+    await expect(page.getByRole('heading', { name: 'あらすじ' })).toBeVisible();
+    await expect(page.locator('.synopsis-copy')).toContainText('新作グラコロと限定ソース');
+    await expect(page.locator('.featured-quote')).toContainText('これ明日も食べたいね。');
+    await expect(page.getByRole('link', { name: 'この場面から見る' })).toHaveAttribute(
+      'href',
+      `https://www.youtube.com/watch?v=${videoId}&t=651s`,
+    );
+    await expectNoSeriousAccessibilityViolations(page);
   });
 
   test('承認済みワードクラウドを20語以上で描画する', async ({ page }) => {
