@@ -26,6 +26,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "0a649d6c8b4b5b3faa0a572c5a28023dab25f397dd6ac2a591e1386743491012"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "公開日本語原文字幕を主体に不足区間を全編ローカルASRで補完（あらすじ確認用）",
+      "inputFingerprint": "57372a2c9d048d585627567334919e8cca418b8aa4ff6ce23e5d3fcd309741ab",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8429
     }
   ],
   "tagAssignments": [
@@ -327,5 +335,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T12:00:00+09:00",
     "basis": "提供データの明示30件を全件移行し、時刻は既存承認済み23件だけを収録"
+  },
+  "synopsis": {
+    "body": "『崩壊：スターレイル』オンパロス編第53回。白雪巴が開拓クエストを再開し、長い時をたどる記憶劇にじっくり向き合う。海底の舞台では時を操る仕掛けを試し、探索や戦闘を進行。人物たちの言葉に驚き、涙し、時折ユーモアを拾いながら未来への道を探す。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "俺たち開拓者。頑張ろう。",
+      "atSeconds": 8333,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "57372a2c9d048d585627567334919e8cca418b8aa4ff6ce23e5d3fcd309741ab",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T16:55:23+09:00"
   }
 }
