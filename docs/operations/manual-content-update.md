@@ -10,7 +10,7 @@
 2. 候補が0件なら終了する。生成物、ブランチ、プルリクエストを作らない。
 3. 通常更新では候補を1動画だけ選ぶ。タグ体系、規則、スキル、構造、検証、画面、依存、Pagesの変更は別の保守変更へ分ける。
 4. タグ、タイムスタンプ、ワードクラウドを `.agents/skills/curate-video-content/SKILL.md` に従って作成する。生の字幕、文字起こし、コメント、チャット、投稿者識別子は一時利用に限り、Git、確認本文、Pagesへ残さない。
-5. `npm run verify` を実行する。一つでも失敗したらプルリクエストを作らない。
+5. `npm run verify` を実行する。一つでも失敗したらプルリクエストを作らない。検証中に作られる `public/data`、`src/generated/release.ts`、`docs` の差分は確認用であり、プルリクエストへ含めない。
 6. 更新時刻一覧は理由JSONとともに `scripts/diff-timestamps.ts` で比較し、追加・削除・移動・改名をすべて説明する。
 7. `npm run candidate:pr-body -- --video content/videos/<videoId>.json --output /tmp/diopside-pr.md` で日本語の確認本文を生成する。
 8. `npm run validate:video-pr-scope -- --base origin/main` で1動画範囲を確認し、モバイル・デスクトップの画面を添付してプルリクエストを作る。
@@ -18,4 +18,4 @@
 
 ## 公開と復元
 
-候補ブランチは公開元にしない。人がマージした `main/docs` だけをGitHub Pagesのbranch方式で配信する。誤りは対象コミットの取り消し、または修正プルリクエストで直し、`npm run build` で直前の正本と同じ公開版を再生成する。履歴を書き換えるforce pushは使わない。
+候補ブランチは公開元にしない。人が正本プルリクエストをmainへマージし、そのcommitの品質ゲートが合格すると、`.github/workflows/update-generated-release.yml` が内容ハッシュrelease IDと静的成果物を生成・検証し、差分がある場合だけmainへrelease commitする。その後、独自deploy artifactを使わず、`main/docs` のbranch方式Pages buildを要求する。後続のmain更新を検出した古い実行はcommitせず、後続commitの品質ゲートへ委ねる。誤りは対象正本commitの取り消し、または修正プルリクエストで直し、直前の正本と同じ公開版を再生成する。履歴を書き換えるforce pushは使わない。

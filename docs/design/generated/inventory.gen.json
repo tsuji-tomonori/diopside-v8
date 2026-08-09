@@ -4,7 +4,7 @@
   "sourceDigests": [
     {
       "path": "scripts/audit-requirements.ts",
-      "sha256": "03efec726a6dfaac33e32305e445ae94ecee6de13f067aad009fd2b5a561fab3"
+      "sha256": "07771536c9010cfd7cb9d8f615adb89798c32d7f6cafc1d4d7c8b61dd88e6476"
     },
     {
       "path": "scripts/build-public-data.ts",
@@ -24,15 +24,15 @@
     },
     {
       "path": "scripts/generate-design.ts",
-      "sha256": "2ffed59a7a74e80083c263dba7cf77e766645aa1454a6dbc83d8791e875bab24"
+      "sha256": "710e647037128631db471306b1b80f4c6ab4bfacf929efe409c732cecc660c64"
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "1cbca948948a7726c0d17bb599ff78d5c6dc8ff48255c737f4d07de9327b27c5"
+      "sha256": "6250814d800aac9d61be00daf4b42434d3c8eb96e223135f09d936e1b5ac3bed"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
-      "sha256": "16c0ec3eba3560303b8763903687c2c407212843e15bfcb4047fa68caf1ae324"
+      "sha256": "aabe94784567a34968dbdeefc04bf727ba331a80017e12f3ea31919bb25bd98f"
     },
     {
       "path": "scripts/import-legacy-content.ts",
@@ -71,16 +71,24 @@
       "sha256": "756e24d9d7f1812ad6df2ee49bad11bd7790ab1865d9ed42244e167e273465f7"
     },
     {
+      "path": "scripts/validate-release-pr-scope.ts",
+      "sha256": "1e516bfb28e137132f6b32303551fc28de7053c3836bae2bf72e02e7c6f95a6c"
+    },
+    {
       "path": "scripts/validate-taxonomy-change.ts",
       "sha256": "d3e3c0ebad8d39b70f703c696b1bcff3beed849a1e436e8d1a5de2437c0904b8"
     },
     {
       "path": "scripts/validate-video-pr-scope.ts",
-      "sha256": "1dbc71d4dffb939ddfbc6735188b6c3b3f56e623404a9bc34c2a3d2ed234eb3d"
+      "sha256": "b369d7c2ceba0fda408decf0de8fa42525b1c19cdcc308895a46a023566c48e4"
+    },
+    {
+      "path": "scripts/verify-generated-source.ts",
+      "sha256": "28bc3ff7a8b2e5d9e5359a652ec6b0b973b4851575aa3591d9faa21e86924bee"
     },
     {
       "path": "scripts/verify-repository-policy.ts",
-      "sha256": "7132f52037f9be3dbc460f5a2926bd2ef286f70881d2a97ed404b9dcd7dc455e"
+      "sha256": "e82d281748723ce720fa46a4aceecaf403acf367675717b432081e4b9af864d2"
     },
     {
       "path": "src/App.tsx",
@@ -116,7 +124,7 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "034003853fffd6b5a5a50706043924c1806e4057a5d851fdf8593d0505363280"
+      "sha256": "501066620f21b7c4369a890d38c7782045002ba4a1116d2089ba6aa43fd1c0f6"
     },
     {
       "path": "src/domain/search.test.ts",
@@ -128,11 +136,11 @@
     },
     {
       "path": "src/domain/validation.test.ts",
-      "sha256": "6624e8863269ab5b72fd08db734850cc1a5765587982011b771273e9e12e54e5"
+      "sha256": "c2344311d2db59ddfd43d6ff3458dfbf7786ebf90f25ca5e77b60efa518d8431"
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "aed1bd5e1c87124b4f37ad02ce421352f028f726c157555343cf6188b8384029"
+      "sha256": "7b20183df7657a20382fa401feabbabc4914871b0f5efe2ca1cb862ef582c4b2"
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
@@ -152,7 +160,7 @@
     },
     {
       "path": "src/generated/release.ts",
-      "sha256": "c4a907a10d5758e0a87b877f137d58339e76b2e9647ccf2472312ae25c25ef9a"
+      "sha256": "5871e21130efd0fc3290e9a5d3c2e8deab5c7729381d3065129958aa1e6d6ed7"
     },
     {
       "path": "src/main.tsx",
@@ -268,6 +276,11 @@
     {
       "file": "scripts/source-shards.ts",
       "name": "writeSourceShards",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/validate-release-pr-scope.ts",
+      "name": "releaseGeneratedFiles",
       "kind": "FunctionDeclaration"
     },
     {
@@ -422,6 +435,11 @@
     },
     {
       "file": "src/domain/content.ts",
+      "name": "legacyIndependentReviewSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
       "name": "PublicAliasIndex",
       "kind": "TypeAliasDeclaration"
     },
@@ -478,6 +496,11 @@
     {
       "file": "src/domain/content.ts",
       "name": "publicVideoSummarySchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "pullRequestMergeIndependentReviewSchema",
       "kind": "VariableStatement"
     },
     {
