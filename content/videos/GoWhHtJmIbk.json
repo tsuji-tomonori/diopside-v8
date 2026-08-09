@@ -20,6 +20,14 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "提供されたv2タグ監査済みスナップショット",
       "inputFingerprint": "5bfb7bc3b85aae7b5792517a61a3fa1d69dff154073cd0cebe8d1234773424e1"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "公開日本語原文字幕を主体に不足区間を全編ローカルASRで補完（あらすじ確認用）",
+      "inputFingerprint": "2f2b19ff8a9931a72aa1314c1e93c2e520966580885a5c963b1be0db4989445e",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 14771
     }
   ],
   "tagAssignments": [
@@ -162,6 +170,22 @@
     "reason": "資料不足",
     "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
     "updatedAt": "2026-08-04T12:00:00+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が手作りのバスク風チーズケーキと一杯を用意し、誕生日を祝う長編雑談。節目に挑んだ長時間配信を振り返り、活動を支えてくれた人々への感謝を語る。最近のAIとの付き合い方や好きな作品、天然疑惑まで話題が広がり、笑いと労いに包まれる夜。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "うまいっすね。幸せ。",
+      "atSeconds": 2132,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "2f2b19ff8a9931a72aa1314c1e93c2e520966580885a5c963b1be0db4989445e",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T16:21:04+09:00"
   },
   "provenance": {
     "inputFingerprint": "8f828be13c336bdd2ebe9ac9116ac9b480b1869f6879d5cc8e3351572a0d4e6e",
