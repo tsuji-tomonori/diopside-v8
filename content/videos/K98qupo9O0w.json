@@ -253,6 +253,34 @@
     "generatedAt": "2026-08-08T16:18:27+09:00",
     "updatedAt": "2026-08-09T07:52:55+00:00",
     "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "71bd67e536b7f3c0745e284735fb35986441dd98cb90610294dd9bea72053fbb",
+        "majorIssues": 0,
+        "reviewedAt": "2026-08-09T07:52:55+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "71bd67e536b7f3c0745e284735fb35986441dd98cb90610294dd9bea72053fbb",
+        "majorIssues": 0,
+        "reviewedAt": "2026-08-09T07:52:55+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
       "publicationGate": {
         "mode": "pull-request-merge",
         "candidateHash": "71bd67e536b7f3c0745e284735fb35986441dd98cb90610294dd9bea72053fbb",
@@ -276,33 +304,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-09T19:00:00+09:00",
     "basis": "全編根拠、独立した事実・編集確認、決定的検証"
-  },
-  "factCheck": {
-    "status": "合格",
-    "candidateHash": "71bd67e536b7f3c0745e284735fb35986441dd98cb90610294dd9bea72053fbb",
-    "majorIssues": 0,
-    "reviewedAt": "2026-08-09T16:50:29+09:00",
-    "checks": {
-      "evidenceRoute": true,
-      "evidenceReferences": true,
-      "boundaryContext": true,
-      "labelSupport": true,
-      "evidenceConflicts": true
-    },
-    "route": "全編根拠による生成"
-  },
-  "editorialCheck": {
-    "status": "合格",
-    "candidateHash": "71bd67e536b7f3c0745e284735fb35986441dd98cb90610294dd9bea72053fbb",
-    "majorIssues": 0,
-    "reviewedAt": "2026-08-09T16:50:29+09:00",
-    "checks": {
-      "navigationValue": true,
-      "overSegmentation": true,
-      "underSegmentation": true,
-      "labelConsistency": true,
-      "spoilerSafety": true
-    },
-    "factCheckResultWasHidden": true
   }
 }
