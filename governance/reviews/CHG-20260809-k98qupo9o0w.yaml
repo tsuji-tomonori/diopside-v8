@@ -1,7 +1,7 @@
 schema_version: 2
 catalog_version: 3
 catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
-change_id: CHG-20260809-K98qupo9O0w
+change_id: CHG-20260809-k98qupo9o0w
 profile: assured
 source_ref: self
 completed_timings: [impact, implementation, pre-pr]
@@ -16,7 +16,7 @@ impact_flags:
   code_change: false
   typed_code_change: false
   behavior_change: true
-  bug_fix: false
+  bug_fix: true
   generated_change: true
   sql_change: false
   e2e_change: false
@@ -70,13 +70,18 @@ selected_checks:
   - id: FAST-004
     class: Invariant
     result: pass
-    evidence: [path:scripts/validate-content.ts, workflow:要件・品質ゲート#142要件の品質ゲートを実行]
+    evidence: [path:scripts/validate-content.ts, workflow:要件・品質ゲート]
     note: 正本schema、境界、公開根拠参照、独立review hash、PR公開gateを検証する
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/videos/K98qupo9O0w.json, path:content/content-manifest.json]
+    note: review三項目の欠落とmanifest件数不一致の再現条件を対象正本と全件content validationで固定した
   - id: FAST-006
     class: Invariant
     result: pass
     evidence: [path:content/content-manifest.json]
-    note: 作成済み動画数を1件、区間数を18件増やし、公開・docs生成物を決定的に再生成する
+    note: manifestの動画総数・作成済み動画数・区間数を正本全件と再照合し、18区間を決定的に生成できることを確認した
   - id: FAST-007
     class: Invariant
     result: pass
@@ -110,12 +115,12 @@ selected_checks:
   - id: REV-007
     class: Invariant
     result: pass
-    evidence: [path:governance/reviews/CHG-20260809-K98qupo9O0w.yaml]
+    evidence: [path:governance/reviews/CHG-20260809-k98qupo9o0w.yaml]
     note: 選択したcheckだけを本review YAMLへ保存した
   - id: REV-008
     class: Invariant
     result: pass
-    evidence: [path:governance/reviews/CHG-20260809-K98qupo9O0w.yaml]
+    evidence: [path:governance/reviews/CHG-20260809-k98qupo9o0w.yaml]
     note: 未選択checkをN/Aとして登録していない
 advisories: []
 residual_risks:
