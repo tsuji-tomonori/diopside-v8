@@ -4,7 +4,7 @@
   "sourceDigests": [
     {
       "path": "scripts/audit-requirements.ts",
-      "sha256": "4734abfbd92b3243555b8b5eab45a6376bc4e93977fc6185281bfa958b7ed8a5"
+      "sha256": "07771536c9010cfd7cb9d8f615adb89798c32d7f6cafc1d4d7c8b61dd88e6476"
     },
     {
       "path": "scripts/build-public-data.ts",
@@ -24,11 +24,11 @@
     },
     {
       "path": "scripts/generate-design.ts",
-      "sha256": "2ffed59a7a74e80083c263dba7cf77e766645aa1454a6dbc83d8791e875bab24"
+      "sha256": "710e647037128631db471306b1b80f4c6ab4bfacf929efe409c732cecc660c64"
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "9cc3b307a730bf42170619aa0f082956e4488b518e45472273ab40eed4a4a8f3"
+      "sha256": "4622eeb4ed4a5c294df79590350e7fa6b789f210d28fb26665f1186e96563418"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -71,16 +71,24 @@
       "sha256": "482c618d3be290d7955d7967f818ff8ef8a49ee6816d086fea9ede780bcc8763"
     },
     {
+      "path": "scripts/validate-release-pr-scope.ts",
+      "sha256": "1e516bfb28e137132f6b32303551fc28de7053c3836bae2bf72e02e7c6f95a6c"
+    },
+    {
       "path": "scripts/validate-taxonomy-change.ts",
       "sha256": "d3e3c0ebad8d39b70f703c696b1bcff3beed849a1e436e8d1a5de2437c0904b8"
     },
     {
       "path": "scripts/validate-video-pr-scope.ts",
-      "sha256": "1dbc71d4dffb939ddfbc6735188b6c3b3f56e623404a9bc34c2a3d2ed234eb3d"
+      "sha256": "b369d7c2ceba0fda408decf0de8fa42525b1c19cdcc308895a46a023566c48e4"
+    },
+    {
+      "path": "scripts/verify-generated-source.ts",
+      "sha256": "28bc3ff7a8b2e5d9e5359a652ec6b0b973b4851575aa3591d9faa21e86924bee"
     },
     {
       "path": "scripts/verify-repository-policy.ts",
-      "sha256": "7132f52037f9be3dbc460f5a2926bd2ef286f70881d2a97ed404b9dcd7dc455e"
+      "sha256": "e82d281748723ce720fa46a4aceecaf403acf367675717b432081e4b9af864d2"
     },
     {
       "path": "src/App.tsx",
@@ -268,6 +276,11 @@
     {
       "file": "scripts/source-shards.ts",
       "name": "writeSourceShards",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/validate-release-pr-scope.ts",
+      "name": "releaseGeneratedFiles",
       "kind": "FunctionDeclaration"
     },
     {

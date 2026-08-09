@@ -2000,7 +2000,7 @@
     },
     {
       "id": "V8-OPS-003",
-      "revision": 2,
+      "revision": 3,
       "status": "active",
       "scope": "project",
       "category": "nonfunctional",
@@ -2013,14 +2013,15 @@
       "source_refs": [
         "Issue #1 V8-運用-003",
         "user:2026-08-03",
-        "owner-directive:2026-08-04"
+        "owner-directive:2026-08-04",
+        "spec/sources/owner-directive-2026-08-08-post-merge-release.md"
       ],
       "acceptance_criteria": [
         {
           "id": "AC-V8-OPS-003-1",
           "given": "V8-運用-003の前提を満たす公開データまたは操作がある",
           "when": "リポジトリ静的確認・手順試験",
-          "then": "`.github/workflows` に予定実行と独自公開処理が存在しない。人が開始する `workflow_dispatch` は、読取専用の検証と候補検出に限定される。"
+          "then": "`.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。人が開始する `workflow_dispatch` は読取専用の検証と候補検出に限定し、静的成果物生成は検証済みmainだけを入力とする。"
         }
       ],
       "verification": {
@@ -2036,7 +2037,8 @@
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
           "scripts/build-public-data.ts",
-          ".github/workflows/manual-content-operation.yml"
+          ".github/workflows/manual-content-operation.yml",
+          ".github/workflows/update-generated-release.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2047,7 +2049,7 @@
           "dev-standard default profile"
         ]
       },
-      "last_changed_by": "OWNER-DIRECTIVE-2026-08-04"
+      "last_changed_by": "OWNER-DIRECTIVE-2026-08-08-POST-MERGE-RELEASE"
     },
     {
       "id": "V8-OPS-004",
@@ -2207,7 +2209,7 @@
     },
     {
       "id": "V8-OPS-007",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "project",
       "category": "nonfunctional",
@@ -2215,18 +2217,19 @@
       "title": "通常の動画追加プルリクエストは、1動画だけを内容確認の対象としなければならない",
       "subject": "diopside v8の運用",
       "action": "satisfy",
-      "object": "通常の動画追加プルリクエストは、1動画だけを内容確認の対象としなければならない。",
+      "object": "通常の動画追加プルリクエストは、正本動画データを1件だけ変更対象とし、公開用のrelease ID、版付きJSON、画面bundle、`main/docs`を含めてはならない。静的公開成果物は人が当該プルリクエストをmainへマージした後に生成しなければならない。",
       "rationale": "候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。",
       "source_refs": [
         "Issue #1 V8-運用-007",
-        "user:2026-08-03"
+        "user:2026-08-03",
+        "spec/sources/owner-directive-2026-08-08-post-merge-release.md"
       ],
       "acceptance_criteria": [
         {
           "id": "AC-V8-OPS-007-1",
           "given": "V8-運用-007の前提を満たす公開データまたは操作がある",
           "when": "変更範囲試験",
-          "then": "1件の正本動画データと、それから決定的に生成される索引・詳細・ワードクラウド・確認報告だけを変更する。"
+          "then": "1件の正本動画データと、その正本件数・更新日時を持つmanifestおよび確認用資料だけを変更し、release ID、版付き公開JSON、画面bundle、`main/docs`を差分に含めない。"
         }
       ],
       "verification": {
@@ -2241,7 +2244,10 @@
         "implementation": [
           "scripts/detect-video-candidates.ts",
           "scripts/validate-content.ts",
-          "scripts/build-public-data.ts"
+          "scripts/build-public-data.ts",
+          "scripts/validate-video-pr-scope.ts",
+          "scripts/validate-release-pr-scope.ts",
+          ".github/workflows/update-generated-release.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2252,7 +2258,7 @@
           "dev-standard default profile"
         ]
       },
-      "last_changed_by": "ISSUE-1-IMPLEMENTATION"
+      "last_changed_by": "OWNER-DIRECTIVE-2026-08-08-POST-MERGE-RELEASE"
     },
     {
       "id": "V8-OPS-008",
@@ -6855,6 +6861,64 @@
         ]
       },
       "last_changed_by": "ISSUE-1-IMPLEMENTATION"
+    },
+    {
+      "id": "V8-OPS-017",
+      "revision": 1,
+      "status": "active",
+      "scope": "project",
+      "category": "nonfunctional",
+      "type": "operational",
+      "title": "静的公開成果物は、検証済みmainマージ後にだけ自動生成してrelease commitしなければならない",
+      "subject": "diopside v8の運用",
+      "action": "satisfy",
+      "object": "release ID、版付き公開JSON、画面bundle、`main/docs`は、mainの品質ゲートに合格した人承認済み正本から決定的に生成し、差分がある場合だけmainへrelease commitしなければならない。生成中にmainが更新された場合は古い結果をcommitしてはならない。",
+      "rationale": "内容レビュー対象の正本と機械生成される公開版を分離し、通常プルリクエストごとの全公開物差分とrelease ID競合をなくしながら、人のマージ承認後だけ一貫した静的版を公開するため。",
+      "source_refs": [
+        "spec/sources/owner-directive-2026-08-08-post-merge-release.md",
+        "user:2026-08-08"
+      ],
+      "acceptance_criteria": [
+        {
+          "id": "AC-V8-OPS-017-1",
+          "given": "人が正本変更をmainへマージし、そのmain commitの品質ゲートが合格した",
+          "when": "post-merge生成workflow契約試験",
+          "then": "同じ検証済みcommitから静的成果物を生成・検証し、後続main更新がなく生成差分がある場合だけrelease commitする。"
+        },
+        {
+          "id": "AC-V8-OPS-017-2",
+          "given": "release commitがmainへ追加された",
+          "when": "Pages公開経路試験",
+          "then": "独自deploy artifactを使わず、既存のmain/docs branch方式Pages buildを要求する。"
+        }
+      ],
+      "verification": {
+        "method": "post-merge生成workflow契約試験・Pages公開経路試験",
+        "evidence": "tests/repository-policy.test.ts, tests/operations.test.ts, tests/generated.test.ts"
+      },
+      "traces": {
+        "design": [
+          "docs/decisions/ADR-0001-zero-cost-static-pages.md",
+          "docs/design/generated/system.gen.md"
+        ],
+        "implementation": [
+          ".github/workflows/update-generated-release.yml",
+          "scripts/build-public-data.ts",
+          "scripts/validate-video-pr-scope.ts",
+          "scripts/validate-release-pr-scope.ts",
+          "scripts/verify-generated-source.ts"
+        ],
+        "tests": [
+          "tests/repository-policy.test.ts",
+          "tests/operations.test.ts",
+          "tests/generated.test.ts"
+        ],
+        "standards": [
+          "spec/sources/owner-directive-2026-08-08-post-merge-release.md",
+          "dev-standard default profile"
+        ]
+      },
+      "last_changed_by": "CHG-20260808-post-merge-release"
     }
   ]
 }

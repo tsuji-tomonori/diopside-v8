@@ -13,15 +13,29 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(output).toContain('外部動的API・認証・追跡・有料基盤0件');
   });
 
-  it('CIはPR・main push・手動だけで検証し、AI・定期生成・Pages公開を行わない', () => {
+  it('CIはPR・main push・手動だけで検証し、AI・予定実行・独自Pages deployを行わない', () => {
     const workflow = text('.github/workflows/verify.yml');
     expect(workflow).toMatch(/pull_request:/u);
     expect(workflow).toMatch(/push:[\s\S]*- main/u);
     expect(workflow).toMatch(/workflow_dispatch:/u);
     expect(workflow).toMatch(/runs-on: ubuntu-latest/u);
     expect(workflow).toMatch(/permissions:\s*\n\s+contents: read/u);
+    expect(workflow).toMatch(/validate:release-pr-scope/u);
     expect(workflow).not.toMatch(/(?:schedule:|cron:|openai|codex|chatgpt|deploy-pages|upload-pages-artifact|configure-pages)/iu);
     expect(workflow).not.toMatch(/actions\/(?:upload-artifact|cache)@/iu);
+  });
+
+  it('検証済みmainだけが公開版を生成commitし、branch方式Pagesを更新する', () => {
+    const workflow = text('.github/workflows/update-generated-release.yml');
+    expect(workflow).toMatch(/push:[\s\S]*branches:[\s\S]*- main/u);
+    expect(workflow).toMatch(/permissions:[\s\S]*contents: write[\s\S]*pages: write/u);
+    expect(workflow).toMatch(/ref: \$\{\{ github\.sha \}\}/u);
+    expect(workflow).toMatch(/run: npm run verify:quality/u);
+    expect(workflow).toMatch(/git status --porcelain -- spec\/requirements docs\/requirements docs\/design\/generated/u);
+    expect(workflow).toMatch(/git add -- docs public\/data src\/generated\/release\.ts/u);
+    expect(workflow).toMatch(/git push origin HEAD:main/u);
+    expect(workflow).toMatch(/gh api --method POST "repos\/\$\{GITHUB_REPOSITORY\}\/pages\/builds"/u);
+    expect(workflow).not.toMatch(/(?:pull_request:|workflow_run:|workflow_dispatch:|schedule:|cron:|openai|codex|chatgpt|deploy-pages|upload-pages-artifact|configure-pages)/iu);
   });
 
   it('手動運用は明示起動・読取専用・候補0件時無出力で、予定実行や公開処理を持たない', () => {
@@ -46,6 +60,8 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
       customDomain: null,
       httpsEnforced: true,
       repositoryDeploymentWorkflow: false,
+      postMergeGenerationWorkflow: true,
+      pagesBuildRequestAfterGeneratedCommit: true,
     });
   });
 

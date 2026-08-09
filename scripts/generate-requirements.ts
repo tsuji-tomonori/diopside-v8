@@ -291,11 +291,25 @@ const requirements = sourceRequirements.map((item) => {
     requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-08-TIMESTAMP-BATCH';
   }
   if (id === 'V8-OPS-003') {
-    requirement.revision = 2;
-    requirement.source_refs.push('owner-directive:2026-08-04');
-    requirement.acceptance_criteria[0]!.then = '`.github/workflows` に予定実行と独自公開処理が存在しない。人が開始する `workflow_dispatch` は、読取専用の検証と候補検出に限定される。';
+    requirement.revision = 3;
+    requirement.source_refs.push('owner-directive:2026-08-04', 'spec/sources/owner-directive-2026-08-08-post-merge-release.md');
+    requirement.acceptance_criteria[0]!.then = '`.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。人が開始する `workflow_dispatch` は読取専用の検証と候補検出に限定し、静的成果物生成は検証済みmainだけを入力とする。';
     requirement.traces.implementation.push('.github/workflows/manual-content-operation.yml');
-    requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-04';
+    requirement.traces.implementation = [...requirement.traces.implementation, '.github/workflows/update-generated-release.yml'];
+    requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-08-POST-MERGE-RELEASE';
+  }
+  if (id === 'V8-OPS-007') {
+    requirement.revision = 2;
+    requirement.object = '通常の動画追加プルリクエストは、正本動画データを1件だけ変更対象とし、公開用のrelease ID、版付きJSON、画面bundle、`main/docs`を含めてはならない。静的公開成果物は人が当該プルリクエストをmainへマージした後に生成しなければならない。';
+    requirement.source_refs.push('spec/sources/owner-directive-2026-08-08-post-merge-release.md');
+    requirement.acceptance_criteria[0]!.then = '1件の正本動画データと、その正本件数・更新日時を持つmanifestおよび確認用資料だけを変更し、release ID、版付き公開JSON、画面bundle、`main/docs`を差分に含めない。';
+    requirement.traces.implementation = [
+      ...requirement.traces.implementation,
+      'scripts/validate-video-pr-scope.ts',
+      'scripts/validate-release-pr-scope.ts',
+      '.github/workflows/update-generated-release.yml',
+    ];
+    requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-08-POST-MERGE-RELEASE';
   }
   if (id === 'V8-SEARCH-008') {
     requirement.revision = 2;
@@ -397,13 +411,56 @@ const requirements = sourceRequirements.map((item) => {
   return requirement;
 });
 
+const ownerDirectiveRequirements = [
+  {
+    id: 'V8-OPS-017',
+    revision: 1,
+    status: 'active',
+    scope: 'project',
+    category: 'nonfunctional',
+    type: 'operational',
+    title: '静的公開成果物は、検証済みmainマージ後にだけ自動生成してrelease commitしなければならない',
+    subject: 'diopside v8の運用',
+    action: 'satisfy',
+    object: 'release ID、版付き公開JSON、画面bundle、`main/docs`は、mainの品質ゲートに合格した人承認済み正本から決定的に生成し、差分がある場合だけmainへrelease commitしなければならない。生成中にmainが更新された場合は古い結果をcommitしてはならない。',
+    rationale: '内容レビュー対象の正本と機械生成される公開版を分離し、通常プルリクエストごとの全公開物差分とrelease ID競合をなくしながら、人のマージ承認後だけ一貫した静的版を公開するため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-08-post-merge-release.md', 'user:2026-08-08'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-OPS-017-1',
+        given: '人が正本変更をmainへマージし、そのmain commitの品質ゲートが合格した',
+        when: 'post-merge生成workflow契約試験',
+        then: '同じ検証済みcommitから静的成果物を生成・検証し、後続main更新がなく生成差分がある場合だけrelease commitする。',
+      },
+      {
+        id: 'AC-V8-OPS-017-2',
+        given: 'release commitがmainへ追加された',
+        when: 'Pages公開経路試験',
+        then: '独自deploy artifactを使わず、既存のmain/docs branch方式Pages buildを要求する。',
+      },
+    ],
+    verification: {
+      method: 'post-merge生成workflow契約試験・Pages公開経路試験',
+      evidence: 'tests/repository-policy.test.ts, tests/operations.test.ts, tests/generated.test.ts',
+    },
+    traces: {
+      design: ['docs/decisions/ADR-0001-zero-cost-static-pages.md', 'docs/design/generated/system.gen.md'],
+      implementation: ['.github/workflows/update-generated-release.yml', 'scripts/build-public-data.ts', 'scripts/validate-video-pr-scope.ts', 'scripts/validate-release-pr-scope.ts', 'scripts/verify-generated-source.ts'],
+      tests: ['tests/repository-policy.test.ts', 'tests/operations.test.ts', 'tests/generated.test.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-08-post-merge-release.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260808-post-merge-release',
+  },
+];
+const canonicalRequirements = [...requirements, ...ownerDirectiveRequirements];
+
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
   catalog_revision: 4,
   product: 'diopside v8',
   updated_at: '2026-08-08',
-  requirements,
+  requirements: canonicalRequirements,
 }, null, 2)}\n`);
 writeFileSync(mapPath, `${JSON.stringify({
   schemaVersion: 1,
@@ -416,4 +473,4 @@ writeFileSync(mapPath, `${JSON.stringify({
   })),
 }, null, 2)}\n`);
 
-console.log(`Issue #1から${requirements.length}件の要件正本を生成しました。`);
+console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length}件の要件正本を生成しました。`);
