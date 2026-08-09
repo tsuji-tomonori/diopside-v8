@@ -36,6 +36,8 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: 公開版を生成して検証
         run: npm run verify:quality
+      - name: 検証スクリーンショットの一時差分を破棄
+        run: git restore -- reports/screenshots
       - name: 生成差分をcommit
         id: commit
         env:
