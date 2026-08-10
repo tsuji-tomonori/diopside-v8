@@ -20,7 +20,7 @@ impact_flags:
   typed_code_change: true
   behavior_change: true
   bug_fix: true
-  generated_change: false
+  generated_change: true
   sql_change: false
   e2e_change: false
   migration: false
@@ -59,8 +59,9 @@ selected_checks:
     result: pass
     evidence:
       - path:docs/decisions/ADR-0001-zero-cost-static-pages.md
+      - path:docs/design/generated/inventory.gen.json
       - path:.github/workflows/update-generated-release.yml
-    note: Pages buildの起動方法とworkflow最小権限という恒久運用構成を実測に合わせて更新するため設計影響ありと判定した
+    note: Pages buildの起動方法とworkflow最小権限をADRへ反映し、変更スクリプトの生成inventoryも更新するため設計影響ありと判定した
   - id: IMP-003
     class: Invariant
     result: pass
@@ -108,6 +109,14 @@ selected_checks:
       - test:tests/repository-policy.test.ts
       - workflow:mainマージ後の静的成果物更新
     note: 同一SHAの明示API buildがcancelとなりbranch buildが成功した再現条件を、pages writeとpages/buildsの再導入拒否として固定した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - path:scripts/generate-design.ts
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: design generatorで変更スクリプトのSHAをinventoryへ反映し、verify:generatedのdrift検査へ接続した
   - id: FAST-007
     class: Invariant
     result: pass
@@ -147,7 +156,8 @@ selected_checks:
     result: pass
     evidence:
       - path:docs/decisions/ADR-0001-zero-cost-static-pages.md
-    note: GitHub上の実測で誤りと判明した起動仮定と、明示APIを採用しない理由を既存ADRへ反映した
+      - path:docs/design/generated/inventory.gen.json
+    note: GitHub上の実測で誤りと判明した起動仮定を既存ADRへ、実装由来のSHAを生成inventoryへ反映した
   - id: REV-006
     class: Invariant
     result: pass
