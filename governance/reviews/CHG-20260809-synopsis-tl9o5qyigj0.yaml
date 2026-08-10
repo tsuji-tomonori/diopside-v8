@@ -17,7 +17,7 @@ selected_checks:
   - {id: FAST-007, class: Invariant, result: pass, evidence: ["commit:self"], note: "生字幕・transcript・音声・comments/chat・投稿者識別子を含めない"}
   - {id: REV-001, class: Invariant, result: pass, evidence: ["commit:self"], note: "正本動画はTL9o5qyigJ0の1件のみ"}
   - {id: REV-002, class: Invariant, result: pass, evidence: ["commit:self"], note: "Commit Commentに契約を記録"}
-  - {id: REV-003, class: Invariant, result: pass, evidence: ["path:content/videos/TL9o5qyigJ0.json"], note: "V8-DISPLAY-011の受入条件を満たす"}
+  - {id: REV-003, class: Invariant, result: pass, evidence: ["path:content/videos/TL9o5qyigJ0.json"], note: "本文122文字、公開ja-orig字幕の827秒で本人引用原文と一致し、V8-DISPLAY-011を満たす"}
   - {id: REV-004, class: Invariant, result: pass, evidence: ["commit:self"], note: "schema・taxonomy・UIに影響なし"}
   - {id: REV-006, class: Invariant, result: pass, evidence: ["test:tests/content-validation.test.ts"], note: "既存CI契約で検証"}
   - {id: REV-007, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260809-synopsis-tl9o5qyigj0.yaml"], note: "選択checkのみ保存"}
@@ -25,4 +25,3 @@ selected_checks:
 advisories: []
 residual_risks:
   - 公開された旅行テーマと体験談だけを記載し、宿泊・移動・同行者等の私的具体情報を正本へ含めない
-  - 親系列CIの既存監査不整合 V8-DISPLAY-011 Issue要件ID対応なしは通常動画PRの範囲外
