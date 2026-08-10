@@ -28,13 +28,13 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
   it('検証済みmainだけが公開版を生成commitし、branch方式Pagesを更新する', () => {
     const workflow = text('.github/workflows/update-generated-release.yml');
     expect(workflow).toMatch(/push:[\s\S]*branches:[\s\S]*- main/u);
-    expect(workflow).toMatch(/permissions:[\s\S]*contents: write[\s\S]*pages: write/u);
+    expect(workflow).toMatch(/permissions:\s*\n\s+contents: write/u);
     expect(workflow).toMatch(/ref: \$\{\{ github\.sha \}\}/u);
     expect(workflow).toMatch(/run: npm run verify:quality/u);
     expect(workflow).toMatch(/git status --porcelain -- spec\/requirements docs\/requirements docs\/design\/generated/u);
     expect(workflow).toMatch(/git add -- docs public\/data src\/generated\/release\.ts/u);
     expect(workflow).toMatch(/git push origin HEAD:main/u);
-    expect(workflow).toMatch(/gh api --method POST "repos\/\$\{GITHUB_REPOSITORY\}\/pages\/builds"/u);
+    expect(workflow).not.toMatch(/(?:pages: write|pages\/builds)/u);
     expect(workflow).not.toMatch(/(?:pull_request:|workflow_run:|workflow_dispatch:|schedule:|cron:|openai|codex|chatgpt|deploy-pages|upload-pages-artifact|configure-pages)/iu);
   });
 
@@ -61,7 +61,8 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
       httpsEnforced: true,
       repositoryDeploymentWorkflow: false,
       postMergeGenerationWorkflow: true,
-      pagesBuildRequestAfterGeneratedCommit: true,
+      pagesBuildTriggeredByGeneratedCommit: true,
+      explicitPagesBuildRequest: false,
     });
   });
 

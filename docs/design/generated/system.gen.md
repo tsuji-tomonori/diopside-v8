@@ -156,7 +156,6 @@
 | `src/format.ts` | FunctionDeclaration | `formatDate` |
 | `src/format.ts` | FunctionDeclaration | `formatDuration` |
 | `src/format.ts` | FunctionDeclaration | `formatTimestamp` |
-| `src/generated/release.ts` | VariableStatement | `embeddedReleaseId` |
 
 ## 自動試験
 
@@ -170,4 +169,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力41ファイル、公開契約114件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力40ファイル、公開契約113件です。

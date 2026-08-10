@@ -18,4 +18,4 @@
 
 ## 公開と復元
 
-候補ブランチは公開元にしない。人が正本プルリクエストをmainへマージし、そのcommitの品質ゲートが合格すると、`.github/workflows/update-generated-release.yml` が内容ハッシュrelease IDと静的成果物を生成・検証し、差分がある場合だけmainへrelease commitする。その後、独自deploy artifactを使わず、`main/docs` のbranch方式Pages buildを要求する。後続のmain更新を検出した古い実行はcommitせず、後続commitの品質ゲートへ委ねる。誤りは対象正本commitの取り消し、または修正プルリクエストで直し、直前の正本と同じ公開版を再生成する。履歴を書き換えるforce pushは使わない。
+候補ブランチは公開元にしない。人が正本プルリクエストをmainへマージし、そのcommitの品質ゲートが合格すると、`.github/workflows/update-generated-release.yml` が内容ハッシュrelease IDと静的成果物を生成・検証し、差分がある場合だけmainへrelease commitする。その `main/docs` 更新により既存のbranch方式Pages buildが起動する。重複実行を避けるためPages build APIは明示呼出しせず、独自deploy artifactも使わない。後続のmain更新を検出した古い実行はcommitせず、後続commitの品質ゲートへ委ねる。誤りは対象正本commitの取り消し、または修正プルリクエストで直し、直前の正本と同じ公開版を再生成する。履歴を書き換えるforce pushは使わない。
