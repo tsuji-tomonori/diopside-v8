@@ -1,0 +1,125 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260809-timestamps-sunltkm
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: false
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:content/videos/SUnltKMbnOE.json]
+    note: 全編字幕と独立fact・editorial reviewに合格した1動画を正本化し、要件正本は変更しない
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 既存schemaの1動画正本と件数manifestだけを更新し、生成設計・ADR・公開契約を変更しない
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:content/videos/SUnltKMbnOE.json]
+    note: 全編根拠と独立fact・editorial review済み候補のためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: commit・push・Draft PR作成のみ明示承認され、merge/publicationは行わない
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/videos/SUnltKMbnOE.json]
+    note: 1動画の正本overrideとmanifest更新のみで、revert可能な差分である
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/validate-content.ts]
+    note: 正本schema、境界、公開根拠参照、独立review hashを検証する
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:content/content-manifest.json]
+    note: 1動画・6タグ・15区間をmanifestへ反映する
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 生字幕、transcript、内部map、review原本、秘密情報を差分へ含めない
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: SUnltKMbnOEの1動画正本、manifest、本review YAMLだけに差分を限定する
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、review path、検証契約、残存リスクを記載する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:content/videos/SUnltKMbnOE.json]
+    note: 全編根拠・独立二重reviewと1動画1PR境界を満たす
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 既存schemaの局所的追加で生成設計・ADRは不要と判定した
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/validate-content.ts]
+    note: 正本全件検証と1動画PR範囲検証を実行する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260809-timestamps-sunltkm.yaml]
+    note: 選択したcheckだけを保存する
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260809-timestamps-sunltkm.yaml]
+    note: 未選択checkをN/Aとして登録しない
+advisories: []
+residual_risks:
+  - 人によるPRマージ完了まではpublicationGateが未充足である
+  - 公開生成物はmain merge後に既存の決定的generatorが更新する
