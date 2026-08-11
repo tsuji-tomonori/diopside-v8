@@ -5,12 +5,15 @@ import json
 import os
 import subprocess
 import tempfile
+import tomllib
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / ".agents/skills/run-timestamp-work-harness/scripts/harness.py"
 CHAT_SCRIPT = ROOT / ".agents/skills/run-timestamp-work-harness/scripts/download_live_chat.py"
+CODEX_CONFIG = ROOT / ".codex/config.toml"
+LUNA_AGENT = ROOT / ".codex/agents/timestamp-luna-worker.toml"
 VIDEO_ID = "eGjLBN2fsQc"
 HEADERS = [
     "動画ID", "タイトル", "チャンネルID", "チャンネル名", "公開日時", "動画長（秒）",
@@ -155,9 +158,70 @@ class TimestampHarnessTest(unittest.TestCase):
             'invoke_codex(video_id, "compose"',
             'invoke_codex(video_id, "fact"',
             'invoke_codex(video_id, "editorial"',
+            '"--model"',
+            'LUNA_WORKER_MODEL',
             "fact_review.jsonを読まず",
         ):
             self.assertIn(expected, source)
+
+    def test_project_config_pins_one_sol_parent_and_ten_luna_children(self) -> None:
+        config = tomllib.loads(CODEX_CONFIG.read_text(encoding="utf-8"))
+        self.assertEqual(config["model"], "gpt-5.6-sol")
+        self.assertEqual(config["agents"]["max_concurrent_threads_per_session"], 10)
+        self.assertEqual(config["agents"]["default_subagent_model"], "gpt-5.6-luna")
+        self.assertEqual(config["agents"]["default_subagent_reasoning_effort"], "medium")
+        luna = tomllib.loads(LUNA_AGENT.read_text(encoding="utf-8"))
+        self.assertEqual(luna["model"], "gpt-5.6-luna")
+        self.assertEqual(luna["model_reasoning_effort"], "medium")
+        self.assertIn("Never claim another video", luna["developer_instructions"])
+
+    def test_sol_plans_ten_disjoint_luna_lanes(self) -> None:
+        eligible_ids = [
+            "eGjLBN2fsQc", "GTO-h9V9b-k", "Wyow5Pr00JY", "Ere2MCeKhM4",
+            "RV2EkC05e-E", "o4IYcb4K3hk", "T7hnGVszU1w", "xl2GERMJw0o",
+            "erFpaeF7P70", "dvx0FcUFbyw", "iu29BCf8G1E", "ovOLJ7ZM9qY",
+        ]
+        snapshot = self.snapshot([self.row(video_id) for video_id in eligible_ids])
+        planned = self.invoke(
+            "plan-luna-wave",
+            "campaign-one",
+            "--snapshot",
+            str(snapshot),
+            "--base-ref",
+            "HEAD",
+        )
+        self.assertEqual(planned["orchestratorModel"], "gpt-5.6-sol")
+        self.assertEqual(planned["workerModel"], "gpt-5.6-luna")
+        self.assertEqual(planned["requestedPoolSize"], 10)
+        self.assertEqual(planned["wave"], 1)
+        self.assertEqual(planned["activeLanes"], 10)
+        self.assertEqual(len(planned["lanes"]), 10)
+        first_wave_ids = [lane["claimActions"][0]["videoId"] for lane in planned["lanes"]]
+        self.assertEqual(first_wave_ids, eligible_ids[:10])
+        all_actions = [
+            action["videoId"]
+            for lane in planned["lanes"]
+            for action in lane["claimActions"]
+        ]
+        self.assertEqual(len(all_actions), len(set(all_actions)))
+        self.assertTrue(all(lane["model"] == "gpt-5.6-luna" for lane in planned["lanes"]))
+
+        second = self.invoke(
+            "plan-luna-wave",
+            "campaign-one",
+            "--wave",
+            "2",
+            "--snapshot",
+            str(snapshot),
+            "--base-ref",
+            "HEAD",
+        )
+        self.assertEqual(second["wave"], 2)
+        self.assertTrue(
+            set(lane["batchId"] for lane in planned["lanes"]).isdisjoint(
+                lane["batchId"] for lane in second["lanes"]
+            )
+        )
 
     def test_distributed_claim_is_a_connector_compare_and_set_plan(self) -> None:
         snapshot = self.snapshot([self.row()])
@@ -210,6 +274,35 @@ class TimestampHarnessTest(unittest.TestCase):
             "materialize", "batch-early-materialize", VIDEO_ID, success=False
         )
         self.assertIn("全編根拠と独立確認", str(failed["stderr"]))
+
+    def test_distributed_worker_cannot_materialize_without_sol_review(self) -> None:
+        snapshot = self.snapshot([self.row()])
+        self.invoke("init", "batch-sol-gate", "--snapshot", str(snapshot), "--video-id", VIDEO_ID)
+        item_path = self.run_root / f"batch-sol-gate/items/{VIDEO_ID}.json"
+        item = json.loads(item_path.read_text(encoding="utf-8"))
+        item.update(
+            {
+                "stage": "ready_for_materialization",
+                "candidateHash": "a" * 64,
+                "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/123",
+                "claim": {"workerId": "luna-01-test"},
+            }
+        )
+        item_path.write_text(json.dumps(item, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        failed = self.invoke("materialize", "batch-sol-gate", VIDEO_ID, success=False)
+        self.assertIn("gpt-5.6-sol", str(failed["stderr"]))
+
+        mismatch = self.invoke(
+            "record-sol-review",
+            "batch-sol-gate",
+            VIDEO_ID,
+            "--candidate-hash",
+            "b" * 64,
+            "--reviewer-model",
+            "gpt-5.6-sol",
+            success=False,
+        )
+        self.assertIn("candidate hash", str(mismatch["stderr"]))
 
     def test_live_chat_reduction_keeps_no_text_or_identity(self) -> None:
         spec = importlib.util.spec_from_file_location("download_live_chat_test", CHAT_SCRIPT)

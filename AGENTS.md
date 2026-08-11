@@ -31,6 +31,7 @@
 - 動画更新は人がChatGPT／Codex画面から開始する。1回の明示要求で有限の適格タイムスタンプ対象集合を固定し、動画ごとの追加チャット承認を挟まず、全対象を1動画1PRのレビュー可能状態または理由付きの処理不能状態まで進める。1件の失敗を理由に他の対象を止めない。
 - ChatGPT Workのタイムスタンプ一括処理は`run-timestamp-work-harness`を入口にし、台帳snapshotのPython確認、公開素材の一時取得、独立`codex exec`判断、決定的検証、1動画draft PRのcommit・push、競合検知付き台帳更新と再読確認までを同じ有限batchで完了する。mergeと公開は人が行う。
 - ChatGPT Workを2〜20セッションで分散実行する場合、各workerは1動画だけを扱い、動画IDの大文字小文字を保持したremote branchのGitHub connectorによるref作成を原子的claimにする。競合したworkerは次候補へ進み、claim marker直後に処理中draft PRを作る。branchのforce update・削除・stale claimの自動奪取を行わない。
+- ChatGPT Workを1セッションで並列実行する場合、親をGPT-5.6 Sol、子workerをGPT-5.6 Luna mediumの10レーンとして構成する。利用可能な同時threadが10未満なら10レーンを波状実行する。Lunaは1動画の一時素材・候補・一次確認だけを扱い、GitHub・Google Sheetsへ書き込まない。親Solだけが各候補を最終確認し、branch・draft PR・commit・台帳を確定する。
 - ActionsからAI/APIを呼ばず、予定実行、従量課金API、独自Pages deploy Actions、自動マージを追加しない。検証済みのmainマージ後に限り、正本から静的成果物を決定生成してmainへcommitし、既存のbranch方式Pages buildを要求できる。
 - 通常の動画追加は1動画1PRとし、タグ体系、スキル、検証、画面、Pages設定の変更を同梱しない。各PRを人がマージする操作を、その動画の公開承認とする。
 - 生の字幕、コメント、チャット、投稿者識別子、秘密情報をGitまたは公開成果物へ保存しない。
