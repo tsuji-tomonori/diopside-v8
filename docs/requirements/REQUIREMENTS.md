@@ -1,7 +1,7 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 8
+- カタログ版: 9
 - 更新日: 2026-08-11
 - 正本: `spec/requirements/requirements.json`
 
@@ -156,6 +156,7 @@
 | `V8-OPS-020` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ハーネスは合格した各動画について1動画branchをcommit・pushしてdraft PRを作成し、実在PR URLを正本候補へ記録して最終commitをpushした後、PR URL・commit SHA・レビュー待ち状態を対象台帳行へ反映して再読確認しなければならない。処理不能動画も安全な理由と再開条件を台帳へ反映し、行指紋が変わった場合は上書きしてはならない。を**satisfy** | 1動画PR scope・PR URL gate・行指紋競合・exact range write・更新後再読試験 |
 | `V8-OPS-021` | 1 | 有効 | 運用 | diopside v8の分散タイムスタンプ運用は、2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchをGitHub connectorで原子的にref作成して未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者はclaim markerと処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。を**satisfy** | connector compare-and-set plan・1動画worker・余剰worker no-op・exact-case branch・認証分離契約試験 |
 | `V8-OPS-022` | 1 | 有効 | 運用 | diopside v8のタイムスタンプオーケストレーションは、1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行い、親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。利用可能な同時threadが10未満でも10論理レーンを波状実行しなければならない。を**satisfy** | agent設定・10レーン計画・Lunaモデル固定・Sol最終確認gate・共有書込み境界試験 |
+| `V8-OPS-023` | 1 | 有効 | 運用 | diopside v8の新規動画探索・タイムスタンプ運用は、人がChatGPT Workから新規動画探索を開始した場合、親GPT-5.6 SolとGPT-5.6 Luna mediumの10論理探索レーンで本人公式チャンネルおよび出演根拠を確認できる外部公式チャンネルの有限期間を調べ、重複を除いた候補について親Solが出演・対象・除外・既存タグを最終確認し、競合検知付きで対象台帳へ追記した後、適格動画を1動画draft PRと既存タイムスタンプLuna処理へ引き渡さなければならない。を**satisfy** | 10探索レーン・モデル固定・重複縮約・出演gate・Sol hash・台帳append競合・seed・timestamp handoff契約試験 |
 
 ## V8-SEARCH-001: 文字検索は、承認済み動画の動画タイトルだけを検索対象としなければならない
 
@@ -2405,3 +2406,20 @@ diopside v8のタイムスタンプオーケストレーションは、1つのCh
 要求源: spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md, user:2026-08-11
 検証証跡: tests/timestamp_harness_test.py
 トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.codex/config.toml,.codex/agents/timestamp-luna-worker.toml,.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md,dev-standard default profile
+
+## V8-OPS-023: 新規動画探索は1 Sol・10 Lunaで実行しSol確認後に台帳と1動画PRへ引き渡さなければならない
+
+diopside v8の新規動画探索・タイムスタンプ運用は、人がChatGPT Workから新規動画探索を開始した場合、親GPT-5.6 SolとGPT-5.6 Luna mediumの10論理探索レーンで本人公式チャンネルおよび出演根拠を確認できる外部公式チャンネルの有限期間を調べ、重複を除いた候補について親Solが出演・対象・除外・既存タグを最終確認し、競合検知付きで対象台帳へ追記した後、適格動画を1動画draft PRと既存タイムスタンプLuna処理へ引き渡さなければならない。を**satisfy**。
+
+根拠: 本人チャンネル外を含む新しい公開アーカイブの見落としと誤出演判定を減らし、探索だけで停止せず、人がレビューできるタイムスタンプ候補と進捗台帳まで一回の明示要求で再開可能に進めるため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-023-1` 前提: 新規公開動画を調べる有限期間と対象動画台帳の完全snapshotがある。条件: 親Solが新規動画探索waveを計画する。期待結果: 10論理レーンをGPT-5.6 Luna mediumへ固定し、本人公式、ライブ履歴、外部公式、共演者、番組・イベント、表記揺れ、Wiki照合を分担し、物理thread不足時も同じ10レーンを波状実行する。。
+- `AC-V8-OPS-023-2` 前提: 10探索レーンから重複を除いた新規候補が返った。条件: 候補を台帳または正本処理へ進める。期待結果: 親GPT-5.6 Solが本人または動画固有の公式出演根拠、公開状態、動画種別、長さ、既存タグ、候補hashを確認し、タイトル・検索結果・Wikiだけで外部出演を確定せず、台帳基準hashが変わった場合は追記しない。。
+- `AC-V8-OPS-023-3` 前提: Solが新規候補をタイムスタンプ対象として確認し台帳追記を再読検証した。条件: 候補を正本候補へ引き渡す。期待結果: 親Solだけがexact-case branch、処理中draft PR、安全な1動画seedを作り、既存timestamp-luna-workerの全編根拠・独立確認・決定的検証とSol最終確認を経た同じ1動画PRおよび同じ台帳行へ完了または安全な処理不能を記録する。。
+
+要求源: spec/sources/owner-directive-2026-08-11-new-video-sol-luna.md, user:2026-08-11
+検証証跡: tests/new_video_work_harness_test.py, tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-new-video-work-harness/references/workflow.md; 実装=.codex/agents/video-discovery-luna-worker.toml,.agents/skills/run-new-video-work-harness/scripts/discovery_harness.py,.agents/skills/run-new-video-work-harness/SKILL.md,.agents/skills/run-timestamp-work-harness/scripts/harness.py; テスト=tests/new_video_work_harness_test.py,tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-new-video-sol-luna.md,dev-standard default profile

@@ -683,13 +683,55 @@ const timestampHarnessRequirements = [
     },
     last_changed_by: 'CHG-20260811-sol-luna-orchestration',
   },
+  {
+    id: 'V8-OPS-023',
+    revision: 1,
+    status: 'active',
+    scope: 'project',
+    category: 'nonfunctional',
+    type: 'operational',
+    title: '新規動画探索は1 Sol・10 Lunaで実行しSol確認後に台帳と1動画PRへ引き渡さなければならない',
+    subject: 'diopside v8の新規動画探索・タイムスタンプ運用',
+    action: 'satisfy',
+    object: '人がChatGPT Workから新規動画探索を開始した場合、親GPT-5.6 SolとGPT-5.6 Luna mediumの10論理探索レーンで本人公式チャンネルおよび出演根拠を確認できる外部公式チャンネルの有限期間を調べ、重複を除いた候補について親Solが出演・対象・除外・既存タグを最終確認し、競合検知付きで対象台帳へ追記した後、適格動画を1動画draft PRと既存タイムスタンプLuna処理へ引き渡さなければならない。',
+    rationale: '本人チャンネル外を含む新しい公開アーカイブの見落としと誤出演判定を減らし、探索だけで停止せず、人がレビューできるタイムスタンプ候補と進捗台帳まで一回の明示要求で再開可能に進めるため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-11-new-video-sol-luna.md', 'user:2026-08-11'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-OPS-023-1',
+        given: '新規公開動画を調べる有限期間と対象動画台帳の完全snapshotがある',
+        when: '親Solが新規動画探索waveを計画する',
+        then: '10論理レーンをGPT-5.6 Luna mediumへ固定し、本人公式、ライブ履歴、外部公式、共演者、番組・イベント、表記揺れ、Wiki照合を分担し、物理thread不足時も同じ10レーンを波状実行する。',
+      },
+      {
+        id: 'AC-V8-OPS-023-2',
+        given: '10探索レーンから重複を除いた新規候補が返った',
+        when: '候補を台帳または正本処理へ進める',
+        then: '親GPT-5.6 Solが本人または動画固有の公式出演根拠、公開状態、動画種別、長さ、既存タグ、候補hashを確認し、タイトル・検索結果・Wikiだけで外部出演を確定せず、台帳基準hashが変わった場合は追記しない。',
+      },
+      {
+        id: 'AC-V8-OPS-023-3',
+        given: 'Solが新規候補をタイムスタンプ対象として確認し台帳追記を再読検証した',
+        when: '候補を正本候補へ引き渡す',
+        then: '親Solだけがexact-case branch、処理中draft PR、安全な1動画seedを作り、既存timestamp-luna-workerの全編根拠・独立確認・決定的検証とSol最終確認を経た同じ1動画PRおよび同じ台帳行へ完了または安全な処理不能を記録する。',
+      },
+    ],
+    verification: { method: '10探索レーン・モデル固定・重複縮約・出演gate・Sol hash・台帳append競合・seed・timestamp handoff契約試験', evidence: 'tests/new_video_work_harness_test.py, tests/timestamp_harness_test.py' },
+    traces: {
+      design: ['docs/design/generated/system.gen.md', '.agents/skills/run-new-video-work-harness/references/workflow.md'],
+      implementation: ['.codex/agents/video-discovery-luna-worker.toml', '.agents/skills/run-new-video-work-harness/scripts/discovery_harness.py', '.agents/skills/run-new-video-work-harness/SKILL.md', '.agents/skills/run-timestamp-work-harness/scripts/harness.py'],
+      tests: ['tests/new_video_work_harness_test.py', 'tests/timestamp_harness_test.py'],
+      standards: ['spec/sources/owner-directive-2026-08-11-new-video-sol-luna.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260811-new-video-sol-luna',
+  },
 ];
 const canonicalRequirements = [...requirements, ...ownerDirectiveRequirements, ...timestampHarnessRequirements];
 
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: 8,
+  catalog_revision: 9,
   product: 'diopside v8',
   updated_at: '2026-08-11',
   requirements: canonicalRequirements,

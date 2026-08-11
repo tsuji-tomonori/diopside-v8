@@ -5,9 +5,10 @@ import json
 import os
 import subprocess
 import tempfile
-import tomllib
 import unittest
 from pathlib import Path
+
+import tomllib
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / ".agents/skills/run-timestamp-work-harness/scripts/harness.py"
@@ -218,7 +219,7 @@ class TimestampHarnessTest(unittest.TestCase):
         )
         self.assertEqual(second["wave"], 2)
         self.assertTrue(
-            set(lane["batchId"] for lane in planned["lanes"]).isdisjoint(
+            {lane["batchId"] for lane in planned["lanes"]}.isdisjoint(
                 lane["batchId"] for lane in second["lanes"]
             )
         )
@@ -303,6 +304,20 @@ class TimestampHarnessTest(unittest.TestCase):
             success=False,
         )
         self.assertIn("candidate hash", str(mismatch["stderr"]))
+
+    def test_single_chat_materialization_also_requires_sol_review(self) -> None:
+        snapshot = self.snapshot([self.row()])
+        self.invoke("init", "batch-single-sol-gate", "--snapshot", str(snapshot), "--video-id", VIDEO_ID)
+        item_path = self.run_root / f"batch-single-sol-gate/items/{VIDEO_ID}.json"
+        item = json.loads(item_path.read_text(encoding="utf-8"))
+        item.update({
+            "stage": "pr_created",
+            "candidateHash": "a" * 64,
+            "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/123",
+        })
+        item_path.write_text(json.dumps(item, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        failed = self.invoke("materialize", "batch-single-sol-gate", VIDEO_ID, success=False)
+        self.assertIn("gpt-5.6-sol", str(failed["stderr"]))
 
     def test_live_chat_reduction_keeps_no_text_or_identity(self) -> None:
         spec = importlib.util.spec_from_file_location("download_live_chat_test", CHAT_SCRIPT)

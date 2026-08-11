@@ -282,7 +282,7 @@ def command_claim_next(args: argparse.Namespace) -> dict[str, Any]:
         return claim_response(args.batch_id, load_item(args.batch_id, manifest["videoIds"][0]))
 
     snapshot = read_json(args.snapshot)
-    headers, selected, skipped = eligible_snapshot_items(snapshot, limit=args.scan_limit)
+    _headers, selected, skipped = eligible_snapshot_items(snapshot, limit=args.scan_limit)
     worker_id = validate_worker_id(args.worker_id or f"work-{uuid.uuid4().hex[:8]}")
     if args.base_ref == f"{args.remote}/main":
         run(["git", "fetch", "--no-tags", args.remote, "main"], cwd=ROOT)
@@ -803,16 +803,15 @@ def command_materialize(args: argparse.Namespace) -> dict[str, Any]:
         raise HarnessError("分散workerは全編根拠と独立確認の完了後だけ正本化できます。")
     if item["stage"] not in {"ready_for_materialization", "pr_created", "materialized"} or not item.get("pullRequest"):
         raise HarnessError("実在するdraft PRと検証済み候補を記録してから正本化してください。")
-    if item.get("claim"):
-        sol_review = item.get("solReview")
-        if (
-            not isinstance(sol_review, dict)
-            or sol_review.get("model") != ORCHESTRATOR_MODEL
-            or sol_review.get("candidateHash") != item.get("candidateHash")
-            or sol_review.get("result") != "pass"
-            or not sol_review.get("reviewedAt")
-        ):
-            raise HarnessError("親gpt-5.6-solの最終確認記録がないため正本化できません。")
+    sol_review = item.get("solReview")
+    if (
+        not isinstance(sol_review, dict)
+        or sol_review.get("model") != ORCHESTRATOR_MODEL
+        or sol_review.get("candidateHash") != item.get("candidateHash")
+        or sol_review.get("result") != "pass"
+        or not sol_review.get("reviewedAt")
+    ):
+        raise HarnessError("親gpt-5.6-solの最終確認記録がないため正本化できません。")
     if item["stage"] == "materialized":
         materialized = item.get("materialized")
         if not isinstance(materialized, dict):

@@ -28,6 +28,14 @@
 
 複数のWorkセッションも併用する場合は、各セッションに一意なbatch IDとworker IDを生成させる。各workerは`claim-next`が返す候補を順にGitHub connectorの`create_branch`で試し、1件だけ確保する。動画IDの大文字小文字を保持した`agent/timestamps-<video-id>`のref作成が原子的claimであり、同時競合で既存branchとなったworkerは次候補へ進む。勝者はclaim markerと処理中draft PRを直ちに作成し、そのPRで完了まで進める。force update、branch削除、stale claimの自動奪取は禁止する。余ったworkerの`no_unclaimed_target`は正常終了であり、外部書込みを追加しない。
 
+## ChatGPT Workからの新規動画探索とタイムスタンプ作成
+
+台帳外・正本外の新しい公開動画を調べてタイムスタンプ作成まで進める場合は、`.agents/skills/run-new-video-work-harness/SKILL.md`を入口にする。Web Workへ貼る標準依頼は同Skillの`references/web-work-prompt.md`を使用する。
+
+親GPT-5.6 Solが完全な台帳snapshotと有限の探索期間を固定し、10個のGPT-5.6 Luna medium探索レーンへ本人公式、ライブ履歴、外部公式、既存共演者、番組・イベント、表記揺れ、Wiki照合を割り当てる。Wiki、検索結果、タイトルはleadに限り、外部チャンネルの出演は動画固有の作成者記述、公式参加者表記、または全編根拠でSolが確認する。Lunaは安全な公開メタデータと根拠指紋だけを返し、connectorを使わない。
+
+Solは全候補を重複排除し、配信アーカイブ、Short、切り抜き、歌ってみた、通常動画、処理不能を分類して、現在のタグ体系に存在するタグだけを選ぶ。台帳が探索開始時から変わっていない場合だけA:Pの新規行を追記し、完全範囲を再読して行指紋を検証する。適格動画は`agent/timestamps-<exact-video-id>`を原子的にclaimし、処理中draft PRと安全な1動画seedを作ってから、既存`timestamp-luna-worker`へ渡す。最終的な全編根拠、候補hash、事実・編集確認、決定的validatorは親Solが確認し、同じ1動画PRと同じ台帳行を完了または安全な処理不能まで進める。
+
 ## 公開と復元
 
 候補ブランチは公開元にしない。人が正本プルリクエストをmainへマージし、そのcommitの品質ゲートが合格すると、`.github/workflows/update-generated-release.yml` が内容ハッシュrelease IDと静的成果物を生成・検証し、差分がある場合だけmainへrelease commitする。その `main/docs` 更新により既存のbranch方式Pages buildが起動する。重複実行を避けるためPages build APIは明示呼出しせず、独自deploy artifactも使わない。後続のmain更新を検出した古い実行はcommitせず、後続commitの品質ゲートへ委ねる。誤りは対象正本commitの取り消し、または修正プルリクエストで直し、直前の正本と同じ公開版を再生成する。履歴を書き換えるforce pushは使わない。
