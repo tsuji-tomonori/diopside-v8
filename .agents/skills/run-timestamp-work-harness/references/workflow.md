@@ -118,6 +118,9 @@ artifact. Codex returns one schema-constrained role artifact; the parent harness
 writes it atomically under the ignored video dossier. Neither side may perform
 network, Git, spreadsheet, or GitHub actions during semantic evaluation.
 The existing deterministic validators remain the authority for advancing state.
+Composition reads the canonical normalized transcript once and checks the declared
+chunk ranges and overlaps separately, avoiding duplicate caption bodies without
+weakening full-duration evidence coverage.
 Technical failures, including the configurable 30-minute execution timeout, are
 retried once with the same model. After verifying that the
 working directory is the expected Git repository, a trusted-destination-only retry

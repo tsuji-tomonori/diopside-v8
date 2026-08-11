@@ -176,6 +176,8 @@ class TimestampHarnessTest(unittest.TestCase):
             'model_reasoning_effort="{reasoning_effort}"',
             '"actualModel": model',
             '"artifact": role_artifact_schema(video_id, role)',
+            'evidence/transcript.jsonlの全行をjqで',
+            '重複したcue本文を再度contextへ出さない',
             '"DIOPSIDE_CODEX_TIMEOUT_SECONDS", "1800"',
             'except subprocess.TimeoutExpired:',
             'local.add_argument("--retry-blocked", action="store_true")',

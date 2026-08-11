@@ -2,7 +2,9 @@
 
 Write `.devflow/run/timestamps/{videoId}/chapter_draft.json` atomically. Follow `generate-stream-timestamps/references/candidate-contract.md`.
 
-- Read every `transcript_chunks/chunk-*.json`; list all processed chunk IDs.
+- Read every line of canonical `evidence/transcript.jsonl` exactly once. Verify every
+  `transcript_chunks/chunk-*.json` ID and range declared by `state.json`, but do not
+  re-emit overlapping cue bodies into the model context.
 - Preserve exact cue IDs in boundary evidence.
 - Keep cue IDs in the temporary draft only. The deterministic validator reduces public `evidenceRefs` to the dossier-level `evidenceId` before hashing or preview generation.
 - A nonzero boundary must cite the dossier's full transcript/ASR evidence ID or creator-list evidence ID.
