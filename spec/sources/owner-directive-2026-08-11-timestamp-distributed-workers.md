@@ -3,7 +3,7 @@
 この文書は、Workで10〜20の独立セッションを起動し、それぞれが別動画を競合なく処理するための追加正本である。
 
 - 各Workセッションは同じ対象動画台帳を読んでよいが、処理できる動画は1件までとし、動画IDを人が事前配布しなくても未確保動画を選べなければならない。
-- 動画の所有権は、動画IDの大文字小文字を保持した専用remote branchへの通常pushを原子的なclaimとして決める。force push、branch削除、存在確認だけに依存する確保は禁止する。
+- 動画の所有権は、動画IDの大文字小文字を保持した専用remote branchをGitHub connectorで原子的にref作成するclaimとして決める。force update、branch削除、存在確認だけに依存する確保は禁止する。
 - 同じ動画へ複数workerが競合した場合、GitHubがbranch作成を受理したworkerだけが処理を継続し、他workerは失敗終了せず次の候補へ進む。
 - claim直後に処理中draft PRを作り、中断した所有権をGitHub上で可視化・再開可能にする。stale claimを別workerが自動で上書きまたは奪取してはならない。
 - 各workerは独立したbatch ID、worker ID、ローカル一時状態を持ち、素材、Codex判断、正本化、1動画PR、対象台帳の該当行だけを扱う。

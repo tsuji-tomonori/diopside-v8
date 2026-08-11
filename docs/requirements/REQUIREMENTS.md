@@ -154,7 +154,7 @@
 | `V8-OPS-018` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ChatGPT Workから開始するタイムスタンプ処理は、PythonでGoogle Sheetsの対象動画台帳を列名で読み、作成済み・除外・既存PRを除いた適格対象を行番号と行指紋を含む有限集合として固定し、同じbatch IDでは集合を変更せず中断後も再開できなければならない。を**satisfy** | 台帳snapshot・immutable manifest・再開・0件試験 |
 | `V8-OPS-019` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ハーネスは作成者時刻一覧または公開日本語字幕を優先し、必要時に公開音声と無償ローカル音声認識、匿名化したチャット補助信号を取得し、章構成・事実確認・編集確認の意味判断を役割ごとに独立した非対話のcodex execで実行して、同じ候補hashへの決定的検証合格を必須としなければならない。を**satisfy** | Codex実行契約・role分離・候補hash・匿名chat・公開境界試験 |
 | `V8-OPS-020` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ハーネスは合格した各動画について1動画branchをcommit・pushしてdraft PRを作成し、実在PR URLを正本候補へ記録して最終commitをpushした後、PR URL・commit SHA・レビュー待ち状態を対象台帳行へ反映して再読確認しなければならない。処理不能動画も安全な理由と再開条件を台帳へ反映し、行指紋が変わった場合は上書きしてはならない。を**satisfy** | 1動画PR scope・PR URL gate・行指紋競合・exact range write・更新後再読試験 |
-| `V8-OPS-021` | 1 | 有効 | 運用 | diopside v8の分散タイムスタンプ運用は、2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchへの非force pushを原子的claimとして未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者は処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。を**satisfy** | 2worker remote branch競合・1動画worker・余剰worker no-op・exact-case branch・非force契約試験 |
+| `V8-OPS-021` | 1 | 有効 | 運用 | diopside v8の分散タイムスタンプ運用は、2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchをGitHub connectorで原子的にref作成して未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者はclaim markerと処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。を**satisfy** | connector compare-and-set plan・1動画worker・余剰worker no-op・exact-case branch・認証分離契約試験 |
 
 ## V8-SEARCH-001: 文字検索は、承認済み動画の動画タイトルだけを検索対象としなければならない
 
@@ -2373,14 +2373,14 @@ diopside v8のタイムスタンプ運用は、ハーネスは合格した各動
 
 ## V8-OPS-021: 2〜20のWorkセッションはremote branchの原子的claimで別動画を1件ずつ処理しなければならない
 
-diopside v8の分散タイムスタンプ運用は、2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchへの非force pushを原子的claimとして未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者は処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。を**satisfy**。
+diopside v8の分散タイムスタンプ運用は、2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchをGitHub connectorで原子的にref作成して未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者はclaim markerと処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。を**satisfy**。
 
 根拠: 独立Workセッション間に共有ローカル状態がなくても、GitHubのremote ref作成をcompare-and-setとして利用し、二重素材処理、同一branch更新、同一動画PR、台帳行の誤上書きを防ぐため。処理中draft PRにより中断したclaimも人が発見して再開判断できる。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-OPS-021-1` 前提: 同じ台帳snapshotから同じ未処理動画を選ぶ2つのworkerがある。条件: 両workerが同じ動画の専用remote branchを通常pushでclaimする。期待結果: GitHubが受理した1workerだけが所有権を得て処理中draft PRを作り、競合workerはforce pushやbranch削除をせず次候補へ進む。。
+- `AC-V8-OPS-021-1` 前提: 同じ台帳snapshotから同じ未処理動画を選ぶ2つのworkerがある。条件: 両workerがGitHub connectorで同じ動画の専用remote branchをref作成してclaimする。期待結果: GitHubがref作成を受理した1workerだけが所有権を得てclaim markerと処理中draft PRを作り、競合workerはforce updateやbranch削除をせず次候補へ進む。。
 - `AC-V8-OPS-021-2` 前提: 適格動画数より多いworkerが起動した、またはclaim済み動画だけが残っている。条件: workerがclaim-nextを完了する。期待結果: 余剰workerはno_unclaimed_targetとしてbranch、PR、台帳書込みを行わず正常終了する。。
 - `AC-V8-OPS-021-3` 前提: claim済みworkerが処理中に停止した。条件: 別workerまたは人がGitHub上の状態を確認する。期待結果: 処理中draft PRとclaim markerから所有権を識別でき、自動奪取せず同じbatchとbranchで再開判断できる。。
 

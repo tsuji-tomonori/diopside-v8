@@ -73,7 +73,7 @@ selected_checks:
     evidence:
       - path:.agents/skills/run-timestamp-work-harness/SKILL.md
       - test:tests/timestamp_harness_test.py
-    note: 通常pushによるbranch作成、処理中draft PR、対象行更新だけを許可しforce・削除・merge・公開を禁止した
+    note: GitHub connectorによる原子的branch作成、処理中draft PR、対象行更新だけを許可しforce・削除・merge・公開を禁止した
   - id: FAST-001
     class: Invariant
     result: pass
@@ -93,7 +93,7 @@ selected_checks:
     result: pass
     evidence:
       - test:tests/timestamp_harness_test.py
-    note: 2つの独立cloneから同じremote branchをclaimし勝者が1つだけになる実Git試験を追加した
+    note: PythonがGitHub書込みを行わずexact-caseのcreateBranchActionとmarker actionを返し、record-claimが観測commitを検証する契約試験を追加した
   - id: FAST-006
     class: Invariant
     result: pass

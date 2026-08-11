@@ -609,15 +609,15 @@ const timestampHarnessRequirements = [
     title: '2〜20のWorkセッションはremote branchの原子的claimで別動画を1件ずつ処理しなければならない',
     subject: 'diopside v8の分散タイムスタンプ運用',
     action: 'satisfy',
-    object: '2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchへの非force pushを原子的claimとして未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者は処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。',
+    object: '2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchをGitHub connectorで原子的にref作成して未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者はclaim markerと処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。',
     rationale: '独立Workセッション間に共有ローカル状態がなくても、GitHubのremote ref作成をcompare-and-setとして利用し、二重素材処理、同一branch更新、同一動画PR、台帳行の誤上書きを防ぐため。処理中draft PRにより中断したclaimも人が発見して再開判断できる。',
     source_refs: ['spec/sources/owner-directive-2026-08-11-timestamp-distributed-workers.md', 'user:2026-08-11'],
     acceptance_criteria: [
       {
         id: 'AC-V8-OPS-021-1',
         given: '同じ台帳snapshotから同じ未処理動画を選ぶ2つのworkerがある',
-        when: '両workerが同じ動画の専用remote branchを通常pushでclaimする',
-        then: 'GitHubが受理した1workerだけが所有権を得て処理中draft PRを作り、競合workerはforce pushやbranch削除をせず次候補へ進む。',
+        when: '両workerがGitHub connectorで同じ動画の専用remote branchをref作成してclaimする',
+        then: 'GitHubがref作成を受理した1workerだけが所有権を得てclaim markerと処理中draft PRを作り、競合workerはforce updateやbranch削除をせず次候補へ進む。',
       },
       {
         id: 'AC-V8-OPS-021-2',
@@ -632,7 +632,7 @@ const timestampHarnessRequirements = [
         then: '処理中draft PRとclaim markerから所有権を識別でき、自動奪取せず同じbatchとbranchで再開判断できる。',
       },
     ],
-    verification: { method: '2worker remote branch競合・1動画worker・余剰worker no-op・exact-case branch・非force契約試験', evidence: 'tests/timestamp_harness_test.py' },
+    verification: { method: 'connector compare-and-set plan・1動画worker・余剰worker no-op・exact-case branch・認証分離契約試験', evidence: 'tests/timestamp_harness_test.py' },
     traces: {
       design: ['docs/design/generated/system.gen.md', '.agents/skills/run-timestamp-work-harness/references/workflow.md'],
       implementation: ['.agents/skills/run-timestamp-work-harness/scripts/harness.py', '.agents/skills/run-timestamp-work-harness/SKILL.md'],

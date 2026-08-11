@@ -30,10 +30,13 @@ repository or pass them to `codex exec`.
    ID is rejected.
 3. For concurrent Work chats, give each chat a unique batch ID and run
    `harness.py claim-next <batch-id> --snapshot <snapshot> --worker-id <worker-id>`.
-   The command attempts an ordinary, non-force push of a unique claim commit to
-   `agent/timestamps-<exact-video-id>`. GitHub accepts only one competing create.
-   Create the returned draft PR immediately, then run `record-pr`. If the command
-   returns `no_unclaimed_target`, make no external write and stop successfully.
+   The command returns ordered `createBranchAction` values for
+   `agent/timestamps-<exact-video-id>`. Try them with the GitHub connector in order;
+   GitHub accepts only one competing branch creation. After the first success,
+   apply its `createMarkerAction`, acknowledge the returned commit with
+   `record-claim`, create the returned draft PR, then run `record-pr`. If every
+   branch already exists or the command returns `no_unclaimed_target`, make no
+   additional external write and stop successfully.
 4. Run `harness.py run-local` for every pending video, or for the one claimed video
    in distributed mode. The command acquires public
    Japanese captions first and falls back to public audio plus free local ASR. It
@@ -76,6 +79,6 @@ uses the same ignored dossier and immutable manifest.
 - Re-read before every spreadsheet write. If the captured row hash changed, record
   `ledger_conflict` and do not overwrite it.
 - Keep one video per PR. A failure for one video must not stop later videos.
-- Never use `--force`, force-push, or branch deletion for a claim. A pushed claim
+- Never use force-update, force-push, or branch deletion for a claim. A recorded claim
   is visible as a draft PR and remains resumable; stale claims require an explicit
   human decision instead of automatic takeover.

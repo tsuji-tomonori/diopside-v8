@@ -201,76 +201,37 @@ def remove_claim_worktree(repo: Path, worktree: Path) -> None:
         raise HarnessError("既存のlocal claim worktreeがcleanではないため自動削除しません。")
 
 
-def attempt_claim_branch(
-    repo: Path,
-    *,
-    batch_id: str,
-    worker_id: str,
-    video_id: str,
-    base_commit: str,
-    remote: str = "origin",
-) -> dict[str, Any] | None:
-    """Atomically create a unique per-video remote branch or report a lost race."""
+def claim_action(selected_item: dict[str, Any], worker_id: str, base_commit: str) -> dict[str, Any]:
+    video_id = selected_item["videoId"]
     branch = f"agent/timestamps-{video_id}"
-    claim_token = uuid.uuid4().hex
-    worktree = RUN_ROOT / "_worktrees" / batch_id
-    worktree.parent.mkdir(parents=True, exist_ok=True)
-    remove_claim_worktree(repo, worktree)
-    run(["git", "worktree", "add", "--detach", str(worktree), base_commit], cwd=repo)
-    marker = worktree / "reports" / "screenshots" / f"pr-bootstrap-{video_id}.txt"
-    marker.parent.mkdir(parents=True, exist_ok=True)
+    token = uuid.uuid4().hex
     claimed_at = datetime.now().astimezone().isoformat()
-    marker.write_text(
+    marker_path = f"reports/screenshots/pr-bootstrap-{video_id}.txt"
+    marker = (
         "timestamp distributed claim\n"
         f"videoId={video_id}\n"
         f"workerId={worker_id}\n"
-        f"claimToken={claim_token}\n"
-        f"claimedAt={claimed_at}\n",
-        encoding="utf-8",
+        f"claimToken={token}\n"
+        f"claimedAt={claimed_at}\n"
     )
-    run(["git", "add", str(marker.relative_to(worktree))], cwd=worktree)
-    run(
-        [
-            "git",
-            "-c",
-            "user.name=diopside Work harness",
-            "-c",
-            "user.email=diopside-work-harness@users.noreply.github.com",
-            "commit",
-            "-m",
-            f"🚧 chore(timestamp): {video_id}を{worker_id}が確保",
-        ],
-        cwd=worktree,
-    )
-    claim_commit = run(["git", "rev-parse", "HEAD"], cwd=worktree).stdout.strip()
-    pushed = subprocess.run(
-        ["git", "push", remote, f"HEAD:refs/heads/{branch}"],
-        cwd=worktree,
-        text=True,
-        capture_output=True,
-        check=False,
-    )
-    if pushed.returncode:
-        exists = subprocess.run(
-            ["git", "ls-remote", "--exit-code", "--heads", remote, f"refs/heads/{branch}"],
-            cwd=repo,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        remove_claim_worktree(repo, worktree)
-        if exists.returncode == 0:
-            return None
-        detail = (pushed.stderr or pushed.stdout).strip().splitlines()
-        raise HarnessError(detail[-1] if detail else "GitHubへのclaim pushに失敗しました。")
     return {
+        **selected_item,
         "workerId": worker_id,
-        "claimToken": claim_token,
-        "videoId": video_id,
-        "branch": branch,
-        "claimCommit": claim_commit,
+        "claimToken": token,
         "claimedAt": claimed_at,
-        "worktreePath": str(worktree),
+        "branch": branch,
+        "createBranchAction": {
+            "repository": "tsuji-tomonori/diopside-v8",
+            "branchName": branch,
+            "sha": base_commit,
+        },
+        "createMarkerAction": {
+            "repository": "tsuji-tomonori/diopside-v8",
+            "branch": branch,
+            "path": marker_path,
+            "content": marker,
+            "message": f"🚧 chore(timestamp): {video_id}を{worker_id}が確保",
+        },
     }
 
 
@@ -322,39 +283,53 @@ def command_claim_next(args: argparse.Namespace) -> dict[str, Any]:
     if args.base_ref == f"{args.remote}/main":
         run(["git", "fetch", "--no-tags", args.remote, "main"], cwd=ROOT)
     base_commit = run(["git", "rev-parse", f"{args.base_ref}^{{commit}}"], cwd=ROOT).stdout.strip()
-    collisions: list[str] = []
-    for selected_item in selected:
-        claim = attempt_claim_branch(
-            ROOT,
-            batch_id=args.batch_id,
-            worker_id=worker_id,
-            video_id=selected_item["videoId"],
-            base_commit=base_commit,
-            remote=args.remote,
-        )
-        if claim is None:
-            collisions.append(selected_item["videoId"])
-            continue
-        initialize_manifest(
-            args.batch_id,
-            snapshot,
-            headers,
-            [selected_item],
-            base_commit,
-            claim=claim,
-        )
-        response = claim_response(args.batch_id, load_item(args.batch_id, selected_item["videoId"]))
-        response["collisions"] = collisions
-        response["skipped"] = skipped
-        return response
     return {
-        "status": "no_unclaimed_target",
+        "status": "claim_required" if selected else "no_unclaimed_target",
         "batchId": args.batch_id,
         "workerId": worker_id,
-        "collisions": collisions,
+        "baseCommit": base_commit,
+        "claimActions": [claim_action(item, worker_id, base_commit) for item in selected],
         "skipped": skipped,
-        "externalActions": [],
     }
+
+
+def command_record_claim(args: argparse.Namespace) -> dict[str, Any]:
+    snapshot = read_json(args.snapshot)
+    headers, selected, _ = eligible_snapshot_items(snapshot, video_id=args.video_id)
+    worker_id = validate_worker_id(args.worker_id)
+    expected_branch = f"agent/timestamps-{args.video_id}"
+    if args.branch != expected_branch:
+        raise HarnessError("claim branchが動画IDのexact-case規則と一致しません。")
+    if not re.fullmatch(r"[0-9a-f]{32}", args.claim_token):
+        raise HarnessError("claim tokenは32桁の小文字hexにしてください。")
+    if not re.fullmatch(r"[0-9a-f]{40}", args.claim_commit):
+        raise HarnessError("claim commitは40桁のcommit SHAにしてください。")
+    run(["git", "fetch", "--no-tags", args.remote, f"refs/heads/{args.branch}"], cwd=ROOT)
+    observed = run(["git", "rev-parse", "FETCH_HEAD^{commit}"], cwd=ROOT).stdout.strip()
+    if observed != args.claim_commit:
+        raise HarnessError("GitHubで確認したclaim commitとremote branch tipが一致しません。")
+    worktree = RUN_ROOT / "_worktrees" / args.batch_id
+    worktree.parent.mkdir(parents=True, exist_ok=True)
+    remove_claim_worktree(ROOT, worktree)
+    run(["git", "worktree", "add", "--detach", str(worktree), args.claim_commit], cwd=ROOT)
+    claim = {
+        "workerId": worker_id,
+        "claimToken": args.claim_token,
+        "videoId": args.video_id,
+        "branch": args.branch,
+        "claimCommit": args.claim_commit,
+        "claimedAt": args.claimed_at,
+        "worktreePath": str(worktree),
+    }
+    initialize_manifest(
+        args.batch_id,
+        snapshot,
+        headers,
+        selected,
+        args.base_commit,
+        claim=claim,
+    )
+    return claim_response(args.batch_id, load_item(args.batch_id, args.video_id))
 
 
 def command_status(args: argparse.Namespace) -> dict[str, Any]:
@@ -877,6 +852,18 @@ def parser() -> argparse.ArgumentParser:
     claim.add_argument("--base-ref", default="origin/main")
     claim.add_argument("--remote", default="origin")
     claim.set_defaults(handler=command_claim_next)
+    record_claim = commands.add_parser("record-claim")
+    record_claim.add_argument("batch_id")
+    record_claim.add_argument("video_id")
+    record_claim.add_argument("--snapshot", type=Path, required=True)
+    record_claim.add_argument("--worker-id", required=True)
+    record_claim.add_argument("--claim-token", required=True)
+    record_claim.add_argument("--claimed-at", required=True)
+    record_claim.add_argument("--branch", required=True)
+    record_claim.add_argument("--base-commit", required=True)
+    record_claim.add_argument("--claim-commit", required=True)
+    record_claim.add_argument("--remote", default="origin")
+    record_claim.set_defaults(handler=command_record_claim)
     status = commands.add_parser("status")
     status.add_argument("batch_id")
     status.set_defaults(handler=command_status)
