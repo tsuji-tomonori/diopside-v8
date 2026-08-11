@@ -21,8 +21,9 @@ cannot claim, use connectors, materialize, commit, push, or update the ledger.
 
 Sol waits for every active lane, inspects the full evidence coverage and all three
 candidate artifacts, and records a matching `record-sol-review` attestation. The
-harness rejects distributed materialization unless that attestation uses
-`gpt-5.6-sol`, passes, and matches the current candidate hash. Ten unavailable
+harness rejects every materialization unless that attestation uses
+`gpt-5.6-sol`, passes, and matches the current candidate hash. This also applies
+to a new canonical seed handed off by `run-new-video-work-harness`. Ten unavailable
 physical threads do not change the topology: Work runs the ten logical lanes in
 waves. Fewer eligible videos simply leave excess lanes inactive.
 

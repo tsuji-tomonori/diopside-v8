@@ -47,7 +47,8 @@ repository or pass them to `codex exec`.
    review, candidate hash, and deterministic validator result. Reject or return a
    concrete correction to the same Luna lane when necessary. For a passing result,
    run `harness.py record-sol-review ... --reviewer-model gpt-5.6-sol`; a distributed
-   candidate cannot be materialized without this matching Sol attestation.
+   candidate cannot be materialized without this matching Sol attestation,
+   including a new-video seed handed off by `run-new-video-work-harness`.
 6. Continue with `materialize`, one-video scope validation, commit, push,
    `record-push`, exact-row Sheets update, reread, and `verify-sheet-update` in the
    parent Sol only. Keep one video per PR.
