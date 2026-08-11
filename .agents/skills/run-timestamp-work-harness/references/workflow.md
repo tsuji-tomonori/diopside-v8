@@ -111,12 +111,26 @@ last durable state. The batch is complete only when each item is `complete` or
 
 ## Codex isolation
 
-The harness invokes `codex exec --ephemeral --sandbox workspace-write` with an
-output schema and a fixed repository directory. Composition, fact review, and
-editorial review are separate processes. The editorial prompt forbids reading the
-fact-review artifact. Codex may write only the role artifact under the ignored
-video dossier and may not perform network, Git, spreadsheet, or GitHub actions.
+The harness invokes `codex exec --ephemeral --sandbox read-only` with an output
+schema and a fixed repository directory. Composition, fact review, and editorial
+review are separate processes. The editorial prompt forbids reading the fact-review
+artifact. Codex returns one schema-constrained role artifact; the parent harness
+writes it atomically under the ignored video dossier. Neither side may perform
+network, Git, spreadsheet, or GitHub actions during semantic evaluation.
 The existing deterministic validators remain the authority for advancing state.
+Technical failures, including the configurable 30-minute execution timeout, are
+retried once with the same model. After verifying that the
+working directory is the expected Git repository, a trusted-destination-only retry
+may use the official `--skip-git-repo-check` flag without relaxing sandbox or
+approval settings. A Luna composition that completed but failed deterministic
+draft validation may be recomposed once with GPT-5.6 Terra high. The temporary
+attempt record must state `quality_retry_escalation`; technical failures never
+cause a model escalation. Parent Sol review remains mandatory.
+
+When captions are unavailable, the evidence route uses unauthenticated `yt-dlp`
+to create a temporary 16 kHz mono MP3 and runs full-duration `faster-whisper`.
+The harness discovers an ignored bundled virtual environment when present and
+reports dependency, public-audio, and local-ASR failures as distinct safe blockers.
 
 ## External-action handshake
 

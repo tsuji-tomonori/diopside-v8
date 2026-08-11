@@ -26,13 +26,15 @@ def main() -> int:
         directory = work_dir(args.video_id)
         inputs = read_json(directory / "inputs.json")
         executable = shutil.which("yt-dlp")
+        ffmpeg = shutil.which("ffmpeg")
         plan = {
             "videoId": args.video_id,
             "url": inputs["youtubeUrl"],
             "authentication": "none",
-            "format": "bestaudio",
+            "format": "mp3-16khz-mono",
             "outputDirectory": str((directory / "audio").relative_to(directory.parents[3])),
             "ytDlpAvailable": bool(executable),
+            "ffmpegAvailable": bool(ffmpeg),
             "willUseNetwork": bool(args.execute),
         }
         if not args.execute:
@@ -40,17 +42,24 @@ def main() -> int:
             return 0
         if not executable:
             raise TimestampToolError("yt-dlpがありません。公開音声を取得できません。")
+        if not ffmpeg:
+            raise TimestampToolError("ffmpegがありません。公開音声を一時MP3へ変換できません。")
         audio_dir = directory / "audio"
         audio_dir.mkdir(parents=True, exist_ok=True)
         template = str(audio_dir / "source.%(ext)s")
-        command = [executable, "--ignore-config", "--no-playlist", "--no-netrc", "--format", "bestaudio", "--output", template, "--continue", "--retries", "5", "--fragment-retries", "5", "--quiet", inputs["youtubeUrl"]]
+        command = [
+            executable, "--ignore-config", "--no-playlist", "--no-netrc",
+            "--format", "bestaudio/best", "--extract-audio", "--audio-format", "mp3",
+            "--audio-quality", "0", "--postprocessor-args", "ffmpeg:-ac 1 -ar 16000",
+            "--output", template, "--continue", "--retries", "5", "--fragment-retries", "5",
+            "--quiet", inputs["youtubeUrl"],
+        ]
         completed = subprocess.run(command, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         if completed.returncode != 0:
             raise TimestampToolError("公開音声の取得に失敗しました。認証や制限の回避は行いません。")
-        files = [path for path in audio_dir.glob("source.*") if path.is_file() and not path.name.endswith((".part", ".ytdl", ".json"))]
-        if len(files) != 1:
-            raise TimestampToolError("取得済み音声ファイルを一意に特定できません。")
-        audio = files[0]
+        audio = audio_dir / "source.mp3"
+        if not audio.is_file():
+            raise TimestampToolError("取得済み公開音声MP3を確認できません。")
         provenance = {"schemaVersion": "1.0.0", "videoId": args.video_id, "sourceUrl": inputs["youtubeUrl"], "authentication": "none", "downloadedAt": datetime.now(UTC).isoformat(), "durationSeconds": inputs["durationSeconds"], "file": {"name": audio.name, "sizeBytes": audio.stat().st_size, "sha256": digest_file(audio)}, "temporaryOnly": True}
         atomic_json(audio_dir / "provenance.json", provenance)
         print(json.dumps({"status": "downloaded", "videoId": args.video_id, "audio": audio.name, "sha256": provenance["file"]["sha256"]}, ensure_ascii=False))

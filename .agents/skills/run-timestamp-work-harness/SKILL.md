@@ -70,13 +70,19 @@ each chat a unique batch ID and run
    additional external write and stop successfully.
 8. Run `harness.py run-local` for every pending video, or for the one claimed video
    in distributed mode. The command acquires public
-   Japanese captions first and falls back to public audio plus free local ASR. It
+   Japanese captions first and falls back to a temporary public MP3 plus free local ASR. It
    runs composition, fact review, and editorial review as separate ephemeral
    `codex exec` invocations and then runs the deterministic validator.
+   A technical `codex exec` failure, including the configurable 30-minute execution
+   timeout, is retried once on the same Luna model. Only
+   a completed Luna composition that fails deterministic draft validation may be
+   recomposed once with GPT-5.6 Terra high and the explicit routing reason
+   `quality_retry_escalation`; silent model substitution is forbidden.
    Add `--with-chat` only when the ledger notes or a review explicitly requires
    optional reaction corroboration; the downloader discards text and identities
    and retains only anonymous 30-second reaction-density signals.
-9. Continue after an item failure. Record a controlled Japanese blocker with
+9. Continue after an item failure. Use `run-local --retry-blocked` to resume a
+   recoverable existing claim without creating another branch. Record a controlled Japanese blocker with
    `harness.py record-blocked`; never expose raw evidence in the blocker.
 10. In single-chat mode, for each `ready_for_pr` item, create
    `agent/timestamps-<exact-video-id>` from the

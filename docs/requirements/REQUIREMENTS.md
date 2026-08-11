@@ -1,12 +1,70 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 8
+- カタログ版: 9
 - 更新日: 2026-08-11
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
 |---|---:|---|---|---|---|
+| `V8-COST-001` | 1 | 有効 | 運用 | diopside v8の費用は、サービス運用に起因する請求額は、既存のChatGPT／Codex契約を除いて毎月0円でなければならない。を**satisfy** | 月次請求確認 |
+| `V8-COST-002` | 1 | 有効 | 運用 | diopside v8の費用は、公開基盤は、公開リポジトリで利用できるGitHub Pagesと既定の `github.io` 配下のURLに限定しなければならない。を**satisfy** | リポジトリ・Pages設定確認 |
+| `V8-COST-003` | 1 | 有効 | 運用 | diopside v8の費用は、AWSその他の有料クラウド資源をv8の閲覧・検索・生成・公開に使用してはならない。を**satisfy** | 構成確認 |
+| `V8-COST-004` | 1 | 有効 | 運用 | diopside v8の費用は、有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならない。を**satisfy** | 依存関係・通信確認 |
+| `V8-COST-005` | 1 | 有効 | 運用 | diopside v8の費用は、外部サービスの料金または無償条件が変わり請求が発生し得る場合は、課金して継続せず、該当処理を停止しなければならない。を**satisfy** | 運用手順確認 |
+| `V8-DEVICE-001` | 1 | 有効 | 機能 | diopside v8の端末は、閲覧履歴はブラウザ内データベースへ保存しなければならない。を**satisfy** | ブラウザ試験 |
+| `V8-DEVICE-002` | 1 | 有効 | 機能 | diopside v8の端末は、お気に入りはブラウザ内データベースへ保存しなければならない。を**satisfy** | ブラウザ試験 |
+| `V8-DEVICE-003` | 1 | 有効 | 機能 | diopside v8の端末は、最近の検索語と絞り込み条件はブラウザ内データベースへ保存しなければならない。を**satisfy** | ブラウザ試験 |
+| `V8-DEVICE-004` | 1 | 有効 | 機能 | diopside v8の端末は、利用者は、履歴、お気に入り、最近の検索条件を個別に削除できなければならない。を**satisfy** | 画面試験 |
+| `V8-DEVICE-005` | 1 | 有効 | 機能 | diopside v8の端末は、利用者は、diopsideが保存した端末内データを一括削除できなければならない。を**satisfy** | ブラウザ試験 |
+| `V8-DEVICE-006` | 1 | 有効 | 機能 | diopside v8の端末は、公開用の静的データはブラウザのキャッシュへ保存できなければならない。を**satisfy** | キャッシュ更新試験 |
+| `V8-DEVICE-007` | 1 | 有効 | 機能 | diopside v8の端末は、ブラウザ内データの破損、容量超過、利用拒否が起きても、検索と閲覧を継続できなければならない。を**satisfy** | 障害注入試験 |
+| `V8-DEVICE-008` | 1 | 有効 | 機能 | diopside v8の端末は、履歴、お気に入り、最近の検索条件をサーバーへ送信してはならない。を**satisfy** | 通信監査・画面試験 |
+| `V8-DEVICE-009` | 1 | 有効 | 機能 | diopside v8の端末は、利用者向けログイン、アカウント登録、認証用画面、認証用クッキーを実装してはならない。を**satisfy** | 画面・通信・コード確認 |
+| `V8-DEVICE-010` | 1 | 有効 | 機能 | diopside v8の端末は、端末内データはブラウザやサイトデータの削除で失われ、別端末へ同期されないことを日本語で説明しなければならない。を**satisfy** | 文言確認 |
+| `V8-DEVICE-011` | 1 | 有効 | 機能 | diopside v8の端末は、利用者行動を解析・追跡する外部送信を行ってはならない。を**satisfy** | 通信監査・依存関係確認 |
+| `V8-DISPLAY-001` | 1 | 有効 | 機能 | diopside v8の表示は、動画一覧は、動画タイトル、公開日、動画長、サムネイルを動画基本情報として表示しなければならない。を**satisfy** | 画面契約試験 |
+| `V8-DISPLAY-002` | 1 | 有効 | 機能 | diopside v8の表示は、動画詳細は、動画基本情報とは別に、承認済みタグを「タグ」として表示しなければならない。を**satisfy** | 画面試験・用語確認 |
+| `V8-DISPLAY-003` | 1 | 有効 | 機能 | diopside v8の表示は、動画詳細は、承認済みタイムスタンプを時刻の昇順で表示しなければならない。を**satisfy** | 境界値試験・画面試験 |
+| `V8-DISPLAY-004` | 1 | 有効 | 機能 | diopside v8の表示は、各タイムスタンプは、対象動画の該当時刻をYouTubeで開けなければならない。を**satisfy** | リンク契約試験 |
+| `V8-DISPLAY-005` | 1 | 有効 | 機能 | diopside v8の表示は、動画詳細は、承認済みのワードクラウドを表示しなければならない。を**satisfy** | 表示試験・再現性試験 |
+| `V8-DISPLAY-006` | 1 | 有効 | 機能 | diopside v8の表示は、ワードクラウドの語句は、公開字幕、公開概要欄、または運用者が明示的に提供した公開本文を一時的に処理して作り、人の承認前に公開してはならない。を**satisfy** | 生成来歴確認・人手確認 |
+| `V8-DISPLAY-007` | 1 | 有効 | 機能 | diopside v8の表示は、ワードクラウドの語句には、重要度を比較できる1～100の整数値を持たせなければならない。を**satisfy** | 構造・境界値試験 |
+| `V8-DISPLAY-008` | 1 | 有効 | 機能 | diopside v8の表示は、ワードクラウドの入力資料を利用できない動画は、推測で語句を補わず「未作成」と表示しなければならない。を**satisfy** | 否定試験・画面試験 |
+| `V8-DISPLAY-009` | 1 | 有効 | 機能 | diopside v8の表示は、ワードクラウドの語句をタイトル文字検索の対象へ混入してはならない。を**satisfy** | 検索除外試験 |
+| `V8-DISPLAY-010` | 1 | 有効 | 機能 | diopside v8の表示は、動画詳細は、タグ、タイムスタンプ、ワードクラウドの最終更新日を日本語で示さなければならない。を**satisfy** | 画面契約試験 |
+| `V8-DISPLAY-011` | 1 | 有効 | データ | diopside v8の表示は、全編根拠を確認できる動画の詳細は、視聴意欲を促しつつ結末、正体、勝敗等のネタバレを避けた日本語あらすじを表示しなければならない。本文と末尾の引用符付きセリフは合計100〜150文字とし、最後に対象配信で白雪巴が実際に発した特徴的なセリフを一つ置かなければならない。を**satisfy** | あらすじ候補検証・公開データ検証・動画詳細画面試験・公開境界検査 |
+| `V8-OPS-001` | 2 | 有効 | 運用 | diopside v8の運用は、タイムスタンプ一括処理は、運用者による1回の明示的なChatGPT／Codex要求で指定された識別子または有限の選定条件から、今回処理する適格動画の有限集合を開始時に固定しなければならない。固定後は、動画ごとの追加チャット承認を開始条件としてはならない。を**satisfy** | 一括処理の開始境界・対象集合固定・状態遷移試験 |
+| `V8-OPS-002` | 1 | 有効 | 運用 | diopside v8の運用は、GitHub ActionsからChatGPT／Codexを呼び出してはならない。を**satisfy** | リポジトリ静的確認 |
+| `V8-OPS-003` | 3 | 有効 | 運用 | diopside v8の運用は、動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない。を**satisfy** | リポジトリ静的確認・手順試験 |
+| `V8-OPS-004` | 1 | 有効 | 運用 | diopside v8の運用は、ChatGPT／Codexの利用は、運用者が契約済みの画面上の利用範囲に限定しなければならない。を**satisfy** | 構成確認・秘密情報確認 |
+| `V8-OPS-005` | 3 | 有効 | 運用 | diopside v8の運用は、1回の明示要求で固定した有限の適格タイムスタンプ対象集合は、各動画が1動画だけを対象とするdraft PRの作成・最終commitのpush・台帳反映確認を完了した状態、または根拠を示した処理不能状態のいずれかへ到達するまで処理しなければならない。ある動画の失敗を理由に、集合内の未処理動画を停止してはならない。を**satisfy** | 対象集合の固定データ・一括処理の終端・失敗分離試験 |
+| `V8-OPS-006` | 1 | 有効 | 運用 | diopside v8の運用は、対象候補が0件の場合は、生成物、ブランチ、プルリクエストを作成してはならない。を**satisfy** | 否定試験 |
+| `V8-OPS-007` | 2 | 有効 | 運用 | diopside v8の運用は、通常の動画追加プルリクエストは、正本動画データを1件だけ変更対象とし、公開用のrelease ID、版付きJSON、画面bundle、`main/docs`を含めてはならない。静的公開成果物は人が当該プルリクエストをmainへマージした後に生成しなければならない。を**satisfy** | 変更範囲試験 |
+| `V8-OPS-008` | 1 | 有効 | 運用 | diopside v8の運用は、通常の動画追加プルリクエストでは、スキル、生成規則、タグ体系、構造定義、検証スクリプト、画面実装、Pages設定を変更してはならない。を**satisfy** | 変更範囲の否定試験 |
+| `V8-OPS-009` | 2 | 有効 | 運用 | diopside v8の運用は、プルリクエスト作成前に、構造、タグ、タイムスタンプ、ワードクラウド、検索索引、公開禁止情報、静的画面を動画ごとに決定的スクリプトで検証しなければならない。不合格は当該動画のプルリクエスト作成だけを止め、理由付き処理不能として記録し、同じ有限集合の他の動画の処理を止めてはならない。を**satisfy** | 不正データ試験・動画単位の失敗分離試験・手順試験 |
+| `V8-OPS-010` | 2 | 有効 | 運用 | diopside v8の運用は、PRレビュー可能な動画のプルリクエスト本文は、対象動画、タグ候補、タイムスタンプ候補、ワードクラウド語句、根拠、検証結果、YouTube確認リンクを日本語で示さなければならない。処理不能の動画は、失敗した段階と根拠を含む理由を日本語で示さなければならない。を**satisfy** | プルリクエスト・一括処理結果の表示確認 |
+| `V8-OPS-011` | 1 | 有効 | 運用 | diopside v8の運用は、生成候補は、人が確認してマージするまで公開してはならない。を**satisfy** | ブランチ境界試験 |
+| `V8-OPS-012` | 1 | 有効 | 運用 | diopside v8の運用は、GitHub Pagesは、`main` ブランチの `/docs` にコミット済みの静的成果物だけを公開しなければならない。を**satisfy** | リポジトリ設定確認・公開確認 |
+| `V8-OPS-013` | 1 | 有効 | 運用 | diopside v8の運用は、静的成果物は正本データから決定的に生成し、手作業で直接編集してはならない。を**satisfy** | 再現性試験 |
+| `V8-OPS-014` | 1 | 有効 | 運用 | diopside v8の運用は、公開データと画面は、同じ公開版の識別子を持たなければならない。を**satisfy** | 契約試験 |
+| `V8-OPS-015` | 1 | 有効 | 運用 | diopside v8の運用は、承認済み変更の取り消しによって、直前の正しい公開状態を再生成できなければならない。を**satisfy** | 復元訓練 |
+| `V8-OPS-016` | 1 | 有効 | 運用 | diopside v8の運用は、更新頻度は自動の日次保証とせず、最終更新日時を画面で確認できなければならない。を**satisfy** | 画面試験 |
+| `V8-OPS-017` | 1 | 有効 | 運用 | diopside v8の運用は、release ID、版付き公開JSON、画面bundle、`main/docs`は、mainの品質ゲートに合格した人承認済み正本から決定的に生成し、差分がある場合だけmainへrelease commitしなければならない。生成中にmainが更新された場合は古い結果をcommitしてはならない。を**satisfy** | post-merge生成workflow契約試験・Pages公開経路試験 |
+| `V8-OPS-018` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ChatGPT Workから開始するタイムスタンプ処理は、PythonでGoogle Sheetsの対象動画台帳を列名で読み、作成済み・除外・既存PRを除いた適格対象を行番号と行指紋を含む有限集合として固定し、同じbatch IDでは集合を変更せず中断後も再開できなければならない。を**satisfy** | 台帳snapshot・immutable manifest・再開・0件試験 |
+| `V8-OPS-019` | 2 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ハーネスは作成者時刻一覧または公開日本語字幕を優先し、必要時に公開音声と無償ローカル音声認識、匿名化したチャット補助信号を取得し、章構成・事実確認・編集確認の意味判断を役割ごとに独立した非対話のcodex execで実行して、同じ候補hashへの決定的検証合格を必須としなければならない。を**satisfy** | Codex実行契約・role分離・候補hash・匿名chat・公開境界試験 |
+| `V8-OPS-020` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ハーネスは合格した各動画について1動画branchをcommit・pushしてdraft PRを作成し、実在PR URLを正本候補へ記録して最終commitをpushした後、PR URL・commit SHA・レビュー待ち状態を対象台帳行へ反映して再読確認しなければならない。処理不能動画も安全な理由と再開条件を台帳へ反映し、行指紋が変わった場合は上書きしてはならない。を**satisfy** | 1動画PR scope・PR URL gate・行指紋競合・exact range write・更新後再読試験 |
+| `V8-OPS-021` | 1 | 有効 | 運用 | diopside v8の分散タイムスタンプ運用は、2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchをGitHub connectorで原子的にref作成して未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者はclaim markerと処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。を**satisfy** | connector compare-and-set plan・1動画worker・余剰worker no-op・exact-case branch・認証分離契約試験 |
+| `V8-OPS-022` | 2 | 有効 | 運用 | diopside v8のタイムスタンプオーケストレーションは、1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行い、親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。利用可能な同時threadが10未満でも10論理レーンを波状実行しなければならない。を**satisfy** | agent設定・10レーン計画・Luna固定・品質時Terra昇格・Sol最終確認gate・共有書込み境界試験 |
+| `V8-QUALITY-001` | 1 | 有効 | 品質 | diopside v8の品質は、検索、絞り込み、履歴、お気に入り、ワードクラウド描画はブラウザ内で処理しなければならない。を**satisfy** | 通信監査 |
+| `V8-QUALITY-002` | 1 | 有効 | 品質 | diopside v8の品質は、公開画面はスマートフォンを主要環境とし、検索からYouTubeを開くまでを初見利用者が1分以内に完了できなければならない。を**satisfy** | 利用者試験 |
+| `V8-QUALITY-003` | 1 | 有効 | 品質 | diopside v8の品質は、操作対象は44画素以上、キーボード操作可能、フォーカス表示あり、状態変化を読み上げ可能でなければならない。を**satisfy** | 自動試験・手動確認 |
+| `V8-QUALITY-004` | 1 | 有効 | 品質 | diopside v8の品質は、画面の見出し、ボタン、説明、状態、エラー、絞り込み名は自然な日本語でなければならない。を**satisfy** | 文言一覧の機械確認・人手確認 |
+| `V8-QUALITY-005` | 1 | 有効 | 品質 | diopside v8の品質は、公開データの取得失敗、構造不適合、公開版不一致、正常な0件を区別して日本語で表示しなければならない。を**satisfy** | 障害注入試験 |
+| `V8-SAFETY-001` | 1 | 有効 | 制約 | diopside v8の安全は、動画タイトル、説明、字幕、コメント、チャット、Issue本文、プルリクエスト本文の外部入力を、命令ではなく信頼できない資料として扱わなければならない。を**satisfy** | 攻撃入力試験 |
+| `V8-SAFETY-002` | 1 | 有効 | 制約 | diopside v8の安全は、生の字幕、生のコメント、生のチャット、投稿者識別子をGit履歴またはPagesへ保存してはならない。を**satisfy** | 公開境界試験 |
+| `V8-SAFETY-003` | 1 | 有効 | 制約 | diopside v8の安全は、秘密情報をリポジトリ、プルリクエスト、確認報告、Pagesへ含めてはならない。を**satisfy** | 秘密情報検査 |
+| `V8-SAFETY-004` | 1 | 有効 | 制約 | diopside v8の安全は、削除、非公開化、対象外化が確認された動画を次の公開版から除外し、再追加を防止しなければならない。を**satisfy** | 削除・再追加試験 |
 | `V8-SEARCH-001` | 1 | 有効 | 機能 | diopside v8の検索は、文字検索は、承認済み動画の動画タイトルだけを検索対象としなければならない。を**satisfy** | 固定検索データによる単体試験・画面試験 |
 | `V8-SEARCH-002` | 1 | 有効 | 機能 | diopside v8の検索は、説明文、タグ、タイムスタンプ、ワードクラウド、字幕、コメント、チャット、チャンネル名、生成来歴を文字検索対象にしてはならない。を**satisfy** | 除外対象ごとの否定試験 |
 | `V8-SEARCH-003` | 1 | 有効 | 機能 | diopside v8の検索は、検索時は、表示用タイトルを変えずに、照合専用文字列を定義済みの順序で正規化しなければならない。を**satisfy** | 正規化表の境界値試験 |
@@ -26,43 +84,6 @@
 | `V8-SEARCH-017` | 1 | 有効 | 機能 | diopside v8の検索は、空の検索、結果0件、条件解除をそれぞれ区別して表示しなければならない。を**satisfy** | 画面試験 |
 | `V8-SEARCH-018` | 1 | 有効 | 品質 | diopside v8の検索は、2,500動画の標準データでは、検索・絞り込み開始から結果更新までを100ミリ秒以内に完了しなければならない。を**satisfy** | ブラウザ性能試験 |
 | `V8-SEARCH-019` | 1 | 有効 | 品質 | diopside v8の検索は、あいまい検索の品質を、版管理した日本語の固定評価データで検証しなければならない。を**satisfy** | 検索品質試験 |
-| `V8-DISPLAY-001` | 1 | 有効 | 機能 | diopside v8の表示は、動画一覧は、動画タイトル、公開日、動画長、サムネイルを動画基本情報として表示しなければならない。を**satisfy** | 画面契約試験 |
-| `V8-DISPLAY-002` | 1 | 有効 | 機能 | diopside v8の表示は、動画詳細は、動画基本情報とは別に、承認済みタグを「タグ」として表示しなければならない。を**satisfy** | 画面試験・用語確認 |
-| `V8-DISPLAY-003` | 1 | 有効 | 機能 | diopside v8の表示は、動画詳細は、承認済みタイムスタンプを時刻の昇順で表示しなければならない。を**satisfy** | 境界値試験・画面試験 |
-| `V8-DISPLAY-004` | 1 | 有効 | 機能 | diopside v8の表示は、各タイムスタンプは、対象動画の該当時刻をYouTubeで開けなければならない。を**satisfy** | リンク契約試験 |
-| `V8-DISPLAY-005` | 1 | 有効 | 機能 | diopside v8の表示は、動画詳細は、承認済みのワードクラウドを表示しなければならない。を**satisfy** | 表示試験・再現性試験 |
-| `V8-DISPLAY-006` | 1 | 有効 | 機能 | diopside v8の表示は、ワードクラウドの語句は、公開字幕、公開概要欄、または運用者が明示的に提供した公開本文を一時的に処理して作り、人の承認前に公開してはならない。を**satisfy** | 生成来歴確認・人手確認 |
-| `V8-DISPLAY-007` | 1 | 有効 | 機能 | diopside v8の表示は、ワードクラウドの語句には、重要度を比較できる1～100の整数値を持たせなければならない。を**satisfy** | 構造・境界値試験 |
-| `V8-DISPLAY-008` | 1 | 有効 | 機能 | diopside v8の表示は、ワードクラウドの入力資料を利用できない動画は、推測で語句を補わず「未作成」と表示しなければならない。を**satisfy** | 否定試験・画面試験 |
-| `V8-DISPLAY-009` | 1 | 有効 | 機能 | diopside v8の表示は、ワードクラウドの語句をタイトル文字検索の対象へ混入してはならない。を**satisfy** | 検索除外試験 |
-| `V8-DISPLAY-010` | 1 | 有効 | 機能 | diopside v8の表示は、動画詳細は、タグ、タイムスタンプ、ワードクラウドの最終更新日を日本語で示さなければならない。を**satisfy** | 画面契約試験 |
-| `V8-DEVICE-001` | 1 | 有効 | 機能 | diopside v8の端末は、閲覧履歴はブラウザ内データベースへ保存しなければならない。を**satisfy** | ブラウザ試験 |
-| `V8-DEVICE-002` | 1 | 有効 | 機能 | diopside v8の端末は、お気に入りはブラウザ内データベースへ保存しなければならない。を**satisfy** | ブラウザ試験 |
-| `V8-DEVICE-003` | 1 | 有効 | 機能 | diopside v8の端末は、最近の検索語と絞り込み条件はブラウザ内データベースへ保存しなければならない。を**satisfy** | ブラウザ試験 |
-| `V8-DEVICE-004` | 1 | 有効 | 機能 | diopside v8の端末は、利用者は、履歴、お気に入り、最近の検索条件を個別に削除できなければならない。を**satisfy** | 画面試験 |
-| `V8-DEVICE-005` | 1 | 有効 | 機能 | diopside v8の端末は、利用者は、diopsideが保存した端末内データを一括削除できなければならない。を**satisfy** | ブラウザ試験 |
-| `V8-DEVICE-006` | 1 | 有効 | 機能 | diopside v8の端末は、公開用の静的データはブラウザのキャッシュへ保存できなければならない。を**satisfy** | キャッシュ更新試験 |
-| `V8-DEVICE-007` | 1 | 有効 | 機能 | diopside v8の端末は、ブラウザ内データの破損、容量超過、利用拒否が起きても、検索と閲覧を継続できなければならない。を**satisfy** | 障害注入試験 |
-| `V8-DEVICE-008` | 1 | 有効 | 機能 | diopside v8の端末は、履歴、お気に入り、最近の検索条件をサーバーへ送信してはならない。を**satisfy** | 通信監査・画面試験 |
-| `V8-DEVICE-009` | 1 | 有効 | 機能 | diopside v8の端末は、利用者向けログイン、アカウント登録、認証用画面、認証用クッキーを実装してはならない。を**satisfy** | 画面・通信・コード確認 |
-| `V8-DEVICE-010` | 1 | 有効 | 機能 | diopside v8の端末は、端末内データはブラウザやサイトデータの削除で失われ、別端末へ同期されないことを日本語で説明しなければならない。を**satisfy** | 文言確認 |
-| `V8-DEVICE-011` | 1 | 有効 | 機能 | diopside v8の端末は、利用者行動を解析・追跡する外部送信を行ってはならない。を**satisfy** | 通信監査・依存関係確認 |
-| `V8-OPS-001` | 2 | 有効 | 運用 | diopside v8の運用は、タイムスタンプ一括処理は、運用者による1回の明示的なChatGPT／Codex要求で指定された識別子または有限の選定条件から、今回処理する適格動画の有限集合を開始時に固定しなければならない。固定後は、動画ごとの追加チャット承認を開始条件としてはならない。を**satisfy** | 一括処理の開始境界・対象集合固定・状態遷移試験 |
-| `V8-OPS-002` | 1 | 有効 | 運用 | diopside v8の運用は、GitHub ActionsからChatGPT／Codexを呼び出してはならない。を**satisfy** | リポジトリ静的確認 |
-| `V8-OPS-003` | 3 | 有効 | 運用 | diopside v8の運用は、動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない。を**satisfy** | リポジトリ静的確認・手順試験 |
-| `V8-OPS-004` | 1 | 有効 | 運用 | diopside v8の運用は、ChatGPT／Codexの利用は、運用者が契約済みの画面上の利用範囲に限定しなければならない。を**satisfy** | 構成確認・秘密情報確認 |
-| `V8-OPS-005` | 3 | 有効 | 運用 | diopside v8の運用は、1回の明示要求で固定した有限の適格タイムスタンプ対象集合は、各動画が1動画だけを対象とするdraft PRの作成・最終commitのpush・台帳反映確認を完了した状態、または根拠を示した処理不能状態のいずれかへ到達するまで処理しなければならない。ある動画の失敗を理由に、集合内の未処理動画を停止してはならない。を**satisfy** | 対象集合の固定データ・一括処理の終端・失敗分離試験 |
-| `V8-OPS-006` | 1 | 有効 | 運用 | diopside v8の運用は、対象候補が0件の場合は、生成物、ブランチ、プルリクエストを作成してはならない。を**satisfy** | 否定試験 |
-| `V8-OPS-007` | 2 | 有効 | 運用 | diopside v8の運用は、通常の動画追加プルリクエストは、正本動画データを1件だけ変更対象とし、公開用のrelease ID、版付きJSON、画面bundle、`main/docs`を含めてはならない。静的公開成果物は人が当該プルリクエストをmainへマージした後に生成しなければならない。を**satisfy** | 変更範囲試験 |
-| `V8-OPS-008` | 1 | 有効 | 運用 | diopside v8の運用は、通常の動画追加プルリクエストでは、スキル、生成規則、タグ体系、構造定義、検証スクリプト、画面実装、Pages設定を変更してはならない。を**satisfy** | 変更範囲の否定試験 |
-| `V8-OPS-009` | 2 | 有効 | 運用 | diopside v8の運用は、プルリクエスト作成前に、構造、タグ、タイムスタンプ、ワードクラウド、検索索引、公開禁止情報、静的画面を動画ごとに決定的スクリプトで検証しなければならない。不合格は当該動画のプルリクエスト作成だけを止め、理由付き処理不能として記録し、同じ有限集合の他の動画の処理を止めてはならない。を**satisfy** | 不正データ試験・動画単位の失敗分離試験・手順試験 |
-| `V8-OPS-010` | 2 | 有効 | 運用 | diopside v8の運用は、PRレビュー可能な動画のプルリクエスト本文は、対象動画、タグ候補、タイムスタンプ候補、ワードクラウド語句、根拠、検証結果、YouTube確認リンクを日本語で示さなければならない。処理不能の動画は、失敗した段階と根拠を含む理由を日本語で示さなければならない。を**satisfy** | プルリクエスト・一括処理結果の表示確認 |
-| `V8-OPS-011` | 1 | 有効 | 運用 | diopside v8の運用は、生成候補は、人が確認してマージするまで公開してはならない。を**satisfy** | ブランチ境界試験 |
-| `V8-OPS-012` | 1 | 有効 | 運用 | diopside v8の運用は、GitHub Pagesは、`main` ブランチの `/docs` にコミット済みの静的成果物だけを公開しなければならない。を**satisfy** | リポジトリ設定確認・公開確認 |
-| `V8-OPS-013` | 1 | 有効 | 運用 | diopside v8の運用は、静的成果物は正本データから決定的に生成し、手作業で直接編集してはならない。を**satisfy** | 再現性試験 |
-| `V8-OPS-014` | 1 | 有効 | 運用 | diopside v8の運用は、公開データと画面は、同じ公開版の識別子を持たなければならない。を**satisfy** | 契約試験 |
-| `V8-OPS-015` | 1 | 有効 | 運用 | diopside v8の運用は、承認済み変更の取り消しによって、直前の正しい公開状態を再生成できなければならない。を**satisfy** | 復元訓練 |
-| `V8-OPS-016` | 1 | 有効 | 運用 | diopside v8の運用は、更新頻度は自動の日次保証とせず、最終更新日時を画面で確認できなければならない。を**satisfy** | 画面試験 |
 | `V8-TAG-001` | 1 | 有効 | データ | diopside v8のタグは、承認済み動画のタグは、版管理したタグ体系に基づかなければならない。を**satisfy** | 構造試験・追跡性確認 |
 | `V8-TAG-002` | 1 | 有効 | データ | diopside v8のタグは、タグは大分類、小分類、タグの3層で管理し、表示名だけの平坦な配列を正本にしてはならない。を**satisfy** | 構造試験 |
 | `V8-TAG-003` | 1 | 有効 | データ | diopside v8のタグは、各正規タグは表示名と独立した不変タグ識別子を持たなければならない。を**satisfy** | 移行試験 |
@@ -135,27 +156,890 @@
 | `V8-TIME-035` | 1 | 有効 | データ | diopside v8の時刻は、タイムスタンプ生成来歴から、動画、入力指紋、根拠の種類と範囲、生成規則版、生成日時、確認結果、確認プルリクエストを追跡できなければならない。を**satisfy** | 追跡性・冪等性試験 |
 | `V8-TIME-036` | 2 | 有効 | データ | diopside v8の時刻は、初回公開前に、ゲーム8件、企画6件、雑談5件、ASMR3件、歌2件、朗読・声劇2件、同時視聴2件、TRPG2件の固定30動画で品質を確認しなければならない。承認済み旧データを使う場合は、旧パイロットの不合格を合格へ読み替えず、別の承認済み固定30件を選び、承認元とv8決定的検証を確認する。を**satisfy** | 固定評価データによる受入試験 |
 | `V8-TIME-037` | 1 | 有効 | データ | diopside v8の時刻は、公開画面は各タイムスタンプの由来を「作成者による時刻一覧」「作成者一覧を基にdiopsideで調整」「diopsideで作成した時刻一覧」のいずれかとして区別し、YouTube公式情報と誤認させてはならない。を**satisfy** | 文言・画面試験 |
-| `V8-COST-001` | 1 | 有効 | 運用 | diopside v8の費用は、サービス運用に起因する請求額は、既存のChatGPT／Codex契約を除いて毎月0円でなければならない。を**satisfy** | 月次請求確認 |
-| `V8-COST-002` | 1 | 有効 | 運用 | diopside v8の費用は、公開基盤は、公開リポジトリで利用できるGitHub Pagesと既定の `github.io` 配下のURLに限定しなければならない。を**satisfy** | リポジトリ・Pages設定確認 |
-| `V8-COST-003` | 1 | 有効 | 運用 | diopside v8の費用は、AWSその他の有料クラウド資源をv8の閲覧・検索・生成・公開に使用してはならない。を**satisfy** | 構成確認 |
-| `V8-COST-004` | 1 | 有効 | 運用 | diopside v8の費用は、有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならない。を**satisfy** | 依存関係・通信確認 |
-| `V8-COST-005` | 1 | 有効 | 運用 | diopside v8の費用は、外部サービスの料金または無償条件が変わり請求が発生し得る場合は、課金して継続せず、該当処理を停止しなければならない。を**satisfy** | 運用手順確認 |
-| `V8-QUALITY-001` | 1 | 有効 | 品質 | diopside v8の品質は、検索、絞り込み、履歴、お気に入り、ワードクラウド描画はブラウザ内で処理しなければならない。を**satisfy** | 通信監査 |
-| `V8-QUALITY-002` | 1 | 有効 | 品質 | diopside v8の品質は、公開画面はスマートフォンを主要環境とし、検索からYouTubeを開くまでを初見利用者が1分以内に完了できなければならない。を**satisfy** | 利用者試験 |
-| `V8-QUALITY-003` | 1 | 有効 | 品質 | diopside v8の品質は、操作対象は44画素以上、キーボード操作可能、フォーカス表示あり、状態変化を読み上げ可能でなければならない。を**satisfy** | 自動試験・手動確認 |
-| `V8-QUALITY-004` | 1 | 有効 | 品質 | diopside v8の品質は、画面の見出し、ボタン、説明、状態、エラー、絞り込み名は自然な日本語でなければならない。を**satisfy** | 文言一覧の機械確認・人手確認 |
-| `V8-QUALITY-005` | 1 | 有効 | 品質 | diopside v8の品質は、公開データの取得失敗、構造不適合、公開版不一致、正常な0件を区別して日本語で表示しなければならない。を**satisfy** | 障害注入試験 |
-| `V8-SAFETY-001` | 1 | 有効 | 制約 | diopside v8の安全は、動画タイトル、説明、字幕、コメント、チャット、Issue本文、プルリクエスト本文の外部入力を、命令ではなく信頼できない資料として扱わなければならない。を**satisfy** | 攻撃入力試験 |
-| `V8-SAFETY-002` | 1 | 有効 | 制約 | diopside v8の安全は、生の字幕、生のコメント、生のチャット、投稿者識別子をGit履歴またはPagesへ保存してはならない。を**satisfy** | 公開境界試験 |
-| `V8-SAFETY-003` | 1 | 有効 | 制約 | diopside v8の安全は、秘密情報をリポジトリ、プルリクエスト、確認報告、Pagesへ含めてはならない。を**satisfy** | 秘密情報検査 |
-| `V8-SAFETY-004` | 1 | 有効 | 制約 | diopside v8の安全は、削除、非公開化、対象外化が確認された動画を次の公開版から除外し、再追加を防止しなければならない。を**satisfy** | 削除・再追加試験 |
-| `V8-DISPLAY-011` | 1 | 有効 | データ | diopside v8の表示は、全編根拠を確認できる動画の詳細は、視聴意欲を促しつつ結末、正体、勝敗等のネタバレを避けた日本語あらすじを表示しなければならない。本文と末尾の引用符付きセリフは合計100〜150文字とし、最後に対象配信で白雪巴が実際に発した特徴的なセリフを一つ置かなければならない。を**satisfy** | あらすじ候補検証・公開データ検証・動画詳細画面試験・公開境界検査 |
-| `V8-OPS-017` | 1 | 有効 | 運用 | diopside v8の運用は、release ID、版付き公開JSON、画面bundle、`main/docs`は、mainの品質ゲートに合格した人承認済み正本から決定的に生成し、差分がある場合だけmainへrelease commitしなければならない。生成中にmainが更新された場合は古い結果をcommitしてはならない。を**satisfy** | post-merge生成workflow契約試験・Pages公開経路試験 |
-| `V8-OPS-018` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ChatGPT Workから開始するタイムスタンプ処理は、PythonでGoogle Sheetsの対象動画台帳を列名で読み、作成済み・除外・既存PRを除いた適格対象を行番号と行指紋を含む有限集合として固定し、同じbatch IDでは集合を変更せず中断後も再開できなければならない。を**satisfy** | 台帳snapshot・immutable manifest・再開・0件試験 |
-| `V8-OPS-019` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ハーネスは作成者時刻一覧または公開日本語字幕を優先し、必要時に公開音声と無償ローカル音声認識、匿名化したチャット補助信号を取得し、章構成・事実確認・編集確認の意味判断を役割ごとに独立した非対話のcodex execで実行して、同じ候補hashへの決定的検証合格を必須としなければならない。を**satisfy** | Codex実行契約・role分離・候補hash・匿名chat・公開境界試験 |
-| `V8-OPS-020` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ハーネスは合格した各動画について1動画branchをcommit・pushしてdraft PRを作成し、実在PR URLを正本候補へ記録して最終commitをpushした後、PR URL・commit SHA・レビュー待ち状態を対象台帳行へ反映して再読確認しなければならない。処理不能動画も安全な理由と再開条件を台帳へ反映し、行指紋が変わった場合は上書きしてはならない。を**satisfy** | 1動画PR scope・PR URL gate・行指紋競合・exact range write・更新後再読試験 |
-| `V8-OPS-021` | 1 | 有効 | 運用 | diopside v8の分散タイムスタンプ運用は、2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchをGitHub connectorで原子的にref作成して未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者はclaim markerと処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。を**satisfy** | connector compare-and-set plan・1動画worker・余剰worker no-op・exact-case branch・認証分離契約試験 |
-| `V8-OPS-022` | 1 | 有効 | 運用 | diopside v8のタイムスタンプオーケストレーションは、1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行い、親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。利用可能な同時threadが10未満でも10論理レーンを波状実行しなければならない。を**satisfy** | agent設定・10レーン計画・Lunaモデル固定・Sol最終確認gate・共有書込み境界試験 |
+
+## V8-COST-001: サービス運用に起因する請求額は、既存のChatGPT／Codex契約を除いて毎月0円でなければならない
+
+diopside v8の費用は、サービス運用に起因する請求額は、既存のChatGPT／Codex契約を除いて毎月0円でなければならない。を**satisfy**。
+
+根拠: 既存のChatGPT／Codex契約以外の運用請求を発生させず、個人運用を持続可能にするため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-COST-001-1` 前提: V8-費用-001の前提を満たす公開データまたは操作がある。条件: 月次請求確認。期待結果: GitHub、配信、データ取得、保存、検索、監視、ドメイン、外部APIの月次請求額がすべて0円である。既存端末、電気、通信回線は算定外とする。。
+
+要求源: Issue #1 V8-費用-001, user:2026-08-03
+検証証跡: tests/repository-policy.test.ts
+トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-COST-002: 公開基盤は、公開リポジトリで利用できるGitHub Pagesと既定の `github.io` 配下のURLに限定しなければならない
+
+diopside v8の費用は、公開基盤は、公開リポジトリで利用できるGitHub Pagesと既定の `github.io` 配下のURLに限定しなければならない。を**satisfy**。
+
+根拠: 既存のChatGPT／Codex契約以外の運用請求を発生させず、個人運用を持続可能にするため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-COST-002-1` 前提: V8-費用-002の前提を満たす公開データまたは操作がある。条件: リポジトリ・Pages設定確認。期待結果: リポジトリは公開設定で、独自ドメインと有料プランを必要としない。。
+
+要求源: Issue #1 V8-費用-002, user:2026-08-03
+検証証跡: tests/repository-policy.test.ts
+トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-COST-003: AWSその他の有料クラウド資源をv8の閲覧・検索・生成・公開に使用してはならない
+
+diopside v8の費用は、AWSその他の有料クラウド資源をv8の閲覧・検索・生成・公開に使用してはならない。を**satisfy**。
+
+根拠: 既存のChatGPT／Codex契約以外の運用請求を発生させず、個人運用を持続可能にするため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-COST-003-1` 前提: V8-費用-003の前提を満たす公開データまたは操作がある。条件: 構成確認。期待結果: クラウド認証情報がなくても全手順を実行でき、有料資源の構成定義が存在しない。。
+
+要求源: Issue #1 V8-費用-003, user:2026-08-03
+検証証跡: tests/repository-policy.test.ts
+トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-COST-004: 有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならない
+
+diopside v8の費用は、有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならない。を**satisfy**。
+
+根拠: 既存のChatGPT／Codex契約以外の運用請求を発生させず、個人運用を持続可能にするため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-COST-004-1` 前提: V8-費用-004の前提を満たす公開データまたは操作がある。条件: 依存関係・通信確認。期待結果: 外部依存一覧に課金が発生し得る実行時サービスが0件である。。
+
+要求源: Issue #1 V8-費用-004, user:2026-08-03
+検証証跡: tests/repository-policy.test.ts
+トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-COST-005: 外部サービスの料金または無償条件が変わり請求が発生し得る場合は、課金して継続せず、該当処理を停止しなければならない
+
+diopside v8の費用は、外部サービスの料金または無償条件が変わり請求が発生し得る場合は、課金して継続せず、該当処理を停止しなければならない。を**satisfy**。
+
+根拠: 既存のChatGPT／Codex契約以外の運用請求を発生させず、個人運用を持続可能にするため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-COST-005-1` 前提: V8-費用-005の前提を満たす公開データまたは操作がある。条件: 運用手順確認。期待結果: 費用0円を確認できない状態では公開更新を行わず、人へ判断を求める。。
+
+要求源: Issue #1 V8-費用-005, user:2026-08-03
+検証証跡: tests/repository-policy.test.ts
+トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DEVICE-001: 閲覧履歴はブラウザ内データベースへ保存しなければならない
+
+diopside v8の端末は、閲覧履歴はブラウザ内データベースへ保存しなければならない。を**satisfy**。
+
+根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DEVICE-001-1` 前提: V8-端末-001の前提を満たす公開データまたは操作がある。条件: ブラウザ試験。期待結果: 同一ブラウザ・同一配信元で再読み込み後も復元され、最大200件を新しい順に保持する。。
+
+要求源: Issue #1 V8-端末-001, user:2026-08-03
+検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DEVICE-002: お気に入りはブラウザ内データベースへ保存しなければならない
+
+diopside v8の端末は、お気に入りはブラウザ内データベースへ保存しなければならない。を**satisfy**。
+
+根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DEVICE-002-1` 前提: V8-端末-002の前提を満たす公開データまたは操作がある。条件: ブラウザ試験。期待結果: 同じ動画を重複保存せず、利用者が解除するまで同一ブラウザ・同一配信元で復元される。。
+
+要求源: Issue #1 V8-端末-002, user:2026-08-03
+検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DEVICE-003: 最近の検索語と絞り込み条件はブラウザ内データベースへ保存しなければならない
+
+diopside v8の端末は、最近の検索語と絞り込み条件はブラウザ内データベースへ保存しなければならない。を**satisfy**。
+
+根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DEVICE-003-1` 前提: V8-端末-003の前提を満たす公開データまたは操作がある。条件: ブラウザ試験。期待結果: 最大20件を新しい順に保持し、同一条件の再保存は1件へ統合する。。
+
+要求源: Issue #1 V8-端末-003, user:2026-08-03
+検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DEVICE-004: 利用者は、履歴、お気に入り、最近の検索条件を個別に削除できなければならない
+
+diopside v8の端末は、利用者は、履歴、お気に入り、最近の検索条件を個別に削除できなければならない。を**satisfy**。
+
+根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DEVICE-004-1` 前提: V8-端末-004の前提を満たす公開データまたは操作がある。条件: 画面試験。期待結果: 対象だけが削除され、他の端末内データは残る。。
+
+要求源: Issue #1 V8-端末-004, user:2026-08-03
+検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DEVICE-005: 利用者は、diopsideが保存した端末内データを一括削除できなければならない
+
+diopside v8の端末は、利用者は、diopsideが保存した端末内データを一括削除できなければならない。を**satisfy**。
+
+根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DEVICE-005-1` 前提: V8-端末-005の前提を満たす公開データまたは操作がある。条件: ブラウザ試験。期待結果: 確認後に履歴、お気に入り、最近の検索条件、公開データのキャッシュが削除される。。
+
+要求源: Issue #1 V8-端末-005, user:2026-08-03
+検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DEVICE-006: 公開用の静的データはブラウザのキャッシュへ保存できなければならない
+
+diopside v8の端末は、公開用の静的データはブラウザのキャッシュへ保存できなければならない。を**satisfy**。
+
+根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DEVICE-006-1` 前提: V8-端末-006の前提を満たす公開データまたは操作がある。条件: キャッシュ更新試験。期待結果: 公開版の識別子が一致する間だけ再利用し、新版検出時は混在させない。。
+
+要求源: Issue #1 V8-端末-006, user:2026-08-03
+検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DEVICE-007: ブラウザ内データの破損、容量超過、利用拒否が起きても、検索と閲覧を継続できなければならない
+
+diopside v8の端末は、ブラウザ内データの破損、容量超過、利用拒否が起きても、検索と閲覧を継続できなければならない。を**satisfy**。
+
+根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DEVICE-007-1` 前提: V8-端末-007の前提を満たす公開データまたは操作がある。条件: 障害注入試験。期待結果: 保存機能だけを無効化し、日本語で通知し、画面全体を停止しない。。
+
+要求源: Issue #1 V8-端末-007, user:2026-08-03
+検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DEVICE-008: 履歴、お気に入り、最近の検索条件をサーバーへ送信してはならない
+
+diopside v8の端末は、履歴、お気に入り、最近の検索条件をサーバーへ送信してはならない。を**satisfy**。
+
+根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DEVICE-008-1` 前提: V8-端末-008の前提を満たす公開データまたは操作がある。条件: 通信監査・画面試験。期待結果: 通信記録に端末内データの書込み・同期要求が0件である。。
+
+要求源: Issue #1 V8-端末-008, user:2026-08-03
+検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DEVICE-009: 利用者向けログイン、アカウント登録、認証用画面、認証用クッキーを実装してはならない
+
+diopside v8の端末は、利用者向けログイン、アカウント登録、認証用画面、認証用クッキーを実装してはならない。を**satisfy**。
+
+根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DEVICE-009-1` 前提: V8-端末-009の前提を満たす公開データまたは操作がある。条件: 画面・通信・コード確認。期待結果: 未ログイン状態だけで全公開機能を利用でき、ログイン導線と認証通信が存在しない。。
+
+要求源: Issue #1 V8-端末-009, user:2026-08-03
+検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DEVICE-010: 端末内データはブラウザやサイトデータの削除で失われ、別端末へ同期されないことを日本語で説明しなければならない
+
+diopside v8の端末は、端末内データはブラウザやサイトデータの削除で失われ、別端末へ同期されないことを日本語で説明しなければならない。を**satisfy**。
+
+根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DEVICE-010-1` 前提: V8-端末-010の前提を満たす公開データまたは操作がある。条件: 文言確認。期待結果: 履歴・お気に入り画面から説明を確認できる。。
+
+要求源: Issue #1 V8-端末-010, user:2026-08-03
+検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DEVICE-011: 利用者行動を解析・追跡する外部送信を行ってはならない
+
+diopside v8の端末は、利用者行動を解析・追跡する外部送信を行ってはならない。を**satisfy**。
+
+根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DEVICE-011-1` 前提: V8-端末-011の前提を満たす公開データまたは操作がある。条件: 通信監査・依存関係確認。期待結果: アクセス解析、広告、指紋採取、独自利用者識別子への通信が0件である。。
+
+要求源: Issue #1 V8-端末-011, user:2026-08-03
+検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DISPLAY-001: 動画一覧は、動画タイトル、公開日、動画長、サムネイルを動画基本情報として表示しなければならない
+
+diopside v8の表示は、動画一覧は、動画タイトル、公開日、動画長、サムネイルを動画基本情報として表示しなければならない。を**satisfy**。
+
+根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-001-1` 前提: V8-表示-001の前提を満たす公開データまたは操作がある。条件: 画面契約試験。期待結果: 値あり・値なしの固定データで、欠損を0や空文字として偽装しない。。
+
+要求源: Issue #1 V8-表示-001, user:2026-08-03
+検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DISPLAY-002: 動画詳細は、動画基本情報とは別に、承認済みタグを「タグ」として表示しなければならない
+
+diopside v8の表示は、動画詳細は、動画基本情報とは別に、承認済みタグを「タグ」として表示しなければならない。を**satisfy**。
+
+根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-002-1` 前提: V8-表示-002の前提を満たす公開データまたは操作がある。条件: 画面試験・用語確認。期待結果: 複数分類の付加情報がすべてタグ欄にまとまり、別名の分類欄が出ない。。
+
+要求源: Issue #1 V8-表示-002, user:2026-08-03
+検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DISPLAY-003: 動画詳細は、承認済みタイムスタンプを時刻の昇順で表示しなければならない
+
+diopside v8の表示は、動画詳細は、承認済みタイムスタンプを時刻の昇順で表示しなければならない。を**satisfy**。
+
+根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-003-1` 前提: V8-表示-003の前提を満たす公開データまたは操作がある。条件: 境界値試験・画面試験。期待結果: 0秒、通常時刻、最終章、未作成の各状態が定義どおり表示され、最終章の終了は動画長と一致する。。
+
+要求源: Issue #1 V8-表示-003, user:2026-08-03
+検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DISPLAY-004: 各タイムスタンプは、対象動画の該当時刻をYouTubeで開けなければならない
+
+diopside v8の表示は、各タイムスタンプは、対象動画の該当時刻をYouTubeで開けなければならない。を**satisfy**。
+
+根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-004-1` 前提: V8-表示-004の前提を満たす公開データまたは操作がある。条件: リンク契約試験。期待結果: 動画識別子と秒数を含む正しいリンクが生成される。。
+
+要求源: Issue #1 V8-表示-004, user:2026-08-03
+検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DISPLAY-005: 動画詳細は、承認済みのワードクラウドを表示しなければならない
+
+diopside v8の表示は、動画詳細は、承認済みのワードクラウドを表示しなければならない。を**satisfy**。
+
+根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-005-1` 前提: V8-表示-005の前提を満たす公開データまたは操作がある。条件: 表示試験・再現性試験。期待結果: 20～50語を重要度に応じた大きさで表示し、同じ入力、画面幅、描画規則から同じ語句、大きさ、位置を再現できる。。
+
+要求源: Issue #1 V8-表示-005, user:2026-08-03
+検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DISPLAY-006: ワードクラウドの語句は、公開字幕、公開概要欄、または運用者が明示的に提供した公開本文を一時的に処理して作り、人の承認前に公開してはならない
+
+diopside v8の表示は、ワードクラウドの語句は、公開字幕、公開概要欄、または運用者が明示的に提供した公開本文を一時的に処理して作り、人の承認前に公開してはならない。を**satisfy**。
+
+根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-006-1` 前提: V8-表示-006の前提を満たす公開データまたは操作がある。条件: 生成来歴確認・人手確認。期待結果: 使用した入力種別、除外語規則、生成規則の版と確認結果をプルリクエストから追跡できる。。
+
+要求源: Issue #1 V8-表示-006, user:2026-08-03
+検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DISPLAY-007: ワードクラウドの語句には、重要度を比較できる1～100の整数値を持たせなければならない
+
+diopside v8の表示は、ワードクラウドの語句には、重要度を比較できる1～100の整数値を持たせなければならない。を**satisfy**。
+
+根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-007-1` 前提: V8-表示-007の前提を満たす公開データまたは操作がある。条件: 構造・境界値試験。期待結果: 0、101、小数、欠損、重複語を検証で拒否し、正規化後の同一語を統合する。。
+
+要求源: Issue #1 V8-表示-007, user:2026-08-03
+検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DISPLAY-008: ワードクラウドの入力資料を利用できない動画は、推測で語句を補わず「未作成」と表示しなければならない
+
+diopside v8の表示は、ワードクラウドの入力資料を利用できない動画は、推測で語句を補わず「未作成」と表示しなければならない。を**satisfy**。
+
+根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-008-1` 前提: V8-表示-008の前提を満たす公開データまたは操作がある。条件: 否定試験・画面試験。期待結果: 入力なしの固定データで空の画像を作らず、理由を日本語で表示する。。
+
+要求源: Issue #1 V8-表示-008, user:2026-08-03
+検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DISPLAY-009: ワードクラウドの語句をタイトル文字検索の対象へ混入してはならない
+
+diopside v8の表示は、ワードクラウドの語句をタイトル文字検索の対象へ混入してはならない。を**satisfy**。
+
+根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-009-1` 前提: V8-表示-009の前提を満たす公開データまたは操作がある。条件: 検索除外試験。期待結果: ワードクラウドにだけ存在する語で検索しても、文字検索だけでは動画が一致しない。。
+
+要求源: Issue #1 V8-表示-009, user:2026-08-03
+検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DISPLAY-010: 動画詳細は、タグ、タイムスタンプ、ワードクラウドの最終更新日を日本語で示さなければならない
+
+diopside v8の表示は、動画詳細は、タグ、タイムスタンプ、ワードクラウドの最終更新日を日本語で示さなければならない。を**satisfy**。
+
+根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-010-1` 前提: V8-表示-010の前提を満たす公開データまたは操作がある。条件: 画面契約試験。期待結果: 更新日あり・なしを区別し、生成日を公開日と誤表示しない。。
+
+要求源: Issue #1 V8-表示-010, user:2026-08-03
+検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-DISPLAY-011: 動画詳細は、ネタバレを避けた100〜150字のあらすじを、白雪巴の特徴的なセリフで締めて表示しなければならない
+
+diopside v8の表示は、全編根拠を確認できる動画の詳細は、視聴意欲を促しつつ結末、正体、勝敗等のネタバレを避けた日本語あらすじを表示しなければならない。本文と末尾の引用符付きセリフは合計100〜150文字とし、最後に対象配信で白雪巴が実際に発した特徴的なセリフを一つ置かなければならない。を**satisfy**。
+
+根拠: 利用者が結末を知らずに動画の雰囲気と見どころを把握し、安心して視聴を選べるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-011-1` 前提: 全編根拠と承認済みのあらすじ候補を持つ動画がある。条件: あらすじ候補検証・公開データ検証・動画詳細画面試験。期待結果: 本文と末尾の引用符付きセリフが100〜150文字で、結末、正体、勝敗等を明かさず、最後に根拠時刻へ移動できる白雪巴の特徴的なセリフを一つ表示する。。
+- `AC-V8-DISPLAY-011-2` 前提: 全編字幕または文字起こしを使ってあらすじ候補を作る。条件: 公開境界検査・repository差分確認。期待結果: 生字幕・文字起こしをGitまたは公開成果物へ含めず、安全な根拠ラベル、入力指紋、全編範囲だけを正本へ保持する。。
+
+要求源: spec/sources/owner-directive-2026-08-08-video-synopsis.md, user:2026-08-08
+検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=.agents/skills/generate-video-synopses,src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,spec/sources/owner-directive-2026-08-08-video-synopsis.md,dev-standard default profile
+
+## V8-OPS-001: タイムスタンプ一括処理は、人の1回の明示要求で有限の適格対象集合を固定して開始しなければならない
+
+diopside v8の運用は、タイムスタンプ一括処理は、運用者による1回の明示的なChatGPT／Codex要求で指定された識別子または有限の選定条件から、今回処理する適格動画の有限集合を開始時に固定しなければならない。固定後は、動画ごとの追加チャット承認を開始条件としてはならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-001-1` 前提: 運用者がタイムスタンプ対象の識別子または有限の選定条件を明示した。条件: 一括処理の開始境界・対象集合固定試験。期待結果: 要求から有限の適格対象集合を一度だけ固定し、人の開始操作がない状態では候補生成、ブランチ作成、プルリクエスト作成を行わない。。
+- `AC-V8-OPS-001-2` 前提: 明示要求によって対象集合を固定済みである。条件: 動画ごとの状態遷移試験。期待結果: 集合内の各動画は、動画ごとの追加チャット承認を待たずに処理を開始できる。。
+
+要求源: Issue #1 V8-運用-001, user:2026-08-03, owner-directive:2026-08-08-timestamp-batch
+検証証跡: tests/operations.test.ts, tests/timestamp_tools_test.py
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.agents/skills/generate-stream-timestamps; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/timestamp_tools_test.py; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-002: GitHub ActionsからChatGPT／Codexを呼び出してはならない
+
+diopside v8の運用は、GitHub ActionsからChatGPT／Codexを呼び出してはならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-002-1` 前提: V8-運用-002の前提を満たす公開データまたは操作がある。条件: リポジトリ静的確認。期待結果: リポジトリのワークフローと設定にCodex Action、OpenAI API呼出し、モデル用秘密情報が存在しない。。
+
+要求源: Issue #1 V8-運用-002, user:2026-08-03
+検証証跡: tests/operations.test.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-003: 動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない
+
+diopside v8の運用は、動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-003-1` 前提: V8-運用-003の前提を満たす公開データまたは操作がある。条件: リポジトリ静的確認・手順試験。期待結果: `.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。人が開始する `workflow_dispatch` は読取専用の検証と候補検出に限定し、静的成果物生成は検証済みmainだけを入力とする。。
+
+要求源: Issue #1 V8-運用-003, user:2026-08-03, owner-directive:2026-08-04, spec/sources/owner-directive-2026-08-08-post-merge-release.md
+検証証跡: tests/operations.test.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml,.github/workflows/update-generated-release.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-004: ChatGPT／Codexの利用は、運用者が契約済みの画面上の利用範囲に限定しなければならない
+
+diopside v8の運用は、ChatGPT／Codexの利用は、運用者が契約済みの画面上の利用範囲に限定しなければならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-004-1` 前提: V8-運用-004の前提を満たす公開データまたは操作がある。条件: 構成確認・秘密情報確認。期待結果: OpenAI APIキー、従量課金API、外部モデルAPIを必要としない。。
+
+要求源: Issue #1 V8-運用-004, user:2026-08-03
+検証証跡: tests/operations.test.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-005: 1回の明示要求で固定した有限の適格タイムスタンプ対象集合を、全件が終端結果へ到達するまで処理しなければならない
+
+diopside v8の運用は、1回の明示要求で固定した有限の適格タイムスタンプ対象集合は、各動画が1動画だけを対象とするdraft PRの作成・最終commitのpush・台帳反映確認を完了した状態、または根拠を示した処理不能状態のいずれかへ到達するまで処理しなければならない。ある動画の失敗を理由に、集合内の未処理動画を停止してはならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-005-1` 前提: 同じ公開情報、同じ正本、同じ明示要求がある。条件: 対象集合の固定データ試験。期待結果: 同じ有限の適格対象集合を固定する。。
+- `AC-V8-OPS-005-2` 前提: 固定した集合に成功可能な動画と処理不能になる動画が含まれる。条件: 一括処理の終端・失敗分離試験。期待結果: 全動画が1動画draft PR作成・最終commit push・台帳反映確認済み、または理由付き処理不能の終端結果を持ち、処理不能動画があっても残りの動画を処理する。。
+
+要求源: Issue #1 V8-運用-005, user:2026-08-03, owner-directive:2026-08-08-timestamp-batch, spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md, user:2026-08-11
+検証証跡: tests/operations.test.ts, tests/timestamp_tools_test.py, tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.agents/skills/generate-stream-timestamps,.agents/skills/run-timestamp-work-harness; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/timestamp_tools_test.py,tests/timestamp_harness_test.py; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-006: 対象候補が0件の場合は、生成物、ブランチ、プルリクエストを作成してはならない
+
+diopside v8の運用は、対象候補が0件の場合は、生成物、ブランチ、プルリクエストを作成してはならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-006-1` 前提: V8-運用-006の前提を満たす公開データまたは操作がある。条件: 否定試験。期待結果: 0件の固定データで差分0・プルリクエスト0件となる。。
+
+要求源: Issue #1 V8-運用-006, user:2026-08-03
+検証証跡: tests/operations.test.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-007: 通常の動画追加プルリクエストは、1動画だけを内容確認の対象としなければならない
+
+diopside v8の運用は、通常の動画追加プルリクエストは、正本動画データを1件だけ変更対象とし、公開用のrelease ID、版付きJSON、画面bundle、`main/docs`を含めてはならない。静的公開成果物は人が当該プルリクエストをmainへマージした後に生成しなければならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-007-1` 前提: V8-運用-007の前提を満たす公開データまたは操作がある。条件: 変更範囲試験。期待結果: 1件の正本動画データと、その正本件数・更新日時を持つmanifestおよび確認用資料だけを変更し、release ID、版付き公開JSON、画面bundle、`main/docs`を差分に含めない。。
+
+要求源: Issue #1 V8-運用-007, user:2026-08-03, spec/sources/owner-directive-2026-08-08-post-merge-release.md
+検証証跡: tests/operations.test.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,scripts/validate-video-pr-scope.ts,scripts/validate-release-pr-scope.ts,.github/workflows/update-generated-release.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-008: 通常の動画追加プルリクエストでは、スキル、生成規則、タグ体系、構造定義、検証スクリプト、画面実装、Pages設定を変更してはならない
+
+diopside v8の運用は、通常の動画追加プルリクエストでは、スキル、生成規則、タグ体系、構造定義、検証スクリプト、画面実装、Pages設定を変更してはならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-008-1` 前提: V8-運用-008の前提を満たす公開データまたは操作がある。条件: 変更範囲の否定試験。期待結果: 許可範囲外の変更を検証で拒否し、別の保守プルリクエストへ分離する。。
+
+要求源: Issue #1 V8-運用-008, user:2026-08-03
+検証証跡: tests/operations.test.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-009: プルリクエスト作成前の決定的検証は動画ごとに判定し、不合格を他の対象へ波及させてはならない
+
+diopside v8の運用は、プルリクエスト作成前に、構造、タグ、タイムスタンプ、ワードクラウド、検索索引、公開禁止情報、静的画面を動画ごとに決定的スクリプトで検証しなければならない。不合格は当該動画のプルリクエスト作成だけを止め、理由付き処理不能として記録し、同じ有限集合の他の動画の処理を止めてはならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-009-1` 前提: 固定した有限集合の各動画に、プルリクエスト作成前の候補がある。条件: 不正データ試験・動画単位の失敗分離試験・手順試験。期待結果: いずれか1件の不合格で当該動画のプルリクエスト作成を止め、原因を日本語で示す一方、他の対象動画の検証と処理を継続する。。
+
+要求源: Issue #1 V8-運用-009, user:2026-08-03, owner-directive:2026-08-08-timestamp-batch
+検証証跡: tests/operations.test.ts, tests/generated.test.ts, tests/timestamp_tools_test.py
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.agents/skills/generate-stream-timestamps; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/timestamp_tools_test.py; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-010: 各動画の終端結果は、PRレビュー内容または処理不能理由を日本語で確認できなければならない
+
+diopside v8の運用は、PRレビュー可能な動画のプルリクエスト本文は、対象動画、タグ候補、タイムスタンプ候補、ワードクラウド語句、根拠、検証結果、YouTube確認リンクを日本語で示さなければならない。処理不能の動画は、失敗した段階と根拠を含む理由を日本語で示さなければならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-010-1` 前提: 動画がPRレビュー可能な終端結果へ到達した。条件: プルリクエスト表示確認。期待結果: 人が構造化データを直接読まずに対象動画、各候補、根拠、検証結果、YouTube確認リンクを確認できる。。
+- `AC-V8-OPS-010-2` 前提: 動画が理由付き処理不能の終端結果へ到達した。条件: 一括処理の結果表示確認。期待結果: 失敗した段階、根拠、再開に必要な条件を日本語で確認でき、成功または公開対象として表示されない。。
+
+要求源: Issue #1 V8-運用-010, user:2026-08-03, owner-directive:2026-08-08-timestamp-batch
+検証証跡: tests/operations.test.ts, tests/timestamp_tools_test.py
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.agents/skills/generate-stream-timestamps; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/timestamp_tools_test.py; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-011: 生成候補は、人が確認してマージするまで公開してはならない
+
+diopside v8の運用は、生成候補は、人が確認してマージするまで公開してはならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-011-1` 前提: V8-運用-011の前提を満たす公開データまたは操作がある。条件: ブランチ境界試験。期待結果: 未マージ、却下、終了済み未マージの差分がPagesの公開元に含まれない。。
+
+要求源: Issue #1 V8-運用-011, user:2026-08-03
+検証証跡: tests/operations.test.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-012: GitHub Pagesは、`main` ブランチの `/docs` にコミット済みの静的成果物だけを公開しなければならない
+
+diopside v8の運用は、GitHub Pagesは、`main` ブランチの `/docs` にコミット済みの静的成果物だけを公開しなければならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-012-1` 前提: V8-運用-012の前提を満たす公開データまたは操作がある。条件: リポジトリ設定確認・公開確認。期待結果: Pagesの公開元がbranch方式の `main/docs` で、独自の公開Actionsを必要としない。。
+
+要求源: Issue #1 V8-運用-012, user:2026-08-03
+検証証跡: tests/operations.test.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-013: 静的成果物は正本データから決定的に生成し、手作業で直接編集してはならない
+
+diopside v8の運用は、静的成果物は正本データから決定的に生成し、手作業で直接編集してはならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-013-1` 前提: V8-運用-013の前提を満たす公開データまたは操作がある。条件: 再現性試験。期待結果: 同一の正本と生成規則から2回生成した成果物の内容が一致する。。
+
+要求源: Issue #1 V8-運用-013, user:2026-08-03
+検証証跡: tests/operations.test.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-014: 公開データと画面は、同じ公開版の識別子を持たなければならない
+
+diopside v8の運用は、公開データと画面は、同じ公開版の識別子を持たなければならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-014-1` 前提: V8-運用-014の前提を満たす公開データまたは操作がある。条件: 契約試験。期待結果: 異なる公開版の一覧、索引、タグ、詳細、ワードクラウドが混在すると表示前に拒否される。。
+
+要求源: Issue #1 V8-運用-014, user:2026-08-03
+検証証跡: tests/operations.test.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-015: 承認済み変更の取り消しによって、直前の正しい公開状態を再生成できなければならない
+
+diopside v8の運用は、承認済み変更の取り消しによって、直前の正しい公開状態を再生成できなければならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-015-1` 前提: V8-運用-015の前提を満たす公開データまたは操作がある。条件: 復元訓練。期待結果: 取り消し後の `/docs` が対象変更を除いた一貫した公開版となる。。
+
+要求源: Issue #1 V8-運用-015, user:2026-08-03
+検証証跡: tests/operations.test.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-016: 更新頻度は自動の日次保証とせず、最終更新日時を画面で確認できなければならない
+
+diopside v8の運用は、更新頻度は自動の日次保証とせず、最終更新日時を画面で確認できなければならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-016-1` 前提: V8-運用-016の前提を満たす公開データまたは操作がある。条件: 画面試験。期待結果: 更新がない期間も誤って「最新」と表示せず、公開データの最終更新日時を日本語で示す。。
+
+要求源: Issue #1 V8-運用-016, user:2026-08-03
+検証証跡: tests/operations.test.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-017: 静的公開成果物は、検証済みmainマージ後にだけ自動生成してrelease commitしなければならない
+
+diopside v8の運用は、release ID、版付き公開JSON、画面bundle、`main/docs`は、mainの品質ゲートに合格した人承認済み正本から決定的に生成し、差分がある場合だけmainへrelease commitしなければならない。生成中にmainが更新された場合は古い結果をcommitしてはならない。を**satisfy**。
+
+根拠: 内容レビュー対象の正本と機械生成される公開版を分離し、通常プルリクエストごとの全公開物差分とrelease ID競合をなくしながら、人のマージ承認後だけ一貫した静的版を公開するため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-017-1` 前提: 人が正本変更をmainへマージし、そのmain commitの品質ゲートが合格した。条件: post-merge生成workflow契約試験。期待結果: 同じ検証済みcommitから静的成果物を生成・検証し、後続main更新がなく生成差分がある場合だけrelease commitする。。
+- `AC-V8-OPS-017-2` 前提: release commitがmainへ追加された。条件: Pages公開経路試験。期待結果: 独自deploy artifactを使わず、既存のmain/docs branch方式Pages buildを要求する。。
+
+要求源: spec/sources/owner-directive-2026-08-08-post-merge-release.md, user:2026-08-08
+検証証跡: tests/repository-policy.test.ts, tests/operations.test.ts, tests/generated.test.ts
+トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/design/generated/system.gen.md; 実装=.github/workflows/update-generated-release.yml,scripts/build-public-data.ts,scripts/validate-video-pr-scope.ts,scripts/validate-release-pr-scope.ts,scripts/verify-generated-source.ts; テスト=tests/repository-policy.test.ts,tests/operations.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-08-post-merge-release.md,dev-standard default profile
+
+## V8-OPS-018: Work用タイムスタンプ処理はPythonで台帳行を固定し中断後も同じ集合から再開できなければならない
+
+diopside v8のタイムスタンプ運用は、ChatGPT Workから開始するタイムスタンプ処理は、PythonでGoogle Sheetsの対象動画台帳を列名で読み、作成済み・除外・既存PRを除いた適格対象を行番号と行指紋を含む有限集合として固定し、同じbatch IDでは集合を変更せず中断後も再開できなければならない。を**satisfy**。
+
+根拠: 長時間処理の中断や台帳の並行更新があっても対象の追加・脱落・誤上書きを防ぎ、今後のChatGPT Work実行を同じ手順で再現するため。Python、Google Sheets、ChatGPT Workは所有者が将来運用に指定した支持環境であり、この運用範囲に限定して保持する。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-018-1` 前提: 対象動画台帳のsnapshotと一意なbatch IDがある。条件: Pythonハーネスを初期化し、同一または変更したsnapshotで再実行する。期待結果: 同一入力は同じ有限集合を再開し、行または対象集合が変わる同一batch IDを拒否し、0件ではbranch・PR・台帳書込みを行わない。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/scripts/harness_common.py; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md,dev-standard default profile
+
+## V8-OPS-019: 意味判断は独立したcodex execで実行し素材取得と決定的検証で囲まなければならない
+
+diopside v8のタイムスタンプ運用は、ハーネスは作成者時刻一覧または公開日本語字幕を優先し、必要時に公開音声と無償ローカル音声認識、匿名化したチャット補助信号を取得し、章構成・事実確認・編集確認の意味判断を役割ごとに独立した非対話のcodex execで実行して、同じ候補hashへの決定的検証合格を必須としなければならない。を**satisfy**。
+
+根拠: 素材収集と意味判断と採用判定を分離し、公開字幕がない動画も公開音声と無償ローカル音声認識で全編根拠へ復旧しながら、既存ChatGPT／Codex契約の範囲で独立確認と機械検証を再現可能にするため。codex execは所有者が判断実行方式として明示した永続的な運用制約である。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-019-1` 前提: 固定対象に公開字幕がある、または公開音声から全編ローカル音声認識が可能である。条件: ハーネスで素材取得と候補作成を実行する。期待結果: 生素材をGitへ保存せず、compose、fact、editorialを別のephemeral codex execとして実行し、同じ候補hashの独立確認と決定的検証に合格した候補だけをPR工程へ進める。。
+- `AC-V8-OPS-019-2` 前提: チャット補助信号が必要で公開live chatを取得できる。条件: チャット取得を実行する。期待結果: 本文と投稿者識別子を破棄した時間帯別反応量だけを一時保持し、チャット単独で境界または全編根拠を決めない。。
+- `AC-V8-OPS-019-3` 前提: 公開日本語字幕を取得できないが公開音声を認証なしで取得できる。条件: 素材取得を継続する。期待結果: yt-dlpで一時MP3を取得してfaster-whisperで全編ローカル音声認識を行い、字幕取得、音声取得、音声認識の失敗段階を安全な理由として区別する。。
+- `AC-V8-OPS-019-4` 前提: codex execが信頼済み実行先または一時状態領域の技術的理由で失敗する。条件: 実行先が期待するGit repositoryであることを決定的に検証できる。期待結果: sandboxと認証境界を維持した同一モデルで一度だけ再試行し、実行先検査だけが原因の場合に限り公式のskip-git-repo-checkを使用する。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md, spec/sources/owner-directive-2026-08-11-timestamp-retry-fallback.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py, tests/timestamp_tools_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/scripts/download_live_chat.py,.agents/skills/prepare-stream-evidence,.agents/skills/audit-stream-chapters; テスト=tests/timestamp_harness_test.py,tests/timestamp_tools_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md,dev-standard default profile
+
+## V8-OPS-020: 合格動画のdraft PR作成と全終端結果の台帳反映を自律的に完了しなければならない
+
+diopside v8のタイムスタンプ運用は、ハーネスは合格した各動画について1動画branchをcommit・pushしてdraft PRを作成し、実在PR URLを正本候補へ記録して最終commitをpushした後、PR URL・commit SHA・レビュー待ち状態を対象台帳行へ反映して再読確認しなければならない。処理不能動画も安全な理由と再開条件を台帳へ反映し、行指紋が変わった場合は上書きしてはならない。を**satisfy**。
+
+根拠: 候補作成だけで停止せず、人が確認できるGitHub単位と進捗台帳を一致させ、誤って未マージ候補を作成済みまたは公開済みと扱わないため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-020-1` 前提: 候補が全編根拠、独立確認、決定的検証に合格した。条件: PR工程と台帳同期を実行する。期待結果: 1動画だけのdraft PRへ最終commitがpushされ、台帳は作成済みFALSE、PR作成済み（レビュー待ち）、実在PR URL、最終commit SHAを示し、更新後の再読で一致する。。
+- `AC-V8-OPS-020-2` 前提: 動画が処理不能である、または開始後に台帳行が変更された。条件: 終端結果を台帳へ同期する。期待結果: 他動画を継続し、処理不能の段階・安全な理由・再開条件を記録し、競合行は上書きしない。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py, tests/finalize_candidate_pr_merge_test.py, tests/operations.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness,.agents/skills/generate-stream-timestamps/scripts/finalize_candidate.py,scripts/validate-video-pr-scope.ts; テスト=tests/timestamp_harness_test.py,tests/finalize_candidate_pr_merge_test.py,tests/operations.test.ts; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md,dev-standard default profile
+
+## V8-OPS-021: 2〜20のWorkセッションはremote branchの原子的claimで別動画を1件ずつ処理しなければならない
+
+diopside v8の分散タイムスタンプ運用は、2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchをGitHub connectorで原子的にref作成して未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者はclaim markerと処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。を**satisfy**。
+
+根拠: 独立Workセッション間に共有ローカル状態がなくても、GitHubのremote ref作成をcompare-and-setとして利用し、二重素材処理、同一branch更新、同一動画PR、台帳行の誤上書きを防ぐため。処理中draft PRにより中断したclaimも人が発見して再開判断できる。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-021-1` 前提: 同じ台帳snapshotから同じ未処理動画を選ぶ2つのworkerがある。条件: 両workerがGitHub connectorで同じ動画の専用remote branchをref作成してclaimする。期待結果: GitHubがref作成を受理した1workerだけが所有権を得てclaim markerと処理中draft PRを作り、競合workerはforce updateやbranch削除をせず次候補へ進む。。
+- `AC-V8-OPS-021-2` 前提: 適格動画数より多いworkerが起動した、またはclaim済み動画だけが残っている。条件: workerがclaim-nextを完了する。期待結果: 余剰workerはno_unclaimed_targetとしてbranch、PR、台帳書込みを行わず正常終了する。。
+- `AC-V8-OPS-021-3` 前提: claim済みworkerが処理中に停止した。条件: 別workerまたは人がGitHub上の状態を確認する。期待結果: 処理中draft PRとclaim markerから所有権を識別でき、自動奪取せず同じbatchとbranchで再開判断できる。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-distributed-workers.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-distributed-workers.md,dev-standard default profile
+
+## V8-OPS-022: 1つのWorkセッションは1 Solと10 Lunaでタイムスタンプを並列処理しSolが最終確認しなければならない
+
+diopside v8のタイムスタンプオーケストレーションは、1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行い、親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。利用可能な同時threadが10未満でも10論理レーンを波状実行しなければならない。を**satisfy**。
+
+根拠: 反復的で明確な動画処理を高速なLunaへ分散し、技術失敗と候補品質不足を区別して必要時だけTerraへ明示昇格し、共有GitHub・台帳書込みと最終判断をSolへ一元化することで、人の継続入力、競合、未確認候補の確定を減らすため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-022-1` 前提: 1つのWorkチャットで複数の適格動画を処理する明示要求がある。条件: 親Solが1波を計画して子agentへ割り当てる。期待結果: 10論理レーンがGPT-5.6 Luna mediumへ固定され、各Lunaは異なるclaim済み動画を最大1件だけ処理し、同時thread上限が低い場合は同じ10レーンを波状実行する。。
+- `AC-V8-OPS-022-2` 前提: Lunaが候補、事実確認、編集確認、決定的検証結果を返した。条件: 正本化、PR最終commit、台帳同期へ進む。期待結果: 親GPT-5.6 Solが同じ候補hashと全編根拠を最終確認したpass記録がない候補を拒否し、GitHubとGoogle Sheetsへの確定書込みをLunaへ行わせない。。
+- `AC-V8-OPS-022-3` 前提: 1波の全Lunaがcompleteまたはblockedで台帳確認まで終わり、有限対象が残っている。条件: キャンペーン期限前に次の処理を判断する。期待結果: 人の追加入力を待たず次の10レーンを計画し、対象枯渇、期限のdrain、または全体権限・安全blockまで継続する。。
+- `AC-V8-OPS-022-4` 前提: Lunaのcompose実行は正常完了したが章候補がdraft決定的検証に合格しない。条件: 同じ全編根拠から候補を一度再構成する。期待結果: GPT-5.6 Terra highをquality_retry_escalationとして明示記録して使用し、技術失敗ではモデルを昇格せず、再構成後も独立確認と親Sol最終確認を必須とする。。
+
+要求源: spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md, spec/sources/owner-directive-2026-08-11-timestamp-retry-fallback.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.codex/config.toml,.codex/agents/timestamp-luna-worker.toml,.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md,spec/sources/owner-directive-2026-08-11-timestamp-retry-fallback.md,dev-standard default profile
+
+## V8-QUALITY-001: 検索、絞り込み、履歴、お気に入り、ワードクラウド描画はブラウザ内で処理しなければならない
+
+diopside v8の品質は、検索、絞り込み、履歴、お気に入り、ワードクラウド描画はブラウザ内で処理しなければならない。を**satisfy**。
+
+根拠: 主要な利用環境で、速く、理解しやすく、支援技術でも利用できる状態を保証するため。
+
+分類: `product` / `nonfunctional`
+
+受入条件:
+- `AC-V8-QUALITY-001-1` 前提: V8-品質-001の前提を満たす公開データまたは操作がある。条件: 通信監査。期待結果: 閲覧中の動的バックエンドAPI呼出しが0件である。。
+
+要求源: Issue #1 V8-品質-001, user:2026-08-03
+検証証跡: src, tests, e2e
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src,scripts; テスト=src,tests,e2e; 参照資料=Issue #1,dev-standard default profile
+
+## V8-QUALITY-002: 公開画面はスマートフォンを主要環境とし、検索からYouTubeを開くまでを初見利用者が1分以内に完了できなければならない
+
+diopside v8の品質は、公開画面はスマートフォンを主要環境とし、検索からYouTubeを開くまでを初見利用者が1分以内に完了できなければならない。を**satisfy**。
+
+根拠: 主要な利用環境で、速く、理解しやすく、支援技術でも利用できる状態を保証するため。
+
+分類: `product` / `nonfunctional`
+
+受入条件:
+- `AC-V8-QUALITY-002-1` 前提: V8-品質-002の前提を満たす公開データまたは操作がある。条件: 利用者試験。期待結果: 375画素幅の代表5課題中4課題以上を60秒以内に完了する。。
+
+要求源: Issue #1 V8-品質-002, user:2026-08-03
+検証証跡: src, tests, e2e
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src,scripts; テスト=src,tests,e2e; 参照資料=Issue #1,dev-standard default profile
+
+## V8-QUALITY-003: 操作対象は44画素以上、キーボード操作可能、フォーカス表示あり、状態変化を読み上げ可能でなければならない
+
+diopside v8の品質は、操作対象は44画素以上、キーボード操作可能、フォーカス表示あり、状態変化を読み上げ可能でなければならない。を**satisfy**。
+
+根拠: 主要な利用環境で、速く、理解しやすく、支援技術でも利用できる状態を保証するため。
+
+分類: `product` / `nonfunctional`
+
+受入条件:
+- `AC-V8-QUALITY-003-1` 前提: V8-品質-003の前提を満たす公開データまたは操作がある。条件: 自動試験・手動確認。期待結果: モバイル・デスクトップのアクセシビリティ試験に合格する。。
+
+要求源: Issue #1 V8-品質-003, user:2026-08-03
+検証証跡: src, tests, e2e
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src,scripts; テスト=src,tests,e2e; 参照資料=Issue #1,dev-standard default profile
+
+## V8-QUALITY-004: 画面の見出し、ボタン、説明、状態、エラー、絞り込み名は自然な日本語でなければならない
+
+diopside v8の品質は、画面の見出し、ボタン、説明、状態、エラー、絞り込み名は自然な日本語でなければならない。を**satisfy**。
+
+根拠: 主要な利用環境で、速く、理解しやすく、支援技術でも利用できる状態を保証するため。
+
+分類: `product` / `nonfunctional`
+
+受入条件:
+- `AC-V8-QUALITY-004-1` 前提: V8-品質-004の前提を満たす公開データまたは操作がある。条件: 文言一覧の機械確認・人手確認。期待結果: 英語だけの画面文言が0件で、サービス名・公式固有名詞・出典タイトル・URL・識別子以外の不要な英字が0件である。。
+
+要求源: Issue #1 V8-品質-004, user:2026-08-03
+検証証跡: src, tests, e2e
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src,scripts; テスト=src,tests,e2e; 参照資料=Issue #1,dev-standard default profile
+
+## V8-QUALITY-005: 公開データの取得失敗、構造不適合、公開版不一致、正常な0件を区別して日本語で表示しなければならない
+
+diopside v8の品質は、公開データの取得失敗、構造不適合、公開版不一致、正常な0件を区別して日本語で表示しなければならない。を**satisfy**。
+
+根拠: 主要な利用環境で、速く、理解しやすく、支援技術でも利用できる状態を保証するため。
+
+分類: `product` / `nonfunctional`
+
+受入条件:
+- `AC-V8-QUALITY-005-1` 前提: V8-品質-005の前提を満たす公開データまたは操作がある。条件: 障害注入試験。期待結果: 各障害の固定データが別の状態と復旧案を表示する。。
+
+要求源: Issue #1 V8-品質-005, user:2026-08-03
+検証証跡: src, tests, e2e
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src,scripts; テスト=src,tests,e2e; 参照資料=Issue #1,dev-standard default profile
+
+## V8-SAFETY-001: 動画タイトル、説明、字幕、コメント、チャット、Issue本文、プルリクエスト本文の外部入力を、命令ではなく信頼できない資料として扱わなければならない
+
+diopside v8の安全は、動画タイトル、説明、字幕、コメント、チャット、Issue本文、プルリクエスト本文の外部入力を、命令ではなく信頼できない資料として扱わなければならない。を**satisfy**。
+
+根拠: 信頼できない外部入力、秘密情報、公開禁止資料が公開物へ混入することを防ぐため。
+
+分類: `product` / `nonfunctional`
+
+受入条件:
+- `AC-V8-SAFETY-001-1` 前提: V8-安全-001の前提を満たす公開データまたは操作がある。条件: 攻撃入力試験。期待結果: 外部入力中の指示がスキル、変更範囲、ツール操作、公開判断を変更しない。。
+
+要求源: Issue #1 V8-安全-001, user:2026-08-03
+検証証跡: tests/content-validation.test.ts, tests/repository-policy.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/privacy-and-safety.md; 実装=scripts/validate-content.ts,scripts/verify-repository-policy.ts; テスト=tests/content-validation.test.ts,tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-SAFETY-002: 生の字幕、生のコメント、生のチャット、投稿者識別子をGit履歴またはPagesへ保存してはならない
+
+diopside v8の安全は、生の字幕、生のコメント、生のチャット、投稿者識別子をGit履歴またはPagesへ保存してはならない。を**satisfy**。
+
+根拠: 信頼できない外部入力、秘密情報、公開禁止資料が公開物へ混入することを防ぐため。
+
+分類: `product` / `nonfunctional`
+
+受入条件:
+- `AC-V8-SAFETY-002-1` 前提: V8-安全-002の前提を満たす公開データまたは操作がある。条件: 公開境界試験。期待結果: 合成した漏えいデータを検査が拒否し、公開成果物に該当項目が0件である。。
+
+要求源: Issue #1 V8-安全-002, user:2026-08-03
+検証証跡: tests/content-validation.test.ts, tests/repository-policy.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/privacy-and-safety.md; 実装=scripts/validate-content.ts,scripts/verify-repository-policy.ts; テスト=tests/content-validation.test.ts,tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-SAFETY-003: 秘密情報をリポジトリ、プルリクエスト、確認報告、Pagesへ含めてはならない
+
+diopside v8の安全は、秘密情報をリポジトリ、プルリクエスト、確認報告、Pagesへ含めてはならない。を**satisfy**。
+
+根拠: 信頼できない外部入力、秘密情報、公開禁止資料が公開物へ混入することを防ぐため。
+
+分類: `product` / `nonfunctional`
+
+受入条件:
+- `AC-V8-SAFETY-003-1` 前提: V8-安全-003の前提を満たす公開データまたは操作がある。条件: 秘密情報検査。期待結果: 合成した秘密情報を検査が拒否し、OpenAI APIキーその他の運用秘密を必要としない。。
+
+要求源: Issue #1 V8-安全-003, user:2026-08-03
+検証証跡: tests/content-validation.test.ts, tests/repository-policy.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/privacy-and-safety.md; 実装=scripts/validate-content.ts,scripts/verify-repository-policy.ts; テスト=tests/content-validation.test.ts,tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-SAFETY-004: 削除、非公開化、対象外化が確認された動画を次の公開版から除外し、再追加を防止しなければならない
+
+diopside v8の安全は、削除、非公開化、対象外化が確認された動画を次の公開版から除外し、再追加を防止しなければならない。を**satisfy**。
+
+根拠: 信頼できない外部入力、秘密情報、公開禁止資料が公開物へ混入することを防ぐため。
+
+分類: `product` / `nonfunctional`
+
+受入条件:
+- `AC-V8-SAFETY-004-1` 前提: V8-安全-004の前提を満たす公開データまたは操作がある。条件: 削除・再追加試験。期待結果: 除外記録のある動画は再検出後も公開候補にならない。。
+
+要求源: Issue #1 V8-安全-004, user:2026-08-03
+検証証跡: tests/content-validation.test.ts, tests/repository-policy.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/privacy-and-safety.md; 実装=scripts/validate-content.ts,scripts/verify-repository-policy.ts; テスト=tests/content-validation.test.ts,tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-SEARCH-001: 文字検索は、承認済み動画の動画タイトルだけを検索対象としなければならない
 
@@ -442,564 +1326,6 @@ diopside v8の検索は、あいまい検索の品質を、版管理した日本
 要求源: Issue #1 V8-検索-019, user:2026-08-03
 検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DISPLAY-001: 動画一覧は、動画タイトル、公開日、動画長、サムネイルを動画基本情報として表示しなければならない
-
-diopside v8の表示は、動画一覧は、動画タイトル、公開日、動画長、サムネイルを動画基本情報として表示しなければならない。を**satisfy**。
-
-根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DISPLAY-001-1` 前提: V8-表示-001の前提を満たす公開データまたは操作がある。条件: 画面契約試験。期待結果: 値あり・値なしの固定データで、欠損を0や空文字として偽装しない。。
-
-要求源: Issue #1 V8-表示-001, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DISPLAY-002: 動画詳細は、動画基本情報とは別に、承認済みタグを「タグ」として表示しなければならない
-
-diopside v8の表示は、動画詳細は、動画基本情報とは別に、承認済みタグを「タグ」として表示しなければならない。を**satisfy**。
-
-根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DISPLAY-002-1` 前提: V8-表示-002の前提を満たす公開データまたは操作がある。条件: 画面試験・用語確認。期待結果: 複数分類の付加情報がすべてタグ欄にまとまり、別名の分類欄が出ない。。
-
-要求源: Issue #1 V8-表示-002, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DISPLAY-003: 動画詳細は、承認済みタイムスタンプを時刻の昇順で表示しなければならない
-
-diopside v8の表示は、動画詳細は、承認済みタイムスタンプを時刻の昇順で表示しなければならない。を**satisfy**。
-
-根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DISPLAY-003-1` 前提: V8-表示-003の前提を満たす公開データまたは操作がある。条件: 境界値試験・画面試験。期待結果: 0秒、通常時刻、最終章、未作成の各状態が定義どおり表示され、最終章の終了は動画長と一致する。。
-
-要求源: Issue #1 V8-表示-003, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DISPLAY-004: 各タイムスタンプは、対象動画の該当時刻をYouTubeで開けなければならない
-
-diopside v8の表示は、各タイムスタンプは、対象動画の該当時刻をYouTubeで開けなければならない。を**satisfy**。
-
-根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DISPLAY-004-1` 前提: V8-表示-004の前提を満たす公開データまたは操作がある。条件: リンク契約試験。期待結果: 動画識別子と秒数を含む正しいリンクが生成される。。
-
-要求源: Issue #1 V8-表示-004, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DISPLAY-005: 動画詳細は、承認済みのワードクラウドを表示しなければならない
-
-diopside v8の表示は、動画詳細は、承認済みのワードクラウドを表示しなければならない。を**satisfy**。
-
-根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DISPLAY-005-1` 前提: V8-表示-005の前提を満たす公開データまたは操作がある。条件: 表示試験・再現性試験。期待結果: 20～50語を重要度に応じた大きさで表示し、同じ入力、画面幅、描画規則から同じ語句、大きさ、位置を再現できる。。
-
-要求源: Issue #1 V8-表示-005, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DISPLAY-006: ワードクラウドの語句は、公開字幕、公開概要欄、または運用者が明示的に提供した公開本文を一時的に処理して作り、人の承認前に公開してはならない
-
-diopside v8の表示は、ワードクラウドの語句は、公開字幕、公開概要欄、または運用者が明示的に提供した公開本文を一時的に処理して作り、人の承認前に公開してはならない。を**satisfy**。
-
-根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DISPLAY-006-1` 前提: V8-表示-006の前提を満たす公開データまたは操作がある。条件: 生成来歴確認・人手確認。期待結果: 使用した入力種別、除外語規則、生成規則の版と確認結果をプルリクエストから追跡できる。。
-
-要求源: Issue #1 V8-表示-006, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DISPLAY-007: ワードクラウドの語句には、重要度を比較できる1～100の整数値を持たせなければならない
-
-diopside v8の表示は、ワードクラウドの語句には、重要度を比較できる1～100の整数値を持たせなければならない。を**satisfy**。
-
-根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DISPLAY-007-1` 前提: V8-表示-007の前提を満たす公開データまたは操作がある。条件: 構造・境界値試験。期待結果: 0、101、小数、欠損、重複語を検証で拒否し、正規化後の同一語を統合する。。
-
-要求源: Issue #1 V8-表示-007, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DISPLAY-008: ワードクラウドの入力資料を利用できない動画は、推測で語句を補わず「未作成」と表示しなければならない
-
-diopside v8の表示は、ワードクラウドの入力資料を利用できない動画は、推測で語句を補わず「未作成」と表示しなければならない。を**satisfy**。
-
-根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DISPLAY-008-1` 前提: V8-表示-008の前提を満たす公開データまたは操作がある。条件: 否定試験・画面試験。期待結果: 入力なしの固定データで空の画像を作らず、理由を日本語で表示する。。
-
-要求源: Issue #1 V8-表示-008, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DISPLAY-009: ワードクラウドの語句をタイトル文字検索の対象へ混入してはならない
-
-diopside v8の表示は、ワードクラウドの語句をタイトル文字検索の対象へ混入してはならない。を**satisfy**。
-
-根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DISPLAY-009-1` 前提: V8-表示-009の前提を満たす公開データまたは操作がある。条件: 検索除外試験。期待結果: ワードクラウドにだけ存在する語で検索しても、文字検索だけでは動画が一致しない。。
-
-要求源: Issue #1 V8-表示-009, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DISPLAY-010: 動画詳細は、タグ、タイムスタンプ、ワードクラウドの最終更新日を日本語で示さなければならない
-
-diopside v8の表示は、動画詳細は、タグ、タイムスタンプ、ワードクラウドの最終更新日を日本語で示さなければならない。を**satisfy**。
-
-根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DISPLAY-010-1` 前提: V8-表示-010の前提を満たす公開データまたは操作がある。条件: 画面契約試験。期待結果: 更新日あり・なしを区別し、生成日を公開日と誤表示しない。。
-
-要求源: Issue #1 V8-表示-010, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DEVICE-001: 閲覧履歴はブラウザ内データベースへ保存しなければならない
-
-diopside v8の端末は、閲覧履歴はブラウザ内データベースへ保存しなければならない。を**satisfy**。
-
-根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DEVICE-001-1` 前提: V8-端末-001の前提を満たす公開データまたは操作がある。条件: ブラウザ試験。期待結果: 同一ブラウザ・同一配信元で再読み込み後も復元され、最大200件を新しい順に保持する。。
-
-要求源: Issue #1 V8-端末-001, user:2026-08-03
-検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DEVICE-002: お気に入りはブラウザ内データベースへ保存しなければならない
-
-diopside v8の端末は、お気に入りはブラウザ内データベースへ保存しなければならない。を**satisfy**。
-
-根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DEVICE-002-1` 前提: V8-端末-002の前提を満たす公開データまたは操作がある。条件: ブラウザ試験。期待結果: 同じ動画を重複保存せず、利用者が解除するまで同一ブラウザ・同一配信元で復元される。。
-
-要求源: Issue #1 V8-端末-002, user:2026-08-03
-検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DEVICE-003: 最近の検索語と絞り込み条件はブラウザ内データベースへ保存しなければならない
-
-diopside v8の端末は、最近の検索語と絞り込み条件はブラウザ内データベースへ保存しなければならない。を**satisfy**。
-
-根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DEVICE-003-1` 前提: V8-端末-003の前提を満たす公開データまたは操作がある。条件: ブラウザ試験。期待結果: 最大20件を新しい順に保持し、同一条件の再保存は1件へ統合する。。
-
-要求源: Issue #1 V8-端末-003, user:2026-08-03
-検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DEVICE-004: 利用者は、履歴、お気に入り、最近の検索条件を個別に削除できなければならない
-
-diopside v8の端末は、利用者は、履歴、お気に入り、最近の検索条件を個別に削除できなければならない。を**satisfy**。
-
-根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DEVICE-004-1` 前提: V8-端末-004の前提を満たす公開データまたは操作がある。条件: 画面試験。期待結果: 対象だけが削除され、他の端末内データは残る。。
-
-要求源: Issue #1 V8-端末-004, user:2026-08-03
-検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DEVICE-005: 利用者は、diopsideが保存した端末内データを一括削除できなければならない
-
-diopside v8の端末は、利用者は、diopsideが保存した端末内データを一括削除できなければならない。を**satisfy**。
-
-根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DEVICE-005-1` 前提: V8-端末-005の前提を満たす公開データまたは操作がある。条件: ブラウザ試験。期待結果: 確認後に履歴、お気に入り、最近の検索条件、公開データのキャッシュが削除される。。
-
-要求源: Issue #1 V8-端末-005, user:2026-08-03
-検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DEVICE-006: 公開用の静的データはブラウザのキャッシュへ保存できなければならない
-
-diopside v8の端末は、公開用の静的データはブラウザのキャッシュへ保存できなければならない。を**satisfy**。
-
-根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DEVICE-006-1` 前提: V8-端末-006の前提を満たす公開データまたは操作がある。条件: キャッシュ更新試験。期待結果: 公開版の識別子が一致する間だけ再利用し、新版検出時は混在させない。。
-
-要求源: Issue #1 V8-端末-006, user:2026-08-03
-検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DEVICE-007: ブラウザ内データの破損、容量超過、利用拒否が起きても、検索と閲覧を継続できなければならない
-
-diopside v8の端末は、ブラウザ内データの破損、容量超過、利用拒否が起きても、検索と閲覧を継続できなければならない。を**satisfy**。
-
-根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DEVICE-007-1` 前提: V8-端末-007の前提を満たす公開データまたは操作がある。条件: 障害注入試験。期待結果: 保存機能だけを無効化し、日本語で通知し、画面全体を停止しない。。
-
-要求源: Issue #1 V8-端末-007, user:2026-08-03
-検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DEVICE-008: 履歴、お気に入り、最近の検索条件をサーバーへ送信してはならない
-
-diopside v8の端末は、履歴、お気に入り、最近の検索条件をサーバーへ送信してはならない。を**satisfy**。
-
-根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DEVICE-008-1` 前提: V8-端末-008の前提を満たす公開データまたは操作がある。条件: 通信監査・画面試験。期待結果: 通信記録に端末内データの書込み・同期要求が0件である。。
-
-要求源: Issue #1 V8-端末-008, user:2026-08-03
-検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DEVICE-009: 利用者向けログイン、アカウント登録、認証用画面、認証用クッキーを実装してはならない
-
-diopside v8の端末は、利用者向けログイン、アカウント登録、認証用画面、認証用クッキーを実装してはならない。を**satisfy**。
-
-根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DEVICE-009-1` 前提: V8-端末-009の前提を満たす公開データまたは操作がある。条件: 画面・通信・コード確認。期待結果: 未ログイン状態だけで全公開機能を利用でき、ログイン導線と認証通信が存在しない。。
-
-要求源: Issue #1 V8-端末-009, user:2026-08-03
-検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DEVICE-010: 端末内データはブラウザやサイトデータの削除で失われ、別端末へ同期されないことを日本語で説明しなければならない
-
-diopside v8の端末は、端末内データはブラウザやサイトデータの削除で失われ、別端末へ同期されないことを日本語で説明しなければならない。を**satisfy**。
-
-根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DEVICE-010-1` 前提: V8-端末-010の前提を満たす公開データまたは操作がある。条件: 文言確認。期待結果: 履歴・お気に入り画面から説明を確認できる。。
-
-要求源: Issue #1 V8-端末-010, user:2026-08-03
-検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DEVICE-011: 利用者行動を解析・追跡する外部送信を行ってはならない
-
-diopside v8の端末は、利用者行動を解析・追跡する外部送信を行ってはならない。を**satisfy**。
-
-根拠: 個人の利用履歴を外部へ送らず、同じブラウザ内で探索を継続できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DEVICE-011-1` 前提: V8-端末-011の前提を満たす公開データまたは操作がある。条件: 通信監査・依存関係確認。期待結果: アクセス解析、広告、指紋採取、独自利用者識別子への通信が0件である。。
-
-要求源: Issue #1 V8-端末-011, user:2026-08-03
-検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-001: タイムスタンプ一括処理は、人の1回の明示要求で有限の適格対象集合を固定して開始しなければならない
-
-diopside v8の運用は、タイムスタンプ一括処理は、運用者による1回の明示的なChatGPT／Codex要求で指定された識別子または有限の選定条件から、今回処理する適格動画の有限集合を開始時に固定しなければならない。固定後は、動画ごとの追加チャット承認を開始条件としてはならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-001-1` 前提: 運用者がタイムスタンプ対象の識別子または有限の選定条件を明示した。条件: 一括処理の開始境界・対象集合固定試験。期待結果: 要求から有限の適格対象集合を一度だけ固定し、人の開始操作がない状態では候補生成、ブランチ作成、プルリクエスト作成を行わない。。
-- `AC-V8-OPS-001-2` 前提: 明示要求によって対象集合を固定済みである。条件: 動画ごとの状態遷移試験。期待結果: 集合内の各動画は、動画ごとの追加チャット承認を待たずに処理を開始できる。。
-
-要求源: Issue #1 V8-運用-001, user:2026-08-03, owner-directive:2026-08-08-timestamp-batch
-検証証跡: tests/operations.test.ts, tests/timestamp_tools_test.py
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.agents/skills/generate-stream-timestamps; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/timestamp_tools_test.py; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-002: GitHub ActionsからChatGPT／Codexを呼び出してはならない
-
-diopside v8の運用は、GitHub ActionsからChatGPT／Codexを呼び出してはならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-002-1` 前提: V8-運用-002の前提を満たす公開データまたは操作がある。条件: リポジトリ静的確認。期待結果: リポジトリのワークフローと設定にCodex Action、OpenAI API呼出し、モデル用秘密情報が存在しない。。
-
-要求源: Issue #1 V8-運用-002, user:2026-08-03
-検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-003: 動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない
-
-diopside v8の運用は、動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-003-1` 前提: V8-運用-003の前提を満たす公開データまたは操作がある。条件: リポジトリ静的確認・手順試験。期待結果: `.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。人が開始する `workflow_dispatch` は読取専用の検証と候補検出に限定し、静的成果物生成は検証済みmainだけを入力とする。。
-
-要求源: Issue #1 V8-運用-003, user:2026-08-03, owner-directive:2026-08-04, spec/sources/owner-directive-2026-08-08-post-merge-release.md
-検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml,.github/workflows/update-generated-release.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-004: ChatGPT／Codexの利用は、運用者が契約済みの画面上の利用範囲に限定しなければならない
-
-diopside v8の運用は、ChatGPT／Codexの利用は、運用者が契約済みの画面上の利用範囲に限定しなければならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-004-1` 前提: V8-運用-004の前提を満たす公開データまたは操作がある。条件: 構成確認・秘密情報確認。期待結果: OpenAI APIキー、従量課金API、外部モデルAPIを必要としない。。
-
-要求源: Issue #1 V8-運用-004, user:2026-08-03
-検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-005: 1回の明示要求で固定した有限の適格タイムスタンプ対象集合を、全件が終端結果へ到達するまで処理しなければならない
-
-diopside v8の運用は、1回の明示要求で固定した有限の適格タイムスタンプ対象集合は、各動画が1動画だけを対象とするdraft PRの作成・最終commitのpush・台帳反映確認を完了した状態、または根拠を示した処理不能状態のいずれかへ到達するまで処理しなければならない。ある動画の失敗を理由に、集合内の未処理動画を停止してはならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-005-1` 前提: 同じ公開情報、同じ正本、同じ明示要求がある。条件: 対象集合の固定データ試験。期待結果: 同じ有限の適格対象集合を固定する。。
-- `AC-V8-OPS-005-2` 前提: 固定した集合に成功可能な動画と処理不能になる動画が含まれる。条件: 一括処理の終端・失敗分離試験。期待結果: 全動画が1動画draft PR作成・最終commit push・台帳反映確認済み、または理由付き処理不能の終端結果を持ち、処理不能動画があっても残りの動画を処理する。。
-
-要求源: Issue #1 V8-運用-005, user:2026-08-03, owner-directive:2026-08-08-timestamp-batch, spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md, user:2026-08-11
-検証証跡: tests/operations.test.ts, tests/timestamp_tools_test.py, tests/timestamp_harness_test.py
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.agents/skills/generate-stream-timestamps,.agents/skills/run-timestamp-work-harness; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/timestamp_tools_test.py,tests/timestamp_harness_test.py; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-006: 対象候補が0件の場合は、生成物、ブランチ、プルリクエストを作成してはならない
-
-diopside v8の運用は、対象候補が0件の場合は、生成物、ブランチ、プルリクエストを作成してはならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-006-1` 前提: V8-運用-006の前提を満たす公開データまたは操作がある。条件: 否定試験。期待結果: 0件の固定データで差分0・プルリクエスト0件となる。。
-
-要求源: Issue #1 V8-運用-006, user:2026-08-03
-検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-007: 通常の動画追加プルリクエストは、1動画だけを内容確認の対象としなければならない
-
-diopside v8の運用は、通常の動画追加プルリクエストは、正本動画データを1件だけ変更対象とし、公開用のrelease ID、版付きJSON、画面bundle、`main/docs`を含めてはならない。静的公開成果物は人が当該プルリクエストをmainへマージした後に生成しなければならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-007-1` 前提: V8-運用-007の前提を満たす公開データまたは操作がある。条件: 変更範囲試験。期待結果: 1件の正本動画データと、その正本件数・更新日時を持つmanifestおよび確認用資料だけを変更し、release ID、版付き公開JSON、画面bundle、`main/docs`を差分に含めない。。
-
-要求源: Issue #1 V8-運用-007, user:2026-08-03, spec/sources/owner-directive-2026-08-08-post-merge-release.md
-検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,scripts/validate-video-pr-scope.ts,scripts/validate-release-pr-scope.ts,.github/workflows/update-generated-release.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-008: 通常の動画追加プルリクエストでは、スキル、生成規則、タグ体系、構造定義、検証スクリプト、画面実装、Pages設定を変更してはならない
-
-diopside v8の運用は、通常の動画追加プルリクエストでは、スキル、生成規則、タグ体系、構造定義、検証スクリプト、画面実装、Pages設定を変更してはならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-008-1` 前提: V8-運用-008の前提を満たす公開データまたは操作がある。条件: 変更範囲の否定試験。期待結果: 許可範囲外の変更を検証で拒否し、別の保守プルリクエストへ分離する。。
-
-要求源: Issue #1 V8-運用-008, user:2026-08-03
-検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-009: プルリクエスト作成前の決定的検証は動画ごとに判定し、不合格を他の対象へ波及させてはならない
-
-diopside v8の運用は、プルリクエスト作成前に、構造、タグ、タイムスタンプ、ワードクラウド、検索索引、公開禁止情報、静的画面を動画ごとに決定的スクリプトで検証しなければならない。不合格は当該動画のプルリクエスト作成だけを止め、理由付き処理不能として記録し、同じ有限集合の他の動画の処理を止めてはならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-009-1` 前提: 固定した有限集合の各動画に、プルリクエスト作成前の候補がある。条件: 不正データ試験・動画単位の失敗分離試験・手順試験。期待結果: いずれか1件の不合格で当該動画のプルリクエスト作成を止め、原因を日本語で示す一方、他の対象動画の検証と処理を継続する。。
-
-要求源: Issue #1 V8-運用-009, user:2026-08-03, owner-directive:2026-08-08-timestamp-batch
-検証証跡: tests/operations.test.ts, tests/generated.test.ts, tests/timestamp_tools_test.py
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.agents/skills/generate-stream-timestamps; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/timestamp_tools_test.py; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-010: 各動画の終端結果は、PRレビュー内容または処理不能理由を日本語で確認できなければならない
-
-diopside v8の運用は、PRレビュー可能な動画のプルリクエスト本文は、対象動画、タグ候補、タイムスタンプ候補、ワードクラウド語句、根拠、検証結果、YouTube確認リンクを日本語で示さなければならない。処理不能の動画は、失敗した段階と根拠を含む理由を日本語で示さなければならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-010-1` 前提: 動画がPRレビュー可能な終端結果へ到達した。条件: プルリクエスト表示確認。期待結果: 人が構造化データを直接読まずに対象動画、各候補、根拠、検証結果、YouTube確認リンクを確認できる。。
-- `AC-V8-OPS-010-2` 前提: 動画が理由付き処理不能の終端結果へ到達した。条件: 一括処理の結果表示確認。期待結果: 失敗した段階、根拠、再開に必要な条件を日本語で確認でき、成功または公開対象として表示されない。。
-
-要求源: Issue #1 V8-運用-010, user:2026-08-03, owner-directive:2026-08-08-timestamp-batch
-検証証跡: tests/operations.test.ts, tests/timestamp_tools_test.py
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.agents/skills/generate-stream-timestamps; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/timestamp_tools_test.py; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-011: 生成候補は、人が確認してマージするまで公開してはならない
-
-diopside v8の運用は、生成候補は、人が確認してマージするまで公開してはならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-011-1` 前提: V8-運用-011の前提を満たす公開データまたは操作がある。条件: ブランチ境界試験。期待結果: 未マージ、却下、終了済み未マージの差分がPagesの公開元に含まれない。。
-
-要求源: Issue #1 V8-運用-011, user:2026-08-03
-検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-012: GitHub Pagesは、`main` ブランチの `/docs` にコミット済みの静的成果物だけを公開しなければならない
-
-diopside v8の運用は、GitHub Pagesは、`main` ブランチの `/docs` にコミット済みの静的成果物だけを公開しなければならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-012-1` 前提: V8-運用-012の前提を満たす公開データまたは操作がある。条件: リポジトリ設定確認・公開確認。期待結果: Pagesの公開元がbranch方式の `main/docs` で、独自の公開Actionsを必要としない。。
-
-要求源: Issue #1 V8-運用-012, user:2026-08-03
-検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-013: 静的成果物は正本データから決定的に生成し、手作業で直接編集してはならない
-
-diopside v8の運用は、静的成果物は正本データから決定的に生成し、手作業で直接編集してはならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-013-1` 前提: V8-運用-013の前提を満たす公開データまたは操作がある。条件: 再現性試験。期待結果: 同一の正本と生成規則から2回生成した成果物の内容が一致する。。
-
-要求源: Issue #1 V8-運用-013, user:2026-08-03
-検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-014: 公開データと画面は、同じ公開版の識別子を持たなければならない
-
-diopside v8の運用は、公開データと画面は、同じ公開版の識別子を持たなければならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-014-1` 前提: V8-運用-014の前提を満たす公開データまたは操作がある。条件: 契約試験。期待結果: 異なる公開版の一覧、索引、タグ、詳細、ワードクラウドが混在すると表示前に拒否される。。
-
-要求源: Issue #1 V8-運用-014, user:2026-08-03
-検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-015: 承認済み変更の取り消しによって、直前の正しい公開状態を再生成できなければならない
-
-diopside v8の運用は、承認済み変更の取り消しによって、直前の正しい公開状態を再生成できなければならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-015-1` 前提: V8-運用-015の前提を満たす公開データまたは操作がある。条件: 復元訓練。期待結果: 取り消し後の `/docs` が対象変更を除いた一貫した公開版となる。。
-
-要求源: Issue #1 V8-運用-015, user:2026-08-03
-検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-016: 更新頻度は自動の日次保証とせず、最終更新日時を画面で確認できなければならない
-
-diopside v8の運用は、更新頻度は自動の日次保証とせず、最終更新日時を画面で確認できなければならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-016-1` 前提: V8-運用-016の前提を満たす公開データまたは操作がある。条件: 画面試験。期待結果: 更新がない期間も誤って「最新」と表示せず、公開データの最終更新日時を日本語で示す。。
-
-要求源: Issue #1 V8-運用-016, user:2026-08-03
-検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TAG-001: 承認済み動画のタグは、版管理したタグ体系に基づかなければならない
 
@@ -2082,326 +2408,3 @@ diopside v8の時刻は、公開画面は各タイムスタンプの由来を「
 要求源: Issue #1 V8-時刻-037, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-COST-001: サービス運用に起因する請求額は、既存のChatGPT／Codex契約を除いて毎月0円でなければならない
-
-diopside v8の費用は、サービス運用に起因する請求額は、既存のChatGPT／Codex契約を除いて毎月0円でなければならない。を**satisfy**。
-
-根拠: 既存のChatGPT／Codex契約以外の運用請求を発生させず、個人運用を持続可能にするため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-COST-001-1` 前提: V8-費用-001の前提を満たす公開データまたは操作がある。条件: 月次請求確認。期待結果: GitHub、配信、データ取得、保存、検索、監視、ドメイン、外部APIの月次請求額がすべて0円である。既存端末、電気、通信回線は算定外とする。。
-
-要求源: Issue #1 V8-費用-001, user:2026-08-03
-検証証跡: tests/repository-policy.test.ts
-トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-COST-002: 公開基盤は、公開リポジトリで利用できるGitHub Pagesと既定の `github.io` 配下のURLに限定しなければならない
-
-diopside v8の費用は、公開基盤は、公開リポジトリで利用できるGitHub Pagesと既定の `github.io` 配下のURLに限定しなければならない。を**satisfy**。
-
-根拠: 既存のChatGPT／Codex契約以外の運用請求を発生させず、個人運用を持続可能にするため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-COST-002-1` 前提: V8-費用-002の前提を満たす公開データまたは操作がある。条件: リポジトリ・Pages設定確認。期待結果: リポジトリは公開設定で、独自ドメインと有料プランを必要としない。。
-
-要求源: Issue #1 V8-費用-002, user:2026-08-03
-検証証跡: tests/repository-policy.test.ts
-トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-COST-003: AWSその他の有料クラウド資源をv8の閲覧・検索・生成・公開に使用してはならない
-
-diopside v8の費用は、AWSその他の有料クラウド資源をv8の閲覧・検索・生成・公開に使用してはならない。を**satisfy**。
-
-根拠: 既存のChatGPT／Codex契約以外の運用請求を発生させず、個人運用を持続可能にするため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-COST-003-1` 前提: V8-費用-003の前提を満たす公開データまたは操作がある。条件: 構成確認。期待結果: クラウド認証情報がなくても全手順を実行でき、有料資源の構成定義が存在しない。。
-
-要求源: Issue #1 V8-費用-003, user:2026-08-03
-検証証跡: tests/repository-policy.test.ts
-トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-COST-004: 有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならない
-
-diopside v8の費用は、有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならない。を**satisfy**。
-
-根拠: 既存のChatGPT／Codex契約以外の運用請求を発生させず、個人運用を持続可能にするため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-COST-004-1` 前提: V8-費用-004の前提を満たす公開データまたは操作がある。条件: 依存関係・通信確認。期待結果: 外部依存一覧に課金が発生し得る実行時サービスが0件である。。
-
-要求源: Issue #1 V8-費用-004, user:2026-08-03
-検証証跡: tests/repository-policy.test.ts
-トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-COST-005: 外部サービスの料金または無償条件が変わり請求が発生し得る場合は、課金して継続せず、該当処理を停止しなければならない
-
-diopside v8の費用は、外部サービスの料金または無償条件が変わり請求が発生し得る場合は、課金して継続せず、該当処理を停止しなければならない。を**satisfy**。
-
-根拠: 既存のChatGPT／Codex契約以外の運用請求を発生させず、個人運用を持続可能にするため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-COST-005-1` 前提: V8-費用-005の前提を満たす公開データまたは操作がある。条件: 運用手順確認。期待結果: 費用0円を確認できない状態では公開更新を行わず、人へ判断を求める。。
-
-要求源: Issue #1 V8-費用-005, user:2026-08-03
-検証証跡: tests/repository-policy.test.ts
-トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-QUALITY-001: 検索、絞り込み、履歴、お気に入り、ワードクラウド描画はブラウザ内で処理しなければならない
-
-diopside v8の品質は、検索、絞り込み、履歴、お気に入り、ワードクラウド描画はブラウザ内で処理しなければならない。を**satisfy**。
-
-根拠: 主要な利用環境で、速く、理解しやすく、支援技術でも利用できる状態を保証するため。
-
-分類: `product` / `nonfunctional`
-
-受入条件:
-- `AC-V8-QUALITY-001-1` 前提: V8-品質-001の前提を満たす公開データまたは操作がある。条件: 通信監査。期待結果: 閲覧中の動的バックエンドAPI呼出しが0件である。。
-
-要求源: Issue #1 V8-品質-001, user:2026-08-03
-検証証跡: src, tests, e2e
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src,scripts; テスト=src,tests,e2e; 参照資料=Issue #1,dev-standard default profile
-
-## V8-QUALITY-002: 公開画面はスマートフォンを主要環境とし、検索からYouTubeを開くまでを初見利用者が1分以内に完了できなければならない
-
-diopside v8の品質は、公開画面はスマートフォンを主要環境とし、検索からYouTubeを開くまでを初見利用者が1分以内に完了できなければならない。を**satisfy**。
-
-根拠: 主要な利用環境で、速く、理解しやすく、支援技術でも利用できる状態を保証するため。
-
-分類: `product` / `nonfunctional`
-
-受入条件:
-- `AC-V8-QUALITY-002-1` 前提: V8-品質-002の前提を満たす公開データまたは操作がある。条件: 利用者試験。期待結果: 375画素幅の代表5課題中4課題以上を60秒以内に完了する。。
-
-要求源: Issue #1 V8-品質-002, user:2026-08-03
-検証証跡: src, tests, e2e
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src,scripts; テスト=src,tests,e2e; 参照資料=Issue #1,dev-standard default profile
-
-## V8-QUALITY-003: 操作対象は44画素以上、キーボード操作可能、フォーカス表示あり、状態変化を読み上げ可能でなければならない
-
-diopside v8の品質は、操作対象は44画素以上、キーボード操作可能、フォーカス表示あり、状態変化を読み上げ可能でなければならない。を**satisfy**。
-
-根拠: 主要な利用環境で、速く、理解しやすく、支援技術でも利用できる状態を保証するため。
-
-分類: `product` / `nonfunctional`
-
-受入条件:
-- `AC-V8-QUALITY-003-1` 前提: V8-品質-003の前提を満たす公開データまたは操作がある。条件: 自動試験・手動確認。期待結果: モバイル・デスクトップのアクセシビリティ試験に合格する。。
-
-要求源: Issue #1 V8-品質-003, user:2026-08-03
-検証証跡: src, tests, e2e
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src,scripts; テスト=src,tests,e2e; 参照資料=Issue #1,dev-standard default profile
-
-## V8-QUALITY-004: 画面の見出し、ボタン、説明、状態、エラー、絞り込み名は自然な日本語でなければならない
-
-diopside v8の品質は、画面の見出し、ボタン、説明、状態、エラー、絞り込み名は自然な日本語でなければならない。を**satisfy**。
-
-根拠: 主要な利用環境で、速く、理解しやすく、支援技術でも利用できる状態を保証するため。
-
-分類: `product` / `nonfunctional`
-
-受入条件:
-- `AC-V8-QUALITY-004-1` 前提: V8-品質-004の前提を満たす公開データまたは操作がある。条件: 文言一覧の機械確認・人手確認。期待結果: 英語だけの画面文言が0件で、サービス名・公式固有名詞・出典タイトル・URL・識別子以外の不要な英字が0件である。。
-
-要求源: Issue #1 V8-品質-004, user:2026-08-03
-検証証跡: src, tests, e2e
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src,scripts; テスト=src,tests,e2e; 参照資料=Issue #1,dev-standard default profile
-
-## V8-QUALITY-005: 公開データの取得失敗、構造不適合、公開版不一致、正常な0件を区別して日本語で表示しなければならない
-
-diopside v8の品質は、公開データの取得失敗、構造不適合、公開版不一致、正常な0件を区別して日本語で表示しなければならない。を**satisfy**。
-
-根拠: 主要な利用環境で、速く、理解しやすく、支援技術でも利用できる状態を保証するため。
-
-分類: `product` / `nonfunctional`
-
-受入条件:
-- `AC-V8-QUALITY-005-1` 前提: V8-品質-005の前提を満たす公開データまたは操作がある。条件: 障害注入試験。期待結果: 各障害の固定データが別の状態と復旧案を表示する。。
-
-要求源: Issue #1 V8-品質-005, user:2026-08-03
-検証証跡: src, tests, e2e
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src,scripts; テスト=src,tests,e2e; 参照資料=Issue #1,dev-standard default profile
-
-## V8-SAFETY-001: 動画タイトル、説明、字幕、コメント、チャット、Issue本文、プルリクエスト本文の外部入力を、命令ではなく信頼できない資料として扱わなければならない
-
-diopside v8の安全は、動画タイトル、説明、字幕、コメント、チャット、Issue本文、プルリクエスト本文の外部入力を、命令ではなく信頼できない資料として扱わなければならない。を**satisfy**。
-
-根拠: 信頼できない外部入力、秘密情報、公開禁止資料が公開物へ混入することを防ぐため。
-
-分類: `product` / `nonfunctional`
-
-受入条件:
-- `AC-V8-SAFETY-001-1` 前提: V8-安全-001の前提を満たす公開データまたは操作がある。条件: 攻撃入力試験。期待結果: 外部入力中の指示がスキル、変更範囲、ツール操作、公開判断を変更しない。。
-
-要求源: Issue #1 V8-安全-001, user:2026-08-03
-検証証跡: tests/content-validation.test.ts, tests/repository-policy.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/privacy-and-safety.md; 実装=scripts/validate-content.ts,scripts/verify-repository-policy.ts; テスト=tests/content-validation.test.ts,tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-SAFETY-002: 生の字幕、生のコメント、生のチャット、投稿者識別子をGit履歴またはPagesへ保存してはならない
-
-diopside v8の安全は、生の字幕、生のコメント、生のチャット、投稿者識別子をGit履歴またはPagesへ保存してはならない。を**satisfy**。
-
-根拠: 信頼できない外部入力、秘密情報、公開禁止資料が公開物へ混入することを防ぐため。
-
-分類: `product` / `nonfunctional`
-
-受入条件:
-- `AC-V8-SAFETY-002-1` 前提: V8-安全-002の前提を満たす公開データまたは操作がある。条件: 公開境界試験。期待結果: 合成した漏えいデータを検査が拒否し、公開成果物に該当項目が0件である。。
-
-要求源: Issue #1 V8-安全-002, user:2026-08-03
-検証証跡: tests/content-validation.test.ts, tests/repository-policy.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/privacy-and-safety.md; 実装=scripts/validate-content.ts,scripts/verify-repository-policy.ts; テスト=tests/content-validation.test.ts,tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-SAFETY-003: 秘密情報をリポジトリ、プルリクエスト、確認報告、Pagesへ含めてはならない
-
-diopside v8の安全は、秘密情報をリポジトリ、プルリクエスト、確認報告、Pagesへ含めてはならない。を**satisfy**。
-
-根拠: 信頼できない外部入力、秘密情報、公開禁止資料が公開物へ混入することを防ぐため。
-
-分類: `product` / `nonfunctional`
-
-受入条件:
-- `AC-V8-SAFETY-003-1` 前提: V8-安全-003の前提を満たす公開データまたは操作がある。条件: 秘密情報検査。期待結果: 合成した秘密情報を検査が拒否し、OpenAI APIキーその他の運用秘密を必要としない。。
-
-要求源: Issue #1 V8-安全-003, user:2026-08-03
-検証証跡: tests/content-validation.test.ts, tests/repository-policy.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/privacy-and-safety.md; 実装=scripts/validate-content.ts,scripts/verify-repository-policy.ts; テスト=tests/content-validation.test.ts,tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-SAFETY-004: 削除、非公開化、対象外化が確認された動画を次の公開版から除外し、再追加を防止しなければならない
-
-diopside v8の安全は、削除、非公開化、対象外化が確認された動画を次の公開版から除外し、再追加を防止しなければならない。を**satisfy**。
-
-根拠: 信頼できない外部入力、秘密情報、公開禁止資料が公開物へ混入することを防ぐため。
-
-分類: `product` / `nonfunctional`
-
-受入条件:
-- `AC-V8-SAFETY-004-1` 前提: V8-安全-004の前提を満たす公開データまたは操作がある。条件: 削除・再追加試験。期待結果: 除外記録のある動画は再検出後も公開候補にならない。。
-
-要求源: Issue #1 V8-安全-004, user:2026-08-03
-検証証跡: tests/content-validation.test.ts, tests/repository-policy.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/privacy-and-safety.md; 実装=scripts/validate-content.ts,scripts/verify-repository-policy.ts; テスト=tests/content-validation.test.ts,tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DISPLAY-011: 動画詳細は、ネタバレを避けた100〜150字のあらすじを、白雪巴の特徴的なセリフで締めて表示しなければならない
-
-diopside v8の表示は、全編根拠を確認できる動画の詳細は、視聴意欲を促しつつ結末、正体、勝敗等のネタバレを避けた日本語あらすじを表示しなければならない。本文と末尾の引用符付きセリフは合計100〜150文字とし、最後に対象配信で白雪巴が実際に発した特徴的なセリフを一つ置かなければならない。を**satisfy**。
-
-根拠: 利用者が結末を知らずに動画の雰囲気と見どころを把握し、安心して視聴を選べるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DISPLAY-011-1` 前提: 全編根拠と承認済みのあらすじ候補を持つ動画がある。条件: あらすじ候補検証・公開データ検証・動画詳細画面試験。期待結果: 本文と末尾の引用符付きセリフが100〜150文字で、結末、正体、勝敗等を明かさず、最後に根拠時刻へ移動できる白雪巴の特徴的なセリフを一つ表示する。。
-- `AC-V8-DISPLAY-011-2` 前提: 全編字幕または文字起こしを使ってあらすじ候補を作る。条件: 公開境界検査・repository差分確認。期待結果: 生字幕・文字起こしをGitまたは公開成果物へ含めず、安全な根拠ラベル、入力指紋、全編範囲だけを正本へ保持する。。
-
-要求源: spec/sources/owner-directive-2026-08-08-video-synopsis.md, user:2026-08-08
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=.agents/skills/generate-video-synopses,src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,spec/sources/owner-directive-2026-08-08-video-synopsis.md,dev-standard default profile
-
-## V8-OPS-017: 静的公開成果物は、検証済みmainマージ後にだけ自動生成してrelease commitしなければならない
-
-diopside v8の運用は、release ID、版付き公開JSON、画面bundle、`main/docs`は、mainの品質ゲートに合格した人承認済み正本から決定的に生成し、差分がある場合だけmainへrelease commitしなければならない。生成中にmainが更新された場合は古い結果をcommitしてはならない。を**satisfy**。
-
-根拠: 内容レビュー対象の正本と機械生成される公開版を分離し、通常プルリクエストごとの全公開物差分とrelease ID競合をなくしながら、人のマージ承認後だけ一貫した静的版を公開するため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-017-1` 前提: 人が正本変更をmainへマージし、そのmain commitの品質ゲートが合格した。条件: post-merge生成workflow契約試験。期待結果: 同じ検証済みcommitから静的成果物を生成・検証し、後続main更新がなく生成差分がある場合だけrelease commitする。。
-- `AC-V8-OPS-017-2` 前提: release commitがmainへ追加された。条件: Pages公開経路試験。期待結果: 独自deploy artifactを使わず、既存のmain/docs branch方式Pages buildを要求する。。
-
-要求源: spec/sources/owner-directive-2026-08-08-post-merge-release.md, user:2026-08-08
-検証証跡: tests/repository-policy.test.ts, tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/design/generated/system.gen.md; 実装=.github/workflows/update-generated-release.yml,scripts/build-public-data.ts,scripts/validate-video-pr-scope.ts,scripts/validate-release-pr-scope.ts,scripts/verify-generated-source.ts; テスト=tests/repository-policy.test.ts,tests/operations.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-08-post-merge-release.md,dev-standard default profile
-
-## V8-OPS-018: Work用タイムスタンプ処理はPythonで台帳行を固定し中断後も同じ集合から再開できなければならない
-
-diopside v8のタイムスタンプ運用は、ChatGPT Workから開始するタイムスタンプ処理は、PythonでGoogle Sheetsの対象動画台帳を列名で読み、作成済み・除外・既存PRを除いた適格対象を行番号と行指紋を含む有限集合として固定し、同じbatch IDでは集合を変更せず中断後も再開できなければならない。を**satisfy**。
-
-根拠: 長時間処理の中断や台帳の並行更新があっても対象の追加・脱落・誤上書きを防ぎ、今後のChatGPT Work実行を同じ手順で再現するため。Python、Google Sheets、ChatGPT Workは所有者が将来運用に指定した支持環境であり、この運用範囲に限定して保持する。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-018-1` 前提: 対象動画台帳のsnapshotと一意なbatch IDがある。条件: Pythonハーネスを初期化し、同一または変更したsnapshotで再実行する。期待結果: 同一入力は同じ有限集合を再開し、行または対象集合が変わる同一batch IDを拒否し、0件ではbranch・PR・台帳書込みを行わない。。
-
-要求源: spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md, user:2026-08-11
-検証証跡: tests/timestamp_harness_test.py
-トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/scripts/harness_common.py; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md,dev-standard default profile
-
-## V8-OPS-019: 意味判断は独立したcodex execで実行し素材取得と決定的検証で囲まなければならない
-
-diopside v8のタイムスタンプ運用は、ハーネスは作成者時刻一覧または公開日本語字幕を優先し、必要時に公開音声と無償ローカル音声認識、匿名化したチャット補助信号を取得し、章構成・事実確認・編集確認の意味判断を役割ごとに独立した非対話のcodex execで実行して、同じ候補hashへの決定的検証合格を必須としなければならない。を**satisfy**。
-
-根拠: 素材収集と意味判断と採用判定を分離し、既存ChatGPT／Codex契約の範囲で全編根拠、独立確認、機械検証を再現可能にするため。codex execは所有者が判断実行方式として明示した永続的な運用制約である。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-019-1` 前提: 固定対象に公開字幕がある、または公開音声から全編ローカル音声認識が可能である。条件: ハーネスで素材取得と候補作成を実行する。期待結果: 生素材をGitへ保存せず、compose、fact、editorialを別のephemeral codex execとして実行し、同じ候補hashの独立確認と決定的検証に合格した候補だけをPR工程へ進める。。
-- `AC-V8-OPS-019-2` 前提: チャット補助信号が必要で公開live chatを取得できる。条件: チャット取得を実行する。期待結果: 本文と投稿者識別子を破棄した時間帯別反応量だけを一時保持し、チャット単独で境界または全編根拠を決めない。。
-
-要求源: spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md, user:2026-08-11
-検証証跡: tests/timestamp_harness_test.py, tests/timestamp_tools_test.py
-トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/scripts/download_live_chat.py,.agents/skills/prepare-stream-evidence,.agents/skills/audit-stream-chapters; テスト=tests/timestamp_harness_test.py,tests/timestamp_tools_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md,dev-standard default profile
-
-## V8-OPS-020: 合格動画のdraft PR作成と全終端結果の台帳反映を自律的に完了しなければならない
-
-diopside v8のタイムスタンプ運用は、ハーネスは合格した各動画について1動画branchをcommit・pushしてdraft PRを作成し、実在PR URLを正本候補へ記録して最終commitをpushした後、PR URL・commit SHA・レビュー待ち状態を対象台帳行へ反映して再読確認しなければならない。処理不能動画も安全な理由と再開条件を台帳へ反映し、行指紋が変わった場合は上書きしてはならない。を**satisfy**。
-
-根拠: 候補作成だけで停止せず、人が確認できるGitHub単位と進捗台帳を一致させ、誤って未マージ候補を作成済みまたは公開済みと扱わないため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-020-1` 前提: 候補が全編根拠、独立確認、決定的検証に合格した。条件: PR工程と台帳同期を実行する。期待結果: 1動画だけのdraft PRへ最終commitがpushされ、台帳は作成済みFALSE、PR作成済み（レビュー待ち）、実在PR URL、最終commit SHAを示し、更新後の再読で一致する。。
-- `AC-V8-OPS-020-2` 前提: 動画が処理不能である、または開始後に台帳行が変更された。条件: 終端結果を台帳へ同期する。期待結果: 他動画を継続し、処理不能の段階・安全な理由・再開条件を記録し、競合行は上書きしない。。
-
-要求源: spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md, user:2026-08-11
-検証証跡: tests/timestamp_harness_test.py, tests/finalize_candidate_pr_merge_test.py, tests/operations.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness,.agents/skills/generate-stream-timestamps/scripts/finalize_candidate.py,scripts/validate-video-pr-scope.ts; テスト=tests/timestamp_harness_test.py,tests/finalize_candidate_pr_merge_test.py,tests/operations.test.ts; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md,dev-standard default profile
-
-## V8-OPS-021: 2〜20のWorkセッションはremote branchの原子的claimで別動画を1件ずつ処理しなければならない
-
-diopside v8の分散タイムスタンプ運用は、2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchをGitHub connectorで原子的にref作成して未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者はclaim markerと処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。を**satisfy**。
-
-根拠: 独立Workセッション間に共有ローカル状態がなくても、GitHubのremote ref作成をcompare-and-setとして利用し、二重素材処理、同一branch更新、同一動画PR、台帳行の誤上書きを防ぐため。処理中draft PRにより中断したclaimも人が発見して再開判断できる。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-021-1` 前提: 同じ台帳snapshotから同じ未処理動画を選ぶ2つのworkerがある。条件: 両workerがGitHub connectorで同じ動画の専用remote branchをref作成してclaimする。期待結果: GitHubがref作成を受理した1workerだけが所有権を得てclaim markerと処理中draft PRを作り、競合workerはforce updateやbranch削除をせず次候補へ進む。。
-- `AC-V8-OPS-021-2` 前提: 適格動画数より多いworkerが起動した、またはclaim済み動画だけが残っている。条件: workerがclaim-nextを完了する。期待結果: 余剰workerはno_unclaimed_targetとしてbranch、PR、台帳書込みを行わず正常終了する。。
-- `AC-V8-OPS-021-3` 前提: claim済みworkerが処理中に停止した。条件: 別workerまたは人がGitHub上の状態を確認する。期待結果: 処理中draft PRとclaim markerから所有権を識別でき、自動奪取せず同じbatchとbranchで再開判断できる。。
-
-要求源: spec/sources/owner-directive-2026-08-11-timestamp-distributed-workers.md, user:2026-08-11
-検証証跡: tests/timestamp_harness_test.py
-トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-distributed-workers.md,dev-standard default profile
-
-## V8-OPS-022: 1つのWorkセッションは1 Solと10 Lunaでタイムスタンプを並列処理しSolが最終確認しなければならない
-
-diopside v8のタイムスタンプオーケストレーションは、1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行い、親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。利用可能な同時threadが10未満でも10論理レーンを波状実行しなければならない。を**satisfy**。
-
-根拠: 反復的で明確な動画処理を高速なLunaへ分散し、共有GitHub・台帳書込みと高価値の最終判断をSolへ一元化することで、人の継続入力、競合、未確認候補の確定を減らすため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-022-1` 前提: 1つのWorkチャットで複数の適格動画を処理する明示要求がある。条件: 親Solが1波を計画して子agentへ割り当てる。期待結果: 10論理レーンがGPT-5.6 Luna mediumへ固定され、各Lunaは異なるclaim済み動画を最大1件だけ処理し、同時thread上限が低い場合は同じ10レーンを波状実行する。。
-- `AC-V8-OPS-022-2` 前提: Lunaが候補、事実確認、編集確認、決定的検証結果を返した。条件: 正本化、PR最終commit、台帳同期へ進む。期待結果: 親GPT-5.6 Solが同じ候補hashと全編根拠を最終確認したpass記録がない候補を拒否し、GitHubとGoogle Sheetsへの確定書込みをLunaへ行わせない。。
-- `AC-V8-OPS-022-3` 前提: 1波の全Lunaがcompleteまたはblockedで台帳確認まで終わり、有限対象が残っている。条件: キャンペーン期限前に次の処理を判断する。期待結果: 人の追加入力を待たず次の10レーンを計画し、対象枯渇、期限のdrain、または全体権限・安全blockまで継続する。。
-
-要求源: spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md, user:2026-08-11
-検証証跡: tests/timestamp_harness_test.py
-トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.codex/config.toml,.codex/agents/timestamp-luna-worker.toml,.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md,dev-standard default profile

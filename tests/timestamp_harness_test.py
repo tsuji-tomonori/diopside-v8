@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / ".agents/skills/run-timestamp-work-harness/scripts/harness.py"
 CHAT_SCRIPT = ROOT / ".agents/skills/run-timestamp-work-harness/scripts/download_live_chat.py"
+AUDIO_SCRIPT = ROOT / ".agents/skills/prepare-stream-evidence/scripts/download_audio.py"
 CODEX_CONFIG = ROOT / ".codex/config.toml"
 LUNA_AGENT = ROOT / ".codex/agents/timestamp-luna-worker.toml"
 VIDEO_ID = "eGjLBN2fsQc"
@@ -152,7 +153,7 @@ class TimestampHarnessTest(unittest.TestCase):
         for expected in (
             '"--ephemeral"',
             '"--sandbox"',
-            '"workspace-write"',
+            '"read-only"',
             '"--output-schema"',
             '"--output-last-message"',
             'invoke_codex(video_id, "compose"',
@@ -163,6 +164,41 @@ class TimestampHarnessTest(unittest.TestCase):
             "fact_review.jsonを読まず",
         ):
             self.assertIn(expected, source)
+
+    def test_codex_technical_retry_and_quality_escalation_are_distinct(self) -> None:
+        source = SCRIPT.read_text(encoding="utf-8")
+        for expected in (
+            'QUALITY_RETRY_MODEL = "gpt-5.6-terra"',
+            'routing_reason="quality_retry_escalation"',
+            'retry_reason = "trusted_destination"',
+            'command.append("--skip-git-repo-check")',
+            'if not verified_repository_root()',
+            'model_reasoning_effort="{reasoning_effort}"',
+            '"actualModel": model',
+            '"artifact": role_artifact_schema(video_id, role)',
+            '"DIOPSIDE_CODEX_TIMEOUT_SECONDS", "1800"',
+            'except subprocess.TimeoutExpired:',
+            'local.add_argument("--retry-blocked", action="store_true")',
+        ):
+            self.assertIn(expected, source)
+        self.assertLess(
+            source.index('if not verified_repository_root()'),
+            source.index('command.append("--skip-git-repo-check")'),
+        )
+
+    def test_caption_fallback_downloads_temporary_mp3_for_local_asr(self) -> None:
+        source = AUDIO_SCRIPT.read_text(encoding="utf-8")
+        for expected in (
+            '"--no-netrc"',
+            '"--extract-audio"',
+            '"--audio-format", "mp3"',
+            '"ffmpeg:-ac 1 -ar 16000"',
+            'audio_dir / "source.mp3"',
+            '"ffmpegAvailable": bool(ffmpeg)',
+        ):
+            self.assertIn(expected, source)
+        for prohibited in ("cookies-from-browser", "--cookies", "OPENAI_API_KEY"):
+            self.assertNotIn(prohibited, source)
 
     def test_project_config_pins_one_sol_parent_and_ten_luna_children(self) -> None:
         config = tomllib.loads(CODEX_CONFIG.read_text(encoding="utf-8"))
