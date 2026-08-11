@@ -813,7 +813,7 @@ def write_video_review(video_id: str, candidate_hash: str) -> Path:
 
 def write_commit_message(batch_id: str, video_id: str, review_path: Path) -> Path:
     output = batch_dir(batch_id) / f"commit-{video_id}.txt"
-    requirements = "V8-DISPLAY-011,V8-OPS-023"
+    requirements = "V8-DISPLAY-011,V8-OPS-025"
     output.write_text(
         f"✨ feat(synopsis): {video_id}のあらすじ候補を追加\n\n"
         "目的:\n- 全編根拠と独立確認に合格した1動画のあらすじを人がPRで確認できる状態にする\n\n"

@@ -2,16 +2,17 @@
 
 ## One Sol and ten Luna workers
 
-The default Web Work topology is one GPT-5.6 Sol parent and ten logical
-`timestamp-luna-worker` lanes pinned to GPT-5.6 Luna with medium reasoning. The
+The default Web Work topology is one GPT-5.6 Sol parent and ten logical lane
+slots. Every active slot uses one `timestamp-luna-worker` pinned to GPT-5.6 Luna
+with medium reasoning. The
 parent calls `plan-luna-wave --wave <n>`; its strided fallback lists prevent two lanes in the
 same wave from attempting the same candidate. Remote branch creation remains the
 atomic claim against other chats or interrupted work.
 
 Lane batch IDs include the wave and lane numbers. Rerunning the same campaign and
 wave returns existing lane state instead of assigning a new video to that batch.
-Only after every lane is terminal and sheet-verified may Sol reread the sheet and
-increment the wave number.
+Only after every lane is complete, inactive, or safely deferred by Sol may the
+parent reread the sheet and increment the wave number.
 
 Only Sol uses GitHub and Google Sheets connectors. After Sol creates each branch,
 marker, and processing draft PR, it starts the matching Luna subagent with the
@@ -23,8 +24,16 @@ Sol waits for every active lane, inspects the full evidence coverage and all thr
 candidate artifacts, and records a matching `record-sol-review` attestation. The
 harness rejects distributed materialization unless that attestation uses
 `gpt-5.6-sol`, passes, and matches the current candidate hash. Ten unavailable
-physical threads do not change the topology: Work runs the ten logical lanes in
-waves. Fewer eligible videos simply leave excess lanes inactive.
+physical threads do not change the topology: Work keeps a queue and runs the ten
+logical slots in as many physical waves as necessary. Fewer eligible videos leave
+explicit `inactive_no_target` slots instead of silently shrinking the wave.
+
+Hosted Work subagents inherit the parent's available tools and permission mode.
+The repository cannot physically remove a connector from Luna. Therefore Sol
+withholds connector action payloads, Luna receives only one dossier assignment,
+and the harness rejects materialization without the Sol attestation. Do not
+describe `.codex/config.toml` as proof of hosted Work model selection or physical
+concurrency.
 
 ## Spreadsheet snapshot
 
@@ -86,7 +95,10 @@ pending
   -> sheet_pending
   -> complete
 
-any non-terminal state -> blocked
+recoverable local failure -> needs_sol_recovery
+needs_sol_recovery -> parent Sol recovery -> ready_for_materialization
+parent Sol recovery exhausted at drain -> deferred_recovery
+non-recoverable compatibility-mode failure -> blocked
 ```
 
 Distributed mode uses this visible prefix before the common evidence stages:
@@ -109,6 +121,12 @@ Every state write is atomic and idempotent. A later invocation resumes from the
 last durable state. The batch is complete only when each item is `complete` or
 `blocked` and its spreadsheet result has been verified.
 
+For the 1 Sol・10 Luna campaign, evidence, Codex, composition, review, and
+validation failures never become spreadsheet blockers. Luna returns
+`needs_sol_recovery`; Sol runs `recover-with-sol`. If drain time arrives after all
+fallbacks, `deferred_recovery` is a wave-terminal checkpoint but not campaign
+completion and has no spreadsheet action.
+
 ## Codex isolation
 
 The harness invokes `codex exec --ephemeral --sandbox workspace-write` with an
@@ -117,6 +135,28 @@ editorial review are separate processes. The editorial prompt forbids reading th
 fact-review artifact. Codex may write only the role artifact under the ignored
 video dossier and may not perform network, Git, spreadsheet, or GitHub actions.
 The existing deterministic validators remain the authority for advancing state.
+
+Every exec pins both model and reasoning effort. Luna uses
+`gpt-5.6-luna` / `medium`; parent recovery uses `gpt-5.6-sol` / `high`.
+An exec response containing `trusted-destination` is retried at most three times
+with bounded backoff. Each attempt records only stage, model, outcome, reason
+code, timestamp, and a diagnostic digest in the ignored per-video event log.
+
+## Recovery ladder
+
+Before declaring an evidence problem, run the anonymous `yt-dlp` reachability
+diagnosis and preserve only its safe classification. Then try, in order:
+
+1. public `ja-orig` / `ja` captions with bounded retry;
+2. unauthenticated native best-audio with resume and fragment retry;
+3. unauthenticated MP3 extraction through `yt-dlp` and local `ffmpeg`;
+4. full-duration local ASR;
+5. parent-only batch-local `faster-whisper` preparation and full-duration ASR.
+
+Do not use cookies, browser profiles, authentication bypass, member/private
+content, or paid transcription APIs. A missing optional live chat never blocks
+the full-transcript route. A semantic or validator failure after Luna processing
+is model-recovered by the parent Sol rather than mislabeled as missing evidence.
 
 ## External-action handshake
 
@@ -150,3 +190,5 @@ For a draft PR:
 
 For a blocker, `作成済み` remains `FALSE`, `処理状態` is `処理不能`, and
 `未作成原因` contains only the controlled Japanese stage/reason/restart summary.
+This blocker mapping is prohibited for recoverable 1 Sol・10 Luna campaign
+failures. `needs_sol_recovery` and `deferred_recovery` produce no sheet writes.
