@@ -151,4 +151,5 @@ advisories: []
 residual_risks:
   - 公開音声または無料ローカルASRをdrain期限までに回復できない動画は、台帳を更新せずdeferred_recoveryから再開する
   - 長時間字幕は最大3 chunkを並行mapするため、実行環境の負荷に応じてDIOPSIDE_TRANSCRIPT_MAP_WORKERSを1から4で調整する
+  - worker-side shell読取失敗を避けるため字幕JSONLと検証済みmapを直接入力し、読取失敗またはplaceholder mapを決定的に拒否する
   - Terra品質再試行後も決定的validatorまたは親Sol確認に合格しない候補は正本化しない
