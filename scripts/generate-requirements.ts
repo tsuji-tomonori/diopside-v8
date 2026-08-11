@@ -221,10 +221,10 @@ const requirements = sourceRequirements.map((item) => {
     requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-08-TIMESTAMP-BATCH';
   }
   if (id === 'V8-OPS-005') {
-    requirement.revision = 2;
+    requirement.revision = 3;
     requirement.title = '1回の明示要求で固定した有限の適格タイムスタンプ対象集合を、全件が終端結果へ到達するまで処理しなければならない';
-    requirement.object = '1回の明示要求で固定した有限の適格タイムスタンプ対象集合は、各動画が1動画だけを対象とするPRのレビュー可能状態、または根拠を示した処理不能状態のいずれかへ到達するまで処理しなければならない。ある動画の失敗を理由に、集合内の未処理動画を停止してはならない。';
-    requirement.source_refs.push('owner-directive:2026-08-08-timestamp-batch');
+    requirement.object = '1回の明示要求で固定した有限の適格タイムスタンプ対象集合は、各動画が1動画だけを対象とするdraft PRの作成・最終commitのpush・台帳反映確認を完了した状態、または根拠を示した処理不能状態のいずれかへ到達するまで処理しなければならない。ある動画の失敗を理由に、集合内の未処理動画を停止してはならない。';
+    requirement.source_refs.push('owner-directive:2026-08-08-timestamp-batch', 'spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md', 'user:2026-08-11');
     requirement.acceptance_criteria = [
       {
         id: 'AC-V8-OPS-005-1',
@@ -236,16 +236,16 @@ const requirements = sourceRequirements.map((item) => {
         id: 'AC-V8-OPS-005-2',
         given: '固定した集合に成功可能な動画と処理不能になる動画が含まれる',
         when: '一括処理の終端・失敗分離試験',
-        then: '全動画がPRレビュー可能または理由付き処理不能の終端結果を持ち、処理不能動画があっても残りの動画を処理する。',
+        then: '全動画が1動画draft PR作成・最終commit push・台帳反映確認済み、または理由付き処理不能の終端結果を持ち、処理不能動画があっても残りの動画を処理する。',
       },
     ];
     requirement.verification = {
       method: '対象集合の固定データ・一括処理の終端・失敗分離試験',
-      evidence: 'tests/operations.test.ts, tests/timestamp_tools_test.py',
+      evidence: 'tests/operations.test.ts, tests/timestamp_tools_test.py, tests/timestamp_harness_test.py',
     };
-    requirement.traces.implementation.push('.agents/skills/generate-stream-timestamps');
-    requirement.traces.tests.push('tests/timestamp_tools_test.py');
-    requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-08-TIMESTAMP-BATCH';
+    requirement.traces.implementation.push('.agents/skills/generate-stream-timestamps', '.agents/skills/run-timestamp-work-harness');
+    requirement.traces.tests.push('tests/timestamp_tools_test.py', 'tests/timestamp_harness_test.py');
+    requirement.last_changed_by = 'CHG-20260811-timestamp-work-harness';
   }
   if (id === 'V8-OPS-009') {
     requirement.revision = 2;
@@ -498,14 +498,116 @@ const ownerDirectiveRequirements = [
     last_changed_by: 'CHG-20260808-post-merge-release',
   },
 ];
-const canonicalRequirements = [...requirements, ...ownerDirectiveRequirements];
+const timestampHarnessRequirements = [
+  {
+    id: 'V8-OPS-018',
+    revision: 1,
+    status: 'active',
+    scope: 'project',
+    category: 'nonfunctional',
+    type: 'operational',
+    title: 'Work用タイムスタンプ処理はPythonで台帳行を固定し中断後も同じ集合から再開できなければならない',
+    subject: 'diopside v8のタイムスタンプ運用',
+    action: 'satisfy',
+    object: 'ChatGPT Workから開始するタイムスタンプ処理は、PythonでGoogle Sheetsの対象動画台帳を列名で読み、作成済み・除外・既存PRを除いた適格対象を行番号と行指紋を含む有限集合として固定し、同じbatch IDでは集合を変更せず中断後も再開できなければならない。',
+    rationale: '長時間処理の中断や台帳の並行更新があっても対象の追加・脱落・誤上書きを防ぎ、今後のChatGPT Work実行を同じ手順で再現するため。Python、Google Sheets、ChatGPT Workは所有者が将来運用に指定した支持環境であり、この運用範囲に限定して保持する。',
+    source_refs: ['spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md', 'user:2026-08-11'],
+    acceptance_criteria: [{
+      id: 'AC-V8-OPS-018-1',
+      given: '対象動画台帳のsnapshotと一意なbatch IDがある',
+      when: 'Pythonハーネスを初期化し、同一または変更したsnapshotで再実行する',
+      then: '同一入力は同じ有限集合を再開し、行または対象集合が変わる同一batch IDを拒否し、0件ではbranch・PR・台帳書込みを行わない。',
+    }],
+    verification: { method: '台帳snapshot・immutable manifest・再開・0件試験', evidence: 'tests/timestamp_harness_test.py' },
+    traces: {
+      design: ['docs/design/generated/system.gen.md', '.agents/skills/run-timestamp-work-harness/references/workflow.md'],
+      implementation: ['.agents/skills/run-timestamp-work-harness/scripts/harness.py', '.agents/skills/run-timestamp-work-harness/scripts/harness_common.py'],
+      tests: ['tests/timestamp_harness_test.py'],
+      standards: ['spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260811-timestamp-work-harness',
+  },
+  {
+    id: 'V8-OPS-019',
+    revision: 1,
+    status: 'active',
+    scope: 'project',
+    category: 'nonfunctional',
+    type: 'operational',
+    title: '意味判断は独立したcodex execで実行し素材取得と決定的検証で囲まなければならない',
+    subject: 'diopside v8のタイムスタンプ運用',
+    action: 'satisfy',
+    object: 'ハーネスは作成者時刻一覧または公開日本語字幕を優先し、必要時に公開音声と無償ローカル音声認識、匿名化したチャット補助信号を取得し、章構成・事実確認・編集確認の意味判断を役割ごとに独立した非対話のcodex execで実行して、同じ候補hashへの決定的検証合格を必須としなければならない。',
+    rationale: '素材収集と意味判断と採用判定を分離し、既存ChatGPT／Codex契約の範囲で全編根拠、独立確認、機械検証を再現可能にするため。codex execは所有者が判断実行方式として明示した永続的な運用制約である。',
+    source_refs: ['spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md', 'user:2026-08-11'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-OPS-019-1',
+        given: '固定対象に公開字幕がある、または公開音声から全編ローカル音声認識が可能である',
+        when: 'ハーネスで素材取得と候補作成を実行する',
+        then: '生素材をGitへ保存せず、compose、fact、editorialを別のephemeral codex execとして実行し、同じ候補hashの独立確認と決定的検証に合格した候補だけをPR工程へ進める。',
+      },
+      {
+        id: 'AC-V8-OPS-019-2',
+        given: 'チャット補助信号が必要で公開live chatを取得できる',
+        when: 'チャット取得を実行する',
+        then: '本文と投稿者識別子を破棄した時間帯別反応量だけを一時保持し、チャット単独で境界または全編根拠を決めない。',
+      },
+    ],
+    verification: { method: 'Codex実行契約・role分離・候補hash・匿名chat・公開境界試験', evidence: 'tests/timestamp_harness_test.py, tests/timestamp_tools_test.py' },
+    traces: {
+      design: ['docs/design/generated/system.gen.md', '.agents/skills/run-timestamp-work-harness/references/workflow.md'],
+      implementation: ['.agents/skills/run-timestamp-work-harness/scripts/harness.py', '.agents/skills/run-timestamp-work-harness/scripts/download_live_chat.py', '.agents/skills/prepare-stream-evidence', '.agents/skills/audit-stream-chapters'],
+      tests: ['tests/timestamp_harness_test.py', 'tests/timestamp_tools_test.py'],
+      standards: ['spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260811-timestamp-work-harness',
+  },
+  {
+    id: 'V8-OPS-020',
+    revision: 1,
+    status: 'active',
+    scope: 'project',
+    category: 'nonfunctional',
+    type: 'operational',
+    title: '合格動画のdraft PR作成と全終端結果の台帳反映を自律的に完了しなければならない',
+    subject: 'diopside v8のタイムスタンプ運用',
+    action: 'satisfy',
+    object: 'ハーネスは合格した各動画について1動画branchをcommit・pushしてdraft PRを作成し、実在PR URLを正本候補へ記録して最終commitをpushした後、PR URL・commit SHA・レビュー待ち状態を対象台帳行へ反映して再読確認しなければならない。処理不能動画も安全な理由と再開条件を台帳へ反映し、行指紋が変わった場合は上書きしてはならない。',
+    rationale: '候補作成だけで停止せず、人が確認できるGitHub単位と進捗台帳を一致させ、誤って未マージ候補を作成済みまたは公開済みと扱わないため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md', 'user:2026-08-11'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-OPS-020-1',
+        given: '候補が全編根拠、独立確認、決定的検証に合格した',
+        when: 'PR工程と台帳同期を実行する',
+        then: '1動画だけのdraft PRへ最終commitがpushされ、台帳は作成済みFALSE、PR作成済み（レビュー待ち）、実在PR URL、最終commit SHAを示し、更新後の再読で一致する。',
+      },
+      {
+        id: 'AC-V8-OPS-020-2',
+        given: '動画が処理不能である、または開始後に台帳行が変更された',
+        when: '終端結果を台帳へ同期する',
+        then: '他動画を継続し、処理不能の段階・安全な理由・再開条件を記録し、競合行は上書きしない。',
+      },
+    ],
+    verification: { method: '1動画PR scope・PR URL gate・行指紋競合・exact range write・更新後再読試験', evidence: 'tests/timestamp_harness_test.py, tests/finalize_candidate_pr_merge_test.py, tests/operations.test.ts' },
+    traces: {
+      design: ['docs/design/generated/system.gen.md', '.agents/skills/run-timestamp-work-harness/references/workflow.md'],
+      implementation: ['.agents/skills/run-timestamp-work-harness', '.agents/skills/generate-stream-timestamps/scripts/finalize_candidate.py', 'scripts/validate-video-pr-scope.ts'],
+      tests: ['tests/timestamp_harness_test.py', 'tests/finalize_candidate_pr_merge_test.py', 'tests/operations.test.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260811-timestamp-work-harness',
+  },
+];
+const canonicalRequirements = [...requirements, ...ownerDirectiveRequirements, ...timestampHarnessRequirements];
 
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: 5,
+  catalog_revision: 6,
   product: 'diopside v8',
-  updated_at: '2026-08-08',
+  updated_at: '2026-08-11',
   requirements: canonicalRequirements,
 }, null, 2)}\n`);
 writeFileSync(mapPath, `${JSON.stringify({
@@ -519,4 +621,4 @@ writeFileSync(mapPath, `${JSON.stringify({
   })),
 }, null, 2)}\n`);
 
-console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length}件の要件正本を生成しました。`);
+console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length}件の要件正本を生成しました。`);
