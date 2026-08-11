@@ -1,0 +1,188 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260811-timestamp-distributed-workers
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: true
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:spec/sources/owner-directive-2026-08-11-timestamp-distributed-workers.md
+    note: 2〜20のWorkセッションが1動画ずつ競合なく処理する永続要件をV8-OPS-021として追加した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/run-timestamp-work-harness/references/workflow.md
+      - path:docs/design/generated/system.gen.md
+    note: 公開構成を変えずGitHub remote refを分散workerの調停面にする運用設計を追加した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260811-timestamp-distributed-workers.yaml
+    note: 要件、外部Git書込み、Python状態機械、Work運用へ跨るためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/run-timestamp-work-harness/SKILL.md
+      - test:tests/timestamp_harness_test.py
+    note: 通常pushによるbranch作成、処理中draft PR、対象行更新だけを許可しforce・削除・merge・公開を禁止した
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/timestamp_harness_test.py
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: Python回帰試験と既存品質ゲートへ分散claim契約を接続した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/run-timestamp-work-harness/scripts/harness.py
+      - test:tests/timestamp_harness_test.py
+    note: 変更PythonをRuff対象に維持し警告0件を必須にする
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/timestamp_harness_test.py
+    note: 2つの独立cloneから同じremote branchをclaimし勝者が1つだけになる実Git試験を追加した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/requirements/REQUIREMENTS.md
+      - path:docs/design/generated/inventory.gen.json
+    note: 要件revisionと実装SHAを既存generatorから決定的に更新する
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: claim markerは動画ID・worker ID・nonce・時刻だけとしcredentialや動画素材を差分へ含めない
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:docs/operations/manual-content-update.md
+      - path:.agents/skills/run-timestamp-work-harness/references/workflow.md
+    note: claim直後のdraft PRとworker IDで中断状態をGitHub上から診断できる
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/run-timestamp-work-harness/SKILL.md
+      - path:spec/sources/owner-directive-2026-08-11-timestamp-distributed-workers.md
+      - test:tests/timestamp_harness_test.py
+    note: 差分を分散claim、状態遷移、運用文書、正本要件、直接試験へ限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性と残存リスクをCommit Commentへ記録する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - test:tests/timestamp_harness_test.py
+    note: V8-OPS-021の三受入条件をatomic claim、余剰no-op、可視化された再開契約へtraceした
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+      - path:.agents/skills/run-timestamp-work-harness/references/workflow.md
+    note: 既存Workハーネスの派生設計へ追加し新規ADRを不要と判定した
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:.agents/skills/run-timestamp-work-harness/scripts/harness.py
+      - test:tests/timestamp_harness_test.py
+    note: V8-OPS-021からclaim実装と競合試験へtraceを接続した
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/timestamp_harness_test.py
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: remote ref作成の実Git試験を既存Python品質ゲートから実行する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260811-timestamp-distributed-workers.yaml
+    note: 選択したcheckだけをreview YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260811-timestamp-distributed-workers.yaml
+    note: 未選択checkをN/Aとして登録していない
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:docs/operations/manual-content-update.md
+      - path:.agents/skills/run-timestamp-work-harness/SKILL.md
+    note: 10〜20セッションの起動、1worker 1動画、競合時継続、stale claim非奪取を運用手順へ反映した
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:spec/sources/owner-directive-2026-08-11-timestamp-distributed-workers.md
+      - path:.agents/skills/run-timestamp-work-harness/references/workflow.md
+    note: remote branchを調停面にする長期判断とforce・削除・自動奪取を退ける理由を正本と派生運用設計へ保持したため新規ADRは不要と判定した
+advisories: []
+residual_risks:
+  - 実際のChatGPT Work 10〜20セッションを同時起動した初回運用でGitHub認証とGoogle Sheets connectorの同時実行上限を確認する

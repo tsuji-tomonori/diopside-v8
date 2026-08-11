@@ -599,13 +599,55 @@ const timestampHarnessRequirements = [
     },
     last_changed_by: 'CHG-20260811-timestamp-work-harness',
   },
+  {
+    id: 'V8-OPS-021',
+    revision: 1,
+    status: 'active',
+    scope: 'project',
+    category: 'nonfunctional',
+    type: 'operational',
+    title: '2〜20のWorkセッションはremote branchの原子的claimで別動画を1件ずつ処理しなければならない',
+    subject: 'diopside v8の分散タイムスタンプ運用',
+    action: 'satisfy',
+    object: '2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchへの非force pushを原子的claimとして未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者は処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。',
+    rationale: '独立Workセッション間に共有ローカル状態がなくても、GitHubのremote ref作成をcompare-and-setとして利用し、二重素材処理、同一branch更新、同一動画PR、台帳行の誤上書きを防ぐため。処理中draft PRにより中断したclaimも人が発見して再開判断できる。',
+    source_refs: ['spec/sources/owner-directive-2026-08-11-timestamp-distributed-workers.md', 'user:2026-08-11'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-OPS-021-1',
+        given: '同じ台帳snapshotから同じ未処理動画を選ぶ2つのworkerがある',
+        when: '両workerが同じ動画の専用remote branchを通常pushでclaimする',
+        then: 'GitHubが受理した1workerだけが所有権を得て処理中draft PRを作り、競合workerはforce pushやbranch削除をせず次候補へ進む。',
+      },
+      {
+        id: 'AC-V8-OPS-021-2',
+        given: '適格動画数より多いworkerが起動した、またはclaim済み動画だけが残っている',
+        when: 'workerがclaim-nextを完了する',
+        then: '余剰workerはno_unclaimed_targetとしてbranch、PR、台帳書込みを行わず正常終了する。',
+      },
+      {
+        id: 'AC-V8-OPS-021-3',
+        given: 'claim済みworkerが処理中に停止した',
+        when: '別workerまたは人がGitHub上の状態を確認する',
+        then: '処理中draft PRとclaim markerから所有権を識別でき、自動奪取せず同じbatchとbranchで再開判断できる。',
+      },
+    ],
+    verification: { method: '2worker remote branch競合・1動画worker・余剰worker no-op・exact-case branch・非force契約試験', evidence: 'tests/timestamp_harness_test.py' },
+    traces: {
+      design: ['docs/design/generated/system.gen.md', '.agents/skills/run-timestamp-work-harness/references/workflow.md'],
+      implementation: ['.agents/skills/run-timestamp-work-harness/scripts/harness.py', '.agents/skills/run-timestamp-work-harness/SKILL.md'],
+      tests: ['tests/timestamp_harness_test.py'],
+      standards: ['spec/sources/owner-directive-2026-08-11-timestamp-distributed-workers.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260811-timestamp-distributed-workers',
+  },
 ];
 const canonicalRequirements = [...requirements, ...ownerDirectiveRequirements, ...timestampHarnessRequirements];
 
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: 6,
+  catalog_revision: 7,
   product: 'diopside v8',
   updated_at: '2026-08-11',
   requirements: canonicalRequirements,

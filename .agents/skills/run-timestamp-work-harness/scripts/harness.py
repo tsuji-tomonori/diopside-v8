@@ -12,6 +12,7 @@ import shlex
 import shutil
 import subprocess
 import sys
+import uuid
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -19,6 +20,7 @@ from typing import Any
 import yaml
 from harness_common import (
     ROOT,
+    RUN_ROOT,
     HarnessError,
     atomic_json,
     batch_dir,
@@ -44,6 +46,7 @@ from timestamp_common import eligibility, load_canonical_videos  # noqa: E402
 
 TERMINAL = {"complete", "blocked"}
 PR_RE = re.compile(r"^https://github\.com/tsuji-tomonori/diopside-v8/pull/[1-9][0-9]*$")
+WORKER_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
 BLOCK_CODES = {
     "evidence_unavailable": "字幕・公開音声・全編文字起こしのいずれも安全に取得できませんでした。",
     "codex_unavailable": "codex execを実行できる認証済みCLIがありません。",
@@ -71,13 +74,19 @@ def run(command: list[str], *, cwd: Path = ROOT, env: dict[str, str] | None = No
     return completed
 
 
-def command_init(args: argparse.Namespace) -> dict[str, Any]:
-    snapshot = read_json(args.snapshot)
+def eligible_snapshot_items(
+    snapshot: dict[str, Any],
+    *,
+    limit: int | None = None,
+    video_id: str | None = None,
+) -> tuple[list[str], list[dict[str, Any]], dict[str, int]]:
     headers, rows = parse_snapshot(snapshot)
     canonical = load_canonical_videos()
     selected: list[dict[str, Any]] = []
     skipped: dict[str, int] = {"作成済み": 0, "除外": 0, "PR済み": 0, "正本外": 0, "対象外": 0}
     for row in rows:
+        if video_id and row["videoId"] != video_id:
+            continue
         values = row["values"]
         status = str(values.get("処理状態") or "")
         if truthy(values.get("作成済み")):
@@ -98,12 +107,25 @@ def command_init(args: argparse.Namespace) -> dict[str, Any]:
             skipped["対象外"] += 1
             continue
         selected.append({key: row[key] for key in ("videoId", "rowNumber", "rowHash")})
-        if args.limit and len(selected) >= args.limit:
+        if limit and len(selected) >= limit:
             break
-    base_commit = run(["git", "rev-parse", "HEAD"]).stdout.strip()
+    if video_id and not selected:
+        raise HarnessError(f"指定動画は現在のsnapshotで処理対象ではありません: {video_id}")
+    return headers, selected, skipped
+
+
+def initialize_manifest(
+    batch_id: str,
+    snapshot: dict[str, Any],
+    headers: list[str],
+    selected: list[dict[str, Any]],
+    base_commit: str,
+    *,
+    claim: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     unsigned = {
-        "schemaVersion": "1.0.0",
-        "batchId": validate_batch_id(args.batch_id),
+        "schemaVersion": "1.1.0" if claim else "1.0.0",
+        "batchId": validate_batch_id(batch_id),
         "spreadsheetId": str(snapshot.get("spreadsheetId") or ""),
         "sheetName": str(snapshot.get("sheetName") or ""),
         "headerHash": digest(headers),
@@ -112,33 +134,227 @@ def command_init(args: argparse.Namespace) -> dict[str, Any]:
         "videoIds": [item["videoId"] for item in selected],
         "videoCount": len(selected),
     }
+    if claim:
+        unsigned["workerId"] = claim["workerId"]
     manifest = {**unsigned, "manifestHash": digest(unsigned)}
-    destination = batch_dir(args.batch_id)
+    destination = batch_dir(batch_id)
     if destination.exists():
         if read_json(destination / "manifest.json") != manifest:
             raise HarnessError("同じbatch IDのimmutable manifestが既にあります。")
-        return {"status": "resumed", "videoCount": len(selected), "skipped": skipped}
+        return manifest
     destination.mkdir(parents=True)
     (destination / "items").mkdir()
     atomic_json(destination / "manifest.json", manifest)
     now = datetime.now().astimezone().isoformat()
     for selected_item in selected:
-        atomic_json(
-            item_path(args.batch_id, selected_item["videoId"]),
-            {
-                "schemaVersion": "1.0.0",
-                **selected_item,
-                "stage": "pending",
-                "attempt": 0,
-                "candidateHash": None,
-                "pullRequest": None,
-                "commit": None,
-                "block": None,
-                "sheetVerified": False,
-                "updatedAt": now,
-            },
-        )
+        item = {
+            "schemaVersion": "1.1.0" if claim else "1.0.0",
+            **selected_item,
+            "stage": "pr_bootstrapped" if claim else "pending",
+            "attempt": 0,
+            "candidateHash": None,
+            "pullRequest": None,
+            "commit": None,
+            "block": None,
+            "sheetVerified": False,
+            "updatedAt": now,
+        }
+        if claim:
+            item["claim"] = claim
+        atomic_json(item_path(batch_id, selected_item["videoId"]), item)
+    return manifest
+
+
+def command_init(args: argparse.Namespace) -> dict[str, Any]:
+    snapshot = read_json(args.snapshot)
+    headers, selected, skipped = eligible_snapshot_items(
+        snapshot,
+        limit=args.limit,
+        video_id=args.video_id,
+    )
+    base_commit = run(["git", "rev-parse", "HEAD"]).stdout.strip()
+    destination = batch_dir(args.batch_id)
+    if destination.exists():
+        initialize_manifest(args.batch_id, snapshot, headers, selected, base_commit)
+        return {"status": "resumed", "videoCount": len(selected), "skipped": skipped}
+    initialize_manifest(args.batch_id, snapshot, headers, selected, base_commit)
     return {"status": "initialized", "videoCount": len(selected), "skipped": skipped}
+
+
+def validate_worker_id(worker_id: str) -> str:
+    if not WORKER_ID_RE.fullmatch(worker_id):
+        raise HarnessError("worker IDは英数字で始まる64文字以内の英数字・._-にしてください。")
+    return worker_id
+
+
+def remove_claim_worktree(repo: Path, worktree: Path) -> None:
+    if not worktree.exists():
+        return
+    removed = subprocess.run(
+        ["git", "worktree", "remove", str(worktree)],
+        cwd=repo,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if removed.returncode:
+        raise HarnessError("既存のlocal claim worktreeがcleanではないため自動削除しません。")
+
+
+def attempt_claim_branch(
+    repo: Path,
+    *,
+    batch_id: str,
+    worker_id: str,
+    video_id: str,
+    base_commit: str,
+    remote: str = "origin",
+) -> dict[str, Any] | None:
+    """Atomically create a unique per-video remote branch or report a lost race."""
+    branch = f"agent/timestamps-{video_id}"
+    claim_token = uuid.uuid4().hex
+    worktree = RUN_ROOT / "_worktrees" / batch_id
+    worktree.parent.mkdir(parents=True, exist_ok=True)
+    remove_claim_worktree(repo, worktree)
+    run(["git", "worktree", "add", "--detach", str(worktree), base_commit], cwd=repo)
+    marker = worktree / "reports" / "screenshots" / f"pr-bootstrap-{video_id}.txt"
+    marker.parent.mkdir(parents=True, exist_ok=True)
+    claimed_at = datetime.now().astimezone().isoformat()
+    marker.write_text(
+        "timestamp distributed claim\n"
+        f"videoId={video_id}\n"
+        f"workerId={worker_id}\n"
+        f"claimToken={claim_token}\n"
+        f"claimedAt={claimed_at}\n",
+        encoding="utf-8",
+    )
+    run(["git", "add", str(marker.relative_to(worktree))], cwd=worktree)
+    run(
+        [
+            "git",
+            "-c",
+            "user.name=diopside Work harness",
+            "-c",
+            "user.email=diopside-work-harness@users.noreply.github.com",
+            "commit",
+            "-m",
+            f"🚧 chore(timestamp): {video_id}を{worker_id}が確保",
+        ],
+        cwd=worktree,
+    )
+    claim_commit = run(["git", "rev-parse", "HEAD"], cwd=worktree).stdout.strip()
+    pushed = subprocess.run(
+        ["git", "push", remote, f"HEAD:refs/heads/{branch}"],
+        cwd=worktree,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if pushed.returncode:
+        exists = subprocess.run(
+            ["git", "ls-remote", "--exit-code", "--heads", remote, f"refs/heads/{branch}"],
+            cwd=repo,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        remove_claim_worktree(repo, worktree)
+        if exists.returncode == 0:
+            return None
+        detail = (pushed.stderr or pushed.stdout).strip().splitlines()
+        raise HarnessError(detail[-1] if detail else "GitHubへのclaim pushに失敗しました。")
+    return {
+        "workerId": worker_id,
+        "claimToken": claim_token,
+        "videoId": video_id,
+        "branch": branch,
+        "claimCommit": claim_commit,
+        "claimedAt": claimed_at,
+        "worktreePath": str(worktree),
+    }
+
+
+def claim_response(batch_id: str, item: dict[str, Any]) -> dict[str, Any]:
+    claim = item.get("claim")
+    if not isinstance(claim, dict):
+        raise HarnessError("分散workerのclaim記録がありません。")
+    response: dict[str, Any] = {
+        "status": "claimed" if item["stage"] == "pr_bootstrapped" else "resumed",
+        "batchId": batch_id,
+        "workerId": claim["workerId"],
+        "videoId": item["videoId"],
+        "branch": claim["branch"],
+        "claimCommit": claim["claimCommit"],
+        "worktreePath": claim["worktreePath"],
+        "harnessRoot": str(RUN_ROOT),
+        "stage": item["stage"],
+    }
+    if item["stage"] == "pr_bootstrapped":
+        response["pullRequestAction"] = {
+            "repository": "tsuji-tomonori/diopside-v8",
+            "base": "main",
+            "head": claim["branch"],
+            "draft": True,
+            "title": f"🚧 {item['videoId']} タイムスタンプ作成中",
+            "body": (
+                "分散Workハーネスがこの動画を原子的に確保しました。"
+                "全編根拠・独立確認・決定的検証の完了後、同じPRへ正本候補をpushします。\n\n"
+                f"- 動画ID: `{item['videoId']}`\n"
+                f"- worker: `{claim['workerId']}`\n"
+                "- 状態: 処理中\n"
+                "- merge・公開: 人の確認まで禁止"
+            ),
+        }
+    return response
+
+
+def command_claim_next(args: argparse.Namespace) -> dict[str, Any]:
+    destination = batch_dir(args.batch_id)
+    if destination.exists():
+        manifest = load_manifest(args.batch_id)
+        if len(manifest["videoIds"]) != 1:
+            raise HarnessError("分散worker batchには動画が1件だけ必要です。")
+        return claim_response(args.batch_id, load_item(args.batch_id, manifest["videoIds"][0]))
+
+    snapshot = read_json(args.snapshot)
+    headers, selected, skipped = eligible_snapshot_items(snapshot, limit=args.scan_limit)
+    worker_id = validate_worker_id(args.worker_id or f"work-{uuid.uuid4().hex[:8]}")
+    if args.base_ref == f"{args.remote}/main":
+        run(["git", "fetch", "--no-tags", args.remote, "main"], cwd=ROOT)
+    base_commit = run(["git", "rev-parse", f"{args.base_ref}^{{commit}}"], cwd=ROOT).stdout.strip()
+    collisions: list[str] = []
+    for selected_item in selected:
+        claim = attempt_claim_branch(
+            ROOT,
+            batch_id=args.batch_id,
+            worker_id=worker_id,
+            video_id=selected_item["videoId"],
+            base_commit=base_commit,
+            remote=args.remote,
+        )
+        if claim is None:
+            collisions.append(selected_item["videoId"])
+            continue
+        initialize_manifest(
+            args.batch_id,
+            snapshot,
+            headers,
+            [selected_item],
+            base_commit,
+            claim=claim,
+        )
+        response = claim_response(args.batch_id, load_item(args.batch_id, selected_item["videoId"]))
+        response["collisions"] = collisions
+        response["skipped"] = skipped
+        return response
+    return {
+        "status": "no_unclaimed_target",
+        "batchId": args.batch_id,
+        "workerId": worker_id,
+        "collisions": collisions,
+        "skipped": skipped,
+        "externalActions": [],
+    }
 
 
 def command_status(args: argparse.Namespace) -> dict[str, Any]:
@@ -155,7 +371,7 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "items": [
             {
                 key: item.get(key)
-                for key in ("videoId", "stage", "pullRequest", "commit", "block", "sheetVerified")
+                for key in ("videoId", "stage", "claim", "pullRequest", "commit", "block", "sheetVerified")
             }
             for item in items
         ],
@@ -271,8 +487,16 @@ def command_run_local(args: argparse.Namespace) -> dict[str, Any]:
     }
     for video_id in video_ids:
         item = load_item(args.batch_id, video_id)
-        if item["stage"] in TERMINAL or item["stage"] in {"ready_for_pr", "pr_created", "materialized", "pushed", "sheet_pending"}:
+        if item["stage"] in TERMINAL or item["stage"] in {
+            "ready_for_pr",
+            "ready_for_materialization",
+            "materialized",
+            "pushed",
+            "sheet_pending",
+        }:
             continue
+        if item["stage"] == "pr_bootstrapped":
+            raise HarnessError("分散workerはdraft PRを作成してrecord-prしてから素材処理を開始してください。")
         item["attempt"] += 1
         try:
             item["stage"] = "acquiring_evidence"
@@ -289,10 +513,12 @@ def command_run_local(args: argparse.Namespace) -> dict[str, Any]:
             invoke_codex(video_id, "fact", env)
             invoke_codex(video_id, "editorial", env)
             run(["python3", str(AUDIT_SCRIPTS / "validate_candidate.py"), video_id], env=env)
-            item["stage"] = "ready_for_pr"
+            item["stage"] = "ready_for_materialization" if item.get("pullRequest") else "ready_for_pr"
             item["candidateHash"] = draft["candidateHash"]
             write_item(args.batch_id, item)
-            results.append({"videoId": video_id, "stage": "ready_for_pr", "candidateHash": draft["candidateHash"]})
+            results.append(
+                {"videoId": video_id, "stage": item["stage"], "candidateHash": draft["candidateHash"]}
+            )
         except (HarnessError, json.JSONDecodeError) as error:
             if str(error) == BLOCK_CODES["codex_unavailable"]:
                 code = "codex_unavailable"
@@ -344,7 +570,7 @@ def command_prepare_pr_bootstrap(args: argparse.Namespace) -> dict[str, Any]:
     write_item(args.batch_id, item)
     return {
         "videoId": args.video_id,
-        "branch": f"agent/timestamps-{args.video_id.lower()}",
+        "branch": f"agent/timestamps-{args.video_id}",
         "bootstrapPath": str(path.relative_to(ROOT)),
         "baseCommit": load_manifest(args.batch_id)["baseCommit"],
     }
@@ -490,8 +716,10 @@ def write_video_commit_message(batch_id: str, video_id: str, review_path: Path) 
 
 def command_materialize(args: argparse.Namespace) -> dict[str, Any]:
     item = load_item(args.batch_id, args.video_id)
-    if item["stage"] not in {"pr_created", "materialized"} or not item.get("pullRequest"):
-        raise HarnessError("実在するdraft PRを記録してから正本化してください。")
+    if item.get("claim") and item["stage"] not in {"ready_for_materialization", "materialized"}:
+        raise HarnessError("分散workerは全編根拠と独立確認の完了後だけ正本化できます。")
+    if item["stage"] not in {"ready_for_materialization", "pr_created", "materialized"} or not item.get("pullRequest"):
+        raise HarnessError("実在するdraft PRと検証済み候補を記録してから正本化してください。")
     if item["stage"] == "materialized":
         materialized = item.get("materialized")
         if not isinstance(materialized, dict):
@@ -639,7 +867,16 @@ def parser() -> argparse.ArgumentParser:
     init.add_argument("batch_id")
     init.add_argument("--snapshot", type=Path, required=True)
     init.add_argument("--limit", type=int)
+    init.add_argument("--video-id")
     init.set_defaults(handler=command_init)
+    claim = commands.add_parser("claim-next")
+    claim.add_argument("batch_id")
+    claim.add_argument("--snapshot", type=Path, required=True)
+    claim.add_argument("--worker-id")
+    claim.add_argument("--scan-limit", type=int)
+    claim.add_argument("--base-ref", default="origin/main")
+    claim.add_argument("--remote", default="origin")
+    claim.set_defaults(handler=command_claim_next)
     status = commands.add_parser("status")
     status.add_argument("batch_id")
     status.set_defaults(handler=command_status)

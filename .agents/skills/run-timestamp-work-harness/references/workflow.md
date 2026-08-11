@@ -21,6 +21,28 @@ manifest stores only the spreadsheet ID, tab, row number, row hash, video ID,
 base commit, and ordered target IDs. It never stores titles, transcripts, chat,
 or credentials.
 
+## Distributed Work workers
+
+Use this mode when 2 to 20 separate Work chats process different videos. Every
+chat may read the same sheet snapshot, but it receives a unique local batch ID and
+worker ID and may complete at most one video.
+
+`claim-next` walks eligible rows in stable sheet order. For each row it creates a
+unique claim commit in an isolated local worktree and performs a normal push to
+`refs/heads/agent/timestamps-<exact-video-id>`. If two workers race, GitHub accepts
+one branch creation and rejects the other non-fast-forward push. The losing worker
+removes only its own ignored temporary worktree and tries the next row. Force push
+and branch deletion are forbidden.
+
+The winner immediately creates a draft PR containing only the claim marker and
+records its real URL. This makes interrupted ownership visible and resumable. It
+then performs evidence acquisition and independent Codex roles, removes the marker
+during materialization, pushes the final candidate to the same PR, and updates only
+its ledger row. `no_unclaimed_target` is a successful no-op for excess workers.
+
+The branch suffix preserves the exact case of the YouTube video ID. Lowercasing is
+forbidden because video IDs are case-sensitive.
+
 ## Local state machine
 
 ```text
@@ -38,6 +60,22 @@ pending
   -> complete
 
 any non-terminal state -> blocked
+```
+
+Distributed mode uses this visible prefix before the common evidence stages:
+
+```text
+remote branch claimed
+  -> pr_bootstrapped
+  -> pr_created
+  -> acquiring_evidence
+  -> evidence_ready
+  -> composing
+  -> reviewing
+  -> ready_for_materialization
+  -> materialized
+  -> sheet_pending
+  -> complete
 ```
 
 Every state write is atomic and idempotent. A later invocation resumes from the
@@ -64,6 +102,12 @@ actions for Work:
 Work executes those actions through the connected apps and acknowledges the
 observed URL/SHA or post-write snapshot back to Python. A stale row hash blocks
 only that row. No action acknowledgement may be inferred from an attempted call.
+
+The one exception is the distributed claim itself: Python performs an authenticated
+ordinary Git push because remote ref creation is the compare-and-set operation.
+It never reads a token, never uses force, and treats an already-created branch as
+a normal lost race rather than an error. PR creation and spreadsheet writes remain
+explicit Work connector actions.
 
 ## Spreadsheet terminal values
 

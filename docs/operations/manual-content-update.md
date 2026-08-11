@@ -24,6 +24,8 @@
 
 合格動画は1動画branchをpushし、GitHub接続でdraft PRを作成してから実在PR URLを正本候補へ記録し、最終commitを同じPRへpushする。台帳には`作成済み=FALSE`、`処理状態=PR作成済み（レビュー待ち）`、PR URL、最終commit SHAを記録し、更新後に同じ行を再読する。処理不能は段階・安全な理由・再開条件を記録し、残りの動画を継続する。ハーネスはmergeまたは公開を行わず、人がPRをマージする操作を公開承認として維持する。
 
+10〜20のWorkセッションを同時に使う場合は、全セッションへ同じ分散worker指示を与え、各セッションに一意なbatch IDとworker IDを生成させる。各workerは`claim-next`で1件だけ確保する。動画IDの大文字小文字を保持した`agent/timestamps-<video-id>`への通常pushが原子的claimであり、同時競合でpushを拒否されたworkerは次候補へ進む。勝者は処理中draft PRを直ちに作成し、そのPRで完了まで進める。force push、branch削除、stale claimの自動奪取は禁止する。余ったworkerの`no_unclaimed_target`は正常終了であり、外部書込みを追加しない。
+
 ## 公開と復元
 
 候補ブランチは公開元にしない。人が正本プルリクエストをmainへマージし、そのcommitの品質ゲートが合格すると、`.github/workflows/update-generated-release.yml` が内容ハッシュrelease IDと静的成果物を生成・検証し、差分がある場合だけmainへrelease commitする。その `main/docs` 更新により既存のbranch方式Pages buildが起動する。重複実行を避けるためPages build APIは明示呼出しせず、独自deploy artifactも使わない。後続のmain更新を検出した古い実行はcommitせず、後続commitの品質ゲートへ委ねる。誤りは対象正本commitの取り消し、または修正プルリクエストで直し、直前の正本と同じ公開版を再生成する。履歴を書き換えるforce pushは使わない。

@@ -159,6 +159,89 @@ class TimestampHarnessTest(unittest.TestCase):
         ):
             self.assertIn(expected, source)
 
+    def test_distributed_claim_branch_is_atomic_across_two_workers(self) -> None:
+        scripts = SCRIPT.parent
+        if str(scripts) not in os.sys.path:
+            os.sys.path.insert(0, str(scripts))
+        spec = importlib.util.spec_from_file_location("timestamp_harness_claim_test", SCRIPT)
+        if spec is None or spec.loader is None:
+            self.fail("harness.pyを読み込めません。")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        module.RUN_ROOT = self.temp / "claim-runs"
+
+        source = self.temp / "source"
+        remote = self.temp / "remote.git"
+        source.mkdir()
+        subprocess.run(["git", "init", "-b", "main"], cwd=source, check=True, capture_output=True)
+        subprocess.run(["git", "config", "user.name", "test"], cwd=source, check=True)
+        subprocess.run(["git", "config", "user.email", "test@example.com"], cwd=source, check=True)
+        (source / "README.md").write_text("base\n", encoding="utf-8")
+        subprocess.run(["git", "add", "README.md"], cwd=source, check=True)
+        subprocess.run(["git", "commit", "-m", "base"], cwd=source, check=True, capture_output=True)
+        subprocess.run(["git", "init", "--bare", str(remote)], check=True, capture_output=True)
+        subprocess.run(["git", "remote", "add", "origin", str(remote)], cwd=source, check=True)
+        subprocess.run(["git", "push", "-u", "origin", "main"], cwd=source, check=True, capture_output=True)
+        first_repo = self.temp / "worker-one"
+        second_repo = self.temp / "worker-two"
+        subprocess.run(["git", "clone", "--branch", "main", str(remote), str(first_repo)], check=True, capture_output=True)
+        subprocess.run(["git", "clone", "--branch", "main", str(remote), str(second_repo)], check=True, capture_output=True)
+        base_commit = subprocess.run(
+            ["git", "rev-parse", "HEAD"], cwd=first_repo, check=True, text=True, capture_output=True
+        ).stdout.strip()
+
+        first = module.attempt_claim_branch(
+            first_repo,
+            batch_id="worker-one",
+            worker_id="work-01",
+            video_id=VIDEO_ID,
+            base_commit=base_commit,
+        )
+        second = module.attempt_claim_branch(
+            second_repo,
+            batch_id="worker-two",
+            worker_id="work-02",
+            video_id=VIDEO_ID,
+            base_commit=base_commit,
+        )
+        self.assertIsNotNone(first)
+        self.assertIsNone(second)
+        remote_tip = subprocess.run(
+            ["git", "--git-dir", str(remote), "rev-parse", f"refs/heads/agent/timestamps-{VIDEO_ID}"],
+            check=True,
+            text=True,
+            capture_output=True,
+        ).stdout.strip()
+        self.assertEqual(remote_tip, first["claimCommit"])
+
+    def test_distributed_contract_claims_before_evidence_and_keeps_one_video(self) -> None:
+        source = SCRIPT.read_text(encoding="utf-8")
+        for expected in (
+            'commands.add_parser("claim-next")',
+            '"stage": "pr_bootstrapped" if claim else "pending"',
+            '"ready_for_materialization" if item.get("pullRequest") else "ready_for_pr"',
+            'f"agent/timestamps-{video_id}"',
+        ):
+            self.assertIn(expected, source)
+
+    def test_distributed_worker_cannot_materialize_before_reviews(self) -> None:
+        snapshot = self.snapshot([self.row()])
+        self.invoke("init", "batch-early-materialize", "--snapshot", str(snapshot), "--video-id", VIDEO_ID)
+        item_path = self.run_root / f"batch-early-materialize/items/{VIDEO_ID}.json"
+        item = json.loads(item_path.read_text(encoding="utf-8"))
+        item.update(
+            {
+                "stage": "pr_created",
+                "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/123",
+                "claim": {"workerId": "work-01"},
+            }
+        )
+        item_path.write_text(json.dumps(item, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        failed = self.invoke(
+            "materialize", "batch-early-materialize", VIDEO_ID, success=False
+        )
+        self.assertIn("全編根拠と独立確認", str(failed["stderr"]))
+
     def test_live_chat_reduction_keeps_no_text_or_identity(self) -> None:
         spec = importlib.util.spec_from_file_location("download_live_chat_test", CHAT_SCRIPT)
         if spec is None or spec.loader is None:
