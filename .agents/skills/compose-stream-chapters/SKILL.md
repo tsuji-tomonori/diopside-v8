@@ -8,7 +8,8 @@ description: Map a complete one-video transcript and optional non-identifying au
 Read `references/draft-contract.md` and `references/genre-rules.md` before writing a draft.
 
 1. In transcript-mapping mode, read every cue in the assigned chunk and map it into
-   sustained semantic spans and explicit transitions with exact cue IDs.
+   sustained semantic spans and explicit transitions with exact cue IDs. Reject
+   any output that substitutes a read-error or generic placeholder for a topic.
 2. In whole-video composition mode, read every map declared by
    `transcript_maps/index.json`, reconcile adjacent overlaps and cue coverage, and
    prove that all declared evidence ranges were processed. Do not load all raw cue

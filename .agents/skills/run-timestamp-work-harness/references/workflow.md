@@ -136,12 +136,16 @@ artifact. Codex returns one schema-constrained role artifact; the parent harness
 writes it atomically under the ignored video dossier. Neither side may perform
 network, Git, spreadsheet, or GitHub actions during semantic evaluation.
 The existing deterministic validators remain the authority for advancing state.
-Luna maps each bounded transcript chunk into exact-cue semantic spans. Composition
-then reads every validated map and reconciles the declared ranges and overlaps,
+Luna receives each bounded transcript chunk as normalized JSONL in the prompt and
+maps it into exact-cue semantic spans without a worker-side shell dependency.
+The parent rejects read-failure and placeholder topics before checkpoint reuse.
+Composition then receives every validated map as JSON and reconciles the declared ranges and overlaps,
 avoiding a single unbounded caption context without weakening full-duration evidence
 coverage.
 Technical failures, including the configurable 30-minute execution timeout, are
-retried once with the same model. After verifying that the
+retried once with the same model. Timeout handling terminates the complete Codex
+process group before retrying so an orphan cannot write to the reused output path.
+After verifying that the
 working directory is the expected Git repository, a trusted-destination-only retry
 may use the official `--skip-git-repo-check` flag without relaxing sandbox or
 approval settings. A Luna composition that completed but failed deterministic

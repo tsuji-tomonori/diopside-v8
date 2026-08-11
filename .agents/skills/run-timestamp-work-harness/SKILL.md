@@ -88,6 +88,11 @@ each chat a unique batch ID and run
    prepare a missing ASR dependency in the ignored batch directory. It
    runs composition, fact review, and editorial review as separate ephemeral
    `codex exec` invocations and then runs the deterministic validator.
+   Long transcripts are mapped in bounded chunks by passing normalized cue JSONL
+   directly to the read-only worker; semantic maps that report read failures or
+   placeholder topics are rejected and regenerated. Whole-video composition and
+   both reviews likewise receive only the required validated JSON payload instead
+   of depending on worker-side shell reads.
    A technical `codex exec` failure, including the configurable 30-minute execution
    timeout, is retried once on the same Luna model. Only
    a completed Luna composition that fails deterministic draft validation may be

@@ -165,9 +165,10 @@ class TimestampHarnessTest(unittest.TestCase):
             '"editorial",',
             '"--model"',
             'f\'model_reasoning_effort="{reasoning_effort}"\'',
-            "fact_review.jsonを読まず",
             '"trusted_destination"',
             'commands.add_parser("recover-with-sol")',
+            'LUNA_WORKER_MODEL',
+            "fact reviewは入力せず",
         ):
             self.assertIn(expected, source)
 
@@ -181,10 +182,13 @@ class TimestampHarnessTest(unittest.TestCase):
             'if not verified_repository_root()',
             'model_reasoning_effort="{reasoning_effort}"',
             '"actualModel": model',
-            'artifact_schema=role_artifact_schema(video_id, role)',
+            'artifact_schema=role_artifact_schema(video_id, role, dossier, candidate_hash)',
             'def ensure_transcript_maps(',
             'role = f"map-{chunk_id}"',
-            '全transcript_maps/chunk-*.jsonを読み',
+            'BEGIN_TRANSCRIPT_JSONL',
+            'start_new_session=True',
+            'os.killpg(process.pid, signal.SIGTERM)',
+            'BEGIN_COMPOSE_INPUT_JSON',
             '"DIOPSIDE_CODEX_TIMEOUT_SECONDS", "1800"',
             'except subprocess.TimeoutExpired:',
             'local.add_argument("--retry-blocked", action="store_true")',
@@ -194,6 +198,50 @@ class TimestampHarnessTest(unittest.TestCase):
             source.index('if not verified_repository_root()'),
             source.index('command.append("--skip-git-repo-check")'),
         )
+
+    def test_chunk_map_rejects_read_failure_placeholder(self) -> None:
+        sys.path.insert(0, str(SCRIPT.parent))
+        try:
+            spec = importlib.util.spec_from_file_location("timestamp_harness_map_test", SCRIPT)
+            if spec is None or spec.loader is None:
+                self.fail("harness.pyを読み込めません。")
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            self.assertEqual(
+                module.classify_codex_failure("Invalid output schema: uniqueItems is unsupported"),
+                "output_schema_rejected",
+            )
+            chunk = {
+                "chunkId": "chunk-000",
+                "startSeconds": 0,
+                "endSeconds": 60,
+                "cues": [
+                    {"cueId": "cue-1", "startSeconds": 0, "endSeconds": 60, "text": "開始"}
+                ],
+            }
+            mapped = {
+                "schemaVersion": "1.0.0",
+                "videoId": VIDEO_ID,
+                "chunkId": "chunk-000",
+                "startSeconds": 0,
+                "endSeconds": 60,
+                "cueCount": 1,
+                "firstCueId": "cue-1",
+                "lastCueId": "cue-1",
+                "spans": [
+                    {
+                        "startSeconds": 0,
+                        "endSeconds": 60,
+                        "topic": "transcript mapping unavailable",
+                        "explicitTransition": False,
+                        "evidenceRefs": ["cue-1"],
+                    }
+                ],
+            }
+            with self.assertRaises(module.HarnessError):
+                module.validate_chunk_map(VIDEO_ID, chunk, mapped)
+        finally:
+            sys.path.pop(0)
 
     def test_caption_fallback_downloads_temporary_mp3_for_local_asr(self) -> None:
         source = AUDIO_SCRIPT.read_text(encoding="utf-8")
