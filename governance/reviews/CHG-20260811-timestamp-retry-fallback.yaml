@@ -45,8 +45,8 @@ selected_checks:
   - id: IMP-001
     class: Invariant
     result: pass
-    evidence: [path:spec/requirements/requirements.json, path:spec/sources/owner-directive-2026-08-11-timestamp-retry-fallback.md]
-    note: 字幕失敗時の公開音声ASR、Codex同一モデル再試行、品質時Terra昇格をV8-OPS-019とV8-OPS-022へ正本化した
+    evidence: [path:spec/requirements/requirements.json, path:spec/sources/owner-directive-2026-08-11-timestamp-retry-fallback.md, path:spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md]
+    note: 字幕失敗時の公開音声ASR、Codex同一モデル再試行、品質時Terra昇格、親Sol回復をV8-OPS-019とV8-OPS-022〜024へ正本化した
   - id: IMP-002
     class: Invariant
     result: pass
@@ -86,7 +86,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [path:scripts/generate-requirements.ts, path:docs/requirements/REQUIREMENTS.md]
-    note: 要件149件revision 9を既存generatorから決定的に再生成する
+    note: 要件151件revision 9を既存generatorから決定的に再生成する
   - id: FAST-007
     class: Invariant
     result: pass
@@ -111,7 +111,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [path:spec/requirements/requirements.json, test:tests/timestamp_harness_test.py]
-    note: V8-OPS-019とV8-OPS-022の追加受入条件を実装と試験へtraceした
+    note: V8-OPS-019とV8-OPS-022〜024の追加受入条件を実装と試験へtraceした
   - id: REV-004
     class: Invariant
     result: pass
@@ -149,6 +149,6 @@ selected_checks:
     note: 長期の素材fallbackとモデルroutingを正本と派生設計へ保持し新規ADRを不要と判定した
 advisories: []
 residual_risks:
-  - 公開音声が取得できない動画または無料ローカルASRが完了しない動画は段階別の安全blockとして残る
+  - 公開音声または無料ローカルASRをdrain期限までに回復できない動画は、台帳を更新せずdeferred_recoveryから再開する
   - 長時間字幕は最大3 chunkを並行mapするため、実行環境の負荷に応じてDIOPSIDE_TRANSCRIPT_MAP_WORKERSを1から4で調整する
   - Terra品質再試行後も決定的validatorまたは親Sol確認に合格しない候補は正本化しない

@@ -14,6 +14,7 @@ import shutil
 import subprocess
 import sys
 import threading
+import time
 import uuid
 from datetime import datetime
 from pathlib import Path
@@ -47,11 +48,13 @@ sys.path.insert(0, str(TIMESTAMP_SCRIPTS))
 from timestamp_common import eligibility, load_canonical_videos  # noqa: E402
 
 TERMINAL = {"complete", "blocked"}
+WAVE_TERMINAL = TERMINAL | {"deferred_recovery"}
 ORCHESTRATOR_MODEL = "gpt-5.6-sol"
 LUNA_WORKER_MODEL = "gpt-5.6-luna"
 QUALITY_RETRY_MODEL = "gpt-5.6-terra"
 LUNA_POOL_SIZE = 10
 CODEX_STATE_LOCK = threading.Lock()
+TRUSTED_DESTINATION_RETRIES = 3
 PR_RE = re.compile(r"^https://github\.com/tsuji-tomonori/diopside-v8/pull/[1-9][0-9]*$")
 WORKER_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
 BLOCK_CODES = {
@@ -66,6 +69,16 @@ BLOCK_CODES = {
     "git_failed": "1動画ブランチのcommitまたはpushを完了できませんでした。",
     "ledger_conflict": "開始後に台帳行が変更されたため自動更新を停止しました。",
     "external_action_failed": "GitHubまたはGoogle Sheetsの外部操作を確認できませんでした。",
+}
+RECOVERABLE_CODES = {
+    "evidence_unavailable",
+    "evidence_tool_unavailable",
+    "public_audio_unavailable",
+    "local_asr_failed",
+    "codex_unavailable",
+    "composition_failed",
+    "review_failed",
+    "validation_failed",
 }
 
 
@@ -94,6 +107,43 @@ def run(command: list[str], *, cwd: Path = ROOT, env: dict[str, str] | None = No
         detail = (completed.stderr or completed.stdout).strip().splitlines()
         raise HarnessError(detail[-1] if detail else f"command failed: {command[0]}")
     return completed
+
+
+def log_execution(batch_id: str, video_id: str, event: dict[str, Any]) -> None:
+    path = batch_dir(batch_id) / "items" / f"{video_id}.events.jsonl"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    safe_event = {
+        "at": datetime.now().astimezone().isoformat(),
+        "videoId": video_id,
+        **event,
+    }
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(safe_event, ensure_ascii=False, sort_keys=True))
+        handle.write("\n")
+
+
+def failure_digest(completed: subprocess.CompletedProcess[str]) -> str:
+    detail = (completed.stderr or completed.stdout or "").encode("utf-8", errors="replace")
+    return hashlib.sha256(detail).hexdigest()
+
+
+def is_trusted_destination_failure(
+    value: subprocess.CompletedProcess[str] | str,
+) -> bool:
+    if isinstance(value, subprocess.CompletedProcess):
+        detail = f"{value.stderr or ''}\n{value.stdout or ''}".casefold()
+    else:
+        detail = value.casefold()
+    return any(
+        marker in detail
+        for marker in (
+            "trusted-destination",
+            "trusted destination",
+            "trusted project",
+            "not inside a trusted",
+            "git repository required",
+        )
+    )
 
 
 def eligible_snapshot_items(
@@ -210,6 +260,18 @@ def validate_worker_id(worker_id: str) -> str:
     return worker_id
 
 
+def parse_deadline(value: str | None, label: str) -> datetime | None:
+    if value is None:
+        return None
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as error:
+        raise HarnessError(f"{label}はtimezone付きISO 8601にしてください。") from error
+    if parsed.tzinfo is None:
+        raise HarnessError(f"{label}はtimezone付きISO 8601にしてください。")
+    return parsed
+
+
 def remove_claim_worktree(repo: Path, worktree: Path) -> None:
     if not worktree.exists():
         return
@@ -322,6 +384,18 @@ def command_plan_luna_wave(args: argparse.Namespace) -> dict[str, Any]:
     campaign_id = validate_batch_id(args.campaign_id)
     if not 1 <= args.wave <= 99:
         raise HarnessError("wave番号は1から99にしてください。")
+    normal_deadline = parse_deadline(args.normal_deadline, "normal deadline")
+    drain_deadline = parse_deadline(args.drain_deadline, "drain deadline")
+    if (normal_deadline is None) != (drain_deadline is None):
+        raise HarnessError("normal deadlineとdrain deadlineは両方指定してください。")
+    if normal_deadline and drain_deadline and drain_deadline <= normal_deadline:
+        raise HarnessError("drain deadlineはnormal deadlineより後にしてください。")
+    now = datetime.now().astimezone()
+    campaign_mode = "active"
+    if drain_deadline and now >= drain_deadline:
+        campaign_mode = "expired"
+    elif normal_deadline and now >= normal_deadline:
+        campaign_mode = "drain"
     base_commit = run(["git", "rev-parse", f"{args.base_ref}^{{commit}}"], cwd=ROOT).stdout.strip()
     lanes = []
     for lane_index in range(LUNA_POOL_SIZE):
@@ -351,7 +425,20 @@ def command_plan_luna_wave(args: argparse.Namespace) -> dict[str, Any]:
                 }
             )
             continue
-        if not lane_items:
+        if not lane_items or campaign_mode != "active":
+            lanes.append(
+                {
+                    "lane": lane_number,
+                    "batchId": batch_id,
+                    "workerId": worker_id,
+                    "model": LUNA_WORKER_MODEL,
+                    "reasoningEffort": "medium",
+                    "status": (
+                        "inactive_no_target" if not lane_items else f"inactive_{campaign_mode}"
+                    ),
+                    "claimActions": [],
+                }
+            )
             continue
         lanes.append(
             {
@@ -366,14 +453,24 @@ def command_plan_luna_wave(args: argparse.Namespace) -> dict[str, Any]:
                 ],
             }
         )
+    active_lanes = sum(lane["status"] in {"claim_required", "resume"} for lane in lanes)
+    status = "wave_required" if active_lanes else "no_unclaimed_target"
+    if campaign_mode == "drain":
+        status = "drain_required"
+    elif campaign_mode == "expired":
+        status = "campaign_expired"
     return {
-        "status": "wave_required" if lanes else "no_unclaimed_target",
+        "status": status,
         "campaignId": campaign_id,
         "wave": args.wave,
         "orchestratorModel": ORCHESTRATOR_MODEL,
         "workerModel": LUNA_WORKER_MODEL,
         "requestedPoolSize": LUNA_POOL_SIZE,
-        "activeLanes": len(lanes),
+        "activeLanes": active_lanes,
+        "campaignMode": campaign_mode,
+        "canCreateClaims": campaign_mode == "active",
+        "normalDeadline": normal_deadline.isoformat() if normal_deadline else None,
+        "drainDeadline": drain_deadline.isoformat() if drain_deadline else None,
         "baseCommit": base_commit,
         "lanes": lanes,
         "skipped": skipped,
@@ -426,14 +523,32 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     for item in items:
         counts[item["stage"]] = counts.get(item["stage"], 0) + 1
     complete = all(item["stage"] in TERMINAL and item["sheetVerified"] for item in items)
+    wave_terminal = all(
+        item["stage"] in WAVE_TERMINAL
+        and (item["stage"] == "deferred_recovery" or item["sheetVerified"])
+        for item in items
+    )
     return {
         "batchId": args.batch_id,
         "complete": complete,
+        "waveTerminal": wave_terminal,
+        "requiresSolRecovery": sum(
+            item["stage"] in {"needs_sol_recovery", "deferred_recovery"} for item in items
+        ),
         "counts": counts,
         "items": [
             {
                 key: item.get(key)
-                for key in ("videoId", "stage", "claim", "pullRequest", "commit", "block", "sheetVerified")
+                for key in (
+                    "videoId",
+                    "stage",
+                    "claim",
+                    "pullRequest",
+                    "commit",
+                    "block",
+                    "recovery",
+                    "sheetVerified",
+                )
             }
             for item in items
         ],
@@ -477,36 +592,123 @@ def classify_evidence_failure(error: HarnessError, *, stage: str) -> str:
     return "evidence_unavailable"
 
 
-def acquire_evidence(video_id: str, env: dict[str, str], *, with_chat: bool) -> None:
+def acquire_evidence(
+    video_id: str,
+    env: dict[str, str],
+    *,
+    with_chat: bool,
+    recovery: bool,
+) -> str:
     env = runtime_environment(env)
     python = runtime_python(env)
     run([python, str(TIMESTAMP_SCRIPTS / "init_work_item.py"), video_id], env=env)
     state = read_json(Path(env["DIOPSIDE_TIMESTAMP_WORK_ROOT"]) / video_id / "state.json")
     if state["stage"] != "initialized":
-        return
+        return "existing_prepared_evidence"
+    batch_id = env["DIOPSIDE_HARNESS_BATCH_ID"]
     try:
-        run([python, str(EVIDENCE_SCRIPTS / "download_captions.py"), video_id, "--execute"], env=env)
+        run(
+            [
+                python,
+                str(EVIDENCE_SCRIPTS / "diagnose_youtube_access.py"),
+                video_id,
+                "--execute",
+                "--retries",
+                "3",
+            ],
+            env=env,
+        )
+        log_execution(batch_id, video_id, {"stage": "youtube_preflight", "outcome": "reachable"})
+    except HarnessError as error:
+        log_execution(
+            batch_id,
+            video_id,
+            {
+                "stage": "youtube_preflight",
+                "outcome": "diagnosed_unreachable",
+                "detailDigest": hashlib.sha256(str(error).encode()).hexdigest(),
+            },
+        )
+    try:
+        run(
+            [
+                python,
+                str(EVIDENCE_SCRIPTS / "download_captions.py"),
+                video_id,
+                "--execute",
+                "--retries",
+                "3",
+            ],
+            env=env,
+        )
         transcript = Path(env["DIOPSIDE_TIMESTAMP_WORK_ROOT"]) / video_id / "captions/transcript-source.json"
-    except HarnessError:
+        evidence_route = "public_japanese_captions"
+        log_execution(batch_id, video_id, {"stage": "caption_acquisition", "outcome": "complete"})
+    except HarnessError as caption_error:
+        log_execution(
+            batch_id,
+            video_id,
+            {
+                "stage": "caption_acquisition",
+                "outcome": "fallback_to_audio",
+                "detailDigest": hashlib.sha256(str(caption_error).encode()).hexdigest(),
+            },
+        )
         try:
-            run([python, str(EVIDENCE_SCRIPTS / "download_audio.py"), video_id, "--execute"], env=env)
+            run(
+                [
+                    python,
+                    str(EVIDENCE_SCRIPTS / "download_audio.py"),
+                    video_id,
+                    "--execute",
+                    "--retries",
+                    "3",
+                ],
+                env=env,
+            )
         except HarnessError as error:
-            raise EvidenceAcquisitionError(classify_evidence_failure(error, stage="audio")) from error
+            raise EvidenceAcquisitionError(
+                classify_evidence_failure(error, stage="audio")
+            ) from error
+        asr_command = [
+            python,
+            str(EVIDENCE_SCRIPTS / "transcribe_local_asr.py"),
+            video_id,
+            "--execute",
+        ]
+        if recovery:
+            asr_command.append("--bootstrap-local")
         try:
-            run([python, str(EVIDENCE_SCRIPTS / "transcribe_local_asr.py"), video_id, "--execute"], env=env)
+            run(asr_command, env=env)
         except HarnessError as error:
-            raise EvidenceAcquisitionError(classify_evidence_failure(error, stage="asr")) from error
+            raise EvidenceAcquisitionError(
+                classify_evidence_failure(error, stage="asr")
+            ) from error
         transcript = Path(env["DIOPSIDE_TIMESTAMP_WORK_ROOT"]) / video_id / "asr/transcript-source.json"
+        evidence_route = "public_audio_local_asr"
+        log_execution(batch_id, video_id, {"stage": "audio_asr_acquisition", "outcome": "complete"})
     command = [python, str(EVIDENCE_SCRIPTS / "prepare_evidence.py"), video_id, "--transcript", str(transcript)]
     if with_chat:
-        run([python, str(HARNESS_SCRIPTS / "download_live_chat.py"), video_id, "--execute"], env=env)
-        command.extend(
-            [
-                "--audience-signals",
-                str(Path(env["DIOPSIDE_TIMESTAMP_WORK_ROOT"]) / video_id / "chat/audience-signals.json"),
-            ]
-        )
+        try:
+            run([python, str(HARNESS_SCRIPTS / "download_live_chat.py"), video_id, "--execute"], env=env)
+            command.extend(
+                [
+                    "--audience-signals",
+                    str(Path(env["DIOPSIDE_TIMESTAMP_WORK_ROOT"]) / video_id / "chat/audience-signals.json"),
+                ]
+            )
+        except HarnessError as chat_error:
+            log_execution(
+                batch_id,
+                video_id,
+                {
+                    "stage": "optional_chat",
+                    "outcome": "omitted_after_failure",
+                    "detailDigest": hashlib.sha256(str(chat_error).encode()).hexdigest(),
+                },
+            )
     run(command, env=env)
+    return evidence_route
 
 
 def codex_command(env: dict[str, str]) -> list[str]:
@@ -548,19 +750,6 @@ def prepare_codex_environment(env: dict[str, str]) -> dict[str, str]:
         )
     prepared["CODEX_HOME"] = str(destination)
     return prepared
-
-
-def is_trusted_destination_failure(output: str) -> bool:
-    normalized = output.lower()
-    return any(
-        marker in normalized
-        for marker in (
-            "trusted destination",
-            "trusted project",
-            "not inside a trusted",
-            "git repository required",
-        )
-    )
 
 
 def record_codex_attempt(
@@ -741,13 +930,16 @@ def execute_codex_artifact(
     retry_reason: str | None = None
     completed: subprocess.CompletedProcess[str] | None = None
     timeout_seconds = int(env.get("DIOPSIDE_CODEX_TIMEOUT_SECONDS", "1800"))
-    for attempt in (1, 2):
+    for attempt in range(1, TRUSTED_DESTINATION_RETRIES + 1):
+        if attempt > 2 and retry_reason != "trusted_destination":
+            break
         command = list(base_command)
-        if attempt == 2 and retry_reason == "trusted_destination":
+        if attempt > 1 and retry_reason == "trusted_destination":
             if not verified_repository_root():
                 raise CodexTechnicalError(BLOCK_CODES["codex_unavailable"])
             command.append("--skip-git-repo-check")
         command.append("-")
+        output.unlink(missing_ok=True)
         try:
             completed = subprocess.run(
                 command,
@@ -786,10 +978,43 @@ def execute_codex_artifact(
             retry_reason=retry_reason,
         )
         if completed.returncode == 0:
+            log_execution(
+                env["DIOPSIDE_HARNESS_BATCH_ID"],
+                video_id,
+                {
+                    "stage": f"codex_{role}",
+                    "model": model,
+                    "reasoningEffort": reasoning_effort,
+                    "attempt": attempt,
+                    "outcome": "complete",
+                    "routingReason": routing_reason,
+                },
+            )
             break
         if attempt == 1:
             combined = f"{completed.stderr}\n{completed.stdout}"
             retry_reason = "trusted_destination" if is_trusted_destination_failure(combined) else "technical_retry"
+        log_execution(
+            env["DIOPSIDE_HARNESS_BATCH_ID"],
+            video_id,
+            {
+                "stage": f"codex_{role}",
+                "model": model,
+                "reasoningEffort": reasoning_effort,
+                "attempt": attempt,
+                "outcome": "retry" if (
+                    retry_reason == "trusted_destination"
+                    and attempt < TRUSTED_DESTINATION_RETRIES
+                ) or (retry_reason != "trusted_destination" and attempt == 1) else "failed",
+                "reasonCode": retry_reason,
+                "detailDigest": failure_digest(completed),
+                "routingReason": routing_reason,
+            },
+        )
+        if retry_reason == "trusted_destination" and attempt < TRUSTED_DESTINATION_RETRIES:
+            time.sleep(min(2 ** (attempt - 1), 8))
+        elif attempt >= 2:
+            break
     if completed is None or completed.returncode:
         raise CodexTechnicalError(f"codex exec {role}を同一モデルで再試行しても実行できませんでした。")
     result = read_json(output)
@@ -807,6 +1032,7 @@ def invoke_codex(
     model: str = LUNA_WORKER_MODEL,
     reasoning_effort: str = "medium",
     routing_reason: str = "primary",
+    recovery: bool = False,
 ) -> None:
     dossier = Path(env["DIOPSIDE_TIMESTAMP_WORK_ROOT"]) / video_id
     prompts = {
@@ -836,6 +1062,11 @@ def invoke_codex(
     }
     if routing_reason == "quality_retry_escalation":
         prompts[role] += " 前回のLuna候補は決定的draft検証に不合格でした。全chunk mapを再統合し、候補を置換してください。"
+    if recovery:
+        prompts[role] += (
+            " これはLuna失敗後の親Sol回復です。既存成果物を鵜呑みにせず全編根拠から再構成し、"
+            "失敗原因を解消したartifactだけを返してください。"
+        )
     artifact_names = {
         "compose": "chapter_draft.json",
         "fact": "fact_review.json",
@@ -931,7 +1162,14 @@ def validate_chunk_map(video_id: str, chunk: dict[str, Any], mapped: dict[str, A
         prior_start = start
 
 
-def ensure_transcript_maps(video_id: str, env: dict[str, str]) -> None:
+def ensure_transcript_maps(
+    video_id: str,
+    env: dict[str, str],
+    *,
+    model: str = LUNA_WORKER_MODEL,
+    reasoning_effort: str = "medium",
+    recovery: bool = False,
+) -> None:
     dossier = Path(env["DIOPSIDE_TIMESTAMP_WORK_ROOT"]) / video_id
     state = read_json(dossier / "state.json")
     chunk_ids = state.get("chunkIds")
@@ -973,6 +1211,9 @@ def ensure_transcript_maps(video_id: str, env: dict[str, str]) -> None:
             prompt=prompt,
             artifact_schema=chunk_map_schema(video_id, chunk),
             artifact_path=mapped_path,
+            model=model,
+            reasoning_effort=reasoning_effort,
+            routing_reason="sol_recovery" if recovery else "primary",
         )
         mapped = read_json(mapped_path)
         validate_chunk_map(video_id, chunk, mapped)
@@ -1002,9 +1243,30 @@ def ensure_transcript_maps(video_id: str, env: dict[str, str]) -> None:
     )
 
 
-def compose_and_validate(video_id: str, env: dict[str, str]) -> dict[str, Any]:
-    ensure_transcript_maps(video_id, env)
-    invoke_codex(video_id, "compose", env)
+def compose_and_validate(
+    video_id: str,
+    env: dict[str, str],
+    *,
+    model: str = LUNA_WORKER_MODEL,
+    reasoning_effort: str = "medium",
+    recovery: bool = False,
+) -> dict[str, Any]:
+    ensure_transcript_maps(
+        video_id,
+        env,
+        model=model,
+        reasoning_effort=reasoning_effort,
+        recovery=recovery,
+    )
+    invoke_codex(
+        video_id,
+        "compose",
+        env,
+        model=model,
+        reasoning_effort=reasoning_effort,
+        routing_reason="sol_recovery" if recovery else "primary",
+        recovery=recovery,
+    )
     try:
         return json.loads(
             run(
@@ -1013,6 +1275,8 @@ def compose_and_validate(video_id: str, env: dict[str, str]) -> dict[str, Any]:
             ).stdout
         )
     except (HarnessError, json.JSONDecodeError):
+        if recovery:
+            raise
         invoke_codex(
             video_id,
             "compose",
@@ -1041,6 +1305,117 @@ def reopen_blocked_item(batch_id: str, item: dict[str, Any]) -> dict[str, Any]:
     return item
 
 
+def process_video(
+    batch_id: str,
+    video_id: str,
+    env: dict[str, str],
+    *,
+    with_chat: bool,
+    model: str,
+    reasoning_effort: str,
+    recovery: bool,
+) -> dict[str, Any]:
+    item = load_item(batch_id, video_id)
+    item["stage"] = "acquiring_evidence"
+    write_item(batch_id, item)
+    evidence_route = acquire_evidence(video_id, env, with_chat=with_chat, recovery=recovery)
+    item = load_item(batch_id, video_id)
+    item["stage"] = "evidence_ready"
+    write_item(batch_id, item)
+    item["stage"] = "composing"
+    write_item(batch_id, item)
+    draft = compose_and_validate(
+        video_id,
+        env,
+        model=model,
+        reasoning_effort=reasoning_effort,
+        recovery=recovery,
+    )
+    item = load_item(batch_id, video_id)
+    item["stage"] = "reviewing"
+    write_item(batch_id, item)
+    invoke_codex(
+        video_id,
+        "fact",
+        env,
+        model=model,
+        reasoning_effort=reasoning_effort,
+        routing_reason="sol_recovery" if recovery else "primary",
+        recovery=recovery,
+    )
+    invoke_codex(
+        video_id,
+        "editorial",
+        env,
+        model=model,
+        reasoning_effort=reasoning_effort,
+        routing_reason="sol_recovery" if recovery else "primary",
+        recovery=recovery,
+    )
+    run([runtime_python(runtime_environment(env)), str(AUDIT_SCRIPTS / "validate_candidate.py"), video_id], env=runtime_environment(env))
+    item = load_item(batch_id, video_id)
+    item["stage"] = "ready_for_materialization" if item.get("pullRequest") else "ready_for_pr"
+    item["candidateHash"] = draft["candidateHash"]
+    item["recovery"] = {
+        "handledBy": model,
+        "result": "recovered" if recovery else "not_required",
+        "evidenceRoute": evidence_route,
+        "completedAt": datetime.now().astimezone().isoformat(),
+    }
+    write_item(batch_id, item)
+    return {"videoId": video_id, "stage": item["stage"], "candidateHash": draft["candidateHash"]}
+
+
+def classify_processing_error(stage: str, error: Exception) -> str:
+    if isinstance(error, EvidenceAcquisitionError):
+        return error.reason_code
+    if str(error) == BLOCK_CODES["codex_unavailable"]:
+        return "codex_unavailable"
+    if stage == "acquiring_evidence":
+        return "evidence_unavailable"
+    if stage == "composing":
+        return "composition_failed"
+    if stage == "reviewing" and "codex exec" in str(error):
+        return "review_failed"
+    return "validation_failed"
+
+
+def mark_sol_recovery(batch_id: str, video_id: str, code: str, error: Exception) -> None:
+    item = load_item(batch_id, video_id)
+    failure_stage = str(item.get("stage") or "luna_processing")
+    item["stage"] = "needs_sol_recovery"
+    item["recovery"] = {
+        "reasonCode": code,
+        "failureStage": failure_stage,
+        "reason": BLOCK_CODES[code],
+        "detailDigest": hashlib.sha256(str(error).encode()).hexdigest(),
+        "nextAction": "親gpt-5.6-solがrecover-with-solを実行する",
+        "requestedAt": datetime.now().astimezone().isoformat(),
+    }
+    item["block"] = None
+    item["sheetVerified"] = False
+    write_item(batch_id, item)
+
+
+def mark_deferred_recovery(batch_id: str, video_id: str, code: str, error: Exception) -> None:
+    item = load_item(batch_id, video_id)
+    prior = item.get("recovery") if isinstance(item.get("recovery"), dict) else {}
+    item["stage"] = "deferred_recovery"
+    item["recovery"] = {
+        **prior,
+        "reasonCode": code,
+        "reason": BLOCK_CODES[code],
+        "detailDigest": hashlib.sha256(str(error).encode()).hexdigest(),
+        "handledBy": ORCHESTRATOR_MODEL,
+        "result": "deferred_without_ledger_write",
+        "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
+        "deferredAt": datetime.now().astimezone().isoformat(),
+    }
+    item["block"] = None
+    item["sheetVerified"] = False
+    write_item(batch_id, item)
+
+
 def command_run_local(args: argparse.Namespace) -> dict[str, Any]:
     manifest = load_manifest(args.batch_id)
     video_ids = [args.video_id] if args.video_id else manifest["videoIds"]
@@ -1062,53 +1437,91 @@ def command_run_local(args: argparse.Namespace) -> dict[str, Any]:
             "materialized",
             "pushed",
             "sheet_pending",
+            "needs_sol_recovery",
+            "deferred_recovery",
         }:
             continue
         if item["stage"] == "pr_bootstrapped":
             raise HarnessError("分散workerはdraft PRを作成してrecord-prしてから素材処理を開始してください。")
         item["attempt"] += 1
+        write_item(args.batch_id, item)
         try:
-            item["stage"] = "acquiring_evidence"
-            write_item(args.batch_id, item)
-            acquire_evidence(video_id, env, with_chat=args.with_chat)
-            item["stage"] = "evidence_ready"
-            write_item(args.batch_id, item)
-            item["stage"] = "composing"
-            write_item(args.batch_id, item)
-            draft = compose_and_validate(video_id, env)
-            item["stage"] = "reviewing"
-            write_item(args.batch_id, item)
-            invoke_codex(video_id, "fact", env)
-            invoke_codex(video_id, "editorial", env)
-            run([runtime_python(env), str(AUDIT_SCRIPTS / "validate_candidate.py"), video_id], env=env)
-            item["stage"] = "ready_for_materialization" if item.get("pullRequest") else "ready_for_pr"
-            item["candidateHash"] = draft["candidateHash"]
-            write_item(args.batch_id, item)
             results.append(
-                {"videoId": video_id, "stage": item["stage"], "candidateHash": draft["candidateHash"]}
+                process_video(
+                    args.batch_id,
+                    video_id,
+                    env,
+                    with_chat=args.with_chat,
+                    model=LUNA_WORKER_MODEL,
+                    reasoning_effort="medium",
+                    recovery=False,
+                )
             )
         except (HarnessError, json.JSONDecodeError) as error:
-            if isinstance(error, EvidenceAcquisitionError):
-                code = error.reason_code
-            elif isinstance(error, CodexTechnicalError) or str(error) == BLOCK_CODES["codex_unavailable"]:
-                code = "codex_unavailable"
-            elif item["stage"] == "acquiring_evidence":
-                code = "evidence_unavailable"
-            elif item["stage"] == "composing":
-                code = "composition_failed"
-            elif item["stage"] == "reviewing" and "codex exec" in str(error):
-                code = "review_failed"
-            else:
-                code = "validation_failed"
-            block_item(args.batch_id, video_id, code, str(error))
-            results.append({"videoId": video_id, "stage": "blocked", "reasonCode": code})
+            failed_item = load_item(args.batch_id, video_id)
+            code = classify_processing_error(str(failed_item.get("stage") or "unknown"), error)
+            mark_sol_recovery(args.batch_id, video_id, code, error)
+            results.append(
+                {
+                    "videoId": video_id,
+                    "stage": "needs_sol_recovery",
+                    "reasonCode": code,
+                    "nextAction": "recover-with-sol",
+                }
+            )
     return {"batchId": args.batch_id, "results": results}
+
+
+def command_recover_with_sol(args: argparse.Namespace) -> dict[str, Any]:
+    item = load_item(args.batch_id, args.video_id)
+    if item["stage"] not in {"needs_sol_recovery", "deferred_recovery"}:
+        raise HarnessError("親Sol回復が必要な状態ではありません。")
+    work_root = batch_dir(args.batch_id) / "timestamps"
+    env = {
+        **os.environ,
+        "DIOPSIDE_TIMESTAMP_WORK_ROOT": str(work_root),
+        "DIOPSIDE_HARNESS_BATCH_ID": args.batch_id,
+        "PYTHONDONTWRITEBYTECODE": "1",
+    }
+    prior = item.get("recovery") if isinstance(item.get("recovery"), dict) else {}
+    item["recovery"] = {
+        **prior,
+        "solAttempt": int(prior.get("solAttempt") or 0) + 1,
+        "startedAt": datetime.now().astimezone().isoformat(),
+    }
+    write_item(args.batch_id, item)
+    try:
+        return process_video(
+            args.batch_id,
+            args.video_id,
+            env,
+            with_chat=args.with_chat,
+            model=ORCHESTRATOR_MODEL,
+            reasoning_effort="high",
+            recovery=True,
+        )
+    except (HarnessError, json.JSONDecodeError) as error:
+        failed_item = load_item(args.batch_id, args.video_id)
+        code = classify_processing_error(str(failed_item.get("stage") or "unknown"), error)
+        mark_deferred_recovery(args.batch_id, args.video_id, code, error)
+        return {
+            "videoId": args.video_id,
+            "stage": "deferred_recovery",
+            "reasonCode": code,
+            "ledgerWriteAllowed": False,
+            "nextAction": "同じbatch IDで親Sol回復を再開する",
+        }
 
 
 def block_item(batch_id: str, video_id: str, code: str, detail: str | None = None) -> None:
     if code not in BLOCK_CODES:
         raise HarnessError(f"未定義のblock codeです: {code}")
     item = load_item(batch_id, video_id)
+    claim = item.get("claim") if isinstance(item.get("claim"), dict) else {}
+    if str(claim.get("workerId") or "").startswith("luna-") and code in RECOVERABLE_CODES:
+        raise HarnessError(
+            "1 Sol・10 Luna campaignの回復可能失敗はblockedにできません。recover-with-solを実行してください。"
+        )
     failure_stage = str(item.get("stage") or "unknown")
     safe_detail = BLOCK_CODES[code]
     if detail and code in {"ledger_conflict", "git_failed", "external_action_failed"}:
@@ -1409,6 +1822,12 @@ def command_record_push(args: argparse.Namespace) -> dict[str, Any]:
 def desired_sheet_values(item: dict[str, Any], today: str) -> dict[str, Any]:
     if item["stage"] == "blocked":
         block = item["block"]
+        claim = item.get("claim") if isinstance(item.get("claim"), dict) else {}
+        if (
+            str(claim.get("workerId") or "").startswith("luna-")
+            and block.get("reasonCode") in RECOVERABLE_CODES
+        ):
+            raise HarnessError("回復可能なcampaign失敗を処理不能として台帳へ書けません。")
         return {
             "作成済み": "FALSE",
             "処理状態": "処理不能",
@@ -1501,6 +1920,8 @@ def parser() -> argparse.ArgumentParser:
     wave.add_argument("--wave", type=int, default=1)
     wave.add_argument("--scan-limit", type=int, default=200)
     wave.add_argument("--base-ref", default="origin/main")
+    wave.add_argument("--normal-deadline")
+    wave.add_argument("--drain-deadline")
     wave.set_defaults(handler=command_plan_luna_wave)
     record_claim = commands.add_parser("record-claim")
     record_claim.add_argument("batch_id")
@@ -1523,6 +1944,11 @@ def parser() -> argparse.ArgumentParser:
     local.add_argument("--with-chat", action="store_true")
     local.add_argument("--retry-blocked", action="store_true")
     local.set_defaults(handler=command_run_local)
+    recovery = commands.add_parser("recover-with-sol")
+    recovery.add_argument("batch_id")
+    recovery.add_argument("video_id")
+    recovery.add_argument("--with-chat", action="store_true")
+    recovery.set_defaults(handler=command_recover_with_sol)
     blocked = commands.add_parser("record-blocked")
     blocked.add_argument("batch_id")
     blocked.add_argument("video_id")

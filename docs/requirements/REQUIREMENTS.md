@@ -2,7 +2,7 @@
 # diopside v8 要件一覧
 
 - カタログ版: 9
-- 更新日: 2026-08-11
+- 更新日: 2026-08-12
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
@@ -155,7 +155,9 @@
 | `V8-OPS-019` | 2 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ハーネスは作成者時刻一覧または公開日本語字幕を優先し、必要時に公開音声と無償ローカル音声認識、匿名化したチャット補助信号を取得し、章構成・事実確認・編集確認の意味判断を役割ごとに独立した非対話のcodex execで実行して、同じ候補hashへの決定的検証合格を必須としなければならない。を**satisfy** | Codex実行契約・role分離・候補hash・匿名chat・公開境界試験 |
 | `V8-OPS-020` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ハーネスは合格した各動画について1動画branchをcommit・pushしてdraft PRを作成し、実在PR URLを正本候補へ記録して最終commitをpushした後、PR URL・commit SHA・レビュー待ち状態を対象台帳行へ反映して再読確認しなければならない。処理不能動画も安全な理由と再開条件を台帳へ反映し、行指紋が変わった場合は上書きしてはならない。を**satisfy** | 1動画PR scope・PR URL gate・行指紋競合・exact range write・更新後再読試験 |
 | `V8-OPS-021` | 1 | 有効 | 運用 | diopside v8の分散タイムスタンプ運用は、2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchをGitHub connectorで原子的にref作成して未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者はclaim markerと処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。を**satisfy** | connector compare-and-set plan・1動画worker・余剰worker no-op・exact-case branch・認証分離契約試験 |
-| `V8-OPS-022` | 2 | 有効 | 運用 | diopside v8のタイムスタンプオーケストレーションは、1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行い、親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。利用可能な同時threadが10未満でも10論理レーンを波状実行しなければならない。を**satisfy** | agent設定・10レーン計画・Luna固定・品質時Terra昇格・Sol最終確認gate・共有書込み境界試験 |
+| `V8-OPS-022` | 2 | 有効 | 運用 | diopside v8のタイムスタンプオーケストレーションは、1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行わなければならない。利用可能な同時threadが10未満でも10個のlane slotを維持してqueueから波状実行し、Lunaの回復可能失敗は親Solが同じ動画を引き取らなければならない。親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。を**satisfy** | agent設定・10レーン計画・Luna固定・品質時Terra昇格・Sol最終確認gate・共有書込み境界試験 |
+| `V8-OPS-023` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ証拠取得は、公開動画のタイムスタンプ証拠取得に失敗した場合、親Solは認証情報を使わないYouTube到達性診断、公開日本語字幕の上限付き再試行、公開native音声、yt-dlpによるMP3変換、無料のbatch-local ASRを順に試さなければならない。private、member-only、年齢制限、削除済み等の安全分類と試行結果だけをignored stateへ保存し、生字幕、音声、文字起こし、チャット本文をGit、PR、台帳へ保存してはならない。を**satisfy** | YouTube診断・字幕再試行・native/MP3 fallback・batch-local ASR・公開禁止物検査 |
+| `V8-OPS-024` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ失敗回復は、Lunaが字幕、音声、ASR、codex exec、意味構成、確認、決定的検証で回復可能な失敗へ到達した場合、needs_sol_recoveryとして親Solへ返し、親SolはGPT-5.6 Sol highで同じ動画を回復しなければならない。codex execのtrusted-destination結果は上限付きで再試行し、全編日本語字幕があるのに章候補を構成できない場合は素材不足ではなく意味構成失敗として扱わなければならない。期限内に回復できない場合はdeferred_recovery checkpointを残し、Google Sheetsへ処理不能を書いてはならない。を**satisfy** | trusted-destination再試行・Luna回復委譲・Sol high fallback・drain checkpoint・台帳書込みgate試験 |
 
 ## V8-SEARCH-001: 文字検索は、承認済み動画の動画タイトルだけを検索対象としなければならない
 
@@ -2393,18 +2395,52 @@ diopside v8の分散タイムスタンプ運用は、2〜20の独立したChatGP
 
 ## V8-OPS-022: 1つのWorkセッションは1 Solと10 Lunaでタイムスタンプを並列処理しSolが最終確認しなければならない
 
-diopside v8のタイムスタンプオーケストレーションは、1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行い、親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。利用可能な同時threadが10未満でも10論理レーンを波状実行しなければならない。を**satisfy**。
+diopside v8のタイムスタンプオーケストレーションは、1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行わなければならない。利用可能な同時threadが10未満でも10個のlane slotを維持してqueueから波状実行し、Lunaの回復可能失敗は親Solが同じ動画を引き取らなければならない。親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。を**satisfy**。
 
-根拠: 反復的で明確な動画処理を高速なLunaへ分散し、技術失敗と候補品質不足を区別して必要時だけTerraへ明示昇格し、共有GitHub・台帳書込みと最終判断をSolへ一元化することで、人の継続入力、競合、未確認候補の確定を減らすため。
+根拠: 反復的で明確な動画処理を高速なLunaへ分散し、技術失敗と候補品質不足を区別して必要時だけTerraへ明示昇格し、回復処理、共有GitHub・台帳書込み、高価値の最終判断をSolへ一元化することで、人の継続入力、競合、未確認候補、素材取得の一時失敗による放置を減らすため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-OPS-022-1` 前提: 1つのWorkチャットで複数の適格動画を処理する明示要求がある。条件: 親Solが1波を計画して子agentへ割り当てる。期待結果: 10論理レーンがGPT-5.6 Luna mediumへ固定され、各Lunaは異なるclaim済み動画を最大1件だけ処理し、同時thread上限が低い場合は同じ10レーンを波状実行する。。
+- `AC-V8-OPS-022-1` 前提: 1つのWorkチャットで複数の適格動画を処理する明示要求がある。条件: 親Solが1波を計画して子agentへ割り当てる。期待結果: 10個の論理lane slotがGPT-5.6 Luna mediumへ固定され、対象不足のslotはinactive_no_targetとなり、各active Lunaは異なるclaim済み動画を最大1件だけ処理し、同時thread上限が低い場合はqueueから波状実行する。。
 - `AC-V8-OPS-022-2` 前提: Lunaが候補、事実確認、編集確認、決定的検証結果を返した。条件: 正本化、PR最終commit、台帳同期へ進む。期待結果: 親GPT-5.6 Solが同じ候補hashと全編根拠を最終確認したpass記録がない候補を拒否し、GitHubとGoogle Sheetsへの確定書込みをLunaへ行わせない。。
-- `AC-V8-OPS-022-3` 前提: 1波の全Lunaがcompleteまたはblockedで台帳確認まで終わり、有限対象が残っている。条件: キャンペーン期限前に次の処理を判断する。期待結果: 人の追加入力を待たず次の10レーンを計画し、対象枯渇、期限のdrain、または全体権限・安全blockまで継続する。。
+- `AC-V8-OPS-022-3` 前提: 1波のLunaがcomplete、needs_sol_recovery、または安全上のblockedへ到達し、有限対象が残っている。条件: キャンペーン期限前に次の処理を判断する。期待結果: 親Solがneeds_sol_recoveryを先に引き取り、人の追加入力を待たず次の10レーンを計画し、対象枯渇、期限のdrain、または全体権限・安全blockまで継続する。。
 - `AC-V8-OPS-022-4` 前提: Lunaのcompose実行は正常完了したが章候補がdraft決定的検証に合格しない。条件: 同じ全編根拠から候補を一度再構成する。期待結果: GPT-5.6 Terra highをquality_retry_escalationとして明示記録して使用し、技術失敗ではモデルを昇格せず、再構成後も独立確認と親Sol最終確認を必須とする。。
 
-要求源: spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md, spec/sources/owner-directive-2026-08-11-timestamp-retry-fallback.md, user:2026-08-11
+要求源: spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md, spec/sources/owner-directive-2026-08-11-timestamp-retry-fallback.md, spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md, user:2026-08-11
 検証証跡: tests/timestamp_harness_test.py
-トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.codex/config.toml,.codex/agents/timestamp-luna-worker.toml,.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.codex/agents/timestamp-luna-worker.toml,.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md,spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md,dev-standard default profile
+
+## V8-OPS-023: 公開動画の証拠取得は到達性診断から無料のbatch-local ASRまで段階的に回復しなければならない
+
+diopside v8のタイムスタンプ証拠取得は、公開動画のタイムスタンプ証拠取得に失敗した場合、親Solは認証情報を使わないYouTube到達性診断、公開日本語字幕の上限付き再試行、公開native音声、yt-dlpによるMP3変換、無料のbatch-local ASRを順に試さなければならない。private、member-only、年齢制限、削除済み等の安全分類と試行結果だけをignored stateへ保存し、生字幕、音声、文字起こし、チャット本文をGit、PR、台帳へ保存してはならない。を**satisfy**。
+
+根拠: 公開素材の一時的な取得失敗を即時の処理不能へ誤分類せず、無料かつ認証回避のない代替経路で完了可能性を高めながら、証拠と個人情報を公開面から分離するため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-023-1` 前提: 公開動画の字幕または音声取得が一時的に失敗する。条件: 親Solが証拠取得の回復処理を行う。期待結果: 到達性診断、字幕再試行、native音声、MP3、batch-local ASRを順に試し、前段が成功した時点で後段を省略する。。
+- `AC-V8-OPS-023-2` 前提: 公開取得経路が利用不能である。条件: 診断と回復処理の結果を永続化する。期待結果: 安全な分類、試行回数、経路、結果、diagnostic digestだけをignored stateへ保存し、生素材をGit、PR、台帳へ含めない。。
+- `AC-V8-OPS-023-3` 前提: ローカルASR依存関係またはモデルが未導入である。条件: 親Solが最後の無料回復経路を実行する。期待結果: 依存関係とモデルをbatch root配下のignored directoryへ導入し、global環境、有料API、認証回避を使用しない。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py, tests/timestamp_tools_test.py
+トレース: 設計=docs/operations/manual-content-update.md,.agents/skills/prepare-stream-evidence/references/local-asr.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/prepare-stream-evidence/scripts/diagnose_youtube_access.py,.agents/skills/prepare-stream-evidence/scripts/download_captions.py,.agents/skills/prepare-stream-evidence/scripts/download_audio.py,.agents/skills/prepare-stream-evidence/scripts/transcribe_local_asr.py,.agents/skills/run-timestamp-work-harness/scripts/harness.py; テスト=tests/timestamp_harness_test.py,tests/timestamp_tools_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md,dev-standard default profile
+
+## V8-OPS-024: 回復可能な実行・意味構成失敗はSolへ引き継ぎ台帳の処理不能へ確定してはならない
+
+diopside v8のタイムスタンプ失敗回復は、Lunaが字幕、音声、ASR、codex exec、意味構成、確認、決定的検証で回復可能な失敗へ到達した場合、needs_sol_recoveryとして親Solへ返し、親SolはGPT-5.6 Sol highで同じ動画を回復しなければならない。codex execのtrusted-destination結果は上限付きで再試行し、全編日本語字幕があるのに章候補を構成できない場合は素材不足ではなく意味構成失敗として扱わなければならない。期限内に回復できない場合はdeferred_recovery checkpointを残し、Google Sheetsへ処理不能を書いてはならない。を**satisfy**。
+
+根拠: 子agentや一時実行環境の能力・接続失敗を動画固有の処理不能と混同せず、親の強いモデルと回復経路を使って完了まで押し進め、期限後も安全に再開できるようにするため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-024-1` 前提: Lunaが回復可能な証拠取得、codex exec、意味構成、確認、または検証失敗へ到達する。条件: Lunaの1動画処理が終了する。期待結果: blockedや台帳の処理不能ではなくneeds_sol_recoveryを返し、親Solが同じbatch、wave、video、branch、Draft PRを引き継ぐ。。
+- `AC-V8-OPS-024-2` 前提: codex execがtrusted-destinationを返す、または全編日本語字幕から章候補を構成できない。条件: 親Solが回復処理を行う。期待結果: trusted-destinationは上限付き再試行し、意味構成失敗はGPT-5.6 Sol highで再実行して素材不足と区別する。。
+- `AC-V8-OPS-024-3` 前提: campaignのdrain期限までに回復可能失敗を解消できない。条件: 親Solが最終状態と台帳更新可否を判定する。期待結果: safe reasonと再開情報を持つdeferred_recovery checkpointをignored stateへ残し、当該動画をGoogle Sheetsの処理不能へ更新せず、他動画の処理を継続する。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md,.agents/skills/run-timestamp-work-harness/references/web-work-prompt.md; 実装=.codex/agents/timestamp-luna-worker.toml,.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md,dev-standard default profile
