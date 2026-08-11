@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import hashlib
 import json
 import os
@@ -12,6 +13,7 @@ import shlex
 import shutil
 import subprocess
 import sys
+import threading
 import uuid
 from datetime import datetime
 from pathlib import Path
@@ -49,6 +51,7 @@ ORCHESTRATOR_MODEL = "gpt-5.6-sol"
 LUNA_WORKER_MODEL = "gpt-5.6-luna"
 QUALITY_RETRY_MODEL = "gpt-5.6-terra"
 LUNA_POOL_SIZE = 10
+CODEX_STATE_LOCK = threading.Lock()
 PR_RE = re.compile(r"^https://github\.com/tsuji-tomonori/diopside-v8/pull/[1-9][0-9]*$")
 WORKER_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
 BLOCK_CODES = {
@@ -531,17 +534,18 @@ def prepare_codex_environment(env: dict[str, str]) -> dict[str, str]:
     prepared = runtime_environment(env)
     source_home = Path(prepared.get("CODEX_HOME") or (Path.home() / ".codex"))
     destination = batch_dir(prepared["DIOPSIDE_HARNESS_BATCH_ID"]) / "codex-home"
-    destination.mkdir(parents=True, exist_ok=True, mode=0o700)
-    authentication = source_home / "auth.json"
-    target_authentication = destination / "auth.json"
-    if authentication.is_file() and not target_authentication.exists():
-        shutil.copyfile(authentication, target_authentication)
-        target_authentication.chmod(0o600)
-    root_literal = json.dumps(str(ROOT.resolve()), ensure_ascii=False)
-    (destination / "config.toml").write_text(
-        f"[projects.{root_literal}]\ntrust_level = \"trusted\"\n",
-        encoding="utf-8",
-    )
+    with CODEX_STATE_LOCK:
+        destination.mkdir(parents=True, exist_ok=True, mode=0o700)
+        authentication = source_home / "auth.json"
+        target_authentication = destination / "auth.json"
+        if authentication.is_file() and not target_authentication.exists():
+            shutil.copyfile(authentication, target_authentication)
+            target_authentication.chmod(0o600)
+        root_literal = json.dumps(str(ROOT.resolve()), ensure_ascii=False)
+        (destination / "config.toml").write_text(
+            f"[projects.{root_literal}]\ntrust_level = \"trusted\"\n",
+            encoding="utf-8",
+        )
     prepared["CODEX_HOME"] = str(destination)
     return prepared
 
@@ -570,21 +574,22 @@ def record_codex_attempt(
     result: str,
     retry_reason: str | None,
 ) -> None:
-    path = dossier / "codex-attempts.json"
-    entries = read_json(path) if path.exists() else []
-    entries.append(
-        {
-            "role": role,
-            "requestedModel": model,
-            "actualModel": model,
-            "reasoningEffort": reasoning_effort,
-            "routingReason": routing_reason,
-            "attempt": attempt,
-            "result": result,
-            "retryReason": retry_reason,
-        }
-    )
-    atomic_json(path, entries)
+    with CODEX_STATE_LOCK:
+        path = dossier / "codex-attempts.json"
+        entries = read_json(path) if path.exists() else []
+        entries.append(
+            {
+                "role": role,
+                "requestedModel": model,
+                "actualModel": model,
+                "reasoningEffort": reasoning_effort,
+                "routingReason": routing_reason,
+                "attempt": attempt,
+                "result": result,
+                "retryReason": retry_reason,
+            }
+        )
+        atomic_json(path, entries)
 
 
 def review_finding_schema() -> dict[str, Any]:
@@ -876,7 +881,10 @@ def chunk_map_schema(video_id: str, chunk: dict[str, Any]) -> dict[str, Any]:
                         "evidenceRefs": {
                             "type": "array",
                             "minItems": 1,
-                            "items": {"type": "string"},
+                            "items": {
+                                "type": "string",
+                                "enum": [cue["cueId"] for cue in cues],
+                            },
                         },
                     },
                     "required": [
@@ -931,7 +939,7 @@ def ensure_transcript_maps(video_id: str, env: dict[str, str]) -> None:
         return
     maps_dir = dossier / "transcript_maps"
     maps_dir.mkdir(parents=True, exist_ok=True)
-    mapped_ids = []
+    pending: list[str] = []
     for chunk_id in chunk_ids:
         chunk_path = dossier / "transcript_chunks" / f"{chunk_id}.json"
         mapped_path = maps_dir / f"{chunk_id}.json"
@@ -940,10 +948,15 @@ def ensure_transcript_maps(video_id: str, env: dict[str, str]) -> None:
             mapped = read_json(mapped_path)
             try:
                 validate_chunk_map(video_id, chunk, mapped)
-                mapped_ids.append(chunk_id)
                 continue
             except (HarnessError, KeyError, TypeError):
                 pass
+        pending.append(chunk_id)
+
+    def map_one(chunk_id: str) -> str:
+        chunk_path = dossier / "transcript_chunks" / f"{chunk_id}.json"
+        mapped_path = maps_dir / f"{chunk_id}.json"
+        chunk = read_json(chunk_path)
         role = f"map-{chunk_id}"
         prompt = (
             f"動画 {video_id} の一時dossier {dossier} にある {chunk_path} だけを本文根拠として、"
@@ -963,14 +976,26 @@ def ensure_transcript_maps(video_id: str, env: dict[str, str]) -> None:
         )
         mapped = read_json(mapped_path)
         validate_chunk_map(video_id, chunk, mapped)
-        mapped_ids.append(chunk_id)
+        return chunk_id
+
+    if pending:
+        configured_workers = int(env.get("DIOPSIDE_TRANSCRIPT_MAP_WORKERS", "3"))
+        worker_count = min(max(configured_workers, 1), 4, len(pending))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=worker_count) as executor:
+            futures = [executor.submit(map_one, chunk_id) for chunk_id in pending]
+            for future in concurrent.futures.as_completed(futures):
+                future.result()
+    for chunk_id in chunk_ids:
+        chunk = read_json(dossier / "transcript_chunks" / f"{chunk_id}.json")
+        mapped = read_json(maps_dir / f"{chunk_id}.json")
+        validate_chunk_map(video_id, chunk, mapped)
     atomic_json(
         maps_dir / "index.json",
         {
             "schemaVersion": "1.0.0",
             "videoId": video_id,
-            "chunkIds": mapped_ids,
-            "mapCount": len(mapped_ids),
+            "chunkIds": chunk_ids,
+            "mapCount": len(chunk_ids),
             "coverageStartSeconds": 0,
             "coverageEndSeconds": read_json(dossier / "inputs.json")["durationSeconds"],
         },
