@@ -45,6 +45,9 @@ sys.path.insert(0, str(TIMESTAMP_SCRIPTS))
 from timestamp_common import eligibility, load_canonical_videos  # noqa: E402
 
 TERMINAL = {"complete", "blocked"}
+ORCHESTRATOR_MODEL = "gpt-5.6-sol"
+LUNA_WORKER_MODEL = "gpt-5.6-luna"
+LUNA_POOL_SIZE = 10
 PR_RE = re.compile(r"^https://github\.com/tsuji-tomonori/diopside-v8/pull/[1-9][0-9]*$")
 WORKER_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
 BLOCK_CODES = {
@@ -155,6 +158,7 @@ def initialize_manifest(
             "candidateHash": None,
             "pullRequest": None,
             "commit": None,
+            "solReview": None,
             "block": None,
             "sheetVerified": False,
             "updatedAt": now,
@@ -293,6 +297,70 @@ def command_claim_next(args: argparse.Namespace) -> dict[str, Any]:
     }
 
 
+def command_plan_luna_wave(args: argparse.Namespace) -> dict[str, Any]:
+    snapshot = read_json(args.snapshot)
+    _, selected, skipped = eligible_snapshot_items(snapshot, limit=args.scan_limit)
+    campaign_id = validate_batch_id(args.campaign_id)
+    if not 1 <= args.wave <= 99:
+        raise HarnessError("wave番号は1から99にしてください。")
+    base_commit = run(["git", "rev-parse", f"{args.base_ref}^{{commit}}"], cwd=ROOT).stdout.strip()
+    lanes = []
+    for lane_index in range(LUNA_POOL_SIZE):
+        lane_items = selected[lane_index::LUNA_POOL_SIZE]
+        lane_number = lane_index + 1
+        batch_id = validate_batch_id(f"{campaign_id}-w{args.wave:02d}-l{lane_number:02d}")
+        worker_id = validate_worker_id(
+            f"luna-w{args.wave:02d}-l{lane_number:02d}-{digest(campaign_id)[:8]}"
+        )
+        if batch_dir(batch_id).exists():
+            manifest = load_manifest(batch_id)
+            if len(manifest["videoIds"]) != 1:
+                raise HarnessError("Luna lane batchには動画が1件だけ必要です。")
+            lanes.append(
+                {
+                    "lane": lane_number,
+                    "batchId": batch_id,
+                    "workerId": worker_id,
+                    "model": LUNA_WORKER_MODEL,
+                    "reasoningEffort": "medium",
+                    "status": "resume",
+                    "resume": claim_response(
+                        batch_id,
+                        load_item(batch_id, manifest["videoIds"][0]),
+                    ),
+                    "claimActions": [],
+                }
+            )
+            continue
+        if not lane_items:
+            continue
+        lanes.append(
+            {
+                "lane": lane_number,
+                "batchId": batch_id,
+                "workerId": worker_id,
+                "model": LUNA_WORKER_MODEL,
+                "reasoningEffort": "medium",
+                "status": "claim_required",
+                "claimActions": [
+                    claim_action(item, worker_id, base_commit) for item in lane_items
+                ],
+            }
+        )
+    return {
+        "status": "wave_required" if lanes else "no_unclaimed_target",
+        "campaignId": campaign_id,
+        "wave": args.wave,
+        "orchestratorModel": ORCHESTRATOR_MODEL,
+        "workerModel": LUNA_WORKER_MODEL,
+        "requestedPoolSize": LUNA_POOL_SIZE,
+        "activeLanes": len(lanes),
+        "baseCommit": base_commit,
+        "lanes": lanes,
+        "skipped": skipped,
+    }
+
+
 def command_record_claim(args: argparse.Namespace) -> dict[str, Any]:
     snapshot = read_json(args.snapshot)
     headers, selected, _ = eligible_snapshot_items(snapshot, video_id=args.video_id)
@@ -422,6 +490,8 @@ def invoke_codex(video_id: str, role: str, env: dict[str, str]) -> None:
     command = [
         *codex_command(),
         "exec",
+        "--model",
+        LUNA_WORKER_MODEL,
         "--ephemeral",
         "--sandbox",
         "workspace-write",
@@ -563,6 +633,44 @@ def command_record_pr(args: argparse.Namespace) -> dict[str, Any]:
     return {"videoId": args.video_id, "stage": "pr_created", "pullRequest": args.pull_request}
 
 
+def command_record_sol_review(args: argparse.Namespace) -> dict[str, Any]:
+    if args.reviewer_model != ORCHESTRATOR_MODEL:
+        raise HarnessError(f"最終確認モデルは{ORCHESTRATOR_MODEL}に限定されます。")
+    if not re.fullmatch(r"[0-9a-f]{64}", args.candidate_hash):
+        raise HarnessError("candidate hashは64桁の小文字hexにしてください。")
+    item = load_item(args.batch_id, args.video_id)
+    if item["stage"] not in {"ready_for_pr", "ready_for_materialization"}:
+        raise HarnessError("Lunaの候補作成と独立一次確認が完了していません。")
+    if item.get("candidateHash") != args.candidate_hash:
+        raise HarnessError("Solが確認したcandidate hashと現在候補が一致しません。")
+    env = {
+        **os.environ,
+        "DIOPSIDE_TIMESTAMP_WORK_ROOT": str(batch_dir(args.batch_id) / "timestamps"),
+        "PYTHONDONTWRITEBYTECODE": "1",
+    }
+    validation = json.loads(
+        run(
+            ["python3", str(AUDIT_SCRIPTS / "validate_candidate.py"), args.video_id],
+            env=env,
+        ).stdout
+    )
+    if validation.get("candidateHash") != args.candidate_hash:
+        raise HarnessError("Sol最終確認時の決定的検証hashが一致しません。")
+    item["solReview"] = {
+        "model": ORCHESTRATOR_MODEL,
+        "candidateHash": args.candidate_hash,
+        "result": "pass",
+        "reviewedAt": datetime.now().astimezone().isoformat(),
+    }
+    write_item(args.batch_id, item)
+    return {
+        "videoId": args.video_id,
+        "stage": item["stage"],
+        "candidateHash": args.candidate_hash,
+        "solReview": item["solReview"],
+    }
+
+
 def refresh_manifest(candidate_updated_at: str) -> None:
     manifest_path = ROOT / "content/content-manifest.json"
     manifest = read_json(manifest_path)
@@ -695,6 +803,16 @@ def command_materialize(args: argparse.Namespace) -> dict[str, Any]:
         raise HarnessError("分散workerは全編根拠と独立確認の完了後だけ正本化できます。")
     if item["stage"] not in {"ready_for_materialization", "pr_created", "materialized"} or not item.get("pullRequest"):
         raise HarnessError("実在するdraft PRと検証済み候補を記録してから正本化してください。")
+    if item.get("claim"):
+        sol_review = item.get("solReview")
+        if (
+            not isinstance(sol_review, dict)
+            or sol_review.get("model") != ORCHESTRATOR_MODEL
+            or sol_review.get("candidateHash") != item.get("candidateHash")
+            or sol_review.get("result") != "pass"
+            or not sol_review.get("reviewedAt")
+        ):
+            raise HarnessError("親gpt-5.6-solの最終確認記録がないため正本化できません。")
     if item["stage"] == "materialized":
         materialized = item.get("materialized")
         if not isinstance(materialized, dict):
@@ -852,6 +970,13 @@ def parser() -> argparse.ArgumentParser:
     claim.add_argument("--base-ref", default="origin/main")
     claim.add_argument("--remote", default="origin")
     claim.set_defaults(handler=command_claim_next)
+    wave = commands.add_parser("plan-luna-wave")
+    wave.add_argument("campaign_id")
+    wave.add_argument("--snapshot", type=Path, required=True)
+    wave.add_argument("--wave", type=int, default=1)
+    wave.add_argument("--scan-limit", type=int, default=200)
+    wave.add_argument("--base-ref", default="origin/main")
+    wave.set_defaults(handler=command_plan_luna_wave)
     record_claim = commands.add_parser("record-claim")
     record_claim.add_argument("batch_id")
     record_claim.add_argument("video_id")
@@ -887,6 +1012,12 @@ def parser() -> argparse.ArgumentParser:
     record_pr.add_argument("video_id")
     record_pr.add_argument("--pull-request", required=True)
     record_pr.set_defaults(handler=command_record_pr)
+    sol_review = commands.add_parser("record-sol-review")
+    sol_review.add_argument("batch_id")
+    sol_review.add_argument("video_id")
+    sol_review.add_argument("--candidate-hash", required=True)
+    sol_review.add_argument("--reviewer-model", required=True)
+    sol_review.set_defaults(handler=command_record_sol_review)
     materialize = commands.add_parser("materialize")
     materialize.add_argument("batch_id")
     materialize.add_argument("video_id")

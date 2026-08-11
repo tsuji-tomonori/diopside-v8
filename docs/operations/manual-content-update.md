@@ -24,7 +24,9 @@
 
 合格動画は1動画branchをpushし、GitHub接続でdraft PRを作成してから実在PR URLを正本候補へ記録し、最終commitを同じPRへpushする。台帳には`作成済み=FALSE`、`処理状態=PR作成済み（レビュー待ち）`、PR URL、最終commit SHAを記録し、更新後に同じ行を再読する。処理不能は段階・安全な理由・再開条件を記録し、残りの動画を継続する。ハーネスはmergeまたは公開を行わず、人がPRをマージする操作を公開承認として維持する。
 
-10〜20のWorkセッションを同時に使う場合は、全セッションへ同じ分散worker指示を与え、各セッションに一意なbatch IDとworker IDを生成させる。各workerは`claim-next`が返す候補を順にGitHub connectorの`create_branch`で試し、1件だけ確保する。動画IDの大文字小文字を保持した`agent/timestamps-<video-id>`のref作成が原子的claimであり、同時競合で既存branchとなったworkerは次候補へ進む。勝者はclaim markerと処理中draft PRを直ちに作成し、そのPRで完了まで進める。force update、branch削除、stale claimの自動奪取は禁止する。余ったworkerの`no_unclaimed_target`は正常終了であり、外部書込みを追加しない。
+標準のWeb Work構成は、親1セッションをGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとする。親Solが`plan-luna-wave`で10レーンを計画し、GitHub connectorでbranch、claim marker、処理中draft PRを確保してから、成功した動画を1件ずつLunaへ割り当てる。実環境の同時threadが10未満なら10レーンを波状実行する。Lunaは一時素材、候補、事実・編集の一次確認、決定的検証だけを行い、connector、正本化、commit、push、台帳更新を行わない。親Solが全結果を候補hashまで再確認し、`record-sol-review`で合格を記録した動画だけを正本化してPRと台帳を確定する。1波が終わって適格動画が残る場合は、人の追加入力を待たず次の10レーンを計画する。
+
+複数のWorkセッションも併用する場合は、各セッションに一意なbatch IDとworker IDを生成させる。各workerは`claim-next`が返す候補を順にGitHub connectorの`create_branch`で試し、1件だけ確保する。動画IDの大文字小文字を保持した`agent/timestamps-<video-id>`のref作成が原子的claimであり、同時競合で既存branchとなったworkerは次候補へ進む。勝者はclaim markerと処理中draft PRを直ちに作成し、そのPRで完了まで進める。force update、branch削除、stale claimの自動奪取は禁止する。余ったworkerの`no_unclaimed_target`は正常終了であり、外部書込みを追加しない。
 
 ## 公開と復元
 

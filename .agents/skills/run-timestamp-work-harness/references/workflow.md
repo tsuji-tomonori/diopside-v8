@@ -1,5 +1,31 @@
 # Work harness contract
 
+## One Sol and ten Luna workers
+
+The default Web Work topology is one GPT-5.6 Sol parent and ten logical
+`timestamp-luna-worker` lanes pinned to GPT-5.6 Luna with medium reasoning. The
+parent calls `plan-luna-wave --wave <n>`; its strided fallback lists prevent two lanes in the
+same wave from attempting the same candidate. Remote branch creation remains the
+atomic claim against other chats or interrupted work.
+
+Lane batch IDs include the wave and lane numbers. Rerunning the same campaign and
+wave returns existing lane state instead of assigning a new video to that batch.
+Only after every lane is terminal and sheet-verified may Sol reread the sheet and
+increment the wave number.
+
+Only Sol uses GitHub and Google Sheets connectors. After Sol creates each branch,
+marker, and processing draft PR, it starts the matching Luna subagent with the
+one-video worktree and ignored dossier. Luna may acquire public evidence, compose,
+run independent fact and editorial checks, and run deterministic validation. Luna
+cannot claim, use connectors, materialize, commit, push, or update the ledger.
+
+Sol waits for every active lane, inspects the full evidence coverage and all three
+candidate artifacts, and records a matching `record-sol-review` attestation. The
+harness rejects distributed materialization unless that attestation uses
+`gpt-5.6-sol`, passes, and matches the current candidate hash. Ten unavailable
+physical threads do not change the topology: Work runs the ten logical lanes in
+waves. Fewer eligible videos simply leave excess lanes inactive.
+
 ## Spreadsheet snapshot
 
 Work writes a temporary JSON file below `.devflow/run/` with this shape:

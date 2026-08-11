@@ -641,13 +641,55 @@ const timestampHarnessRequirements = [
     },
     last_changed_by: 'CHG-20260811-timestamp-distributed-workers',
   },
+  {
+    id: 'V8-OPS-022',
+    revision: 1,
+    status: 'active',
+    scope: 'project',
+    category: 'nonfunctional',
+    type: 'operational',
+    title: '1つのWorkセッションは1 Solと10 Lunaでタイムスタンプを並列処理しSolが最終確認しなければならない',
+    subject: 'diopside v8のタイムスタンプオーケストレーション',
+    action: 'satisfy',
+    object: '1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行い、親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。利用可能な同時threadが10未満でも10論理レーンを波状実行しなければならない。',
+    rationale: '反復的で明確な動画処理を高速なLunaへ分散し、共有GitHub・台帳書込みと高価値の最終判断をSolへ一元化することで、人の継続入力、競合、未確認候補の確定を減らすため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md', 'user:2026-08-11'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-OPS-022-1',
+        given: '1つのWorkチャットで複数の適格動画を処理する明示要求がある',
+        when: '親Solが1波を計画して子agentへ割り当てる',
+        then: '10論理レーンがGPT-5.6 Luna mediumへ固定され、各Lunaは異なるclaim済み動画を最大1件だけ処理し、同時thread上限が低い場合は同じ10レーンを波状実行する。',
+      },
+      {
+        id: 'AC-V8-OPS-022-2',
+        given: 'Lunaが候補、事実確認、編集確認、決定的検証結果を返した',
+        when: '正本化、PR最終commit、台帳同期へ進む',
+        then: '親GPT-5.6 Solが同じ候補hashと全編根拠を最終確認したpass記録がない候補を拒否し、GitHubとGoogle Sheetsへの確定書込みをLunaへ行わせない。',
+      },
+      {
+        id: 'AC-V8-OPS-022-3',
+        given: '1波の全Lunaがcompleteまたはblockedで台帳確認まで終わり、有限対象が残っている',
+        when: 'キャンペーン期限前に次の処理を判断する',
+        then: '人の追加入力を待たず次の10レーンを計画し、対象枯渇、期限のdrain、または全体権限・安全blockまで継続する。',
+      },
+    ],
+    verification: { method: 'agent設定・10レーン計画・Lunaモデル固定・Sol最終確認gate・共有書込み境界試験', evidence: 'tests/timestamp_harness_test.py' },
+    traces: {
+      design: ['docs/design/generated/system.gen.md', '.agents/skills/run-timestamp-work-harness/references/workflow.md'],
+      implementation: ['.codex/config.toml', '.codex/agents/timestamp-luna-worker.toml', '.agents/skills/run-timestamp-work-harness/scripts/harness.py', '.agents/skills/run-timestamp-work-harness/SKILL.md'],
+      tests: ['tests/timestamp_harness_test.py'],
+      standards: ['spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260811-sol-luna-orchestration',
+  },
 ];
 const canonicalRequirements = [...requirements, ...ownerDirectiveRequirements, ...timestampHarnessRequirements];
 
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: 7,
+  catalog_revision: 8,
   product: 'diopside v8',
   updated_at: '2026-08-11',
   requirements: canonicalRequirements,
