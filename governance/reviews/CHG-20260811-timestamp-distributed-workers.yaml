@@ -186,3 +186,4 @@ selected_checks:
 advisories: []
 residual_risks:
   - 実際のChatGPT Work 10〜20セッションを同時起動した初回運用でGitHub認証とGoogle Sheets connectorの同時実行上限を確認する
+  - GitHub connector経由のPR branch更新ではfile modeを明示し、最終treeがローカル検証treeと一致することを再確認する
