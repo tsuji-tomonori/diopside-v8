@@ -7,11 +7,12 @@ description: Map a complete one-video transcript and optional non-identifying au
 
 Read `references/draft-contract.md` and `references/genre-rules.md` before writing a draft.
 
-1. Read every canonical cue from `evidence/transcript.jsonl` exactly once and map the
-   full transcript into sustained semantic spans and explicit transitions with cue IDs.
-2. Verify every chunk ID declared by `state.json`, reconcile adjacent overlap metadata
-   and cue coverage, and prove that all declared evidence ranges were processed. Do not
-   duplicate overlapping cue bodies into the model context.
+1. In transcript-mapping mode, read every cue in the assigned chunk and map it into
+   sustained semantic spans and explicit transitions with exact cue IDs.
+2. In whole-video composition mode, read every map declared by
+   `transcript_maps/index.json`, reconcile adjacent overlaps and cue coverage, and
+   prove that all declared evidence ranges were processed. Do not load all raw cue
+   bodies into the composition context.
 3. Analyze normalized audience signals separately. Classify them as progression, possible boundary, reaction/highlight, noise, or ambiguous.
 4. Compose chapters from content starts, transitions, and endings. Do not use fixed intervals, a fixed chapter count, reaction density, or comment timestamps as the deciding rule.
 5. Require transcript/ASR or creator-list evidence for every nonzero boundary.
