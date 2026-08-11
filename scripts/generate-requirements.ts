@@ -529,7 +529,7 @@ const timestampHarnessRequirements = [
   },
   {
     id: 'V8-OPS-019',
-    revision: 1,
+    revision: 2,
     status: 'active',
     scope: 'project',
     category: 'nonfunctional',
@@ -538,8 +538,8 @@ const timestampHarnessRequirements = [
     subject: 'diopside v8のタイムスタンプ運用',
     action: 'satisfy',
     object: 'ハーネスは作成者時刻一覧または公開日本語字幕を優先し、必要時に公開音声と無償ローカル音声認識、匿名化したチャット補助信号を取得し、章構成・事実確認・編集確認の意味判断を役割ごとに独立した非対話のcodex execで実行して、同じ候補hashへの決定的検証合格を必須としなければならない。',
-    rationale: '素材収集と意味判断と採用判定を分離し、既存ChatGPT／Codex契約の範囲で全編根拠、独立確認、機械検証を再現可能にするため。codex execは所有者が判断実行方式として明示した永続的な運用制約である。',
-    source_refs: ['spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md', 'user:2026-08-11'],
+    rationale: '素材収集と意味判断と採用判定を分離し、公開字幕がない動画も公開音声と無償ローカル音声認識で全編根拠へ復旧しながら、既存ChatGPT／Codex契約の範囲で独立確認と機械検証を再現可能にするため。codex execは所有者が判断実行方式として明示した永続的な運用制約である。',
+    source_refs: ['spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md', 'spec/sources/owner-directive-2026-08-11-timestamp-retry-fallback.md', 'user:2026-08-11'],
     acceptance_criteria: [
       {
         id: 'AC-V8-OPS-019-1',
@@ -553,6 +553,18 @@ const timestampHarnessRequirements = [
         when: 'チャット取得を実行する',
         then: '本文と投稿者識別子を破棄した時間帯別反応量だけを一時保持し、チャット単独で境界または全編根拠を決めない。',
       },
+      {
+        id: 'AC-V8-OPS-019-3',
+        given: '公開日本語字幕を取得できないが公開音声を認証なしで取得できる',
+        when: '素材取得を継続する',
+        then: 'yt-dlpで一時MP3を取得してfaster-whisperで全編ローカル音声認識を行い、字幕取得、音声取得、音声認識の失敗段階を安全な理由として区別する。',
+      },
+      {
+        id: 'AC-V8-OPS-019-4',
+        given: 'codex execが信頼済み実行先または一時状態領域の技術的理由で失敗する',
+        when: '実行先が期待するGit repositoryであることを決定的に検証できる',
+        then: 'sandboxと認証境界を維持した同一モデルで一度だけ再試行し、実行先検査だけが原因の場合に限り公式のskip-git-repo-checkを使用する。',
+      },
     ],
     verification: { method: 'Codex実行契約・role分離・候補hash・匿名chat・公開境界試験', evidence: 'tests/timestamp_harness_test.py, tests/timestamp_tools_test.py' },
     traces: {
@@ -561,7 +573,7 @@ const timestampHarnessRequirements = [
       tests: ['tests/timestamp_harness_test.py', 'tests/timestamp_tools_test.py'],
       standards: ['spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md', 'dev-standard default profile'],
     },
-    last_changed_by: 'CHG-20260811-timestamp-work-harness',
+    last_changed_by: 'CHG-20260811-timestamp-retry-fallback',
   },
   {
     id: 'V8-OPS-020',
@@ -643,7 +655,7 @@ const timestampHarnessRequirements = [
   },
   {
     id: 'V8-OPS-022',
-    revision: 1,
+    revision: 2,
     status: 'active',
     scope: 'project',
     category: 'nonfunctional',
@@ -652,8 +664,8 @@ const timestampHarnessRequirements = [
     subject: 'diopside v8のタイムスタンプオーケストレーション',
     action: 'satisfy',
     object: '1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行い、親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。利用可能な同時threadが10未満でも10論理レーンを波状実行しなければならない。',
-    rationale: '反復的で明確な動画処理を高速なLunaへ分散し、共有GitHub・台帳書込みと高価値の最終判断をSolへ一元化することで、人の継続入力、競合、未確認候補の確定を減らすため。',
-    source_refs: ['spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md', 'user:2026-08-11'],
+    rationale: '反復的で明確な動画処理を高速なLunaへ分散し、技術失敗と候補品質不足を区別して必要時だけTerraへ明示昇格し、共有GitHub・台帳書込みと最終判断をSolへ一元化することで、人の継続入力、競合、未確認候補の確定を減らすため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md', 'spec/sources/owner-directive-2026-08-11-timestamp-retry-fallback.md', 'user:2026-08-11'],
     acceptance_criteria: [
       {
         id: 'AC-V8-OPS-022-1',
@@ -673,15 +685,21 @@ const timestampHarnessRequirements = [
         when: 'キャンペーン期限前に次の処理を判断する',
         then: '人の追加入力を待たず次の10レーンを計画し、対象枯渇、期限のdrain、または全体権限・安全blockまで継続する。',
       },
+      {
+        id: 'AC-V8-OPS-022-4',
+        given: 'Lunaのcompose実行は正常完了したが章候補がdraft決定的検証に合格しない',
+        when: '同じ全編根拠から候補を一度再構成する',
+        then: 'GPT-5.6 Terra highをquality_retry_escalationとして明示記録して使用し、技術失敗ではモデルを昇格せず、再構成後も独立確認と親Sol最終確認を必須とする。',
+      },
     ],
-    verification: { method: 'agent設定・10レーン計画・Lunaモデル固定・Sol最終確認gate・共有書込み境界試験', evidence: 'tests/timestamp_harness_test.py' },
+    verification: { method: 'agent設定・10レーン計画・Luna固定・品質時Terra昇格・Sol最終確認gate・共有書込み境界試験', evidence: 'tests/timestamp_harness_test.py' },
     traces: {
       design: ['docs/design/generated/system.gen.md', '.agents/skills/run-timestamp-work-harness/references/workflow.md'],
       implementation: ['.codex/config.toml', '.codex/agents/timestamp-luna-worker.toml', '.agents/skills/run-timestamp-work-harness/scripts/harness.py', '.agents/skills/run-timestamp-work-harness/SKILL.md'],
       tests: ['tests/timestamp_harness_test.py'],
       standards: ['spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md', 'dev-standard default profile'],
     },
-    last_changed_by: 'CHG-20260811-sol-luna-orchestration',
+    last_changed_by: 'CHG-20260811-timestamp-retry-fallback',
   },
 ];
 const canonicalRequirements = [...requirements, ...ownerDirectiveRequirements, ...timestampHarnessRequirements];
@@ -689,7 +707,7 @@ const canonicalRequirements = [...requirements, ...ownerDirectiveRequirements, .
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: 8,
+  catalog_revision: 9,
   product: 'diopside v8',
   updated_at: '2026-08-11',
   requirements: canonicalRequirements,
