@@ -876,7 +876,6 @@ def chunk_map_schema(video_id: str, chunk: dict[str, Any]) -> dict[str, Any]:
                         "evidenceRefs": {
                             "type": "array",
                             "minItems": 1,
-                            "uniqueItems": True,
                             "items": {"type": "string"},
                         },
                     },
