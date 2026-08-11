@@ -4,6 +4,7 @@ import importlib.util
 import json
 import os
 import subprocess
+import sys
 import tempfile
 import tomllib
 import unittest
@@ -12,6 +13,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / ".agents/skills/run-timestamp-work-harness/scripts/harness.py"
 CHAT_SCRIPT = ROOT / ".agents/skills/run-timestamp-work-harness/scripts/download_live_chat.py"
+YOUTUBE_DIAGNOSTIC_SCRIPT = (
+    ROOT / ".agents/skills/prepare-stream-evidence/scripts/diagnose_youtube_access.py"
+)
 CODEX_CONFIG = ROOT / ".codex/config.toml"
 LUNA_AGENT = ROOT / ".codex/agents/timestamp-luna-worker.toml"
 VIDEO_ID = "eGjLBN2fsQc"
@@ -155,16 +159,71 @@ class TimestampHarnessTest(unittest.TestCase):
             '"workspace-write"',
             '"--output-schema"',
             '"--output-last-message"',
-            'invoke_codex(video_id, "compose"',
-            'invoke_codex(video_id, "fact"',
-            'invoke_codex(video_id, "editorial"',
+            '"compose",',
+            '"fact",',
+            '"editorial",',
             '"--model"',
-            'LUNA_WORKER_MODEL',
+            'f\'model_reasoning_effort="{reasoning_effort}"\'',
             "fact_review.jsonを読まず",
+            '"trusted_destination"',
+            'commands.add_parser("recover-with-sol")',
         ):
             self.assertIn(expected, source)
 
-    def test_project_config_pins_one_sol_parent_and_ten_luna_children(self) -> None:
+    def test_trusted_destination_failure_is_retryable(self) -> None:
+        sys.path.insert(0, str(SCRIPT.parent))
+        try:
+            spec = importlib.util.spec_from_file_location("timestamp_harness_retry_test", SCRIPT)
+            if spec is None or spec.loader is None:
+                self.fail("harness.pyを読み込めません。")
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            completed = subprocess.CompletedProcess(
+                args=["codex", "exec"],
+                returncode=1,
+                stdout="",
+                stderr="approval outcome: trusted-destination",
+            )
+            self.assertTrue(module.is_trusted_destination_failure(completed))
+            other = subprocess.CompletedProcess(
+                args=["codex", "exec"], returncode=1, stdout="", stderr="invalid prompt"
+            )
+            self.assertFalse(module.is_trusted_destination_failure(other))
+        finally:
+            sys.path.pop(0)
+
+    def test_youtube_diagnostic_keeps_only_safe_classification_and_digest(self) -> None:
+        common = ROOT / ".agents/skills/generate-stream-timestamps/scripts"
+        sys.path.insert(0, str(common))
+        try:
+            spec = importlib.util.spec_from_file_location(
+                "youtube_diagnostic_test", YOUTUBE_DIAGNOSTIC_SCRIPT
+            )
+            if spec is None or spec.loader is None:
+                self.fail("diagnose_youtube_access.pyを読み込めません。")
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            attempt = module.safe_attempt(
+                1,
+                1,
+                "ERROR: members-only video for Example Person",
+                expected_video_id=VIDEO_ID,
+                observed_video_id="",
+            )
+            self.assertEqual(attempt["classification"], "private_or_members_only")
+            self.assertNotIn("Example Person", json.dumps(attempt))
+            mismatch = module.safe_attempt(
+                1,
+                0,
+                "different-id",
+                expected_video_id=VIDEO_ID,
+                observed_video_id="different-id",
+            )
+            self.assertEqual(mismatch["classification"], "unexpected_video_id")
+        finally:
+            sys.path.pop(0)
+
+    def test_local_cli_config_pins_one_sol_parent_and_ten_luna_children(self) -> None:
         config = tomllib.loads(CODEX_CONFIG.read_text(encoding="utf-8"))
         self.assertEqual(config["model"], "gpt-5.6-sol")
         self.assertEqual(config["agents"]["max_concurrent_threads_per_session"], 10)
@@ -222,6 +281,42 @@ class TimestampHarnessTest(unittest.TestCase):
                 lane["batchId"] for lane in second["lanes"]
             )
         )
+
+    def test_sol_keeps_ten_logical_lane_slots_with_fewer_targets(self) -> None:
+        snapshot = self.snapshot([self.row()])
+        planned = self.invoke(
+            "plan-luna-wave",
+            "campaign-small",
+            "--snapshot",
+            str(snapshot),
+            "--base-ref",
+            "HEAD",
+        )
+        self.assertEqual(len(planned["lanes"]), 10)
+        self.assertEqual(planned["activeLanes"], 1)
+        self.assertEqual(
+            sum(lane["status"] == "inactive_no_target" for lane in planned["lanes"]),
+            9,
+        )
+
+    def test_campaign_deadline_prevents_new_claims(self) -> None:
+        snapshot = self.snapshot([self.row()])
+        planned = self.invoke(
+            "plan-luna-wave",
+            "campaign-expired",
+            "--snapshot",
+            str(snapshot),
+            "--base-ref",
+            "HEAD",
+            "--normal-deadline",
+            "2000-01-01T00:00:00+09:00",
+            "--drain-deadline",
+            "2000-01-01T00:30:00+09:00",
+        )
+        self.assertEqual(planned["status"], "campaign_expired")
+        self.assertFalse(planned["canCreateClaims"])
+        self.assertEqual(planned["activeLanes"], 0)
+        self.assertTrue(all(not lane["claimActions"] for lane in planned["lanes"]))
 
     def test_distributed_claim_is_a_connector_compare_and_set_plan(self) -> None:
         snapshot = self.snapshot([self.row()])
@@ -303,6 +398,68 @@ class TimestampHarnessTest(unittest.TestCase):
             success=False,
         )
         self.assertIn("candidate hash", str(mismatch["stderr"]))
+
+    def test_luna_recoverable_failure_requires_sol_and_never_updates_ledger(self) -> None:
+        snapshot = self.snapshot([self.row()])
+        self.invoke("init", "batch-recovery", "--snapshot", str(snapshot), "--video-id", VIDEO_ID)
+        item_path = self.run_root / f"batch-recovery/items/{VIDEO_ID}.json"
+        item = json.loads(item_path.read_text(encoding="utf-8"))
+        item.update(
+            {
+                "stage": "pr_created",
+                "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/123",
+                "claim": {"workerId": "luna-w01-l01-test"},
+            }
+        )
+        item_path.write_text(json.dumps(item, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        failed = self.invoke(
+            "record-blocked",
+            "batch-recovery",
+            VIDEO_ID,
+            "--reason-code",
+            "evidence_unavailable",
+            success=False,
+        )
+        self.assertIn("recover-with-sol", str(failed["stderr"]))
+        unchanged = json.loads(item_path.read_text(encoding="utf-8"))
+        self.assertEqual(unchanged["stage"], "pr_created")
+
+        unchanged.update(
+            {
+                "stage": "deferred_recovery",
+                "recovery": {"reasonCode": "evidence_unavailable"},
+                "block": None,
+                "sheetVerified": False,
+            }
+        )
+        item_path.write_text(
+            json.dumps(unchanged, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        status = self.invoke("status", "batch-recovery")
+        self.assertFalse(status["complete"])
+        self.assertTrue(status["waveTerminal"])
+        self.assertEqual(status["requiresSolRecovery"], 1)
+        plan = self.invoke(
+            "plan-sheet-update",
+            "batch-recovery",
+            "--snapshot",
+            str(snapshot),
+            "--date",
+            "2026-08-11",
+        )
+        self.assertEqual(plan["actions"], [])
+
+    def test_media_recovery_ladder_contains_mp3_and_batch_local_asr(self) -> None:
+        audio = (
+            ROOT / ".agents/skills/prepare-stream-evidence/scripts/download_audio.py"
+        ).read_text(encoding="utf-8")
+        asr = (
+            ROOT / ".agents/skills/prepare-stream-evidence/scripts/transcribe_local_asr.py"
+        ).read_text(encoding="utf-8")
+        self.assertIn('"mp3-fallback"', audio)
+        self.assertIn('"--audio-format", "mp3"', audio)
+        self.assertIn('"--bootstrap-local"', asr)
+        self.assertIn('"--target"', asr)
 
     def test_live_chat_reduction_keeps_no_text_or_identity(self) -> None:
         spec = importlib.util.spec_from_file_location("download_live_chat_test", CHAT_SCRIPT)
