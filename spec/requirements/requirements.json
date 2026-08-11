@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_revision": 8,
+  "catalog_revision": 9,
   "product": "diopside v8",
   "updated_at": "2026-08-11",
   "requirements": [
@@ -6868,7 +6868,7 @@
     },
     {
       "id": "V8-DISPLAY-011",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "product",
       "category": "functional",
@@ -6880,7 +6880,9 @@
       "rationale": "利用者が結末を知らずに動画の雰囲気と見どころを把握し、安心して視聴を選べるようにするため。",
       "source_refs": [
         "spec/sources/owner-directive-2026-08-08-video-synopsis.md",
-        "user:2026-08-08"
+        "spec/sources/owner-directive-2026-08-11-synopsis-work-harness.md",
+        "user:2026-08-08",
+        "user:2026-08-11"
       ],
       "acceptance_criteria": [
         {
@@ -6894,6 +6896,12 @@
           "given": "全編字幕または文字起こしを使ってあらすじ候補を作る",
           "when": "公開境界検査・repository差分確認",
           "then": "生字幕・文字起こしをGitまたは公開成果物へ含めず、安全な根拠ラベル、入力指紋、全編範囲だけを正本へ保持する。"
+        },
+        {
+          "id": "AC-V8-DISPLAY-011-3",
+          "given": "新しいあらすじ候補を一括生成する",
+          "when": "rules 1.1.0の候補を検証する",
+          "then": "0秒から動画末尾まで隙間のない意味区間を確認し、同じ候補hashに対する独立した事実・発言者確認、ネタバレ・個人情報確認、編集確認が全て合格する。歌詞、ゲーム・映像・朗読の台詞、他出演者の発言を白雪巴の引用として採用しない。"
         }
       ],
       "verification": {
@@ -6906,6 +6914,7 @@
         ],
         "implementation": [
           ".agents/skills/generate-video-synopses",
+          ".agents/skills/run-synopsis-work-harness",
           "src/domain/content.ts",
           "src/domain/validation.ts",
           "scripts/build-public-data.ts",
@@ -6915,15 +6924,17 @@
         "tests": [
           "src/domain/validation.test.ts",
           "tests/content-validation.test.ts",
+          "tests/synopsis_harness_test.py",
           "e2e/detail.spec.ts"
         ],
         "standards": [
           "Issue #1",
           "spec/sources/owner-directive-2026-08-08-video-synopsis.md",
+          "spec/sources/owner-directive-2026-08-11-synopsis-work-harness.md",
           "dev-standard default profile"
         ]
       },
-      "last_changed_by": "CHG-20260808-add-video-synopses"
+      "last_changed_by": "CHG-20260811-synopsis-work-harness"
     },
     {
       "id": "V8-OPS-017",
@@ -7261,6 +7272,67 @@
         ]
       },
       "last_changed_by": "CHG-20260811-sol-luna-orchestration"
+    },
+    {
+      "id": "V8-OPS-023",
+      "revision": 1,
+      "status": "active",
+      "scope": "project",
+      "category": "nonfunctional",
+      "type": "operational",
+      "title": "Work用あらすじ処理は1 Sol・10 Lunaと候補hash gateで有限対象を継続しなければならない",
+      "subject": "diopside v8のあらすじ運用",
+      "action": "satisfy",
+      "object": "ChatGPT Workから開始する未作成あらすじcampaignは、親GPT-5.6 SolとGPT-5.6 Luna mediumの10論理レーンとして構成し、最新mainの正本にあらすじがない公開動画だけを原子的にclaimしなければならない。Lunaはclaim済み1動画の一時全編根拠、候補、独立確認、決定的検証だけを行い、親Solだけが現在の候補hashを最終確認して1動画draft PRとあらすじ作業台帳を確定しなければならない。",
+      "rationale": "長時間の全編確認と反復的な候補作成をLunaへ分散しながら、既存あらすじの上書き、未確認候補の正本化、共有先の競合、動画単位の失敗によるcampaign停止を防ぐため。",
+      "source_refs": [
+        "spec/sources/owner-directive-2026-08-11-synopsis-work-harness.md",
+        "user:2026-08-11"
+      ],
+      "acceptance_criteria": [
+        {
+          "id": "AC-V8-OPS-023-1",
+          "given": "最新mainと対象動画・あらすじ作業台帳のsnapshotがある",
+          "when": "親Solが1波を計画する",
+          "then": "既存あらすじ、除外、処理中、既存draft PRを除き、exact-case動画branchを原子的claimとする重複しない最大10論理レーンをGPT-5.6 Luna mediumへ割り当てる。同時thread上限が低い場合も同じ10レーンを波状実行する。"
+        },
+        {
+          "id": "AC-V8-OPS-023-2",
+          "given": "Lunaが全編coverage、候補、独立三確認、決定的validatorを返した",
+          "when": "正本化、PR最終commit、台帳更新へ進む",
+          "then": "親GPT-5.6 Solが同じcandidate hashへ合格を記録していない候補を拒否し、LunaによるGitHub・Google Sheets書込みと既存あらすじの上書きを拒否する。"
+        },
+        {
+          "id": "AC-V8-OPS-023-3",
+          "given": "1波の各動画がcompleteまたは理由付きblockedとなった",
+          "when": "台帳再読を完了し期限前に適格動画が残る",
+          "then": "人の追加入力を待たず次のwaveを計画し、対象枯渇、期限のdrain、または全体権限・安全blockまで継続する。行指紋が変わった動画だけをledger conflictとして分離する。"
+        }
+      ],
+      "verification": {
+        "method": "10レーン計画・既存あらすじ除外・全編coverage・独立review hash・Sol gate・台帳行競合試験",
+        "evidence": "tests/synopsis_harness_test.py"
+      },
+      "traces": {
+        "design": [
+          "docs/design/generated/system.gen.md",
+          ".agents/skills/run-synopsis-work-harness/references/workflow.md"
+        ],
+        "implementation": [
+          ".codex/agents/synopsis-luna-worker.toml",
+          ".agents/skills/run-synopsis-work-harness/scripts/harness.py",
+          ".agents/skills/run-synopsis-work-harness/scripts/validate_dossier.py",
+          ".agents/skills/run-synopsis-work-harness/SKILL.md"
+        ],
+        "tests": [
+          "tests/synopsis_harness_test.py"
+        ],
+        "standards": [
+          "spec/sources/owner-directive-2026-08-11-synopsis-work-harness.md",
+          "dev-standard default profile"
+        ]
+      },
+      "last_changed_by": "CHG-20260811-synopsis-work-harness"
     }
   ]
 }
