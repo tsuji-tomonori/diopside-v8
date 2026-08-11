@@ -139,6 +139,8 @@ The existing deterministic validators remain the authority for advancing state.
 Luna receives each bounded transcript chunk as normalized JSONL in the prompt and
 maps it into exact-cue semantic spans without a worker-side shell dependency.
 The parent rejects read-failure and placeholder topics before checkpoint reuse.
+Every checkpoint carries the direct-input mapper version; a missing or stale
+version invalidates the map so pre-direct-input artifacts cannot be reused.
 Composition then receives every validated map as JSON and reconciles the declared ranges and overlaps,
 avoiding a single unbounded caption context without weakening full-duration evidence
 coverage.

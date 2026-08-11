@@ -53,6 +53,7 @@ WAVE_TERMINAL = TERMINAL | {"deferred_recovery"}
 ORCHESTRATOR_MODEL = "gpt-5.6-sol"
 LUNA_WORKER_MODEL = "gpt-5.6-luna"
 QUALITY_RETRY_MODEL = "gpt-5.6-terra"
+TRANSCRIPT_MAP_VERSION = "direct-jsonl-v1"
 LUNA_POOL_SIZE = 10
 CODEX_STATE_LOCK = threading.Lock()
 TRUSTED_DESTINATION_RETRIES = 3
@@ -1178,6 +1179,7 @@ def chunk_map_schema(video_id: str, chunk: dict[str, Any]) -> dict[str, Any]:
         "type": "object",
         "properties": {
             "schemaVersion": {"type": "string", "const": "1.0.0"},
+            "mapperVersion": {"type": "string", "const": TRANSCRIPT_MAP_VERSION},
             "videoId": {"type": "string", "const": video_id},
             "chunkId": {"type": "string", "const": chunk["chunkId"]},
             "startSeconds": {"type": "integer", "const": chunk["startSeconds"]},
@@ -1214,7 +1216,7 @@ def chunk_map_schema(video_id: str, chunk: dict[str, Any]) -> dict[str, Any]:
             },
         },
         "required": [
-            "schemaVersion", "videoId", "chunkId", "startSeconds", "endSeconds",
+            "schemaVersion", "mapperVersion", "videoId", "chunkId", "startSeconds", "endSeconds",
             "cueCount", "firstCueId", "lastCueId", "spans",
         ],
         "additionalProperties": False,
@@ -1224,6 +1226,7 @@ def chunk_map_schema(video_id: str, chunk: dict[str, Any]) -> dict[str, Any]:
 def validate_chunk_map(video_id: str, chunk: dict[str, Any], mapped: dict[str, Any]) -> None:
     expected = {
         "schemaVersion": "1.0.0",
+        "mapperVersion": TRANSCRIPT_MAP_VERSION,
         "videoId": video_id,
         "chunkId": chunk["chunkId"],
         "startSeconds": chunk["startSeconds"],

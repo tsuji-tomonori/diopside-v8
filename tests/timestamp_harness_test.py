@@ -186,6 +186,7 @@ class TimestampHarnessTest(unittest.TestCase):
             'def ensure_transcript_maps(',
             'role = f"map-{chunk_id}"',
             'BEGIN_TRANSCRIPT_JSONL',
+            'TRANSCRIPT_MAP_VERSION = "direct-jsonl-v1"',
             'start_new_session=True',
             'os.killpg(process.pid, signal.SIGTERM)',
             'BEGIN_COMPOSE_INPUT_JSON',
