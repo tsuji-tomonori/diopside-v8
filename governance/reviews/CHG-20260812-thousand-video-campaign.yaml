@@ -121,7 +121,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [test:tests/timestamp_harness_test.py, workflow:要件・品質ゲート#要件の品質ゲートを実行]
-    note: 変更経路25件、タイムスタンプ系48件、JS 62件をローカル実行しCIでも再確認する
+    note: 変更経路25件、CIのタイムスタンプ系49件、JS 62件を実行し、remote treeがlocal検証済みtree SHAと一致することを確認した
   - id: REV-007
     class: Invariant
     result: pass
