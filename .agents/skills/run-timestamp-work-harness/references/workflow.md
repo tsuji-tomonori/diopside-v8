@@ -14,6 +14,26 @@ wave returns existing lane state instead of assigning a new video to that batch.
 Only after every lane is complete, inactive, or safely deferred by Sol may the
 parent reread the sheet and increment the wave number.
 
+## Durable 1000-video campaign
+
+`initialize-campaign --target-count 1000` freezes the stable eligible order and row
+fingerprints once. `plan-luna-wave` consumes that immutable manifest in ten-item
+slices; later ledger additions cannot enter the campaign and row changes are
+isolated as conflicts. Wave numbers are not limited to 99.
+
+After every terminal wave and before drain, run `checkpoint-campaign`. Persist its
+exact content at `.campaigns/timestamps/<campaign-id>.json` on
+`agent/timestamp-campaign-<campaign-id>`. Update that branch only against the
+observed parent commit. The checkpoint excludes evidence and stores only the
+campaign manifest, safe lane state, claim metadata, PR/commit references, and safe
+recovery information.
+
+When Work starts without local state, read the remote checkpoint and run
+`restore-campaign`. Completed items remain completed. In-flight items are rewound
+to a safe recovery boundary because temporary evidence is intentionally not durable.
+An eight-hour drain or usage limit pauses one execution; it never expires the fixed
+campaign. Resume the same campaign until every target reaches an allowed terminal state.
+
 Only Sol uses GitHub and Google Sheets connectors. After Sol creates each branch,
 marker, and processing draft PR, it starts the matching Luna subagent with the
 one-video worktree and ignored dossier. Luna may acquire public evidence, compose,

@@ -9,7 +9,8 @@ High reasoning and connecting GitHub and Google Drive.
 `tsuji-tomonori/diopside-v8`の最新`main`にある
 `run-timestamp-work-harness`を使い、1つのGPT-5.6 Sol親と10個の
 GPT-5.6 Luna medium論理レーンでタイムスタンプ作成campaignを実行してください。
-開始から8時間、人の追加入力なしで継続することを許可します。
+最大1000件を固定し、複数のWork実行をまたいで終端まで継続してください。
+各Work実行は開始から8時間、人の追加入力なしで処理し、drain前に永続checkpointを保存してください。
 
 開始条件:
 
@@ -17,7 +18,11 @@ GPT-5.6 Luna medium論理レーンでタイムスタンプ作成campaignを実�
    `references/workflow.md`を全文読んでください。
 2. `V8-OPS-022`、`V8-OPS-023`、`V8-OPS-024`と
    `timestamp-luna-worker`が存在しなければ外部書込み前に全体blockとして終了してください。
-3. campaign IDを`timestamp-sol-luna-<JST日時>-<random-8-hex>`で作り、
+   `harness.py preflight`も実行し、`codex`、`yt-dlp`、`ffmpeg`、`git`の不足や
+   公開YouTube到達性未許可があればclaimせず、campaign checkpointへpause理由と再開時刻を保存してください。
+3. 既存checkpointがあれば同じcampaign IDで`restore-campaign`し、新規なら
+   `timestamp-sol-luna-<JST日時>-<random-8-hex>`を作って
+   `initialize-campaign --target-count 1000`を一度だけ実行し、
    通常処理期限を開始+7時間30分、drain期限を開始+8時間として記録してください。
 4. 親はこのWork turnのGPT-5.6 Solです。各spawnでモデル
    `gpt-5.6-luna`、推論`medium`を明示してください。`.codex/config.toml`だけを
@@ -74,6 +79,8 @@ GPT-5.6 Luna medium論理レーンでタイムスタンプ作成campaignを実�
   台帳、event logを再読し、未完了工程だけ再開してください。
 - 7時間30分以降は新規claimを止め、処理中laneの回復・最終確認・整合だけを行ってください。
 - 8時間到達後は新規外部書込みを開始せず、安全なcheckpointと最終報告を残してください。
+- 各wave後とdrain前に`checkpoint-campaign`を実行し、専用campaign branchへ観測済み親commitを条件として保存してください。競合時はforceせずremoteを再読してください。
+- drain、利用制限、Work環境消失はcampaign完了ではありません。次のWork実行で同じIDを復元し、完了済みを保持して未完了だけを再開してください。
 
 安全境界:
 

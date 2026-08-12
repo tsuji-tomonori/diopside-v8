@@ -1,0 +1,144 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260812-thousand-video-campaign
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: true
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md]
+    note: 最大1000件の対象固定、remote checkpoint、実行環境をまたぐ復元をV8-OPS-026として正本化した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/references/workflow.md, path:docs/design/generated/system.gen.md]
+    note: 固定manifest、10件wave、楽観ロック、safe checkpoint、restore境界を派生設計へ反映した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260812-thousand-video-campaign.yaml]
+    note: 正本、永続状態機械、Skill、運用prompt、耐久試験へ跨るためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/scripts/harness.py, test:tests/timestamp_harness_test.py]
+    note: campaign branch更新は親Solのconnector actionとexpected parent commitでgateする
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [test:tests/timestamp_harness_test.py, workflow:要件・品質ゲート#要件の品質ゲートを実行]
+    note: Python単体、要件、生成差分、TypeScript、JS、Ruffを検証する
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/scripts/harness.py, test:tests/timestamp_harness_test.py]
+    note: 変更Pythonと耐久試験をlint対象に維持しRuffで合格した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/timestamp_harness_test.py]
+    note: 1000件manifest、wave 100、checkpoint漏えい禁止、別run root restore、preflight gateを直接試験した
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/timestamp_harness_test.py, path:spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md]
+    note: Work消失時は完了済みを保持し処理途中だけを安全な工程へ巻き戻す回帰試験を追加した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/inventory.gen.json]
+    note: 153件の正本と40入力の生成設計を既存generatorから決定的に再生成した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: checkpoint whitelistから生字幕、音声、文字起こし、chat、worktree、credentialを除外した
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md]
+    note: 差分を1000件campaignの永続継続性へ限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 目的、変更、要件・設計影響、review path、検証、互換性、残存リスクをcommitへ記録する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:tests/timestamp_harness_test.py]
+    note: V8-OPS-026の4受入条件をworkflow、harness、Skill、耐久・復元試験へtraceした
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/system.gen.md, path:.agents/skills/run-timestamp-work-harness/references/workflow.md]
+    note: 既存remote branch claim方式をcampaign checkpointへ拡張し新規有料基盤を追加しない
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/scripts/harness.py, test:tests/timestamp_harness_test.py]
+    note: 正本から固定manifest、checkpoint、restore、preflight、Skill、試験まで双方向traceを接続した
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/timestamp_harness_test.py, workflow:要件・品質ゲート#要件の品質ゲートを実行]
+    note: 変更経路25件、タイムスタンプ系48件、JS 62件をローカル実行しCIでも再確認する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260812-thousand-video-campaign.yaml]
+    note: 必要なcheckだけを保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260812-thousand-video-campaign.yaml]
+    note: 未選択checkをN/Aとして登録していない
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/SKILL.md, path:.agents/skills/run-timestamp-work-harness/references/web-work-prompt.md]
+    note: 初期化、preflight、各wave checkpoint、drain pause、次回restoreを運用手順へ反映した
+advisories: []
+residual_risks:
+  - Hosted Workの物理同時thread数はサービス側に依存するため、10論理laneをqueueとして維持する
+  - YouTube到達許可とCLI導入はWork環境に依存するため、preflight不合格時はclaimせずresumeAfter付きcheckpointへpauseする
+  - campaign branchへのconnector更新はリポジトリ外のcompare-and-set実行であり、CIはaction payloadと競合時の禁止契約までを検証する

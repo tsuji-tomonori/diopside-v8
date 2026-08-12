@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 62503)
+Total output lines: 2481
+
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
@@ -158,6 +161,7 @@
 | `V8-OPS-022` | 2 | 有効 | 運用 | diopside v8のタイムスタンプオーケストレーションは、1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行わなければならない。利用可能な同時threadが10未満でも10個のlane slotを維持してqueueから波状実行し、Lunaの回復可能失敗は親Solが同じ動画を引き取らなければならない。親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。を**satisfy** | agent設定・10レーン計画・Lunaモデル固定・Sol最終確認gate・共有書込み境界試験 |
 | `V8-OPS-023` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ証拠取得は、公開動画のタイムスタンプ証拠取得に失敗した場合、親Solは認証情報を使わないYouTube到達性診断、公開日本語字幕の上限付き再試行、公開native音声、yt-dlpによるMP3変換、無料のbatch-local ASRを順に試さなければならない。private、member-only、年齢制限、削除済み等の安全分類と試行結果だけをignored stateへ保存し、生字幕、音声、文字起こし、チャット本文をGit、PR、台帳へ保存してはならない。を**satisfy** | YouTube診断・字幕再試行・native/MP3 fallback・batch-local ASR・公開禁止物検査 |
 | `V8-OPS-024` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ失敗回復は、Lunaが字幕、音声、ASR、codex exec、意味構成、確認、決定的検証で回復可能な失敗へ到達した場合、needs_sol_recoveryとして親Solへ返し、親SolはGPT-5.6 Sol highで同じ動画を回復しなければならない。codex execのtrusted-destination結果は上限付きで再試行し、全編日本語字幕があるのに章候補を構成できない場合は素材不足ではなく意味構成失敗として扱わなければならない。期限内に回復できない場合はdeferred_recovery checkpointを残し、Google Sheetsへ処理不能を書いてはならない。を**satisfy** | trusted-destination再試行・Luna回復委譲・Sol high fallback・drain checkpoint・台帳書込みgate試験 |
+| `V8-OPS-026` | 1 | 有効 | 運用 | diopside v8の大規模タイムスタンプcampaignは、最大1000件のタイムスタンプcampaignは開始時に対象動画ID、順序、台帳行指紋、base commitを一度だけ固定し、10件ずつ処理しなければならない。各Work実行のdrain前と各wave後に、生字幕、音声、文字起こし、chat本文、識別子、資格情報を含まない安全なcheckpointを専用GitHub campaign branchへ観測済み親commitを条件として保存し、Work環境消失または利用制限後は同じcampaign IDを復元して完了済みを保持し未完了だけを安全な工程から再開しなければならない。を**satisfy** | 1000件manifest・101wave境界・checkpoint漏えい禁止・kill/restore・楽観ロックaction試験 |
 | `V8-OPS-025` | 1 | 有効 | 運用 | diopside v8のあらすじ運用は、ChatGPT Workから開始する未作成あらすじcampaignは、親GPT-5.6 SolとGPT-5.6 Luna mediumの10論理レーンとして構成し、最新mainの正本にあらすじがない公開動画だけを原子的にclaimしなければならない。Lunaはclaim済み1動画の一時全編根拠、候補、独立確認、決定的検証だけを行い、親Solだけが現在の候補hashを最終確認して1動画draft PRとあらすじ作業台帳を確定しなければならない。を**satisfy** | 10レーン計画・既存あらすじ除外・全編coverage・独立review hash・Sol gate・台帳行競合試験 |
 
 ## V8-SEARCH-001: 文字検索は、承認済み動画の動画タイトルだけを検索対象としなければならない
@@ -1058,133 +1062,7 @@ diopside v8のタグは、同じ表示名でも小分類または意味が異な
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-TAG-004-1` 前提: V8-タグ-004の前提を満たす公開データまたは操作がある。条件: 同名異義試験。期待結果: ゲームジャンルの「ホラー」と中心テーマの「ホラー」、歌種別の「ライブ」と同時視聴メディアの「ライブ」が別タグになる。。
-
-要求源: Issue #1 V8-タグ-004, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-TAG-005: 承認済みの全動画は主ジャンルをちょうど1件持たなければならない
-
-diopside v8のタグは、承認済みの全動画は主ジャンルをちょうど1件持たなければならない。を**satisfy**。
-
-根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-TAG-005-1` 前提: V8-タグ-005の前提を満たす公開データまたは操作がある。条件: 基数試験。期待結果: 主ジャンル0件または2件以上の動画を検証で拒否する。。
-
-要求源: Issue #1 V8-タグ-005, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-TAG-006: 承認済みの全動画は動画形式をちょうど1件持たなければならない
-
-diopside v8のタグは、承認済みの全動画は動画形式をちょうど1件持たなければならない。を**satisfy**。
-
-根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-TAG-006-1` 前提: V8-タグ-006の前提を満たす公開データまたは操作がある。条件: 基数試験。期待結果: 「配信」「動画」「Shorts」のいずれか1件だけを持つ。。
-
-要求源: Issue #1 V8-タグ-006, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-TAG-007: 承認済みの全動画は公開チャンネルをちょうど1件持たなければならない
-
-diopside v8のタグは、承認済みの全動画は公開チャンネルをちょうど1件持たなければならない。を**satisfy**。
-
-根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-TAG-007-1` 前提: V8-タグ-007の前提を満たす公開データまたは操作がある。条件: 基数試験・人手確認。期待結果: 実際のYouTubeチャンネルを確認できない候補は承認済みにならない。。
-
-要求源: Issue #1 V8-タグ-007, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-TAG-008: 主ジャンル、動画形式、公開チャンネル以外は、タグ体系に定めた基数の範囲で異なる検索軸のタグを複数付与できなければならない
-
-diopside v8のタグは、主ジャンル、動画形式、公開チャンネル以外は、タグ体系に定めた基数の範囲で異なる検索軸のタグを複数付与できなければならない。を**satisfy**。
-
-根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-TAG-008-1` 前提: V8-タグ-008の前提を満たす公開データまたは操作がある。条件: 基数・組合せ試験。期待結果: 条件に該当する複数の作品、人物、企画、特性を省略せず保持し、基数超過を拒否する。。
-
-要求源: Issue #1 V8-タグ-008, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-TAG-009: ゲームを主または副ジャンルに持つ動画は、ゲーム作品名を1件以上、ゲームジャンルを1件以上3件以下持たなければならない
-
-diopside v8のタグは、ゲームを主または副ジャンルに持つ動画は、ゲーム作品名を1件以上、ゲームジャンルを1件以上3件以下持たなければならない。を**satisfy**。
-
-根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-TAG-009-1` 前提: V8-タグ-009の前提を満たす公開データまたは操作がある。条件: 条件付き必須試験。期待結果: 作品名またはゲームジャンルが不足するゲーム動画を承認できない。。
-
-要求源: Issue #1 V8-タグ-009, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-TAG-010: 雑談を主または副ジャンルに持つ動画は、雑談種別を1件以上3件以下持たなければならない
-
-diopside v8のタグは、雑談を主または副ジャンルに持つ動画は、雑談種別を1件以上3件以下持たなければならない。を**satisfy**。
-
-根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-TAG-010-1` 前提: V8-タグ-010の前提を満たす公開データまたは操作がある。条件: 条件付き必須試験。期待結果: 雑談種別のない雑談動画と4件以上の動画を拒否する。。
-
-要求源: Issue #1 V8-タグ-010, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-TAG-011: 同時視聴を主ジャンルに持つ動画は、同時視聴メディアを1件持ち、動画タイトル、動画固有の説明、公式作品表記のいずれかが一つの作品を示す場合は同時視聴作品名を1件以
-
-diopside v8のタグは、同時視聴を主ジャンルに持つ動画は、同時視聴メディアを1件持ち、動画タイトル、動画固有の説明、公式作品表記のいずれかが一つの作品を示す場合は同時視聴作品名を1件以上持たなければならない。を**satisfy**。
-
-根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-TAG-011-1` 前提: V8-タグ-011の前提を満たす公開データまたは操作がある。条件: 条件付き必須・否定試験。期待結果: メディア種別不足を拒否し、複数候補または根拠なしの場合は仮の作品名を作らない。。
-
-要求源: Issue #1 V8-タグ-011, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-TAG-012: 朗読・声劇を主ジャンルに持つ動画は、朗読・声劇種別を1件持たなければならない
-
-diopside v8のタグは、朗読・声劇を主ジャンルに持つ動画は、朗読・声劇種別を1件持たなければならない。を**satisfy**。
-
-根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-TAG-012-1` 前提: V8-タグ-012の前提を満たす公開データまたは操作がある。条件: 条件付き必須試験。期待結果: 種別0件または2件以上を拒否する。。
-
-要求源: Issue #1 V8-タグ-012, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-TAG-013: チャンネル主以外と共同で内容を行う動画は「コラボ」と、声、映像、通話、ゲーム・セッション参加、公式参加者表記で確認できる全出演者を持ち、チャンネル主を出演者へ重
+- `AC-V8-TAG-004-1` 前提: V8-タグ-…2503 tokens truncated…認できる全出演者を持ち、チャンネル主を出演者へ重
 
 diopside v8のタグは、チャンネル主以外と共同で内容を行う動画は「コラボ」と、声、映像、通話、ゲーム・セッション参加、公式参加者表記で確認できる全出演者を持ち、チャンネル主を出演者へ重複登録してはならない。を**satisfy**。
 
@@ -2443,6 +2321,24 @@ diopside v8のタイムスタンプ失敗回復は、Lunaが字幕、音声、AS
 要求源: spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md, user:2026-08-11
 検証証跡: tests/timestamp_harness_test.py
 トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md,.agents/skills/run-timestamp-work-harness/references/web-work-prompt.md; 実装=.codex/agents/timestamp-luna-worker.toml,.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md,dev-standard default profile
+
+## V8-OPS-026: 最大1000件のWork campaignは固定manifestと安全なremote checkpointで実行環境をまたいで継続しなければならない
+
+diopside v8の大規模タイムスタンプcampaignは、最大1000件のタイムスタンプcampaignは開始時に対象動画ID、順序、台帳行指紋、base commitを一度だけ固定し、10件ずつ処理しなければならない。各Work実行のdrain前と各wave後に、生字幕、音声、文字起こし、chat本文、識別子、資格情報を含まない安全なcheckpointを専用GitHub campaign branchへ観測済み親commitを条件として保存し、Work環境消失または利用制限後は同じcampaign IDを復元して完了済みを保持し未完了だけを安全な工程から再開しなければならない。を**satisfy**。
+
+根拠: 単一Work実行の時間・利用量・ローカル状態保持へ1000件の完了可能性を依存させず、旧連続queueと同等の対象固定、失敗隔離、再開性を保ちながら生素材の公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-026-1` 前提: 1000件までの適格動画を処理する明示要求と対象動画台帳snapshotがある。条件: 親Solがcampaignを初期化し100wave以上を計画する。期待結果: 対象順序と行指紋をimmutable manifestへ一度だけ固定し、各waveは未変更manifestの連続する最大10件だけを重複なく割り当てる。。
+- `AC-V8-OPS-026-2` 前提: waveが終端した、drainへ入る、または利用制限で停止する。条件: 親Solがcampaign checkpointを永続化する。期待結果: 専用remote branchを観測済み親commitとのcompare-and-setで更新し、生素材と資格情報を含めず、競合時はforceせずremoteを再読する。。
+- `AC-V8-OPS-026-3` 前提: 別のWork環境で同じcampaignを再開する。条件: 親Solがremote checkpointを検証してrestoreする。期待結果: 完了済み状態を保持し、処理途中だけを安全な回復境界へ巻き戻し、同じcampaign IDと固定対象の残りを継続する。。
+- `AC-V8-OPS-026-4` 前提: 1000件のsynthetic manifest、101以上のwave、または途中kill後のcheckpointがある。条件: 耐久・復元試験を実行する。期待結果: 対象の欠落・重複・完了状態の回帰・生素材のcheckpoint混入がなく、次waveを決定的に再計画できる。。
+
+要求源: spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md, user:2026-08-12
+検証証跡: tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md,dev-standard default profile
 
 ## V8-OPS-025: Work用あらすじ処理は1 Sol・10 Lunaと候補hash gateで有限対象を継続しなければならない
 
