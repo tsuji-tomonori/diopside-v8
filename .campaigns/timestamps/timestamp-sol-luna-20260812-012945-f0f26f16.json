@@ -1,0 +1,614 @@
+{
+  "schemaVersion": "2.0.0",
+  "campaign": {
+    "schemaVersion": "2.0.0",
+    "campaignId": "timestamp-sol-luna-20260812-012945-f0f26f16",
+    "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+    "sheetName": "対象動画",
+    "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+    "baseCommit": "ec864aef2d86552e94765e29761e071f44c7b76e",
+    "targetCount": 10,
+    "requestedTargetCount": 1000,
+    "items": [
+      {
+        "videoId": "Tg9QLZSESY4",
+        "rowNumber": 230,
+        "rowHash": "05177384b6601debcad913cedcaa394012224d7f2dffb51ad0ae11de73d92ed4"
+      },
+      {
+        "videoId": "Z-BfQx-8FD4",
+        "rowNumber": 238,
+        "rowHash": "826cdb5212785d7f849ccf2ff09fb8586ddc9793c7cdf3246b8521d066fa5e2d"
+      },
+      {
+        "videoId": "6tRcXUfOWYs",
+        "rowNumber": 202,
+        "rowHash": "8b516c67573afc09b9f00305aef4edbb46577aa35eb1ca8740d30b58d7e820bc"
+      },
+      {
+        "videoId": "ZV4CXlLkHgw",
+        "rowNumber": 203,
+        "rowHash": "1b7c5a473f9bbb3958d726ae1113f9e520d9f1087a3cae297d10c10bc85f89eb"
+      },
+      {
+        "videoId": "JHWYBMcUer0",
+        "rowNumber": 274,
+        "rowHash": "460ef8a5722792fd5320452f2a6e487230bb8b9081a9d84e8bcc6d2f41a1d82c"
+      },
+      {
+        "videoId": "brWaWvXLVWs",
+        "rowNumber": 211,
+        "rowHash": "b32f784cd55ae67b8223069ac9b9db86798088aaff559879fcca053b7d9b1944"
+      },
+      {
+        "videoId": "ITOREIMheG0",
+        "rowNumber": 214,
+        "rowHash": "2081ac02a7f1ece46c519274c187aaf91e395369caeb3a64fd07e1467bf078aa"
+      },
+      {
+        "videoId": "gug8efplEpc",
+        "rowNumber": 221,
+        "rowHash": "f147dd0f4e937a5ebf7038d6ee31d297dfdae2651005466f162a817bc6c0d401"
+      },
+      {
+        "videoId": "Hefv7SSmlV4",
+        "rowNumber": 223,
+        "rowHash": "9096919a43ad700546c1b4d9ac3f204a5c16b4e58f7cae8f41d79cdb34dd9530"
+      },
+      {
+        "videoId": "ye6v7sMb2Wk",
+        "rowNumber": 227,
+        "rowHash": "e4901c503edf97f6aeaec319e3f2c22afefd20942812c6f4cbbf650e1c1848db"
+      }
+    ],
+    "videoIds": [
+      "Tg9QLZSESY4",
+      "Z-BfQx-8FD4",
+      "6tRcXUfOWYs",
+      "ZV4CXlLkHgw",
+      "JHWYBMcUer0",
+      "brWaWvXLVWs",
+      "ITOREIMheG0",
+      "gug8efplEpc",
+      "Hefv7SSmlV4",
+      "ye6v7sMb2Wk"
+    ],
+    "createdAt": "2026-08-12T01:31:49.736664+09:00",
+    "manifestHash": "9d65edf73af87da05189ca34eb3379b0946b510d54bcf97ad9e875220ef3ad27"
+  },
+  "batches": [
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w01-l01",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "ec864aef2d86552e94765e29761e071f44c7b76e",
+        "items": [
+          {
+            "videoId": "Tg9QLZSESY4",
+            "rowNumber": 230,
+            "rowHash": "05177384b6601debcad913cedcaa394012224d7f2dffb51ad0ae11de73d92ed4"
+          }
+        ],
+        "videoIds": [
+          "Tg9QLZSESY4"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w01-l01-45a2ae42",
+        "manifestHash": "f535950e2b3a2709cdea42159d0a7889b4467fa53e9c4722aae8f1a9fa730d8f"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "Tg9QLZSESY4",
+          "rowNumber": 230,
+          "rowHash": "05177384b6601debcad913cedcaa394012224d7f2dffb51ad0ae11de73d92ed4",
+          "stage": "needs_sol_recovery",
+          "attempt": 0,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/232",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "recovery": {
+            "reasonCode": "external_action_failed",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "remote branchとDraft PRを再読し、親Solが未完了工程を再開する"
+          },
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w01-l01-45a2ae42",
+            "claimToken": "a4af105cf2144fae878ac610d46cd328",
+            "branch": "agent/timestamps-Tg9QLZSESY4",
+            "claimCommit": "30c504f6ac38d079a7f1d00c7dfd981526e4a850",
+            "claimedAt": "2026-08-12T01:34:46.986664+09:00"
+          },
+          "updatedAt": "2026-08-12T15:43:36.520662+00:00"
+        }
+      ]
+    },
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w01-l02",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "ec864aef2d86552e94765e29761e071f44c7b76e",
+        "items": [
+          {
+            "videoId": "Z-BfQx-8FD4",
+            "rowNumber": 238,
+            "rowHash": "826cdb5212785d7f849ccf2ff09fb8586ddc9793c7cdf3246b8521d066fa5e2d"
+          }
+        ],
+        "videoIds": [
+          "Z-BfQx-8FD4"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w01-l02-45a2ae42",
+        "manifestHash": "b444b8a136a6c8f4b5a6b9684f6766934ae8c73cf24170b56f6a657fc542e3a1"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "Z-BfQx-8FD4",
+          "rowNumber": 238,
+          "rowHash": "826cdb5212785d7f849ccf2ff09fb8586ddc9793c7cdf3246b8521d066fa5e2d",
+          "stage": "needs_sol_recovery",
+          "attempt": 0,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/233",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "recovery": {
+            "reasonCode": "external_action_failed",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "remote branchとDraft PRを再読し、親Solが未完了工程を再開する"
+          },
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w01-l02-45a2ae42",
+            "claimToken": "658d03c9a19941d6b3caa01146bb6fca",
+            "branch": "agent/timestamps-Z-BfQx-8FD4",
+            "claimCommit": "214200c59f99535ca1f07503cf5b4b466d8358e9",
+            "claimedAt": "2026-08-12T01:34:46.986915+09:00"
+          },
+          "updatedAt": "2026-08-12T15:43:54.001682+00:00"
+        }
+      ]
+    },
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w01-l03",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "ec864aef2d86552e94765e29761e071f44c7b76e",
+        "items": [
+          {
+            "videoId": "6tRcXUfOWYs",
+            "rowNumber": 202,
+            "rowHash": "8b516c67573afc09b9f00305aef4edbb46577aa35eb1ca8740d30b58d7e820bc"
+          }
+        ],
+        "videoIds": [
+          "6tRcXUfOWYs"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w01-l03-45a2ae42",
+        "manifestHash": "9af2a99383da0d3e2f43d099e2bf40f06dfdd7943b91112aa6ea834918966e8f"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "6tRcXUfOWYs",
+          "rowNumber": 202,
+          "rowHash": "8b516c67573afc09b9f00305aef4edbb46577aa35eb1ca8740d30b58d7e820bc",
+          "stage": "needs_sol_recovery",
+          "attempt": 0,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/224",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "recovery": {
+            "reasonCode": "external_action_failed",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "remote branchとDraft PRを再読し、親Solが未完了工程を再開する"
+          },
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w01-l03-45a2ae42",
+            "claimToken": "fe392fe3529647f68ec29653804b9d34",
+            "branch": "agent/timestamps-6tRcXUfOWYs",
+            "claimCommit": "9d158f6dd54d906ceaa6c9a75ff0a938e1e9db5d",
+            "claimedAt": "2026-08-12T01:31:49.736664+09:00"
+          },
+          "updatedAt": "2026-08-12T15:44:18.468375+00:00"
+        }
+      ]
+    },
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w01-l04",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "ec864aef2d86552e94765e29761e071f44c7b76e",
+        "items": [
+          {
+            "videoId": "ZV4CXlLkHgw",
+            "rowNumber": 203,
+            "rowHash": "1b7c5a473f9bbb3958d726ae1113f9e520d9f1087a3cae297d10c10bc85f89eb"
+          }
+        ],
+        "videoIds": [
+          "ZV4CXlLkHgw"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w01-l04-45a2ae42",
+        "manifestHash": "ab74fecc8bde8c305bd1caa35c3753a1314540df4975d8d354f338e2ed6024ec"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "ZV4CXlLkHgw",
+          "rowNumber": 203,
+          "rowHash": "1b7c5a473f9bbb3958d726ae1113f9e520d9f1087a3cae297d10c10bc85f89eb",
+          "stage": "needs_sol_recovery",
+          "attempt": 0,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/225",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "recovery": {
+            "reasonCode": "external_action_failed",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "remote branchとDraft PRを再読し、親Solが未完了工程を再開する"
+          },
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w01-l04-45a2ae42",
+            "claimToken": "0692096d89b1431e996ac829414184e1",
+            "branch": "agent/timestamps-ZV4CXlLkHgw",
+            "claimCommit": "b234853cbdd68cfd490998d0f846d1ab6beca87f",
+            "claimedAt": "2026-08-12T01:31:49.736819+09:00"
+          },
+          "updatedAt": "2026-08-12T15:44:35.803931+00:00"
+        }
+      ]
+    },
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w01-l05",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "49bd8f6f88c58b97fa0dde9ae9ae2a1f154acc71",
+        "items": [
+          {
+            "videoId": "JHWYBMcUer0",
+            "rowNumber": 274,
+            "rowHash": "460ef8a5722792fd5320452f2a6e487230bb8b9081a9d84e8bcc6d2f41a1d82c"
+          }
+        ],
+        "videoIds": [
+          "JHWYBMcUer0"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w01-l05-45a2ae42",
+        "manifestHash": "88002ef769ece0ed0309dcb09d0f2f510bc34e00f4f756a92b115f84cba2e2ff"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "JHWYBMcUer0",
+          "rowNumber": 274,
+          "rowHash": "460ef8a5722792fd5320452f2a6e487230bb8b9081a9d84e8bcc6d2f41a1d82c",
+          "stage": "needs_sol_recovery",
+          "attempt": 0,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/234",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "recovery": {
+            "reasonCode": "external_action_failed",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "remote branchとDraft PRを再読し、親Solが未完了工程を再開する"
+          },
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w01-l05-45a2ae42",
+            "claimToken": "ad9c2deec505468bb363a7a1679951a6",
+            "branch": "agent/timestamps-JHWYBMcUer0",
+            "claimCommit": "011cfe7254c38c8756bbacd38b4b39c7138fc74f",
+            "claimedAt": "2026-08-12T22:06:01.207628+08:00"
+          },
+          "updatedAt": "2026-08-12T15:44:51.629633+00:00"
+        }
+      ]
+    },
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w01-l06",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "ec864aef2d86552e94765e29761e071f44c7b76e",
+        "items": [
+          {
+            "videoId": "brWaWvXLVWs",
+            "rowNumber": 211,
+            "rowHash": "b32f784cd55ae67b8223069ac9b9db86798088aaff559879fcca053b7d9b1944"
+          }
+        ],
+        "videoIds": [
+          "brWaWvXLVWs"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w01-l06-45a2ae42",
+        "manifestHash": "9f69001e2f07e641f743632150f69c550892110aa7324e48c4e57b017a72305f"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "brWaWvXLVWs",
+          "rowNumber": 211,
+          "rowHash": "b32f784cd55ae67b8223069ac9b9db86798088aaff559879fcca053b7d9b1944",
+          "stage": "needs_sol_recovery",
+          "attempt": 0,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/227",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "recovery": {
+            "reasonCode": "external_action_failed",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "remote branchとDraft PRを再読し、親Solが未完了工程を再開する"
+          },
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w01-l06-45a2ae42",
+            "claimToken": "2a50cbcedfc74840ad207a1e06f1eaf1",
+            "branch": "agent/timestamps-brWaWvXLVWs",
+            "claimCommit": "77e36739474b51f9254de9baa27d4dbc403d360b",
+            "claimedAt": "2026-08-12T01:31:49.737128+09:00"
+          },
+          "updatedAt": "2026-08-12T15:45:09.072364+00:00"
+        }
+      ]
+    },
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w01-l07",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "ec864aef2d86552e94765e29761e071f44c7b76e",
+        "items": [
+          {
+            "videoId": "ITOREIMheG0",
+            "rowNumber": 214,
+            "rowHash": "2081ac02a7f1ece46c519274c187aaf91e395369caeb3a64fd07e1467bf078aa"
+          }
+        ],
+        "videoIds": [
+          "ITOREIMheG0"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w01-l07-45a2ae42",
+        "manifestHash": "e0dfc6a898774f9fa055e870237e48cd0c05e6718386969b12bebac67db92682"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "ITOREIMheG0",
+          "rowNumber": 214,
+          "rowHash": "2081ac02a7f1ece46c519274c187aaf91e395369caeb3a64fd07e1467bf078aa",
+          "stage": "needs_sol_recovery",
+          "attempt": 0,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/228",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "recovery": {
+            "reasonCode": "external_action_failed",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "remote branchとDraft PRを再読し、親Solが未完了工程を再開する"
+          },
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w01-l07-45a2ae42",
+            "claimToken": "81add5e945e84a9690da8868aa9441bd",
+            "branch": "agent/timestamps-ITOREIMheG0",
+            "claimCommit": "b99f6bf1f41bd9015bf91c0cb76dbe5d5c68b01d",
+            "claimedAt": "2026-08-12T01:31:49.737400+09:00"
+          },
+          "updatedAt": "2026-08-12T15:45:27.027820+00:00"
+        }
+      ]
+    },
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w01-l08",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "ec864aef2d86552e94765e29761e071f44c7b76e",
+        "items": [
+          {
+            "videoId": "gug8efplEpc",
+            "rowNumber": 221,
+            "rowHash": "f147dd0f4e937a5ebf7038d6ee31d297dfdae2651005466f162a817bc6c0d401"
+          }
+        ],
+        "videoIds": [
+          "gug8efplEpc"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w01-l08-45a2ae42",
+        "manifestHash": "24d4fa42126152b060bbef5885ee2e966e450c9569b3fd402f3d8e9b263cc6b8"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "gug8efplEpc",
+          "rowNumber": 221,
+          "rowHash": "f147dd0f4e937a5ebf7038d6ee31d297dfdae2651005466f162a817bc6c0d401",
+          "stage": "needs_sol_recovery",
+          "attempt": 0,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/230",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "recovery": {
+            "reasonCode": "external_action_failed",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "remote branchとDraft PRを再読し、親Solが未完了工程を再開する"
+          },
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w01-l08-45a2ae42",
+            "claimToken": "2f9821a83ccb4c1483fc653841f72bc5",
+            "branch": "agent/timestamps-gug8efplEpc",
+            "claimCommit": "b2ed752ea61bc76632e0d219e216a8477529999e",
+            "claimedAt": "2026-08-12T01:31:49.737579+09:00"
+          },
+          "updatedAt": "2026-08-12T15:45:47.325062+00:00"
+        }
+      ]
+    },
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w01-l09",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "ec864aef2d86552e94765e29761e071f44c7b76e",
+        "items": [
+          {
+            "videoId": "Hefv7SSmlV4",
+            "rowNumber": 223,
+            "rowHash": "9096919a43ad700546c1b4d9ac3f204a5c16b4e58f7cae8f41d79cdb34dd9530"
+          }
+        ],
+        "videoIds": [
+          "Hefv7SSmlV4"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w01-l09-45a2ae42",
+        "manifestHash": "235be7a7c8afc4ece5aae8bf8d167a7895b35bd5e1055dcbbd18f77dd0c27ddb"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "Hefv7SSmlV4",
+          "rowNumber": 223,
+          "rowHash": "9096919a43ad700546c1b4d9ac3f204a5c16b4e58f7cae8f41d79cdb34dd9530",
+          "stage": "needs_sol_recovery",
+          "attempt": 0,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/231",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "recovery": {
+            "reasonCode": "external_action_failed",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "remote branchとDraft PRを再読し、親Solが未完了工程を再開する"
+          },
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w01-l09-45a2ae42",
+            "claimToken": "1d4a4eca9d97401cbff9e65e1cb78080",
+            "branch": "agent/timestamps-Hefv7SSmlV4",
+            "claimCommit": "625aab19dc2ad9211165bc2014dbefd747236eb6",
+            "claimedAt": "2026-08-12T01:31:49.737733+09:00"
+          },
+          "updatedAt": "2026-08-12T15:46:07.492696+00:00"
+        }
+      ]
+    },
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w01-l10",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "ec864aef2d86552e94765e29761e071f44c7b76e",
+        "items": [
+          {
+            "videoId": "ye6v7sMb2Wk",
+            "rowNumber": 227,
+            "rowHash": "e4901c503edf97f6aeaec319e3f2c22afefd20942812c6f4cbbf650e1c1848db"
+          }
+        ],
+        "videoIds": [
+          "ye6v7sMb2Wk"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w01-l10-45a2ae42",
+        "manifestHash": "ce8cb8063e66e403cd87e15fa37733e22525ad18f986c874320f41b466a73b9c"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "ye6v7sMb2Wk",
+          "rowNumber": 227,
+          "rowHash": "e4901c503edf97f6aeaec319e3f2c22afefd20942812c6f4cbbf650e1c1848db",
+          "stage": "needs_sol_recovery",
+          "attempt": 0,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/229",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "recovery": {
+            "reasonCode": "external_action_failed",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "remote branchとDraft PRを再読し、親Solが未完了工程を再開する"
+          },
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w01-l10-45a2ae42",
+            "claimToken": "943b398e879e4fa6861132e4b28650d5",
+            "branch": "agent/timestamps-ye6v7sMb2Wk",
+            "claimCommit": "406da047a7bfc3ad1399a9a430af974282c81786",
+            "claimedAt": "2026-08-12T01:31:49.737885+09:00"
+          },
+          "updatedAt": "2026-08-12T15:46:26.085315+00:00"
+        }
+      ]
+    }
+  ],
+  "updatedAt": "2026-08-12T23:47:02.625158+08:00",
+  "resumeAfter": null,
+  "checkpointHash": "2e8e45132199e0bd906dcfc8f89d1525d5c7fc42ec39bcc86240827f6363e229"
+}
