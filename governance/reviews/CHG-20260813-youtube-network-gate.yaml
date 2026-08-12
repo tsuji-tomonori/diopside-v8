@@ -1,0 +1,219 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260813-youtube-network-gate
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: true
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/sources/owner-directive-2026-08-13-youtube-network-gate.md
+      - path:spec/requirements/requirements.json
+    note: 未準備claimの禁止、campaign-wide network gate、raw-text-free回復カプセルをV8-OPS-026/027へ反映した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/run-timestamp-work-harness/scripts/harness.py
+      - path:docs/design/generated/system.gen.md
+    note: campaign状態機械、checkpoint形式、運用Skillと生成設計へ影響すると判定した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:AGENTS.md
+      - path:governance/reviews/CHG-20260813-youtube-network-gate.yaml
+    note: 永続要件、複数運用artifact、生成設計、状態復元にまたがるためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: ユーザーが明示した外部書込みは本branchのpushとDraft PR作成のみで、merge・公開・台帳更新は行わない
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:.agents/skills/run-timestamp-work-harness/scripts/harness.py
+      - test:tests/timestamp_harness_test.py
+    note: ignored campaign checkpointに後方互換な任意fieldとしてnetwork gateと回復カプセルを追加し、旧checkpointは従来どおり復元できる
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/run-timestamp-work-harness/scripts/harness.py
+      - path:scripts/generate-requirements.ts
+    note: Python構文検査、TypeScript build、要件generator実行に合格した
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/generate-requirements.ts
+    note: npm run typecheckに合格した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:package.json
+      - path:.agents/skills/run-timestamp-work-harness/scripts/harness.py
+    note: ESLintと変更Pythonのblocking error選択検査に合格した。repository全体の最新Ruffによる既存baselineは残存リスクへ記録した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/timestamp_harness_test.py
+      - test:tests/timestamp_tools_test.py
+    note: 二段階claim、network gate、canary、claim拒否、安全なcheckpoint復元を含む対象testとtimestamp tools全51件に合格した
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/timestamp_harness_test.py
+    note: network gate open時に10 laneすべてがclaim actionなしで停止し、未準備laneのrecord-claimがremote read前に拒否される再現条件を固定した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:docs/requirements/REQUIREMENTS.md
+      - path:docs/design/generated/system.gen.md
+      - path:docs/design/generated/inventory.gen.json
+    note: 要件とas-built設計を正本から再生成し、commit後の同一logic drift検査対象に含めた
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/run-timestamp-work-harness/scripts/harness.py
+      - test:tests/timestamp_harness_test.py
+    note: checkpointは生字幕、cue、音声、会話、cookie、author fieldを拒否し、semantic mapとhash等の安全な派生状態だけを保存する
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:.agents/skills/run-timestamp-work-harness/scripts/harness.py
+      - test:tests/timestamp_harness_test.py
+    note: network-gate.jsonへreason、trigger video、digest、generation、next actionを保存し、checkpointから再診断できる
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 差分をYouTube到達不能時のclaim storm防止と再開状態永続化、その正本・test同期に限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性と残存リスクをCommit Commentへ記載する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/sources/owner-directive-2026-08-13-youtube-network-gate.md
+      - path:spec/requirements/requirements.json
+    note: V8-OPS-026をrev2へ更新し、新規V8-OPS-027の受入条件をowner directiveへ対応させた
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+      - path:docs/design/generated/inventory.gen.json
+    note: 状態機械とcheckpointのas-built設計を生成物へ反映し、既存architecture内の障害制御なので別ADRは不要と判定した
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:.agents/skills/run-timestamp-work-harness/SKILL.md
+      - test:tests/timestamp_harness_test.py
+    note: V8-OPS-026/027からSkill、harness実装、回帰test、生成設計まで追跡できる
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/timestamp_harness_test.py
+      - workflow:要件・品質ゲート
+    note: 変更の成功・失敗・復元・既存分散workflow互換をunit testで確認し、CIのtimestamp tools testで実行される
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260813-youtube-network-gate.yaml
+    note: selectorで選択されたcheck結果を本review YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260813-youtube-network-gate.yaml
+    note: 未選択checkを形式的なN/Aとして記録していない
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:.agents/skills/run-timestamp-work-harness/references/workflow.md
+      - test:tests/timestamp_harness_test.py
+    note: campaign laneだけをstaged-only claimへ変更し、既存の2〜20 separate chat用record-claimは後方互換に保った
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:AGENTS.md
+      - path:.agents/skills/run-timestamp-work-harness/SKILL.md
+      - path:.agents/skills/run-timestamp-work-harness/references/web-work-prompt.md
+    note: preclaim evidence、network canary、checkpoint再開の恒久運用をrepository規則、Skill、実行promptへ同期した
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:spec/sources/owner-directive-2026-08-13-youtube-network-gate.md
+      - path:spec/requirements/requirements.json
+    note: 所有者判断と長期制約をowner directiveと要件正本へ保存したため、別ADRによる二重管理は不要と判定した
+advisories: []
+residual_risks:
+  - YouTube側またはWork環境側のネットワーク承認失効自体は制御できないが、未準備laneのclaim、Draft PR、台帳更新はcampaign-wide gateで止まる
+  - 本変更以前に一時Workから失われた生字幕、音声、未checkpoint候補は復元できず、既存deferred 10件は承認回復後に同じcampaignとPRから再取得する必要がある
+  - 最新Ruffをrepository全体へ適用すると変更外を含む既存baseline 62件が残るため、変更Pythonはblocking error選択検査を通し、CIの既定lint結果を正本とする

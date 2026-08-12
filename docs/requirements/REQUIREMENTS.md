@@ -1,8 +1,8 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 9
-- 更新日: 2026-08-12
+- カタログ版: 10
+- 更新日: 2026-08-13
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
@@ -158,7 +158,8 @@
 | `V8-OPS-022` | 2 | 有効 | 運用 | diopside v8のタイムスタンプオーケストレーションは、1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行わなければならない。利用可能な同時threadが10未満でも10個のlane slotを維持してqueueから波状実行し、Lunaの回復可能失敗は親Solが同じ動画を引き取らなければならない。親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。を**satisfy** | agent設定・10レーン計画・Lunaモデル固定・Sol最終確認gate・共有書込み境界試験 |
 | `V8-OPS-023` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ証拠取得は、公開動画のタイムスタンプ証拠取得に失敗した場合、親Solは認証情報を使わないYouTube到達性診断、公開日本語字幕の上限付き再試行、公開native音声、yt-dlpによるMP3変換、無料のbatch-local ASRを順に試さなければならない。private、member-only、年齢制限、削除済み等の安全分類と試行結果だけをignored stateへ保存し、生字幕、音声、文字起こし、チャット本文をGit、PR、台帳へ保存してはならない。を**satisfy** | YouTube診断・字幕再試行・native/MP3 fallback・batch-local ASR・公開禁止物検査 |
 | `V8-OPS-024` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ失敗回復は、Lunaが字幕、音声、ASR、codex exec、意味構成、確認、決定的検証で回復可能な失敗へ到達した場合、needs_sol_recoveryとして親Solへ返し、親SolはGPT-5.6 Sol highで同じ動画を回復しなければならない。codex execのtrusted-destination結果は上限付きで再試行し、全編日本語字幕があるのに章候補を構成できない場合は素材不足ではなく意味構成失敗として扱わなければならない。期限内に回復できない場合はdeferred_recovery checkpointを残し、Google Sheetsへ処理不能を書いてはならない。を**satisfy** | trusted-destination再試行・Luna回復委譲・Sol high fallback・drain checkpoint・台帳書込みgate試験 |
-| `V8-OPS-026` | 1 | 有効 | 運用 | diopside v8の大規模タイムスタンプcampaignは、最大1000件のタイムスタンプcampaignは開始時に対象動画ID、順序、台帳行指紋、base commitを一度だけ固定し、10件ずつ処理しなければならない。各Work実行のdrain前と各wave後に、生字幕、音声、文字起こし、chat本文、識別子、資格情報を含まない安全なcheckpointを専用GitHub campaign branchへ観測済み親commitを条件として保存し、Work環境消失または利用制限後は同じcampaign IDを復元して完了済みを保持し未完了だけを安全な工程から再開しなければならない。を**satisfy** | 1000件manifest・101wave境界・checkpoint漏えい禁止・kill/restore・楽観ロックaction試験 |
+| `V8-OPS-026` | 2 | 有効 | 運用 | diopside v8の大規模タイムスタンプcampaignは、最大1000件のタイムスタンプcampaignは開始時に対象動画ID、順序、台帳行指紋、base commitを一度だけ固定し、10件ずつ処理しなければならない。各Work実行のdrain前と各wave後に、生字幕、音声、文字起こし、chat本文、識別子、資格情報を含まず、安全なsemantic map、章候補、独立review、hash、network gate状態を含められるcheckpointを専用GitHub campaign branchへ観測済み親commitを条件として保存しなければならない。Work環境消失または利用制限後は同じcampaign IDを復元して完了済みと安全な回復カプセルを保持し、未完了だけをネットワーク再取得不要な工程またはclaim前素材準備から再開しなければならない。を**satisfy** | 1000件manifest・101wave境界・checkpoint漏えい禁止・kill/restore・楽観ロックaction試験 |
+| `V8-OPS-027` | 1 | 有効 | 運用 | diopside v8のタイムスタンプcampaign claim許可は、1 Sol・10 Lunaのタイムスタンプcampaignは、各動画の公開素材と生本文を含まない安全なsemantic mapを一時準備した後でだけ親Solへclaim actionを返さなければならない。campaign-wide YouTube network gate失敗時は未準備動画のbranch、claim marker、Draft PR、台帳更新を0件に保ち、open gateをcheckpointへ保存し、後続Work実行の1レーンcanaryが素材とsemantic mapの準備を完了した後だけgateを閉じなければならない。を**satisfy** | preclaim二段階wave計画・unstaged record-claim拒否・open network gate全lane遮断・canary解除・外部action 0件試験 |
 | `V8-OPS-025` | 1 | 有効 | 運用 | diopside v8のあらすじ運用は、ChatGPT Workから開始する未作成あらすじcampaignは、親GPT-5.6 SolとGPT-5.6 Luna mediumの10論理レーンとして構成し、最新mainの正本にあらすじがない公開動画だけを原子的にclaimしなければならない。Lunaはclaim済み1動画の一時全編根拠、候補、独立確認、決定的検証だけを行い、親Solだけが現在の候補hashを最終確認して1動画draft PRとあらすじ作業台帳を確定しなければならない。を**satisfy** | 10レーン計画・既存あらすじ除外・全編coverage・独立review hash・Sol gate・台帳行競合試験 |
 
 ## V8-SEARCH-001: 文字検索は、承認済み動画の動画タイトルだけを検索対象としなければならない
@@ -2447,7 +2448,7 @@ diopside v8のタイムスタンプ失敗回復は、Lunaが字幕、音声、AS
 
 ## V8-OPS-026: 最大1000件のWork campaignは固定manifestと安全なremote checkpointで実行環境をまたいで継続しなければならない
 
-diopside v8の大規模タイムスタンプcampaignは、最大1000件のタイムスタンプcampaignは開始時に対象動画ID、順序、台帳行指紋、base commitを一度だけ固定し、10件ずつ処理しなければならない。各Work実行のdrain前と各wave後に、生字幕、音声、文字起こし、chat本文、識別子、資格情報を含まない安全なcheckpointを専用GitHub campaign branchへ観測済み親commitを条件として保存し、Work環境消失または利用制限後は同じcampaign IDを復元して完了済みを保持し未完了だけを安全な工程から再開しなければならない。を**satisfy**。
+diopside v8の大規模タイムスタンプcampaignは、最大1000件のタイムスタンプcampaignは開始時に対象動画ID、順序、台帳行指紋、base commitを一度だけ固定し、10件ずつ処理しなければならない。各Work実行のdrain前と各wave後に、生字幕、音声、文字起こし、chat本文、識別子、資格情報を含まず、安全なsemantic map、章候補、独立review、hash、network gate状態を含められるcheckpointを専用GitHub campaign branchへ観測済み親commitを条件として保存しなければならない。Work環境消失または利用制限後は同じcampaign IDを復元して完了済みと安全な回復カプセルを保持し、未完了だけをネットワーク再取得不要な工程またはclaim前素材準備から再開しなければならない。を**satisfy**。
 
 根拠: 単一Work実行の時間・利用量・ローカル状態保持へ1000件の完了可能性を依存させず、旧連続queueと同等の対象固定、失敗隔離、再開性を保ちながら生素材の公開を防ぐため。
 
@@ -2455,13 +2456,30 @@ diopside v8の大規模タイムスタンプcampaignは、最大1000件のタイ
 
 受入条件:
 - `AC-V8-OPS-026-1` 前提: 1000件までの適格動画を処理する明示要求と対象動画台帳snapshotがある。条件: 親Solがcampaignを初期化し100wave以上を計画する。期待結果: 対象順序と行指紋をimmutable manifestへ一度だけ固定し、各waveは未変更manifestの連続する最大10件だけを重複なく割り当てる。。
-- `AC-V8-OPS-026-2` 前提: waveが終端した、drainへ入る、または利用制限で停止する。条件: 親Solがcampaign checkpointを永続化する。期待結果: 専用remote branchを観測済み親commitとのcompare-and-setで更新し、生素材と資格情報を含めず、競合時はforceせずremoteを再読する。。
-- `AC-V8-OPS-026-3` 前提: 別のWork環境で同じcampaignを再開する。条件: 親Solがremote checkpointを検証してrestoreする。期待結果: 完了済み状態を保持し、処理途中だけを安全な回復境界へ巻き戻し、同じcampaign IDと固定対象の残りを継続する。。
+- `AC-V8-OPS-026-2` 前提: waveが終端した、drainへ入る、または利用制限で停止する。条件: 親Solがcampaign checkpointを永続化する。期待結果: 専用remote branchを観測済み親commitとのcompare-and-setで更新し、生素材と資格情報を含めず、安全なsemantic map、章候補、独立review、hash、network gate状態だけを回復カプセルとして保持し、競合時はforceせずremoteを再読する。。
+- `AC-V8-OPS-026-3` 前提: 別のWork環境で同じcampaignを再開する。条件: 親Solがremote checkpointを検証してrestoreする。期待結果: 完了済み状態を保持し、回復カプセルがある処理途中は同じ候補または安全なsemantic mapから再開し、カプセルがない未claim動画だけを素材準備へ戻し、同じcampaign IDと固定対象の残りを継続する。。
 - `AC-V8-OPS-026-4` 前提: 1000件のsynthetic manifest、101以上のwave、または途中kill後のcheckpointがある。条件: 耐久・復元試験を実行する。期待結果: 対象の欠落・重複・完了状態の回帰・生素材のcheckpoint混入がなく、次waveを決定的に再計画できる。。
 
-要求源: spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md, user:2026-08-12
+要求源: spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md, spec/sources/owner-directive-2026-08-13-youtube-network-gate.md, user:2026-08-12, user:2026-08-13
 検証証跡: tests/timestamp_harness_test.py
 トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md,dev-standard default profile
+
+## V8-OPS-027: タイムスタンプcampaignは安全な公開素材準備後だけclaimしnetwork gate失敗を全体遮断しなければならない
+
+diopside v8のタイムスタンプcampaign claim許可は、1 Sol・10 Lunaのタイムスタンプcampaignは、各動画の公開素材と生本文を含まない安全なsemantic mapを一時準備した後でだけ親Solへclaim actionを返さなければならない。campaign-wide YouTube network gate失敗時は未準備動画のbranch、claim marker、Draft PR、台帳更新を0件に保ち、open gateをcheckpointへ保存し、後続Work実行の1レーンcanaryが素材とsemantic mapの準備を完了した後だけgateを閉じなければならない。を**satisfy**。
+
+根拠: 依存CLIの存在や一時的な到達成功をclaim許可とすると、ネットワーク承認の自動失効後に処理不能なclaimとDraft PRを10件量産し、同じ失敗を再開ごとに繰り返すため。外部所有権を取る前にネットワーク依存を完了し、失敗をcampaign全体の回路遮断として扱う。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-027-1` 前提: 新しいcampaign waveの最大10動画が計画される。条件: 公開素材と安全なsemantic mapの準備前に親Solがclaim可否を読む。期待結果: 全laneのclaim actionが空でcanCreateClaims=falseとなり、各active laneはevidence_preparation_requiredだけを返す。。
+- `AC-V8-OPS-027-2` 前提: 動画の公開素材と安全なsemantic mapがclaim前に準備済みである。条件: 親Solが同じwaveを再計画する。期待結果: そのevidence_staged動画だけがclaim actionを返し、record-claimは回復カプセルがないcampaign laneをremote read前に拒否する。。
+- `AC-V8-OPS-027-3` 前提: 素材準備中にcampaign-wide YouTube network gateが失敗する。条件: 同じまたは後続Work実行が未準備laneを計画する。期待結果: 未準備動画のclaim、Draft PR、台帳更新を0件に保ち、1レーンのprepare-local-evidence --retry-network-gate成功後だけ残りlaneの準備を再開する。。
+
+要求源: spec/sources/owner-directive-2026-08-13-youtube-network-gate.md, user:2026-08-13
+検証証跡: tests/timestamp_harness_test.py
+トレース: 設計=.agents/skills/run-timestamp-work-harness/references/workflow.md,.agents/skills/run-timestamp-work-harness/references/web-work-prompt.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-13-youtube-network-gate.md,dev-standard default profile
 
 ## V8-OPS-025: Work用あらすじ処理は1 Sol・10 Lunaと候補hash gateで有限対象を継続しなければならない
 

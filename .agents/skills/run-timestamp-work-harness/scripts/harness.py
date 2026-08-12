@@ -49,7 +49,7 @@ sys.path.insert(0, str(TIMESTAMP_SCRIPTS))
 from timestamp_common import eligibility, load_canonical_videos  # noqa: E402
 
 TERMINAL = {"complete", "blocked"}
-WAVE_TERMINAL = TERMINAL | {"deferred_recovery"}
+WAVE_TERMINAL = TERMINAL | {"deferred_recovery", "unclaimed_evidence_deferred"}
 ORCHESTRATOR_MODEL = "gpt-5.6-sol"
 LUNA_WORKER_MODEL = "gpt-5.6-luna"
 QUALITY_RETRY_MODEL = "gpt-5.6-terra"
@@ -103,6 +103,10 @@ class EvidenceAcquisitionError(HarnessError):
     def __init__(self, reason_code: str) -> None:
         super().__init__(BLOCK_CODES[reason_code])
         self.reason_code = reason_code
+
+
+class NetworkGateError(HarnessError):
+    """Campaign-wide public-network approval is absent or no longer stable."""
 
 
 class CodexTechnicalError(HarnessError):
@@ -300,6 +304,55 @@ def campaign_manifest_path(campaign_id: str) -> Path:
     return campaign_dir(campaign_id) / "manifest.json"
 
 
+def network_gate_path(campaign_id: str) -> Path:
+    return campaign_dir(campaign_id) / "network-gate.json"
+
+
+def campaign_id_from_batch_id(batch_id: str) -> str:
+    matched = re.fullmatch(r"(.+)-w[0-9]{2,3}-l[0-9]{2}", validate_batch_id(batch_id))
+    if not matched:
+        raise HarnessError("Luna lane batch IDからcampaign IDを特定できません。")
+    return validate_batch_id(matched.group(1))
+
+
+def network_gate(campaign_id: str) -> dict[str, Any]:
+    path = network_gate_path(campaign_id)
+    if not path.exists():
+        return {"status": "closed", "generation": 0}
+    return read_json(path)
+
+
+def open_network_gate(campaign_id: str, video_id: str, error: Exception) -> dict[str, Any]:
+    previous = network_gate(campaign_id)
+    value = {
+        "schemaVersion": "1.0.0",
+        "campaignId": campaign_id,
+        "status": "open",
+        "generation": int(previous.get("generation") or 0) + 1,
+        "reasonCode": "youtube_network_gate_unavailable",
+        "triggerVideoId": video_id,
+        "detailDigest": hashlib.sha256(str(error).encode()).hexdigest(),
+        "openedAt": datetime.now().astimezone().isoformat(),
+        "nextAction": "1レーンだけprepare-local-evidence --retry-network-gateでcanary再検証する",
+    }
+    atomic_json(network_gate_path(campaign_id), value)
+    return value
+
+
+def close_network_gate(campaign_id: str, video_id: str) -> dict[str, Any]:
+    previous = network_gate(campaign_id)
+    value = {
+        "schemaVersion": "1.0.0",
+        "campaignId": campaign_id,
+        "status": "closed",
+        "generation": int(previous.get("generation") or 0),
+        "verifiedByVideoId": video_id,
+        "closedAt": datetime.now().astimezone().isoformat(),
+    }
+    atomic_json(network_gate_path(campaign_id), value)
+    return value
+
+
 def load_campaign_manifest(campaign_id: str) -> dict[str, Any]:
     manifest = read_json(campaign_manifest_path(campaign_id))
     unsigned = {key: value for key, value in manifest.items() if key != "manifestHash"}
@@ -373,24 +426,116 @@ def command_preflight(args: argparse.Namespace) -> dict[str, Any]:
     missing = [name for name, executable in tools.items() if executable is None]
     return {
         "status": "ready" if not missing else "setup_required",
-        "canCreateClaims": not missing,
+        "canPrepareEvidence": not missing,
+        "canCreateClaims": False,
         "tools": {name: bool(executable) for name, executable in tools.items()},
         "missing": missing,
         "nextAction": (
-            "公開YouTube到達性診断を実行する"
+            "claim前にprepare-local-evidenceで公開素材と安全なsemantic mapを準備する"
             if not missing
             else "claim前にWork環境setupで不足CLIを導入しpreflightを再実行する"
         ),
     }
 
 
+def recovery_capsule(batch_id: str, video_id: str) -> dict[str, Any] | None:
+    dossier = batch_dir(batch_id) / "timestamps" / video_id
+    inputs_path = dossier / "inputs.json"
+    coverage_path = dossier / "evidence" / "coverage.json"
+    maps = sorted((dossier / "transcript_maps").glob("chunk-*.json"))
+    if not inputs_path.exists() or not coverage_path.exists() or not maps:
+        return None
+    semantic_maps = []
+    for path in maps:
+        mapped = read_json(path)
+        semantic_maps.append({
+            key: mapped.get(key)
+            for key in ("videoId", "chunkId", "startSeconds", "endSeconds", "spans")
+        })
+        for span in semantic_maps[-1].get("spans") or []:
+            if isinstance(span, dict) and isinstance(span.get("evidenceRefs"), list):
+                span["evidenceRefs"] = span["evidenceRefs"][:3]
+    capsule: dict[str, Any] = {
+        "schemaVersion": "1.0.0",
+        "videoId": video_id,
+        "inputs": read_json(inputs_path),
+        "coverage": read_json(coverage_path),
+        "semanticMaps": semantic_maps,
+    }
+    for key, filename in (
+        ("chapterDraft", "chapter_draft.json"),
+        ("factReview", "fact_review.json"),
+        ("editorialReview", "editorial_review.json"),
+        ("candidatePreview", "candidate-preview.json"),
+    ):
+        path = dossier / filename
+        if path.exists():
+            capsule[key] = read_json(path)
+    serialized = json.dumps(capsule, ensure_ascii=False, separators=(",", ":"))
+    if any(prohibited in serialized.casefold() for prohibited in (
+        '"text":', '"cues":', '"messages":', '"author":', '"audio":', '"cookie":',
+    )):
+        raise HarnessError("安全な回復カプセルに生素材または識別子fieldが含まれています。")
+    if len(serialized.encode("utf-8")) > 80_000:
+        raise HarnessError("安全な回復カプセルが上限80KBを超えました。")
+    unsigned = dict(capsule)
+    return {**unsigned, "capsuleHash": digest(unsigned)}
+
+
+def restore_recovery_capsule(batch_id: str, item: dict[str, Any]) -> bool:
+    capsule = item.get("recoveryCapsule")
+    if not isinstance(capsule, dict):
+        return False
+    unsigned = {key: value for key, value in capsule.items() if key != "capsuleHash"}
+    if capsule.get("capsuleHash") != digest(unsigned):
+        raise HarnessError("安全な回復カプセルのhashが一致しません。")
+    video_id = str(item["videoId"])
+    if capsule.get("videoId") != video_id:
+        raise HarnessError("安全な回復カプセルの動画IDが一致しません。")
+    dossier = batch_dir(batch_id) / "timestamps" / video_id
+    if (dossier / "state.json").exists():
+        return False
+    atomic_json(dossier / "inputs.json", capsule["inputs"])
+    atomic_json(dossier / "evidence" / "coverage.json", capsule["coverage"])
+    semantic_maps = capsule.get("semanticMaps")
+    if not isinstance(semantic_maps, list) or not semantic_maps:
+        raise HarnessError("安全な回復カプセルにsemantic mapがありません。")
+    for index, mapped in enumerate(semantic_maps):
+        atomic_json(dossier / "transcript_maps" / f"chunk-recovery-{index:03d}.json", mapped)
+    state = {
+        "schemaVersion": "1.0.0",
+        "videoId": video_id,
+        "stage": "evidence_ready",
+        "attempt": 1,
+        "inputFingerprint": capsule["coverage"].get("inputFingerprint"),
+        "candidateHash": item.get("candidateHash"),
+        "route": "安全なsemantic mapからの復元",
+        "evidenceId": capsule["coverage"].get("evidenceId"),
+        "evidenceType": capsule["coverage"].get("sourceType"),
+        "chunkIds": [],
+        "updatedAt": datetime.now().astimezone().isoformat(),
+    }
+    atomic_json(dossier / "state.json", state)
+    for key, filename in (
+        ("chapterDraft", "chapter_draft.json"),
+        ("factReview", "fact_review.json"),
+        ("editorialReview", "editorial_review.json"),
+        ("candidatePreview", "candidate-preview.json"),
+    ):
+        if isinstance(capsule.get(key), dict):
+            atomic_json(dossier / filename, capsule[key])
+    return True
+
+
 def safe_checkpoint_item(item: dict[str, Any]) -> dict[str, Any]:
     allowed = (
         "schemaVersion", "videoId", "rowNumber", "rowHash", "stage", "attempt",
         "candidateHash", "pullRequest", "commit", "solReview", "block", "recovery",
-        "sheetVerified", "deferredLedgerVerified", "claim", "updatedAt",
+        "sheetVerified", "deferredLedgerVerified", "claim", "recoveryCapsule", "updatedAt",
     )
     value = {key: item.get(key) for key in allowed if key in item}
+    if item.get("stage") in TERMINAL:
+        value.pop("recoveryCapsule", None)
     claim = value.get("claim")
     if isinstance(claim, dict):
         value["claim"] = {
@@ -419,6 +564,7 @@ def command_checkpoint_campaign(args: argparse.Namespace) -> dict[str, Any]:
     unsigned = {
         "schemaVersion": "2.0.0",
         "campaign": manifest,
+        "networkGate": network_gate(args.campaign_id),
         "batches": batches,
         "updatedAt": datetime.now().astimezone().isoformat(),
         "resumeAfter": (
@@ -428,6 +574,11 @@ def command_checkpoint_campaign(args: argparse.Namespace) -> dict[str, Any]:
         ),
     }
     checkpoint = {**unsigned, "checkpointHash": digest(unsigned)}
+    checkpoint_content = json.dumps(checkpoint, ensure_ascii=False, indent=2) + "\n"
+    if len(checkpoint_content.encode("utf-8")) > 950_000:
+        raise HarnessError(
+            "campaign checkpointが安全な単一GitHub file上限950KBを超えました。"
+        )
     output = args.output or (campaign_dir(args.campaign_id) / "checkpoint.json")
     atomic_json(output, checkpoint)
     return {
@@ -441,7 +592,7 @@ def command_checkpoint_campaign(args: argparse.Namespace) -> dict[str, Any]:
             "repository": "tsuji-tomonori/diopside-v8",
             "branch": f"agent/timestamp-campaign-{args.campaign_id}",
             "path": f".campaigns/timestamps/{args.campaign_id}.json",
-            "content": json.dumps(checkpoint, ensure_ascii=False, indent=2) + "\n",
+            "content": checkpoint_content,
             "expectedParentCommit": args.expected_parent_commit,
         },
     }
@@ -462,6 +613,9 @@ def command_restore_campaign(args: argparse.Namespace) -> dict[str, Any]:
     if destination.exists() and read_json(destination) != manifest:
         raise HarnessError("local campaign manifestとcheckpointが一致しません。")
     atomic_json(destination, manifest)
+    checkpoint_gate = checkpoint.get("networkGate")
+    if isinstance(checkpoint_gate, dict):
+        atomic_json(network_gate_path(args.campaign_id), checkpoint_gate)
     restored = 0
     rewound = 0
     for batch in checkpoint.get("batches", []):
@@ -487,11 +641,14 @@ def command_restore_campaign(args: argparse.Namespace) -> dict[str, Any]:
                 )
             stage = str(restored_item.get("stage") or "")
             if stage not in TERMINAL and stage != "deferred_recovery":
-                restored_item["stage"] = (
-                    "needs_sol_recovery"
-                    if restored_item.get("pullRequest")
-                    else "pr_bootstrapped"
-                )
+                if restored_item.get("pullRequest"):
+                    restored_item["stage"] = "needs_sol_recovery"
+                elif restored_item.get("claim"):
+                    restored_item["stage"] = "pr_bootstrapped"
+                elif restored_item.get("recoveryCapsule"):
+                    restored_item["stage"] = "evidence_staged"
+                else:
+                    restored_item["stage"] = "pending"
                 restored_item["recovery"] = {
                     "reasonCode": "external_action_failed",
                     "detail": "Work実行環境の再作成後に安全な工程から再開します。",
@@ -499,6 +656,7 @@ def command_restore_campaign(args: argparse.Namespace) -> dict[str, Any]:
                 }
                 rewound += 1
             atomic_json(item_path(batch_id, str(restored_item["videoId"])), restored_item)
+            restore_recovery_capsule(batch_id, restored_item)
             restored += 1
     return {
         "status": "restored",
@@ -617,6 +775,7 @@ def command_claim_next(args: argparse.Namespace) -> dict[str, Any]:
 
 def command_plan_luna_wave(args: argparse.Namespace) -> dict[str, Any]:
     snapshot = read_json(args.snapshot)
+    headers, _ = parse_snapshot(snapshot)
     campaign_id = validate_batch_id(args.campaign_id)
     if not 1 <= args.wave <= MAX_CAMPAIGN_WAVES:
         raise HarnessError(f"wave番号は1から{MAX_CAMPAIGN_WAVES}にしてください。")
@@ -639,6 +798,7 @@ def command_plan_luna_wave(args: argparse.Namespace) -> dict[str, Any]:
         target_count=args.target_count,
         base_commit=base_commit,
     )
+    gate = network_gate(campaign_id)
     start = (args.wave - 1) * LUNA_POOL_SIZE
     selected = campaign["items"][start : start + LUNA_POOL_SIZE]
     lanes = []
@@ -666,6 +826,40 @@ def command_plan_luna_wave(args: argparse.Namespace) -> dict[str, Any]:
                         "claimActions": [],
                     }
                 )
+                continue
+            if not existing_item.get("claim"):
+                if existing_item["stage"] == "evidence_staged":
+                    lanes.append(
+                        {
+                            "lane": lane_number,
+                            "batchId": batch_id,
+                            "workerId": worker_id,
+                            "model": LUNA_WORKER_MODEL,
+                            "reasoningEffort": "medium",
+                            "status": "claim_required",
+                            "claimActions": [claim_action(existing_item, worker_id, base_commit)],
+                        }
+                    )
+                else:
+                    lanes.append(
+                        {
+                            "lane": lane_number,
+                            "batchId": batch_id,
+                            "workerId": worker_id,
+                            "model": LUNA_WORKER_MODEL,
+                            "reasoningEffort": "medium",
+                            "status": (
+                                "network_gate_paused"
+                                if gate.get("status") == "open"
+                                else "evidence_preparation_required"
+                            ),
+                            "prepareCommand": (
+                                f"harness.py prepare-local-evidence {batch_id} "
+                                f"--video-id {existing_item['videoId']}"
+                            ),
+                            "claimActions": [],
+                        }
+                    )
                 continue
             lanes.append(
                 {
@@ -698,6 +892,13 @@ def command_plan_luna_wave(args: argparse.Namespace) -> dict[str, Any]:
                 }
             )
             continue
+        initialize_manifest(
+            batch_id,
+            snapshot,
+            headers,
+            lane_items,
+            base_commit,
+        )
         lanes.append(
             {
                 "lane": lane_number,
@@ -705,14 +906,26 @@ def command_plan_luna_wave(args: argparse.Namespace) -> dict[str, Any]:
                 "workerId": worker_id,
                 "model": LUNA_WORKER_MODEL,
                 "reasoningEffort": "medium",
-                "status": "claim_required",
-                "claimActions": [
-                    claim_action(item, worker_id, base_commit) for item in lane_items
-                ],
+                "status": (
+                    "network_gate_paused"
+                    if gate.get("status") == "open"
+                    else "evidence_preparation_required"
+                ),
+                "prepareCommand": (
+                    f"harness.py prepare-local-evidence {batch_id} "
+                    f"--video-id {lane_items[0]['videoId']}"
+                ),
+                "claimActions": [],
             }
         )
-    active_lanes = sum(lane["status"] in {"claim_required", "resume"} for lane in lanes)
+    active_lanes = sum(
+        lane["status"] in {"claim_required", "resume", "evidence_preparation_required"}
+        for lane in lanes
+    )
+    claim_count = sum(bool(lane["claimActions"]) for lane in lanes)
     status = "wave_required" if active_lanes else "no_unclaimed_target"
+    if gate.get("status") == "open" and not claim_count:
+        status = "network_gate_paused"
     if campaign_mode == "drain":
         status = "drain_required"
     elif campaign_mode == "expired":
@@ -726,7 +939,8 @@ def command_plan_luna_wave(args: argparse.Namespace) -> dict[str, Any]:
         "requestedPoolSize": LUNA_POOL_SIZE,
         "activeLanes": active_lanes,
         "campaignMode": campaign_mode,
-        "canCreateClaims": campaign_mode == "active",
+        "canCreateClaims": campaign_mode == "active" and claim_count > 0,
+        "networkGate": gate,
         "normalDeadline": normal_deadline.isoformat() if normal_deadline else None,
         "drainDeadline": drain_deadline.isoformat() if drain_deadline else None,
         "baseCommit": base_commit,
@@ -742,6 +956,13 @@ def command_record_claim(args: argparse.Namespace) -> dict[str, Any]:
     snapshot = read_json(args.snapshot)
     headers, selected, _ = eligible_snapshot_items(snapshot, video_id=args.video_id)
     worker_id = validate_worker_id(args.worker_id)
+    campaign_lane = bool(re.fullmatch(r".+-w[0-9]{2,3}-l[0-9]{2}", args.batch_id))
+    if campaign_lane:
+        if not batch_dir(args.batch_id).exists():
+            raise HarnessError("prepare-local-evidence未実行のcampaign laneはclaimできません。")
+        staged_item = load_item(args.batch_id, args.video_id)
+        if staged_item.get("stage") != "evidence_staged" or not staged_item.get("recoveryCapsule"):
+            raise HarnessError("安全なsemantic mapを準備する前にclaimできません。")
     expected_branch = f"agent/timestamps-{args.video_id}"
     if args.branch != expected_branch:
         raise HarnessError("claim branchが動画IDのexact-case規則と一致しません。")
@@ -766,14 +987,32 @@ def command_record_claim(args: argparse.Namespace) -> dict[str, Any]:
         "claimedAt": args.claimed_at,
         "worktreePath": str(worktree),
     }
-    initialize_manifest(
-        args.batch_id,
-        snapshot,
-        headers,
-        selected,
-        args.base_commit,
-        claim=claim,
-    )
+    if batch_dir(args.batch_id).exists():
+        manifest = load_manifest(args.batch_id)
+        if manifest["videoIds"] != [args.video_id]:
+            raise HarnessError("preclaim evidence batchの動画IDが一致しません。")
+        item = load_item(args.batch_id, args.video_id)
+        if item.get("claim"):
+            raise HarnessError("同じbatchには既にclaimが記録されています。")
+        if item.get("stage") != "evidence_staged" or not item.get("recoveryCapsule"):
+            raise HarnessError("安全なsemantic mapを準備する前にclaimできません。")
+        if any(item.get(key) != selected[0].get(key) for key in ("rowNumber", "rowHash")):
+            raise HarnessError("preclaim evidence後に台帳行が変更されたためclaimを停止しました。")
+        item["schemaVersion"] = "1.1.0"
+        item["stage"] = "pr_bootstrapped"
+        item["claim"] = claim
+        write_item(args.batch_id, item)
+    else:
+        if campaign_lane:
+            raise HarnessError("prepare-local-evidence未実行のcampaign laneはclaimできません。")
+        initialize_manifest(
+            args.batch_id,
+            snapshot,
+            headers,
+            selected,
+            args.base_commit,
+            claim=claim,
+        )
     return claim_response(args.batch_id, load_item(args.batch_id, args.video_id))
 
 
@@ -787,7 +1026,9 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     wave_terminal = all(
         item["stage"] in WAVE_TERMINAL
         and (
-            item.get("deferredLedgerVerified", False)
+            True
+            if item["stage"] == "unclaimed_evidence_deferred"
+            else item.get("deferredLedgerVerified", False)
             if item["stage"] == "deferred_recovery"
             else item["sheetVerified"]
         )
@@ -886,6 +1127,12 @@ def acquire_evidence(
         )
         log_execution(batch_id, video_id, {"stage": "youtube_preflight", "outcome": "reachable"})
     except HarnessError as error:
+        access_path = Path(env["DIOPSIDE_TIMESTAMP_WORK_ROOT"]) / video_id / "acquisition/youtube-access.json"
+        classification = (
+            str(read_json(access_path).get("classification") or "")
+            if access_path.exists()
+            else ""
+        )
         log_execution(
             batch_id,
             video_id,
@@ -893,8 +1140,14 @@ def acquire_evidence(
                 "stage": "youtube_preflight",
                 "outcome": "diagnosed_unreachable",
                 "detailDigest": hashlib.sha256(str(error).encode()).hexdigest(),
+                "classification": classification,
             },
         )
+        if classification in {
+            "transient_network", "public_access_denied", "extractor_failed"
+        }:
+            raise NetworkGateError("公開YouTubeのcampaign-wide network gateを確認できません。") from error
+        raise EvidenceAcquisitionError("evidence_unavailable") from error
     try:
         run(
             [
@@ -1810,6 +2063,7 @@ def process_video(
     recovery: bool,
 ) -> dict[str, Any]:
     item = load_item(batch_id, video_id)
+    restore_recovery_capsule(batch_id, item)
     item["stage"] = "acquiring_evidence"
     write_item(batch_id, item)
     evidence_route = acquire_evidence(video_id, env, with_chat=with_chat, recovery=recovery)
@@ -1818,15 +2072,29 @@ def process_video(
     write_item(batch_id, item)
     item["stage"] = "composing"
     write_item(batch_id, item)
-    draft = compose_and_validate(
-        video_id,
-        env,
-        model=model,
-        reasoning_effort=reasoning_effort,
-        recovery=recovery,
-    )
+    dossier = Path(env["DIOPSIDE_TIMESTAMP_WORK_ROOT"]) / video_id
+    if recovery and item.get("candidateHash") and (dossier / "chapter_draft.json").exists():
+        draft = validate_draft(video_id, env)
+    else:
+        draft = compose_and_validate(
+            video_id,
+            env,
+            model=model,
+            reasoning_effort=reasoning_effort,
+            recovery=recovery,
+        )
     item = load_item(batch_id, video_id)
     item["stage"] = "reviewing"
+    item["candidateHash"] = draft["candidateHash"]
+    try:
+        capsule = recovery_capsule(batch_id, video_id)
+        if capsule is not None:
+            item["recoveryCapsule"] = capsule
+    except HarnessError as capsule_error:
+        log_execution(batch_id, video_id, {
+            "stage": "recovery_capsule", "outcome": "retained_previous",
+            "detailDigest": hashlib.sha256(str(capsule_error).encode()).hexdigest(),
+        })
     write_item(batch_id, item)
     max_review_cycles = max(1, int(env.get("DIOPSIDE_SOL_QUALITY_CYCLES", "6"))) if recovery else 2
     for review_cycle in range(1, max_review_cycles + 1):
@@ -1868,6 +2136,15 @@ def process_video(
         "evidenceRoute": evidence_route,
         "completedAt": datetime.now().astimezone().isoformat(),
     }
+    try:
+        capsule = recovery_capsule(batch_id, video_id)
+        if capsule is not None:
+            item["recoveryCapsule"] = capsule
+    except HarnessError as capsule_error:
+        log_execution(batch_id, video_id, {
+            "stage": "recovery_capsule", "outcome": "retained_previous",
+            "detailDigest": hashlib.sha256(str(capsule_error).encode()).hexdigest(),
+        })
     write_item(batch_id, item)
     return {"videoId": video_id, "stage": item["stage"], "candidateHash": draft["candidateHash"]}
 
@@ -1901,6 +2178,15 @@ def mark_sol_recovery(batch_id: str, video_id: str, code: str, error: Exception)
     item["block"] = None
     item["sheetVerified"] = False
     item["deferredLedgerVerified"] = False
+    try:
+        capsule = recovery_capsule(batch_id, video_id)
+        if capsule is not None:
+            item["recoveryCapsule"] = capsule
+    except HarnessError as capsule_error:
+        log_execution(batch_id, video_id, {
+            "stage": "recovery_capsule", "outcome": "retained_previous",
+            "detailDigest": hashlib.sha256(str(capsule_error).encode()).hexdigest(),
+        })
     write_item(batch_id, item)
 
 
@@ -1921,7 +2207,120 @@ def mark_deferred_recovery(batch_id: str, video_id: str, code: str, error: Excep
     item["block"] = None
     item["sheetVerified"] = False
     item["deferredLedgerVerified"] = False
+    try:
+        capsule = recovery_capsule(batch_id, video_id)
+        if capsule is not None:
+            item["recoveryCapsule"] = capsule
+    except HarnessError as capsule_error:
+        log_execution(batch_id, video_id, {
+            "stage": "recovery_capsule", "outcome": "retained_previous",
+            "detailDigest": hashlib.sha256(str(capsule_error).encode()).hexdigest(),
+        })
     write_item(batch_id, item)
+
+
+def command_prepare_local_evidence(args: argparse.Namespace) -> dict[str, Any]:
+    manifest = load_manifest(args.batch_id)
+    if manifest["videoIds"] != [args.video_id]:
+        raise HarnessError("preclaim evidence batchは指定動画1件だけにしてください。")
+    item = load_item(args.batch_id, args.video_id)
+    if item.get("claim"):
+        raise HarnessError("claim済み動画ではpreclaim evidenceを実行できません。")
+    if item.get("stage") == "evidence_staged" and item.get("recoveryCapsule"):
+        return {
+            "videoId": args.video_id,
+            "stage": "evidence_staged",
+            "claimAllowed": True,
+            "networkGate": network_gate(campaign_id_from_batch_id(args.batch_id)),
+        }
+    campaign_id = campaign_id_from_batch_id(args.batch_id)
+    gate = network_gate(campaign_id)
+    if gate.get("status") == "open" and not args.retry_network_gate:
+        return {
+            "videoId": args.video_id,
+            "stage": "network_gate_paused",
+            "claimAllowed": False,
+            "networkGate": gate,
+        }
+    work_root = batch_dir(args.batch_id) / "timestamps"
+    env = {
+        **os.environ,
+        "DIOPSIDE_TIMESTAMP_WORK_ROOT": str(work_root),
+        "DIOPSIDE_HARNESS_BATCH_ID": args.batch_id,
+        "PYTHONDONTWRITEBYTECODE": "1",
+    }
+    item["stage"] = "evidence_preparing"
+    item["attempt"] = int(item.get("attempt") or 0) + 1
+    write_item(args.batch_id, item)
+    try:
+        route = acquire_evidence(
+            args.video_id,
+            env,
+            with_chat=args.with_chat,
+            recovery=False,
+        )
+        ensure_transcript_maps(
+            args.video_id,
+            env,
+            model=LUNA_WORKER_MODEL,
+            reasoning_effort="medium",
+            recovery=False,
+        )
+        capsule = recovery_capsule(args.batch_id, args.video_id)
+        if capsule is None:
+            raise HarnessError("claim前の安全なsemantic mapを構成できませんでした。")
+    except NetworkGateError as error:
+        gate = open_network_gate(campaign_id, args.video_id, error)
+        item = load_item(args.batch_id, args.video_id)
+        item["stage"] = "network_gate_paused"
+        item["recovery"] = {
+            "reasonCode": "youtube_network_gate_unavailable",
+            "detailDigest": hashlib.sha256(str(error).encode()).hexdigest(),
+            "nextAction": gate["nextAction"],
+        }
+        write_item(args.batch_id, item)
+        return {
+            "videoId": args.video_id,
+            "stage": "network_gate_paused",
+            "claimAllowed": False,
+            "networkGate": gate,
+        }
+    except (EvidenceAcquisitionError, HarnessError, json.JSONDecodeError) as error:
+        item = load_item(args.batch_id, args.video_id)
+        item["stage"] = "unclaimed_evidence_deferred"
+        item["recovery"] = {
+            "reasonCode": (
+                error.reason_code
+                if isinstance(error, EvidenceAcquisitionError)
+                else "evidence_unavailable"
+            ),
+            "detailDigest": hashlib.sha256(str(error).encode()).hexdigest(),
+            "nextAction": "claimせず同じbatchで公開素材準備を再試行する",
+        }
+        write_item(args.batch_id, item)
+        return {
+            "videoId": args.video_id,
+            "stage": "unclaimed_evidence_deferred",
+            "claimAllowed": False,
+        }
+    item = load_item(args.batch_id, args.video_id)
+    item["stage"] = "evidence_staged"
+    item["recoveryCapsule"] = capsule
+    item["recovery"] = {
+        "result": "preclaim_evidence_staged",
+        "evidenceRoute": route,
+        "nextAction": "親SolがclaimとDraft PRを作成する",
+        "completedAt": datetime.now().astimezone().isoformat(),
+    }
+    write_item(args.batch_id, item)
+    if args.retry_network_gate:
+        gate = close_network_gate(campaign_id, args.video_id)
+    return {
+        "videoId": args.video_id,
+        "stage": "evidence_staged",
+        "claimAllowed": True,
+        "networkGate": gate,
+    }
 
 
 def command_run_local(args: argparse.Namespace) -> dict[str, Any]:
@@ -2493,6 +2892,12 @@ def parser() -> argparse.ArgumentParser:
     status = commands.add_parser("status")
     status.add_argument("batch_id")
     status.set_defaults(handler=command_status)
+    prepare = commands.add_parser("prepare-local-evidence")
+    prepare.add_argument("batch_id")
+    prepare.add_argument("--video-id", required=True)
+    prepare.add_argument("--with-chat", action="store_true")
+    prepare.add_argument("--retry-network-gate", action="store_true")
+    prepare.set_defaults(handler=command_prepare_local_evidence)
     local = commands.add_parser("run-local")
     local.add_argument("batch_id")
     local.add_argument("--video-id")

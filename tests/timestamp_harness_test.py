@@ -84,6 +84,23 @@ class TimestampHarnessTest(unittest.TestCase):
         ).encode("utf-8")
         return hashlib.sha256(encoded).hexdigest()
 
+    def mark_planned_evidence_staged(self, planned: dict[str, object]) -> None:
+        for lane in planned["lanes"]:
+            if lane["status"] != "evidence_preparation_required":
+                continue
+            batch_id = lane["batchId"]
+            manifest = json.loads(
+                (self.run_root / f"{batch_id}/manifest.json").read_text(encoding="utf-8")
+            )
+            video_id = manifest["videoIds"][0]
+            item_path = self.run_root / f"{batch_id}/items/{video_id}.json"
+            item = json.loads(item_path.read_text(encoding="utf-8"))
+            item["stage"] = "evidence_staged"
+            item["recoveryCapsule"] = {"capsuleHash": "test-safe-capsule"}
+            item_path.write_text(
+                json.dumps(item, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+            )
+
     def test_init_freezes_only_eligible_unfinished_rows_and_resumes_identically(self) -> None:
         snapshot = self.snapshot([
             self.row(),
@@ -380,11 +397,21 @@ class TimestampHarnessTest(unittest.TestCase):
         self.assertEqual(planned["wave"], 1)
         self.assertEqual(planned["activeLanes"], 10)
         self.assertEqual(len(planned["lanes"]), 10)
-        first_wave_ids = [lane["claimActions"][0]["videoId"] for lane in planned["lanes"]]
+        self.assertFalse(planned["canCreateClaims"])
+        self.assertTrue(all(not lane["claimActions"] for lane in planned["lanes"]))
+        self.assertTrue(all(
+            lane["status"] == "evidence_preparation_required" for lane in planned["lanes"]
+        ))
+        self.mark_planned_evidence_staged(planned)
+        claim_plan = self.invoke(
+            "plan-luna-wave", "campaign-one", "--snapshot", str(snapshot), "--base-ref", "HEAD"
+        )
+        self.assertTrue(claim_plan["canCreateClaims"])
+        first_wave_ids = [lane["claimActions"][0]["videoId"] for lane in claim_plan["lanes"]]
         self.assertEqual(first_wave_ids, eligible_ids[:10])
         all_actions = [
             action["videoId"]
-            for lane in planned["lanes"]
+            for lane in claim_plan["lanes"]
             for action in lane["claimActions"]
         ]
         self.assertEqual(len(all_actions), len(set(all_actions)))
@@ -400,6 +427,11 @@ class TimestampHarnessTest(unittest.TestCase):
             "--base-ref",
             "HEAD",
         )
+        self.mark_planned_evidence_staged(second)
+        second = self.invoke(
+            "plan-luna-wave", "campaign-one", "--wave", "2",
+            "--snapshot", str(snapshot), "--base-ref", "HEAD",
+        )
         self.assertEqual(second["wave"], 2)
         second_ids = [
             lane["claimActions"][0]["videoId"]
@@ -413,7 +445,7 @@ class TimestampHarnessTest(unittest.TestCase):
             )
         )
 
-    def test_campaign_checkpoint_restores_safe_state_without_evidence(self) -> None:
+    def test_campaign_checkpoint_restores_safe_semantic_state_without_raw_evidence(self) -> None:
         snapshot = self.snapshot([self.row()])
         initialized = self.invoke(
             "initialize-campaign",
@@ -431,6 +463,11 @@ class TimestampHarnessTest(unittest.TestCase):
             str(snapshot),
             "--base-ref",
             "HEAD",
+        )
+        self.mark_planned_evidence_staged(planned)
+        planned = self.invoke(
+            "plan-luna-wave", "campaign-durable", "--snapshot", str(snapshot),
+            "--base-ref", "HEAD",
         )
         action = planned["lanes"][0]["claimActions"][0]
         lane = planned["lanes"][0]
@@ -454,7 +491,7 @@ class TimestampHarnessTest(unittest.TestCase):
             "workerId": lane["workerId"],
         }
         batch_path = self.run_root / lane["batchId"]
-        (batch_path / "items").mkdir(parents=True)
+        (batch_path / "items").mkdir(parents=True, exist_ok=True)
         (batch_path / "manifest.json").write_text(
             json.dumps(
                 {**batch_unsigned, "manifestHash": self.digest(batch_unsigned)},
@@ -463,6 +500,28 @@ class TimestampHarnessTest(unittest.TestCase):
             ) + "\n",
             encoding="utf-8",
         )
+        capsule_unsigned = {
+            "schemaVersion": "1.0.0",
+            "videoId": VIDEO_ID,
+            "inputs": {
+                "schemaVersion": "1.0.0", "videoId": VIDEO_ID,
+                "durationSeconds": 3600, "timestampRulesVersion": "1.0.0",
+            },
+            "coverage": {
+                "schemaVersion": "1.0.0", "videoId": VIDEO_ID,
+                "sourceType": "公開の日本語字幕", "evidenceId": "evidence-full-source",
+                "inputFingerprint": "c" * 64,
+            },
+            "semanticMaps": [{
+                "schemaVersion": "1.0.0", "mapperVersion": "direct-jsonl-v1",
+                "videoId": VIDEO_ID, "chunkId": "chunk-000", "startSeconds": 0,
+                "endSeconds": 3600, "cueCount": 1, "firstCueId": "cue-safe",
+                "lastCueId": "cue-safe", "spans": [{
+                    "startSeconds": 0, "endSeconds": 3600, "topic": "安全な話題要約",
+                    "explicitTransition": True, "evidenceRefs": ["cue-safe"],
+                }],
+            }],
+        }
         item = {
             "schemaVersion": "1.1.0",
             "videoId": VIDEO_ID,
@@ -477,6 +536,9 @@ class TimestampHarnessTest(unittest.TestCase):
             "block": None,
             "sheetVerified": False,
             "deferredLedgerVerified": False,
+            "recoveryCapsule": {
+                **capsule_unsigned, "capsuleHash": self.digest(capsule_unsigned),
+            },
             "claim": {
                 "workerId": lane["workerId"],
                 "claimToken": action["claimToken"],
@@ -504,7 +566,7 @@ class TimestampHarnessTest(unittest.TestCase):
         self.assertEqual(checkpoint["persistAction"]["expectedParentCommit"], claim_commit)
         serialized = checkpoint_path.read_text(encoding="utf-8")
         self.assertIn("2026-08-13T09:00:00+09:00", serialized)
-        for prohibited in ("transcript", "caption", "audioPath", "worktreePath"):
+        for prohibited in ('"cues"', '"text"', '"audioPath"', '"worktreePath"'):
             self.assertNotIn(prohibited, serialized)
 
         restored_root = self.temp / "restored"
@@ -530,12 +592,73 @@ class TimestampHarnessTest(unittest.TestCase):
             )
         )
         self.assertEqual(restored_item["stage"], "pr_bootstrapped")
+        restored_dossier = restored_root / f"{lane['batchId']}/timestamps/{VIDEO_ID}"
+        self.assertTrue((restored_dossier / "inputs.json").exists())
+        self.assertTrue((restored_dossier / "evidence/coverage.json").exists())
+        self.assertTrue(
+            (restored_dossier / "transcript_maps/chunk-recovery-000.json").exists()
+        )
 
     def test_preflight_is_a_claim_gate(self) -> None:
         result = self.invoke("preflight")
         self.assertIn(result["status"], {"ready", "setup_required"})
-        self.assertEqual(result["canCreateClaims"], not bool(result["missing"]))
+        self.assertFalse(result["canCreateClaims"])
+        self.assertEqual(result["canPrepareEvidence"], not bool(result["missing"]))
         self.assertEqual(set(result["tools"]), {"git", "codex", "yt-dlp", "ffmpeg"})
+
+    def test_open_network_gate_pauses_all_unprepared_lanes_without_claims(self) -> None:
+        snapshot = self.snapshot([
+            self.row(video_id) for video_id in (
+                "eGjLBN2fsQc", "GTO-h9V9b-k", "Wyow5Pr00JY", "Ere2MCeKhM4",
+                "RV2EkC05e-E", "o4IYcb4K3hk", "T7hnGVszU1w", "xl2GERMJw0o",
+                "erFpaeF7P70", "dvx0FcUFbyw",
+            )
+        ])
+        campaign_id = "campaign-network-gate"
+        self.invoke(
+            "initialize-campaign", campaign_id, "--snapshot", str(snapshot),
+            "--base-ref", "HEAD",
+        )
+        gate_path = self.run_root / f"campaigns/{campaign_id}/network-gate.json"
+        gate_path.write_text(
+            json.dumps({
+                "schemaVersion": "1.0.0",
+                "campaignId": campaign_id,
+                "status": "open",
+                "generation": 1,
+                "reasonCode": "youtube_network_gate_unavailable",
+            }) + "\n",
+            encoding="utf-8",
+        )
+        planned = self.invoke(
+            "plan-luna-wave", campaign_id, "--snapshot", str(snapshot),
+            "--base-ref", "HEAD",
+        )
+        self.assertEqual(planned["status"], "network_gate_paused")
+        self.assertFalse(planned["canCreateClaims"])
+        self.assertEqual(planned["activeLanes"], 0)
+        self.assertTrue(all(lane["status"] == "network_gate_paused" for lane in planned["lanes"]))
+        self.assertTrue(all(not lane["claimActions"] for lane in planned["lanes"]))
+
+    def test_campaign_record_claim_rejects_unstaged_evidence_before_remote_read(self) -> None:
+        snapshot = self.snapshot([self.row()])
+        planned = self.invoke(
+            "plan-luna-wave", "campaign-claim-gate", "--snapshot", str(snapshot),
+            "--base-ref", "HEAD",
+        )
+        lane = planned["lanes"][0]
+        failed = self.invoke(
+            "record-claim", lane["batchId"], VIDEO_ID,
+            "--snapshot", str(snapshot),
+            "--worker-id", lane["workerId"],
+            "--claim-token", "a" * 32,
+            "--claimed-at", "2026-08-13T00:00:00+09:00",
+            "--branch", f"agent/timestamps-{VIDEO_ID}",
+            "--base-commit", planned["baseCommit"],
+            "--claim-commit", "b" * 40,
+            success=False,
+        )
+        self.assertIn("semantic map", str(failed["stderr"]))
 
     def test_campaign_manifest_plans_wave_100_without_duplicates(self) -> None:
         campaign_id = "campaign-thousand"
@@ -571,6 +694,11 @@ class TimestampHarnessTest(unittest.TestCase):
             encoding="utf-8",
         )
         snapshot = self.snapshot([self.row()])
+        wave = self.invoke(
+            "plan-luna-wave", campaign_id, "--wave", "100",
+            "--snapshot", str(snapshot), "--base-ref", "HEAD",
+        )
+        self.mark_planned_evidence_staged(wave)
         wave = self.invoke(
             "plan-luna-wave", campaign_id, "--wave", "100",
             "--snapshot", str(snapshot), "--base-ref", "HEAD",
