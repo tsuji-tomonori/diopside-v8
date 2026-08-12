@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "catalog_revision": 9,
+  "catalog_revision": 10,
   "product": "diopside v8",
-  "updated_at": "2026-08-12",
+  "updated_at": "2026-08-13",
   "requirements": [
     {
       "id": "V8-SEARCH-001",
@@ -7401,7 +7401,7 @@
     },
     {
       "id": "V8-OPS-026",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "project",
       "category": "nonfunctional",
@@ -7409,11 +7409,13 @@
       "title": "最大1000件のWork campaignは固定manifestと安全なremote checkpointで実行環境をまたいで継続しなければならない",
       "subject": "diopside v8の大規模タイムスタンプcampaign",
       "action": "satisfy",
-      "object": "最大1000件のタイムスタンプcampaignは開始時に対象動画ID、順序、台帳行指紋、base commitを一度だけ固定し、10件ずつ処理しなければならない。各Work実行のdrain前と各wave後に、生字幕、音声、文字起こし、chat本文、識別子、資格情報を含まない安全なcheckpointを専用GitHub campaign branchへ観測済み親commitを条件として保存し、Work環境消失または利用制限後は同じcampaign IDを復元して完了済みを保持し未完了だけを安全な工程から再開しなければならない。",
+      "object": "最大1000件のタイムスタンプcampaignは開始時に対象動画ID、順序、台帳行指紋、base commitを一度だけ固定し、10件ずつ処理しなければならない。各Work実行のdrain前と各wave後に、生字幕、音声、文字起こし、chat本文、識別子、資格情報を含まず、安全なsemantic map、章候補、独立review、hash、network gate状態を含められるcheckpointを専用GitHub campaign branchへ観測済み親commitを条件として保存しなければならない。Work環境消失または利用制限後は同じcampaign IDを復元して完了済みと安全な回復カプセルを保持し、未完了だけをネットワーク再取得不要な工程またはclaim前素材準備から再開しなければならない。",
       "rationale": "単一Work実行の時間・利用量・ローカル状態保持へ1000件の完了可能性を依存させず、旧連続queueと同等の対象固定、失敗隔離、再開性を保ちながら生素材の公開を防ぐため。",
       "source_refs": [
         "spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md",
-        "user:2026-08-12"
+        "spec/sources/owner-directive-2026-08-13-youtube-network-gate.md",
+        "user:2026-08-12",
+        "user:2026-08-13"
       ],
       "acceptance_criteria": [
         {
@@ -7426,13 +7428,13 @@
           "id": "AC-V8-OPS-026-2",
           "given": "waveが終端した、drainへ入る、または利用制限で停止する",
           "when": "親Solがcampaign checkpointを永続化する",
-          "then": "専用remote branchを観測済み親commitとのcompare-and-setで更新し、生素材と資格情報を含めず、競合時はforceせずremoteを再読する。"
+          "then": "専用remote branchを観測済み親commitとのcompare-and-setで更新し、生素材と資格情報を含めず、安全なsemantic map、章候補、独立review、hash、network gate状態だけを回復カプセルとして保持し、競合時はforceせずremoteを再読する。"
         },
         {
           "id": "AC-V8-OPS-026-3",
           "given": "別のWork環境で同じcampaignを再開する",
           "when": "親Solがremote checkpointを検証してrestoreする",
-          "then": "完了済み状態を保持し、処理途中だけを安全な回復境界へ巻き戻し、同じcampaign IDと固定対象の残りを継続する。"
+          "then": "完了済み状態を保持し、回復カプセルがある処理途中は同じ候補または安全なsemantic mapから再開し、カプセルがない未claim動画だけを素材準備へ戻し、同じcampaign IDと固定対象の残りを継続する。"
         },
         {
           "id": "AC-V8-OPS-026-4",
@@ -7462,7 +7464,66 @@
           "dev-standard default profile"
         ]
       },
-      "last_changed_by": "CHG-20260812-thousand-video-campaign"
+      "last_changed_by": "CHG-20260813-youtube-network-gate"
+    },
+    {
+      "id": "V8-OPS-027",
+      "revision": 1,
+      "status": "active",
+      "scope": "project",
+      "category": "nonfunctional",
+      "type": "operational",
+      "title": "タイムスタンプcampaignは安全な公開素材準備後だけclaimしnetwork gate失敗を全体遮断しなければならない",
+      "subject": "diopside v8のタイムスタンプcampaign claim許可",
+      "action": "satisfy",
+      "object": "1 Sol・10 Lunaのタイムスタンプcampaignは、各動画の公開素材と生本文を含まない安全なsemantic mapを一時準備した後でだけ親Solへclaim actionを返さなければならない。campaign-wide YouTube network gate失敗時は未準備動画のbranch、claim marker、Draft PR、台帳更新を0件に保ち、open gateをcheckpointへ保存し、後続Work実行の1レーンcanaryが素材とsemantic mapの準備を完了した後だけgateを閉じなければならない。",
+      "rationale": "依存CLIの存在や一時的な到達成功をclaim許可とすると、ネットワーク承認の自動失効後に処理不能なclaimとDraft PRを10件量産し、同じ失敗を再開ごとに繰り返すため。外部所有権を取る前にネットワーク依存を完了し、失敗をcampaign全体の回路遮断として扱う。",
+      "source_refs": [
+        "spec/sources/owner-directive-2026-08-13-youtube-network-gate.md",
+        "user:2026-08-13"
+      ],
+      "acceptance_criteria": [
+        {
+          "id": "AC-V8-OPS-027-1",
+          "given": "新しいcampaign waveの最大10動画が計画される",
+          "when": "公開素材と安全なsemantic mapの準備前に親Solがclaim可否を読む",
+          "then": "全laneのclaim actionが空でcanCreateClaims=falseとなり、各active laneはevidence_preparation_requiredだけを返す。"
+        },
+        {
+          "id": "AC-V8-OPS-027-2",
+          "given": "動画の公開素材と安全なsemantic mapがclaim前に準備済みである",
+          "when": "親Solが同じwaveを再計画する",
+          "then": "そのevidence_staged動画だけがclaim actionを返し、record-claimは回復カプセルがないcampaign laneをremote read前に拒否する。"
+        },
+        {
+          "id": "AC-V8-OPS-027-3",
+          "given": "素材準備中にcampaign-wide YouTube network gateが失敗する",
+          "when": "同じまたは後続Work実行が未準備laneを計画する",
+          "then": "未準備動画のclaim、Draft PR、台帳更新を0件に保ち、1レーンのprepare-local-evidence --retry-network-gate成功後だけ残りlaneの準備を再開する。"
+        }
+      ],
+      "verification": {
+        "method": "preclaim二段階wave計画・unstaged record-claim拒否・open network gate全lane遮断・canary解除・外部action 0件試験",
+        "evidence": "tests/timestamp_harness_test.py"
+      },
+      "traces": {
+        "design": [
+          ".agents/skills/run-timestamp-work-harness/references/workflow.md",
+          ".agents/skills/run-timestamp-work-harness/references/web-work-prompt.md"
+        ],
+        "implementation": [
+          ".agents/skills/run-timestamp-work-harness/scripts/harness.py",
+          ".agents/skills/run-timestamp-work-harness/SKILL.md"
+        ],
+        "tests": [
+          "tests/timestamp_harness_test.py"
+        ],
+        "standards": [
+          "spec/sources/owner-directive-2026-08-13-youtube-network-gate.md",
+          "dev-standard default profile"
+        ]
+      },
+      "last_changed_by": "CHG-20260813-youtube-network-gate"
     },
     {
       "id": "V8-OPS-025",

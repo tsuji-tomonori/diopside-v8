@@ -9,6 +9,12 @@ parent calls `plan-luna-wave --wave <n>`; its strided fallback lists prevent two
 same wave from attempting the same candidate. Remote branch creation remains the
 atomic claim against other chats or interrupted work.
 
+For campaign lanes the first plan never returns a claim action. Every active lane
+first runs `prepare-local-evidence`, which obtains temporary public evidence and
+builds a raw-text-free semantic map. A second plan returns claim actions only for
+`evidence_staged` lanes. Thus a YouTube permission loss cannot leave an unprepared
+wave with ten remote claims or Draft PRs.
+
 Lane batch IDs include the wave and lane numbers. Rerunning the same campaign and
 wave returns existing lane state instead of assigning a new video to that batch.
 Only after every lane is complete, inactive, or safely deferred by Sol may the
@@ -24,19 +30,25 @@ isolated as conflicts. Wave numbers are not limited to 99.
 After every terminal wave and before drain, run `checkpoint-campaign`. Persist its
 exact content at `.campaigns/timestamps/<campaign-id>.json` on
 `agent/timestamp-campaign-<campaign-id>`. Update that branch only against the
-observed parent commit. The checkpoint excludes evidence and stores only the
-campaign manifest, safe lane state, claim metadata, PR/commit references, and safe
-recovery information.
+observed parent commit. The checkpoint excludes raw evidence and stores the
+campaign manifest, network-gate state, safe lane state, claim metadata,
+PR/commit references, and bounded recovery capsules. A capsule may contain
+semantic topics and cue IDs, a chapter candidate, independent reviews, and hashes;
+it cannot contain raw cue text, captions, audio, chat text, poster identity,
+cookies, or credentials.
 
 When Work starts without local state, read the remote checkpoint and run
-`restore-campaign`. Completed items remain completed. In-flight items are rewound
-to a safe recovery boundary because temporary evidence is intentionally not durable.
+`restore-campaign`. Completed items remain completed. In-flight items with a valid
+recovery capsule resume from the same candidate or semantic map without YouTube;
+an unclaimed item without a capsule returns to preclaim evidence preparation.
 An eight-hour drain or usage limit pauses one execution; it never expires the fixed
 campaign. Resume the same campaign until every target reaches an allowed terminal state.
 
-Only Sol uses GitHub and Google Sheets connectors. After Sol creates each branch,
-marker, and processing draft PR, it starts the matching Luna subagent with the
-one-video worktree and ignored dossier. Luna may acquire public evidence, compose,
+Only Sol uses GitHub and Google Sheets connectors. Before Sol creates each branch,
+Luna prepares public evidence and a safe semantic map without connector actions.
+After a second plan authorizes the prepared lane, Sol creates its branch, marker,
+and processing draft PR and starts the matching Luna subagent with the one-video
+worktree and ignored dossier. Luna may compose,
 run independent fact and editorial checks, and run deterministic validation. Luna
 cannot claim, use connectors, materialize, commit, push, or update the ledger.
 
@@ -103,13 +115,16 @@ forbidden because video IDs are case-sensitive.
 
 ```text
 pending
-  -> acquiring_evidence
+  -> evidence_preparing
+  -> evidence_staged
+  -> remote branch claimed
+  -> pr_bootstrapped
+  -> pr_created
+  -> acquiring_evidence (reuses staged local evidence; no YouTube request)
   -> evidence_ready
   -> composing
   -> reviewing
-  -> ready_for_pr
-  -> pr_bootstrapped
-  -> pr_created
+  -> ready_for_materialization
   -> materialized
   -> pushed
   -> sheet_pending
@@ -119,6 +134,8 @@ recoverable local failure -> needs_sol_recovery
 needs_sol_recovery -> parent Sol recovery -> ready_for_materialization
 parent Sol recovery exhausted at drain -> deferred_recovery
 non-recoverable compatibility-mode failure -> blocked
+campaign network failure before staging -> network_gate_paused (no claim or sheet write)
+video evidence failure before staging -> unclaimed_evidence_deferred (no claim or sheet write)
 ```
 
 Distributed mode uses this visible prefix before the common evidence stages:
@@ -209,6 +226,12 @@ preserve only its safe classification. Do not use the removed/unsupported
 3. unauthenticated MP3 extraction through `yt-dlp` and local `ffmpeg`;
 4. full-duration local ASR;
 5. parent-only batch-local `faster-whisper` preparation and full-duration ASR.
+
+In campaign mode this ladder runs before claim. A campaign-wide network diagnosis
+opens the shared network gate, suppresses every unprepared claim action, and is
+persisted in the campaign checkpoint. A later Work execution may run exactly one
+`prepare-local-evidence --retry-network-gate` canary. Only a completed evidence
+and semantic-map preparation closes the gate; a dependency-only preflight never does.
 
 Do not use cookies, browser profiles, authentication bypass, member/private
 content, or paid transcription APIs. A missing optional live chat never blocks

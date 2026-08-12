@@ -29,33 +29,42 @@ repository or pass them to `codex exec`.
 1. Read spreadsheet metadata and the bounded `対象動画!A1:P<last-row>` range with
    the Google Sheets connector. Save the connector result as the ignored snapshot
    shape documented in `references/workflow.md`.
-   Before any claim, run `harness.py preflight`. Do not create claims until `codex`,
-   `yt-dlp`, `ffmpeg`, and `git` are all available and the public reachability
-   diagnosis succeeds. Treat missing setup or network permission as a global pause,
-   not 1000 per-video failures.
+   Before any claim, run `harness.py preflight`. This checks local dependencies but
+   deliberately returns `canCreateClaims=false`; preflight alone never authorizes a
+   campaign claim. Treat missing setup or network permission as a global pause, not
+   1000 per-video failures.
 2. Run `harness.py initialize-campaign <campaign-id> --snapshot <snapshot> --target-count 1000`
    once. Persist the immutable manifest before claims. In a new Work environment,
    fetch the dedicated remote campaign checkpoint and run `restore-campaign` first.
    Then run `harness.py plan-luna-wave <campaign-id> --wave <n> --snapshot <snapshot>
    --normal-deadline <start+7h30m> --drain-deadline <start+8h>` as the
    parent Sol. It always returns ten logical lane slots, each pinned to `gpt-5.6-luna`, with a
-   unique batch ID, worker ID, and disjoint fallback claim order. Fewer eligible
+   unique batch ID and worker ID. A new lane first returns
+   `evidence_preparation_required` and no claim action. Fewer eligible
    videos produce fewer active lanes without inventing work. Reuse the same wave
    number after interruption; existing lane batches return `resume`. Increment the
    wave only after every lane in the prior wave has a verified terminal result.
-3. As the parent Sol, process every lane's returned claim actions. Create the
+3. Spawn Luna for every `evidence_preparation_required` lane and run only the returned
+   `prepare-local-evidence` command. It performs anonymous reachability diagnosis,
+   obtains temporary public evidence, and creates a raw-text-free semantic-map recovery
+   capsule before any GitHub write. If any lane returns `network_gate_paused`, do not
+   create any pending claim. Checkpoint the open campaign gate. On a later execution,
+   run exactly one lane with `--retry-network-gate`; only a successful canary closes the
+   gate. Re-run `plan-luna-wave` after preparation. Only `evidence_staged` lanes may now
+   return claim actions and `canCreateClaims=true`.
+4. As the parent Sol, process every prepared lane's returned claim actions. Create the
    unique remote branch with the GitHub connector, apply the marker, acknowledge
    the observed commit with `record-claim`, and immediately create and record the
    processing draft PR. Do these shared writes in the parent only. A lost branch
    race advances that lane to its next action; never force or delete.
-4. Spawn one `timestamp-luna-worker` subagent for every successful active lane with model
+5. Spawn one `timestamp-luna-worker` subagent for every successful claimed lane with model
    `gpt-5.6-luna` and reasoning effort `medium`. Give it only its batch ID, video
    ID, worktree path, harness root, and whether anonymous chat density is required.
    Luna runs `harness.py run-local` for that one video. Luna must not claim another
    video, use a connector, materialize, commit, push, or edit the ledger. Connector
    tools are inherited in hosted Work, so this is a protocol boundary: withhold all
    connector action payloads from Luna and accept only harness dossier results.
-5. Wait for every active Luna lane. A Luna failure must return
+6. Wait for every active Luna lane. A Luna failure must return
    `needs_sol_recovery`, not `blocked`. The parent runs
    `harness.py recover-with-sol <batch-id> <video-id>` and owns the reachability
    diagnosis, caption retries, native-audio then MP3 fallback, batch-local ASR,
@@ -66,14 +75,17 @@ repository or pass them to `codex exec`.
    concrete correction to the same Luna lane when necessary. For a passing result,
    run `harness.py record-sol-review ... --reviewer-model gpt-5.6-sol`; a distributed
    candidate cannot be materialized without this matching Sol attestation.
-6. Continue with `materialize`, one-video scope validation, commit, push,
+7. Continue with `materialize`, one-video scope validation, commit, push,
    `record-push`, exact-row Sheets update, reread, and `verify-sheet-update` in the
    parent Sol only. Keep one video per PR.
-7. After all ten lane slots are terminal or inactive, reread the ledger and run
+8. After all ten lane slots are terminal or inactive, reread the ledger and run
    `checkpoint-campaign`. Create or update `agent/timestamp-campaign-<campaign-id>`
    only when its observed parent commit matches `expectedParentCommit`; on conflict,
    reread and reconcile instead of overwriting. The checkpoint contains identifiers,
-   row hashes, state, PR/commit references, and safe reason codes only. A recovery
+   row hashes, state, PR/commit references, network-gate state, and bounded recovery
+   capsules containing raw-text-free semantic maps, chapter candidates, independent
+   reviews, and hashes. It never contains raw captions, audio, transcript cues, chat
+   text, poster identity, cookies, or credentials. A recovery
    exhausted at drain time becomes `deferred_recovery`; leave its draft PR and
    checkpoint resumable, do not write `処理不能`, but write and reread-verify the safe
    failure stage, reason category, and restart action in the existing progress-note

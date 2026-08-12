@@ -16,10 +16,12 @@ GPT-5.6 Luna medium論理レーンでタイムスタンプ作成campaignを実�
 
 1. 最新mainを取得し、`AGENTS.md`、Skillの`SKILL.md`、
    `references/workflow.md`を全文読んでください。
-2. `V8-OPS-022`、`V8-OPS-023`、`V8-OPS-024`と
+2. `V8-OPS-022`、`V8-OPS-023`、`V8-OPS-024`、`V8-OPS-026`、`V8-OPS-027`と
    `timestamp-luna-worker`が存在しなければ外部書込み前に全体blockとして終了してください。
-   `harness.py preflight`も実行し、`codex`、`yt-dlp`、`ffmpeg`、`git`の不足や
-   公開YouTube到達性未許可があればclaimせず、campaign checkpointへpause理由と再開時刻を保存してください。
+   `harness.py preflight`も実行し、`codex`、`yt-dlp`、`ffmpeg`、`git`の不足があれば
+   素材準備もclaimもせず、campaign checkpointへpause理由と再開時刻を保存してください。
+   preflightは依存確認だけで`canCreateClaims=false`が正常です。公開YouTube到達性とclaim許可は
+   各waveの`prepare-local-evidence`成功によってだけ確定してください。
 3. 既存checkpointがあれば同じcampaign IDで`restore-campaign`し、新規なら
    `timestamp-sol-luna-<JST日時>-<random-8-hex>`を作って
    `initialize-campaign --target-count 1000`を一度だけ実行し、
@@ -33,40 +35,51 @@ GPT-5.6 Luna medium論理レーンでタイムスタンプ作成campaignを実�
 1. 親Solが対象動画台帳を読み、ignored snapshotを作り、
    `harness.py plan-luna-wave <campaign-id> --wave <n> --snapshot <snapshot>
    --normal-deadline <開始+7時間30分のISO日時> --drain-deadline <開始+8時間のISO日時>`を
-   実行してください。`canCreateClaims=false`なら新規claimを作らないでください。
+   実行してください。初回planの`canCreateClaims=false`は正常です。この段階でbranch、
+   claim marker、Draft PR、Sheets更新を作らないでください。
 2. 戻り値の10論理lane slotを保持してください。`inactive_no_target`はspawn不要です。
    物理枠不足でspawnできないlaneは失敗扱いせずqueueへ戻し、完了した子threadを閉じながら
-   active laneをすべて波状実行してください。
-3. branch、claim marker、Draft PRの作成と`record-claim`、`record-pr`は
-   親Solだけが実行してください。lost raceは次候補へ進み、force update、force push、
+   `evidence_preparation_required`のactive laneをすべて波状実行してください。各Lunaへ渡すのは
+   batch ID、video ID、harness root、chat要否だけとし、返された
+   `harness.py prepare-local-evidence <batch-id> --video-id <video-id>`だけを実行させてください。
+   GitHub／Sheets action payloadを渡さないでください。
+3. 1laneでも`network_gate_paused`を返したら、未準備laneのclaimを0件に保ち、他の素材準備を
+   新規開始せず、open network gateをcampaign checkpointへ保存してください。次のWork実行では
+   1laneだけ`prepare-local-evidence ... --retry-network-gate`でcanary再検証し、成功した場合だけ
+   残りlaneの素材準備を再開してください。preflight成功だけでgateを閉じないでください。
+4. 素材準備後に同じwave番号で`plan-luna-wave`を再実行してください。
+   `evidence_staged`でclaim actionが返ったlaneだけ、branch、claim marker、Draft PRの作成と
+   `record-claim`、`record-pr`を親Solが実行してください。安全なsemantic mapがないlaneを
+   手動でclaimしないでください。lost raceは次候補へ進み、force update、force push、
    branch削除、stale claim奪取は行わないでください。
-4. Lunaへ渡すのはbatch ID、video ID、worktree、harness root、chat要否だけです。
+5. claim済みLunaへ渡すのはbatch ID、video ID、worktree、harness root、chat要否だけです。
    GitHub／Sheets action payloadを渡さないでください。Lunaには
    `harness.py run-local <batch-id> --video-id <video-id>`だけを実行させてください。
-5. Lunaが`ready_for_materialization`を返したら親Solが全編根拠、候補hash、fact、
+   この処理はclaim前に準備済みのローカル素材を再利用し、YouTubeへ再接続しません。
+6. Lunaが`ready_for_materialization`を返したら親Solが全編根拠、候補hash、fact、
    editorial、validatorを再確認してください。
-6. Lunaが`needs_sol_recovery`を返したら終了・台帳更新・子への丸投げをせず、親Solが
+7. Lunaが`needs_sol_recovery`を返したら終了・台帳更新・子への丸投げをせず、親Solが
    `harness.py recover-with-sol <batch-id> <video-id>`を実行してください。
    回復順序は、匿名YouTube到達性診断、公開日本語字幕再試行、native公開音声、
    yt-dlpによるMP3、無料batch-local ASR、GPT-5.6 Sol/highによる章再構成、
    独立fact/editorial、validatorです。
    yt-dlpは`--ignore-config --no-cookies`を使い、
    現行版に存在しない`--no-netrc`を使わないでください。
-7. `codex exec`が`trusted-destination`を返した場合は、同じ安全な処理を上限3回、
+8. `codex exec`が`trusted-destination`を返した場合は、同じ安全な処理を上限3回、
    bounded backoff付きで再試行してください。別原因と混同しないでください。
-8. 「全編日本語字幕取得済みだが検証可能な章候補を構成できない」は素材取得失敗にせず、
+9. 「全編日本語字幕取得済みだが検証可能な章候補を構成できない」は素材取得失敗にせず、
    composition failureとして親Sol/highで再構成してください。
-9. 音声・字幕・文字起こし取得失敗を`処理不能`としてSheetsへ書くことを禁止します。
+10. 音声・字幕・文字起こし取得失敗を`処理不能`としてSheetsへ書くことを禁止します。
    親回復を期限内に完了できない場合は`deferred_recovery`として同じcampaign、wave、
    batch ID、Draft PR、checkpointを残してください。`処理状態=未作成`を維持したまま、
    N/O/P列へ安全な失敗段階・理由分類・再開手順だけを書き、再読検証してから他laneへ進んでください。
    P列には既存dropdownの許可値だけを使ってください。
-10. reviewのchecksは合格フラグです。factの`evidenceConflicts=true`は「矛盾なしを確認済み」
+11. reviewのchecksは合格フラグです。factの`evidenceConflicts=true`は「矛盾なしを確認済み」
     を意味します。status・majorIssues・checks・重大findingsが自己矛盾するreviewは候補を変えず、
     そのreviewだけを新しい独立文脈で取り直してください。実際のmajor指摘またはvalidator不合格は、
     指摘区間だけをexact cueへ局所修正し、無関係な境界・ラベル・章数を維持して新candidate hashを作り、
     fact/editorialを両方取り直してください。合格またはdrainまで上限付きで反復してください。
-11. 合格候補だけ親Solが`record-sol-review --reviewer-model gpt-5.6-sol`、
+12. 合格候補だけ親Solが`record-sol-review --reviewer-model gpt-5.6-sol`、
     `materialize`、1動画scope検証、commit、push、Draft PR更新、`record-push`、
     正確な台帳行の再読・更新・再読検証を実行してください。
 
