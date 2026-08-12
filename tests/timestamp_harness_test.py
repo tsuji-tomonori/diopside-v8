@@ -13,6 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / ".agents/skills/run-timestamp-work-harness/scripts/harness.py"
 CHAT_SCRIPT = ROOT / ".agents/skills/run-timestamp-work-harness/scripts/download_live_chat.py"
+AUDIO_SCRIPT = ROOT / ".agents/skills/prepare-stream-evidence/scripts/download_audio.py"
 YOUTUBE_DIAGNOSTIC_SCRIPT = (
     ROOT / ".agents/skills/prepare-stream-evidence/scripts/diagnose_youtube_access.py"
 )
@@ -156,7 +157,7 @@ class TimestampHarnessTest(unittest.TestCase):
         for expected in (
             '"--ephemeral"',
             '"--sandbox"',
-            '"workspace-write"',
+            '"read-only"',
             '"--output-schema"',
             '"--output-last-message"',
             '"compose",',
@@ -164,11 +165,128 @@ class TimestampHarnessTest(unittest.TestCase):
             '"editorial",',
             '"--model"',
             'f\'model_reasoning_effort="{reasoning_effort}"\'',
-            "fact_review.jsonを読まず",
             '"trusted_destination"',
             'commands.add_parser("recover-with-sol")',
+            'LUNA_WORKER_MODEL',
+            "fact reviewは入力せず",
         ):
             self.assertIn(expected, source)
+
+    def test_codex_technical_retry_and_quality_escalation_are_distinct(self) -> None:
+        source = SCRIPT.read_text(encoding="utf-8")
+        for expected in (
+            'QUALITY_RETRY_MODEL = "gpt-5.6-terra"',
+            '"quality_retry_escalation"',
+            'retry_reason = "trusted_destination"',
+            'command.append("--skip-git-repo-check")',
+            'if not verified_repository_root()',
+            'model_reasoning_effort="{reasoning_effort}"',
+            '"actualModel": model',
+            'artifact_schema=role_artifact_schema(video_id, role, dossier, candidate_hash)',
+            'def ensure_transcript_maps(',
+            'role = f"map-{chunk_id}"',
+            'BEGIN_TRANSCRIPT_JSONL',
+            'TRANSCRIPT_MAP_VERSION = "direct-jsonl-v1"',
+            'start_new_session=True',
+            'os.killpg(process.pid, signal.SIGTERM)',
+            'BEGIN_COMPOSE_INPUT_JSON',
+            '"DIOPSIDE_CODEX_TIMEOUT_SECONDS", "1800"',
+            'except subprocess.TimeoutExpired:',
+            'local.add_argument("--retry-blocked", action="store_true")',
+        ):
+            self.assertIn(expected, source)
+        self.assertLess(
+            source.index('if not verified_repository_root()'),
+            source.index('command.append("--skip-git-repo-check")'),
+        )
+
+    def test_chunk_map_rejects_read_failure_placeholder(self) -> None:
+        sys.path.insert(0, str(SCRIPT.parent))
+        try:
+            spec = importlib.util.spec_from_file_location("timestamp_harness_map_test", SCRIPT)
+            if spec is None or spec.loader is None:
+                self.fail("harness.pyを読み込めません。")
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            self.assertEqual(
+                module.classify_codex_failure("Invalid output schema: uniqueItems is unsupported"),
+                "output_schema_rejected",
+            )
+            chunk = {
+                "chunkId": "chunk-000",
+                "startSeconds": 0,
+                "endSeconds": 60,
+                "cues": [
+                    {"cueId": "cue-1", "startSeconds": 0, "endSeconds": 60, "text": "開始"}
+                ],
+            }
+            mapped = {
+                "schemaVersion": "1.0.0",
+                "mapperVersion": "direct-jsonl-v1",
+                "videoId": VIDEO_ID,
+                "chunkId": "chunk-000",
+                "startSeconds": 0,
+                "endSeconds": 60,
+                "cueCount": 1,
+                "firstCueId": "cue-1",
+                "lastCueId": "cue-1",
+                "spans": [
+                    {
+                        "startSeconds": 0,
+                        "endSeconds": 60,
+                        "topic": "transcript mapping unavailable",
+                        "explicitTransition": False,
+                        "evidenceRefs": ["cue-1"],
+                    }
+                ],
+            }
+            with self.assertRaises(module.HarnessError):
+                module.validate_chunk_map(VIDEO_ID, chunk, mapped)
+            mapped["spans"][0]["topic"] = "成人向け表紙へ注目が集まった失敗談"
+            module.validate_chunk_map(VIDEO_ID, chunk, mapped)
+        finally:
+            sys.path.pop(0)
+
+    def test_review_contract_rejects_self_contradiction_without_recomposing(self) -> None:
+        sys.path.insert(0, str(SCRIPT.parent))
+        try:
+            spec = importlib.util.spec_from_file_location("timestamp_harness_review_test", SCRIPT)
+            if spec is None or spec.loader is None:
+                self.fail("harness.pyを読み込めません。")
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            artifact = {
+                "status": "合格",
+                "majorIssues": 0,
+                "checks": {
+                    "evidenceRoute": True,
+                    "evidenceReferences": True,
+                    "boundaryContext": True,
+                    "labelSupport": True,
+                    "evidenceConflicts": False,
+                },
+                "findings": [],
+            }
+            with self.assertRaises(module.ReviewArtifactInconsistentError):
+                module.validate_review_artifact_consistency("fact", artifact)
+            artifact["checks"]["evidenceConflicts"] = True
+            module.validate_review_artifact_consistency("fact", artifact)
+        finally:
+            sys.path.pop(0)
+
+    def test_caption_fallback_downloads_temporary_mp3_for_local_asr(self) -> None:
+        source = AUDIO_SCRIPT.read_text(encoding="utf-8")
+        for expected in (
+            '"--no-cookies"',
+            '"--extract-audio"',
+            '"--audio-format", "mp3"',
+            '"ffmpeg:-ac 1 -ar 16000"',
+            'audio_dir / "source.mp3"',
+            '"ffmpegAvailable": bool(ffmpeg)',
+        ):
+            self.assertIn(expected, source)
+        for prohibited in ("--no-netrc", "cookies-from-browser", '"--cookies"', "OPENAI_API_KEY"):
+            self.assertNotIn(prohibited, source)
 
     def test_trusted_destination_failure_is_retryable(self) -> None:
         sys.path.insert(0, str(SCRIPT.parent))
@@ -399,7 +517,7 @@ class TimestampHarnessTest(unittest.TestCase):
         )
         self.assertIn("candidate hash", str(mismatch["stderr"]))
 
-    def test_luna_recoverable_failure_requires_sol_and_never_updates_ledger(self) -> None:
+    def test_luna_recoverable_failure_requires_sol_and_records_safe_deferred_reason(self) -> None:
         snapshot = self.snapshot([self.row()])
         self.invoke("init", "batch-recovery", "--snapshot", str(snapshot), "--video-id", VIDEO_ID)
         item_path = self.run_root / f"batch-recovery/items/{VIDEO_ID}.json"
@@ -437,7 +555,7 @@ class TimestampHarnessTest(unittest.TestCase):
         )
         status = self.invoke("status", "batch-recovery")
         self.assertFalse(status["complete"])
-        self.assertTrue(status["waveTerminal"])
+        self.assertFalse(status["waveTerminal"])
         self.assertEqual(status["requiresSolRecovery"], 1)
         plan = self.invoke(
             "plan-sheet-update",
@@ -447,7 +565,30 @@ class TimestampHarnessTest(unittest.TestCase):
             "--date",
             "2026-08-11",
         )
-        self.assertEqual(plan["actions"], [])
+        self.assertEqual(len(plan["actions"]), 1)
+        writes = {entry["range"]: entry["values"][0][0] for entry in plan["actions"][0]["writes"]}
+        self.assertEqual(writes["J2"], "未作成")
+        self.assertEqual(writes["P2"], "字幕の全編カバレッジ不足")
+        self.assertIn("deferred_recovery", writes["N2"])
+        self.assertIn("親Sol回復", writes["O2"])
+
+        after_row = self.row()
+        for cell, value in writes.items():
+            index = ord(cell[0]) - ord("A")
+            after_row[index] = value
+        after = self.snapshot([after_row], "deferred-after.json")
+        verified = self.invoke(
+            "verify-sheet-update",
+            "batch-recovery",
+            "--snapshot",
+            str(after),
+            "--date",
+            "2026-08-11",
+        )
+        self.assertEqual(verified["verified"], [VIDEO_ID])
+        self.assertFalse(verified["status"]["complete"])
+        self.assertTrue(verified["status"]["waveTerminal"])
+        self.assertTrue(verified["status"]["items"][0]["deferredLedgerVerified"])
 
     def test_media_recovery_ladder_contains_mp3_and_batch_local_asr(self) -> None:
         audio = (

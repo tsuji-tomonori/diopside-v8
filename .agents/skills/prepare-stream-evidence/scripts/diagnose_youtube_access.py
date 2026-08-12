@@ -86,7 +86,7 @@ def main() -> int:
                     executable,
                     "--ignore-config",
                     "--no-playlist",
-                    "--no-netrc",
+                    "--no-cookies",
                     "--simulate",
                     "--print",
                     "id",

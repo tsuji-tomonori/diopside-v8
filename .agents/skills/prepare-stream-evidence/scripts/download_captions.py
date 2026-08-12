@@ -90,7 +90,7 @@ def download_caption(
     for attempt in range(1, bounded_retries + 1):
         for language in ("ja-orig", "ja"):
             command = [
-                executable, "--ignore-config", "--no-playlist", "--no-netrc", "--skip-download",
+                executable, "--ignore-config", "--no-playlist", "--no-cookies", "--skip-download",
                 "--write-auto-subs", "--sub-langs", language, "--sub-format", "json3",
                 "--retries", "3", "--fragment-retries", "3", "--output", template, "--quiet", url,
             ]
