@@ -92,6 +92,11 @@ selected_checks:
     result: pass
     evidence: [commit:self]
     note: checkpoint whitelistから生字幕、音声、文字起こし、chat、worktree、credentialを除外した
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/scripts/harness.py, path:.agents/skills/run-timestamp-work-harness/references/workflow.md]
+    note: manifest hash、wave、stage、safe reason、resumeAfter、PR、commitをcheckpointから診断できる
   - id: REV-001
     class: Invariant
     result: pass
@@ -137,6 +142,11 @@ selected_checks:
     result: pass
     evidence: [path:.agents/skills/run-timestamp-work-harness/SKILL.md, path:.agents/skills/run-timestamp-work-harness/references/web-work-prompt.md]
     note: 初期化、preflight、各wave checkpoint、drain pause、次回restoreを運用手順へ反映した
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence: [path:spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md, path:.agents/skills/run-timestamp-work-harness/references/workflow.md]
+    note: 1000件の対象固定とremote checkpoint採用理由、再検討条件となるWork永続性制約を正本とworkflowへ保持した
 advisories: []
 residual_risks:
   - Hosted Workの物理同時thread数はサービス側に依存するため、10論理laneをqueueとして維持する
