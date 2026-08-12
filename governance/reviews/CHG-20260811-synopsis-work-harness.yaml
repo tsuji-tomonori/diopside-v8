@@ -111,7 +111,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [path:.agents/skills/run-synopsis-work-harness/SKILL.md, path:.codex/agents/synopsis-luna-worker.toml, test:tests/synopsis_harness_test.py]
-    note: 差分をあらすじSkill、状態機械、agent、要件、運用文書、直接試験へ限定した
+    note: 差分をあらすじSkill、状態機械、agent、要件、運用文書、直接試験の21ファイルへ限定し、最新main取り込み後も同じscopeを維持した
   - id: REV-002
     class: Invariant
     result: pass
