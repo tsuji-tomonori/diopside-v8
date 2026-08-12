@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
 import json
 import os
 import subprocess
@@ -76,6 +77,12 @@ class TimestampHarnessTest(unittest.TestCase):
         if not success and completed.returncode == 0:
             self.fail("expected command failure")
         return json.loads(completed.stdout) if completed.stdout else {"stderr": completed.stderr}
+
+    def digest(self, value: object) -> str:
+        encoded = json.dumps(
+            value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+        ).encode("utf-8")
+        return hashlib.sha256(encoded).hexdigest()
 
     def test_init_freezes_only_eligible_unfinished_rows_and_resumes_identically(self) -> None:
         snapshot = self.snapshot([
@@ -394,11 +401,184 @@ class TimestampHarnessTest(unittest.TestCase):
             "HEAD",
         )
         self.assertEqual(second["wave"], 2)
+        second_ids = [
+            lane["claimActions"][0]["videoId"]
+            for lane in second["lanes"]
+            if lane["claimActions"]
+        ]
+        self.assertEqual(second_ids, eligible_ids[10:])
         self.assertTrue(
             set(lane["batchId"] for lane in planned["lanes"]).isdisjoint(
                 lane["batchId"] for lane in second["lanes"]
             )
         )
+
+    def test_campaign_checkpoint_restores_safe_state_without_evidence(self) -> None:
+        snapshot = self.snapshot([self.row()])
+        initialized = self.invoke(
+            "initialize-campaign",
+            "campaign-durable",
+            "--snapshot",
+            str(snapshot),
+            "--base-ref",
+            "HEAD",
+        )
+        self.assertEqual(initialized["targetCount"], 1)
+        planned = self.invoke(
+            "plan-luna-wave",
+            "campaign-durable",
+            "--snapshot",
+            str(snapshot),
+            "--base-ref",
+            "HEAD",
+        )
+        action = planned["lanes"][0]["claimActions"][0]
+        lane = planned["lanes"][0]
+        claim_commit = "a" * 40
+        batch_unsigned = {
+            "schemaVersion": "1.1.0",
+            "batchId": lane["batchId"],
+            "spreadsheetId": "sheet-test",
+            "sheetName": "対象動画",
+            "headerHash": self.digest(HEADERS),
+            "baseCommit": planned["baseCommit"],
+            "items": [
+                {
+                    "videoId": VIDEO_ID,
+                    "rowNumber": 2,
+                    "rowHash": action["rowHash"],
+                }
+            ],
+            "videoIds": [VIDEO_ID],
+            "videoCount": 1,
+            "workerId": lane["workerId"],
+        }
+        batch_path = self.run_root / lane["batchId"]
+        (batch_path / "items").mkdir(parents=True)
+        (batch_path / "manifest.json").write_text(
+            json.dumps(
+                {**batch_unsigned, "manifestHash": self.digest(batch_unsigned)},
+                ensure_ascii=False,
+                indent=2,
+            ) + "\n",
+            encoding="utf-8",
+        )
+        item = {
+            "schemaVersion": "1.1.0",
+            "videoId": VIDEO_ID,
+            "rowNumber": 2,
+            "rowHash": action["rowHash"],
+            "stage": "pr_bootstrapped",
+            "attempt": 0,
+            "candidateHash": None,
+            "pullRequest": None,
+            "commit": None,
+            "solReview": None,
+            "block": None,
+            "sheetVerified": False,
+            "deferredLedgerVerified": False,
+            "claim": {
+                "workerId": lane["workerId"],
+                "claimToken": action["claimToken"],
+                "branch": action["branch"],
+                "baseCommit": planned["baseCommit"],
+                "claimCommit": claim_commit,
+                "claimedAt": action["claimedAt"],
+            },
+        }
+        (batch_path / f"items/{VIDEO_ID}.json").write_text(
+            json.dumps(item, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        checkpoint_path = self.temp / "campaign-checkpoint.json"
+        checkpoint = self.invoke(
+            "checkpoint-campaign",
+            "campaign-durable",
+            "--output",
+            str(checkpoint_path),
+            "--expected-parent-commit",
+            claim_commit,
+            "--resume-after",
+            "2026-08-13T09:00:00+09:00",
+        )
+        self.assertEqual(checkpoint["status"], "checkpoint_ready")
+        self.assertEqual(checkpoint["persistAction"]["expectedParentCommit"], claim_commit)
+        serialized = checkpoint_path.read_text(encoding="utf-8")
+        self.assertIn("2026-08-13T09:00:00+09:00", serialized)
+        for prohibited in ("transcript", "caption", "audioPath", "worktreePath"):
+            self.assertNotIn(prohibited, serialized)
+
+        restored_root = self.temp / "restored"
+        restored_env = {**self.env, "DIOPSIDE_TIMESTAMP_HARNESS_ROOT": str(restored_root)}
+        completed = subprocess.run(
+            [
+                "python3", str(SCRIPT), "restore-campaign", "campaign-durable",
+                "--checkpoint", str(checkpoint_path),
+            ],
+            cwd=ROOT,
+            env=restored_env,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        restored = json.loads(completed.stdout)
+        self.assertEqual(restored["restoredItems"], 1)
+        self.assertEqual(restored["rewoundItems"], 1)
+        restored_item = json.loads(
+            (restored_root / f"{lane['batchId']}/items/{VIDEO_ID}.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(restored_item["stage"], "pr_bootstrapped")
+
+    def test_preflight_is_a_claim_gate(self) -> None:
+        result = self.invoke("preflight")
+        self.assertIn(result["status"], {"ready", "setup_required"})
+        self.assertEqual(result["canCreateClaims"], not bool(result["missing"]))
+        self.assertEqual(set(result["tools"]), {"git", "codex", "yt-dlp", "ffmpeg"})
+
+    def test_campaign_manifest_plans_wave_100_without_duplicates(self) -> None:
+        campaign_id = "campaign-thousand"
+        video_ids = [f"T{index:010d}" for index in range(1000)]
+        items = [
+            {"videoId": video_id, "rowNumber": index + 2, "rowHash": f"{index:064x}"}
+            for index, video_id in enumerate(video_ids)
+        ]
+        unsigned = {
+            "schemaVersion": "2.0.0",
+            "campaignId": campaign_id,
+            "spreadsheetId": "sheet-test",
+            "sheetName": "対象動画",
+            "headerHash": self.digest(HEADERS),
+            "baseCommit": subprocess.run(
+                ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True,
+                capture_output=True, check=True,
+            ).stdout.strip(),
+            "targetCount": 1000,
+            "requestedTargetCount": 1000,
+            "items": items,
+            "videoIds": video_ids,
+            "createdAt": "2026-08-12T00:00:00+09:00",
+        }
+        campaign_path = self.run_root / f"campaigns/{campaign_id}"
+        campaign_path.mkdir(parents=True)
+        (campaign_path / "manifest.json").write_text(
+            json.dumps(
+                {**unsigned, "manifestHash": self.digest(unsigned)},
+                ensure_ascii=False,
+                indent=2,
+            ) + "\n",
+            encoding="utf-8",
+        )
+        snapshot = self.snapshot([self.row()])
+        wave = self.invoke(
+            "plan-luna-wave", campaign_id, "--wave", "100",
+            "--snapshot", str(snapshot), "--base-ref", "HEAD",
+        )
+        planned_ids = [lane["claimActions"][0]["videoId"] for lane in wave["lanes"]]
+        self.assertEqual(planned_ids, video_ids[990:1000])
+        self.assertEqual(len(set(planned_ids)), 10)
+        self.assertEqual(wave["remainingAfterWave"], 0)
 
     def test_sol_keeps_ten_logical_lane_slots_with_fewer_targets(self) -> None:
         snapshot = self.snapshot([self.row()])
