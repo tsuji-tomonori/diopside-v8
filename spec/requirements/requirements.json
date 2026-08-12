@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_revision": 9,
+  "catalog_revision": 10,
   "product": "diopside v8",
   "updated_at": "2026-08-12",
   "requirements": [
@@ -7349,19 +7349,20 @@
     },
     {
       "id": "V8-OPS-024",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "project",
       "category": "nonfunctional",
       "type": "operational",
-      "title": "回復可能な実行・意味構成失敗はSolへ引き継ぎ台帳の処理不能へ確定してはならない",
+      "title": "回復可能な実行・意味構成失敗はSolへ引き継ぎ安全な理由と再開手順を台帳へ残す",
       "subject": "diopside v8のタイムスタンプ失敗回復",
       "action": "satisfy",
-      "object": "Lunaが字幕、音声、ASR、codex exec、意味構成、確認、決定的検証で回復可能な失敗へ到達した場合、needs_sol_recoveryとして親Solへ返し、親SolはGPT-5.6 Sol highで同じ動画を回復しなければならない。codex execのtrusted-destination結果は上限付きで再試行し、全編日本語字幕があるのに章候補を構成できない場合は素材不足ではなく意味構成失敗として扱わなければならない。期限内に回復できない場合はdeferred_recovery checkpointを残し、Google Sheetsへ処理不能を書いてはならない。",
-      "rationale": "子agentや一時実行環境の能力・接続失敗を動画固有の処理不能と混同せず、親の強いモデルと回復経路を使って完了まで押し進め、期限後も安全に再開できるようにするため。",
+      "object": "Lunaが字幕、音声、ASR、codex exec、意味構成、確認、決定的検証で回復可能な失敗へ到達した場合、needs_sol_recoveryとして親Solへ返し、親SolはGPT-5.6 Sol highで同じ動画を回復しなければならない。codex execのtrusted-destination結果は上限付きで再試行し、全編日本語字幕があるのに章候補を構成できない場合は素材不足ではなく意味構成失敗として扱わなければならない。review artifactが自己矛盾する場合は候補を維持して当該reviewだけを独立再実行し、実際の指摘がある場合は指摘区間を局所修正して両reviewを再実行しなければならない。期限内に回復できない場合はdeferred_recovery checkpointを残し、Google Sheetsの処理状態を未作成に維持したまま、安全な理由分類と再開手順を進行中欄へ書いて再読検証し、処理不能へ確定してはならない。",
+      "rationale": "子agentや一時実行環境の能力・接続失敗を動画固有の処理不能と混同せず、親の強いモデルと局所的なfeedback loopを使って完了まで押し進め、期限後も台帳から安全かつ具体的に再開できるようにするため。",
       "source_refs": [
         "spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md",
-        "user:2026-08-11"
+        "spec/sources/owner-directive-2026-08-12-timestamp-recovery-feedback.md",
+        "user:2026-08-12"
       ],
       "acceptance_criteria": [
         {
@@ -7372,15 +7373,21 @@
         },
         {
           "id": "AC-V8-OPS-024-2",
-          "given": "codex execがtrusted-destinationを返す、または全編日本語字幕から章候補を構成できない",
+          "given": "codex execがtrusted-destinationを返す、または全編日本語字幕から章候補を構成できない、またはreview・validatorが実際の指摘を返す",
           "when": "親Solが回復処理を行う",
-          "then": "trusted-destinationは上限付き再試行し、意味構成失敗はGPT-5.6 Sol highで再実行して素材不足と区別する。"
+          "then": "trusted-destinationは上限付き再試行し、意味構成失敗はGPT-5.6 Sol highで素材不足と区別して処理し、指摘区間だけを局所修正して新candidate hashへ両独立reviewを繰り返す。"
         },
         {
           "id": "AC-V8-OPS-024-3",
           "given": "campaignのdrain期限までに回復可能失敗を解消できない",
           "when": "親Solが最終状態と台帳更新可否を判定する",
-          "then": "safe reasonと再開情報を持つdeferred_recovery checkpointをignored stateへ残し、当該動画をGoogle Sheetsの処理不能へ更新せず、他動画の処理を継続する。"
+          "then": "safe reasonと再開情報を持つdeferred_recovery checkpointをignored stateへ残し、Google Sheetsの処理状態を未作成に維持して安全な理由分類と再開手順だけを書き、再読検証後に他動画の処理を継続する。"
+        },
+        {
+          "id": "AC-V8-OPS-024-4",
+          "given": "独立reviewのstatus、majorIssues、checks、重大findingsが自己矛盾する",
+          "when": "親harnessがreview artifactを検証する",
+          "then": "candidate hashを変更せず矛盾したreviewだけを新しい独立文脈で一度取り直し、review契約エラーだけを理由に章候補を再構成しない。"
         }
       ],
       "verification": {
@@ -7403,10 +7410,11 @@
         ],
         "standards": [
           "spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md",
+          "spec/sources/owner-directive-2026-08-12-timestamp-recovery-feedback.md",
           "dev-standard default profile"
         ]
       },
-      "last_changed_by": "CHG-20260811-timestamp-campaign-resilience"
+      "last_changed_by": "CHG-20260811-timestamp-retry-fallback"
     }
   ]
 }

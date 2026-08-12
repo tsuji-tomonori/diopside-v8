@@ -19,6 +19,9 @@ Read `references/draft-contract.md` and `references/genre-rules.md` before writi
 5. Require transcript/ASR or creator-list evidence for every nonzero boundary.
 6. Keep `internalTopic` separate from the concise, spoiler-safe `label`.
 7. Preserve rejected candidates and conflicts with reason codes.
-8. Write `chapter_draft.json` with status `確認待ち`; never mark it approved.
+8. When revising after review or validator feedback, change only the cited
+   intervals. Preserve unaffected supported boundaries, labels, and chapter count
+   unless the evidence requires a change; do not oscillate through global rewrites.
+9. Write `chapter_draft.json` with status `確認待ち`; never mark it approved.
 
 Confidence `高` requires a creator boundary or an explicit transition with corroboration. Confidence `中` requires a clear transcript transition with surrounding context. Do not emit `低` into the draft sent to review.

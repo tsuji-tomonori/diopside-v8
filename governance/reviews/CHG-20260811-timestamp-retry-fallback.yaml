@@ -45,8 +45,8 @@ selected_checks:
   - id: IMP-001
     class: Invariant
     result: pass
-    evidence: [path:spec/requirements/requirements.json, path:spec/sources/owner-directive-2026-08-11-timestamp-retry-fallback.md, path:spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md]
-    note: 字幕失敗時の公開音声ASR、Codex同一モデル再試行、品質時Terra昇格、親Sol回復をV8-OPS-019とV8-OPS-022〜024へ正本化した
+    evidence: [path:spec/requirements/requirements.json, path:spec/sources/owner-directive-2026-08-11-timestamp-retry-fallback.md, path:spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md, path:spec/sources/owner-directive-2026-08-12-timestamp-recovery-feedback.md]
+    note: 実campaignのdeferred理由記録、review自己矛盾の再確認、局所feedback loopをV8-OPS-024 revision 2へ正本化した
   - id: IMP-002
     class: Invariant
     result: pass
@@ -66,7 +66,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [test:tests/timestamp_harness_test.py, workflow:要件・品質ゲート#要件の品質ゲートを実行]
-    note: retry route、MP3 ASR、品質昇格、chunk mapを直接試験へ追加した
+    note: retry route、MP3 ASR、品質昇格、chunk map誤検知、review契約、deferred台帳再読を直接試験へ追加した
   - id: FAST-003
     class: Invariant
     result: pass
@@ -76,17 +76,17 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [test:tests/timestamp_harness_test.py]
-    note: 技術再試行と品質昇格を分離し公開音声取得にcookieまたは有料APIを使わないことを検証する
+    note: 技術再試行と品質昇格を分離し、現行yt-dlpの匿名optionを使ってcookieまたは有料APIを使わないことを検証する
   - id: FAST-005
     class: Risk-selected
     result: pass
     evidence: [test:tests/timestamp_harness_test.py, test:tests/timestamp_tools_test.py]
-    note: Codex技術失敗の誤分類、ignored venv未使用、公開字幕失敗後の音声fallback欠落を回帰testと実行probeで固定した
+    note: Codex技術失敗、review自己矛盾、意味topic誤検知、deferred理由未記録、公開字幕失敗後の音声fallbackを回帰testで固定した
   - id: FAST-006
     class: Invariant
     result: pass
     evidence: [path:scripts/generate-requirements.ts, path:docs/requirements/REQUIREMENTS.md]
-    note: 要件151件revision 9を既存generatorから決定的に再生成する
+    note: 要件151件revision 10を既存generatorから決定的に再生成する
   - id: FAST-007
     class: Invariant
     result: pass
@@ -101,7 +101,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [path:.agents/skills/run-timestamp-work-harness/SKILL.md, path:.agents/skills/run-timestamp-work-harness/scripts/harness.py, path:.agents/skills/prepare-stream-evidence/scripts/download_audio.py]
-    note: 差分を素材復旧、Codex retry、map-reduce、要件生成元、直接試験へ限定した
+    note: 差分を素材復旧、Codex retry、局所feedback、deferred台帳note、要件生成元、直接試験へ限定した
   - id: REV-002
     class: Invariant
     result: pass
@@ -111,7 +111,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [path:spec/requirements/requirements.json, test:tests/timestamp_harness_test.py]
-    note: V8-OPS-019とV8-OPS-022〜024の追加受入条件を実装と試験へtraceした
+    note: V8-OPS-019とV8-OPS-022〜024 revision 2の受入条件を実装と試験へtraceした
   - id: REV-004
     class: Invariant
     result: pass
@@ -121,7 +121,7 @@ selected_checks:
     class: Risk-selected
     result: pass
     evidence: [path:spec/requirements/requirements.json, path:.agents/skills/run-timestamp-work-harness/scripts/harness.py, test:tests/timestamp_harness_test.py]
-    note: 全編根拠、同一モデルretry、品質昇格、Sol gateの要件から実装と検証へtraceを接続した
+    note: 全編根拠、同一モデルretry、review再確認、局所再構成、deferred台帳再読の要件から実装と検証へtraceを接続した
   - id: REV-006
     class: Invariant
     result: pass
@@ -141,15 +141,15 @@ selected_checks:
     class: Risk-selected
     result: pass
     evidence: [path:.agents/skills/run-timestamp-work-harness/SKILL.md, path:.agents/skills/run-timestamp-work-harness/references/workflow.md]
-    note: retry条件、モデル昇格条件、map checkpoint、既存claim再開を運用手順へ反映した
+    note: retry条件、review契約、局所feedback、deferred台帳note、既存claim再開を運用手順へ反映した
   - id: REV-015
     class: Advisory
     result: pass
-    evidence: [path:spec/sources/owner-directive-2026-08-11-timestamp-retry-fallback.md, path:.agents/skills/run-timestamp-work-harness/references/workflow.md]
-    note: 長期の素材fallbackとモデルroutingを正本と派生設計へ保持し新規ADRを不要と判定した
+    evidence: [path:spec/sources/owner-directive-2026-08-11-timestamp-retry-fallback.md, path:spec/sources/owner-directive-2026-08-12-timestamp-recovery-feedback.md, path:.agents/skills/run-timestamp-work-harness/references/workflow.md]
+    note: 長期の素材fallback、モデルrouting、局所feedback、deferred理由記録を正本と派生設計へ保持し新規ADRを不要と判定した
 advisories: []
 residual_risks:
-  - 公開音声または無料ローカルASRをdrain期限までに回復できない動画は、台帳を更新せずdeferred_recoveryから再開する
+  - drain期限までに回復できない動画は台帳へ安全な理由と再開手順だけを記録し、処理不能にせずdeferred_recoveryから再開する
   - 長時間字幕は最大3 chunkを並行mapするため、実行環境の負荷に応じてDIOPSIDE_TRANSCRIPT_MAP_WORKERSを1から4で調整する
   - worker-side shell読取失敗を避けるため字幕JSONLと検証済みmapを直接入力し、生成方式versionが古いmap、読取失敗、placeholderを決定的に拒否する
-  - Terra品質再試行後も決定的validatorまたは親Sol確認に合格しない候補は正本化しない
+  - 上限付き局所feedback loop後も決定的validatorまたは親Sol確認に合格しない候補は正本化しない

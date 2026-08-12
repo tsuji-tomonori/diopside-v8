@@ -79,7 +79,7 @@ def main() -> int:
                 continue
             for attempt in range(1, retries + 1):
                 command = [
-                    executable, "--ignore-config", "--no-playlist", "--no-netrc",
+                    executable, "--ignore-config", "--no-playlist", "--no-cookies",
                     *format_args, "--output", template, "--continue", "--retries", "5",
                     "--fragment-retries", "5", "--quiet", inputs["youtubeUrl"],
                 ]

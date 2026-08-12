@@ -45,14 +45,23 @@ GPT-5.6 Luna medium論理レーンでタイムスタンプ作成campaignを実�
    回復順序は、匿名YouTube到達性診断、公開日本語字幕再試行、native公開音声、
    yt-dlpによるMP3、無料batch-local ASR、GPT-5.6 Sol/highによる章再構成、
    独立fact/editorial、validatorです。
+   yt-dlpは`--ignore-config --no-cookies`を使い、
+   現行版に存在しない`--no-netrc`を使わないでください。
 7. `codex exec`が`trusted-destination`を返した場合は、同じ安全な処理を上限3回、
    bounded backoff付きで再試行してください。別原因と混同しないでください。
 8. 「全編日本語字幕取得済みだが検証可能な章候補を構成できない」は素材取得失敗にせず、
    composition failureとして親Sol/highで再構成してください。
 9. 音声・字幕・文字起こし取得失敗を`処理不能`としてSheetsへ書くことを禁止します。
    親回復を期限内に完了できない場合は`deferred_recovery`として同じcampaign、wave、
-   batch ID、Draft PR、checkpointを残し、Sheetsは変更せず他laneへ進んでください。
-10. 合格候補だけ親Solが`record-sol-review --reviewer-model gpt-5.6-sol`、
+   batch ID、Draft PR、checkpointを残してください。`処理状態=未作成`を維持したまま、
+   N/O/P列へ安全な失敗段階・理由分類・再開手順だけを書き、再読検証してから他laneへ進んでください。
+   P列には既存dropdownの許可値だけを使ってください。
+10. reviewのchecksは合格フラグです。factの`evidenceConflicts=true`は「矛盾なしを確認済み」
+    を意味します。status・majorIssues・checks・重大findingsが自己矛盾するreviewは候補を変えず、
+    そのreviewだけを新しい独立文脈で取り直してください。実際のmajor指摘またはvalidator不合格は、
+    指摘区間だけをexact cueへ局所修正し、無関係な境界・ラベル・章数を維持して新candidate hashを作り、
+    fact/editorialを両方取り直してください。合格またはdrainまで上限付きで反復してください。
+11. 合格候補だけ親Solが`record-sol-review --reviewer-model gpt-5.6-sol`、
     `materialize`、1動画scope検証、commit、push、Draft PR更新、`record-push`、
     正確な台帳行の再読・更新・再読検証を実行してください。
 
