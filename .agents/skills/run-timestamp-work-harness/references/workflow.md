@@ -125,16 +125,51 @@ For the 1 Sol・10 Luna campaign, evidence, Codex, composition, review, and
 validation failures never become spreadsheet blockers. Luna returns
 `needs_sol_recovery`; Sol runs `recover-with-sol`. If drain time arrives after all
 fallbacks, `deferred_recovery` is a wave-terminal checkpoint but not campaign
-completion and has no spreadsheet action.
+completion. It becomes wave-terminal only after the parent writes and rereads a
+safe progress note: keep `処理状態=未作成`, never write `処理不能`, and update only
+the failure/restart note columns plus an allowed `未作成原因` dropdown value.
 
 ## Codex isolation
 
-The harness invokes `codex exec --ephemeral --sandbox workspace-write` with an
-output schema and a fixed repository directory. Composition, fact review, and
-editorial review are separate processes. The editorial prompt forbids reading the
-fact-review artifact. Codex may write only the role artifact under the ignored
-video dossier and may not perform network, Git, spreadsheet, or GitHub actions.
+The harness invokes `codex exec --ephemeral --sandbox read-only` with an output
+schema and a fixed repository directory. Composition, fact review, and editorial
+review are separate processes. The editorial prompt forbids reading the fact-review
+artifact. Codex returns one schema-constrained role artifact; the parent harness
+writes it atomically under the ignored video dossier. Neither side may perform
+network, Git, spreadsheet, or GitHub actions during semantic evaluation.
 The existing deterministic validators remain the authority for advancing state.
+Luna receives each bounded transcript chunk as normalized JSONL in the prompt and
+maps it into exact-cue semantic spans without a worker-side shell dependency.
+The parent rejects read-failure and placeholder topics before checkpoint reuse.
+Every checkpoint carries the direct-input mapper version; a missing or stale
+version invalidates the map so pre-direct-input artifacts cannot be reused.
+Composition then receives every validated map as JSON and reconciles the declared ranges and overlaps,
+avoiding a single unbounded caption context without weakening full-duration evidence
+coverage.
+Technical failures, including the configurable 30-minute execution timeout, are
+retried once with the same model. Timeout handling terminates the complete Codex
+process group before retrying so an orphan cannot write to the reused output path.
+After verifying that the
+working directory is the expected Git repository, a trusted-destination-only retry
+may use the official `--skip-git-repo-check` flag without relaxing sandbox or
+approval settings. A Luna composition that completed but failed deterministic
+draft validation may be recomposed once with GPT-5.6 Terra high. The temporary
+attempt record must state `quality_retry_escalation`; technical failures never
+cause a model escalation. Parent Sol review remains mandatory.
+
+Review `checks` are pass flags, not defect flags. Fact
+`evidenceConflicts=true` means the reviewer confirmed that the evidence does not
+conflict. If status, majorIssues, checks, and major findings contradict one
+another, discard that review artifact and rerun only that independent review
+against the same candidate. If a coherent review or validator reports an actual
+defect, pass its findings back to composition, change only the cited intervals,
+preserve unaffected supported boundaries and labels, assign a new candidate hash,
+and rerun both reviews. Parent Sol repeats this bounded loop until pass or drain.
+
+When captions are unavailable, the evidence route uses unauthenticated `yt-dlp`
+to create a temporary 16 kHz mono MP3 and runs full-duration `faster-whisper`.
+The harness discovers an ignored bundled virtual environment when present and
+reports dependency, public-audio, and local-ASR failures as distinct safe blockers.
 
 Every exec pins both model and reasoning effort. Luna uses
 `gpt-5.6-luna` / `medium`; parent recovery uses `gpt-5.6-sol` / `high`.
@@ -145,7 +180,9 @@ code, timestamp, and a diagnostic digest in the ignored per-video event log.
 ## Recovery ladder
 
 Before declaring an evidence problem, run the anonymous `yt-dlp` reachability
-diagnosis and preserve only its safe classification. Then try, in order:
+diagnosis with `--ignore-config --no-cookies` and
+preserve only its safe classification. Do not use the removed/unsupported
+`--no-netrc` option. Then try, in order:
 
 1. public `ja-orig` / `ja` captions with bounded retry;
 2. unauthenticated native best-audio with resume and fragment retry;
@@ -191,4 +228,6 @@ For a draft PR:
 For a blocker, `作成済み` remains `FALSE`, `処理状態` is `処理不能`, and
 `未作成原因` contains only the controlled Japanese stage/reason/restart summary.
 This blocker mapping is prohibited for recoverable 1 Sol・10 Luna campaign
-failures. `needs_sol_recovery` and `deferred_recovery` produce no sheet writes.
+failures. `needs_sol_recovery` produces no sheet write. `deferred_recovery`
+produces only the safe, verified progress-note write described above and never a
+terminal success or `処理不能` write.

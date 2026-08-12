@@ -64,7 +64,9 @@ repository or pass them to `codex exec`.
    parent Sol only. Keep one video per PR.
 7. After all ten lane slots are terminal or inactive, reread the ledger. A recovery
    exhausted at drain time becomes `deferred_recovery`; leave its draft PR and
-   checkpoint resumable, do not write `処理不能`, and continue the other lanes. If the
+   checkpoint resumable, do not write `処理不能`, but write and reread-verify the safe
+   failure stage, reason category, and restart action in the existing progress-note
+   columns. Continue the other lanes. If the
    finite campaign still has eligible videos and its operator-defined deadline has
    not arrived, reread the sheet and plan the next numbered wave without asking
    for human input. Stop only when
@@ -84,18 +86,36 @@ each chat a unique batch ID and run
 8. Run `harness.py run-local` for every pending video, or for the one claimed video
    in distributed mode. The command acquires public
    safe YouTube reachability diagnosis, then Japanese captions first and falls
-   back to native public audio, MP3, and free local ASR. Only parent recovery may
+   back to native public audio, a temporary 16 kHz mono MP3, and free local ASR. Only parent recovery may
    prepare a missing ASR dependency in the ignored batch directory. It
    runs composition, fact review, and editorial review as separate ephemeral
    `codex exec` invocations and then runs the deterministic validator.
+   Long transcripts are mapped in bounded chunks by passing normalized cue JSONL
+   directly to the read-only worker; semantic maps that report read failures or
+   placeholder topics are rejected and regenerated. Whole-video composition and
+   both reviews likewise receive only the required validated JSON payload instead
+   of depending on worker-side shell reads.
+   A technical `codex exec` failure, including the configurable 30-minute execution
+   timeout, is retried once on the same Luna model. Only
+   a completed Luna composition that fails deterministic draft validation may be
+   recomposed once with GPT-5.6 Terra high and the explicit routing reason
+   `quality_retry_escalation`; silent model substitution is forbidden.
+   Review checks are pass flags. In particular, fact `evidenceConflicts=true`
+   means no evidence conflict was found. A self-contradictory review is discarded
+   and independently rerun against the same candidate. A coherent major finding
+   triggers bounded, local feedback recomposition that preserves unaffected
+   boundaries and repeats both independent reviews; parent Sol recovery may repeat
+   this cycle up to `DIOPSIDE_SOL_QUALITY_CYCLES` (default 6).
    Add `--with-chat` only when the ledger notes or a review explicitly requires
    optional reaction corroboration; the downloader discards text and identities
    and retains only anonymous 30-second reaction-density signals.
 9. Continue after an item failure. In the 1 Sol・10 Luna campaign, never call
    `record-blocked` for evidence, codex, composition, review, or validation
-   failures. Recover them in the parent or leave `deferred_recovery` without a
-   ledger write. `record-blocked` remains only for the compatibility distributed
-   mode and non-recoverable policy or external-state failures.
+   failures. Recover them in the parent or leave `deferred_recovery` with a
+   verified safe progress note, never `処理不能`. `record-blocked` remains only for the compatibility distributed
+   mode and non-recoverable policy or external-state failures. Use
+   `run-local --retry-blocked` only to resume a compatible pre-existing blocked
+   claim without creating another branch.
 10. In single-chat mode, for each `ready_for_pr` item, create
    `agent/timestamps-<exact-video-id>` from the
    recorded base commit. Use `harness.py prepare-pr-bootstrap`, commit and push the
@@ -110,8 +130,7 @@ each chat a unique batch ID and run
    connector, re-read those rows, then run `harness.py verify-sheet-update`.
 13. Stop only when `harness.py status` reports `complete`, or the campaign deadline
    has entered drain mode and every unfinished item is a parent-owned,
-   safely logged `deferred_recovery`. Deferred items never require or permit a
-   spreadsheet write.
+   safely logged `deferred_recovery` whose progress note has been reread and verified.
 
 When commands run from a per-video worktree, set
 `DIOPSIDE_TIMESTAMP_HARNESS_ROOT` to the original shared batch root so the branch

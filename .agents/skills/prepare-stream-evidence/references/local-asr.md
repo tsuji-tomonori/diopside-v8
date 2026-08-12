@@ -5,7 +5,7 @@ Use local ASR only when a complete public Japanese caption track and operator tr
 1. Initialize the work item.
 2. Run `diagnose_youtube_access.py VIDEO_ID --execute` to record a non-identifying reachability classification.
 3. Run `download_audio.py VIDEO_ID` without `--execute` to inspect the public, unauthenticated audio plan.
-4. After the human-triggered request authorizes network retrieval, rerun with `--execute`. The downloader tries native best-audio first and MP3 through local `ffmpeg` second.
+4. After the human-triggered request authorizes network retrieval, rerun with `--execute`. The downloader tries native best-audio first and then a temporary 16 kHz mono MP3 through local `ffmpeg` for predictable local-ASR input.
 5. Run `transcribe_local_asr.py VIDEO_ID` for dependency and input preflight, then rerun with `--execute`.
 6. Only in parent Sol recovery, add `--bootstrap-local` if `faster-whisper` is missing. Installation and model files stay below the ignored batch root and are reused by later lanes.
 7. Pass the generated `transcript-source.json` to `prepare_evidence.py`.

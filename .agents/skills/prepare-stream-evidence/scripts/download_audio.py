@@ -28,14 +28,16 @@ def main() -> int:
         directory = work_dir(args.video_id)
         inputs = read_json(directory / "inputs.json")
         executable = shutil.which("yt-dlp")
+        ffmpeg = shutil.which("ffmpeg")
         plan = {
             "videoId": args.video_id,
             "url": inputs["youtubeUrl"],
             "authentication": "none",
             "format": "bestaudio",
-            "fallbackFormat": "mp3",
+            "fallbackFormat": "mp3-16khz-mono",
             "outputDirectory": str((directory / "audio").relative_to(directory.parents[3])),
             "ytDlpAvailable": bool(executable),
+            "ffmpegAvailable": bool(ffmpeg),
             "willUseNetwork": bool(args.execute),
         }
         if not args.execute:
@@ -60,8 +62,11 @@ def main() -> int:
             ),
             (
                 "mp3-fallback",
-                ["--format", "bestaudio/best", "--extract-audio", "--audio-format", "mp3", "--audio-quality", "5"],
-                str(audio_dir / "source-mp3.%(ext)s"),
+                [
+                    "--format", "bestaudio/best", "--extract-audio", "--audio-format", "mp3",
+                    "--audio-quality", "0", "--postprocessor-args", "ffmpeg:-ac 1 -ar 16000",
+                ],
+                str(audio_dir / "source.%(ext)s"),
             ),
         ]
         failures: list[str] = []
@@ -74,7 +79,7 @@ def main() -> int:
                 continue
             for attempt in range(1, retries + 1):
                 command = [
-                    executable, "--ignore-config", "--no-playlist", "--no-netrc",
+                    executable, "--ignore-config", "--no-playlist", "--no-cookies",
                     *format_args, "--output", template, "--continue", "--retries", "5",
                     "--fragment-retries", "5", "--quiet", inputs["youtubeUrl"],
                 ]
@@ -84,11 +89,14 @@ def main() -> int:
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                 )
-                pattern = "source-native.*" if strategy == "native-bestaudio" else "source-mp3.mp3"
-                files = [
-                    path for path in audio_dir.glob(pattern)
-                    if path.is_file() and not path.name.endswith((".part", ".ytdl", ".json"))
-                ]
+                if strategy == "native-bestaudio":
+                    files = [
+                        path for path in audio_dir.glob("source-native.*")
+                        if path.is_file() and not path.name.endswith((".part", ".ytdl", ".json"))
+                    ]
+                else:
+                    expected_mp3 = audio_dir / "source.mp3"
+                    files = [expected_mp3] if expected_mp3.is_file() else []
                 if completed.returncode == 0 and len(files) == 1:
                     audio = files[0]
                     selected_strategy = strategy
