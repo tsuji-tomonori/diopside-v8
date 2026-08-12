@@ -28,6 +28,16 @@
 
 複数のWorkセッションも併用する場合は、各セッションに一意なbatch IDとworker IDを生成させる。各workerは`claim-next`が返す候補を順にGitHub connectorの`create_branch`で試し、1件だけ確保する。動画IDの大文字小文字を保持した`agent/timestamps-<video-id>`のref作成が原子的claimであり、同時競合で既存branchとなったworkerは次候補へ進む。勝者はclaim markerと処理中draft PRを直ちに作成し、そのPRで完了まで進める。force update、branch削除、stale claimの自動奪取は禁止する。余ったworkerの`no_unclaimed_target`は正常終了であり、外部書込みを追加しない。
 
+## ChatGPT Workからの有限一括あらすじ処理
+
+複数動画の未作成あらすじを処理する場合は、`.agents/skills/run-synopsis-work-harness/SKILL.md`を入口にする。最新mainの正本動画をあらすじ有無の判定元とし、Google Sheetsの`対象動画`を母集団、`あらすじ作業台帳`をclaim・進捗・PR・処理不能の記録先とする。mainから同期した`実装あらすじ`は参照専用でありcampaignから更新しない。既存あらすじ、除外確定、処理中branch、draft PRがある動画を対象に含めない。
+
+親1セッションをGPT-5.6 Sol、子を`synopsis-luna-worker`のGPT-5.6 Luna medium 10論理レーンとする。親Solがexact-caseの`agent/synopsis-<video-id>`branch、claim marker、処理中draft PRを確保し、1動画ずつLunaへ割り当てる。Lunaは公開日本語字幕または公開音声と無償local ASRから全編を意味区間へ分け、rules 1.1.0の候補、事実・発言者確認、ネタバレ・個人情報確認、編集確認、決定的validatorだけを実行する。レビューは同じcandidate hashへ独立して合格する必要がある。
+
+親Solは0秒から動画末尾までのcoverage、本文の全事実、白雪巴本人の発言と最初の時刻、歌詞・ゲーム・映像・朗読台詞・他出演者発言の除外、ネタバレ、個人情報、自然な日本語と全編代表性を再確認する。`record-sol-review`のhashが現在候補と一致した動画だけを正本化し、1動画draft PRと対象台帳行を確定する。Lunaはconnector、正本化、commit、push、台帳更新を行わない。10物理threadを利用できない場合は同じ10論理レーンを波状実行し、1動画の失敗を理由に他レーンまたは期限前の次waveを停止しない。[OpenAI公式のsubagent仕様](https://learn.chatgpt.com/docs/agent-configuration/subagents)に従い、明確で反復的な1動画処理をLunaへ限定し、共有書込みと最終判断を親へ集約する。
+
+生字幕、文字起こし、音声、コメント、チャット、個人識別情報をGit、PR本文、review YAML、台帳へ保存しない。merge、公開、force update、branch削除、stale claimの自動奪取、有料API、認証回避、非公開素材取得は禁止する。人がPRをマージする操作を公開承認として維持する。
+
 ## 公開と復元
 
 候補ブランチは公開元にしない。人が正本プルリクエストをmainへマージし、そのcommitの品質ゲートが合格すると、`.github/workflows/update-generated-release.yml` が内容ハッシュrelease IDと静的成果物を生成・検証し、差分がある場合だけmainへrelease commitする。その `main/docs` 更新により既存のbranch方式Pages buildが起動する。重複実行を避けるためPages build APIは明示呼出しせず、独自deploy artifactも使わない。後続のmain更新を検出した古い実行はcommitせず、後続commitの品質ゲートへ委ねる。誤りは対象正本commitの取り消し、または修正プルリクエストで直し、直前の正本と同じ公開版を再生成する。履歴を書き換えるforce pushは使わない。
