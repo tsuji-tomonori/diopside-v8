@@ -1773,27 +1773,32 @@
           "videoId": "Tg9QLZSESY4",
           "rowNumber": 230,
           "rowHash": "0bc4313a43ccaafc7dabb61562b9b1b49f32ffcd771b4f0161025b46bbfa8cb3",
-          "stage": "needs_sol_recovery",
+          "stage": "blocked",
           "attempt": 0,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/232",
           "commit": null,
           "solReview": null,
-          "block": null,
+          "block": {
+            "reasonCode": "ledger_conflict",
+            "failureStage": "deferred_recovery",
+            "reason": "開始後に台帳行が変更されたため自動更新を停止しました。 fixed row=230 expected=Tg9QLZSESY4 current=ivuJcfn0KRY",
+            "restartCondition": "原因を解消し、同じbatch IDで再開してください。"
+          },
           "recovery": {
             "reasonCode": "validation_failed",
             "detail": "Work実行環境の再作成後に安全な工程から再開します。",
-            "nextAction": "公開YouTube匿名到達性の回復後、同じcampaign、wave、batch IDで親Sol回復を再開する",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
             "solAttempt": 1,
-            "startedAt": "2026-08-13T00:47:46.912296+09:00",
+            "startedAt": "2026-08-13T21:50:21.284706+09:00",
             "reason": "決定的検証に合格できませんでした。",
-            "detailDigest": "6128341dca7b2d29266e95206e23ab8142c3193ffcefdbd9a862e7f1ebbe8b99",
+            "detailDigest": "8c510e1ed5eb4cb637076c70ce0c50ed3ca758bb4f3ad630f4e4584bc82e9b6b",
             "handledBy": "gpt-5.6-sol",
-            "result": "queued_for_same_campaign_resume",
-            "deferredAt": "2026-08-13T01:22:47.333497+09:00"
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-13T22:13:50.704564+09:00"
           },
-          "sheetVerified": false,
-          "deferredLedgerVerified": true,
+          "sheetVerified": true,
+          "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w01-l01-45a2ae42",
             "claimToken": "a4af105cf2144fae878ac610d46cd328",
@@ -1801,7 +1806,7 @@
             "claimCommit": "30c504f6ac38d079a7f1d00c7dfd981526e4a850",
             "claimedAt": "2026-08-12T01:34:46.986664+09:00"
           },
-          "updatedAt": "2026-08-13T01:20:04.372041+00:00"
+          "updatedAt": "2026-08-13T14:45:44.811375+00:00"
         }
       ]
     },
@@ -1833,27 +1838,32 @@
           "videoId": "Z-BfQx-8FD4",
           "rowNumber": 238,
           "rowHash": "def7063fce55bf22a5bb0da207590ab24aa164dea351151dc37c40ff732d0e52",
-          "stage": "needs_sol_recovery",
+          "stage": "blocked",
           "attempt": 0,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/233",
           "commit": null,
           "solReview": null,
-          "block": null,
+          "block": {
+            "reasonCode": "ledger_conflict",
+            "failureStage": "deferred_recovery",
+            "reason": "開始後に台帳行が変更されたため自動更新を停止しました。 fixed row=238 expected=Z-BfQx-8FD4 current=RJe5JPoHbZE",
+            "restartCondition": "原因を解消し、同じbatch IDで再開してください。"
+          },
           "recovery": {
             "reasonCode": "validation_failed",
             "detail": "Work実行環境の再作成後に安全な工程から再開します。",
-            "nextAction": "公開YouTube匿名到達性の回復後、同じcampaign、wave、batch IDで親Sol回復を再開する",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
             "solAttempt": 1,
-            "startedAt": "2026-08-13T00:47:47.144424+09:00",
+            "startedAt": "2026-08-13T22:14:23.602892+09:00",
             "reason": "決定的検証に合格できませんでした。",
-            "detailDigest": "8c510e1ed5eb4cb637076c70ce0c50ed3ca758bb4f3ad630f4e4584bc82e9b6b",
+            "detailDigest": "6128341dca7b2d29266e95206e23ab8142c3193ffcefdbd9a862e7f1ebbe8b99",
             "handledBy": "gpt-5.6-sol",
-            "result": "queued_for_same_campaign_resume",
-            "deferredAt": "2026-08-13T01:06:10.463367+09:00"
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-13T23:03:27.724604+09:00"
           },
-          "sheetVerified": false,
-          "deferredLedgerVerified": true,
+          "sheetVerified": true,
+          "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w01-l02-45a2ae42",
             "claimToken": "658d03c9a19941d6b3caa01146bb6fca",
@@ -1861,7 +1871,7 @@
             "claimCommit": "214200c59f99535ca1f07503cf5b4b466d8358e9",
             "claimedAt": "2026-08-12T01:34:46.986915+09:00"
           },
-          "updatedAt": "2026-08-13T01:20:04.372078+00:00"
+          "updatedAt": "2026-08-13T14:45:45.506880+00:00"
         }
       ]
     },
@@ -1893,27 +1903,32 @@
           "videoId": "6tRcXUfOWYs",
           "rowNumber": 202,
           "rowHash": "4219d1b3e9a874ccfe76e9ef26f3681ee1709d69b63b8169747248cbc31123a7",
-          "stage": "needs_sol_recovery",
+          "stage": "blocked",
           "attempt": 0,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/224",
           "commit": null,
           "solReview": null,
-          "block": null,
+          "block": {
+            "reasonCode": "ledger_conflict",
+            "failureStage": "deferred_recovery",
+            "reason": "開始後に台帳行が変更されたため自動更新を停止しました。 fixed row=202 expected=6tRcXUfOWYs current=Ln6xK8duIpU",
+            "restartCondition": "原因を解消し、同じbatch IDで再開してください。"
+          },
           "recovery": {
             "reasonCode": "validation_failed",
             "detail": "Work実行環境の再作成後に安全な工程から再開します。",
-            "nextAction": "公開YouTube匿名到達性の回復後、同じcampaign、wave、batch IDで親Sol回復を再開する",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
             "solAttempt": 1,
-            "startedAt": "2026-08-13T00:53:45.211773+09:00",
+            "startedAt": "2026-08-13T22:14:23.797917+09:00",
             "reason": "決定的検証に合格できませんでした。",
             "detailDigest": "8c510e1ed5eb4cb637076c70ce0c50ed3ca758bb4f3ad630f4e4584bc82e9b6b",
             "handledBy": "gpt-5.6-sol",
-            "result": "queued_for_same_campaign_resume",
-            "deferredAt": "2026-08-13T01:16:53.636828+09:00"
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-13T22:47:55.100398+09:00"
           },
-          "sheetVerified": false,
-          "deferredLedgerVerified": true,
+          "sheetVerified": true,
+          "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w01-l03-45a2ae42",
             "claimToken": "fe392fe3529647f68ec29653804b9d34",
@@ -1921,7 +1936,7 @@
             "claimCommit": "9d158f6dd54d906ceaa6c9a75ff0a938e1e9db5d",
             "claimedAt": "2026-08-12T01:31:49.736664+09:00"
           },
-          "updatedAt": "2026-08-13T01:20:04.372084+00:00"
+          "updatedAt": "2026-08-13T14:45:47.539930+00:00"
         }
       ]
     },
@@ -1953,27 +1968,32 @@
           "videoId": "ZV4CXlLkHgw",
           "rowNumber": 203,
           "rowHash": "da948e251ddf173dc6fb4727f1b7bf92c766678e4c4c96ad5e0c486e28ae7776",
-          "stage": "needs_sol_recovery",
+          "stage": "blocked",
           "attempt": 0,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/225",
           "commit": null,
           "solReview": null,
-          "block": null,
+          "block": {
+            "reasonCode": "ledger_conflict",
+            "failureStage": "deferred_recovery",
+            "reason": "開始後に台帳行が変更されたため自動更新を停止しました。 fixed row=203 expected=ZV4CXlLkHgw current=6tRcXUfOWYs",
+            "restartCondition": "原因を解消し、同じbatch IDで再開してください。"
+          },
           "recovery": {
             "reasonCode": "validation_failed",
             "detail": "Work実行環境の再作成後に安全な工程から再開します。",
-            "nextAction": "公開YouTube匿名到達性の回復後、同じcampaign、wave、batch IDで親Sol回復を再開する",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
             "solAttempt": 1,
-            "startedAt": "2026-08-13T01:06:28.374428+09:00",
+            "startedAt": "2026-08-13T22:14:24.389045+09:00",
             "reason": "決定的検証に合格できませんでした。",
             "detailDigest": "8c510e1ed5eb4cb637076c70ce0c50ed3ca758bb4f3ad630f4e4584bc82e9b6b",
             "handledBy": "gpt-5.6-sol",
-            "result": "queued_for_same_campaign_resume",
-            "deferredAt": "2026-08-13T01:18:36.465009+09:00"
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-13T22:43:21.352621+09:00"
           },
-          "sheetVerified": false,
-          "deferredLedgerVerified": true,
+          "sheetVerified": true,
+          "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w01-l04-45a2ae42",
             "claimToken": "0692096d89b1431e996ac829414184e1",
@@ -1981,7 +2001,7 @@
             "claimCommit": "b234853cbdd68cfd490998d0f846d1ab6beca87f",
             "claimedAt": "2026-08-12T01:31:49.736819+09:00"
           },
-          "updatedAt": "2026-08-13T01:20:04.372088+00:00"
+          "updatedAt": "2026-08-13T14:45:51.503464+00:00"
         }
       ]
     },
@@ -2013,26 +2033,30 @@
           "videoId": "JHWYBMcUer0",
           "rowNumber": 274,
           "rowHash": "8aab6e451e296b6df3f01fd64564585b8f0c5ae735e700ddeafbdd694e533baa",
-          "stage": "needs_sol_recovery",
+          "stage": "blocked",
           "attempt": 0,
-          "candidateHash": null,
+          "candidateHash": "e5b932095c18ba906be119f2e901ccfa5a9f681015a7f2f0a510235a1f61ea0f",
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/234",
           "commit": null,
-          "solReview": null,
-          "block": null,
-          "recovery": {
-            "reasonCode": "validation_failed",
-            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
-            "nextAction": "公開YouTube匿名到達性の回復後、同じcampaign、wave、batch IDで親Sol回復を再開する",
-            "solAttempt": 1,
-            "startedAt": "2026-08-13T01:17:17.897548+09:00",
-            "reason": "決定的検証に合格できませんでした。",
-            "detailDigest": "8c510e1ed5eb4cb637076c70ce0c50ed3ca758bb4f3ad630f4e4584bc82e9b6b",
-            "handledBy": "gpt-5.6-sol",
-            "result": "queued_for_same_campaign_resume",
-            "deferredAt": "2026-08-13T01:31:53.669416+09:00"
+          "solReview": {
+            "model": "gpt-5.6-sol",
+            "candidateHash": "e5b932095c18ba906be119f2e901ccfa5a9f681015a7f2f0a510235a1f61ea0f",
+            "result": "pass",
+            "reviewedAt": "2026-08-13T23:04:52.616931+09:00"
           },
-          "sheetVerified": false,
+          "block": {
+            "reasonCode": "ledger_conflict",
+            "failureStage": "blocked",
+            "reason": "開始後に台帳行が変更されたため自動更新を停止しました。 fixed row=274 expected=JHWYBMcUer0 current=wlzeu0ByHhU; validated local commit 3454b0fe retained after repeated GitHub server errors",
+            "restartCondition": "原因を解消し、同じbatch IDで再開してください。"
+          },
+          "recovery": {
+            "handledBy": "gpt-5.6-sol",
+            "result": "recovered",
+            "evidenceRoute": "existing_prepared_evidence",
+            "completedAt": "2026-08-13T22:42:25.099406+09:00"
+          },
+          "sheetVerified": true,
           "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w01-l05-45a2ae42",
@@ -2041,7 +2065,7 @@
             "claimCommit": "011cfe7254c38c8756bbacd38b4b39c7138fc74f",
             "claimedAt": "2026-08-12T22:06:01.207628+08:00"
           },
-          "updatedAt": "2026-08-13T01:20:04.372091+00:00"
+          "updatedAt": "2026-08-13T14:46:13.691755+00:00"
         }
       ]
     },
@@ -2132,27 +2156,32 @@
           "videoId": "ITOREIMheG0",
           "rowNumber": 214,
           "rowHash": "a07bb8afdccd3adc81edf0e0dec5561968aae8fdb5a889b7cf264d8b80e8c92a",
-          "stage": "needs_sol_recovery",
+          "stage": "blocked",
           "attempt": 0,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/228",
           "commit": null,
           "solReview": null,
-          "block": null,
+          "block": {
+            "reasonCode": "ledger_conflict",
+            "failureStage": "deferred_recovery",
+            "reason": "開始後に台帳行が変更されたため自動更新を停止しました。 fixed row=214 expected=ITOREIMheG0 current=RqSyrs4vjMU",
+            "restartCondition": "原因を解消し、同じbatch IDで再開してください。"
+          },
           "recovery": {
             "reasonCode": "validation_failed",
             "detail": "Work実行環境の再作成後に安全な工程から再開します。",
-            "nextAction": "公開YouTube匿名到達性の回復後、同じcampaign、wave、batch IDで親Sol回復を再開する",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
             "solAttempt": 1,
-            "startedAt": "2026-08-13T01:23:40.113101+09:00",
+            "startedAt": "2026-08-13T22:14:24.399046+09:00",
             "reason": "決定的検証に合格できませんでした。",
-            "detailDigest": "8d05b774fc60020ecabf10bcb1b808e70f7c447f866733bdfdbf23e8017061d3",
+            "detailDigest": "1f0dc1bc332f707c3c8775a5893660a8281a973a98edf206b0bf61df3e6ea9d4",
             "handledBy": "gpt-5.6-sol",
-            "result": "queued_for_same_campaign_resume",
-            "deferredAt": "2026-08-13T01:37:44.362369+09:00"
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-13T22:46:43.606227+09:00"
           },
-          "sheetVerified": false,
-          "deferredLedgerVerified": true,
+          "sheetVerified": true,
+          "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w01-l07-45a2ae42",
             "claimToken": "81add5e945e84a9690da8868aa9441bd",
@@ -2160,7 +2189,7 @@
             "claimCommit": "b99f6bf1f41bd9015bf91c0cb76dbe5d5c68b01d",
             "claimedAt": "2026-08-12T01:31:49.737400+09:00"
           },
-          "updatedAt": "2026-08-13T01:20:04.372096+00:00"
+          "updatedAt": "2026-08-13T14:46:15.191851+00:00"
         }
       ]
     },
@@ -2192,27 +2221,32 @@
           "videoId": "gug8efplEpc",
           "rowNumber": 221,
           "rowHash": "d07f40f90a9bebe4961ca4ca13292d25036fa8d201784798f844835e64aedd3e",
-          "stage": "needs_sol_recovery",
+          "stage": "blocked",
           "attempt": 0,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/230",
           "commit": null,
           "solReview": null,
-          "block": null,
-          "recovery": {
-            "reasonCode": "local_asr_failed",
-            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
-            "nextAction": "公開YouTube匿名到達性の回復後、同じcampaign、wave、batch IDで親Sol回復を再開する",
-            "solAttempt": 1,
-            "startedAt": "2026-08-13T01:34:36.862305+09:00",
-            "reason": "公開音声MP3は取得できましたが、無料ローカルASRで全編文字起こしを作成できませんでした。",
-            "detailDigest": "a695def8bc054f8911105d900e7733a8801f6e0206045f2a2c900c17ae8a4a54",
-            "handledBy": "gpt-5.6-sol",
-            "result": "queued_for_same_campaign_resume",
-            "deferredAt": "2026-08-13T01:36:59.332031+09:00"
+          "block": {
+            "reasonCode": "ledger_conflict",
+            "failureStage": "deferred_recovery",
+            "reason": "開始後に台帳行が変更されたため自動更新を停止しました。 fixed row=221 expected=gug8efplEpc current=UXuGZ685ZXo",
+            "restartCondition": "原因を解消し、同じbatch IDで再開してください。"
           },
-          "sheetVerified": false,
-          "deferredLedgerVerified": true,
+          "recovery": {
+            "reasonCode": "evidence_tool_unavailable",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
+            "solAttempt": 1,
+            "startedAt": "2026-08-13T22:14:24.362986+09:00",
+            "reason": "公開素材取得または無料ローカルASRに必要な実行依存を利用できませんでした。",
+            "detailDigest": "de70218d5551df42c35e162b5bad7281d1fa9546badaf8ef19b2810b502f5404",
+            "handledBy": "gpt-5.6-sol",
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-13T22:16:35.884605+09:00"
+          },
+          "sheetVerified": true,
+          "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w01-l08-45a2ae42",
             "claimToken": "2f9821a83ccb4c1483fc653841f72bc5",
@@ -2220,7 +2254,7 @@
             "claimCommit": "b2ed752ea61bc76632e0d219e216a8477529999e",
             "claimedAt": "2026-08-12T01:31:49.737579+09:00"
           },
-          "updatedAt": "2026-08-13T01:20:04.372099+00:00"
+          "updatedAt": "2026-08-13T14:46:16.116362+00:00"
         }
       ]
     },
@@ -2252,27 +2286,32 @@
           "videoId": "Hefv7SSmlV4",
           "rowNumber": 223,
           "rowHash": "0073b3999c34f10acd3d9d04d8833ee5fcc3c74a4710b72dc03f8797d7f8beea",
-          "stage": "needs_sol_recovery",
+          "stage": "blocked",
           "attempt": 0,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/231",
           "commit": null,
           "solReview": null,
-          "block": null,
+          "block": {
+            "reasonCode": "ledger_conflict",
+            "failureStage": "deferred_recovery",
+            "reason": "開始後に台帳行が変更されたため自動更新を停止しました。 fixed row=223 expected=Hefv7SSmlV4 current=1yilnHl_4FM",
+            "restartCondition": "原因を解消し、同じbatch IDで再開してください。"
+          },
           "recovery": {
             "reasonCode": "validation_failed",
             "detail": "Work実行環境の再作成後に安全な工程から再開します。",
-            "nextAction": "公開YouTube匿名到達性の回復後、同じcampaign、wave、batch IDで親Sol回復を再開する",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
             "solAttempt": 1,
-            "startedAt": "2026-08-13T01:37:12.261845+09:00",
+            "startedAt": "2026-08-13T22:14:24.613731+09:00",
             "reason": "決定的検証に合格できませんでした。",
-            "detailDigest": "fa926a39d76d3035ca2e24382ce5074b492dc18f09c0b7a145398a79c5ce28b1",
+            "detailDigest": "1f0dc1bc332f707c3c8775a5893660a8281a973a98edf206b0bf61df3e6ea9d4",
             "handledBy": "gpt-5.6-sol",
-            "result": "queued_for_same_campaign_resume",
-            "deferredAt": "2026-08-13T02:07:49.807762+09:00"
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-13T22:56:56.969666+09:00"
           },
-          "sheetVerified": false,
-          "deferredLedgerVerified": true,
+          "sheetVerified": true,
+          "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w01-l09-45a2ae42",
             "claimToken": "1d4a4eca9d97401cbff9e65e1cb78080",
@@ -2280,7 +2319,7 @@
             "claimCommit": "625aab19dc2ad9211165bc2014dbefd747236eb6",
             "claimedAt": "2026-08-12T01:31:49.737733+09:00"
           },
-          "updatedAt": "2026-08-13T01:20:04.372102+00:00"
+          "updatedAt": "2026-08-13T14:46:17.630077+00:00"
         }
       ]
     },
@@ -2312,26 +2351,30 @@
           "videoId": "ye6v7sMb2Wk",
           "rowNumber": 227,
           "rowHash": "6b0874f3806069a0c1272faa52d1051e9c9aff7c517e495865f0462373d1b486",
-          "stage": "needs_sol_recovery",
+          "stage": "blocked",
           "attempt": 0,
-          "candidateHash": null,
+          "candidateHash": "2b5639ca2b73658871e4b98a4d959960180868cefa5481f40daa528687ec1b85",
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/229",
-          "commit": null,
-          "solReview": null,
-          "block": null,
-          "recovery": {
-            "reasonCode": "validation_failed",
-            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
-            "nextAction": "公開YouTube匿名到達性の回復後、同じcampaign、wave、batch IDで親Sol回復を再開する",
-            "solAttempt": 1,
-            "startedAt": "2026-08-13T01:49:13.835934+09:00",
-            "reason": "決定的検証に合格できませんでした。",
-            "detailDigest": "8c510e1ed5eb4cb637076c70ce0c50ed3ca758bb4f3ad630f4e4584bc82e9b6b",
-            "handledBy": "gpt-5.6-sol",
-            "result": "queued_for_same_campaign_resume",
-            "deferredAt": "2026-08-13T01:57:27.642937+09:00"
+          "commit": "3371960569ef91bbf01d21e427d1d03f4fd33773",
+          "solReview": {
+            "model": "gpt-5.6-sol",
+            "candidateHash": "2b5639ca2b73658871e4b98a4d959960180868cefa5481f40daa528687ec1b85",
+            "result": "pass",
+            "reviewedAt": "2026-08-13T23:04:59.423703+09:00"
           },
-          "sheetVerified": false,
+          "block": {
+            "reasonCode": "ledger_conflict",
+            "failureStage": "sheet_pending",
+            "reason": "開始後に台帳行が変更されたため自動更新を停止しました。 fixed row=227 expected=ye6v7sMb2Wk current=lRRMh5MdsJg",
+            "restartCondition": "原因を解消し、同じbatch IDで再開してください。"
+          },
+          "recovery": {
+            "handledBy": "gpt-5.6-sol",
+            "result": "recovered",
+            "evidenceRoute": "existing_prepared_evidence",
+            "completedAt": "2026-08-13T22:32:08.367834+09:00"
+          },
+          "sheetVerified": true,
           "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w01-l10-45a2ae42",
@@ -2340,18 +2383,18 @@
             "claimCommit": "406da047a7bfc3ad1399a9a430af974282c81786",
             "claimedAt": "2026-08-12T01:31:49.737885+09:00"
           },
-          "updatedAt": "2026-08-13T01:20:04.372105+00:00"
+          "updatedAt": "2026-08-13T14:46:18.313866+00:00"
         }
       ]
     }
   ],
-  "updatedAt": "2026-08-13T10:20:04.372117+09:00",
-  "resumeAfter": "2026-08-13T12:00:00+09:00",
-  "checkpointHash": "48bf13c09389628f999f111db86f4def48263aad11c9bbb094df99bebd5ce28d",
+  "updatedAt": "2026-08-13T23:47:17.376142+09:00",
+  "resumeAfter": "2026-08-14T00:30:00+09:00",
   "pause": {
-    "reasonCode": "youtube_public_reachability_failed",
-    "detail": "匿名yt-dlp診断がHTTP 429と公開アクセスのbot確認で失敗したため、認証・cookies・回避を使わずpauseしました。",
-    "nextAction": "resumeAfter以降に同じcampaign IDをrestoreし、匿名公開到達性診断から再開する",
-    "pausedAt": "2026-08-13T10:20:04.372117+09:00"
-  }
+    "reasonCode": "ledger_conflict",
+    "detail": "固定fingerprint後に対象動画シートの行配置が変わり、wave 1の9行で動画ID不一致を検出したため台帳書込みと新規claimを停止しました。",
+    "nextAction": "resumeAfter以降に同じcampaign IDをrestoreし、固定行fingerprintと台帳の整合性を再確認してから再開する",
+    "pausedAt": "2026-08-13T23:47:17.376142+09:00"
+  },
+  "checkpointHash": "b118659d0ea84cf1ff18faa182d1eb750cc87789ef46cb5a4937aa4b2e129d99"
 }
