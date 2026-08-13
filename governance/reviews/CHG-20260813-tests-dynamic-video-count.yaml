@@ -22,7 +22,7 @@ impact_flags:
   bug_fix: true
   generated_change: true
   sql_change: false
-  e2e_change: false
+  e2e_change: true
   migration: false
   ui_change: false
   interactive_ui_change: false
@@ -116,6 +116,15 @@ selected_checks:
   evidence:
   - commit:self
   note: staged diffへ秘密情報・個人情報・生データを含めない。
+- id: FAST-018
+  class: Risk-selected
+  result: pass
+  evidence:
+  - test:e2e/helpers.ts
+  - test:e2e/library.spec.ts
+  - test:e2e/search.spec.ts
+  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  note: 全動画件数のE2E期待値も正本manifestから取得し、動画追加後の検索・端末内リスト状態をCIで検証する。
 - id: REV-001
   class: Invariant
   result: pass

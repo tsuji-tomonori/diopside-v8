@@ -146,4 +146,4 @@ advisories: []
 residual_risks:
 - タイムスタンプ候補hash c9d1cc3567aabf878e9f5d51c0f2947aea095422a89ce4b976ac5749c8d6d390 とあらすじ候補hash 471cde3255015b10f96e85c8d3b16570b9a44c3a282ff4792880781085a42d2e はDraft PRの人によるmergeまで公開されない。
 - ローカルVitestは同時実行中の別harnessによる資源逼迫でworker起動がtimeoutしたため、GitHub Actionsで再確認する。
-- 動画差分はmaintenance Draft PR #258を先行baseとして検証し、同PRのmerge後にbaseをmainへ戻す。
+- 動画差分はmaintenance Draft PR #258を先行baseとして検証する。同PRではunitとE2Eの全動画件数を正本manifest参照へ統一済みで、merge後にbaseをmainへ戻す。
