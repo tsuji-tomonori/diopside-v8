@@ -20,7 +20,7 @@ impact_flags:
   typed_code_change: true
   behavior_change: false
   bug_fix: true
-  generated_change: false
+  generated_change: true
   sql_change: false
   e2e_change: false
   migration: false
@@ -103,6 +103,13 @@ selected_checks:
   - test:tests/generated.test.ts
   - test:src/data/loadPublicData.test.ts
   note: 固定値だけを正本参照へ置換し、検証の厳格さを維持する。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:docs/design/generated/inventory.gen.json
+  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  note: generate:designで変更したtestのas-built inventory hashを決定更新する。
 - id: FAST-007
   class: Invariant
   result: pass
