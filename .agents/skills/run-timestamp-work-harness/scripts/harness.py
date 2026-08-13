@@ -55,6 +55,9 @@ LUNA_WORKER_MODEL = "gpt-5.6-luna"
 QUALITY_RETRY_MODEL = "gpt-5.6-terra"
 TRANSCRIPT_MAP_VERSION = "direct-jsonl-v1"
 LUNA_POOL_SIZE = 10
+DEFAULT_CAMPAIGN_TARGET_COUNT = 1000
+MAX_CAMPAIGN_TARGET_COUNT = 10000
+MAX_CAMPAIGN_WAVES = MAX_CAMPAIGN_TARGET_COUNT // LUNA_POOL_SIZE
 CODEX_STATE_LOCK = threading.Lock()
 TRUSTED_DESTINATION_RETRIES = 3
 PR_RE = re.compile(r"^https://github\.com/tsuji-tomonori/diopside-v8/pull/[1-9][0-9]*$")
@@ -289,6 +292,223 @@ def parse_deadline(value: str | None, label: str) -> datetime | None:
     return parsed
 
 
+def campaign_dir(campaign_id: str) -> Path:
+    return RUN_ROOT / "campaigns" / validate_batch_id(campaign_id)
+
+
+def campaign_manifest_path(campaign_id: str) -> Path:
+    return campaign_dir(campaign_id) / "manifest.json"
+
+
+def load_campaign_manifest(campaign_id: str) -> dict[str, Any]:
+    manifest = read_json(campaign_manifest_path(campaign_id))
+    unsigned = {key: value for key, value in manifest.items() if key != "manifestHash"}
+    if manifest.get("manifestHash") != digest(unsigned):
+        raise HarnessError("campaign manifestのhashが一致しません。")
+    return manifest
+
+
+def initialize_campaign_manifest(
+    campaign_id: str,
+    snapshot: dict[str, Any],
+    *,
+    target_count: int,
+    base_commit: str,
+) -> tuple[dict[str, Any], dict[str, int], str]:
+    campaign_id = validate_batch_id(campaign_id)
+    if not 1 <= target_count <= MAX_CAMPAIGN_TARGET_COUNT:
+        raise HarnessError(
+            f"target countは1から{MAX_CAMPAIGN_TARGET_COUNT}にしてください。"
+        )
+    existing_path = campaign_manifest_path(campaign_id)
+    if existing_path.exists():
+        return load_campaign_manifest(campaign_id), {}, "resumed"
+    headers, selected, skipped = eligible_snapshot_items(snapshot, limit=target_count)
+    unsigned = {
+        "schemaVersion": "2.0.0",
+        "campaignId": campaign_id,
+        "spreadsheetId": str(snapshot.get("spreadsheetId") or ""),
+        "sheetName": str(snapshot.get("sheetName") or ""),
+        "headerHash": digest(headers),
+        "baseCommit": base_commit,
+        "targetCount": len(selected),
+        "requestedTargetCount": target_count,
+        "items": selected,
+        "videoIds": [item["videoId"] for item in selected],
+        "createdAt": datetime.now().astimezone().isoformat(),
+    }
+    manifest = {**unsigned, "manifestHash": digest(unsigned)}
+    atomic_json(existing_path, manifest)
+    return manifest, skipped, "initialized"
+
+
+def command_initialize_campaign(args: argparse.Namespace) -> dict[str, Any]:
+    snapshot = read_json(args.snapshot)
+    base_commit = run(["git", "rev-parse", f"{args.base_ref}^{{commit}}"], cwd=ROOT).stdout.strip()
+    manifest, skipped, status = initialize_campaign_manifest(
+        args.campaign_id,
+        snapshot,
+        target_count=args.target_count,
+        base_commit=base_commit,
+    )
+    return {
+        "status": status,
+        "campaignId": manifest["campaignId"],
+        "targetCount": manifest["targetCount"],
+        "waveCount": (manifest["targetCount"] + LUNA_POOL_SIZE - 1) // LUNA_POOL_SIZE,
+        "manifestHash": manifest["manifestHash"],
+        "checkpointBranch": f"agent/timestamp-campaign-{manifest['campaignId']}",
+        "checkpointPath": f".campaigns/timestamps/{manifest['campaignId']}.json",
+        "skipped": skipped,
+    }
+
+
+def command_preflight(args: argparse.Namespace) -> dict[str, Any]:
+    tools = {
+        "git": shutil.which("git"),
+        "codex": shutil.which("codex"),
+        "yt-dlp": shutil.which("yt-dlp"),
+        "ffmpeg": shutil.which("ffmpeg"),
+    }
+    missing = [name for name, executable in tools.items() if executable is None]
+    return {
+        "status": "ready" if not missing else "setup_required",
+        "canCreateClaims": not missing,
+        "tools": {name: bool(executable) for name, executable in tools.items()},
+        "missing": missing,
+        "nextAction": (
+            "公開YouTube到達性診断を実行する"
+            if not missing
+            else "claim前にWork環境setupで不足CLIを導入しpreflightを再実行する"
+        ),
+    }
+
+
+def safe_checkpoint_item(item: dict[str, Any]) -> dict[str, Any]:
+    allowed = (
+        "schemaVersion", "videoId", "rowNumber", "rowHash", "stage", "attempt",
+        "candidateHash", "pullRequest", "commit", "solReview", "block", "recovery",
+        "sheetVerified", "deferredLedgerVerified", "claim", "updatedAt",
+    )
+    value = {key: item.get(key) for key in allowed if key in item}
+    claim = value.get("claim")
+    if isinstance(claim, dict):
+        value["claim"] = {
+            key: claim.get(key)
+            for key in (
+                "workerId", "claimToken", "branch", "baseCommit", "claimCommit", "claimedAt"
+            )
+            if key in claim
+        }
+    return value
+
+
+def command_checkpoint_campaign(args: argparse.Namespace) -> dict[str, Any]:
+    manifest = load_campaign_manifest(args.campaign_id)
+    batches: list[dict[str, Any]] = []
+    prefix = f"{args.campaign_id}-w"
+    for destination in sorted(RUN_ROOT.glob(f"{prefix}*-l*")):
+        if not destination.is_dir() or not (destination / "manifest.json").exists():
+            continue
+        batch_manifest = load_manifest(destination.name)
+        items = [
+            safe_checkpoint_item(load_item(destination.name, video_id))
+            for video_id in batch_manifest["videoIds"]
+        ]
+        batches.append({"manifest": batch_manifest, "items": items})
+    unsigned = {
+        "schemaVersion": "2.0.0",
+        "campaign": manifest,
+        "batches": batches,
+        "updatedAt": datetime.now().astimezone().isoformat(),
+        "resumeAfter": (
+            parse_deadline(args.resume_after, "resume after").isoformat()
+            if args.resume_after
+            else None
+        ),
+    }
+    checkpoint = {**unsigned, "checkpointHash": digest(unsigned)}
+    output = args.output or (campaign_dir(args.campaign_id) / "checkpoint.json")
+    atomic_json(output, checkpoint)
+    return {
+        "status": "checkpoint_ready",
+        "campaignId": args.campaign_id,
+        "targetCount": manifest["targetCount"],
+        "batchCount": len(batches),
+        "checkpointHash": checkpoint["checkpointHash"],
+        "output": str(output),
+        "persistAction": {
+            "repository": "tsuji-tomonori/diopside-v8",
+            "branch": f"agent/timestamp-campaign-{args.campaign_id}",
+            "path": f".campaigns/timestamps/{args.campaign_id}.json",
+            "content": json.dumps(checkpoint, ensure_ascii=False, indent=2) + "\n",
+            "expectedParentCommit": args.expected_parent_commit,
+        },
+    }
+
+
+def command_restore_campaign(args: argparse.Namespace) -> dict[str, Any]:
+    checkpoint = read_json(args.checkpoint)
+    unsigned = {key: value for key, value in checkpoint.items() if key != "checkpointHash"}
+    if checkpoint.get("checkpointHash") != digest(unsigned):
+        raise HarnessError("campaign checkpointのhashが一致しません。")
+    manifest = checkpoint.get("campaign")
+    if not isinstance(manifest, dict) or manifest.get("campaignId") != args.campaign_id:
+        raise HarnessError("campaign checkpointのIDが一致しません。")
+    manifest_unsigned = {key: value for key, value in manifest.items() if key != "manifestHash"}
+    if manifest.get("manifestHash") != digest(manifest_unsigned):
+        raise HarnessError("checkpoint内campaign manifestのhashが一致しません。")
+    destination = campaign_manifest_path(args.campaign_id)
+    if destination.exists() and read_json(destination) != manifest:
+        raise HarnessError("local campaign manifestとcheckpointが一致しません。")
+    atomic_json(destination, manifest)
+    restored = 0
+    rewound = 0
+    for batch in checkpoint.get("batches", []):
+        batch_manifest = batch.get("manifest")
+        items = batch.get("items")
+        if not isinstance(batch_manifest, dict) or not isinstance(items, list):
+            raise HarnessError("checkpointのbatch形式が不正です。")
+        batch_id = validate_batch_id(str(batch_manifest.get("batchId") or ""))
+        manifest_unsigned = {
+            key: value for key, value in batch_manifest.items() if key != "manifestHash"
+        }
+        if batch_manifest.get("manifestHash") != digest(manifest_unsigned):
+            raise HarnessError("checkpoint内batch manifestのhashが一致しません。")
+        atomic_json(batch_dir(batch_id) / "manifest.json", batch_manifest)
+        for item in items:
+            if not isinstance(item, dict):
+                raise HarnessError("checkpointのitem形式が不正です。")
+            restored_item = dict(item)
+            claim = restored_item.get("claim")
+            if isinstance(claim, dict) and "worktreePath" not in claim:
+                claim["worktreePath"] = str(
+                    RUN_ROOT / "worktrees" / batch_id / str(restored_item["videoId"])
+                )
+            stage = str(restored_item.get("stage") or "")
+            if stage not in TERMINAL and stage != "deferred_recovery":
+                restored_item["stage"] = (
+                    "needs_sol_recovery"
+                    if restored_item.get("pullRequest")
+                    else "pr_bootstrapped"
+                )
+                restored_item["recovery"] = {
+                    "reasonCode": "external_action_failed",
+                    "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+                    "nextAction": "remote branchとDraft PRを再読し、親Solが未完了工程を再開する",
+                }
+                rewound += 1
+            atomic_json(item_path(batch_id, str(restored_item["videoId"])), restored_item)
+            restored += 1
+    return {
+        "status": "restored",
+        "campaignId": args.campaign_id,
+        "targetCount": manifest["targetCount"],
+        "restoredItems": restored,
+        "rewoundItems": rewound,
+    }
+
+
 def remove_claim_worktree(repo: Path, worktree: Path) -> None:
     if not worktree.exists():
         return
@@ -397,10 +617,9 @@ def command_claim_next(args: argparse.Namespace) -> dict[str, Any]:
 
 def command_plan_luna_wave(args: argparse.Namespace) -> dict[str, Any]:
     snapshot = read_json(args.snapshot)
-    _, selected, skipped = eligible_snapshot_items(snapshot, limit=args.scan_limit)
     campaign_id = validate_batch_id(args.campaign_id)
-    if not 1 <= args.wave <= 99:
-        raise HarnessError("wave番号は1から99にしてください。")
+    if not 1 <= args.wave <= MAX_CAMPAIGN_WAVES:
+        raise HarnessError(f"wave番号は1から{MAX_CAMPAIGN_WAVES}にしてください。")
     normal_deadline = parse_deadline(args.normal_deadline, "normal deadline")
     drain_deadline = parse_deadline(args.drain_deadline, "drain deadline")
     if (normal_deadline is None) != (drain_deadline is None):
@@ -414,9 +633,17 @@ def command_plan_luna_wave(args: argparse.Namespace) -> dict[str, Any]:
     elif normal_deadline and now >= normal_deadline:
         campaign_mode = "drain"
     base_commit = run(["git", "rev-parse", f"{args.base_ref}^{{commit}}"], cwd=ROOT).stdout.strip()
+    campaign, skipped, _ = initialize_campaign_manifest(
+        campaign_id,
+        snapshot,
+        target_count=args.target_count,
+        base_commit=base_commit,
+    )
+    start = (args.wave - 1) * LUNA_POOL_SIZE
+    selected = campaign["items"][start : start + LUNA_POOL_SIZE]
     lanes = []
     for lane_index in range(LUNA_POOL_SIZE):
-        lane_items = selected[lane_index::LUNA_POOL_SIZE]
+        lane_items = selected[lane_index : lane_index + 1]
         lane_number = lane_index + 1
         batch_id = validate_batch_id(f"{campaign_id}-w{args.wave:02d}-l{lane_number:02d}")
         worker_id = validate_worker_id(
@@ -426,6 +653,20 @@ def command_plan_luna_wave(args: argparse.Namespace) -> dict[str, Any]:
             manifest = load_manifest(batch_id)
             if len(manifest["videoIds"]) != 1:
                 raise HarnessError("Luna lane batchには動画が1件だけ必要です。")
+            existing_item = load_item(batch_id, manifest["videoIds"][0])
+            if existing_item["stage"] in WAVE_TERMINAL:
+                lanes.append(
+                    {
+                        "lane": lane_number,
+                        "batchId": batch_id,
+                        "workerId": worker_id,
+                        "model": LUNA_WORKER_MODEL,
+                        "reasoningEffort": "medium",
+                        "status": existing_item["stage"],
+                        "claimActions": [],
+                    }
+                )
+                continue
             lanes.append(
                 {
                     "lane": lane_number,
@@ -436,7 +677,7 @@ def command_plan_luna_wave(args: argparse.Namespace) -> dict[str, Any]:
                     "status": "resume",
                     "resume": claim_response(
                         batch_id,
-                        load_item(batch_id, manifest["videoIds"][0]),
+                        existing_item,
                     ),
                     "claimActions": [],
                 }
@@ -489,6 +730,9 @@ def command_plan_luna_wave(args: argparse.Namespace) -> dict[str, Any]:
         "normalDeadline": normal_deadline.isoformat() if normal_deadline else None,
         "drainDeadline": drain_deadline.isoformat() if drain_deadline else None,
         "baseCommit": base_commit,
+        "targetCount": campaign["targetCount"],
+        "manifestHash": campaign["manifestHash"],
+        "remainingAfterWave": max(0, campaign["targetCount"] - (start + len(selected))),
         "lanes": lanes,
         "skipped": skipped,
     }
@@ -2199,6 +2443,24 @@ def parser() -> argparse.ArgumentParser:
     init.add_argument("--limit", type=int)
     init.add_argument("--video-id")
     init.set_defaults(handler=command_init)
+    preflight = commands.add_parser("preflight")
+    preflight.set_defaults(handler=command_preflight)
+    campaign = commands.add_parser("initialize-campaign")
+    campaign.add_argument("campaign_id")
+    campaign.add_argument("--snapshot", type=Path, required=True)
+    campaign.add_argument("--target-count", type=int, default=DEFAULT_CAMPAIGN_TARGET_COUNT)
+    campaign.add_argument("--base-ref", default="origin/main")
+    campaign.set_defaults(handler=command_initialize_campaign)
+    checkpoint = commands.add_parser("checkpoint-campaign")
+    checkpoint.add_argument("campaign_id")
+    checkpoint.add_argument("--output", type=Path)
+    checkpoint.add_argument("--expected-parent-commit")
+    checkpoint.add_argument("--resume-after")
+    checkpoint.set_defaults(handler=command_checkpoint_campaign)
+    restore = commands.add_parser("restore-campaign")
+    restore.add_argument("campaign_id")
+    restore.add_argument("--checkpoint", type=Path, required=True)
+    restore.set_defaults(handler=command_restore_campaign)
     claim = commands.add_parser("claim-next")
     claim.add_argument("batch_id")
     claim.add_argument("--snapshot", type=Path, required=True)
@@ -2211,7 +2473,7 @@ def parser() -> argparse.ArgumentParser:
     wave.add_argument("campaign_id")
     wave.add_argument("--snapshot", type=Path, required=True)
     wave.add_argument("--wave", type=int, default=1)
-    wave.add_argument("--scan-limit", type=int, default=200)
+    wave.add_argument("--target-count", type=int, default=DEFAULT_CAMPAIGN_TARGET_COUNT)
     wave.add_argument("--base-ref", default="origin/main")
     wave.add_argument("--normal-deadline")
     wave.add_argument("--drain-deadline")

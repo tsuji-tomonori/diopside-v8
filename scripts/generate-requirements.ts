@@ -779,6 +779,54 @@ const timestampHarnessRequirements = [
     },
     last_changed_by: 'CHG-20260811-timestamp-campaign-resilience',
   },
+  {
+    id: 'V8-OPS-026',
+    revision: 1,
+    status: 'active',
+    scope: 'project',
+    category: 'nonfunctional',
+    type: 'operational',
+    title: '最大1000件のWork campaignは固定manifestと安全なremote checkpointで実行環境をまたいで継続しなければならない',
+    subject: 'diopside v8の大規模タイムスタンプcampaign',
+    action: 'satisfy',
+    object: '最大1000件のタイムスタンプcampaignは開始時に対象動画ID、順序、台帳行指紋、base commitを一度だけ固定し、10件ずつ処理しなければならない。各Work実行のdrain前と各wave後に、生字幕、音声、文字起こし、chat本文、識別子、資格情報を含まない安全なcheckpointを専用GitHub campaign branchへ観測済み親commitを条件として保存し、Work環境消失または利用制限後は同じcampaign IDを復元して完了済みを保持し未完了だけを安全な工程から再開しなければならない。',
+    rationale: '単一Work実行の時間・利用量・ローカル状態保持へ1000件の完了可能性を依存させず、旧連続queueと同等の対象固定、失敗隔離、再開性を保ちながら生素材の公開を防ぐため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md', 'user:2026-08-12'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-OPS-026-1',
+        given: '1000件までの適格動画を処理する明示要求と対象動画台帳snapshotがある',
+        when: '親Solがcampaignを初期化し100wave以上を計画する',
+        then: '対象順序と行指紋をimmutable manifestへ一度だけ固定し、各waveは未変更manifestの連続する最大10件だけを重複なく割り当てる。',
+      },
+      {
+        id: 'AC-V8-OPS-026-2',
+        given: 'waveが終端した、drainへ入る、または利用制限で停止する',
+        when: '親Solがcampaign checkpointを永続化する',
+        then: '専用remote branchを観測済み親commitとのcompare-and-setで更新し、生素材と資格情報を含めず、競合時はforceせずremoteを再読する。',
+      },
+      {
+        id: 'AC-V8-OPS-026-3',
+        given: '別のWork環境で同じcampaignを再開する',
+        when: '親Solがremote checkpointを検証してrestoreする',
+        then: '完了済み状態を保持し、処理途中だけを安全な回復境界へ巻き戻し、同じcampaign IDと固定対象の残りを継続する。',
+      },
+      {
+        id: 'AC-V8-OPS-026-4',
+        given: '1000件のsynthetic manifest、101以上のwave、または途中kill後のcheckpointがある',
+        when: '耐久・復元試験を実行する',
+        then: '対象の欠落・重複・完了状態の回帰・生素材のcheckpoint混入がなく、次waveを決定的に再計画できる。',
+      },
+    ],
+    verification: { method: '1000件manifest・101wave境界・checkpoint漏えい禁止・kill/restore・楽観ロックaction試験', evidence: 'tests/timestamp_harness_test.py' },
+    traces: {
+      design: ['docs/design/generated/system.gen.md', '.agents/skills/run-timestamp-work-harness/references/workflow.md'],
+      implementation: ['.agents/skills/run-timestamp-work-harness/scripts/harness.py', '.agents/skills/run-timestamp-work-harness/SKILL.md'],
+      tests: ['tests/timestamp_harness_test.py'],
+      standards: ['spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260812-thousand-video-campaign',
+  },
 ];
 const synopsisHarnessRequirements = [
   {
