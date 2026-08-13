@@ -1,0 +1,155 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260813-tests-dynamic-video-count
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: false
+  bug_fix: true
+  generated_change: false
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:tests/content-validation.test.ts
+  note: 動画追加時に固定件数で失敗する回帰testを正本manifest参照へ修正する。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 公開schemaと実装動作は変更しない。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence:
+  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  note: 複数testの件数契約を同じ正本へ統一するためassuredを選択した。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 人の明示要求に基づき、動画PRと分離したDraft PRへのpushだけを行う。
+- id: FAST-001
+  class: Invariant
+  result: pass
+  evidence:
+  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  note: 変更したtestの構文とbuildをCIで確認する。
+- id: FAST-002
+  class: Invariant
+  result: pass
+  evidence:
+  - test:tsconfig.json
+  note: TypeScript typecheckに合格した。
+- id: FAST-003
+  class: Invariant
+  result: pass
+  evidence:
+  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  note: 変更したtestを含むlintをCIで確認する。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/content-manifest.json
+  - test:tests/content-validation.test.ts
+  note: 動画数とタグ付与数を正本manifestへ照合する。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - test:tests/generated.test.ts
+  - test:src/data/loadPublicData.test.ts
+  note: 固定値だけを正本参照へ置換し、検証の厳格さを維持する。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: staged diffへ秘密情報・個人情報・生データを含めない。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 動画成果物を含めない独立maintenance PRである。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: Commit Commentへ目的、影響、検証、リスクを記録する。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/requirements/requirements.json
+  note: 要件・受入条件は変更しない。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: test参照元の修正のみでADR・生成設計は不要である。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence:
+  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  note: TypeScript、unit、生成差分をCIで検証する。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260813-tests-dynamic-video-count.yaml
+  note: 選択checkだけを保存する。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260813-tests-dynamic-video-count.yaml
+  note: 未選択checkをN/Aとして保存しない。
+advisories: []
+residual_risks: []
