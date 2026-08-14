@@ -1,0 +1,165 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260815-add-latest-game-titles
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: true
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/taxonomy/tag-taxonomy.json
+    note: 最新公開動画で直接確認できる3作品名だけを既存の拡張可能な作品名小分類へ追加した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/taxonomy/change-record.json
+    note: 既存タグ割当を変えず、taxonomy版と正本動画の参照版だけを決定的に同期した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/validate-taxonomy-change.ts
+    note: 全正本の版同期と公開契約検証を伴うためassuredを選択した
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/catalog/manifest.json
+    note: 永続正本の全動画が同じtaxonomy版を参照し、シャード指紋を再計算した
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/domain/content.ts
+    note: 公開動画schemaのtag参照と版整合契約を維持した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+    note: 既存動画のタグ割当を変えず追加作品名をschemaと条件付きタグ検証へ通す
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/catalog/manifest.json
+    note: 256シャードの内容指紋とsnapshot指紋を決定的に更新した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/taxonomy/tag-taxonomy.json
+    note: 公開作品名と分類定義だけを含み、生字幕・秘密情報・投稿者識別子を含めない
+  - id: FAST-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+    note: taxonomy版と正本動画版の不一致を既存検証で拒否する
+  - id: FAST-016
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:scripts/validate-taxonomy-change.ts
+    note: taxonomy、変更記録、正本参照の三点を比較元mainに対して検証した
+  - id: FAST-017
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/taxonomy/change-record.json
+    note: 追加した3タグの影響動画数0件を変更前正本に対して確認した
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 新作ゲーム3作品のタグ不足解消という一目的へ限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: Commit Commentへ目的、変更、要件・設計影響、検証契約、互換性を記録する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/validate-taxonomy-change.ts
+    note: current mainとのtaxonomy差分、影響タグ、影響動画数を検証する
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/taxonomy/tag-taxonomy.json
+    note: 新しい設計文書を作らず正本schemaとtaxonomyを設計根拠とする
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+    note: taxonomy変更検証と正本全件検証をPR前に実行する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260815-add-latest-game-titles.yaml
+    note: 選択したcheckだけを本reviewへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260815-add-latest-game-titles.yaml
+    note: 未選択checkをN/Aで水増ししていない
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/taxonomy/change-record.json
+    note: taxonomyVersionを8.2.0へ上げ、追加タグと影響範囲を変更記録へ残した
+advisories: []
+residual_risks: []
