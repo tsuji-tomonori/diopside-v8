@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 
 import {
   capture,
+  expectedVideoHeading,
   expectNoSeriousAccessibilityViolations,
   expectOnlyAllowedRequests,
   openSearch,
@@ -62,7 +63,7 @@ test.describe('端末内リスト', () => {
     await openSearch(page);
     await page.locator('.video-card').first().getByRole('button', { name: 'お気に入りに追加' }).click();
     await expect(page.locator('.storage-notice')).toContainText('端末内への保存を利用できません');
-    await expect(page.getByRole('heading', { name: '1681件の動画' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: expectedVideoHeading })).toBeVisible();
     await page.locator('.video-card').first().getByRole('link', { name: '詳細を見る', exact: true }).click();
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expectNoSeriousAccessibilityViolations(page);
