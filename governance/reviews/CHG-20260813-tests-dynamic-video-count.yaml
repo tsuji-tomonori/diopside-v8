@@ -109,7 +109,7 @@ selected_checks:
   evidence:
   - path:docs/design/generated/inventory.gen.json
   - test:tests/generated.test.ts
-  note: 正本由来の生成設計と公開成果物が決定的に再生成され、差分検査に合格することを確認する。
+  note: 正本由来の生成設計と公開成果物が決定的に再生成され、CIの差分検査に合格することを確認する。
 - id: FAST-007
   class: Invariant
   result: pass
