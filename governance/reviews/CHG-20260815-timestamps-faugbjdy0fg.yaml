@@ -102,7 +102,7 @@ selected_checks:
   result: pass
   evidence:
   - path:content/videos/FaUgbJdY0fg.json
-  - path:governance\reviews\CHG-20260815-timestamps-faugbjdy0fg.yaml
+  - path:governance/reviews/CHG-20260815-timestamps-faugbjdy0fg.yaml
   note: 差分を1動画正本、manifest、review YAMLへ限定する。
 - id: REV-002
   class: Invariant
@@ -134,13 +134,13 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:governance\reviews\CHG-20260815-timestamps-faugbjdy0fg.yaml
+  - path:governance/reviews/CHG-20260815-timestamps-faugbjdy0fg.yaml
   note: 選択checkだけをreview YAMLへ保存する。
 - id: REV-008
   class: Invariant
   result: pass
   evidence:
-  - path:governance\reviews\CHG-20260815-timestamps-faugbjdy0fg.yaml
+  - path:governance/reviews/CHG-20260815-timestamps-faugbjdy0fg.yaml
   note: 未選択checkをN/Aとして登録しない。
 advisories: []
 residual_risks:
