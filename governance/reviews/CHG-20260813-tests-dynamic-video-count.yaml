@@ -103,6 +103,13 @@ selected_checks:
   - test:tests/generated.test.ts
   - test:src/data/loadPublicData.test.ts
   note: 固定値だけを正本参照へ置換し、検証の厳格さを維持する。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:docs/design/generated/inventory.gen.json
+  - test:tests/generated.test.ts
+  note: 正本由来の生成設計と公開成果物が決定的に再生成され、差分検査に合格することを確認する。
 - id: FAST-007
   class: Invariant
   result: pass
