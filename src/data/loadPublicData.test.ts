@@ -15,6 +15,7 @@ const latest = json('public/data/latest.json') as {
   tagIndexPath: string;
   aliasIndexPath: string;
 };
+const contentManifest = json('content/content-manifest.json') as { videoCount: number };
 
 beforeEach(() => {
   Object.defineProperty(globalThis, 'indexedDB', { configurable: true, writable: true, value: new IDBFactory() });
@@ -25,7 +26,7 @@ describe('公開データ読込', () => {
     const store = new DeviceStore();
     const bundle = await loadPublicBundle(store, repositoryFetcher());
     expect(bundle.latest.releaseId).toBe(embeddedReleaseId);
-    expect(bundle.index.videos).toHaveLength(1681);
+    expect(bundle.index.videos).toHaveLength(contentManifest.videoCount);
     expect((await store.readPublicCache())?.releaseId).toBe(embeddedReleaseId);
   });
 
