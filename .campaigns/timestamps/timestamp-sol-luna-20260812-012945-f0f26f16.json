@@ -1773,13 +1773,18 @@
           "videoId": "Tg9QLZSESY4",
           "rowNumber": 230,
           "rowHash": "0bc4313a43ccaafc7dabb61562b9b1b49f32ffcd771b4f0161025b46bbfa8cb3",
-          "stage": "deferred_recovery",
+          "stage": "blocked",
           "attempt": 1,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/232",
           "commit": null,
           "solReview": null,
-          "block": null,
+          "block": {
+            "reasonCode": "ledger_conflict",
+            "failureStage": "deferred_recovery",
+            "reason": "開始後に台帳行が変更されたため自動更新を停止しました。 row=230",
+            "restartCondition": "原因を解消し、同じbatch IDで再開してください。"
+          },
           "recovery": {
             "reasonCode": "validation_failed",
             "failureStage": "reviewing",
@@ -1793,7 +1798,7 @@
             "result": "deferred_with_progress_ledger_note",
             "deferredAt": "2026-08-14T09:18:30.087779+09:00"
           },
-          "sheetVerified": false,
+          "sheetVerified": true,
           "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w01-l01-45a2ae42",
@@ -1802,7 +1807,7 @@
             "claimCommit": "30c504f6ac38d079a7f1d00c7dfd981526e4a850",
             "claimedAt": "2026-08-12T01:34:46.986664+09:00"
           },
-          "updatedAt": "2026-08-14T00:18:30.087779+00:00"
+          "updatedAt": "2026-08-14T03:04:13.614321+00:00"
         }
       ]
     },
@@ -1834,13 +1839,18 @@
           "videoId": "Z-BfQx-8FD4",
           "rowNumber": 238,
           "rowHash": "def7063fce55bf22a5bb0da207590ab24aa164dea351151dc37c40ff732d0e52",
-          "stage": "deferred_recovery",
+          "stage": "blocked",
           "attempt": 1,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/233",
           "commit": null,
           "solReview": null,
-          "block": null,
+          "block": {
+            "reasonCode": "ledger_conflict",
+            "failureStage": "deferred_recovery",
+            "reason": "開始後に台帳行が変更されたため自動更新を停止しました。 row=238",
+            "restartCondition": "原因を解消し、同じbatch IDで再開してください。"
+          },
           "recovery": {
             "reasonCode": "validation_failed",
             "failureStage": "composing",
@@ -1854,7 +1864,7 @@
             "result": "deferred_with_progress_ledger_note",
             "deferredAt": "2026-08-14T09:21:04.712090+09:00"
           },
-          "sheetVerified": false,
+          "sheetVerified": true,
           "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w01-l02-45a2ae42",
@@ -1863,7 +1873,7 @@
             "claimCommit": "214200c59f99535ca1f07503cf5b4b466d8358e9",
             "claimedAt": "2026-08-12T01:34:46.986915+09:00"
           },
-          "updatedAt": "2026-08-14T00:21:04.712090+00:00"
+          "updatedAt": "2026-08-14T03:04:15.947040+00:00"
         }
       ]
     },
@@ -1895,13 +1905,18 @@
           "videoId": "6tRcXUfOWYs",
           "rowNumber": 202,
           "rowHash": "4219d1b3e9a874ccfe76e9ef26f3681ee1709d69b63b8169747248cbc31123a7",
-          "stage": "deferred_recovery",
+          "stage": "blocked",
           "attempt": 1,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/224",
           "commit": null,
           "solReview": null,
-          "block": null,
+          "block": {
+            "reasonCode": "ledger_conflict",
+            "failureStage": "deferred_recovery",
+            "reason": "開始後に台帳行が変更されたため自動更新を停止しました。 row=202",
+            "restartCondition": "原因を解消し、同じbatch IDで再開してください。"
+          },
           "recovery": {
             "reasonCode": "validation_failed",
             "failureStage": "composing",
@@ -1915,7 +1930,7 @@
             "result": "deferred_with_progress_ledger_note",
             "deferredAt": "2026-08-14T09:20:47.831975+09:00"
           },
-          "sheetVerified": false,
+          "sheetVerified": true,
           "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w01-l03-45a2ae42",
@@ -1924,7 +1939,7 @@
             "claimCommit": "9d158f6dd54d906ceaa6c9a75ff0a938e1e9db5d",
             "claimedAt": "2026-08-12T01:31:49.736664+09:00"
           },
-          "updatedAt": "2026-08-14T00:20:47.831975+00:00"
+          "updatedAt": "2026-08-14T03:04:13.830775+00:00"
         }
       ]
     },
@@ -1956,13 +1971,18 @@
           "videoId": "ZV4CXlLkHgw",
           "rowNumber": 203,
           "rowHash": "da948e251ddf173dc6fb4727f1b7bf92c766678e4c4c96ad5e0c486e28ae7776",
-          "stage": "deferred_recovery",
+          "stage": "blocked",
           "attempt": 1,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/225",
           "commit": null,
           "solReview": null,
-          "block": null,
+          "block": {
+            "reasonCode": "ledger_conflict",
+            "failureStage": "deferred_recovery",
+            "reason": "開始後に台帳行が変更されたため自動更新を停止しました。 row=203",
+            "restartCondition": "原因を解消し、同じbatch IDで再開してください。"
+          },
           "recovery": {
             "reasonCode": "validation_failed",
             "failureStage": "composing",
@@ -1976,7 +1996,7 @@
             "result": "deferred_with_progress_ledger_note",
             "deferredAt": "2026-08-14T09:21:05.783899+09:00"
           },
-          "sheetVerified": false,
+          "sheetVerified": true,
           "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w01-l04-45a2ae42",
@@ -1985,7 +2005,7 @@
             "claimCommit": "b234853cbdd68cfd490998d0f846d1ab6beca87f",
             "claimedAt": "2026-08-12T01:31:49.736819+09:00"
           },
-          "updatedAt": "2026-08-14T00:21:05.783899+00:00"
+          "updatedAt": "2026-08-14T03:04:14.587662+00:00"
         }
       ]
     },
@@ -2017,13 +2037,18 @@
           "videoId": "JHWYBMcUer0",
           "rowNumber": 274,
           "rowHash": "8aab6e451e296b6df3f01fd64564585b8f0c5ae735e700ddeafbdd694e533baa",
-          "stage": "deferred_recovery",
+          "stage": "blocked",
           "attempt": 1,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/234",
           "commit": null,
           "solReview": null,
-          "block": null,
+          "block": {
+            "reasonCode": "ledger_conflict",
+            "failureStage": "deferred_recovery",
+            "reason": "開始後に台帳行が変更されたため自動更新を停止しました。 row=274",
+            "restartCondition": "原因を解消し、同じbatch IDで再開してください。"
+          },
           "recovery": {
             "reasonCode": "validation_failed",
             "failureStage": "acquiring_evidence",
@@ -2037,7 +2062,7 @@
             "result": "deferred_with_progress_ledger_note",
             "deferredAt": "2026-08-14T09:19:28.001371+09:00"
           },
-          "sheetVerified": false,
+          "sheetVerified": true,
           "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w01-l05-45a2ae42",
@@ -2046,7 +2071,7 @@
             "claimCommit": "011cfe7254c38c8756bbacd38b4b39c7138fc74f",
             "claimedAt": "2026-08-12T22:06:01.207628+08:00"
           },
-          "updatedAt": "2026-08-14T00:19:28.001371+00:00"
+          "updatedAt": "2026-08-14T03:04:15.761737+00:00"
         }
       ]
     },
@@ -2203,13 +2228,18 @@
           "videoId": "gug8efplEpc",
           "rowNumber": 221,
           "rowHash": "d07f40f90a9bebe4961ca4ca13292d25036fa8d201784798f844835e64aedd3e",
-          "stage": "deferred_recovery",
+          "stage": "blocked",
           "attempt": 1,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/230",
           "commit": null,
           "solReview": null,
-          "block": null,
+          "block": {
+            "reasonCode": "ledger_conflict",
+            "failureStage": "deferred_recovery",
+            "reason": "開始後に台帳行が変更されたため自動更新を停止しました。 row=221",
+            "restartCondition": "原因を解消し、同じbatch IDで再開してください。"
+          },
           "recovery": {
             "reasonCode": "local_asr_failed",
             "failureStage": "acquiring_evidence",
@@ -2223,7 +2253,7 @@
             "result": "deferred_with_progress_ledger_note",
             "deferredAt": "2026-08-14T09:13:37.304202+09:00"
           },
-          "sheetVerified": false,
+          "sheetVerified": true,
           "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w01-l08-45a2ae42",
@@ -2232,7 +2262,7 @@
             "claimCommit": "b2ed752ea61bc76632e0d219e216a8477529999e",
             "claimedAt": "2026-08-12T01:31:49.737579+09:00"
           },
-          "updatedAt": "2026-08-14T00:13:37.304202+00:00"
+          "updatedAt": "2026-08-14T03:04:14.903330+00:00"
         }
       ]
     },
@@ -3654,7 +3684,7 @@
           "schemaVersion": "1.1.0",
           "videoId": "WPNCns2Pkmc",
           "rowNumber": 360,
-          "rowHash": "dfefbd365965866783bc26cb5869d7c1526004fdcdd7b952b56961f4e42fcb61",
+          "rowHash": "999718dc3a5fa60d2146fa6304c4502d3d8546b7fb939550b0ed05e19b7e4849",
           "stage": "deferred_recovery",
           "attempt": 1,
           "candidateHash": null,
@@ -3676,7 +3706,7 @@
             "deferredAt": "2026-08-14T11:30:08.345785+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w04-l02-45a2ae42",
             "claimToken": "2ba014709c174af9b347bfda60a71114",
@@ -3684,7 +3714,7 @@
             "claimCommit": "f6a74096bc7192afd079133469e0775a27366c6c",
             "claimedAt": "2026-08-14T10:48:02.813207+09:00"
           },
-          "updatedAt": "2026-08-14T02:30:08.345785+00:00"
+          "updatedAt": "2026-08-14T03:05:25.869255+00:00"
         }
       ]
     },
@@ -3715,7 +3745,7 @@
           "schemaVersion": "1.1.0",
           "videoId": "vcJb9HedvpE",
           "rowNumber": 362,
-          "rowHash": "0749607b9d9276e1deb6368b14a17daf0b62ea00a1d2864b633065534333a4ea",
+          "rowHash": "fc12d30828fe08700d5ec8cd7f0f97c6951173c2a5addd845095660e2b2566a4",
           "stage": "deferred_recovery",
           "attempt": 1,
           "candidateHash": null,
@@ -3737,7 +3767,7 @@
             "deferredAt": "2026-08-14T11:28:44.222314+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w04-l03-45a2ae42",
             "claimToken": "b3038dda55eb4021934a188900330e3a",
@@ -3745,7 +3775,7 @@
             "claimCommit": "8d6e962b6796b23c0317566f4be26211de7fd826",
             "claimedAt": "2026-08-14T10:29:12.455743+09:00"
           },
-          "updatedAt": "2026-08-14T02:28:44.222314+00:00"
+          "updatedAt": "2026-08-14T03:05:26.218184+00:00"
         }
       ]
     },
@@ -4018,8 +4048,8 @@
           "schemaVersion": "1.1.0",
           "videoId": "2Zc5-OR3lT4",
           "rowNumber": 386,
-          "rowHash": "488098ab77df5b392397a55afc29e4074f431642f9bbcbaacff819c2ad568d91",
-          "stage": "reviewing",
+          "rowHash": "ba5d9d2f55e0348b5f209070c9b3ec208b40e1afdd954c0e98ab39c1c58ca61d",
+          "stage": "deferred_recovery",
           "attempt": 1,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/285",
@@ -4030,14 +4060,17 @@
             "reasonCode": "validation_failed",
             "failureStage": "reviewing",
             "reason": "決定的検証に合格できませんでした。",
-            "detailDigest": "6128341dca7b2d29266e95206e23ab8142c3193ffcefdbd9a862e7f1ebbe8b99",
-            "nextAction": "親gpt-5.6-solがrecover-with-solを実行する",
+            "detailDigest": "1f0dc1bc332f707c3c8775a5893660a8281a973a98edf206b0bf61df3e6ea9d4",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
             "requestedAt": "2026-08-14T11:29:53.220562+09:00",
             "solAttempt": 1,
-            "startedAt": "2026-08-14T11:34:24.781189+09:00"
+            "startedAt": "2026-08-14T11:34:24.781189+09:00",
+            "handledBy": "gpt-5.6-sol",
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-14T12:02:42.307174+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w04-l08-45a2ae42",
             "claimToken": "53624eb954de46eeada176aa07f6cd94",
@@ -4045,7 +4078,7 @@
             "claimCommit": "786d2a343fed0fd642b04205831f367a7905f37f",
             "claimedAt": "2026-08-14T11:18:14.273506+09:00"
           },
-          "updatedAt": "2026-08-14T02:36:08.480807+00:00"
+          "updatedAt": "2026-08-14T03:05:26.510640+00:00"
         }
       ]
     },
@@ -4198,7 +4231,7 @@
           "schemaVersion": "1.1.0",
           "videoId": "oDiMqmJcOyM",
           "rowNumber": 389,
-          "rowHash": "2757a118234db6c28476548cefb70d04c9a9b2ff8e7e9f3587bd3fca2495cc47",
+          "rowHash": "ca118acc7f3c79e9f7fd2824c8551e25d123cb0b9b723ce5fe5e106787d88262",
           "stage": "deferred_recovery",
           "attempt": 1,
           "candidateHash": null,
@@ -4220,7 +4253,7 @@
             "deferredAt": "2026-08-14T11:41:48.816085+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w05-l01-45a2ae42",
             "claimToken": "80dfe0e3bb6f4319aafab11a684c34d9",
@@ -4228,7 +4261,7 @@
             "claimCommit": "9c48b80d5d8085ec1ca568d7e8a4634676cac643",
             "claimedAt": "2026-08-14T11:28:01.781610+09:00"
           },
-          "updatedAt": "2026-08-14T02:41:48.816085+00:00"
+          "updatedAt": "2026-08-14T03:05:26.367605+00:00"
         }
       ]
     },
@@ -4259,7 +4292,7 @@
           "schemaVersion": "1.1.0",
           "videoId": "Oe1Rhtywqsg",
           "rowNumber": 390,
-          "rowHash": "ddd3058e46818b1c36356034c1948c14fd14ef52957455e18a63a982f195880d",
+          "rowHash": "c3afa225fc1eeb10301a8c5dda38989d6655b62300e3d910284f7fca454b1fed",
           "stage": "deferred_recovery",
           "attempt": 1,
           "candidateHash": null,
@@ -4281,7 +4314,7 @@
             "deferredAt": "2026-08-14T11:41:48.592974+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w05-l02-45a2ae42",
             "claimToken": "ccc28d947ed64b59bb3da1a08ccbe936",
@@ -4289,7 +4322,7 @@
             "claimCommit": "16528a170b84bfa267b599b59057ff32cfac0098",
             "claimedAt": "2026-08-14T11:28:01.781610+09:00"
           },
-          "updatedAt": "2026-08-14T02:41:48.592974+00:00"
+          "updatedAt": "2026-08-14T03:05:26.625176+00:00"
         }
       ]
     },
@@ -4320,8 +4353,8 @@
           "schemaVersion": "1.1.0",
           "videoId": "cTmcH24OLTo",
           "rowNumber": 391,
-          "rowHash": "7165473a2622bf7f7507e2ab965025e5549ed4f5acea6baad54fe09a56ff4970",
-          "stage": "sheet_pending",
+          "rowHash": "1e8424e48bc7e9e9d27682482ac570c414fdf137238b0be3410b25c3ccdb8cac",
+          "stage": "complete",
           "attempt": 1,
           "candidateHash": "e6a46a3ddab41233d630e40c936378a69a77de0633131a00891a8d922e522fd6",
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/288",
@@ -4339,7 +4372,7 @@
             "evidenceRoute": "public_japanese_captions",
             "completedAt": "2026-08-14T11:43:14.854436+09:00"
           },
-          "sheetVerified": false,
+          "sheetVerified": true,
           "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w05-l03-45a2ae42",
@@ -4348,7 +4381,7 @@
             "claimCommit": "14e55f307083dfc9a3643f1c16403bcc64c08437",
             "claimedAt": "2026-08-14T11:28:01.781610+09:00"
           },
-          "updatedAt": "2026-08-14T02:47:51.434339+00:00"
+          "updatedAt": "2026-08-14T03:05:26.607176+00:00"
         }
       ]
     },
@@ -4379,25 +4412,26 @@
           "schemaVersion": "1.1.0",
           "videoId": "NTlDyf5YXHg",
           "rowNumber": 407,
-          "rowHash": "573a6b2d88d2bb30269201d91a30bbcd87baaa8b4cb0fab78bd499f6fddb0a7c",
-          "stage": "reviewing",
+          "rowHash": "d010c4b0ef1db5756aab6943f1ec0b3258e3755fbbac5a706a3c4364dd55e83f",
+          "stage": "complete",
           "attempt": 1,
-          "candidateHash": null,
+          "candidateHash": "f994b4cc3cd969fa8ae3bb4eb0454549d8422b04177685cd06c1b4e5b1f6778b",
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/291",
-          "commit": null,
-          "solReview": null,
+          "commit": "fc86cf26d83997ddfc553d3904f39f12f41d4922",
+          "solReview": {
+            "model": "gpt-5.6-sol",
+            "candidateHash": "f994b4cc3cd969fa8ae3bb4eb0454549d8422b04177685cd06c1b4e5b1f6778b",
+            "result": "pass",
+            "reviewedAt": "2026-08-14T11:59:17.684130+09:00"
+          },
           "block": null,
           "recovery": {
-            "reasonCode": "validation_failed",
-            "failureStage": "reviewing",
-            "reason": "決定的検証に合格できませんでした。",
-            "detailDigest": "6128341dca7b2d29266e95206e23ab8142c3193ffcefdbd9a862e7f1ebbe8b99",
-            "nextAction": "親gpt-5.6-solがrecover-with-solを実行する",
-            "requestedAt": "2026-08-14T11:46:08.978825+09:00",
-            "solAttempt": 1,
-            "startedAt": "2026-08-14T11:48:19.488710+09:00"
+            "handledBy": "gpt-5.6-sol",
+            "result": "recovered",
+            "evidenceRoute": "existing_prepared_evidence",
+            "completedAt": "2026-08-14T11:57:33.186384+09:00"
           },
-          "sheetVerified": false,
+          "sheetVerified": true,
           "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w05-l04-45a2ae42",
@@ -4406,7 +4440,7 @@
             "claimCommit": "236517a917703e65c4d4c4b04ac27ac9bb027823",
             "claimedAt": "2026-08-14T11:28:01.781610+09:00"
           },
-          "updatedAt": "2026-08-14T02:49:32.846169+00:00"
+          "updatedAt": "2026-08-14T03:05:26.206163+00:00"
         }
       ]
     },
@@ -4437,25 +4471,26 @@
           "schemaVersion": "1.1.0",
           "videoId": "n2To6qo0skU",
           "rowNumber": 412,
-          "rowHash": "c7e52c986e133e46891b9f90e97dab431d3f8ea7a7145e227971c1303c833c37",
-          "stage": "reviewing",
+          "rowHash": "f68db32ddc713d97830beeca7bdb07425dc77b2c5720e803f45793dc6d5811bd",
+          "stage": "complete",
           "attempt": 1,
-          "candidateHash": null,
+          "candidateHash": "29df3aa8da8989035d0ed7e38f1f337000329e36c6c763309d88041a2bc5155a",
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/293",
-          "commit": null,
-          "solReview": null,
+          "commit": "5f6de776d203ca0572b78cf85588e75dd08a10a8",
+          "solReview": {
+            "model": "gpt-5.6-sol",
+            "candidateHash": "29df3aa8da8989035d0ed7e38f1f337000329e36c6c763309d88041a2bc5155a",
+            "result": "pass",
+            "reviewedAt": "2026-08-14T12:09:39.586654+09:00"
+          },
           "block": null,
           "recovery": {
-            "reasonCode": "validation_failed",
-            "failureStage": "reviewing",
-            "reason": "決定的検証に合格できませんでした。",
-            "detailDigest": "1f0dc1bc332f707c3c8775a5893660a8281a973a98edf206b0bf61df3e6ea9d4",
-            "nextAction": "親gpt-5.6-solがrecover-with-solを実行する",
-            "requestedAt": "2026-08-14T11:42:25.443394+09:00",
-            "solAttempt": 1,
-            "startedAt": "2026-08-14T11:45:47.199849+09:00"
+            "handledBy": "gpt-5.6-sol",
+            "result": "recovered",
+            "evidenceRoute": "existing_prepared_evidence",
+            "completedAt": "2026-08-14T12:06:42.429357+09:00"
           },
-          "sheetVerified": false,
+          "sheetVerified": true,
           "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w05-l05-45a2ae42",
@@ -4464,7 +4499,7 @@
             "claimCommit": "d09f8e05d43adfa4213cc85e21b34708e7d70efa",
             "claimedAt": "2026-08-14T11:28:01.781610+09:00"
           },
-          "updatedAt": "2026-08-14T02:47:20.203923+00:00"
+          "updatedAt": "2026-08-14T03:11:07.247806+00:00"
         }
       ]
     },
@@ -4495,7 +4530,7 @@
           "schemaVersion": "1.1.0",
           "videoId": "FcSdtmAZ2VU",
           "rowNumber": 413,
-          "rowHash": "fe090cd8b3381c5936727ed6c9ce8221214a8130f89e01d6ba7cf41d2f7b5e3b",
+          "rowHash": "b8bb4e18b1bd1bc461894ced79fd05140998f9d209d57dfcd1241148ba1b477b",
           "stage": "deferred_recovery",
           "attempt": 1,
           "candidateHash": null,
@@ -4517,7 +4552,7 @@
             "deferredAt": "2026-08-14T11:41:49.137214+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w05-l06-45a2ae42",
             "claimToken": "e99483dcde7c4f0faa50d48677b968dc",
@@ -4525,7 +4560,7 @@
             "claimCommit": "e2429f2cae4ada4053c511a2c671f56b3ccd3a88",
             "claimedAt": "2026-08-14T11:28:01.781610+09:00"
           },
-          "updatedAt": "2026-08-14T02:41:49.137214+00:00"
+          "updatedAt": "2026-08-14T03:05:26.715482+00:00"
         }
       ]
     },
@@ -4557,7 +4592,7 @@
           "videoId": "dz2z8WkYrXg",
           "rowNumber": 414,
           "rowHash": "87cd23f399c670c9aef5909d82b707f5a0e9cab930601f02b19cbd40a6d4b392",
-          "stage": "reviewing",
+          "stage": "deferred_recovery",
           "attempt": 1,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/294",
@@ -4569,10 +4604,13 @@
             "failureStage": "reviewing",
             "reason": "決定的検証に合格できませんでした。",
             "detailDigest": "6128341dca7b2d29266e95206e23ab8142c3193ffcefdbd9a862e7f1ebbe8b99",
-            "nextAction": "親gpt-5.6-solがrecover-with-solを実行する",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
             "requestedAt": "2026-08-14T11:44:03.169751+09:00",
             "solAttempt": 1,
-            "startedAt": "2026-08-14T11:45:47.207127+09:00"
+            "startedAt": "2026-08-14T11:45:47.207127+09:00",
+            "handledBy": "gpt-5.6-sol",
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-14T12:09:59.091493+09:00"
           },
           "sheetVerified": false,
           "deferredLedgerVerified": false,
@@ -4583,7 +4621,7 @@
             "claimCommit": "60bed6ef0458a8ac2531b255ac783460258bfffc",
             "claimedAt": "2026-08-14T11:28:01.781610+09:00"
           },
-          "updatedAt": "2026-08-14T02:46:56.200015+00:00"
+          "updatedAt": "2026-08-14T03:09:59.091493+00:00"
         }
       ]
     },
@@ -4614,7 +4652,7 @@
           "schemaVersion": "1.1.0",
           "videoId": "4br9lIV6tzQ",
           "rowNumber": 415,
-          "rowHash": "d7e1cb2f40bec4ce52d3b63c011273a71251c05eb5a6498b953f3830c96fc465",
+          "rowHash": "497fac490a301bddb3a367ed9dbe5c8da95d16c9fab326bf0325ef06537d7b89",
           "stage": "deferred_recovery",
           "attempt": 1,
           "candidateHash": null,
@@ -4636,7 +4674,7 @@
             "deferredAt": "2026-08-14T11:49:11.876365+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w05-l08-45a2ae42",
             "claimToken": "eee0d0c9b87444869883b0779bcac70f",
@@ -4644,7 +4682,7 @@
             "claimCommit": "8bf4cc0114b2fe5fb1271b754184849e3c53dc7f",
             "claimedAt": "2026-08-14T11:43:15.346894+09:00"
           },
-          "updatedAt": "2026-08-14T02:49:11.876365+00:00"
+          "updatedAt": "2026-08-14T03:05:26.401208+00:00"
         }
       ]
     },
@@ -4675,7 +4713,7 @@
           "schemaVersion": "1.1.0",
           "videoId": "HaLBVS1KZ7M",
           "rowNumber": 417,
-          "rowHash": "b00bc2d83f835c7cc188ef103fa7d8a404f9ba52ca7466e6278082e55f5c0925",
+          "rowHash": "85b9c957681650c2deb0b244ac9acc8444c34acb328d591f4ca32aaf60772fbb",
           "stage": "deferred_recovery",
           "attempt": 1,
           "candidateHash": null,
@@ -4697,7 +4735,7 @@
             "deferredAt": "2026-08-14T11:49:14.246515+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w05-l09-45a2ae42",
             "claimToken": "95554630b49d47a7a4e5efe569d4e92c",
@@ -4705,7 +4743,7 @@
             "claimCommit": "8ffb5a96e884b0a18ec3686b55ffe2f8a973efcb",
             "claimedAt": "2026-08-14T11:43:15.346894+09:00"
           },
-          "updatedAt": "2026-08-14T02:49:14.246515+00:00"
+          "updatedAt": "2026-08-14T03:05:26.351379+00:00"
         }
       ]
     },
@@ -4736,7 +4774,7 @@
           "schemaVersion": "1.1.0",
           "videoId": "YD4IU8Wf3vQ",
           "rowNumber": 418,
-          "rowHash": "0131af09443607b830e5dce94c77b51140014fb6ba54c191172ad809c3d301e1",
+          "rowHash": "62aff9442c604c7d8a45902d66d8f53e726c2507a7bc31e111d44b5fd97d5690",
           "stage": "deferred_recovery",
           "attempt": 1,
           "candidateHash": null,
@@ -4758,7 +4796,7 @@
             "deferredAt": "2026-08-14T11:49:14.213214+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w05-l10-45a2ae42",
             "claimToken": "737501b1350c48f984b75b7dc1cdd49d",
@@ -4766,7 +4804,7 @@
             "claimCommit": "3bbe7bb78b5eed8b2eac221c7d9db1cf087cf87c",
             "claimedAt": "2026-08-14T11:43:15.346894+09:00"
           },
-          "updatedAt": "2026-08-14T02:49:14.213214+00:00"
+          "updatedAt": "2026-08-14T03:05:26.508639+00:00"
         }
       ]
     },
@@ -4797,8 +4835,8 @@
           "schemaVersion": "1.1.0",
           "videoId": "QvwqVkSzUAc",
           "rowNumber": 419,
-          "rowHash": "f10cf19de43677a3a1cba2fc66b3679418e0306b285fb54ef15005835e2742a4",
-          "stage": "acquiring_evidence",
+          "rowHash": "9bda4568a592c745a27dc09f00e4295fe0242a4dcf8d881d4d37020985aa0ece",
+          "stage": "deferred_recovery",
           "attempt": 1,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/298",
@@ -4810,13 +4848,16 @@
             "failureStage": "acquiring_evidence",
             "reason": "公開日本語字幕がなく、認証不要の公開音声MP3を取得できませんでした。",
             "detailDigest": "cd093348af64a3b4361bf57f01392ceae749bba54537a4ad85e4f7b503cec043",
-            "nextAction": "親gpt-5.6-solがrecover-with-solを実行する",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
             "requestedAt": "2026-08-14T11:53:48.521172+09:00",
             "solAttempt": 1,
-            "startedAt": "2026-08-14T11:55:03.776067+09:00"
+            "startedAt": "2026-08-14T11:55:03.776067+09:00",
+            "handledBy": "gpt-5.6-sol",
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-14T11:57:11.569505+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w06-l01-45a2ae42",
             "claimToken": "427f29acf22d44299541738ee9e51965",
@@ -4824,7 +4865,7 @@
             "claimCommit": "802d2f57ffa016e26893545b2ec1b6cebf510d5b",
             "claimedAt": "2026-08-14T11:50:58.468286+09:00"
           },
-          "updatedAt": "2026-08-14T02:55:03.816655+00:00"
+          "updatedAt": "2026-08-14T03:05:26.607176+00:00"
         }
       ]
     },
@@ -4855,15 +4896,26 @@
           "schemaVersion": "1.1.0",
           "videoId": "gL17LIJCzz0",
           "rowNumber": 422,
-          "rowHash": "33f97c0486b32c121cd3fc0b6c170a70cf2af2bcd2812e17915564b3423d72d7",
-          "stage": "composing",
+          "rowHash": "6de1d063a42da68b680bccb8435e30b6fe4a381e44e9704e4a96c625d2ae0a1b",
+          "stage": "complete",
           "attempt": 1,
-          "candidateHash": null,
+          "candidateHash": "81d549457ccf2d5acf0ffdf2421646f0cdabe0cc3d679e03395279f5b2a3b750",
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/299",
-          "commit": null,
-          "solReview": null,
+          "commit": "c977e70789ece6d451439c24446375838e723d8b",
+          "solReview": {
+            "model": "gpt-5.6-sol",
+            "candidateHash": "81d549457ccf2d5acf0ffdf2421646f0cdabe0cc3d679e03395279f5b2a3b750",
+            "result": "pass",
+            "reviewedAt": "2026-08-14T12:06:24.909216+09:00"
+          },
           "block": null,
-          "sheetVerified": false,
+          "recovery": {
+            "handledBy": "gpt-5.6-sol",
+            "result": "recovered",
+            "evidenceRoute": "existing_prepared_evidence",
+            "completedAt": "2026-08-14T12:04:12.095583+09:00"
+          },
+          "sheetVerified": true,
           "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w06-l02-45a2ae42",
@@ -4872,7 +4924,7 @@
             "claimCommit": "2de17097c81ea5d81f4835ab8d31846672334566",
             "claimedAt": "2026-08-14T11:50:58.468286+09:00"
           },
-          "updatedAt": "2026-08-14T02:52:38.040606+00:00"
+          "updatedAt": "2026-08-14T03:08:31.381996+00:00"
         }
       ]
     },
@@ -4903,15 +4955,26 @@
           "schemaVersion": "1.1.0",
           "videoId": "zprJdYqIGe8",
           "rowNumber": 428,
-          "rowHash": "e5b75d188eaeb280382df5b49a02a75908209e3a156fd751d3c35c804f69ba94",
-          "stage": "reviewing",
+          "rowHash": "3947b7b895c492138ded04b6edfeb0bc211d1dd1021e2065f04d492337a98499",
+          "stage": "complete",
           "attempt": 1,
-          "candidateHash": null,
+          "candidateHash": "03d4c6982b3dc6c23cb7da1a100f5f11796114d16e1537827f42c82ab813f5b8",
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/300",
-          "commit": null,
-          "solReview": null,
+          "commit": "b9bdb8d0bdebe35cb33ef0803dff4de0ff6c47ba",
+          "solReview": {
+            "model": "gpt-5.6-sol",
+            "candidateHash": "03d4c6982b3dc6c23cb7da1a100f5f11796114d16e1537827f42c82ab813f5b8",
+            "result": "pass",
+            "reviewedAt": "2026-08-14T12:06:25.715982+09:00"
+          },
           "block": null,
-          "sheetVerified": false,
+          "recovery": {
+            "handledBy": "gpt-5.6-sol",
+            "result": "recovered",
+            "evidenceRoute": "existing_prepared_evidence",
+            "completedAt": "2026-08-14T12:05:08.175627+09:00"
+          },
+          "sheetVerified": true,
           "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w06-l03-45a2ae42",
@@ -4920,7 +4983,7 @@
             "claimCommit": "fd6d6b7d0510d880c7c2c9fa7edb1a555c80e9a2",
             "claimedAt": "2026-08-14T11:50:58.468286+09:00"
           },
-          "updatedAt": "2026-08-14T02:54:23.669117+00:00"
+          "updatedAt": "2026-08-14T03:08:31.433482+00:00"
         }
       ]
     },
@@ -4952,13 +5015,23 @@
           "videoId": "l4DBBshuld0",
           "rowNumber": 429,
           "rowHash": "52b97b85d34b529e21458d066cb6a18f96ec675c2faba120cad8d67f1aa1d5f5",
-          "stage": "composing",
+          "stage": "reviewing",
           "attempt": 1,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/301",
           "commit": null,
           "solReview": null,
           "block": null,
+          "recovery": {
+            "reasonCode": "validation_failed",
+            "failureStage": "reviewing",
+            "reason": "決定的検証に合格できませんでした。",
+            "detailDigest": "1f0dc1bc332f707c3c8775a5893660a8281a973a98edf206b0bf61df3e6ea9d4",
+            "nextAction": "親gpt-5.6-solがrecover-with-solを実行する",
+            "requestedAt": "2026-08-14T12:04:25.418138+09:00",
+            "solAttempt": 1,
+            "startedAt": "2026-08-14T12:05:52.641467+09:00"
+          },
           "sheetVerified": false,
           "deferredLedgerVerified": false,
           "claim": {
@@ -4968,7 +5041,7 @@
             "claimCommit": "961da709db1bde5b86ec08dc92b9f818fc9d5efd",
             "claimedAt": "2026-08-14T11:50:58.468286+09:00"
           },
-          "updatedAt": "2026-08-14T02:54:38.289532+00:00"
+          "updatedAt": "2026-08-14T03:07:16.591858+00:00"
         }
       ]
     },
@@ -5000,13 +5073,23 @@
           "videoId": "QJmOluP1ubs",
           "rowNumber": 432,
           "rowHash": "3f0496497cb3e54a66a3107b8c24842008ecd8572b14154c010302b100dfbccc",
-          "stage": "composing",
+          "stage": "reviewing",
           "attempt": 1,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/302",
           "commit": null,
           "solReview": null,
           "block": null,
+          "recovery": {
+            "reasonCode": "validation_failed",
+            "failureStage": "reviewing",
+            "reason": "決定的検証に合格できませんでした。",
+            "detailDigest": "4fb44fd768170de87ac41a3e610ae0c6f825d6d948b7baca3d83ecf3ca26eeb7",
+            "nextAction": "親gpt-5.6-solがrecover-with-solを実行する",
+            "requestedAt": "2026-08-14T12:03:28.524138+09:00",
+            "solAttempt": 1,
+            "startedAt": "2026-08-14T12:05:52.639465+09:00"
+          },
           "sheetVerified": false,
           "deferredLedgerVerified": false,
           "claim": {
@@ -5016,7 +5099,7 @@
             "claimCommit": "b1623e1b8108da530aa811bc2a898ffd1070fd78",
             "claimedAt": "2026-08-14T11:50:58.468286+09:00"
           },
-          "updatedAt": "2026-08-14T02:54:42.398157+00:00"
+          "updatedAt": "2026-08-14T03:08:24.639910+00:00"
         }
       ]
     },
@@ -5047,16 +5130,29 @@
           "schemaVersion": "1.1.0",
           "videoId": "KTdOpHfbnAY",
           "rowNumber": 438,
-          "rowHash": "704b70d07578f3ad00254c46818d2838300203b0f2173d4e81d9ee8e41e2f236",
-          "stage": "acquiring_evidence",
+          "rowHash": "f9e21b47abd8f375550cc5c020bc6d17782734cb6764e60f4fa97c020727c0a5",
+          "stage": "deferred_recovery",
           "attempt": 1,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/303",
           "commit": null,
           "solReview": null,
           "block": null,
+          "recovery": {
+            "reasonCode": "local_asr_failed",
+            "failureStage": "acquiring_evidence",
+            "reason": "公開音声MP3は取得できましたが、無料ローカルASRで全編文字起こしを作成できませんでした。",
+            "detailDigest": "a695def8bc054f8911105d900e7733a8801f6e0206045f2a2c900c17ae8a4a54",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
+            "requestedAt": "2026-08-14T11:59:31.449060+09:00",
+            "solAttempt": 1,
+            "startedAt": "2026-08-14T12:01:25.113485+09:00",
+            "handledBy": "gpt-5.6-sol",
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-14T12:02:07.819443+09:00"
+          },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w06-l06-45a2ae42",
             "claimToken": "852bbc7739e94525808418d7d32f55dd",
@@ -5064,12 +5160,374 @@
             "claimCommit": "b6297320786f4e2f05d03789de7b13752fa6a7d1",
             "claimedAt": "2026-08-14T11:50:58.468286+09:00"
           },
-          "updatedAt": "2026-08-14T02:54:28.223760+00:00"
+          "updatedAt": "2026-08-14T03:05:25.895006+00:00"
+        }
+      ]
+    },
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w06-l07",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "00f4e5f2f509dd9bf735a46515fc0654d9bfb8a4",
+        "items": [
+          {
+            "videoId": "7dj0D_5i77o",
+            "rowNumber": 439,
+            "rowHash": "b63c64ae6362c4f9ceaa398920745683ac3b95380d456a765356b1c21e171750"
+          }
+        ],
+        "videoIds": [
+          "7dj0D_5i77o"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w06-l07-45a2ae42",
+        "manifestHash": "bfe19ad245460c9e51dced06e1c2fd60ed57c43d4b2752ddfb4c27ccff81dcf2"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "7dj0D_5i77o",
+          "rowNumber": 439,
+          "rowHash": "b63c64ae6362c4f9ceaa398920745683ac3b95380d456a765356b1c21e171750",
+          "stage": "reviewing",
+          "attempt": 1,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/304",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "recovery": {
+            "reasonCode": "composition_failed",
+            "failureStage": "composing",
+            "reason": "全編根拠から検証可能な章候補を構成できませんでした。",
+            "detailDigest": "a68fcbd4b3c7d04c049850226e6c9870a3ba43f77c6e9e3fd82fe0555567ca05",
+            "nextAction": "親gpt-5.6-solがrecover-with-solを実行する",
+            "requestedAt": "2026-08-14T12:08:29.640267+09:00",
+            "solAttempt": 1,
+            "startedAt": "2026-08-14T12:09:10.355430+09:00"
+          },
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w06-l07-45a2ae42",
+            "claimToken": "381c0615244f4c94a969e84a3aa7771d",
+            "branch": "agent/timestamps-7dj0D_5i77o",
+            "claimCommit": "991b8dbbe37e5e49e1c493a529f97d94cc9a404a",
+            "claimedAt": "2026-08-14T11:50:58.468286+09:00"
+          },
+          "updatedAt": "2026-08-14T03:13:13.441360+00:00"
+        }
+      ]
+    },
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w06-l08",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "00f4e5f2f509dd9bf735a46515fc0654d9bfb8a4",
+        "items": [
+          {
+            "videoId": "YpPm6lD8Tiw",
+            "rowNumber": 440,
+            "rowHash": "08e5b7e2589e70378720226371f464d858002767a1112fe28bc00fb9654d35b8"
+          }
+        ],
+        "videoIds": [
+          "YpPm6lD8Tiw"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w06-l08-45a2ae42",
+        "manifestHash": "3ecc11f70a8f9d89fd4b43bcd5443268ca22925f98a845d62600d456f22431e5"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "YpPm6lD8Tiw",
+          "rowNumber": 440,
+          "rowHash": "08e5b7e2589e70378720226371f464d858002767a1112fe28bc00fb9654d35b8",
+          "stage": "needs_sol_recovery",
+          "attempt": 1,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/305",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "recovery": {
+            "reasonCode": "validation_failed",
+            "failureStage": "reviewing",
+            "reason": "決定的検証に合格できませんでした。",
+            "detailDigest": "6128341dca7b2d29266e95206e23ab8142c3193ffcefdbd9a862e7f1ebbe8b99",
+            "nextAction": "親gpt-5.6-solがrecover-with-solを実行する",
+            "requestedAt": "2026-08-14T12:11:51.168010+09:00"
+          },
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w06-l08-45a2ae42",
+            "claimToken": "ce45cd0742e640069f3a9f47e6cf2bd5",
+            "branch": "agent/timestamps-YpPm6lD8Tiw",
+            "claimCommit": "df3ecc4cab8d7e53cdb583333f94b7e8e5a9e3e2",
+            "claimedAt": "2026-08-14T11:50:58.468286+09:00"
+          },
+          "updatedAt": "2026-08-14T03:11:51.168010+00:00"
+        }
+      ]
+    },
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w06-l09",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "00f4e5f2f509dd9bf735a46515fc0654d9bfb8a4",
+        "items": [
+          {
+            "videoId": "1bTxHdSNxZQ",
+            "rowNumber": 441,
+            "rowHash": "7edbe27e2b8e22642238551c9e7d2c401decdbe63dd66949521717397181f634"
+          }
+        ],
+        "videoIds": [
+          "1bTxHdSNxZQ"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w06-l09-45a2ae42",
+        "manifestHash": "49bd7e6adc16dc7043b563e544a466a0916039841dd8684534dd8eed47a945d4"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "1bTxHdSNxZQ",
+          "rowNumber": 441,
+          "rowHash": "7edbe27e2b8e22642238551c9e7d2c401decdbe63dd66949521717397181f634",
+          "stage": "composing",
+          "attempt": 1,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/307",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w06-l09-45a2ae42",
+            "claimToken": "6ded4750f8ec43829e92692540b065fc",
+            "branch": "agent/timestamps-1bTxHdSNxZQ",
+            "claimCommit": "6dd9923dc64efb65898f21f8ac8bd5792ccc0f67",
+            "claimedAt": "2026-08-14T11:50:58.468286+09:00"
+          },
+          "updatedAt": "2026-08-14T03:12:43.345096+00:00"
+        }
+      ]
+    },
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w06-l10",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "00f4e5f2f509dd9bf735a46515fc0654d9bfb8a4",
+        "items": [
+          {
+            "videoId": "bfcLx1rzBgA",
+            "rowNumber": 442,
+            "rowHash": "261a4abc89703a3f86c62ecbddfcd4fad7f0ffca69783511c48a99edf6dd6e20"
+          }
+        ],
+        "videoIds": [
+          "bfcLx1rzBgA"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w06-l10-45a2ae42",
+        "manifestHash": "ab0b8e1772cd66ec22562ec2efda82bbb00d1d45f16f449107188c7323580d0e"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "bfcLx1rzBgA",
+          "rowNumber": 442,
+          "rowHash": "261a4abc89703a3f86c62ecbddfcd4fad7f0ffca69783511c48a99edf6dd6e20",
+          "stage": "needs_sol_recovery",
+          "attempt": 1,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/306",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "recovery": {
+            "reasonCode": "public_audio_unavailable",
+            "failureStage": "acquiring_evidence",
+            "reason": "公開日本語字幕がなく、認証不要の公開音声MP3を取得できませんでした。",
+            "detailDigest": "cd093348af64a3b4361bf57f01392ceae749bba54537a4ad85e4f7b503cec043",
+            "nextAction": "親gpt-5.6-solがrecover-with-solを実行する",
+            "requestedAt": "2026-08-14T12:13:29.862148+09:00"
+          },
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w06-l10-45a2ae42",
+            "claimToken": "5625667207324e11815958c86ed61551",
+            "branch": "agent/timestamps-bfcLx1rzBgA",
+            "claimCommit": "aa2c437ec7c7b4ae20730692fe2373291a06af0b",
+            "claimedAt": "2026-08-14T11:50:58.468286+09:00"
+          },
+          "updatedAt": "2026-08-14T03:13:29.862148+00:00"
+        }
+      ]
+    },
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w07-l01",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "00f4e5f2f509dd9bf735a46515fc0654d9bfb8a4",
+        "items": [
+          {
+            "videoId": "fMOp5FK6KkY",
+            "rowNumber": 443,
+            "rowHash": "30dea02381f7c6f642332d50db81e0286a60a404c36d5e5d8d23bf47ec6a62f8"
+          }
+        ],
+        "videoIds": [
+          "fMOp5FK6KkY"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w07-l01-45a2ae42",
+        "manifestHash": "1f03985a677bb140fd19911601f4338f8ab331ba296c8b76b3649663e5092f79"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "fMOp5FK6KkY",
+          "rowNumber": 443,
+          "rowHash": "30dea02381f7c6f642332d50db81e0286a60a404c36d5e5d8d23bf47ec6a62f8",
+          "stage": "acquiring_evidence",
+          "attempt": 1,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/308",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w07-l01-45a2ae42",
+            "claimToken": "3b4ba6e344034461a7bdaea4e5efaf7e",
+            "branch": "agent/timestamps-fMOp5FK6KkY",
+            "claimCommit": "2ad1a851d45d91b580abf03b1b1998bada9f8bc8",
+            "claimedAt": "2026-08-14T12:12:53.663622+09:00"
+          },
+          "updatedAt": "2026-08-14T03:14:38.417520+00:00"
+        }
+      ]
+    },
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w07-l02",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "00f4e5f2f509dd9bf735a46515fc0654d9bfb8a4",
+        "items": [
+          {
+            "videoId": "BIYNjtPbZ1I",
+            "rowNumber": 444,
+            "rowHash": "ff2a9dcc2868e73f7d143372ce863329360658ba64849fdd0c2a0d0174d1d20c"
+          }
+        ],
+        "videoIds": [
+          "BIYNjtPbZ1I"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w07-l02-45a2ae42",
+        "manifestHash": "152255f8bfd83f1ad2a56ef15a6466ae896ef505be59e2d5c666c6dba683b44b"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "BIYNjtPbZ1I",
+          "rowNumber": 444,
+          "rowHash": "ff2a9dcc2868e73f7d143372ce863329360658ba64849fdd0c2a0d0174d1d20c",
+          "stage": "acquiring_evidence",
+          "attempt": 1,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/309",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w07-l02-45a2ae42",
+            "claimToken": "dbccb75800594f7f88291251693457a2",
+            "branch": "agent/timestamps-BIYNjtPbZ1I",
+            "claimCommit": "0f6a3ffde42cd9cb7d2625503757be0d77c7c1e1",
+            "claimedAt": "2026-08-14T12:12:53.663622+09:00"
+          },
+          "updatedAt": "2026-08-14T03:14:38.386140+00:00"
+        }
+      ]
+    },
+    {
+      "manifest": {
+        "schemaVersion": "1.1.0",
+        "batchId": "timestamp-sol-luna-20260812-012945-f0f26f16-w07-l03",
+        "spreadsheetId": "124L90zTKmYv3E_tTfNdPp6NMyEPPw_Dkz2L-uXDPWBw",
+        "sheetName": "対象動画",
+        "headerHash": "b0841095c2dbcc46cf3eb0ff9cceb66af0f8d87eda3c51119437a21e745cac7e",
+        "baseCommit": "00f4e5f2f509dd9bf735a46515fc0654d9bfb8a4",
+        "items": [
+          {
+            "videoId": "zT8CxHwmveE",
+            "rowNumber": 446,
+            "rowHash": "7c9c709ad29123ff03a55ea03669617fae6f9332d39f06c9950cced745fca8fa"
+          }
+        ],
+        "videoIds": [
+          "zT8CxHwmveE"
+        ],
+        "videoCount": 1,
+        "workerId": "luna-w07-l03-45a2ae42",
+        "manifestHash": "25943a3b99f989390ecbdb66cf3cb469f698e296cd53b6a317fab36b0ceeef56"
+      },
+      "items": [
+        {
+          "schemaVersion": "1.1.0",
+          "videoId": "zT8CxHwmveE",
+          "rowNumber": 446,
+          "rowHash": "7c9c709ad29123ff03a55ea03669617fae6f9332d39f06c9950cced745fca8fa",
+          "stage": "acquiring_evidence",
+          "attempt": 1,
+          "candidateHash": null,
+          "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/310",
+          "commit": null,
+          "solReview": null,
+          "block": null,
+          "sheetVerified": false,
+          "deferredLedgerVerified": false,
+          "claim": {
+            "workerId": "luna-w07-l03-45a2ae42",
+            "claimToken": "585f35048d3745bca01454752df97828",
+            "branch": "agent/timestamps-zT8CxHwmveE",
+            "claimCommit": "e4fa196dee1db77f7f2b2bed0345f5579ff4b4c6",
+            "claimedAt": "2026-08-14T12:12:53.663622+09:00"
+          },
+          "updatedAt": "2026-08-14T03:14:38.373179+00:00"
         }
       ]
     }
   ],
-  "updatedAt": "2026-08-14T11:55:22.326466+09:00",
-  "resumeAfter": "2026-08-14T12:00:00+09:00",
-  "checkpointHash": "588a00a22971532d5d8f577ff871161276e14327f4f23e632883eba115369252"
+  "updatedAt": "2026-08-14T12:14:54.612766+09:00",
+  "resumeAfter": "2026-08-14T12:20:00+09:00",
+  "checkpointHash": "1f2a78a80742dddd49927f65d7dfb1e751580f420bdbc93999afc86fca9458f0"
 }
