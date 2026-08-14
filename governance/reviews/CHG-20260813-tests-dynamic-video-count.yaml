@@ -159,4 +159,5 @@ selected_checks:
   - path:governance/reviews/CHG-20260813-tests-dynamic-video-count.yaml
   note: 未選択checkをN/Aとして保存しない。
 advisories: []
-residual_risks: []
+residual_risks:
+- E2Eの動画件数見出しもcontent manifestへ追従させ、動画追加PRで固定件数がdriftしないことをCIで再確認する。
