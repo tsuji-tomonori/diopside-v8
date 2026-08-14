@@ -144,4 +144,5 @@ selected_checks:
   note: 未選択checkをN/Aとして登録しない。
 advisories: []
 residual_risks:
+- CI integrates the dynamic video-count quality gate by normal merge; the video artifact remains unpublished until human merge.
 - synopsis候補hash 63cbcf3d43b9fa2577f9c8fb23f99c079d81fbad4700f3de4b4ad6c4fa71f8f8 とtimestamp候補hash 4fc10bf4806fd94598add6dbe02e03bcbbfb6bb9423a1463f0af7bcaca3b0016 は、人によるdraft PRのマージ完了まで公開されない。
