@@ -144,6 +144,7 @@ selected_checks:
   note: 未選択checkをN/Aとして登録しない。
 advisories: []
 residual_risks:
+- The final head-only CI includes the manifest-driven E2E video-count expectation from maintenance PR 421.
 - CI integrates the dynamic video-count quality gate by normal merge; the video artifact remains unpublished until human merge.
 - timestamp candidate b16a9fc18accffff9a36e97b09e5cf9b688662430bf9bb13615e54322ab925a5 and synopsis candidate a16e705cb2f319afb32b10452d923bed9078d41a7fff844a1757c60a0b950f3c remain unpublished until human merge.
 - 候補hash b16a9fc18accffff9a36e97b09e5cf9b688662430bf9bb13615e54322ab925a5 は人によるdraft
