@@ -9499,8 +9499,8 @@
           "schemaVersion": "1.1.0",
           "videoId": "rMkz4dBXwqM",
           "rowNumber": 706,
-          "rowHash": "da52f503e0395b3ed1bd3801cbf3fcadbeacfd27682d8d6354dabdf3252e7fe8",
-          "stage": "reviewing",
+          "rowHash": "a861be599487e79187771634b1c76e31c250a06b3d1bac336e8dbd98ff1d4ea6",
+          "stage": "deferred_recovery",
           "attempt": 1,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/377",
@@ -9512,13 +9512,16 @@
             "failureStage": "reviewing",
             "reason": "決定的検証に合格できませんでした。",
             "detailDigest": "4fb44fd768170de87ac41a3e610ae0c6f825d6d948b7baca3d83ecf3ca26eeb7",
-            "nextAction": "親gpt-5.6-solがrecover-with-solを実行する",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
             "requestedAt": "2026-08-14T15:28:50.986016+09:00",
             "solAttempt": 1,
-            "startedAt": "2026-08-14T15:29:51.465062+09:00"
+            "startedAt": "2026-08-14T15:29:51.465062+09:00",
+            "handledBy": "gpt-5.6-sol",
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-14T15:41:13.105413+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w13-l09-45a2ae42",
             "claimToken": "76d8766182314941ab13b5049f746bf0",
@@ -9526,7 +9529,7 @@
             "claimCommit": "6e564f3817ed7d6431ac729d18e3bcdca3b2fe3b",
             "claimedAt": "2026-08-14T15:15:07.544814+09:00"
           },
-          "updatedAt": "2026-08-14T06:31:17.849895+00:00"
+          "updatedAt": "2026-08-14T06:42:33.661512+00:00"
         }
       ]
     },
@@ -9557,8 +9560,8 @@
           "schemaVersion": "1.1.0",
           "videoId": "k8xpSgTRVQg",
           "rowNumber": 708,
-          "rowHash": "9aba51ae0c398e29021494fa73dbb438dd495f2a4d78a939cafdd426e65b3bf8",
-          "stage": "reviewing",
+          "rowHash": "f588801bd869d043d26e63b698e720cfeb965b6ee57e74718aee97b2012f193c",
+          "stage": "deferred_recovery",
           "attempt": 1,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/376",
@@ -9569,14 +9572,17 @@
             "reasonCode": "validation_failed",
             "failureStage": "reviewing",
             "reason": "決定的検証に合格できませんでした。",
-            "detailDigest": "6128341dca7b2d29266e95206e23ab8142c3193ffcefdbd9a862e7f1ebbe8b99",
-            "nextAction": "親gpt-5.6-solがrecover-with-solを実行する",
+            "detailDigest": "4fb44fd768170de87ac41a3e610ae0c6f825d6d948b7baca3d83ecf3ca26eeb7",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
             "requestedAt": "2026-08-14T15:28:46.698602+09:00",
             "solAttempt": 1,
-            "startedAt": "2026-08-14T15:29:01.578914+09:00"
+            "startedAt": "2026-08-14T15:29:01.578914+09:00",
+            "handledBy": "gpt-5.6-sol",
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-14T15:38:52.385913+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w13-l10-45a2ae42",
             "claimToken": "9f519824f20a4545be36d2b006da6ac2",
@@ -9584,12 +9590,12 @@
             "claimCommit": "d4f477d05c85c6415e175035691f4f909c047eab",
             "claimedAt": "2026-08-14T15:15:07.544814+09:00"
           },
-          "updatedAt": "2026-08-14T06:30:07.409323+00:00"
+          "updatedAt": "2026-08-14T06:40:24.378535+00:00"
         }
       ]
     }
   ],
-  "updatedAt": "2026-08-14T15:33:48.954294+09:00",
-  "resumeAfter": "2026-08-14T15:50:00+09:00",
-  "checkpointHash": "ceb0464fcbb40c4eada58fae111a66c110444a22c14f48357f2cfa99497e115e"
+  "updatedAt": "2026-08-14T15:44:17.847903+09:00",
+  "resumeAfter": "2026-08-14T15:55:00+09:00",
+  "checkpointHash": "0028d3a81a56bfde0180071c7445492be4b0782cbb431dc8ede4f964adf0faa8"
 }
