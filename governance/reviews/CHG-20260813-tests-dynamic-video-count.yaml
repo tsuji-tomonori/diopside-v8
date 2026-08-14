@@ -20,7 +20,7 @@ impact_flags:
   typed_code_change: true
   behavior_change: false
   bug_fix: true
-  generated_change: false
+  generated_change: true
   sql_change: false
   e2e_change: false
   migration: false
@@ -132,7 +132,7 @@ selected_checks:
   result: pass
   evidence:
   - commit:self
-  note: test参照元の修正のみでADR・生成設計は不要である。
+  note: test参照元の変更を生成設計指紋へ反映済みで、ADRは不要である。
 - id: REV-006
   class: Invariant
   result: pass
