@@ -89,16 +89,24 @@ for (const video of videos) {
     tagToVideoIds.set(tagId, values);
   }
 }
-const gameTitleIds = new Set(
+const workTagIds = new Set(
   taxonomy.categories
     .find((category) => category.categoryId === 'works')
-    ?.subcategories.find((subcategory) => subcategory.subcategoryId === 'gameTitle')
-    ?.tags.map((tag) => tag.tagId) ?? [],
+    ?.subcategories.flatMap((subcategory) => subcategory.tags.map((tag) => tag.tagId)) ?? [],
 );
 const introductionsByTagId = new Map(workIntroductions.introductions.map((introduction) => [introduction.tagId, introduction]));
 if (introductionsByTagId.size !== workIntroductions.introductions.length) throw new Error('作品紹介のタグIDが重複しています。');
 for (const tagId of introductionsByTagId.keys()) {
-  if (!gameTitleIds.has(tagId)) throw new Error(`作品紹介がゲーム作品名タグを参照していません: ${tagId}`);
+  if (!workTagIds.has(tagId)) throw new Error(`作品紹介が作品タグを参照していません: ${tagId}`);
+}
+const unavailableByTagId = new Map(workIntroductions.unavailable.map((item) => [item.tagId, item]));
+if (unavailableByTagId.size !== workIntroductions.unavailable.length) throw new Error('作品紹介不能理由のタグIDが重複しています。');
+for (const tagId of unavailableByTagId.keys()) {
+  if (!workTagIds.has(tagId)) throw new Error(`作品紹介不能理由が作品タグを参照していません: ${tagId}`);
+  if (introductionsByTagId.has(tagId)) throw new Error(`作品紹介と紹介不能理由が同時に設定されています: ${tagId}`);
+}
+for (const tagId of workTagIds) {
+  if (!introductionsByTagId.has(tagId) && !unavailableByTagId.has(tagId)) throw new Error(`作品紹介の調査結果が未設定です: ${tagId}`);
 }
 const tagIndex = publicTagIndexSchema.parse({
   schemaVersion: '1.0.0',
@@ -116,6 +124,7 @@ const tagIndex = publicTagIndexSchema.parse({
       tags: subcategory.tags.filter((tag) => tag.active).map((tag) => {
         const videoIds = [...(tagToVideoIds.get(tag.tagId) ?? [])].sort();
         const introduction = introductionsByTagId.get(tag.tagId);
+        const introductionUnavailable = unavailableByTagId.get(tag.tagId);
         return {
           tagId: tag.tagId,
           canonicalName: tag.canonicalName,
@@ -126,6 +135,12 @@ const tagIndex = publicTagIndexSchema.parse({
             officialUrl: introduction.officialUrl,
             sourceLabel: introduction.sourceLabel,
             retrievedAt: introduction.retrievedAt,
+          } } : {}),
+          ...(introductionUnavailable ? { introductionUnavailable: {
+            reasonCode: introductionUnavailable.reasonCode,
+            reason: introductionUnavailable.reason,
+            checkedAt: introductionUnavailable.checkedAt,
+            ...(introductionUnavailable.reference ? { reference: introductionUnavailable.reference } : {}),
           } } : {}),
         };
       }),

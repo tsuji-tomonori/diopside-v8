@@ -118,18 +118,28 @@ describe('タグ・動画正本と公開境界', () => {
     expect(JSON.stringify(index)).not.toMatch(/(?:transcript|subtitles|comments|chat|authorId)/iu);
   });
 
-  it('ゲーム紹介はゲーム作品タグだけを参照し、短い引用とHTTPSの公式ページを持つ', () => {
-    const gameTitleIds = new Set(taxonomy.categories
+  it('全作品タグに公式紹介または掲載不能の具体的理由があり、両者は重複しない', () => {
+    const workTagIds = new Set(taxonomy.categories
       .find((category) => category.categoryId === 'works')!
-      .subcategories.find((subcategory) => subcategory.subcategoryId === 'gameTitle')!
-      .tags.map((tag) => tag.tagId));
+      .subcategories.flatMap((subcategory) => subcategory.tags.map((tag) => tag.tagId)));
     expect(workIntroductions.introductions.length).toBeGreaterThan(0);
     expect(new Set(workIntroductions.introductions.map((item) => item.tagId)).size).toBe(workIntroductions.introductions.length);
+    expect(new Set(workIntroductions.unavailable.map((item) => item.tagId)).size).toBe(workIntroductions.unavailable.length);
+    const accounted = new Set<string>();
     for (const introduction of workIntroductions.introductions) {
-      expect(gameTitleIds.has(introduction.tagId)).toBe(true);
+      expect(workTagIds.has(introduction.tagId)).toBe(true);
       expect(introduction.officialUrl).toMatch(/^https:\/\//u);
       expect(introduction.quote.length).toBeLessThanOrEqual(160);
+      accounted.add(introduction.tagId);
     }
+    for (const unavailable of workIntroductions.unavailable) {
+      expect(workTagIds.has(unavailable.tagId)).toBe(true);
+      expect(accounted.has(unavailable.tagId)).toBe(false);
+      expect(unavailable.reason.length).toBeGreaterThan(0);
+      if (unavailable.reference) expect(unavailable.reference.url).toMatch(/^https:\/\//u);
+      accounted.add(unavailable.tagId);
+    }
+    expect(accounted).toEqual(workTagIds);
   });
 });
 

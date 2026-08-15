@@ -39,8 +39,17 @@ export function WorkDetailPage(): React.JSX.Element {
               <span>確認日: {formatDate(`${work.introduction.retrievedAt}T00:00:00+09:00`)}</span>
             </p>
           </>
+        ) : work.introductionUnavailable ? (
+          <div className="notice">
+            <p><strong>公式紹介文を掲載できない理由</strong></p>
+            <p>{work.introductionUnavailable.reason}</p>
+            {work.introductionUnavailable.reference ? (
+              <p>確認先: <a href={work.introductionUnavailable.reference.url} target="_blank" rel="noreferrer">{work.introductionUnavailable.reference.label}</a></p>
+            ) : null}
+            <p>調査日: {formatDate(`${work.introductionUnavailable.checkedAt}T00:00:00+09:00`)}</p>
+          </div>
         ) : (
-          <p className="notice">この作品の公式紹介文は確認中です。動画一覧は引き続き利用できます。</p>
+          <p className="notice">作品紹介の調査結果がありません。</p>
         )}
       </section>
 

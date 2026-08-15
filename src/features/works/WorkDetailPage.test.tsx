@@ -33,10 +33,24 @@ describe('作品ページ', () => {
     expect(document.querySelectorAll('.work-results .video-card')).toHaveLength(4);
   });
 
-  it('未登録の作品は説明を捏造せず、動画一覧を表示する', () => {
+  it('公式紹介文を掲載できない場合は調査結果を表示する', () => {
     const bundle = publicBundle();
+    const work = bundle.tagIndex.categories
+      .find((category) => category.categoryId === 'works')
+      ?.subcategories.flatMap((subcategory) => subcategory.tags)
+      .find((tag) => tag.tagId === 'tag-works-gameTitle-44ffcf49bd94');
+    if (!work) throw new Error('テスト用の作品タグが見つかりません。');
+    work.introductionUnavailable = {
+      reasonCode: 'official-source-unavailable',
+      reason: '原作はSteamから恒久的に削除され、原作アプリIDの公式コミュニティページにも紹介本文がありません。',
+      checkedAt: '2026-08-15',
+      reference: {
+        url: 'https://steamcommunity.com/app/2381590',
+        label: 'Steam公式コミュニティページ（販売終了）',
+      },
+    };
     render(
-      <MemoryRouter initialEntries={['/works/tag-works-gameTitle-c45f1a817134']}>
+      <MemoryRouter initialEntries={['/works/tag-works-gameTitle-44ffcf49bd94']}>
         <DeviceStoreContext.Provider value={new DeviceStore()}>
           <BundleContext.Provider value={bundle}>
             <Routes><Route path="/works/:tagId" element={<WorkDetailPage />} /></Routes>
@@ -45,8 +59,15 @@ describe('作品ページ', () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByRole('heading', { level: 1, name: '番外編' })).toBeVisible();
-    expect(screen.getByText('この作品の公式紹介文は確認中です。動画一覧は引き続き利用できます。')).toBeVisible();
+    expect(screen.getByRole('heading', { level: 1, name: 'Only Up!' })).toBeVisible();
+    expect(screen.getByText('公式紹介文を掲載できない理由')).toBeVisible();
+    expect(screen.getByText(/公式コミュニティページにも紹介本文がありません/u)).toBeVisible();
+    expect(screen.getByRole('link', { name: 'Steam公式コミュニティページ（販売終了）' })).toHaveAttribute(
+      'href',
+      'https://steamcommunity.com/app/2381590',
+    );
+    expect(screen.getByText('調査日: 2026年8月15日')).toBeVisible();
+    expect(screen.queryByText('作品紹介の調査結果がありません。')).not.toBeInTheDocument();
   });
 });
 
