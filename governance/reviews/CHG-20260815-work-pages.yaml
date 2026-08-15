@@ -102,7 +102,7 @@ selected_checks:
       - test:src/features/works/WorkDetailPage.test.tsx
       - test:tests/content-validation.test.ts
       - test:tests/generated.test.ts
-    note: 作品画面、公式引用、同一タグ動画5件、掲載不可理由と確認先の表示、全254タグの分類漏れ防止を単体・統合試験で確認した
+    note: 作品画面、公式引用、同一タグ動画5件、掲載不可理由と確認先の表示、全254タグの分類漏れ防止をコンポーネント・E2E試験で確認した
   - id: FAST-006
     class: Invariant
     result: pass

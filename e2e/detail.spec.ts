@@ -104,7 +104,7 @@ test.describe('動画詳細', () => {
       'href',
       'https://www.konami.com/games/silenthill/2r/jp/ja/',
     );
-    await expect(page.locator('.work-results .video-card')).toHaveCount(4);
+    await expect(page.locator('.work-results .video-card')).toHaveCount(5);
     expectOnlyAllowedRequests(requests);
     await expectNoSeriousAccessibilityViolations(page);
   });
