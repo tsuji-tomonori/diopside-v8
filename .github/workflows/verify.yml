@@ -45,3 +45,45 @@ jobs:
       - name: 要件の受入結果を監査
         if: always()
         run: npm run audit:requirements
+
+  ingestion-infra:
+    name: 有限private backfill（Python・uv・CDK）
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: ソースを取得
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+      - name: Node.jsを準備
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.0
+      - name: uvを準備
+        uses: astral-sh/setup-uv@v5
+      - name: Python依存をlockどおり導入
+        run: uv sync --directory infra --locked --all-groups
+      - name: CDK CLIをlockどおり導入
+        run: npm ci --prefix infra
+      - name: Ruff・strict型検査・pytestを実行
+        run: |
+          uv run --directory infra ruff format --check .
+          uv run --directory infra ruff check .
+          uv run --directory infra pyright
+          uv run --directory infra mypy .
+          uv run --directory infra pytest -q
+      - name: CDK synthとcdk-nagを実行
+        run: npm --prefix infra exec -- cdk synth --quiet
+      - name: as-built CDK設計差分を検査
+        run: python .agents/skills/generate-implementation-design/scripts/designflow.py cdk --template infra/cdk.out/DiopsideIngestionStack.template.json --out docs/design/generated/cdk/diopside-ingestion --repo-root . --check
+      - name: worker imageをbuild
+        run: docker build --tag diopside-ingestion-worker:${{ github.sha }} infra
+      - name: worker imageを脆弱性検査
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          image-ref: diopside-ingestion-worker:${{ github.sha }}
+          format: table
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: CRITICAL,HIGH

@@ -1,0 +1,184 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260815-yt-dlp-backfill
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: true
+  data_change: true
+  public_api_change: false
+  iac_change: true
+  dependency_change: true
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: true
+  important_ui_change: false
+  long_term_decision: true
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: Issue #465の有限private backfill、公開面との費用分離、素材公開禁止をV8-INGESTと既存要件へ反映した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:docs/decisions/ADR-0002-historical-private-material-backfill.md, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
+    note: 固定manifest、FIFO、Batch Fargate、私有S3、単一DynamoDBの資源・データフローをADRとas-built設計へ接続した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260815-yt-dlp-backfill.yaml]
+    note: 永続要件、private素材、IAM、IaC、worker、運用入口をまたぐためassuredを選択した。
+  - id: IMP-006
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/stack.py, test:infra/tests/test_stack.py]
+    note: Dispatcher、Result、Batch task roleを分離し、S3、DynamoDB、SQS、KMSを必要最小限のIAM policyに限定した。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/state.py, test:infra/tests/test_contracts.py]
+    note: VideoIngestionのvideo_id一item、段階状態、理由コード、S3参照だけを保存し、生素材をDynamoDBへ入れない。
+  - id: IMP-009
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/stack.py, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
+    note: private S3、FIFO/DLQ、Fargate timeout、Flow Log、digest image parameter、保持方針をCDK templateで確認する。
+  - id: IMP-010
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/pyproject.toml, path:infra/uv.lock, path:infra/worker/Dockerfile]
+    note: Python 3.12、yt-dlp固定版、AWS CDK、cdk-nag、型stub、Ruff、pytestのlockされた依存を追加した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: Python worker、CDK app、template assertionをsynth前後に実行する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Pyright strictとmypy strictをCIで必須化した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Ruff format checkとRuff lintをPython全変更範囲へ適用する。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_contracts.py, test:infra/tests/test_worker.py, test:infra/tests/test_reuse.py]
+    note: 厳格request、重複claim、retry、artifact部分成功、S3 manifest検証と再利用を単体試験で確認する。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: 要件正本とCDK as-built設計を生成し、CIでtemplateとの差分をcheck modeで検査する。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [test:tests/repository-policy.test.ts, commit:self]
+    note: 生字幕、音声、コメント、チャット、資格情報をGit、Pages、PR、通常ログへ入れない公開境界を確認した。
+  - id: FAST-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/pyproject.toml, path:infra/uv.lock, workflow:要件・品質ゲート#Python依存をlockどおり導入]
+    note: uv lockとCDK CLIのnpm lockをCIで固定導入する。
+  - id: FAST-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: CDK synthとAwsSolutions cdk-nagを必須化し、抑制はtemplateに対する限定理由だけにした。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/stack.py, path:docs/operations/privacy-and-safety.md]
+    note: KMS暗号化ログ、VPC Flow Logs、理由コード、DynamoDB checkpoint、completion reportで生本文なしに診断できる。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をIssue #465の有限private動画素材backfillと既存ハーネスへの安全なS3再利用に限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、review path、検証、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: V8-INGEST-001から011、V8-COST、V8-SAFETY、V8-OPS-019/023/026の影響を正本化した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/decisions/ADR-0002-historical-private-material-backfill.md, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
+    note: 長期のprivate保存・public Pages分離はADR、実装資源は生成CDK設計で記録した。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:infra/tests/test_worker.py, test:infra/tests/test_reuse.py]
+    note: 入力、固定manifest、状態、S3 key、worker、再利用、CI品質ゲートをrequirements traceから実装・testへ接続した。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, test:infra/tests/test_worker.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: unit test、Ruff、strict型検査、CDK synth/cdk-nag、container scanをPR CIに接続した。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260815-yt-dlp-backfill.yaml]
+    note: 選択されたcheckだけを本review YAMLに記録した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260815-yt-dlp-backfill.yaml]
+    note: selectorで選択されなかったcheckを形式的なN/Aとして追加していない。
+  - id: REV-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: cdk-nagとtemplate assertionを独立した構成・権限・公開境界oracleとして適用する。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:docs/operations/cost-check.md, path:docs/operations/privacy-and-safety.md, path:docs/operations/manual-content-update.md]
+    note: 明示起動、費用観測、非公開保存、S3優先読取り、deploy・enqueue・公開・merge分離を運用文書へ反映した。
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence: [path:docs/decisions/ADR-0002-historical-private-material-backfill.md]
+    note: AWS利用を公開面から分離する理由、採用しない案、再検討条件をADRへ記録した。
+advisories: []
+residual_risks:
+  - 実AWS deploy、ECR push、manifest upload、SQS enqueue、実動画backfillは本PRの権限外であり、別途の明示承認とpilotが必要である。
+  - worker imageのcontainer scanはCIで必須化したが、この作業環境ではDocker daemonが使えないためローカル実行はしていない。
+  - private S3の実データ統合検証は認証済みの隔離環境でのみ実行し、raw素材をGitまたはPRへ持ち込まない。

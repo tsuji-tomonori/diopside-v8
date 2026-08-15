@@ -127,7 +127,8 @@ const rows = catalog.requirements.map((requirement) => {
   const findings: string[] = [];
   const source = sourceByCanonicalId.get(requirement.id);
   const ownerDirective = requirement.source_refs.find((reference) => reference.startsWith('spec/sources/owner-directive-'));
-  if (!source && !ownerDirective) findings.push('Issue要件IDまたは所有者指示対応なし');
+  const issue465 = requirement.source_refs.find((reference) => reference === 'Issue #465');
+  if (!source && !ownerDirective && !issue465) findings.push('Issue要件IDまたは所有者指示対応なし');
   if (ids.has(requirement.id)) findings.push('要件ID重複');
   ids.add(requirement.id);
   const tracePaths = [...requirement.traces.design, ...requirement.traces.implementation, ...requirement.traces.tests];
@@ -147,8 +148,8 @@ const rows = catalog.requirements.map((requirement) => {
     : undefined;
   return {
     id: requirement.id,
-    sourceId: source?.sourceId ?? ownerDirective ?? '',
-    priority: source?.priority ?? (ownerDirective ? '所有者指示' : ''),
+    sourceId: source?.sourceId ?? ownerDirective ?? issue465 ?? '',
+    priority: source?.priority ?? (ownerDirective ? '所有者指示' : issue465 ? 'Issue' : ''),
     title: requirement.title,
     acceptanceCriteria: requirement.acceptance_criteria.map((criterion) => criterion.then).join(' / '),
     verification: requirement.verification.method,

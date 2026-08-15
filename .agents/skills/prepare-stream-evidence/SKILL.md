@@ -10,7 +10,7 @@ Work on one initialized video dossier. Produce evidence and coverage artifacts; 
 ## Procedure
 
 1. Read `references/evidence-contract.md`. For local ASR also read `references/local-asr.md`.
-2. Prefer a valid creator timestamp list. Otherwise use public `ja-orig`, then public `ja`, then an operator transcript, then free full-duration local ASR.
+2. Prefer a valid creator timestamp list. When the parent explicitly configured the private ingestion bucket and table, checksum-verify and reuse its current S3 JSON3 caption in the ignored dossier before any public network acquisition. Otherwise use public `ja-orig`, then public `ja`, then an operator transcript, then free full-duration local ASR.
 3. Before a network acquisition, run `diagnose_youtube_access.py <video-id> --execute`. Keep only its safe public reachability classification and diagnostic digests.
 4. For public YouTube captions, inspect and then explicitly retrieve a temporary normalized snapshot:
 
