@@ -34,7 +34,7 @@ jobs:
       - name: Chromiumを導入
         run: npx playwright install --with-deps chromium
       - name: 公開版を生成して検証
-        run: npm run verify:quality
+        run: npm run verify:main-release
       - name: 検証スクリーンショットの一時差分を破棄
         run: git restore -- reports/screenshots
       - name: 生成差分をcommit
@@ -62,7 +62,11 @@ jobs:
             exit 0
           fi
 
-          review_path="$(git show -s --format=%B "$VERIFIED_SHA" | sed -n 's/^Review-Checklist:[[:space:]]*//p' | tail -n 1)"
+          review_path="$(python governance/reviews/validate.py \
+            --root . \
+            --commit "$VERIFIED_SHA" \
+            --allow-github-squash-fallback \
+            --print-review-path)"
           case "$review_path" in
             governance/reviews/CHG-*.yaml|governance/reviews/CHG-*.yml) ;;
             *) echo '検証済みcommitに有効なReview-Checklistがありません。' >&2; exit 1 ;;
