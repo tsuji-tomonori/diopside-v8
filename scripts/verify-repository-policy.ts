@@ -18,9 +18,10 @@ for (const workflow of workflows) {
   }
   reject(workflow, text, /actions\/(?:upload-artifact|cache)@/iu, '追加の成果物・キャッシュ保存を使ってはなりません。');
   if (isGeneratedRelease) {
-    if (!/^permissions:\s*\n\s+contents:\s*write\s*\n\s+pages:\s*write\s*$/mu.test(text)) {
-      errors.push(`${relative(workflow)}: 生成commitとbranch方式Pages buildに限定したcontents/pages writeが必要です。`);
+    if (!/^permissions:\s*\n\s+contents:\s*write\s*$/mu.test(text)) {
+      errors.push(`${relative(workflow)}: 生成commitに限定したcontents writeが必要です。`);
     }
+    reject(workflow, text, /pages\/builds/iu, 'main/docsへのcommitと重複するPages buildを明示要求してはなりません。');
     reject(workflow, text, /(?:pull_request_target|workflow_dispatch)\s*:/iu, '書込workflowを信頼境界外から起動してはなりません。');
     if (!/^on:\s*\n\s+push:\s*\n\s+branches:\s*\n\s+- main\s*$/mu.test(text)) {
       errors.push(`${relative(workflow)}: main pushだけを起動元にしなければなりません。`);

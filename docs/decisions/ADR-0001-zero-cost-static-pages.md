@@ -6,7 +6,7 @@
 
 ## 決定
 
-React／TypeScriptの画面と版付きJSONをビルド済み静的成果物として `main/docs` にコミットし、公開リポジトリのGitHub Pages branch方式で配信する。検索、絞り込み、ワードクラウド描画、履歴、お気に入りはブラウザ内で実行する。候補生成は運用者がChatGPT／Codex画面から開始し、正本だけを人がプルリクエストで確認する。mainの品質ゲート合格後に、Actionsが内容ハッシュのrelease IDと静的成果物を生成・検証し、差分がある場合だけrelease commitする。`GITHUB_TOKEN`によるcommitはPages buildを起動しないため、同じ最小権限tokenで既存のbranch方式Pages buildを要求する。
+React／TypeScriptの画面と版付きJSONをビルド済み静的成果物として `main/docs` にコミットし、公開リポジトリのGitHub Pages branch方式で配信する。検索、絞り込み、ワードクラウド描画、履歴、お気に入りはブラウザ内で実行する。候補生成は運用者がChatGPT／Codex画面から開始し、正本だけを人がプルリクエストで確認する。mainの品質ゲート合格後に、Actionsが内容ハッシュのrelease IDと静的成果物を生成・検証し、差分がある場合だけrelease commitする。release commitによる `main/docs` の更新が既存のbranch方式Pages buildを起動するため、Pages build APIは重ねて呼び出さない。
 
 ## 理由
 
@@ -18,6 +18,7 @@ React／TypeScriptの画面と版付きJSONをビルド済み静的成果物と�
 - release IDを廃止して固定pathを上書きする案: 複数JSONや画面bundleの取得時期がずれた際に世代混在を検出できず、端末キャッシュも安全に切り替えられない。
 - GitHub Actionsの予定生成・外部生成呼出し: 人が開始する承認境界に反する。`workflow_dispatch` による読取専用の検証・候補検出と、検証済みmainからの決定的なrelease生成だけを許可する。
 - 独自のPages deploy Action: `main/docs` のbranch公開で足り、公開経路を増やす必要がない。
+- release commit後にPages build APIも呼び出す案: 同一commitのbranch buildが二重起動し、一方が競合で失敗扱いになるため採用しない。
 
 ## 再検討条件
 

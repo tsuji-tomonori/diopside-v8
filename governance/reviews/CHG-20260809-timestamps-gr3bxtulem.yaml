@@ -61,7 +61,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [commit:self]
-    note: PR作成・pushのみを実施し、merge・公開は行わない
+    note: 利用者が完成済みのあらすじ・タイムスタンプPRを順次mergeする公開承認を2026-08-15に明示した。最新main統合後の品質ゲート合格をmerge条件とする
   - id: IMP-007
     class: Risk-selected
     result: pass
@@ -119,4 +119,4 @@ selected_checks:
     note: 未選択checkをN/Aとして登録していない
 advisories: []
 residual_risks:
-  - 人によるPRマージ完了まではpublicationGateが未充足であり、この作業ではmerge・公開を行わない
+  - 最新main統合後のGitHub Actions合格確認まではpublicationGateが未充足である
