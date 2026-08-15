@@ -12,7 +12,7 @@
     },
     {
       "path": "scripts/build-public-data.ts",
-      "sha256": "7f0dcd60a2feb41b77892cb3b29c169b21ca10dcf7ebe428044801f2f216d8f0"
+      "sha256": "e085c0c42b0c19de423d9a8b97bc746bfae18c8b9c0df287f416f03ecf31cfb8"
     },
     {
       "path": "scripts/canonical-store.ts",
@@ -32,7 +32,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "dba2e5c8d8a698c272ce9e25e37de1a963d2e02f6902afe14375c614e6d1c576"
+      "sha256": "67d761368b16e27318739789c029cbc372e4a1baadddf18050b449f843b25d45"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -96,7 +96,7 @@
     },
     {
       "path": "src/App.tsx",
-      "sha256": "76d77c305bc0bcc8a2f0c57ac7f16d7a7d348b43ade87ac4612cbd4117f51eb2"
+      "sha256": "567cadbeebb71152e078ee65b1278face193fede81ef09a6552c0c62c20d0990"
     },
     {
       "path": "src/components/Header.tsx",
@@ -128,7 +128,7 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "501066620f21b7c4369a890d38c7782045002ba4a1116d2089ba6aa43fd1c0f6"
+      "sha256": "b68fd56bf71a292e9844f093642ebb4ae2f1818c402d9dd79b25bd54eeeeb1ac"
     },
     {
       "path": "src/domain/game-title-detection.test.ts",
@@ -156,7 +156,7 @@
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
-      "sha256": "04c3540097a2b9c742651379df95bcae0ae1d4bbd0198173b17d5b5f1d05f481"
+      "sha256": "a2070b7aa176ef1d5664ae447b1f009658a76200e3cb87755168dba4ae00220d"
     },
     {
       "path": "src/features/library/DeviceLibraryPage.tsx",
@@ -165,6 +165,14 @@
     {
       "path": "src/features/search/SearchPage.tsx",
       "sha256": "9f461bd135e74e721a47dcef638d6c3e241b03d1939dcfc41781c90f6ff53465"
+    },
+    {
+      "path": "src/features/works/WorkDetailPage.test.tsx",
+      "sha256": "0f684063eb524bb0a2f2cced73794d2fec744051efb84125f369769b8871a9cb"
+    },
+    {
+      "path": "src/features/works/WorkDetailPage.tsx",
+      "sha256": "f721808fdbbe1dc67b2a756ae1a19579bfdaeaba8c815c7aa646876421eb31cd"
     },
     {
       "path": "src/format.ts",
@@ -582,6 +590,16 @@
       "kind": "VariableStatement"
     },
     {
+      "file": "src/domain/content.ts",
+      "name": "WorkIntroductions",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "workIntroductionsSchema",
+      "kind": "VariableStatement"
+    },
+    {
       "file": "src/domain/game-title-detection.ts",
       "name": "detectExplicitGameTitleTagIds",
       "kind": "FunctionDeclaration"
@@ -732,6 +750,11 @@
       "kind": "FunctionDeclaration"
     },
     {
+      "file": "src/features/works/WorkDetailPage.tsx",
+      "name": "WorkDetailPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
       "file": "src/format.ts",
       "name": "formatDate",
       "kind": "FunctionDeclaration"
@@ -751,7 +774,8 @@
     "*",
     "/",
     "/library",
-    "/video/:videoId"
+    "/video/:videoId",
+    "/works/:tagId"
   ],
   "tests": [
     "e2e/detail.spec.ts",
@@ -761,6 +785,7 @@
     "src/data/loadPublicData.test.ts",
     "src/domain/game-title-detection.test.ts",
     "src/domain/search.test.ts",
-    "src/domain/validation.test.ts"
+    "src/domain/validation.test.ts",
+    "src/features/works/WorkDetailPage.test.tsx"
   ]
 }

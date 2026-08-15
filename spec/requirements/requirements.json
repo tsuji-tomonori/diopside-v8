@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "catalog_revision": 9,
+  "catalog_revision": 10,
   "product": "diopside v8",
-  "updated_at": "2026-08-12",
+  "updated_at": "2026-08-15",
   "requirements": [
     {
       "id": "V8-SEARCH-001",
@@ -7524,6 +7524,69 @@
         ]
       },
       "last_changed_by": "CHG-20260811-synopsis-work-harness"
+    },
+    {
+      "id": "V8-DISPLAY-012",
+      "revision": 1,
+      "status": "active",
+      "scope": "product",
+      "category": "functional",
+      "type": "functional",
+      "title": "作品タグは公式紹介付きの作品別動画一覧へ移動できなければならない",
+      "subject": "diopside v8の作品タグと作品ページ",
+      "action": "satisfy",
+      "object": "動画詳細の作品タグは、その作品タグを持つ公開動画の一覧ページへ移動できなければならない。ゲーム作品ページは、確認日を持つ短い公式説明の引用、引用元名、HTTPSの公式ページリンクを表示し、外部ページは利用者がリンクを押した場合だけ開かなければならない。",
+      "rationale": "同じゲームや作品の配信を連続して探せるようにし、作品を知らない利用者にも出典を明示した一次情報で概要を伝えるため。",
+      "source_refs": [
+        "spec/sources/owner-directive-2026-08-15-work-pages.md",
+        "user:2026-08-15"
+      ],
+      "acceptance_criteria": [
+        {
+          "id": "AC-V8-DISPLAY-012-1",
+          "given": "動画詳細に作品分類の承認済みタグが表示されている",
+          "when": "利用者が作品タグを押す",
+          "then": "不変タグIDをURLに持つ作品ページへ移動し、そのタグを持つ公開動画だけを公開日の新しい順で表示する。"
+        },
+        {
+          "id": "AC-V8-DISPLAY-012-2",
+          "given": "ゲーム作品タグに確認済みの公式紹介が登録されている",
+          "when": "作品ページを表示する",
+          "then": "短い引用、引用元名、確認日、HTTPSの公式ページリンクを表示し、ページ表示だけでは外部サイトへ通信しない。"
+        },
+        {
+          "id": "AC-V8-DISPLAY-012-3",
+          "given": "公式紹介をまだ登録していない作品タグがある",
+          "when": "作品ページを表示する",
+          "then": "根拠のない紹介文を生成せず確認中と示し、作品別動画一覧は利用できる。"
+        }
+      ],
+      "verification": {
+        "method": "公開データ構造試験、作品タグ遷移E2E、公式リンク・引用表示・外部自動通信禁止試験",
+        "evidence": "tests/content-validation.test.ts, tests/generated.test.ts, src/features/works/WorkDetailPage.test.tsx, e2e/detail.spec.ts"
+      },
+      "traces": {
+        "design": [
+          "docs/design/generated/system.gen.md"
+        ],
+        "implementation": [
+          "content/works/work-introductions.json",
+          "scripts/build-public-data.ts",
+          "src/features/detail/VideoDetailPage.tsx",
+          "src/features/works/WorkDetailPage.tsx"
+        ],
+        "tests": [
+          "tests/content-validation.test.ts",
+          "tests/generated.test.ts",
+          "src/features/works/WorkDetailPage.test.tsx",
+          "e2e/detail.spec.ts"
+        ],
+        "standards": [
+          "spec/sources/owner-directive-2026-08-15-work-pages.md",
+          "dev-standard default profile"
+        ]
+      },
+      "last_changed_by": "CHG-20260815-work-pages"
     }
   ]
 }

@@ -1,8 +1,8 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 9
-- 更新日: 2026-08-12
+- カタログ版: 10
+- 更新日: 2026-08-15
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
@@ -160,6 +160,7 @@
 | `V8-OPS-024` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ失敗回復は、Lunaが字幕、音声、ASR、codex exec、意味構成、確認、決定的検証で回復可能な失敗へ到達した場合、needs_sol_recoveryとして親Solへ返し、親SolはGPT-5.6 Sol highで同じ動画を回復しなければならない。codex execのtrusted-destination結果は上限付きで再試行し、全編日本語字幕があるのに章候補を構成できない場合は素材不足ではなく意味構成失敗として扱わなければならない。期限内に回復できない場合はdeferred_recovery checkpointを残し、Google Sheetsへ処理不能を書いてはならない。を**satisfy** | trusted-destination再試行・Luna回復委譲・Sol high fallback・drain checkpoint・台帳書込みgate試験 |
 | `V8-OPS-026` | 1 | 有効 | 運用 | diopside v8の大規模タイムスタンプcampaignは、最大1000件のタイムスタンプcampaignは開始時に対象動画ID、順序、台帳行指紋、base commitを一度だけ固定し、10件ずつ処理しなければならない。各Work実行のdrain前と各wave後に、生字幕、音声、文字起こし、chat本文、識別子、資格情報を含まない安全なcheckpointを専用GitHub campaign branchへ観測済み親commitを条件として保存し、Work環境消失または利用制限後は同じcampaign IDを復元して完了済みを保持し未完了だけを安全な工程から再開しなければならない。を**satisfy** | 1000件manifest・101wave境界・checkpoint漏えい禁止・kill/restore・楽観ロックaction試験 |
 | `V8-OPS-025` | 1 | 有効 | 運用 | diopside v8のあらすじ運用は、ChatGPT Workから開始する未作成あらすじcampaignは、親GPT-5.6 SolとGPT-5.6 Luna mediumの10論理レーンとして構成し、最新mainの正本にあらすじがない公開動画だけを原子的にclaimしなければならない。Lunaはclaim済み1動画の一時全編根拠、候補、独立確認、決定的検証だけを行い、親Solだけが現在の候補hashを最終確認して1動画draft PRとあらすじ作業台帳を確定しなければならない。を**satisfy** | 10レーン計画・既存あらすじ除外・全編coverage・独立review hash・Sol gate・台帳行競合試験 |
+| `V8-DISPLAY-012` | 1 | 有効 | 機能 | diopside v8の作品タグと作品ページは、動画詳細の作品タグは、その作品タグを持つ公開動画の一覧ページへ移動できなければならない。ゲーム作品ページは、確認日を持つ短い公式説明の引用、引用元名、HTTPSの公式ページリンクを表示し、外部ページは利用者がリンクを押した場合だけ開かなければならない。を**satisfy** | 公開データ構造試験、作品タグ遷移E2E、公式リンク・引用表示・外部自動通信禁止試験 |
 
 ## V8-SEARCH-001: 文字検索は、承認済み動画の動画タイトルだけを検索対象としなければならない
 
@@ -2479,3 +2480,20 @@ diopside v8のあらすじ運用は、ChatGPT Workから開始する未作成あ
 要求源: spec/sources/owner-directive-2026-08-11-synopsis-work-harness.md, user:2026-08-11
 検証証跡: tests/synopsis_harness_test.py
 トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-synopsis-work-harness/references/workflow.md; 実装=.codex/agents/synopsis-luna-worker.toml,.agents/skills/run-synopsis-work-harness/scripts/harness.py,.agents/skills/run-synopsis-work-harness/scripts/validate_dossier.py,.agents/skills/run-synopsis-work-harness/SKILL.md; テスト=tests/synopsis_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-synopsis-work-harness.md,dev-standard default profile
+
+## V8-DISPLAY-012: 作品タグは公式紹介付きの作品別動画一覧へ移動できなければならない
+
+diopside v8の作品タグと作品ページは、動画詳細の作品タグは、その作品タグを持つ公開動画の一覧ページへ移動できなければならない。ゲーム作品ページは、確認日を持つ短い公式説明の引用、引用元名、HTTPSの公式ページリンクを表示し、外部ページは利用者がリンクを押した場合だけ開かなければならない。を**satisfy**。
+
+根拠: 同じゲームや作品の配信を連続して探せるようにし、作品を知らない利用者にも出典を明示した一次情報で概要を伝えるため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-012-1` 前提: 動画詳細に作品分類の承認済みタグが表示されている。条件: 利用者が作品タグを押す。期待結果: 不変タグIDをURLに持つ作品ページへ移動し、そのタグを持つ公開動画だけを公開日の新しい順で表示する。。
+- `AC-V8-DISPLAY-012-2` 前提: ゲーム作品タグに確認済みの公式紹介が登録されている。条件: 作品ページを表示する。期待結果: 短い引用、引用元名、確認日、HTTPSの公式ページリンクを表示し、ページ表示だけでは外部サイトへ通信しない。。
+- `AC-V8-DISPLAY-012-3` 前提: 公式紹介をまだ登録していない作品タグがある。条件: 作品ページを表示する。期待結果: 根拠のない紹介文を生成せず確認中と示し、作品別動画一覧は利用できる。。
+
+要求源: spec/sources/owner-directive-2026-08-15-work-pages.md, user:2026-08-15
+検証証跡: tests/content-validation.test.ts, tests/generated.test.ts, src/features/works/WorkDetailPage.test.tsx, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=content/works/work-introductions.json,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/features/works/WorkDetailPage.tsx; テスト=tests/content-validation.test.ts,tests/generated.test.ts,src/features/works/WorkDetailPage.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-15-work-pages.md,dev-standard default profile

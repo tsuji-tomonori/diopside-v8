@@ -408,8 +408,55 @@ export const publicTagIndexSchema = z.object({
         canonicalName: z.string(),
         count: z.number().int().nonnegative(),
         videoIds: z.array(videoId),
+        introduction: z.object({
+          quote: z.string().min(1).max(160),
+          officialUrl: z.url().startsWith('https://'),
+          sourceLabel: z.string().min(1).max(80),
+          retrievedAt: isoDate,
+        }).strict().optional(),
+        introductionUnavailable: z.object({
+          reasonCode: z.enum([
+            'not-specific-work',
+            'ambiguous-work',
+            'official-source-unavailable',
+            'official-description-unavailable',
+          ]),
+          reason: z.string().min(1).max(240),
+          checkedAt: isoDate,
+          reference: z.object({
+            url: z.url().startsWith('https://'),
+            label: z.string().min(1).max(80),
+          }).strict().optional(),
+        }).strict().optional(),
       }).strict()),
     }).strict()),
+  }).strict()),
+}).strict();
+
+export const workIntroductionsSchema = z.object({
+  schemaVersion: z.literal('2.0.0'),
+  updatedAt: isoDate,
+  introductions: z.array(z.object({
+    tagId: z.string().regex(/^tag-works-(?:gameTitle|gameSeries|watchedTitle|trpgTitle|songTitle)-[a-f0-9]{12}$/u),
+    quote: z.string().min(1).max(160),
+    officialUrl: z.url().startsWith('https://'),
+    sourceLabel: z.string().min(1).max(80),
+    retrievedAt: isoDate,
+  }).strict()),
+  unavailable: z.array(z.object({
+    tagId: z.string().regex(/^tag-works-(?:gameTitle|gameSeries|watchedTitle|trpgTitle|songTitle)-[a-f0-9]{12}$/u),
+    reasonCode: z.enum([
+      'not-specific-work',
+      'ambiguous-work',
+      'official-source-unavailable',
+      'official-description-unavailable',
+    ]),
+    reason: z.string().min(1).max(240),
+    checkedAt: isoDate,
+    reference: z.object({
+      url: z.url().startsWith('https://'),
+      label: z.string().min(1).max(80),
+    }).strict().optional(),
   }).strict()),
 }).strict();
 
@@ -431,6 +478,7 @@ export type PublicIndex = z.infer<typeof publicIndexSchema>;
 export type SearchIndex = z.infer<typeof searchIndexSchema>;
 export type PublicTagIndex = z.infer<typeof publicTagIndexSchema>;
 export type PublicAliasIndex = z.infer<typeof publicAliasIndexSchema>;
+export type WorkIntroductions = z.infer<typeof workIntroductionsSchema>;
 
 export interface TaxonomyLookupItem {
   categoryId: string;
