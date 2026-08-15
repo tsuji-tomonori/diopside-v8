@@ -52,7 +52,8 @@ selected_checks:
   result: pass
   evidence:
   - path:tests/content-validation.test.ts
-  note: 動画追加時に固定件数で失敗する回帰testを正本manifest参照へ修正する。
+  - test:tests/timestamp_harness_test.py
+  note: 動画追加時に固定件数・固定未作成IDで失敗する回帰testを正本manifestと現在の適格集合参照へ修正する。
 - id: IMP-002
   class: Invariant
   result: pass
@@ -70,7 +71,7 @@ selected_checks:
   result: pass
   evidence:
   - commit:self
-  note: 人の明示要求に基づき、動画PRと分離したDraft PRへのpushだけを行う。
+  note: 利用者が完成済み動画PRの順次mergeを2026-08-15に明示承認したため、阻害する固定値testを独立maintenance PRで修正し、品質ゲート合格後に先行mergeする。
 - id: FAST-001
   class: Invariant
   result: pass
@@ -154,7 +155,7 @@ selected_checks:
   result: pass
   evidence:
   - workflow:要件・品質ゲート#要件の品質ゲートを実行
-  note: TypeScript、unit、生成差分をCIで検証する。
+  note: TypeScript、Python unit、生成差分をCIで検証する。
 - id: REV-007
   class: Invariant
   result: pass
