@@ -3,6 +3,10 @@
   "generator": "scripts/generate-design.ts",
   "sourceDigests": [
     {
+      "path": "scripts/audit-game-tags.ts",
+      "sha256": "d83c0edab37d0f935e6968ebac27f285a6ab099db240b92166bf59246c065030"
+    },
+    {
       "path": "scripts/audit-requirements.ts",
       "sha256": "07771536c9010cfd7cb9d8f615adb89798c32d7f6cafc1d4d7c8b61dd88e6476"
     },
@@ -127,6 +131,14 @@
       "sha256": "b68fd56bf71a292e9844f093642ebb4ae2f1818c402d9dd79b25bd54eeeeb1ac"
     },
     {
+      "path": "src/domain/game-title-detection.test.ts",
+      "sha256": "22ce148d75dfa0c9ed08a2eba2aa32bab15e527e790db5ba41412beaa6a8e5e1"
+    },
+    {
+      "path": "src/domain/game-title-detection.ts",
+      "sha256": "15f35ce5a5fc43f6e81f06e723ac7b3b27244f600d187e2e601263f253bdba98"
+    },
+    {
       "path": "src/domain/search.test.ts",
       "sha256": "45d801cf77238a8ff4cc19dbde615148417a0651879c7b8068aed75b2b322c9b"
     },
@@ -140,7 +152,7 @@
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "7b20183df7657a20382fa401feabbabc4914871b0f5efe2ca1cb862ef582c4b2"
+      "sha256": "ff7dd337be2896549dcb062328957f538e30f5a713c3b171fd50e10554e9440e"
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
@@ -156,7 +168,7 @@
     },
     {
       "path": "src/features/works/WorkDetailPage.test.tsx",
-      "sha256": "b6c93c23f7046b3b520e5de36116d93c90427542bb17d76d2c7f3664cb139a42"
+      "sha256": "0f684063eb524bb0a2f2cced73794d2fec744051efb84125f369769b8871a9cb"
     },
     {
       "path": "src/features/works/WorkDetailPage.tsx",
@@ -588,6 +600,11 @@
       "kind": "VariableStatement"
     },
     {
+      "file": "src/domain/game-title-detection.ts",
+      "name": "detectExplicitGameTitleTagIds",
+      "kind": "FunctionDeclaration"
+    },
+    {
       "file": "src/domain/search.ts",
       "name": "additionalTagCounts",
       "kind": "FunctionDeclaration"
@@ -766,6 +783,7 @@
     "e2e/search.spec.ts",
     "src/data/deviceStore.test.ts",
     "src/data/loadPublicData.test.ts",
+    "src/domain/game-title-detection.test.ts",
     "src/domain/search.test.ts",
     "src/domain/validation.test.ts",
     "src/features/works/WorkDetailPage.test.tsx"

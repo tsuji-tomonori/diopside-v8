@@ -25,6 +25,7 @@
     "test:e2e": "npm run build && playwright test",
     "test:e2e:run": "playwright test",
     "validate:content": "node --experimental-strip-types scripts/validate-content.ts",
+    "audit:game-tags": "node --experimental-strip-types scripts/audit-game-tags.ts",
     "validate:taxonomy-change": "node --experimental-strip-types scripts/validate-taxonomy-change.ts",
     "validate:policy": "node --experimental-strip-types scripts/verify-repository-policy.ts",
     "validate:release-pr-scope": "node --experimental-strip-types scripts/validate-release-pr-scope.ts",

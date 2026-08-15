@@ -30,7 +30,7 @@ describe('作品ページ', () => {
       'href',
       'https://www.konami.com/games/silenthill/2r/jp/ja/',
     );
-    expect(document.querySelectorAll('.work-results .video-card')).toHaveLength(4);
+    expect(document.querySelectorAll('.work-results .video-card')).toHaveLength(5);
   });
 
   it('公式紹介文を掲載できない場合は調査結果を表示する', () => {

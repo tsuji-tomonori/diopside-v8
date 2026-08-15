@@ -102,7 +102,7 @@ selected_checks:
       - test:src/features/works/WorkDetailPage.test.tsx
       - test:tests/content-validation.test.ts
       - test:tests/generated.test.ts
-    note: 作品画面、公式引用、同一タグ動画4件、掲載不可理由と確認先の表示、全245タグの分類漏れ防止を単体・統合試験で確認した
+    note: 作品画面、公式引用、同一タグ動画5件、掲載不可理由と確認先の表示、全254タグの分類漏れ防止を単体・統合試験で確認した
   - id: FAST-006
     class: Invariant
     result: pass
@@ -211,6 +211,6 @@ selected_checks:
     note: 作品タグから一覧へ移動する主要タスクをcomponentで検証し、mobile・desktop E2EをCIへ追加した
 advisories: []
 residual_risks:
-  - 全245作品タグのうち226件は公式紹介文と公式リンクを公開する。18件は配信企画・ハッシュタグ・ジャンル等で単一作品ではないため、公式作品紹介を定義できない理由を表示する。
+  - 全254作品タグのうち235件は公式紹介文と公式リンクを公開する。18件は配信企画・ハッシュタグ・ジャンル等で単一作品ではないため、公式作品紹介を定義できない理由を表示する。
   - Only Up!は原作販売ページが削除され紹介本文が残っていないため、同名の模倣作品を引用せず、原作アプリIDのSteam公式コミュニティページと掲載不可理由だけを表示する。
   - ローカルsandboxではChromiumのsocket生成が拒否され、追加E2Eの実行はPR CIで確認する。

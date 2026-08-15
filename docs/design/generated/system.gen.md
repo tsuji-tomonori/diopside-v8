@@ -127,6 +127,7 @@
 | `src/domain/content.ts` | VariableStatement | `wordCloudMissingReasonSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `WorkIntroductions` |
 | `src/domain/content.ts` | VariableStatement | `workIntroductionsSchema` |
+| `src/domain/game-title-detection.ts` | FunctionDeclaration | `detectExplicitGameTitleTagIds` |
 | `src/domain/search.ts` | FunctionDeclaration | `additionalTagCounts` |
 | `src/domain/search.ts` | FunctionDeclaration | `applySearch` |
 | `src/domain/search.ts` | FunctionDeclaration | `bucketRange` |
@@ -168,10 +169,11 @@
 - `e2e/search.spec.ts`
 - `src/data/deviceStore.test.ts`
 - `src/data/loadPublicData.test.ts`
+- `src/domain/game-title-detection.test.ts`
 - `src/domain/search.test.ts`
 - `src/domain/validation.test.ts`
 - `src/features/works/WorkDetailPage.test.tsx`
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力42ファイル、公開契約116件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力45ファイル、公開契約117件です。
