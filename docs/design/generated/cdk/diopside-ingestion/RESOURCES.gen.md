@@ -21,11 +21,19 @@ Check: `python .agents/skills/generate-implementation-design/scripts/designflow.
 | `IngestionEncryptionKeyAlias0D2140E6` | `AWS::KMS::Alias` | - | - |
 | `RawMaterialBucketB8C67129` | `AWS::S3::Bucket` | - | - |
 | `RawMaterialBucketPolicyCCCFC5BF` | `AWS::S3::BucketPolicy` | - | - |
+| `RecoveryHandler9DB641E7` | `AWS::Lambda::Function` | - | RecoveryRoleDefaultPolicy17E5FA5B, RecoveryRole556AB50C |
+| `RecoveryLogGroupF6D50671` | `AWS::Logs::LogGroup` | - | - |
+| `RecoveryRole556AB50C` | `AWS::IAM::Role` | - | - |
+| `RecoveryRoleDefaultPolicy17E5FA5B` | `AWS::IAM::Policy` | - | - |
 | `RequestDeadLetterQueue4F2E4728` | `AWS::SQS::Queue` | - | - |
 | `RequestDeadLetterQueuePolicy37A510D3` | `AWS::SQS::QueuePolicy` | - | - |
+| `RequestDlqRecoveryEventSource` | `AWS::Lambda::EventSourceMapping` | - | - |
 | `RequestQueueEA127976` | `AWS::SQS::Queue` | - | - |
 | `RequestQueueEventSource` | `AWS::Lambda::EventSourceMapping` | - | - |
 | `RequestQueuePolicyD374EC54` | `AWS::SQS::QueuePolicy` | - | - |
+| `ResultDlqRecoveryEventSource` | `AWS::Lambda::EventSourceMapping` | - | - |
+| `ResultEventDeadLetterQueueA26A1954` | `AWS::SQS::Queue` | - | - |
+| `ResultEventDeadLetterQueuePolicy21C54CD8` | `AWS::SQS::QueuePolicy` | - | - |
 | `ResultHandler8CE72AD4` | `AWS::Lambda::Function` | - | ResultRoleDefaultPolicy7B861130, ResultRoleA2B2B471 |
 | `ResultLogGroup752C53EB` | `AWS::Logs::LogGroup` | - | - |
 | `ResultRoleA2B2B471` | `AWS::IAM::Role` | - | - |

@@ -27,8 +27,8 @@ from diopside_ingestion.reuse import (
     ObjectLister,
     PrivateObjectReadError,
     load_verified_video_manifest,
-    read_private_object,
-    select_japanese_caption_key,
+    read_verified_artifact_object,
+    select_japanese_caption_object,
 )
 from diopside_ingestion.state import DynamoIngestionRepository
 
@@ -128,12 +128,10 @@ def materialize_private_caption(
     manifest = load_verified_video_manifest(store, bucket, channel_id, video_id)
     if manifest is None:
         return None
-    caption_key = select_japanese_caption_key(store, bucket, manifest)
-    if caption_key is None:
+    caption_object = select_japanese_caption_object(manifest)
+    if caption_object is None:
         return None
-    payload = read_private_object(store, bucket, caption_key)
-    if payload is None:
-        return None
+    payload = read_verified_artifact_object(store, bucket, caption_object)
     try:
         document = json.loads(payload.decode("utf-8"))
     except (UnicodeDecodeError, json.JSONDecodeError):

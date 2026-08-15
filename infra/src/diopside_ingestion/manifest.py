@@ -244,6 +244,7 @@ def build_report(
     }
     reason_counts: dict[str, int] = {}
     missing: list[str] = []
+    incomplete: list[str] = []
     for target in manifest.videos:
         table_item = item_by_video.get(target.video_id)
         if table_item is None:
@@ -252,6 +253,8 @@ def build_report(
         status = table_item.get("status")
         if status in terminal_counts:
             terminal_counts[str(status)] += 1
+        else:
+            incomplete.append(target.video_id)
         artifacts = table_item.get("artifacts")
         if isinstance(artifacts, Mapping):
             typed_artifacts = cast(Mapping[str, object], artifacts)
@@ -277,6 +280,7 @@ def build_report(
         "unavailable_count": terminal_counts[VideoStatus.UNAVAILABLE.value],
         "terminal_count": terminal_count,
         "missing_video_ids": missing,
+        "incomplete_video_ids": incomplete,
         "artifact_counts": artifact_counts,
         "reason_counts": dict(sorted(reason_counts.items())),
     }

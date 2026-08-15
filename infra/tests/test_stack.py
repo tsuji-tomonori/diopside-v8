@@ -23,7 +23,7 @@ def test_stack_has_one_table_fifo_queue_and_fargate_worker() -> None:
     table = next(iter(template.find_resources("AWS::DynamoDB::Table").values()))
     assert "GlobalSecondaryIndexes" not in table["Properties"]
 
-    template.resource_count_is("AWS::SQS::Queue", 2)
+    template.resource_count_is("AWS::SQS::Queue", 3)
     template.has_resource_properties("AWS::SQS::Queue", {"FifoQueue": True})
     template.has_resource_properties(
         "AWS::Batch::JobDefinition",
@@ -35,7 +35,26 @@ def test_stack_has_one_table_fifo_queue_and_fargate_worker() -> None:
             ),
         },
     )
-    template.resource_count_is("AWS::Lambda::EventSourceMapping", 1)
+    template.resource_count_is("AWS::Lambda::EventSourceMapping", 3)
+    template.resource_count_is("AWS::Lambda::Function", 3)
+    template.has_resource_properties(
+        "AWS::Events::Rule",
+        {
+            "Targets": Match.array_with(
+                [
+                    Match.object_like(
+                        {
+                            "RetryPolicy": {
+                                "MaximumEventAgeInSeconds": 7200,
+                                "MaximumRetryAttempts": 6,
+                            },
+                            "DeadLetterConfig": Match.object_like({"Arn": Match.any_value()}),
+                        }
+                    )
+                ]
+            )
+        },
+    )
     template.resource_count_is("AWS::EC2::FlowLog", 1)
     template.has_parameter(
         "WorkerImageDigest",

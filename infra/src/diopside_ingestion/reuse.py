@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import hmac
 import json
+import re
 from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Protocol, cast, runtime_checkable
@@ -34,9 +35,7 @@ class ObjectReader(Protocol):
 
 
 class ObjectLister(ObjectReader, Protocol):
-    """The bounded S3 surface needed to select an already-stored caption variant."""
-
-    def list_objects_v2(self, **kwargs: object) -> Mapping[str, object]: ...
+    """Backward-compatible object-store surface used by the operator CLI."""
 
 
 class PrivateObjectReadError(RuntimeError):
@@ -52,7 +51,12 @@ class VerifiedVideoManifest:
     key: str
     sha256: str
     artifacts: dict[str, dict[str, object]]
+    artifact_objects: dict[str, list[dict[str, object]]]
+    run_id: str | None
     status: VideoStatus | None
+
+
+_SHA256_RE = re.compile(r"^[a-f0-9]{64}$")
 
 
 def _not_found(error: ClientError) -> bool:
@@ -99,6 +103,96 @@ def _as_artifacts(value: object) -> dict[str, dict[str, object]] | None:
     return artifacts
 
 
+def _as_artifact_objects(
+    value: object, *, channel_id: str, video_id: str
+) -> dict[str, list[dict[str, object]]] | None:
+    """Validate the manifest-only object index before any object can be reused."""
+    if value is None:
+        return {key: [] for key in ARTIFACTS}
+    if not isinstance(value, Mapping):
+        return None
+    typed_value = cast(Mapping[str, object], value)
+    if set(typed_value) != set(ARTIFACTS):
+        return None
+    expected_prefix = f"{channel_id}/{video_id}/runs/"
+    result: dict[str, list[dict[str, object]]] = {}
+    for artifact_key in ARTIFACTS:
+        raw_records = typed_value.get(artifact_key)
+        if not isinstance(raw_records, list):
+            return None
+        records: list[dict[str, object]] = []
+        for raw_record in cast(list[object], raw_records):
+            if not isinstance(raw_record, Mapping):
+                return None
+            record = dict(cast(Mapping[str, object], raw_record))
+            key = record.get("key")
+            digest = record.get("sha256")
+            byte_count = record.get("bytes")
+            content_type = record.get("content_type")
+            kind = record.get("kind")
+            if (
+                not isinstance(key, str)
+                or not key.startswith(expected_prefix)
+                or not isinstance(digest, str)
+                or not _SHA256_RE.fullmatch(digest)
+                or not isinstance(byte_count, int)
+                or byte_count <= 0
+                or not isinstance(content_type, str)
+                or not content_type
+                or kind not in {"raw", "normalized", "derived"}
+            ):
+                return None
+            records.append(record)
+        result[artifact_key] = records
+    return result
+
+
+def _decode_verified_manifest(
+    payload: bytes,
+    *,
+    channel_id: str,
+    video_id: str,
+    key: str,
+    digest: str,
+) -> VerifiedVideoManifest | None:
+    try:
+        document = json.loads(payload.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        return None
+    if not isinstance(document, dict):
+        return None
+    typed_document = cast(dict[str, object], document)
+    if (
+        typed_document.get("schema_version") != "1.0"
+        or typed_document.get("video_id") != video_id
+        or typed_document.get("channel_id") != channel_id
+    ):
+        return None
+    artifacts = _as_artifacts(typed_document.get("artifacts"))
+    if artifacts is None:
+        return None
+    artifact_objects = _as_artifact_objects(
+        typed_document.get("artifact_objects"),
+        channel_id=channel_id,
+        video_id=video_id,
+    )
+    if artifact_objects is None:
+        return None
+    run_id = typed_document.get("run_id")
+    if run_id is not None and not isinstance(run_id, str):
+        return None
+    return VerifiedVideoManifest(
+        channel_id=channel_id,
+        video_id=video_id,
+        key=key,
+        sha256=digest,
+        artifacts=artifacts,
+        artifact_objects=artifact_objects,
+        run_id=run_id,
+        status=video_terminal_status(artifacts),
+    )
+
+
 def load_verified_video_manifest(
     reader: ObjectReader, bucket: str, channel_id: str, video_id: str
 ) -> VerifiedVideoManifest | None:
@@ -117,8 +211,7 @@ def load_verified_video_manifest(
     metadata = response.get("Metadata")
     if not isinstance(body, ObjectBody) or not isinstance(metadata, Mapping):
         return None
-    typed_metadata = cast(Mapping[str, object], metadata)
-    expected_digest = typed_metadata.get("sha256")
+    expected_digest = cast(Mapping[str, object], metadata).get("sha256")
     if not isinstance(expected_digest, str):
         return None
     try:
@@ -128,59 +221,94 @@ def load_verified_video_manifest(
     actual_digest = hashlib.sha256(payload).hexdigest()
     if not hmac.compare_digest(expected_digest, actual_digest):
         return None
-    try:
-        document = json.loads(payload.decode("utf-8"))
-    except (UnicodeDecodeError, json.JSONDecodeError):
-        return None
-    if not isinstance(document, dict):
-        return None
-    typed_document = cast(dict[str, object], document)
-    if (
-        typed_document.get("schema_version") != "1.0"
-        or typed_document.get("video_id") != video_id
-        or typed_document.get("channel_id") != valid_channel_id
-    ):
-        return None
-    artifacts = _as_artifacts(typed_document.get("artifacts"))
-    if artifacts is None:
-        return None
-    return VerifiedVideoManifest(
+    return _decode_verified_manifest(
+        payload,
         channel_id=valid_channel_id,
         video_id=video_id,
         key=key,
-        sha256=actual_digest,
-        artifacts=artifacts,
-        status=video_terminal_status(artifacts),
+        digest=actual_digest,
+    )
+
+
+def load_verified_checkpoint_manifest(
+    reader: ObjectReader,
+    bucket: str,
+    key: str,
+    expected_digest: str,
+    channel_id: str,
+    video_id: str,
+) -> VerifiedVideoManifest:
+    """Load an immutable checkpoint referenced by DynamoDB or fail closed."""
+    payload = read_private_object(reader, bucket, key)
+    if payload is None:
+        raise PrivateObjectReadError("checkpoint_manifest_missing")
+    actual_digest = hashlib.sha256(payload).hexdigest()
+    if not hmac.compare_digest(expected_digest, actual_digest):
+        raise PrivateObjectReadError("checkpoint_manifest_checksum_mismatch")
+    manifest = _decode_verified_manifest(
+        payload,
+        channel_id=validate_channel_id(channel_id),
+        video_id=video_id,
+        key=key,
+        digest=actual_digest,
+    )
+    if manifest is None:
+        raise PrivateObjectReadError("checkpoint_manifest_invalid")
+    return manifest
+
+
+def select_japanese_caption_object(
+    manifest: VerifiedVideoManifest,
+) -> dict[str, object] | None:
+    """Choose an exact Japanese JSON3 object record from the verified manifest."""
+    candidates: list[dict[str, object]] = []
+    for artifact_key in ("automatic_captions", "subtitles"):
+        for record in manifest.artifact_objects.get(artifact_key, []):
+            key = record.get("key")
+            if (
+                record.get("kind") == "raw"
+                and isinstance(key, str)
+                and key.endswith(".json3")
+                and ".ja" in key
+            ):
+                candidates.append(record)
+    if not candidates:
+        return None
+    return min(
+        candidates,
+        key=lambda record: (
+            ".ja-orig." not in str(record["key"]),
+            str(record["key"]),
+        ),
     )
 
 
 def select_japanese_caption_key(
-    lister: ObjectLister, bucket: str, manifest: VerifiedVideoManifest
+    _lister: ObjectLister, _bucket: str, manifest: VerifiedVideoManifest
 ) -> str | None:
-    """Choose an already-stored Japanese JSON3 caption without exposing its content."""
-    candidate_prefixes: list[str] = []
-    for artifact_key in ("automatic_captions", "subtitles"):
-        raw_key = manifest.artifacts[artifact_key].get("raw_s3_key")
-        if isinstance(raw_key, str) and "/" in raw_key:
-            candidate_prefixes.append(raw_key.rsplit("/", 1)[0] + "/")
-    candidates: list[str] = []
-    for prefix in dict.fromkeys(candidate_prefixes):
-        try:
-            response = lister.list_objects_v2(Bucket=bucket, Prefix=prefix)
-        except ClientError as error:
-            raise PrivateObjectReadError("caption_listing_failed") from error
-        except Exception as error:
-            raise PrivateObjectReadError("caption_listing_failed") from error
-        contents = response.get("Contents", [])
-        if not isinstance(contents, list):
-            continue
-        for entry in cast(list[object], contents):
-            if not isinstance(entry, Mapping):
-                continue
-            typed_entry = cast(Mapping[str, object], entry)
-            key = typed_entry.get("Key")
-            if isinstance(key, str) and key.endswith(".json3") and ".ja" in key:
-                candidates.append(key)
-    if not candidates:
-        return None
-    return min(candidates, key=lambda key: (".ja-orig." not in key, key))
+    """Return the exact selected key for compatibility with existing callers."""
+    record = select_japanese_caption_object(manifest)
+    key = record.get("key") if record is not None else None
+    return key if isinstance(key, str) else None
+
+
+def read_verified_artifact_object(
+    reader: ObjectReader, bucket: str, record: Mapping[str, object]
+) -> bytes:
+    """Read bytes from the exact manifest key and verify both size and SHA-256."""
+    key = record.get("key")
+    expected_size = record.get("bytes")
+    expected_digest = record.get("sha256")
+    if (
+        not isinstance(key, str)
+        or not isinstance(expected_size, int)
+        or not isinstance(expected_digest, str)
+    ):
+        raise PrivateObjectReadError("artifact_object_record_invalid")
+    payload = read_private_object(reader, bucket, key)
+    if payload is None:
+        raise PrivateObjectReadError("artifact_object_missing")
+    actual_digest = hashlib.sha256(payload).hexdigest()
+    if len(payload) != expected_size or not hmac.compare_digest(actual_digest, expected_digest):
+        raise PrivateObjectReadError("artifact_object_checksum_mismatch")
+    return payload

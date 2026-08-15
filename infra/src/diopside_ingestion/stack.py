@@ -141,6 +141,7 @@ class IngestionStack(Stack):
             encryption_master_key=encryption_key,
             enforce_ssl=True,
             retention_period=Duration.days(14),
+            visibility_timeout=Duration.minutes(5),
         )
         request_queue = sqs.Queue(
             self,
@@ -156,6 +157,16 @@ class IngestionStack(Stack):
             receive_message_wait_time=Duration.seconds(20),
             visibility_timeout=Duration.minutes(5),
             dead_letter_queue=sqs.DeadLetterQueue(queue=request_dlq, max_receive_count=3),
+        )
+        result_event_dlq = sqs.Queue(
+            self,
+            "ResultEventDeadLetterQueue",
+            queue_name="diopside-ingestion-result-event-dlq",
+            encryption=sqs.QueueEncryption.KMS,
+            encryption_master_key=encryption_key,
+            enforce_ssl=True,
+            retention_period=Duration.days(14),
+            visibility_timeout=Duration.minutes(5),
         )
         repository = ecr.Repository(
             self,
@@ -227,8 +238,10 @@ class IngestionStack(Stack):
 
         dispatcher_log_group = self._lambda_log_group("DispatcherLogGroup", encryption_key)
         result_log_group = self._lambda_log_group("ResultLogGroup", encryption_key)
+        recovery_log_group = self._lambda_log_group("RecoveryLogGroup", encryption_key)
         dispatcher_role = self._lambda_role("DispatcherRole", dispatcher_log_group)
         result_role = self._lambda_role("ResultRole", result_log_group)
+        recovery_role = self._lambda_role("RecoveryRole", recovery_log_group)
         worker_execution_role = iam.Role(
             self,
             "WorkerExecutionRole",
@@ -409,7 +422,9 @@ class IngestionStack(Stack):
             )
         )
         dispatcher_role.add_to_policy(
-            iam.PolicyStatement(actions=["dynamodb:UpdateItem"], resources=[table.table_arn])
+            iam.PolicyStatement(
+                actions=["dynamodb:GetItem", "dynamodb:UpdateItem"], resources=[table.table_arn]
+            )
         )
         dispatcher_role.add_to_policy(
             iam.PolicyStatement(actions=["kms:Decrypt"], resources=[encryption_key.key_arn])
@@ -419,6 +434,9 @@ class IngestionStack(Stack):
                 actions=["batch:SubmitJob"],
                 resources=[job_queue.attr_job_queue_arn, job_definition.attr_job_definition_arn],
             )
+        )
+        dispatcher_role.add_to_policy(
+            iam.PolicyStatement(actions=["batch:ListJobs"], resources=["*"])
         )
         lambda_.CfnEventSourceMapping(
             self,
@@ -457,6 +475,46 @@ class IngestionStack(Stack):
         result_role.add_to_policy(
             iam.PolicyStatement(actions=["batch:DescribeJobs"], resources=["*"])
         )
+        recovery_handler = self._lambda_function(
+            "RecoveryHandler",
+            role=recovery_role,
+            log_group=recovery_log_group,
+            source_directory=lambda_source_directory,
+            handler="diopside_ingestion.recovery.lambda_handler",
+            environment={
+                "VIDEO_INGESTION_TABLE": table.table_name,
+                "REQUEST_QUEUE_URL": request_queue.queue_url,
+                "BATCH_JOB_QUEUE": job_queue.ref,
+            },
+        )
+        recovery_role.add_to_policy(
+            iam.PolicyStatement(actions=["sqs:SendMessage"], resources=[request_queue.queue_arn])
+        )
+        recovery_role.add_to_policy(
+            iam.PolicyStatement(
+                actions=[
+                    "sqs:ChangeMessageVisibility",
+                    "sqs:DeleteMessage",
+                    "sqs:GetQueueAttributes",
+                    "sqs:ReceiveMessage",
+                ],
+                resources=[request_dlq.queue_arn, result_event_dlq.queue_arn],
+            )
+        )
+        recovery_role.add_to_policy(
+            iam.PolicyStatement(
+                actions=["dynamodb:GetItem", "dynamodb:Scan", "dynamodb:UpdateItem"],
+                resources=[table.table_arn],
+            )
+        )
+        recovery_role.add_to_policy(
+            iam.PolicyStatement(actions=["batch:DescribeJobs", "batch:ListJobs"], resources=["*"])
+        )
+        recovery_role.add_to_policy(
+            iam.PolicyStatement(
+                actions=["kms:Decrypt", "kms:GenerateDataKey"], resources=[encryption_key.key_arn]
+            )
+        )
         batch_events = events.Rule(
             self,
             "BatchResultRule",
@@ -466,7 +524,39 @@ class IngestionStack(Stack):
                 detail={"status": ["SUCCEEDED", "FAILED"]},
             ),
         )
-        batch_events.add_target(events_targets.LambdaFunction(result_handler, retry_attempts=0))
+        batch_events.add_target(
+            events_targets.LambdaFunction(
+                result_handler,
+                dead_letter_queue=result_event_dlq,
+                max_event_age=Duration.hours(2),
+                retry_attempts=6,
+            )
+        )
+        for identifier, queue in (
+            ("RequestDlqRecoveryEventSource", request_dlq),
+            ("ResultDlqRecoveryEventSource", result_event_dlq),
+        ):
+            lambda_.CfnEventSourceMapping(
+                self,
+                identifier,
+                event_source_arn=queue.queue_arn,
+                function_name=recovery_handler.function_name,
+                batch_size=1,
+                enabled=True,
+            )
+
+        NagSuppressions.add_resource_suppressions(
+            result_event_dlq,
+            [
+                {
+                    "id": "AwsSolutions-SQS3",
+                    "reason": (
+                        "This queue is itself the EventBridge target DLQ for both result and "
+                        "scheduled recovery invocations; chaining another DLQ is not useful."
+                    ),
+                }
+            ],
+        )
 
         NagSuppressions.add_resource_suppressions(
             batch_service_role,
@@ -522,6 +612,20 @@ class IngestionStack(Stack):
             apply_to_children=True,
         )
         NagSuppressions.add_resource_suppressions(
+            recovery_role,
+            [
+                {
+                    "id": "AwsSolutions-IAM5",
+                    "reason": (
+                        "Batch ListJobs and DescribeJobs do not support resource-level "
+                        "authorization; recovery only reconciles IDs from the private table."
+                    ),
+                    "applies_to": ["Resource::*"],
+                }
+            ],
+            apply_to_children=True,
+        )
+        NagSuppressions.add_resource_suppressions(
             result_role,
             [
                 {
@@ -564,6 +668,20 @@ class IngestionStack(Stack):
             apply_to_children=True,
         )
         NagSuppressions.add_resource_suppressions(
+            dispatcher_role,
+            [
+                {
+                    "id": "AwsSolutions-IAM5",
+                    "reason": (
+                        "Batch ListJobs does not support resource-level authorization and is "
+                        "used only to reconcile a persisted deterministic job name."
+                    ),
+                    "applies_to": ["Resource::*"],
+                }
+            ],
+            apply_to_children=True,
+        )
+        NagSuppressions.add_resource_suppressions(
             flow_log_role,
             [
                 {
@@ -577,7 +695,7 @@ class IngestionStack(Stack):
             ],
             apply_to_children=True,
         )
-        for function in (dispatcher, result_handler):
+        for function in (dispatcher, result_handler, recovery_handler):
             NagSuppressions.add_resource_suppressions(
                 function,
                 [

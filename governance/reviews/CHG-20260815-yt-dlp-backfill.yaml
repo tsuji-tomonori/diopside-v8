@@ -16,7 +16,7 @@ impact_flags:
   code_change: true
   typed_code_change: true
   behavior_change: true
-  bug_fix: false
+  bug_fix: true
   generated_change: true
   sql_change: false
   e2e_change: false
@@ -60,8 +60,8 @@ selected_checks:
   - id: IMP-006
     class: Invariant
     result: pass
-    evidence: [path:infra/src/diopside_ingestion/stack.py, test:infra/tests/test_stack.py]
-    note: Dispatcher、Result、Batch task roleを分離し、S3、DynamoDB、SQS、KMSを必要最小限のIAM policyに限定した。
+    evidence: [path:infra/src/diopside_ingestion/stack.py, path:infra/src/diopside_ingestion/recovery.py, test:infra/tests/test_stack.py]
+    note: Dispatcher、Result、Recovery、Batch task roleを分離し、S3、DynamoDB、SQS、Batch、KMSを必要最小限のIAM policyに限定した。
   - id: IMP-007
     class: Risk-selected
     result: pass
@@ -95,8 +95,13 @@ selected_checks:
   - id: FAST-004
     class: Invariant
     result: pass
-    evidence: [test:infra/tests/test_contracts.py, test:infra/tests/test_worker.py, test:infra/tests/test_reuse.py]
-    note: 厳格request、重複claim、retry、artifact部分成功、S3 manifest検証と再利用を単体試験で確認する。
+    evidence: [test:infra/tests/test_contracts.py, test:infra/tests/test_dispatcher.py, test:infra/tests/test_result_handler.py, test:infra/tests/test_recovery.py, test:infra/tests/test_worker.py, test:infra/tests/test_reuse.py]
+    note: 厳格request、Batch送信後の記録失敗、再投入outbox、event消失回復、phase間停止、attempt横断object merge、S3 exact-key検証を障害注入試験で確認する。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_dispatcher.py, test:infra/tests/test_result_handler.py, test:infra/tests/test_recovery.py, test:infra/tests/test_worker.py, test:infra/tests/test_reuse.py, test:infra/tests/test_manifest.py]
+    note: PR #469の6指摘を、SubmitJob後の記録失敗、DynamoDB後のSQS失敗、Result event消失、raw checkpoint後停止、attempt横断再開、object改ざん、非終端reportの再現試験として固定した。
   - id: FAST-006
     class: Invariant
     result: pass
@@ -120,8 +125,8 @@ selected_checks:
   - id: FAST-015
     class: Advisory
     result: pass
-    evidence: [path:infra/src/diopside_ingestion/stack.py, path:docs/operations/privacy-and-safety.md]
-    note: KMS暗号化ログ、VPC Flow Logs、理由コード、DynamoDB checkpoint、completion reportで生本文なしに診断できる。
+    evidence: [path:infra/src/diopside_ingestion/stack.py, path:infra/src/diopside_ingestion/recovery.py, path:docs/operations/privacy-and-safety.md]
+    note: KMS暗号化ログ、VPC Flow Logs、理由コード、DynamoDB outbox、S3 checkpoint、completion reportで生本文なしに診断・回復できる。
   - id: REV-001
     class: Invariant
     result: pass
@@ -150,8 +155,8 @@ selected_checks:
   - id: REV-006
     class: Invariant
     result: pass
-    evidence: [test:infra/tests/test_stack.py, test:infra/tests/test_worker.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
-    note: unit test、Ruff、strict型検査、CDK synth/cdk-nag、container vulnerability scanをPR CIに接続し、CDK CLIはinfra/cdk.jsonのあるディレクトリから実行する。worker Dockerfileはinfraをbuild contextにして明示的に指定する。Trivy actionとbinaryは存在する固定tag（v0.33.1/v0.74.0）を指定し、scannerはvulnに限定してHIGH/CRITICALの脆弱性をblockする。CDK version reportingは環境依存hashを避けるため無効化する。Lambda assetからもtest/type-check cacheを除外し、Python patch versionに依存しないtemplate hashを保つ。
+    evidence: [test:infra/tests/test_stack.py, test:infra/tests/test_dispatcher.py, test:infra/tests/test_result_handler.py, test:infra/tests/test_recovery.py, test:infra/tests/test_worker.py, test:infra/tests/test_reuse.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: unit testと障害注入test、Ruff、strict型検査、CDK synth/cdk-nag、container vulnerability scanをPR CIに接続し、CDK CLIはinfra/cdk.jsonのあるディレクトリから実行する。worker Dockerfileはinfraをbuild contextにして明示的に指定する。Trivy actionとbinaryは存在する固定tag（v0.33.1/v0.74.0）を指定し、scannerはvulnに限定してHIGH/CRITICALの脆弱性をblockする。CDK version reportingは環境依存hashを避けるため無効化する。Lambda assetからもtest/type-check cacheを除外し、Python patch versionに依存しないtemplate hashを保つ。
   - id: REV-007
     class: Invariant
     result: pass

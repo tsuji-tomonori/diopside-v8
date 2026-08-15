@@ -40,7 +40,12 @@ class FakeRepository:
     def claim(self, video_id: str, claim_owner: str, lease_seconds: int) -> ClaimResult:
         raise AssertionError("not used by worker")
 
-    def record_batch_job(self, video_id: str, claim_owner: str, batch_job_id: str) -> None:
+    def prepare_submission(self, video_id: str, claim_owner: str, submission_id: str) -> None:
+        raise AssertionError("not used by worker")
+
+    def record_batch_job(
+        self, video_id: str, claim_owner: str, submission_id: str, batch_job_id: str
+    ) -> None:
         raise AssertionError("not used by worker")
 
     def mark_dispatch_failure(self, video_id: str, claim_owner: str, reason_code: str) -> None:
@@ -48,6 +53,19 @@ class FakeRepository:
 
     def load(self, video_id: str) -> Mapping[str, object] | None:
         return self.item
+
+    def scan_items(self) -> list[Mapping[str, object]]:
+        raise AssertionError("not used by worker")
+
+    def stage_batch_retry(
+        self, video_id: str, batch_job_id: str, reason_code: str, outbox_id: str
+    ) -> None:
+        raise AssertionError("not used by worker")
+
+    def stage_submission_retry(
+        self, video_id: str, submission_id: str, reason_code: str, outbox_id: str
+    ) -> None:
+        raise AssertionError("not used by worker")
 
     def checkpoint(self, video_id: str, claim_owner: str, **kwargs: object) -> None:
         self.checkpoints.append({"video_id": video_id, "claim_owner": claim_owner, **kwargs})
@@ -87,6 +105,7 @@ class FakeStore:
             "ContentType": content_type,
             "Metadata": dict(typed_metadata),
         }
+        self.objects[key] = (Path(filename).read_bytes(), dict(typed_metadata))
 
     def head_object(self, **kwargs: object) -> Mapping[str, object]:
         key = kwargs.get("Key")
@@ -95,6 +114,22 @@ class FakeStore:
 
     def put_object(self, **kwargs: object) -> Mapping[str, object]:
         self.puts.append(dict(kwargs))
+        key = kwargs.get("Key")
+        body = kwargs.get("Body")
+        content_type = kwargs.get("ContentType")
+        metadata = kwargs.get("Metadata")
+        assert isinstance(key, str)
+        assert isinstance(body, bytes)
+        assert isinstance(content_type, str)
+        assert isinstance(metadata, Mapping)
+        typed_metadata_source = cast(Mapping[str, object], metadata)
+        typed_metadata = {key: str(value) for key, value in typed_metadata_source.items()}
+        self.objects[key] = (body, typed_metadata)
+        self.heads[key] = {
+            "ContentLength": len(body),
+            "ContentType": content_type,
+            "Metadata": typed_metadata,
+        }
         return {}
 
     def get_object(self, **kwargs: object) -> Mapping[str, object]:
@@ -143,6 +178,9 @@ class FakeRunner:
             elif "--sub-format" in command and "vtt" in command:
                 extension = "vtt"
                 payload = b"WEBVTT\n\n00:00.000 --> 00:01.000\ncaption\n"
+            elif "--write-comments" in command:
+                extension = "json"
+                payload = b'{"comments":[{"timestamp":1,"text":"comment"}]}'
             if "-f" in command:
                 extension = "webm"
             if "--write-thumbnail" in command:
@@ -152,10 +190,10 @@ class FakeRunner:
         raise AssertionError(command)
 
 
-def _config() -> WorkerConfig:
+def _config(run_id: str = "run-1") -> WorkerConfig:
     return WorkerConfig(
         video_id="dQw4w9WgXcQ",
-        run_id="run-1",
+        run_id=run_id,
         claim_owner="message-1",
         bucket="private-bucket",
         table_name="VideoIngestion",
@@ -177,7 +215,10 @@ def test_worker_writes_private_run_and_current_manifests() -> None:
             keys.append(key)
     assert any(key.endswith("/runs/run-1/manifest.json") for key in keys)
     assert any(key.endswith("/manifest.json") for key in keys)
-    document = json.loads(cast(bytes, store.puts[0]["Body"]).decode("utf-8"))
+    final_put = next(
+        put for put in store.puts if str(put.get("Key", "")).endswith("/runs/run-1/manifest.json")
+    )
+    document = json.loads(cast(bytes, final_put["Body"]).decode("utf-8"))
     assert document["source"] == {
         "kind": "youtube_watch",
         "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -270,3 +311,94 @@ def test_json3_normalizer_keeps_timing_without_author_identity() -> None:
         '{"events":[{"tStartMs":0,"dDurationMs":1000,"segs":[{"utf8":"hello"}]}]}'
     )
     assert json.loads(value) == {"start_seconds": 0.0, "end_seconds": 1.0, "text": "hello"}
+
+
+def test_worker_resumes_normalization_after_raw_checkpoint_crash() -> None:
+    @dataclass
+    class CrashAfterRawRepository(FakeRepository):
+        crash: bool = True
+
+        def checkpoint(self, video_id: str, claim_owner: str, **kwargs: object) -> None:
+            self.item = {"video_id": video_id, **(self.item or {}), **kwargs}
+            self.checkpoints.append({"video_id": video_id, "claim_owner": claim_owner, **kwargs})
+            artifacts = kwargs.get("artifacts")
+            if not isinstance(artifacts, Mapping):
+                return
+            subtitles = cast(Mapping[str, object], artifacts).get("subtitles")
+            if not isinstance(subtitles, Mapping):
+                return
+            typed_subtitles = cast(Mapping[str, object], subtitles)
+            if (
+                self.crash
+                and typed_subtitles.get("status") == "running"
+                and isinstance(typed_subtitles.get("raw_s3_key"), str)
+                and typed_subtitles.get("normalized_s3_key") is None
+            ):
+                self.crash = False
+                raise RuntimeError("injected process stop after raw checkpoint")
+
+    repository = CrashAfterRawRepository()
+    store = FakeStore()
+    with pytest.raises(RuntimeError, match="injected process stop"):
+        IngestionWorker(_config("run-1"), repository, store, FakeRunner()).run()
+
+    resumed_runner = FakeRunner()
+    IngestionWorker(_config("run-2"), repository, store, resumed_runner).run()
+
+    final_put = next(
+        put for put in store.puts if str(put.get("Key", "")).endswith("/runs/run-2/manifest.json")
+    )
+    document = json.loads(cast(bytes, final_put["Body"]).decode("utf-8"))
+    assert document["artifacts"]["subtitles"]["status"] == "succeeded"
+    assert any(
+        str(record["key"]).endswith(".jsonl.gz")
+        for record in document["artifact_objects"]["subtitles"]
+    )
+    assert not any(
+        "--write-subs" in call and "live_chat" not in call for call in resumed_runner.calls
+    )
+
+
+def test_worker_merges_prior_attempt_objects_into_final_manifest() -> None:
+    @dataclass
+    class StatefulRepository(FakeRepository):
+        def checkpoint(self, video_id: str, claim_owner: str, **kwargs: object) -> None:
+            updates = {
+                key: value
+                for key, value in kwargs.items()
+                if value is not None
+                or key not in {"checkpoint_manifest_key", "checkpoint_manifest_sha256"}
+            }
+            self.item = {"video_id": video_id, **(self.item or {}), **updates}
+            self.checkpoints.append({"video_id": video_id, "claim_owner": claim_owner, **kwargs})
+
+    repository = StatefulRepository()
+    store = FakeStore()
+    with pytest.raises(RetryableWorkerError):
+        IngestionWorker(
+            _config("run-1"), repository, store, FakeRunner(fail_native_audio=True)
+        ).run()
+
+    IngestionWorker(_config("run-2"), repository, store, FakeRunner()).run()
+
+    final_put = next(
+        put for put in store.puts if str(put.get("Key", "")).endswith("/runs/run-2/manifest.json")
+    )
+    document = json.loads(cast(bytes, final_put["Body"]).decode("utf-8"))
+    subtitle_keys = [str(record["key"]) for record in document["artifact_objects"]["subtitles"]]
+    audio_keys = [str(record["key"]) for record in document["artifact_objects"]["native_audio"]]
+    assert any("/runs/run-1/" in key for key in subtitle_keys)
+    assert any("/runs/run-2/" in key for key in audio_keys)
+
+
+def test_empty_normalized_payload_is_not_successful(tmp_path: Path) -> None:
+    source = tmp_path / "empty.json3"
+    source.write_text('{"events":[]}', encoding="utf-8")
+    worker = IngestionWorker(_config(), FakeRepository(), FakeStore(), FakeRunner())
+
+    assert (
+        worker._normalize_caption_files(  # pyright: ignore[reportPrivateUsage]
+            [source], tmp_path / "normalized"
+        )
+        == []
+    )

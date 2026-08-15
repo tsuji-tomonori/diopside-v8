@@ -42,7 +42,9 @@ from diopside_ingestion.reuse import (
     ObjectReader,
     PrivateObjectReadError,
     VerifiedVideoManifest,
+    load_verified_checkpoint_manifest,
     load_verified_video_manifest,
+    read_verified_artifact_object,
 )
 from diopside_ingestion.state import DynamoIngestionRepository, IngestionRepository
 
@@ -291,6 +293,28 @@ class IngestionWorker:
             self._complete_from_existing_manifest(existing_manifest)
             return
 
+        try:
+            checkpoint_manifest = self._load_checkpoint_manifest(existing_item)
+            if checkpoint_manifest is not None:
+                for records in checkpoint_manifest.artifact_objects.values():
+                    for record in records:
+                        read_verified_artifact_object(self.store, self.config.bucket, record)
+                self.artifact_objects = checkpoint_manifest.artifact_objects
+        except PrivateObjectReadError as exc:
+            artifacts = self._record_failure(
+                self._resumable_artifacts(existing_item) or initial_artifacts(iso_now()),
+                "manifest",
+                Failure(
+                    ReasonCategory.DEPENDENCY_ERROR,
+                    str(exc),
+                    "既存のprivate checkpointを検証できない",
+                    True,
+                    "retry_manifest",
+                ),
+            )
+            self._checkpoint(artifacts, current_stage="manifest")
+            raise RetryableWorkerError(str(exc)) from exc
+
         artifacts = self._resumable_artifacts(existing_item) or initial_artifacts(iso_now())
         known_channel_id = self._known_channel_id(existing_item)
         with tempfile.TemporaryDirectory(prefix="diopside-ingestion-") as temporary:
@@ -472,6 +496,25 @@ class IngestionWorker:
             self.store, self.config.bucket, channel_id, self.config.video_id
         )
 
+    def _load_checkpoint_manifest(
+        self, item: Mapping[str, object] | None
+    ) -> VerifiedVideoManifest | None:
+        channel_id = self._known_channel_id(item)
+        if channel_id is None or item is None:
+            return None
+        key = item.get("checkpoint_manifest_key")
+        digest = item.get("checkpoint_manifest_sha256")
+        if not isinstance(key, str) or not isinstance(digest, str):
+            return None
+        return load_verified_checkpoint_manifest(
+            self.store,
+            self.config.bucket,
+            key,
+            digest,
+            channel_id,
+            self.config.video_id,
+        )
+
     def _needs_work(self, artifacts: Mapping[str, Mapping[str, object]], artifact_key: str) -> bool:
         artifact = artifacts.get(artifact_key)
         if artifact is None:
@@ -632,6 +675,41 @@ class IngestionWorker:
         stage_dir.mkdir(exist_ok=True)
         output_template = str(stage_dir / "artifact.%(ext)s")
         try:
+            if normalize_captions:
+                restored = self._restore_raw_for_normalization(artifacts, artifact_key, stage_dir)
+                if restored:
+                    return self._normalize_and_upload(
+                        artifacts,
+                        artifact_key,
+                        restored,
+                        workdir,
+                        channel_id,
+                        prefix,
+                    )
+            active = update_artifact(
+                artifacts,
+                artifact_key=artifact_key,
+                status=ArtifactStatus.RUNNING,
+                current_phase="source_check",
+                now=iso_now(),
+                phase_status=(
+                    None
+                    if self._phase_is_succeeded(artifacts, artifact_key, "source_check")
+                    else PhaseStatus.SUCCEEDED
+                ),
+            )
+            active = update_artifact(
+                active,
+                artifact_key=artifact_key,
+                status=ArtifactStatus.RUNNING,
+                current_phase="download",
+                now=iso_now(),
+                phase_status=(
+                    None
+                    if self._phase_is_succeeded(active, artifact_key, "download")
+                    else PhaseStatus.RUNNING
+                ),
+            )
             result = self.runner.run(
                 [
                     "yt-dlp",
@@ -651,26 +729,126 @@ class IngestionWorker:
             paths = sorted(path for path in stage_dir.iterdir() if path.is_file())
             if not paths:
                 return self._mark_absent(artifacts, artifact_key, f"{artifact_key}_not_present")
-            updated = self._upload_paths(
-                artifacts, artifact_key, paths, channel_id, prefix, artifact_directory
+            downloaded = update_artifact(
+                active,
+                artifact_key=artifact_key,
+                status=ArtifactStatus.RUNNING,
+                current_phase="download",
+                now=iso_now(),
+                phase_status=PhaseStatus.SUCCEEDED,
+                availability="available",
             )
+            updated = self._upload_paths(
+                downloaded,
+                artifact_key,
+                paths,
+                channel_id,
+                prefix,
+                artifact_directory,
+                terminal=not normalize_captions,
+            )
+            artifacts = updated
             if normalize_captions:
-                normalized = self._normalize_caption_files(
-                    paths, workdir / f"normalized-{artifact_key}"
+                updated = self._normalize_and_upload(
+                    updated,
+                    artifact_key,
+                    paths,
+                    workdir,
+                    channel_id,
+                    prefix,
                 )
-                if normalized:
-                    updated = self._upload_paths(
-                        updated,
-                        artifact_key,
-                        normalized,
-                        channel_id,
-                        prefix,
-                        f"normalized/{artifact_key}",
-                        storage_field="normalized_s3_key",
-                    )
             return updated
         except WorkerStageError as exc:
             return self._record_failure(artifacts, artifact_key, exc.failure)
+
+    def _restore_raw_for_normalization(
+        self,
+        artifacts: Mapping[str, Mapping[str, object]],
+        artifact_key: str,
+        destination: Path,
+    ) -> list[Path]:
+        """Materialize verified raw variants when only normalization remains."""
+        artifact = artifacts.get(artifact_key)
+        if (
+            artifact is None
+            or not self._phase_is_succeeded(artifacts, artifact_key, "upload")
+            or isinstance(artifact.get("normalized_s3_key"), str)
+        ):
+            return []
+        raw_records = [
+            record
+            for record in self.artifact_objects.get(artifact_key, [])
+            if record.get("kind") == "raw"
+        ]
+        if not raw_records:
+            return []
+        restored: list[Path] = []
+        for record in raw_records:
+            key = record.get("key")
+            if not isinstance(key, str):
+                raise WorkerStageError(
+                    Failure(
+                        ReasonCategory.DEPENDENCY_ERROR,
+                        "artifact_object_record_invalid",
+                        "raw checkpointのobject recordが不正である",
+                        True,
+                        "retry_manifest",
+                    )
+                )
+            try:
+                payload = read_verified_artifact_object(self.store, self.config.bucket, record)
+            except PrivateObjectReadError as exc:
+                raise WorkerStageError(
+                    Failure(
+                        ReasonCategory.DEPENDENCY_ERROR,
+                        str(exc),
+                        "raw checkpointのobjectを検証できない",
+                        True,
+                        "retry_manifest",
+                    )
+                ) from exc
+            target = destination / Path(key).name
+            target.write_bytes(payload)
+            restored.append(target)
+        return restored
+
+    def _normalize_and_upload(
+        self,
+        artifacts: dict[str, dict[str, object]],
+        artifact_key: str,
+        paths: Sequence[Path],
+        workdir: Path,
+        channel_id: str,
+        prefix: str,
+    ) -> dict[str, dict[str, object]]:
+        normalized = self._normalize_caption_files(paths, workdir / f"normalized-{artifact_key}")
+        if not normalized:
+            raise WorkerStageError(
+                Failure(
+                    ReasonCategory.TECHNICAL_ERROR,
+                    "normalization_empty",
+                    "正規化後の素材が空である",
+                    True,
+                    "retry_normalize",
+                )
+            )
+        updated = update_artifact(
+            artifacts,
+            artifact_key=artifact_key,
+            status=ArtifactStatus.RUNNING,
+            current_phase="normalize",
+            now=iso_now(),
+            phase_status=PhaseStatus.SUCCEEDED,
+        )
+        return self._upload_paths(
+            updated,
+            artifact_key,
+            normalized,
+            channel_id,
+            prefix,
+            f"normalized/{artifact_key}",
+            storage_field="normalized_s3_key",
+        )
 
     def _convert_asr_audio(
         self,
@@ -721,10 +899,11 @@ class IngestionWorker:
                 normalized_text = normalized_comments(source)
             else:
                 continue
+            if not normalized_text.strip():
+                continue
             with gzip.open(target, "wt", encoding="utf-8", newline="") as stream:
                 stream.write(normalized_text)
-            if target.stat().st_size > 0:
-                normalized.append(target)
+            normalized.append(target)
         return normalized
 
     def _upload_paths(
@@ -737,6 +916,7 @@ class IngestionWorker:
         directory: str,
         *,
         storage_field: str = "raw_s3_key",
+        terminal: bool = True,
     ) -> dict[str, dict[str, object]]:
         now = iso_now()
         active = update_artifact(
@@ -799,11 +979,11 @@ class IngestionWorker:
                 )
             ) from exc
         primary = keys[0]
-        updated = update_artifact(
+        uploaded = update_artifact(
             active,
             artifact_key=artifact_key,
-            status=ArtifactStatus.SUCCEEDED,
-            current_phase="verify",
+            status=ArtifactStatus.RUNNING,
+            current_phase="upload",
             now=iso_now(),
             phase_status=PhaseStatus.SUCCEEDED,
             availability="available",
@@ -816,12 +996,25 @@ class IngestionWorker:
                 "content_type": content_types[0],
             },
         )
-        self._checkpoint(
-            updated,
-            current_stage=artifact_key,
-            channel_id=channel_id,
-            s3_prefix=video_prefix(channel_id, self.config.video_id),
+        updated = (
+            update_artifact(
+                uploaded,
+                artifact_key=artifact_key,
+                status=ArtifactStatus.SUCCEEDED,
+                current_phase="verify",
+                now=iso_now(),
+                phase_status=PhaseStatus.SUCCEEDED,
+            )
+            if terminal
+            else update_artifact(
+                uploaded,
+                artifact_key=artifact_key,
+                status=ArtifactStatus.RUNNING,
+                current_phase="normalize",
+                now=iso_now(),
+            )
         )
+        self._persist_object_checkpoint(updated, artifact_key, channel_id, prefix)
         return updated
 
     def _verify_uploaded_object(
@@ -863,6 +1056,50 @@ class IngestionWorker:
         objects[:] = [existing for existing in objects if existing.get("key") != key]
         objects.append(object_record)
 
+    def _persist_object_checkpoint(
+        self,
+        artifacts: Mapping[str, Mapping[str, object]],
+        artifact_key: str,
+        channel_id: str,
+        prefix: str,
+    ) -> None:
+        """Write an immutable object index before publishing its pointer to DynamoDB."""
+        document = {
+            "schema_version": "1.0",
+            "kind": "artifact_checkpoint",
+            "video_id": self.config.video_id,
+            "channel_id": channel_id,
+            "run_id": self.config.run_id,
+            "captured_at": iso_now(),
+            "artifacts": artifacts,
+            "artifact_objects": {
+                artifact_key: sorted(
+                    self.artifact_objects.get(artifact_key, []),
+                    key=lambda object_record: str(object_record["key"]),
+                )
+                for artifact_key in ARTIFACTS
+            },
+        }
+        body = (json.dumps(document, ensure_ascii=False, sort_keys=True) + "\n").encode("utf-8")
+        digest = hashlib.sha256(body).hexdigest()
+        checkpoint_key = f"{prefix}/checkpoints/{digest}.json"
+        self.store.put_object(
+            Bucket=self.config.bucket,
+            Key=checkpoint_key,
+            Body=body,
+            ContentType="application/json",
+            Metadata={"sha256": digest},
+        )
+        self._verify_uploaded_object(checkpoint_key, len(body), digest, "application/json")
+        self._checkpoint(
+            artifacts,
+            current_stage=artifact_key,
+            channel_id=channel_id,
+            s3_prefix=video_prefix(channel_id, self.config.video_id),
+            checkpoint_manifest_key=checkpoint_key,
+            checkpoint_manifest_sha256=digest,
+        )
+
     def _mark_absent(
         self, artifacts: dict[str, dict[str, object]], artifact_key: str, reason_code: str
     ) -> dict[str, dict[str, object]]:
@@ -889,7 +1126,15 @@ class IngestionWorker:
         else:
             status = ArtifactStatus.FAILED_TERMINAL
             availability = "unavailable"
-        phase = "upload" if failure.next_action == "retry_upload" else "download"
+        phase = (
+            "upload"
+            if failure.next_action == "retry_upload"
+            else "normalize"
+            if failure.next_action == "retry_normalize"
+            else "verify"
+            if failure.next_action == "retry_manifest"
+            else "download"
+        )
         phase_status = (
             None
             if self._phase_is_succeeded(artifacts, artifact_key, phase)
@@ -951,6 +1196,8 @@ class IngestionWorker:
         current_stage: str,
         channel_id: str | None = None,
         s3_prefix: str | None = None,
+        checkpoint_manifest_key: str | None = None,
+        checkpoint_manifest_sha256: str | None = None,
     ) -> None:
         self.repository.checkpoint(
             self.config.video_id,
@@ -962,6 +1209,8 @@ class IngestionWorker:
             run_id=self.config.run_id,
             worker_image_digest=self.config.worker_image_digest,
             yt_dlp_version=self._yt_dlp_version(),
+            checkpoint_manifest_key=checkpoint_manifest_key,
+            checkpoint_manifest_sha256=checkpoint_manifest_sha256,
         )
 
     def _yt_dlp_version(self) -> str:
@@ -1033,6 +1282,7 @@ class IngestionWorker:
                 ContentType="application/json",
                 Metadata={"sha256": digest},
             )
+            self._verify_uploaded_object(key, len(body), digest, "application/json")
         last_reason = next(
             (
                 str(value["reason_code"])

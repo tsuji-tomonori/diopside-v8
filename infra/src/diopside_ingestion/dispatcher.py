@@ -8,7 +8,6 @@ import os
 from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Protocol, cast
-from uuid import uuid4
 
 import boto3
 
@@ -25,7 +24,9 @@ CLAIM_LEASE_SECONDS = 60 * 60
 class BatchSubmitter(Protocol):
     """Boundary for submitting a Fargate job after a DynamoDB claim."""
 
-    def submit(self, video_id: str, attempt_count: int, claim_owner: str) -> str: ...
+    def find(self, submission_id: str) -> str | None: ...
+
+    def submit(self, video_id: str, submission_id: str, claim_owner: str) -> str: ...
 
 
 class BotoBatchSubmitter:
@@ -36,16 +37,31 @@ class BotoBatchSubmitter:
         self._job_queue = job_queue
         self._job_definition = job_definition
 
-    def submit(self, video_id: str, attempt_count: int, claim_owner: str) -> str:
+    def find(self, submission_id: str) -> str | None:
+        """Reconcile an uncertain submission by its persisted deterministic job name."""
+        response = self._client.list_jobs(
+            jobQueue=self._job_queue,
+            filters=[{"name": "JOB_NAME", "values": [submission_id]}],
+            maxResults=100,
+        )
+        summaries = response.get("jobSummaryList", [])
+        for raw_summary in summaries:
+            summary = cast(Mapping[str, object], raw_summary)
+            job_id = summary.get("jobId")
+            if summary.get("jobName") == submission_id and isinstance(job_id, str):
+                return job_id
+        return None
+
+    def submit(self, video_id: str, submission_id: str, claim_owner: str) -> str:
         response = self._client.submit_job(
-            jobName=f"ingest-{video_id}-{attempt_count}",
+            jobName=submission_id,
             jobQueue=self._job_queue,
             jobDefinition=self._job_definition,
             parameters={"video_id": video_id},
             containerOverrides={
                 "environment": [
                     {"name": "VIDEO_ID", "value": video_id},
-                    {"name": "RUN_ID", "value": str(uuid4())},
+                    {"name": "RUN_ID", "value": submission_id},
                     {"name": "CLAIM_OWNER", "value": claim_owner},
                 ]
             },
@@ -60,6 +76,30 @@ class Dispatcher:
     repository: IngestionRepository
     batch: BatchSubmitter
 
+    @staticmethod
+    def submission_id(video_id: str, attempt_count: int) -> str:
+        """Return the durable identifier shared by DynamoDB, Batch, and the run prefix."""
+        return f"ingest-{video_id}-{attempt_count}"
+
+    def _reconcile_uncertain_submission(
+        self, video_id: str, message_id: str, item: Mapping[str, object]
+    ) -> bool:
+        """Record an already accepted Batch job without ever blindly submitting it again."""
+        submission_id = item.get("submission_id")
+        if (
+            item.get("status") != "running"
+            or item.get("claim_owner") != message_id
+            or not isinstance(submission_id, str)
+        ):
+            return False
+        if isinstance(item.get("batch_job_id"), str):
+            return False
+        job_id = self.batch.find(submission_id)
+        if job_id is None:
+            return True
+        self.repository.record_batch_job(video_id, message_id, submission_id, job_id)
+        return False
+
     def process_record(self, record: Mapping[str, object]) -> bool:
         """Return true only when SQS should retry the exact same record."""
         message_id = record.get("messageId")
@@ -73,13 +113,28 @@ class Dispatcher:
             return True
         claim = self.repository.claim(request.video_id, message_id, CLAIM_LEASE_SECONDS)
         if not claim.claimed:
-            return False
+            item = self.repository.load(request.video_id)
+            return (
+                self._reconcile_uncertain_submission(request.video_id, message_id, item)
+                if item is not None
+                else False
+            )
+        submission_id = self.submission_id(request.video_id, claim.attempt_count)
         try:
-            job_id = self.batch.submit(request.video_id, claim.attempt_count, message_id)
-            self.repository.record_batch_job(request.video_id, message_id, job_id)
+            self.repository.prepare_submission(request.video_id, message_id, submission_id)
         except Exception:
             self.repository.mark_dispatch_failure(request.video_id, message_id, "batch_task_failed")
-            LOGGER.exception("Batch submission failed for message_id=%s", message_id)
+            LOGGER.exception("Batch submission preparation failed for message_id=%s", message_id)
+            return True
+        try:
+            job_id = self.batch.submit(request.video_id, submission_id, message_id)
+        except Exception:
+            LOGGER.exception("Batch submission result is unknown for message_id=%s", message_id)
+            return True
+        try:
+            self.repository.record_batch_job(request.video_id, message_id, submission_id, job_id)
+        except Exception:
+            LOGGER.exception("Batch job recording failed for message_id=%s", message_id)
             return True
         return False
 

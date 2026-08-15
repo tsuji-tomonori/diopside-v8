@@ -24,3 +24,7 @@ diopside-backfill manifest は、最新mainの content/catalog と既存台帳sn
 対象を変更する場合は既存manifestを置き換えず、`manifest --revision <次の整数>` で新しいSHA-256付きmanifestを明示的に作成します。
 
 AWS接続情報、バケット名、キューURL、テーブル名は実行環境の変数から読むため、秘密情報をリポジトリやコマンド履歴へ渡しません。ローカルfallbackは、ECRでdigest固定した同じworker imageを使う infra/scripts/run_local_worker.py を使用します。
+
+DispatcherはBatch送信前に決定的なsubmission IDを保存し、送信結果が不明な場合は既存jobを照合します。Result処理は再投入intentをDynamoDB outboxへ先に保存し、EventBridge retry・DLQとrequest/result DLQ駆動のRecovery Lambdaが、失われたevent、未送信outbox、孤児runningを回復します。新着探索や継続実行のscheduleは追加しません。
+
+workerはobject単位のkey、SHA-256、byte数を不変checkpoint manifestへ保存します。raw取得だけではartifactを成功にせず、必要なnormalizeとverifyが完了した時点で終端します。再試行ではcheckpointと各objectを検証してから以前のattemptのobject recordを最終manifestへmergeします。private caption再利用はcurrent manifestに記録されたexact keyだけを読み、byte数とSHA-256を照合します。

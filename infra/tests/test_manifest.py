@@ -81,3 +81,20 @@ def test_report_counts_missing_and_terminal_rows(tmp_path: Path) -> None:
     assert report["target_count"] == 2
     assert report["terminal_count"] == 1
     assert report["missing_video_ids"] == ["3JZ_D3ELwOQ"]
+    assert report["incomplete_video_ids"] == []
+
+
+def test_report_identifies_existing_non_terminal_rows(tmp_path: Path) -> None:
+    _source_tree(tmp_path)
+    manifest = create_manifest(tmp_path, base_commit="a" * 40, created_at="2026-08-15T00:00:00Z")
+    report = build_report(
+        manifest,
+        [
+            {"video_id": "dQw4w9WgXcQ", "status": "running", "artifacts": {}},
+            {"video_id": "3JZ_D3ELwOQ", "status": "retryable_failed", "artifacts": {}},
+        ],
+    )
+
+    assert report["terminal_count"] == 0
+    assert report["missing_video_ids"] == []
+    assert report["incomplete_video_ids"] == ["3JZ_D3ELwOQ", "dQw4w9WgXcQ"]

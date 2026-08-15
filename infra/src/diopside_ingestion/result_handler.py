@@ -8,7 +8,6 @@ import os
 from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Protocol, cast
-from uuid import uuid4
 
 import boto3
 
@@ -25,7 +24,7 @@ MAX_VIDEO_ATTEMPTS = 3
 class RetryQueue(Protocol):
     """Boundary for publishing a retry request while preserving the one-field body."""
 
-    def retry(self, video_id: str) -> None: ...
+    def retry(self, video_id: str, outbox_id: str) -> None: ...
 
 
 class BotoRetryQueue:
@@ -35,12 +34,12 @@ class BotoRetryQueue:
         self._client = client
         self._queue_url = queue_url
 
-    def retry(self, video_id: str) -> None:
+    def retry(self, video_id: str, outbox_id: str) -> None:
         self._client.send_message(
             QueueUrl=self._queue_url,
             MessageBody=json.dumps({"video_id": video_id}, separators=(",", ":")),
             MessageGroupId=video_id,
-            MessageDeduplicationId=str(uuid4()),
+            MessageDeduplicationId=outbox_id,
         )
 
 
@@ -67,6 +66,14 @@ class ResultHandler:
         item = self.repository.load(request.video_id)
         if item is None:
             raise ValueError("Batch state event has no ingestion item")
+        outbox_id = item.get("retry_outbox_id")
+        if (
+            item.get("batch_job_id") == job_id
+            and item.get("status") == VideoStatus.RETRYABLE_FAILED.value
+            and isinstance(outbox_id, str)
+        ):
+            self.queue.retry(request.video_id, outbox_id)
+            return
         claim_owner = item.get("claim_owner")
         if not isinstance(claim_owner, str) or item.get("batch_job_id") != job_id:
             return
@@ -96,8 +103,13 @@ class ResultHandler:
         failure: Failure,
     ) -> None:
         if failure.retryable and attempt_count < MAX_VIDEO_ATTEMPTS:
-            self.repository.mark_dispatch_failure(video_id, claim_owner, failure.code)
-            self.queue.retry(video_id)
+            outbox_id = f"retry-{video_id}-{attempt_count + 1}"
+            item = self.repository.load(video_id)
+            batch_job_id = item.get("batch_job_id") if item is not None else None
+            if not isinstance(batch_job_id, str):
+                raise ValueError("retryable Batch result has no batch_job_id")
+            self.repository.stage_batch_retry(video_id, batch_job_id, failure.code, outbox_id)
+            self.queue.retry(video_id, outbox_id)
             return
         self.repository.mark_unavailable(video_id, claim_owner, failure.code)
         LOGGER.warning(
