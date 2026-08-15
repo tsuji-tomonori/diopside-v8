@@ -151,7 +151,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [test:infra/tests/test_stack.py, test:infra/tests/test_worker.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
-    note: unit test、Ruff、strict型検査、CDK synth/cdk-nag、container scanをPR CIに接続し、CDK CLIはinfra/cdk.jsonのあるディレクトリから実行し、Trivy actionは存在する固定tagを指定する。
+    note: unit test、Ruff、strict型検査、CDK synth/cdk-nag、container scanをPR CIに接続し、CDK CLIはinfra/cdk.jsonのあるディレクトリから実行する。Trivy actionは存在する固定tagを指定し、CDK version reportingは環境依存hashを避けるため無効化する。
   - id: REV-007
     class: Invariant
     result: pass

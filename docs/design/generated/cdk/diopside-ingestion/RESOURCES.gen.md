@@ -12,7 +12,6 @@ Check: `python .agents/skills/generate-implementation-design/scripts/designflow.
 | `BatchResultRuleAllowEventRuleDiopsideIngestionStackResultHandler44F603B077E8DABA` | `AWS::Lambda::Permission` | - | - |
 | `BatchResultRuleC698CCA3` | `AWS::Events::Rule` | - | - |
 | `BatchServiceRole57930367` | `AWS::IAM::Role` | - | - |
-| `CDKMetadata` | `AWS::CDK::Metadata` | CDKMetadataAvailable | - |
 | `DispatcherD4A12972` | `AWS::Lambda::Function` | - | DispatcherRoleDefaultPolicy0E461FA5, DispatcherRoleBDE14D07 |
 | `DispatcherLogGroupB99EDF3E` | `AWS::Logs::LogGroup` | - | - |
 | `DispatcherRoleBDE14D07` | `AWS::IAM::Role` | - | - |
