@@ -360,11 +360,22 @@ class TimestampHarnessTest(unittest.TestCase):
         self.assertIn("Never claim another video", luna["developer_instructions"])
 
     def test_sol_plans_ten_disjoint_luna_lanes(self) -> None:
-        eligible_ids = [
-            "eGjLBN2fsQc", "GTO-h9V9b-k", "Wyow5Pr00JY", "Ere2MCeKhM4",
-            "RV2EkC05e-E", "o4IYcb4K3hk", "T7hnGVszU1w", "xl2GERMJw0o",
-            "erFpaeF7P70", "dvx0FcUFbyw", "iu29BCf8G1E", "ovOLJ7ZM9qY",
-        ]
+        sys.path.insert(0, str(SCRIPT.parent))
+        try:
+            spec = importlib.util.spec_from_file_location("timestamp_harness_lane_test", SCRIPT)
+            self.assertIsNotNone(spec)
+            self.assertIsNotNone(spec.loader)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            eligible_ids = [
+                video_id
+                for video_id, video in module.load_canonical_videos().items()
+                if module.eligibility(video)[0]
+                and video["timestamps"]["status"] != "作成済み"
+            ][:12]
+        finally:
+            sys.path.pop(0)
+        self.assertEqual(len(eligible_ids), 12)
         snapshot = self.snapshot([self.row(video_id) for video_id in eligible_ids])
         planned = self.invoke(
             "plan-luna-wave",
