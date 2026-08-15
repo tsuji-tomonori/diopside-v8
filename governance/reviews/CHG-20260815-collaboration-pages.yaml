@@ -182,7 +182,7 @@ selected_checks:
       - test:src/features/collaborations/CollaborationDetailPages.test.tsx
       - test:tests/content-validation.test.ts
       - test:tests/generated.test.ts
-    note: 受入条件を選別logic、component、正本schema、決定生成試験で検証し、ブラウザE2EをCI対象へ追加した
+    note: 受入条件を選別logic、component、正本schema、決定生成試験で検証し、ブラウザE2EをCI対象へ追加した。タグ件数は0件の完全一致で検査し10件等を誤検出しない
   - id: REV-007
     class: Invariant
     result: pass
