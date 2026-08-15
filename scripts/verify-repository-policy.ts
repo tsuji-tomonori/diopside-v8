@@ -26,7 +26,7 @@ for (const workflow of workflows) {
     if (!/^on:\s*\n\s+push:\s*\n\s+branches:\s*\n\s+- main\s*$/mu.test(text)) {
       errors.push(`${relative(workflow)}: main pushだけを起動元にしなければなりません。`);
     }
-    if (!/run:\s*npm run verify:quality/u.test(text)) {
+    if (!/run:\s*npm run verify:main-release/u.test(text)) {
       errors.push(`${relative(workflow)}: release commit前にblocking品質ゲートを実行しなければなりません。`);
     }
   } else if (!/^permissions:\s*\n\s+contents:\s*read\s*$/mu.test(text)) {

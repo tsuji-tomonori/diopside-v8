@@ -22,7 +22,7 @@ impact_flags:
   bug_fix: true
   generated_change: true
   sql_change: false
-  e2e_change: false
+  e2e_change: true
   migration: false
   ui_change: false
   interactive_ui_change: false
@@ -52,7 +52,8 @@ selected_checks:
   result: pass
   evidence:
   - path:tests/content-validation.test.ts
-  note: 動画追加時に固定件数で失敗する回帰testを正本manifest参照へ修正する。
+  - test:tests/timestamp_harness_test.py
+  note: 動画追加時に固定件数・固定未作成IDで失敗する回帰testを正本manifestと現在の適格集合参照へ修正する。
 - id: IMP-002
   class: Invariant
   result: pass
@@ -70,7 +71,7 @@ selected_checks:
   result: pass
   evidence:
   - commit:self
-  note: 人の明示要求に基づき、動画PRと分離したDraft PRへのpushだけを行う。
+  note: 利用者が完成済み動画PRの順次mergeを2026-08-15に明示承認したため、阻害する固定値testを独立maintenance PRで修正し、品質ゲート合格後に先行mergeする。
 - id: FAST-001
   class: Invariant
   result: pass
@@ -108,14 +109,23 @@ selected_checks:
   result: pass
   evidence:
   - path:docs/design/generated/inventory.gen.json
-  - test:tests/generated.test.ts
-  note: 正本由来の生成設計と公開成果物が決定的に再生成され、CI品質ゲートの差分検査に合格することを確認する。
+  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  note: generate:designで変更したtestのas-built inventory hashを決定更新する。
 - id: FAST-007
   class: Invariant
   result: pass
   evidence:
   - commit:self
   note: staged diffへ秘密情報・個人情報・生データを含めない。
+- id: FAST-018
+  class: Risk-selected
+  result: pass
+  evidence:
+  - test:e2e/helpers.ts
+  - test:e2e/library.spec.ts
+  - test:e2e/search.spec.ts
+  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  note: 全動画件数のE2E期待値も正本manifestから取得し、動画追加後の検索・端末内リスト状態を品質ゲートで検証する。
 - id: REV-001
   class: Invariant
   result: pass
@@ -139,13 +149,13 @@ selected_checks:
   result: pass
   evidence:
   - commit:self
-  note: test参照元の変更を生成設計指紋へ反映済みで、ADRは不要である。
+  note: test参照元の修正のみでADR・生成設計は不要である。
 - id: REV-006
   class: Invariant
   result: pass
   evidence:
   - workflow:要件・品質ゲート#要件の品質ゲートを実行
-  note: TypeScript、unit、生成差分をCIで検証する。
+  note: TypeScript、Python unit、生成差分をCIで検証する。
 - id: REV-007
   class: Invariant
   result: pass
@@ -159,5 +169,4 @@ selected_checks:
   - path:governance/reviews/CHG-20260813-tests-dynamic-video-count.yaml
   note: 未選択checkをN/Aとして保存しない。
 advisories: []
-residual_risks:
-- E2Eの動画件数見出しもcontent manifestへ追従させ、動画追加PRで固定件数がdriftしないことをCIで再確認する。
+residual_risks: []

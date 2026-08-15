@@ -30,7 +30,10 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).toMatch(/push:[\s\S]*branches:[\s\S]*- main/u);
     expect(workflow).toMatch(/permissions:\s*\n\s+contents: write/u);
     expect(workflow).toMatch(/ref: \$\{\{ github\.sha \}\}/u);
-    expect(workflow).toMatch(/run: npm run verify:quality/u);
+    expect(workflow).toMatch(/run: npm run verify:main-release/u);
+    expect(workflow).toMatch(/--allow-github-squash-fallback/u);
+    expect(workflow).toMatch(/--print-review-path/u);
+    expect(workflow).not.toMatch(/sed -n 's\/\^Review-Checklist:/u);
     expect(workflow).toMatch(/git status --porcelain -- spec\/requirements docs\/requirements docs\/design\/generated/u);
     expect(workflow).toMatch(/git add -- docs public\/data src\/generated\/release\.ts/u);
     expect(workflow).toMatch(/git push origin HEAD:main/u);
