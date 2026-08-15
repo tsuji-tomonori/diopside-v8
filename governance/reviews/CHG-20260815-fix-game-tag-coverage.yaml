@@ -126,7 +126,9 @@ selected_checks:
     evidence:
       - path:content/catalog/manifest.json
       - path:content/content-manifest.json
-    note: 全シャード指紋、1689動画、9301タグ付与を決定的に再計算した。
+      - path:docs/design/generated/inventory.gen.json
+      - path:docs/design/generated/system.gen.md
+    note: 全シャード指紋、1689動画、9301タグ付与と実装由来設計を決定的に再計算し、生成差分がないことを確認した。
   - id: FAST-007
     class: Invariant
     result: pass
