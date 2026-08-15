@@ -12,6 +12,7 @@ import {
   searchIndexSchema,
   tagAliasesSchema,
   tagTaxonomySchema,
+  workIntroductionsSchema,
   type CanonicalVideo,
   type PublicVideoDetail,
   type PublicVideoSummary,
@@ -31,8 +32,10 @@ const publicDataDir = path.join(root, 'public/data');
 const generatedSourceDir = path.join(root, 'src/generated');
 const taxonomyInput = readJson(path.join(root, 'content/taxonomy/tag-taxonomy.json'));
 const aliasesInput = readJson(path.join(root, 'content/taxonomy/tag-aliases.json'));
+const workIntroductionsInput = readJson(path.join(root, 'content/works/work-introductions.json'));
 const taxonomy = tagTaxonomySchema.parse(taxonomyInput);
 const aliases = tagAliasesSchema.parse(aliasesInput);
+const workIntroductions = workIntroductionsSchema.parse(workIntroductionsInput);
 const contentManifest = readJson(path.join(root, 'content/content-manifest.json')) as ContentManifest;
 
 const taxonomyIssues = validateTaxonomy(taxonomyInput, aliasesInput);
@@ -47,6 +50,7 @@ for (const video of videos) {
 const releaseSeed = {
   taxonomy,
   aliases,
+  workIntroductions,
   videos: videos.map(normalizeCanonicalVideo),
 };
 const releaseId = `release-${sha256(canonicalJson(releaseSeed)).slice(0, 16)}`;
@@ -85,6 +89,17 @@ for (const video of videos) {
     tagToVideoIds.set(tagId, values);
   }
 }
+const gameTitleIds = new Set(
+  taxonomy.categories
+    .find((category) => category.categoryId === 'works')
+    ?.subcategories.find((subcategory) => subcategory.subcategoryId === 'gameTitle')
+    ?.tags.map((tag) => tag.tagId) ?? [],
+);
+const introductionsByTagId = new Map(workIntroductions.introductions.map((introduction) => [introduction.tagId, introduction]));
+if (introductionsByTagId.size !== workIntroductions.introductions.length) throw new Error('作品紹介のタグIDが重複しています。');
+for (const tagId of introductionsByTagId.keys()) {
+  if (!gameTitleIds.has(tagId)) throw new Error(`作品紹介がゲーム作品名タグを参照していません: ${tagId}`);
+}
 const tagIndex = publicTagIndexSchema.parse({
   schemaVersion: '1.0.0',
   releaseId,
@@ -100,7 +115,19 @@ const tagIndex = publicTagIndexSchema.parse({
       order: subcategory.order,
       tags: subcategory.tags.filter((tag) => tag.active).map((tag) => {
         const videoIds = [...(tagToVideoIds.get(tag.tagId) ?? [])].sort();
-        return { tagId: tag.tagId, canonicalName: tag.canonicalName, count: videoIds.length, videoIds };
+        const introduction = introductionsByTagId.get(tag.tagId);
+        return {
+          tagId: tag.tagId,
+          canonicalName: tag.canonicalName,
+          count: videoIds.length,
+          videoIds,
+          ...(introduction ? { introduction: {
+            quote: introduction.quote,
+            officialUrl: introduction.officialUrl,
+            sourceLabel: introduction.sourceLabel,
+            retrievedAt: introduction.retrievedAt,
+          } } : {}),
+        };
       }),
     })),
   })),

@@ -5,6 +5,7 @@ import {
   publicIndexSchema,
   tagAliasesSchema,
   tagTaxonomySchema,
+  workIntroductionsSchema,
 } from '../src/domain/content.ts';
 import { normalizeTagAlias } from '../src/domain/search.ts';
 import { scanPublicBoundary, validateCanonicalVideo, validateTaxonomy } from '../src/domain/validation.ts';
@@ -17,6 +18,7 @@ const aliasesInput = json('content/taxonomy/tag-aliases.json');
 const taxonomy = tagTaxonomySchema.parse(taxonomyInput);
 const aliases = tagAliasesSchema.parse(aliasesInput);
 const videos = readCanonicalVideos(root);
+const workIntroductions = workIntroductionsSchema.parse(json('content/works/work-introductions.json'));
 
 describe('タグ・動画正本と公開境界', () => {
   it('7大分類・30小分類・不変タグID・別名を一貫して検証する', () => {
@@ -114,6 +116,20 @@ describe('タグ・動画正本と公開境界', () => {
     }
     expect(scanPublicBoundary(index)).toEqual([]);
     expect(JSON.stringify(index)).not.toMatch(/(?:transcript|subtitles|comments|chat|authorId)/iu);
+  });
+
+  it('ゲーム紹介はゲーム作品タグだけを参照し、短い引用とHTTPSの公式ページを持つ', () => {
+    const gameTitleIds = new Set(taxonomy.categories
+      .find((category) => category.categoryId === 'works')!
+      .subcategories.find((subcategory) => subcategory.subcategoryId === 'gameTitle')!
+      .tags.map((tag) => tag.tagId));
+    expect(workIntroductions.introductions.length).toBeGreaterThan(0);
+    expect(new Set(workIntroductions.introductions.map((item) => item.tagId)).size).toBe(workIntroductions.introductions.length);
+    for (const introduction of workIntroductions.introductions) {
+      expect(gameTitleIds.has(introduction.tagId)).toBe(true);
+      expect(introduction.officialUrl).toMatch(/^https:\/\//u);
+      expect(introduction.quote.length).toBeLessThanOrEqual(160);
+    }
   });
 });
 

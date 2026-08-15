@@ -90,4 +90,22 @@ test.describe('動画詳細', () => {
     await expect(page.getByRole('heading', { name: '構造不適合' })).toBeVisible();
     await expect(page.getByText('動画詳細の形式を確認できませんでした。')).toBeVisible();
   });
+
+  test('作品タグから公式紹介付きの作品別動画一覧へ移動できる', async ({ page }) => {
+    const requests = await preparePage(page);
+    await page.goto('/diopside-v8/#/video/Wchiju9lJv0');
+    const workLink = page.getByRole('link', { name: /SILENT HILL2/u });
+    await expect(workLink).toBeVisible();
+    await workLink.click();
+    await expect(page).toHaveURL(/#\/works\/tag-works-gameTitle-942446bc56ac$/u);
+    await expect(page.getByRole('heading', { level: 1, name: 'SILENT HILL2' })).toBeVisible();
+    await expect(page.locator('.work-quote')).toContainText('シリーズ最高傑作と名高いサイコロジカルホラー');
+    await expect(page.getByRole('link', { name: 'SILENT HILL 2 公式サイト' })).toHaveAttribute(
+      'href',
+      'https://www.konami.com/games/silenthill/2r/jp/ja/',
+    );
+    await expect(page.locator('.work-results .video-card')).toHaveCount(4);
+    expectOnlyAllowedRequests(requests);
+    await expectNoSeriousAccessibilityViolations(page);
+  });
 });

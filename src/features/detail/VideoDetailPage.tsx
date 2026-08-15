@@ -83,7 +83,11 @@ export function VideoDetailPage(): React.JSX.Element {
             <div className="detail-tag-group" key={group.categoryId}>
               <h3>{group.name}</h3>
               <div className="detail-tags">
-                {group.tags.map((tag) => <span key={tag.tagId}><small>{tag.subcategoryName}</small>{tag.canonicalName}</span>)}
+                {group.tags.map((tag) => group.categoryId === 'works' ? (
+                  <Link className="detail-tag-link" key={tag.tagId} to={`/works/${tag.tagId}`}>
+                    <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>作品ページを見る →</span>
+                  </Link>
+                ) : <span key={tag.tagId}><small>{tag.subcategoryName}</small>{tag.canonicalName}</span>)}
               </div>
             </div>
           ))}

@@ -1,0 +1,215 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260815-work-pages
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: false
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: 作品タグ導線、作品別一覧、出典付きゲーム紹介をV8-DISPLAY-012へ追加した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+    note: 公開schema、作品画面、正本紹介データのas-built入力hashを再生成した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 永続要件、公開契約、重要UI、引用データを変更するためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 利用者指示が実装、commit、push、PR作成を許可し、mergeと公開は含まない
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/works/work-introductions.json
+    note: 新しい作品紹介は任意項目であり、既存タグ・動画を変更せずrevert可能である
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/index.html
+    note: Vite本番buildとPages用postbuildを完了した
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: TypeScriptのブラウザ・Node両projectの型検査に合格した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: src、scripts、tests、e2eのlintに合格した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/features/works/WorkDetailPage.test.tsx
+      - test:tests/content-validation.test.ts
+      - test:tests/generated.test.ts
+    note: 作品画面、公式引用、同一タグ動画4件、未登録時の安全表示、決定生成を単体・統合試験で確認した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:docs/requirements/REQUIREMENTS.md
+      - path:docs/design/generated/inventory.gen.json
+      - test:tests/generated.test.ts
+    note: 要件・設計の正本由来生成物を更新し、公開データとPages成果物はローカルbuildで決定生成を確認したうえでPR規約どおり差分から除外した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: credential、個人情報、生字幕、コメント、チャット、投稿者識別子を差分へ含めない
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/works/WorkDetailPage.test.tsx
+      - test:e2e/detail.spec.ts
+    note: 作品ページの通常、未登録紹介、動画0件、未知タグの各状態を明示的に実装し主要状態を試験した
+  - id: FAST-014
+    class: Risk-selected
+    result: na
+    evidence:
+      - test:e2e/detail.spec.ts
+    note: Playwright E2Eは追加したが、ローカルsandboxがChromiumのsocket生成を拒否したためCIでのaxe・mobile・desktop実行へ委ねる
+  - id: FAST-018
+    class: Risk-selected
+    result: na
+    evidence:
+      - test:e2e/detail.spec.ts
+    note: 静的ブラウザ内UIだけを操作し、C/U/D API、DB、外部状態変更を含まない
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 作品紹介正本、公開変換、作品画面、要件、試験、決定生成物へ差分を限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記録する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: 実装とV8-DISPLAY-012の作品タグ遷移・公式引用・安全な未登録表示が一致する
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+    note: コードから生成できるas-built設計を更新し、ADRを要する長期判断はない
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - test:src/features/works/WorkDetailPage.test.tsx
+      - test:e2e/detail.spec.ts
+    note: V8-DISPLAY-012から正本、生成、画面、単体試験、E2Eへtraceできる
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/features/works/WorkDetailPage.test.tsx
+      - test:tests/content-validation.test.ts
+      - test:tests/generated.test.ts
+    note: 受入条件をcomponent、schema、決定生成試験で検証し、ブラウザE2EをCI対象へ追加した
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260815-work-pages.yaml
+    note: 選択checkだけを本review YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260815-work-pages.yaml
+    note: 未選択checkをN/Aとして登録していない
+  - id: REV-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/detail.spec.ts
+    note: E2E変更triggerでFAST-018を選択し、外部状態変更がないためN/A根拠を記録した
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/generated.test.ts
+      - path:src/domain/content.ts
+    note: 作品紹介は既存タグ要素への任意フィールド追加であり、既存consumerとURLを維持し、旧データでも未登録表示へ安全にfallbackする
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/works/WorkDetailPage.test.tsx
+      - test:e2e/detail.spec.ts
+    note: 作品タグから一覧へ移動する主要タスクをcomponentで検証し、mobile・desktop E2EをCIへ追加した
+advisories: []
+residual_risks:
+  - 225件のゲーム作品名のうち、公式説明と作品名を安全に照合できた88件だけ紹介文を公開する。残りは根拠のない説明を生成せず確認中と表示する。
+  - ローカルsandboxではChromiumのsocket生成が拒否され、追加E2Eの実行はPR CIで確認する。
