@@ -14,7 +14,7 @@ impact_flags:
   iac_change: false
   dependency_change: false
   code_change: true
-  typed_code_change: false
+  typed_code_change: true
   behavior_change: true
   bug_fix: true
   generated_change: true
@@ -48,6 +48,7 @@ selected_checks:
   - {id: IMP-004, class: Invariant, result: pass, evidence: ["path:.github/workflows/update-generated-release.yml"], note: "外部書込みは人が承認したmainへのrelease commitと既存Pages公開だけである"}
   - {id: IMP-005, class: Invariant, result: pass, evidence: ["commit:self"], note: "所有者の修正指示を今回のPRマージと未反映7動画の公開回復承認として記録する"}
   - {id: FAST-001, class: Invariant, result: pass, evidence: ["test:tests/repository-policy.test.ts", "test:tests/review_contract_test.py"], note: "workflow契約とPython validatorの構文・実行をCIで検証する"}
+  - {id: FAST-002, class: Invariant, result: pass, evidence: ["path:scripts/verify-repository-policy.ts", "workflow:要件・品質ゲート#要件の品質ゲートを実行"], note: "変更した方針検査を含むTypeScript strict検査をCIで実行する"}
   - {id: FAST-003, class: Invariant, result: pass, evidence: ["test:tests/review_contract_test.py", "workflow:要件・品質ゲート#要件の品質ゲートを実行"], note: "Ruffと既存lintを警告0件で実行する"}
   - {id: FAST-004, class: Invariant, result: pass, evidence: ["test:tests/repository-policy.test.ts", "test:tests/review_contract_test.py"], note: "正規commit、単一review squash、複数review拒否の経路を検証する"}
   - {id: FAST-005, class: Risk-selected, result: pass, evidence: ["test:tests/review_contract_test.py"], note: "必須Commit Comment欠落でreleaseが停止した再現条件をGitHub squash fallback試験として固定した"}
