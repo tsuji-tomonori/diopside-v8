@@ -29,6 +29,7 @@ EVIDENCE_PATTERN = re.compile(r"^(path|test|commit|workflow):(.+)$")
 CONVENTIONAL_SUBJECT_PATTERN = re.compile(
     r"^(?:\S+\s+)?(?P<type>[a-z]+)(?:\([^)]+\))?!?:"
 )
+GITHUB_SQUASH_SUBJECT_PATTERN = re.compile(r"\s\(#\d+\)$")
 ALWAYS_TRIGGERS = {"常時", "全変更"}
 DERIVED_TRIGGERS = {
     "N/A使用時": "na_used",
@@ -321,8 +322,62 @@ def validate_review_file(
     return review
 
 
-def validate_repository(root: Path, commit_ref: str) -> None:
-    active_review = validate_commit(root, commit_ref)
+def validate_github_squash_review(root: Path, commit_ref: str) -> Path:
+    """Resolve the one review changed by a GitHub squash merge.
+
+    The fallback is deliberately narrower than the normal Commit Comment contract:
+    it only accepts a single-parent commit whose subject ends in ``(#<PR>)`` and
+    whose diff updates exactly one CHG review. The review itself remains subject to
+    the complete schema, catalog, evidence, and active-HEAD checks.
+    """
+    resolved_commit = git_text(root, "rev-parse", f"{commit_ref}^{{commit}}")
+    message = git_text(root, "show", "-s", "--format=%B", resolved_commit)
+    subject = message.splitlines()[0] if message else ""
+    if not GITHUB_SQUASH_SUBJECT_PATTERN.search(subject):
+        raise ContractError(f"{commit_ref}: fallback requires a GitHub squash subject ending in (#<PR>)")
+    parents = git_text(root, "rev-list", "--parents", "-n", "1", resolved_commit).split()
+    if len(parents) != 2:
+        raise ContractError(f"{commit_ref}: fallback requires a single-parent squash commit")
+    changed = git_text(
+        root,
+        "diff-tree",
+        "--no-commit-id",
+        "--name-only",
+        "-r",
+        parents[1],
+        resolved_commit,
+        "--",
+        "governance/reviews",
+    ).splitlines()
+    candidates = [
+        item
+        for item in changed
+        if Path(item).parent == Path("governance/reviews")
+        and Path(item).name.startswith("CHG-")
+        and Path(item).suffix in {".yaml", ".yml"}
+    ]
+    if len(candidates) != 1:
+        raise ContractError(
+            f"{commit_ref}: fallback requires exactly one changed CHG review, found {len(candidates)}"
+        )
+    active_review = safe_repo_path(root, candidates[0])
+    review = validate_review_file(root, active_review, resolved_commit)
+    validate_commit_type_flags(subject, review)
+    return active_review
+
+
+def validate_repository(
+    root: Path,
+    commit_ref: str,
+    *,
+    allow_github_squash_fallback: bool = False,
+) -> Path:
+    try:
+        active_review = validate_commit(root, commit_ref)
+    except ContractError:
+        if not allow_github_squash_fallback:
+            raise
+        return validate_github_squash_review(root, commit_ref)
     reviews_root = (root / "governance" / "reviews").resolve()
     if active_review.parent != reviews_root or not active_review.name.startswith("CHG-"):
         raise ContractError(f"{commit_ref}: Review-Checklist must point under governance/reviews/CHG-*.yaml")
@@ -340,6 +395,7 @@ def validate_repository(root: Path, commit_ref: str) -> None:
     )
     subject = message.splitlines()[0] if message else ""
     validate_commit_type_flags(subject, review)
+    return active_review
 
 
 def main() -> int:
@@ -350,6 +406,8 @@ def main() -> int:
     selection.add_argument("--review", type=Path)
     parser.add_argument("--source-commit", default="HEAD")
     parser.add_argument("--require-squash", action="store_true")
+    parser.add_argument("--allow-github-squash-fallback", action="store_true")
+    parser.add_argument("--print-review-path", action="store_true")
     args = parser.parse_args()
     try:
         root = args.root.resolve()
@@ -363,11 +421,21 @@ def main() -> int:
         else:
             if args.require_squash:
                 raise ContractError("--require-squash requires --review")
-            validate_repository(root, args.commit or "HEAD")
+            active_review = validate_repository(
+                root,
+                args.commit or "HEAD",
+                allow_github_squash_fallback=args.allow_github_squash_fallback,
+            )
     except (ContractError, json.JSONDecodeError, yaml.YAMLError) as exc:
         print(f"FAIL: {exc}", file=sys.stderr)
         return 1
-    print("review contract validation OK")
+    if args.print_review_path:
+        if args.review is not None:
+            print(args.review.as_posix())
+        else:
+            print(active_review.relative_to(root).as_posix())
+    else:
+        print("review contract validation OK")
     return 0
 
 

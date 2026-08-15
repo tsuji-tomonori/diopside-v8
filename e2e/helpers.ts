@@ -4,11 +4,12 @@ import path from 'node:path';
 
 import { expect, type Page, type TestInfo } from '@playwright/test';
 
-const require = createRequire(import.meta.url);
 const contentManifest = JSON.parse(
   readFileSync(path.join(process.cwd(), 'content/content-manifest.json'), 'utf8'),
 ) as { videoCount: number };
-export const expectedVideoHeading = `${contentManifest.videoCount}件の動画`;
+export const allVideosHeading = `${contentManifest.videoCount}件の動画`;
+
+const require = createRequire(import.meta.url);
 const axeSource = readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
 const evidenceFontRoots = {
   sans: path.dirname(require.resolve('@fontsource-variable/noto-sans-jp/wght.css')),
@@ -36,7 +37,7 @@ export async function openSearch(page: Page): Promise<void> {
   await page.goto('/diopside-v8/');
   await expect(page.getByRole('heading', { name: '動画を検索' })).toBeVisible();
   await expect(page.getByText('記憶のかけらから')).toHaveCount(0);
-  await expect(page.getByRole('heading', { name: expectedVideoHeading })).toBeVisible();
+  await expect(page.getByRole('heading', { name: allVideosHeading })).toBeVisible();
 }
 
 export function expectOnlyAllowedRequests(requests: string[]): void {
