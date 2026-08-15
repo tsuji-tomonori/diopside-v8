@@ -53,6 +53,15 @@ from aws_cdk import (
 from cdk_nag import NagSuppressions
 from constructs import Construct
 
+_LAMBDA_ASSET_EXCLUDES = [
+    "**/__pycache__/**",
+    "**/*.py[cod]",
+    "**/.coverage",
+    "**/.mypy_cache/**",
+    "**/.pytest_cache/**",
+    "**/.ruff_cache/**",
+]
+
 
 class IngestionStack(Stack):
     """Isolate raw artifacts from the static public Pages deployment."""
@@ -630,7 +639,13 @@ class IngestionStack(Stack):
             identifier,
             runtime=lambda_.Runtime.PYTHON_3_12,
             handler=handler,
-            code=lambda_.Code.from_asset(str(source_directory)),
+            # Test and type-check caches differ by runner/Python patch version.  Keep
+            # them out of the deployable artifact so the synthesized template stays
+            # deterministic across local and CI validation environments.
+            code=lambda_.Code.from_asset(
+                str(source_directory),
+                exclude=_LAMBDA_ASSET_EXCLUDES,
+            ),
             role=role,
             log_group=log_group,
             timeout=Duration.minutes(2),
