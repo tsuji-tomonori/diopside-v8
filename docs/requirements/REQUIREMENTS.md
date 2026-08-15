@@ -1,8 +1,8 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 5
-- 更新日: 2026-08-08
+- カタログ版: 9
+- 更新日: 2026-08-12
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
@@ -51,7 +51,7 @@
 | `V8-OPS-002` | 1 | 有効 | 運用 | diopside v8の運用は、GitHub ActionsからChatGPT／Codexを呼び出してはならない。を**satisfy** | リポジトリ静的確認 |
 | `V8-OPS-003` | 3 | 有効 | 運用 | diopside v8の運用は、動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない。を**satisfy** | リポジトリ静的確認・手順試験 |
 | `V8-OPS-004` | 1 | 有効 | 運用 | diopside v8の運用は、ChatGPT／Codexの利用は、運用者が契約済みの画面上の利用範囲に限定しなければならない。を**satisfy** | 構成確認・秘密情報確認 |
-| `V8-OPS-005` | 2 | 有効 | 運用 | diopside v8の運用は、1回の明示要求で固定した有限の適格タイムスタンプ対象集合は、各動画が1動画だけを対象とするPRのレビュー可能状態、または根拠を示した処理不能状態のいずれかへ到達するまで処理しなければならない。ある動画の失敗を理由に、集合内の未処理動画を停止してはならない。を**satisfy** | 対象集合の固定データ・一括処理の終端・失敗分離試験 |
+| `V8-OPS-005` | 3 | 有効 | 運用 | diopside v8の運用は、1回の明示要求で固定した有限の適格タイムスタンプ対象集合は、各動画が1動画だけを対象とするdraft PRの作成・最終commitのpush・台帳反映確認を完了した状態、または根拠を示した処理不能状態のいずれかへ到達するまで処理しなければならない。ある動画の失敗を理由に、集合内の未処理動画を停止してはならない。を**satisfy** | 対象集合の固定データ・一括処理の終端・失敗分離試験 |
 | `V8-OPS-006` | 1 | 有効 | 運用 | diopside v8の運用は、対象候補が0件の場合は、生成物、ブランチ、プルリクエストを作成してはならない。を**satisfy** | 否定試験 |
 | `V8-OPS-007` | 2 | 有効 | 運用 | diopside v8の運用は、通常の動画追加プルリクエストは、正本動画データを1件だけ変更対象とし、公開用のrelease ID、版付きJSON、画面bundle、`main/docs`を含めてはならない。静的公開成果物は人が当該プルリクエストをmainへマージした後に生成しなければならない。を**satisfy** | 変更範囲試験 |
 | `V8-OPS-008` | 1 | 有効 | 運用 | diopside v8の運用は、通常の動画追加プルリクエストでは、スキル、生成規則、タグ体系、構造定義、検証スクリプト、画面実装、Pages設定を変更してはならない。を**satisfy** | 変更範囲の否定試験 |
@@ -149,8 +149,17 @@
 | `V8-SAFETY-002` | 1 | 有効 | 制約 | diopside v8の安全は、生の字幕、生のコメント、生のチャット、投稿者識別子をGit履歴またはPagesへ保存してはならない。を**satisfy** | 公開境界試験 |
 | `V8-SAFETY-003` | 1 | 有効 | 制約 | diopside v8の安全は、秘密情報をリポジトリ、プルリクエスト、確認報告、Pagesへ含めてはならない。を**satisfy** | 秘密情報検査 |
 | `V8-SAFETY-004` | 1 | 有効 | 制約 | diopside v8の安全は、削除、非公開化、対象外化が確認された動画を次の公開版から除外し、再追加を防止しなければならない。を**satisfy** | 削除・再追加試験 |
-| `V8-DISPLAY-011` | 1 | 有効 | データ | diopside v8の表示は、全編根拠を確認できる動画の詳細は、視聴意欲を促しつつ結末、正体、勝敗等のネタバレを避けた日本語あらすじを表示しなければならない。本文と末尾の引用符付きセリフは合計100〜150文字とし、最後に対象配信で白雪巴が実際に発した特徴的なセリフを一つ置かなければならない。を**satisfy** | あらすじ候補検証・公開データ検証・動画詳細画面試験・公開境界検査 |
+| `V8-DISPLAY-011` | 2 | 有効 | データ | diopside v8の表示は、全編根拠を確認できる動画の詳細は、視聴意欲を促しつつ結末、正体、勝敗等のネタバレを避けた日本語あらすじを表示しなければならない。本文と末尾の引用符付きセリフは合計100〜150文字とし、最後に対象配信で白雪巴が実際に発した特徴的なセリフを一つ置かなければならない。を**satisfy** | あらすじ候補検証・公開データ検証・動画詳細画面試験・公開境界検査 |
 | `V8-OPS-017` | 1 | 有効 | 運用 | diopside v8の運用は、release ID、版付き公開JSON、画面bundle、`main/docs`は、mainの品質ゲートに合格した人承認済み正本から決定的に生成し、差分がある場合だけmainへrelease commitしなければならない。生成中にmainが更新された場合は古い結果をcommitしてはならない。を**satisfy** | post-merge生成workflow契約試験・Pages公開経路試験 |
+| `V8-OPS-018` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ChatGPT Workから開始するタイムスタンプ処理は、PythonでGoogle Sheetsの対象動画台帳を列名で読み、作成済み・除外・既存PRを除いた適格対象を行番号と行指紋を含む有限集合として固定し、同じbatch IDでは集合を変更せず中断後も再開できなければならない。を**satisfy** | 台帳snapshot・immutable manifest・再開・0件試験 |
+| `V8-OPS-019` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ハーネスは作成者時刻一覧または公開日本語字幕を優先し、必要時に公開音声と無償ローカル音声認識、匿名化したチャット補助信号を取得し、章構成・事実確認・編集確認の意味判断を役割ごとに独立した非対話のcodex execで実行して、同じ候補hashへの決定的検証合格を必須としなければならない。を**satisfy** | Codex実行契約・role分離・候補hash・匿名chat・公開境界試験 |
+| `V8-OPS-020` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ハーネスは合格した各動画について1動画branchをcommit・pushしてdraft PRを作成し、実在PR URLを正本候補へ記録して最終commitをpushした後、PR URL・commit SHA・レビュー待ち状態を対象台帳行へ反映して再読確認しなければならない。処理不能動画も安全な理由と再開条件を台帳へ反映し、行指紋が変わった場合は上書きしてはならない。を**satisfy** | 1動画PR scope・PR URL gate・行指紋競合・exact range write・更新後再読試験 |
+| `V8-OPS-021` | 1 | 有効 | 運用 | diopside v8の分散タイムスタンプ運用は、2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchをGitHub connectorで原子的にref作成して未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者はclaim markerと処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。を**satisfy** | connector compare-and-set plan・1動画worker・余剰worker no-op・exact-case branch・認証分離契約試験 |
+| `V8-OPS-022` | 2 | 有効 | 運用 | diopside v8のタイムスタンプオーケストレーションは、1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行わなければならない。利用可能な同時threadが10未満でも10個のlane slotを維持してqueueから波状実行し、Lunaの回復可能失敗は親Solが同じ動画を引き取らなければならない。親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。を**satisfy** | agent設定・10レーン計画・Lunaモデル固定・Sol最終確認gate・共有書込み境界試験 |
+| `V8-OPS-023` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ証拠取得は、公開動画のタイムスタンプ証拠取得に失敗した場合、親Solは認証情報を使わないYouTube到達性診断、公開日本語字幕の上限付き再試行、公開native音声、yt-dlpによるMP3変換、無料のbatch-local ASRを順に試さなければならない。private、member-only、年齢制限、削除済み等の安全分類と試行結果だけをignored stateへ保存し、生字幕、音声、文字起こし、チャット本文をGit、PR、台帳へ保存してはならない。を**satisfy** | YouTube診断・字幕再試行・native/MP3 fallback・batch-local ASR・公開禁止物検査 |
+| `V8-OPS-024` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ失敗回復は、Lunaが字幕、音声、ASR、codex exec、意味構成、確認、決定的検証で回復可能な失敗へ到達した場合、needs_sol_recoveryとして親Solへ返し、親SolはGPT-5.6 Sol highで同じ動画を回復しなければならない。codex execのtrusted-destination結果は上限付きで再試行し、全編日本語字幕があるのに章候補を構成できない場合は素材不足ではなく意味構成失敗として扱わなければならない。期限内に回復できない場合はdeferred_recovery checkpointを残し、Google Sheetsへ処理不能を書いてはならない。を**satisfy** | trusted-destination再試行・Luna回復委譲・Sol high fallback・drain checkpoint・台帳書込みgate試験 |
+| `V8-OPS-026` | 1 | 有効 | 運用 | diopside v8の大規模タイムスタンプcampaignは、最大1000件のタイムスタンプcampaignは開始時に対象動画ID、順序、台帳行指紋、base commitを一度だけ固定し、10件ずつ処理しなければならない。各Work実行のdrain前と各wave後に、生字幕、音声、文字起こし、chat本文、識別子、資格情報を含まない安全なcheckpointを専用GitHub campaign branchへ観測済み親commitを条件として保存し、Work環境消失または利用制限後は同じcampaign IDを復元して完了済みを保持し未完了だけを安全な工程から再開しなければならない。を**satisfy** | 1000件manifest・101wave境界・checkpoint漏えい禁止・kill/restore・楽観ロックaction試験 |
+| `V8-OPS-025` | 1 | 有効 | 運用 | diopside v8のあらすじ運用は、ChatGPT Workから開始する未作成あらすじcampaignは、親GPT-5.6 SolとGPT-5.6 Luna mediumの10論理レーンとして構成し、最新mainの正本にあらすじがない公開動画だけを原子的にclaimしなければならない。Lunaはclaim済み1動画の一時全編根拠、候補、独立確認、決定的検証だけを行い、親Solだけが現在の候補hashを最終確認して1動画draft PRとあらすじ作業台帳を確定しなければならない。を**satisfy** | 10レーン計画・既存あらすじ除外・全編coverage・独立review hash・Sol gate・台帳行競合試験 |
 
 ## V8-SEARCH-001: 文字検索は、承認済み動画の動画タイトルだけを検索対象としなければならない
 
@@ -816,7 +825,7 @@ diopside v8の運用は、ChatGPT／Codexの利用は、運用者が契約済み
 
 ## V8-OPS-005: 1回の明示要求で固定した有限の適格タイムスタンプ対象集合を、全件が終端結果へ到達するまで処理しなければならない
 
-diopside v8の運用は、1回の明示要求で固定した有限の適格タイムスタンプ対象集合は、各動画が1動画だけを対象とするPRのレビュー可能状態、または根拠を示した処理不能状態のいずれかへ到達するまで処理しなければならない。ある動画の失敗を理由に、集合内の未処理動画を停止してはならない。を**satisfy**。
+diopside v8の運用は、1回の明示要求で固定した有限の適格タイムスタンプ対象集合は、各動画が1動画だけを対象とするdraft PRの作成・最終commitのpush・台帳反映確認を完了した状態、または根拠を示した処理不能状態のいずれかへ到達するまで処理しなければならない。ある動画の失敗を理由に、集合内の未処理動画を停止してはならない。を**satisfy**。
 
 根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
 
@@ -824,11 +833,11 @@ diopside v8の運用は、1回の明示要求で固定した有限の適格タ�
 
 受入条件:
 - `AC-V8-OPS-005-1` 前提: 同じ公開情報、同じ正本、同じ明示要求がある。条件: 対象集合の固定データ試験。期待結果: 同じ有限の適格対象集合を固定する。。
-- `AC-V8-OPS-005-2` 前提: 固定した集合に成功可能な動画と処理不能になる動画が含まれる。条件: 一括処理の終端・失敗分離試験。期待結果: 全動画がPRレビュー可能または理由付き処理不能の終端結果を持ち、処理不能動画があっても残りの動画を処理する。。
+- `AC-V8-OPS-005-2` 前提: 固定した集合に成功可能な動画と処理不能になる動画が含まれる。条件: 一括処理の終端・失敗分離試験。期待結果: 全動画が1動画draft PR作成・最終commit push・台帳反映確認済み、または理由付き処理不能の終端結果を持ち、処理不能動画があっても残りの動画を処理する。。
 
-要求源: Issue #1 V8-運用-005, user:2026-08-03, owner-directive:2026-08-08-timestamp-batch
-検証証跡: tests/operations.test.ts, tests/timestamp_tools_test.py
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.agents/skills/generate-stream-timestamps; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/timestamp_tools_test.py; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-運用-005, user:2026-08-03, owner-directive:2026-08-08-timestamp-batch, spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md, user:2026-08-11
+検証証跡: tests/operations.test.ts, tests/timestamp_tools_test.py, tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.agents/skills/generate-stream-timestamps,.agents/skills/run-timestamp-work-harness; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/timestamp_tools_test.py,tests/timestamp_harness_test.py; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-OPS-006: 対象候補が0件の場合は、生成物、ブランチ、プルリクエストを作成してはならない
 
@@ -2299,10 +2308,11 @@ diopside v8の表示は、全編根拠を確認できる動画の詳細は、視
 受入条件:
 - `AC-V8-DISPLAY-011-1` 前提: 全編根拠と承認済みのあらすじ候補を持つ動画がある。条件: あらすじ候補検証・公開データ検証・動画詳細画面試験。期待結果: 本文と末尾の引用符付きセリフが100〜150文字で、結末、正体、勝敗等を明かさず、最後に根拠時刻へ移動できる白雪巴の特徴的なセリフを一つ表示する。。
 - `AC-V8-DISPLAY-011-2` 前提: 全編字幕または文字起こしを使ってあらすじ候補を作る。条件: 公開境界検査・repository差分確認。期待結果: 生字幕・文字起こしをGitまたは公開成果物へ含めず、安全な根拠ラベル、入力指紋、全編範囲だけを正本へ保持する。。
+- `AC-V8-DISPLAY-011-3` 前提: 新しいあらすじ候補を一括生成する。条件: rules 1.1.0の候補を検証する。期待結果: 0秒から動画末尾まで隙間のない意味区間を確認し、同じ候補hashに対する独立した事実・発言者確認、ネタバレ・個人情報確認、編集確認が全て合格する。歌詞、ゲーム・映像・朗読の台詞、他出演者の発言を白雪巴の引用として採用しない。。
 
-要求源: spec/sources/owner-directive-2026-08-08-video-synopsis.md, user:2026-08-08
+要求源: spec/sources/owner-directive-2026-08-08-video-synopsis.md, spec/sources/owner-directive-2026-08-11-synopsis-work-harness.md, user:2026-08-08, user:2026-08-11
 検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=.agents/skills/generate-video-synopses,src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,spec/sources/owner-directive-2026-08-08-video-synopsis.md,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md; 実装=.agents/skills/generate-video-synopses,.agents/skills/run-synopsis-work-harness,src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,tests/synopsis_harness_test.py,e2e/detail.spec.ts; 参照資料=Issue #1,spec/sources/owner-directive-2026-08-08-video-synopsis.md,spec/sources/owner-directive-2026-08-11-synopsis-work-harness.md,dev-standard default profile
 
 ## V8-OPS-017: 静的公開成果物は、検証済みmainマージ後にだけ自動生成してrelease commitしなければならない
 
@@ -2319,3 +2329,153 @@ diopside v8の運用は、release ID、版付き公開JSON、画面bundle、`mai
 要求源: spec/sources/owner-directive-2026-08-08-post-merge-release.md, user:2026-08-08
 検証証跡: tests/repository-policy.test.ts, tests/operations.test.ts, tests/generated.test.ts
 トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/design/generated/system.gen.md; 実装=.github/workflows/update-generated-release.yml,scripts/build-public-data.ts,scripts/validate-video-pr-scope.ts,scripts/validate-release-pr-scope.ts,scripts/verify-generated-source.ts; テスト=tests/repository-policy.test.ts,tests/operations.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-08-post-merge-release.md,dev-standard default profile
+
+## V8-OPS-018: Work用タイムスタンプ処理はPythonで台帳行を固定し中断後も同じ集合から再開できなければならない
+
+diopside v8のタイムスタンプ運用は、ChatGPT Workから開始するタイムスタンプ処理は、PythonでGoogle Sheetsの対象動画台帳を列名で読み、作成済み・除外・既存PRを除いた適格対象を行番号と行指紋を含む有限集合として固定し、同じbatch IDでは集合を変更せず中断後も再開できなければならない。を**satisfy**。
+
+根拠: 長時間処理の中断や台帳の並行更新があっても対象の追加・脱落・誤上書きを防ぎ、今後のChatGPT Work実行を同じ手順で再現するため。Python、Google Sheets、ChatGPT Workは所有者が将来運用に指定した支持環境であり、この運用範囲に限定して保持する。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-018-1` 前提: 対象動画台帳のsnapshotと一意なbatch IDがある。条件: Pythonハーネスを初期化し、同一または変更したsnapshotで再実行する。期待結果: 同一入力は同じ有限集合を再開し、行または対象集合が変わる同一batch IDを拒否し、0件ではbranch・PR・台帳書込みを行わない。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/scripts/harness_common.py; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md,dev-standard default profile
+
+## V8-OPS-019: 意味判断は独立したcodex execで実行し素材取得と決定的検証で囲まなければならない
+
+diopside v8のタイムスタンプ運用は、ハーネスは作成者時刻一覧または公開日本語字幕を優先し、必要時に公開音声と無償ローカル音声認識、匿名化したチャット補助信号を取得し、章構成・事実確認・編集確認の意味判断を役割ごとに独立した非対話のcodex execで実行して、同じ候補hashへの決定的検証合格を必須としなければならない。を**satisfy**。
+
+根拠: 素材収集と意味判断と採用判定を分離し、既存ChatGPT／Codex契約の範囲で全編根拠、独立確認、機械検証を再現可能にするため。codex execは所有者が判断実行方式として明示した永続的な運用制約である。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-019-1` 前提: 固定対象に公開字幕がある、または公開音声から全編ローカル音声認識が可能である。条件: ハーネスで素材取得と候補作成を実行する。期待結果: 生素材をGitへ保存せず、compose、fact、editorialを別のephemeral codex execとして実行し、同じ候補hashの独立確認と決定的検証に合格した候補だけをPR工程へ進める。。
+- `AC-V8-OPS-019-2` 前提: チャット補助信号が必要で公開live chatを取得できる。条件: チャット取得を実行する。期待結果: 本文と投稿者識別子を破棄した時間帯別反応量だけを一時保持し、チャット単独で境界または全編根拠を決めない。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py, tests/timestamp_tools_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/scripts/download_live_chat.py,.agents/skills/prepare-stream-evidence,.agents/skills/audit-stream-chapters; テスト=tests/timestamp_harness_test.py,tests/timestamp_tools_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md,dev-standard default profile
+
+## V8-OPS-020: 合格動画のdraft PR作成と全終端結果の台帳反映を自律的に完了しなければならない
+
+diopside v8のタイムスタンプ運用は、ハーネスは合格した各動画について1動画branchをcommit・pushしてdraft PRを作成し、実在PR URLを正本候補へ記録して最終commitをpushした後、PR URL・commit SHA・レビュー待ち状態を対象台帳行へ反映して再読確認しなければならない。処理不能動画も安全な理由と再開条件を台帳へ反映し、行指紋が変わった場合は上書きしてはならない。を**satisfy**。
+
+根拠: 候補作成だけで停止せず、人が確認できるGitHub単位と進捗台帳を一致させ、誤って未マージ候補を作成済みまたは公開済みと扱わないため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-020-1` 前提: 候補が全編根拠、独立確認、決定的検証に合格した。条件: PR工程と台帳同期を実行する。期待結果: 1動画だけのdraft PRへ最終commitがpushされ、台帳は作成済みFALSE、PR作成済み（レビュー待ち）、実在PR URL、最終commit SHAを示し、更新後の再読で一致する。。
+- `AC-V8-OPS-020-2` 前提: 動画が処理不能である、または開始後に台帳行が変更された。条件: 終端結果を台帳へ同期する。期待結果: 他動画を継続し、処理不能の段階・安全な理由・再開条件を記録し、競合行は上書きしない。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py, tests/finalize_candidate_pr_merge_test.py, tests/operations.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness,.agents/skills/generate-stream-timestamps/scripts/finalize_candidate.py,scripts/validate-video-pr-scope.ts; テスト=tests/timestamp_harness_test.py,tests/finalize_candidate_pr_merge_test.py,tests/operations.test.ts; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md,dev-standard default profile
+
+## V8-OPS-021: 2〜20のWorkセッションはremote branchの原子的claimで別動画を1件ずつ処理しなければならない
+
+diopside v8の分散タイムスタンプ運用は、2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchをGitHub connectorで原子的にref作成して未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者はclaim markerと処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。を**satisfy**。
+
+根拠: 独立Workセッション間に共有ローカル状態がなくても、GitHubのremote ref作成をcompare-and-setとして利用し、二重素材処理、同一branch更新、同一動画PR、台帳行の誤上書きを防ぐため。処理中draft PRにより中断したclaimも人が発見して再開判断できる。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-021-1` 前提: 同じ台帳snapshotから同じ未処理動画を選ぶ2つのworkerがある。条件: 両workerがGitHub connectorで同じ動画の専用remote branchをref作成してclaimする。期待結果: GitHubがref作成を受理した1workerだけが所有権を得てclaim markerと処理中draft PRを作り、競合workerはforce updateやbranch削除をせず次候補へ進む。。
+- `AC-V8-OPS-021-2` 前提: 適格動画数より多いworkerが起動した、またはclaim済み動画だけが残っている。条件: workerがclaim-nextを完了する。期待結果: 余剰workerはno_unclaimed_targetとしてbranch、PR、台帳書込みを行わず正常終了する。。
+- `AC-V8-OPS-021-3` 前提: claim済みworkerが処理中に停止した。条件: 別workerまたは人がGitHub上の状態を確認する。期待結果: 処理中draft PRとclaim markerから所有権を識別でき、自動奪取せず同じbatchとbranchで再開判断できる。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-distributed-workers.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-distributed-workers.md,dev-standard default profile
+
+## V8-OPS-022: 1つのWorkセッションは1 Solと10 Lunaでタイムスタンプを並列処理しSolが最終確認しなければならない
+
+diopside v8のタイムスタンプオーケストレーションは、1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行わなければならない。利用可能な同時threadが10未満でも10個のlane slotを維持してqueueから波状実行し、Lunaの回復可能失敗は親Solが同じ動画を引き取らなければならない。親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。を**satisfy**。
+
+根拠: 反復的で明確な動画処理を高速なLunaへ分散し、回復処理、共有GitHub・台帳書込み、高価値の最終判断をSolへ一元化することで、人の継続入力、競合、未確認候補、素材取得の一時失敗による放置を減らすため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-022-1` 前提: 1つのWorkチャットで複数の適格動画を処理する明示要求がある。条件: 親Solが1波を計画して子agentへ割り当てる。期待結果: 10個の論理lane slotがGPT-5.6 Luna mediumへ固定され、対象不足のslotはinactive_no_targetとなり、各active Lunaは異なるclaim済み動画を最大1件だけ処理し、同時thread上限が低い場合はqueueから波状実行する。。
+- `AC-V8-OPS-022-2` 前提: Lunaが候補、事実確認、編集確認、決定的検証結果を返した。条件: 正本化、PR最終commit、台帳同期へ進む。期待結果: 親GPT-5.6 Solが同じ候補hashと全編根拠を最終確認したpass記録がない候補を拒否し、GitHubとGoogle Sheetsへの確定書込みをLunaへ行わせない。。
+- `AC-V8-OPS-022-3` 前提: 1波のLunaがcomplete、needs_sol_recovery、または安全上のblockedへ到達し、有限対象が残っている。条件: キャンペーン期限前に次の処理を判断する。期待結果: 親Solがneeds_sol_recoveryを先に引き取り、人の追加入力を待たず次の10レーンを計画し、対象枯渇、期限のdrain、または全体権限・安全blockまで継続する。。
+
+要求源: spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md, spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.codex/agents/timestamp-luna-worker.toml,.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md,spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md,dev-standard default profile
+
+## V8-OPS-023: 公開動画の証拠取得は到達性診断から無料のbatch-local ASRまで段階的に回復しなければならない
+
+diopside v8のタイムスタンプ証拠取得は、公開動画のタイムスタンプ証拠取得に失敗した場合、親Solは認証情報を使わないYouTube到達性診断、公開日本語字幕の上限付き再試行、公開native音声、yt-dlpによるMP3変換、無料のbatch-local ASRを順に試さなければならない。private、member-only、年齢制限、削除済み等の安全分類と試行結果だけをignored stateへ保存し、生字幕、音声、文字起こし、チャット本文をGit、PR、台帳へ保存してはならない。を**satisfy**。
+
+根拠: 公開素材の一時的な取得失敗を即時の処理不能へ誤分類せず、無料かつ認証回避のない代替経路で完了可能性を高めながら、証拠と個人情報を公開面から分離するため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-023-1` 前提: 公開動画の字幕または音声取得が一時的に失敗する。条件: 親Solが証拠取得の回復処理を行う。期待結果: 到達性診断、字幕再試行、native音声、MP3、batch-local ASRを順に試し、前段が成功した時点で後段を省略する。。
+- `AC-V8-OPS-023-2` 前提: 公開取得経路が利用不能である。条件: 診断と回復処理の結果を永続化する。期待結果: 安全な分類、試行回数、経路、結果、diagnostic digestだけをignored stateへ保存し、生素材をGit、PR、台帳へ含めない。。
+- `AC-V8-OPS-023-3` 前提: ローカルASR依存関係またはモデルが未導入である。条件: 親Solが最後の無料回復経路を実行する。期待結果: 依存関係とモデルをbatch root配下のignored directoryへ導入し、global環境、有料API、認証回避を使用しない。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py, tests/timestamp_tools_test.py
+トレース: 設計=docs/operations/manual-content-update.md,.agents/skills/prepare-stream-evidence/references/local-asr.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/prepare-stream-evidence/scripts/diagnose_youtube_access.py,.agents/skills/prepare-stream-evidence/scripts/download_captions.py,.agents/skills/prepare-stream-evidence/scripts/download_audio.py,.agents/skills/prepare-stream-evidence/scripts/transcribe_local_asr.py,.agents/skills/run-timestamp-work-harness/scripts/harness.py; テスト=tests/timestamp_harness_test.py,tests/timestamp_tools_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md,dev-standard default profile
+
+## V8-OPS-024: 回復可能な実行・意味構成失敗はSolへ引き継ぎ台帳の処理不能へ確定してはならない
+
+diopside v8のタイムスタンプ失敗回復は、Lunaが字幕、音声、ASR、codex exec、意味構成、確認、決定的検証で回復可能な失敗へ到達した場合、needs_sol_recoveryとして親Solへ返し、親SolはGPT-5.6 Sol highで同じ動画を回復しなければならない。codex execのtrusted-destination結果は上限付きで再試行し、全編日本語字幕があるのに章候補を構成できない場合は素材不足ではなく意味構成失敗として扱わなければならない。期限内に回復できない場合はdeferred_recovery checkpointを残し、Google Sheetsへ処理不能を書いてはならない。を**satisfy**。
+
+根拠: 子agentや一時実行環境の能力・接続失敗を動画固有の処理不能と混同せず、親の強いモデルと回復経路を使って完了まで押し進め、期限後も安全に再開できるようにするため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-024-1` 前提: Lunaが回復可能な証拠取得、codex exec、意味構成、確認、または検証失敗へ到達する。条件: Lunaの1動画処理が終了する。期待結果: blockedや台帳の処理不能ではなくneeds_sol_recoveryを返し、親Solが同じbatch、wave、video、branch、Draft PRを引き継ぐ。。
+- `AC-V8-OPS-024-2` 前提: codex execがtrusted-destinationを返す、または全編日本語字幕から章候補を構成できない。条件: 親Solが回復処理を行う。期待結果: trusted-destinationは上限付き再試行し、意味構成失敗はGPT-5.6 Sol highで再実行して素材不足と区別する。。
+- `AC-V8-OPS-024-3` 前提: campaignのdrain期限までに回復可能失敗を解消できない。条件: 親Solが最終状態と台帳更新可否を判定する。期待結果: safe reasonと再開情報を持つdeferred_recovery checkpointをignored stateへ残し、当該動画をGoogle Sheetsの処理不能へ更新せず、他動画の処理を継続する。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md,.agents/skills/run-timestamp-work-harness/references/web-work-prompt.md; 実装=.codex/agents/timestamp-luna-worker.toml,.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md,dev-standard default profile
+
+## V8-OPS-026: 最大1000件のWork campaignは固定manifestと安全なremote checkpointで実行環境をまたいで継続しなければならない
+
+diopside v8の大規模タイムスタンプcampaignは、最大1000件のタイムスタンプcampaignは開始時に対象動画ID、順序、台帳行指紋、base commitを一度だけ固定し、10件ずつ処理しなければならない。各Work実行のdrain前と各wave後に、生字幕、音声、文字起こし、chat本文、識別子、資格情報を含まない安全なcheckpointを専用GitHub campaign branchへ観測済み親commitを条件として保存し、Work環境消失または利用制限後は同じcampaign IDを復元して完了済みを保持し未完了だけを安全な工程から再開しなければならない。を**satisfy**。
+
+根拠: 単一Work実行の時間・利用量・ローカル状態保持へ1000件の完了可能性を依存させず、旧連続queueと同等の対象固定、失敗隔離、再開性を保ちながら生素材の公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-026-1` 前提: 1000件までの適格動画を処理する明示要求と対象動画台帳snapshotがある。条件: 親Solがcampaignを初期化し100wave以上を計画する。期待結果: 対象順序と行指紋をimmutable manifestへ一度だけ固定し、各waveは未変更manifestの連続する最大10件だけを重複なく割り当てる。。
+- `AC-V8-OPS-026-2` 前提: waveが終端した、drainへ入る、または利用制限で停止する。条件: 親Solがcampaign checkpointを永続化する。期待結果: 専用remote branchを観測済み親commitとのcompare-and-setで更新し、生素材と資格情報を含めず、競合時はforceせずremoteを再読する。。
+- `AC-V8-OPS-026-3` 前提: 別のWork環境で同じcampaignを再開する。条件: 親Solがremote checkpointを検証してrestoreする。期待結果: 完了済み状態を保持し、処理途中だけを安全な回復境界へ巻き戻し、同じcampaign IDと固定対象の残りを継続する。。
+- `AC-V8-OPS-026-4` 前提: 1000件のsynthetic manifest、101以上のwave、または途中kill後のcheckpointがある。条件: 耐久・復元試験を実行する。期待結果: 対象の欠落・重複・完了状態の回帰・生素材のcheckpoint混入がなく、次waveを決定的に再計画できる。。
+
+要求源: spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md, user:2026-08-12
+検証証跡: tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md,dev-standard default profile
+
+## V8-OPS-025: Work用あらすじ処理は1 Sol・10 Lunaと候補hash gateで有限対象を継続しなければならない
+
+diopside v8のあらすじ運用は、ChatGPT Workから開始する未作成あらすじcampaignは、親GPT-5.6 SolとGPT-5.6 Luna mediumの10論理レーンとして構成し、最新mainの正本にあらすじがない公開動画だけを原子的にclaimしなければならない。Lunaはclaim済み1動画の一時全編根拠、候補、独立確認、決定的検証だけを行い、親Solだけが現在の候補hashを最終確認して1動画draft PRとあらすじ作業台帳を確定しなければならない。を**satisfy**。
+
+根拠: 長時間の全編確認と反復的な候補作成をLunaへ分散しながら、既存あらすじの上書き、未確認候補の正本化、共有先の競合、動画単位の失敗によるcampaign停止を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-025-1` 前提: 最新mainと対象動画・あらすじ作業台帳のsnapshotがある。条件: 親Solが1波を計画する。期待結果: 既存あらすじ、除外、処理中、既存draft PRを除き、exact-case動画branchを原子的claimとする重複しない最大10論理レーンをGPT-5.6 Luna mediumへ割り当てる。同時thread上限が低い場合も同じ10レーンを波状実行する。。
+- `AC-V8-OPS-025-2` 前提: Lunaが全編coverage、候補、独立三確認、決定的validatorを返した。条件: 正本化、PR最終commit、台帳更新へ進む。期待結果: 親GPT-5.6 Solが同じcandidate hashへ合格を記録していない候補を拒否し、LunaによるGitHub・Google Sheets書込みと既存あらすじの上書きを拒否する。。
+- `AC-V8-OPS-025-3` 前提: 1波の各動画がcompleteまたは理由付きblockedとなった。条件: 台帳再読を完了し期限前に適格動画が残る。期待結果: 人の追加入力を待たず次のwaveを計画し、対象枯渇、期限のdrain、または全体権限・安全blockまで継続する。行指紋が変わった動画だけをledger conflictとして分離する。。
+
+要求源: spec/sources/owner-directive-2026-08-11-synopsis-work-harness.md, user:2026-08-11
+検証証跡: tests/synopsis_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-synopsis-work-harness/references/workflow.md; 実装=.codex/agents/synopsis-luna-worker.toml,.agents/skills/run-synopsis-work-harness/scripts/harness.py,.agents/skills/run-synopsis-work-harness/scripts/validate_dossier.py,.agents/skills/run-synopsis-work-harness/SKILL.md; テスト=tests/synopsis_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-synopsis-work-harness.md,dev-standard default profile
