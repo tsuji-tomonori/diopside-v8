@@ -52,7 +52,7 @@ selected_checks:
   - {id: FAST-003, class: Invariant, result: pass, evidence: ["test:tests/review_contract_test.py", "workflow:要件・品質ゲート#要件の品質ゲートを実行"], note: "Ruffと既存lintを警告0件で実行する"}
   - {id: FAST-004, class: Invariant, result: pass, evidence: ["test:tests/repository-policy.test.ts", "test:tests/review_contract_test.py"], note: "正規commit、単一review squash、複数review拒否の経路を検証する"}
   - {id: FAST-005, class: Risk-selected, result: pass, evidence: ["test:tests/review_contract_test.py"], note: "必須Commit Comment欠落でreleaseが停止した再現条件をGitHub squash fallback試験として固定した"}
-  - {id: FAST-006, class: Invariant, result: pass, evidence: ["path:.github/workflows/update-generated-release.yml", "test:tests/repository-policy.test.ts"], note: "最新mainから公開JSONを決定生成し、生成差分をrelease commitへ限定する契約を維持する"}
+  - {id: FAST-006, class: Invariant, result: pass, evidence: ["path:.github/workflows/update-generated-release.yml", "path:docs/design/generated/inventory.gen.json", "test:tests/repository-policy.test.ts"], note: "最新mainから公開JSONを決定生成し、生成差分をrelease commitへ限定する契約を維持し、変更した方針検査のインベントリhashをActions生成結果へ同期した"}
   - {id: FAST-007, class: Invariant, result: pass, evidence: ["commit:self"], note: "字幕、秘密情報、認証情報を追加していない"}
   - {id: FAST-015, class: Advisory, result: pass, evidence: ["path:.github/workflows/update-generated-release.yml"], note: "strict検証と限定fallbackの失敗をActionsのstep結果として識別できる"}
   - {id: REV-001, class: Invariant, result: pass, evidence: ["path:.github/workflows/update-generated-release.yml", "path:governance/reviews/validate.py", "test:tests/review_contract_test.py"], note: "公開停止の直接原因、回復経路、回帰試験だけを保守PRへ限定した"}
