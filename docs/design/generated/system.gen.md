@@ -124,6 +124,7 @@
 | `src/domain/content.ts` | VariableStatement | `timestampOriginSchema` |
 | `src/domain/content.ts` | FunctionDeclaration | `videoShardId` |
 | `src/domain/content.ts` | VariableStatement | `wordCloudMissingReasonSchema` |
+| `src/domain/game-title-detection.ts` | FunctionDeclaration | `detectExplicitGameTitleTagIds` |
 | `src/domain/search.ts` | FunctionDeclaration | `additionalTagCounts` |
 | `src/domain/search.ts` | FunctionDeclaration | `applySearch` |
 | `src/domain/search.ts` | FunctionDeclaration | `bucketRange` |
@@ -164,9 +165,10 @@
 - `e2e/search.spec.ts`
 - `src/data/deviceStore.test.ts`
 - `src/data/loadPublicData.test.ts`
+- `src/domain/game-title-detection.test.ts`
 - `src/domain/search.test.ts`
 - `src/domain/validation.test.ts`
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力40ファイル、公開契約113件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力43ファイル、公開契約114件です。
