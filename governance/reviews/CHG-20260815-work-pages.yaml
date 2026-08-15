@@ -102,7 +102,7 @@ selected_checks:
       - test:src/features/works/WorkDetailPage.test.tsx
       - test:tests/content-validation.test.ts
       - test:tests/generated.test.ts
-    note: 作品画面、公式引用、同一タグ動画4件、未登録時の安全表示、決定生成を単体・統合試験で確認した
+    note: 作品画面、公式引用、同一タグ動画4件、掲載不可理由と確認先の表示、全245タグの分類漏れ防止を単体・統合試験で確認した
   - id: FAST-006
     class: Invariant
     result: pass
@@ -124,7 +124,7 @@ selected_checks:
     evidence:
       - test:src/features/works/WorkDetailPage.test.tsx
       - test:e2e/detail.spec.ts
-    note: 作品ページの通常、未登録紹介、動画0件、未知タグの各状態を明示的に実装し主要状態を試験した
+    note: 作品ページの通常、公式紹介を掲載できない場合、動画0件、未知タグの各状態を明示的に実装し主要状態を試験した
   - id: FAST-014
     class: Risk-selected
     result: na
@@ -154,7 +154,7 @@ selected_checks:
     result: pass
     evidence:
       - path:spec/requirements/requirements.json
-    note: 実装とV8-DISPLAY-012の作品タグ遷移・公式引用・安全な未登録表示が一致する
+    note: 実装とV8-DISPLAY-012の作品タグ遷移・公式引用・掲載不可理由の明示が一致する
   - id: REV-004
     class: Invariant
     result: pass
@@ -201,7 +201,7 @@ selected_checks:
     evidence:
       - test:tests/generated.test.ts
       - path:src/domain/content.ts
-    note: 作品紹介は既存タグ要素への任意フィールド追加であり、既存consumerとURLを維持し、旧データでも未登録表示へ安全にfallbackする
+    note: 作品紹介と掲載不可理由は既存タグ要素への任意フィールド追加であり、既存consumerとURLを維持し、旧データでも調査結果なし表示へ安全にfallbackする
   - id: REV-013
     class: Risk-selected
     result: pass
@@ -211,5 +211,6 @@ selected_checks:
     note: 作品タグから一覧へ移動する主要タスクをcomponentで検証し、mobile・desktop E2EをCIへ追加した
 advisories: []
 residual_risks:
-  - 225件のゲーム作品名のうち、公式説明と作品名を安全に照合できた88件だけ紹介文を公開する。残りは根拠のない説明を生成せず確認中と表示する。
+  - 全245作品タグのうち226件は公式紹介文と公式リンクを公開する。18件は配信企画・ハッシュタグ・ジャンル等で単一作品ではないため、公式作品紹介を定義できない理由を表示する。
+  - Only Up!は原作販売ページが削除され紹介本文が残っていないため、同名の模倣作品を引用せず、原作アプリIDのSteam公式コミュニティページと掲載不可理由だけを表示する。
   - ローカルsandboxではChromiumのsocket生成が拒否され、追加E2Eの実行はPR CIで確認する。
