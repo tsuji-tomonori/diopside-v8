@@ -85,6 +85,7 @@ jobs:
           image-ref: diopside-ingestion-worker:${{ github.sha }}
           version: v0.74.0
           format: table
+          scanners: vuln
           exit-code: '1'
           ignore-unfixed: true
           severity: CRITICAL,HIGH
