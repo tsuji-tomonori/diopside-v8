@@ -70,7 +70,7 @@ selected_checks:
   result: pass
   evidence:
   - commit:self
-  note: 人の明示要求がbranch、push、Draft PR、台帳更新を許可している。
+  note: 利用者が完成済みのあらすじ・タイムスタンプPRを順次mergeする公開承認を2026-08-15に明示した。最新main統合後の品質ゲート合格をmerge条件とする。
 - id: IMP-007
   class: Risk-selected
   result: pass
@@ -144,6 +144,5 @@ selected_checks:
   note: 未選択checkをN/Aとして登録しない。
 advisories: []
 residual_risks:
-- タイムスタンプ候補hash c9d1cc3567aabf878e9f5d51c0f2947aea095422a89ce4b976ac5749c8d6d390 とあらすじ候補hash 471cde3255015b10f96e85c8d3b16570b9a44c3a282ff4792880781085a42d2e はDraft PRの人によるmergeまで公開されない。
-- ローカルVitestは同時実行中の別harnessによる資源逼迫でworker起動がtimeoutしたため、GitHub Actionsで再確認する。
-- 動画差分はmaintenance Draft PR #258を先行baseとして品質ゲートで検証する。同PRではunitとE2Eの全動画件数を正本manifest参照へ統一済みで、merge後にbaseをmainへ戻す。
+- タイムスタンプ候補hash c9d1cc3567aabf878e9f5d51c0f2947aea095422a89ce4b976ac5749c8d6d390 とあらすじ候補hash 471cde3255015b10f96e85c8d3b16570b9a44c3a282ff4792880781085a42d2e は人によるmergeまで公開されない。
+- maintenance PR #258を取り込んだ最新main上でGitHub Actions合格を再確認するまではpublicationGateが未充足である。
