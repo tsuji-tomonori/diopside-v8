@@ -11,6 +11,7 @@ import {
   type TaxonomyLookupItem,
 } from './content.ts';
 import { normalizeTagAlias } from './search.ts';
+import { detectExplicitGameTitleTagIds } from './game-title-detection.ts';
 
 export interface ValidationIssue {
   code: string;
@@ -165,7 +166,7 @@ export function validateCanonicalVideo(
   }
   const tags = [...assigned.values()];
   validateDeclaredCardinality(taxonomy, tags, issues);
-  validateConditionalTags(video, tags, issues);
+  validateConditionalTags(video, tags, issues, taxonomy, aliases, assigned);
   validateSynopsis(video, issues);
   validateTimestamps(video, tags, issues);
   validateWordCloud(video, issues);
@@ -253,7 +254,14 @@ function validateDeclaredCardinality(
   }
 }
 
-function validateConditionalTags(video: CanonicalVideo, tags: TaxonomyLookupItem[], issues: ValidationIssue[]): void {
+function validateConditionalTags(
+  video: CanonicalVideo,
+  tags: TaxonomyLookupItem[],
+  issues: ValidationIssue[],
+  taxonomy: TagTaxonomy,
+  aliases: TagAliases,
+  assigned: Map<string, TaxonomyLookupItem>,
+): void {
   const primaryGenres = tags
     .filter((tag) => tag.categoryId === 'content' && tag.subcategoryId === 'primary')
     .map((tag) => tag.canonicalName);
@@ -263,6 +271,15 @@ function validateConditionalTags(video: CanonicalVideo, tags: TaxonomyLookupItem
   if (genres.includes('ゲーム')) {
     requireCount(issues, tags, 'works', 'gameTitle', 1, Number.POSITIVE_INFINITY, 'ゲーム作品名');
     requireCount(issues, tags, 'content', 'gameGenre', 1, 3, 'ゲームジャンル');
+  }
+  const assignedGameTitles = tags.filter((tag) => tag.categoryId === 'works' && tag.subcategoryId === 'gameTitle');
+  if (assignedGameTitles.length > 0 && !genres.includes('ゲーム')) {
+    issues.push(issue('GAME_TITLE_WITHOUT_GAME_GENRE', 'tagAssignments', 'ゲーム作品名がある動画は主または副ジャンルに「ゲーム」が必要です。'));
+  }
+  for (const tagId of detectExplicitGameTitleTagIds(video.title, taxonomy, aliases)) {
+    if (!assigned.has(tagId)) {
+      issues.push(issue('EXPLICIT_GAME_TITLE_TAG_MISSING', 'tagAssignments', '公開タイトルに明示されたゲーム作品名タグがありません。'));
+    }
   }
   if (genres.includes('雑談')) requireCount(issues, tags, 'content', 'talkStyle', 1, 3, '雑談種別');
   if (primaryGenres.includes('同時視聴')) {
