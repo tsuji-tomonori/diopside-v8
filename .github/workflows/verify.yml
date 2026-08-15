@@ -74,13 +74,13 @@ jobs:
           uv run --directory infra mypy .
           uv run --directory infra pytest -q
       - name: CDK synthとcdk-nagを実行
-        run: npm --prefix infra exec -- cdk synth --quiet
+        run: cd infra && npm exec -- cdk synth --quiet
       - name: as-built CDK設計差分を検査
         run: python .agents/skills/generate-implementation-design/scripts/designflow.py cdk --template infra/cdk.out/DiopsideIngestionStack.template.json --out docs/design/generated/cdk/diopside-ingestion --repo-root . --check
       - name: worker imageをbuild
         run: docker build --tag diopside-ingestion-worker:${{ github.sha }} infra
       - name: worker imageを脆弱性検査
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@v0.33.1
         with:
           image-ref: diopside-ingestion-worker:${{ github.sha }}
           format: table

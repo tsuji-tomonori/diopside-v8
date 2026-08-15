@@ -8,6 +8,7 @@ import type { PublicBundle } from './data/loadPublicData.ts';
 import { DeviceLibraryPage } from './features/library/DeviceLibraryPage.tsx';
 import { SearchPage } from './features/search/SearchPage.tsx';
 import { VideoDetailPage } from './features/detail/VideoDetailPage.tsx';
+import { WorkDetailPage } from './features/works/WorkDetailPage.tsx';
 
 export function App({ bundle, store }: { bundle: PublicBundle; store: DeviceStore }): React.JSX.Element {
   const [notice, setNotice] = useState('');
@@ -21,6 +22,7 @@ export function App({ bundle, store }: { bundle: PublicBundle; store: DeviceStor
           <Routes>
             <Route path="/" element={<SearchPage />} />
             <Route path="/video/:videoId" element={<VideoDetailPage />} />
+            <Route path="/works/:tagId" element={<WorkDetailPage />} />
             <Route path="/library" element={<DeviceLibraryPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

@@ -109,8 +109,11 @@ legend { font-weight: 800; margin-bottom: .4rem; }
 .detail-tag-group { margin-top: 1.25rem; }
 .detail-tag-group h3 { font-size: .88rem; color: var(--muted); }
 .detail-tags { display: flex; flex-wrap: wrap; gap: .55rem; }
-.detail-tags > span { display: grid; gap: .1rem; min-height: 48px; padding: .5rem .75rem; border: 1px solid var(--line); border-radius: 10px; background: white; }
+.detail-tags > span, .detail-tag-link { display: grid; gap: .1rem; min-height: 48px; padding: .5rem .75rem; border: 1px solid var(--line); border-radius: 10px; background: white; }
 .detail-tags small { color: var(--muted); font-size: .65rem; }
+.detail-tag-link { color: var(--lavender-dark); text-decoration: none; }
+.detail-tag-link > span { margin-top: .25rem; font-size: .7rem; font-weight: 700; }
+.detail-tag-link:hover { border-color: var(--lavender); background: var(--lavender-pale); }
 .timestamps { list-style: none; padding: 0; margin: 1rem 0 0; }
 .timestamps li + li { border-top: 1px solid var(--line); }
 .timestamps a { display: grid; grid-template-columns: 5rem 1fr auto; min-height: 58px; align-items: center; gap: 1rem; text-decoration: none; }
@@ -121,6 +124,14 @@ legend { font-weight: 800; margin-bottom: .4rem; }
 .page-intro { padding: clamp(1.5rem, 5vw, 3rem); margin-bottom: 1.25rem; }
 .page-intro h1 { font-size: clamp(2.2rem, 5vw, 4rem); }
 .page-intro > p:not(.eyebrow) { max-width: 780px; color: var(--muted); line-height: 1.8; }
+.work-page { padding: 2rem 0 5rem; }
+.work-intro { margin-bottom: 0; }
+.work-quote { max-width: 54rem; margin: 1.5rem 0 1rem; padding: 1rem 1.25rem; border-left: 4px solid var(--lavender); background: #f7f3fb; }
+.work-quote p { margin: 0; font: 600 clamp(1.05rem, 2.5vw, 1.35rem)/1.8 Georgia, "Yu Mincho", serif; }
+.work-source { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; align-items: center; }
+.work-source a { min-height: 44px; display: inline-flex; align-items: center; color: var(--lavender-dark); font-weight: 700; }
+.work-source span { font-size: .8rem; }
+.work-results { padding-bottom: 0; }
 .library-section { margin-top: 1.25rem; padding: clamp(1.25rem, 4vw, 2rem); }
 .library-section h2 span { color: var(--muted); font: 400 .9rem sans-serif; }
 .simple-list { list-style: none; padding: 0; }

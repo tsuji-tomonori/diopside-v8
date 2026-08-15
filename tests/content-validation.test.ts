@@ -5,6 +5,7 @@ import {
   publicIndexSchema,
   tagAliasesSchema,
   tagTaxonomySchema,
+  workIntroductionsSchema,
 } from '../src/domain/content.ts';
 import { normalizeTagAlias } from '../src/domain/search.ts';
 import { scanPublicBoundary, validateCanonicalVideo, validateTaxonomy } from '../src/domain/validation.ts';
@@ -17,6 +18,7 @@ const aliasesInput = json('content/taxonomy/tag-aliases.json');
 const taxonomy = tagTaxonomySchema.parse(taxonomyInput);
 const aliases = tagAliasesSchema.parse(aliasesInput);
 const videos = readCanonicalVideos(root);
+const workIntroductions = workIntroductionsSchema.parse(json('content/works/work-introductions.json'));
 
 describe('タグ・動画正本と公開境界', () => {
   it('7大分類・30小分類・不変タグID・別名を一貫して検証する', () => {
@@ -114,6 +116,30 @@ describe('タグ・動画正本と公開境界', () => {
     }
     expect(scanPublicBoundary(index)).toEqual([]);
     expect(JSON.stringify(index)).not.toMatch(/(?:transcript|subtitles|comments|chat|authorId)/iu);
+  });
+
+  it('全作品タグに公式紹介または掲載不能の具体的理由があり、両者は重複しない', () => {
+    const workTagIds = new Set(taxonomy.categories
+      .find((category) => category.categoryId === 'works')!
+      .subcategories.flatMap((subcategory) => subcategory.tags.map((tag) => tag.tagId)));
+    expect(workIntroductions.introductions.length).toBeGreaterThan(0);
+    expect(new Set(workIntroductions.introductions.map((item) => item.tagId)).size).toBe(workIntroductions.introductions.length);
+    expect(new Set(workIntroductions.unavailable.map((item) => item.tagId)).size).toBe(workIntroductions.unavailable.length);
+    const accounted = new Set<string>();
+    for (const introduction of workIntroductions.introductions) {
+      expect(workTagIds.has(introduction.tagId)).toBe(true);
+      expect(introduction.officialUrl).toMatch(/^https:\/\//u);
+      expect(introduction.quote.length).toBeLessThanOrEqual(160);
+      accounted.add(introduction.tagId);
+    }
+    for (const unavailable of workIntroductions.unavailable) {
+      expect(workTagIds.has(unavailable.tagId)).toBe(true);
+      expect(accounted.has(unavailable.tagId)).toBe(false);
+      expect(unavailable.reason.length).toBeGreaterThan(0);
+      if (unavailable.reference) expect(unavailable.reference.url).toMatch(/^https:\/\//u);
+      accounted.add(unavailable.tagId);
+    }
+    expect(accounted).toEqual(workTagIds);
   });
 });
 

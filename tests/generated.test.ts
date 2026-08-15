@@ -10,6 +10,7 @@ import {
   searchIndexSchema,
   tagAliasesSchema,
   tagTaxonomySchema,
+  workIntroductionsSchema,
   type CanonicalVideo,
 } from '../src/domain/content.ts';
 import { scanPublicBoundary } from '../src/domain/validation.ts';
@@ -31,8 +32,9 @@ describe('決定的な公開成果物', () => {
   it('正本の論理内容から同じ公開版IDを再計算できる', () => {
     const taxonomy = tagTaxonomySchema.parse(json('content/taxonomy/tag-taxonomy.json'));
     const aliases = tagAliasesSchema.parse(json('content/taxonomy/tag-aliases.json'));
+    const workIntroductions = workIntroductionsSchema.parse(json('content/works/work-introductions.json'));
     const videos = readCanonicalVideos(root).map(normalizeCanonicalVideo);
-    const expected = `release-${sha256(canonicalJson({ taxonomy, aliases, videos })).slice(0, 16)}`;
+    const expected = `release-${sha256(canonicalJson({ taxonomy, aliases, workIntroductions, videos })).slice(0, 16)}`;
     expect(latest.releaseId).toBe(expected);
     expect(embeddedReleaseId).toBe(expected);
   });

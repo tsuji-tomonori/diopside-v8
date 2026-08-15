@@ -19,6 +19,7 @@
 - `/`
 - `/library`
 - `/video/:videoId`
+- `/works/:tagId`
 
 ## 要件正本
 
@@ -26,7 +27,7 @@
 |---|---:|
 | COST | 5 |
 | DEVICE | 11 |
-| DISPLAY | 11 |
+| DISPLAY | 12 |
 | INGEST | 11 |
 | OPS | 26 |
 | QUALITY | 5 |
@@ -34,7 +35,7 @@
 | SEARCH | 19 |
 | TAG | 35 |
 | TIME | 37 |
-| **合計** | **164** |
+| **合計** | **165** |
 
 ## 公開データの流れ
 
@@ -125,6 +126,9 @@
 | `src/domain/content.ts` | VariableStatement | `timestampOriginSchema` |
 | `src/domain/content.ts` | FunctionDeclaration | `videoShardId` |
 | `src/domain/content.ts` | VariableStatement | `wordCloudMissingReasonSchema` |
+| `src/domain/content.ts` | TypeAliasDeclaration | `WorkIntroductions` |
+| `src/domain/content.ts` | VariableStatement | `workIntroductionsSchema` |
+| `src/domain/game-title-detection.ts` | FunctionDeclaration | `detectExplicitGameTitleTagIds` |
 | `src/domain/search.ts` | FunctionDeclaration | `additionalTagCounts` |
 | `src/domain/search.ts` | FunctionDeclaration | `applySearch` |
 | `src/domain/search.ts` | FunctionDeclaration | `bucketRange` |
@@ -154,6 +158,7 @@
 | `src/features/detail/VideoDetailPage.tsx` | FunctionDeclaration | `VideoDetailPage` |
 | `src/features/library/DeviceLibraryPage.tsx` | FunctionDeclaration | `DeviceLibraryPage` |
 | `src/features/search/SearchPage.tsx` | FunctionDeclaration | `SearchPage` |
+| `src/features/works/WorkDetailPage.tsx` | FunctionDeclaration | `WorkDetailPage` |
 | `src/format.ts` | FunctionDeclaration | `formatDate` |
 | `src/format.ts` | FunctionDeclaration | `formatDuration` |
 | `src/format.ts` | FunctionDeclaration | `formatTimestamp` |
@@ -165,9 +170,11 @@
 - `e2e/search.spec.ts`
 - `src/data/deviceStore.test.ts`
 - `src/data/loadPublicData.test.ts`
+- `src/domain/game-title-detection.test.ts`
 - `src/domain/search.test.ts`
 - `src/domain/validation.test.ts`
+- `src/features/works/WorkDetailPage.test.tsx`
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力40ファイル、公開契約113件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力45ファイル、公開契約117件です。

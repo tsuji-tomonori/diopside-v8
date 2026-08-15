@@ -12,6 +12,7 @@ import {
   searchIndexSchema,
   tagAliasesSchema,
   tagTaxonomySchema,
+  workIntroductionsSchema,
   type CanonicalVideo,
   type PublicVideoDetail,
   type PublicVideoSummary,
@@ -31,8 +32,10 @@ const publicDataDir = path.join(root, 'public/data');
 const generatedSourceDir = path.join(root, 'src/generated');
 const taxonomyInput = readJson(path.join(root, 'content/taxonomy/tag-taxonomy.json'));
 const aliasesInput = readJson(path.join(root, 'content/taxonomy/tag-aliases.json'));
+const workIntroductionsInput = readJson(path.join(root, 'content/works/work-introductions.json'));
 const taxonomy = tagTaxonomySchema.parse(taxonomyInput);
 const aliases = tagAliasesSchema.parse(aliasesInput);
+const workIntroductions = workIntroductionsSchema.parse(workIntroductionsInput);
 const contentManifest = readJson(path.join(root, 'content/content-manifest.json')) as ContentManifest;
 
 const taxonomyIssues = validateTaxonomy(taxonomyInput, aliasesInput);
@@ -47,6 +50,7 @@ for (const video of videos) {
 const releaseSeed = {
   taxonomy,
   aliases,
+  workIntroductions,
   videos: videos.map(normalizeCanonicalVideo),
 };
 const releaseId = `release-${sha256(canonicalJson(releaseSeed)).slice(0, 16)}`;
@@ -85,6 +89,25 @@ for (const video of videos) {
     tagToVideoIds.set(tagId, values);
   }
 }
+const workTagIds = new Set(
+  taxonomy.categories
+    .find((category) => category.categoryId === 'works')
+    ?.subcategories.flatMap((subcategory) => subcategory.tags.map((tag) => tag.tagId)) ?? [],
+);
+const introductionsByTagId = new Map(workIntroductions.introductions.map((introduction) => [introduction.tagId, introduction]));
+if (introductionsByTagId.size !== workIntroductions.introductions.length) throw new Error('作品紹介のタグIDが重複しています。');
+for (const tagId of introductionsByTagId.keys()) {
+  if (!workTagIds.has(tagId)) throw new Error(`作品紹介が作品タグを参照していません: ${tagId}`);
+}
+const unavailableByTagId = new Map(workIntroductions.unavailable.map((item) => [item.tagId, item]));
+if (unavailableByTagId.size !== workIntroductions.unavailable.length) throw new Error('作品紹介不能理由のタグIDが重複しています。');
+for (const tagId of unavailableByTagId.keys()) {
+  if (!workTagIds.has(tagId)) throw new Error(`作品紹介不能理由が作品タグを参照していません: ${tagId}`);
+  if (introductionsByTagId.has(tagId)) throw new Error(`作品紹介と紹介不能理由が同時に設定されています: ${tagId}`);
+}
+for (const tagId of workTagIds) {
+  if (!introductionsByTagId.has(tagId) && !unavailableByTagId.has(tagId)) throw new Error(`作品紹介の調査結果が未設定です: ${tagId}`);
+}
 const tagIndex = publicTagIndexSchema.parse({
   schemaVersion: '1.0.0',
   releaseId,
@@ -100,7 +123,26 @@ const tagIndex = publicTagIndexSchema.parse({
       order: subcategory.order,
       tags: subcategory.tags.filter((tag) => tag.active).map((tag) => {
         const videoIds = [...(tagToVideoIds.get(tag.tagId) ?? [])].sort();
-        return { tagId: tag.tagId, canonicalName: tag.canonicalName, count: videoIds.length, videoIds };
+        const introduction = introductionsByTagId.get(tag.tagId);
+        const introductionUnavailable = unavailableByTagId.get(tag.tagId);
+        return {
+          tagId: tag.tagId,
+          canonicalName: tag.canonicalName,
+          count: videoIds.length,
+          videoIds,
+          ...(introduction ? { introduction: {
+            quote: introduction.quote,
+            officialUrl: introduction.officialUrl,
+            sourceLabel: introduction.sourceLabel,
+            retrievedAt: introduction.retrievedAt,
+          } } : {}),
+          ...(introductionUnavailable ? { introductionUnavailable: {
+            reasonCode: introductionUnavailable.reasonCode,
+            reason: introductionUnavailable.reason,
+            checkedAt: introductionUnavailable.checkedAt,
+            ...(introductionUnavailable.reference ? { reference: introductionUnavailable.reference } : {}),
+          } } : {}),
+        };
       }),
     })),
   })),

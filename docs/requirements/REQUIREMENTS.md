@@ -34,6 +34,7 @@
 | `V8-DISPLAY-009` | 1 | 有効 | 機能 | diopside v8の表示は、ワードクラウドの語句をタイトル文字検索の対象へ混入してはならない。を**satisfy** | 検索除外試験 |
 | `V8-DISPLAY-010` | 1 | 有効 | 機能 | diopside v8の表示は、動画詳細は、タグ、タイムスタンプ、ワードクラウドの最終更新日を日本語で示さなければならない。を**satisfy** | 画面契約試験 |
 | `V8-DISPLAY-011` | 2 | 有効 | データ | diopside v8の表示は、全編根拠を確認できる動画の詳細は、視聴意欲を促しつつ結末、正体、勝敗等のネタバレを避けた日本語あらすじを表示しなければならない。本文と末尾の引用符付きセリフは合計100〜150文字とし、最後に対象配信で白雪巴が実際に発した特徴的なセリフを一つ置かなければならない。を**satisfy** | あらすじ候補検証・公開データ検証・動画詳細画面試験・公開境界検査 |
+| `V8-DISPLAY-012` | 1 | 有効 | 機能 | diopside v8の作品タグと作品ページは、動画詳細の作品タグは、その作品タグを持つ公開動画の一覧ページへ移動できなければならない。ゲーム作品ページは、確認日を持つ短い公式説明の引用、引用元名、HTTPSの公式ページリンクを表示し、外部ページは利用者がリンクを押した場合だけ開かなければならない。を**satisfy** | 公開データ構造試験、作品タグ遷移E2E、公式リンク・引用表示・外部自動通信禁止試験 |
 | `V8-INGEST-001` | 1 | 有効 | インターフェース | diopside v8のprivate ingestion要求は、外部ingestion要求は11文字のYouTube video_idだけを含み、未知fieldまたは内部状態を含んではならない。を**強制する** | 契約単体試験 |
 | `V8-INGEST-002` | 2 | 有効 | データ | diopside v8のprivate backfill対象は、歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。を**強制する** | manifest生成・改ざん・enqueue試験 |
 | `V8-INGEST-003` | 1 | 有効 | データ | diopside v8のprivate ingestion状態は、進捗状態はVideoIngestion単一DynamoDB tableのvideo_id partition keyだけを使う一動画一itemで保持し、sort key、GSI、用途別item typeを追加してはならない。を**強制する** | CDK template・状態repository試験 |
@@ -578,6 +579,23 @@ diopside v8の表示は、全編根拠を確認できる動画の詳細は、視
 要求源: spec/sources/owner-directive-2026-08-08-video-synopsis.md, spec/sources/owner-directive-2026-08-11-synopsis-work-harness.md, user:2026-08-08, user:2026-08-11
 検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts, e2e/detail.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=.agents/skills/generate-video-synopses,.agents/skills/run-synopsis-work-harness,src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,tests/synopsis_harness_test.py,e2e/detail.spec.ts; 参照資料=Issue #1,spec/sources/owner-directive-2026-08-08-video-synopsis.md,spec/sources/owner-directive-2026-08-11-synopsis-work-harness.md,dev-standard default profile
+
+## V8-DISPLAY-012: 作品タグは公式紹介付きの作品別動画一覧へ移動できなければならない
+
+diopside v8の作品タグと作品ページは、動画詳細の作品タグは、その作品タグを持つ公開動画の一覧ページへ移動できなければならない。ゲーム作品ページは、確認日を持つ短い公式説明の引用、引用元名、HTTPSの公式ページリンクを表示し、外部ページは利用者がリンクを押した場合だけ開かなければならない。を**satisfy**。
+
+根拠: 同じゲームや作品の配信を連続して探せるようにし、作品を知らない利用者にも出典を明示した一次情報で概要を伝えるため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-012-1` 前提: 動画詳細に作品分類の承認済みタグが表示されている。条件: 利用者が作品タグを押す。期待結果: 不変タグIDをURLに持つ作品ページへ移動し、そのタグを持つ公開動画だけを公開日の新しい順で表示する。。
+- `AC-V8-DISPLAY-012-2` 前提: ゲーム作品タグに確認済みの公式紹介が登録されている。条件: 作品ページを表示する。期待結果: 短い引用、引用元名、確認日、HTTPSの公式ページリンクを表示し、ページ表示だけでは外部サイトへ通信しない。。
+- `AC-V8-DISPLAY-012-3` 前提: 公式紹介をまだ登録していない作品タグがある。条件: 作品ページを表示する。期待結果: 根拠のない紹介文を生成せず確認中と示し、作品別動画一覧は利用できる。。
+
+要求源: spec/sources/owner-directive-2026-08-15-work-pages.md, user:2026-08-15
+検証証跡: tests/content-validation.test.ts, tests/generated.test.ts, src/features/works/WorkDetailPage.test.tsx, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=content/works/work-introductions.json,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/features/works/WorkDetailPage.tsx; テスト=tests/content-validation.test.ts,tests/generated.test.ts,src/features/works/WorkDetailPage.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-15-work-pages.md,dev-standard default profile
 
 ## V8-INGEST-001: 外部ingestion要求はvideo_idだけを含む厳格な11文字契約でなければならない
 
