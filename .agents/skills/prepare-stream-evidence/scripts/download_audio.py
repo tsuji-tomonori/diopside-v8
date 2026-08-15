@@ -14,13 +14,30 @@ from pathlib import Path
 
 COMMON = Path(__file__).resolve().parents[2] / "generate-stream-timestamps" / "scripts"
 sys.path.insert(0, str(COMMON))
-from timestamp_common import TimestampToolError, atomic_json, digest_file, load_state, read_json, work_dir  # noqa: E402
+from timestamp_common import (  # noqa: E402
+    TimestampToolError,
+    atomic_json,
+    digest_file,
+    load_state,
+    read_json,
+    work_dir,
+)
+
+REPOSITORY_SCRIPTS = Path(__file__).resolve().parents[4] / "scripts"
+sys.path.insert(0, str(REPOSITORY_SCRIPTS))
+from evidence_repository import (  # noqa: E402
+    EvidenceRepositoryError,
+    copy_or_decompress,
+    evidence_repository_from_argument,
+    resolve_cached_artifact,
+)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="公開動画の音声取得計画を表示または明示実行します。")
     parser.add_argument("video_id")
     parser.add_argument("--execute", action="store_true", help="人が起動した今回の処理として公開音声を取得する")
+    parser.add_argument("--evidence-repository", type=Path, help="取得済み素材を持つprivate repository clone")
     parser.add_argument("--retries", type=int, default=3)
     args = parser.parse_args()
     try:
@@ -29,6 +46,7 @@ def main() -> int:
         inputs = read_json(directory / "inputs.json")
         executable = shutil.which("yt-dlp")
         ffmpeg = shutil.which("ffmpeg")
+        evidence_repository = evidence_repository_from_argument(args.evidence_repository)
         plan = {
             "videoId": args.video_id,
             "url": inputs["youtubeUrl"],
@@ -39,12 +57,11 @@ def main() -> int:
             "ytDlpAvailable": bool(executable),
             "ffmpegAvailable": bool(ffmpeg),
             "willUseNetwork": bool(args.execute),
+            "evidenceRepository": str(evidence_repository) if evidence_repository else None,
         }
         if not args.execute:
             print(json.dumps(plan, ensure_ascii=False, indent=2))
             return 0
-        if not executable:
-            raise TimestampToolError("yt-dlpがありません。公開音声を取得できません。")
         audio_dir = directory / "audio"
         audio_dir.mkdir(parents=True, exist_ok=True)
         provenance_path = audio_dir / "provenance.json"
@@ -54,6 +71,30 @@ def main() -> int:
             if existing_audio.is_file() and digest_file(existing_audio) == existing["file"].get("sha256"):
                 print(json.dumps({"status": "reused", "videoId": args.video_id, "audio": existing_audio.name, "strategy": existing.get("strategy")}, ensure_ascii=False))
                 return 0
+        cached = resolve_cached_artifact(
+            evidence_repository,
+            args.video_id,
+            ["audio/source.opus", "audio/source.m4a", "audio/source.webm", "audio/source.mp3"],
+        )
+        if cached is not None:
+            audio = audio_dir / cached.name
+            copy_or_decompress(cached, audio)
+            provenance = {
+                "schemaVersion": "1.1.0",
+                "videoId": args.video_id,
+                "sourceUrl": inputs["youtubeUrl"],
+                "authentication": "private-evidence-repository",
+                "downloadedAt": datetime.now(UTC).isoformat(),
+                "durationSeconds": inputs["durationSeconds"],
+                "strategy": "private-evidence-repository",
+                "file": {"name": audio.name, "sizeBytes": audio.stat().st_size, "sha256": digest_file(audio)},
+                "temporaryOnly": True,
+            }
+            atomic_json(provenance_path, provenance)
+            print(json.dumps({"status": "reused", "videoId": args.video_id, "audio": audio.name, "strategy": "private-evidence-repository"}, ensure_ascii=False))
+            return 0
+        if not executable:
+            raise TimestampToolError("yt-dlpがありません。公開音声を取得できません。")
         strategies = [
             (
                 "native-bestaudio",
@@ -114,7 +155,7 @@ def main() -> int:
         atomic_json(audio_dir / "provenance.json", provenance)
         print(json.dumps({"status": "downloaded", "videoId": args.video_id, "audio": audio.name, "strategy": selected_strategy, "sha256": provenance["file"]["sha256"]}, ensure_ascii=False))
         return 0
-    except TimestampToolError as error:
+    except (EvidenceRepositoryError, TimestampToolError) as error:
         parser.error(str(error))
 
 

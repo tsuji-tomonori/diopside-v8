@@ -1,0 +1,241 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260815-private-evidence-repository
+profile: regulated
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: true
+  data_change: true
+  public_api_change: true
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: true
+  important_ui_change: false
+  long_term_decision: true
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: V8-OPS-027、V8-SAFETY-005、V8-OPS-028として利用者向け挙動と安全要件を追加した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+    note: private保存先、artifact manifest、既存harnessのcache-first経路を生成設計へ反映した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260815-private-evidence-repository.yaml
+    note: private素材、認可、外部書込みを扱うためregulated profileを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:operations/private-evidence-repository.md
+    note: 外部書込みは明示した--execute、--create-repository、--pushに限定し、既定は副作用のないplanである。
+  - id: IMP-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/evidence_repository_test.py::EvidenceRepositoryTest.test_private_repository_is_required_before_write
+    note: GitHub APIでprivate visibilityとwrite権限を取得開始前に確認し、public保存先を拒否する。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:scripts/collect_youtube_evidence.py
+      - path:operations/private-evidence-repository.md
+    note: 動画ID単位のversioned manifestとatomic置換を採用し、refresh失敗時も既存artifactを保持する。
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/evidence_repository_test.py::EvidenceRepositoryTest.test_cli_dry_run_names_runtime_repository_and_all_artifacts
+      - path:operations/private-evidence-repository.md
+    note: 新規CLIと保存file形式をusage、dry-run contract、schemaVersion 1.0.0で明示した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/collect_youtube_evidence.py
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: Python構文検査とCLI単体テストを品質ゲートへ組み込んだ。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:package.json
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: 追加scriptと既存harness変更を固定Ruff対象へ追加し、警告なしを確認した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/evidence_repository_test.py
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: private拒否、checksum、LFS pointer、匿名化、dry-run、一時cloneの保存保証、cache-firstを9件の単体テストで確認した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/generate-requirements.ts
+      - path:docs/design/generated/system.gen.md
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: 正本から要件文書と生成設計を再生成し、生成元との一致を品質ゲートで確認する。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/verify-repository-policy.ts
+      - test:tests/evidence_repository_test.py::EvidenceRepositoryTest.test_comment_and_chat_identifiers_are_removed
+    note: 差分に素材やcredentialを含めず、comment/chatのIDと投稿者識別子を再帰的に除去する。
+  - id: FAST-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/evidence_repository_test.py::EvidenceRepositoryTest.test_cli_dry_run_names_runtime_repository_and_all_artifacts
+      - path:operations/private-evidence-repository.md
+    note: CLI引数とmanifest file形式は新規追加であり、既存consumerを破壊せずdry-run contractを固定した。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:scripts/collect_youtube_evidence.py
+      - path:operations/private-evidence-repository.md
+    note: artifact別status、失敗理由、終了code 2により部分失敗を診断できる。
+  - id: FAST-016
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:scripts/collect_youtube_evidence.py
+      - path:operations/private-evidence-repository.md
+    note: parser、実行例、error分岐、保存構造を同じCLI contractとして照合した。
+  - id: FAST-017
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/evidence_repository_test.py::EvidenceRepositoryTest.test_cli_dry_run_names_runtime_repository_and_all_artifacts
+      - path:operations/private-evidence-repository.md
+    note: 文書のrepository・artifact指定例をdry-runの実出力assertと対応させた。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 差分をprivate素材の収集・再利用、要件、運用文書、検証だけに限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: Commit Commentへ目的、変更、影響、check、検証、残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: 要件影響を3件の新規要件として正本へ反映した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+      - path:spec/sources/owner-directive-2026-08-15-private-evidence-repository.md
+    note: 新しい永続化境界と再利用flowをowner directiveから生成設計へ反映した。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - test:tests/evidence_repository_test.py
+      - path:docs/design/generated/system.gen.md
+    note: V8-OPS-027、V8-SAFETY-005、V8-OPS-028を実装、テスト、生成設計へ接続した。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:package.json
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: 追加単体テストとRuff対象を既存CIのverify:quality経路へ追加した。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260815-private-evidence-repository.yaml
+    note: selectorで選択したcheck結果を本YAMLに保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260815-private-evidence-repository.yaml
+    note: 未選択checkをN/Aとして登録していない。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:operations/private-evidence-repository.md
+      - test:tests/evidence_repository_test.py
+    note: 新規opt-in CLIと環境変数のみを追加し、既存harnessは未設定時に従来のnetwork取得へfallbackする。
+  - id: REV-012
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/evidence_repository_test.py::EvidenceRepositoryTest.test_private_repository_is_required_before_write
+      - path:scripts/verify-repository-policy.ts
+    note: 実装と独立したGitHub応答oracleでpublic拒否を確認し、read-only repository policy検査で素材・秘密情報の非混入を確認した。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:operations/private-evidence-repository.md
+    note: 前提、実行、cache再利用、失敗時保持、LFS取得を運用正本へ記載した。
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:spec/sources/owner-directive-2026-08-15-private-evidence-repository.md
+      - path:operations/private-evidence-repository.md
+    note: 長期判断はowner directiveと運用文書から追跡可能で、別ADRを要しない。
+advisories: []
+residual_risks:
+  - YouTube側の公開状態、cookie要否、字幕・chat・comment提供状況によりartifact単位で取得不能になり得るが、partial statusと既存artifact保持で顕在化する。
+  - 音声量に応じてGit LFSのquotaとprivateリポジトリ容量を消費するため、保存先ownerが利用量を監視する必要がある。
+  - 現環境ではprivateリポジトリ作成credentialを使った実結合試験を行わず、GitHub REST応答を模した独立testでvisibilityとwrite権限境界を検証した。

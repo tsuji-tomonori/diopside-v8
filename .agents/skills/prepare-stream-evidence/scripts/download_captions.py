@@ -16,7 +16,23 @@ from typing import Any
 
 COMMON = Path(__file__).resolve().parents[2] / "generate-stream-timestamps" / "scripts"
 sys.path.insert(0, str(COMMON))
-from timestamp_common import TimestampToolError, atomic_json, digest_file, load_state, read_json, work_dir  # noqa: E402
+from timestamp_common import (  # noqa: E402
+    TimestampToolError,
+    atomic_json,
+    digest_file,
+    load_state,
+    read_json,
+    work_dir,
+)
+
+REPOSITORY_SCRIPTS = Path(__file__).resolve().parents[4] / "scripts"
+sys.path.insert(0, str(REPOSITORY_SCRIPTS))
+from evidence_repository import (  # noqa: E402
+    EvidenceRepositoryError,
+    copy_or_decompress,
+    evidence_repository_from_argument,
+    resolve_cached_artifact,
+)
 
 
 def main() -> int:
@@ -24,6 +40,7 @@ def main() -> int:
     parser.add_argument("video_id")
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--caption-json3", type=Path, help="試験・既取得用の一時json3")
+    parser.add_argument("--evidence-repository", type=Path, help="取得済み素材を持つprivate repository clone")
     parser.add_argument("--retries", type=int, default=3)
     args = parser.parse_args()
     try:
@@ -31,6 +48,7 @@ def main() -> int:
         directory = work_dir(args.video_id)
         inputs = read_json(directory / "inputs.json")
         executable = shutil.which("yt-dlp")
+        evidence_repository = evidence_repository_from_argument(args.evidence_repository)
         plan = {
             "videoId": args.video_id,
             "preferredLanguages": ["ja-orig", "ja"],
@@ -38,15 +56,14 @@ def main() -> int:
             "temporaryOnly": True,
             "ytDlpAvailable": bool(executable),
             "willUseNetwork": bool(args.execute and args.caption_json3 is None),
+            "evidenceRepository": str(evidence_repository) if evidence_repository else None,
         }
         if not args.execute:
             print(json.dumps(plan, ensure_ascii=False, indent=2))
             return 0
-        caption_path, language = (
-            (args.caption_json3.resolve(), "ja-orig")
-            if args.caption_json3 is not None
-            else download_caption(executable, directory, inputs["youtubeUrl"], args.retries)
-        )
+        caption_path, language = resolve_caption_source(args, evidence_repository, directory)
+        if caption_path is None:
+            caption_path, language = download_caption(executable, directory, inputs["youtubeUrl"], args.retries)
         cues = parse_json3(caption_path, inputs["durationSeconds"])
         if not cues:
             raise TimestampToolError("公開日本語字幕から有効なcueを取得できませんでした。")
@@ -71,8 +88,29 @@ def main() -> int:
             "cueCount": len(cues), "output": str(output),
         }, ensure_ascii=False))
         return 0
-    except (TimestampToolError, OSError, subprocess.SubprocessError, json.JSONDecodeError) as error:
+    except (EvidenceRepositoryError, TimestampToolError, OSError, subprocess.SubprocessError, json.JSONDecodeError) as error:
         parser.error(str(error))
+
+
+def resolve_caption_source(
+    args: argparse.Namespace,
+    repository: Path | None,
+    directory: Path,
+) -> tuple[Path | None, str]:
+    if args.caption_json3 is not None:
+        return args.caption_json3.resolve(), "ja-orig"
+    for language in ("ja-orig", "ja"):
+        cached = resolve_cached_artifact(
+            repository,
+            args.video_id,
+            [f"captions/*.{language}.json3", f"captions/*.{language}.json3.gz"],
+        )
+        if cached is None:
+            continue
+        destination = directory / "captions" / "raw" / f"cached.{language}.json3"
+        copy_or_decompress(cached, destination)
+        return destination, language
+    return None, ""
 
 
 def download_caption(

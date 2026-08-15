@@ -1,8 +1,8 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 9
-- 更新日: 2026-08-12
+- カタログ版: 10
+- 更新日: 2026-08-15
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
@@ -159,6 +159,9 @@
 | `V8-OPS-023` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ証拠取得は、公開動画のタイムスタンプ証拠取得に失敗した場合、親Solは認証情報を使わないYouTube到達性診断、公開日本語字幕の上限付き再試行、公開native音声、yt-dlpによるMP3変換、無料のbatch-local ASRを順に試さなければならない。private、member-only、年齢制限、削除済み等の安全分類と試行結果だけをignored stateへ保存し、生字幕、音声、文字起こし、チャット本文をGit、PR、台帳へ保存してはならない。を**satisfy** | YouTube診断・字幕再試行・native/MP3 fallback・batch-local ASR・公開禁止物検査 |
 | `V8-OPS-024` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ失敗回復は、Lunaが字幕、音声、ASR、codex exec、意味構成、確認、決定的検証で回復可能な失敗へ到達した場合、needs_sol_recoveryとして親Solへ返し、親SolはGPT-5.6 Sol highで同じ動画を回復しなければならない。codex execのtrusted-destination結果は上限付きで再試行し、全編日本語字幕があるのに章候補を構成できない場合は素材不足ではなく意味構成失敗として扱わなければならない。期限内に回復できない場合はdeferred_recovery checkpointを残し、Google Sheetsへ処理不能を書いてはならない。を**satisfy** | trusted-destination再試行・Luna回復委譲・Sol high fallback・drain checkpoint・台帳書込みgate試験 |
 | `V8-OPS-026` | 1 | 有効 | 運用 | diopside v8の大規模タイムスタンプcampaignは、最大1000件のタイムスタンプcampaignは開始時に対象動画ID、順序、台帳行指紋、base commitを一度だけ固定し、10件ずつ処理しなければならない。各Work実行のdrain前と各wave後に、生字幕、音声、文字起こし、chat本文、識別子、資格情報を含まない安全なcheckpointを専用GitHub campaign branchへ観測済み親commitを条件として保存し、Work環境消失または利用制限後は同じcampaign IDを復元して完了済みを保持し未完了だけを安全な工程から再開しなければならない。を**satisfy** | 1000件manifest・101wave境界・checkpoint漏えい禁止・kill/restore・楽観ロックaction試験 |
+| `V8-OPS-027` | 1 | 有効 | 運用 | diopside v8の動画素材収集は、運用者が動画IDと保存先リポジトリを実行時に指定した場合、公開動画のメタ情報、日本語字幕、音声、リプレイチャット、公開コメントをartifactごとに独立して取得し、動画単位のmanifestへ結果、file path、size、SHA-256を記録してprivateリポジトリへ冪等に保存しなければならない。1artifactの失敗で他artifactの成功を破棄せず、既存の検証済みartifactを既定で再利用しなければならない。を**永続化する** | private保存先・artifact独立取得・manifest checksum・冪等再利用・refresh復旧試験 |
+| `V8-SAFETY-005` | 1 | 有効 | 制約 | diopside v8の非公開動画素材保存は、動画素材を書き込む前に保存先GitHubリポジトリがprivateでwrite可能であることを検証し、publicまたは検証不能なら停止しなければならない。cookie、API key、tokenを保存せず、コメントとチャットから投稿者名、channel ID、handle、avatar、client ID、tracking情報を除去し、公開diopsideリポジトリ、PR、台帳へ生素材を含めてはならない。を**制約する** | public拒否・write権限・識別子除去・credential非保存・公開差分scan試験 |
+| `V8-OPS-028` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ・あらすじ証拠取得は、実行時にprivate素材リポジトリcloneが指定された場合、対象動画のmanifest、動画ID、相対path、SHA-256を検証して字幕、音声、チャットを既存の一時dossierへmaterializeし、ネットワーク取得より先に再利用しなければならない。不一致fileまたはGit LFS pointerを有効な素材として扱ってはならない。を**再利用する** | caption・audio・chat cache優先・checksum改変・LFS pointer試験 |
 | `V8-OPS-025` | 1 | 有効 | 運用 | diopside v8のあらすじ運用は、ChatGPT Workから開始する未作成あらすじcampaignは、親GPT-5.6 SolとGPT-5.6 Luna mediumの10論理レーンとして構成し、最新mainの正本にあらすじがない公開動画だけを原子的にclaimしなければならない。Lunaはclaim済み1動画の一時全編根拠、候補、独立確認、決定的検証だけを行い、親Solだけが現在の候補hashを最終確認して1動画draft PRとあらすじ作業台帳を確定しなければならない。を**satisfy** | 10レーン計画・既存あらすじ除外・全編coverage・独立review hash・Sol gate・台帳行競合試験 |
 
 ## V8-SEARCH-001: 文字検索は、承認済み動画の動画タイトルだけを検索対象としなければならない
@@ -2462,6 +2465,56 @@ diopside v8の大規模タイムスタンプcampaignは、最大1000件のタイ
 要求源: spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md, user:2026-08-12
 検証証跡: tests/timestamp_harness_test.py
 トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md,dev-standard default profile
+
+## V8-OPS-027: 動画取得素材は実行時指定のprivateリポジトリへ再利用可能なmanifest付きで保存しなければならない
+
+diopside v8の動画素材収集は、運用者が動画IDと保存先リポジトリを実行時に指定した場合、公開動画のメタ情報、日本語字幕、音声、リプレイチャット、公開コメントをartifactごとに独立して取得し、動画単位のmanifestへ結果、file path、size、SHA-256を記録してprivateリポジトリへ冪等に保存しなければならない。1artifactの失敗で他artifactの成功を破棄せず、既存の検証済みartifactを既定で再利用しなければならない。を**永続化する**。
+
+根拠: 長時間動画ごとに同じ公開素材を取り直す待ち時間と一時的取得失敗を減らし、タイムスタンプとあらすじの全編根拠を安全に再利用できるようにするため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-027-1` 前提: 運用者が公開YouTube動画ID、private保存先、取得対象artifactを実行時に指定する。条件: 動画素材収集を明示実行する。期待結果: metadata、captions、audio、chat、commentsを独立して取得し、成功分と安全な失敗理由を同じ動画manifestへ記録する。。
+- `AC-V8-OPS-027-2` 前提: 同じ動画のmanifestとSHA-256が一致する取得済みartifactがある。条件: refreshを指定せず再収集する。期待結果: 取得済みartifactをネットワークから再取得せず、不足・失敗artifactだけを処理する。。
+- `AC-V8-OPS-027-3` 前提: 既存artifactをrefreshする。条件: 新しい取得が失敗する。期待結果: 既存artifactを破棄せず、失敗理由をmanifestへ記録して他artifactの処理を継続する。。
+
+要求源: spec/sources/owner-directive-2026-08-15-private-evidence-repository.md, user:2026-08-15
+検証証跡: tests/evidence_repository_test.py
+トレース: 設計=operations/private-evidence-repository.md; 実装=scripts/collect_youtube_evidence.py,scripts/evidence_repository.py; テスト=tests/evidence_repository_test.py; 参照資料=spec/sources/owner-directive-2026-08-15-private-evidence-repository.md,dev-standard regulated profile
+
+## V8-SAFETY-005: 生の動画素材はprivate保存先を検証し資格情報と投稿者識別子を除外してから永続化しなければならない
+
+diopside v8の非公開動画素材保存は、動画素材を書き込む前に保存先GitHubリポジトリがprivateでwrite可能であることを検証し、publicまたは検証不能なら停止しなければならない。cookie、API key、tokenを保存せず、コメントとチャットから投稿者名、channel ID、handle、avatar、client ID、tracking情報を除去し、公開diopsideリポジトリ、PR、台帳へ生素材を含めてはならない。を**制約する**。
+
+根拠: 全編根拠を再利用しながら、資格情報や視聴者識別情報のGit履歴への混入とprivate保存先の公開設定事故を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-SAFETY-005-1` 前提: 保存先がpublic、存在しない、visibility検証不能、またはwrite不能である。条件: 素材収集を実行する。期待結果: YouTube取得とGit書込みを開始せず安全な理由で停止する。。
+- `AC-V8-SAFETY-005-2` 前提: コメントまたはリプレイチャットを取得できる。条件: private保存先へ正規化する。期待結果: 本文と分析用時刻を保持し、投稿者・channel・handle・avatar・client・tracking識別情報を再帰的に除去する。。
+- `AC-V8-SAFETY-005-3` 前提: cookie file、YouTube API key、GitHub tokenを実行時に使用する。条件: manifest、log、commit対象を生成する。期待結果: 資格情報の値とcookie fileを保存対象へ含めず、cookie fileが保存先worktree内なら実行を拒否する。。
+
+要求源: spec/sources/owner-directive-2026-08-15-private-evidence-repository.md, user:2026-08-15
+検証証跡: tests/evidence_repository_test.py, scripts/verify-repository-policy.ts
+トレース: 設計=operations/private-evidence-repository.md; 実装=scripts/collect_youtube_evidence.py,scripts/evidence_repository.py; テスト=tests/evidence_repository_test.py; 参照資料=spec/sources/owner-directive-2026-08-15-private-evidence-repository.md,governance/checks/catalog.yaml
+
+## V8-OPS-028: タイムスタンプとあらすじの素材取得は検証済みprivate cacheをネットワークより先に再利用しなければならない
+
+diopside v8のタイムスタンプ・あらすじ証拠取得は、実行時にprivate素材リポジトリcloneが指定された場合、対象動画のmanifest、動画ID、相対path、SHA-256を検証して字幕、音声、チャットを既存の一時dossierへmaterializeし、ネットワーク取得より先に再利用しなければならない。不一致fileまたはGit LFS pointerを有効な素材として扱ってはならない。を**再利用する**。
+
+根拠: 保存基盤を用意するだけでなく既存ハーネスの取得経路へ接続し、反復するYouTube接続と長時間音声downloadを実際に削減するため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-028-1` 前提: private素材リポジトリに動画IDとSHA-256が一致する字幕、音声、またはチャットがある。条件: タイムスタンプまたはあらすじハーネスが証拠取得を開始する。期待結果: 保存済みartifactを一時dossierへmaterializeし、同じartifactのYouTube取得を省略する。。
+- `AC-V8-OPS-028-2` 前提: manifest checksumが不一致、fileが欠落、または音声がGit LFS pointerである。条件: 保存済みartifactを解決する。期待結果: 不正なcacheを証拠へ使用せず、LFS object取得案内または既存の安全なネットワークfallbackへ進む。。
+
+要求源: spec/sources/owner-directive-2026-08-15-private-evidence-repository.md, user:2026-08-15
+検証証跡: tests/evidence_repository_test.py, tests/timestamp_tools_test.py
+トレース: 設計=operations/private-evidence-repository.md,.agents/skills/prepare-stream-evidence/SKILL.md; 実装=scripts/evidence_repository.py,.agents/skills/prepare-stream-evidence/scripts/download_captions.py,.agents/skills/prepare-stream-evidence/scripts/download_audio.py,.agents/skills/run-timestamp-work-harness/scripts/download_live_chat.py; テスト=tests/evidence_repository_test.py,tests/timestamp_tools_test.py; 参照資料=spec/sources/owner-directive-2026-08-15-private-evidence-repository.md
 
 ## V8-OPS-025: Work用あらすじ処理は1 Sol・10 Lunaと候補hash gateで有限対象を継続しなければならない
 
