@@ -23,6 +23,15 @@ from timestamp_common import (  # noqa: E402
     work_dir,
 )
 
+REPOSITORY_SCRIPTS = Path(__file__).resolve().parents[4] / "scripts"
+sys.path.insert(0, str(REPOSITORY_SCRIPTS))
+from evidence_repository import (  # noqa: E402
+    EvidenceRepositoryError,
+    copy_or_decompress,
+    evidence_repository_from_argument,
+    resolve_cached_artifact,
+)
+
 
 def mappings(value: Any) -> Iterator[dict[str, Any]]:
     if isinstance(value, dict):
@@ -91,47 +100,30 @@ def main() -> int:
     parser.add_argument("video_id")
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--chat-jsonl", type=Path, help="試験・既取得用の一時chat JSONL")
+    parser.add_argument("--evidence-repository", type=Path, help="取得済み素材を持つprivate repository clone")
     args = parser.parse_args()
     try:
         load_state(args.video_id)
         directory = work_dir(args.video_id)
         inputs = read_json(directory / "inputs.json")
         executable = shutil.which("yt-dlp")
+        evidence_repository = evidence_repository_from_argument(args.evidence_repository)
         if not args.execute:
-            print(json.dumps({"videoId": args.video_id, "ytDlpAvailable": bool(executable), "temporaryOnly": True}, ensure_ascii=False))
+            print(json.dumps({"videoId": args.video_id, "ytDlpAvailable": bool(executable), "evidenceRepository": str(evidence_repository) if evidence_repository else None, "temporaryOnly": True}, ensure_ascii=False))
             return 0
         if args.chat_jsonl:
             source = args.chat_jsonl.resolve()
         else:
-            if not executable:
-                raise TimestampToolError("yt-dlpがありません。公開live chatを取得できません。")
-            raw_dir = directory / "chat/raw"
-            raw_dir.mkdir(parents=True, exist_ok=True)
-            template = str(raw_dir / "source.%(ext)s")
-            completed = subprocess.run(
-                [
-                    executable,
-                    "--ignore-config",
-                    "--no-playlist",
-                    "--skip-download",
-                    "--write-subs",
-                    "--sub-langs",
-                    "live_chat",
-                    "--sub-format",
-                    "json",
-                    "--output",
-                    template,
-                    "--quiet",
-                    inputs["youtubeUrl"],
-                ],
-                check=False,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
+            cached = resolve_cached_artifact(
+                evidence_repository,
+                args.video_id,
+                ["chat/live_chat.jsonl", "chat/live_chat.jsonl.gz"],
             )
-            matches = sorted(raw_dir.glob("source.live_chat.json"))
-            if completed.returncode or len(matches) != 1:
-                raise TimestampToolError("公開live chatを取得できませんでした。タイムスタンプの全編根拠には使用しません。")
-            source = matches[0]
+            if cached is not None:
+                source = directory / "chat" / "raw" / "cached.live_chat.jsonl"
+                copy_or_decompress(cached, source)
+            else:
+                source = download_live_chat(executable, directory, inputs["youtubeUrl"])
         signals = build_signals(source, args.video_id, int(inputs["durationSeconds"]))
         output = directory / "chat/audience-signals.json"
         atomic_json(
@@ -140,8 +132,40 @@ def main() -> int:
         )
         print(json.dumps({"status": "complete", "videoId": args.video_id, "signalCount": len(signals), "output": str(output)}, ensure_ascii=False))
         return 0
-    except (OSError, TimestampToolError) as error:
+    except (EvidenceRepositoryError, OSError, TimestampToolError) as error:
         parser.error(str(error))
+
+
+def download_live_chat(executable: str | None, directory: Path, url: str) -> Path:
+    if not executable:
+        raise TimestampToolError("yt-dlpがありません。公開live chatを取得できません。")
+    raw_dir = directory / "chat/raw"
+    raw_dir.mkdir(parents=True, exist_ok=True)
+    template = str(raw_dir / "source.%(ext)s")
+    completed = subprocess.run(
+        [
+            executable,
+            "--ignore-config",
+            "--no-playlist",
+            "--skip-download",
+            "--write-subs",
+            "--sub-langs",
+            "live_chat",
+            "--sub-format",
+            "json",
+            "--output",
+            template,
+            "--quiet",
+            url,
+        ],
+        check=False,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    matches = sorted(raw_dir.glob("source.live_chat.json"))
+    if completed.returncode or len(matches) != 1:
+        raise TimestampToolError("公開live chatを取得できませんでした。タイムスタンプの全編根拠には使用しません。")
+    return matches[0]
 
 
 if __name__ == "__main__":

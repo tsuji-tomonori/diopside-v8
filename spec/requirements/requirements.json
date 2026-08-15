@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "catalog_revision": 9,
+  "catalog_revision": 10,
   "product": "diopside v8",
-  "updated_at": "2026-08-12",
+  "updated_at": "2026-08-15",
   "requirements": [
     {
       "id": "V8-SEARCH-001",
@@ -7463,6 +7463,177 @@
         ]
       },
       "last_changed_by": "CHG-20260812-thousand-video-campaign"
+    },
+    {
+      "id": "V8-OPS-027",
+      "revision": 1,
+      "status": "active",
+      "scope": "project",
+      "category": "nonfunctional",
+      "type": "operational",
+      "title": "動画取得素材は実行時指定のprivateリポジトリへ再利用可能なmanifest付きで保存しなければならない",
+      "subject": "diopside v8の動画素材収集",
+      "action": "persist",
+      "object": "運用者が動画IDと保存先リポジトリを実行時に指定した場合、公開動画のメタ情報、日本語字幕、音声、リプレイチャット、公開コメントをartifactごとに独立して取得し、動画単位のmanifestへ結果、file path、size、SHA-256を記録してprivateリポジトリへ冪等に保存しなければならない。1artifactの失敗で他artifactの成功を破棄せず、既存の検証済みartifactを既定で再利用しなければならない。",
+      "rationale": "長時間動画ごとに同じ公開素材を取り直す待ち時間と一時的取得失敗を減らし、タイムスタンプとあらすじの全編根拠を安全に再利用できるようにするため。",
+      "source_refs": [
+        "spec/sources/owner-directive-2026-08-15-private-evidence-repository.md",
+        "user:2026-08-15"
+      ],
+      "acceptance_criteria": [
+        {
+          "id": "AC-V8-OPS-027-1",
+          "given": "運用者が公開YouTube動画ID、private保存先、取得対象artifactを実行時に指定する",
+          "when": "動画素材収集を明示実行する",
+          "then": "metadata、captions、audio、chat、commentsを独立して取得し、成功分と安全な失敗理由を同じ動画manifestへ記録する。"
+        },
+        {
+          "id": "AC-V8-OPS-027-2",
+          "given": "同じ動画のmanifestとSHA-256が一致する取得済みartifactがある",
+          "when": "refreshを指定せず再収集する",
+          "then": "取得済みartifactをネットワークから再取得せず、不足・失敗artifactだけを処理する。"
+        },
+        {
+          "id": "AC-V8-OPS-027-3",
+          "given": "既存artifactをrefreshする",
+          "when": "新しい取得が失敗する",
+          "then": "既存artifactを破棄せず、失敗理由をmanifestへ記録して他artifactの処理を継続する。"
+        }
+      ],
+      "verification": {
+        "method": "private保存先・artifact独立取得・manifest checksum・冪等再利用・refresh復旧試験",
+        "evidence": "tests/evidence_repository_test.py"
+      },
+      "traces": {
+        "design": [
+          "operations/private-evidence-repository.md"
+        ],
+        "implementation": [
+          "scripts/collect_youtube_evidence.py",
+          "scripts/evidence_repository.py"
+        ],
+        "tests": [
+          "tests/evidence_repository_test.py"
+        ],
+        "standards": [
+          "spec/sources/owner-directive-2026-08-15-private-evidence-repository.md",
+          "dev-standard regulated profile"
+        ]
+      },
+      "last_changed_by": "CHG-20260815-private-evidence-repository"
+    },
+    {
+      "id": "V8-SAFETY-005",
+      "revision": 1,
+      "status": "active",
+      "scope": "project",
+      "category": "nonfunctional",
+      "type": "constraint",
+      "title": "生の動画素材はprivate保存先を検証し資格情報と投稿者識別子を除外してから永続化しなければならない",
+      "subject": "diopside v8の非公開動画素材保存",
+      "action": "constrain",
+      "object": "動画素材を書き込む前に保存先GitHubリポジトリがprivateでwrite可能であることを検証し、publicまたは検証不能なら停止しなければならない。cookie、API key、tokenを保存せず、コメントとチャットから投稿者名、channel ID、handle、avatar、client ID、tracking情報を除去し、公開diopsideリポジトリ、PR、台帳へ生素材を含めてはならない。",
+      "rationale": "全編根拠を再利用しながら、資格情報や視聴者識別情報のGit履歴への混入とprivate保存先の公開設定事故を防ぐため。",
+      "source_refs": [
+        "spec/sources/owner-directive-2026-08-15-private-evidence-repository.md",
+        "user:2026-08-15"
+      ],
+      "acceptance_criteria": [
+        {
+          "id": "AC-V8-SAFETY-005-1",
+          "given": "保存先がpublic、存在しない、visibility検証不能、またはwrite不能である",
+          "when": "素材収集を実行する",
+          "then": "YouTube取得とGit書込みを開始せず安全な理由で停止する。"
+        },
+        {
+          "id": "AC-V8-SAFETY-005-2",
+          "given": "コメントまたはリプレイチャットを取得できる",
+          "when": "private保存先へ正規化する",
+          "then": "本文と分析用時刻を保持し、投稿者・channel・handle・avatar・client・tracking識別情報を再帰的に除去する。"
+        },
+        {
+          "id": "AC-V8-SAFETY-005-3",
+          "given": "cookie file、YouTube API key、GitHub tokenを実行時に使用する",
+          "when": "manifest、log、commit対象を生成する",
+          "then": "資格情報の値とcookie fileを保存対象へ含めず、cookie fileが保存先worktree内なら実行を拒否する。"
+        }
+      ],
+      "verification": {
+        "method": "public拒否・write権限・識別子除去・credential非保存・公開差分scan試験",
+        "evidence": "tests/evidence_repository_test.py, scripts/verify-repository-policy.ts"
+      },
+      "traces": {
+        "design": [
+          "operations/private-evidence-repository.md"
+        ],
+        "implementation": [
+          "scripts/collect_youtube_evidence.py",
+          "scripts/evidence_repository.py"
+        ],
+        "tests": [
+          "tests/evidence_repository_test.py"
+        ],
+        "standards": [
+          "spec/sources/owner-directive-2026-08-15-private-evidence-repository.md",
+          "governance/checks/catalog.yaml"
+        ]
+      },
+      "last_changed_by": "CHG-20260815-private-evidence-repository"
+    },
+    {
+      "id": "V8-OPS-028",
+      "revision": 1,
+      "status": "active",
+      "scope": "project",
+      "category": "nonfunctional",
+      "type": "operational",
+      "title": "タイムスタンプとあらすじの素材取得は検証済みprivate cacheをネットワークより先に再利用しなければならない",
+      "subject": "diopside v8のタイムスタンプ・あらすじ証拠取得",
+      "action": "reuse",
+      "object": "実行時にprivate素材リポジトリcloneが指定された場合、対象動画のmanifest、動画ID、相対path、SHA-256を検証して字幕、音声、チャットを既存の一時dossierへmaterializeし、ネットワーク取得より先に再利用しなければならない。不一致fileまたはGit LFS pointerを有効な素材として扱ってはならない。",
+      "rationale": "保存基盤を用意するだけでなく既存ハーネスの取得経路へ接続し、反復するYouTube接続と長時間音声downloadを実際に削減するため。",
+      "source_refs": [
+        "spec/sources/owner-directive-2026-08-15-private-evidence-repository.md",
+        "user:2026-08-15"
+      ],
+      "acceptance_criteria": [
+        {
+          "id": "AC-V8-OPS-028-1",
+          "given": "private素材リポジトリに動画IDとSHA-256が一致する字幕、音声、またはチャットがある",
+          "when": "タイムスタンプまたはあらすじハーネスが証拠取得を開始する",
+          "then": "保存済みartifactを一時dossierへmaterializeし、同じartifactのYouTube取得を省略する。"
+        },
+        {
+          "id": "AC-V8-OPS-028-2",
+          "given": "manifest checksumが不一致、fileが欠落、または音声がGit LFS pointerである",
+          "when": "保存済みartifactを解決する",
+          "then": "不正なcacheを証拠へ使用せず、LFS object取得案内または既存の安全なネットワークfallbackへ進む。"
+        }
+      ],
+      "verification": {
+        "method": "caption・audio・chat cache優先・checksum改変・LFS pointer試験",
+        "evidence": "tests/evidence_repository_test.py, tests/timestamp_tools_test.py"
+      },
+      "traces": {
+        "design": [
+          "operations/private-evidence-repository.md",
+          ".agents/skills/prepare-stream-evidence/SKILL.md"
+        ],
+        "implementation": [
+          "scripts/evidence_repository.py",
+          ".agents/skills/prepare-stream-evidence/scripts/download_captions.py",
+          ".agents/skills/prepare-stream-evidence/scripts/download_audio.py",
+          ".agents/skills/run-timestamp-work-harness/scripts/download_live_chat.py"
+        ],
+        "tests": [
+          "tests/evidence_repository_test.py",
+          "tests/timestamp_tools_test.py"
+        ],
+        "standards": [
+          "spec/sources/owner-directive-2026-08-15-private-evidence-repository.md"
+        ]
+      },
+      "last_changed_by": "CHG-20260815-private-evidence-repository"
     },
     {
       "id": "V8-OPS-025",
