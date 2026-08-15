@@ -1,6 +1,6 @@
 ---
 name: generate-stream-timestamps
-description: Orchestrate one human-triggered or finite-batch-assigned diopside v8 timestamp candidate from public creator timestamps, complete Japanese captions, an operator transcript, or full-duration free local ASR through separate composition, fact review, and editorial review. Use for starting, resuming, or inspecting one video's timestamp work, including one worker assignment from an immutable batch; never use for scheduled, unattended, paid-API, publication, or merge workflows.
+description: Orchestrate one human-triggered or finite-batch-assigned diopside v8 timestamp candidate from public creator timestamps, complete Japanese captions, an operator transcript, or full-duration free local ASR through separate composition, fact review, and editorial review. Use for starting, resuming, or inspecting one video's timestamp work, including one worker assignment from an immutable batch; the Work harness may own the separately authorized PR lifecycle, but never merge or publish.
 ---
 
 # Generate stream timestamps
@@ -25,14 +25,17 @@ Process exactly one video after a human asks in ChatGPT/Codex or after `$prepare
 8. Treat the validated post-review stage as `ready_for_pr`. If resuming a legacy `ready_for_human_review` dossier, upgrade only its stage to `ready_for_pr`; do not alter evidence, draft, or reviews.
 9. For a direct one-video request, present the preview, YouTube link, evidence types and ranges, and both review results to the human, then stop at `ready_for_pr` for the separate PR lifecycle.
 10. For a batch assignment, immediately return the safe worker result to the batch orchestrator. Do not pause for a per-video chat response. The orchestrator records `ready_for_pr` or a controlled `blocked` reason and continues until every fixed manifest item is terminal.
-11. Run the repository's one-video scope validation and selected verification. Never finalize, create a PR, merge, or publish without separate authorization.
+11. Run the repository's one-video scope validation and selected verification. The
+    human-triggered `$run-timestamp-work-harness` is the separate authorization and
+    owner for finalization, branch, commit, push, draft PR, and ledger updates.
+    Never merge or publish.
 
 ## Boundaries
 
 - Keep raw audio, subtitles, transcripts, comments, and chat only under `.devflow/run/timestamps/<video-id>/` or another operator-approved ignored temporary path.
 - Never retain poster identifiers. Normalize audience material to non-identifying weak signals before semantic work.
 - Do not call OpenAI or another paid model API. Local ASR is optional preprocessing and must cover the full audio.
-- Do not schedule, continuously refill or rescan a queue, automatically discover videos, automatically create a PR, update YouTube, merge, or publish. Bounded concurrency is allowed only between different videos already fixed by `$prepare-stream-timestamp-batch`.
+- Do not schedule, continuously refill or rescan a queue, automatically discover videos, update YouTube, merge, or publish. This one-video worker does not perform GitHub or ledger writes; a human-triggered finite `$run-timestamp-work-harness` may perform the separately validated draft-PR and ledger lifecycle. Bounded concurrency is allowed only between different videos already fixed by the batch.
 - Do not edit canonical, aggregate, or generated public data. The separate PR lifecycle owns materialization and existing deterministic generators.
 - A syntax-valid list is not approved. Require semantic composition, two independent zero-major-issue reviews, deterministic validation, and human final approval.
 
