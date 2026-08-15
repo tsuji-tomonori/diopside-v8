@@ -22,6 +22,11 @@ const root = process.cwd();
 describe('決定的な公開成果物', () => {
   const latest = latestReleaseSchema.parse(json('public/data/latest.json'));
   const releaseRoot = path.join(root, 'public/data/releases', latest.releaseId);
+  const contentManifest = json('content/content-manifest.json') as {
+    videoCount: number;
+    createdTimestampVideoCount: number;
+    timestampItemCount: number;
+  };
 
   it('正本の論理内容から同じ公開版IDを再計算できる', () => {
     const taxonomy = tagTaxonomySchema.parse(json('content/taxonomy/tag-taxonomy.json'));
@@ -39,17 +44,17 @@ describe('決定的な公開成果物', () => {
     const aliases = publicAliasIndexSchema.parse(json(`public/${latest.aliasIndexPath}`));
     expect(new Set([latest.releaseId, index.releaseId, search.releaseId, tags.releaseId, aliases.releaseId, embeddedReleaseId]).size).toBe(1);
     expect(index.videos.map((video) => video.videoId)).toEqual(search.videos.map((video) => video.videoId));
-    expect(index.videos).toHaveLength(1681);
+    expect(index.videos).toHaveLength(contentManifest.videoCount);
   });
 
-  it('公開詳細シャードは1,681件すべてを持ち、承認済み1,207動画・22,828区間を作成済みにする', () => {
+  it('公開詳細シャードは全動画を持ち、作成済み件数が正本manifestと一致する', () => {
     const details = Array.from({ length: latest.videoShardCount }, (_, index) => {
       const shardId = index.toString(16).padStart(2, '0');
       return publicVideoShardSchema.parse(json(`public/data/releases/${latest.releaseId}/video-shards/${shardId}.json`));
     }).flatMap((shard) => Object.values(shard.videos));
-    expect(details).toHaveLength(1681);
-    expect(details.filter((detail) => detail.timestamps.status === '作成済み')).toHaveLength(1207);
-    expect(details.reduce((total, detail) => total + (detail.timestamps.status === '作成済み' ? detail.timestamps.items.length : 0), 0)).toBe(22828);
+    expect(details).toHaveLength(contentManifest.videoCount);
+    expect(details.filter((detail) => detail.timestamps.status === '作成済み')).toHaveLength(contentManifest.createdTimestampVideoCount);
+    expect(details.reduce((total, detail) => total + (detail.timestamps.status === '作成済み' ? detail.timestamps.items.length : 0), 0)).toBe(contentManifest.timestampItemCount);
   });
 
   it('版マニフェストの全ファイル指紋が実ファイルと一致する', () => {

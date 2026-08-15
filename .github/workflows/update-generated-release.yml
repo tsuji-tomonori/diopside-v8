@@ -1,0 +1,121 @@
+name: mainマージ後の静的成果物更新
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-generated-release-main
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: 検証済みmainから公開版を生成してcommit
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: 検証済みmainを取得
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - name: Node.jsを準備
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.0
+      - name: 固定依存を導入
+        run: npm ci
+      - name: 品質ゲートのPython依存を導入
+        run: python -m pip install --requirement governance/reviews/requirements.txt
+      - name: Chromiumを導入
+        run: npx playwright install --with-deps chromium
+      - name: 公開版を生成して検証
+        run: npm run verify:quality
+      - name: 検証スクリーンショットの一時差分を破棄
+        run: git restore -- reports/screenshots
+      - name: 生成差分をcommit
+        id: commit
+        env:
+          VERIFIED_SHA: ${{ github.sha }}
+        run: |
+          echo 'committed=false' >> "$GITHUB_OUTPUT"
+          git fetch origin main
+          if test "$(git rev-parse origin/main)" != "$VERIFIED_SHA"; then
+            echo '後続のmain更新があるため、この実行ではcommitしません。'
+            exit 0
+          fi
+
+          source_generated="$(git status --porcelain -- spec/requirements docs/requirements docs/design/generated)"
+          if test -n "$source_generated"; then
+            echo 'PRでreviewすべき正本由来生成物に差分があります。' >&2
+            echo "$source_generated" >&2
+            exit 1
+          fi
+
+          git add -- docs public/data src/generated/release.ts
+          if git diff --cached --quiet; then
+            echo '生成差分はありません。'
+            exit 0
+          fi
+
+          review_path="$(git show -s --format=%B "$VERIFIED_SHA" | sed -n 's/^Review-Checklist:[[:space:]]*//p' | tail -n 1)"
+          case "$review_path" in
+            governance/reviews/CHG-*.yaml|governance/reviews/CHG-*.yml) ;;
+            *) echo '検証済みcommitに有効なReview-Checklistがありません。' >&2; exit 1 ;;
+          esac
+          test -f "$review_path"
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit \
+            -m '🚀 release(data): mainの静的成果物を更新 [skip ci]' \
+            -m "目的:
+          - 人が承認してmainへマージした正本から、競合しない公開版を確定する
+
+          変更内容:
+          - release ID、版付き公開JSON、画面bundle、main/docsを決定生成する
+
+          要件影響:
+          - なし
+          - 要件ID: V8-OPS-013, V8-OPS-014, V8-OPS-017
+          - 理由: 検証済み正本に既定の生成規則を適用するrelease commitであり、要件の意味は変更しない
+
+          設計影響:
+          - なし
+          - 対象: none
+          - 生成設計: 検証済みsource commitで最新化済み
+          - ADR: ADR-0001の採用済みrelease経路を実行するだけのため不要
+
+          チェックリスト:
+          - $review_path
+
+          検証契約:
+          - GitHub Actions: 要件・品質ゲート / mainマージ後の静的成果物更新
+          - ローカル: npm run verify:quality
+          - 結果の正本: GitHub Actions等
+
+          互換性・残存リスク:
+          - 公開schemaを変更せず、内容ハッシュrelease IDによる世代分離を維持する
+
+          Requirements: V8-OPS-013,V8-OPS-014,V8-OPS-017
+          Design-Impact: none
+          Review-Checklist: $review_path"
+          if test -n "$(git status --porcelain --untracked-files=normal)"; then
+            echo 'release commit対象外の生成差分があります。' >&2
+            git status --short
+            exit 1
+          fi
+          if ! git push origin HEAD:main; then
+            git fetch origin main
+            if test "$(git rev-parse origin/main)" != "$VERIFIED_SHA"; then
+              echo 'push前にmainが更新されたため、後続の検証結果へ委ねます。'
+              exit 0
+            fi
+            echo 'mainへのrelease commitに失敗しました。' >&2
+            exit 1
+          fi
+          echo 'committed=true' >> "$GITHUB_OUTPUT"

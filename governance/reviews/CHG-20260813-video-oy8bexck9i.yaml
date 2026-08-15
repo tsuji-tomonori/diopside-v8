@@ -1,0 +1,148 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260813-video-oy8bexck9i
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/oY8Bex-CK9I.json
+  note: 有限の最新動画要求に従う1動画正本追加である。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 既存schemaだけを使い公開契約を変更しない。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/oY8Bex-CK9I.json
+  note: 全編根拠、タイムスタンプ二重review、あらすじ三重reviewを伴うためassuredを選択した。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 利用者が完成済みのあらすじ・タイムスタンプPRを順次mergeする公開承認を2026-08-15に明示した。最新main統合後の品質ゲート合格をmerge条件とする。
+- id: IMP-007
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/videos/oY8Bex-CK9I.json
+  note: 可逆な1動画overrideでありmigrationや削除はない。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/oY8Bex-CK9I.json
+  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  note: 候補hash、0秒から動画末尾までの根拠、独立reviewを検証する。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/content-manifest.json
+  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  note: 正本件数と決定的生成物のdriftを検証する。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 生字幕、音声、文字起こし、チャット、識別子、秘密情報を差分へ含めない。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/oY8Bex-CK9I.json
+  - path:governance/reviews/CHG-20260813-video-oy8bexck9i.yaml
+  note: 差分を1動画正本、manifest、review YAMLへ限定する。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: Commit Commentへ目的、影響、review、検証、互換性、残存リスクを記録する。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/requirements/requirements.json
+  - path:content/videos/oY8Bex-CK9I.json
+  note: 1動画1PR、全編根拠、独立review、merge公開承認の受入条件を満たす。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: schemaや画面を変えないため生成設計・ADRは不要である。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:scripts/validate-content.ts
+  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  note: 正本schema、候補validator、1動画scopeを検証し、Node worker testは外部CIで再確認する。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260813-video-oy8bexck9i.yaml
+  note: 選択checkだけをreview YAMLへ保存する。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260813-video-oy8bexck9i.yaml
+  note: 未選択checkをN/Aとして登録しない。
+advisories: []
+residual_risks:
+- タイムスタンプ候補hash c9d1cc3567aabf878e9f5d51c0f2947aea095422a89ce4b976ac5749c8d6d390 とあらすじ候補hash 471cde3255015b10f96e85c8d3b16570b9a44c3a282ff4792880781085a42d2e は人によるmergeまで公開されない。
+- 新規override件数を再計算したmanifestでGitHub Actions合格を確認するまではpublicationGateが未充足である。

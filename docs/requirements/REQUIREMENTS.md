@@ -1,8 +1,8 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 4
-- 更新日: 2026-08-08
+- カタログ版: 9
+- 更新日: 2026-08-12
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
@@ -47,16 +47,16 @@
 | `V8-DEVICE-009` | 1 | 有効 | 機能 | diopside v8の端末は、利用者向けログイン、アカウント登録、認証用画面、認証用クッキーを実装してはならない。を**satisfy** | 画面・通信・コード確認 |
 | `V8-DEVICE-010` | 1 | 有効 | 機能 | diopside v8の端末は、端末内データはブラウザやサイトデータの削除で失われ、別端末へ同期されないことを日本語で説明しなければならない。を**satisfy** | 文言確認 |
 | `V8-DEVICE-011` | 1 | 有効 | 機能 | diopside v8の端末は、利用者行動を解析・追跡する外部送信を行ってはならない。を**satisfy** | 通信監査・依存関係確認 |
-| `V8-OPS-001` | 1 | 有効 | 運用 | diopside v8の運用は、動画の追加・更新処理は、運用者がChatGPT／Codexの画面から明示的に開始しなければならない。を**satisfy** | 運用手順確認 |
+| `V8-OPS-001` | 2 | 有効 | 運用 | diopside v8の運用は、タイムスタンプ一括処理は、運用者による1回の明示的なChatGPT／Codex要求で指定された識別子または有限の選定条件から、今回処理する適格動画の有限集合を開始時に固定しなければならない。固定後は、動画ごとの追加チャット承認を開始条件としてはならない。を**satisfy** | 一括処理の開始境界・対象集合固定・状態遷移試験 |
 | `V8-OPS-002` | 1 | 有効 | 運用 | diopside v8の運用は、GitHub ActionsからChatGPT／Codexを呼び出してはならない。を**satisfy** | リポジトリ静的確認 |
-| `V8-OPS-003` | 2 | 有効 | 運用 | diopside v8の運用は、動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない。を**satisfy** | リポジトリ静的確認・手順試験 |
+| `V8-OPS-003` | 3 | 有効 | 運用 | diopside v8の運用は、動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない。を**satisfy** | リポジトリ静的確認・手順試験 |
 | `V8-OPS-004` | 1 | 有効 | 運用 | diopside v8の運用は、ChatGPT／Codexの利用は、運用者が契約済みの画面上の利用範囲に限定しなければならない。を**satisfy** | 構成確認・秘密情報確認 |
-| `V8-OPS-005` | 1 | 有効 | 運用 | diopside v8の運用は、1回の手動実行で、公開動画と正本データを比較し、新規・更新・削除候補を特定できなければならない。を**satisfy** | 固定データ試験 |
+| `V8-OPS-005` | 3 | 有効 | 運用 | diopside v8の運用は、1回の明示要求で固定した有限の適格タイムスタンプ対象集合は、各動画が1動画だけを対象とするdraft PRの作成・最終commitのpush・台帳反映確認を完了した状態、または根拠を示した処理不能状態のいずれかへ到達するまで処理しなければならない。ある動画の失敗を理由に、集合内の未処理動画を停止してはならない。を**satisfy** | 対象集合の固定データ・一括処理の終端・失敗分離試験 |
 | `V8-OPS-006` | 1 | 有効 | 運用 | diopside v8の運用は、対象候補が0件の場合は、生成物、ブランチ、プルリクエストを作成してはならない。を**satisfy** | 否定試験 |
-| `V8-OPS-007` | 1 | 有効 | 運用 | diopside v8の運用は、通常の動画追加プルリクエストは、1動画だけを内容確認の対象としなければならない。を**satisfy** | 変更範囲試験 |
+| `V8-OPS-007` | 2 | 有効 | 運用 | diopside v8の運用は、通常の動画追加プルリクエストは、正本動画データを1件だけ変更対象とし、公開用のrelease ID、版付きJSON、画面bundle、`main/docs`を含めてはならない。静的公開成果物は人が当該プルリクエストをmainへマージした後に生成しなければならない。を**satisfy** | 変更範囲試験 |
 | `V8-OPS-008` | 1 | 有効 | 運用 | diopside v8の運用は、通常の動画追加プルリクエストでは、スキル、生成規則、タグ体系、構造定義、検証スクリプト、画面実装、Pages設定を変更してはならない。を**satisfy** | 変更範囲の否定試験 |
-| `V8-OPS-009` | 1 | 有効 | 運用 | diopside v8の運用は、プルリクエスト作成前に、構造、タグ、タイムスタンプ、ワードクラウド、検索索引、公開禁止情報、静的画面を決定的スクリプトで検証しなければならない。を**satisfy** | 不正データ試験・手順試験 |
-| `V8-OPS-010` | 1 | 有効 | 運用 | diopside v8の運用は、プルリクエスト本文は、対象動画、タグ候補、タイムスタンプ候補、ワードクラウド語句、根拠、検証結果、YouTube確認リンクを日本語で示さなければならない。を**satisfy** | プルリクエスト表示確認 |
+| `V8-OPS-009` | 2 | 有効 | 運用 | diopside v8の運用は、プルリクエスト作成前に、構造、タグ、タイムスタンプ、ワードクラウド、検索索引、公開禁止情報、静的画面を動画ごとに決定的スクリプトで検証しなければならない。不合格は当該動画のプルリクエスト作成だけを止め、理由付き処理不能として記録し、同じ有限集合の他の動画の処理を止めてはならない。を**satisfy** | 不正データ試験・動画単位の失敗分離試験・手順試験 |
+| `V8-OPS-010` | 2 | 有効 | 運用 | diopside v8の運用は、PRレビュー可能な動画のプルリクエスト本文は、対象動画、タグ候補、タイムスタンプ候補、ワードクラウド語句、根拠、検証結果、YouTube確認リンクを日本語で示さなければならない。処理不能の動画は、失敗した段階と根拠を含む理由を日本語で示さなければならない。を**satisfy** | プルリクエスト・一括処理結果の表示確認 |
 | `V8-OPS-011` | 1 | 有効 | 運用 | diopside v8の運用は、生成候補は、人が確認してマージするまで公開してはならない。を**satisfy** | ブランチ境界試験 |
 | `V8-OPS-012` | 1 | 有効 | 運用 | diopside v8の運用は、GitHub Pagesは、`main` ブランチの `/docs` にコミット済みの静的成果物だけを公開しなければならない。を**satisfy** | リポジトリ設定確認・公開確認 |
 | `V8-OPS-013` | 1 | 有効 | 運用 | diopside v8の運用は、静的成果物は正本データから決定的に生成し、手作業で直接編集してはならない。を**satisfy** | 再現性試験 |
@@ -126,8 +126,8 @@
 | `V8-TIME-026` | 1 | 有効 | データ | diopside v8の時刻は、根拠が競合する境界、音声認識が不明瞭な境界、時刻が一意に定まらない境界は確定せず、確認待ち理由を残さなければならない。を**satisfy** | 曖昧入力試験 |
 | `V8-TIME-027` | 2 | 有効 | データ | diopside v8の時刻は、候補の事実確認では、適用経路が作成者一覧の採用または全編根拠による生成のいずれかであること、根拠参照、境界前後、章名の裏付け、根拠競合を確認しなければならない。 新規・変更候補にはIssue #1の独立確認を適用する。既存承認済みデータは、承認元・入力指紋・同一候補ハッシュ・v8決定的検証・現在の所有者承認を解決できる場合に限り移行できる。を**satisfy** | 独立レビュー確認 |
 | `V8-TIME-028` | 2 | 有効 | データ | diopside v8の時刻は、候補の編集確認では、移動価値、過分割、分割不足、名称統一、ネタバレを事実確認とは別に確認しなければならない。 新規・変更候補にはIssue #1の独立確認を適用する。既存承認済みデータは、承認元・入力指紋・同一候補ハッシュ・v8決定的検証・現在の所有者承認を解決できる場合に限り移行できる。を**satisfy** | 入力記録・独立レビュー確認 |
-| `V8-TIME-029` | 2 | 有効 | データ | diopside v8の時刻は、事実確認と編集確認の両方が同じ候補版へ合格した場合だけ、人の最終確認へ進めなければならない。 新規・変更候補にはIssue #1の独立確認を適用する。既存承認済みデータは、承認元・入力指紋・同一候補ハッシュ・v8決定的検証・現在の所有者承認を解決できる場合に限り移行できる。を**satisfy** | 版・状態遷移試験 |
-| `V8-TIME-030` | 1 | 有効 | データ | diopside v8の時刻は、決定的検証は、0秒開始、3件以上、整数、昇順、10秒以上、動画長内、全区間網羅、非空名、許可確度、根拠参照、未解決重大指摘なしをすべて確認しなければならない。を**satisfy** | 不正データ総当たり試験 |
+| `V8-TIME-029` | 3 | 有効 | データ | diopside v8の時刻は、新規・変更候補は、事実確認と編集確認の両方が同じ候補版へ合格した場合だけ、1動画だけを対象とするPRのレビュー可能状態へ進めなければならない。対象集合を固定した後に動画ごとの追加チャット承認を要求してはならず、人が当該PRを確認してマージする操作を公開の最終承認としなければならない。既存承認済みデータは、承認元・入力指紋・同一候補ハッシュ・v8決定的検証・現在の所有者承認を解決できる場合に限り移行できる。を**satisfy** | 候補版・状態遷移・PR範囲・承認境界・公開境界試験 |
+| `V8-TIME-030` | 2 | 有効 | データ | diopside v8の時刻は、決定的検証は、0秒開始、3件以上、整数、昇順、10秒以上、動画長内、全区間網羅、非空名、許可確度、根拠参照、未解決重大指摘なしを動画ごとにすべて確認しなければならない。いずれかの不合格は当該動画の作成済みへの遷移とプルリクエスト作成を止め、理由付き処理不能とし、同じ有限集合の他の動画の処理を止めてはならない。を**satisfy** | 不正データ総当たり・動画単位の失敗分離試験 |
 | `V8-TIME-031` | 1 | 有効 | データ | diopside v8の時刻は、動画詳細の各タイムスタンプは、対象動画の同じ開始秒をYouTubeで開く確認リンクを持たなければならない。を**satisfy** | リンク契約試験 |
 | `V8-TIME-032` | 1 | 有効 | データ | diopside v8の時刻は、タイムスタンプの章名をタイトル文字検索へ混入してはならない。を**satisfy** | 検索除外試験 |
 | `V8-TIME-033` | 1 | 有効 | データ | diopside v8の時刻は、公開用データには承認済みの時刻、公開名、確度、必要最小限の生成来歴だけを含め、生の字幕、文字起こし、コメント、チャットを含めてはならない。を**satisfy** | 公開境界試験 |
@@ -149,7 +149,17 @@
 | `V8-SAFETY-002` | 1 | 有効 | 制約 | diopside v8の安全は、生の字幕、生のコメント、生のチャット、投稿者識別子をGit履歴またはPagesへ保存してはならない。を**satisfy** | 公開境界試験 |
 | `V8-SAFETY-003` | 1 | 有効 | 制約 | diopside v8の安全は、秘密情報をリポジトリ、プルリクエスト、確認報告、Pagesへ含めてはならない。を**satisfy** | 秘密情報検査 |
 | `V8-SAFETY-004` | 1 | 有効 | 制約 | diopside v8の安全は、削除、非公開化、対象外化が確認された動画を次の公開版から除外し、再追加を防止しなければならない。を**satisfy** | 削除・再追加試験 |
-| `V8-DISPLAY-011` | 1 | 有効 | データ | diopside v8の表示は、全編根拠を確認できる動画の詳細は、視聴意欲を促しつつ結末、正体、勝敗等のネタバレを避けた日本語あらすじを表示しなければならない。本文と末尾の引用符付きセリフは合計100〜150文字とし、最後に対象配信で白雪巴が実際に発した特徴的なセリフを一つ置かなければならない。を**satisfy** | あらすじ候補検証・公開データ検証・動画詳細画面試験・公開境界検査 |
+| `V8-DISPLAY-011` | 2 | 有効 | データ | diopside v8の表示は、全編根拠を確認できる動画の詳細は、視聴意欲を促しつつ結末、正体、勝敗等のネタバレを避けた日本語あらすじを表示しなければならない。本文と末尾の引用符付きセリフは合計100〜150文字とし、最後に対象配信で白雪巴が実際に発した特徴的なセリフを一つ置かなければならない。を**satisfy** | あらすじ候補検証・公開データ検証・動画詳細画面試験・公開境界検査 |
+| `V8-OPS-017` | 1 | 有効 | 運用 | diopside v8の運用は、release ID、版付き公開JSON、画面bundle、`main/docs`は、mainの品質ゲートに合格した人承認済み正本から決定的に生成し、差分がある場合だけmainへrelease commitしなければならない。生成中にmainが更新された場合は古い結果をcommitしてはならない。を**satisfy** | post-merge生成workflow契約試験・Pages公開経路試験 |
+| `V8-OPS-018` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ChatGPT Workから開始するタイムスタンプ処理は、PythonでGoogle Sheetsの対象動画台帳を列名で読み、作成済み・除外・既存PRを除いた適格対象を行番号と行指紋を含む有限集合として固定し、同じbatch IDでは集合を変更せず中断後も再開できなければならない。を**satisfy** | 台帳snapshot・immutable manifest・再開・0件試験 |
+| `V8-OPS-019` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ハーネスは作成者時刻一覧または公開日本語字幕を優先し、必要時に公開音声と無償ローカル音声認識、匿名化したチャット補助信号を取得し、章構成・事実確認・編集確認の意味判断を役割ごとに独立した非対話のcodex execで実行して、同じ候補hashへの決定的検証合格を必須としなければならない。を**satisfy** | Codex実行契約・role分離・候補hash・匿名chat・公開境界試験 |
+| `V8-OPS-020` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ハーネスは合格した各動画について1動画branchをcommit・pushしてdraft PRを作成し、実在PR URLを正本候補へ記録して最終commitをpushした後、PR URL・commit SHA・レビュー待ち状態を対象台帳行へ反映して再読確認しなければならない。処理不能動画も安全な理由と再開条件を台帳へ反映し、行指紋が変わった場合は上書きしてはならない。を**satisfy** | 1動画PR scope・PR URL gate・行指紋競合・exact range write・更新後再読試験 |
+| `V8-OPS-021` | 1 | 有効 | 運用 | diopside v8の分散タイムスタンプ運用は、2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchをGitHub connectorで原子的にref作成して未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者はclaim markerと処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。を**satisfy** | connector compare-and-set plan・1動画worker・余剰worker no-op・exact-case branch・認証分離契約試験 |
+| `V8-OPS-022` | 2 | 有効 | 運用 | diopside v8のタイムスタンプオーケストレーションは、1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行わなければならない。利用可能な同時threadが10未満でも10個のlane slotを維持してqueueから波状実行し、Lunaの回復可能失敗は親Solが同じ動画を引き取らなければならない。親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。を**satisfy** | agent設定・10レーン計画・Lunaモデル固定・Sol最終確認gate・共有書込み境界試験 |
+| `V8-OPS-023` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ証拠取得は、公開動画のタイムスタンプ証拠取得に失敗した場合、親Solは認証情報を使わないYouTube到達性診断、公開日本語字幕の上限付き再試行、公開native音声、yt-dlpによるMP3変換、無料のbatch-local ASRを順に試さなければならない。private、member-only、年齢制限、削除済み等の安全分類と試行結果だけをignored stateへ保存し、生字幕、音声、文字起こし、チャット本文をGit、PR、台帳へ保存してはならない。を**satisfy** | YouTube診断・字幕再試行・native/MP3 fallback・batch-local ASR・公開禁止物検査 |
+| `V8-OPS-024` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ失敗回復は、Lunaが字幕、音声、ASR、codex exec、意味構成、確認、決定的検証で回復可能な失敗へ到達した場合、needs_sol_recoveryとして親Solへ返し、親SolはGPT-5.6 Sol highで同じ動画を回復しなければならない。codex execのtrusted-destination結果は上限付きで再試行し、全編日本語字幕があるのに章候補を構成できない場合は素材不足ではなく意味構成失敗として扱わなければならない。期限内に回復できない場合はdeferred_recovery checkpointを残し、Google Sheetsへ処理不能を書いてはならない。を**satisfy** | trusted-destination再試行・Luna回復委譲・Sol high fallback・drain checkpoint・台帳書込みgate試験 |
+| `V8-OPS-026` | 1 | 有効 | 運用 | diopside v8の大規模タイムスタンプcampaignは、最大1000件のタイムスタンプcampaignは開始時に対象動画ID、順序、台帳行指紋、base commitを一度だけ固定し、10件ずつ処理しなければならない。各Work実行のdrain前と各wave後に、生字幕、音声、文字起こし、chat本文、識別子、資格情報を含まない安全なcheckpointを専用GitHub campaign branchへ観測済み親commitを条件として保存し、Work環境消失または利用制限後は同じcampaign IDを復元して完了済みを保持し未完了だけを安全な工程から再開しなければならない。を**satisfy** | 1000件manifest・101wave境界・checkpoint漏えい禁止・kill/restore・楽観ロックaction試験 |
+| `V8-OPS-025` | 1 | 有効 | 運用 | diopside v8のあらすじ運用は、ChatGPT Workから開始する未作成あらすじcampaignは、親GPT-5.6 SolとGPT-5.6 Luna mediumの10論理レーンとして構成し、最新mainの正本にあらすじがない公開動画だけを原子的にclaimしなければならない。Lunaはclaim済み1動画の一時全編根拠、候補、独立確認、決定的検証だけを行い、親Solだけが現在の候補hashを最終確認して1動画draft PRとあらすじ作業台帳を確定しなければならない。を**satisfy** | 10レーン計画・既存あらすじ除外・全編coverage・独立review hash・Sol gate・台帳行競合試験 |
 
 ## V8-SEARCH-001: 文字検索は、承認済み動画の動画タイトルだけを検索対象としなければならない
 
@@ -752,20 +762,21 @@ diopside v8の端末は、利用者行動を解析・追跡する外部送信を
 検証証跡: src/data/deviceStore.test.ts, e2e/library.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/data/deviceStore.ts,src/features/library/DeviceLibraryPage.tsx; テスト=src/data/deviceStore.test.ts,e2e/library.spec.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-OPS-001: 動画の追加・更新処理は、運用者がChatGPT／Codexの画面から明示的に開始しなければならない
+## V8-OPS-001: タイムスタンプ一括処理は、人の1回の明示要求で有限の適格対象集合を固定して開始しなければならない
 
-diopside v8の運用は、動画の追加・更新処理は、運用者がChatGPT／Codexの画面から明示的に開始しなければならない。を**satisfy**。
+diopside v8の運用は、タイムスタンプ一括処理は、運用者による1回の明示的なChatGPT／Codex要求で指定された識別子または有限の選定条件から、今回処理する適格動画の有限集合を開始時に固定しなければならない。固定後は、動画ごとの追加チャット承認を開始条件としてはならない。を**satisfy**。
 
 根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-OPS-001-1` 前提: V8-運用-001の前提を満たす公開データまたは操作がある。条件: 運用手順確認。期待結果: 人の開始操作がない状態では、候補生成、ブランチ作成、プルリクエスト作成が起きない。。
+- `AC-V8-OPS-001-1` 前提: 運用者がタイムスタンプ対象の識別子または有限の選定条件を明示した。条件: 一括処理の開始境界・対象集合固定試験。期待結果: 要求から有限の適格対象集合を一度だけ固定し、人の開始操作がない状態では候補生成、ブランチ作成、プルリクエスト作成を行わない。。
+- `AC-V8-OPS-001-2` 前提: 明示要求によって対象集合を固定済みである。条件: 動画ごとの状態遷移試験。期待結果: 集合内の各動画は、動画ごとの追加チャット承認を待たずに処理を開始できる。。
 
-要求源: Issue #1 V8-運用-001, user:2026-08-03
-検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-運用-001, user:2026-08-03, owner-directive:2026-08-08-timestamp-batch
+検証証跡: tests/operations.test.ts, tests/timestamp_tools_test.py
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.agents/skills/generate-stream-timestamps; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/timestamp_tools_test.py; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-OPS-002: GitHub ActionsからChatGPT／Codexを呼び出してはならない
 
@@ -780,7 +791,7 @@ diopside v8の運用は、GitHub ActionsからChatGPT／Codexを呼び出して�
 
 要求源: Issue #1 V8-運用-002, user:2026-08-03
 検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-OPS-003: 動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない
 
@@ -791,11 +802,11 @@ diopside v8の運用は、動画確認、候補生成、検証、静的成果物
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-OPS-003-1` 前提: V8-運用-003の前提を満たす公開データまたは操作がある。条件: リポジトリ静的確認・手順試験。期待結果: `.github/workflows` に予定実行と独自公開処理が存在しない。人が開始する `workflow_dispatch` は、読取専用の検証と候補検出に限定される。。
+- `AC-V8-OPS-003-1` 前提: V8-運用-003の前提を満たす公開データまたは操作がある。条件: リポジトリ静的確認・手順試験。期待結果: `.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。人が開始する `workflow_dispatch` は読取専用の検証と候補検出に限定し、静的成果物生成は検証済みmainだけを入力とする。。
 
-要求源: Issue #1 V8-運用-003, user:2026-08-03, owner-directive:2026-08-04
+要求源: Issue #1 V8-運用-003, user:2026-08-03, owner-directive:2026-08-04, spec/sources/owner-directive-2026-08-08-post-merge-release.md
 検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml,.github/workflows/update-generated-release.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-OPS-004: ChatGPT／Codexの利用は、運用者が契約済みの画面上の利用範囲に限定しなければならない
 
@@ -810,22 +821,23 @@ diopside v8の運用は、ChatGPT／Codexの利用は、運用者が契約済み
 
 要求源: Issue #1 V8-運用-004, user:2026-08-03
 検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-OPS-005: 1回の手動実行で、公開動画と正本データを比較し、新規・更新・削除候補を特定できなければならない
+## V8-OPS-005: 1回の明示要求で固定した有限の適格タイムスタンプ対象集合を、全件が終端結果へ到達するまで処理しなければならない
 
-diopside v8の運用は、1回の手動実行で、公開動画と正本データを比較し、新規・更新・削除候補を特定できなければならない。を**satisfy**。
+diopside v8の運用は、1回の明示要求で固定した有限の適格タイムスタンプ対象集合は、各動画が1動画だけを対象とするdraft PRの作成・最終commitのpush・台帳反映確認を完了した状態、または根拠を示した処理不能状態のいずれかへ到達するまで処理しなければならない。ある動画の失敗を理由に、集合内の未処理動画を停止してはならない。を**satisfy**。
 
 根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-OPS-005-1` 前提: V8-運用-005の前提を満たす公開データまたは操作がある。条件: 固定データ試験。期待結果: 同じ公開情報と同じ正本から同じ候補集合を得る。。
+- `AC-V8-OPS-005-1` 前提: 同じ公開情報、同じ正本、同じ明示要求がある。条件: 対象集合の固定データ試験。期待結果: 同じ有限の適格対象集合を固定する。。
+- `AC-V8-OPS-005-2` 前提: 固定した集合に成功可能な動画と処理不能になる動画が含まれる。条件: 一括処理の終端・失敗分離試験。期待結果: 全動画が1動画draft PR作成・最終commit push・台帳反映確認済み、または理由付き処理不能の終端結果を持ち、処理不能動画があっても残りの動画を処理する。。
 
-要求源: Issue #1 V8-運用-005, user:2026-08-03
-検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-運用-005, user:2026-08-03, owner-directive:2026-08-08-timestamp-batch, spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md, user:2026-08-11
+検証証跡: tests/operations.test.ts, tests/timestamp_tools_test.py, tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.agents/skills/generate-stream-timestamps,.agents/skills/run-timestamp-work-harness; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/timestamp_tools_test.py,tests/timestamp_harness_test.py; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-OPS-006: 対象候補が0件の場合は、生成物、ブランチ、プルリクエストを作成してはならない
 
@@ -840,22 +852,22 @@ diopside v8の運用は、対象候補が0件の場合は、生成物、ブラ�
 
 要求源: Issue #1 V8-運用-006, user:2026-08-03
 検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-OPS-007: 通常の動画追加プルリクエストは、1動画だけを内容確認の対象としなければならない
 
-diopside v8の運用は、通常の動画追加プルリクエストは、1動画だけを内容確認の対象としなければならない。を**satisfy**。
+diopside v8の運用は、通常の動画追加プルリクエストは、正本動画データを1件だけ変更対象とし、公開用のrelease ID、版付きJSON、画面bundle、`main/docs`を含めてはならない。静的公開成果物は人が当該プルリクエストをmainへマージした後に生成しなければならない。を**satisfy**。
 
 根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-OPS-007-1` 前提: V8-運用-007の前提を満たす公開データまたは操作がある。条件: 変更範囲試験。期待結果: 1件の正本動画データと、それから決定的に生成される索引・詳細・ワードクラウド・確認報告だけを変更する。。
+- `AC-V8-OPS-007-1` 前提: V8-運用-007の前提を満たす公開データまたは操作がある。条件: 変更範囲試験。期待結果: 1件の正本動画データと、その正本件数・更新日時を持つmanifestおよび確認用資料だけを変更し、release ID、版付き公開JSON、画面bundle、`main/docs`を差分に含めない。。
 
-要求源: Issue #1 V8-運用-007, user:2026-08-03
+要求源: Issue #1 V8-運用-007, user:2026-08-03, spec/sources/owner-directive-2026-08-08-post-merge-release.md
 検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,scripts/validate-video-pr-scope.ts,scripts/validate-release-pr-scope.ts,.github/workflows/update-generated-release.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-OPS-008: 通常の動画追加プルリクエストでは、スキル、生成規則、タグ体系、構造定義、検証スクリプト、画面実装、Pages設定を変更してはならない
 
@@ -870,37 +882,38 @@ diopside v8の運用は、通常の動画追加プルリクエストでは、ス
 
 要求源: Issue #1 V8-運用-008, user:2026-08-03
 検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-OPS-009: プルリクエスト作成前に、構造、タグ、タイムスタンプ、ワードクラウド、検索索引、公開禁止情報、静的画面を決定的スクリプトで検証しなければならない
+## V8-OPS-009: プルリクエスト作成前の決定的検証は動画ごとに判定し、不合格を他の対象へ波及させてはならない
 
-diopside v8の運用は、プルリクエスト作成前に、構造、タグ、タイムスタンプ、ワードクラウド、検索索引、公開禁止情報、静的画面を決定的スクリプトで検証しなければならない。を**satisfy**。
-
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
-
-分類: `project` / `nonfunctional`
-
-受入条件:
-- `AC-V8-OPS-009-1` 前提: V8-運用-009の前提を満たす公開データまたは操作がある。条件: 不正データ試験・手順試験。期待結果: いずれか1件の不合格でプルリクエスト作成を止め、原因を日本語で示す。。
-
-要求源: Issue #1 V8-運用-009, user:2026-08-03
-検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-OPS-010: プルリクエスト本文は、対象動画、タグ候補、タイムスタンプ候補、ワードクラウド語句、根拠、検証結果、YouTube確認リンクを日本語で示さなければならない
-
-diopside v8の運用は、プルリクエスト本文は、対象動画、タグ候補、タイムスタンプ候補、ワードクラウド語句、根拠、検証結果、YouTube確認リンクを日本語で示さなければならない。を**satisfy**。
+diopside v8の運用は、プルリクエスト作成前に、構造、タグ、タイムスタンプ、ワードクラウド、検索索引、公開禁止情報、静的画面を動画ごとに決定的スクリプトで検証しなければならない。不合格は当該動画のプルリクエスト作成だけを止め、理由付き処理不能として記録し、同じ有限集合の他の動画の処理を止めてはならない。を**satisfy**。
 
 根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-OPS-010-1` 前提: V8-運用-010の前提を満たす公開データまたは操作がある。条件: プルリクエスト表示確認。期待結果: 人が構造化データを直接読まずに各候補を確認できる。。
+- `AC-V8-OPS-009-1` 前提: 固定した有限集合の各動画に、プルリクエスト作成前の候補がある。条件: 不正データ試験・動画単位の失敗分離試験・手順試験。期待結果: いずれか1件の不合格で当該動画のプルリクエスト作成を止め、原因を日本語で示す一方、他の対象動画の検証と処理を継続する。。
 
-要求源: Issue #1 V8-運用-010, user:2026-08-03
-検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-運用-009, user:2026-08-03, owner-directive:2026-08-08-timestamp-batch
+検証証跡: tests/operations.test.ts, tests/generated.test.ts, tests/timestamp_tools_test.py
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.agents/skills/generate-stream-timestamps; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/timestamp_tools_test.py; 参照資料=Issue #1,dev-standard default profile
+
+## V8-OPS-010: 各動画の終端結果は、PRレビュー内容または処理不能理由を日本語で確認できなければならない
+
+diopside v8の運用は、PRレビュー可能な動画のプルリクエスト本文は、対象動画、タグ候補、タイムスタンプ候補、ワードクラウド語句、根拠、検証結果、YouTube確認リンクを日本語で示さなければならない。処理不能の動画は、失敗した段階と根拠を含む理由を日本語で示さなければならない。を**satisfy**。
+
+根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-010-1` 前提: 動画がPRレビュー可能な終端結果へ到達した。条件: プルリクエスト表示確認。期待結果: 人が構造化データを直接読まずに対象動画、各候補、根拠、検証結果、YouTube確認リンクを確認できる。。
+- `AC-V8-OPS-010-2` 前提: 動画が理由付き処理不能の終端結果へ到達した。条件: 一括処理の結果表示確認。期待結果: 失敗した段階、根拠、再開に必要な条件を日本語で確認でき、成功または公開対象として表示されない。。
+
+要求源: Issue #1 V8-運用-010, user:2026-08-03, owner-directive:2026-08-08-timestamp-batch
+検証証跡: tests/operations.test.ts, tests/timestamp_tools_test.py
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.agents/skills/generate-stream-timestamps; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/timestamp_tools_test.py; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-OPS-011: 生成候補は、人が確認してマージするまで公開してはならない
 
@@ -915,7 +928,7 @@ diopside v8の運用は、生成候補は、人が確認してマージするま
 
 要求源: Issue #1 V8-運用-011, user:2026-08-03
 検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-OPS-012: GitHub Pagesは、`main` ブランチの `/docs` にコミット済みの静的成果物だけを公開しなければならない
 
@@ -930,7 +943,7 @@ diopside v8の運用は、GitHub Pagesは、`main` ブランチの `/docs` に�
 
 要求源: Issue #1 V8-運用-012, user:2026-08-03
 検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-OPS-013: 静的成果物は正本データから決定的に生成し、手作業で直接編集してはならない
 
@@ -945,7 +958,7 @@ diopside v8の運用は、静的成果物は正本データから決定的に生
 
 要求源: Issue #1 V8-運用-013, user:2026-08-03
 検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-OPS-014: 公開データと画面は、同じ公開版の識別子を持たなければならない
 
@@ -960,7 +973,7 @@ diopside v8の運用は、公開データと画面は、同じ公開版の識別
 
 要求源: Issue #1 V8-運用-014, user:2026-08-03
 検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-OPS-015: 承認済み変更の取り消しによって、直前の正しい公開状態を再生成できなければならない
 
@@ -975,7 +988,7 @@ diopside v8の運用は、承認済み変更の取り消しによって、直前
 
 要求源: Issue #1 V8-運用-015, user:2026-08-03
 検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-OPS-016: 更新頻度は自動の日次保証とせず、最終更新日時を画面で確認できなければならない
 
@@ -990,7 +1003,7 @@ diopside v8の運用は、更新頻度は自動の日次保証とせず、最終
 
 要求源: Issue #1 V8-運用-016, user:2026-08-03
 検証証跡: tests/operations.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TAG-001: 承認済み動画のタグは、版管理したタグ体系に基づかなければならない
 
@@ -1530,7 +1543,7 @@ diopside v8の時刻は、タイムスタンプは動画全体を移動するた
 
 要求源: Issue #1 V8-時刻-001, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-002: v8.0では動画形式が「配信」の動画を既定の作成対象とし、「Shorts」と単曲の「歌ってみた」は対象外にしなければならない
 
@@ -1545,7 +1558,7 @@ diopside v8の時刻は、v8.0では動画形式が「配信」の動画を既�
 
 要求源: Issue #1 V8-時刻-002, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-003: 各対象動画は「作成済み」または理由付きの「未作成」の状態を持たなければならない
 
@@ -1560,7 +1573,7 @@ diopside v8の時刻は、各対象動画は「作成済み」または理由付
 
 要求源: Issue #1 V8-時刻-003, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-004: 動画長が30秒未満の動画は、YouTube章の最小条件を満たせないため「短尺」として未作成にしなければならない
 
@@ -1575,7 +1588,7 @@ diopside v8の時刻は、動画長が30秒未満の動画は、YouTube章の最
 
 要求源: Issue #1 V8-時刻-004, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-005: 作成者が概要欄等に有効な時刻一覧を公開している場合は、それを最優先の候補として保持し、無断で全置換してはならない
 
@@ -1590,7 +1603,7 @@ diopside v8の時刻は、作成者が概要欄等に有効な時刻一覧を公
 
 要求源: Issue #1 V8-時刻-005, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-006: 新規生成の根拠は、作成者の時刻一覧、公開の日本語原文字幕、公開の日本語字幕、全編を覆う無償のローカル音声認識または運用者提供の文字起こしの順に使用しなければなら
 
@@ -1605,7 +1618,7 @@ diopside v8の時刻は、新規生成の根拠は、作成者の時刻一覧、
 
 要求源: Issue #1 V8-時刻-006, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-007: 作成者の有効な時刻一覧をそのまま採用する場合を除き、新規生成は動画の0秒から動画末尾までを処理対象にした字幕または文字起こしを確認してから行わなければならない
 
@@ -1620,7 +1633,7 @@ diopside v8の時刻は、作成者の有効な時刻一覧をそのまま採用
 
 要求源: Issue #1 V8-時刻-007, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-008: 全編根拠を用意できない場合は、既知のコメント時刻周辺だけを調べて残りを推測してはならない
 
@@ -1635,7 +1648,7 @@ diopside v8の時刻は、全編根拠を用意できない場合は、既知の
 
 要求源: Issue #1 V8-時刻-008, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-009: コメント、返信、チャット、反応量の山は境界候補の補助にだけ使用し、単独では最終境界または章名の根拠にしてはならない
 
@@ -1650,7 +1663,7 @@ diopside v8の時刻は、コメント、返信、チャット、反応量の山
 
 要求源: Issue #1 V8-時刻-009, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-010: タイムスタンプ境界は内容の開始・転換・終了に置き、固定間隔または固定章数で作ってはならない
 
@@ -1665,7 +1678,7 @@ diopside v8の時刻は、タイムスタンプ境界は内容の開始・転換
 
 要求源: Issue #1 V8-時刻-010, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-011: ジャンルごとの境界と公開名は、本節の基準表に従わなければならない
 
@@ -1680,7 +1693,7 @@ diopside v8の時刻は、ジャンルごとの境界と公開名は、本節の
 
 要求源: Issue #1 V8-時刻-011, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-012: 各タイムスタンプは一意な識別子、開始秒、公開用の短い日本語名、確度、根拠参照を持たなければならない
 
@@ -1695,7 +1708,7 @@ diopside v8の時刻は、各タイムスタンプは一意な識別子、開始
 
 要求源: Issue #1 V8-時刻-012, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-013: 最初のタイムスタンプは0秒でなければならない
 
@@ -1710,7 +1723,7 @@ diopside v8の時刻は、最初のタイムスタンプは0秒でなければ�
 
 要求源: Issue #1 V8-時刻-013, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-014: 作成済みのタイムスタンプは3件以上でなければならない
 
@@ -1725,7 +1738,7 @@ diopside v8の時刻は、作成済みのタイムスタンプは3件以上で�
 
 要求源: Issue #1 V8-時刻-014, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-015: 開始秒は整数、重複なし、厳密な昇順とし、隣接する開始秒の差を10秒以上にしなければならない
 
@@ -1740,7 +1753,7 @@ diopside v8の時刻は、開始秒は整数、重複なし、厳密な昇順と
 
 要求源: Issue #1 V8-時刻-015, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-016: 各開始秒は0以上かつ動画長未満でなければならない
 
@@ -1755,7 +1768,7 @@ diopside v8の時刻は、各開始秒は0以上かつ動画長未満でなけ�
 
 要求源: Issue #1 V8-時刻-016, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-017: 各章の終了秒は次の章の開始秒、最終章の終了秒は動画長として導出し、動画全体を重複なく連続して覆わなければならない
 
@@ -1770,7 +1783,7 @@ diopside v8の時刻は、各章の終了秒は次の章の開始秒、最終章
 
 要求源: Issue #1 V8-時刻-017, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-018: 0秒の公開名は、待機時間ではなく最初の有用な移動区間の内容を示さなければならない
 
@@ -1785,7 +1798,7 @@ diopside v8の時刻は、0秒の公開名は、待機時間ではなく最初�
 
 要求源: Issue #1 V8-時刻-018, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-019: 内容のない冒頭待機、休止画面、末尾無音だけを独立した章にしてはならない
 
@@ -1800,7 +1813,7 @@ diopside v8の時刻は、内容のない冒頭待機、休止画面、末尾無
 
 要求源: Issue #1 V8-時刻-019, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-020: 隣接する章が同じ移動目的を持つ場合は統合し、継続する話題・試合・曲・場面を探す助けにならない単発のリアクションや出来事を独立章にしてはならない
 
@@ -1815,7 +1828,7 @@ diopside v8の時刻は、隣接する章が同じ移動目的を持つ場合は
 
 要求源: Issue #1 V8-時刻-020, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-021: 公開用の章名は、該当区間の根拠から直接確認できる内容だけを表さなければならない
 
@@ -1830,7 +1843,7 @@ diopside v8の時刻は、公開用の章名は、該当区間の根拠から直
 
 要求源: Issue #1 V8-時刻-021, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-022: ゲーム、TRPG、同時視聴、朗読・声劇の公開用章名は、犯人、秘密、正体、判定結果、結末、最終遭遇等のネタバレを避けなければならない
 
@@ -1845,7 +1858,7 @@ diopside v8の時刻は、ゲーム、TRPG、同時視聴、朗読・声劇の�
 
 要求源: Issue #1 V8-時刻-022, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-023: 公開用章名は1文字以上60文字以下の自然な日本語を基本とし、公式固有名詞は出典表記を保たなければならない
 
@@ -1860,7 +1873,7 @@ diopside v8の時刻は、公開用章名は1文字以上60文字以下の自然
 
 要求源: Issue #1 V8-時刻-023, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-024: 公開可能なタイムスタンプの確度は「高」または「中」だけとし、「低」および確認待ちを公開してはならない
 
@@ -1875,7 +1888,7 @@ diopside v8の時刻は、公開可能なタイムスタンプの確度は「高
 
 要求源: Issue #1 V8-時刻-024, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-025: 0秒を除くすべての境界は、作成者の時刻一覧または境界前後の字幕・文字起こしへ解決できる根拠参照を持たなければならない
 
@@ -1890,7 +1903,7 @@ diopside v8の時刻は、0秒を除くすべての境界は、作成者の時�
 
 要求源: Issue #1 V8-時刻-025, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-026: 根拠が競合する境界、音声認識が不明瞭な境界、時刻が一意に定まらない境界は確定せず、確認待ち理由を残さなければならない
 
@@ -1905,7 +1918,7 @@ diopside v8の時刻は、根拠が競合する境界、音声認識が不明瞭
 
 要求源: Issue #1 V8-時刻-026, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-027: 候補の事実確認では、適用経路が作成者一覧の採用または全編根拠による生成のいずれかであること、根拠参照、境界前後、章名の裏付け、根拠競合を確認しなければならない（新規・変更候補。承認済み旧データ移行は別経路）
 
@@ -1920,7 +1933,7 @@ diopside v8の時刻は、候補の事実確認では、適用経路が作成者
 
 要求源: Issue #1 V8-時刻-027, user:2026-08-03, owner-directive:2026-08-04
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-028: 候補の編集確認では、移動価値、過分割、分割不足、名称統一、ネタバレを事実確認とは別に確認しなければならない（新規・変更候補。承認済み旧データ移行は別経路）
 
@@ -1935,37 +1948,39 @@ diopside v8の時刻は、候補の編集確認では、移動価値、過分割
 
 要求源: Issue #1 V8-時刻-028, user:2026-08-03, owner-directive:2026-08-04
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-TIME-029: 事実確認と編集確認の両方が同じ候補版へ合格した場合だけ、人の最終確認へ進めなければならない（新規・変更候補。承認済み旧データ移行は別経路）
+## V8-TIME-029: 事実確認と編集確認が同じ候補版へ合格した動画だけをPRレビュー可能とし、人のマージを公開承認としなければならない
 
-diopside v8の時刻は、事実確認と編集確認の両方が同じ候補版へ合格した場合だけ、人の最終確認へ進めなければならない。 新規・変更候補にはIssue #1の独立確認を適用する。既存承認済みデータは、承認元・入力指紋・同一候補ハッシュ・v8決定的検証・現在の所有者承認を解決できる場合に限り移行できる。を**satisfy**。
-
-根拠: 見どころ偏重ではなく、動画全体を安全に移動できる目次を提供するため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-TIME-029-1` 前提: V8-時刻-029の前提を満たす公開データまたは操作がある。条件: 版・状態遷移試験。期待結果: 新規・変更候補はIssue #1の独立確認に合格する。承認済み旧データ移行は、承認元、同一候補ハッシュ、決定的検証、現在の所有者承認をすべて持つ。。
-
-要求源: Issue #1 V8-時刻-029, user:2026-08-03, owner-directive:2026-08-04
-検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-TIME-030: 決定的検証は、0秒開始、3件以上、整数、昇順、10秒以上、動画長内、全区間網羅、非空名、許可確度、根拠参照、未解決重大指摘なしをすべて確認しなければならない
-
-diopside v8の時刻は、決定的検証は、0秒開始、3件以上、整数、昇順、10秒以上、動画長内、全区間網羅、非空名、許可確度、根拠参照、未解決重大指摘なしをすべて確認しなければならない。を**satisfy**。
+diopside v8の時刻は、新規・変更候補は、事実確認と編集確認の両方が同じ候補版へ合格した場合だけ、1動画だけを対象とするPRのレビュー可能状態へ進めなければならない。対象集合を固定した後に動画ごとの追加チャット承認を要求してはならず、人が当該PRを確認してマージする操作を公開の最終承認としなければならない。既存承認済みデータは、承認元・入力指紋・同一候補ハッシュ・v8決定的検証・現在の所有者承認を解決できる場合に限り移行できる。を**satisfy**。
 
 根拠: 見どころ偏重ではなく、動画全体を安全に移動できる目次を提供するため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-TIME-030-1` 前提: V8-時刻-030の前提を満たす公開データまたは操作がある。条件: 不正データ総当たり試験。期待結果: いずれか1件の不合格で作成済みへの遷移とプルリクエスト作成を止める。。
+- `AC-V8-TIME-029-1` 前提: 新規・変更タイムスタンプ候補に事実確認と編集確認の結果がある。条件: 候補版・状態遷移・PR範囲試験。期待結果: 同じ候補版への両確認合格時だけ1動画のPRをレビュー可能にし、候補修正後は旧確認を無効にして両方を再実施する。。
+- `AC-V8-TIME-029-2` 前提: 1回の明示要求で対象集合を固定し、動画の候補がレビュー可能になった。条件: 承認境界・公開境界試験。期待結果: 動画ごとの追加チャット承認なしでPRレビュー可能状態まで進み、人が当該PRをマージするまで公開されず、自動マージまたは自動公開されない。。
+- `AC-V8-TIME-029-3` 前提: 承認済み旧データを移行する。条件: 移行経路の版・状態遷移試験。期待結果: 承認元、同一候補ハッシュ、決定的検証、現在の所有者承認をすべて持つ。。
 
-要求源: Issue #1 V8-時刻-030, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-時刻-029, user:2026-08-03, owner-directive:2026-08-04, owner-directive:2026-08-08-timestamp-batch
+検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts, tests/timestamp_tools_test.py
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,.agents/skills/generate-stream-timestamps; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts,tests/timestamp_tools_test.py; 参照資料=Issue #1,dev-standard default profile
+
+## V8-TIME-030: 決定的検証は必須条件を動画ごとに確認し、不合格動画だけを理由付き処理不能にしなければならない
+
+diopside v8の時刻は、決定的検証は、0秒開始、3件以上、整数、昇順、10秒以上、動画長内、全区間網羅、非空名、許可確度、根拠参照、未解決重大指摘なしを動画ごとにすべて確認しなければならない。いずれかの不合格は当該動画の作成済みへの遷移とプルリクエスト作成を止め、理由付き処理不能とし、同じ有限集合の他の動画の処理を止めてはならない。を**satisfy**。
+
+根拠: 見どころ偏重ではなく、動画全体を安全に移動できる目次を提供するため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-TIME-030-1` 前提: 固定した有限集合の各動画にタイムスタンプ候補がある。条件: 不正データ総当たり・動画単位の失敗分離試験。期待結果: いずれか1件の不合格で当該動画の作成済みへの遷移とプルリクエスト作成を止め、理由付き処理不能にする一方、他の対象動画の処理を継続する。。
+
+要求源: Issue #1 V8-時刻-030, user:2026-08-03, owner-directive:2026-08-08-timestamp-batch
+検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts, tests/timestamp_tools_test.py
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,.agents/skills/generate-stream-timestamps; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts,tests/timestamp_tools_test.py; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-031: 動画詳細の各タイムスタンプは、対象動画の同じ開始秒をYouTubeで開く確認リンクを持たなければならない
 
@@ -1980,7 +1995,7 @@ diopside v8の時刻は、動画詳細の各タイムスタンプは、対象動
 
 要求源: Issue #1 V8-時刻-031, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-032: タイムスタンプの章名をタイトル文字検索へ混入してはならない
 
@@ -1995,7 +2010,7 @@ diopside v8の時刻は、タイムスタンプの章名をタイトル文字検
 
 要求源: Issue #1 V8-時刻-032, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-033: 公開用データには承認済みの時刻、公開名、確度、必要最小限の生成来歴だけを含め、生の字幕、文字起こし、コメント、チャットを含めてはならない
 
@@ -2010,7 +2025,7 @@ diopside v8の時刻は、公開用データには承認済みの時刻、公開
 
 要求源: Issue #1 V8-時刻-033, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-034: 既存の承認済みタイムスタンプを更新する場合は、追加、削除、移動、改名の差分と理由を人へ提示しなければならない
 
@@ -2025,7 +2040,7 @@ diopside v8の時刻は、既存の承認済みタイムスタンプを更新す
 
 要求源: Issue #1 V8-時刻-034, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-035: タイムスタンプ生成来歴から、動画、入力指紋、根拠の種類と範囲、生成規則版、生成日時、確認結果、確認プルリクエストを追跡できなければならない
 
@@ -2040,7 +2055,7 @@ diopside v8の時刻は、タイムスタンプ生成来歴から、動画、入
 
 要求源: Issue #1 V8-時刻-035, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-036: 初回公開前に、指定8ジャンルの固定30動画で新規経路または承認済み旧データ移行経路の品質を確認しなければならない
 
@@ -2055,7 +2070,7 @@ diopside v8の時刻は、初回公開前に、ゲーム8件、企画6件、雑�
 
 要求源: Issue #1 V8-時刻-036, user:2026-08-03, owner-directive:2026-08-04
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TIME-037: 公開画面は各タイムスタンプの由来を「作成者による時刻一覧」「作成者一覧を基にdiopsideで調整」「diopsideで作成した時刻一覧」のいずれかとして区別し
 
@@ -2070,7 +2085,7 @@ diopside v8の時刻は、公開画面は各タイムスタンプの由来を「
 
 要求源: Issue #1 V8-時刻-037, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-COST-001: サービス運用に起因する請求額は、既存のChatGPT／Codex契約を除いて毎月0円でなければならない
 
@@ -2293,7 +2308,174 @@ diopside v8の表示は、全編根拠を確認できる動画の詳細は、視
 受入条件:
 - `AC-V8-DISPLAY-011-1` 前提: 全編根拠と承認済みのあらすじ候補を持つ動画がある。条件: あらすじ候補検証・公開データ検証・動画詳細画面試験。期待結果: 本文と末尾の引用符付きセリフが100〜150文字で、結末、正体、勝敗等を明かさず、最後に根拠時刻へ移動できる白雪巴の特徴的なセリフを一つ表示する。。
 - `AC-V8-DISPLAY-011-2` 前提: 全編字幕または文字起こしを使ってあらすじ候補を作る。条件: 公開境界検査・repository差分確認。期待結果: 生字幕・文字起こしをGitまたは公開成果物へ含めず、安全な根拠ラベル、入力指紋、全編範囲だけを正本へ保持する。。
+- `AC-V8-DISPLAY-011-3` 前提: 新しいあらすじ候補を一括生成する。条件: rules 1.1.0の候補を検証する。期待結果: 0秒から動画末尾まで隙間のない意味区間を確認し、同じ候補hashに対する独立した事実・発言者確認、ネタバレ・個人情報確認、編集確認が全て合格する。歌詞、ゲーム・映像・朗読の台詞、他出演者の発言を白雪巴の引用として採用しない。。
 
-要求源: spec/sources/owner-directive-2026-08-08-video-synopsis.md, user:2026-08-08
+要求源: spec/sources/owner-directive-2026-08-08-video-synopsis.md, spec/sources/owner-directive-2026-08-11-synopsis-work-harness.md, user:2026-08-08, user:2026-08-11
 検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=.agents/skills/generate-video-synopses,src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,spec/sources/owner-directive-2026-08-08-video-synopsis.md,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md; 実装=.agents/skills/generate-video-synopses,.agents/skills/run-synopsis-work-harness,src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,tests/synopsis_harness_test.py,e2e/detail.spec.ts; 参照資料=Issue #1,spec/sources/owner-directive-2026-08-08-video-synopsis.md,spec/sources/owner-directive-2026-08-11-synopsis-work-harness.md,dev-standard default profile
+
+## V8-OPS-017: 静的公開成果物は、検証済みmainマージ後にだけ自動生成してrelease commitしなければならない
+
+diopside v8の運用は、release ID、版付き公開JSON、画面bundle、`main/docs`は、mainの品質ゲートに合格した人承認済み正本から決定的に生成し、差分がある場合だけmainへrelease commitしなければならない。生成中にmainが更新された場合は古い結果をcommitしてはならない。を**satisfy**。
+
+根拠: 内容レビュー対象の正本と機械生成される公開版を分離し、通常プルリクエストごとの全公開物差分とrelease ID競合をなくしながら、人のマージ承認後だけ一貫した静的版を公開するため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-017-1` 前提: 人が正本変更をmainへマージし、そのmain commitの品質ゲートが合格した。条件: post-merge生成workflow契約試験。期待結果: 同じ検証済みcommitから静的成果物を生成・検証し、後続main更新がなく生成差分がある場合だけrelease commitする。。
+- `AC-V8-OPS-017-2` 前提: release commitがmainへ追加された。条件: Pages公開経路試験。期待結果: 独自deploy artifactを使わず、既存のmain/docs branch方式Pages buildを要求する。。
+
+要求源: spec/sources/owner-directive-2026-08-08-post-merge-release.md, user:2026-08-08
+検証証跡: tests/repository-policy.test.ts, tests/operations.test.ts, tests/generated.test.ts
+トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/design/generated/system.gen.md; 実装=.github/workflows/update-generated-release.yml,scripts/build-public-data.ts,scripts/validate-video-pr-scope.ts,scripts/validate-release-pr-scope.ts,scripts/verify-generated-source.ts; テスト=tests/repository-policy.test.ts,tests/operations.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-08-post-merge-release.md,dev-standard default profile
+
+## V8-OPS-018: Work用タイムスタンプ処理はPythonで台帳行を固定し中断後も同じ集合から再開できなければならない
+
+diopside v8のタイムスタンプ運用は、ChatGPT Workから開始するタイムスタンプ処理は、PythonでGoogle Sheetsの対象動画台帳を列名で読み、作成済み・除外・既存PRを除いた適格対象を行番号と行指紋を含む有限集合として固定し、同じbatch IDでは集合を変更せず中断後も再開できなければならない。を**satisfy**。
+
+根拠: 長時間処理の中断や台帳の並行更新があっても対象の追加・脱落・誤上書きを防ぎ、今後のChatGPT Work実行を同じ手順で再現するため。Python、Google Sheets、ChatGPT Workは所有者が将来運用に指定した支持環境であり、この運用範囲に限定して保持する。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-018-1` 前提: 対象動画台帳のsnapshotと一意なbatch IDがある。条件: Pythonハーネスを初期化し、同一または変更したsnapshotで再実行する。期待結果: 同一入力は同じ有限集合を再開し、行または対象集合が変わる同一batch IDを拒否し、0件ではbranch・PR・台帳書込みを行わない。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/scripts/harness_common.py; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md,dev-standard default profile
+
+## V8-OPS-019: 意味判断は独立したcodex execで実行し素材取得と決定的検証で囲まなければならない
+
+diopside v8のタイムスタンプ運用は、ハーネスは作成者時刻一覧または公開日本語字幕を優先し、必要時に公開音声と無償ローカル音声認識、匿名化したチャット補助信号を取得し、章構成・事実確認・編集確認の意味判断を役割ごとに独立した非対話のcodex execで実行して、同じ候補hashへの決定的検証合格を必須としなければならない。を**satisfy**。
+
+根拠: 素材収集と意味判断と採用判定を分離し、既存ChatGPT／Codex契約の範囲で全編根拠、独立確認、機械検証を再現可能にするため。codex execは所有者が判断実行方式として明示した永続的な運用制約である。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-019-1` 前提: 固定対象に公開字幕がある、または公開音声から全編ローカル音声認識が可能である。条件: ハーネスで素材取得と候補作成を実行する。期待結果: 生素材をGitへ保存せず、compose、fact、editorialを別のephemeral codex execとして実行し、同じ候補hashの独立確認と決定的検証に合格した候補だけをPR工程へ進める。。
+- `AC-V8-OPS-019-2` 前提: チャット補助信号が必要で公開live chatを取得できる。条件: チャット取得を実行する。期待結果: 本文と投稿者識別子を破棄した時間帯別反応量だけを一時保持し、チャット単独で境界または全編根拠を決めない。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py, tests/timestamp_tools_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/scripts/download_live_chat.py,.agents/skills/prepare-stream-evidence,.agents/skills/audit-stream-chapters; テスト=tests/timestamp_harness_test.py,tests/timestamp_tools_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md,dev-standard default profile
+
+## V8-OPS-020: 合格動画のdraft PR作成と全終端結果の台帳反映を自律的に完了しなければならない
+
+diopside v8のタイムスタンプ運用は、ハーネスは合格した各動画について1動画branchをcommit・pushしてdraft PRを作成し、実在PR URLを正本候補へ記録して最終commitをpushした後、PR URL・commit SHA・レビュー待ち状態を対象台帳行へ反映して再読確認しなければならない。処理不能動画も安全な理由と再開条件を台帳へ反映し、行指紋が変わった場合は上書きしてはならない。を**satisfy**。
+
+根拠: 候補作成だけで停止せず、人が確認できるGitHub単位と進捗台帳を一致させ、誤って未マージ候補を作成済みまたは公開済みと扱わないため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-020-1` 前提: 候補が全編根拠、独立確認、決定的検証に合格した。条件: PR工程と台帳同期を実行する。期待結果: 1動画だけのdraft PRへ最終commitがpushされ、台帳は作成済みFALSE、PR作成済み（レビュー待ち）、実在PR URL、最終commit SHAを示し、更新後の再読で一致する。。
+- `AC-V8-OPS-020-2` 前提: 動画が処理不能である、または開始後に台帳行が変更された。条件: 終端結果を台帳へ同期する。期待結果: 他動画を継続し、処理不能の段階・安全な理由・再開条件を記録し、競合行は上書きしない。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py, tests/finalize_candidate_pr_merge_test.py, tests/operations.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness,.agents/skills/generate-stream-timestamps/scripts/finalize_candidate.py,scripts/validate-video-pr-scope.ts; テスト=tests/timestamp_harness_test.py,tests/finalize_candidate_pr_merge_test.py,tests/operations.test.ts; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md,dev-standard default profile
+
+## V8-OPS-021: 2〜20のWorkセッションはremote branchの原子的claimで別動画を1件ずつ処理しなければならない
+
+diopside v8の分散タイムスタンプ運用は、2〜20の独立したChatGPT Workセッションでタイムスタンプを並列処理する場合、各workerは動画IDを人が事前配布せず、動画IDの大文字小文字を保持した専用remote branchをGitHub connectorで原子的にref作成して未確保動画を1件だけ所有し、競合に負けたworkerは次候補へ進み、勝者はclaim markerと処理中draft PRを直ちに作成して同じPRと台帳行を完了まで処理しなければならない。を**satisfy**。
+
+根拠: 独立Workセッション間に共有ローカル状態がなくても、GitHubのremote ref作成をcompare-and-setとして利用し、二重素材処理、同一branch更新、同一動画PR、台帳行の誤上書きを防ぐため。処理中draft PRにより中断したclaimも人が発見して再開判断できる。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-021-1` 前提: 同じ台帳snapshotから同じ未処理動画を選ぶ2つのworkerがある。条件: 両workerがGitHub connectorで同じ動画の専用remote branchをref作成してclaimする。期待結果: GitHubがref作成を受理した1workerだけが所有権を得てclaim markerと処理中draft PRを作り、競合workerはforce updateやbranch削除をせず次候補へ進む。。
+- `AC-V8-OPS-021-2` 前提: 適格動画数より多いworkerが起動した、またはclaim済み動画だけが残っている。条件: workerがclaim-nextを完了する。期待結果: 余剰workerはno_unclaimed_targetとしてbranch、PR、台帳書込みを行わず正常終了する。。
+- `AC-V8-OPS-021-3` 前提: claim済みworkerが処理中に停止した。条件: 別workerまたは人がGitHub上の状態を確認する。期待結果: 処理中draft PRとclaim markerから所有権を識別でき、自動奪取せず同じbatchとbranchで再開判断できる。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-distributed-workers.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-distributed-workers.md,dev-standard default profile
+
+## V8-OPS-022: 1つのWorkセッションは1 Solと10 Lunaでタイムスタンプを並列処理しSolが最終確認しなければならない
+
+diopside v8のタイムスタンプオーケストレーションは、1つのChatGPT Workセッションでタイムスタンプを並列処理する場合、親をGPT-5.6 Sol、子をGPT-5.6 Luna mediumの10論理レーンとして構成し、Lunaは1動画の一時素材取得・候補作成・独立一次確認だけを行わなければならない。利用可能な同時threadが10未満でも10個のlane slotを維持してqueueから波状実行し、Lunaの回復可能失敗は親Solが同じ動画を引き取らなければならない。親Solが候補hashと全編根拠と確認結果を最終確認した後だけ1動画draft PRと対象台帳行を確定しなければならない。を**satisfy**。
+
+根拠: 反復的で明確な動画処理を高速なLunaへ分散し、回復処理、共有GitHub・台帳書込み、高価値の最終判断をSolへ一元化することで、人の継続入力、競合、未確認候補、素材取得の一時失敗による放置を減らすため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-022-1` 前提: 1つのWorkチャットで複数の適格動画を処理する明示要求がある。条件: 親Solが1波を計画して子agentへ割り当てる。期待結果: 10個の論理lane slotがGPT-5.6 Luna mediumへ固定され、対象不足のslotはinactive_no_targetとなり、各active Lunaは異なるclaim済み動画を最大1件だけ処理し、同時thread上限が低い場合はqueueから波状実行する。。
+- `AC-V8-OPS-022-2` 前提: Lunaが候補、事実確認、編集確認、決定的検証結果を返した。条件: 正本化、PR最終commit、台帳同期へ進む。期待結果: 親GPT-5.6 Solが同じ候補hashと全編根拠を最終確認したpass記録がない候補を拒否し、GitHubとGoogle Sheetsへの確定書込みをLunaへ行わせない。。
+- `AC-V8-OPS-022-3` 前提: 1波のLunaがcomplete、needs_sol_recovery、または安全上のblockedへ到達し、有限対象が残っている。条件: キャンペーン期限前に次の処理を判断する。期待結果: 親Solがneeds_sol_recoveryを先に引き取り、人の追加入力を待たず次の10レーンを計画し、対象枯渇、期限のdrain、または全体権限・安全blockまで継続する。。
+
+要求源: spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md, spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.codex/agents/timestamp-luna-worker.toml,.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-sol-luna-orchestration.md,spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md,dev-standard default profile
+
+## V8-OPS-023: 公開動画の証拠取得は到達性診断から無料のbatch-local ASRまで段階的に回復しなければならない
+
+diopside v8のタイムスタンプ証拠取得は、公開動画のタイムスタンプ証拠取得に失敗した場合、親Solは認証情報を使わないYouTube到達性診断、公開日本語字幕の上限付き再試行、公開native音声、yt-dlpによるMP3変換、無料のbatch-local ASRを順に試さなければならない。private、member-only、年齢制限、削除済み等の安全分類と試行結果だけをignored stateへ保存し、生字幕、音声、文字起こし、チャット本文をGit、PR、台帳へ保存してはならない。を**satisfy**。
+
+根拠: 公開素材の一時的な取得失敗を即時の処理不能へ誤分類せず、無料かつ認証回避のない代替経路で完了可能性を高めながら、証拠と個人情報を公開面から分離するため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-023-1` 前提: 公開動画の字幕または音声取得が一時的に失敗する。条件: 親Solが証拠取得の回復処理を行う。期待結果: 到達性診断、字幕再試行、native音声、MP3、batch-local ASRを順に試し、前段が成功した時点で後段を省略する。。
+- `AC-V8-OPS-023-2` 前提: 公開取得経路が利用不能である。条件: 診断と回復処理の結果を永続化する。期待結果: 安全な分類、試行回数、経路、結果、diagnostic digestだけをignored stateへ保存し、生素材をGit、PR、台帳へ含めない。。
+- `AC-V8-OPS-023-3` 前提: ローカルASR依存関係またはモデルが未導入である。条件: 親Solが最後の無料回復経路を実行する。期待結果: 依存関係とモデルをbatch root配下のignored directoryへ導入し、global環境、有料API、認証回避を使用しない。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py, tests/timestamp_tools_test.py
+トレース: 設計=docs/operations/manual-content-update.md,.agents/skills/prepare-stream-evidence/references/local-asr.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/prepare-stream-evidence/scripts/diagnose_youtube_access.py,.agents/skills/prepare-stream-evidence/scripts/download_captions.py,.agents/skills/prepare-stream-evidence/scripts/download_audio.py,.agents/skills/prepare-stream-evidence/scripts/transcribe_local_asr.py,.agents/skills/run-timestamp-work-harness/scripts/harness.py; テスト=tests/timestamp_harness_test.py,tests/timestamp_tools_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md,dev-standard default profile
+
+## V8-OPS-024: 回復可能な実行・意味構成失敗はSolへ引き継ぎ台帳の処理不能へ確定してはならない
+
+diopside v8のタイムスタンプ失敗回復は、Lunaが字幕、音声、ASR、codex exec、意味構成、確認、決定的検証で回復可能な失敗へ到達した場合、needs_sol_recoveryとして親Solへ返し、親SolはGPT-5.6 Sol highで同じ動画を回復しなければならない。codex execのtrusted-destination結果は上限付きで再試行し、全編日本語字幕があるのに章候補を構成できない場合は素材不足ではなく意味構成失敗として扱わなければならない。期限内に回復できない場合はdeferred_recovery checkpointを残し、Google Sheetsへ処理不能を書いてはならない。を**satisfy**。
+
+根拠: 子agentや一時実行環境の能力・接続失敗を動画固有の処理不能と混同せず、親の強いモデルと回復経路を使って完了まで押し進め、期限後も安全に再開できるようにするため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-024-1` 前提: Lunaが回復可能な証拠取得、codex exec、意味構成、確認、または検証失敗へ到達する。条件: Lunaの1動画処理が終了する。期待結果: blockedや台帳の処理不能ではなくneeds_sol_recoveryを返し、親Solが同じbatch、wave、video、branch、Draft PRを引き継ぐ。。
+- `AC-V8-OPS-024-2` 前提: codex execがtrusted-destinationを返す、または全編日本語字幕から章候補を構成できない。条件: 親Solが回復処理を行う。期待結果: trusted-destinationは上限付き再試行し、意味構成失敗はGPT-5.6 Sol highで再実行して素材不足と区別する。。
+- `AC-V8-OPS-024-3` 前提: campaignのdrain期限までに回復可能失敗を解消できない。条件: 親Solが最終状態と台帳更新可否を判定する。期待結果: safe reasonと再開情報を持つdeferred_recovery checkpointをignored stateへ残し、当該動画をGoogle Sheetsの処理不能へ更新せず、他動画の処理を継続する。。
+
+要求源: spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md, user:2026-08-11
+検証証跡: tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md,.agents/skills/run-timestamp-work-harness/references/web-work-prompt.md; 実装=.codex/agents/timestamp-luna-worker.toml,.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md,dev-standard default profile
+
+## V8-OPS-026: 最大1000件のWork campaignは固定manifestと安全なremote checkpointで実行環境をまたいで継続しなければならない
+
+diopside v8の大規模タイムスタンプcampaignは、最大1000件のタイムスタンプcampaignは開始時に対象動画ID、順序、台帳行指紋、base commitを一度だけ固定し、10件ずつ処理しなければならない。各Work実行のdrain前と各wave後に、生字幕、音声、文字起こし、chat本文、識別子、資格情報を含まない安全なcheckpointを専用GitHub campaign branchへ観測済み親commitを条件として保存し、Work環境消失または利用制限後は同じcampaign IDを復元して完了済みを保持し未完了だけを安全な工程から再開しなければならない。を**satisfy**。
+
+根拠: 単一Work実行の時間・利用量・ローカル状態保持へ1000件の完了可能性を依存させず、旧連続queueと同等の対象固定、失敗隔離、再開性を保ちながら生素材の公開を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-026-1` 前提: 1000件までの適格動画を処理する明示要求と対象動画台帳snapshotがある。条件: 親Solがcampaignを初期化し100wave以上を計画する。期待結果: 対象順序と行指紋をimmutable manifestへ一度だけ固定し、各waveは未変更manifestの連続する最大10件だけを重複なく割り当てる。。
+- `AC-V8-OPS-026-2` 前提: waveが終端した、drainへ入る、または利用制限で停止する。条件: 親Solがcampaign checkpointを永続化する。期待結果: 専用remote branchを観測済み親commitとのcompare-and-setで更新し、生素材と資格情報を含めず、競合時はforceせずremoteを再読する。。
+- `AC-V8-OPS-026-3` 前提: 別のWork環境で同じcampaignを再開する。条件: 親Solがremote checkpointを検証してrestoreする。期待結果: 完了済み状態を保持し、処理途中だけを安全な回復境界へ巻き戻し、同じcampaign IDと固定対象の残りを継続する。。
+- `AC-V8-OPS-026-4` 前提: 1000件のsynthetic manifest、101以上のwave、または途中kill後のcheckpointがある。条件: 耐久・復元試験を実行する。期待結果: 対象の欠落・重複・完了状態の回帰・生素材のcheckpoint混入がなく、次waveを決定的に再計画できる。。
+
+要求源: spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md, user:2026-08-12
+検証証跡: tests/timestamp_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-timestamp-work-harness/references/workflow.md; 実装=.agents/skills/run-timestamp-work-harness/scripts/harness.py,.agents/skills/run-timestamp-work-harness/SKILL.md; テスト=tests/timestamp_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-12-thousand-video-campaign.md,dev-standard default profile
+
+## V8-OPS-025: Work用あらすじ処理は1 Sol・10 Lunaと候補hash gateで有限対象を継続しなければならない
+
+diopside v8のあらすじ運用は、ChatGPT Workから開始する未作成あらすじcampaignは、親GPT-5.6 SolとGPT-5.6 Luna mediumの10論理レーンとして構成し、最新mainの正本にあらすじがない公開動画だけを原子的にclaimしなければならない。Lunaはclaim済み1動画の一時全編根拠、候補、独立確認、決定的検証だけを行い、親Solだけが現在の候補hashを最終確認して1動画draft PRとあらすじ作業台帳を確定しなければならない。を**satisfy**。
+
+根拠: 長時間の全編確認と反復的な候補作成をLunaへ分散しながら、既存あらすじの上書き、未確認候補の正本化、共有先の競合、動画単位の失敗によるcampaign停止を防ぐため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-OPS-025-1` 前提: 最新mainと対象動画・あらすじ作業台帳のsnapshotがある。条件: 親Solが1波を計画する。期待結果: 既存あらすじ、除外、処理中、既存draft PRを除き、exact-case動画branchを原子的claimとする重複しない最大10論理レーンをGPT-5.6 Luna mediumへ割り当てる。同時thread上限が低い場合も同じ10レーンを波状実行する。。
+- `AC-V8-OPS-025-2` 前提: Lunaが全編coverage、候補、独立三確認、決定的validatorを返した。条件: 正本化、PR最終commit、台帳更新へ進む。期待結果: 親GPT-5.6 Solが同じcandidate hashへ合格を記録していない候補を拒否し、LunaによるGitHub・Google Sheets書込みと既存あらすじの上書きを拒否する。。
+- `AC-V8-OPS-025-3` 前提: 1波の各動画がcompleteまたは理由付きblockedとなった。条件: 台帳再読を完了し期限前に適格動画が残る。期待結果: 人の追加入力を待たず次のwaveを計画し、対象枯渇、期限のdrain、または全体権限・安全blockまで継続する。行指紋が変わった動画だけをledger conflictとして分離する。。
+
+要求源: spec/sources/owner-directive-2026-08-11-synopsis-work-harness.md, user:2026-08-11
+検証証跡: tests/synopsis_harness_test.py
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/run-synopsis-work-harness/references/workflow.md; 実装=.codex/agents/synopsis-luna-worker.toml,.agents/skills/run-synopsis-work-harness/scripts/harness.py,.agents/skills/run-synopsis-work-harness/scripts/validate_dossier.py,.agents/skills/run-synopsis-work-harness/SKILL.md; テスト=tests/synopsis_harness_test.py; 参照資料=spec/sources/owner-directive-2026-08-11-synopsis-work-harness.md,dev-standard default profile

@@ -8,6 +8,7 @@ const errors: string[] = [];
 const workflows = walk(path.join(root, '.github/workflows')).filter((file) => /\.ya?ml$/u.test(file));
 for (const workflow of workflows) {
   const text = readFileSync(workflow, 'utf8');
+  const isGeneratedRelease = relative(workflow) === '.github/workflows/update-generated-release.yml';
   reject(workflow, text, /^\s*schedule\s*:/mu, '予定実行を含めてはなりません。');
   reject(workflow, text, /(?:openai|codex|chatgpt|api\.openai\.com|OPENAI_API_KEY)/iu, 'AI/API呼出しを含めてはなりません。');
   reject(workflow, text, /actions\/(?:deploy-pages|upload-pages-artifact|configure-pages)/iu, '独自Pages公開Actionを含めてはなりません。');
@@ -16,7 +17,21 @@ for (const workflow of workflows) {
     if (match[1]?.trim() !== 'ubuntu-latest') errors.push(`${relative(workflow)}: 公開リポジトリの標準ubuntu-latest以外を使ってはなりません。`);
   }
   reject(workflow, text, /actions\/(?:upload-artifact|cache)@/iu, '追加の成果物・キャッシュ保存を使ってはなりません。');
-  if (!/^permissions:\s*\n\s+contents:\s*read\s*$/mu.test(text)) errors.push(`${relative(workflow)}: 最小権限 contents: read が必要です。`);
+  if (isGeneratedRelease) {
+    if (!/^permissions:\s*\n\s+contents:\s*write\s*$/mu.test(text)) {
+      errors.push(`${relative(workflow)}: 生成commitに限定したcontents writeが必要です。`);
+    }
+    reject(workflow, text, /pages\/builds/iu, 'main/docsへのcommitと重複するPages buildを明示要求してはなりません。');
+    reject(workflow, text, /(?:pull_request_target|workflow_dispatch)\s*:/iu, '書込workflowを信頼境界外から起動してはなりません。');
+    if (!/^on:\s*\n\s+push:\s*\n\s+branches:\s*\n\s+- main\s*$/mu.test(text)) {
+      errors.push(`${relative(workflow)}: main pushだけを起動元にしなければなりません。`);
+    }
+    if (!/run:\s*npm run verify:quality/u.test(text)) {
+      errors.push(`${relative(workflow)}: release commit前にblocking品質ゲートを実行しなければなりません。`);
+    }
+  } else if (!/^permissions:\s*\n\s+contents:\s*read\s*$/mu.test(text)) {
+    errors.push(`${relative(workflow)}: 最小権限 contents: read が必要です。`);
+  }
 }
 if (existsSync(path.join(root, 'CNAME')) || existsSync(path.join(root, 'public/CNAME')) || existsSync(path.join(root, 'docs/CNAME'))) {
   errors.push('独自ドメイン用CNAMEを置いてはなりません。');
