@@ -111,7 +111,7 @@ selected_checks:
       - path:docs/requirements/REQUIREMENTS.md
       - path:docs/design/generated/inventory.gen.json
       - test:tests/generated.test.ts
-    note: 要件・設計の正本由来生成物を更新し、公開データとPages成果物はローカルbuildで決定生成を確認したうえでPR規約どおり差分から除外した
+    note: 要件・設計の正本由来生成物と今回変更した公開変換・schema・作品画面・試験の入力hashを更新し、公開データとPages成果物はローカルbuildで決定生成を確認したうえでPR規約どおり差分から除外した
   - id: FAST-007
     class: Invariant
     result: pass
