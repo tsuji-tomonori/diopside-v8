@@ -114,6 +114,10 @@ legend { font-weight: 800; margin-bottom: .4rem; }
 .detail-tag-link { color: var(--lavender-dark); text-decoration: none; }
 .detail-tag-link > span { margin-top: .25rem; font-size: .7rem; font-weight: 700; }
 .detail-tag-link:hover { border-color: var(--lavender); background: var(--lavender-pale); }
+.person-tag-link { grid-template-columns: 38px auto; align-items: center; gap: .6rem; }
+.person-tag-link img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
+.person-tag-link > span { display: grid; gap: .08rem; margin: 0; font-size: inherit; }
+.person-tag-link b { margin-top: .18rem; font-size: .7rem; }
 .timestamps { list-style: none; padding: 0; margin: 1rem 0 0; }
 .timestamps li + li { border-top: 1px solid var(--line); }
 .timestamps a { display: grid; grid-template-columns: 5rem 1fr auto; min-height: 58px; align-items: center; gap: 1rem; text-decoration: none; }
@@ -132,6 +136,20 @@ legend { font-weight: 800; margin-bottom: .4rem; }
 .work-source a { min-height: 44px; display: inline-flex; align-items: center; color: var(--lavender-dark); font-weight: 700; }
 .work-source span { font-size: .8rem; }
 .work-results { padding-bottom: 0; }
+.collaboration-page { padding: 2rem 0 5rem; }
+.person-intro { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: clamp(1.25rem, 4vw, 3rem); }
+.person-intro h1 { margin-bottom: 1.25rem; }
+.person-avatar { width: clamp(112px, 18vw, 160px); height: clamp(112px, 18vw, 160px); border: 4px solid white; border-radius: 50%; object-fit: cover; box-shadow: var(--shadow); }
+.youtube-link { color: white; background: #c00; }
+.group-description { font-size: 1.05rem; }
+.group-intro h2 { margin: 2rem 0 1rem; font: 600 1.35rem Georgia, "Yu Mincho", serif; }
+.member-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: .8rem; }
+.member-card { display: grid; grid-template-columns: 72px 1fr; align-items: center; gap: 1rem; min-height: 96px; padding: .75rem; border: 1px solid var(--line); border-radius: 16px; text-decoration: none; background: #fbfaff; }
+.member-card:hover { border-color: var(--lavender); background: var(--lavender-pale); }
+.member-card img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; }
+.member-card span { display: grid; gap: .35rem; }
+.member-card small { color: var(--lavender-dark); font-weight: 700; }
+.collaboration-results { padding-bottom: 0; }
 .library-section { margin-top: 1.25rem; padding: clamp(1.25rem, 4vw, 2rem); }
 .library-section h2 span { color: var(--muted); font: 400 .9rem sans-serif; }
 .simple-list { list-style: none; padding: 0; }
@@ -146,6 +164,7 @@ footer { padding: 2.5rem 1rem; text-align: center; color: var(--muted); border-t
 @media (max-width: 850px) {
   .video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .detail-hero { grid-template-columns: 1fr; }
+  .person-intro { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 620px) {

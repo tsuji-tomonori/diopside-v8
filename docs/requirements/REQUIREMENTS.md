@@ -1,7 +1,7 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 10
+- カタログ版: 11
 - 更新日: 2026-08-15
 - 正本: `spec/requirements/requirements.json`
 
@@ -75,7 +75,7 @@
 | `V8-TAG-010` | 1 | 有効 | データ | diopside v8のタグは、雑談を主または副ジャンルに持つ動画は、雑談種別を1件以上3件以下持たなければならない。を**satisfy** | 条件付き必須試験 |
 | `V8-TAG-011` | 1 | 有効 | データ | diopside v8のタグは、同時視聴を主ジャンルに持つ動画は、同時視聴メディアを1件持ち、動画タイトル、動画固有の説明、公式作品表記のいずれかが一つの作品を示す場合は同時視聴作品名を1件以上持たなければならない。を**satisfy** | 条件付き必須・否定試験 |
 | `V8-TAG-012` | 1 | 有効 | データ | diopside v8のタグは、朗読・声劇を主ジャンルに持つ動画は、朗読・声劇種別を1件持たなければならない。を**satisfy** | 条件付き必須試験 |
-| `V8-TAG-013` | 1 | 有効 | データ | diopside v8のタグは、チャンネル主以外と共同で内容を行う動画は「コラボ」と、声、映像、通話、ゲーム・セッション参加、公式参加者表記で確認できる全出演者を持ち、チャンネル主を出演者へ重複登録してはならない。を**satisfy** | 意味論試験・人手確認 |
+| `V8-TAG-013` | 2 | 有効 | データ | diopside v8のタグは、コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸は配信主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。を**satisfy** | 人物タグ正本・表示名・役割別コラボ相手選別試験 |
 | `V8-TAG-014` | 1 | 有効 | データ | diopside v8のタグは、ユニット・チームタグを持つ動画は「コラボ」と実際に出演した構成員を持ち、欠席者や対戦相手を自動追加してはならない。を**satisfy** | 固定例試験・人手確認 |
 | `V8-TAG-015` | 1 | 有効 | データ | diopside v8のタグは、実出演者と、配信中に名前を話題にしただけの言及人物を分離しなければならない。を**satisfy** | 排他試験 |
 | `V8-TAG-016` | 1 | 有効 | データ | diopside v8のタグは、一つのタグには一つの検索対象または一つの分類事実だけを保存し、複数人物や独立概念を連結したタグは分解しなければならない。を**satisfy** | 分解規則試験 |
@@ -161,6 +161,7 @@
 | `V8-OPS-026` | 1 | 有効 | 運用 | diopside v8の大規模タイムスタンプcampaignは、最大1000件のタイムスタンプcampaignは開始時に対象動画ID、順序、台帳行指紋、base commitを一度だけ固定し、10件ずつ処理しなければならない。各Work実行のdrain前と各wave後に、生字幕、音声、文字起こし、chat本文、識別子、資格情報を含まない安全なcheckpointを専用GitHub campaign branchへ観測済み親commitを条件として保存し、Work環境消失または利用制限後は同じcampaign IDを復元して完了済みを保持し未完了だけを安全な工程から再開しなければならない。を**satisfy** | 1000件manifest・101wave境界・checkpoint漏えい禁止・kill/restore・楽観ロックaction試験 |
 | `V8-OPS-025` | 1 | 有効 | 運用 | diopside v8のあらすじ運用は、ChatGPT Workから開始する未作成あらすじcampaignは、親GPT-5.6 SolとGPT-5.6 Luna mediumの10論理レーンとして構成し、最新mainの正本にあらすじがない公開動画だけを原子的にclaimしなければならない。Lunaはclaim済み1動画の一時全編根拠、候補、独立確認、決定的検証だけを行い、親Solだけが現在の候補hashを最終確認して1動画draft PRとあらすじ作業台帳を確定しなければならない。を**satisfy** | 10レーン計画・既存あらすじ除外・全編coverage・独立review hash・Sol gate・台帳行競合試験 |
 | `V8-DISPLAY-012` | 1 | 有効 | 機能 | diopside v8の作品タグと作品ページは、動画詳細の作品タグは、その作品タグを持つ公開動画の一覧ページへ移動できなければならない。ゲーム作品ページは、確認日を持つ短い公式説明の引用、引用元名、HTTPSの公式ページリンクを表示し、外部ページは利用者がリンクを押した場合だけ開かなければならない。を**satisfy** | 公開データ構造試験、作品タグ遷移E2E、公式リンク・引用表示・外部自動通信禁止試験 |
+| `V8-DISPLAY-013` | 1 | 有効 | 機能 | diopside v8のコラボ相手タグとコンビ・ユニットページは、動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページはYouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画を表示する。コンビ・ユニットページは出典付きの説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。を**satisfy** | 公開データ構造・人物名・コンビ説明・メンバーリンク・ローカルアイコン・外部自動通信禁止試験 |
 
 ## V8-SEARCH-001: 文字検索は、承認済み動画の動画タイトルだけを検索対象としなければならない
 
@@ -1186,20 +1187,22 @@ diopside v8のタグは、朗読・声劇を主ジャンルに持つ動画は、
 検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-TAG-013: チャンネル主以外と共同で内容を行う動画は「コラボ」と、声、映像、通話、ゲーム・セッション参加、公式参加者表記で確認できる全出演者を持ち、チャンネル主を出演者へ重
+## V8-TAG-013: コラボ相手は人物名で登録し、多人数の凸待ち・継続ラジオでは役割で限定しなければならない
 
-diopside v8のタグは、チャンネル主以外と共同で内容を行う動画は「コラボ」と、声、映像、通話、ゲーム・セッション参加、公式参加者表記で確認できる全出演者を持ち、チャンネル主を出演者へ重複登録してはならない。を**satisfy**。
+diopside v8のタグは、コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸は配信主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。を**satisfy**。
 
 根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-TAG-013-1` 前提: V8-タグ-013の前提を満たす公開データまたは操作がある。条件: 意味論試験・人手確認。期待結果: コラボだけで出演者がない動画、言及・クレジットだけの非出演者、チャンネル主の重複を拒否する。。
+- `AC-V8-TAG-013-1` 前提: 通常のコラボ動画に白雪巴以外の実出演者がいる。条件: 人物タグの正本・表示名検査。期待結果: 実出演者を人物名の出演者タグとして登録し、チャンネル表示名を人物タグへ保存しない。。
+- `AC-V8-TAG-013-2` 前提: 白雪巴が凸待ちまたは逆凸の一部へ参加する。条件: 役割別コラボ相手選別試験。期待結果: 配信主だけをコラボ相手とし、同じ配信の他の凸参加者を登録しない。。
+- `AC-V8-TAG-013-3` 前提: 白雪巴が継続する公式ラジオ等へ固定出演し、その回に単発ゲストもいる。条件: 役割別コラボ相手選別試験。期待結果: 固定の相手だけをコラボ相手とし、単発ゲストとスタッフを登録しない。。
 
-要求源: Issue #1 V8-タグ-013, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-タグ-013, user:2026-08-03, spec/sources/owner-directive-2026-08-15-collaboration-pages.md, user:2026-08-15
+検証証跡: src/domain/collaboration.test.ts, tests/content-validation.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/collaboration.ts,content/people/collaboration-profiles.json; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,src/domain/collaboration.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TAG-014: ユニット・チームタグを持つ動画は「コラボ」と実際に出演した構成員を持ち、欠席者や対戦相手を自動追加してはならない
 
@@ -2497,3 +2500,20 @@ diopside v8の作品タグと作品ページは、動画詳細の作品タグは
 要求源: spec/sources/owner-directive-2026-08-15-work-pages.md, user:2026-08-15
 検証証跡: tests/content-validation.test.ts, tests/generated.test.ts, src/features/works/WorkDetailPage.test.tsx, e2e/detail.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=content/works/work-introductions.json,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/features/works/WorkDetailPage.tsx; テスト=tests/content-validation.test.ts,tests/generated.test.ts,src/features/works/WorkDetailPage.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-15-work-pages.md,dev-standard default profile
+
+## V8-DISPLAY-013: 人物名とコンビ・ユニットのタグから出典・YouTube導線付き動画一覧へ移動できなければならない
+
+diopside v8のコラボ相手タグとコンビ・ユニットページは、動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページはYouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画を表示する。コンビ・ユニットページは出典付きの説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。を**satisfy**。
+
+根拠: コラボ動画を相手や定着した組み合わせから連続して探し、名称だけを知らない利用者も人物と関係を視覚的に把握できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-013-1` 前提: 動画詳細に白雪巴以外の人物名タグが表示されている。条件: 利用者が人物タグを押す。期待結果: 人物アイコン、人物名、YouTubeチャンネルリンク、その人物タグを持つ公開動画だけを新しい順で表示する。。
+- `AC-V8-DISPLAY-013-2` 前提: 動画詳細に確認済みのコンビ・ユニットタグが表示されている。条件: 利用者がコンビ・ユニットタグを押す。期待結果: 参考元と確認日を持つ説明、全メンバーのアイコン・人物名・各YouTubeチャンネルリンク、そのタグを持つ公開動画を表示する。。
+- `AC-V8-DISPLAY-013-3` 前提: 人物またはコンビ・ユニットページを表示する。条件: ブラウザの通信先を検査する。期待結果: 保存済みローカルアイコンだけを読み、利用者が外部リンクを押すまでYouTubeまたは参考元へ通信しない。。
+
+要求源: spec/sources/owner-directive-2026-08-15-collaboration-pages.md, user:2026-08-15
+検証証跡: tests/content-validation.test.ts, tests/generated.test.ts, src/features/collaborations/CollaborationDetailPages.test.tsx, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=content/people/collaboration-profiles.json,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/features/collaborations/CollaboratorDetailPage.tsx,src/features/collaborations/GroupDetailPage.tsx; テスト=tests/content-validation.test.ts,tests/generated.test.ts,src/features/collaborations/CollaborationDetailPages.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-15-collaboration-pages.md,dev-standard default profile

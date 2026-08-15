@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=En4_T_eX75g",
-  "taxonomyVersion": "8.3.0",
+  "taxonomyVersion": "8.4.0",
   "aliasVersion": "8.2.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.3.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "cf6ce31919e481c8c167afece1ff60144a783006d00259fd8101d8084472d3b0"
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "d845949789908db636e7d13bfd7b46e42a978d0fd52e716b840ad016fddb0205"
     }
   ],
   "tagAssignments": [
@@ -69,6 +75,15 @@
       "reviewedAt": "2026-08-15T17:50:00+09:00"
     },
     {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
       "tagId": "tag-format-media-45323ed44f37",
       "reason": "動画長と既存形式から動画形式「配信」を確認",
       "confidence": "高",
@@ -85,6 +100,15 @@
         "evidence-channel"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-0d5a94165597",
+      "reason": "人物名「健屋花那」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
     },
     {
       "tagId": "tag-works-gameTitle-5168a0f83814",
@@ -355,7 +379,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-15T17:50:00+09:00",
-    "basis": "運用者のゲーム配信タグ横断是正要求に基づき、公開タイトル・説明と既存作品タグを再確認"
+    "approvedAt": "2026-08-15T21:05:00+09:00",
+    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
   }
 }

@@ -1,0 +1,223 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260815-collaboration-pages
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: false
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: 人物名タグ、コンビ・ユニット導線、凸待ち・継続ラジオの選別規則をV8-TAG-013とV8-DISPLAY-013へ正本化した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+    note: 公開schema、人物・コンビ画面、コラボ正本データをas-built入力へ追加した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 永続タグデータ、公開契約、重要UI、出典付き人物・コンビ情報を変更するためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 利用者がGitHub書込み、commit、push、PR作成を許可し、mergeと公開は含まない
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/taxonomy/change-record.json
+      - path:content/people/collaboration-profiles.json
+    note: タグ体系版8.4.0と影響タグ・動画を変更記録へ固定し、元の動画正本と添付資料から再生成・revert可能である
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/collaborations/CollaboratorDetailPage.tsx
+      - path:src/features/collaborations/GroupDetailPage.tsx
+    note: Vite本番buildとPages用postbuildに合格した
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: TypeScriptのブラウザ・Node両projectの型検査に合格した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: src、scripts、tests、e2eのlintに合格した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/domain/collaboration.test.ts
+      - test:src/features/collaborations/CollaborationDetailPages.test.tsx
+      - test:tests/content-validation.test.ts
+      - test:tests/generated.test.ts
+    note: 通常コラボ、凸待ち配信主限定、継続ラジオ固定相手限定、人物・コンビページとローカルアイコンを単体・component試験で確認した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:docs/requirements/REQUIREMENTS.md
+      - path:docs/design/generated/inventory.gen.json
+      - test:tests/generated.test.ts
+    note: 要件・生成設計を更新し、公開データとPages成果物はローカルbuildで決定生成を確認したうえでPR規約どおりrelease成果物を差分から除外する
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: credential、個人情報、生字幕、コメント、チャット、投稿者識別子を差分へ含めない
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/collaborations/CollaborationDetailPages.test.tsx
+      - test:e2e/detail.spec.ts
+    note: 人物・コンビの通常状態と未知タグ状態を実装し、詳細タグからの主要遷移を試験した
+  - id: FAST-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/collaborations/CollaborationDetailPages.test.tsx
+      - test:e2e/detail.spec.ts
+    note: 外部リンクと内部遷移をsemanticなa要素で実装し、名前付きリンク、ローカル画像の代替テキスト、キーボード操作可能性を確認した
+  - id: FAST-018
+    class: Risk-selected
+    result: na
+    evidence:
+      - test:e2e/detail.spec.ts
+    note: 静的ブラウザ内UIだけを操作し、C/U/D API、DB、外部状態変更を含まない
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: コラボ正本、公開変換、人物・コンビ画面、要件、試験、決定生成物へ差分を限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記録する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: 実装とV8-TAG-013、V8-DISPLAY-013の人物名・役割限定・YouTube導線・出典表示が一致する
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+    note: コードから生成できるas-built設計を更新し、ADRを要する長期判断はない
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - test:src/domain/collaboration.test.ts
+      - test:src/features/collaborations/CollaborationDetailPages.test.tsx
+      - test:e2e/detail.spec.ts
+    note: V8-TAG-013とV8-DISPLAY-013から正本、生成、画面、単体試験、E2Eへtraceできる
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/domain/collaboration.test.ts
+      - test:src/features/collaborations/CollaborationDetailPages.test.tsx
+      - test:tests/content-validation.test.ts
+      - test:tests/generated.test.ts
+    note: 受入条件を選別logic、component、正本schema、決定生成試験で検証し、ブラウザE2EをCI対象へ追加した
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260815-collaboration-pages.yaml
+    note: 選択checkだけを本review YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260815-collaboration-pages.yaml
+    note: 未選択checkをN/Aとして登録していない
+  - id: REV-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/detail.spec.ts
+    note: E2E変更triggerでFAST-018を選択し、外部状態変更がないためN/A根拠を記録した
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/generated.test.ts
+      - path:src/domain/content.ts
+    note: 人物・コンビ情報は既存タグ要素への任意フィールド追加であり、既存consumerとURLを維持し、旧公開データでも通常タグ表示へ安全にfallbackする
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/collaborations/CollaborationDetailPages.test.tsx
+      - test:e2e/detail.spec.ts
+    note: 人物名・コンビタグから関連動画とYouTubeチャンネルへ到達する主要タスクをcomponentとE2Eで検証した
+advisories: []
+residual_risks:
+  - 添付一覧のうち現行正本に存在する384本を照合対象とした。現行正本にない動画は将来取り込む際に同じ選別規則で判定する。
+  - 取得できた77名はYouTubeチャンネル画像のローカルスナップショットを使用し、削除済み・取得不能を含む87名は人物名から生成したローカル代替アイコンを使用する。YouTubeチャンネルリンクは保持する。
+  - コンビ・ユニット説明は参照元と確認日を正本へ保持する。参照元の将来変更は自動反映せず、次回確認時に更新する。
+  - ローカル環境にはPlaywright Chromiumがないため、追加したmobile・desktop E2Eとaxe検査の実ブラウザ実行はPR CIで確認する。

@@ -1,0 +1,268 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "w92SarPWFD8",
+  "title": "【#にじさんじ壺カップ】Eグループのお姉さんです！【にじさんじ/シスター・クレア】",
+  "publishedAt": "2020-07-18T12:51:36Z",
+  "durationSeconds": 1947,
+  "durationIso": "PT32M27S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/w92SarPWFD8/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=w92SarPWFD8",
+  "taxonomyVersion": "8.4.0",
+  "aliasVersion": "8.2.0",
+  "tagRulesVersion": "8.3.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "c97d28faffea9a262b8f1e7555c82bd19a9ae60ca90412a7979aa06c8a944560"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "ea64cebf864ef9c7a589b3e8d11311c7452df26b3aa0840984fb3c1b635fdb3b"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "ae507ed33c7ed632ce1b0f8963fa5b25b2538d9feff7218563776c0cc9b4dbf0"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "86375cafdf9b18b5e684fdec232573011eced5c4ad1595fbd590e283c45b8eab"
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "6833071c777898578cb134439cfda9f99ed8802233b27a9facdf7b10b006cdf2"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-9eedbc0013d1",
+      "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-b4a761859187",
+      "reason": "公開台帳のチャンネル「シスター・クレア -SisterClaire-」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-7931dd3537fc",
+      "reason": "人物名「シスター・クレア」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-10b9b3d6",
+        "startSeconds": 0,
+        "label": "配信開始・Eグループ紹介",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-238-bece3f2e",
+        "startSeconds": 238,
+        "label": "大会前の作戦相談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-399-421e40bb",
+        "startSeconds": 399,
+        "label": "打ち上げと到達点の見立て",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-521-bebc2baa",
+        "startSeconds": 521,
+        "label": "体調の話とコラボ雑談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-700-21ec34e6",
+        "startSeconds": 700,
+        "label": "大会会場への切り替え",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-868-45d01d18",
+        "startSeconds": 868,
+        "label": "Eグループ選手紹介と試合方針",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1112-766e84aa",
+        "startSeconds": 1112,
+        "label": "5分間の本番実況",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1467-32ce4415",
+        "startSeconds": 1467,
+        "label": "判定ルールと結果発表",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1504-9035d475",
+        "startSeconds": 1504,
+        "label": "試合後の感想と今後の意気込み",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1659-b2870f82",
+        "startSeconds": 1659,
+        "label": "参加者の今後の告知",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1809-80c1bd31",
+        "startSeconds": 1809,
+        "label": "Eグループの締め",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1842-0f51aab0",
+        "startSeconds": 1842,
+        "label": "再トーク・練習の振り返り",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1905-610d28a8",
+        "startSeconds": 1905,
+        "label": "次回配信案内と締め",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "0b7c3805c583add492f1b909ad3a8a512b79bd169d62f2eb3b665bfcce578c21",
+    "inputFingerprint": "86375cafdf9b18b5e684fdec232573011eced5c4ad1595fbd590e283c45b8eab",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-28T13:04:58.209674Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "0b7c3805c583add492f1b909ad3a8a512b79bd169d62f2eb3b665bfcce578c21",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "0b7c3805c583add492f1b909ad3a8a512b79bd169d62f2eb3b665bfcce578c21",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "c0060819f96a249bd5da8d67bd429e280e197a031321c31fd8cda223fcff1f68",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-15T21:05:00+09:00",
+    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  }
+}

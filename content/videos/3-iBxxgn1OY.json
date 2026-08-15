@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=3-iBxxgn1OY",
-  "taxonomyVersion": "8.3.0",
+  "taxonomyVersion": "8.4.0",
   "aliasVersion": "8.2.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.3.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "b0d85e6219745949f51e984a4b2a2d052b9e1ef49d14dda3b3f09e9c9fe9c2c0"
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "eafdacefd5e3664afc7475b96ef8ef95d872c61fa1d68023e5a8946877fe369f"
     }
   ],
   "tagAssignments": [
@@ -87,6 +93,15 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     },
     {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
       "tagId": "tag-format-media-45323ed44f37",
       "reason": "動画長と既存形式から動画形式「配信」を確認",
       "confidence": "高",
@@ -103,6 +118,33 @@
         "evidence-channel"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-14bb1678cc61",
+      "reason": "人物名「夢追翔」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-645d829c903b",
+      "reason": "人物名「ニュイ・ソシエール」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-d0bd4fb58bfe",
+      "reason": "人物名「鷹宮リオン」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
     },
     {
       "tagId": "tag-works-gameTitle-fdbee30f2eef",
@@ -292,7 +334,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-15T17:50:00+09:00",
-    "basis": "運用者のゲーム配信タグ横断是正要求に基づき、公開タイトル・説明と既存作品タグを再確認"
+    "approvedAt": "2026-08-15T21:05:00+09:00",
+    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
   }
 }

@@ -108,4 +108,28 @@ test.describe('動画詳細', () => {
     expectOnlyAllowedRequests(requests);
     await expectNoSeriousAccessibilityViolations(page);
   });
+
+  test('人物名タグとフルトイタグからアイコン・YouTube導線付き一覧へ移動できる', async ({ page }) => {
+    const requests = await preparePage(page);
+    await page.goto('/diopside-v8/#/video/O6tuTZ_f1vo');
+
+    const personLink = page.getByRole('link', { name: /ルイス・キャミー/u });
+    await expect(personLink).toBeVisible();
+    await expect(personLink.locator('img')).toHaveAttribute('src', /\/people\/icons\//u);
+    await personLink.click();
+    await expect(page).toHaveURL(/#\/collaborators\/tag-people-performer-/u);
+    await expect(page.getByRole('heading', { level: 1, name: 'ルイス・キャミー' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'YouTubeチャンネルを見る' })).toHaveAttribute('href', /^https:\/\/www\.youtube\.com\/channel\//u);
+    expectOnlyAllowedRequests(requests);
+
+    await page.goto('/diopside-v8/#/video/O6tuTZ_f1vo');
+    await page.getByRole('link', { name: /フルトイ/u }).click();
+    await expect(page).toHaveURL(/#\/groups\/tag-people-unit-/u);
+    await expect(page.getByRole('heading', { level: 1, name: 'フルトイ' })).toBeVisible();
+    await expect(page.getByText(/フミ、ルイス・キャミー、白雪巴/u)).toBeVisible();
+    await expect(page.locator('.member-card')).toHaveCount(3);
+    await expect(page.locator('.member-card img')).toHaveCount(3);
+    expectOnlyAllowedRequests(requests);
+    await expectNoSeriousAccessibilityViolations(page);
+  });
 });

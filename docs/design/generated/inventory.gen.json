@@ -12,7 +12,7 @@
     },
     {
       "path": "scripts/build-public-data.ts",
-      "sha256": "e085c0c42b0c19de423d9a8b97bc746bfae18c8b9c0df287f416f03ecf31cfb8"
+      "sha256": "e47f9526348c3e814851c3c98aa47dfdbbaf5f2a976bb7b8518daee407a36e78"
     },
     {
       "path": "scripts/canonical-store.ts",
@@ -32,7 +32,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "67d761368b16e27318739789c029cbc372e4a1baadddf18050b449f843b25d45"
+      "sha256": "3fb8020eec9d8c01481814286250cf51c8f0df67cfb6535dc0dec1f1c751835f"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -96,7 +96,7 @@
     },
     {
       "path": "src/App.tsx",
-      "sha256": "567cadbeebb71152e078ee65b1278face193fede81ef09a6552c0c62c20d0990"
+      "sha256": "f9558d5b040f05f17fd98a7008a1f4b09109a2f04c16e541272a7376f1c1c974"
     },
     {
       "path": "src/components/Header.tsx",
@@ -127,8 +127,16 @@
       "sha256": "6666073cf8b335c46c9693c46a2a65e417f2029c433e7974181290e71b54d550"
     },
     {
+      "path": "src/domain/collaboration.test.ts",
+      "sha256": "7efcbef74ddb293a140dec7edfb1bb78e60f8f92ffe1331634d0fde03ca807d8"
+    },
+    {
+      "path": "src/domain/collaboration.ts",
+      "sha256": "e1facb1ea9b32d46fc6e75e5f273cebb0170239f38ea5386a603994da748c766"
+    },
+    {
       "path": "src/domain/content.ts",
-      "sha256": "b68fd56bf71a292e9844f093642ebb4ae2f1818c402d9dd79b25bd54eeeeb1ac"
+      "sha256": "61b0383a655b169d8057b1f98d9db1284b7ea51908ac16cab4a02314f63ffbe7"
     },
     {
       "path": "src/domain/game-title-detection.test.ts",
@@ -152,11 +160,23 @@
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "ff7dd337be2896549dcb062328957f538e30f5a713c3b171fd50e10554e9440e"
+      "sha256": "28cae5cf20e05e2e265ba1ceb9063c2a28e0e2d2149c9ccd06fd66a2f0ff13fc"
+    },
+    {
+      "path": "src/features/collaborations/CollaborationDetailPages.test.tsx",
+      "sha256": "c7b404c00f23bbe8b078f52fedbb215bf1f87e74c17bf50678984a46e804c2d7"
+    },
+    {
+      "path": "src/features/collaborations/CollaboratorDetailPage.tsx",
+      "sha256": "b184102619565bde18e7a17a86b40250e8271609f81a070fc115b607a4458398"
+    },
+    {
+      "path": "src/features/collaborations/GroupDetailPage.tsx",
+      "sha256": "3acc6d69d024b4f7722f200b4e34a115c973d6fa15902308ffb52cf5472b67ff"
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
-      "sha256": "a2070b7aa176ef1d5664ae447b1f009658a76200e3cb87755168dba4ae00220d"
+      "sha256": "4f2c863e5b5598f2194529934806697d88cb620f5923104a20571cca2c6f39a2"
     },
     {
       "path": "src/features/library/DeviceLibraryPage.tsx",
@@ -395,6 +415,21 @@
       "kind": "ClassDeclaration"
     },
     {
+      "file": "src/domain/collaboration.ts",
+      "name": "CollaborationCandidate",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration.ts",
+      "name": "CollaborationSelectionPolicy",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration.ts",
+      "name": "selectCollaboratorNames",
+      "kind": "FunctionDeclaration"
+    },
+    {
       "file": "src/domain/content.ts",
       "name": "approvedTimestampMigrationReviewSchema",
       "kind": "VariableStatement"
@@ -412,6 +447,16 @@
     {
       "file": "src/domain/content.ts",
       "name": "canonicalVideoSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "CollaborationProfiles",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "collaborationProfilesSchema",
       "kind": "VariableStatement"
     },
     {
@@ -735,6 +780,16 @@
       "kind": "InterfaceDeclaration"
     },
     {
+      "file": "src/features/collaborations/CollaboratorDetailPage.tsx",
+      "name": "CollaboratorDetailPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/collaborations/GroupDetailPage.tsx",
+      "name": "GroupDetailPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
       "file": "src/features/detail/VideoDetailPage.tsx",
       "name": "VideoDetailPage",
       "kind": "FunctionDeclaration"
@@ -773,6 +828,8 @@
   "routes": [
     "*",
     "/",
+    "/collaborators/:tagId",
+    "/groups/:tagId",
     "/library",
     "/video/:videoId",
     "/works/:tagId"
@@ -783,9 +840,11 @@
     "e2e/search.spec.ts",
     "src/data/deviceStore.test.ts",
     "src/data/loadPublicData.test.ts",
+    "src/domain/collaboration.test.ts",
     "src/domain/game-title-detection.test.ts",
     "src/domain/search.test.ts",
     "src/domain/validation.test.ts",
+    "src/features/collaborations/CollaborationDetailPages.test.tsx",
     "src/features/works/WorkDetailPage.test.tsx"
   ]
 }

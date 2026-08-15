@@ -29,7 +29,7 @@ export function VideoDetailPage(): React.JSX.Element {
     return bundle.tagIndex.categories.flatMap((category) => {
       const tags = category.subcategories.flatMap((subcategory) => subcategory.tags
         .filter((tag) => selected.has(tag.tagId))
-        .map((tag) => ({ ...tag, subcategoryName: subcategory.name })));
+        .map((tag) => ({ ...tag, subcategoryId: subcategory.subcategoryId, subcategoryName: subcategory.name })));
       return tags.length > 0 ? [{ ...category, tags }] : [];
     });
   }, [bundle.tagIndex.categories, detail]);
@@ -83,11 +83,25 @@ export function VideoDetailPage(): React.JSX.Element {
             <div className="detail-tag-group" key={group.categoryId}>
               <h3>{group.name}</h3>
               <div className="detail-tags">
-                {group.tags.map((tag) => group.categoryId === 'works' ? (
-                  <Link className="detail-tag-link" key={tag.tagId} to={`/works/${tag.tagId}`}>
-                    <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>作品ページを見る →</span>
-                  </Link>
-                ) : <span key={tag.tagId}><small>{tag.subcategoryName}</small>{tag.canonicalName}</span>)}
+                {group.tags.map((tag) => {
+                  if (group.categoryId === 'works') return (
+                    <Link className="detail-tag-link" key={tag.tagId} to={`/works/${tag.tagId}`}>
+                      <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>作品ページを見る →</span>
+                    </Link>
+                  );
+                  if (group.categoryId === 'people' && tag.subcategoryId === 'performer' && tag.personProfile) return (
+                    <Link className="detail-tag-link person-tag-link" key={tag.tagId} to={`/collaborators/${tag.tagId}`}>
+                      <img src={`${import.meta.env.BASE_URL}${tag.personProfile.iconPath}`} width="38" height="38" alt="" />
+                      <span><small>{tag.subcategoryName}</small>{tag.canonicalName}<b>コラボ動画を見る →</b></span>
+                    </Link>
+                  );
+                  if (group.categoryId === 'people' && tag.subcategoryId === 'unit' && tag.groupProfile) return (
+                    <Link className="detail-tag-link" key={tag.tagId} to={`/groups/${tag.tagId}`}>
+                      <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>コンビ・ユニットを見る →</span>
+                    </Link>
+                  );
+                  return <span key={tag.tagId}><small>{tag.subcategoryName}</small>{tag.canonicalName}</span>;
+                })}
               </div>
             </div>
           ))}
