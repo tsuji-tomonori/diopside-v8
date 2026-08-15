@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test';
 import { embeddedReleaseId } from '../src/generated/release.ts';
 
 import {
+  allVideosHeading,
   capture,
   expectMinimumTargets,
   expectNoSeriousAccessibilityViolations,
@@ -30,7 +31,7 @@ test.describe('動画検索', () => {
     await expect(page.getByRole('heading', { name: '0件の動画' })).toBeVisible();
     await expect(page.getByRole('heading', { name: '一致する動画がありません' })).toBeVisible();
     await page.getByRole('button', { name: '条件をすべて解除' }).click();
-    await expect(page.getByRole('heading', { name: '1681件の動画' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: allVideosHeading })).toBeVisible();
 
     await capture(page, testInfo, 'モバイル', 'search-mobile.jpg');
     expectOnlyAllowedRequests(requests);
@@ -67,7 +68,7 @@ test.describe('動画検索', () => {
 
     const resultsHeading = page.locator('#results-heading');
     await expect(resultsHeading).toBeFocused();
-    await expect(resultsHeading).not.toHaveText('1681件の動画');
+    await expect(resultsHeading).not.toHaveText(allVideosHeading);
     await expect(page.getByLabel('タグ名または別名から追加')).toBeHidden();
     const openButton = page.getByRole('button', { name: 'タグを開く（選択1件）' });
     await expect(openButton).toHaveAttribute('aria-expanded', 'false');
