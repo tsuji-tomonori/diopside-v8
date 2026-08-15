@@ -12754,8 +12754,8 @@
           "schemaVersion": "1.1.0",
           "videoId": "0NMnJS8_Flw",
           "rowNumber": 818,
-          "rowHash": "f8f6a59c46eb36901b7174676b83822fe581288f1d27d21471b47557256e4577",
-          "stage": "pr_created",
+          "rowHash": "c29bdf44a26cdda5f797366f248329ea63370720dc3f975a7ab930a0cd3bda0d",
+          "stage": "deferred_recovery",
           "attempt": 0,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/445",
@@ -12763,13 +12763,19 @@
           "solReview": null,
           "block": null,
           "recovery": {
-            "reasonCode": "external_action_failed",
-            "detail": "hosted Workで指定されたgpt-5.6-luna worker modelを起動できませんでした。モデル置換せず安全にpauseします。",
-            "nextAction": "gpt-5.6-luna mediumが利用可能なWork環境で同じcampaign、wave、batch IDから再開する",
-            "resumeAfter": "2026-08-15T12:00:00+09:00"
+            "reasonCode": "validation_failed",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
+            "solAttempt": 1,
+            "startedAt": "2026-08-15T13:43:49.960672+09:00",
+            "reason": "決定的検証に合格できませんでした。",
+            "detailDigest": "8c510e1ed5eb4cb637076c70ce0c50ed3ca758bb4f3ad630f4e4584bc82e9b6b",
+            "handledBy": "gpt-5.6-sol",
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-15T14:00:37.545781+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w19-l01-45a2ae42",
             "claimToken": "16cbf404ff4a43fdba23b2a5b93df235",
@@ -12777,7 +12783,7 @@
             "claimCommit": "7b8fa385bd6ca5d66a0c291f521c78aa1b1ac853",
             "claimedAt": "2026-08-15T10:39:14.755442+09:00"
           },
-          "updatedAt": "2026-08-15T01:43:52.821469+00:00"
+          "updatedAt": "2026-08-15T05:29:09.707322+00:00"
         }
       ]
     },
@@ -12808,8 +12814,8 @@
           "schemaVersion": "1.1.0",
           "videoId": "apl_w2IjaBc",
           "rowNumber": 822,
-          "rowHash": "a8507430d16e076e8e8f7700cba7cff4a2918dcbfaaa85d043238f85d2c592b9",
-          "stage": "pr_created",
+          "rowHash": "e94f68bb25d6abeb7367d4e62aae6386a4b18a8ae3eb204ef70e1cd12fc8187c",
+          "stage": "deferred_recovery",
           "attempt": 0,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/442",
@@ -12817,13 +12823,19 @@
           "solReview": null,
           "block": null,
           "recovery": {
-            "reasonCode": "external_action_failed",
-            "detail": "hosted Workで指定されたgpt-5.6-luna worker modelを起動できませんでした。モデル置換せず安全にpauseします。",
-            "nextAction": "gpt-5.6-luna mediumが利用可能なWork環境で同じcampaign、wave、batch IDから再開する",
-            "resumeAfter": "2026-08-15T12:00:00+09:00"
+            "reasonCode": "validation_failed",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
+            "solAttempt": 1,
+            "startedAt": "2026-08-15T13:43:50.069199+09:00",
+            "reason": "決定的検証に合格できませんでした。",
+            "detailDigest": "fa926a39d76d3035ca2e24382ce5074b492dc18f09c0b7a145398a79c5ce28b1",
+            "handledBy": "gpt-5.6-sol",
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-15T14:16:59.465015+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w19-l03-45a2ae42",
             "claimToken": "1ee88a2580b0492998318777bb6b4a9a",
@@ -12831,7 +12843,7 @@
             "claimCommit": "78f30b134ae8ac3664ca299b0f0324ada039cd10",
             "claimedAt": "2026-08-15T10:39:14.755637+09:00"
           },
-          "updatedAt": "2026-08-15T01:43:52.847843+00:00"
+          "updatedAt": "2026-08-15T05:29:09.875534+00:00"
         }
       ]
     },
@@ -12862,8 +12874,8 @@
           "schemaVersion": "1.1.0",
           "videoId": "u-tynoNr1Lg",
           "rowNumber": 825,
-          "rowHash": "0620b92b029f4968d8324e8cf1d224516fa589054ad139f6abdeebbf8f28c081",
-          "stage": "pr_created",
+          "rowHash": "7c0dc342663c32c0b50db83655ebbd4e8e3952988abe3895e4a09f6273f21a0d",
+          "stage": "deferred_recovery",
           "attempt": 0,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/443",
@@ -12871,13 +12883,19 @@
           "solReview": null,
           "block": null,
           "recovery": {
-            "reasonCode": "external_action_failed",
-            "detail": "hosted Workで指定されたgpt-5.6-luna worker modelを起動できませんでした。モデル置換せず安全にpauseします。",
-            "nextAction": "gpt-5.6-luna mediumが利用可能なWork環境で同じcampaign、wave、batch IDから再開する",
-            "resumeAfter": "2026-08-15T12:00:00+09:00"
+            "reasonCode": "evidence_tool_unavailable",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
+            "solAttempt": 1,
+            "startedAt": "2026-08-15T13:43:50.015085+09:00",
+            "reason": "公開素材取得または無料ローカルASRに必要な実行依存を利用できませんでした。",
+            "detailDigest": "de70218d5551df42c35e162b5bad7281d1fa9546badaf8ef19b2810b502f5404",
+            "handledBy": "gpt-5.6-sol",
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-15T13:50:22.100339+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w19-l04-45a2ae42",
             "claimToken": "c31f3bc9d29846799d18964e58fe31b2",
@@ -12885,7 +12903,7 @@
             "claimCommit": "2f25a8b70392b867d5fea687e268ab7dc202349e",
             "claimedAt": "2026-08-15T10:39:14.756099+09:00"
           },
-          "updatedAt": "2026-08-15T01:43:52.925310+00:00"
+          "updatedAt": "2026-08-15T05:29:10.046003+00:00"
         }
       ]
     },
@@ -12916,21 +12934,26 @@
           "schemaVersion": "1.1.0",
           "videoId": "gTB-xYlLcKs",
           "rowNumber": 828,
-          "rowHash": "4cb4283187137a4b99315b78a8283e6824f9997a80aa724257c3331fd6cc7fbb",
-          "stage": "pr_created",
+          "rowHash": "0bdd20f05b9f42a9a54def7d5aed8c7530e0131657d3d432b1f6df80b40deaae",
+          "stage": "complete",
           "attempt": 0,
-          "candidateHash": null,
+          "candidateHash": "ec9f4a01694e03f32ff8261bf2bdcc2863f8c1085d1aa49b63b86739f0bdc16a",
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/447",
-          "commit": null,
-          "solReview": null,
+          "commit": "89c1dcc6c32c1412f85c54326af90ae077d7201d",
+          "solReview": {
+            "model": "gpt-5.6-sol",
+            "candidateHash": "ec9f4a01694e03f32ff8261bf2bdcc2863f8c1085d1aa49b63b86739f0bdc16a",
+            "result": "pass",
+            "reviewedAt": "2026-08-15T14:19:58.972069+09:00"
+          },
           "block": null,
           "recovery": {
-            "reasonCode": "external_action_failed",
-            "detail": "hosted Workで指定されたgpt-5.6-luna worker modelを起動できませんでした。モデル置換せず安全にpauseします。",
-            "nextAction": "gpt-5.6-luna mediumが利用可能なWork環境で同じcampaign、wave、batch IDから再開する",
-            "resumeAfter": "2026-08-15T12:00:00+09:00"
+            "handledBy": "gpt-5.6-sol",
+            "result": "recovered",
+            "evidenceRoute": "public_japanese_captions",
+            "completedAt": "2026-08-15T13:53:09.862378+09:00"
           },
-          "sheetVerified": false,
+          "sheetVerified": true,
           "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w19-l05-45a2ae42",
@@ -12939,7 +12962,7 @@
             "claimCommit": "3849b4ab5ffc918f660cd06975d8c82d09339d55",
             "claimedAt": "2026-08-15T10:39:14.756196+09:00"
           },
-          "updatedAt": "2026-08-15T01:43:52.935605+00:00"
+          "updatedAt": "2026-08-15T05:29:10.216282+00:00"
         }
       ]
     },
@@ -12970,8 +12993,8 @@
           "schemaVersion": "1.1.0",
           "videoId": "Tw4VimE89R0",
           "rowNumber": 832,
-          "rowHash": "b02af4a0b3632f03fc4f94c61a5caab8cf0f614a7e238edc5a377a6c106a244b",
-          "stage": "pr_created",
+          "rowHash": "5932782a6dbe80994ab9390748849f8c747924e0146c4bb02328612ab5ac25a9",
+          "stage": "deferred_recovery",
           "attempt": 0,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/444",
@@ -12979,13 +13002,19 @@
           "solReview": null,
           "block": null,
           "recovery": {
-            "reasonCode": "external_action_failed",
-            "detail": "hosted Workで指定されたgpt-5.6-luna worker modelを起動できませんでした。モデル置換せず安全にpauseします。",
-            "nextAction": "gpt-5.6-luna mediumが利用可能なWork環境で同じcampaign、wave、batch IDから再開する",
-            "resumeAfter": "2026-08-15T12:00:00+09:00"
+            "reasonCode": "evidence_tool_unavailable",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
+            "solAttempt": 1,
+            "startedAt": "2026-08-15T13:43:50.023639+09:00",
+            "reason": "公開素材取得または無料ローカルASRに必要な実行依存を利用できませんでした。",
+            "detailDigest": "de70218d5551df42c35e162b5bad7281d1fa9546badaf8ef19b2810b502f5404",
+            "handledBy": "gpt-5.6-sol",
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-15T13:51:49.297625+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w19-l06-45a2ae42",
             "claimToken": "7fb775625cdb498196fa0d26873762bf",
@@ -12993,7 +13022,7 @@
             "claimCommit": "cc4996e5f08d65f3bd8c1aebd7aba56b2488e176",
             "claimedAt": "2026-08-15T10:39:14.756276+09:00"
           },
-          "updatedAt": "2026-08-15T01:43:53.034914+00:00"
+          "updatedAt": "2026-08-15T05:29:10.383912+00:00"
         }
       ]
     },
@@ -13024,8 +13053,8 @@
           "schemaVersion": "1.1.0",
           "videoId": "rAPmSv1qEOo",
           "rowNumber": 833,
-          "rowHash": "11232261075873744c86bdf80428ae7ff444f7536b21b4ddf02d9b252919afc8",
-          "stage": "pr_created",
+          "rowHash": "c236b6b9e54a738773b5accda65204a85c524f1f03ecd4b4fb8982a73119e356",
+          "stage": "deferred_recovery",
           "attempt": 0,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/446",
@@ -13033,13 +13062,19 @@
           "solReview": null,
           "block": null,
           "recovery": {
-            "reasonCode": "external_action_failed",
-            "detail": "hosted Workで指定されたgpt-5.6-luna worker modelを起動できませんでした。モデル置換せず安全にpauseします。",
-            "nextAction": "gpt-5.6-luna mediumが利用可能なWork環境で同じcampaign、wave、batch IDから再開する",
-            "resumeAfter": "2026-08-15T12:00:00+09:00"
+            "reasonCode": "evidence_tool_unavailable",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
+            "solAttempt": 1,
+            "startedAt": "2026-08-15T13:43:50.182432+09:00",
+            "reason": "公開素材取得または無料ローカルASRに必要な実行依存を利用できませんでした。",
+            "detailDigest": "de70218d5551df42c35e162b5bad7281d1fa9546badaf8ef19b2810b502f5404",
+            "handledBy": "gpt-5.6-sol",
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-15T13:52:18.172784+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w19-l07-45a2ae42",
             "claimToken": "b3c6c977499249f4b8a15b5570856f77",
@@ -13047,7 +13082,7 @@
             "claimCommit": "cd554fd132af5551e6ecfdd61d47deb0621d0ce0",
             "claimedAt": "2026-08-15T10:39:14.756358+09:00"
           },
-          "updatedAt": "2026-08-15T01:43:53.055603+00:00"
+          "updatedAt": "2026-08-15T05:29:10.556630+00:00"
         }
       ]
     },
@@ -13078,8 +13113,8 @@
           "schemaVersion": "1.1.0",
           "videoId": "GQdk0M2NoDs",
           "rowNumber": 835,
-          "rowHash": "d5d338901a1acb1e10b61ca8a1302c74b93a14b1c3e8c792986871124c5b1fc4",
-          "stage": "pr_created",
+          "rowHash": "5c7891d046392f733016e73b08edb8cce342945f7992e1429540bf1b0f62f418",
+          "stage": "deferred_recovery",
           "attempt": 0,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/448",
@@ -13087,13 +13122,19 @@
           "solReview": null,
           "block": null,
           "recovery": {
-            "reasonCode": "external_action_failed",
-            "detail": "hosted Workで指定されたgpt-5.6-luna worker modelを起動できませんでした。モデル置換せず安全にpauseします。",
-            "nextAction": "gpt-5.6-luna mediumが利用可能なWork環境で同じcampaign、wave、batch IDから再開する",
-            "resumeAfter": "2026-08-15T12:00:00+09:00"
+            "reasonCode": "evidence_tool_unavailable",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
+            "solAttempt": 1,
+            "startedAt": "2026-08-15T13:43:50.121087+09:00",
+            "reason": "公開素材取得または無料ローカルASRに必要な実行依存を利用できませんでした。",
+            "detailDigest": "de70218d5551df42c35e162b5bad7281d1fa9546badaf8ef19b2810b502f5404",
+            "handledBy": "gpt-5.6-sol",
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-15T13:51:17.178409+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w19-l08-45a2ae42",
             "claimToken": "8b4f2d1fd81a4abb90ac79ce00dc07c7",
@@ -13101,7 +13142,7 @@
             "claimCommit": "be577266953c5a25f4f3386acb51bb0770180502",
             "claimedAt": "2026-08-15T10:39:14.756432+09:00"
           },
-          "updatedAt": "2026-08-15T01:43:53.040558+00:00"
+          "updatedAt": "2026-08-15T05:29:10.733182+00:00"
         }
       ]
     },
@@ -13132,8 +13173,8 @@
           "schemaVersion": "1.1.0",
           "videoId": "5lGnmZsTT60",
           "rowNumber": 839,
-          "rowHash": "377df7b0e31b3b6851cfe37cbebc6bb2887a0d3ed18b97e091082643549efb77",
-          "stage": "pr_created",
+          "rowHash": "3f4683a505010895cf9f41da0aeb3a9009a277c6577f8017d902ff9ff9c67011",
+          "stage": "deferred_recovery",
           "attempt": 0,
           "candidateHash": null,
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/449",
@@ -13141,13 +13182,19 @@
           "solReview": null,
           "block": null,
           "recovery": {
-            "reasonCode": "external_action_failed",
-            "detail": "hosted Workで指定されたgpt-5.6-luna worker modelを起動できませんでした。モデル置換せず安全にpauseします。",
-            "nextAction": "gpt-5.6-luna mediumが利用可能なWork環境で同じcampaign、wave、batch IDから再開する",
-            "resumeAfter": "2026-08-15T12:00:00+09:00"
+            "reasonCode": "evidence_tool_unavailable",
+            "detail": "Work実行環境の再作成後に安全な工程から再開します。",
+            "nextAction": "同じcampaign、wave、batch IDで親Sol回復を再開する",
+            "solAttempt": 1,
+            "startedAt": "2026-08-15T13:43:50.086633+09:00",
+            "reason": "公開素材取得または無料ローカルASRに必要な実行依存を利用できませんでした。",
+            "detailDigest": "de70218d5551df42c35e162b5bad7281d1fa9546badaf8ef19b2810b502f5404",
+            "handledBy": "gpt-5.6-sol",
+            "result": "deferred_with_progress_ledger_note",
+            "deferredAt": "2026-08-15T13:50:19.831250+09:00"
           },
           "sheetVerified": false,
-          "deferredLedgerVerified": false,
+          "deferredLedgerVerified": true,
           "claim": {
             "workerId": "luna-w19-l09-45a2ae42",
             "claimToken": "a889424a876a48a69a572601b9111271",
@@ -13155,7 +13202,7 @@
             "claimCommit": "8b8793edc9abe59f951153673090523ee8e97a19",
             "claimedAt": "2026-08-15T10:39:14.756509+09:00"
           },
-          "updatedAt": "2026-08-15T01:43:53.058274+00:00"
+          "updatedAt": "2026-08-15T05:29:10.912321+00:00"
         }
       ]
     },
@@ -13186,21 +13233,26 @@
           "schemaVersion": "1.1.0",
           "videoId": "4Ag7sZrckO8",
           "rowNumber": 841,
-          "rowHash": "16e31ade4ebaf3e4f08d732e4ab925a552c60129d3450f5b567d788b26e2f83d",
-          "stage": "pr_created",
+          "rowHash": "8611fdcad403ba26cdfb7aadca96e348512bb8876eba1c4911200158dc7bd3d9",
+          "stage": "complete",
           "attempt": 0,
-          "candidateHash": null,
+          "candidateHash": "2ab8910592e7173ba8929bb287997ca361866015d5bd1f072db1923c5a87a236",
           "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/450",
-          "commit": null,
-          "solReview": null,
+          "commit": "54d13a90594ade47510e1b9ecadff905b3cfbb66",
+          "solReview": {
+            "model": "gpt-5.6-sol",
+            "candidateHash": "2ab8910592e7173ba8929bb287997ca361866015d5bd1f072db1923c5a87a236",
+            "result": "pass",
+            "reviewedAt": "2026-08-15T14:19:59.251886+09:00"
+          },
           "block": null,
           "recovery": {
-            "reasonCode": "external_action_failed",
-            "detail": "hosted Workで指定されたgpt-5.6-luna worker modelを起動できませんでした。モデル置換せず安全にpauseします。",
-            "nextAction": "gpt-5.6-luna mediumが利用可能なWork環境で同じcampaign、wave、batch IDから再開する",
-            "resumeAfter": "2026-08-15T12:00:00+09:00"
+            "handledBy": "gpt-5.6-sol",
+            "result": "recovered",
+            "evidenceRoute": "public_japanese_captions",
+            "completedAt": "2026-08-15T14:07:26.539597+09:00"
           },
-          "sheetVerified": false,
+          "sheetVerified": true,
           "deferredLedgerVerified": false,
           "claim": {
             "workerId": "luna-w19-l10-45a2ae42",
@@ -13209,12 +13261,12 @@
             "claimCommit": "7853f49f38cc8f2d4b86d95cf9cb9dd59c8cabce",
             "claimedAt": "2026-08-15T10:39:14.756579+09:00"
           },
-          "updatedAt": "2026-08-15T01:43:53.056554+00:00"
+          "updatedAt": "2026-08-15T05:29:11.075671+00:00"
         }
       ]
     }
   ],
-  "updatedAt": "2026-08-15T10:45:28.249763+09:00",
-  "resumeAfter": "2026-08-15T12:00:00+09:00",
-  "checkpointHash": "90df047a192950b7ef366151fec6e22ecf9d02327ea559ffa5dc8007eb1477d2"
+  "updatedAt": "2026-08-15T14:31:11.624366+09:00",
+  "resumeAfter": null,
+  "checkpointHash": "ec15a1a31895b60fdaf8c0d5273c633e06ea55947050e8b207eb152ec84bab4b"
 }
