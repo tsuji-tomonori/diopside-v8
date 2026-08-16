@@ -9,7 +9,7 @@
   "allowedRuntimeServices": [
     {
       "service": "GitHub Pages",
-      "condition": "公開リポジトリの標準github.io URL、branch方式 main/docs、追加請求0円"
+      "condition": "公開リポジトリのGitHub Pages、branch方式 main/docs、許可済みの tme.page.diopside.net、追加請求0円"
     },
     {
       "service": "GitHub Actions",
@@ -34,7 +34,6 @@
     "schedule": "予定実行と将来動画の自動発見は禁止し、固定manifestの完了で終了する。"
   },
   "forbidden": [
-    "独自ドメイン",
     "公開面の有料クラウド",
     "公開面の従量課金API",
     "公開面の外部検索・データベース",

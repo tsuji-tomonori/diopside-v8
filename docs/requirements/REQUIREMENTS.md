@@ -2,13 +2,13 @@
 # diopside v8 要件一覧
 
 - カタログ版: 11
-- 更新日: 2026-08-15
+- 更新日: 2026-08-16
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
 |---|---:|---|---|---|---|
 | `V8-COST-001` | 2 | 有効 | 運用 | diopside v8の費用は、公開閲覧、検索、生成、配信に起因する請求額は、既存のChatGPT／Codex契約を除いて毎月0円でなければならない。を**satisfy** | 月次請求確認 |
-| `V8-COST-002` | 1 | 有効 | 運用 | diopside v8の費用は、公開基盤は、公開リポジトリで利用できるGitHub Pagesと既定の `github.io` 配下のURLに限定しなければならない。を**satisfy** | リポジトリ・Pages設定確認 |
+| `V8-COST-002` | 2 | 有効 | 運用 | diopside v8の費用は、公開基盤は、公開リポジトリで利用できるGitHub Pagesの `main/docs` branch方式と、Pages設定および `docs/CNAME` で同じ値を明示した独自ドメインだけに限定しなければならない。追加の公開実行時サービスまたは有料のGitHubプランを必要としてはならない。を**satisfy** | リポジトリ・Pages設定・CNAME整合性確認 |
 | `V8-COST-003` | 2 | 有効 | 運用 | diopside v8の費用は、AWSその他の有料クラウド資源を公開面の閲覧、検索、生成、配信に使用してはならず、既知動画だけの有限private backfillは承認された隔離基盤だけに限定しなければならない。を**satisfy** | 構成確認 |
 | `V8-COST-004` | 2 | 有効 | 運用 | diopside v8の費用は、公開面は有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならず、private backfillの状態保存と監視は公開面から分離しなければならない。を**satisfy** | 依存関係・通信確認 |
 | `V8-COST-005` | 2 | 有効 | 運用 | diopside v8の費用は、公開面の外部サービスの料金または無償条件が変わり請求が発生し得る場合は、課金して継続せず該当公開処理を停止しなければならず、private backfillの費用は自動停止ではなく人の開始判断に委ねなければならない。を**satisfy** | 運用手順確認 |
@@ -189,18 +189,18 @@ diopside v8の費用は、公開閲覧、検索、生成、配信に起因する
 検証証跡: tests/repository-policy.test.ts
 トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,Issue #465,dev-standard assured profile
 
-## V8-COST-002: 公開基盤は、公開リポジトリで利用できるGitHub Pagesと既定の `github.io` 配下のURLに限定しなければならない
+## V8-COST-002: 公開基盤は公開リポジトリのGitHub Pages branch方式と、明示設定した独自ドメインだけに限定しなければならない
 
-diopside v8の費用は、公開基盤は、公開リポジトリで利用できるGitHub Pagesと既定の `github.io` 配下のURLに限定しなければならない。を**satisfy**。
+diopside v8の費用は、公開基盤は、公開リポジトリで利用できるGitHub Pagesの `main/docs` branch方式と、Pages設定および `docs/CNAME` で同じ値を明示した独自ドメインだけに限定しなければならない。追加の公開実行時サービスまたは有料のGitHubプランを必要としてはならない。を**satisfy**。
 
 根拠: 既存のChatGPT／Codex契約以外の運用請求を発生させず、個人運用を持続可能にするため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-COST-002-1` 前提: V8-費用-002の前提を満たす公開データまたは操作がある。条件: リポジトリ・Pages設定確認。期待結果: リポジトリは公開設定で、独自ドメインと有料プランを必要としない。。
+- `AC-V8-COST-002-1` 前提: 公開リポジトリのPages設定と静的公開成果物がある。条件: リポジトリ・Pages設定・CNAME整合性確認。期待結果: リポジトリは公開設定で、Pages公開元は `main/docs` であり、独自ドメインを使う場合はPages方針の値と `docs/CNAME` が完全一致し、追加の公開実行時サービスまたは有料のGitHubプランを必要としない。。
 
-要求源: Issue #1 V8-費用-002, user:2026-08-03
+要求源: Issue #1 V8-費用-002, user:2026-08-03, spec/sources/owner-directive-2026-08-16-custom-pages-domain.md, user:2026-08-15
 検証証跡: tests/repository-policy.test.ts
 トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
 

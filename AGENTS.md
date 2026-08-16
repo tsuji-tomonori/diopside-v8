@@ -38,4 +38,4 @@
 - 通常の動画追加は1動画1PRとし、タグ体系、スキル、検証、画面、Pages設定の変更を同梱しない。各PRを人がマージする操作を、その動画の公開承認とする。
 - 生の字幕、コメント、チャット、投稿者識別子、秘密情報をGitまたは公開成果物へ保存しない。
 - 静的成果物は正本から決定的に生成し、`docs/` と `docs/design/generated/` を直接編集しない。
-- GitHub Pagesはbranch方式 `main/docs` とし、独自ドメインや有料実行時サービスを使わない。
+- GitHub Pagesはbranch方式 `main/docs` とし、`operations/pages-policy.json` と `docs/CNAME` が完全一致する所有者承認済みの独自ドメインだけを使える。有料実行時サービスを使わない。
