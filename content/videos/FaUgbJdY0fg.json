@@ -11,8 +11,8 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=FaUgbJdY0fg",
-  "taxonomyVersion": "8.4.0",
-  "aliasVersion": "8.2.0",
+  "taxonomyVersion": "8.5.0",
+  "aliasVersion": "8.3.0",
   "tagRulesVersion": "8.2.0",
   "evidence": [
     {
@@ -89,6 +89,22 @@
       "reviewedAt": "2026-08-14T12:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "村で暮らすシミュレーションゲームに挑む白雪巴。住人との出会いを重ね、畑仕事や採集、釣りに取り組みながら、食料や資金のやりくりにも奮闘する。ほのぼのとした風景の中で、慣れない操作や気になるルールへ戸惑いと笑いを交え、自分のペースで村を探索していく長時間配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ちょっとずつって感じではないゲームだね",
+      "atSeconds": 14631,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "b82038dd26417736fea9625730f7d5c66f148e0f47972fdf1e90bc6ba50e00a6",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-14T16:49:50.695044Z"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -213,28 +229,28 @@
         "candidateHash": "5350e3d1136297d7a62c8869079693f720ae246e59196c67aa7b764ead360c69",
         "majorIssues": 0,
         "reviewedAt": "2026-08-15T00:36:05.890183+09:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "5350e3d1136297d7a62c8869079693f720ae246e59196c67aa7b764ead360c69",
         "majorIssues": 0,
         "reviewedAt": "2026-08-15T00:36:14.823677+09:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "publicationGate": {
         "mode": "pull-request-merge",
@@ -259,21 +275,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T00:30:01+09:00",
     "basis": "公開metadata確認済み。成果物はDraft PRで最終確認する。"
-  },
-  "synopsis": {
-    "body": "村で暮らすシミュレーションゲームに挑む白雪巴。住人との出会いを重ね、畑仕事や採集、釣りに取り組みながら、食料や資金のやりくりにも奮闘する。ほのぼのとした風景の中で、慣れない操作や気になるルールへ戸惑いと笑いを交え、自分のペースで村を探索していく長時間配信。",
-    "bodyEvidenceRefs": [
-      "evidence-full-transcript"
-    ],
-    "featuredQuote": {
-      "text": "ちょっとずつって感じではないゲームだね",
-      "atSeconds": 14631,
-      "evidenceRefs": [
-        "evidence-full-transcript"
-      ]
-    },
-    "inputFingerprint": "b82038dd26417736fea9625730f7d5c66f148e0f47972fdf1e90bc6ba50e00a6",
-    "rulesVersion": "1.1.0",
-    "updatedAt": "2026-08-14T16:49:50.695044Z"
   }
 }

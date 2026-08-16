@@ -11,8 +11,8 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=-l7TC8RHN9s",
-  "taxonomyVersion": "8.4.0",
-  "aliasVersion": "8.2.0",
+  "taxonomyVersion": "8.5.0",
+  "aliasVersion": "8.3.0",
   "tagRulesVersion": "8.2.0",
   "evidence": [
     {
@@ -89,6 +89,22 @@
       "reviewedAt": "2026-08-14T12:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "リズム天国 ミラクルスターズのウラに挑む白雪巴が、テンポの取り方を言葉にしながら、苦手な仕掛けでは練習と再挑戦を重ねるゲーム配信。成功に笑い、難所では感覚を研ぎ澄ませて進んでいく。音とタイミングの駆け引きを楽しむ、集中と反応がにぎやかな約3時間。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "音楽を信じろ。",
+      "atSeconds": 4767,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "1b35ef7637b201054a5aaece7b3e8a4df3b5966aac33444abdd8bd9e140260b0",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-14T18:42:52.551422Z"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -375,28 +391,28 @@
         "candidateHash": "31f21185426d60863206f8bc3122bff8bce1ac30fcd39e6c0179bb0a172bf4f9",
         "majorIssues": 0,
         "reviewedAt": "2026-08-15T01:50:23.352931+09:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "31f21185426d60863206f8bc3122bff8bce1ac30fcd39e6c0179bb0a172bf4f9",
         "majorIssues": 0,
         "reviewedAt": "2026-08-15T01:48:45.589695+09:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "publicationGate": {
         "mode": "pull-request-merge",
@@ -421,21 +437,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T00:30:01+09:00",
     "basis": "公開metadata確認済み。成果物はDraft PRで最終確認する。"
-  },
-  "synopsis": {
-    "body": "リズム天国 ミラクルスターズのウラに挑む白雪巴が、テンポの取り方を言葉にしながら、苦手な仕掛けでは練習と再挑戦を重ねるゲーム配信。成功に笑い、難所では感覚を研ぎ澄ませて進んでいく。音とタイミングの駆け引きを楽しむ、集中と反応がにぎやかな約3時間。",
-    "bodyEvidenceRefs": [
-      "evidence-full-transcript"
-    ],
-    "featuredQuote": {
-      "text": "音楽を信じろ。",
-      "atSeconds": 4767,
-      "evidenceRefs": [
-        "evidence-full-transcript"
-      ]
-    },
-    "inputFingerprint": "1b35ef7637b201054a5aaece7b3e8a4df3b5966aac33444abdd8bd9e140260b0",
-    "rulesVersion": "1.1.0",
-    "updatedAt": "2026-08-14T18:42:52.551422Z"
   }
 }
