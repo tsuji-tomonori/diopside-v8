@@ -11,8 +11,8 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=fPI5sIvPaUE",
-  "taxonomyVersion": "8.4.0",
-  "aliasVersion": "8.2.0",
+  "taxonomyVersion": "8.5.0",
+  "aliasVersion": "8.3.0",
   "tagRulesVersion": "8.2.0",
   "evidence": [
     {
@@ -246,28 +246,28 @@
         "candidateHash": "d0d0d8fd4cc1981ecd65e67f8c01489c280ddd7d4b1b19d8ee09a6710d1b47d9",
         "majorIssues": 0,
         "reviewedAt": "2026-08-08T12:42:31+00:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "d0d0d8fd4cc1981ecd65e67f8c01489c280ddd7d4b1b19d8ee09a6710d1b47d9",
         "majorIssues": 0,
         "reviewedAt": "2026-08-08T12:44:04+00:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "publicationGate": {
         "mode": "pull-request-merge",

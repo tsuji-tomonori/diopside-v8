@@ -16,8 +16,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=1wVqoDgrqpc",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -347,8 +347,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=E_zPBE1gu6A",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -618,8 +618,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=I6uPZpIZqSc",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -931,8 +931,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=M6DvhIW6Kck",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -1071,8 +1071,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=nob7v6lvpuM",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -1098,18 +1098,15 @@
           "type": "既存の承認済みタイムスタンプ",
           "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
           "inputFingerprint": "607a9cb058c09b2ac65aec39675b3125a19b843fefa1b06d715fb639b58a09f2"
+        },
+        {
+          "evidenceId": "evidence-game-classification",
+          "type": "動画タイトル",
+          "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+          "inputFingerprint": "ec5d3492e8a473b55bd5a0dd295696d99cd06129741c798bdd45d0f6fd2bf4bd"
         }
       ],
       "tagAssignments": [
-        {
-          "tagId": "tag-content-primary-9eedbc0013d1",
-          "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
-          "confidence": "高",
-          "evidenceRefs": [
-            "evidence-title"
-          ],
-          "reviewedAt": "2026-08-04T15:00:00+09:00"
-        },
         {
           "tagId": "tag-people-channel-e0fc18a727d8",
           "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
@@ -1127,6 +1124,42 @@
             "evidence-duration"
           ],
           "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-primary-0dbfa3115896",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-works-gameTitle-214c9ab266a6",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「凶寓」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-1cc53dc4a37d",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「ホラー」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-2ec4e38c680d",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「アドベンチャー」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
         }
       ],
       "timestamps": {
@@ -1406,8 +1439,8 @@
       },
       "approval": {
         "status": "承認済み",
-        "approvedAt": "2026-08-04T15:00:00+09:00",
-        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+        "approvedAt": "2026-08-16T12:05:00+09:00",
+        "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
       }
     },
     {
@@ -1423,8 +1456,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=PPAcGwB5hjE",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -1536,8 +1569,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=YpPm6lD8Tiw",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {

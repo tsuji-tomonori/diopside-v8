@@ -9,9 +9,18 @@ const root = path.resolve(import.meta.dirname, '..');
 const taxonomy = tagTaxonomySchema.parse(readJson(path.join(root, 'content/taxonomy/tag-taxonomy.json')));
 const aliases = tagAliasesSchema.parse(readJson(path.join(root, 'content/taxonomy/tag-aliases.json')));
 const lookup = buildTaxonomyLookup(taxonomy);
+const regression = readJson(path.join(root, 'spec/sources/game-tag-corrections-v1.json')) as {
+  corrections: Array<{
+    videoId: string;
+    gameTitleTagId: string;
+    gameGenreTagIds: string[];
+    removeTagIds?: string[];
+  }>;
+};
 const errors: string[] = [];
+const videos = readCanonicalVideos(root);
 
-for (const video of readCanonicalVideos(root)) {
+for (const video of videos) {
   const assigned = new Set(video.tagAssignments.map((assignment) => assignment.tagId));
   const tags = [...assigned].map((tagId) => lookup.get(tagId)).filter((tag) => tag !== undefined);
   const hasGameGenre = tags.some((tag) => (
@@ -23,6 +32,28 @@ for (const video of readCanonicalVideos(root)) {
   if (gameTitles.length > 0 && !hasGameGenre) errors.push(`${video.videoId}:ゲーム作品名があるのにジャンル「ゲーム」がありません。`);
   for (const tagId of detectExplicitGameTitleTagIds(video.title, taxonomy, aliases)) {
     if (!assigned.has(tagId)) errors.push(`${video.videoId}:公開タイトルに明示されたゲーム作品名「${lookup.get(tagId)?.canonicalName}」がありません。`);
+  }
+}
+
+const videosById = new Map(videos.map((video) => [video.videoId, video]));
+const gamePrimaryTagId = taxonomy.categories
+  .find((category) => category.categoryId === 'content')
+  ?.subcategories.find((subcategory) => subcategory.subcategoryId === 'primary')
+  ?.tags.find((tag) => tag.canonicalName === 'ゲーム')?.tagId;
+if (!gamePrimaryTagId) errors.push('回帰監査: 主ジャンル「ゲーム」のタグを解決できません。');
+for (const correction of regression.corrections) {
+  const video = videosById.get(correction.videoId);
+  if (!video) {
+    errors.push(`${correction.videoId}:回帰監査対象の動画が正本にありません。`);
+    continue;
+  }
+  const assigned = new Set(video.tagAssignments.map((assignment) => assignment.tagId));
+  const required = [gamePrimaryTagId, correction.gameTitleTagId, ...correction.gameGenreTagIds].filter((tagId): tagId is string => Boolean(tagId));
+  for (const tagId of required) {
+    if (!assigned.has(tagId)) errors.push(`${correction.videoId}:回帰監査で必要なゲームタグ ${lookup.get(tagId)?.canonicalName ?? tagId} がありません。`);
+  }
+  for (const tagId of correction.removeTagIds ?? []) {
+    if (assigned.has(tagId)) errors.push(`${correction.videoId}:回帰監査で除去対象のタグ ${lookup.get(tagId)?.canonicalName ?? tagId} が残っています。`);
   }
 }
 

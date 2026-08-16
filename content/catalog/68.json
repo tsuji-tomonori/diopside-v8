@@ -16,8 +16,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=BB4oylHfPgg",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -215,8 +215,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=eHVeIvcug-Y",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -510,8 +510,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=eqPaPJhy-Js",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -925,8 +925,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=o0eSdpqyKUQ",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -952,18 +952,15 @@
           "type": "既存の承認済みタイムスタンプ",
           "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
           "inputFingerprint": "01decd3684e0c8d1a53623a7eed5f4af7a1a69e31e86b5518bfd448fb33f1152"
+        },
+        {
+          "evidenceId": "evidence-game-classification",
+          "type": "動画タイトル",
+          "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+          "inputFingerprint": "85dd4d2e384a98286c23fbd6fe78c93fcbf2865c77109693adf072727ee8ca44"
         }
       ],
       "tagAssignments": [
-        {
-          "tagId": "tag-content-primary-9eedbc0013d1",
-          "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
-          "confidence": "高",
-          "evidenceRefs": [
-            "evidence-title"
-          ],
-          "reviewedAt": "2026-08-04T15:00:00+09:00"
-        },
         {
           "tagId": "tag-people-channel-e0fc18a727d8",
           "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
@@ -981,6 +978,42 @@
             "evidence-duration"
           ],
           "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-primary-0dbfa3115896",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-works-gameTitle-cf251daa451f",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「夜勤清掃 | The Night Cleaner」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-1cc53dc4a37d",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「ホラー」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-9709322940c3",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「シミュレーション」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
         }
       ],
       "timestamps": {
@@ -1215,8 +1248,8 @@
       },
       "approval": {
         "status": "承認済み",
-        "approvedAt": "2026-08-04T15:00:00+09:00",
-        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+        "approvedAt": "2026-08-16T12:05:00+09:00",
+        "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
       }
     },
     {
@@ -1232,8 +1265,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=OeIi5r1RnMY",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -1500,8 +1533,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=UsPeYgD5sTk",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -1762,8 +1795,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=vsQNaA8AfFA",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {

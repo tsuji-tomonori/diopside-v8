@@ -11,8 +11,8 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=1KqEKebD1Kc",
-  "taxonomyVersion": "8.4.0",
-  "aliasVersion": "8.2.0",
+  "taxonomyVersion": "8.5.0",
+  "aliasVersion": "8.3.0",
   "tagRulesVersion": "8.2.0",
   "evidence": [
     {
@@ -80,6 +80,22 @@
       "reviewedAt": "2026-08-14T12:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "ストーリープレイイング『アロイス』を、作者・夏目美緒をGMに迎え初見で体験する白雪巴。友人との会話から不思議へ足を踏み入れ、問いかけに自分の言葉で応じながら物語を進める。演じることと素のやり取りが重なる中、創作や大切な人への思いを語り合い、終演後には作品の解釈をたどる配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私もすごい緊張してる。",
+      "atSeconds": 424,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "d4e0985f145162fe8d47d14319a75bfc5233f7ce4e5ca6f62e3e7bcf5eed52a1",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-14T18:19:53.731800Z"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -366,28 +382,28 @@
         "candidateHash": "d12076e93cbf5c939d8bd0dd8dc021a362fe53fa81670bfb860d2844b288f74a",
         "majorIssues": 0,
         "reviewedAt": "2026-08-15T01:45:42.881253+09:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "d12076e93cbf5c939d8bd0dd8dc021a362fe53fa81670bfb860d2844b288f74a",
         "majorIssues": 0,
         "reviewedAt": "2026-08-15T01:49:41.974151+09:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "publicationGate": {
         "mode": "pull-request-merge",
@@ -412,21 +428,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-14T12:00:01+09:00",
     "basis": "公開metadata確認済み。成果物はDraft PRで最終確認する。"
-  },
-  "synopsis": {
-    "body": "ストーリープレイイング『アロイス』を、作者・夏目美緒をGMに迎え初見で体験する白雪巴。友人との会話から不思議へ足を踏み入れ、問いかけに自分の言葉で応じながら物語を進める。演じることと素のやり取りが重なる中、創作や大切な人への思いを語り合い、終演後には作品の解釈をたどる配信。",
-    "bodyEvidenceRefs": [
-      "evidence-full-transcript"
-    ],
-    "featuredQuote": {
-      "text": "私もすごい緊張してる。",
-      "atSeconds": 424,
-      "evidenceRefs": [
-        "evidence-full-transcript"
-      ]
-    },
-    "inputFingerprint": "d4e0985f145162fe8d47d14319a75bfc5233f7ce4e5ca6f62e3e7bcf5eed52a1",
-    "rulesVersion": "1.1.0",
-    "updatedAt": "2026-08-14T18:19:53.731800Z"
   }
 }

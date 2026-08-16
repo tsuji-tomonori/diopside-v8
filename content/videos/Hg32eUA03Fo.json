@@ -11,8 +11,8 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=Hg32eUA03Fo",
-  "taxonomyVersion": "8.4.0",
-  "aliasVersion": "8.2.0",
+  "taxonomyVersion": "8.5.0",
+  "aliasVersion": "8.3.0",
   "tagRulesVersion": "8.2.0",
   "evidence": [
     {
@@ -80,6 +80,22 @@
       "reviewedAt": "2026-08-14T12:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "新衣装の水着について、白雪巴が制作時に迷ったデザインや色、布の見せ方まで丁寧に語る雑談配信。髪型やメイクへのこだわりをたどりながら、視聴者の反応に笑い、夏の装いをめぐる想像をふくらませていく。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "カーディガンもね。そう。お気に入り。",
+      "atSeconds": 1790,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "5f1f141344c54f34f5cd654f5f6a5cb9e9145854505c45ec0de6d4551c77b648",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-14T18:32:45.743092Z"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -321,28 +337,28 @@
         "candidateHash": "9c395ec495d04ab8748aac73bc20e89280874c1f13cdcd418137e80a0af2875e",
         "majorIssues": 0,
         "reviewedAt": "2026-08-15T04:31:00+09:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "9c395ec495d04ab8748aac73bc20e89280874c1f13cdcd418137e80a0af2875e",
         "majorIssues": 0,
         "reviewedAt": "2026-08-15T01:38:50+09:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "publicationGate": {
         "mode": "pull-request-merge",
@@ -367,21 +383,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-14T12:00:01+09:00",
     "basis": "公開metadata確認済み。成果物はDraft PRで最終確認する。"
-  },
-  "synopsis": {
-    "body": "新衣装の水着について、白雪巴が制作時に迷ったデザインや色、布の見せ方まで丁寧に語る雑談配信。髪型やメイクへのこだわりをたどりながら、視聴者の反応に笑い、夏の装いをめぐる想像をふくらませていく。",
-    "bodyEvidenceRefs": [
-      "evidence-full-transcript"
-    ],
-    "featuredQuote": {
-      "text": "カーディガンもね。そう。お気に入り。",
-      "atSeconds": 1790,
-      "evidenceRefs": [
-        "evidence-full-transcript"
-      ]
-    },
-    "inputFingerprint": "5f1f141344c54f34f5cd654f5f6a5cb9e9145854505c45ec0de6d4551c77b648",
-    "rulesVersion": "1.1.0",
-    "updatedAt": "2026-08-14T18:32:45.743092Z"
   }
 }

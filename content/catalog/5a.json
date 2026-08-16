@@ -16,8 +16,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=5E44XQKfviM",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -138,8 +138,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=diW9tiG_m2U",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -451,8 +451,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=FNLVmiwXECs",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -478,18 +478,15 @@
           "type": "既存の承認済みタイムスタンプ",
           "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
           "inputFingerprint": "adebe23705c5dd1c79ba113b9ee152f6ae53276542a9392deb96e472dbb7b9c9"
+        },
+        {
+          "evidenceId": "evidence-game-classification",
+          "type": "動画タイトル",
+          "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+          "inputFingerprint": "6e127c5f88a1c0d36fd3a4ce1e727ad5ce11308ab17d22795b51c9f0c30e1632"
         }
       ],
       "tagAssignments": [
-        {
-          "tagId": "tag-content-primary-9eedbc0013d1",
-          "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
-          "confidence": "高",
-          "evidenceRefs": [
-            "evidence-title"
-          ],
-          "reviewedAt": "2026-08-04T15:00:00+09:00"
-        },
         {
           "tagId": "tag-people-channel-4bf056ca723d",
           "reason": "公開台帳のチャンネル「柚原いづみ / Izumi Channel 【ななしいんく】」を確認",
@@ -507,6 +504,33 @@
             "evidence-duration"
           ],
           "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-primary-0dbfa3115896",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-works-gameTitle-01732b4e2e27",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「Gartic Phone」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-e39b9f75edc2",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「パーティーゲーム」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
         }
       ],
       "timestamps": {
@@ -642,8 +666,8 @@
       },
       "approval": {
         "status": "承認済み",
-        "approvedAt": "2026-08-04T15:00:00+09:00",
-        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+        "approvedAt": "2026-08-16T12:05:00+09:00",
+        "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
       }
     },
     {
@@ -659,8 +683,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=KtEMiJUmsxY",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -686,18 +710,15 @@
           "type": "既存の承認済みタイムスタンプ",
           "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
           "inputFingerprint": "3d16a5b8402f88a570a885744b6824e4dc3b1b61b0164d0e42fa9a7efa6ea416"
+        },
+        {
+          "evidenceId": "evidence-game-classification",
+          "type": "動画タイトル",
+          "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+          "inputFingerprint": "81ac4a653507f3e74eeb07dd09fc1d3ece705525a48eac139e1f0c6d56ce6f3c"
         }
       ],
       "tagAssignments": [
-        {
-          "tagId": "tag-content-primary-9eedbc0013d1",
-          "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
-          "confidence": "高",
-          "evidenceRefs": [
-            "evidence-title"
-          ],
-          "reviewedAt": "2026-08-04T15:00:00+09:00"
-        },
         {
           "tagId": "tag-people-channel-e0fc18a727d8",
           "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
@@ -715,6 +736,42 @@
             "evidence-duration"
           ],
           "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-primary-0dbfa3115896",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-works-gameTitle-b4e549a68ce9",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「ウミガリ」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-2ec4e38c680d",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「アドベンチャー」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-1cc53dc4a37d",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「ホラー」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
         }
       ],
       "timestamps": {
@@ -1057,8 +1114,8 @@
       },
       "approval": {
         "status": "承認済み",
-        "approvedAt": "2026-08-04T15:00:00+09:00",
-        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+        "approvedAt": "2026-08-16T12:05:00+09:00",
+        "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
       }
     },
     {
@@ -1074,8 +1131,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=rVdnUaEzJgI",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {

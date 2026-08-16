@@ -11,8 +11,8 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=zC_moRqU-NM",
-  "taxonomyVersion": "8.4.0",
-  "aliasVersion": "8.2.0",
+  "taxonomyVersion": "8.5.0",
+  "aliasVersion": "8.3.0",
   "tagRulesVersion": "8.2.0",
   "evidence": [
     {
@@ -89,6 +89,22 @@
       "reviewedAt": "2026-08-14T12:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "のどかな村で暮らすシミュレーションゲームを続ける白雪巴。畑の手入れや釣り、採掘、住人への贈り物をこなしながら、限られた資金と時間で農場を整え、夜の探索にも踏み出す。手際よく進めたい気持ちと予想外の忙しさが交差する、長時間のじっくりプレイ。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "全然のんびりじゃない。笑っちゃうくらい忙しいんだから",
+      "atSeconds": 840,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "ef5ca29fce1f8b3061b15c98690ccf6b79f6f13bac5e2f2f6921f49b6ecbd10e",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-14T18:56:23.220065Z"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -519,28 +535,28 @@
         "candidateHash": "4fc10bf4806fd94598add6dbe02e03bcbbfb6bb9423a1463f0af7bcaca3b0016",
         "majorIssues": 0,
         "reviewedAt": "2026-08-15T12:01:00+09:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "4fc10bf4806fd94598add6dbe02e03bcbbfb6bb9423a1463f0af7bcaca3b0016",
         "majorIssues": 0,
         "reviewedAt": "2026-08-15T13:15:00+09:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "publicationGate": {
         "mode": "pull-request-merge",
@@ -565,21 +581,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T00:30:01+09:00",
     "basis": "公開metadata確認済み。成果物はDraft PRで最終確認する。"
-  },
-  "synopsis": {
-    "body": "のどかな村で暮らすシミュレーションゲームを続ける白雪巴。畑の手入れや釣り、採掘、住人への贈り物をこなしながら、限られた資金と時間で農場を整え、夜の探索にも踏み出す。手際よく進めたい気持ちと予想外の忙しさが交差する、長時間のじっくりプレイ。",
-    "bodyEvidenceRefs": [
-      "evidence-full-transcript"
-    ],
-    "featuredQuote": {
-      "text": "全然のんびりじゃない。笑っちゃうくらい忙しいんだから",
-      "atSeconds": 840,
-      "evidenceRefs": [
-        "evidence-full-transcript"
-      ]
-    },
-    "inputFingerprint": "ef5ca29fce1f8b3061b15c98690ccf6b79f6f13bac5e2f2f6921f49b6ecbd10e",
-    "rulesVersion": "1.1.0",
-    "updatedAt": "2026-08-14T18:56:23.220065Z"
   }
 }

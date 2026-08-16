@@ -11,8 +11,8 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=yOslWC1ufZE",
-  "taxonomyVersion": "8.4.0",
-  "aliasVersion": "8.2.0",
+  "taxonomyVersion": "8.5.0",
+  "aliasVersion": "8.3.0",
   "tagRulesVersion": "8.3.0",
   "evidence": [
     {
@@ -44,18 +44,15 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "7c7eb3384f531f18cc80e0bd3303f058563d7f25f747374ed41a905ad42e6b76"
+    },
+    {
+      "evidenceId": "evidence-game-classification",
+      "type": "動画タイトル",
+      "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+      "inputFingerprint": "681e3a04813e535546bdd74db26010494568c2d0b7db97c3c21011016a445a0b"
     }
   ],
   "tagAssignments": [
-    {
-      "tagId": "tag-content-primary-9eedbc0013d1",
-      "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-title"
-      ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
-    },
     {
       "tagId": "tag-context-participation-a4911ea059bb",
       "reason": "コラボ正本v2で共同出演を確認（all-partners）",
@@ -109,6 +106,42 @@
         "evidence-collaboration-v2"
       ],
       "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-688027024e3d",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「スプラトゥーン3」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-f021e7c4e2e7",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「FPS/TPS」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-62278ec71bd0",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「アクション」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
     }
   ],
   "timestamps": {
@@ -316,7 +349,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-15T21:05:00+09:00",
-    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+    "approvedAt": "2026-08-16T12:05:00+09:00",
+    "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
   }
 }

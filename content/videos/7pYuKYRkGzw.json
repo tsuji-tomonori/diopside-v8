@@ -11,8 +11,8 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=7pYuKYRkGzw",
-  "taxonomyVersion": "8.4.0",
-  "aliasVersion": "8.2.0",
+  "taxonomyVersion": "8.5.0",
+  "aliasVersion": "8.3.0",
   "tagRulesVersion": "8.3.0",
   "evidence": [
     {
@@ -44,18 +44,15 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "2a4614af1ad80c293cf1baf99db7a944cf8df2144d960e707dc4d94c7b1d9335"
+    },
+    {
+      "evidenceId": "evidence-game-classification",
+      "type": "動画タイトル",
+      "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+      "inputFingerprint": "9dc37b820d827c98b2dd77f271ac43cff27e462145a87968501498017c280c42"
     }
   ],
   "tagAssignments": [
-    {
-      "tagId": "tag-content-primary-9eedbc0013d1",
-      "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-title"
-      ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
-    },
     {
       "tagId": "tag-context-participation-a4911ea059bb",
       "reason": "コラボ正本v2で共同出演を確認（all-partners）",
@@ -163,6 +160,33 @@
         "evidence-collaboration-v2"
       ],
       "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-300f40e5e0db",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「マリオカート8 デラックス」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-7a9a6ca1057e",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「レーシング」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
     }
   ],
   "timestamps": {
@@ -343,7 +367,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-15T21:05:00+09:00",
-    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+    "approvedAt": "2026-08-16T12:05:00+09:00",
+    "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
   }
 }

@@ -16,8 +16,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=4f1DqlBJkeQ",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -323,8 +323,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=blHeMiFWKY8",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -576,8 +576,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=CbKLYd5YPXk",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -707,8 +707,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=D-z2kkiBdpc",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -734,18 +734,15 @@
           "type": "既存の承認済みタイムスタンプ",
           "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
           "inputFingerprint": "01f28bb463ff492f59c62e44165292d4f625e7b46382b652cd621cd5e4994804"
+        },
+        {
+          "evidenceId": "evidence-game-classification",
+          "type": "動画タイトル",
+          "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+          "inputFingerprint": "ce41d2d4becba3cde486151c212ffc9e53acba41382992af2721a43d4aec334d"
         }
       ],
       "tagAssignments": [
-        {
-          "tagId": "tag-content-primary-9eedbc0013d1",
-          "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
-          "confidence": "高",
-          "evidenceRefs": [
-            "evidence-title"
-          ],
-          "reviewedAt": "2026-08-04T15:00:00+09:00"
-        },
         {
           "tagId": "tag-people-channel-5424480b2242",
           "reason": "公開台帳のチャンネル「弦月 藤士郎 / Genzuki Tojiro【にじさんじ】」を確認",
@@ -763,6 +760,42 @@
             "evidence-duration"
           ],
           "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-primary-0dbfa3115896",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-works-gameTitle-688027024e3d",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「スプラトゥーン3」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-f021e7c4e2e7",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「FPS/TPS」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-62278ec71bd0",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「アクション」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
         }
       ],
       "timestamps": {
@@ -1078,8 +1111,8 @@
       },
       "approval": {
         "status": "承認済み",
-        "approvedAt": "2026-08-04T15:00:00+09:00",
-        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+        "approvedAt": "2026-08-16T12:05:00+09:00",
+        "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
       }
     },
     {
@@ -1095,8 +1128,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=kwNVIXzAvn8",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -1393,8 +1426,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=R7FqVPCikec",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -1506,8 +1539,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=rl-mVayJlzM",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -2008,8 +2041,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=u6jIUZBzIqI",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -2402,8 +2435,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=Wm8VPlGuDbU",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -2787,8 +2820,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=wNcyHAjZxCw",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -3145,8 +3178,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=Z3EIK7JaBJY",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {

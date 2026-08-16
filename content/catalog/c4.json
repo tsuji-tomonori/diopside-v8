@@ -16,8 +16,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=FpVs-w5RUK4",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -404,8 +404,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=mKNatYgVsWE",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -681,8 +681,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=pXJ4Zbmnm_s",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -880,8 +880,8 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=Vf63smxOWw0",
-      "taxonomyVersion": "8.4.0",
-      "aliasVersion": "8.2.0",
+      "taxonomyVersion": "8.5.0",
+      "aliasVersion": "8.3.0",
       "tagRulesVersion": "8.2.0",
       "evidence": [
         {
@@ -907,18 +907,15 @@
           "type": "既存の承認済みタイムスタンプ",
           "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
           "inputFingerprint": "b7a1d7e7bcb4bbb84247f98b42b5f87bf9dfb21d398eee9709a3554996f2f437"
+        },
+        {
+          "evidenceId": "evidence-game-classification",
+          "type": "動画タイトル",
+          "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+          "inputFingerprint": "618bfebf1f3d71566d314dd16169bed9972bf3c65505a32d4f9817fe061f767b"
         }
       ],
       "tagAssignments": [
-        {
-          "tagId": "tag-content-primary-9eedbc0013d1",
-          "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
-          "confidence": "高",
-          "evidenceRefs": [
-            "evidence-title"
-          ],
-          "reviewedAt": "2026-08-04T15:00:00+09:00"
-        },
         {
           "tagId": "tag-people-channel-e8914888bf35",
           "reason": "公開台帳のチャンネル「オリバー・エバンス / Oliver Evans 【にじさんじ】」を確認",
@@ -936,6 +933,33 @@
             "evidence-duration"
           ],
           "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-primary-0dbfa3115896",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-works-gameTitle-300f40e5e0db",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「マリオカート8 デラックス」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-7a9a6ca1057e",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「レーシング」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
         }
       ],
       "timestamps": {
@@ -1116,8 +1140,8 @@
       },
       "approval": {
         "status": "承認済み",
-        "approvedAt": "2026-08-04T15:00:00+09:00",
-        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+        "approvedAt": "2026-08-16T12:05:00+09:00",
+        "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
       }
     }
   ]
