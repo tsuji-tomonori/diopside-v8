@@ -131,6 +131,7 @@ jobs:
 
   smoke-pages-publication:
     name: GitHub Pages公開データをHTTPで検査
+    # 生成差分があれば後続release commitが検査し、差分がなければこのpushを検査する。
     needs: update
     if: ${{ always() && (startsWith(github.event.head_commit.message, '🚀 release(data):') || needs.update.outputs.release_committed == 'false') }}
     runs-on: ubuntu-latest
