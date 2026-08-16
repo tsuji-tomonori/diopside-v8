@@ -15,8 +15,11 @@ concurrency:
 jobs:
   update:
     name: 検証済みmainから公開版を生成してcommit
+    if: ${{ !startsWith(github.event.head_commit.message, '🚀 release(data):') }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    outputs:
+      release_committed: ${{ steps.commit.outputs.committed }}
     steps:
       - name: 検証済みmainを取得
         uses: actions/checkout@v4
@@ -76,7 +79,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit \
-            -m '🚀 release(data): mainの静的成果物を更新 [skip ci]' \
+            -m '🚀 release(data): mainの静的成果物を更新' \
             -m "目的:
           - 人が承認してmainへマージした正本から、競合しない公開版を確定する
 
@@ -123,3 +126,23 @@ jobs:
             exit 1
           fi
           echo 'committed=true' >> "$GITHUB_OUTPUT"
+
+  smoke-pages-publication:
+    name: GitHub Pages公開データをHTTPで検査
+    needs: update
+    if: ${{ always() && (startsWith(github.event.head_commit.message, '🚀 release(data):') || needs.update.outputs.release_committed == 'false') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: 公開対象commitを取得
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - name: Node.jsを準備
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.0
+      - name: 公開済みの最新版・索引・動画詳細を検査
+        env:
+          PAGES_SITE_ORIGIN: https://tsuji-tomonori.github.io/diopside-v8/
+        run: node .github/scripts/smoke-pages-publication.mjs
