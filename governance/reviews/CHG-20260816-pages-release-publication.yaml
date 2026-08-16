@@ -12,9 +12,9 @@ selected_checks:
   - {id: IMP-002, class: Invariant, result: pass, evidence: [commit:self], note: 'main/docsの既存公開経路を維持し、ADR・公開schema・データモデルを変更しない'}
   - {id: IMP-003, class: Invariant, result: pass, evidence: [commit:self], note: 'GitHub Actionsの生成・公開・HTTP検査をまたぐためassuredを選択した'}
   - {id: IMP-004, class: Invariant, result: pass, evidence: [commit:self], note: 'GitHub branchへのcommitとPR更新は利用者のGitHub権限で実行し、merge・公開は実行しない'}
-  - {id: FAST-001, class: Invariant, result: pass, evidence: [workflow:.github/workflows/verify.yml], note: '既存品質ゲートでNode buildを実行し、workflowとsmoke scriptはYAML・Node構文としてローカル確認した'}
-  - {id: FAST-002, class: Invariant, result: pass, evidence: [workflow:.github/workflows/verify.yml], note: '追加したVitestのTypeScript試験を既存typecheckとCIで実行する'}
-  - {id: FAST-003, class: Invariant, result: pass, evidence: [workflow:.github/workflows/verify.yml], note: '追加試験を既存lint対象としてCIで実行する'}
+  - {id: FAST-001, class: Invariant, result: pass, evidence: [workflow:要件・品質ゲート#要件の品質ゲートを実行], note: '既存品質ゲートでNode buildを実行し、workflowとsmoke scriptはYAML・Node構文としてローカル確認した'}
+  - {id: FAST-002, class: Invariant, result: pass, evidence: [workflow:要件・品質ゲート#要件の品質ゲートを実行], note: '追加したVitestのTypeScript試験を既存typecheckとCIで実行する'}
+  - {id: FAST-003, class: Invariant, result: pass, evidence: [workflow:要件・品質ゲート#要件の品質ゲートを実行], note: '追加試験を既存lint対象としてCIで実行する'}
   - {id: FAST-004, class: Invariant, result: pass, evidence: [test:tests/pages-publication-smoke.test.ts], note: 'latest、index、oY8Bex-CK9Iの85.jsonを同じreleaseとして検査するHTTP fixture試験を追加した'}
   - {id: FAST-005, class: Risk-selected, result: pass, evidence: [test:tests/pages-publication-smoke.test.ts], note: 'Pages revision不整合で動画shard取得に失敗する回帰を、公開版HTTP検査の失敗として再現・検出できる'}
   - {id: FAST-007, class: Invariant, result: pass, evidence: [commit:self], note: '秘密情報、生字幕、音声、文字起こし、コメント、投稿者識別子を追加しない'}
@@ -22,7 +22,7 @@ selected_checks:
   - {id: REV-002, class: Invariant, result: pass, evidence: [commit:self], note: '目的、変更内容、影響、チェックリスト、検証、残存リスクをCommit Commentへ記録した'}
   - {id: REV-003, class: Invariant, result: pass, evidence: [commit:self], note: '要件は変更せず、公開版を要件どおり提供できることを検査する'}
   - {id: REV-004, class: Invariant, result: pass, evidence: [commit:self], note: '公開schema・データモデル・ADRを変えないため、設計影響なしと判定した'}
-  - {id: REV-006, class: Invariant, result: pass, evidence: [test:tests/pages-publication-smoke.test.ts, workflow:.github/workflows/verify.yml], note: 'HTTP fixture回帰試験を既存Vitest CIへ含め、mainではPages実機のHTTP smoke testも実行する'}
+  - {id: REV-006, class: Invariant, result: pass, evidence: [test:tests/pages-publication-smoke.test.ts, workflow:要件・品質ゲート#要件の品質ゲートを実行], note: 'HTTP fixture回帰試験を既存Vitest CIへ含め、mainではPages実機のHTTP smoke testも実行する'}
   - {id: REV-007, class: Invariant, result: pass, evidence: [path:governance/reviews/CHG-20260816-pages-release-publication.yaml], note: '選択したcheckのみを今回のreview YAMLへ保存した'}
   - {id: REV-008, class: Invariant, result: pass, evidence: [path:governance/reviews/CHG-20260816-pages-release-publication.yaml], note: '未選択checkを形式的なN/Aとして記録していない'}
 advisories: []
