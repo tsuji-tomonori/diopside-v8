@@ -114,7 +114,7 @@ selected_checks:
       - path:docs/requirements/REQUIREMENTS.md
       - path:docs/design/generated/inventory.gen.json
       - test:tests/generated.test.ts
-    note: 要件・生成設計を更新し、公開データとPages成果物はローカルbuildで決定生成を確認した。main更新後のCI run 31923639865で検出されたpublic/dataとsrc/generated/release.tsをPR差分から除外し、mainマージ後workflowで生成する契約へ追従した
+    note: 要件・生成設計を更新し、公開データとPages成果物はローカルbuildで決定生成を確認した。CI run 31923639865で検出されたpublic/dataとsrc/generated/release.tsをPR差分から除外し、run 31923869935で検出されたas-built生成差分を再生成して、mainマージ後workflowの契約へ追従した
   - id: FAST-007
     class: Invariant
     result: pass
