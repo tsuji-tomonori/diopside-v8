@@ -62,7 +62,7 @@ const markdown = `<!-- 直接編集禁止: npm run generate:design で生成 / n
 | 公開データ | 正本JSONから版付きJSONを決定的生成 | \`public/data/latest.json\` と同一release IDだけ受理 |
 | 検索 | タイトル専用正規化索引をブラウザ内処理 | 外部検索API、タグ等の文字検索混入なし |
 | 端末内データ | IndexedDB、失敗時はメモリ縮退 | サーバー送信、ログイン、端末間同期なし |
-| 更新運用 | 人がChatGPT／Codex画面から明示開始 | 1動画1PRは正本だけ、品質ゲート合格後にrelease commit |
+| 更新運用 | 人がChatGPT／Codex画面から明示開始 | 1動画1PRは正本だけ、品質ゲート合格後に生成物だけのrelease PR |
 
 ## 画面ルート
 
@@ -77,7 +77,7 @@ ${[...categoryCounts].sort(([left], [right]) => left.localeCompare(right)).map((
 
 ## 公開データの流れ
 
-\`content/catalog\` + \`content/videos\`（1動画上書き）+ \`content/taxonomy\` → 1動画PRを人がmainへマージ → main品質ゲート → release ID算出 → \`public/data/releases/<release-id>\` → Vite → \`docs\` → release commit → branch方式Pages build
+\`content/catalog\` + \`content/videos\`（1動画上書き）+ \`content/taxonomy\` → 1動画PRを人がmainへマージ → main品質ゲート → release ID算出 → \`public/data/releases/<release-id>\` → Vite → \`docs\` → 生成物だけのrelease PR → 人がmainへマージ → branch方式Pages build
 
 ## TypeScript公開契約
 

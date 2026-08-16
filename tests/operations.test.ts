@@ -6,7 +6,7 @@ import path from 'node:path';
 
 import { canonicalVideoSchema, type CanonicalVideo } from '../src/domain/content.ts';
 import { readCanonicalVideos } from '../scripts/canonical-store.ts';
-import { releaseGeneratedFiles } from '../scripts/validate-release-pr-scope.ts';
+import { releaseGeneratedFiles, validateReleasePrScopeFiles } from '../scripts/validate-release-pr-scope.ts';
 import { validateVideoPrScopeFiles } from '../scripts/validate-video-pr-scope.ts';
 
 const root = process.cwd();
@@ -106,6 +106,25 @@ describe('手動動画更新運用', () => {
       'docs/404.html',
       'docs/.nojekyll',
     ]);
+  });
+
+  it('保護されたmain向けrelease PRは配信用生成物だけを許可する', () => {
+    expect(validateReleasePrScopeFiles([
+      'public/data/latest.json',
+      'src/generated/release.ts',
+      'docs/data/latest.json',
+      'docs/assets/index-example.js',
+      'docs/index.html',
+    ], { allowGeneratedOnly: true })).toEqual({ valid: true, errors: [] });
+    expect(validateReleasePrScopeFiles([
+      'public/data/latest.json',
+      'content/videos/c9TnpjK3ZZE.json',
+    ], { allowGeneratedOnly: true }).errors).toContain(
+      'release PRには配信用生成物だけを含めてください: content/videos/c9TnpjK3ZZE.json',
+    );
+    expect(validateReleasePrScopeFiles([
+      'content/videos/c9TnpjK3ZZE.json',
+    ], { allowGeneratedOnly: true }).errors).toContain('release PRに配信用生成物がありません。');
   });
 
   it('PR本文へ外部入力を命令として展開せずMarkdownとHTMLを無害化する', () => {

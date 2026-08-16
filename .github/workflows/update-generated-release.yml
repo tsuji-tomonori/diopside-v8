@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: update-generated-release-main
@@ -14,14 +15,14 @@ concurrency:
 
 jobs:
   update:
-    name: 検証済みmainから公開版を生成してcommit
+    name: 検証済みmainから公開版を生成してPR化
     # release commitもPages公開のための通常のmain pushとして処理し、
     # この生成jobだけを除外して自己再実行の循環を防ぐ。
     if: ${{ !startsWith(github.event.head_commit.message, '🚀 release(data):') }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     outputs:
-      release_committed: ${{ steps.commit.outputs.committed }}
+      release_pending: ${{ steps.commit.outputs.pending }}
     steps:
       - name: 検証済みmainを取得
         uses: actions/checkout@v4
@@ -42,12 +43,13 @@ jobs:
         run: npm run verify:main-release
       - name: 検証スクリーンショットの一時差分を破棄
         run: git restore -- reports/screenshots
-      - name: 生成差分をcommit
+      - name: 生成差分をcommitしてrelease PRを作成
         id: commit
         env:
+          GH_TOKEN: ${{ github.token }}
           VERIFIED_SHA: ${{ github.sha }}
         run: |
-          echo 'committed=false' >> "$GITHUB_OUTPUT"
+          echo 'pending=false' >> "$GITHUB_OUTPUT"
           git fetch origin main
           if test "$(git rev-parse origin/main)" != "$VERIFIED_SHA"; then
             echo '後続のmain更新があるため、この実行ではcommitしません。'
@@ -118,22 +120,64 @@ jobs:
             git status --short
             exit 1
           fi
-          if ! git push origin HEAD:main; then
-            git fetch origin main
-            if test "$(git rev-parse origin/main)" != "$VERIFIED_SHA"; then
-              echo 'push前にmainが更新されたため、後続の検証結果へ委ねます。'
-              exit 0
-            fi
-            echo 'mainへのrelease commitに失敗しました。' >&2
-            exit 1
+          git fetch origin main
+          if test "$(git rev-parse origin/main)" != "$VERIFIED_SHA"; then
+            echo 'release branch更新前にmainが更新されたため、後続の検証結果へ委ねます。'
+            echo 'pending=true' >> "$GITHUB_OUTPUT"
+            exit 0
           fi
-          echo 'committed=true' >> "$GITHUB_OUTPUT"
+
+          release_branch='automation/generated-release-main'
+          if git ls-remote --exit-code --heads origin "refs/heads/$release_branch" >/dev/null 2>&1; then
+            git fetch origin "$release_branch"
+            if git diff --quiet "origin/$release_branch" HEAD --; then
+              echo 'release branchは同じ生成結果を保持しています。'
+            else
+              git merge --no-edit --strategy=ours "origin/$release_branch"
+              git push origin "HEAD:refs/heads/$release_branch"
+            fi
+          else
+            git push origin "HEAD:refs/heads/$release_branch"
+          fi
+
+          release_pr_url="$(gh pr list \
+            --repo "$GITHUB_REPOSITORY" \
+            --head "$release_branch" \
+            --base main \
+            --state open \
+            --json url \
+            --jq '.[0].url // empty')"
+          pr_body="$(mktemp)"
+          printf '%s\n' \
+            '## 生成元' \
+            '' \
+            "- 検証済みmain: \`$VERIFIED_SHA\`" \
+            "- Review-Checklist: \`$review_path\`" \
+            '' \
+            '## 変更' \
+            '' \
+            '- 正本から決定生成したrelease ID、版付き公開JSON、画面bundle、`main/docs`だけを更新します。' \
+            '- main保護ルールを維持し、このPRのmergeでrelease commitをmainへ追加します。' \
+            '- 自動merge、独自Pages deploy、Pages build API呼び出しは行いません。' \
+            > "$pr_body"
+          if test -z "$release_pr_url"; then
+            release_pr_url="$(gh pr create \
+              --repo "$GITHUB_REPOSITORY" \
+              --base main \
+              --head "$release_branch" \
+              --title '🚀 release(data): mainの静的成果物を更新' \
+              --body-file "$pr_body")"
+          else
+            gh pr edit "$release_pr_url" --body-file "$pr_body"
+          fi
+          echo "release PR: $release_pr_url"
+          echo 'pending=true' >> "$GITHUB_OUTPUT"
 
   smoke-pages-publication:
     name: GitHub Pages公開データをHTTPで検査
-    # 生成差分があれば後続release commitが検査し、差分がなければこのpushを検査する。
+    # 生成差分があればrelease PRのmainマージ後に検査し、差分がなければこのpushを検査する。
     needs: update
-    if: ${{ always() && (startsWith(github.event.head_commit.message, '🚀 release(data):') || needs.update.outputs.release_committed == 'false') }}
+    if: ${{ always() && (startsWith(github.event.head_commit.message, '🚀 release(data):') || needs.update.outputs.release_pending == 'false') }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
