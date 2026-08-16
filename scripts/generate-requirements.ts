@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
 
 interface SourceRequirement {
@@ -15,10 +15,28 @@ interface TraceSet {
   tests: string[];
 }
 
+function hasStringId(item: unknown): item is Record<string, unknown> {
+  return typeof item === 'object'
+    && item !== null
+    && 'id' in item
+    && typeof (item as Record<string, unknown>).id === 'string';
+}
+
 const root = path.resolve(import.meta.dirname, '..');
 const sourcePath = path.join(root, 'spec/sources/issue-1.md');
 const specPath = path.join(root, 'spec/requirements/requirements.json');
 const mapPath = path.join(root, 'spec/requirements/source-id-map.json');
+const existingCatalog = existsSync(specPath)
+  ? JSON.parse(readFileSync(specPath, 'utf8')) as {
+    catalog_revision?: number;
+    updated_at?: string;
+    requirements?: unknown[];
+  }
+  : undefined;
+const existingRequirements = Array.isArray(existingCatalog?.requirements)
+  ? existingCatalog.requirements.filter(hasStringId)
+  : [];
+const existingById = new Map(existingRequirements.map((item) => [item.id as string, item]));
 
 const groupMap = {
   検索: 'SEARCH',
@@ -1002,7 +1020,7 @@ const collaborationPageRequirements = [
     last_changed_by: 'CHG-20260815-collaboration-pages',
   },
 ];
-const canonicalRequirements = [
+const generatedRequirements = [
   ...requirements,
   ...ownerDirectiveRequirements,
   ...timestampHarnessRequirements,
@@ -1010,13 +1028,28 @@ const canonicalRequirements = [
   ...workPageRequirements,
   ...collaborationPageRequirements,
 ];
+const issue465OverrideIds = new Set([
+  'V8-COST-001',
+  'V8-COST-003',
+  'V8-COST-004',
+  'V8-COST-005',
+  'V8-SAFETY-002',
+  'V8-OPS-019',
+  'V8-OPS-023',
+  'V8-OPS-026',
+]);
+const issue465Requirements = existingRequirements.filter((item) => String(item.id).startsWith('V8-INGEST-'));
+const canonicalRequirements = [
+  ...generatedRequirements.map((item) => issue465OverrideIds.has(item.id) ? existingById.get(item.id) ?? item : item),
+  ...issue465Requirements,
+].sort((left, right) => String(left.id).localeCompare(String(right.id)));
 
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: 11,
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 10, 11),
   product: 'diopside v8',
-  updated_at: '2026-08-15',
+  updated_at: existingCatalog?.updated_at ?? '2026-08-15',
   requirements: canonicalRequirements,
 }, null, 2)}\n`);
 writeFileSync(mapPath, `${JSON.stringify({

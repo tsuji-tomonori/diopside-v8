@@ -157,6 +157,12 @@ uses the same ignored dossier and immutable manifest.
   member/private content.
 - Raw audio, captions, transcripts, and chat stay under `.devflow/run/` and never
   enter Git, PR bodies, review YAML, or spreadsheet cells.
+- When the operator sets `DIOPSIDE_INGESTION_REUSE=1` together with the private
+  bucket and table settings, the harness first checksum-verifies the current S3
+  manifest and materializes an existing Japanese JSON3 caption only into that
+  ignored dossier. It falls back to public acquisition only when no compatible
+  stored artifact exists; a private-S3 read error is a safe pause, not a reason
+  to silently re-download material.
 - Chat is optional corroboration. It is collected only when `--with-chat` is
   selected and can never replace full-video evidence or decide a boundary alone.
 - Re-read before every spreadsheet write. If the captured row hash changed, record

@@ -58,14 +58,40 @@ for (const file of walk(root)) {
 }
 const forbiddenInfrastructure = ['serverless.yml', 'cdk.json', 'terraform', 'Dockerfile', 'vercel.json', 'netlify.toml'];
 for (const name of forbiddenInfrastructure) if (existsSync(path.join(root, name))) errors.push(`${name}: 有料クラウドまたは動的配信の構成を置いてはなりません。`);
-const cost = readJson(path.join(root, 'operations/cost-policy.json')) as { maximumMonthlyServiceCost?: number };
+const cost = readJson(path.join(root, 'operations/cost-policy.json')) as {
+  maximumMonthlyServiceCost?: number;
+  historicalPrivateBackfill?: {
+    permittedServices?: string[];
+    publicBoundary?: string;
+    schedule?: string;
+  };
+};
 if (cost.maximumMonthlyServiceCost !== 0) errors.push('月額サービス費用の上限は0円でなければなりません。');
+const backfill = cost.historicalPrivateBackfill;
+const infraDirectory = path.join(root, 'infra');
+if (existsSync(infraDirectory)) {
+  if (!backfill) errors.push('infra/: 有限private backfillの費用・公開境界をcost policyへ明記しなければなりません。');
+  const expectedInfrastructure = ['pyproject.toml', 'uv.lock', 'cdk.json', 'worker/Dockerfile'];
+  for (const relativePath of expectedInfrastructure) {
+    if (!existsSync(path.join(infraDirectory, relativePath))) errors.push(`infra/${relativePath}: Python+uv+CDK workerの必須構成がありません。`);
+  }
+  const cdkPath = path.join(infraDirectory, 'cdk.json');
+  if (existsSync(cdkPath) && !/uv run --locked python app\.py/u.test(readFileSync(cdkPath, 'utf8'))) {
+    errors.push('infra/cdk.json: lock済みuvでCDK appを起動しなければなりません。');
+  }
+  const requiredServices = ['AWS S3', 'AWS DynamoDB', 'AWS SQS FIFO', 'AWS Lambda', 'AWS Batch Fargate', 'AWS ECR'];
+  for (const service of requiredServices) {
+    if (!backfill?.permittedServices?.includes(service)) errors.push(`operations/cost-policy.json: ${service} のprivate backfill用途を明記しなければなりません。`);
+  }
+  if (!backfill?.publicBoundary?.includes('infra/')) errors.push('operations/cost-policy.json: private backfillの公開境界をinfra/として明記しなければなりません。');
+  if (!backfill?.schedule?.includes('禁止')) errors.push('operations/cost-policy.json: private backfillの予定実行禁止を明記しなければなりません。');
+}
 
 if (errors.length > 0) {
   console.error(errors.join('\n'));
   process.exitCode = 1;
 } else {
-  console.log(`リポジトリ方針検証合格: ${workflows.length}ワークフロー、外部動的API・認証・追跡・有料基盤0件`);
+  console.log(`リポジトリ方針検証合格: ${workflows.length}ワークフロー、外部動的API・認証・追跡・公開有料基盤0件、有限private backfillは隔離済み`);
 }
 
 function reject(file: string, text: string, pattern: RegExp, message: string): void {
@@ -76,8 +102,13 @@ function walk(directory: string): string[] {
   if (!existsSync(directory)) return [];
   return readdirSync(directory).flatMap((name) => {
     const target = path.join(directory, name);
-    return statSync(target).isDirectory() ? walk(target) : [target];
+    if (statSync(target).isDirectory()) return ignoredWorkspaceDirectory(target) ? [] : walk(target);
+    return [target];
   });
+}
+
+function ignoredWorkspaceDirectory(directory: string): boolean {
+  return /^(?:\.git|node_modules|reports\/(?:playwright|playwright-html)|infra\/(?:\.venv|node_modules|cdk\.out|\.pytest_cache|\.mypy_cache|\.ruff_cache))(?:\/|$)/u.test(relative(directory));
 }
 
 function relative(file: string): string {

@@ -5,7 +5,7 @@
 - 既存のChatGPT／Codex契約以外の月次サービス請求は0円である。
 - GitHubリポジトリは公開で、Pagesは既定の `github.io` URLと `main/docs` のbranch方式だけを使う。
 - CI、手動運用入口、検証済みmainからの静的成果物生成は、公開リポジトリで追加請求が生じない標準runnerだけを使う。手動ワークフローは検証と候補検出に限定し、予定実行、外部生成、独自Pages deployを行わない。
-- AWS、外部検索、データベース、解析、広告、監視、生成、配信、独自ドメイン、従量課金APIを使わない。
+- 公開面ではAWS、外部検索、データベース、解析、広告、監視、生成、配信、独自ドメイン、従量課金APIを使わない。
 - 実行時通信は同じPages配下の静的ファイル、サムネイル、利用者が明示的に開くYouTubeだけである。
 
 無償条件の変更、請求、利用量上限、ライセンスを確認できない場合は、課金して続行せず公開更新を停止し、運用者へ判断を求める。
@@ -16,3 +16,11 @@
 - [GitHub Actionsの料金](https://docs.github.com/billing/managing-billing-for-github-actions/about-billing-for-github-actions): 公開リポジトリの標準GitHub-hosted runnerは無料。larger runner、成果物保存、外部有料サービスは使わない。
 
 条件は変更され得るため、上記の日付を最終確認日として扱い、月初確認時に更新する。
+
+## 有限private backfillの費用分離
+
+Issue #465の過去動画素材バックフィルは公開更新ではない。`infra/` に隔離されたAWS KMS、S3、DynamoDB、SQS FIFO、Lambda、Batch Fargate、ECR、CloudWatch Logs、VPCだけを使うことがあるが、scheduled実行、新着検出、Pages接続、公開データへの投入を持たない。
+
+- 実行前に固定manifest、worker image digest、サービス利用量・費用の観測方法を人が確認する。
+- 月額0円の公開面停止条件をprivate backfillへ自動適用しない。ただし費用、利用量、契約条件を確認できない場合はdeploy、enqueue、backfillを開始せず、人が判断する。
+- 全対象が終端したらcompletion reportを確認する。資源の保持、停止、削除はこのPRでは行わず、別の明示承認で決める。

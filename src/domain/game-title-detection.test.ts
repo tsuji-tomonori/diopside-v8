@@ -12,6 +12,7 @@ const aliases = tagAliasesSchema.parse(JSON.parse(readFileSync(path.join(root, '
 describe('detectExplicitGameTitleTagIds', () => {
   it.each([
     ['【めっちゃカメレオン】視聴者参加型！めっちゃ初回カメレオン', 'めっちゃカメレオン'],
+    ['【スゴイツヨイトウフ】お前はまだトウフを知らない', 'スゴイツヨイトウフ'],
     ['【APEX】自分オーダーｽｶ？？', 'Apex Legends'],
     ['【SILENT HILL f #1】完全初見！', 'SILENT HILL f'],
     ['【メイドインワリオ】初見でおすそわける。', 'おすそわけるメイドインワリオ'],

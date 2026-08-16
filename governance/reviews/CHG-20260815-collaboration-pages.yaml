@@ -70,7 +70,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: 利用者がGitHub書込み、commit、push、PR作成を許可し、mergeと公開は含まない
+    note: 利用者がGitHub書込み、commit、push、PR作成を許可し、2026-08-16の完了指示でmergeと公開確認まで明示的に再開した
   - id: IMP-007
     class: Risk-selected
     result: pass
@@ -220,4 +220,5 @@ residual_risks:
   - 添付一覧のうち現行正本に存在する384本を照合対象とした。現行正本にない動画は将来取り込む際に同じ選別規則で判定する。
   - 取得できた77名はYouTubeチャンネル画像のローカルスナップショットを使用し、削除済み・取得不能を含む87名は人物名から生成したローカル代替アイコンを使用する。YouTubeチャンネルリンクは保持する。
   - コンビ・ユニット説明は参照元と確認日を正本へ保持する。参照元の将来変更は自動反映せず、次回確認時に更新する。
-  - ローカル環境にはPlaywright Chromiumがないため、追加したmobile・desktop E2Eとaxe検査の実ブラウザ実行はPR CIで確認する。
+  - mobile・desktop E2Eとaxe検査はPR HEAD 95d89c81280f1cf2141d3aa6a4901d5943a04311のGitHub Actions run 31885007282で合格済み。main統合後のHEADでも再実行する。
+  - mainへ直接追加された独自ドメイン用CNAMEはV8-COST-002と既存repository policyに反するため統合時に除去し、公開先を規定どおりgithub.ioへ戻す。
