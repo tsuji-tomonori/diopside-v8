@@ -97,7 +97,7 @@ test.describe('動画検索', () => {
 
   test('公開データ取得失敗を正常な0件と別の日本語状態にする', async ({ page }) => {
     await page.route('**/data/latest.json', async (route) => route.fulfill({ status: 503, body: 'unavailable' }));
-    await page.goto('/diopside-v8/');
+    await page.goto('/');
     await expect(page.getByRole('alert')).toContainText('取得失敗');
     await expect(page.getByRole('heading', { name: '動画一覧を表示できません' })).toBeVisible();
     await expect(page.getByRole('button', { name: '再読み込み' })).toBeVisible();
@@ -115,7 +115,7 @@ test.describe('動画検索', () => {
     });
     const cdp = await page.context().newCDPSession(page);
     await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
-    await page.goto('/diopside-v8/');
+    await page.goto('/');
     await expect(page.getByRole('heading', { name: '2500件の動画' })).toBeVisible();
 
     const elapsed: number[] = [];

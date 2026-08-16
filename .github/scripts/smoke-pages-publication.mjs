@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 
-const siteOrigin = new URL(process.env.PAGES_SITE_ORIGIN ?? 'https://tsuji-tomonori.github.io/diopside-v8/');
+const siteOrigin = new URL(process.env.PAGES_SITE_ORIGIN ?? 'https://tme.page.diopside.net/');
 const retries = 30;
 const retryDelayMs = 10_000;
 

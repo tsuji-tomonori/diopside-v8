@@ -18,7 +18,7 @@ const latest = JSON.parse(readFileSync(path.join(root, 'public/data/latest.json'
 test.describe('動画詳細', () => {
   test('基本情報、確認済みタグ、未提供のタイムスタンプ、更新日、YouTubeリンクを表示する', async ({ page }) => {
     const requests = await preparePage(page);
-    await page.goto('/diopside-v8/#/video/7keH8yrqabc');
+    await page.goto('/#/video/7keH8yrqabc');
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Detroit: Become Human');
     await expect(page.getByRole('heading', { name: 'タグ' })).toBeVisible();
     await expect(page.getByText('YouTube公式タグではありません')).toBeVisible();
@@ -38,7 +38,7 @@ test.describe('動画詳細', () => {
   test('移行した承認済みタイムスタンプを昇順・連続区間・同じYouTube開始秒で表示する', async ({ page }, testInfo) => {
     await preparePage(page);
     const videoId = 'c9TnpjK3ZZE';
-    await page.goto(`/diopside-v8/#/video/${videoId}`);
+    await page.goto(`/#/video/${videoId}`);
     await expect(page.getByText('由来: diopsideで作成した時刻一覧')).toBeVisible();
     const links = page.locator('.timestamps a');
     await expect(links).toHaveCount(21);
@@ -51,7 +51,7 @@ test.describe('動画詳細', () => {
   test('ネタバレを避けたあらすじと末尾の特徴的なセリフを表示する', async ({ page }) => {
     await preparePage(page);
     const videoId = 'ewtbVStzFUc';
-    await page.goto(`/diopside-v8/#/video/${videoId}`);
+    await page.goto(`/#/video/${videoId}`);
     await expect(page.getByRole('heading', { name: 'あらすじ' })).toBeVisible();
     await expect(page.locator('.synopsis-copy')).toContainText('新作グラコロと限定ソース');
     await expect(page.locator('.featured-quote')).toContainText('これ明日も食べたいね。');
@@ -78,7 +78,7 @@ test.describe('動画詳細', () => {
       updatedAt: '2026-08-03T00:00:00+09:00',
     };
     await page.route(`**/data/releases/${latest.releaseId}/video-shards/${shardId}.json`, async (route) => route.fulfill({ json: shard }));
-    await page.goto(`/diopside-v8/#/video/${videoId}`);
+    await page.goto(`/#/video/${videoId}`);
     await expect(page.getByLabel('ワードクラウド').locator('span')).toHaveCount(20);
   });
 
@@ -86,14 +86,14 @@ test.describe('動画詳細', () => {
     await preparePage(page);
     const shardId = videoShardId('c9TnpjK3ZZE');
     await page.route(`**/data/releases/${latest.releaseId}/video-shards/${shardId}.json`, async (route) => route.fulfill({ json: { broken: true } }));
-    await page.goto('/diopside-v8/#/video/c9TnpjK3ZZE');
+    await page.goto('/#/video/c9TnpjK3ZZE');
     await expect(page.getByRole('heading', { name: '構造不適合' })).toBeVisible();
     await expect(page.getByText('動画詳細の形式を確認できませんでした。')).toBeVisible();
   });
 
   test('作品タグから公式紹介付きの作品別動画一覧へ移動できる', async ({ page }) => {
     const requests = await preparePage(page);
-    await page.goto('/diopside-v8/#/video/Wchiju9lJv0');
+    await page.goto('/#/video/Wchiju9lJv0');
     const workLink = page.getByRole('link', { name: /SILENT HILL2/u });
     await expect(workLink).toBeVisible();
     await workLink.click();
@@ -111,7 +111,7 @@ test.describe('動画詳細', () => {
 
   test('人物名タグとフルトイタグからアイコン・YouTube導線付き一覧へ移動できる', async ({ page }) => {
     const requests = await preparePage(page);
-    await page.goto('/diopside-v8/#/video/O6tuTZ_f1vo');
+    await page.goto('/#/video/O6tuTZ_f1vo');
 
     const personLink = page.getByRole('link', { name: /ルイス・キャミー/u });
     await expect(personLink).toBeVisible();
@@ -122,7 +122,7 @@ test.describe('動画詳細', () => {
     await expect(page.getByRole('link', { name: 'YouTubeチャンネルを見る' })).toHaveAttribute('href', /^https:\/\/www\.youtube\.com\/channel\//u);
     expectOnlyAllowedRequests(requests);
 
-    await page.goto('/diopside-v8/#/video/O6tuTZ_f1vo');
+    await page.goto('/#/video/O6tuTZ_f1vo');
     await page.getByRole('link', { name: /フルトイ/u }).click();
     await expect(page).toHaveURL(/#\/groups\/tag-people-unit-/u);
     await expect(page.getByRole('heading', { level: 1, name: 'フルトイ' })).toBeVisible();
