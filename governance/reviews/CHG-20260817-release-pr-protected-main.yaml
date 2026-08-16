@@ -50,8 +50,8 @@ selected_checks:
   - {id: FAST-001, class: Invariant, result: pass, evidence: ["path:.github/workflows/update-generated-release.yml", "path:.github/workflows/verify.yml"], note: "変更したworkflowのYAMLと関連する品質ゲートを検証した"}
   - {id: FAST-002, class: Invariant, result: pass, evidence: ["path:scripts/validate-release-pr-scope.ts", "path:scripts/verify-repository-policy.ts"], note: "変更したTypeScriptをstrict型検査で確認した"}
   - {id: FAST-003, class: Invariant, result: pass, evidence: ["path:scripts/validate-release-pr-scope.ts", "path:scripts/verify-repository-policy.ts"], note: "変更したTypeScriptと試験をlintし、警告0件を確認した"}
-  - {id: FAST-004, class: Invariant, result: pass, evidence: ["test:tests/operations.test.ts", "test:tests/repository-policy.test.ts"], note: "通常PRの生成物拒否、release PRの生成物限定、main直接push禁止、PR作成契約を回帰試験で確認した"}
-  - {id: FAST-005, class: Risk-selected, result: pass, evidence: ["test:tests/operations.test.ts", "path:scripts/verify-repository-policy.ts"], note: "release PRへの正本混入と保護mainへの直接pushが決定的に失敗する回帰を検査した"}
+  - {id: FAST-004, class: Invariant, result: pass, evidence: ["test:tests/operations.test.ts", "test:tests/repository-policy.test.ts"], note: "通常PRの生成物拒否、release PRの生成物限定、生成元mainのレビュー検証、main直接push禁止、PR作成契約を回帰試験で確認した"}
+  - {id: FAST-005, class: Risk-selected, result: pass, evidence: ["test:tests/operations.test.ts", "test:tests/repository-policy.test.ts", "path:scripts/verify-repository-policy.ts"], note: "release PRへの正本混入、release commitへの通常レビュー更新条件の誤適用、保護mainへの直接pushが決定的に失敗する回帰を検査した"}
   - {id: FAST-006, class: Invariant, result: pass, evidence: ["path:scripts/generate-design.ts", "path:docs/design/generated/system.gen.md"], note: "更新運用のas-built設計を実装から再生成し、正本由来生成物の差分がないことを確認した"}
   - {id: FAST-007, class: Invariant, result: pass, evidence: ["commit:self"], note: "新しい秘密情報・PAT・生素材・投稿者識別子を追加せず、既存GITHUB_TOKENだけを最小権限で使用した"}
   - {id: FAST-015, class: Advisory, result: pass, evidence: ["path:.github/workflows/update-generated-release.yml"], note: "後続main更新、同じmain SHAの生成不一致、branch push失敗、PR作成失敗を個別に検知して停止できる"}
@@ -66,6 +66,6 @@ selected_checks:
   - {id: REV-015, class: Advisory, result: pass, evidence: ["path:docs/decisions/ADR-0001-zero-cost-static-pages.md"], note: "main保護bypassと自動mergeを却下し、生成物だけのrelease PRを採用する長期判断と再検討条件を既存ADRへ記録した"}
 advisories: []
 residual_risks:
-  - リポジトリ設定でGitHub ActionsによるPR作成が禁止されている場合、release branch作成後にworkflowが失敗するため設定を確認する。
+  - 現在のリポジトリ設定ではGitHub ActionsによるPR作成が禁止されているため、設定を有効化するまではrelease branchから人がPRを作成する必要がある。
   - release PRを人がmergeするまで公開版は更新されない。
   - release PRのmainマージ後、https://tme.page.diopside.net/ のHTML、asset、latest、index、代表動画shardをHTTP smoke testと実機操作で確認する。

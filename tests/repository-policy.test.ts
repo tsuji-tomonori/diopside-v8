@@ -51,6 +51,9 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(verifyWorkflow).toMatch(/HEAD_REPOSITORY/u);
     expect(verifyWorkflow).toMatch(/automation\/generated-release-/u);
     expect(verifyWorkflow).toMatch(/--allow-generated-only/u);
+    expect(verifyWorkflow).toMatch(/IS_GENERATED_RELEASE_PR/u);
+    expect(verifyWorkflow).toMatch(/REVIEW_SOURCE_COMMIT: \$\{\{ github\.event\.pull_request\.base\.sha \}\}/u);
+    expect(verifyWorkflow).toMatch(/verify:local:base[\s\S]*validate\.py --root \. --commit "\$REVIEW_SOURCE_COMMIT"[\s\S]*test:e2e:run/u);
   });
 
   it('手動運用は明示起動・読取専用・候補0件時無出力で、予定実行や公開処理を持たない', () => {
