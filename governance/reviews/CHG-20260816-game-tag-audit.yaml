@@ -102,8 +102,8 @@ selected_checks:
   - id: FAST-006
     class: Invariant
     result: pass
-    evidence: [path:content/catalog/manifest.json]
-    note: 正本カタログの版更新とシャード・snapshot指紋を決定的に更新した
+    evidence: [path:content/catalog/manifest.json, path:docs/design/generated/inventory.gen.json]
+    note: 正本カタログの版更新、シャード・snapshot指紋、実装由来の生成設計インベントリを決定的に更新した
   - id: FAST-007
     class: Invariant
     result: pass
