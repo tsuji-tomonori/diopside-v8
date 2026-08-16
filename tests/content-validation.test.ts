@@ -3,6 +3,7 @@ import path from 'node:path';
 
 import {
   publicIndexSchema,
+  collaborationProfilesSchema,
   tagAliasesSchema,
   tagTaxonomySchema,
   workIntroductionsSchema,
@@ -19,6 +20,7 @@ const taxonomy = tagTaxonomySchema.parse(taxonomyInput);
 const aliases = tagAliasesSchema.parse(aliasesInput);
 const videos = readCanonicalVideos(root);
 const workIntroductions = workIntroductionsSchema.parse(json('content/works/work-introductions.json'));
+const collaborationProfiles = collaborationProfilesSchema.parse(json('content/people/collaboration-profiles.json'));
 
 describe('タグ・動画正本と公開境界', () => {
   it('7大分類・30小分類・不変タグID・別名を一貫して検証する', () => {
@@ -32,6 +34,36 @@ describe('タグ・動画正本と公開境界', () => {
       expect(alias.normalizedAlias).toBe(normalizeTagAlias(alias.alias));
       expect(tags.some((tag) => tag.tagId === alias.tagId && tag.active)).toBe(true);
     }
+  });
+
+  it('全人物・コンビタグにYouTubeプロフィールと説明元があり、名称が一致する', () => {
+    const people = taxonomy.categories.find((category) => category.categoryId === 'people');
+    const performers = people?.subcategories.find((subcategory) => subcategory.subcategoryId === 'performer')?.tags.filter((tag) => tag.active) ?? [];
+    const units = people?.subcategories.find((subcategory) => subcategory.subcategoryId === 'unit')?.tags.filter((tag) => tag.active) ?? [];
+    expect(collaborationProfiles.people).toHaveLength(performers.length);
+    expect(collaborationProfiles.groups).toHaveLength(units.length);
+    for (const performer of performers) {
+      const profile = collaborationProfiles.people.find((item) => item.tagId === performer.tagId);
+      expect(profile?.name).toBe(performer.canonicalName);
+      expect(profile?.youtubeChannelUrl).toBe(`https://www.youtube.com/channel/${profile?.channelId}`);
+    }
+    for (const unit of units) {
+      const profile = collaborationProfiles.groups.find((item) => item.tagId === unit.tagId);
+      expect(profile?.name).toBe(unit.canonicalName);
+      expect(profile?.memberTagIds.length).toBeGreaterThanOrEqual(2);
+      expect(profile?.sourceUrl).toMatch(/^https:\/\//u);
+    }
+  });
+
+  it('凸待ちは配信主だけ、相手のいない継続公式ラジオはコラボ扱いにしない', () => {
+    const lookup = new Map(taxonomy.categories.flatMap((category) => category.subcategories.flatMap((subcategory) => subcategory.tags.map((tag) => [tag.tagId, tag.canonicalName] as const))));
+    const callIn = videos.find((video) => video.videoId === 'go3S4Aw3kOw');
+    const radio = videos.find((video) => video.videoId === 'pXJ4Zbmnm_s');
+    expect(callIn).toBeDefined();
+    expect(callIn?.tagAssignments.map((assignment) => lookup.get(assignment.tagId)).filter((name) => name === '神田笑一')).toHaveLength(1);
+    const callInPeople = callIn?.tagAssignments.filter((assignment) => assignment.tagId.startsWith('tag-people-performer-')).map((assignment) => lookup.get(assignment.tagId));
+    expect(callInPeople).toEqual(['神田笑一']);
+    expect(radio?.tagAssignments.map((assignment) => lookup.get(assignment.tagId))).not.toContain('コラボ');
   });
 
   it('探索した既存データとv8固有動画を全件検証する', () => {

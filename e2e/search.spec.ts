@@ -61,7 +61,7 @@ test.describe('動画検索', () => {
     await page.getByLabel('タグ名または別名から追加').fill('#女王と会長');
     await page.getByRole('button', { name: 'タグを追加' }).click();
 
-    await expect(page.locator('.tag-choice[aria-pressed="false"]', { hasText: '0件' })).toHaveCount(0);
+    await expect(page.locator('.tag-choice[aria-pressed="false"] span', { hasText: /^0件$/u })).toHaveCount(0);
     const closeButton = page.getByRole('button', { name: 'タグを閉じて動画を見る' });
     await expect(closeButton).toHaveAttribute('aria-expanded', 'true');
     await closeButton.click();

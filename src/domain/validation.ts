@@ -300,17 +300,16 @@ function validateConditionalTags(
     }
   }
 
-  const channelNames = new Set(tags.filter((tag) => tag.categoryId === 'people' && tag.subcategoryId === 'channel').map((tag) => tag.canonicalName));
   const performerNames = new Set(tags.filter((tag) => tag.categoryId === 'people' && tag.subcategoryId === 'performer').map((tag) => tag.canonicalName));
   const mentionedNames = new Set(tags.filter((tag) => tag.categoryId === 'reference' && tag.subcategoryId === 'mentionedPerson').map((tag) => tag.canonicalName));
   for (const name of performerNames) {
-    if (channelNames.has(name)) issues.push(issue('CHANNEL_PERFORMER_DUPLICATED', 'tagAssignments', 'チャンネル主を出演者へ重複登録できません。'));
     if (mentionedNames.has(name)) issues.push(issue('PERFORMER_MENTION_DUPLICATED', 'tagAssignments', '同じ人物を出演者と言及人物へ重複登録できません。'));
   }
   const isCollaboration = tags.some((tag) => tag.categoryId === 'context' && tag.subcategoryId === 'participation' && tag.canonicalName === 'コラボ');
   const units = tags.filter((tag) => tag.categoryId === 'people' && tag.subcategoryId === 'unit');
-  if (isCollaboration && performerNames.size === 0) {
-    issues.push(issue('COLLABORATION_WITHOUT_PERFORMER', 'tagAssignments', 'コラボには実出演者が必要です。'));
+  const collaboratorNames = new Set([...performerNames].filter((name) => name !== '白雪巴'));
+  if (isCollaboration && collaboratorNames.size === 0) {
+    issues.push(issue('COLLABORATION_WITHOUT_PERFORMER', 'tagAssignments', 'コラボには白雪巴以外のコラボ相手が必要です。'));
   }
   if (units.length > 0 && (!isCollaboration || performerNames.size === 0)) {
     issues.push(issue('UNIT_WITHOUT_CONTEXT', 'tagAssignments', 'ユニットにはコラボと実出演者が必要です。'));

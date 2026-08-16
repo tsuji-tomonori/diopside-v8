@@ -13,7 +13,7 @@
   "youtubeUrl": "https://www.youtube.com/watch?v=R3Ajh0xWoM8",
   "taxonomyVersion": "8.4.0",
   "aliasVersion": "8.2.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.3.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "8995fcb6de230b3f5e5da3ef884f45adb7030d4a4420f9ce1af19bc7e903624e"
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "4080970ae11c70172933fdc0352888ee934dee5d2fb745fcb886ee8ed7c8a6c0"
     }
   ],
   "tagAssignments": [
@@ -78,6 +84,15 @@
       "reviewedAt": "2026-08-15T17:50:00+09:00"
     },
     {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
       "tagId": "tag-format-media-45323ed44f37",
       "reason": "動画長と既存形式から動画形式「配信」を確認",
       "confidence": "高",
@@ -94,6 +109,42 @@
         "evidence-channel"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-6a98384c4ce5",
+      "reason": "人物名「白雪みしろ」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-b0469a7d02e8",
+      "reason": "人物名「フミ」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-b1f239b005c7",
+      "reason": "人物名「ルイス・キャミー」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-unit-23ef0b95ff38",
+      "reason": "コンビ・ユニット名「フルトイ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
     },
     {
       "tagId": "tag-works-gameTitle-74e2e86eb595",
@@ -265,7 +316,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-15T17:50:00+09:00",
-    "basis": "運用者のゲーム配信タグ横断是正要求に基づき、公開タイトル・説明と既存作品タグを再確認"
+    "approvedAt": "2026-08-15T21:05:00+09:00",
+    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
   }
 }

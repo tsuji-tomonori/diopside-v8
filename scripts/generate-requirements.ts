@@ -443,6 +443,39 @@ const requirements = sourceRequirements.map((item) => {
     requirement.traces.implementation.push('scripts/import-legacy-content.ts');
     requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-04';
   }
+  if (id === 'V8-TAG-013') {
+    requirement.revision = 2;
+    requirement.title = 'コラボ相手は人物名で登録し、多人数の凸待ち・継続ラジオでは役割で限定しなければならない';
+    requirement.object = 'コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸は配信主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。';
+    requirement.source_refs.push('spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'user:2026-08-15');
+    requirement.acceptance_criteria = [
+      {
+        id: 'AC-V8-TAG-013-1',
+        given: '通常のコラボ動画に白雪巴以外の実出演者がいる',
+        when: '人物タグの正本・表示名検査',
+        then: '実出演者を人物名の出演者タグとして登録し、チャンネル表示名を人物タグへ保存しない。',
+      },
+      {
+        id: 'AC-V8-TAG-013-2',
+        given: '白雪巴が凸待ちまたは逆凸の一部へ参加する',
+        when: '役割別コラボ相手選別試験',
+        then: '配信主だけをコラボ相手とし、同じ配信の他の凸参加者を登録しない。',
+      },
+      {
+        id: 'AC-V8-TAG-013-3',
+        given: '白雪巴が継続する公式ラジオ等へ固定出演し、その回に単発ゲストもいる',
+        when: '役割別コラボ相手選別試験',
+        then: '固定の相手だけをコラボ相手とし、単発ゲストとスタッフを登録しない。',
+      },
+    ];
+    requirement.verification = {
+      method: '人物タグ正本・表示名・役割別コラボ相手選別試験',
+      evidence: 'src/domain/collaboration.test.ts, tests/content-validation.test.ts',
+    };
+    requirement.traces.implementation.push('src/domain/collaboration.ts', 'content/people/collaboration-profiles.json');
+    requirement.traces.tests.push('src/domain/collaboration.test.ts');
+    requirement.last_changed_by = 'CHG-20260815-collaboration-pages';
+  }
   return requirement;
 });
 
@@ -957,12 +990,60 @@ const workPageRequirements = [
     last_changed_by: 'CHG-20260815-work-pages',
   },
 ];
+const collaborationPageRequirements = [
+  {
+    id: 'V8-DISPLAY-013',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: '人物名とコンビ・ユニットのタグから出典・YouTube導線付き動画一覧へ移動できなければならない',
+    subject: 'diopside v8のコラボ相手タグとコンビ・ユニットページ',
+    action: 'satisfy',
+    object: '動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページはYouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画を表示する。コンビ・ユニットページは出典付きの説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。',
+    rationale: 'コラボ動画を相手や定着した組み合わせから連続して探し、名称だけを知らない利用者も人物と関係を視覚的に把握できるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'user:2026-08-15'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-013-1',
+        given: '動画詳細に白雪巴以外の人物名タグが表示されている',
+        when: '利用者が人物タグを押す',
+        then: '人物アイコン、人物名、YouTubeチャンネルリンク、その人物タグを持つ公開動画だけを新しい順で表示する。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-013-2',
+        given: '動画詳細に確認済みのコンビ・ユニットタグが表示されている',
+        when: '利用者がコンビ・ユニットタグを押す',
+        then: '参考元と確認日を持つ説明、全メンバーのアイコン・人物名・各YouTubeチャンネルリンク、そのタグを持つ公開動画を表示する。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-013-3',
+        given: '人物またはコンビ・ユニットページを表示する',
+        when: 'ブラウザの通信先を検査する',
+        then: '保存済みローカルアイコンだけを読み、利用者が外部リンクを押すまでYouTubeまたは参考元へ通信しない。',
+      },
+    ],
+    verification: {
+      method: '公開データ構造・人物名・コンビ説明・メンバーリンク・ローカルアイコン・外部自動通信禁止試験',
+      evidence: 'tests/content-validation.test.ts, tests/generated.test.ts, src/features/collaborations/CollaborationDetailPages.test.tsx, e2e/detail.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['content/people/collaboration-profiles.json', 'scripts/build-public-data.ts', 'src/features/detail/VideoDetailPage.tsx', 'src/features/collaborations/CollaboratorDetailPage.tsx', 'src/features/collaborations/GroupDetailPage.tsx'],
+      tests: ['tests/content-validation.test.ts', 'tests/generated.test.ts', 'src/features/collaborations/CollaborationDetailPages.test.tsx', 'e2e/detail.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260815-collaboration-pages',
+  },
+];
 const generatedRequirements = [
   ...requirements,
   ...ownerDirectiveRequirements,
   ...timestampHarnessRequirements,
   ...synopsisHarnessRequirements,
   ...workPageRequirements,
+  ...collaborationPageRequirements,
 ];
 const issue465OverrideIds = new Set([
   'V8-COST-001',
@@ -983,7 +1064,7 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 9, 11),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 10, 11),
   product: 'diopside v8',
   updated_at: '2026-08-16',
   requirements: canonicalRequirements,
@@ -999,4 +1080,4 @@ writeFileSync(mapPath, `${JSON.stringify({
   })),
 }, null, 2)}\n`);
 
-console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length}件の要件正本を生成しました。`);
+console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + collaborationPageRequirements.length}件の要件正本を生成しました。`);

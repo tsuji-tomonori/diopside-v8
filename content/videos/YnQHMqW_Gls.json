@@ -1,0 +1,241 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "YnQHMqW_Gls",
+  "title": "【#102 前半】にじさんじアワー だいたいにじさんじのらじお【文化放送超!A&G＋】",
+  "publishedAt": "2021-09-19T03:00:11Z",
+  "durationSeconds": 871,
+  "durationIso": "PT14M31S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/YnQHMqW_Gls/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=YnQHMqW_Gls",
+  "taxonomyVersion": "8.4.0",
+  "aliasVersion": "8.2.0",
+  "tagRulesVersion": "8.3.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "d40c4acf66368d77fa1c3fc963792fbadb3233ba712e3bc6d86950eb432b145a"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "944752cbe3f3f26b526213afbda9e2d21eed1997a10211a832b82796eb662a92"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "322f394677548cadcdcddf5abfe5348aee128005f38a4f81e8a2f2b402bb7f78"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "6fd7d9e268370650354cbf50c6941f4c3863fb1d97a8a84543b9aea6a3b41f50"
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "5c7b18c894997af7d683c04896b4134ef5810cb218fa33de4dbd2ce576368c11"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-9eedbc0013d1",
+      "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-bf6ea22c6db9",
+      "reason": "公開台帳のチャンネル「にじさんじ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-584f6b5f5e50",
+      "reason": "人物名「える」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-f610476a",
+        "startSeconds": 0,
+        "label": "オープニング・番組紹介",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-148-c4da4c33",
+        "startSeconds": 148,
+        "label": "ゲスト登場・お便り企画へ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-197-67a01e85",
+        "startSeconds": 197,
+        "label": "最初のお便り・プロフィールの話",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-252-5d5fb3aa",
+        "startSeconds": 252,
+        "label": "趣味・好きな作品のプロフィール談義",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-320-ebf0371b",
+        "startSeconds": 320,
+        "label": "誕生日と冬のイメージ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-383-29746121",
+        "startSeconds": 383,
+        "label": "好きな食べ物・苦手な食感",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-541-45d780b8",
+        "startSeconds": 541,
+        "label": "どんぐりを食べた話",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-641-5869769e",
+        "startSeconds": 641,
+        "label": "二通目のお便り・お姉さんトーク",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-692-2d400362",
+        "startSeconds": 692,
+        "label": "お姉さんらしさを語る",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-816-90962a3f",
+        "startSeconds": 816,
+        "label": "お姉さん談義のまとめ・エンディング",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "ab6511522bda5505e05745b541525cf13b30d7e35e8d6ad86927eb71b2078a87",
+    "inputFingerprint": "6fd7d9e268370650354cbf50c6941f4c3863fb1d97a8a84543b9aea6a3b41f50",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-19T01:36:43Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "ab6511522bda5505e05745b541525cf13b30d7e35e8d6ad86927eb71b2078a87",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "ab6511522bda5505e05745b541525cf13b30d7e35e8d6ad86927eb71b2078a87",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "0881556b49a3a13ea9c0dadeee73fa298d7f9b574a4c376474985314a8318a20",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-15T21:05:00+09:00",
+    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  }
+}

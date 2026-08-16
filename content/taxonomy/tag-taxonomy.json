@@ -3,8 +3,8 @@
   "taxonomyVersion": "8.4.0",
   "sourceVersion": "2.0.0",
   "aliasVersion": "8.2.0",
-  "rulesVersion": "8.2.0",
-  "effectiveDate": "2026-08-04",
+  "rulesVersion": "8.3.0",
+  "effectiveDate": "2026-08-15",
   "categoryCount": 7,
   "subcategoryCount": 30,
   "prohibitedCanonicalNames": [
@@ -3142,8 +3142,8 @@
           "name": "出演者",
           "order": 2,
           "cardinality": "0..n",
-          "requiredWhen": "チャンネル主以外の出演者がいる",
-          "valueRule": "実際に出演・通話参加した人物だけ。チャンネル主、言及のみの人物、クレジット制作者は含めない",
+          "requiredWhen": "コラボ相手がいる。凸待ち・逆凸は配信主、継続ラジオは固定の相手だけを対象とする",
+          "valueRule": "チャンネル名ではなく人物名を保存する。通常コラボは白雪巴以外の実出演者、凸待ち・逆凸は配信主だけ、継続ラジオは固定の相手だけを付け、単発ゲスト、言及のみ、クレジット制作者は含めない",
           "extensible": true,
           "tags": [
             {
@@ -3152,6 +3152,34 @@
               "active": true,
               "inclusionCriteria": "出演者として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-05137faeedee",
+              "canonicalName": "アクシア・クローネ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-c682711bf44b",
+              "canonicalName": "アルス・アルマル",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-21c8e575140d",
+              "canonicalName": "アンジュ・カトリーナ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-05cf3e85a30b",
+              "canonicalName": "イブラヒム",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
             },
             {
               "tagId": "tag-people-performer-5d3cc9d97a40",
@@ -3189,6 +3217,20 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-e85eeb10d863",
+              "canonicalName": "ガッチマンV",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-dd19ef49d74b",
+              "canonicalName": "ギルザレンⅢ世",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-628c281ac2b2",
               "canonicalName": "グウェル・オス・ガール",
               "active": true,
@@ -3203,6 +3245,62 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-7931dd3537fc",
+              "canonicalName": "シスター・クレア",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-6587227e01c9",
+              "canonicalName": "ジョー・力一",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-f1a513e6c188",
+              "canonicalName": "セラフ・ダズルガーデン",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-625e24ca07bf",
+              "canonicalName": "ソフィア・ヴァレンタイン",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-41f5257c3e97",
+              "canonicalName": "たみー",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-c7bf7996fcc0",
+              "canonicalName": "ディズム",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-4d27df13ab9a",
+              "canonicalName": "でびでび・でびる",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-008503c209f4",
+              "canonicalName": "ドーラ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-645d829c903b",
               "canonicalName": "ニュイ・ソシエール",
               "active": true,
@@ -3215,6 +3313,13 @@
               "active": true,
               "inclusionCriteria": "出演者として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-2aa355a43129",
+              "canonicalName": "ふぇありす",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
             },
             {
               "tagId": "tag-people-performer-b0469a7d02e8",
@@ -3238,6 +3343,13 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-7338866b225b",
+              "canonicalName": "ましろ爻",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-052450927d44",
               "canonicalName": "まにお先生",
               "active": true,
@@ -3252,11 +3364,25 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-f81748d30a76",
+              "canonicalName": "メリッサ・キンレンカ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-fb8a8fee57cb",
               "canonicalName": "モイラ",
               "active": true,
               "inclusionCriteria": "出演者として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-0dcf80d61c5e",
+              "canonicalName": "ヤマトイオリ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
             },
             {
               "tagId": "tag-people-performer-f00ad185b550",
@@ -3266,6 +3392,13 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-f324f4b5bc5b",
+              "canonicalName": "リゼ・ヘルエスタ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-b1f239b005c7",
               "canonicalName": "ルイス・キャミー",
               "active": true,
@@ -3273,11 +3406,39 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-fc81d6355a3a",
+              "canonicalName": "レイン・パターソン",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-d713eb6bf949",
               "canonicalName": "レヴィ・エリファ",
               "active": true,
               "inclusionCriteria": "出演者として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-5d28c62882fc",
+              "canonicalName": "レオス・ヴィンセント",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-884e37c1c097",
+              "canonicalName": "レグルシュ・ライオンハート",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-14b01aec9701",
+              "canonicalName": "ローレン・イロアス",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
             },
             {
               "tagId": "tag-people-performer-8d29f55cba38",
@@ -3294,6 +3455,48 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-db7530e30d6d",
+              "canonicalName": "安土桃",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-04ba85cfe9ac",
+              "canonicalName": "伊波ライ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-bd8a2fda8613",
+              "canonicalName": "一橋綾人",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-8577f064f1cd",
+              "canonicalName": "稲荷いろは",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-4d394673e70e",
+              "canonicalName": "宇志海いちご",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-04894e02308e",
+              "canonicalName": "雲母たまこ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-c181b03441ef",
               "canonicalName": "影山シエン",
               "active": true,
@@ -3301,11 +3504,67 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-1d96d68475a8",
+              "canonicalName": "加賀美ハヤト",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-40c8b3ad6a2a",
+              "canonicalName": "夏色まつり",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-1ba044e950df",
+              "canonicalName": "家長むぎ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-68f9334e991a",
+              "canonicalName": "花京院ちえり",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-b881a5ed8feb",
+              "canonicalName": "花咲みやび",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-474a7dae5855",
               "canonicalName": "花畑チャイカ",
               "active": true,
               "inclusionCriteria": "出演者として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-878a9a04c48c",
+              "canonicalName": "我部りえる",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-3e0dafa9734e",
+              "canonicalName": "海妹四葉",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-40fa58d07612",
+              "canonicalName": "樫風",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
             },
             {
               "tagId": "tag-people-performer-a59ba9a795f8",
@@ -3322,6 +3581,48 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-ca6b16d9b06e",
+              "canonicalName": "叶",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-e8f0cc2c7802",
+              "canonicalName": "鬼灯わらべ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-975cfeadf22f",
+              "canonicalName": "空澄セナ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-12eb09b58bad",
+              "canonicalName": "空星きらめ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-66a920ddd758",
+              "canonicalName": "栗駒こまる",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-397566db1d74",
+              "canonicalName": "郡道美玲",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-ae5fcfb1bfdc",
               "canonicalName": "月ノ美兎",
               "active": true,
@@ -3336,11 +3637,88 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-8182f3d92818",
+              "canonicalName": "剣持刀也",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-330a1cf1a53a",
+              "canonicalName": "犬山たまき",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-9444520625d0",
+              "canonicalName": "弦月藤士郎",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-781ed25ff854",
+              "canonicalName": "五十嵐梨花",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-4cea9907620e",
+              "canonicalName": "五木左京",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-4696822c8855",
               "canonicalName": "甲斐田晴",
               "active": true,
               "inclusionCriteria": "出演者として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-0e50d05f1908",
+              "canonicalName": "轟京子",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-a0c9efd6e04a",
+              "canonicalName": "黒井しば",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-aa27676ee287",
+              "canonicalName": "桜凛月",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-4b46efe8ff5a",
+              "canonicalName": "笹木咲",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-6c7029456087",
+              "canonicalName": "三枝明那",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-afc4e5a1237d",
+              "canonicalName": "山神カルタ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
             },
             {
               "tagId": "tag-people-performer-ff73184f923e",
@@ -3350,11 +3728,25 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-ea73faf4cca6",
+              "canonicalName": "獅子堂あかり",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-b3a697b2d354",
               "canonicalName": "七瀬すず菜",
               "active": true,
               "inclusionCriteria": "出演者として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-3d3cdf4d4048",
+              "canonicalName": "社築",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
             },
             {
               "tagId": "tag-people-performer-5ae24f2f030c",
@@ -3371,6 +3763,55 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-4f307c093359",
+              "canonicalName": "十河ののは",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-52b0d34fa025",
+              "canonicalName": "渋谷ハジメ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-5f8189074750",
+              "canonicalName": "春崎エアル",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-f4e2e8ed3654",
+              "canonicalName": "小清水透",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-1c07cf564bc6",
+              "canonicalName": "小野町春香",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-751ba6ad6cb0",
+              "canonicalName": "森中花咲",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-a322f3f70971",
+              "canonicalName": "神楽すず",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-7bc053e314a8",
               "canonicalName": "神田笑一",
               "active": true,
@@ -3378,11 +3819,109 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-141b1efea4ba",
+              "canonicalName": "瀬戸美夜子",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-577b1eabbfce",
+              "canonicalName": "成瀬鳴",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-0c75cd2b0335",
+              "canonicalName": "星街すいせい",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-deb297273eea",
+              "canonicalName": "星川サラ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-5a9d51c615b7",
+              "canonicalName": "聖女れりあ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-2477c304f1d5",
+              "canonicalName": "西園チグサ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-4cc05c74e89c",
               "canonicalName": "西園寺メアリ",
               "active": true,
               "inclusionCriteria": "出演者として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-cd10f36047eb",
+              "canonicalName": "石狩あかり",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-cbcfd69fb357",
+              "canonicalName": "赤羽葉子",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-515e76757b75",
+              "canonicalName": "雪城眞尋",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-51769a00e92b",
+              "canonicalName": "先斗寧",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-d3bc8bd6f4be",
+              "canonicalName": "叢雲カゲツ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-874ce3d45cbf",
+              "canonicalName": "倉持めると",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-db11f0265d92",
+              "canonicalName": "早乙女ベリー",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-f2743b037164",
+              "canonicalName": "早瀬走",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
             },
             {
               "tagId": "tag-people-performer-cd70f74ae508",
@@ -3399,11 +3938,53 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-d0bd4fb58bfe",
+              "canonicalName": "鷹宮リオン",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-7265b426f34f",
+              "canonicalName": "朝ノ瑠璃",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-ae3fbf732cc4",
+              "canonicalName": "長尾景",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-8193cb5bc594",
               "canonicalName": "椎名唯華",
               "active": true,
               "inclusionCriteria": "出演者として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-65c1454d01ec",
+              "canonicalName": "鏑木ろこ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-5c34f19f250b",
+              "canonicalName": "天ヶ瀬むゆ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-4f9d14266a5a",
+              "canonicalName": "天開司",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
             },
             {
               "tagId": "tag-people-performer-482d2ce7d54a",
@@ -3413,11 +3994,53 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-93142d7cd2ad",
+              "canonicalName": "天神子兎音",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-1c746638a230",
+              "canonicalName": "天川はの",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-36b4903bb981",
+              "canonicalName": "天野ピカミィ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-637650268a80",
+              "canonicalName": "童田明治",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-97dcda1925ac",
+              "canonicalName": "奈羅花",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-0959d22cd9c9",
               "canonicalName": "猫瀬乃しん",
               "active": true,
               "inclusionCriteria": "出演者として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-6cb61d8cdb47",
+              "canonicalName": "白上フブキ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
             },
             {
               "tagId": "tag-people-performer-6a98384c4ce5",
@@ -3432,6 +4055,20 @@
               "active": true,
               "inclusionCriteria": "出演者として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-fd206156bc36",
+              "canonicalName": "樋口楓",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-821644f28f81",
+              "canonicalName": "姫熊りぼん",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
             },
             {
               "tagId": "tag-people-performer-9bffa950df44",
@@ -3455,6 +4092,13 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-5704c162c22d",
+              "canonicalName": "風見くく",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-7dff9d09de99",
               "canonicalName": "伏見ガク",
               "active": true,
@@ -3469,11 +4113,74 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-61a3df766165",
+              "canonicalName": "北見遊征",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-f524fb1d984f",
+              "canonicalName": "北小路ヒスイ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-e1c41724faaf",
+              "canonicalName": "本阿弥あずさ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-12f4b7991311",
+              "canonicalName": "本間ひまわり",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-8a6d75b73d9e",
+              "canonicalName": "魔界ノりりむ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-2adf69564846",
+              "canonicalName": "魔使マオ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-14bb1678cc61",
+              "canonicalName": "夢追翔",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-e8fe169435c5",
+              "canonicalName": "夜空メル",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-4ae4f4527489",
               "canonicalName": "夜見れな",
               "active": true,
               "inclusionCriteria": "出演者として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-892e4ff1199f",
+              "canonicalName": "夜絆ニウ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
             },
             {
               "tagId": "tag-people-performer-66421c08fb15",
@@ -3483,6 +4190,27 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-20fc5e35cc55",
+              "canonicalName": "勇気ちひろ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-f915b4965c8f",
+              "canonicalName": "柚原いづみ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-1b0863765578",
+              "canonicalName": "夕刻ロベル",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-e877def1ca57",
               "canonicalName": "夕陽リリ",
               "active": true,
@@ -3490,11 +4218,32 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-performer-68f2410ad4e7",
+              "canonicalName": "葉加瀬冬雪",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-c6236058cef3",
+              "canonicalName": "葉山舞鈴",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
               "tagId": "tag-people-performer-f1576533a080",
               "canonicalName": "来栖夏芽",
               "active": true,
               "inclusionCriteria": "出演者として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-dc2c32f4f411",
+              "canonicalName": "立伝都々",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
             },
             {
               "tagId": "tag-people-performer-c57eeb79e4c5",
@@ -3509,6 +4258,27 @@
               "active": true,
               "inclusionCriteria": "出演者として公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-daa1eff1934d",
+              "canonicalName": "鈴木勝",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-d1d07a9298d3",
+              "canonicalName": "戌亥とこ",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
+            },
+            {
+              "tagId": "tag-people-performer-839dc0e4b3b4",
+              "canonicalName": "栞葉るり",
+              "active": true,
+              "inclusionCriteria": "コラボ相手として公開情報から人物名を直接確認できること",
+              "exclusionCriteria": "チャンネル名、凸待ちの配信主以外、継続ラジオの固定相手以外、言及のみ、クレジットだけの人物は含めない"
             },
             {
               "tagId": "tag-people-performer-328275186806",
@@ -3550,6 +4320,13 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-unit-83b83aa4d2b3",
+              "canonicalName": "エデン組",
+              "active": true,
+              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
+              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
+            },
+            {
               "tagId": "tag-people-unit-5e1fb31fdec9",
               "canonicalName": "スノーベル",
               "active": true,
@@ -3564,11 +4341,39 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-unit-8888d0ac1b8d",
+              "canonicalName": "タリキホンガンジム",
+              "active": true,
+              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
+              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
+            },
+            {
               "tagId": "tag-people-unit-70e59966e56e",
               "canonicalName": "フミとも",
               "active": true,
               "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-unit-23ef0b95ff38",
+              "canonicalName": "フルトイ",
+              "active": true,
+              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
+              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
+            },
+            {
+              "tagId": "tag-people-unit-844344849374",
+              "canonicalName": "ふるとな",
+              "active": true,
+              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
+              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
+            },
+            {
+              "tagId": "tag-people-unit-33516bc0fd2d",
+              "canonicalName": "ホラゲV女子会",
+              "active": true,
+              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
+              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
             },
             {
               "tagId": "tag-people-unit-9b39bdef3a33",
@@ -3578,11 +4383,39 @@
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
             },
             {
+              "tagId": "tag-people-unit-01c720b5d7b5",
+              "canonicalName": "極肆姉妹",
+              "active": true,
+              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
+              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
+            },
+            {
               "tagId": "tag-people-unit-d5b1de96b450",
               "canonicalName": "女王と会長",
               "active": true,
               "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-people-unit-ddd6b25f595b",
+              "canonicalName": "雪月シスターズ",
+              "active": true,
+              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
+              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
+            },
+            {
+              "tagId": "tag-people-unit-6e40e2de17b5",
+              "canonicalName": "雪晴れに花ふわり",
+              "active": true,
+              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
+              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
+            },
+            {
+              "tagId": "tag-people-unit-07232924c510",
+              "canonicalName": "巴乃しん",
+              "active": true,
+              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
+              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
             },
             {
               "tagId": "tag-people-unit-56355048805b",
