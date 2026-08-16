@@ -5,6 +5,7 @@ import { readJson } from './lib.ts';
 
 const root = path.resolve(import.meta.dirname, '..');
 const errors: string[] = [];
+const pagesPolicy = readJson(path.join(root, 'operations/pages-policy.json')) as { customDomain?: unknown };
 const workflows = walk(path.join(root, '.github/workflows')).filter((file) => /\.ya?ml$/u.test(file));
 for (const workflow of workflows) {
   const text = readFileSync(workflow, 'utf8');
@@ -33,8 +34,18 @@ for (const workflow of workflows) {
     errors.push(`${relative(workflow)}: 最小権限 contents: read が必要です。`);
   }
 }
-if (existsSync(path.join(root, 'CNAME')) || existsSync(path.join(root, 'public/CNAME')) || existsSync(path.join(root, 'docs/CNAME'))) {
-  errors.push('独自ドメイン用CNAMEを置いてはなりません。');
+for (const pathWithoutGeneratedDocs of ['CNAME', 'public/CNAME']) {
+  if (existsSync(path.join(root, pathWithoutGeneratedDocs))) {
+    errors.push(`${pathWithoutGeneratedDocs}: CNAMEは生成先のdocs/CNAMEだけに置かなければなりません。`);
+  }
+}
+const generatedCname = path.join(root, 'docs/CNAME');
+if (pagesPolicy.customDomain === null) {
+  if (existsSync(generatedCname)) errors.push('Pages方針で独自ドメインを無効にした場合はdocs/CNAMEを置いてはなりません。');
+} else if (typeof pagesPolicy.customDomain !== 'string' || !/^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+$/u.test(pagesPolicy.customDomain)) {
+  errors.push('operations/pages-policy.json: customDomainは有効な小文字のホスト名またはnullでなければなりません。');
+} else if (!existsSync(generatedCname) || readFileSync(generatedCname, 'utf8').trim() !== pagesPolicy.customDomain) {
+  errors.push('docs/CNAME: Pages方針のcustomDomainと完全一致しなければなりません。');
 }
 const packageJson = readJson(path.join(root, 'package.json')) as { dependencies?: Record<string, string> };
 const allowedRuntime = new Set(['react', 'react-dom', 'react-router-dom', 'zod']);

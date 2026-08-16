@@ -1,0 +1,69 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260816-custom-pages-domain-policy
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: true
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - {id: IMP-001, class: Invariant, result: pass, evidence: ["path:spec/requirements/requirements.json", "path:docs/requirements/REQUIREMENTS.md"], note: "所有者が設定したGitHub Pages独自ドメインをV8-COST-002の受入条件として正本化した"}
+  - {id: IMP-002, class: Invariant, result: pass, evidence: ["path:operations/pages-policy.json", "path:scripts/verify-repository-policy.ts"], note: "公開方式はmain/docs branch方式のまま維持し、Pages方針とdocs/CNAMEの整合だけを追加した"}
+  - {id: IMP-003, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260816-custom-pages-domain-policy.yaml"], note: "永続要件、公開運用方針、検証スクリプト、生成文書をまたぐためassuredを選択した"}
+  - {id: FAST-001, class: Invariant, result: pass, evidence: ["test:tests/repository-policy.test.ts", "path:scripts/verify-repository-policy.ts"], note: "Pages方針とCNAMEの不一致を決定的に停止する"}
+  - {id: FAST-002, class: Invariant, result: pass, evidence: ["path:scripts/verify-repository-policy.ts"], note: "変更したTypeScript方針検査をstrict型検査とともにCIで実行する"}
+  - {id: FAST-003, class: Invariant, result: pass, evidence: ["path:scripts/verify-repository-policy.ts", "workflow:要件・品質ゲート#要件の品質ゲートを実行"], note: "lintとrepository policy検査を警告0件で実行する"}
+  - {id: FAST-004, class: Invariant, result: pass, evidence: ["test:tests/repository-policy.test.ts"], note: "許可済みドメインとdocs/CNAMEが一致する正常系を回帰試験で固定する"}
+  - {id: FAST-005, class: Risk-selected, result: pass, evidence: ["test:tests/repository-policy.test.ts", "path:scripts/verify-repository-policy.ts"], note: "独自ドメイン設定を旧方針が誤って拒否したCI失敗を再発させない"}
+  - {id: FAST-006, class: Invariant, result: pass, evidence: ["path:scripts/generate-requirements.ts", "path:docs/requirements/REQUIREMENTS.md"], note: "要件正本から人向け要件表示を再生成した"}
+  - {id: FAST-007, class: Invariant, result: pass, evidence: ["commit:self"], note: "秘密情報、トークン、生字幕、個人情報を追加していない"}
+  - {id: FAST-015, class: Advisory, result: pass, evidence: ["path:operations/pages-policy.json", "path:docs/operations/cost-check.md"], note: "ドメインの許可値と費用確認手順を運用文書で明示した"}
+  - {id: REV-001, class: Invariant, result: pass, evidence: ["path:operations/pages-policy.json", "path:scripts/verify-repository-policy.ts"], note: "CI失敗の直接原因であるCNAME禁止だけを、許可値の完全一致検査へ置き換えた"}
+  - {id: REV-002, class: Invariant, result: pass, evidence: ["commit:self"], note: "Commit Commentへ目的、変更、要件・設計影響、review path、検証、残存リスクを記録する"}
+  - {id: REV-003, class: Invariant, result: pass, evidence: ["path:spec/requirements/requirements.json", "path:docs/requirements/REQUIREMENTS.md"], note: "V8-COST-002を所有者指示に従って更新し、GitHub Pages以外の公開実行時サービス禁止を維持した"}
+  - {id: REV-004, class: Invariant, result: pass, evidence: ["path:docs/decisions/ADR-0001-zero-cost-static-pages.md", "path:operations/pages-policy.json"], note: "長期のPages配信先制約をADRと方針へ同期し、公開構成を増やしていない"}
+  - {id: REV-005, class: Risk-selected, result: pass, evidence: ["path:spec/sources/owner-directive-2026-08-16-custom-pages-domain.md", "test:tests/repository-policy.test.ts"], note: "所有者指示、正本、方針、決定的検証を接続した"}
+  - {id: REV-006, class: Invariant, result: pass, evidence: ["test:tests/repository-policy.test.ts", "path:scripts/verify-repository-policy.ts"], note: "CNAMEの配置、書式、Pages方針値との一致を検証する"}
+  - {id: REV-007, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260816-custom-pages-domain-policy.yaml"], note: "選択したcheckだけを記録した"}
+  - {id: REV-008, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260816-custom-pages-domain-policy.yaml"], note: "未選択checkを形式的なN/Aとして記録していない"}
+  - {id: REV-014, class: Risk-selected, result: pass, evidence: ["path:operations/cost-policy.json", "path:docs/operations/cost-check.md"], note: "ゼロ円公開運用を維持し、独自ドメインはGitHub Pagesに限定した"}
+  - {id: REV-015, class: Advisory, result: pass, evidence: ["path:docs/decisions/ADR-0001-zero-cost-static-pages.md", "path:spec/sources/owner-directive-2026-08-16-custom-pages-domain.md"], note: "独自ドメインを使う長期判断と再検討条件をADR・正本へ接続した"}
+advisories: []
+residual_risks:
+  - GitHub Pages設定上の独自ドメインとHTTPSの到達性は、GitHubの反映完了後に公開URLで確認する必要がある。
+  - ドメイン登録・DNSの料金が既存のゼロ円公開運用条件に影響する場合は、公開更新を停止して所有者が費用判断する。

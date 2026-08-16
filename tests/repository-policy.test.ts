@@ -57,20 +57,21 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).not.toMatch(/actions\/(?:upload-artifact|cache)@/iu);
   });
 
-  it('Pagesは公開リポジトリのmain/docs・標準URL・branch方式だけを宣言する', () => {
+  it('Pagesは公開リポジトリのmain/docs・許可済み独自ドメイン・branch方式だけを宣言する', () => {
     const policy = json('operations/pages-policy.json') as Record<string, unknown>;
     expect(policy).toMatchObject({
       repositoryVisibility: 'public',
       buildType: 'legacy',
       sourceBranch: 'main',
       sourcePath: '/docs',
-      customDomain: null,
+      customDomain: 'tme.page.diopside.net',
       httpsEnforced: true,
       repositoryDeploymentWorkflow: false,
       postMergeGenerationWorkflow: true,
       pagesBuildTriggeredByGeneratedCommit: true,
       explicitPagesBuildRequest: false,
     });
+    expect(text('docs/CNAME').trim()).toBe(policy.customDomain);
   });
 
   it('月次サービス費用0円と条件変更時の停止を機械可読にする', () => {

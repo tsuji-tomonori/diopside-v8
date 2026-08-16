@@ -238,6 +238,23 @@ const requirements = sourceRequirements.map((item) => {
     requirement.traces.tests.push('tests/timestamp_tools_test.py');
     requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-08-TIMESTAMP-BATCH';
   }
+  if (id === 'V8-COST-002') {
+    requirement.revision = 2;
+    requirement.title = '公開基盤は公開リポジトリのGitHub Pages branch方式と、明示設定した独自ドメインだけに限定しなければならない';
+    requirement.object = '公開基盤は、公開リポジトリで利用できるGitHub Pagesの `main/docs` branch方式と、Pages設定および `docs/CNAME` で同じ値を明示した独自ドメインだけに限定しなければならない。追加の公開実行時サービスまたは有料のGitHubプランを必要としてはならない。';
+    requirement.source_refs.push('spec/sources/owner-directive-2026-08-16-custom-pages-domain.md', 'user:2026-08-15');
+    requirement.acceptance_criteria = [{
+      id: 'AC-V8-COST-002-1',
+      given: '公開リポジトリのPages設定と静的公開成果物がある',
+      when: 'リポジトリ・Pages設定・CNAME整合性確認',
+      then: 'リポジトリは公開設定で、Pages公開元は `main/docs` であり、独自ドメインを使う場合はPages方針の値と `docs/CNAME` が完全一致し、追加の公開実行時サービスまたは有料のGitHubプランを必要としない。',
+    }];
+    requirement.verification = {
+      method: 'リポジトリ・Pages設定・CNAME整合性確認',
+      evidence: 'tests/repository-policy.test.ts',
+    };
+    requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-16-CUSTOM-PAGES-DOMAIN';
+  }
   if (id === 'V8-OPS-005') {
     requirement.revision = 3;
     requirement.title = '1回の明示要求で固定した有限の適格タイムスタンプ対象集合を、全件が終端結果へ到達するまで処理しなければならない';
@@ -966,9 +983,9 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 9, 10),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 9, 11),
   product: 'diopside v8',
-  updated_at: existingCatalog?.updated_at ?? '2026-08-15',
+  updated_at: '2026-08-16',
   requirements: canonicalRequirements,
 }, null, 2)}\n`);
 writeFileSync(mapPath, `${JSON.stringify({

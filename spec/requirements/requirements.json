@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "catalog_revision": 10,
+  "catalog_revision": 11,
   "product": "diopside v8",
-  "updated_at": "2026-08-15",
+  "updated_at": "2026-08-16",
   "requirements": [
     {
       "acceptance_criteria": [
@@ -56,30 +56,32 @@
     },
     {
       "id": "V8-COST-002",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "project",
       "category": "nonfunctional",
       "type": "operational",
-      "title": "公開基盤は、公開リポジトリで利用できるGitHub Pagesと既定の `github.io` 配下のURLに限定しなければならない",
+      "title": "公開基盤は公開リポジトリのGitHub Pages branch方式と、明示設定した独自ドメインだけに限定しなければならない",
       "subject": "diopside v8の費用",
       "action": "satisfy",
-      "object": "公開基盤は、公開リポジトリで利用できるGitHub Pagesと既定の `github.io` 配下のURLに限定しなければならない。",
+      "object": "公開基盤は、公開リポジトリで利用できるGitHub Pagesの `main/docs` branch方式と、Pages設定および `docs/CNAME` で同じ値を明示した独自ドメインだけに限定しなければならない。追加の公開実行時サービスまたは有料のGitHubプランを必要としてはならない。",
       "rationale": "既存のChatGPT／Codex契約以外の運用請求を発生させず、個人運用を持続可能にするため。",
       "source_refs": [
         "Issue #1 V8-費用-002",
-        "user:2026-08-03"
+        "user:2026-08-03",
+        "spec/sources/owner-directive-2026-08-16-custom-pages-domain.md",
+        "user:2026-08-15"
       ],
       "acceptance_criteria": [
         {
           "id": "AC-V8-COST-002-1",
-          "given": "V8-費用-002の前提を満たす公開データまたは操作がある",
-          "when": "リポジトリ・Pages設定確認",
-          "then": "リポジトリは公開設定で、独自ドメインと有料プランを必要としない。"
+          "given": "公開リポジトリのPages設定と静的公開成果物がある",
+          "when": "リポジトリ・Pages設定・CNAME整合性確認",
+          "then": "リポジトリは公開設定で、Pages公開元は `main/docs` であり、独自ドメインを使う場合はPages方針の値と `docs/CNAME` が完全一致し、追加の公開実行時サービスまたは有料のGitHubプランを必要としない。"
         }
       ],
       "verification": {
-        "method": "リポジトリ・Pages設定確認",
+        "method": "リポジトリ・Pages設定・CNAME整合性確認",
         "evidence": "tests/repository-policy.test.ts"
       },
       "traces": {
@@ -99,7 +101,7 @@
           "dev-standard default profile"
         ]
       },
-      "last_changed_by": "ISSUE-1-IMPLEMENTATION"
+      "last_changed_by": "OWNER-DIRECTIVE-2026-08-16-CUSTOM-PAGES-DOMAIN"
     },
     {
       "acceptance_criteria": [
