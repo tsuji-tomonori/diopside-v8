@@ -153,7 +153,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [path:governance/reviews/CHG-20260816-game-tag-audit.yaml]
-    note: 選択したcheckだけを今回のreview YAMLへ保存した
+    note: 選択したcheckと生成物同期の証拠を今回のreview YAMLへ保存し、HEADで再読検証する
   - id: REV-008
     class: Invariant
     result: pass
