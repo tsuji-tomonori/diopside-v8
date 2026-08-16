@@ -10,7 +10,7 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
       cwd: root,
       encoding: 'utf8',
     });
-    expect(output).toContain('外部動的API・認証・追跡・有料基盤0件');
+    expect(output).toContain('外部動的API・認証・追跡・公開有料基盤0件、有限private backfillは隔離済み');
   });
 
   it('CIはPR・main push・手動だけで検証し、AI・予定実行・独自Pages deployを行わない', () => {
@@ -21,6 +21,10 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).toMatch(/runs-on: ubuntu-latest/u);
     expect(workflow).toMatch(/permissions:\s*\n\s+contents: read/u);
     expect(workflow).toMatch(/validate:release-pr-scope/u);
+    expect(workflow).toMatch(/ingestion-infra:/u);
+    expect(workflow).toMatch(/uv sync --directory infra --locked/u);
+    expect(workflow).toMatch(/cdk synth/u);
+    expect(workflow).toMatch(/trivy-action/u);
     expect(workflow).not.toMatch(/(?:schedule:|cron:|openai|codex|chatgpt|deploy-pages|upload-pages-artifact|configure-pages)/iu);
     expect(workflow).not.toMatch(/actions\/(?:upload-artifact|cache)@/iu);
   });
@@ -74,6 +78,11 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
       maximumMonthlyServiceCost: number;
       allowedRuntimeServices: Array<{ service: string; condition: string }>;
       stopCondition: string;
+      historicalPrivateBackfill: {
+        permittedServices: string[];
+        publicBoundary: string;
+        schedule: string;
+      };
     };
     expect(policy.maximumMonthlyServiceCost).toBe(0);
     expect(policy.allowedRuntimeServices).toEqual(expect.arrayContaining([
@@ -82,6 +91,9 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     ]));
     expect(policy.stopCondition).toContain('停止');
     expect(policy.stopCondition).toContain('人へ判断');
+    expect(policy.historicalPrivateBackfill.permittedServices).toEqual(expect.arrayContaining(['AWS Batch Fargate', 'AWS S3']));
+    expect(policy.historicalPrivateBackfill.publicBoundary).toContain('infra/');
+    expect(policy.historicalPrivateBackfill.schedule).toContain('禁止');
   });
 
   it('実行時依存をブラウザ内UI・検証ライブラリだけに限定する', () => {

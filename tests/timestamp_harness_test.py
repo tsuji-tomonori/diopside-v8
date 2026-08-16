@@ -793,6 +793,13 @@ class TimestampHarnessTest(unittest.TestCase):
         self.assertIn('"--bootstrap-local"', asr)
         self.assertIn('"--target"', asr)
 
+    def test_harness_uses_private_s3_manifest_only_after_explicit_operator_opt_in(self) -> None:
+        source = SCRIPT.read_text(encoding="utf-8")
+        self.assertIn("DIOPSIDE_INGESTION_REUSE", source)
+        self.assertIn('"reuse-evidence"', source)
+        self.assertIn('"private_s3_manifest_caption"', source)
+        self.assertIn('"not_available"', source)
+
     def test_live_chat_reduction_keeps_no_text_or_identity(self) -> None:
         spec = importlib.util.spec_from_file_location("download_live_chat_test", CHAT_SCRIPT)
         if spec is None or spec.loader is None:

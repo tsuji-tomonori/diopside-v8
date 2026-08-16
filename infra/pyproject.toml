@@ -1,0 +1,63 @@
+[project]
+name = "diopside-ingestion"
+version = "0.1.0"
+description = "Historical YouTube material backfill infrastructure for diopside v8"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "aws-cdk-lib>=2.0.0,<3.0.0",
+  "boto3>=1.34.0,<2.0.0",
+  "cdk-nag>=2.0.0,<3.0.0",
+  "constructs>=10.0.0,<11.0.0",
+  "yt-dlp==2026.7.4",
+]
+
+[dependency-groups]
+dev = [
+  "boto3-stubs[batch,dynamodb,s3,sqs]>=1.34.0,<2.0.0",
+  "mypy>=1.11.0,<2.0.0",
+  "pytest>=8.3.0,<9.0.0",
+  "pytest-cov>=5.0.0,<7.0.0",
+  "pyright>=1.1.390,<2.0.0",
+  "pyyaml>=6.0.0,<7.0.0",
+  "ruff>=0.8.0,<1.0.0",
+]
+
+[project.scripts]
+diopside-backfill = "diopside_ingestion.cli:main"
+diopside-worker = "diopside_ingestion.worker:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/diopside_ingestion"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = ["cdk.out"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "ASYNC", "S", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101"]
+
+[tool.pyright]
+include = ["app.py", "src", "tests"]
+exclude = ["cdk.out", ".venv"]
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
+reportMissingTypeStubs = "none"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["app.py", "src", "tests"]
+exclude = ["cdk.out"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers --cov=diopside_ingestion --cov-report=term-missing --cov-fail-under=70"
+testpaths = ["tests"]

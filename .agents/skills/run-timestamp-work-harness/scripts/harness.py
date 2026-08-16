@@ -858,6 +858,53 @@ def classify_evidence_failure(error: HarnessError, *, stage: str) -> str:
     return "evidence_unavailable"
 
 
+def reuse_private_s3_caption(video_id: str, env: dict[str, str]) -> Path | None:
+    """Prefer a verified private backfill caption only when an operator explicitly opts in."""
+    if env.get("DIOPSIDE_INGESTION_REUSE") != "1":
+        return None
+    bucket = env.get("DIOPSIDE_INGESTION_BUCKET")
+    table = env.get("DIOPSIDE_INGESTION_TABLE")
+    work_root = env.get("DIOPSIDE_TIMESTAMP_WORK_ROOT")
+    uv = shutil.which("uv", path=env.get("PATH"))
+    if not bucket or not table or not work_root or not uv:
+        raise HarnessError("private S3再利用にはbucket、table、work root、uvが必要です。")
+    completed = run(
+        [
+            uv,
+            "run",
+            "--directory",
+            str(ROOT / "infra"),
+            "diopside-backfill",
+            "reuse-evidence",
+            "--video-id",
+            video_id,
+            "--bucket",
+            bucket,
+            "--table",
+            table,
+            "--work-root",
+            work_root,
+        ],
+        env=env,
+    )
+    try:
+        response = json.loads(completed.stdout)
+    except json.JSONDecodeError as error:
+        raise HarnessError("private S3再利用コマンドの応答が不正です。") from error
+    if not isinstance(response, dict) or response.get("video_id") != video_id:
+        raise HarnessError("private S3再利用コマンドの動画IDが一致しません。")
+    if response.get("status") == "not_available":
+        return None
+    caption = response.get("caption_json3")
+    if response.get("status") != "reused" or not isinstance(caption, str):
+        raise HarnessError("private S3再利用コマンドの状態が不正です。")
+    candidate = Path(caption).resolve()
+    expected_root = (Path(work_root).resolve() / video_id / "captions" / "raw")
+    if expected_root not in candidate.parents or candidate.suffix != ".json3" or not candidate.is_file():
+        raise HarnessError("private S3再利用先が一時dossierの範囲外です。")
+    return candidate
+
+
 def acquire_evidence(
     video_id: str,
     env: dict[str, str],
@@ -872,59 +919,28 @@ def acquire_evidence(
     if state["stage"] != "initialized":
         return "existing_prepared_evidence"
     batch_id = env["DIOPSIDE_HARNESS_BATCH_ID"]
-    try:
-        run(
-            [
-                python,
-                str(EVIDENCE_SCRIPTS / "diagnose_youtube_access.py"),
-                video_id,
-                "--execute",
-                "--retries",
-                "3",
-            ],
-            env=env,
-        )
-        log_execution(batch_id, video_id, {"stage": "youtube_preflight", "outcome": "reachable"})
-    except HarnessError as error:
-        log_execution(
-            batch_id,
-            video_id,
-            {
-                "stage": "youtube_preflight",
-                "outcome": "diagnosed_unreachable",
-                "detailDigest": hashlib.sha256(str(error).encode()).hexdigest(),
-            },
-        )
-    try:
+    private_caption = reuse_private_s3_caption(video_id, env)
+    if private_caption is not None:
         run(
             [
                 python,
                 str(EVIDENCE_SCRIPTS / "download_captions.py"),
                 video_id,
                 "--execute",
-                "--retries",
-                "3",
+                "--caption-json3",
+                str(private_caption),
             ],
             env=env,
         )
         transcript = Path(env["DIOPSIDE_TIMESTAMP_WORK_ROOT"]) / video_id / "captions/transcript-source.json"
-        evidence_route = "public_japanese_captions"
-        log_execution(batch_id, video_id, {"stage": "caption_acquisition", "outcome": "complete"})
-    except HarnessError as caption_error:
-        log_execution(
-            batch_id,
-            video_id,
-            {
-                "stage": "caption_acquisition",
-                "outcome": "fallback_to_audio",
-                "detailDigest": hashlib.sha256(str(caption_error).encode()).hexdigest(),
-            },
-        )
+        evidence_route = "private_s3_manifest_caption"
+        log_execution(batch_id, video_id, {"stage": "private_s3_manifest", "outcome": "reused"})
+    else:
         try:
             run(
                 [
                     python,
-                    str(EVIDENCE_SCRIPTS / "download_audio.py"),
+                    str(EVIDENCE_SCRIPTS / "diagnose_youtube_access.py"),
                     video_id,
                     "--execute",
                     "--retries",
@@ -932,27 +948,75 @@ def acquire_evidence(
                 ],
                 env=env,
             )
+            log_execution(batch_id, video_id, {"stage": "youtube_preflight", "outcome": "reachable"})
         except HarnessError as error:
-            raise EvidenceAcquisitionError(
-                classify_evidence_failure(error, stage="audio")
-            ) from error
-        asr_command = [
-            python,
-            str(EVIDENCE_SCRIPTS / "transcribe_local_asr.py"),
-            video_id,
-            "--execute",
-        ]
-        if recovery:
-            asr_command.append("--bootstrap-local")
+            log_execution(
+                batch_id,
+                video_id,
+                {
+                    "stage": "youtube_preflight",
+                    "outcome": "diagnosed_unreachable",
+                    "detailDigest": hashlib.sha256(str(error).encode()).hexdigest(),
+                },
+            )
         try:
-            run(asr_command, env=env)
-        except HarnessError as error:
-            raise EvidenceAcquisitionError(
-                classify_evidence_failure(error, stage="asr")
-            ) from error
-        transcript = Path(env["DIOPSIDE_TIMESTAMP_WORK_ROOT"]) / video_id / "asr/transcript-source.json"
-        evidence_route = "public_audio_local_asr"
-        log_execution(batch_id, video_id, {"stage": "audio_asr_acquisition", "outcome": "complete"})
+            run(
+                [
+                    python,
+                    str(EVIDENCE_SCRIPTS / "download_captions.py"),
+                    video_id,
+                    "--execute",
+                    "--retries",
+                    "3",
+                ],
+                env=env,
+            )
+            transcript = Path(env["DIOPSIDE_TIMESTAMP_WORK_ROOT"]) / video_id / "captions/transcript-source.json"
+            evidence_route = "public_japanese_captions"
+            log_execution(batch_id, video_id, {"stage": "caption_acquisition", "outcome": "complete"})
+        except HarnessError as caption_error:
+            log_execution(
+                batch_id,
+                video_id,
+                {
+                    "stage": "caption_acquisition",
+                    "outcome": "fallback_to_audio",
+                    "detailDigest": hashlib.sha256(str(caption_error).encode()).hexdigest(),
+                },
+            )
+            try:
+                run(
+                    [
+                        python,
+                        str(EVIDENCE_SCRIPTS / "download_audio.py"),
+                        video_id,
+                        "--execute",
+                        "--retries",
+                        "3",
+                    ],
+                    env=env,
+                )
+            except HarnessError as error:
+                raise EvidenceAcquisitionError(
+                    classify_evidence_failure(error, stage="audio")
+                ) from error
+            asr_command = [
+                python,
+                str(EVIDENCE_SCRIPTS / "transcribe_local_asr.py"),
+                video_id,
+                "--execute",
+            ]
+            if recovery:
+                asr_command.append("--bootstrap-local")
+            try:
+                run(asr_command, env=env)
+            except HarnessError as error:
+                raise EvidenceAcquisitionError(
+                    classify_evidence_failure(error, stage="asr")
+                ) from error
+            transcript = Path(env["DIOPSIDE_TIMESTAMP_WORK_ROOT"]) / video_id / "asr/transcript-source.json"
+            evidence_route = "public_audio_local_asr"
+            log_execution(batch_id, video_id, {"stage": "audio_asr_acquisition", "outcome": "complete"})
     command = [python, str(EVIDENCE_SCRIPTS / "prepare_evidence.py"), video_id, "--transcript", str(transcript)]
     if with_chat:
         try:
