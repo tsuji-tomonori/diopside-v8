@@ -79,8 +79,10 @@ describe('決定的な公開成果物', () => {
   it('Pages用docsは同じ版を持ち、404でもSPAへ到達できる', () => {
     const docsLatest = latestReleaseSchema.parse(json('docs/data/latest.json'));
     expect(docsLatest.releaseId).toBe(latest.releaseId);
-    expect(readFileSync(path.join(root, 'docs/index.html'), 'utf8')).toContain('/diopside-v8/');
-    expect(readFileSync(path.join(root, 'docs/404.html'), 'utf8')).toContain('/diopside-v8/');
+    expect(readFileSync(path.join(root, 'docs/index.html'), 'utf8')).toContain('/assets/');
+    expect(readFileSync(path.join(root, 'docs/404.html'), 'utf8')).toContain('/assets/');
+    expect(readFileSync(path.join(root, 'docs/index.html'), 'utf8')).not.toContain('/diopside-v8/');
+    expect(readFileSync(path.join(root, 'docs/404.html'), 'utf8')).not.toContain('/diopside-v8/');
     expect(readFileSync(path.join(root, 'docs/.nojekyll'), 'utf8')).toBe('');
   });
 

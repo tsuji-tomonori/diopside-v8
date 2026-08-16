@@ -74,6 +74,14 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(text('docs/CNAME').trim()).toBe(policy.customDomain);
   });
 
+  it('アプリとPagesのHTTP検査は独自ドメインのルートを参照する', () => {
+    expect(text('vite.config.ts')).toMatch(/base:\s*['"]\/['"]/u);
+    expect(text('vite.config.ts')).not.toContain("base: '/diopside-v8/'");
+    expect(text('.github/workflows/update-generated-release.yml')).toContain('PAGES_SITE_ORIGIN: https://tme.page.diopside.net/');
+    expect(text('.github/scripts/smoke-pages-publication.mjs')).toContain("https://tme.page.diopside.net/");
+    expect(text('.github/scripts/smoke-pages-publication.mjs')).not.toContain('tsuji-tomonori.github.io/diopside-v8');
+  });
+
   it('月次サービス費用0円と条件変更時の停止を機械可読にする', () => {
     const policy = json('operations/cost-policy.json') as {
       maximumMonthlyServiceCost: number;
