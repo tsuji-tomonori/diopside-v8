@@ -13,7 +13,7 @@
   "youtubeUrl": "https://www.youtube.com/watch?v=tEviRnlCIj8",
   "taxonomyVersion": "8.4.0",
   "aliasVersion": "8.2.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.3.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "51bdf19bf992d0c785409874af6d3e86d8fa4fa94e333b0a23a00a70cbab7c64"
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "8656b39ea28a8c5bfaf15249c516556540807e05e94cd8d58f0a6b44e72d0cd2"
     }
   ],
   "tagAssignments": [
@@ -78,6 +84,15 @@
       "reviewedAt": "2026-08-15T17:50:00+09:00"
     },
     {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
       "tagId": "tag-format-media-45323ed44f37",
       "reason": "動画長と既存形式から動画形式「配信」を確認",
       "confidence": "高",
@@ -94,6 +109,15 @@
         "evidence-channel"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-9444520625d0",
+      "reason": "人物名「弦月藤士郎」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
     },
     {
       "tagId": "tag-works-gameTitle-fdbee30f2eef",
@@ -319,7 +343,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-15T17:50:00+09:00",
-    "basis": "運用者のゲーム配信タグ横断是正要求に基づき、公開タイトル・説明と既存作品タグを再確認"
+    "approvedAt": "2026-08-15T21:05:00+09:00",
+    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
   }
 }

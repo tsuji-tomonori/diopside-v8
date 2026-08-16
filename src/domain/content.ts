@@ -408,6 +408,26 @@ export const publicTagIndexSchema = z.object({
         canonicalName: z.string(),
         count: z.number().int().nonnegative(),
         videoIds: z.array(videoId),
+        personProfile: z.object({
+          youtubeChannelUrl: z.url().regex(/^https:\/\/www\.youtube\.com\/channel\/[A-Za-z0-9_-]+$/u),
+          iconPath: z.string().regex(/^data\/releases\/release-[a-f0-9]{16}\/people\/icons\/[A-Za-z0-9_-]+\.jpg$/u),
+          iconRetrievedAt: isoDate,
+          iconKind: z.enum(['youtube-channel', 'generated-placeholder']),
+        }).strict().optional(),
+        groupProfile: z.object({
+          description: z.string().min(1).max(240),
+          sourceUrl: z.url().startsWith('https://'),
+          sourceLabel: z.string().min(1).max(80),
+          retrievedAt: isoDate,
+          members: z.array(z.object({
+            tagId: z.string().regex(/^tag-people-performer-[a-f0-9]{12}$/u),
+            name: z.string().min(1).max(80),
+            youtubeChannelUrl: z.url().regex(/^https:\/\/www\.youtube\.com\/channel\/[A-Za-z0-9_-]+$/u),
+            iconPath: z.string().regex(/^data\/releases\/release-[a-f0-9]{16}\/people\/icons\/[A-Za-z0-9_-]+\.jpg$/u),
+            iconRetrievedAt: isoDate,
+            iconKind: z.enum(['youtube-channel', 'generated-placeholder']),
+          }).strict()).min(2),
+        }).strict().optional(),
         introduction: z.object({
           quote: z.string().min(1).max(160),
           officialUrl: z.url().startsWith('https://'),
@@ -430,6 +450,30 @@ export const publicTagIndexSchema = z.object({
         }).strict().optional(),
       }).strict()),
     }).strict()),
+  }).strict()),
+}).strict();
+
+export const collaborationProfilesSchema = z.object({
+  schemaVersion: z.literal('1.0.0'),
+  updatedAt: isoDate,
+  subjectPersonTagId: z.string().regex(/^tag-people-performer-[a-f0-9]{12}$/u),
+  people: z.array(z.object({
+    tagId: z.string().regex(/^tag-people-performer-[a-f0-9]{12}$/u),
+    name: z.string().min(1).max(80),
+    channelId: z.string().regex(/^UC[A-Za-z0-9_-]{22}$/u),
+    youtubeChannelUrl: z.url().regex(/^https:\/\/www\.youtube\.com\/channel\/[A-Za-z0-9_-]+$/u),
+    iconFile: z.string().regex(/^[A-Za-z0-9_-]+\.jpg$/u),
+    iconRetrievedAt: isoDate,
+    iconKind: z.enum(['youtube-channel', 'generated-placeholder']),
+  }).strict()),
+  groups: z.array(z.object({
+    tagId: z.string().regex(/^tag-people-unit-[a-f0-9]{12}$/u),
+    name: z.string().min(1).max(80),
+    description: z.string().min(1).max(240),
+    sourceUrl: z.url().startsWith('https://'),
+    sourceLabel: z.string().min(1).max(80),
+    retrievedAt: isoDate,
+    memberTagIds: z.array(z.string().regex(/^tag-people-performer-[a-f0-9]{12}$/u)).min(2),
   }).strict()),
 }).strict();
 
@@ -479,6 +523,7 @@ export type SearchIndex = z.infer<typeof searchIndexSchema>;
 export type PublicTagIndex = z.infer<typeof publicTagIndexSchema>;
 export type PublicAliasIndex = z.infer<typeof publicAliasIndexSchema>;
 export type WorkIntroductions = z.infer<typeof workIntroductionsSchema>;
+export type CollaborationProfiles = z.infer<typeof collaborationProfilesSchema>;
 
 export interface TaxonomyLookupItem {
   categoryId: string;

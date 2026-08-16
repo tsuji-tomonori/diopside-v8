@@ -1,8 +1,9 @@
-import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 
 import {
   buildTaxonomyLookup,
+  collaborationProfilesSchema,
   latestReleaseSchema,
   publicAliasIndexSchema,
   publicIndexSchema,
@@ -33,9 +34,11 @@ const generatedSourceDir = path.join(root, 'src/generated');
 const taxonomyInput = readJson(path.join(root, 'content/taxonomy/tag-taxonomy.json'));
 const aliasesInput = readJson(path.join(root, 'content/taxonomy/tag-aliases.json'));
 const workIntroductionsInput = readJson(path.join(root, 'content/works/work-introductions.json'));
+const collaborationProfilesInput = readJson(path.join(root, 'content/people/collaboration-profiles.json'));
 const taxonomy = tagTaxonomySchema.parse(taxonomyInput);
 const aliases = tagAliasesSchema.parse(aliasesInput);
 const workIntroductions = workIntroductionsSchema.parse(workIntroductionsInput);
+const collaborationProfiles = collaborationProfilesSchema.parse(collaborationProfilesInput);
 const contentManifest = readJson(path.join(root, 'content/content-manifest.json')) as ContentManifest;
 
 const taxonomyIssues = validateTaxonomy(taxonomyInput, aliasesInput);
@@ -51,6 +54,7 @@ const releaseSeed = {
   taxonomy,
   aliases,
   workIntroductions,
+  collaborationProfiles,
   videos: videos.map(normalizeCanonicalVideo),
 };
 const releaseId = `release-${sha256(canonicalJson(releaseSeed)).slice(0, 16)}`;
@@ -89,6 +93,37 @@ for (const video of videos) {
     tagToVideoIds.set(tagId, values);
   }
 }
+const peopleCategory = taxonomy.categories.find((category) => category.categoryId === 'people');
+const performerTags = peopleCategory?.subcategories.find((subcategory) => subcategory.subcategoryId === 'performer')?.tags.filter((tag) => tag.active) ?? [];
+const unitTags = peopleCategory?.subcategories.find((subcategory) => subcategory.subcategoryId === 'unit')?.tags.filter((tag) => tag.active) ?? [];
+const peopleByTagId = new Map(collaborationProfiles.people.map((person) => [person.tagId, person]));
+if (peopleByTagId.size !== collaborationProfiles.people.length) throw new Error('人物プロフィールのタグIDが重複しています。');
+for (const tag of performerTags) {
+  const person = peopleByTagId.get(tag.tagId);
+  if (!person) throw new Error(`出演者プロフィールが未設定です: ${tag.canonicalName}`);
+  if (person.name !== tag.canonicalName) throw new Error(`出演者プロフィール名がタグ名と一致しません: ${tag.canonicalName}`);
+  const iconPath = path.join(root, 'content/people/icons', person.iconFile);
+  if (!existsSync(iconPath)) throw new Error(`人物アイコンがありません: ${person.iconFile}`);
+}
+for (const person of collaborationProfiles.people) {
+  if (!performerTags.some((tag) => tag.tagId === person.tagId)) throw new Error(`人物プロフィールが有効な出演者タグを参照していません: ${person.tagId}`);
+  if (person.youtubeChannelUrl !== `https://www.youtube.com/channel/${person.channelId}`) throw new Error(`YouTubeチャンネルURLとIDが一致しません: ${person.name}`);
+  if (person.iconFile !== `${person.channelId}.jpg`) throw new Error(`人物アイコン名とYouTubeチャンネルIDが一致しません: ${person.name}`);
+}
+if (!peopleByTagId.has(collaborationProfiles.subjectPersonTagId)) throw new Error('対象本人の人物プロフィールがありません。');
+const groupsByTagId = new Map(collaborationProfiles.groups.map((group) => [group.tagId, group]));
+if (groupsByTagId.size !== collaborationProfiles.groups.length) throw new Error('コンビ・ユニットプロフィールのタグIDが重複しています。');
+for (const tag of unitTags) {
+  const group = groupsByTagId.get(tag.tagId);
+  if (!group) throw new Error(`コンビ・ユニットプロフィールが未設定です: ${tag.canonicalName}`);
+  if (group.name !== tag.canonicalName) throw new Error(`コンビ・ユニットプロフィール名がタグ名と一致しません: ${tag.canonicalName}`);
+  for (const memberTagId of group.memberTagIds) {
+    if (!peopleByTagId.has(memberTagId)) throw new Error(`コンビ・ユニットのメンバー情報がありません: ${tag.canonicalName}:${memberTagId}`);
+  }
+}
+for (const group of collaborationProfiles.groups) {
+  if (!unitTags.some((tag) => tag.tagId === group.tagId)) throw new Error(`コンビ・ユニットプロフィールが有効なタグを参照していません: ${group.tagId}`);
+}
 const workTagIds = new Set(
   taxonomy.categories
     .find((category) => category.categoryId === 'works')
@@ -125,11 +160,38 @@ const tagIndex = publicTagIndexSchema.parse({
         const videoIds = [...(tagToVideoIds.get(tag.tagId) ?? [])].sort();
         const introduction = introductionsByTagId.get(tag.tagId);
         const introductionUnavailable = unavailableByTagId.get(tag.tagId);
+        const person = tag.tagId === collaborationProfiles.subjectPersonTagId ? undefined : peopleByTagId.get(tag.tagId);
+        const group = groupsByTagId.get(tag.tagId);
+        const iconPath = (iconFile: string): string => `data/releases/${releaseId}/people/icons/${iconFile}`;
         return {
           tagId: tag.tagId,
           canonicalName: tag.canonicalName,
           count: videoIds.length,
           videoIds,
+          ...(person ? { personProfile: {
+            youtubeChannelUrl: person.youtubeChannelUrl,
+            iconPath: iconPath(person.iconFile),
+            iconRetrievedAt: person.iconRetrievedAt,
+            iconKind: person.iconKind,
+          } } : {}),
+          ...(group ? { groupProfile: {
+            description: group.description,
+            sourceUrl: group.sourceUrl,
+            sourceLabel: group.sourceLabel,
+            retrievedAt: group.retrievedAt,
+            members: group.memberTagIds.map((memberTagId) => {
+              const member = peopleByTagId.get(memberTagId);
+              if (!member) throw new Error(`コンビ・ユニットのメンバー情報がありません: ${group.name}:${memberTagId}`);
+              return {
+                tagId: member.tagId,
+                name: member.name,
+                youtubeChannelUrl: member.youtubeChannelUrl,
+                iconPath: iconPath(member.iconFile),
+                iconRetrievedAt: member.iconRetrievedAt,
+                iconKind: member.iconKind,
+              };
+            }),
+          } } : {}),
           ...(introduction ? { introduction: {
             quote: introduction.quote,
             officialUrl: introduction.officialUrl,
@@ -189,10 +251,19 @@ for (const [relativePath, value] of outputFiles) {
   mkdirSync(path.dirname(target), { recursive: true });
   writeFileSync(target, prettyJson(value));
 }
+const iconFiles = [...new Map(collaborationProfiles.people.map((person) => {
+  const relativePath = `people/icons/${person.iconFile}`;
+  return [relativePath, { path: relativePath, source: path.join(root, 'content/people/icons', person.iconFile) }] as const;
+})).values()].map(({ path: relativePath, source }) => {
+  const target = path.join(releaseDir, relativePath);
+  mkdirSync(path.dirname(target), { recursive: true });
+  copyFileSync(source, target);
+  return { path: relativePath, sha256: sha256(readFileSync(source)) };
+});
 const manifestFiles = [...outputFiles.keys()].sort().map((relativePath) => ({
   path: relativePath,
   sha256: sha256(prettyJson(outputFiles.get(relativePath))),
-}));
+})).concat(iconFiles).sort((left, right) => left.path.localeCompare(right.path));
 const publicManifest = {
   schemaVersion: '1.0.0',
   releaseId,

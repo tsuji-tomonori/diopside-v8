@@ -1,0 +1,223 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "BB4oylHfPgg",
+  "title": "【#88 前半】にじさんじアワー だいたいにじさんじのらじお【文化放送超!A&G＋】",
+  "publishedAt": "2021-06-13T03:00:03Z",
+  "durationSeconds": 996,
+  "durationIso": "PT16M36S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/BB4oylHfPgg/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=BB4oylHfPgg",
+  "taxonomyVersion": "8.4.0",
+  "aliasVersion": "8.2.0",
+  "tagRulesVersion": "8.3.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "857b78fd0304ddb072bfdeab3a4a794f064f043d4ea386695835187e78510ba0"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "944752cbe3f3f26b526213afbda9e2d21eed1997a10211a832b82796eb662a92"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "2d9221289f43190e5ada63167e48ce4c460c85ff0cd9f9a9c430ffe0bdf7b3c2"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "178b70446ae14e58d8851e5304ab52b1b4dd41a3fe081ae2b39b8d1a06435bb3"
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "55069455117a86bc4290ce886958f66aa9263fa1129aad17166a3579842939f4"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-9eedbc0013d1",
+      "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-bf6ea22c6db9",
+      "reason": "公開台帳のチャンネル「にじさんじ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-2477c304f1d5",
+      "reason": "人物名「西園チグサ」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-e7e12cb0",
+        "startSeconds": 0,
+        "label": "番組オープニング・ゲスト登場前",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-109-05778682",
+        "startSeconds": 109,
+        "label": "ゲスト紹介・髪型と服装の話",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-176-3f581b0d",
+        "startSeconds": 176,
+        "label": "7月からの番組パーソナリティ発表",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-240-3c516391",
+        "startSeconds": 240,
+        "label": "これからのラジオ企画を考える",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-344-6a63add8",
+        "startSeconds": 344,
+        "label": "街で見かけた美少女コーナーの企画会議",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-443-affa16d6",
+        "startSeconds": 443,
+        "label": "リスナー相談：ゲームで負けたときの怒り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-701-73a320f7",
+        "startSeconds": 701,
+        "label": "リスナー相談：大人っぽい雰囲気の作り方",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-977-8a8f2428",
+        "startSeconds": 977,
+        "label": "番組エンディング",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "6d615266611bedf6a25636c7cea1270dbee493f8c5f9ae7109ff678ca79da6eb",
+    "inputFingerprint": "178b70446ae14e58d8851e5304ab52b1b4dd41a3fe081ae2b39b8d1a06435bb3",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-19T05:50:00Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "6d615266611bedf6a25636c7cea1270dbee493f8c5f9ae7109ff678ca79da6eb",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "6d615266611bedf6a25636c7cea1270dbee493f8c5f9ae7109ff678ca79da6eb",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "4a302b0ca2f6c891a70c2b3b47b4aef870370148c6c5d8583e56c620bfba2efd",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-15T21:05:00+09:00",
+    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  }
+}

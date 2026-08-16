@@ -13,7 +13,7 @@
   "youtubeUrl": "https://www.youtube.com/watch?v=CBI-Ox7r0Jw",
   "taxonomyVersion": "8.4.0",
   "aliasVersion": "8.2.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.3.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -46,6 +46,12 @@
       "inputFingerprint": "da03a307b64c55e06fa3601204c8696dc8db92ad8e73d8f335ab4e5c151f951e",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 5039
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "6b26301d74cbb568f22b7b0e71b354b610a78b723fa2328a089def5dc38f66c9"
     }
   ],
   "tagAssignments": [
@@ -59,13 +65,13 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     },
     {
-      "tagId": "tag-people-channel-4f85d29bc207",
-      "reason": "公開台帳のチャンネル「Kazaki Ch. ‐ 森中花咲 ‐」を確認",
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
       "confidence": "高",
       "evidenceRefs": [
-        "evidence-channel"
+        "evidence-collaboration-v2"
       ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
     },
     {
       "tagId": "tag-format-media-45323ed44f37",
@@ -84,6 +90,42 @@
         "evidence-title"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-4f85d29bc207",
+      "reason": "公開台帳のチャンネル「Kazaki Ch. ‐ 森中花咲 ‐」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-6587227e01c9",
+      "reason": "人物名「ジョー・力一」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-751ba6ad6cb0",
+      "reason": "人物名「森中花咲」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-ae3fbf732cc4",
+      "reason": "人物名「長尾景」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
     }
   ],
   "timestamps": {
@@ -271,28 +313,28 @@
         "candidateHash": "e41f3c481111e6d51854a679a8618a89b4fb738c46869b00b4209e19042a43f3",
         "majorIssues": 0,
         "reviewedAt": "2026-08-08T11:47:29+09:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "e41f3c481111e6d51854a679a8618a89b4fb738c46869b00b4209e19042a43f3",
         "majorIssues": 0,
         "reviewedAt": "2026-08-08T11:49:34+09:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "finalHumanCheck": {
         "status": "承認済み",
@@ -316,7 +358,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-08T12:23:24+09:00",
-    "basis": "全編根拠、独立した事実・編集確認、決定的検証、人の最終確認"
+    "approvedAt": "2026-08-15T21:05:00+09:00",
+    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
   }
 }

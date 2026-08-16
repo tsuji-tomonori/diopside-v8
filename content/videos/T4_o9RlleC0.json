@@ -1,0 +1,286 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "T4_o9RlleC0",
+  "title": "途中参加・退出可能｜第2回にじさんじオンラインセミナー",
+  "publishedAt": "2023-09-28T13:55:54Z",
+  "durationSeconds": 6629,
+  "durationIso": "PT1H50M29S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/T4_o9RlleC0/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=T4_o9RlleC0",
+  "taxonomyVersion": "8.4.0",
+  "aliasVersion": "8.2.0",
+  "tagRulesVersion": "8.3.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "d69c15dbb3ab4a3be053842ca80e28d80275184b8a1226927e3a9f066ab7e9b7"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "151e162d21cba4d17b0985e1d3842e93086b8961db2d5ed45618c957f69627e5"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "33c7d459479cc08608ea072b2a3ed0eb16a0e8e52e162d5ff5cfe7fff9f2de29"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "5082a908cba998b07f13b9babc084b8e5ef2ee6683ba40cb8c73abbb6d5d666f"
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "39969fcb763df9b36636c34a8d644661234722429d26a2eca4e9b9702934f8c7"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-9eedbc0013d1",
+      "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-4c30f3e57934",
+      "reason": "公開台帳のチャンネル「える / Elu【にじさんじ】」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-584f6b5f5e50",
+      "reason": "人物名「える」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-0ec08c3b",
+        "startSeconds": 0,
+        "label": "開講・セミナー概要",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-919-c89a52e7",
+        "startSeconds": 919,
+        "label": "受講生のES添削①",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1451-0d3a6b18",
+        "startSeconds": 1451,
+        "label": "志望動機を具体化する方法",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1827-ff5412ba",
+        "startSeconds": 1827,
+        "label": "個性的なESの実例・講評",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2401-ef82d33f",
+        "startSeconds": 2401,
+        "label": "四季凪アキラのES紹介",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2788-735a8078",
+        "startSeconds": 2788,
+        "label": "健屋花那のマイブーム回答",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2947-acb975c4",
+        "startSeconds": 2947,
+        "label": "小野町春香の資格・特技トーク",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3370-558912d1",
+        "startSeconds": 3370,
+        "label": "赤城ウェンの趣味・氷作り",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3719-abe0d5fc",
+        "startSeconds": 3719,
+        "label": "シスター・クレアの好きなキャラクター",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4056-fe609ef5",
+        "startSeconds": 4056,
+        "label": "雪城眞尋の印象に残った配信",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4449-5beb89da",
+        "startSeconds": 4449,
+        "label": "緑仙のデビュー後の目標",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4801-1a12f322",
+        "startSeconds": 4801,
+        "label": "白雪巴のES回答・改善点",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5226-2e6758fd",
+        "startSeconds": 5226,
+        "label": "ジョー・力一の志望動機トーク",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5948-23716b52",
+        "startSeconds": 5948,
+        "label": "樋口楓のES回答・強みの伝え方",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6487-3ef90f39",
+        "startSeconds": 6487,
+        "label": "にじフェス企画・オーディション告知",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "d0a0d80a61857ce790ed8e49cc742be2374a209d22ccd6be451579fda5e5c79c",
+    "inputFingerprint": "5082a908cba998b07f13b9babc084b8e5ef2ee6683ba40cb8c73abbb6d5d666f",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-18T12:27:12.589974Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "d0a0d80a61857ce790ed8e49cc742be2374a209d22ccd6be451579fda5e5c79c",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "d0a0d80a61857ce790ed8e49cc742be2374a209d22ccd6be451579fda5e5c79c",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "ac99d03b3876618a95064ac7f1ade5acdad1d38ced3c535c43b40a9a20219ac2",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-15T21:05:00+09:00",
+    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  }
+}

@@ -1,0 +1,286 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "OA5nNnmoS0g",
+  "title": "【#にじワイテ】裏切者は誰だぁ！！忖度しろぉ！！【長尾景/にじさんじ】",
+  "publishedAt": "2020-10-18T13:33:08Z",
+  "durationSeconds": 7540,
+  "durationIso": "PT2H5M40S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/OA5nNnmoS0g/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=OA5nNnmoS0g",
+  "taxonomyVersion": "8.4.0",
+  "aliasVersion": "8.2.0",
+  "tagRulesVersion": "8.3.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "bf8b6f65671521e913d162856aca7409786661f78af994e698628b10cc7c1435"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "c4ba53fe2832dde84f5e90d942027918d64ed174136fa5841cdb4c6c3cfde408"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "3f3dbb4bd8f70a77630e0f04bfed391b9f12f414fe2d645e1ba38b06da981e77"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "d0539967107aa8ac89f4d64394899f3e8e7363fe26d1ef438d672a89eacee3cb"
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "a41d0ba6f2b0b4308516da9bb24e50bd61eb65cf8e720e43be197bdc12381f96"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-9eedbc0013d1",
+      "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-1020ceb31b4c",
+      "reason": "公開台帳のチャンネル「長尾 景 / Nagao Kei【にじさんじ】」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-ae3fbf732cc4",
+      "reason": "人物名「長尾景」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-2bddf032",
+        "startSeconds": 0,
+        "label": "配信開始・企画説明",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-831-11b2595d",
+        "startSeconds": 831,
+        "label": "第1試合開始・役職情報の整理",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1633-2add3fde",
+        "startSeconds": 1633,
+        "label": "第1試合：夜の行動と推理",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2073-ce851b68",
+        "startSeconds": 2073,
+        "label": "第1試合後の振り返り・第2試合準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2729-ad41eb23",
+        "startSeconds": 2729,
+        "label": "第2試合開始・探索",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3153-81d30068",
+        "startSeconds": 3153,
+        "label": "第2試合：情報共有と候補整理",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3658-a7ccc78a",
+        "startSeconds": 3658,
+        "label": "第2試合終盤・試合後の振り返り",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4201-2b11bc35",
+        "startSeconds": 4201,
+        "label": "第3試合開始・情報整理",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4789-748fc1da",
+        "startSeconds": 4789,
+        "label": "第3試合：作戦と推理",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5373-7ac8360a",
+        "startSeconds": 5373,
+        "label": "第3試合後の整理・最終試合準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5602-18421070",
+        "startSeconds": 5602,
+        "label": "最終試合開始・情報共有",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6025-c7644f28",
+        "startSeconds": 6025,
+        "label": "最終試合：役職情報と疑いを整理",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6462-fc82dc03",
+        "startSeconds": 6462,
+        "label": "最終試合：終盤の攻防",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6851-80a4aea8",
+        "startSeconds": 6851,
+        "label": "最終試合後の振り返り",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7246-aee45ae3",
+        "startSeconds": 7246,
+        "label": "集計と配信の締め",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "63167014ba84e223c480536d5281f3f832e27854622d3400788e8d06d324cf91",
+    "inputFingerprint": "d0539967107aa8ac89f4d64394899f3e8e7363fe26d1ef438d672a89eacee3cb",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-28T10:30:00Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "63167014ba84e223c480536d5281f3f832e27854622d3400788e8d06d324cf91",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "63167014ba84e223c480536d5281f3f832e27854622d3400788e8d06d324cf91",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "ca5e21dfff8d723e54825fb5b9b59a33924205436b606c94fb126f9b59e77fe8",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-15T21:05:00+09:00",
+    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  }
+}

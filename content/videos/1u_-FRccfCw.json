@@ -13,7 +13,7 @@
   "youtubeUrl": "https://www.youtube.com/watch?v=1u_-FRccfCw",
   "taxonomyVersion": "8.4.0",
   "aliasVersion": "8.2.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.3.0",
   "evidence": [
     {
       "evidenceId": "evidence-approved-tags",
@@ -34,6 +34,12 @@
       "inputFingerprint": "e1f152015126edf6cad706e1c2b4727cb8c69859cf249f0e6a942ad4f755fb00",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 7078
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "0a58aa0ce8ec53206ff1c8d013e1039966a5c6fb182d89d0473337569014ce6a"
     }
   ],
   "tagAssignments": [
@@ -83,96 +89,103 @@
       "reviewedAt": "2026-08-04T12:00:00+09:00"
     },
     {
-      "tagId": "tag-people-performer-b2d66d295542",
-      "reason": "グループ構成メンバー（判定タグ: えま★おうがすと）",
-      "confidence": "中",
+      "tagId": "tag-people-performer-540180f79a49",
+      "reason": "人物名「ベルモンド・バンデラス」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
       "evidenceRefs": [
-        "evidence-approved-tags"
+        "evidence-collaboration-v2"
       ],
-      "reviewedAt": "2026-08-04T12:00:00+09:00"
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
     },
     {
       "tagId": "tag-people-performer-584f6b5f5e50",
-      "reason": "Wiki掲載文または概要欄の出演者表記（判定タグ: える）",
+      "reason": "人物名「える」をコラボ相手として確認（all-partners）",
       "confidence": "高",
       "evidenceRefs": [
-        "evidence-approved-tags"
+        "evidence-collaboration-v2"
       ],
-      "reviewedAt": "2026-08-04T12:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-540180f79a49",
-      "reason": "Wiki掲載文または概要欄の出演者表記（判定タグ: ベルモンド・バンデラス）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T12:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-9b7bb3c1a969",
-      "reason": "Wiki掲載文または概要欄の出演者表記（判定タグ: ミラン・ケストレル）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T12:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-d713eb6bf949",
-      "reason": "Wiki掲載文または概要欄の出演者表記（判定タグ: レヴィ・エリファ）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T12:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-ff73184f923e",
-      "reason": "Wiki掲載文または概要欄の出演者表記（判定タグ: 四季凪アキラ）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T12:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-c6b8ade39e95",
-      "reason": "Wiki掲載文または概要欄の出演者表記（判定タグ: 愛園愛美）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T12:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-1c769eb2f6a6",
-      "reason": "白雪巴のWiki動画一覧に外部配信先として掲載された出演動画（判定タグ: 白雪巴）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T12:00:00+09:00"
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
     },
     {
       "tagId": "tag-people-performer-7bc053e314a8",
-      "reason": "Wiki掲載文または概要欄の出演者表記（判定タグ: 神田笑一）",
+      "reason": "人物名「神田笑一」をコラボ相手として確認（all-partners）",
       "confidence": "高",
       "evidenceRefs": [
-        "evidence-approved-tags"
+        "evidence-collaboration-v2"
       ],
-      "reviewedAt": "2026-08-04T12:00:00+09:00"
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-9b7bb3c1a969",
+      "reason": "人物名「ミラン・ケストレル」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-b2d66d295542",
+      "reason": "人物名「えま★おうがすと」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-c6b8ade39e95",
+      "reason": "人物名「愛園愛美」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-d713eb6bf949",
+      "reason": "人物名「レヴィ・エリファ」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-ff73184f923e",
+      "reason": "人物名「四季凪アキラ」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
     },
     {
       "tagId": "tag-people-unit-56355048805b",
-      "reason": "正規名・旧名・別名から同一グループへ統合（判定タグ: 八月の雪）",
+      "reason": "コンビ・ユニット名「八月の雪」を確認",
       "confidence": "高",
       "evidenceRefs": [
-        "evidence-approved-tags"
+        "evidence-collaboration-v2"
       ],
-      "reviewedAt": "2026-08-04T12:00:00+09:00"
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "白雪巴が大勢のライバーと、一斗缶いっぱいのビリヤニを囲む3D忘年会へ。カレーを食べ比べ、恋愛タイプ診断で相性を語ったあとは、宇宙、ゲーム、ボイス、漫画へと雑談が寄り道。満腹になっても宴はゆるやかに続き、最後は歌で年を締めくくる。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "どういう場なんですか？この場。",
+      "atSeconds": 470,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "e1f152015126edf6cad706e1c2b4727cb8c69859cf249f0e6a942ad4f755fb00",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T19:24:15+09:00"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -423,23 +436,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T12:00:00+09:00",
-    "basis": "提供データの明示30件を全件移行し、時刻は既存承認済み23件だけを収録"
-  },
-  "synopsis": {
-    "body": "白雪巴が大勢のライバーと、一斗缶いっぱいのビリヤニを囲む3D忘年会へ。カレーを食べ比べ、恋愛タイプ診断で相性を語ったあとは、宇宙、ゲーム、ボイス、漫画へと雑談が寄り道。満腹になっても宴はゆるやかに続き、最後は歌で年を締めくくる。",
-    "bodyEvidenceRefs": [
-      "evidence-synopsis-transcript"
-    ],
-    "featuredQuote": {
-      "text": "どういう場なんですか？この場。",
-      "atSeconds": 470,
-      "evidenceRefs": [
-        "evidence-synopsis-transcript"
-      ]
-    },
-    "inputFingerprint": "e1f152015126edf6cad706e1c2b4727cb8c69859cf249f0e6a942ad4f755fb00",
-    "rulesVersion": "1.0.0",
-    "updatedAt": "2026-08-08T19:24:15+09:00"
+    "approvedAt": "2026-08-15T21:05:00+09:00",
+    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
   }
 }

@@ -3,6 +3,7 @@ import path from 'node:path';
 
 import {
   latestReleaseSchema,
+  collaborationProfilesSchema,
   publicAliasIndexSchema,
   publicIndexSchema,
   publicTagIndexSchema,
@@ -33,8 +34,9 @@ describe('決定的な公開成果物', () => {
     const taxonomy = tagTaxonomySchema.parse(json('content/taxonomy/tag-taxonomy.json'));
     const aliases = tagAliasesSchema.parse(json('content/taxonomy/tag-aliases.json'));
     const workIntroductions = workIntroductionsSchema.parse(json('content/works/work-introductions.json'));
+    const collaborationProfiles = collaborationProfilesSchema.parse(json('content/people/collaboration-profiles.json'));
     const videos = readCanonicalVideos(root).map(normalizeCanonicalVideo);
-    const expected = `release-${sha256(canonicalJson({ taxonomy, aliases, workIntroductions, videos })).slice(0, 16)}`;
+    const expected = `release-${sha256(canonicalJson({ taxonomy, aliases, workIntroductions, collaborationProfiles, videos })).slice(0, 16)}`;
     expect(latest.releaseId).toBe(expected);
     expect(embeddedReleaseId).toBe(expected);
   });
@@ -65,7 +67,10 @@ describe('決定的な公開成果物', () => {
       files: Array<{ path: string; sha256: string }>;
     };
     expect(manifest.releaseId).toBe(latest.releaseId);
-    expect(manifest.files).toHaveLength(260);
+    const profiles = collaborationProfilesSchema.parse(json('content/people/collaboration-profiles.json'));
+    const uniqueIconFiles = new Set(profiles.people.map((person) => person.iconFile));
+    expect(manifest.files).toHaveLength(260 + uniqueIconFiles.size);
+    expect(new Set(manifest.files.map((file) => file.path)).size).toBe(manifest.files.length);
     for (const file of manifest.files) {
       expect(sha256(readFileSync(path.join(releaseRoot, file.path)))).toBe(file.sha256);
     }

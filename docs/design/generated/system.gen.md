@@ -17,6 +17,8 @@
 
 - `*`
 - `/`
+- `/collaborators/:tagId`
+- `/groups/:tagId`
 - `/library`
 - `/video/:videoId`
 - `/works/:tagId`
@@ -27,7 +29,7 @@
 |---|---:|
 | COST | 5 |
 | DEVICE | 11 |
-| DISPLAY | 12 |
+| DISPLAY | 13 |
 | INGEST | 11 |
 | OPS | 26 |
 | QUALITY | 5 |
@@ -35,7 +37,7 @@
 | SEARCH | 19 |
 | TAG | 35 |
 | TIME | 37 |
-| **合計** | **165** |
+| **合計** | **166** |
 
 ## 公開データの流れ
 
@@ -87,10 +89,15 @@
 | `src/data/loadPublicData.ts` | FunctionDeclaration | `loadVideoDetail` |
 | `src/data/loadPublicData.ts` | InterfaceDeclaration | `PublicBundle` |
 | `src/data/loadPublicData.ts` | ClassDeclaration | `PublicDataError` |
+| `src/domain/collaboration.ts` | InterfaceDeclaration | `CollaborationCandidate` |
+| `src/domain/collaboration.ts` | TypeAliasDeclaration | `CollaborationSelectionPolicy` |
+| `src/domain/collaboration.ts` | FunctionDeclaration | `selectCollaboratorNames` |
 | `src/domain/content.ts` | VariableStatement | `approvedTimestampMigrationReviewSchema` |
 | `src/domain/content.ts` | FunctionDeclaration | `buildTaxonomyLookup` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `CanonicalVideo` |
 | `src/domain/content.ts` | VariableStatement | `canonicalVideoSchema` |
+| `src/domain/content.ts` | TypeAliasDeclaration | `CollaborationProfiles` |
+| `src/domain/content.ts` | VariableStatement | `collaborationProfilesSchema` |
 | `src/domain/content.ts` | VariableStatement | `confidenceSchema` |
 | `src/domain/content.ts` | VariableStatement | `evidenceReferenceSchema` |
 | `src/domain/content.ts` | VariableStatement | `evidenceTypeSchema` |
@@ -155,6 +162,8 @@
 | `src/domain/validation.ts` | FunctionDeclaration | `validateCanonicalVideo` |
 | `src/domain/validation.ts` | FunctionDeclaration | `validateTaxonomy` |
 | `src/domain/validation.ts` | InterfaceDeclaration | `ValidationIssue` |
+| `src/features/collaborations/CollaboratorDetailPage.tsx` | FunctionDeclaration | `CollaboratorDetailPage` |
+| `src/features/collaborations/GroupDetailPage.tsx` | FunctionDeclaration | `GroupDetailPage` |
 | `src/features/detail/VideoDetailPage.tsx` | FunctionDeclaration | `VideoDetailPage` |
 | `src/features/library/DeviceLibraryPage.tsx` | FunctionDeclaration | `DeviceLibraryPage` |
 | `src/features/search/SearchPage.tsx` | FunctionDeclaration | `SearchPage` |
@@ -170,11 +179,13 @@
 - `e2e/search.spec.ts`
 - `src/data/deviceStore.test.ts`
 - `src/data/loadPublicData.test.ts`
+- `src/domain/collaboration.test.ts`
 - `src/domain/game-title-detection.test.ts`
 - `src/domain/search.test.ts`
 - `src/domain/validation.test.ts`
+- `src/features/collaborations/CollaborationDetailPages.test.tsx`
 - `src/features/works/WorkDetailPage.test.tsx`
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力45ファイル、公開契約117件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力50ファイル、公開契約124件です。

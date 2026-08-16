@@ -9,6 +9,8 @@ import { DeviceLibraryPage } from './features/library/DeviceLibraryPage.tsx';
 import { SearchPage } from './features/search/SearchPage.tsx';
 import { VideoDetailPage } from './features/detail/VideoDetailPage.tsx';
 import { WorkDetailPage } from './features/works/WorkDetailPage.tsx';
+import { CollaboratorDetailPage } from './features/collaborations/CollaboratorDetailPage.tsx';
+import { GroupDetailPage } from './features/collaborations/GroupDetailPage.tsx';
 
 export function App({ bundle, store }: { bundle: PublicBundle; store: DeviceStore }): React.JSX.Element {
   const [notice, setNotice] = useState('');
@@ -23,6 +25,8 @@ export function App({ bundle, store }: { bundle: PublicBundle; store: DeviceStor
             <Route path="/" element={<SearchPage />} />
             <Route path="/video/:videoId" element={<VideoDetailPage />} />
             <Route path="/works/:tagId" element={<WorkDetailPage />} />
+            <Route path="/collaborators/:tagId" element={<CollaboratorDetailPage />} />
+            <Route path="/groups/:tagId" element={<GroupDetailPage />} />
             <Route path="/library" element={<DeviceLibraryPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
