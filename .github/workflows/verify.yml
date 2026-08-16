@@ -21,6 +21,7 @@ jobs:
     timeout-minutes: 15
     env:
       IS_GENERATED_RELEASE_PR: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && startsWith(github.head_ref, 'automation/generated-release-') }}
+      IS_GENERATED_RELEASE_MAIN: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, '🚀 release(data):') }}
     steps:
       - name: ソースを取得
         uses: actions/checkout@v4
@@ -53,14 +54,18 @@ jobs:
       - name: Chromiumを導入
         run: npx playwright install --with-deps chromium
       - name: 通常変更の品質ゲートを実行
-        if: env.IS_GENERATED_RELEASE_PR != 'true'
+        if: env.IS_GENERATED_RELEASE_PR != 'true' && env.IS_GENERATED_RELEASE_MAIN != 'true'
         run: npm run verify:quality
-      - name: release PRの品質ゲートを実行
-        if: env.IS_GENERATED_RELEASE_PR == 'true'
+      - name: release変更の品質ゲートを実行
+        if: env.IS_GENERATED_RELEASE_PR == 'true' || env.IS_GENERATED_RELEASE_MAIN == 'true'
         env:
           BASE_BRANCH: ${{ github.base_ref }}
         run: |
-          review_source_commit="$(git merge-base "origin/$BASE_BRANCH" HEAD)"
+          if test "$IS_GENERATED_RELEASE_PR" = 'true'; then
+            review_source_commit="$(git merge-base "origin/$BASE_BRANCH" HEAD)"
+          else
+            review_source_commit="$(git rev-parse HEAD^)"
+          fi
           npm run verify:local:base
           python governance/reviews/validate.py --root . --commit "$review_source_commit"
           npm run verify:generated
