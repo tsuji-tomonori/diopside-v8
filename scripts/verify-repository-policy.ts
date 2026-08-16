@@ -19,16 +19,21 @@ for (const workflow of workflows) {
   }
   reject(workflow, text, /actions\/(?:upload-artifact|cache)@/iu, '追加の成果物・キャッシュ保存を使ってはなりません。');
   if (isGeneratedRelease) {
-    if (!/^permissions:\s*\n\s+contents:\s*write\s*$/mu.test(text)) {
-      errors.push(`${relative(workflow)}: 生成commitに限定したcontents writeが必要です。`);
+    if (!/^permissions:\s*\n\s+contents:\s*write\s*\n\s+pull-requests:\s*write\s*$/mu.test(text)) {
+      errors.push(`${relative(workflow)}: release branchとPRに限定したcontents・pull-requests writeが必要です。`);
     }
     reject(workflow, text, /pages\/builds/iu, 'main/docsへのcommitと重複するPages buildを明示要求してはなりません。');
+    reject(workflow, text, /git push origin HEAD:main/iu, '保護されたmainへ直接pushしてはなりません。');
+    reject(workflow, text, /(?:gh pr merge|enablePullRequestAutoMerge|mergePullRequest)/iu, 'release PRを自動mergeしてはなりません。');
     reject(workflow, text, /(?:pull_request_target|workflow_dispatch)\s*:/iu, '書込workflowを信頼境界外から起動してはなりません。');
     if (!/^on:\s*\n\s+push:\s*\n\s+branches:\s*\n\s+- main\s*$/mu.test(text)) {
       errors.push(`${relative(workflow)}: main pushだけを起動元にしなければなりません。`);
     }
     if (!/run:\s*npm run verify:main-release/u.test(text)) {
       errors.push(`${relative(workflow)}: release commit前にblocking品質ゲートを実行しなければなりません。`);
+    }
+    if (!/automation\/generated-release-/u.test(text) || !/gh pr create/u.test(text)) {
+      errors.push(`${relative(workflow)}: 生成物は専用branchへpushし、main向けrelease PRを作成しなければなりません。`);
     }
   } else if (!/^permissions:\s*\n\s+contents:\s*read\s*$/mu.test(text)) {
     errors.push(`${relative(workflow)}: 最小権限 contents: read が必要です。`);
