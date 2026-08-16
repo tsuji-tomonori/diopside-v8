@@ -37,12 +37,14 @@ jobs:
         if: github.event_name == 'pull_request'
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BASE_BRANCH: ${{ github.base_ref }}
           HEAD_BRANCH: ${{ github.head_ref }}
           HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
           TARGET_REPOSITORY: ${{ github.repository }}
         run: |
           if test "$HEAD_REPOSITORY" = "$TARGET_REPOSITORY" && [[ "$HEAD_BRANCH" == automation/generated-release-* ]]; then
-            npm run validate:release-pr-scope -- --base "$BASE_SHA" --allow-generated-only
+            release_source_commit="$(git merge-base "origin/$BASE_BRANCH" HEAD)"
+            npm run validate:release-pr-scope -- --base "$release_source_commit" --allow-generated-only
           else
             npm run validate:release-pr-scope -- --base "$BASE_SHA"
           fi
@@ -56,10 +58,11 @@ jobs:
       - name: release PRの品質ゲートを実行
         if: env.IS_GENERATED_RELEASE_PR == 'true'
         env:
-          REVIEW_SOURCE_COMMIT: ${{ github.event.pull_request.base.sha }}
+          BASE_BRANCH: ${{ github.base_ref }}
         run: |
+          review_source_commit="$(git merge-base "origin/$BASE_BRANCH" HEAD)"
           npm run verify:local:base
-          python governance/reviews/validate.py --root . --commit "$REVIEW_SOURCE_COMMIT"
+          python governance/reviews/validate.py --root . --commit "$review_source_commit"
           npm run verify:generated
           npm run test:e2e:run
       - name: 要件の受入結果を監査
