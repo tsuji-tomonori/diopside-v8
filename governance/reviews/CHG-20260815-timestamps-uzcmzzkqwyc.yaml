@@ -90,7 +90,7 @@ selected_checks:
   evidence:
   - path:content/content-manifest.json
   - workflow:要件・品質ゲート#要件の品質ゲートを実行
-  note: 正本件数と決定的生成物のdriftを検証する。
+  note: 正本件数と決定的生成物のdriftを検証する。main再統合時に現行正本からmanifestを再集計した。
 - id: FAST-007
   class: Invariant
   result: pass
