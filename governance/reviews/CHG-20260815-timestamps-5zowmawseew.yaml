@@ -82,15 +82,15 @@ selected_checks:
   result: pass
   evidence:
   - path:content/videos/5ZOWMawSEew.json
-  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
   note: 正本schema、全編根拠、タイムスタンプ候補hash 9428ae1386431dbd08f7d16b0198f55a3f32e76fd2159508a5a99246e0d0a866、あらすじ候補hash e91cfa2fdd7c8bc6d5169cf056e0017b51af171eea7d0283f33e970d23d0395c、PR gateを検証する。
 - id: FAST-006
   class: Invariant
   result: pass
   evidence:
   - path:content/content-manifest.json
-  - workflow:要件・品質ゲート#要件の品質ゲートを実行
-  note: 正本件数と決定的生成物のdriftを検証する。
+  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+  note: 正本件数と決定的生成物のdriftを検証する。main再統合時に現行正本からmanifestを再集計した。
 - id: FAST-007
   class: Invariant
   result: pass
@@ -128,7 +128,7 @@ selected_checks:
   result: pass
   evidence:
   - path:scripts/validate-content.ts
-  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
   note: 内容・1動画scope・生成差分をCIで検証する。
 - id: REV-007
   class: Invariant
