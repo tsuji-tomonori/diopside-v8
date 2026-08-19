@@ -29,6 +29,15 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).not.toMatch(/actions\/(?:upload-artifact|cache)@/iu);
   });
 
+  it('品質ゲートは固定Playwrightコンテナで既存の全検証を実行する', () => {
+    const workflow = text('.github/workflows/verify.yml');
+    expect(workflow).toMatch(/container:\s*\n\s+image: mcr\.microsoft\.com\/playwright:v1\.62\.1-noble/u);
+    expect(workflow).toMatch(/PLAYWRIGHT_BROWSERS_PATH:\s*\/ms-playwright/u);
+    expect(workflow).toMatch(/Git worktreeを信頼済みに設定[\s\S]*git config --global --add safe\.directory "\$GITHUB_WORKSPACE"/u);
+    expect(workflow).toMatch(/actions\/setup-python@v5/u);
+    expect(workflow).not.toMatch(/npx playwright install --with-deps chromium/u);
+  });
+
   it('検証済みmainだけが公開版をrelease PR化し、branch方式Pagesを更新する', () => {
     const workflow = text('.github/workflows/update-generated-release.yml');
     expect(workflow).toMatch(/push:[\s\S]*branches:[\s\S]*- main/u);
