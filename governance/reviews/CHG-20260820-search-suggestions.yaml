@@ -105,8 +105,8 @@ selected_checks:
   - id: FAST-006
     class: Invariant
     result: pass
-    evidence: [path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/system.gen.md, workflow:要件・品質ゲート#通常変更の品質ゲートを実行]
-    note: 正本から要件・設計を再生成しvalidate:requirementsと生成drift検査を通した
+    evidence: [path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/system.gen.md, path:docs/design/generated/inventory.gen.json, workflow:要件・品質ゲート#通常変更の品質ゲートを実行]
+    note: 正本から要件・設計を再生成し、検索送信処理の最新hashをinventoryへ反映してvalidate:requirementsと生成drift検査を通す
   - id: FAST-007
     class: Invariant
     result: pass
