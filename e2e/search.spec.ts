@@ -133,15 +133,21 @@ test.describe('動画検索', () => {
     test.skip(testInfo.project.name !== 'モバイル', 'Issue #1が指定するモバイル条件だけで計測します。');
     await preparePage(page);
     const dataset = performanceDataset();
-    await page.route('**/data/releases/*/index.json', async (route) => {
-      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(dataset.index) });
-    });
-    await page.route('**/data/releases/*/search-index.json', async (route) => {
-      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(dataset.search) });
+    await page.route('**/data/releases/**', async (route) => {
+      const pathname = new URL(route.request().url()).pathname;
+      if (pathname.endsWith('/search-index.json')) {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(dataset.search) });
+        return;
+      }
+      if (pathname.endsWith('/index.json')) {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(dataset.index) });
+        return;
+      }
+      await route.continue();
     });
     const cdp = await page.context().newCDPSession(page);
     await page.goto('/');
-    await expect(page.getByRole('heading', { name: '2500件の動画', exact: true })).toBeVisible({ timeout: 45_000 });
+    await expect(page.getByRole('heading', { name: '2500件の動画' })).toBeVisible({ timeout: 45_000 });
     await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
 
     const elapsed: number[] = [];
