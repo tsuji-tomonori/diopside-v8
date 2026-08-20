@@ -133,13 +133,16 @@ test.describe('動画検索', () => {
     test.skip(testInfo.project.name !== 'モバイル', 'Issue #1が指定するモバイル条件だけで計測します。');
     await preparePage(page);
     const dataset = performanceDataset();
+    const fixtureHits = { index: 0, search: 0 };
     await page.route('**/data/releases/**', async (route) => {
       const pathname = new URL(route.request().url()).pathname;
       if (pathname.endsWith('/search-index.json')) {
+        fixtureHits.search += 1;
         await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(dataset.search) });
         return;
       }
       if (pathname.endsWith('/index.json')) {
+        fixtureHits.index += 1;
         await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(dataset.index) });
         return;
       }
@@ -147,7 +150,12 @@ test.describe('動画検索', () => {
     });
     const cdp = await page.context().newCDPSession(page);
     await page.goto('/');
-    await expect(page.getByRole('heading', { name: '2500件の動画' })).toBeVisible({ timeout: 45_000 });
+    try {
+      await expect(page.getByRole('heading', { name: '2500件の動画' })).toBeVisible({ timeout: 15_000 });
+    } catch (error) {
+      const body = (await page.locator('body').innerText()).slice(0, 1_000);
+      throw new Error(`性能fixture初期化失敗: hits=${JSON.stringify(fixtureHits)} body=${JSON.stringify(body)}`, { cause: error });
+    }
     await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
 
     const elapsed: number[] = [];
