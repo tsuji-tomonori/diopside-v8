@@ -19,7 +19,7 @@ impact_flags:
   code_change: false
   typed_code_change: false
   behavior_change: true
-  bug_fix: false
+  bug_fix: true
   generated_change: true
   sql_change: false
   e2e_change: false
@@ -84,6 +84,13 @@ selected_checks:
   - path:content/videos/QRDXsmy9TDs.json
   - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
   note: タイムスタンプ・あらすじの正本schema、全編根拠、review hash、PR gateを検証する。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260821-timestamps-qrdxsmy9tds.yaml
+  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+  note: Linux runnerがWindows区切りのreview pathを解決できない再現条件をCI failureで固定し、POSIX区切りへ修正した。
 - id: FAST-006
   class: Invariant
   result: pass
@@ -102,7 +109,7 @@ selected_checks:
   result: pass
   evidence:
   - path:content/videos/QRDXsmy9TDs.json
-  - path:governance\reviews\CHG-20260821-timestamps-qrdxsmy9tds.yaml
+  - path:governance/reviews/CHG-20260821-timestamps-qrdxsmy9tds.yaml
   note: 差分を1動画正本、manifest、review YAMLへ限定する。
 - id: REV-002
   class: Invariant
