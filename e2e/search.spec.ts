@@ -139,9 +139,9 @@ test.describe('動画検索', () => {
       await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(dataset.search) });
     });
     const cdp = await page.context().newCDPSession(page);
-    await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
     await page.goto('/');
     await expect(page.getByRole('heading', { name: '2500件の動画', exact: true })).toBeVisible({ timeout: 15_000 });
+    await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
 
     const elapsed: number[] = [];
     const computation: number[] = [];

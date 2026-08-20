@@ -185,6 +185,7 @@ footer { padding: 2.5rem 1rem; text-align: center; color: var(--muted); border-t
   .hero { padding-top: 3rem; }
   .tag-filter-toolbar { top: 64px; align-items: stretch; flex-direction: column; }
   .search-row { grid-template-columns: 1fr; }
+  .search-suggestions { position: static; max-height: min(50vh, 360px); margin-top: .4rem; }
   .tag-input-row { grid-template-columns: 1fr; }
   .filter-grid, .video-grid { grid-template-columns: 1fr; }
   .results-heading, .section-heading { align-items: stretch; flex-direction: column; }

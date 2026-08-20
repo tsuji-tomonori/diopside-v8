@@ -116,12 +116,12 @@ selected_checks:
     class: Risk-selected
     result: pass
     evidence: [path:src/features/search/SearchPage.tsx, path:e2e/search.spec.ts]
-    note: 候補あり・候補なし、動画遷移、タグ適用、入力変更時の回復を実装し受入E2Eへ固定した
+    note: 候補あり・候補なし、動画遷移、タグ適用、入力変更時の回復に加え、モバイルで候補が検索ボタンを覆わないことを受入E2Eへ固定した
   - id: FAST-014
     class: Risk-selected
     result: pass
     evidence: [path:src/features/search/SearchPage.tsx, path:e2e/search.spec.ts]
-    note: combobox・listbox・option・live statusと上下キー、Enter、Escape、IME確定保護を実装し、E2Eはroleと完全一致名で検索欄を特定する
+    note: combobox・listbox・option・live statusと上下キー、Enter、Escape、IME確定保護を実装し、E2Eはroleと完全一致名で検索欄を特定し、モバイル候補を文書フロー内に配置する
   - id: FAST-018
     class: Risk-selected
     result: pass
@@ -176,7 +176,7 @@ selected_checks:
     class: Risk-selected
     result: pass
     evidence: [path:e2e/search.spec.ts, workflow:要件・品質ゲート#通常変更の品質ゲートを実行]
-    note: 平仮名1文字ごとの候補、タグ適用、動画遷移、keyboard操作、responsive表示を主要タスクとして検証する
+    note: 平仮名1文字ごとの候補、タグ適用、動画遷移、keyboard操作、候補表示中の検索ボタン操作、CPU4倍低速化での検索性能を主要タスクとして検証する
 advisories: []
 residual_risks:
   - 固有名詞の形態素解析に誤読余地があるため重要名はcontent/search/reading-overrides.jsonで補正し、未知語は同ファイルへ追加する
