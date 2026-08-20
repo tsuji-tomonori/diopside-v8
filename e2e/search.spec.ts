@@ -16,7 +16,7 @@ test.describe('動画検索', () => {
   test('タイトルだけを検索し、0件と条件解除を区別する', async ({ page }, testInfo) => {
     const requests = await preparePage(page);
     await openSearch(page);
-    await page.getByLabel('検索').fill('【#白雪巴誕生日2026】ケーキを食べてパーッとお祝いしちゃおうかしら🎉🎉🎉【白雪巴/にじさんじ】');
+    await page.getByRole('combobox', { name: '検索', exact: true }).fill('【#白雪巴誕生日2026】ケーキを食べてパーッとお祝いしちゃおうかしら🎉🎉🎉【白雪巴/にじさんじ】');
     await page.getByRole('button', { name: 'この条件で探す' }).click();
     await expect(page.getByRole('heading', { name: '1件の動画' })).toBeVisible();
     await expect(page.locator('.video-card')).toHaveCount(1);
@@ -26,7 +26,7 @@ test.describe('動画検索', () => {
     const elapsed = Number((await status.textContent())?.match(/([\d.]+)ミリ秒/u)?.[1]);
     expect(elapsed).toBeLessThan(100);
 
-    await page.getByLabel('検索').fill('一致しない架空の動画タイトル');
+    await page.getByRole('combobox', { name: '検索', exact: true }).fill('一致しない架空の動画タイトル');
     await page.getByRole('button', { name: 'この条件で探す' }).click();
     await expect(page.getByRole('heading', { name: '0件の動画' })).toBeVisible();
     await expect(page.getByRole('heading', { name: '一致する動画がありません' })).toBeVisible();
@@ -40,7 +40,7 @@ test.describe('動画検索', () => {
   test('ひらがな一文字ごとに漢字・カタカナの動画とタグを候補表示し、候補から移動する', async ({ page }) => {
     const requests = await preparePage(page);
     await openSearch(page);
-    const input = page.getByLabel('検索');
+    const input = page.getByRole('combobox', { name: '検索', exact: true });
     for (const query of ['し', 'しら', 'しらゆき', 'しらゆきともえ', 'しらゆきともえたんじょうび2026']) {
       await input.fill(query);
       await expect(page.getByRole('listbox', { name: '検索候補' })).toBeVisible();
@@ -141,7 +141,7 @@ test.describe('動画検索', () => {
     const cdp = await page.context().newCDPSession(page);
     await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
     await page.goto('/');
-    await expect(page.getByRole('heading', { name: '2500件の動画' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: '2500件の動画', exact: true })).toBeVisible({ timeout: 15_000 });
 
     const elapsed: number[] = [];
     const computation: number[] = [];
@@ -149,7 +149,7 @@ test.describe('動画検索', () => {
       const target = (index * 127) % 2500;
       const query = [...searchCode(target)];
       query[0] = '9';
-      await page.getByLabel('検索').fill(query.join(''));
+      await page.getByRole('combobox', { name: '検索', exact: true }).fill(query.join(''));
       await page.getByRole('button', { name: 'この条件で探す' }).click();
       const status = page.getByTestId('result-update-status');
       await expect(status).toContainText('1件の検索結果へ更新しました');
