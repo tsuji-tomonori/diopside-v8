@@ -151,6 +151,7 @@ selected_checks:
     note: 公開チャンネルtag IDを公開索引から除外し、人物名tag IDで同じ動画へ到達できることを検証した。
 advisories: []
 residual_risks:
+  - PR #483のsquash題名からGitHub既定の番号接尾辞が外れて公開版生成が停止しており、本follow-upのmainマージ後workflowが成功するまでは公開版が旧世代のままである。
   - 4件の団体または人物プロフィール未整備チャンネルは自動で人物名を推測せず、内部のチャンネル情報だけを保持する。
   - 公開版・Pages成果物は通常PRへ含めず、mainマージ後の既存release workflowが検証済み正本から生成する。
   - ローカル環境ではChromium取得の権限待ちによりPlaywright E2Eを完走できなかったため、PR HEADのGitHub Actionsで確認する。
