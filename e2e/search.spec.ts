@@ -133,12 +133,22 @@ test.describe('動画検索', () => {
     test.skip(testInfo.project.name !== 'モバイル', 'Issue #1が指定するモバイル条件だけで計測します。');
     await preparePage(page);
     const dataset = performanceDataset();
-    const fixtureHits = { index: 0, search: 0 };
+    const fixtureHits = { index: 0, search: 0, tags: 0, aliases: 0 };
     await page.route('**/data/releases/**', async (route) => {
       const pathname = new URL(route.request().url()).pathname;
       if (pathname.endsWith('/search-index.json')) {
         fixtureHits.search += 1;
         await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(dataset.search) });
+        return;
+      }
+      if (pathname.endsWith('/tag-index.json')) {
+        fixtureHits.tags += 1;
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(dataset.tags) });
+        return;
+      }
+      if (pathname.endsWith('/alias-index.json')) {
+        fixtureHits.aliases += 1;
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(dataset.aliases) });
         return;
       }
       if (pathname.endsWith('/index.json')) {
@@ -196,6 +206,8 @@ test.describe('動画検索', () => {
 function performanceDataset(): {
   index: Record<string, unknown>;
   search: { videos: Array<Record<string, unknown>> } & Record<string, unknown>;
+  tags: Record<string, unknown>;
+  aliases: Record<string, unknown>;
 } {
   const releaseId = embeddedReleaseId;
   const videos = Array.from({ length: 2500 }, (_, index) => {
@@ -232,6 +244,19 @@ function performanceDataset(): {
         durationSeconds,
         tagIds,
       })),
+    },
+    tags: {
+      schemaVersion: '2.0.0',
+      releaseId,
+      taxonomyVersion: 'performance-fixture',
+      aliasVersion: 'performance-fixture',
+      categories: [],
+    },
+    aliases: {
+      schemaVersion: '1.0.0',
+      releaseId,
+      aliasVersion: 'performance-fixture',
+      aliases: {},
     },
   };
 }
