@@ -46,6 +46,16 @@ main { width: min(1180px, calc(100% - 2rem)); margin-inline: auto; }
 .search-row { display: grid; grid-template-columns: 1fr auto; gap: .75rem; }
 input, select { min-height: 48px; border: 1px solid #bbb3cb; border-radius: 12px; padding: .65rem .8rem; color: var(--ink); background: white; }
 input[type="search"] { font-size: 1.05rem; }
+.search-combobox { position: relative; min-width: 0; }
+.search-combobox > input { width: 100%; }
+.search-suggestions { position: absolute; z-index: 20; top: calc(100% + .4rem); left: 0; right: 0; overflow: auto; max-height: min(65vh, 520px); padding: .45rem; border: 1px solid #cfc5dd; border-radius: 14px; background: white; box-shadow: 0 18px 45px rgb(42 30 58 / 18%); }
+.search-suggestions section + section { margin-top: .45rem; padding-top: .45rem; border-top: 1px solid var(--line); }
+.search-suggestions h2 { margin: .25rem .5rem; color: var(--muted); font: 700 .75rem/1.4 sans-serif; }
+.search-suggestion { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .55rem; width: 100%; min-height: 48px; padding: .55rem; border: 0; border-radius: 9px; color: var(--ink); background: transparent; font: inherit; text-align: left; text-decoration: none; cursor: pointer; }
+.search-suggestion:hover, .search-suggestion[aria-selected="true"] { background: var(--lavender-pale); }
+.search-suggestion > span:not(.suggestion-kind) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.search-suggestion small { color: var(--muted); font-size: .72rem; }
+.suggestion-kind { padding: .2rem .4rem; border-radius: 999px; color: var(--lavender-dark); background: #eee8f7; font-size: .68rem; font-weight: 800; }
 .button { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; padding: .7rem 1.1rem; border: 1px solid transparent; border-radius: 12px; font-weight: 700; text-decoration: none; cursor: pointer; }
 .primary { color: white; background: var(--lavender-dark); }
 .secondary { color: var(--lavender-dark); background: var(--lavender-pale); border-color: #d5cce7; }

@@ -20,7 +20,7 @@ test.describe('端末内リスト', () => {
     await card.getByRole('link', { name: '詳細を見る', exact: true }).click();
     await expect(page.getByRole('heading', { level: 1 })).toContainText(title!);
     await page.getByRole('link', { name: '動画を探す' }).click();
-    await page.getByLabel('動画タイトル').fill('新年');
+    await page.getByLabel('検索').fill('新年');
     await page.getByRole('button', { name: 'この条件で探す' }).click();
     await page.getByRole('link', { name: '端末内リスト' }).click();
     await expect(page.getByRole('heading', { name: /お気に入り/u })).toContainText('1件');

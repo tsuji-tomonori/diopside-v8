@@ -1,8 +1,8 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 11
-- 更新日: 2026-08-16
+- カタログ版: 12
+- 更新日: 2026-08-20
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
@@ -82,14 +82,14 @@
 | `V8-SAFETY-002` | 2 | 有効 | 制約 | diopside v8の安全は、生の字幕、生のコメント、生のチャット、投稿者識別子をGit履歴、プルリクエスト、review YAML、Pagesへ保存してはならず、有限private backfillでは暗号化された私有S3だけへ保存しなければならない。を**satisfy** | 公開境界試験 |
 | `V8-SAFETY-003` | 1 | 有効 | 制約 | diopside v8の安全は、秘密情報をリポジトリ、プルリクエスト、確認報告、Pagesへ含めてはならない。を**satisfy** | 秘密情報検査 |
 | `V8-SAFETY-004` | 1 | 有効 | 制約 | diopside v8の安全は、削除、非公開化、対象外化が確認された動画を次の公開版から除外し、再追加を防止しなければならない。を**satisfy** | 削除・再追加試験 |
-| `V8-SEARCH-001` | 1 | 有効 | 機能 | diopside v8の検索は、文字検索は、承認済み動画の動画タイトルだけを検索対象としなければならない。を**satisfy** | 固定検索データによる単体試験・画面試験 |
-| `V8-SEARCH-002` | 1 | 有効 | 機能 | diopside v8の検索は、説明文、タグ、タイムスタンプ、ワードクラウド、字幕、コメント、チャット、チャンネル名、生成来歴を文字検索対象にしてはならない。を**satisfy** | 除外対象ごとの否定試験 |
+| `V8-SEARCH-001` | 2 | 有効 | 機能 | diopside v8の検索は、文字検索は、承認済み動画の動画タイトルから生成した表示表記と検索専用のひらがな読みだけを検索対象としなければならない。を**satisfy** | 固定検索データによる単体試験・画面試験 |
+| `V8-SEARCH-002` | 2 | 有効 | 機能 | diopside v8の検索は、説明文、タグ、タイムスタンプ、ワードクラウド、字幕、コメント、チャット、チャンネル名、生成来歴を動画の自由文字検索対象にしてはならない。タグ名は種類付き候補として提示できるが、選択時は不変タグIDの絞り込み条件として適用しなければならない。を**satisfy** | 除外対象ごとの否定試験 |
 | `V8-SEARCH-003` | 1 | 有効 | 機能 | diopside v8の検索は、検索時は、表示用タイトルを変えずに、照合専用文字列を定義済みの順序で正規化しなければならない。を**satisfy** | 正規化表の境界値試験 |
 | `V8-SEARCH-004` | 1 | 有効 | 機能 | diopside v8の検索は、空白で区切られた複数の検索語は、すべてが同じ動画タイトルに一致する場合だけ検索一致としなければならない。を**satisfy** | 複数語の組合せ試験 |
 | `V8-SEARCH-005` | 1 | 有効 | 機能 | diopside v8の検索は、3文字以上の検索語には、軽微な脱字、余分な1文字、1文字の誤り、隣接2文字の入れ替わりを許容するあいまい検索を適用しなければならない。を**satisfy** | 編集距離の正常・境界・超過試験 |
 | `V8-SEARCH-006` | 1 | 有効 | 機能 | diopside v8の検索は、あいまい一致は、検索語の長さを `n`、許容編集距離を `d` としたとき、タイトル内の長さ `n-d` から `n+d` までの連続部分との最小Damerau–Levenshtein距離で判定しなければならない。を**satisfy** | 長文タイトルの固定例試験 |
 | `V8-SEARCH-007` | 1 | 有効 | 機能 | diopside v8の検索は、検索結果は、一致の確かさが高い順に決定的に並べなければならない。を**satisfy** | 順位契約試験 |
-| `V8-SEARCH-008` | 2 | 有効 | 機能 | diopside v8の検索は、タグ補助候補欄は検索欄と分離し、選択可能な日本語名と追加選択後の該当件数を表示しなければならない。現在の条件では該当件数が0件になる未選択タグを表示してはならない。利用者はタグ補助候補欄を折り畳み、選択条件を反映した動画一覧へ移動できなければならない。を**satisfy** | タグ候補の画面試験・件数契約試験・折り畳み操作試験 |
+| `V8-SEARCH-008` | 3 | 有効 | 機能 | diopside v8の検索は、検索欄は登録済みタグを動画候補と区別して提示し、選択時にタグ条件として適用しなければならない。詳細なタグ絞り込み欄は、選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。を**satisfy** | 検索候補・タグ条件適用・件数契約・折り畳み操作試験 |
 | `V8-SEARCH-009` | 1 | 有効 | 機能 | diopside v8の検索は、タグ絞り込みは、選択された承認済みタグの不変識別子との完全一致で判定しなければならない。を**satisfy** | タグ契約試験 |
 | `V8-SEARCH-010` | 1 | 有効 | 機能 | diopside v8の検索は、複数タグを選択した場合は、選択したすべてのタグを持つ動画だけを表示しなければならない。を**satisfy** | 2件・3件・未知タグの積集合試験 |
 | `V8-SEARCH-011` | 1 | 有効 | 機能 | diopside v8の検索は、公開日の開始日と終了日は、日本標準時の日付として両端を含めて絞り込まなければならない。を**satisfy** | 時差・月末・年末・逆転範囲試験 |
@@ -101,6 +101,8 @@
 | `V8-SEARCH-017` | 1 | 有効 | 機能 | diopside v8の検索は、空の検索、結果0件、条件解除をそれぞれ区別して表示しなければならない。を**satisfy** | 画面試験 |
 | `V8-SEARCH-018` | 1 | 有効 | 品質 | diopside v8の検索は、2,500動画の標準データでは、検索・絞り込み開始から結果更新までを100ミリ秒以内に完了しなければならない。を**satisfy** | ブラウザ性能試験 |
 | `V8-SEARCH-019` | 1 | 有効 | 品質 | diopside v8の検索は、あいまい検索の品質を、版管理した日本語の固定評価データで検証しなければならない。を**satisfy** | 検索品質試験 |
+| `V8-SEARCH-020` | 1 | 有効 | 機能 | diopside v8の検索候補は、検索欄は一文字以上の入力中に、承認済み動画タイトルと登録済みタグ名の一致候補を種類が分かる形で提示しなければならない。動画候補の選択は動画詳細へ移動し、タグ候補の選択は不変タグIDを絞り込み条件へ適用して動画一覧を更新しなければならない。を**satisfy** | 候補生成単体試験・IME・キーボード・ポインター画面試験 |
+| `V8-SEARCH-021` | 1 | 有効 | 機能 | diopside v8の検索読みは、漢字またはカタカナを含む承認済み動画タイトルと登録済みタグ名は、表示文字列を変えずに検索専用のひらがな読みを持ち、ひらがなの入力が一文字増えるたびに候補を更新しなければならない。読みの生成と候補照合は静的生成物とブラウザ内処理だけで完結しなければならない。を**satisfy** | 読み生成単体試験・一文字ごとの候補更新・IME・外部通信禁止画面試験 |
 | `V8-TAG-001` | 1 | 有効 | データ | diopside v8のタグは、承認済み動画のタグは、版管理したタグ体系に基づかなければならない。を**satisfy** | 構造試験・追跡性確認 |
 | `V8-TAG-002` | 1 | 有効 | データ | diopside v8のタグは、タグは大分類、小分類、タグの3層で管理し、表示名だけの平坦な配列を正本にしてはならない。を**satisfy** | 構造試験 |
 | `V8-TAG-003` | 1 | 有効 | データ | diopside v8のタグは、各正規タグは表示名と独立した不変タグ識別子を持たなければならない。を**satisfy** | 移行試験 |
@@ -1327,33 +1329,33 @@ diopside v8の安全は、削除、非公開化、対象外化が確認された
 検証証跡: tests/content-validation.test.ts, tests/repository-policy.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,docs/operations/privacy-and-safety.md; 実装=scripts/validate-content.ts,scripts/verify-repository-policy.ts; テスト=tests/content-validation.test.ts,tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-SEARCH-001: 文字検索は、承認済み動画の動画タイトルだけを検索対象としなければならない
+## V8-SEARCH-001: 文字検索は、承認済み動画のタイトル表記とその検索専用読みだけを検索対象としなければならない
 
-diopside v8の検索は、文字検索は、承認済み動画の動画タイトルだけを検索対象としなければならない。を**satisfy**。
+diopside v8の検索は、文字検索は、承認済み動画の動画タイトルから生成した表示表記と検索専用のひらがな読みだけを検索対象としなければならない。を**satisfy**。
 
 根拠: 利用者が題名の断片や表記揺れから、意図した公開アーカイブを速く再発見できるようにするため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-SEARCH-001-1` 前提: V8-検索-001の前提を満たす公開データまたは操作がある。条件: 固定検索データによる単体試験・画面試験。期待結果: 検索語がタイトルにある動画だけが文字一致候補になる。。
+- `AC-V8-SEARCH-001-1` 前提: V8-検索-001の前提を満たす公開データまたは操作がある。条件: 固定検索データによる単体試験・画面試験。期待結果: 検索語がタイトルの表示表記またはタイトルから生成した読みだけにある動画が文字一致候補になり、元タイトルは変更されない。。
 
-要求源: Issue #1 V8-検索-001, user:2026-08-03
+要求源: Issue #1 V8-検索-001, user:2026-08-03, spec/sources/owner-directive-2026-08-20-search-suggestions.md, user:2026-08-20
 検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-SEARCH-002: 説明文、タグ、タイムスタンプ、ワードクラウド、字幕、コメント、チャット、チャンネル名、生成来歴を文字検索対象にしてはならない
+## V8-SEARCH-002: 説明文、タグ、タイムスタンプ等を動画の自由文字検索対象へ混入してはならない
 
-diopside v8の検索は、説明文、タグ、タイムスタンプ、ワードクラウド、字幕、コメント、チャット、チャンネル名、生成来歴を文字検索対象にしてはならない。を**satisfy**。
+diopside v8の検索は、説明文、タグ、タイムスタンプ、ワードクラウド、字幕、コメント、チャット、チャンネル名、生成来歴を動画の自由文字検索対象にしてはならない。タグ名は種類付き候補として提示できるが、選択時は不変タグIDの絞り込み条件として適用しなければならない。を**satisfy**。
 
 根拠: 利用者が題名の断片や表記揺れから、意図した公開アーカイブを速く再発見できるようにするため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-SEARCH-002-1` 前提: V8-検索-002の前提を満たす公開データまたは操作がある。条件: 除外対象ごとの否定試験。期待結果: 検索語が除外対象にだけ存在する動画は、文字検索だけでは表示されない。。
+- `AC-V8-SEARCH-002-1` 前提: V8-検索-002の前提を満たす公開データまたは操作がある。条件: 除外対象ごとの否定試験。期待結果: 検索語が除外対象にだけ存在する動画は自由文字検索だけでは表示されず、タグ候補を選択した場合だけ対応する不変タグIDで絞り込まれる。。
 
-要求源: Issue #1 V8-検索-002, user:2026-08-03
+要求源: Issue #1 V8-検索-002, user:2026-08-03, spec/sources/owner-directive-2026-08-20-search-suggestions.md, user:2026-08-20
 検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
 
@@ -1432,19 +1434,19 @@ diopside v8の検索は、検索結果は、一致の確かさが高い順に決
 検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-SEARCH-008: タグ補助候補欄は検索欄と分離し、該当する候補だけを表示して折り畳めなければならない
+## V8-SEARCH-008: 検索欄のタグ候補と詳細なタグ絞り込みを併用できなければならない
 
-diopside v8の検索は、タグ補助候補欄は検索欄と分離し、選択可能な日本語名と追加選択後の該当件数を表示しなければならない。現在の条件では該当件数が0件になる未選択タグを表示してはならない。利用者はタグ補助候補欄を折り畳み、選択条件を反映した動画一覧へ移動できなければならない。を**satisfy**。
+diopside v8の検索は、検索欄は登録済みタグを動画候補と区別して提示し、選択時にタグ条件として適用しなければならない。詳細なタグ絞り込み欄は、選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。を**satisfy**。
 
 根拠: 利用者が題名の断片や表記揺れから、意図した公開アーカイブを速く再発見できるようにするため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-SEARCH-008-1` 前提: タイトル・公開日・動画長・選択済みタグの現在条件がある。条件: タグ候補の画面試験・件数契約試験。期待結果: 候補タグを1件追加した場合の件数が1件以上の未選択タグと、解除できる選択済みタグだけを日本語名と件数付きで示す。検索語を入力してもタグは自動選択されない。。
-- `AC-V8-SEARCH-008-2` 前提: 利用者がタグ候補を選択している。条件: タグ候補欄の折り畳み操作試験。期待結果: タグ候補欄を折り畳む操作で選択条件を反映し、動画件数見出しへフォーカスと表示位置が移る。再度タグ候補欄を開くと選択状態を維持している。。
+- `AC-V8-SEARCH-008-1` 前提: 検索欄へ登録済みタグ名またはその読みの一部を入力している。条件: 検索候補からタグを選択する画面試験。期待結果: 候補をタグと明示し、選択すると自由入力のタイトル語ではなく不変タグIDの絞り込み条件として適用して動画一覧を更新する。。
+- `AC-V8-SEARCH-008-2` 前提: タイトル・公開日・動画長・選択済みタグの現在条件がある。条件: 詳細なタグ絞り込みの画面試験・件数契約試験・折り畳み操作試験。期待結果: 追加後1件以上になる未選択タグと解除できる選択済みタグだけを日本語名と件数付きで示し、折り畳むと条件を反映して動画件数見出しへ移動し、再度開いても選択状態を維持する。。
 
-要求源: Issue #1 V8-検索-008, user:2026-08-03, owner-directive:2026-08-07
+要求源: Issue #1 V8-検索-008, user:2026-08-03, owner-directive:2026-08-07, spec/sources/owner-directive-2026-08-20-search-suggestions.md, user:2026-08-20
 検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
 
@@ -1612,6 +1614,36 @@ diopside v8の検索は、あいまい検索の品質を、版管理した日本
 要求源: Issue #1 V8-検索-019, user:2026-08-03
 検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-SEARCH-020: 検索欄は入力中に動画とタグを区別した候補を提示しなければならない
+
+diopside v8の検索候補は、検索欄は一文字以上の入力中に、承認済み動画タイトルと登録済みタグ名の一致候補を種類が分かる形で提示しなければならない。動画候補の選択は動画詳細へ移動し、タグ候補の選択は不変タグIDを絞り込み条件へ適用して動画一覧を更新しなければならない。を**satisfy**。
+
+根拠: タイトルと分類名のどちらを覚えている場合でも、入力途中から目的の動画または一覧へ直接移動できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-SEARCH-020-1` 前提: 承認済み動画と登録済みタグを読み込んだ検索画面がある。条件: 検索欄へ一致する文字を一文字以上入力する。期待結果: 候補を動画とタグの区分付きで表示し、動画候補は動画詳細へ、タグ候補はタグ適用済み動画一覧へキーボードまたはポインターで移動できる。。
+
+要求源: spec/sources/owner-directive-2026-08-20-search-suggestions.md, user:2026-08-20
+検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx,src/styles.css; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-20-search-suggestions.md,dev-standard default profile
+
+## V8-SEARCH-021: 漢字・カタカナの動画タイトルとタグはひらがな一文字ごとの入力で候補にならなければならない
+
+diopside v8の検索読みは、漢字またはカタカナを含む承認済み動画タイトルと登録済みタグ名は、表示文字列を変えずに検索専用のひらがな読みを持ち、ひらがなの入力が一文字増えるたびに候補を更新しなければならない。読みの生成と候補照合は静的生成物とブラウザ内処理だけで完結しなければならない。を**satisfy**。
+
+根拠: 利用者が正確な漢字やカタカナ表記を思い出せなくても、読み始めから候補を絞り込めるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-SEARCH-021-1` 前提: 漢字またはカタカナを含む動画タイトルとタグ名に検索専用読みがある。条件: 同じ読みをひらがなで一文字ずつ入力する。期待結果: 各入力段階で一致する動画またはタグ候補を更新し、IME変換確定前のEnterで誤選択せず、候補表示のための外部通信を行わない。。
+
+要求源: spec/sources/owner-directive-2026-08-20-search-suggestions.md, user:2026-08-20
+検証証跡: tests/japanese-reading.test.ts, src/domain/search.test.ts, e2e/search.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=content/search/reading-overrides.json,scripts/japanese-reading.ts,scripts/build-public-data.ts,src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=tests/japanese-reading.test.ts,src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-20-search-suggestions.md,dev-standard default profile
 
 ## V8-TAG-001: 承認済み動画のタグは、版管理したタグ体系に基づかなければならない
 
