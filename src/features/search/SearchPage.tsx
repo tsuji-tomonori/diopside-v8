@@ -133,6 +133,8 @@ export function SearchPage(): React.JSX.Element {
   const submit = (): boolean => {
     const nextErrors = validateCondition(draft);
     if (nextErrors.length > 0) return false;
+    setSuggestionsOpen(false);
+    setActiveSuggestionIndex(-1);
     searchStartedAt.current = performance.now();
     pendingParams.current = serializeCondition(draft);
     setAppliedCondition(draft);
@@ -328,7 +330,13 @@ export function SearchPage(): React.JSX.Element {
                 {draft.query.trim() ? `動画${suggestions.videos.length}件、タグ${suggestions.tags.length}件の候補` : ''}
               </p>
             </div>
-            <button className="button primary" type="submit">この条件で探す</button>
+            <button
+              className="button primary"
+              type="submit"
+              onMouseDown={(event) => event.preventDefault()}
+            >
+              この条件で探す
+            </button>
           </div>
 
           <details className="filter-drawer" open={draft.tagIds.length > 0}>

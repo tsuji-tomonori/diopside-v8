@@ -100,8 +100,8 @@ selected_checks:
   - id: FAST-005
     class: Risk-selected
     result: pass
-    evidence: [path:src/styles.css, path:e2e/search.spec.ts, path:e2e/library.spec.ts]
-    note: モバイルで候補リストが検索ボタンを覆った再現条件を既存検索・端末内リストE2Eで固定し、620px以下では候補を文書フロー内へ配置する
+    evidence: [path:src/styles.css, path:src/features/search/SearchPage.tsx, path:e2e/search.spec.ts, path:e2e/library.spec.ts]
+    note: モバイルで候補リストが検索ボタンを覆い、閉じる際の位置変更で送信を失う再現条件を既存検索・端末内リストE2Eで固定し、候補を文書フロー内へ配置して送信処理側で閉じる
   - id: FAST-006
     class: Invariant
     result: pass

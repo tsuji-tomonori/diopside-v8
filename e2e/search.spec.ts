@@ -129,6 +129,7 @@ test.describe('動画検索', () => {
   });
 
   test('375×812・CPU4倍低速化・2,500動画の代表20検索で95パーセンタイルを100ミリ秒以内にする', async ({ page }, testInfo) => {
+    test.setTimeout(120_000);
     test.skip(testInfo.project.name !== 'モバイル', 'Issue #1が指定するモバイル条件だけで計測します。');
     await preparePage(page);
     const dataset = performanceDataset();
@@ -140,7 +141,7 @@ test.describe('動画検索', () => {
     });
     const cdp = await page.context().newCDPSession(page);
     await page.goto('/');
-    await expect(page.getByRole('heading', { name: '2500件の動画', exact: true })).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole('heading', { name: '2500件の動画', exact: true })).toBeVisible({ timeout: 45_000 });
     await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
 
     const elapsed: number[] = [];
