@@ -16,7 +16,7 @@ impact_flags:
   code_change: true
   typed_code_change: true
   behavior_change: true
-  bug_fix: false
+  bug_fix: true
   generated_change: true
   sql_change: false
   e2e_change: true
@@ -97,6 +97,11 @@ selected_checks:
     result: pass
     evidence: [path:src/domain/search.test.ts, path:tests/japanese-reading.test.ts, workflow:要件・品質ゲート#通常変更の品質ゲートを実行]
     note: 平仮名の各接頭辞、カタカナ、漢字、別名、動画・タグ候補、読み生成を含む90 testが成功した
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:src/styles.css, path:e2e/search.spec.ts, path:e2e/library.spec.ts]
+    note: モバイルで候補リストが検索ボタンを覆った再現条件を既存検索・端末内リストE2Eで固定し、620px以下では候補を文書フロー内へ配置する
   - id: FAST-006
     class: Invariant
     result: pass
