@@ -21,6 +21,27 @@ export interface SearchResult extends SearchVideo {
   totalDistance: number;
 }
 
+export interface SuggestionVideo {
+  videoId: string;
+  title: string;
+  normalizedTitle: string;
+  normalizedReading: string;
+  publishedAt: string;
+}
+
+export interface SuggestionTag {
+  tagId: string;
+  canonicalName: string;
+  normalizedReading: string;
+  count: number;
+  aliases: string[];
+}
+
+export interface SearchSuggestions {
+  videos: SuggestionVideo[];
+  tags: SuggestionTag[];
+}
+
 export interface ConditionError {
   field: '公開日' | '動画長';
   message: string;
@@ -192,22 +213,70 @@ function createFuzzyMatcher(term: string, maximumTextLength: number): (text: Uin
 }
 
 function relevance(query: PreparedQuery, video: SearchVideo): { rank: number; distance: number } | null {
-  const normalizedTitle = video.normalizedTitle;
+  const searchableTexts = [video.normalizedTitle, video.normalizedReading];
   if (!query.normalized) return { rank: 5, distance: 0 };
-  if (normalizedTitle === query.normalized) return { rank: 0, distance: 0 };
-  if (normalizedTitle.startsWith(query.normalized)) return { rank: 1, distance: 0 };
-  if (normalizedTitle.includes(query.normalized)) return { rank: 2, distance: 0 };
-  if (query.terms.every((term) => normalizedTitle.includes(term.value))) return { rank: 3, distance: 0 };
+  if (searchableTexts.some((text) => text === query.normalized)) return { rank: 0, distance: 0 };
+  if (searchableTexts.some((text) => text.startsWith(query.normalized))) return { rank: 1, distance: 0 };
+  if (searchableTexts.some((text) => text.includes(query.normalized))) return { rank: 2, distance: 0 };
+  if (query.terms.every((term) => searchableTexts.some((text) => text.includes(term.value)))) {
+    return { rank: 3, distance: 0 };
+  }
 
   let totalDistance = 0;
   const text = titleCharacters(video);
   for (const term of query.terms) {
-    if (normalizedTitle.includes(term.value)) continue;
+    if (searchableTexts.some((text) => text.includes(term.value))) continue;
     const distance = term.fuzzy(text);
     if (distance === null) return null;
     totalDistance += distance;
   }
   return { rank: 4, distance: totalDistance };
+}
+
+export function buildSearchSuggestions(
+  query: string,
+  videos: SuggestionVideo[],
+  tags: SuggestionTag[],
+  limitPerKind = 6,
+): SearchSuggestions {
+  const normalizedQuery = normalizeTitleForSearch(query);
+  if (!normalizedQuery) return { videos: [], tags: [] };
+  const videosRanked = videos
+    .flatMap((video) => {
+      const rank = suggestionRank(normalizedQuery, [video.normalizedTitle, video.normalizedReading]);
+      return rank === null ? [] : [{ value: video, rank }];
+    })
+    .sort((left, right) => left.rank - right.rank
+      || Date.parse(right.value.publishedAt) - Date.parse(left.value.publishedAt)
+      || left.value.videoId.localeCompare(right.value.videoId))
+    .slice(0, limitPerKind)
+    .map(({ value }) => value);
+  const tagsRanked = tags
+    .flatMap((tag) => {
+      const rank = suggestionRank(normalizedQuery, [
+        normalizeTitleForSearch(tag.canonicalName),
+        tag.normalizedReading,
+        ...tag.aliases.map(normalizeTitleForSearch),
+      ]);
+      return rank === null ? [] : [{ value: tag, rank }];
+    })
+    .sort((left, right) => left.rank - right.rank
+      || right.value.count - left.value.count
+      || left.value.canonicalName.localeCompare(right.value.canonicalName, 'ja'))
+    .slice(0, limitPerKind)
+    .map(({ value }) => value);
+  return { videos: videosRanked, tags: tagsRanked };
+}
+
+function suggestionRank(query: string, texts: string[]): number | null {
+  let best = Number.POSITIVE_INFINITY;
+  for (const text of texts) {
+    if (text === query) best = Math.min(best, 0);
+    else if (text.startsWith(query)) best = Math.min(best, 1);
+    else if (text.split(' ').some((term) => term.startsWith(query))) best = Math.min(best, 2);
+    else if (text.includes(query)) best = Math.min(best, 3);
+  }
+  return Number.isFinite(best) ? best : null;
 }
 
 export function validateCondition(condition: SearchCondition): ConditionError[] {
