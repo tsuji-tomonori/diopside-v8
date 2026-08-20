@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 import {
+  channelPersonMappingsSchema,
   publicIndexSchema,
   collaborationProfilesSchema,
   tagAliasesSchema,
@@ -9,7 +10,7 @@ import {
   workIntroductionsSchema,
 } from '../src/domain/content.ts';
 import { normalizeTagAlias } from '../src/domain/search.ts';
-import { scanPublicBoundary, validateCanonicalVideo, validateTaxonomy } from '../src/domain/validation.ts';
+import { scanPublicBoundary, validateCanonicalVideo, validateChannelPersonMappings, validateTaxonomy } from '../src/domain/validation.ts';
 import { readCanonicalVideos } from '../scripts/canonical-store.ts';
 import { readSourceShards } from '../scripts/source-shards.ts';
 
@@ -21,6 +22,7 @@ const aliases = tagAliasesSchema.parse(aliasesInput);
 const videos = readCanonicalVideos(root);
 const workIntroductions = workIntroductionsSchema.parse(json('content/works/work-introductions.json'));
 const collaborationProfiles = collaborationProfilesSchema.parse(json('content/people/collaboration-profiles.json'));
+const channelPersonMappings = channelPersonMappingsSchema.parse(json('content/people/channel-person-mappings.json'));
 
 describe('タグ・動画正本と公開境界', () => {
   it('7大分類・30小分類・不変タグID・別名を一貫して検証する', () => {
@@ -53,6 +55,18 @@ describe('タグ・動画正本と公開境界', () => {
       expect(profile?.memberTagIds.length).toBeGreaterThanOrEqual(2);
       expect(profile?.sourceUrl).toMatch(/^https:\/\//u);
     }
+  });
+
+  it('公開チャンネルと同一人物の動画には人物名を付け、公開チャンネルを公開用タグにしない', () => {
+    expect(channelPersonMappings.mappings).toHaveLength(98);
+    expect(channelPersonMappings.unmappedChannels).toHaveLength(4);
+    expect(validateChannelPersonMappings(videos, taxonomy, channelPersonMappings, collaborationProfiles.subjectPersonTagId)).toEqual([]);
+
+    const missingPerson = structuredClone(videos.find((video) => video.videoId === '9CqaQMSNQng')!);
+    missingPerson.tagAssignments = missingPerson.tagAssignments.filter((assignment) => assignment.tagId !== 'tag-people-performer-ae5fcfb1bfdc');
+    const adjusted = videos.map((video) => video.videoId === missingPerson.videoId ? missingPerson : video);
+    expect(validateChannelPersonMappings(adjusted, taxonomy, channelPersonMappings, collaborationProfiles.subjectPersonTagId).map((issue) => issue.code))
+      .toContain('CHANNEL_PERSON_TAG_MISSING');
   });
 
   it('凸待ちは配信主だけ、相手のいない継続公式ラジオはコラボ扱いにしない', () => {

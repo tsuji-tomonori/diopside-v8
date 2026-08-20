@@ -3,6 +3,7 @@ import path from 'node:path';
 
 import {
   buildTaxonomyLookup,
+  channelPersonMappingsSchema,
   collaborationProfilesSchema,
   latestReleaseSchema,
   publicAliasIndexSchema,
@@ -20,7 +21,7 @@ import {
   videoShardId,
 } from '../src/domain/content.ts';
 import { normalizeTitleForSearch } from '../src/domain/search.ts';
-import { scanPublicBoundary, validateCanonicalVideo, validateTaxonomy } from '../src/domain/validation.ts';
+import { scanPublicBoundary, validateCanonicalVideo, validateChannelPersonMappings, validateTaxonomy } from '../src/domain/validation.ts';
 import { readCanonicalVideos } from './canonical-store.ts';
 import { canonicalJson, prettyJson, readJson, sha256 } from './lib.ts';
 
@@ -35,10 +36,12 @@ const taxonomyInput = readJson(path.join(root, 'content/taxonomy/tag-taxonomy.js
 const aliasesInput = readJson(path.join(root, 'content/taxonomy/tag-aliases.json'));
 const workIntroductionsInput = readJson(path.join(root, 'content/works/work-introductions.json'));
 const collaborationProfilesInput = readJson(path.join(root, 'content/people/collaboration-profiles.json'));
+const channelPersonMappingsInput = readJson(path.join(root, 'content/people/channel-person-mappings.json'));
 const taxonomy = tagTaxonomySchema.parse(taxonomyInput);
 const aliases = tagAliasesSchema.parse(aliasesInput);
 const workIntroductions = workIntroductionsSchema.parse(workIntroductionsInput);
 const collaborationProfiles = collaborationProfilesSchema.parse(collaborationProfilesInput);
+const channelPersonMappings = channelPersonMappingsSchema.parse(channelPersonMappingsInput);
 const contentManifest = readJson(path.join(root, 'content/content-manifest.json')) as ContentManifest;
 
 const taxonomyIssues = validateTaxonomy(taxonomyInput, aliasesInput);
@@ -49,12 +52,17 @@ for (const video of videos) {
   const issues = validateCanonicalVideo(video, taxonomy, aliases);
   if (issues.length > 0) throw new Error(`${video.videoId}\n${issues.map((item) => `${item.code}:${item.path}:${item.message}`).join('\n')}`);
 }
+const channelPersonMappingIssues = validateChannelPersonMappings(videos, taxonomy, channelPersonMappings, collaborationProfiles.subjectPersonTagId);
+if (channelPersonMappingIssues.length > 0) {
+  throw new Error(channelPersonMappingIssues.map((item) => `${item.code}:${item.path}:${item.message}`).join('\n'));
+}
 
 const releaseSeed = {
   taxonomy,
   aliases,
   workIntroductions,
   collaborationProfiles,
+  channelPersonMappings,
   videos: videos.map(normalizeCanonicalVideo),
 };
 const releaseId = `release-${sha256(canonicalJson(releaseSeed)).slice(0, 16)}`;
@@ -87,7 +95,7 @@ const searchIndex = searchIndexSchema.parse({
 
 const tagToVideoIds = new Map<string, string[]>();
 for (const video of videos) {
-  for (const tagId of new Set(video.tagAssignments.map((assignment) => assignment.tagId))) {
+  for (const tagId of new Set(video.tagAssignments.map((assignment) => assignment.tagId).filter(isPublicTagId))) {
     const values = tagToVideoIds.get(tagId) ?? [];
     values.push(video.videoId);
     tagToVideoIds.set(tagId, values);
@@ -156,7 +164,7 @@ const tagIndex = publicTagIndexSchema.parse({
       subcategoryId: subcategory.subcategoryId,
       name: subcategory.name,
       order: subcategory.order,
-      tags: subcategory.tags.filter((tag) => tag.active).map((tag) => {
+      tags: subcategory.tags.filter((tag) => tag.active && isPublicTagId(tag.tagId)).map((tag) => {
         const videoIds = [...(tagToVideoIds.get(tag.tagId) ?? [])].sort();
         const introduction = introductionsByTagId.get(tag.tagId);
         const introductionUnavailable = unavailableByTagId.get(tag.tagId);
@@ -215,6 +223,7 @@ const aliasIndex = publicAliasIndexSchema.parse({
   aliasVersion: aliases.aliasVersion,
   aliases: Object.fromEntries(
     aliases.aliases
+      .filter((entry) => isPublicTagId(entry.tagId))
       .map((entry): [string, string] => [entry.normalizedAlias, entry.tagId])
       .sort(([left], [right]) => left.localeCompare(right)),
   ),
@@ -308,8 +317,12 @@ function toSummary(video: CanonicalVideo): PublicVideoSummary {
     durationSeconds: video.durationSeconds,
     thumbnail: video.thumbnail,
     youtubeUrl: video.youtubeUrl,
-    tagIds: [...new Set(video.tagAssignments.map((assignment) => assignment.tagId))].sort(),
+    tagIds: [...new Set(video.tagAssignments.map((assignment) => assignment.tagId).filter(isPublicTagId))].sort(),
   };
+}
+
+function isPublicTagId(tagId: string): boolean {
+  return !tagId.startsWith('tag-people-channel-');
 }
 
 function toDetail(video: CanonicalVideo, currentReleaseId: string): PublicVideoDetail {
