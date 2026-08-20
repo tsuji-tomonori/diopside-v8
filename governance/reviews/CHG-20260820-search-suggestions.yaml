@@ -61,7 +61,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [commit:self]
-    note: 外部書込みは機能branchのpushとDraft PR作成だけに限定し、merge・公開は行わない
+    note: 利用者の明示承認に基づき、機能branchのpush、PR作成、blocking check成功後のmerge、公開後確認までを対象とする
   - id: IMP-007
     class: Risk-selected
     result: pass
@@ -121,7 +121,7 @@ selected_checks:
     class: Risk-selected
     result: pass
     evidence: [path:src/features/search/SearchPage.tsx, path:e2e/search.spec.ts]
-    note: combobox・listbox・option・live statusと上下キー、Enter、Escape、IME確定保護を実装した
+    note: combobox・listbox・option・live statusと上下キー、Enter、Escape、IME確定保護を実装し、E2Eはroleと完全一致名で検索欄を特定する
   - id: FAST-018
     class: Risk-selected
     result: pass
@@ -180,5 +180,4 @@ selected_checks:
 advisories: []
 residual_risks:
   - 固有名詞の形態素解析に誤読余地があるため重要名はcontent/search/reading-overrides.jsonで補正し、未知語は同ファイルへ追加する
-  - この環境ではChromium配布先が通信制限で取得不能だったため、ブラウザE2Eの実行結果はDraft PRのblocking GitHub Actionsを正本とする
-  - 人がDraft PRをmergeするまではpublication gateが未充足であり、この作業ではmerge・公開を行わない
+  - ブラウザE2Eの実行結果はPRのblocking GitHub Actionsを正本とし、merge後は公開URLで主要検索経路を再確認する
