@@ -42,8 +42,9 @@ test.describe('動画検索', () => {
     await openSearch(page);
     await page.getByText('タグ・公開日・動画長で絞り込む').click();
     await page.getByLabel('タグ名または別名から追加').fill('#女王と会長');
-    await page.getByRole('button', { name: 'タグを追加' }).click();
-    await expect(page.getByRole('button', { name: /女王と会長/u })).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByLabel('タグ名または別名から追加')).toBeHidden();
+    await expect(page.getByRole('heading', { name: /件の動画$/u })).not.toHaveText(allVideosHeading);
+    expect(page.url()).toContain('tag=tag-people-unit-d5b1de96b450');
     await page.getByLabel('開始日').fill('2026-01-01');
     await page.getByLabel('終了日').fill('2026-12-31');
     await page.getByLabel('最小（分）').fill('120');
@@ -54,26 +55,28 @@ test.describe('動画検索', () => {
     expect(page.url()).toContain('tag=tag-people-unit-d5b1de96b450');
   });
 
-  test('タグ選択後は0件候補を隠し、タグ欄を閉じて動画へ戻れる', async ({ page }) => {
+  test('タグの追加と解除だけで検索し、タグ欄を閉じて動画へ戻れる', async ({ page }) => {
     await preparePage(page);
     await openSearch(page);
     await page.getByText('タグ・公開日・動画長で絞り込む').click();
-    await page.getByLabel('タグ名または別名から追加').fill('#女王と会長');
-    await page.getByRole('button', { name: 'タグを追加' }).click();
+    await page.getByRole('button', { name: /女王と会長/u }).click();
 
-    await expect(page.locator('.tag-choice[aria-pressed="false"] span', { hasText: /^0件$/u })).toHaveCount(0);
-    const closeButton = page.getByRole('button', { name: 'タグを閉じて動画を見る' });
-    await expect(closeButton).toHaveAttribute('aria-expanded', 'true');
-    await closeButton.click();
-
-    const resultsHeading = page.locator('#results-heading');
-    await expect(resultsHeading).toBeFocused();
-    await expect(resultsHeading).not.toHaveText(allVideosHeading);
+    await expect(page.locator('#results-heading')).toBeFocused();
+    await expect(page.locator('#results-heading')).not.toHaveText(allVideosHeading);
     await expect(page.getByLabel('タグ名または別名から追加')).toBeHidden();
+    expect(page.url()).toContain('tag=tag-people-unit-d5b1de96b450');
     const openButton = page.getByRole('button', { name: 'タグを開く（選択1件）' });
     await expect(openButton).toHaveAttribute('aria-expanded', 'false');
     await openButton.click();
-    await expect(page.getByRole('button', { name: /女王と会長/u })).toHaveAttribute('aria-pressed', 'true');
+    const selectedTag = page.getByRole('button', { name: /女王と会長/u });
+    await expect(selectedTag).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('.tag-choice[aria-pressed="false"] span', { hasText: /^0件$/u })).toHaveCount(0);
+
+    await selectedTag.click();
+    await expect(page.locator('#results-heading')).toBeFocused();
+    await expect(page.getByRole('heading', { name: allVideosHeading })).toBeVisible();
+    await expect(page.getByLabel('タグ名または別名から追加')).toBeHidden();
+    expect(page.url()).not.toContain('tag=');
   });
 
   test('入力矛盾を日本語で示し、並び替えとキーボード操作を提供する', async ({ page }) => {

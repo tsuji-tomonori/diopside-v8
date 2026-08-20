@@ -347,10 +347,10 @@ const requirements = sourceRequirements.map((item) => {
     requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-08-POST-MERGE-RELEASE';
   }
   if (id === 'V8-SEARCH-008') {
-    requirement.revision = 2;
-    requirement.title = 'タグ補助候補欄は検索欄と分離し、該当する候補だけを表示して折り畳めなければならない';
-    requirement.object = 'タグ補助候補欄は検索欄と分離し、選択可能な日本語名と追加選択後の該当件数を表示しなければならない。現在の条件では該当件数が0件になる未選択タグを表示してはならない。利用者はタグ補助候補欄を折り畳み、選択条件を反映した動画一覧へ移動できなければならない。';
-    requirement.source_refs.push('owner-directive:2026-08-07');
+    requirement.revision = 3;
+    requirement.title = 'タグ補助候補欄は該当候補だけを示し、選択だけで検索して自動的に折り畳まれなければならない';
+    requirement.object = 'タグ補助候補欄は検索欄と分離し、選択可能な日本語名と追加選択後の該当件数を表示しなければならない。現在の条件では該当件数が0件になる未選択タグを表示してはならない。利用者が候補タグを追加または解除した時点で、追加の確定操作なしに検索条件を反映し、タグ補助候補欄を折り畳み、動画一覧へ移動できなければならない。';
+    requirement.source_refs.push('owner-directive:2026-08-07', 'owner-directive:2026-08-20');
     requirement.acceptance_criteria = [
       {
         id: 'AC-V8-SEARCH-008-1',
@@ -360,16 +360,16 @@ const requirements = sourceRequirements.map((item) => {
       },
       {
         id: 'AC-V8-SEARCH-008-2',
-        given: '利用者がタグ候補を選択している',
-        when: 'タグ候補欄の折り畳み操作試験',
-        then: 'タグ候補欄を折り畳む操作で選択条件を反映し、動画件数見出しへフォーカスと表示位置が移る。再度タグ候補欄を開くと選択状態を維持している。',
+        given: '利用者が候補ボタンまたは入力候補からタグを追加または解除する',
+        when: 'タグ選択から検索結果までの画面操作試験',
+        then: 'タグ選択だけで検索条件と共有可能URLを更新し、タグ候補欄を滑らかに折り畳み、動画件数見出しへフォーカスと表示位置を移す。再度タグ候補欄を開くと選択状態を維持している。',
       },
     ];
     requirement.verification = {
       method: 'タグ候補の画面試験・件数契約試験・折り畳み操作試験',
       evidence: 'src/domain/search.test.ts, e2e/search.spec.ts',
     };
-    requirement.last_changed_by = 'CHG-20260807-improve-tag-navigation';
+    requirement.last_changed_by = 'CHG-20260820-auto-apply-tag-search';
   }
   if (['V8-TIME-027', 'V8-TIME-028', 'V8-TIME-029'].includes(id)) {
     requirement.revision = 2;
@@ -1064,9 +1064,9 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 10, 11),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 11, 12),
   product: 'diopside v8',
-  updated_at: '2026-08-16',
+  updated_at: '2026-08-20',
   requirements: canonicalRequirements,
 }, null, 2)}\n`);
 writeFileSync(mapPath, `${JSON.stringify({

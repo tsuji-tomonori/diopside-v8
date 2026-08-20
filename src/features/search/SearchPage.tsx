@@ -89,23 +89,43 @@ export function SearchPage(): React.JSX.Element {
     }
   }, [results.length, condition, setParams]);
 
-  const submit = (): boolean => {
-    const nextErrors = validateCondition(draft);
+  const submit = (nextCondition: SearchCondition = draft): boolean => {
+    const nextErrors = validateCondition(nextCondition);
     if (nextErrors.length > 0) return false;
     searchStartedAt.current = performance.now();
-    pendingParams.current = serializeCondition(draft);
-    setAppliedCondition(draft);
-    void store.saveRecentSearch(draft);
+    pendingParams.current = serializeCondition(nextCondition);
+    setDraft(nextCondition);
+    setAppliedCondition(nextCondition);
+    void store.saveRecentSearch(nextCondition);
     return true;
   };
 
-  const closeTagsAndShowResults = (): void => {
-    if (!submit()) return;
+  const closeTagsAndShowResults = (nextCondition: SearchCondition = draft): void => {
+    if (!submit(nextCondition)) return;
     setTagsExpanded(false);
     requestAnimationFrame(() => {
       resultsHeadingRef.current?.focus({ preventScroll: true });
-      resultsHeadingRef.current?.scrollIntoView({ block: 'start' });
+      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+      resultsHeadingRef.current?.scrollIntoView({ behavior, block: 'start' });
     });
+  };
+
+  const resolveTagId = (value: string): string | undefined => {
+    const normalizedValue = value.trim();
+    if (!normalizedValue) return undefined;
+    return knownTagIds.has(normalizedValue)
+      ? normalizedValue
+      : tagInputIndex.get(normalizeTagAlias(normalizedValue));
+  };
+
+  const selectTagAndShowResults = (tagId: string, mode: 'add' | 'toggle'): void => {
+    const alreadySelected = selected.has(tagId);
+    const nextTagIds = mode === 'toggle' && alreadySelected
+      ? draft.tagIds.filter((id) => id !== tagId)
+      : [...new Set([...draft.tagIds, tagId])];
+    setTagInput('');
+    setTagError('');
+    closeTagsAndShowResults({ ...draft, tagIds: nextTagIds });
   };
 
   const clear = (): void => {
@@ -119,17 +139,19 @@ export function SearchPage(): React.JSX.Element {
   };
 
   const addTagByName = (): void => {
-    const value = tagInput.trim();
-    if (!value) return;
-    const direct = knownTagIds.has(value) ? value : undefined;
-    const tagId = direct ?? tagInputIndex.get(normalizeTagAlias(value));
+    const tagId = resolveTagId(tagInput);
     if (!tagId) {
       setTagError('一致する登録済みタグがありません。候補から選んでください。');
       return;
     }
-    setDraft((current) => ({ ...current, tagIds: [...new Set([...current.tagIds, tagId])] }));
-    setTagInput('');
+    selectTagAndShowResults(tagId, 'add');
+  };
+
+  const updateTagInput = (value: string): void => {
+    setTagInput(value);
     setTagError('');
+    const tagId = resolveTagId(value);
+    if (tagId) selectTagAndShowResults(tagId, 'add');
   };
 
   const updateBucket = (value: string): void => {
@@ -196,51 +218,53 @@ export function SearchPage(): React.JSX.Element {
                   {tagsExpanded ? 'タグを閉じて動画を見る' : `タグを開く（選択${selected.size}件）`}
                 </button>
               </div>
-              <div id="tag-filter-content" hidden={!tagsExpanded}>
-                <label className="tag-input-label" htmlFor="tag-name">タグ名または別名から追加</label>
-                <div className="tag-input-row">
-                  <input id="tag-name" list="tag-name-options" value={tagInput} onChange={(event) => setTagInput(event.target.value)} />
-                  <datalist id="tag-name-options">
-                    {tags.filter((tag) => availableTagIds.has(tag.tagId)).map((tag) => <option key={tag.tagId} value={tag.canonicalName} />)}
-                    {Object.entries(bundle.aliasIndex.aliases)
-                      .filter(([, tagId]) => availableTagIds.has(tagId))
-                      .map(([alias]) => <option key={`alias-${alias}`} value={alias} />)}
-                  </datalist>
-                  <button className="button secondary" type="button" onClick={addTagByName}>タグを追加</button>
-                </div>
-                {tagError && <p className="form-error" role="alert">{tagError}</p>}
-                {bundle.tagIndex.categories.map((category) => {
-                  const visible = category.subcategories
-                    .flatMap((subcategory) => subcategory.tags)
-                    .filter((tag) => availableTagIds.has(tag.tagId));
-                  if (visible.length === 0) return null;
-                  return (
-                    <div className="tag-group" key={category.categoryId}>
-                      <h3>{category.name}</h3>
-                      <div className="tag-choices">
-                        {visible.map((tag) => {
-                          const count = selected.has(tag.tagId) ? draftResultCount : (tagCounts.get(tag.tagId) ?? 0);
-                          return (
-                            <button
-                              type="button"
-                              key={tag.tagId}
-                              className="tag-choice"
-                              aria-pressed={selected.has(tag.tagId)}
-                              onClick={() => setDraft((current) => ({
-                                ...current,
-                                tagIds: selected.has(tag.tagId)
-                                  ? current.tagIds.filter((id) => id !== tag.tagId)
-                                  : [...current.tagIds, tag.tagId],
-                              }))}
-                            >
-                              {tag.canonicalName}<span>{count}件</span>
-                            </button>
-                          );
-                        })}
+              <div
+                id="tag-filter-content"
+                className={`tag-filter-content${tagsExpanded ? ' is-expanded' : ''}`}
+                aria-hidden={!tagsExpanded}
+                inert={!tagsExpanded}
+              >
+                <div className="tag-filter-content-inner">
+                  <label className="tag-input-label" htmlFor="tag-name">タグ名または別名から追加</label>
+                  <div className="tag-input-row">
+                    <input id="tag-name" list="tag-name-options" value={tagInput} onChange={(event) => updateTagInput(event.target.value)} />
+                    <datalist id="tag-name-options">
+                      {tags.filter((tag) => availableTagIds.has(tag.tagId)).map((tag) => <option key={tag.tagId} value={tag.canonicalName} />)}
+                      {Object.entries(bundle.aliasIndex.aliases)
+                        .filter(([, tagId]) => availableTagIds.has(tagId))
+                        .map(([alias]) => <option key={`alias-${alias}`} value={alias} />)}
+                    </datalist>
+                    <button className="button secondary" type="button" onClick={addTagByName}>タグを追加</button>
+                  </div>
+                  {tagError && <p className="form-error" role="alert">{tagError}</p>}
+                  {bundle.tagIndex.categories.map((category) => {
+                    const visible = category.subcategories
+                      .flatMap((subcategory) => subcategory.tags)
+                      .filter((tag) => availableTagIds.has(tag.tagId));
+                    if (visible.length === 0) return null;
+                    return (
+                      <div className="tag-group" key={category.categoryId}>
+                        <h3>{category.name}</h3>
+                        <div className="tag-choices">
+                          {visible.map((tag) => {
+                            const count = selected.has(tag.tagId) ? draftResultCount : (tagCounts.get(tag.tagId) ?? 0);
+                            return (
+                              <button
+                                type="button"
+                                key={tag.tagId}
+                                className="tag-choice"
+                                aria-pressed={selected.has(tag.tagId)}
+                                onClick={() => selectTagAndShowResults(tag.tagId, 'toggle')}
+                              >
+                                {tag.canonicalName}<span>{count}件</span>
+                              </button>
+                            );
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
             </fieldset>
 
