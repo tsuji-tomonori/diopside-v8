@@ -23,6 +23,11 @@ import {
 import { normalizeTitleForSearch } from '../src/domain/search.ts';
 import { scanPublicBoundary, validateCanonicalVideo, validateChannelPersonMappings, validateTaxonomy } from '../src/domain/validation.ts';
 import { readCanonicalVideos } from './canonical-store.ts';
+import {
+  createJapaneseReadingNormalizer,
+  japaneseReadingVersion,
+  type ReadingOverrides,
+} from './japanese-reading.ts';
 import { canonicalJson, prettyJson, readJson, sha256 } from './lib.ts';
 
 interface ContentManifest {
@@ -37,12 +42,14 @@ const aliasesInput = readJson(path.join(root, 'content/taxonomy/tag-aliases.json
 const workIntroductionsInput = readJson(path.join(root, 'content/works/work-introductions.json'));
 const collaborationProfilesInput = readJson(path.join(root, 'content/people/collaboration-profiles.json'));
 const channelPersonMappingsInput = readJson(path.join(root, 'content/people/channel-person-mappings.json'));
+const readingOverridesInput = readJson(path.join(root, 'content/search/reading-overrides.json')) as ReadingOverrides;
 const taxonomy = tagTaxonomySchema.parse(taxonomyInput);
 const aliases = tagAliasesSchema.parse(aliasesInput);
 const workIntroductions = workIntroductionsSchema.parse(workIntroductionsInput);
 const collaborationProfiles = collaborationProfilesSchema.parse(collaborationProfilesInput);
 const channelPersonMappings = channelPersonMappingsSchema.parse(channelPersonMappingsInput);
 const contentManifest = readJson(path.join(root, 'content/content-manifest.json')) as ContentManifest;
+const normalizeReading = await createJapaneseReadingNormalizer(readingOverridesInput);
 
 const taxonomyIssues = validateTaxonomy(taxonomyInput, aliasesInput);
 if (taxonomyIssues.length > 0) throw new Error(taxonomyIssues.map((item) => `${item.code}:${item.path}:${item.message}`).join('\n'));
@@ -63,6 +70,9 @@ const releaseSeed = {
   workIntroductions,
   collaborationProfiles,
   channelPersonMappings,
+  searchNormalizationVersion: '2.0.0',
+  japaneseReadingVersion,
+  readingOverrides: readingOverridesInput,
   videos: videos.map(normalizeCanonicalVideo),
 };
 const releaseId = `release-${sha256(canonicalJson(releaseSeed)).slice(0, 16)}`;
@@ -74,6 +84,7 @@ mkdirSync(generatedSourceDir, { recursive: true });
 const summaries = videos
   .map(toSummary)
   .sort((left, right) => new Date(right.publishedAt).getTime() - new Date(left.publishedAt).getTime() || left.videoId.localeCompare(right.videoId));
+const titleByVideoId = new Map(videos.map((video) => [video.videoId, video.title]));
 const index = publicIndexSchema.parse({
   schemaVersion: '1.0.0',
   releaseId,
@@ -81,12 +92,13 @@ const index = publicIndexSchema.parse({
   videos: summaries,
 });
 const searchIndex = searchIndexSchema.parse({
-  schemaVersion: '1.0.0',
+  schemaVersion: '2.0.0',
   releaseId,
-  normalizationVersion: '1.0.0',
+  normalizationVersion: '2.0.0',
   videos: summaries.map(({ videoId, normalizedTitle, publishedAt, durationSeconds, tagIds }) => ({
     videoId,
     normalizedTitle,
+    normalizedReading: normalizeReading(titleByVideoId.get(videoId) ?? normalizedTitle),
     publishedAt,
     durationSeconds,
     tagIds,
@@ -152,7 +164,7 @@ for (const tagId of workTagIds) {
   if (!introductionsByTagId.has(tagId) && !unavailableByTagId.has(tagId)) throw new Error(`作品紹介の調査結果が未設定です: ${tagId}`);
 }
 const tagIndex = publicTagIndexSchema.parse({
-  schemaVersion: '1.0.0',
+  schemaVersion: '2.0.0',
   releaseId,
   taxonomyVersion: taxonomy.taxonomyVersion,
   aliasVersion: taxonomy.aliasVersion,
@@ -174,6 +186,7 @@ const tagIndex = publicTagIndexSchema.parse({
         return {
           tagId: tag.tagId,
           canonicalName: tag.canonicalName,
+          normalizedReading: normalizeReading(tag.canonicalName),
           count: videoIds.length,
           videoIds,
           ...(person ? { personProfile: {

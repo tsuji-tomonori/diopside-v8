@@ -3,6 +3,7 @@ import evaluation from '../../tests/fixtures/search-evaluation-v1.json';
 import type { SearchIndex } from './content.ts';
 import {
   applySearch,
+  buildSearchSuggestions,
   bucketRange,
   countWithAdditionalTag,
   damerauLevenshtein,
@@ -21,8 +22,16 @@ function video(
   publishedAt = '2026-01-01T00:00:00Z',
   durationSeconds: number | null = 1800,
   tagIds: string[] = [],
+  reading = title,
 ): SearchVideo {
-  return { videoId, normalizedTitle: normalizeTitleForSearch(title), publishedAt, durationSeconds, tagIds };
+  return {
+    videoId,
+    normalizedTitle: normalizeTitleForSearch(title),
+    normalizedReading: normalizeTitleForSearch(reading),
+    publishedAt,
+    durationSeconds,
+    tagIds,
+  };
 }
 
 describe('タイトル検索', () => {
@@ -51,6 +60,45 @@ describe('タイトル検索', () => {
     expect(applySearch(videos, { query: '雑談', tagIds: [] }).map((item) => item.videoId)).toEqual([
       'video000002', 'video000001', 'video000003',
     ]);
+  });
+
+  it('タイトルから生成した読みを自由文字検索へ使う', () => {
+    const target = video('video000001', '白雪巴の新衣装', undefined, undefined, [], 'しらゆきともえのしんいしょう');
+    expect(applySearch([target], { query: 'しらゆき', tagIds: [] }).map((item) => item.videoId)).toEqual(['video000001']);
+  });
+});
+
+describe('検索サジェスト', () => {
+  const videos = [{
+    videoId: 'video000001',
+    title: '白雪巴の新衣装',
+    normalizedTitle: normalizeTitleForSearch('白雪巴の新衣装'),
+    normalizedReading: 'しらゆきともえのしんいしょう',
+    publishedAt: '2026-01-01T00:00:00Z',
+  }];
+  const tags = [{
+    tagId: 'tag-person',
+    canonicalName: '白雪巴',
+    normalizedReading: 'しらゆきともえ',
+    count: 10,
+    aliases: [],
+  }, {
+    tagId: 'tag-game',
+    canonicalName: 'マインクラフト',
+    normalizedReading: 'まいんくらふと',
+    count: 5,
+    aliases: ['マイクラ'],
+  }];
+
+  it.each(['し', 'しら', 'しらゆき', 'しらゆきともえ'] as const)('ひらがなの入力 %s ごとに漢字の動画とタグを候補にする', (query) => {
+    const suggestions = buildSearchSuggestions(query, videos, tags);
+    expect(suggestions.videos.map((item) => item.videoId)).toEqual(['video000001']);
+    expect(suggestions.tags.map((item) => item.tagId)).toContain('tag-person');
+  });
+
+  it('ひらがなでカタカナ名と別名を候補にする', () => {
+    expect(buildSearchSuggestions('まい', videos, tags).tags.map((item) => item.tagId)).toContain('tag-game');
+    expect(buildSearchSuggestions('まいくら', videos, tags).tags.map((item) => item.tagId)).toContain('tag-game');
   });
 });
 
