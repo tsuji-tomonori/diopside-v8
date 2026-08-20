@@ -230,7 +230,16 @@ function performanceDataset(): {
       schemaVersion: '1.0.0',
       releaseId,
       updatedAt: '2026-08-03T00:00:00+09:00',
-      videos,
+      videos: videos.map(({ videoId, title, normalizedTitle, publishedAt, durationSeconds, thumbnail, youtubeUrl, tagIds }) => ({
+        videoId,
+        title,
+        normalizedTitle,
+        publishedAt,
+        durationSeconds,
+        thumbnail,
+        youtubeUrl,
+        tagIds,
+      })),
     },
     search: {
       schemaVersion: '2.0.0',
