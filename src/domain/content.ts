@@ -477,6 +477,19 @@ export const collaborationProfilesSchema = z.object({
   }).strict()),
 }).strict();
 
+export const channelPersonMappingsSchema = z.object({
+  schemaVersion: z.literal('1.0.0'),
+  updatedAt: isoDate,
+  mappings: z.array(z.object({
+    channelTagId: z.string().regex(/^tag-people-channel-[a-f0-9]{12}$/u),
+    personTagId: z.string().regex(/^tag-people-performer-[a-f0-9]{12}$/u),
+  }).strict()).min(1),
+  unmappedChannels: z.array(z.object({
+    channelTagId: z.string().regex(/^tag-people-channel-[a-f0-9]{12}$/u),
+    reason: z.string().min(1).max(160),
+  }).strict()),
+}).strict();
+
 export const workIntroductionsSchema = z.object({
   schemaVersion: z.literal('2.0.0'),
   updatedAt: isoDate,
@@ -524,6 +537,7 @@ export type PublicTagIndex = z.infer<typeof publicTagIndexSchema>;
 export type PublicAliasIndex = z.infer<typeof publicAliasIndexSchema>;
 export type WorkIntroductions = z.infer<typeof workIntroductionsSchema>;
 export type CollaborationProfiles = z.infer<typeof collaborationProfilesSchema>;
+export type ChannelPersonMappings = z.infer<typeof channelPersonMappingsSchema>;
 
 export interface TaxonomyLookupItem {
   categoryId: string;

@@ -2,10 +2,12 @@ import path from 'node:path';
 import { z } from 'zod';
 
 import {
+  channelPersonMappingsSchema,
+  collaborationProfilesSchema,
   tagAliasesSchema,
   tagTaxonomySchema,
 } from '../src/domain/content.ts';
-import { validateCanonicalVideo, validateTaxonomy } from '../src/domain/validation.ts';
+import { validateCanonicalVideo, validateChannelPersonMappings, validateTaxonomy } from '../src/domain/validation.ts';
 import { readCanonicalVideos } from './canonical-store.ts';
 import { readJson } from './lib.ts';
 
@@ -34,14 +36,19 @@ const manifestSchema = z.object({
 const root = path.resolve(import.meta.dirname, '..');
 const taxonomyInput = readJson(path.join(root, 'content/taxonomy/tag-taxonomy.json'));
 const aliasesInput = readJson(path.join(root, 'content/taxonomy/tag-aliases.json'));
+const collaborationProfilesInput = readJson(path.join(root, 'content/people/collaboration-profiles.json'));
+const channelPersonMappingsInput = readJson(path.join(root, 'content/people/channel-person-mappings.json'));
 const taxonomy = tagTaxonomySchema.parse(taxonomyInput);
 const aliases = tagAliasesSchema.parse(aliasesInput);
+const collaborationProfiles = collaborationProfilesSchema.parse(collaborationProfilesInput);
+const channelPersonMappings = channelPersonMappingsSchema.parse(channelPersonMappingsInput);
 const manifest = manifestSchema.parse(readJson(path.join(root, 'content/content-manifest.json')));
 const exclusions = readJson(path.join(root, 'content/exclusions.json')) as { records?: Array<{ videoId?: string }> };
 
 const errors: string[] = validateTaxonomy(taxonomyInput, aliasesInput).map(formatIssue);
 const videos = readCanonicalVideos(root);
 for (const video of videos) errors.push(...validateCanonicalVideo(video, taxonomy, aliases).map((item) => `${video.videoId}.json:${formatIssue(item)}`));
+errors.push(...validateChannelPersonMappings(videos, taxonomy, channelPersonMappings, collaborationProfiles.subjectPersonTagId).map(formatIssue));
 
 const uniqueVideoIds = new Set(videos.map((video) => video.videoId));
 if (uniqueVideoIds.size !== videos.length) errors.push('content/videos:VIDEO_ID_DUPLICATED:動画識別子が重複しています。');

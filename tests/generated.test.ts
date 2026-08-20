@@ -2,6 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 
 import {
+  channelPersonMappingsSchema,
   latestReleaseSchema,
   collaborationProfilesSchema,
   publicAliasIndexSchema,
@@ -35,8 +36,9 @@ describe('決定的な公開成果物', () => {
     const aliases = tagAliasesSchema.parse(json('content/taxonomy/tag-aliases.json'));
     const workIntroductions = workIntroductionsSchema.parse(json('content/works/work-introductions.json'));
     const collaborationProfiles = collaborationProfilesSchema.parse(json('content/people/collaboration-profiles.json'));
+    const channelPersonMappings = channelPersonMappingsSchema.parse(json('content/people/channel-person-mappings.json'));
     const videos = readCanonicalVideos(root).map(normalizeCanonicalVideo);
-    const expected = `release-${sha256(canonicalJson({ taxonomy, aliases, workIntroductions, collaborationProfiles, videos })).slice(0, 16)}`;
+    const expected = `release-${sha256(canonicalJson({ taxonomy, aliases, workIntroductions, collaborationProfiles, channelPersonMappings, videos })).slice(0, 16)}`;
     expect(latest.releaseId).toBe(expected);
     expect(embeddedReleaseId).toBe(expected);
   });
@@ -49,6 +51,13 @@ describe('決定的な公開成果物', () => {
     expect(new Set([latest.releaseId, index.releaseId, search.releaseId, tags.releaseId, aliases.releaseId, embeddedReleaseId]).size).toBe(1);
     expect(index.videos.map((video) => video.videoId)).toEqual(search.videos.map((video) => video.videoId));
     expect(index.videos).toHaveLength(contentManifest.videoCount);
+    const allPublicTagIds = [
+      ...index.videos.flatMap((video) => video.tagIds),
+      ...search.videos.flatMap((video) => video.tagIds),
+      ...tags.categories.flatMap((category) => category.subcategories.flatMap((subcategory) => subcategory.tags.map((tag) => tag.tagId))),
+      ...Object.values(aliases.aliases),
+    ];
+    expect(allPublicTagIds.every((tagId) => !tagId.startsWith('tag-people-channel-'))).toBe(true);
   });
 
   it('公開詳細シャードは全動画を持ち、作成済み件数が正本manifestと一致する', () => {
@@ -57,6 +66,7 @@ describe('決定的な公開成果物', () => {
       return publicVideoShardSchema.parse(json(`public/data/releases/${latest.releaseId}/video-shards/${shardId}.json`));
     }).flatMap((shard) => Object.values(shard.videos));
     expect(details).toHaveLength(contentManifest.videoCount);
+    expect(details.every((detail) => detail.tagIds.every((tagId) => !tagId.startsWith('tag-people-channel-')))).toBe(true);
     expect(details.filter((detail) => detail.timestamps.status === '作成済み')).toHaveLength(contentManifest.createdTimestampVideoCount);
     expect(details.reduce((total, detail) => total + (detail.timestamps.status === '作成済み' ? detail.timestamps.items.length : 0), 0)).toBe(contentManifest.timestampItemCount);
   });

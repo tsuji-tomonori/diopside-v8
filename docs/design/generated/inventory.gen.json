@@ -12,7 +12,7 @@
     },
     {
       "path": "scripts/build-public-data.ts",
-      "sha256": "e47f9526348c3e814851c3c98aa47dfdbbaf5f2a976bb7b8518daee407a36e78"
+      "sha256": "a27c15667b1808b3fc25b802fbac8c15e429f232cd99785409e2f5c96ec93d4c"
     },
     {
       "path": "scripts/canonical-store.ts",
@@ -72,7 +72,7 @@
     },
     {
       "path": "scripts/validate-content.ts",
-      "sha256": "756e24d9d7f1812ad6df2ee49bad11bd7790ab1865d9ed42244e167e273465f7"
+      "sha256": "4554f901a5080a23e073da919425536d6b56b64bf6f87b67f943a0ca72fabac0"
     },
     {
       "path": "scripts/validate-release-pr-scope.ts",
@@ -136,7 +136,7 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "61b0383a655b169d8057b1f98d9db1284b7ea51908ac16cab4a02314f63ffbe7"
+      "sha256": "c5ee9e98dca8e9003347dcc32f9f255b11da4fdf545b106e7eef4e03e3402553"
     },
     {
       "path": "src/domain/game-title-detection.test.ts",
@@ -160,7 +160,7 @@
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "28cae5cf20e05e2e265ba1ceb9063c2a28e0e2d2149c9ccd06fd66a2f0ff13fc"
+      "sha256": "e1c85798d71df15792b9ad3cbc065fc3aa4f6682b080c5c81dfff23d2ee251fd"
     },
     {
       "path": "src/features/collaborations/CollaborationDetailPages.test.tsx",
@@ -452,6 +452,16 @@
     {
       "file": "src/domain/content.ts",
       "name": "canonicalVideoSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "ChannelPersonMappings",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "channelPersonMappingsSchema",
       "kind": "VariableStatement"
     },
     {
@@ -772,6 +782,11 @@
     {
       "file": "src/domain/validation.ts",
       "name": "validateCanonicalVideo",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/validation.ts",
+      "name": "validateChannelPersonMappings",
       "kind": "FunctionDeclaration"
     },
     {

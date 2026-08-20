@@ -97,6 +97,8 @@
 | `src/domain/content.ts` | FunctionDeclaration | `buildTaxonomyLookup` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `CanonicalVideo` |
 | `src/domain/content.ts` | VariableStatement | `canonicalVideoSchema` |
+| `src/domain/content.ts` | TypeAliasDeclaration | `ChannelPersonMappings` |
+| `src/domain/content.ts` | VariableStatement | `channelPersonMappingsSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `CollaborationProfiles` |
 | `src/domain/content.ts` | VariableStatement | `collaborationProfilesSchema` |
 | `src/domain/content.ts` | VariableStatement | `confidenceSchema` |
@@ -161,6 +163,7 @@
 | `src/domain/search.ts` | FunctionDeclaration | `validateCondition` |
 | `src/domain/validation.ts` | FunctionDeclaration | `scanPublicBoundary` |
 | `src/domain/validation.ts` | FunctionDeclaration | `validateCanonicalVideo` |
+| `src/domain/validation.ts` | FunctionDeclaration | `validateChannelPersonMappings` |
 | `src/domain/validation.ts` | FunctionDeclaration | `validateTaxonomy` |
 | `src/domain/validation.ts` | InterfaceDeclaration | `ValidationIssue` |
 | `src/features/collaborations/CollaboratorDetailPage.tsx` | FunctionDeclaration | `CollaboratorDetailPage` |
@@ -189,4 +192,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力50ファイル、公開契約125件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力50ファイル、公開契約128件です。

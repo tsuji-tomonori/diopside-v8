@@ -3,6 +3,7 @@ import type { ZodError } from 'zod';
 import {
   buildTaxonomyLookup,
   canonicalVideoSchema,
+  type ChannelPersonMappings,
   tagAliasesSchema,
   tagTaxonomySchema,
   type CanonicalVideo,
@@ -174,6 +175,75 @@ export function validateCanonicalVideo(
   if (Date.parse(video.approval.approvedAt) < latestTagReview) {
     issues.push(issue('APPROVAL_BEFORE_REVIEW', 'approval.approvedAt', '最終承認はタグ確認後に行ってください。'));
   }
+  return issues;
+}
+
+export function validateChannelPersonMappings(
+  videos: CanonicalVideo[],
+  taxonomy: TagTaxonomy,
+  mappings: ChannelPersonMappings,
+  subjectPersonTagId: string,
+): ValidationIssue[] {
+  const issues: ValidationIssue[] = [];
+  const lookup = buildTaxonomyLookup(taxonomy);
+  const mappedChannels = new Map<string, string>();
+  const unmappedChannels = new Set<string>();
+
+  for (const [index, mapping] of mappings.mappings.entries()) {
+    const channel = lookup.get(mapping.channelTagId);
+    const person = lookup.get(mapping.personTagId);
+    if (mappedChannels.has(mapping.channelTagId)) {
+      issues.push(issue('CHANNEL_PERSON_MAPPING_DUPLICATED', `mappings.${index}.channelTagId`, '公開チャンネルと人物名の対応が重複しています。'));
+    }
+    mappedChannels.set(mapping.channelTagId, mapping.personTagId);
+    if (!channel || channel.categoryId !== 'people' || channel.subcategoryId !== 'channel') {
+      issues.push(issue('CHANNEL_PERSON_MAPPING_UNKNOWN_CHANNEL', `mappings.${index}.channelTagId`, '対応元は人物・グループの公開チャンネルタグでなければなりません。'));
+    }
+    if (!person || person.categoryId !== 'people' || person.subcategoryId !== 'performer') {
+      issues.push(issue('CHANNEL_PERSON_MAPPING_UNKNOWN_PERSON', `mappings.${index}.personTagId`, '対応先は人物・グループの出演者タグでなければなりません。'));
+    }
+  }
+
+  for (const [index, channel] of mappings.unmappedChannels.entries()) {
+    if (unmappedChannels.has(channel.channelTagId)) {
+      issues.push(issue('CHANNEL_PERSON_UNMAPPED_DUPLICATED', `unmappedChannels.${index}.channelTagId`, '未対応の公開チャンネルが重複しています。'));
+    }
+    unmappedChannels.add(channel.channelTagId);
+    const tag = lookup.get(channel.channelTagId);
+    if (!tag || tag.categoryId !== 'people' || tag.subcategoryId !== 'channel') {
+      issues.push(issue('CHANNEL_PERSON_UNMAPPED_UNKNOWN_CHANNEL', `unmappedChannels.${index}.channelTagId`, '未対応として記録できるのは人物・グループの公開チャンネルタグだけです。'));
+    }
+    if (mappedChannels.has(channel.channelTagId)) {
+      issues.push(issue('CHANNEL_PERSON_MAPPING_UNMAPPED_CONFLICT', `unmappedChannels.${index}.channelTagId`, '人物対応済みの公開チャンネルを未対応として同時に登録できません。'));
+    }
+  }
+
+  const activeChannelTagIds = taxonomy.categories
+    .find((category) => category.categoryId === 'people')
+    ?.subcategories.find((subcategory) => subcategory.subcategoryId === 'channel')
+    ?.tags.filter((tag) => tag.active).map((tag) => tag.tagId) ?? [];
+  for (const channelTagId of activeChannelTagIds) {
+    if (!mappedChannels.has(channelTagId) && !unmappedChannels.has(channelTagId)) {
+      issues.push(issue('CHANNEL_PERSON_MAPPING_MISSING', 'mappings', `公開チャンネルタグの人物対応または未対応理由がありません: ${channelTagId}`));
+    }
+  }
+
+  for (const video of videos) {
+    const assignedTagIds = new Set(video.tagAssignments.map((assignment) => assignment.tagId));
+    for (const [channelTagId, personTagId] of mappedChannels) {
+      if (personTagId === subjectPersonTagId) continue;
+      if (assignedTagIds.has(channelTagId) && !assignedTagIds.has(personTagId)) {
+        const channelName = lookup.get(channelTagId)?.canonicalName ?? channelTagId;
+        const personName = lookup.get(personTagId)?.canonicalName ?? personTagId;
+        issues.push(issue(
+          'CHANNEL_PERSON_TAG_MISSING',
+          `${video.videoId}.tagAssignments`,
+          `公開チャンネル「${channelName}」に対応する人物名「${personName}」のタグがありません。`,
+        ));
+      }
+    }
+  }
+
   return issues;
 }
 
