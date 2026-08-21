@@ -69,6 +69,9 @@ legend { font-weight: 800; margin-bottom: .4rem; }
 .tag-filter-toolbar { position: sticky; z-index: 4; top: 72px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .5rem 0; background: var(--paper); }
 .tag-filter-toolbar .hint { margin: 0; }
 .tag-filter-toolbar .button { flex: 0 0 auto; }
+.tag-filter-content { display: grid; grid-template-rows: 0fr; opacity: 0; visibility: hidden; transition: grid-template-rows .18s ease, opacity .12s ease, visibility 0s linear .18s; }
+.tag-filter-content.is-expanded { grid-template-rows: 1fr; opacity: 1; visibility: visible; transition: grid-template-rows .18s ease, opacity .12s ease; }
+.tag-filter-content-inner { min-height: 0; overflow: hidden; }
 .tag-group { padding: .85rem 0; border-bottom: 1px solid #eeeaf3; }
 .tag-input-label { display: block; margin-top: 1rem; color: var(--ink); font-size: .86rem; font-weight: 700; }
 .tag-input-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .65rem; margin: .45rem 0 1rem; }
