@@ -378,20 +378,22 @@ export const publicIndexSchema = z.object({
 }).strict();
 
 export const searchIndexSchema = z.object({
-  schemaVersion: z.literal('1.0.0'),
+  schemaVersion: z.literal('2.0.0'),
   releaseId: z.string(),
-  normalizationVersion: z.literal('1.0.0'),
+  normalizationVersion: z.literal('2.0.0'),
   videos: z.array(publicVideoSummarySchema.pick({
     videoId: true,
     normalizedTitle: true,
     publishedAt: true,
     durationSeconds: true,
     tagIds: true,
-  })),
+  }).extend({
+    normalizedReading: z.string(),
+  }).strict()),
 }).strict();
 
 export const publicTagIndexSchema = z.object({
-  schemaVersion: z.literal('1.0.0'),
+  schemaVersion: z.literal('2.0.0'),
   releaseId: z.string(),
   taxonomyVersion: z.string(),
   aliasVersion: z.string(),
@@ -406,6 +408,7 @@ export const publicTagIndexSchema = z.object({
       tags: z.array(z.object({
         tagId: z.string(),
         canonicalName: z.string(),
+        normalizedReading: z.string(),
         count: z.number().int().nonnegative(),
         videoIds: z.array(videoId),
         personProfile: z.object({

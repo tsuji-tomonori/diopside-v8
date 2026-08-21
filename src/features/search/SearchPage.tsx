@@ -1,10 +1,11 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { VideoCard } from '../../components/VideoCard.tsx';
 import { useBundle, useDeviceStore } from '../../contexts.ts';
 import {
   applySearch,
+  buildSearchSuggestions,
   durationBuckets,
   normalizeTagAlias,
   parseCondition,
@@ -22,6 +23,7 @@ const pageSize = 24;
 export function SearchPage(): React.JSX.Element {
   const bundle = useBundle();
   const store = useDeviceStore();
+  const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
   const [draft, setDraft] = useState<SearchCondition>(() => parseCondition(params));
   const [tagInput, setTagInput] = useState('');
@@ -29,6 +31,8 @@ export function SearchPage(): React.JSX.Element {
   const [tagsExpanded, setTagsExpanded] = useState(true);
   const [visibleCount, setVisibleCount] = useState(pageSize);
   const [resultAnnouncement, setResultAnnouncement] = useState('');
+  const [suggestionsOpen, setSuggestionsOpen] = useState(false);
+  const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
   const [appliedCondition, setAppliedCondition] = useState<SearchCondition | null>(null);
   const searchStartedAt = useRef<number | null>(null);
   const searchComputationMs = useRef(0);
@@ -37,6 +41,43 @@ export function SearchPage(): React.JSX.Element {
   const parsedCondition = useMemo(() => parseCondition(params), [params]);
   const summaries = useMemo(() => new Map(bundle.index.videos.map((video) => [video.videoId, video])), [bundle.index.videos]);
   const tags = useMemo(() => bundle.tagIndex.categories.flatMap((category) => category.subcategories.flatMap((subcategory) => subcategory.tags)), [bundle.tagIndex.categories]);
+  const aliasesByTagId = useMemo(() => {
+    const result = new Map<string, string[]>();
+    for (const [alias, tagId] of Object.entries(bundle.aliasIndex.aliases)) {
+      const values = result.get(tagId) ?? [];
+      values.push(alias);
+      result.set(tagId, values);
+    }
+    return result;
+  }, [bundle.aliasIndex.aliases]);
+  const suggestionVideos = useMemo(() => bundle.searchIndex.videos.flatMap((video) => {
+    const summary = summaries.get(video.videoId);
+    return summary ? [{
+      videoId: video.videoId,
+      title: summary.title,
+      normalizedTitle: video.normalizedTitle,
+      normalizedReading: video.normalizedReading,
+      publishedAt: video.publishedAt,
+    }] : [];
+  }), [bundle.searchIndex.videos, summaries]);
+  const suggestionTags = useMemo(() => tags
+    .filter((tag) => tag.count > 0)
+    .map((tag) => ({
+      tagId: tag.tagId,
+      canonicalName: tag.canonicalName,
+      normalizedReading: tag.normalizedReading,
+      count: tag.count,
+      aliases: aliasesByTagId.get(tag.tagId) ?? [],
+    })), [aliasesByTagId, tags]);
+  const suggestions = useMemo(
+    () => buildSearchSuggestions(draft.query, suggestionVideos, suggestionTags),
+    [draft.query, suggestionTags, suggestionVideos],
+  );
+  const suggestionOptions = useMemo(() => [
+    ...suggestions.videos.map((video) => ({ kind: 'video' as const, id: video.videoId, value: video })),
+    ...suggestions.tags.map((tag) => ({ kind: 'tag' as const, id: tag.tagId, value: tag })),
+  ], [suggestions]);
+  const showSuggestions = suggestionsOpen && draft.query.trim().length > 0 && suggestionOptions.length > 0;
   const knownTagIds = useMemo(() => new Set(tags.map((tag) => tag.tagId)), [tags]);
   const tagInputIndex = useMemo(() => {
     const index = new Map(Object.entries(bundle.aliasIndex.aliases));
@@ -92,6 +133,8 @@ export function SearchPage(): React.JSX.Element {
   const submit = (nextCondition: SearchCondition = draft): boolean => {
     const nextErrors = validateCondition(nextCondition);
     if (nextErrors.length > 0) return false;
+    setSuggestionsOpen(false);
+    setActiveSuggestionIndex(-1);
     searchStartedAt.current = performance.now();
     pendingParams.current = serializeCondition(nextCondition);
     setDraft(nextCondition);
@@ -102,12 +145,26 @@ export function SearchPage(): React.JSX.Element {
 
   const closeTagsAndShowResults = (nextCondition: SearchCondition = draft): void => {
     if (!submit(nextCondition)) return;
+
     setTagsExpanded(false);
     requestAnimationFrame(() => {
       resultsHeadingRef.current?.focus({ preventScroll: true });
       const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
       resultsHeadingRef.current?.scrollIntoView({ behavior, block: 'start' });
     });
+  };
+
+  const applyTagSuggestion = (tagId: string): void => {
+    const next = { ...draft, query: '', tagIds: [...new Set([...draft.tagIds, tagId])] };
+    closeTagsAndShowResults(next);
+  };
+
+  const selectActiveSuggestion = (): boolean => {
+    const option = suggestionOptions[activeSuggestionIndex];
+    if (!option) return false;
+    if (option.kind === 'video') navigate(`/video/${option.value.videoId}`);
+    else applyTagSuggestion(option.value.tagId);
+    return true;
   };
 
   const resolveTagId = (value: string): string | undefined => {
@@ -189,17 +246,114 @@ export function SearchPage(): React.JSX.Element {
       <section className="search-panel" aria-labelledby="search-heading">
         <h1 id="search-heading">動画を検索</h1>
         <form onSubmit={(event) => { event.preventDefault(); submit(); }}>
-          <label className="search-label" htmlFor="query">動画タイトル</label>
+          <label className="search-label" htmlFor="query">検索</label>
           <div className="search-row">
-            <input
-              id="query"
-              type="search"
-              value={draft.query}
-              onChange={(event) => setDraft((current) => ({ ...current, query: event.target.value }))}
-              placeholder="覚えている言葉を入力"
-              autoComplete="off"
-            />
-            <button className="button primary" type="submit">この条件で探す</button>
+            <div
+              className="search-combobox"
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setSuggestionsOpen(false);
+              }}
+            >
+              <input
+                id="query"
+                type="search"
+                role="combobox"
+                aria-autocomplete="list"
+                aria-controls="search-suggestions"
+                aria-expanded={showSuggestions}
+                aria-activedescendant={showSuggestions && activeSuggestionIndex >= 0 ? `search-suggestion-${activeSuggestionIndex}` : undefined}
+                value={draft.query}
+                onFocus={() => setSuggestionsOpen(true)}
+                onChange={(event) => {
+                  setDraft((current) => ({ ...current, query: event.target.value }));
+                  setSuggestionsOpen(true);
+                  setActiveSuggestionIndex(-1);
+                }}
+                onKeyDown={(event) => {
+                  if (event.nativeEvent.isComposing || event.keyCode === 229) return;
+                  if (event.key === 'Escape') {
+                    setSuggestionsOpen(false);
+                    setActiveSuggestionIndex(-1);
+                    return;
+                  }
+                  if (event.key === 'ArrowDown' && suggestionOptions.length > 0) {
+                    event.preventDefault();
+                    setSuggestionsOpen(true);
+                    setActiveSuggestionIndex((current) => (current + 1) % suggestionOptions.length);
+                    return;
+                  }
+                  if (event.key === 'ArrowUp' && suggestionOptions.length > 0) {
+                    event.preventDefault();
+                    setSuggestionsOpen(true);
+                    setActiveSuggestionIndex((current) => current <= 0 ? suggestionOptions.length - 1 : current - 1);
+                    return;
+                  }
+                  if (event.key === 'Enter' && activeSuggestionIndex >= 0 && selectActiveSuggestion()) event.preventDefault();
+                }}
+                placeholder="動画タイトルやタグ名を入力"
+                autoComplete="off"
+              />
+              {showSuggestions && (
+                <div id="search-suggestions" className="search-suggestions" role="listbox" aria-label="検索候補">
+                  {suggestions.videos.length > 0 && (
+                    <section role="group" aria-label="動画候補">
+                      <h2>動画</h2>
+                      {suggestions.videos.map((video) => {
+                        const optionIndex = suggestionOptions.findIndex((option) => option.kind === 'video' && option.id === video.videoId);
+                        return (
+                          <Link
+                            id={`search-suggestion-${optionIndex}`}
+                            key={video.videoId}
+                            className="search-suggestion"
+                            role="option"
+                            aria-selected={activeSuggestionIndex === optionIndex}
+                            to={`/video/${video.videoId}`}
+                            onMouseEnter={() => setActiveSuggestionIndex(optionIndex)}
+                          >
+                            <span className="suggestion-kind">動画</span>
+                            <span>{video.title}</span>
+                          </Link>
+                        );
+                      })}
+                    </section>
+                  )}
+                  {suggestions.tags.length > 0 && (
+                    <section role="group" aria-label="タグ候補">
+                      <h2>タグ</h2>
+                      {suggestions.tags.map((tag) => {
+                        const optionIndex = suggestionOptions.findIndex((option) => option.kind === 'tag' && option.id === tag.tagId);
+                        return (
+                          <button
+                            id={`search-suggestion-${optionIndex}`}
+                            key={tag.tagId}
+                            className="search-suggestion"
+                            type="button"
+                            role="option"
+                            aria-selected={activeSuggestionIndex === optionIndex}
+                            onMouseEnter={() => setActiveSuggestionIndex(optionIndex)}
+                            onClick={() => applyTagSuggestion(tag.tagId)}
+                          >
+                            <span className="suggestion-kind">タグ</span>
+                            <span>{tag.canonicalName}</span>
+                            <small>{tag.count}件</small>
+                          </button>
+                        );
+                      })}
+                    </section>
+                  )}
+                </div>
+              )}
+              <p className="screen-reader-only" role="status">
+                {draft.query.trim() ? `動画${suggestions.videos.length}件、タグ${suggestions.tags.length}件の候補` : ''}
+              </p>
+            </div>
+            <button
+              className="button primary"
+              type="submit"
+              onMouseDown={(event) => event.preventDefault()}
+            >
+              この条件で探す
+            </button>
           </div>
 
           <details className="filter-drawer" open={draft.tagIds.length > 0}>
