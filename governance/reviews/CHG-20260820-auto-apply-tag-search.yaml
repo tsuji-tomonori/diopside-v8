@@ -64,7 +64,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: 永続要件、生成設計、重要な検索UIフローへ影響するためassuredを選択した
+    note: 最新mainの検索欄タグサジェストと統合した永続要件、生成設計、重要な検索UIフローへ影響するためassuredを選択した
   - id: FAST-001
     class: Invariant
     result: pass
@@ -90,7 +90,7 @@ selected_checks:
     evidence:
       - test:src/domain/search.test.ts
       - test:e2e/search.spec.ts
-    note: 関連単体21件とタグ選択・解除・入力候補の検索E2Eで変更範囲を検証する
+    note: 関連単体と、検索欄タグ候補・詳細タグ候補の選択・解除・入力候補を対象にした検索E2Eで変更範囲を検証する
   - id: FAST-005
     class: Risk-selected
     result: pass
@@ -134,7 +134,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: 検索UI、V8-SEARCH-008、対応E2E、要件・設計生成物だけへ差分を限定した
+    note: 検索欄タグサジェストとV8-SEARCH-008の即時適用、対応E2E、要件・設計生成物だけへ統合差分を限定した
   - id: REV-002
     class: Invariant
     result: pass
@@ -166,7 +166,7 @@ selected_checks:
     evidence:
       - test:e2e/search.spec.ts
       - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
-    note: 入力候補と候補ボタンの追加・解除をモバイルとデスクトップで実行するCI経路がある
+    note: 検索欄タグ候補と詳細タグ候補の追加・解除をモバイルとデスクトップで実行するCI経路がある
   - id: REV-007
     class: Invariant
     result: pass
