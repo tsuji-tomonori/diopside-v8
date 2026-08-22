@@ -1,0 +1,200 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260822-refresh-youtube-icons
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: true
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: V8-DISPLAY-013はYouTubeチャンネルアイコンのローカル表示を既に要求しており、要件を変更せず実装を既存要件へ戻した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - path:docs/design/generated/system.gen.md
+    note: アイコン再取得scriptをas-built入力へ追加し、生成設計を再生成した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 共有公開schema、人物正本、164件の人物画像、生成設計へ影響するためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 利用者がGitHub権限を明示した範囲でbranch、commit、PRを作成する。merge、公開、production操作は行わない
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/people/collaboration-profiles.json
+      - path:scripts/refresh-person-icons.ts
+    note: 全164人物をYouTubeチャンネルIDと同名のローカルJPEGへ決定的に対応付け、commitのrevertで復旧できる
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/refresh-person-icons.ts
+      - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+    note: 1696動画の公開データ生成とVite本番buildに合格した
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+    note: ブラウザ用とNode用のTypeScript型検査に合格した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+    note: src、scripts、tests、e2eを対象とするESLintに合格した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - test:tests/generated.test.ts
+      - test:src/features/collaborations/CollaborationDetailPages.test.tsx
+    note: YouTube画像種別、チャンネルIDとの対応、JPEG実体、公開版への複製、人物ページ表示を19テストで確認した
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+    note: generated-placeholderまたは画像でないファイルが正本へ残ると失敗する回帰条件を固定した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - path:docs/design/generated/system.gen.md
+      - test:tests/generated.test.ts
+    note: as-built設計と公開データを正本から再生成し、release-4d874376fa746251で公開ファイル指紋を確認した。公開成果物はmainマージ後workflowの対象とする
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 差分は公開YouTubeチャンネル画像、正本メタデータ、取得script、schema、試験、生成設計だけで、credentialや非公開データを含まない
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/collaborations/CollaborationDetailPages.test.tsx
+      - test:tests/content-validation.test.ts
+    note: 人物ページのsuccess状態がローカルYouTube画像を参照し、未知人物のerror状態を維持することを確認した
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 人物アイコンの取得・正本化・検証・生成設計に差分を限定し、静的公開成果物はPRへ含めない
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記録する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: V8-DISPLAY-013の既存受入条件へ実装を一致させる不具合修正であり、要件正本の変更はない
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - path:docs/design/generated/system.gen.md
+    note: 新しい取得scriptを生成設計へ反映した。コードから自明でない長期判断はなくADRは不要である
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - test:tests/generated.test.ts
+      - test:src/features/collaborations/CollaborationDetailPages.test.tsx
+      - workflow:要件・品質ゲート
+    note: YouTube画像正本、公開生成、人物ページ表示の証拠が通常PRの品質ゲートで実行される
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260822-refresh-youtube-icons.yaml
+    note: 選択checkだけを本review YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260822-refresh-youtube-icons.yaml
+    note: 未選択checkをN/Aとして登録していない
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/domain/content.ts
+      - test:tests/generated.test.ts
+    note: 公開フィールド名とURLを維持し、iconKindの許容値だけを既存要件どおりyoutube-channelへ狭める。新release IDで世代分離される
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/collaborations/CollaborationDetailPages.test.tsx
+      - test:tests/content-validation.test.ts
+    note: 人物タグから人物ページへ移動し、ローカル人物画像とYouTube導線を表示する主要タスクをcomponent・正本試験で確認した
+advisories: []
+residual_risks:
+  - YouTube側でチャンネル画像が将来更新された場合は自動同期しない。npm run refresh:people-icons -- --allを明示実行し、レビュー可能な差分として更新する。
+  - YouTube HTMLのog:imageが取得できない場合はscript全体を失敗させ、文字プレースホルダーへ自動退避しない。
+  - 公開データとmain/docsはsource PRのマージ後に既存の「mainマージ後の静的成果物更新」workflowが別PRとして決定生成する。
