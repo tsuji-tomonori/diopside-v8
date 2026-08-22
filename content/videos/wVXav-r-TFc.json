@@ -43,6 +43,14 @@
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "91d927cd9ef817bc65b0fe5408a46154b912ac147a93174c95e426efb01deafb",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 16145
+    },
+    {
+      "evidenceId": "evidence-full-transcript-timestamps",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕（既存タイムスタンプ根拠）",
       "inputFingerprint": "8487864665744ee21eb0013f200803f54c57a81a04d6a69a0664502b45ac29b5",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 16145
@@ -634,5 +642,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "誕生日配信の延長戦として、白雪巴がハッシュタグに寄せられた写真やイラスト、手作りの品を一つずつ巡回。飾り方や思い出に声を弾ませ、寄り道の雑談も交えながら、5年分の応援と日々届く言葉へ感謝を返していく。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "返しても返しても返しきれないのよ",
+      "atSeconds": 10315,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "91d927cd9ef817bc65b0fe5408a46154b912ac147a93174c95e426efb01deafb",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T04:26:38.394727Z"
   }
 }
