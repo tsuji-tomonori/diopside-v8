@@ -27,7 +27,7 @@ jobs:
     env:
       PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
       IS_GENERATED_RELEASE_PR: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && startsWith(github.head_ref, 'automation/generated-release-') }}
-      IS_GENERATED_RELEASE_MAIN: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, '🚀 release(data):') }}
+      IS_GENERATED_RELEASE_MAIN: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '🚀 release(data):') }}
     steps:
       - name: ソースを取得
         uses: actions/checkout@v4
