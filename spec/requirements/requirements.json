@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "catalog_revision": 13,
+  "catalog_revision": 14,
   "product": "diopside v8",
-  "updated_at": "2026-08-20",
+  "updated_at": "2026-08-22",
   "requirements": [
     {
       "acceptance_criteria": [
@@ -1833,17 +1833,17 @@
         {
           "given": "backfill用のコードとCIがある",
           "id": "AC-V8-INGEST-009-1",
-          "then": "workflowはscheduleまたはdeployを持たず、manifest、upload、enqueue、reportは明示CLIだけが提供し、固定target manifestの全件終端で作業が終了する。",
+          "then": "workflowはscheduleまたはdeployを持たず、通常backfillとlegacy local importはmanifest作成とAWS書込みを別commandにし、AWS書込みには固定manifestと全件またはvideo IDの明示選択を要求する。",
           "when": "repositoryのworkflowとoperator commandを確認する"
         }
       ],
       "action": "enforce",
       "category": "functional",
       "id": "V8-INGEST-009",
-      "last_changed_by": "CHG-20260822-lambda-ingestion",
-      "object": "private backfillは運用者が固定manifest、lock済みLambda asset、費用確認を明示して開始する有限作業であり、schedule、新着動画の自動発見、AWS deploy、enqueue、削除、公開、mergeを自動実行してはならない。",
+      "last_changed_by": "CHG-20260822-legacy-local-import",
+      "object": "private backfillは運用者が固定manifestと対象選択を明示して開始する有限作業であり、通常取得とlegacy local importのいずれもschedule、新着動画の自動発見、AWS deploy、enqueue、upload、削除、公開、mergeを自動実行してはならない。",
       "rationale": "歴史素材の回収を公開更新や無期限の外部スキャンへ変えず、人の承認境界を維持するため。",
-      "revision": 2,
+      "revision": 3,
       "scope": "project",
       "source_refs": [
         "Issue #465",
@@ -1854,13 +1854,14 @@
       "title": "private backfillは運用者が明示開始する有限作業でなければならない",
       "traces": {
         "design": [
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md",
           "docs/decisions/ADR-0003-lambda-private-material-backfill.md",
+          "docs/decisions/ADR-0004-legacy-local-private-import.md",
           "docs/operations/manual-content-update.md"
         ],
         "implementation": [
           ".github/workflows/verify.yml",
           "infra/src/diopside_ingestion/cli.py",
+          "infra/src/diopside_ingestion/legacy_import.py",
           "scripts/verify-repository-policy.ts"
         ],
         "standards": [
@@ -1869,12 +1870,13 @@
         ],
         "tests": [
           "tests/repository-policy.test.ts",
-          "infra/tests/test_cli.py"
+          "infra/tests/test_cli.py",
+          "infra/tests/test_legacy_import.py"
         ]
       },
       "type": "operational",
       "verification": {
-        "evidence": "tests/repository-policy.test.ts, infra/tests/test_cli.py",
+        "evidence": "tests/repository-policy.test.ts, infra/tests/test_cli.py, infra/tests/test_legacy_import.py",
         "method": "workflow・CLI・運用文書確認"
       }
     },
@@ -1973,6 +1975,62 @@
       "verification": {
         "evidence": "infra/tests/test_stack.py, .github/workflows/verify.yml",
         "method": "CDK synth・cdk-nag・静的解析・unit test"
+      }
+    },
+    {
+      "acceptance_criteria": [
+        {
+          "given": "legacy target 1,800件、coverage report、transcript JSONL、metadata、正本channel ID台帳がある",
+          "id": "AC-V8-INGEST-012-1",
+          "then": "continuous timelineを検証済みの1,598件だけを固定し、文字起こしなし153件とcoverage未達49件を除外し、対象数、path、metadata video ID、各fileのbyte数またはSHA-256が不正ならAWS書込み前に停止する。",
+          "when": "operatorがlegacy-local-manifestを実行する"
+        },
+        {
+          "given": "checksum検証済みlegacy manifestと運用者の明示した全件またはvideo ID集合がある",
+          "id": "AC-V8-INGEST-012-2",
+          "then": "YouTube再取得を行わず、transcriptを独立artifactとして保存し、生コメントと生チャットはprivate raw、投稿者識別子を除いたcopyはnormalizedとして保存し、全S3 objectの再読検証後だけmanifestとDynamoDBをpartialで確定する。",
+          "when": "operatorがlegacy-local-importを実行する"
+        }
+      ],
+      "action": "enforce",
+      "category": "functional",
+      "id": "V8-INGEST-012",
+      "last_changed_by": "CHG-20260822-legacy-local-import",
+      "object": "全編coverage検証済み1,598動画だけをchecksum付きmanifestへ固定し、provider再取得を行わず、rawと匿名化normalized copyを分離し、S3再読検証後にrun manifest、current manifest、DynamoDBのpartial終端状態を確定しなければならない。",
+      "rationale": "既存の検証済み成果物を再downloadせず移行しながら、ASR混在由来、欠落artifact、投稿者識別子、改ざん、部分uploadを通常workerの成功と混同しないため。",
+      "revision": 1,
+      "scope": "project",
+      "source_refs": [
+        "Issue #465",
+        "user:2026-08-22"
+      ],
+      "status": "active",
+      "subject": "diopside v8のlegacy local import",
+      "title": "coverage検証済みlegacy local成果物は専用の検証済み取込経路で移行しなければならない",
+      "traces": {
+        "design": [
+          "docs/decisions/ADR-0004-legacy-local-private-import.md",
+          "docs/operations/manual-content-update.md"
+        ],
+        "implementation": [
+          "infra/src/diopside_ingestion/legacy_import.py",
+          "infra/src/diopside_ingestion/cli.py",
+          "infra/src/diopside_ingestion/contracts.py",
+          "infra/src/diopside_ingestion/reuse.py"
+        ],
+        "standards": [
+          "Issue #465",
+          "dev-standard assured profile"
+        ],
+        "tests": [
+          "infra/tests/test_legacy_import.py",
+          "infra/tests/test_reuse.py"
+        ]
+      },
+      "type": "operational",
+      "verification": {
+        "evidence": "infra/tests/test_legacy_import.py",
+        "method": "legacy manifest・改ざん・匿名化・S3再読・DynamoDB終端試験"
       }
     },
     {
@@ -3706,35 +3764,37 @@
         {
           "given": "公開成果物またはprivate backfillの保存先がある",
           "id": "AC-V8-SAFETY-002-1",
-          "then": "合成した漏えいデータを公開検査が拒否し、公開成果物に該当項目が0件であり、private S3以外の永続状態には生素材または投稿者識別子が存在しない。",
-          "when": "公開境界試験"
+          "then": "公開成果物に生素材または識別子が0件であり、生コメントと生チャットはKMS暗号化private S3のrawだけに存在し、normalized copy、DynamoDB、manifest、ログ、reportに投稿者名またはchannel IDを含めない。",
+          "when": "公開境界とlegacy local normalizerを試験する"
         }
       ],
       "action": "satisfy",
       "category": "nonfunctional",
       "id": "V8-SAFETY-002",
-      "last_changed_by": "CHG-20260815-yt-dlp-backfill",
-      "object": "生の字幕、生のコメント、生のチャット、投稿者識別子をGit履歴、プルリクエスト、review YAML、Pagesへ保存してはならず、有限private backfillでは暗号化された私有S3だけへ保存しなければならない。",
+      "last_changed_by": "CHG-20260822-legacy-local-import",
+      "object": "生の字幕、文字起こし、コメント、チャット、投稿者識別子をGit履歴、プルリクエスト、review YAML、Pagesへ保存してはならず、有限private backfillでは暗号化された私有S3だけへ保存し、normalized copyから投稿者識別子を除かなければならない。",
       "rationale": "生素材を公開面から隔離しつつ、復旧可能な取得工程だけを安全に許可するため。",
-      "revision": 2,
+      "revision": 3,
       "scope": "product",
       "source_refs": [
         "Issue #1 V8-安全-002",
         "Issue #465",
-        "user:2026-08-03"
+        "user:2026-08-03",
+        "user:2026-08-22"
       ],
       "status": "active",
       "subject": "diopside v8の安全",
       "title": "生の字幕、生のコメント、生のチャット、投稿者識別子をGit履歴またはPagesへ保存してはならない",
       "traces": {
         "design": [
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md",
+          "docs/decisions/ADR-0004-legacy-local-private-import.md",
           "docs/operations/privacy-and-safety.md"
         ],
         "implementation": [
           "scripts/validate-content.ts",
           "scripts/verify-repository-policy.ts",
           "infra/src/diopside_ingestion/worker.py",
+          "infra/src/diopside_ingestion/legacy_import.py",
           "infra/src/diopside_ingestion/stack.py"
         ],
         "standards": [
@@ -3746,13 +3806,14 @@
           "tests/content-validation.test.ts",
           "tests/repository-policy.test.ts",
           "infra/tests/test_worker.py",
+          "infra/tests/test_legacy_import.py",
           "infra/tests/test_stack.py"
         ]
       },
       "type": "constraint",
       "verification": {
-        "evidence": "tests/content-validation.test.ts, tests/repository-policy.test.ts",
-        "method": "公開境界試験"
+        "evidence": "tests/content-validation.test.ts, tests/repository-policy.test.ts, infra/tests/test_legacy_import.py",
+        "method": "公開境界・private raw・匿名化copy試験"
       }
     },
     {
