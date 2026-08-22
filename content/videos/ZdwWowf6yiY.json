@@ -43,6 +43,14 @@
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "fdb53d100ae9a41b0b1d27e8d093f946715a7bfc74ed67b5c7d1c6d2c9a86523",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3918
+    },
+    {
+      "evidenceId": "evidence-full-transcript-timestamps",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕（既存タイムスタンプ根拠）",
       "inputFingerprint": "290c9f6fe4710b0fd0f66abb94898d8a24cf738fa2268437280995fe5f018503",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 3918
@@ -337,5 +345,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、届いた身近な悩みを「アメ」か「ムチ」かルーレットで決めて回答。提出物の先延ばし、夜更かし、片づけ、恋や仕事のもやもやまで、やさしく寄り添う言葉と容赦ない叱咤を切り替えながら、笑いを交えて相談者の背中を押す。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "あなたは何にも悪くないんだから",
+      "atSeconds": 2760,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "fdb53d100ae9a41b0b1d27e8d093f946715a7bfc74ed67b5c7d1c6d2c9a86523",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T03:32:05.128239Z"
   }
 }
