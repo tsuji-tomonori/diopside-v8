@@ -2,7 +2,7 @@
 # diopside v8 要件一覧
 
 - カタログ版: 15
-- 更新日: 2026-08-22
+- 更新日: 2026-08-20
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |

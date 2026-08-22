@@ -101,7 +101,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/inventory.gen.json, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
-    note: 要件human view、設計inventory、CDK as-built設計を正本から再生成しcheck modeで一致を確認した。
+    note: CIと同じ正本generatorで要件updated_atをsource最終日へ同期し、要件human view、設計inventory、CDK as-built設計を再生成してcheck modeで一致を確認した。
   - id: FAST-007
     class: Invariant
     result: pass
