@@ -18,7 +18,7 @@ jobs:
     name: 検証済みmainから公開版を生成してPR化
     # release commitもPages公開のための通常のmain pushとして処理し、
     # この生成jobだけを除外して自己再実行の循環を防ぐ。
-    if: ${{ !startsWith(github.event.head_commit.message, '🚀 release(data):') }}
+    if: ${{ !contains(github.event.head_commit.message, '🚀 release(data):') }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     outputs:
@@ -177,7 +177,7 @@ jobs:
     name: GitHub Pages公開データをHTTPで検査
     # 生成差分があればrelease PRのmainマージ後に検査し、差分がなければこのpushを検査する。
     needs: update
-    if: ${{ always() && (startsWith(github.event.head_commit.message, '🚀 release(data):') || needs.update.outputs.release_pending == 'false') }}
+    if: ${{ always() && (contains(github.event.head_commit.message, '🚀 release(data):') || needs.update.outputs.release_pending == 'false') }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
