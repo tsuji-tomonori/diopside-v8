@@ -16,6 +16,12 @@ import boto3
 from botocore.exceptions import ClientError
 
 from diopside_ingestion.contracts import IngestionRequest
+from diopside_ingestion.legacy_import import (
+    LegacyLocalImporter,
+    LegacyObjectStore,
+    create_legacy_import_manifest,
+    load_legacy_import_manifest,
+)
 from diopside_ingestion.manifest import (
     BackfillManifest,
     build_report,
@@ -29,6 +35,7 @@ from diopside_ingestion.reuse import (
     load_verified_video_manifest,
     read_verified_artifact_object,
     select_japanese_caption_object,
+    select_verified_transcript_object,
 )
 from diopside_ingestion.state import DynamoIngestionRepository
 
@@ -146,6 +153,35 @@ def materialize_private_caption(
     return destination
 
 
+def materialize_private_transcript(
+    store: ObjectStore,
+    bucket: str,
+    video_id: str,
+    item: Mapping[str, object] | None,
+    destination: Path,
+) -> Path | None:
+    """Copy a checksum-verified legacy transcript into an ignored work directory."""
+    if item is None or not isinstance(item.get("channel_id"), str):
+        return None
+    manifest = load_verified_video_manifest(store, bucket, cast(str, item["channel_id"]), video_id)
+    if manifest is None:
+        return None
+    transcript = select_verified_transcript_object(manifest)
+    if transcript is None:
+        return None
+    payload = read_verified_artifact_object(store, bucket, transcript)
+    try:
+        if not payload or any(
+            not isinstance(json.loads(line), dict) for line in payload.splitlines()
+        ):
+            return None
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        return None
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_bytes(payload)
+    return destination
+
+
 def build_parser() -> argparse.ArgumentParser:
     """Create a command parser whose mutating commands are always explicit."""
     parser = argparse.ArgumentParser(description=__doc__)
@@ -179,6 +215,27 @@ def build_parser() -> argparse.ArgumentParser:
     reuse.add_argument("--bucket", required=True)
     reuse.add_argument("--table", required=True)
     reuse.add_argument("--work-root", type=Path, required=True)
+
+    legacy_manifest = commands.add_parser(
+        "legacy-local-manifest",
+        help="freeze coverage-verified legacy-local inputs without writing AWS",
+    )
+    legacy_manifest.add_argument("--source-root", type=Path, required=True)
+    legacy_manifest.add_argument("--repo-root", type=Path, required=True)
+    legacy_manifest.add_argument("--output", type=Path, required=True)
+    legacy_manifest.add_argument("--expected-count", type=int, default=1598)
+
+    legacy_import = commands.add_parser(
+        "legacy-local-import",
+        help="explicitly import a frozen local manifest into private S3 and DynamoDB",
+    )
+    legacy_import.add_argument("--source-root", type=Path, required=True)
+    legacy_import.add_argument("--manifest", type=Path, required=True)
+    legacy_import.add_argument("--bucket", required=True)
+    legacy_import.add_argument("--table", required=True)
+    selection = legacy_import.add_mutually_exclusive_group(required=True)
+    selection.add_argument("--all", action="store_true")
+    selection.add_argument("--video-id", action="append", default=[])
     return parser
 
 
@@ -200,20 +257,52 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 0
 
+    if args.command == "legacy-local-manifest":
+        legacy_local_manifest = create_legacy_import_manifest(
+            args.source_root,
+            args.repo_root,
+            expected_count=args.expected_count,
+        )
+        args.output.write_text(legacy_local_manifest.to_json(), encoding="utf-8")
+        print(
+            json.dumps(
+                {
+                    "manifest": str(args.output),
+                    "target_count": len(legacy_local_manifest.videos),
+                    "excluded": legacy_local_manifest.excluded,
+                    "sha256": legacy_local_manifest.sha256,
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
+
     if args.command == "reuse-evidence":
         request = IngestionRequest.from_document({"video_id": args.video_id})
         dynamodb = boto3.client("dynamodb")  # pyright: ignore[reportUnknownMemberType] -- boto3 overload issue.
         store = cast(ObjectStore, boto3.client("s3"))  # pyright: ignore[reportUnknownMemberType] -- boto3 overload issue.
         repository = DynamoIngestionRepository(dynamodb, args.table)
-        destination = args.work_root / request.video_id / "captions" / "raw" / "private-s3.json3"
+        transcript_destination = (
+            args.work_root / request.video_id / "evidence" / "private-s3-transcript.jsonl"
+        )
+        caption_destination = (
+            args.work_root / request.video_id / "captions" / "raw" / "private-s3.json3"
+        )
         try:
-            reused = materialize_private_caption(
+            item = repository.load(request.video_id)
+            reused = materialize_private_transcript(
                 store,
                 args.bucket,
                 request.video_id,
-                repository.load(request.video_id),
-                destination,
+                item,
+                transcript_destination,
             )
+            kind = "transcript_jsonl"
+            if reused is None:
+                reused = materialize_private_caption(
+                    store, args.bucket, request.video_id, item, caption_destination
+                )
+                kind = "caption_json3"
         except PrivateObjectReadError as error:
             raise RuntimeError("private S3 evidence could not be read safely") from error
         print(
@@ -221,10 +310,26 @@ def main(argv: list[str] | None = None) -> int:
                 {
                     "status": "reused" if reused is not None else "not_available",
                     "video_id": request.video_id,
-                    "caption_json3": str(reused) if reused is not None else None,
+                    "evidence_kind": kind if reused is not None else None,
+                    "path": str(reused) if reused is not None else None,
                 }
             )
         )
+        return 0
+
+    if args.command == "legacy-local-import":
+        legacy_manifest = load_legacy_import_manifest(args.manifest)
+        dynamodb = boto3.client("dynamodb")  # pyright: ignore[reportUnknownMemberType] -- boto3 overload issue.
+        store = cast(LegacyObjectStore, boto3.client("s3"))  # pyright: ignore[reportUnknownMemberType] -- boto3 overload issue.
+        repository = DynamoIngestionRepository(dynamodb, args.table)
+        selected = None if args.all else set(cast(list[str], args.video_id))
+        known = {video.video_id for video in legacy_manifest.videos}
+        if selected is not None and not selected <= known:
+            raise ValueError("--video-id contains a target outside the frozen manifest")
+        importer = LegacyLocalImporter(
+            store, repository, args.bucket, args.source_root, legacy_manifest
+        )
+        print(json.dumps(importer.run(selected), sort_keys=True))
         return 0
 
     manifest = load_manifest(args.manifest)
