@@ -1,149 +1,124 @@
 from __future__ import annotations
 
+import json
+import subprocess
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 
-from diopside_ingestion.dispatcher import Dispatcher
+from diopside_ingestion.dispatcher import Dispatcher, failed_record
 from diopside_ingestion.state import ClaimResult
+from diopside_ingestion.worker import RetryableWorkerError, WorkerConfig
 
 
 @dataclass
 class FakeRepository:
-    claim_result: ClaimResult = field(
-        default_factory=lambda: ClaimResult(claimed=True, attempt_count=1)
-    )
-    recorded: list[tuple[str, str, str]] = field(
-        default_factory=lambda: list[tuple[str, str, str]]()
-    )
+    claimed: bool = True
+    attempts: int = 1
+    claims: list[tuple[str, str, int]] = field(default_factory=lambda: list[tuple[str, str, int]]())
     failures: list[tuple[str, str, str]] = field(
         default_factory=lambda: list[tuple[str, str, str]]()
     )
-    prepared: list[tuple[str, str, str]] = field(
-        default_factory=lambda: list[tuple[str, str, str]]()
-    )
-    item: Mapping[str, object] | None = None
 
     def claim(self, video_id: str, claim_owner: str, lease_seconds: int) -> ClaimResult:
-        assert lease_seconds > 0
-        return self.claim_result
-
-    def prepare_submission(self, video_id: str, claim_owner: str, submission_id: str) -> None:
-        self.prepared.append((video_id, claim_owner, submission_id))
-
-    def record_batch_job(
-        self, video_id: str, claim_owner: str, submission_id: str, batch_job_id: str
-    ) -> None:
-        self.recorded.append((video_id, claim_owner, batch_job_id))
+        self.claims.append((video_id, claim_owner, lease_seconds))
+        return ClaimResult(self.claimed, self.attempts)
 
     def mark_dispatch_failure(self, video_id: str, claim_owner: str, reason_code: str) -> None:
         self.failures.append((video_id, claim_owner, reason_code))
 
-    def load(self, video_id: str) -> Mapping[str, object] | None:
-        return self.item
-
-    def scan_items(self) -> list[Mapping[str, object]]:
-        raise AssertionError("not used by dispatcher")
-
-    def stage_batch_retry(
-        self, video_id: str, batch_job_id: str, reason_code: str, outbox_id: str
-    ) -> None:
-        raise AssertionError("not used by dispatcher")
-
-    def stage_submission_retry(
-        self, video_id: str, submission_id: str, reason_code: str, outbox_id: str
-    ) -> None:
-        raise AssertionError("not used by dispatcher")
-
-    def checkpoint(self, video_id: str, claim_owner: str, **kwargs: object) -> None:
-        raise AssertionError("not used by dispatcher")
-
-    def complete(self, video_id: str, claim_owner: str, **kwargs: object) -> None:
-        raise AssertionError("not used by dispatcher")
-
-    def mark_unavailable(self, video_id: str, claim_owner: str, reason_code: str) -> None:
-        raise AssertionError("not used by dispatcher")
-
 
 @dataclass
-class FakeBatch:
-    submitted: list[tuple[str, int, str]] = field(
-        default_factory=lambda: list[tuple[str, int, str]]()
+class FakeWorker:
+    failure: BaseException | None = None
+    runs: int = 0
+
+    def run(self) -> None:
+        self.runs += 1
+        if self.failure is not None:
+            raise self.failure
+
+
+def _dispatcher(
+    repository: FakeRepository,
+    worker: FakeWorker,
+    captured_configs: list[WorkerConfig] | None = None,
+) -> Dispatcher:
+    def worker_factory(config: WorkerConfig) -> FakeWorker:
+        if captured_configs is not None:
+            captured_configs.append(config)
+        return worker
+
+    return Dispatcher(
+        repository=repository,  # type: ignore[arg-type]
+        worker_factory=worker_factory,
+        bucket="private-bucket",
+        table_name="VideoIngestion",
+        runtime_version="lambda-python3.12",
     )
 
-    found: str | None = None
 
-    def find(self, submission_id: str) -> str | None:
-        return self.found
-
-    def submit(self, video_id: str, submission_id: str, claim_owner: str) -> str:
-        self.submitted.append((video_id, 1, claim_owner))
-        assert submission_id == "ingest-dQw4w9WgXcQ-1"
-        return "job-123"
+def _record(body: object = None) -> Mapping[str, object]:
+    document = {"video_id": "dQw4w9WgXcQ"} if body is None else body
+    return {"messageId": "message-1", "body": json.dumps(document)}
 
 
-def test_dispatcher_submits_one_job_with_internal_claim_owner_only() -> None:
+def test_dispatcher_runs_claimed_video_inside_lambda() -> None:
     repository = FakeRepository()
-    batch = FakeBatch()
-    retry = Dispatcher(repository=repository, batch=batch).process_record(
-        {"messageId": "message-1", "body": '{"video_id":"dQw4w9WgXcQ"}'}
-    )
-    assert retry is False
-    assert batch.submitted == [("dQw4w9WgXcQ", 1, "message-1")]
-    assert repository.prepared == [("dQw4w9WgXcQ", "message-1", "ingest-dQw4w9WgXcQ-1")]
-    assert repository.recorded == [("dQw4w9WgXcQ", "message-1", "job-123")]
+    worker = FakeWorker()
+    configs: list[WorkerConfig] = []
+
+    assert _dispatcher(repository, worker, configs).process_record(_record()) is False
+
+    assert worker.runs == 1
+    assert repository.failures == []
+    assert configs == [
+        WorkerConfig(
+            video_id="dQw4w9WgXcQ",
+            run_id="ingest-dQw4w9WgXcQ-1",
+            claim_owner="message-1",
+            bucket="private-bucket",
+            table_name="VideoIngestion",
+            runtime_version="lambda-python3.12",
+        )
+    ]
 
 
-def test_dispatcher_does_not_submit_duplicate_claim() -> None:
-    repository = FakeRepository(claim_result=ClaimResult(claimed=False))
-    batch = FakeBatch()
-    retry = Dispatcher(repository=repository, batch=batch).process_record(
-        {"messageId": "message-1", "body": '{"video_id":"dQw4w9WgXcQ"}'}
-    )
-    assert retry is False
-    assert batch.submitted == []
-
-
-def test_dispatcher_reconciles_after_submit_succeeds_but_job_record_fails() -> None:
-    @dataclass
-    class FailingRecordRepository(FakeRepository):
-        claim_calls: int = 0
-        record_calls: int = 0
-
-        def claim(self, video_id: str, claim_owner: str, lease_seconds: int) -> ClaimResult:
-            self.claim_calls += 1
-            return ClaimResult(claimed=self.claim_calls == 1, attempt_count=1)
-
-        def record_batch_job(
-            self, video_id: str, claim_owner: str, submission_id: str, batch_job_id: str
-        ) -> None:
-            self.record_calls += 1
-            if self.record_calls == 1:
-                self.item = {
-                    "video_id": video_id,
-                    "status": "running",
-                    "claim_owner": claim_owner,
-                    "submission_id": submission_id,
-                    "batch_job_id": None,
-                }
-                raise RuntimeError("injected DynamoDB failure")
-            super().record_batch_job(video_id, claim_owner, submission_id, batch_job_id)
-
-    repository = FailingRecordRepository()
-    batch = FakeBatch(found="job-123")
-    dispatcher = Dispatcher(repository=repository, batch=batch)
-    record = {"messageId": "message-1", "body": '{"video_id":"dQw4w9WgXcQ"}'}
-
-    assert dispatcher.process_record(record) is True
-    assert dispatcher.process_record(record) is False
-    assert batch.submitted == [("dQw4w9WgXcQ", 1, "message-1")]
-    assert repository.recorded == [("dQw4w9WgXcQ", "message-1", "job-123")]
-
-
-def test_dispatcher_returns_invalid_contract_to_fifo_retry_and_dlq() -> None:
+def test_dispatcher_returns_partial_failure_when_worker_nears_timeout() -> None:
     repository = FakeRepository()
-    batch = FakeBatch()
-    retry = Dispatcher(repository=repository, batch=batch).process_record(
-        {"messageId": "message-1", "body": '{"video_id":"dQw4w9WgXcQ","extra":true}'}
+    timeout = subprocess.TimeoutExpired(["python", "-m", "yt_dlp"], 890)
+    worker = FakeWorker(timeout)
+
+    assert _dispatcher(repository, worker).process_record(_record()) is True
+    assert repository.failures == [("dQw4w9WgXcQ", "message-1", "lambda_timeout")]
+
+
+def test_dispatcher_returns_partial_failure_for_retryable_checkpoint() -> None:
+    repository = FakeRepository()
+    worker = FakeWorker(RetryableWorkerError("http_429"))
+
+    assert failed_record(_dispatcher(repository, worker), _record()) == {
+        "itemIdentifier": "message-1"
+    }
+    assert repository.failures[0][2] == "http_429"
+
+
+def test_dispatcher_does_not_run_when_an_unexpired_claim_exists() -> None:
+    repository = FakeRepository(claimed=False)
+    worker = FakeWorker()
+
+    assert _dispatcher(repository, worker).process_record(_record()) is False
+    assert worker.runs == 0
+
+
+def test_dispatcher_rejects_unknown_request_fields_to_the_dlq_path() -> None:
+    repository = FakeRepository()
+    worker = FakeWorker()
+
+    assert (
+        _dispatcher(repository, worker).process_record(
+            _record({"video_id": "dQw4w9WgXcQ", "unexpected": True})
+        )
+        is True
     )
-    assert retry is True
-    assert batch.submitted == []
+    assert repository.claims == []
+    assert worker.runs == 0

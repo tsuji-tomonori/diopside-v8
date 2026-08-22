@@ -24,10 +24,7 @@
       "AWS DynamoDB",
       "AWS SQS FIFO",
       "AWS Lambda",
-      "AWS Batch Fargate",
-      "AWS ECR",
-      "AWS CloudWatch Logs",
-      "AWS VPC"
+      "AWS CloudWatch Logs"
     ],
     "costPolicy": "月額0円の公開運用要件から分離し、バックフィルの実費は観測するが自動停止条件にはしない。デプロイ、投入、削除は別途の明示承認を必要とする。",
     "publicBoundary": "infra/ 配下だけに隔離し、Pages、src、public、公開データ、Git、PR本文、review YAMLへ生素材またはAWS認証情報を渡さない。",
@@ -41,5 +38,5 @@
     "公開面の外部生成・配信サービス"
   ],
   "stopCondition": "公開面の追加請求が0円と確認できない場合は公開更新を停止し、人へ判断を求める",
-  "reviewedAt": "2026-08-15"
+  "reviewedAt": "2026-08-22"
 }

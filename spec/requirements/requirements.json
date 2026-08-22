@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_revision": 12,
+  "catalog_revision": 13,
   "product": "diopside v8",
   "updated_at": "2026-08-20",
   "requirements": [
@@ -33,6 +33,7 @@
         "design": [
           "docs/decisions/ADR-0001-zero-cost-static-pages.md",
           "docs/decisions/ADR-0002-historical-private-material-backfill.md",
+          "docs/decisions/ADR-0003-lambda-private-material-backfill.md",
           "docs/operations/cost-check.md"
         ],
         "implementation": [
@@ -108,22 +109,23 @@
         {
           "given": "公開面または有限private backfillの構成定義がある",
           "id": "AC-V8-COST-003-1",
-          "then": "公開面はクラウド認証情報なしに全手順を実行でき、有料資源の構成を持たず、private backfillはinfra配下のKMS、S3、DynamoDB、SQS FIFO、Lambda、Batch Fargate、ECR、CloudWatch Logs、VPCだけを使う。",
+          "then": "公開面はクラウド認証情報なしに全手順を実行でき、有料資源の構成を持たず、private backfillはinfra配下のKMS、S3、DynamoDB、SQS FIFO、Lambda、CloudWatch Logsだけを使い、AWS Batch、Fargate、ECR、専用VPCを構成しない。",
           "when": "構成確認"
         }
       ],
       "action": "satisfy",
       "category": "nonfunctional",
       "id": "V8-COST-003",
-      "last_changed_by": "CHG-20260815-yt-dlp-backfill",
+      "last_changed_by": "CHG-20260822-lambda-ingestion",
       "object": "AWSその他の有料クラウド資源を公開面の閲覧、検索、生成、配信に使用してはならず、既知動画だけの有限private backfillは承認された隔離基盤だけに限定しなければならない。",
       "rationale": "公開面のゼロ円静的構成を保ちながら、公開に接続しない履歴素材の安全な回復基盤だけを明示的に分離するため。",
-      "revision": 2,
+      "revision": 3,
       "scope": "project",
       "source_refs": [
         "Issue #1 V8-費用-003",
         "Issue #465",
-        "user:2026-08-03"
+        "user:2026-08-03",
+        "user:2026-08-22"
       ],
       "status": "active",
       "subject": "diopside v8の費用",
@@ -132,6 +134,7 @@
         "design": [
           "docs/decisions/ADR-0001-zero-cost-static-pages.md",
           "docs/decisions/ADR-0002-historical-private-material-backfill.md",
+          "docs/decisions/ADR-0003-lambda-private-material-backfill.md",
           "docs/operations/cost-check.md"
         ],
         "implementation": [
@@ -1452,7 +1455,7 @@
       "id": "V8-INGEST-001",
       "last_changed_by": "CHG-20260815-yt-dlp-backfill",
       "object": "外部ingestion要求は11文字のYouTube video_idだけを含み、未知fieldまたは内部状態を含んではならない。",
-      "rationale": "SQS再試行、Batch起動、ローカルfallbackで入力契約を変えず、任意の外部状態注入を防ぐため。",
+      "rationale": "SQS再試行とLambda内実行で入力契約を変えず、任意の外部状態注入を防ぐため。",
       "revision": 1,
       "scope": "project",
       "source_refs": [
@@ -1558,7 +1561,8 @@
       "traces": {
         "design": [
           "docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md",
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md"
+          "docs/decisions/ADR-0002-historical-private-material-backfill.md",
+          "docs/decisions/ADR-0003-lambda-private-material-backfill.md"
         ],
         "implementation": [
           "infra/src/diopside_ingestion/stack.py",
@@ -1570,48 +1574,49 @@
         ],
         "tests": [
           "infra/tests/test_stack.py",
-          "infra/tests/test_dispatcher.py",
-          "infra/tests/test_result_handler.py"
+          "infra/tests/test_dispatcher.py"
         ]
       },
       "type": "data",
       "verification": {
-        "evidence": "infra/tests/test_stack.py, infra/tests/test_dispatcher.py, infra/tests/test_result_handler.py",
+        "evidence": "infra/tests/test_stack.py, infra/tests/test_dispatcher.py",
         "method": "CDK template・状態repository試験"
       }
     },
     {
       "acceptance_criteria": [
         {
-          "given": "同じvideo_idの重複FIFO要求またはBatch失敗がある",
+          "given": "同じvideo_idの重複FIFO要求、Lambda失敗、または15分timeoutがある",
           "id": "AC-V8-INGEST-004-1",
-          "then": "最初の条件付きclaimだけがBatchを起動し、retryable failureは上限回数まで再投入し、上限到達または非retryable failureは安全な終端状態へ記録する。",
-          "when": "dispatcherとresult handlerを実行する"
+          "then": "最初の条件付きclaimだけが実処理Lambdaを継続し、900秒以内に完了しない処理を成功扱いせず、SQSが3回まで再試行した後request DLQへ隔離する。",
+          "when": "SQSから実処理Lambdaを起動する"
         }
       ],
       "action": "enforce",
       "category": "functional",
       "id": "V8-INGEST-004",
-      "last_changed_by": "CHG-20260815-yt-dlp-backfill",
-      "object": "FIFO dispatch、短時間Lambda、Fargate worker、Batch結果処理は条件付きclaim、bounded retry、DLQ、partial successを使い、同じvideo_idを重複実行せず再開可能にしなければならない。",
-      "rationale": "SQS重複配送、worker停止、Batch失敗、部分成果の後にも既知対象を安全に終端へ進めるため。",
-      "revision": 1,
+      "last_changed_by": "CHG-20260822-lambda-ingestion",
+      "object": "SQS FIFOから起動する実処理Lambdaは条件付きclaim、checkpoint、partial batch failure、request DLQを使い、同じvideo_idを重複実行せず、15分以内に完了しない処理をエラーとして再試行可能にしなければならない。",
+      "rationale": "SQS重複配送、Lambda timeout、部分成果の後にも既知対象を安全に再試行し、15分を超える処理を誤って成功扱いしないため。",
+      "revision": 2,
       "scope": "project",
       "source_refs": [
-        "Issue #465"
+        "Issue #465",
+        "user:2026-08-22"
       ],
       "status": "active",
       "subject": "diopside v8のprivate ingestion実行",
-      "title": "FIFO dispatch、Batch実行、結果処理は重複なく再開可能に連携しなければならない",
+      "title": "SQS起動Lambdaは15分上限で重複なく再試行可能に処理しなければならない",
       "traces": {
         "design": [
           "docs/decisions/ADR-0002-historical-private-material-backfill.md",
+          "docs/decisions/ADR-0003-lambda-private-material-backfill.md",
           "docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md"
         ],
         "implementation": [
           "infra/src/diopside_ingestion/dispatcher.py",
-          "infra/src/diopside_ingestion/result_handler.py",
           "infra/src/diopside_ingestion/state.py",
+          "infra/src/diopside_ingestion/worker.py",
           "infra/src/diopside_ingestion/stack.py"
         ],
         "standards": [
@@ -1620,13 +1625,14 @@
         ],
         "tests": [
           "infra/tests/test_dispatcher.py",
-          "infra/tests/test_result_handler.py"
+          "infra/tests/test_worker.py",
+          "infra/tests/test_stack.py"
         ]
       },
       "type": "functional",
       "verification": {
-        "evidence": "infra/tests/test_dispatcher.py, infra/tests/test_result_handler.py",
-        "method": "重複claim・retry・DLQ境界試験"
+        "evidence": "infra/tests/test_dispatcher.py, infra/tests/test_worker.py, infra/tests/test_stack.py",
+        "method": "重複claim・Lambda timeout・SQS retry・DLQ境界試験"
       }
     },
     {
@@ -1727,7 +1733,7 @@
     {
       "acceptance_criteria": [
         {
-          "given": "known video_idを持つdigest指定worker imageがある",
+          "given": "known video_idとlock済みLambda assetがある",
           "id": "AC-V8-INGEST-007-1",
           "then": "各artifactは独立したstatusでcheckpointされ、captionはnormalized copyを持ち、native audioからASR用派生音声を作成し、取得元の本文やdiagnosticをログへ保存しない。",
           "when": "workerが取得工程を実行する"
@@ -1736,23 +1742,25 @@
       "action": "enforce",
       "category": "functional",
       "id": "V8-INGEST-007",
-      "last_changed_by": "CHG-20260815-yt-dlp-backfill",
-      "object": "workerはpinされたyt-dlpとffmpegでmetadata、description、thumbnail、subtitles、automatic captions、chat、comments、native audio、ASR derived audioを独立して取得または分類しなければならない。",
+      "last_changed_by": "CHG-20260822-lambda-ingestion",
+      "object": "実処理Lambdaはlockされたyt-dlpとffmpegでmetadata、description、thumbnail、subtitles、automatic captions、chat、comments、native audio、ASR derived audioを独立して取得または分類しなければならない。",
       "rationale": "一つの取得不能素材が残りの素材と回復可能な部分成果を失わせないため。",
-      "revision": 1,
+      "revision": 2,
       "scope": "project",
       "source_refs": [
-        "Issue #465"
+        "Issue #465",
+        "user:2026-08-22"
       ],
       "status": "active",
       "subject": "diopside v8のprivate material worker",
-      "title": "workerは匿名yt-dlpとffmpegで独立したartifactを取得しなければならない",
+      "title": "実処理Lambdaはlock済みyt-dlpとffmpegで独立したartifactを取得しなければならない",
       "traces": {
         "design": [
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md"
+          "docs/decisions/ADR-0002-historical-private-material-backfill.md",
+          "docs/decisions/ADR-0003-lambda-private-material-backfill.md"
         ],
         "implementation": [
-          "infra/worker/Dockerfile",
+          "infra/src/diopside_ingestion/lambda_asset.py",
           "infra/src/diopside_ingestion/worker.py",
           "infra/pyproject.toml"
         ],
@@ -1801,7 +1809,8 @@
         "implementation": [
           "infra/src/diopside_ingestion/contracts.py",
           "infra/src/diopside_ingestion/worker.py",
-          "infra/worker/Dockerfile"
+          "infra/src/diopside_ingestion/lambda_asset.py",
+          "infra/pyproject.toml"
         ],
         "standards": [
           "Issue #465",
@@ -1831,13 +1840,14 @@
       "action": "enforce",
       "category": "functional",
       "id": "V8-INGEST-009",
-      "last_changed_by": "CHG-20260815-yt-dlp-backfill",
-      "object": "private backfillは運用者が固定manifest、worker image digest、費用確認を明示して開始する有限作業であり、schedule、新着動画の自動発見、AWS deploy、enqueue、削除、公開、mergeを自動実行してはならない。",
+      "last_changed_by": "CHG-20260822-lambda-ingestion",
+      "object": "private backfillは運用者が固定manifest、lock済みLambda asset、費用確認を明示して開始する有限作業であり、schedule、新着動画の自動発見、AWS deploy、enqueue、削除、公開、mergeを自動実行してはならない。",
       "rationale": "歴史素材の回収を公開更新や無期限の外部スキャンへ変えず、人の承認境界を維持するため。",
-      "revision": 1,
+      "revision": 2,
       "scope": "project",
       "source_refs": [
-        "Issue #465"
+        "Issue #465",
+        "user:2026-08-22"
       ],
       "status": "active",
       "subject": "diopside v8のprivate backfill運用",
@@ -1845,6 +1855,7 @@
       "traces": {
         "design": [
           "docs/decisions/ADR-0002-historical-private-material-backfill.md",
+          "docs/decisions/ADR-0003-lambda-private-material-backfill.md",
           "docs/operations/manual-content-update.md"
         ],
         "implementation": [
@@ -1916,30 +1927,32 @@
     {
       "acceptance_criteria": [
         {
-          "given": "CDK stackとworker image CIがある",
+          "given": "CDK stackとlock済みLambda asset CIがある",
           "id": "AC-V8-INGEST-011-1",
-          "then": "暗号化、TLS、public block、FIFO DLQ、Flow Logs、Fargate timeout、digest parameter、least-privilege policyをtemplateで確認し、Ruff、Pyright strict、mypy strict、pytest、cdk-nag、container scanが合格する。",
+          "then": "暗号化、TLS、public block、FIFO DLQ、Lambda 900秒timeout、10 GiB一時領域、least-privilege policy、Batch・ECR・VPC不在をtemplateで確認し、Ruff、Pyright strict、mypy strict、pytest、CDK synth、cdk-nagが合格する。",
           "when": "品質ゲートを実行する"
         }
       ],
       "action": "enforce",
       "category": "nonfunctional",
       "id": "V8-INGEST-011",
-      "last_changed_by": "CHG-20260815-yt-dlp-backfill",
-      "object": "private backfill基盤は保存、queue、table、logを暗号化し、TLS強制、public block、最小権限IAM、VPC flow log、digest指定image、Ruff、strict型検査、pytest、CDK synth、cdk-nag、container scanを適用しなければならない。",
-      "rationale": "生素材を扱う限定基盤の権限、ネットワーク、依存、構成差分を公開面と独立して監査可能にするため。",
-      "revision": 1,
+      "last_changed_by": "CHG-20260822-lambda-ingestion",
+      "object": "private backfill基盤は保存、queue、table、logを暗号化し、TLS強制、public block、最小権限IAM、Lambda 15分上限、lock済み依存、Ruff、strict型検査、pytest、CDK synth、cdk-nagを適用し、AWS Batch、Fargate、ECR、専用VPCを構成してはならない。",
+      "rationale": "生素材を扱う限定基盤の権限と依存を監査可能にしつつ、所有者が不要としたBatch・network・image運用をdeploy対象から除外するため。",
+      "revision": 2,
       "scope": "project",
       "source_refs": [
-        "Issue #465"
+        "Issue #465",
+        "user:2026-08-22"
       ],
       "status": "active",
       "subject": "diopside v8のprivate backfill基盤",
-      "title": "private backfill基盤は暗号化、最小権限、検証済みimageで防御しなければならない",
+      "title": "private backfill基盤は暗号化・最小権限・15分Lambda境界で防御しなければならない",
       "traces": {
         "design": [
           "docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md",
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md"
+          "docs/decisions/ADR-0002-historical-private-material-backfill.md",
+          "docs/decisions/ADR-0003-lambda-private-material-backfill.md"
         ],
         "implementation": [
           "infra/src/diopside_ingestion/stack.py",
@@ -1959,7 +1972,7 @@
       "type": "constraint",
       "verification": {
         "evidence": "infra/tests/test_stack.py, .github/workflows/verify.yml",
-        "method": "CDK synth・cdk-nag・静的解析・unit test・container scan"
+        "method": "CDK synth・cdk-nag・静的解析・unit test"
       }
     },
     {

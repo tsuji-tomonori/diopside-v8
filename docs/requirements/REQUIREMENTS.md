@@ -1,7 +1,7 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 12
+- カタログ版: 13
 - 更新日: 2026-08-20
 - 正本: `spec/requirements/requirements.json`
 
@@ -9,7 +9,7 @@
 |---|---:|---|---|---|---|
 | `V8-COST-001` | 2 | 有効 | 運用 | diopside v8の費用は、公開閲覧、検索、生成、配信に起因する請求額は、既存のChatGPT／Codex契約を除いて毎月0円でなければならない。を**satisfy** | 月次請求確認 |
 | `V8-COST-002` | 2 | 有効 | 運用 | diopside v8の費用は、公開基盤は、公開リポジトリで利用できるGitHub Pagesの `main/docs` branch方式と、Pages設定および `docs/CNAME` で同じ値を明示した独自ドメインだけに限定しなければならない。追加の公開実行時サービスまたは有料のGitHubプランを必要としてはならない。を**satisfy** | リポジトリ・Pages設定・CNAME整合性確認 |
-| `V8-COST-003` | 2 | 有効 | 運用 | diopside v8の費用は、AWSその他の有料クラウド資源を公開面の閲覧、検索、生成、配信に使用してはならず、既知動画だけの有限private backfillは承認された隔離基盤だけに限定しなければならない。を**satisfy** | 構成確認 |
+| `V8-COST-003` | 3 | 有効 | 運用 | diopside v8の費用は、AWSその他の有料クラウド資源を公開面の閲覧、検索、生成、配信に使用してはならず、既知動画だけの有限private backfillは承認された隔離基盤だけに限定しなければならない。を**satisfy** | 構成確認 |
 | `V8-COST-004` | 2 | 有効 | 運用 | diopside v8の費用は、公開面は有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならず、private backfillの状態保存と監視は公開面から分離しなければならない。を**satisfy** | 依存関係・通信確認 |
 | `V8-COST-005` | 2 | 有効 | 運用 | diopside v8の費用は、公開面の外部サービスの料金または無償条件が変わり請求が発生し得る場合は、課金して継続せず該当公開処理を停止しなければならず、private backfillの費用は自動停止ではなく人の開始判断に委ねなければならない。を**satisfy** | 運用手順確認 |
 | `V8-DEVICE-001` | 1 | 有効 | 機能 | diopside v8の端末は、閲覧履歴はブラウザ内データベースへ保存しなければならない。を**satisfy** | ブラウザ試験 |
@@ -39,14 +39,14 @@
 | `V8-INGEST-001` | 1 | 有効 | インターフェース | diopside v8のprivate ingestion要求は、外部ingestion要求は11文字のYouTube video_idだけを含み、未知fieldまたは内部状態を含んではならない。を**強制する** | 契約単体試験 |
 | `V8-INGEST-002` | 2 | 有効 | データ | diopside v8のprivate backfill対象は、歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。を**強制する** | manifest生成・改ざん・enqueue試験 |
 | `V8-INGEST-003` | 1 | 有効 | データ | diopside v8のprivate ingestion状態は、進捗状態はVideoIngestion単一DynamoDB tableのvideo_id partition keyだけを使う一動画一itemで保持し、sort key、GSI、用途別item typeを追加してはならない。を**強制する** | CDK template・状態repository試験 |
-| `V8-INGEST-004` | 1 | 有効 | 機能 | diopside v8のprivate ingestion実行は、FIFO dispatch、短時間Lambda、Fargate worker、Batch結果処理は条件付きclaim、bounded retry、DLQ、partial successを使い、同じvideo_idを重複実行せず再開可能にしなければならない。を**強制する** | 重複claim・retry・DLQ境界試験 |
+| `V8-INGEST-004` | 2 | 有効 | 機能 | diopside v8のprivate ingestion実行は、SQS FIFOから起動する実処理Lambdaは条件付きclaim、checkpoint、partial batch failure、request DLQを使い、同じvideo_idを重複実行せず、15分以内に完了しない処理をエラーとして再試行可能にしなければならない。を**強制する** | 重複claim・Lambda timeout・SQS retry・DLQ境界試験 |
 | `V8-INGEST-005` | 1 | 有効 | データ | diopside v8のprivate artifact状態は、各artifactはsource_check、download、normalize、upload、verifyの状態と不存在、無効、制限、技術失敗、依存失敗、次actionを分離して保持しなければならない。を**強制する** | 状態遷移・分類・worker checkpoint試験 |
 | `V8-INGEST-006` | 1 | 有効 | データ | diopside v8のprivate artifact保存は、private S3はchannel_id、video_id、run_idで分離した不変run成果物とvideoごとのcurrent manifestを保持し、current manifestへ30日TTLを設定してはならない。を**強制する** | S3 key・CDK lifecycle・worker manifest試験 |
-| `V8-INGEST-007` | 1 | 有効 | 機能 | diopside v8のprivate material workerは、workerはpinされたyt-dlpとffmpegでmetadata、description、thumbnail、subtitles、automatic captions、chat、comments、native audio、ASR derived audioを独立して取得または分類しなければならない。を**強制する** | worker pipeline・正規化・失敗回復試験 |
+| `V8-INGEST-007` | 2 | 有効 | 機能 | diopside v8のprivate material workerは、実処理Lambdaはlockされたyt-dlpとffmpegでmetadata、description、thumbnail、subtitles、automatic captions、chat、comments、native audio、ASR derived audioを独立して取得または分類しなければならない。を**強制する** | worker pipeline・正規化・失敗回復試験 |
 | `V8-INGEST-008` | 1 | 有効 | 制約 | diopside v8のprivate material取得安全は、workerはcookie、login、認証情報、proxy、bot回避、非公開素材取得を使用してはならず、制限を安全な終端分類として扱わなければならない。を**強制する** | 制限分類・設定監査試験 |
-| `V8-INGEST-009` | 1 | 有効 | 運用 | diopside v8のprivate backfill運用は、private backfillは運用者が固定manifest、worker image digest、費用確認を明示して開始する有限作業であり、schedule、新着動画の自動発見、AWS deploy、enqueue、削除、公開、mergeを自動実行してはならない。を**強制する** | workflow・CLI・運用文書確認 |
+| `V8-INGEST-009` | 2 | 有効 | 運用 | diopside v8のprivate backfill運用は、private backfillは運用者が固定manifest、lock済みLambda asset、費用確認を明示して開始する有限作業であり、schedule、新着動画の自動発見、AWS deploy、enqueue、削除、公開、mergeを自動実行してはならない。を**強制する** | workflow・CLI・運用文書確認 |
 | `V8-INGEST-010` | 1 | 有効 | 運用 | diopside v8のprivate backfill報告は、backfill完了報告は固定target manifestの各video_idに対する成功、部分成功、利用不能、未完了、artifact件数、reason codeを安全に集計し私有S3へ保存しなければならない。を**強制する** | report集計・S3 key試験 |
-| `V8-INGEST-011` | 1 | 有効 | 制約 | diopside v8のprivate backfill基盤は、private backfill基盤は保存、queue、table、logを暗号化し、TLS強制、public block、最小権限IAM、VPC flow log、digest指定image、Ruff、strict型検査、pytest、CDK synth、cdk-nag、container scanを適用しなければならない。を**強制する** | CDK synth・cdk-nag・静的解析・unit test・container scan |
+| `V8-INGEST-011` | 2 | 有効 | 制約 | diopside v8のprivate backfill基盤は、private backfill基盤は保存、queue、table、logを暗号化し、TLS強制、public block、最小権限IAM、Lambda 15分上限、lock済み依存、Ruff、strict型検査、pytest、CDK synth、cdk-nagを適用し、AWS Batch、Fargate、ECR、専用VPCを構成してはならない。を**強制する** | CDK synth・cdk-nag・静的解析・unit test |
 | `V8-OPS-001` | 2 | 有効 | 運用 | diopside v8の運用は、タイムスタンプ一括処理は、運用者による1回の明示的なChatGPT／Codex要求で指定された識別子または有限の選定条件から、今回処理する適格動画の有限集合を開始時に固定しなければならない。固定後は、動画ごとの追加チャット承認を開始条件としてはならない。を**satisfy** | 一括処理の開始境界・対象集合固定・状態遷移試験 |
 | `V8-OPS-002` | 1 | 有効 | 運用 | diopside v8の運用は、GitHub ActionsからChatGPT／Codexを呼び出してはならない。を**satisfy** | リポジトリ静的確認 |
 | `V8-OPS-003` | 3 | 有効 | 運用 | diopside v8の運用は、動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない。を**satisfy** | リポジトリ静的確認・手順試験 |
@@ -189,7 +189,7 @@ diopside v8の費用は、公開閲覧、検索、生成、配信に起因する
 
 要求源: Issue #1 V8-費用-001, Issue #465, user:2026-08-03
 検証証跡: tests/repository-policy.test.ts
-トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,Issue #465,dev-standard assured profile
+トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/decisions/ADR-0003-lambda-private-material-backfill.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,Issue #465,dev-standard assured profile
 
 ## V8-COST-002: 公開基盤は公開リポジトリのGitHub Pages branch方式と、明示設定した独自ドメインだけに限定しなければならない
 
@@ -215,11 +215,11 @@ diopside v8の費用は、AWSその他の有料クラウド資源を公開面の
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-COST-003-1` 前提: 公開面または有限private backfillの構成定義がある。条件: 構成確認。期待結果: 公開面はクラウド認証情報なしに全手順を実行でき、有料資源の構成を持たず、private backfillはinfra配下のKMS、S3、DynamoDB、SQS FIFO、Lambda、Batch Fargate、ECR、CloudWatch Logs、VPCだけを使う。。
+- `AC-V8-COST-003-1` 前提: 公開面または有限private backfillの構成定義がある。条件: 構成確認。期待結果: 公開面はクラウド認証情報なしに全手順を実行でき、有料資源の構成を持たず、private backfillはinfra配下のKMS、S3、DynamoDB、SQS FIFO、Lambda、CloudWatch Logsだけを使い、AWS Batch、Fargate、ECR、専用VPCを構成しない。。
 
-要求源: Issue #1 V8-費用-003, Issue #465, user:2026-08-03
+要求源: Issue #1 V8-費用-003, Issue #465, user:2026-08-03, user:2026-08-22
 検証証跡: tests/repository-policy.test.ts
-トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts,infra/src/diopside_ingestion/stack.py; テスト=tests/repository-policy.test.ts,infra/tests/test_stack.py; 参照資料=Issue #1,Issue #465,dev-standard assured profile
+トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/decisions/ADR-0003-lambda-private-material-backfill.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts,infra/src/diopside_ingestion/stack.py; テスト=tests/repository-policy.test.ts,infra/tests/test_stack.py; 参照資料=Issue #1,Issue #465,dev-standard assured profile
 
 ## V8-COST-004: 公開面は有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならない
 
@@ -621,7 +621,7 @@ diopside v8のコラボ相手タグとコンビ・ユニットページは、動
 
 diopside v8のprivate ingestion要求は、外部ingestion要求は11文字のYouTube video_idだけを含み、未知fieldまたは内部状態を含んではならない。を**強制する**。
 
-根拠: SQS再試行、Batch起動、ローカルfallbackで入力契約を変えず、任意の外部状態注入を防ぐため。
+根拠: SQS再試行とLambda内実行で入力契約を変えず、任意の外部状態注入を防ぐため。
 
 分類: `project` / `functional`
 
@@ -659,23 +659,23 @@ diopside v8のprivate ingestion状態は、進捗状態はVideoIngestion単一Dy
 - `AC-V8-INGEST-003-1` 前提: CDK templateと進捗repositoryがある。条件: 一動画をclaim、checkpoint、completeする。期待結果: tableはvideo_idだけを主キーに持ち、条件付き更新でclaim owner、attempt、artifact状態、S3 key、digest、終端状態を一itemへ記録する。。
 
 要求源: Issue #465
-検証証跡: infra/tests/test_stack.py, infra/tests/test_dispatcher.py, infra/tests/test_result_handler.py
-トレース: 設計=docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md,docs/decisions/ADR-0002-historical-private-material-backfill.md; 実装=infra/src/diopside_ingestion/stack.py,infra/src/diopside_ingestion/state.py; テスト=infra/tests/test_stack.py,infra/tests/test_dispatcher.py,infra/tests/test_result_handler.py; 参照資料=Issue #465,dev-standard assured profile
+検証証跡: infra/tests/test_stack.py, infra/tests/test_dispatcher.py
+トレース: 設計=docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md,docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/decisions/ADR-0003-lambda-private-material-backfill.md; 実装=infra/src/diopside_ingestion/stack.py,infra/src/diopside_ingestion/state.py; テスト=infra/tests/test_stack.py,infra/tests/test_dispatcher.py; 参照資料=Issue #465,dev-standard assured profile
 
-## V8-INGEST-004: FIFO dispatch、Batch実行、結果処理は重複なく再開可能に連携しなければならない
+## V8-INGEST-004: SQS起動Lambdaは15分上限で重複なく再試行可能に処理しなければならない
 
-diopside v8のprivate ingestion実行は、FIFO dispatch、短時間Lambda、Fargate worker、Batch結果処理は条件付きclaim、bounded retry、DLQ、partial successを使い、同じvideo_idを重複実行せず再開可能にしなければならない。を**強制する**。
+diopside v8のprivate ingestion実行は、SQS FIFOから起動する実処理Lambdaは条件付きclaim、checkpoint、partial batch failure、request DLQを使い、同じvideo_idを重複実行せず、15分以内に完了しない処理をエラーとして再試行可能にしなければならない。を**強制する**。
 
-根拠: SQS重複配送、worker停止、Batch失敗、部分成果の後にも既知対象を安全に終端へ進めるため。
+根拠: SQS重複配送、Lambda timeout、部分成果の後にも既知対象を安全に再試行し、15分を超える処理を誤って成功扱いしないため。
 
 分類: `project` / `functional`
 
 受入条件:
-- `AC-V8-INGEST-004-1` 前提: 同じvideo_idの重複FIFO要求またはBatch失敗がある。条件: dispatcherとresult handlerを実行する。期待結果: 最初の条件付きclaimだけがBatchを起動し、retryable failureは上限回数まで再投入し、上限到達または非retryable failureは安全な終端状態へ記録する。。
+- `AC-V8-INGEST-004-1` 前提: 同じvideo_idの重複FIFO要求、Lambda失敗、または15分timeoutがある。条件: SQSから実処理Lambdaを起動する。期待結果: 最初の条件付きclaimだけが実処理Lambdaを継続し、900秒以内に完了しない処理を成功扱いせず、SQSが3回まで再試行した後request DLQへ隔離する。。
 
-要求源: Issue #465
-検証証跡: infra/tests/test_dispatcher.py, infra/tests/test_result_handler.py
-トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md; 実装=infra/src/diopside_ingestion/dispatcher.py,infra/src/diopside_ingestion/result_handler.py,infra/src/diopside_ingestion/state.py,infra/src/diopside_ingestion/stack.py; テスト=infra/tests/test_dispatcher.py,infra/tests/test_result_handler.py; 参照資料=Issue #465,dev-standard assured profile
+要求源: Issue #465, user:2026-08-22
+検証証跡: infra/tests/test_dispatcher.py, infra/tests/test_worker.py, infra/tests/test_stack.py
+トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/decisions/ADR-0003-lambda-private-material-backfill.md,docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md; 実装=infra/src/diopside_ingestion/dispatcher.py,infra/src/diopside_ingestion/state.py,infra/src/diopside_ingestion/worker.py,infra/src/diopside_ingestion/stack.py; テスト=infra/tests/test_dispatcher.py,infra/tests/test_worker.py,infra/tests/test_stack.py; 参照資料=Issue #465,dev-standard assured profile
 
 ## V8-INGEST-005: artifact状態は取得段階と安全な失敗分類を分離して保持しなければならない
 
@@ -707,20 +707,20 @@ diopside v8のprivate artifact保存は、private S3はchannel_id、video_id、r
 検証証跡: infra/tests/test_worker.py, infra/tests/test_stack.py
 トレース: 設計=docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md,docs/decisions/ADR-0002-historical-private-material-backfill.md; 実装=infra/src/diopside_ingestion/paths.py,infra/src/diopside_ingestion/worker.py,infra/src/diopside_ingestion/stack.py; テスト=infra/tests/test_worker.py,infra/tests/test_stack.py; 参照資料=Issue #465,dev-standard assured profile
 
-## V8-INGEST-007: workerは匿名yt-dlpとffmpegで独立したartifactを取得しなければならない
+## V8-INGEST-007: 実処理Lambdaはlock済みyt-dlpとffmpegで独立したartifactを取得しなければならない
 
-diopside v8のprivate material workerは、workerはpinされたyt-dlpとffmpegでmetadata、description、thumbnail、subtitles、automatic captions、chat、comments、native audio、ASR derived audioを独立して取得または分類しなければならない。を**強制する**。
+diopside v8のprivate material workerは、実処理Lambdaはlockされたyt-dlpとffmpegでmetadata、description、thumbnail、subtitles、automatic captions、chat、comments、native audio、ASR derived audioを独立して取得または分類しなければならない。を**強制する**。
 
 根拠: 一つの取得不能素材が残りの素材と回復可能な部分成果を失わせないため。
 
 分類: `project` / `functional`
 
 受入条件:
-- `AC-V8-INGEST-007-1` 前提: known video_idを持つdigest指定worker imageがある。条件: workerが取得工程を実行する。期待結果: 各artifactは独立したstatusでcheckpointされ、captionはnormalized copyを持ち、native audioからASR用派生音声を作成し、取得元の本文やdiagnosticをログへ保存しない。。
+- `AC-V8-INGEST-007-1` 前提: known video_idとlock済みLambda assetがある。条件: workerが取得工程を実行する。期待結果: 各artifactは独立したstatusでcheckpointされ、captionはnormalized copyを持ち、native audioからASR用派生音声を作成し、取得元の本文やdiagnosticをログへ保存しない。。
 
-要求源: Issue #465
+要求源: Issue #465, user:2026-08-22
 検証証跡: infra/tests/test_worker.py
-トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md; 実装=infra/worker/Dockerfile,infra/src/diopside_ingestion/worker.py,infra/pyproject.toml; テスト=infra/tests/test_worker.py; 参照資料=Issue #465,dev-standard assured profile
+トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/decisions/ADR-0003-lambda-private-material-backfill.md; 実装=infra/src/diopside_ingestion/lambda_asset.py,infra/src/diopside_ingestion/worker.py,infra/pyproject.toml; テスト=infra/tests/test_worker.py; 参照資料=Issue #465,dev-standard assured profile
 
 ## V8-INGEST-008: workerは認証回避または非公開経路を使用してはならない
 
@@ -735,11 +735,11 @@ diopside v8のprivate material取得安全は、workerはcookie、login、認証
 
 要求源: Issue #465
 検証証跡: infra/tests/test_contracts.py, infra/tests/test_worker.py, infra/tests/test_stack.py
-トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/operations/privacy-and-safety.md; 実装=infra/src/diopside_ingestion/contracts.py,infra/src/diopside_ingestion/worker.py,infra/worker/Dockerfile; テスト=infra/tests/test_contracts.py,infra/tests/test_worker.py,infra/tests/test_stack.py; 参照資料=Issue #465,dev-standard assured profile
+トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/operations/privacy-and-safety.md; 実装=infra/src/diopside_ingestion/contracts.py,infra/src/diopside_ingestion/worker.py,infra/src/diopside_ingestion/lambda_asset.py,infra/pyproject.toml; テスト=infra/tests/test_contracts.py,infra/tests/test_worker.py,infra/tests/test_stack.py; 参照資料=Issue #465,dev-standard assured profile
 
 ## V8-INGEST-009: private backfillは運用者が明示開始する有限作業でなければならない
 
-diopside v8のprivate backfill運用は、private backfillは運用者が固定manifest、worker image digest、費用確認を明示して開始する有限作業であり、schedule、新着動画の自動発見、AWS deploy、enqueue、削除、公開、mergeを自動実行してはならない。を**強制する**。
+diopside v8のprivate backfill運用は、private backfillは運用者が固定manifest、lock済みLambda asset、費用確認を明示して開始する有限作業であり、schedule、新着動画の自動発見、AWS deploy、enqueue、削除、公開、mergeを自動実行してはならない。を**強制する**。
 
 根拠: 歴史素材の回収を公開更新や無期限の外部スキャンへ変えず、人の承認境界を維持するため。
 
@@ -748,9 +748,9 @@ diopside v8のprivate backfill運用は、private backfillは運用者が固定m
 受入条件:
 - `AC-V8-INGEST-009-1` 前提: backfill用のコードとCIがある。条件: repositoryのworkflowとoperator commandを確認する。期待結果: workflowはscheduleまたはdeployを持たず、manifest、upload、enqueue、reportは明示CLIだけが提供し、固定target manifestの全件終端で作業が終了する。。
 
-要求源: Issue #465
+要求源: Issue #465, user:2026-08-22
 検証証跡: tests/repository-policy.test.ts, infra/tests/test_cli.py
-トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/operations/manual-content-update.md; 実装=.github/workflows/verify.yml,infra/src/diopside_ingestion/cli.py,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts,infra/tests/test_cli.py; 参照資料=Issue #465,dev-standard assured profile
+トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/decisions/ADR-0003-lambda-private-material-backfill.md,docs/operations/manual-content-update.md; 実装=.github/workflows/verify.yml,infra/src/diopside_ingestion/cli.py,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts,infra/tests/test_cli.py; 参照資料=Issue #465,dev-standard assured profile
 
 ## V8-INGEST-010: backfill完了報告は固定target manifestに対する安全な集計でなければならない
 
@@ -767,20 +767,20 @@ diopside v8のprivate backfill報告は、backfill完了報告は固定target ma
 検証証跡: infra/tests/test_manifest.py, infra/tests/test_cli.py
 トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md; 実装=infra/src/diopside_ingestion/manifest.py,infra/src/diopside_ingestion/cli.py; テスト=infra/tests/test_manifest.py,infra/tests/test_cli.py; 参照資料=Issue #465,dev-standard assured profile
 
-## V8-INGEST-011: private backfill基盤は暗号化、最小権限、検証済みimageで防御しなければならない
+## V8-INGEST-011: private backfill基盤は暗号化・最小権限・15分Lambda境界で防御しなければならない
 
-diopside v8のprivate backfill基盤は、private backfill基盤は保存、queue、table、logを暗号化し、TLS強制、public block、最小権限IAM、VPC flow log、digest指定image、Ruff、strict型検査、pytest、CDK synth、cdk-nag、container scanを適用しなければならない。を**強制する**。
+diopside v8のprivate backfill基盤は、private backfill基盤は保存、queue、table、logを暗号化し、TLS強制、public block、最小権限IAM、Lambda 15分上限、lock済み依存、Ruff、strict型検査、pytest、CDK synth、cdk-nagを適用し、AWS Batch、Fargate、ECR、専用VPCを構成してはならない。を**強制する**。
 
-根拠: 生素材を扱う限定基盤の権限、ネットワーク、依存、構成差分を公開面と独立して監査可能にするため。
+根拠: 生素材を扱う限定基盤の権限と依存を監査可能にしつつ、所有者が不要としたBatch・network・image運用をdeploy対象から除外するため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-INGEST-011-1` 前提: CDK stackとworker image CIがある。条件: 品質ゲートを実行する。期待結果: 暗号化、TLS、public block、FIFO DLQ、Flow Logs、Fargate timeout、digest parameter、least-privilege policyをtemplateで確認し、Ruff、Pyright strict、mypy strict、pytest、cdk-nag、container scanが合格する。。
+- `AC-V8-INGEST-011-1` 前提: CDK stackとlock済みLambda asset CIがある。条件: 品質ゲートを実行する。期待結果: 暗号化、TLS、public block、FIFO DLQ、Lambda 900秒timeout、10 GiB一時領域、least-privilege policy、Batch・ECR・VPC不在をtemplateで確認し、Ruff、Pyright strict、mypy strict、pytest、CDK synth、cdk-nagが合格する。。
 
-要求源: Issue #465
+要求源: Issue #465, user:2026-08-22
 検証証跡: infra/tests/test_stack.py, .github/workflows/verify.yml
-トレース: 設計=docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md,docs/decisions/ADR-0002-historical-private-material-backfill.md; 実装=infra/src/diopside_ingestion/stack.py,infra/pyproject.toml,.github/workflows/verify.yml; テスト=infra/tests/test_stack.py,infra/tests/test_contracts.py,tests/repository-policy.test.ts; 参照資料=Issue #465,dev-standard assured profile
+トレース: 設計=docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md,docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/decisions/ADR-0003-lambda-private-material-backfill.md; 実装=infra/src/diopside_ingestion/stack.py,infra/pyproject.toml,.github/workflows/verify.yml; テスト=infra/tests/test_stack.py,infra/tests/test_contracts.py,tests/repository-policy.test.ts; 参照資料=Issue #465,dev-standard assured profile
 
 ## V8-OPS-001: タイムスタンプ一括処理は、人の1回の明示要求で有限の適格対象集合を固定して開始しなければならない
 

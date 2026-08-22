@@ -1,4 +1,4 @@
-"""Digest-pinned AWS Batch worker for one historical video.
+"""Bounded Lambda worker for one historical video.
 
 The worker deliberately has no cookies, proxy, login, browser automation, or future
 discovery loop.  It receives one validated video ID, checkpoints only safe status data,
@@ -13,13 +13,16 @@ import json
 import mimetypes
 import os
 import subprocess
+import sys
 import tempfile
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
+from time import monotonic
 from typing import Protocol, cast
 
 import boto3
+import imageio_ffmpeg  # type: ignore[import-untyped]
 
 from diopside_ingestion.contracts import (
     ARTIFACTS,
@@ -65,29 +68,40 @@ class CommandRunner(Protocol):
     def run(self, args: Sequence[str], *, cwd: Path) -> subprocess.CompletedProcess[bytes]: ...
 
 
+@dataclass(frozen=True)
 class SubprocessRunner:
-    """Run fixed yt-dlp and ffmpeg commands without a shell or diagnostic logging."""
+    """Run packaged yt-dlp and ffmpeg before the Lambda invocation deadline."""
+
+    deadline: float | None = None
 
     def run(self, args: Sequence[str], *, cwd: Path) -> subprocess.CompletedProcess[bytes]:
+        command = list(args)
+        if command[0] == "yt-dlp":
+            command = [sys.executable, "-m", "yt_dlp", *command[1:]]
+        elif command[0] == "ffmpeg":
+            command[0] = imageio_ffmpeg.get_ffmpeg_exe()
+        timeout = 20_000.0
+        if self.deadline is not None:
+            timeout = max(1.0, min(timeout, self.deadline - monotonic()))
         return subprocess.run(  # noqa: S603 -- callers supply fixed executable/argument templates.
-            list(args),
+            command,
             cwd=cwd,
             check=False,
             capture_output=True,
-            timeout=20_000,
+            timeout=timeout,
         )
 
 
 @dataclass(frozen=True)
 class WorkerConfig:
-    """Non-secret Batch environment; the external request remains the video ID alone."""
+    """Non-secret Lambda execution values; the external request remains one video ID."""
 
     video_id: str
     run_id: str
     claim_owner: str
     bucket: str
     table_name: str
-    worker_image_digest: str
+    runtime_version: str
 
     @classmethod
     def from_environment(cls) -> WorkerConfig:
@@ -107,7 +121,7 @@ class WorkerConfig:
             claim_owner=required("CLAIM_OWNER"),
             bucket=required("S3_BUCKET"),
             table_name=required("VIDEO_INGESTION_TABLE"),
-            worker_image_digest=required("WORKER_IMAGE_DIGEST"),
+            runtime_version=required("WORKER_RUNTIME"),
         )
 
 
@@ -120,7 +134,7 @@ class WorkerStageError(RuntimeError):
 
 
 class RetryableWorkerError(RuntimeError):
-    """Cause Batch to emit a failure event after a retryable checkpoint is recorded."""
+    """Return the SQS record as failed after a retryable checkpoint is recorded."""
 
 
 def empty_artifact_objects() -> dict[str, list[dict[str, object]]]:
@@ -946,7 +960,6 @@ class IngestionWorker:
                     self.config.bucket,
                     key,
                     ExtraArgs={
-                        "ServerSideEncryption": "aws:kms",
                         "ContentType": content_type,
                         "Metadata": {"sha256": digest},
                     },
@@ -1207,7 +1220,7 @@ class IngestionWorker:
             channel_id=channel_id,
             s3_prefix=s3_prefix,
             run_id=self.config.run_id,
-            worker_image_digest=self.config.worker_image_digest,
+            worker_runtime=self.config.runtime_version,
             yt_dlp_version=self._yt_dlp_version(),
             checkpoint_manifest_key=checkpoint_manifest_key,
             checkpoint_manifest_sha256=checkpoint_manifest_sha256,
@@ -1259,7 +1272,7 @@ class IngestionWorker:
             "channel_id": channel_id,
             "run_id": self.config.run_id,
             "source": {"kind": "youtube_watch", "url": source_url(self.config.video_id)},
-            "worker_image_digest": self.config.worker_image_digest,
+            "worker_runtime": self.config.runtime_version,
             "yt_dlp_version": self._yt_dlp_version(),
             "captured_at": iso_now(),
             "artifacts": manifest_artifacts,
@@ -1305,7 +1318,7 @@ class IngestionWorker:
 
 
 def build_worker() -> IngestionWorker:
-    """Construct the live worker only inside the digest-pinned Batch image."""
+    """Construct a local worker from the same locked dependencies as the Lambda asset."""
     config = WorkerConfig.from_environment()
     dynamodb = boto3.client("dynamodb")  # pyright: ignore[reportUnknownMemberType] -- boto3 overload issue.
     store = cast(ObjectStore, boto3.client("s3"))  # pyright: ignore[reportUnknownMemberType] -- boto3 overload issue.
@@ -1318,7 +1331,7 @@ def build_worker() -> IngestionWorker:
 
 
 def main() -> int:
-    """Run one worker task; Batch retry policy is handled by the control plane."""
+    """Run one local worker task for operator diagnostics."""
     build_worker().run()
     return 0
 
