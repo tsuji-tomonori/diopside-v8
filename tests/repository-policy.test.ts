@@ -45,7 +45,7 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).toMatch(/permissions:\s*\n\s+contents: write\s*\n\s+pull-requests: write/u);
     expect(workflow).toMatch(/ref: \$\{\{ github\.sha \}\}/u);
     expect(workflow).toMatch(/run: npm run verify:main-release/u);
-    expect(workflow).toMatch(/--allow-github-squash-fallback/u);
+    expect(workflow).toMatch(/--allow-github-merge-fallback/u);
     expect(workflow).toMatch(/--print-review-path/u);
     expect(workflow).not.toMatch(/sed -n 's\/\^Review-Checklist:/u);
     expect(workflow).toMatch(/git status --porcelain -- spec\/requirements docs\/requirements docs\/design\/generated/u);
