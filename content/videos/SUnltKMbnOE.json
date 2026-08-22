@@ -43,6 +43,14 @@
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "621cf758e0897976b20c88ade161e8e041ebfd47f032e655d63bfb6484dd6b69",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 4780
+    },
+    {
+      "evidenceId": "evidence-full-transcript-timestamps",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕（既存タイムスタンプ根拠）",
       "inputFingerprint": "efbaabf9adf6310beb0c008cf53f899d4a955142d4cfd222292850e4232986ab",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 4780
@@ -445,5 +453,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "前回苦戦したジャイアントコアラへの雪辱を期し、白雪巴が鹿を操る破壊ゲームに再挑戦。ビルを壊して武器を集め、人間を鹿の仲間に変えながら、思いつく作戦を次々と実行。犬との対決も視野に、試行錯誤と軽快なツッコミで街を駆け回る。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "怖いけど、やるっきゃねー",
+      "atSeconds": 3844,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "621cf758e0897976b20c88ade161e8e041ebfd47f032e655d63bfb6484dd6b69",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T03:53:17.269254Z"
   }
 }
