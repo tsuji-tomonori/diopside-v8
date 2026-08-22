@@ -43,6 +43,14 @@
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "16fcace8fc477b3a370897286111d4ecf5fd6c17ad565c3bd41128e80f0af1c0",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 19763
+    },
+    {
+      "evidenceId": "evidence-full-transcript-timestamps",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕（既存タイムスタンプ根拠）",
       "inputFingerprint": "29988b9d29896423ff17a87dd79722e9f8af9a65f068546c45b6b7b1a24d1107",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 19763
@@ -859,5 +867,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が初見の配信者育成ゲームに挑戦。あめちゃんと過ごす日々の中で、配信や外出、ネット巡回、視聴者との距離感を選びながら、人気と心身のバランスに悩み、ゲーム内の出来事からネット文化や好きな作品の話へ広がる長時間実況です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "無理だこのゲーム",
+      "atSeconds": 12004,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "16fcace8fc477b3a370897286111d4ecf5fd6c17ad565c3bd41128e80f0af1c0",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T03:32:10.049037Z"
   }
 }
