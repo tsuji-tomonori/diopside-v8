@@ -19,6 +19,7 @@ import { scanPublicBoundary } from '../src/domain/validation.ts';
 import { embeddedReleaseId } from '../src/generated/release.ts';
 import { canonicalJson, sha256 } from '../scripts/lib.ts';
 import { japaneseReadingVersion, type ReadingOverrides } from '../scripts/japanese-reading.ts';
+import { publicTagProjectionVersion } from '../scripts/public-tag-projection.ts';
 import { readCanonicalVideos } from '../scripts/canonical-store.ts';
 
 const root = process.cwd();
@@ -46,6 +47,7 @@ describe('決定的な公開成果物', () => {
       workIntroductions,
       collaborationProfiles,
       channelPersonMappings,
+      publicTagProjectionVersion,
       searchNormalizationVersion: '2.0.0',
       japaneseReadingVersion,
       readingOverrides,
@@ -84,6 +86,23 @@ describe('決定的な公開成果物', () => {
     expect(details.every((detail) => detail.tagIds.every((tagId) => !tagId.startsWith('tag-people-channel-')))).toBe(true);
     expect(details.filter((detail) => detail.timestamps.status === '作成済み')).toHaveLength(contentManifest.createdTimestampVideoCount);
     expect(details.reduce((total, detail) => total + (detail.timestamps.status === '作成済み' ? detail.timestamps.items.length : 0), 0)).toBe(contentManifest.timestampItemCount);
+  });
+
+  it('同じ人物の出演者タグと言及人物タグを公開上は出演者タグへ統合する', () => {
+    const tags = publicTagIndexSchema.parse(json(`public/${latest.tagIndexPath}`));
+    const search = searchIndexSchema.parse(json(`public/${latest.searchIndexPath}`));
+    const matching = tags.categories
+      .flatMap((category) => category.subcategories.flatMap((subcategory) => subcategory.tags))
+      .filter((tag) => tag.canonicalName === '来栖夏芽');
+
+    expect(matching).toHaveLength(1);
+    expect(matching[0]).toMatchObject({
+      tagId: 'tag-people-performer-f1576533a080',
+      count: 34,
+    });
+    expect(matching[0]?.videoIds).toContain('aQg0muFZFXI');
+    expect(search.videos.find((video) => video.videoId === 'aQg0muFZFXI')?.tagIds).toContain('tag-people-performer-f1576533a080');
+    expect(search.videos.some((video) => video.tagIds.includes('tag-reference-mentionedPerson-cc812a0d12ea'))).toBe(false);
   });
 
   it('版マニフェストの全ファイル指紋が実ファイルと一致する', () => {

@@ -1,0 +1,146 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260822-person-tag-public-unification
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+    note: 既存の人物名優先要件に従う重複表示修正であり、利用者要件の意味や受入条件は変更しない。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/public-tag-projection.ts, path:docs/design/generated/system.gen.md]
+    note: 正本の役割別タグを保ったまま公開索引だけを人物単位へ投影する生成設計変更として記録した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/public-tag-projection.ts]
+    note: 検索・タグ索引・動画詳細にまたがる公開データ生成の振る舞い変更のためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 利用者が許可したGitHubへのbranch pushとPR作成だけを行い、mergeとproduction公開は行わない。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/build-public-data.ts, test:tests/public-tag-projection.test.ts]
+    note: 公開データ生成を実行し、release-fcbaaecb86e5d575を1696動画から正常生成した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/public-tag-projection.ts]
+    note: npm run typecheckでブラウザ・Node双方のTypeScript strict型検査に合格した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/build-public-data.ts, path:scripts/public-tag-projection.ts]
+    note: npm run lintを実行し、変更対象を含むsrc・scripts・tests・e2eが警告なしで合格した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/public-tag-projection.test.ts, test:tests/generated.test.ts]
+    note: ID投影、チャンネル非公開、公開索引1件化、34動画への統合を直接検証した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/generated.test.ts]
+    note: 来栖夏芽が同名2タグ33件・1件になる条件を、公開索引で1タグ34件でなければ失敗する回帰試験へ固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/inventory.gen.json, test:tests/generated.test.ts]
+    note: 同じ生成logicで公開データとas-built設計を再生成し、新release IDと生成入力指紋の更新を確認した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分は生成logic・test・as-built設計・review証跡だけで、秘密情報や生素材を含まない。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 同一人物タグの公開統合と、その回帰防止に必要な差分だけに限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更内容、要件・設計影響、チェックリスト、検証契約、互換性と残存リスクを記載する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+    note: 人物名を公開上の正規タグとする既存要件を満たす不具合修正で、要件正本の変更は不要と判定した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/system.gen.md, path:docs/design/generated/inventory.gen.json]
+    note: 新しい公開タグ投影moduleを生成設計へ反映し、長期判断を要するADRは不要と判定した。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/public-tag-projection.test.ts, test:tests/generated.test.ts, workflow:要件・品質ゲート#通常変更の品質ゲートを実行]
+    note: 追加したunit・生成成果物testが既存のPR品質ゲートで実行されることを確認した。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-person-tag-public-unification.yaml]
+    note: 選択したcheckだけを本review YAMLへ保存する。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-person-tag-public-unification.yaml]
+    note: selectorで未選択のcheckを形式的なN/Aとして登録していない。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence: [path:scripts/public-tag-projection.ts, test:tests/generated.test.ts]
+    note: 正本IDは移行せず、公開release IDを更新して全consumerが同じ投影済み索引を参照するため旧新タグIDを混在させない。
+advisories: []
+residual_risks:
+  - 同名でも別人であるケースは自動統合せず、reference.mentionedPersonとpeople.performerの正規名が一致する人物だけを統合対象にする。
+  - 公開版・Pages成果物は通常PRへ含めず、mainマージ後の既存release workflowが検証済み正本から生成する。
+  - production反映後のモバイル検索候補確認はmerge権限と公開承認を伴うため、本PRでは実施しない。
