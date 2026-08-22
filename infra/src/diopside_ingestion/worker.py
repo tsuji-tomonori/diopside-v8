@@ -1252,6 +1252,15 @@ class IngestionWorker:
         channel_id: str,
         prefix: str,
     ) -> None:
+        artifacts = update_artifact(
+            artifacts,
+            artifact_key="transcript",
+            status=ArtifactStatus.NOT_APPLICABLE,
+            current_phase="completed",
+            now=iso_now(),
+            availability="not_applicable",
+            phase_status=PhaseStatus.NOT_APPLICABLE,
+        )
         current_key = current_manifest_key(channel_id, self.config.video_id)
         manifest_artifacts = update_artifact(
             artifacts,
