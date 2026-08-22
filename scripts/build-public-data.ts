@@ -29,6 +29,7 @@ import {
   type ReadingOverrides,
 } from './japanese-reading.ts';
 import { canonicalJson, prettyJson, readJson, sha256 } from './lib.ts';
+import { buildPublicTagIdMap, publicTagProjectionVersion } from './public-tag-projection.ts';
 
 interface ContentManifest {
   generatedAt: string;
@@ -50,6 +51,7 @@ const collaborationProfiles = collaborationProfilesSchema.parse(collaborationPro
 const channelPersonMappings = channelPersonMappingsSchema.parse(channelPersonMappingsInput);
 const contentManifest = readJson(path.join(root, 'content/content-manifest.json')) as ContentManifest;
 const normalizeReading = await createJapaneseReadingNormalizer(readingOverridesInput);
+const publicTagIdMap = buildPublicTagIdMap(taxonomy);
 
 const taxonomyIssues = validateTaxonomy(taxonomyInput, aliasesInput);
 if (taxonomyIssues.length > 0) throw new Error(taxonomyIssues.map((item) => `${item.code}:${item.path}:${item.message}`).join('\n'));
@@ -70,6 +72,7 @@ const releaseSeed = {
   workIntroductions,
   collaborationProfiles,
   channelPersonMappings,
+  publicTagProjectionVersion,
   searchNormalizationVersion: '2.0.0',
   japaneseReadingVersion,
   readingOverrides: readingOverridesInput,
@@ -107,7 +110,10 @@ const searchIndex = searchIndexSchema.parse({
 
 const tagToVideoIds = new Map<string, string[]>();
 for (const video of videos) {
-  for (const tagId of new Set(video.tagAssignments.map((assignment) => assignment.tagId).filter(isPublicTagId))) {
+  for (const tagId of new Set(video.tagAssignments.flatMap((assignment) => {
+    const publicTagId = projectPublicTagId(assignment.tagId);
+    return publicTagId ? [publicTagId] : [];
+  }))) {
     const values = tagToVideoIds.get(tagId) ?? [];
     values.push(video.videoId);
     tagToVideoIds.set(tagId, values);
@@ -176,7 +182,7 @@ const tagIndex = publicTagIndexSchema.parse({
       subcategoryId: subcategory.subcategoryId,
       name: subcategory.name,
       order: subcategory.order,
-      tags: subcategory.tags.filter((tag) => tag.active && isPublicTagId(tag.tagId)).map((tag) => {
+      tags: subcategory.tags.filter((tag) => tag.active && projectPublicTagId(tag.tagId) === tag.tagId).map((tag) => {
         const videoIds = [...(tagToVideoIds.get(tag.tagId) ?? [])].sort();
         const introduction = introductionsByTagId.get(tag.tagId);
         const introductionUnavailable = unavailableByTagId.get(tag.tagId);
@@ -236,8 +242,10 @@ const aliasIndex = publicAliasIndexSchema.parse({
   aliasVersion: aliases.aliasVersion,
   aliases: Object.fromEntries(
     aliases.aliases
-      .filter((entry) => isPublicTagId(entry.tagId))
-      .map((entry): [string, string] => [entry.normalizedAlias, entry.tagId])
+      .flatMap((entry): Array<[string, string]> => {
+        const publicTagId = projectPublicTagId(entry.tagId);
+        return publicTagId ? [[entry.normalizedAlias, publicTagId]] : [];
+      })
       .sort(([left], [right]) => left.localeCompare(right)),
   ),
 });
@@ -330,12 +338,15 @@ function toSummary(video: CanonicalVideo): PublicVideoSummary {
     durationSeconds: video.durationSeconds,
     thumbnail: video.thumbnail,
     youtubeUrl: video.youtubeUrl,
-    tagIds: [...new Set(video.tagAssignments.map((assignment) => assignment.tagId).filter(isPublicTagId))].sort(),
+    tagIds: [...new Set(video.tagAssignments.flatMap((assignment) => {
+      const publicTagId = projectPublicTagId(assignment.tagId);
+      return publicTagId ? [publicTagId] : [];
+    }))].sort(),
   };
 }
 
-function isPublicTagId(tagId: string): boolean {
-  return !tagId.startsWith('tag-people-channel-');
+function projectPublicTagId(tagId: string): string | null {
+  return publicTagIdMap.get(tagId) ?? null;
 }
 
 function toDetail(video: CanonicalVideo, currentReleaseId: string): PublicVideoDetail {
