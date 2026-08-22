@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import subprocess
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
@@ -126,6 +127,7 @@ class FakeStore:
 @dataclass
 class FakeRunner:
     fail_native_audio: bool = False
+    metadata_failure_stderr: bytes | None = None
     calls: list[list[str]] = field(default_factory=lambda: list[list[str]]())
 
     def run(self, args: Sequence[str], *, cwd: Path) -> subprocess.CompletedProcess[bytes]:
@@ -134,6 +136,13 @@ class FakeRunner:
         if command == ["yt-dlp", "--version"]:
             return subprocess.CompletedProcess(command, 0, b"2026.7.4\n", b"")
         if "--dump-single-json" in command:
+            if self.metadata_failure_stderr is not None:
+                return subprocess.CompletedProcess(
+                    command,
+                    1,
+                    b"provider metadata must not be logged",
+                    self.metadata_failure_stderr,
+                )
             return subprocess.CompletedProcess(
                 command,
                 0,
@@ -181,6 +190,43 @@ def _config(run_id: str = "run-1") -> WorkerConfig:
         table_name="VideoIngestion",
         runtime_version="lambda-python3.12",
     )
+
+
+def test_worker_logs_allow_listed_metadata_failure_signals(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    stderr = (
+        b"[debug] yt-dlp version stable@2026.07.04\n"
+        b"[debug] Python 3.12.11 (CPython x86_64)\n"
+        b"[debug] JS runtimes: none\n"
+        b"[debug] Request Handlers: urllib, requests\n"
+        b"WARNING: API response from https://example.test/api?token=top-secret\n"
+        b"ERROR: Unable to download API page; Cookie: session-cookie-value\x00\n"
+    )
+    runner = FakeRunner(metadata_failure_stderr=stderr)
+
+    with caplog.at_level(logging.WARNING), pytest.raises(RetryableWorkerError):
+        IngestionWorker(_config(), FakeRepository(), FakeStore(), runner).run()
+
+    diagnostic = caplog.text
+    assert "operation=metadata" in diagnostic
+    assert "returncode=1" in diagnostic
+    assert "reason_code=extractor_error" in diagnostic
+    assert hashlib.sha256(stderr).hexdigest() in diagnostic
+    assert "stderr_bytes=" in diagnostic
+    assert "warning_count=1" in diagnostic
+    assert "error_count=1" in diagnostic
+    assert "yt_dlp_version=stable@2026.07.04" in diagnostic
+    assert "python_runtime=3.12.11" in diagnostic
+    assert "js_runtimes=none" in diagnostic
+    assert "request_handlers=urllib,requests" in diagnostic
+    assert "signals=api_transport" in diagnostic
+    assert "Unable to download API page" not in diagnostic
+    assert "API response" not in diagnostic
+    assert "https://example.test" not in diagnostic
+    assert "top-secret" not in diagnostic
+    assert "session-cookie-value" not in diagnostic
+    assert "provider metadata must not be logged" not in diagnostic
 
 
 def test_worker_writes_private_run_and_current_manifests() -> None:
