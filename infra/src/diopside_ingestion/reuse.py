@@ -14,7 +14,11 @@ from botocore.exceptions import ClientError
 
 from diopside_ingestion.contracts import (
     ARTIFACTS,
+    ArtifactStatus,
+    PhaseStatus,
     VideoStatus,
+    initial_artifact,
+    update_artifact,
     validate_channel_id,
     video_terminal_status,
 )
@@ -54,6 +58,7 @@ class VerifiedVideoManifest:
     artifact_objects: dict[str, list[dict[str, object]]]
     run_id: str | None
     status: VideoStatus | None
+    completion_profile: str | None
 
 
 _SHA256_RE = re.compile(r"^[a-f0-9]{64}$")
@@ -88,11 +93,26 @@ def _as_artifacts(value: object) -> dict[str, dict[str, object]] | None:
     if not isinstance(value, Mapping):
         return None
     typed_value = cast(Mapping[str, object], value)
-    if set(typed_value) != set(ARTIFACTS):
+    legacy_keys = set(ARTIFACTS) - {"transcript"}
+    actual_keys = frozenset(typed_value)
+    if actual_keys not in {frozenset(ARTIFACTS), frozenset(legacy_keys)}:
         return None
     artifacts: dict[str, dict[str, object]] = {}
     for key in ARTIFACTS:
         raw_artifact = typed_value.get(key)
+        if key == "transcript" and raw_artifact is None:
+            legacy = {key: dict(value) for key, value in artifacts.items()}
+            legacy["transcript"] = initial_artifact(ARTIFACTS["transcript"], "1970-01-01T00:00:00Z")
+            artifacts = update_artifact(
+                legacy,
+                artifact_key="transcript",
+                status=ArtifactStatus.NOT_APPLICABLE,
+                current_phase="completed",
+                now="1970-01-01T00:00:00Z",
+                availability="not_applicable",
+                phase_status=PhaseStatus.NOT_APPLICABLE,
+            )
+            continue
         if not isinstance(raw_artifact, Mapping):
             return None
         artifacts[key] = dict(cast(Mapping[str, object], raw_artifact))
@@ -112,12 +132,14 @@ def _as_artifact_objects(
     if not isinstance(value, Mapping):
         return None
     typed_value = cast(Mapping[str, object], value)
-    if set(typed_value) != set(ARTIFACTS):
+    legacy_keys = set(ARTIFACTS) - {"transcript"}
+    actual_keys = frozenset(typed_value)
+    if actual_keys not in {frozenset(ARTIFACTS), frozenset(legacy_keys)}:
         return None
     expected_prefix = f"{channel_id}/{video_id}/runs/"
     result: dict[str, list[dict[str, object]]] = {}
     for artifact_key in ARTIFACTS:
-        raw_records = typed_value.get(artifact_key)
+        raw_records = typed_value.get(artifact_key, [] if artifact_key == "transcript" else None)
         if not isinstance(raw_records, list):
             return None
         records: list[dict[str, object]] = []
@@ -181,6 +203,10 @@ def _decode_verified_manifest(
     run_id = typed_document.get("run_id")
     if run_id is not None and not isinstance(run_id, str):
         return None
+    completion_profile = typed_document.get("completion_profile")
+    if completion_profile is not None and completion_profile != "legacy_local_import_v1":
+        return None
+    typed_completion_profile = completion_profile if isinstance(completion_profile, str) else None
     return VerifiedVideoManifest(
         channel_id=channel_id,
         video_id=video_id,
@@ -189,7 +215,8 @@ def _decode_verified_manifest(
         artifacts=artifacts,
         artifact_objects=artifact_objects,
         run_id=run_id,
-        status=video_terminal_status(artifacts),
+        status=video_terminal_status(artifacts, completion_profile=typed_completion_profile),
+        completion_profile=typed_completion_profile,
     )
 
 
@@ -281,6 +308,20 @@ def select_japanese_caption_object(
             str(record["key"]),
         ),
     )
+
+
+def select_verified_transcript_object(
+    manifest: VerifiedVideoManifest,
+) -> dict[str, object] | None:
+    """Choose the exact validated transcript JSONL from a legacy import manifest."""
+    candidates = [
+        record
+        for record in manifest.artifact_objects.get("transcript", [])
+        if record.get("kind") == "derived"
+        and isinstance(record.get("key"), str)
+        and str(record["key"]).endswith(".jsonl")
+    ]
+    return min(candidates, key=lambda record: str(record["key"])) if candidates else None
 
 
 def select_japanese_caption_key(
