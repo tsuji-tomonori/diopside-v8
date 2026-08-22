@@ -16,5 +16,5 @@
 - yt-dlp、ffmpeg、取得元の応答本文は診断ログへ残さない。分類済みreason codeと再試行可否だけを残す。
 - S3 keyは `channel_id/video_id/runs/run_id/` とcurrent `manifest.json` に限定し、current objectを30日TTLにしない。AWS deploy、素材投入、削除、公開は明示承認なしに実行しない。
 - legacy local importでは生コメント・生チャットをprivate raw objectに限定し、normalized JSONLから投稿者名、channel ID、avatar、profile URLを除去する。ASR混在文字起こしをYouTube自動字幕へ偽装せず、由来をprivate manifestへ残す。
-- private S3、DynamoDB、SQS、CloudWatch Logsはcustomer-managed KMS keyで暗号化する。local import実行者へは対象S3・tableと当該keyのGenerateDataKey/Decryptだけを許可し、CLI出力とログへ本文、識別子、AWS資格情報を出さない。
+- private S3はbucket defaultのSSE-S3、DynamoDBはAWS所有鍵、SQSはSSE-SQS、CloudWatch Logsはservice defaultで保存時暗号化する。customer-managed KMS keyは作成せず、local import実行者へは対象S3・tableの必要操作だけを許可し、CLI出力とログへ本文、識別子、AWS資格情報を出さない。
 - repository方針検査はGit管理外の `.devflow/` 一時素材を走査せず、公開またはcommitされる対象の検査と一時private evidenceの取扱いを分離する。

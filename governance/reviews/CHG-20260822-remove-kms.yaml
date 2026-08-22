@@ -1,0 +1,180 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260822-remove-kms
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: true
+  data_change: true
+  public_api_change: false
+  iac_change: true
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: true
+  important_ui_change: false
+  long_term_decision: true
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: V8-COST-003、V8-INGEST-011、V8-SAFETY-002をservice標準暗号化とcustomer-managed KMS不在の受入条件へ更新した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:docs/decisions/ADR-0005-service-managed-encryption.md, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
+    note: 長期の暗号化判断と既存環境の移行条件をADRへ、14資源の実装結果を生成CDK設計へ反映した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-remove-kms.yaml]
+    note: IAM、保存時暗号化、IaC resource削除、既存object可読性へ影響するためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 所有者が明示したbranch pushとPR作成だけを外部書込みとし、AWS deploy、upload、key削除、mergeは行わない。
+  - id: IMP-006
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/stack.py, test:infra/tests/test_stack.py]
+    note: workerとlocal importerからKMS権限を除き、S3、DynamoDB、SQS、Logsのservice標準暗号化へ限定した。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:docs/decisions/ADR-0005-service-managed-encryption.md, test:infra/tests/test_stack.py]
+    note: 既存SSE-KMS objectは自動変換されず旧key削除前の再暗号化が必要なことを記録し、このPRではデータ操作を実行しない。
+  - id: IMP-009
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/stack.py, test:infra/tests/test_stack.py, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
+    note: synthでKMS keyとaliasが0件、SSE-S3とSSE-SQSが有効、計14資源であることを確認した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: Python構文とCDK synthを変更後のstackで確認した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Pyrightとmypy strictが22 Python sourceを通過した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Ruff format checkとlintを変更対象へ実行した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_stack.py]
+    note: KMS resource・IAM action・Logs KmsKeyId不在と、SSE-S3、DynamoDB default、SSE-SQSをtemplate assertionで確認した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/inventory.gen.json, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: 要件human view、設計inventory、CDK as-built設計を正本から再生成しcheck modeで一致を確認した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [test:tests/repository-policy.test.ts, commit:self]
+    note: 生素材・資格情報を追加せず、repository policyの秘密情報検査対象を維持した。
+  - id: FAST-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: CDK synth、cdk-nag、template assertionで削除資源、暗号化、権限、network不在を検査した。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:docs/decisions/ADR-0005-service-managed-encryption.md, path:docs/operations/privacy-and-safety.md]
+    note: 既存key利用の確認、checksum再読、key削除待機期間と取消可能期間を移行条件として記録した。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をcustomer-managed KMS廃止と安全な移行条件へ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、影響、review path、検証、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: V8-COST-003、V8-INGEST-011、V8-SAFETY-002をrevision更新し、service標準暗号化とKMS不在を受入条件へ接続した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/decisions/ADR-0005-service-managed-encryption.md, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
+    note: 採用理由と移行条件はADR、合成資源は生成CDK設計へ分離した。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:infra/src/diopside_ingestion/stack.py, test:infra/tests/test_stack.py]
+    note: 更新要件からCDK construct、CloudFormation property、暗号化・KMS不在testまでtraceできる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行, workflow:要件・品質ゲート#as-built CDK設計差分を検査]
+    note: unit、coverage、lint、strict type、synth、cdk-nag、生成設計checkを既存CI契約で実行する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-remove-kms.yaml]
+    note: 選択checkを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-remove-kms.yaml]
+    note: trigger非該当checkをN/Aとして追加していない。
+  - id: REV-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md, path:docs/decisions/ADR-0005-service-managed-encryption.md]
+    note: cdk-nagとtemplate assertionを独立oracleとし、AWS公式仕様に基づき既存objectとRetain keyのデータ損失条件を確認した。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/README.md, path:docs/operations/cost-check.md, path:docs/operations/manual-content-update.md, path:docs/operations/privacy-and-safety.md]
+    note: KMS不要の権限、SSE-S3 pilot、既存object再暗号化、key廃止の承認境界を運用正本へ反映した。
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence: [path:docs/decisions/ADR-0005-service-managed-encryption.md]
+    note: customer-managed KMS廃止の理由、service選択、既存環境からの安全な移行条件をADRへ記録した。
+advisories: []
+residual_risks:
+  - 実AWS deploy、既存object再暗号化、KMS key無効化・削除予約は未実行であり、別の明示承認とCloudFormation change set確認が必要である。
+  - 既存stackの旧KMS keyはDeletionPolicy RetainによりCloudFormation管理外で残り、別途廃止するまで月額費用が残り得る。
+  - 旧keyを参照するSSE-KMS objectがある場合、SSE-S3へ再暗号化してchecksumを再検証する前にkeyを削除するとobjectを復号できなくなる。
+  - service標準暗号化ではcustomer-managed key固有のrotation、無効化、key policyによる一元統制を利用しない。

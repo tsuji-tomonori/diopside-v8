@@ -99,7 +99,7 @@ if (existsSync(infraDirectory)) {
   for (const service of requiredServices) {
     if (!backfill?.permittedServices?.includes(service)) errors.push(`operations/cost-policy.json: ${service} のprivate backfill用途を明記しなければなりません。`);
   }
-  for (const removedService of ['AWS Batch Fargate', 'AWS ECR', 'AWS VPC']) {
+  for (const removedService of ['AWS Batch Fargate', 'AWS ECR', 'AWS VPC', 'AWS KMS']) {
     if (backfill?.permittedServices?.includes(removedService)) errors.push(`operations/cost-policy.json: ${removedService} はprivate backfillで使用してはなりません。`);
   }
   if (!backfill?.publicBoundary?.includes('infra/')) errors.push('operations/cost-policy.json: private backfillの公開境界をinfra/として明記しなければなりません。');

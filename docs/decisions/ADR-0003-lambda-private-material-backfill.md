@@ -15,7 +15,7 @@ Lambda zipにはlock済みの`yt-dlp`と`imageio-ffmpeg`を同梱する。cookie
 
 ## 理由
 
-所有者が、15分を超える処理はいったんエラーでよく、private backfillの基本構成をSQS、Lambda、S3とする方針を確定した。長時間処理の継続より、deploy資源、network、image運用を減らすことを優先する。DynamoDB、KMS、IAM、CloudWatch Logsは、再試行可能な状態管理、暗号化、最小権限、診断のための補助資源として維持する。
+所有者が、15分を超える処理はいったんエラーでよく、private backfillの基本構成をSQS、Lambda、S3とする方針を確定した。長時間処理の継続より、deploy資源、network、image運用を減らすことを優先する。DynamoDB、IAM、CloudWatch Logsは、再試行可能な状態管理、最小権限、診断のための補助資源として維持する。保存時暗号化とcustomer-managed KMS keyの扱いはADR-0005で置き換える。
 
 ## 影響
 

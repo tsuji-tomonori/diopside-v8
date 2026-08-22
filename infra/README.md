@@ -54,4 +54,4 @@ infra/.venv/bin/diopside-backfill legacy-local-import \
   --video-id dQw4w9WgXcQ
 ```
 
-実行者にはS3 Put/Get/Head、DynamoDB Get/Update、customer-managed KMS keyのGenerateDataKey/Decryptが必要です。importはlocal checksumとS3再読checksumを照合した後だけrun/current manifestとDynamoDBを確定します。生コメント・チャットはprivate rawとして保存し、再利用用JSONLから投稿者名とchannel IDを除去します。不足artifactはlegacy固有の`not_applicable`、動画は`partial`として通常workerの`succeeded`と区別します。
+実行者には対象S3のPut/Get/HeadとDynamoDBのGet/Updateだけが必要です。S3 objectはbucket defaultのSSE-S3で暗号化し、customer-managed KMS keyとその権限は使用しません。importはlocal checksumとS3再読checksumを照合した後だけrun/current manifestとDynamoDBを確定します。生コメント・チャットはprivate rawとして保存し、再利用用JSONLから投稿者名とchannel IDを除去します。不足artifactはlegacy固有の`not_applicable`、動画は`partial`として通常workerの`succeeded`と区別します。

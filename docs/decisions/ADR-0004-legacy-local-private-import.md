@@ -14,13 +14,9 @@
 
 生コメントと生チャットは復旧用rawとしてprivate S3だけへ保存する。再利用用copyは本文、時刻、反応数等の必要項目だけへ正規化し、投稿者名、channel ID、avatar、profile URLを含めない。DynamoDB、manifest、CLI出力、ログ、Git、PR、Pagesには本文や投稿者識別子を置かない。
 
-## KMSを維持する理由
+## 保存時暗号化
 
-現在のcustomer-managed KMS keyは、S3、SQS、DynamoDB、CloudWatch Logsの保存時暗号化に共用している。暗号化そのものはS3の標準暗号化でも実現できるが、生の字幕、コメント、チャット、約78.7 GBの元音声を扱うため、鍵policyによる利用主体の限定、鍵の失効、rotation、CloudTrailでの鍵利用監査を一つの管理境界として維持する。
-
-ローカルimport実行者には対象S3へのPut/Get/Head、VideoIngestion tableへのGet/Updateと、当該keyの `kms:GenerateDataKey` / `kms:Decrypt` が必要である。bucket default encryptionを使うためCLIが個々のPutへkey ARNを埋め込まない。KMS key policyとIAM policyの両方が許可しなければ処理できない。
-
-customer-managed keyには月額とAPI request費用、権限設定の運用負荷がある。中央での失効・監査要件が不要になった場合は、AWS管理keyまたはS3 managed encryptionへ置き換えられるが、raw素材の保護方針と既存データの再暗号化を伴う別の設計変更として扱う。
+このADRで一度採用したcustomer-managed KMS keyの判断は、後続の所有者指示とADR-0005で置き換える。ローカルimportはbucket defaultのSSE-S3を使い、実行者にKMS権限を要求しない。既存環境から移行する場合の再暗号化と鍵廃止条件はADR-0005に従う。
 
 ## 運用境界
 
