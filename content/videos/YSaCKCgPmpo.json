@@ -1,0 +1,364 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "YSaCKCgPmpo",
+  "title": "【DbD】おはようそしておやすみなさい【白雪 巴/にじさんじ】",
+  "publishedAt": "2020-07-23T10:09:24Z",
+  "durationSeconds": 10343,
+  "durationIso": "PT2H52M23S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/YSaCKCgPmpo/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=YSaCKCgPmpo",
+  "taxonomyVersion": "8.5.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.2.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "c5e94027660348a0a8b1089f3893cbb6e5d6a252becfccdb2e4ececcfc6784fd"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "1e2ce6ae241447fdbc8d5ff00d9405f1ee083864ae609d3552679400ce1e8abd"
+    },
+    {
+      "evidenceId": "evidence-approved-tags",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "旧diopsideの承認済みタグ正本",
+      "inputFingerprint": "82c44568ef0300b9d892fd194b79529ae292d2d273eac613c8152437f0473406"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "225a9fc56fc988c7fad2f911779a9760aaf7964b31e1d08d20730baef801cc16"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "9241e9f5b53b911bb1178ebfe1cbc596caa3cb530d1186d4b880823170a21b0c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10343
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-ae339bbfb19c",
+      "reason": "公開タイトルまたは既存タグからゲーム作品「Dead by Daylight」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-62278ec71bd0",
+      "reason": "既存分類と作品名からゲームジャンル「アクション」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-1cc53dc4a37d",
+      "reason": "既存分類と作品名からゲームジャンル「ホラー」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-f021e7c4e2e7",
+      "reason": "既存分類と作品名からゲームジャンル「FPS/TPS」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-7d06f085",
+        "startSeconds": 0,
+        "label": "配信開始・Dead by Daylight",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-530-c36772a7",
+        "startSeconds": 530,
+        "label": "第1試合：発電機と救助",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1220-171706d0",
+        "startSeconds": 1220,
+        "label": "第2試合：チェイスと救助",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1901-09e72bde",
+        "startSeconds": 1901,
+        "label": "第3試合：発電機と救助",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2440-1b366609",
+        "startSeconds": 2440,
+        "label": "試合後の振り返り",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2592-380988d6",
+        "startSeconds": 2592,
+        "label": "第4試合：室内マップでのチェイス",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3495-4d41bb54",
+        "startSeconds": 3495,
+        "label": "第4試合後：パークとチーム編成",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3902-d7a93407",
+        "startSeconds": 3902,
+        "label": "第5試合：キラーの能力を見ながらプレイ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4928-ecbfdcdb",
+        "startSeconds": 4928,
+        "label": "第6試合：チェイスと仲間の救助",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5296-d1fbce35",
+        "startSeconds": 5296,
+        "label": "第7試合：地図アイテムとゴーストフェイス",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6295-d13f5257",
+        "startSeconds": 6295,
+        "label": "第7試合後の振り返り",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6532-eb3dcc9b",
+        "startSeconds": 6532,
+        "label": "第8試合：三角頭との初対戦",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7295-ceafd133",
+        "startSeconds": 7295,
+        "label": "三角頭の能力と演出を振り返る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7594-bf6dd25b",
+        "startSeconds": 7594,
+        "label": "第9試合：救助とチェイス",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8176-e24cf8ba",
+        "startSeconds": 8176,
+        "label": "第10試合：ドクターの能力を体験",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8721-b606672a",
+        "startSeconds": 8721,
+        "label": "第11試合：救助とチェイス",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9526-c60cfb38",
+        "startSeconds": 9526,
+        "label": "試合後の振り返り・配信予定",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9662-36f49bf7",
+        "startSeconds": 9662,
+        "label": "第12試合：プレイグの感染と泉",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-10233-60df03b8",
+        "startSeconds": 10233,
+        "label": "試合後の感想・お知らせ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "4d9ecf759aaa068a8af7c7c568eb7dc962017aaec93e7a7d836c39df1d604df9",
+    "inputFingerprint": "225a9fc56fc988c7fad2f911779a9760aaf7964b31e1d08d20730baef801cc16",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-27T11:07:40Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "4d9ecf759aaa068a8af7c7c568eb7dc962017aaec93e7a7d836c39df1d604df9",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "4d9ecf759aaa068a8af7c7c568eb7dc962017aaec93e7a7d836c39df1d604df9",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "4dd945e8e2560949ec43853376fd8097717d4d3dae98f3124e31fd11cd13a606",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『Dead by Daylight』でキラーとサバイバーを行き来し、仲間との練習を経て大会に向けた立ち回りを磨く。発電機の修理や救助、チェイスに挑み、視聴者の助言を頼りにパークや能力を学びながら、緊張感ある試合を楽しむ配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私ちょっとチーム練とかも多分そのうちすると思うからみんな待ってて",
+      "atSeconds": 3995,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "9241e9f5b53b911bb1178ebfe1cbc596caa3cb530d1186d4b880823170a21b0c",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T19:00:06.254039Z"
+  }
+}
