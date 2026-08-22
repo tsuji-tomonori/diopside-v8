@@ -873,6 +873,36 @@ class IngestionWorker:
     ) -> dict[str, dict[str, object]]:
         native_path = workdir / "native_audio"
         candidates = sorted(path for path in native_path.glob("*") if path.is_file())
+        native_status = artifacts["native_audio"].get("status")
+        if not candidates and native_status == ArtifactStatus.FAILED_RETRYABLE.value:
+            return artifacts
+        if not candidates and native_status == ArtifactStatus.SUCCEEDED.value:
+            try:
+                candidates = self._restore_native_audio(native_path)
+            except PrivateObjectReadError as exc:
+                return self._record_failure(
+                    artifacts,
+                    "asr_audio",
+                    Failure(
+                        ReasonCategory.DEPENDENCY_ERROR,
+                        str(exc),
+                        "保存済み元音声を再開用に読み取れない",
+                        True,
+                        "retry_manifest",
+                    ),
+                )
+            if not candidates:
+                return self._record_failure(
+                    artifacts,
+                    "asr_audio",
+                    Failure(
+                        ReasonCategory.DEPENDENCY_ERROR,
+                        "native_audio_checkpoint_missing",
+                        "保存済み元音声の参照がcheckpointに存在しない",
+                        True,
+                        "retry_manifest",
+                    ),
+                )
         if not candidates:
             return self._mark_dependency_unavailable(artifacts, None, artifact_key="asr_audio")
         output = workdir / "asr-audio.flac"
@@ -895,6 +925,25 @@ class IngestionWorker:
             "derived/asr-audio",
             storage_field="derived_s3_key",
         )
+
+    def _restore_native_audio(self, destination: Path) -> list[Path]:
+        """Materialize a verified native-audio checkpoint for a later ASR attempt."""
+        records = sorted(
+            self.artifact_objects.get("native_audio", []),
+            key=lambda record: str(record.get("key", "")),
+        )
+        for record in records:
+            key = record.get("key")
+            if record.get("kind") != "raw" or not isinstance(key, str):
+                continue
+            suffix = Path(key).suffix.lower()
+            target = destination / f"checkpoint-native-audio{suffix}"
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(
+                read_verified_artifact_object(self.store, self.config.bucket, record)
+            )
+            return [target]
+        return []
 
     def _normalize_caption_files(self, paths: Sequence[Path], destination: Path) -> list[Path]:
         destination.mkdir(exist_ok=True)
