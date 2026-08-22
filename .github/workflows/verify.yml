@@ -111,6 +111,8 @@ jobs:
           uv run --directory infra pyright
           uv run --directory infra mypy .
           uv run --directory infra pytest -q
+      - name: FlociでSQS・DynamoDB・S3統合経路を実行
+        run: npm run test:ingestion:floci
       - name: CDK synthとcdk-nagを実行
         run: cd infra && npm exec -- cdk synth --quiet
       - name: as-built CDK設計差分を検査

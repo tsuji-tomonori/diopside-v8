@@ -364,14 +364,54 @@ def test_worker_merges_prior_attempt_objects_into_final_manifest() -> None:
 
     IngestionWorker(_config("run-2"), repository, store, FakeRunner()).run()
 
+    assert repository.completions[0]["status"] == "succeeded"
     final_put = next(
         put for put in store.puts if str(put.get("Key", "")).endswith("/runs/run-2/manifest.json")
     )
     document = json.loads(cast(bytes, final_put["Body"]).decode("utf-8"))
+    assert document["artifacts"]["asr_audio"]["status"] == "succeeded"
     subtitle_keys = [str(record["key"]) for record in document["artifact_objects"]["subtitles"]]
     audio_keys = [str(record["key"]) for record in document["artifact_objects"]["native_audio"]]
     assert any("/runs/run-1/" in key for key in subtitle_keys)
     assert any("/runs/run-2/" in key for key in audio_keys)
+
+
+def test_worker_restores_native_audio_checkpoint_before_asr_conversion() -> None:
+    @dataclass
+    class CrashAfterNativeAudioRepository(FakeRepository):
+        crash: bool = True
+
+        def checkpoint(self, video_id: str, claim_owner: str, **kwargs: object) -> None:
+            updates = {
+                key: value
+                for key, value in kwargs.items()
+                if value is not None
+                or key not in {"checkpoint_manifest_key", "checkpoint_manifest_sha256"}
+            }
+            self.item = {"video_id": video_id, **(self.item or {}), **updates}
+            self.checkpoints.append({"video_id": video_id, "claim_owner": claim_owner, **kwargs})
+            artifacts = kwargs.get("artifacts")
+            if not isinstance(artifacts, Mapping):
+                return
+            typed_artifacts = cast(Mapping[str, Mapping[str, object]], artifacts)
+            if (
+                self.crash
+                and typed_artifacts["native_audio"].get("status") == "succeeded"
+                and typed_artifacts["asr_audio"].get("status") == "pending"
+            ):
+                self.crash = False
+                raise RuntimeError("injected process stop after native audio checkpoint")
+
+    repository = CrashAfterNativeAudioRepository()
+    store = FakeStore()
+    with pytest.raises(RuntimeError, match="after native audio checkpoint"):
+        IngestionWorker(_config("run-1"), repository, store, FakeRunner()).run()
+
+    resumed_runner = FakeRunner()
+    IngestionWorker(_config("run-2"), repository, store, resumed_runner).run()
+
+    assert repository.completions[0]["status"] == "succeeded"
+    assert any(call and call[0] == "ffmpeg" for call in resumed_runner.calls)
 
 
 def test_empty_normalized_payload_is_not_successful(tmp_path: Path) -> None:

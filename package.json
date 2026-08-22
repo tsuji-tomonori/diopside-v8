@@ -23,6 +23,8 @@
     "lint:ingestion": "cd infra && uv run --locked ruff format --check . && uv run --locked ruff check .",
     "typecheck:ingestion": "cd infra && uv run --locked pyright && uv run --locked mypy .",
     "test:ingestion": "cd infra && uv run --locked pytest -q",
+    "test:ingestion:aws": "cd infra && uv run --locked pytest -q --no-cov tests/test_aws_integration.py",
+    "test:ingestion:floci": "infra/scripts/verify-floci.sh",
     "synth:ingestion": "cd infra && npm exec -- cdk synth --quiet",
     "check:ingestion-design": "python .agents/skills/generate-implementation-design/scripts/designflow.py cdk --template infra/cdk.out/DiopsideIngestionStack.template.json --out docs/design/generated/cdk/diopside-ingestion --repo-root . --check",
     "verify:ingestion": "npm run lint:ingestion && npm run typecheck:ingestion && npm run test:ingestion && npm run synth:ingestion && npm run check:ingestion-design",
