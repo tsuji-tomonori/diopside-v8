@@ -30,14 +30,14 @@
 | COST | 5 |
 | DEVICE | 11 |
 | DISPLAY | 13 |
-| INGEST | 11 |
+| INGEST | 12 |
 | OPS | 26 |
 | QUALITY | 5 |
 | SAFETY | 4 |
 | SEARCH | 21 |
 | TAG | 35 |
 | TIME | 37 |
-| **合計** | **168** |
+| **合計** | **169** |
 
 ## 公開データの流れ
 
@@ -199,4 +199,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力51ファイル、公開契約135件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力52ファイル、公開契約135件です。

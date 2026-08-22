@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "84a3aa87890baf4d7f9c21d9701d7827b317955ed37bd044352a6b1296416b77"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "b80d19a2f965948115690883683a1160e7edac071cea930fb08d97d20cda156f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6419
     }
   ],
   "tagAssignments": [
@@ -336,5 +344,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T17:50:00+09:00",
     "basis": "運用者のゲーム配信タグ横断是正要求に基づき、公開タイトル・説明と既存作品タグを再確認"
+  },
+  "synopsis": {
+    "body": "新衣装をまとったフルトイの三人が、オリジナル曲の制作秘話や活動を振り返りつつ、カタカナ禁止の連想ゲームへ。負けず嫌いな掛け合いは、罰ゲームカードを巡る攻防までにぎやかに続く。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "寝袋持ってくんの忘れたーーー",
+      "atSeconds": 3654,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "b80d19a2f965948115690883683a1160e7edac071cea930fb08d97d20cda156f",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T03:05:02.211635Z"
   }
 }

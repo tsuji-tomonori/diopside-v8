@@ -72,6 +72,19 @@ def test_video_status_is_partial_when_only_some_artifacts_succeed() -> None:
     assert video_terminal_status(artifacts) == VideoStatus.PARTIAL
 
 
+def test_legacy_profile_keeps_not_applicable_artifacts_partial() -> None:
+    artifacts = initial_artifacts("2026-08-22T00:00:00Z")
+    for artifact in artifacts.values():
+        artifact["status"] = ArtifactStatus.NOT_APPLICABLE.value
+    artifacts["transcript"]["status"] = ArtifactStatus.SUCCEEDED.value
+    artifacts["manifest"]["status"] = ArtifactStatus.SUCCEEDED.value
+    assert video_terminal_status(artifacts) == VideoStatus.SUCCEEDED
+    assert (
+        video_terminal_status(artifacts, completion_profile="legacy_local_import_v1")
+        == VideoStatus.PARTIAL
+    )
+
+
 def test_artifact_attempt_count_is_explicit() -> None:
     artifacts = initial_artifacts("2026-08-15T00:00:00Z")
     started = update_artifact(
