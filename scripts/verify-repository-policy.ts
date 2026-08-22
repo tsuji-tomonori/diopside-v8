@@ -67,7 +67,7 @@ for (const file of walk(path.join(root, 'src'))) {
 const secretPattern = /(?:sk-[A-Za-z0-9_-]{20,}|ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----)/u;
 for (const file of walk(root)) {
   const relativePath = relative(file);
-  if (/^(?:\.git|node_modules|reports\/playwright|reports\/playwright-html)\//u.test(relativePath)) continue;
+  if (/^(?:\.git|\.devflow|node_modules|reports\/playwright|reports\/playwright-html)\//u.test(relativePath)) continue;
   if (!/\.(?:[cm]?[jt]sx?|json|ya?ml|md|html|css|toml|txt)$/u.test(file)) continue;
   if (statSync(file).size > 2_000_000) continue;
   if (secretPattern.test(readFileSync(file, 'utf8'))) errors.push(`${relativePath}: 秘密情報らしい値があります。`);
@@ -99,7 +99,7 @@ if (existsSync(infraDirectory)) {
   for (const service of requiredServices) {
     if (!backfill?.permittedServices?.includes(service)) errors.push(`operations/cost-policy.json: ${service} のprivate backfill用途を明記しなければなりません。`);
   }
-  for (const removedService of ['AWS Batch Fargate', 'AWS ECR', 'AWS VPC']) {
+  for (const removedService of ['AWS Batch Fargate', 'AWS ECR', 'AWS VPC', 'AWS KMS']) {
     if (backfill?.permittedServices?.includes(removedService)) errors.push(`operations/cost-policy.json: ${removedService} はprivate backfillで使用してはなりません。`);
   }
   if (!backfill?.publicBoundary?.includes('infra/')) errors.push('operations/cost-policy.json: private backfillの公開境界をinfra/として明記しなければなりません。');
