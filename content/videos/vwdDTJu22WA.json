@@ -43,6 +43,14 @@
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "640886e8e6b7f202e6015ed11a7292e6433ad18de12bae1ef416ccab4d259b53",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 4155
+    },
+    {
+      "evidenceId": "evidence-full-transcript-timestamps",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕（既存タイムスタンプ根拠）",
       "inputFingerprint": "55e4d6d3f9b6446ac91f942d24f1c442e13278b5717f76504b62e0886ec5b099",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 4155
@@ -409,5 +417,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "一週間以上休んだ白雪巴が、喉の酷使や睡眠不足が重なった療養生活を振り返る雑談。寝込んでいた間に支えになったサバイバル動画やホラー作品、ゲームもできなかった日々を語り、視聴者と人間をやめるなら何になるか想像を広げつつ、無理せず少しずつ復帰する方針を伝える。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "やはり生命力が欲しい",
+      "atSeconds": 1238,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "640886e8e6b7f202e6015ed11a7292e6433ad18de12bae1ef416ccab4d259b53",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T03:32:07.965972Z"
   }
 }
