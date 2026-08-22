@@ -80,7 +80,7 @@ jobs:
             review_source_commit="$(git rev-parse HEAD^)"
           fi
           npm run verify:local:base
-          python governance/reviews/validate.py --root . --commit "$review_source_commit"
+          python governance/reviews/validate.py --root . --commit "$review_source_commit" --allow-github-merge-fallback
           npm run verify:generated
           npm run test:e2e:run
       - name: 要件の受入結果を監査
