@@ -36,7 +36,8 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).toMatch(/PLAYWRIGHT_BROWSERS_PATH:\s*\/ms-playwright/u);
     expect(workflow).toMatch(/Git worktreeを信頼済みに設定[\s\S]*git config --global --add safe\.directory "\$GITHUB_WORKSPACE"/u);
     expect(workflow).toMatch(/actions\/setup-python@v5/u);
-    expect(workflow).toMatch(/(?:^|\n)\s+- name: PR・非main通常変更の品質ゲートを実行[\s\S]*github\.ref != 'refs\/heads\/main'[\s\S]*run: npm run verify:quality/u);
+    expect(workflow).not.toMatch(/ref: \$\{\{ github\.event\.pull_request\.head\.sha \|\| github\.sha \}\}/u);
+    expect(workflow).toMatch(/(?:^|\n)\s+- name: PR・非main通常変更の品質ゲートを実行[\s\S]*github\.ref != 'refs\/heads\/main'[\s\S]*PR_HEAD_SHA: \$\{\{ github\.event\.pull_request\.head\.sha \}\}[\s\S]*verify:local:base[\s\S]*--commit "\$PR_HEAD_SHA"[\s\S]*test:e2e:run/u);
     expect(workflow).toMatch(/(?:^|\n)\s+- name: main通常変更の品質ゲートを実行[\s\S]*github\.ref == 'refs\/heads\/main'[\s\S]*run: npm run verify:main-release/u);
     expect(workflow).toMatch(/release変更の品質ゲートを実行[\s\S]*--commit "\$review_source_commit" --allow-github-merge-fallback/u);
     expect(workflow).not.toMatch(/npx playwright install --with-deps chromium/u);
