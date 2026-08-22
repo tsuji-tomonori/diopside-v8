@@ -43,6 +43,14 @@
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "c959e2d884549f82a1d24acb5637a8ce55d45d4c76da3f137f205f96df8f4d03",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8511
+    },
+    {
+      "evidenceId": "evidence-full-transcript-timestamps",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕（既存タイムスタンプ根拠）",
       "inputFingerprint": "45e32541936adbb8b0580656bacb58dc5f33401b095eccd575e781d3ac8ca7f9",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 8511
@@ -445,5 +453,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "『わがままハイスペック』第4回。白雪巴は文化祭を控えた学園で、生徒会の喫茶店準備と実行委員の混乱に次々ツッコミ。衣装や目玉メニューに想像を膨らませ、選択肢を見比べながら、ヒロインたちの新たな表情と賑やかな掛け合いを味わっていく。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "でもやっぱエロは世界を救ってるからな",
+      "atSeconds": 1990,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "c959e2d884549f82a1d24acb5637a8ce55d45d4c76da3f137f205f96df8f4d03",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T03:53:17.098087Z"
   }
 }
