@@ -1,0 +1,364 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "cDRlyVtItYQ",
+  "title": "【DbD】キラーを見ろ白雪【夕陽リリ/白雪 巴/にじさんじ】",
+  "publishedAt": "2021-04-08T16:18:16Z",
+  "durationSeconds": 11064,
+  "durationIso": "PT3H4M24S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/cDRlyVtItYQ/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=cDRlyVtItYQ",
+  "taxonomyVersion": "8.5.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.2.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "f8ed01a63a4e86e6c36b68125e3811e2cbd9856b0b814b3a8cac5cc638c193b2"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "c0c61bb675df0c49099f2be21f37adcbc7af42ed797634c6e1f28b44ffd3d11c"
+    },
+    {
+      "evidenceId": "evidence-approved-tags",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "旧diopsideの承認済みタグ正本",
+      "inputFingerprint": "4cd42c70b9d77b6e352e5448f6ef865f8190835cf90249839e90d0e5fd329f6a"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "3ca6483e61bd52d95e8f99a0393c4f939d7a66e617cb4d8f3cc7807d23e1d27b"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "25c7b400c6882d97da417268791da5fd01f42da3996adf5d21dfc6a2731e05b7",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 11064
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-ae339bbfb19c",
+      "reason": "公開タイトルまたは既存タグからゲーム作品「Dead by Daylight」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-1cc53dc4a37d",
+      "reason": "既存分類と作品名からゲームジャンル「ホラー」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-62278ec71bd0",
+      "reason": "既存分類と作品名からゲームジャンル「アクション」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-f021e7c4e2e7",
+      "reason": "既存分類と作品名からゲームジャンル「FPS/TPS」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-e877def1ca57",
+      "reason": "既存出演者タグ「夕陽リリ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "既存タグと出演者から参加形態「コラボ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-e9e751d6",
+        "startSeconds": 0,
+        "label": "配信開始・DbDコラボの準備",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-654-a4871ee0",
+        "startSeconds": 654,
+        "label": "1戦目・サバイバー戦",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1151-dea9c441",
+        "startSeconds": 1151,
+        "label": "1戦目後の振り返り・次戦準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1593-95fc0114",
+        "startSeconds": 1593,
+        "label": "2戦目・サバイバー戦",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2397-994f49f8",
+        "startSeconds": 2397,
+        "label": "2戦目後の雑談・次戦準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3001-c4d026ad",
+        "startSeconds": 3001,
+        "label": "3戦目・サバイバー戦",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3605-659abcb3",
+        "startSeconds": 3605,
+        "label": "3戦目後のコラボ雑談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4337-ffe89690",
+        "startSeconds": 4337,
+        "label": "4戦目・サバイバー戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4751-6e7ddee4",
+        "startSeconds": 4751,
+        "label": "4戦目後のキラー談義・次戦準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5405-3b051728",
+        "startSeconds": 5405,
+        "label": "5戦目・サバイバー戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7108-dc818504",
+        "startSeconds": 7108,
+        "label": "5戦目後の振り返り・次戦準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7779-fc36546e",
+        "startSeconds": 7779,
+        "label": "6戦目・サバイバー戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8101-48eb2cbb",
+        "startSeconds": 8101,
+        "label": "6戦目後の雑談・次戦準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8635-cb993f00",
+        "startSeconds": 8635,
+        "label": "7戦目・サバイバー戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9368-90e1d102",
+        "startSeconds": 9368,
+        "label": "7戦目後のロビー・最終戦準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9547-fb0b88d2",
+        "startSeconds": 9547,
+        "label": "8戦目・サバイバー戦",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-10835-015d1a20",
+        "startSeconds": 10835,
+        "label": "配信終了・エンディングトーク",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "87d915312cc6a75af7eebe3f4fc84de0396a69b6f6baef4414519e0975bb5e0d",
+    "inputFingerprint": "3ca6483e61bd52d95e8f99a0393c4f939d7a66e617cb4d8f3cc7807d23e1d27b",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-27T00:00:00Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "87d915312cc6a75af7eebe3f4fc84de0396a69b6f6baef4414519e0975bb5e0d",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "87d915312cc6a75af7eebe3f4fc84de0396a69b6f6baef4414519e0975bb5e0d",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "d5bb60ff53f07e9f4f4afa3c383f406fc52ace9975aa8532b9ba1aa806ab6235",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴と夕陽リリが『Dead by Daylight』で生存者としてマッチに挑戦。発電機の修理や救助、キラーの能力を見極める立ち回りを相談しながら、驚きの声と軽妙な掛け合いで試合を進めます。合間の雑談では互いの距離感や好きな話題にも触れ、ゲームと会話の両方を味わえるコラボです。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "キラーやりたい",
+      "atSeconds": 7350,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "25c7b400c6882d97da417268791da5fd01f42da3996adf5d21dfc6a2731e05b7",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T21:31:07.916986Z"
+  }
+}
