@@ -115,15 +115,3 @@ jobs:
         run: cd infra && npm exec -- cdk synth --quiet
       - name: as-built CDK設計差分を検査
         run: python .agents/skills/generate-implementation-design/scripts/designflow.py cdk --template infra/cdk.out/DiopsideIngestionStack.template.json --out docs/design/generated/cdk/diopside-ingestion --repo-root . --check
-      - name: worker imageをbuild
-        run: docker build --file infra/worker/Dockerfile --tag diopside-ingestion-worker:${{ github.sha }} infra
-      - name: worker imageを脆弱性検査
-        uses: aquasecurity/trivy-action@v0.33.1
-        with:
-          image-ref: diopside-ingestion-worker:${{ github.sha }}
-          version: v0.74.0
-          format: table
-          scanners: vuln
-          exit-code: '1'
-          ignore-unfixed: true
-          severity: CRITICAL,HIGH

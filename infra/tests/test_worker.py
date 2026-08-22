@@ -40,14 +40,6 @@ class FakeRepository:
     def claim(self, video_id: str, claim_owner: str, lease_seconds: int) -> ClaimResult:
         raise AssertionError("not used by worker")
 
-    def prepare_submission(self, video_id: str, claim_owner: str, submission_id: str) -> None:
-        raise AssertionError("not used by worker")
-
-    def record_batch_job(
-        self, video_id: str, claim_owner: str, submission_id: str, batch_job_id: str
-    ) -> None:
-        raise AssertionError("not used by worker")
-
     def mark_dispatch_failure(self, video_id: str, claim_owner: str, reason_code: str) -> None:
         raise AssertionError("not used by worker")
 
@@ -55,16 +47,6 @@ class FakeRepository:
         return self.item
 
     def scan_items(self) -> list[Mapping[str, object]]:
-        raise AssertionError("not used by worker")
-
-    def stage_batch_retry(
-        self, video_id: str, batch_job_id: str, reason_code: str, outbox_id: str
-    ) -> None:
-        raise AssertionError("not used by worker")
-
-    def stage_submission_retry(
-        self, video_id: str, submission_id: str, reason_code: str, outbox_id: str
-    ) -> None:
         raise AssertionError("not used by worker")
 
     def checkpoint(self, video_id: str, claim_owner: str, **kwargs: object) -> None:
@@ -197,7 +179,7 @@ def _config(run_id: str = "run-1") -> WorkerConfig:
         claim_owner="message-1",
         bucket="private-bucket",
         table_name="VideoIngestion",
-        worker_image_digest="sha256:" + "a" * 64,
+        runtime_version="lambda-python3.12",
     )
 
 
@@ -223,6 +205,7 @@ def test_worker_writes_private_run_and_current_manifests() -> None:
         "kind": "youtube_watch",
         "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     }
+    assert document["worker_runtime"] == "lambda-python3.12"
     assert isinstance(document["captured_at"], str)
     assert document["artifact_objects"]["metadata"][0] == {
         "bytes": len(

@@ -8,4 +8,3 @@ Check: `python .agents/skills/generate-implementation-design/scripts/designflow.
 | Name | Type | Default | Allowed values | Description |
 |---|---|---|---|---|
 | `BootstrapVersion` | `AWS::SSM::Parameter::Value<String>` | /cdk-bootstrap/hnb659fds/version | - | Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip] |
-| `WorkerImageDigest` | `String` | - | - | Immutable sha256 digest for the pre-scanned worker image in the ECR repository |

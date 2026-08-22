@@ -1,6 +1,6 @@
 # diopside 過去動画素材バックフィル
 
-このディレクトリは Issue #465 の一度限りの過去動画素材バックフィル基盤です。公開画面、GitHub Pages、通常の1動画コンテンツPRとは独立しており、CDK deploy、backfill投入、ECRへのimage pushはいずれもこのPRでは実行しません。
+このディレクトリは Issue #465 の一度限りの過去動画素材バックフィル基盤です。公開画面、GitHub Pages、通常の1動画コンテンツPRとは独立しており、CDK deployとbackfill投入はこのPRでは実行しません。
 
 ## 検証
 
@@ -23,8 +23,8 @@ diopside-backfill manifest は、最新mainの content/catalog と既存台帳sn
 
 対象を変更する場合は既存manifestを置き換えず、`manifest --revision <次の整数>` で新しいSHA-256付きmanifestを明示的に作成します。
 
-AWS接続情報、バケット名、キューURL、テーブル名は実行環境の変数から読むため、秘密情報をリポジトリやコマンド履歴へ渡しません。ローカルfallbackは、ECRでdigest固定した同じworker imageを使う infra/scripts/run_local_worker.py を使用します。
+AWS接続情報、バケット名、キューURL、テーブル名は実行環境の変数から読むため、秘密情報をリポジトリやコマンド履歴へ渡しません。SQSは一動画ずつ実処理Lambdaを起動し、Lambda zipにはlock済みのyt-dlpとffmpeg runtimeを同梱します。
 
-DispatcherはBatch送信前に決定的なsubmission IDを保存し、送信結果が不明な場合は既存jobを照合します。Result処理は再投入intentをDynamoDB outboxへ先に保存し、EventBridge retry・DLQとrequest/result DLQ駆動のRecovery Lambdaが、失われたevent、未送信outbox、孤児runningを回復します。新着探索や継続実行のscheduleは追加しません。
+実処理Lambdaは最大15分で、完了できなければSQSの再試行対象になります。3回処理できない要求はrequest DLQへ移し、成功として扱いません。新着探索や継続実行のscheduleは追加しません。
 
 workerはobject単位のkey、SHA-256、byte数を不変checkpoint manifestへ保存します。raw取得だけではartifactを成功にせず、必要なnormalizeとverifyが完了した時点で終端します。再試行ではcheckpointと各objectを検証してから以前のattemptのobject recordを最終manifestへmergeします。private caption再利用はcurrent manifestに記録されたexact keyだけを読み、byte数とSHA-256を照合します。

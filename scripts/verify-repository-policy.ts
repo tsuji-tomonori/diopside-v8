@@ -87,7 +87,7 @@ const backfill = cost.historicalPrivateBackfill;
 const infraDirectory = path.join(root, 'infra');
 if (existsSync(infraDirectory)) {
   if (!backfill) errors.push('infra/: 有限private backfillの費用・公開境界をcost policyへ明記しなければなりません。');
-  const expectedInfrastructure = ['pyproject.toml', 'uv.lock', 'cdk.json', 'worker/Dockerfile'];
+  const expectedInfrastructure = ['pyproject.toml', 'uv.lock', 'cdk.json'];
   for (const relativePath of expectedInfrastructure) {
     if (!existsSync(path.join(infraDirectory, relativePath))) errors.push(`infra/${relativePath}: Python+uv+CDK workerの必須構成がありません。`);
   }
@@ -95,9 +95,12 @@ if (existsSync(infraDirectory)) {
   if (existsSync(cdkPath) && !/uv run --locked python app\.py/u.test(readFileSync(cdkPath, 'utf8'))) {
     errors.push('infra/cdk.json: lock済みuvでCDK appを起動しなければなりません。');
   }
-  const requiredServices = ['AWS S3', 'AWS DynamoDB', 'AWS SQS FIFO', 'AWS Lambda', 'AWS Batch Fargate', 'AWS ECR'];
+  const requiredServices = ['AWS S3', 'AWS DynamoDB', 'AWS SQS FIFO', 'AWS Lambda'];
   for (const service of requiredServices) {
     if (!backfill?.permittedServices?.includes(service)) errors.push(`operations/cost-policy.json: ${service} のprivate backfill用途を明記しなければなりません。`);
+  }
+  for (const removedService of ['AWS Batch Fargate', 'AWS ECR', 'AWS VPC']) {
+    if (backfill?.permittedServices?.includes(removedService)) errors.push(`operations/cost-policy.json: ${removedService} はprivate backfillで使用してはなりません。`);
   }
   if (!backfill?.publicBoundary?.includes('infra/')) errors.push('operations/cost-policy.json: private backfillの公開境界をinfra/として明記しなければなりません。');
   if (!backfill?.schedule?.includes('禁止')) errors.push('operations/cost-policy.json: private backfillの予定実行禁止を明記しなければなりません。');
