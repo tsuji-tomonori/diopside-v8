@@ -1,0 +1,169 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260822-legacy-local-import
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: true
+  important_ui_change: false
+  long_term_decision: true
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: V8-INGEST-012を追加し、V8-INGEST-009とV8-SAFETY-002へlegacy local importの受入条件を反映した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:docs/decisions/ADR-0004-legacy-local-private-import.md, path:docs/design/generated/system.gen.md]
+    note: 専用completion profile、artifact、KMS維持判断をADRへ、実装構成を生成設計へ反映した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-legacy-local-import.yaml]
+    note: raw識別情報、S3・DynamoDB確定、互換manifest、長期完了意味を変更するためassuredを選択した。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/contracts.py, test:infra/tests/test_legacy_import.py]
+    note: transcript artifactとlegacy partial状態を追加し、旧manifestはtranscript not_applicableとして後方互換読込する。
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/cli.py, test:infra/tests/test_legacy_import.py, test:infra/tests/test_reuse.py]
+    note: operator CLIへread-only manifestと明示AWS write commandを追加し、固定manifestのshapeとdigestを検証する。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: Python実装の構文、import、CDK synthを確認した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Pyrightとmypy strictが22 sourceを通過した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Ruff format checkとlintを変更対象へ実行した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_legacy_import.py, test:infra/tests/test_reuse.py, test:infra/tests/test_contracts.py]
+    note: 1,598件固定、202件除外、checksum改ざん、匿名化、再読、partial確定、旧manifest互換を43 unit testで確認した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/system.gen.md, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: 要件human view、system design、CDK asset manifestを正本から再生成した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [test:tests/repository-policy.test.ts, commit:self]
+    note: 生素材や実manifestをGitへ追加せず、生成した2.2MB manifestは/tmpだけへ保存した。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/legacy_import.py, path:docs/operations/manual-content-update.md]
+    note: 動画単位の失敗は安全なreason codeへ収束し、他動画を継続する。実投入前pilotを運用手順へ記録した。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をlegacy local import、再利用、要件、運用文書へ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、影響、review path、検証、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: V8-INGEST-012を追加し、V8-INGEST-009とV8-SAFETY-002をrevision更新した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/decisions/ADR-0004-legacy-local-private-import.md, path:docs/design/generated/system.gen.md]
+    note: KMSとlegacy partialの長期判断はADR、実装結果は生成設計へ分離した。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:infra/tests/test_legacy_import.py, test:infra/tests/test_reuse.py]
+    note: 更新要件からmanifest builder、importer、匿名化、reuse、互換試験へtraceできる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_legacy_import.py, test:infra/tests/test_reuse.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行, workflow:要件・品質ゲート#as-built CDK設計差分を検査]
+    note: unit、coverage、lint、strict type、synth、生成設計checkを既存CI契約で確認した。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-legacy-local-import.yaml]
+    note: 選択checkを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-legacy-local-import.yaml]
+    note: trigger非該当checkをN/Aとして保存していない。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_reuse.py, test:infra/tests/test_contracts.py, path:docs/decisions/ADR-0004-legacy-local-private-import.md]
+    note: 旧manifestはtranscript not_applicableとして読込可能で、通常workerのsucceeded意味を維持し、legacyだけをversion付きpartial profileにした。
+  - id: REV-012
+    class: Risk-selected
+    result: pass
+    evidence: [workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行, test:infra/tests/test_legacy_import.py, test:tests/repository-policy.test.ts]
+    note: Ruff security rule、合成識別情報の匿名化試験、repository公開境界検査を別oracleとして適用した。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/README.md, path:docs/operations/manual-content-update.md, path:docs/operations/privacy-and-safety.md]
+    note: read-only固定、明示upload、pilot、KMS権限、raw/normalized境界、partial意味を運用文書へ反映した。
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence: [path:docs/decisions/ADR-0004-legacy-local-private-import.md]
+    note: 専用経路の採用理由、KMSの便益と費用、AWS管理暗号化へ変える条件をADRへ記録した。
+advisories: []
+residual_risks:
+  - 実AWSへのupload、KMS encrypt/decrypt、DynamoDB条件更新は未実行であり、明示承認後に少数video IDのpilotが必要である。
+  - 1,598件の約84GB超をS3へ保存・再読する転送時間、KMS request、S3保存費用は実accountとregionで確認が必要である。
+  - 投稿者名やchannel IDを構造化fieldから除いても、コメント本文またはチャット本文が自己申告の識別情報を含む可能性は残るためnormalized copyもprivate S3に限定する。
