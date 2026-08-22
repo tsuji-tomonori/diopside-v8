@@ -43,6 +43,14 @@
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "ac71de4569090870df85774e48075c3de3ae343efbf32ca3b4d7fd0ba5297c09",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10085
+    },
+    {
+      "evidenceId": "evidence-full-transcript-timestamps",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕（既存タイムスタンプ根拠）",
       "inputFingerprint": "f7ff231f062db6ea3ae50b8b4845e9d605f10e878c298c11d5d7e8c6d61fe044",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 10085
@@ -391,5 +399,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "にじスプラ大会チームEの仲間と本番へ向けた特訓。白雪巴は武器と役割を何度も組み替え、ガチエリアの塗りや射程、スペシャルの合わせ方を相談しながら、にぎやかな掛け合いの中で連携を磨いていく。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "すごいでも熱に当てられた感じがあって、めちゃくちゃ楽しかったよ",
+      "atSeconds": 9820,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "ac71de4569090870df85774e48075c3de3ae343efbf32ca3b4d7fd0ba5297c09",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T03:32:05.797260Z"
   }
 }
