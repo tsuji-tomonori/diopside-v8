@@ -14,6 +14,7 @@ from diopside_ingestion.reuse import (
     read_verified_artifact_object,
     select_japanese_caption_key,
     select_japanese_caption_object,
+    select_verified_transcript_object,
 )
 
 
@@ -126,3 +127,45 @@ def test_caption_object_bytes_must_match_manifest_record() -> None:
 
     with pytest.raises(PrivateObjectReadError, match="checksum_mismatch"):
         read_verified_artifact_object(store, "private", record)
+
+
+def test_legacy_manifest_selects_transcript_and_old_manifest_remains_readable() -> None:
+    document = json.loads(_manifest_payload())
+    transcript_key = (
+        "UC1234567890/dQw4w9WgXcQ/runs/legacy-1/derived/transcript/transcript-001.jsonl"
+    )
+    document["completion_profile"] = "legacy_local_import_v1"
+    document["artifact_objects"]["transcript"] = [
+        {
+            "key": transcript_key,
+            "sha256": hashlib.sha256(b"transcript").hexdigest(),
+            "bytes": len(b"transcript"),
+            "content_type": "application/x-ndjson",
+            "kind": "derived",
+        }
+    ]
+    document["artifacts"]["thumbnails"]["status"] = "not_applicable"
+    payload = (json.dumps(document, sort_keys=True) + "\n").encode()
+    key = current_manifest_key("UC1234567890", "dQw4w9WgXcQ")
+    manifest = load_verified_video_manifest(
+        Store(objects={key: (payload, {"sha256": hashlib.sha256(payload).hexdigest()})}),
+        "private",
+        "UC1234567890",
+        "dQw4w9WgXcQ",
+    )
+    assert manifest is not None
+    assert manifest.status == "partial"
+    assert select_verified_transcript_object(manifest) is not None
+
+    old_document = json.loads(_manifest_payload())
+    del old_document["artifacts"]["transcript"]
+    del old_document["artifact_objects"]["transcript"]
+    old_payload = (json.dumps(old_document, sort_keys=True) + "\n").encode()
+    old_manifest = load_verified_video_manifest(
+        Store(objects={key: (old_payload, {"sha256": hashlib.sha256(old_payload).hexdigest()})}),
+        "private",
+        "UC1234567890",
+        "dQw4w9WgXcQ",
+    )
+    assert old_manifest is not None
+    assert old_manifest.artifacts["transcript"]["status"] == "not_applicable"

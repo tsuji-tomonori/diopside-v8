@@ -11,11 +11,11 @@
 
 実処理Lambdaは900秒で終了し、完了しない処理を成功扱いにしない。hard timeout前に検知できた失敗は安全な状態codeだけをDynamoDBへ保存してpartial batch failureを返し、hard timeoutを含む失敗はSQSのvisibility timeoutとredrive policyで再試行する。3回処理できない要求はrequest DLQへ隔離する。
 
-Lambda zipにはlock済みの`yt-dlp`と`imageio-ffmpeg`を同梱する。cookie、login、proxy、bot回避は使用せず、生素材とprovider diagnosticを通常ログ、Git、PR、公開成果物へ保存しない。
+Lambda zipにはlock済みの`yt-dlp`と`imageio-ffmpeg`を同梱する。cookie、login、proxy、bot回避は使用せず、生素材とprovider diagnosticを通常ログ、Git、PR、公開成果物へ保存しない。S3 server access loggingと専用access log bucketは構成せず、raw bucketのpublic block、TLS強制、最小権限IAMとCloudWatch Logsの安全な状態codeで境界と診断性を維持する。
 
 ## 理由
 
-所有者が、15分を超える処理はいったんエラーでよく、private backfillの基本構成をSQS、Lambda、S3とする方針を確定した。長時間処理の継続より、deploy資源、network、image運用を減らすことを優先する。DynamoDB、KMS、IAM、CloudWatch Logsは、再試行可能な状態管理、暗号化、最小権限、診断のための補助資源として維持する。
+所有者が、15分を超える処理はいったんエラーでよく、private backfillの基本構成をSQS、Lambda、S3とする方針を確定した。長時間処理の継続より、deploy資源、network、image運用を減らすことを優先する。DynamoDB、IAM、CloudWatch Logsは、再試行可能な状態管理、最小権限、診断のための補助資源として維持する。保存時暗号化とcustomer-managed KMS keyの扱いはADR-0005で置き換える。
 
 ## 影響
 
@@ -23,6 +23,7 @@ Lambda zipにはlock済みの`yt-dlp`と`imageio-ffmpeg`を同梱する。cookie
 - Fargateの100 GiB一時領域はなくなり、Lambdaの10 GiB一時領域を上限とする。
 - 既存S3成果物とDynamoDB checkpointは同じvideo ID・run ID契約で再利用する。
 - stack更新時はBatch、ECR、VPC、EventBridgeと関連IAM・Log Groupが削除対象になるため、実deploy前にCloudFormation change setを人が確認する。
+- 既存access log bucketは従来templateのDeletionPolicy Retainによりstack管理外へ残り得る。内容確認と削除は別の明示承認で行う。
 
 ## 運用境界
 
