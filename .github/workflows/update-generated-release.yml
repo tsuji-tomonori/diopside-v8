@@ -72,7 +72,7 @@ jobs:
           review_path="$(python governance/reviews/validate.py \
             --root . \
             --commit "$VERIFIED_SHA" \
-            --allow-github-squash-fallback \
+            --allow-github-merge-fallback \
             --print-review-path)"
           case "$review_path" in
             governance/reviews/CHG-*.yaml|governance/reviews/CHG-*.yml) ;;

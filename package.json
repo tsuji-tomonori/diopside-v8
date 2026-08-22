@@ -38,7 +38,7 @@
     "validate:release-pr-scope": "node --experimental-strip-types scripts/validate-release-pr-scope.ts",
     "validate:requirements": "python .agents/skills/maintain-canonical-requirements/scripts/specflow.py validate && python .agents/skills/maintain-canonical-requirements/scripts/specflow.py check",
     "validate:review": "python governance/reviews/validate.py --root . --commit HEAD",
-    "validate:review:main-release": "python governance/reviews/validate.py --root . --commit HEAD --allow-github-squash-fallback",
+    "validate:review:main-release": "python governance/reviews/validate.py --root . --commit HEAD --allow-github-merge-fallback",
     "verify:generated": "node --experimental-strip-types scripts/verify-generated-source.ts",
     "verify:local:base": "npm run verify:generated && npm run build && npm run typecheck && npm run lint && npm run lint:timestamp-tools && npm run test && npm run test:timestamp-tools && npm run test:review-contract && npm run validate:requirements && npm run validate:content && npm run validate:taxonomy-change && npm run validate:policy",
     "verify:local": "npm run verify:local:base && npm run validate:review",
