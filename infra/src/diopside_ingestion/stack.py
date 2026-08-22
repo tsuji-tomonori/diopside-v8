@@ -40,23 +40,6 @@ class IngestionStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
         source_directory = lambda_source_directory or Path(__file__).resolve().parents[1]
 
-        access_log_bucket = s3.Bucket(
-            self,
-            "AccessLogBucket",
-            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
-            encryption=s3.BucketEncryption.S3_MANAGED,
-            enforce_ssl=True,
-            object_ownership=s3.ObjectOwnership.OBJECT_WRITER,
-            removal_policy=RemovalPolicy.RETAIN,
-            auto_delete_objects=False,
-            lifecycle_rules=[
-                s3.LifecycleRule(
-                    enabled=True,
-                    expiration=Duration.days(90),
-                    abort_incomplete_multipart_upload_after=Duration.days(7),
-                )
-            ],
-        )
         raw_bucket = s3.Bucket(
             self,
             "RawMaterialBucket",
@@ -65,8 +48,6 @@ class IngestionStack(Stack):
             enforce_ssl=True,
             versioned=True,
             object_ownership=s3.ObjectOwnership.BUCKET_OWNER_ENFORCED,
-            server_access_logs_bucket=access_log_bucket,
-            server_access_logs_prefix="raw-material/",
             removal_policy=RemovalPolicy.RETAIN,
             auto_delete_objects=False,
             lifecycle_rules=[
@@ -193,6 +174,19 @@ class IngestionStack(Stack):
             function_response_types=["ReportBatchItemFailures"],
         )
 
+        NagSuppressions.add_resource_suppressions(
+            raw_bucket,
+            [
+                {
+                    "id": "AwsSolutions-S1",
+                    "reason": (
+                        "This finite operator-triggered private backfill intentionally omits a "
+                        "second access-log bucket; public access block, TLS enforcement, "
+                        "least-privilege IAM, and safe CloudWatch status logs remain enabled."
+                    ),
+                }
+            ],
+        )
         NagSuppressions.add_resource_suppressions(
             worker_role,
             [

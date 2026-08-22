@@ -66,6 +66,8 @@ def test_stack_keeps_material_bucket_private_and_versioned() -> None:
     app = App()
     stack = IngestionStack(app, "TestIngestion")
     template = Template.from_stack(stack)
+    template.resource_count_is("AWS::S3::Bucket", 1)
+    template.resource_count_is("AWS::S3::BucketPolicy", 1)
     template.has_resource_properties(
         "AWS::S3::Bucket",
         {
@@ -83,5 +85,7 @@ def test_stack_keeps_material_bucket_private_and_versioned() -> None:
             },
         },
     )
+    bucket = next(iter(template.find_resources("AWS::S3::Bucket").values()))
+    assert "LoggingConfiguration" not in bucket["Properties"]
     for log_group in template.find_resources("AWS::Logs::LogGroup").values():
         assert "KmsKeyId" not in log_group["Properties"]

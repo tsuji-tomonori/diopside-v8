@@ -7,8 +7,6 @@ Check: `python .agents/skills/generate-implementation-design/scripts/designflow.
 
 | Logical ID | Type | Condition | DependsOn |
 |---|---|---|---|
-| `AccessLogBucketDA470295` | `AWS::S3::Bucket` | - | - |
-| `AccessLogBucketPolicyF52D2D01` | `AWS::S3::BucketPolicy` | - | - |
 | `RawMaterialBucketB8C67129` | `AWS::S3::Bucket` | - | - |
 | `RawMaterialBucketPolicyCCCFC5BF` | `AWS::S3::BucketPolicy` | - | - |
 | `RequestDeadLetterQueue4F2E4728` | `AWS::SQS::Queue` | - | - |
