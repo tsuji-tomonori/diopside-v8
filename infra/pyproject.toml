@@ -49,6 +49,8 @@ select = ["E", "F", "I", "UP", "B", "SIM", "ASYNC", "S", "RUF"]
 [tool.pyright]
 include = ["app.py", "src", "tests"]
 exclude = ["cdk.out", ".venv"]
+venvPath = "."
+venv = ".venv"
 pythonVersion = "3.12"
 typeCheckingMode = "strict"
 reportMissingTypeStubs = "none"

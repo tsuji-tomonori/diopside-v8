@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "84e38158a64a7c47d4cad54fc3cc2688ae5e232291666dd84e070139c42f5961"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "5ac676bae792369d76ea93df26c3b4677b478ca53f0d610cbca9cbae95a478f7",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 15913
     }
   ],
   "tagAssignments": [
@@ -426,5 +434,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T17:50:00+09:00",
     "basis": "運用者のゲーム配信タグ横断是正要求に基づき、公開タイトル・説明と既存作品タグを再確認"
+  },
+  "synopsis": {
+    "body": "物音だけが響く不穏な世界を少年が進む『INSIDE』に、白雪巴が完全初見で挑戦。死と隣り合わせの逃走、水中探索、ひらめきが要る仕掛けを、悲鳴と軽妙なひとり芝居、視聴者の知恵を交えて解いていく。言葉のない物語を考察しながらクリアを目指す深夜の耐久配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "すべてまるっと理解しました",
+      "atSeconds": 4862,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "5ac676bae792369d76ea93df26c3b4677b478ca53f0d610cbca9cbae95a478f7",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T03:32:09.355402Z"
   }
 }
