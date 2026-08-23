@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 import json
+import logging
 import subprocess
 from collections.abc import Mapping
 from dataclasses import dataclass, field
+
+import pytest
 
 from diopside_ingestion.dispatcher import Dispatcher, failed_record
 from diopside_ingestion.state import ClaimResult
@@ -92,14 +95,20 @@ def test_dispatcher_returns_partial_failure_when_worker_nears_timeout() -> None:
     assert repository.failures == [("dQw4w9WgXcQ", "message-1", "lambda_timeout")]
 
 
-def test_dispatcher_returns_partial_failure_for_retryable_checkpoint() -> None:
+def test_dispatcher_returns_partial_failure_for_retryable_checkpoint(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
     repository = FakeRepository()
     worker = FakeWorker(RetryableWorkerError("http_429"))
 
-    assert failed_record(_dispatcher(repository, worker), _record()) == {
-        "itemIdentifier": "message-1"
-    }
+    with caplog.at_level(logging.WARNING):
+        assert failed_record(_dispatcher(repository, worker), _record()) == {
+            "itemIdentifier": "message-1"
+        }
     assert repository.failures[0][2] == "http_429"
+    assert "video_id=dQw4w9WgXcQ" in caplog.text
+    assert "message_id=message-1" in caplog.text
+    assert "reason_code=http_429" in caplog.text
 
 
 def test_dispatcher_does_not_run_when_an_unexpired_claim_exists() -> None:
