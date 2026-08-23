@@ -10,6 +10,7 @@ import tempfile
 import tomllib
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -123,16 +124,29 @@ class SynopsisHarnessTest(unittest.TestCase):
         return {"stderr": completed.stderr}
 
     def test_plan_builds_ten_disjoint_luna_lanes(self) -> None:
-        planned = self.invoke(
-            "plan-luna-wave",
-            "synopsis-campaign",
-            "--source-snapshot",
-            str(self.source),
-            "--ledger-snapshot",
-            str(self.ledger),
-            "--base-ref",
-            "HEAD",
+        with patch.dict(os.environ, {"DIOPSIDE_SYNOPSIS_HARNESS_ROOT": str(self.run_root)}):
+            harness = load_harness_module()
+        canonical = {
+            video_id: {
+                "videoId": video_id,
+                "title": f"title-{video_id}",
+                "durationSeconds": 600,
+            }
+            for video_id in VIDEO_IDS
+        }
+        arguments = SimpleNamespace(
+            campaign_id="synopsis-campaign",
+            wave=1,
+            source_snapshot=self.source,
+            ledger_snapshot=self.ledger,
+            base_ref="HEAD",
+            scan_limit=None,
         )
+        with (
+            patch.object(harness, "load_canonical_videos", return_value=canonical),
+            patch.object(harness, "resolve_fresh_base_commit", return_value="a" * 40),
+        ):
+            planned = harness.command_plan_luna_wave(arguments)
         self.assertEqual(planned["orchestratorModel"], "gpt-5.6-sol")
         self.assertEqual(planned["workerModel"], "gpt-5.6-luna")
         self.assertEqual(planned["requestedPoolSize"], 10)
