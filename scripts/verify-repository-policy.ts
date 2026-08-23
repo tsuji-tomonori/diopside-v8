@@ -67,7 +67,7 @@ for (const file of walk(path.join(root, 'src'))) {
 const secretPattern = /(?:sk-[A-Za-z0-9_-]{20,}|ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----)/u;
 for (const file of walk(root)) {
   const relativePath = relative(file);
-  if (/^(?:\.git|node_modules|reports\/playwright|reports\/playwright-html)\//u.test(relativePath)) continue;
+  if (/^(?:\.git|\.devflow|node_modules|reports\/playwright|reports\/playwright-html)\//u.test(relativePath)) continue;
   if (!/\.(?:[cm]?[jt]sx?|json|ya?ml|md|html|css|toml|txt)$/u.test(file)) continue;
   if (statSync(file).size > 2_000_000) continue;
   if (secretPattern.test(readFileSync(file, 'utf8'))) errors.push(`${relativePath}: 秘密情報らしい値があります。`);
@@ -87,7 +87,7 @@ const backfill = cost.historicalPrivateBackfill;
 const infraDirectory = path.join(root, 'infra');
 if (existsSync(infraDirectory)) {
   if (!backfill) errors.push('infra/: 有限private backfillの費用・公開境界をcost policyへ明記しなければなりません。');
-  const expectedInfrastructure = ['pyproject.toml', 'uv.lock', 'cdk.json', 'worker/Dockerfile'];
+  const expectedInfrastructure = ['pyproject.toml', 'uv.lock', 'cdk.json'];
   for (const relativePath of expectedInfrastructure) {
     if (!existsSync(path.join(infraDirectory, relativePath))) errors.push(`infra/${relativePath}: Python+uv+CDK workerの必須構成がありません。`);
   }
@@ -95,9 +95,12 @@ if (existsSync(infraDirectory)) {
   if (existsSync(cdkPath) && !/uv run --locked python app\.py/u.test(readFileSync(cdkPath, 'utf8'))) {
     errors.push('infra/cdk.json: lock済みuvでCDK appを起動しなければなりません。');
   }
-  const requiredServices = ['AWS S3', 'AWS DynamoDB', 'AWS SQS FIFO', 'AWS Lambda', 'AWS Batch Fargate', 'AWS ECR'];
+  const requiredServices = ['AWS S3', 'AWS DynamoDB', 'AWS SQS FIFO', 'AWS Lambda'];
   for (const service of requiredServices) {
     if (!backfill?.permittedServices?.includes(service)) errors.push(`operations/cost-policy.json: ${service} のprivate backfill用途を明記しなければなりません。`);
+  }
+  for (const removedService of ['AWS Batch Fargate', 'AWS ECR', 'AWS VPC', 'AWS KMS']) {
+    if (backfill?.permittedServices?.includes(removedService)) errors.push(`operations/cost-policy.json: ${removedService} はprivate backfillで使用してはなりません。`);
   }
   if (!backfill?.publicBoundary?.includes('infra/')) errors.push('operations/cost-policy.json: private backfillの公開境界をinfra/として明記しなければなりません。');
   if (!backfill?.schedule?.includes('禁止')) errors.push('operations/cost-policy.json: private backfillの予定実行禁止を明記しなければなりません。');

@@ -4,8 +4,9 @@ from __future__ import annotations
 
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
+from decimal import Decimal
 from time import time
-from typing import TYPE_CHECKING, Any, Protocol
+from typing import TYPE_CHECKING, Any, Protocol, cast
 
 from boto3.dynamodb.types import TypeDeserializer, TypeSerializer
 from botocore.exceptions import ClientError
@@ -30,21 +31,7 @@ class IngestionRepository(Protocol):
 
     def claim(self, video_id: str, claim_owner: str, lease_seconds: int) -> ClaimResult: ...
 
-    def prepare_submission(self, video_id: str, claim_owner: str, submission_id: str) -> None: ...
-
-    def record_batch_job(
-        self, video_id: str, claim_owner: str, submission_id: str, batch_job_id: str
-    ) -> None: ...
-
     def mark_dispatch_failure(self, video_id: str, claim_owner: str, reason_code: str) -> None: ...
-
-    def stage_batch_retry(
-        self, video_id: str, batch_job_id: str, reason_code: str, outbox_id: str
-    ) -> None: ...
-
-    def stage_submission_retry(
-        self, video_id: str, submission_id: str, reason_code: str, outbox_id: str
-    ) -> None: ...
 
     def load(self, video_id: str) -> Mapping[str, object] | None: ...
 
@@ -60,7 +47,7 @@ class IngestionRepository(Protocol):
         channel_id: str | None = None,
         s3_prefix: str | None = None,
         run_id: str | None = None,
-        worker_image_digest: str | None = None,
+        worker_runtime: str | None = None,
         yt_dlp_version: str | None = None,
         checkpoint_manifest_key: str | None = None,
         checkpoint_manifest_sha256: str | None = None,
@@ -90,8 +77,24 @@ def _attribute(value: object) -> AttributeValueTypeDef:
     return _SERIALIZER.serialize(value)
 
 
+def _normalize_number(value: object) -> object:
+    """Convert DynamoDB integer numbers back to the application's integer contract."""
+    if isinstance(value, Decimal):
+        if value != value.to_integral_value():
+            raise RuntimeError("DynamoDB item contains a non-integral number")
+        return int(value)
+    if isinstance(value, Mapping):
+        typed_mapping = cast(Mapping[str, object], value)
+        return {key: _normalize_number(item) for key, item in typed_mapping.items()}
+    if isinstance(value, list):
+        return [_normalize_number(item) for item in cast(list[object], value)]
+    if isinstance(value, set):
+        return {_normalize_number(item) for item in cast(set[object], value)}
+    return value
+
+
 def _read_item(item: Mapping[str, AttributeValueTypeDef]) -> dict[str, object]:
-    return {key: _DESERIALIZER.deserialize(value) for key, value in item.items()}
+    return {key: _normalize_number(_DESERIALIZER.deserialize(value)) for key, value in item.items()}
 
 
 class DynamoIngestionRepository:
@@ -111,7 +114,7 @@ class DynamoIngestionRepository:
                 Key={"video_id": _attribute(video_id)},
                 ConditionExpression=(
                     "attribute_not_exists(#video_id) OR "
-                    "(#status IN (:queued, :retryable) AND "
+                    "((#status IN (:queued, :retryable) OR #status = :running) AND "
                     "(attribute_not_exists(#claim_expires_at) OR #claim_expires_at < :now_epoch))"
                 ),
                 UpdateExpression=(
@@ -122,8 +125,7 @@ class DynamoIngestionRepository:
                     "#version = if_not_exists(#version, :zero) + :one, "
                     "#created_at = if_not_exists(#created_at, :created_at), "
                     "#started_at = if_not_exists(#started_at, :started_at), "
-                    "#updated_at = :updated_at, #next_action = :next_action "
-                    "REMOVE #retry_outbox_id, #retry_outbox_reason"
+                    "#updated_at = :updated_at, #next_action = :next_action"
                 ),
                 ExpressionAttributeNames={
                     "#video_id": "video_id",
@@ -138,8 +140,6 @@ class DynamoIngestionRepository:
                     "#started_at": "started_at",
                     "#updated_at": "updated_at",
                     "#next_action": "next_action",
-                    "#retry_outbox_id": "retry_outbox_id",
-                    "#retry_outbox_reason": "retry_outbox_reason",
                 },
                 ExpressionAttributeValues={
                     ":queued": _attribute(VideoStatus.QUEUED.value),
@@ -169,141 +169,6 @@ class DynamoIngestionRepository:
         if not isinstance(attempt_count, int):
             raise RuntimeError("DynamoDB claim result has no integer attempt_count")
         return ClaimResult(claimed=True, attempt_count=attempt_count)
-
-    def prepare_submission(self, video_id: str, claim_owner: str, submission_id: str) -> None:
-        """Persist the deterministic submission identity before contacting AWS Batch."""
-        self._client.update_item(
-            TableName=self._table_name,
-            Key={"video_id": _attribute(video_id)},
-            ConditionExpression="#claim_owner = :claim_owner AND #status = :running",
-            UpdateExpression=(
-                "SET #submission_id = :submission_id, #current_stage = :current_stage, "
-                "#updated_at = :updated_at, #version = #version + :one REMOVE #batch_job_id"
-            ),
-            ExpressionAttributeNames={
-                "#claim_owner": "claim_owner",
-                "#status": "status",
-                "#submission_id": "submission_id",
-                "#batch_job_id": "batch_job_id",
-                "#current_stage": "current_stage",
-                "#updated_at": "updated_at",
-                "#version": "version",
-            },
-            ExpressionAttributeValues={
-                ":claim_owner": _attribute(claim_owner),
-                ":running": _attribute(VideoStatus.RUNNING.value),
-                ":submission_id": _attribute(submission_id),
-                ":current_stage": _attribute("submitting"),
-                ":updated_at": _attribute(iso_now()),
-                ":one": _attribute(1),
-            },
-        )
-
-    def record_batch_job(
-        self, video_id: str, claim_owner: str, submission_id: str, batch_job_id: str
-    ) -> None:
-        self._client.update_item(
-            TableName=self._table_name,
-            Key={"video_id": _attribute(video_id)},
-            ConditionExpression=(
-                "#claim_owner = :claim_owner AND #status = :running "
-                "AND #submission_id = :submission_id"
-            ),
-            UpdateExpression=(
-                "SET #batch_job_id = :batch_job_id, #current_stage = :current_stage, "
-                "#updated_at = :updated_at, #version = #version + :one"
-            ),
-            ExpressionAttributeNames={
-                "#claim_owner": "claim_owner",
-                "#status": "status",
-                "#batch_job_id": "batch_job_id",
-                "#submission_id": "submission_id",
-                "#current_stage": "current_stage",
-                "#updated_at": "updated_at",
-                "#version": "version",
-            },
-            ExpressionAttributeValues={
-                ":claim_owner": _attribute(claim_owner),
-                ":running": _attribute(VideoStatus.RUNNING.value),
-                ":batch_job_id": _attribute(batch_job_id),
-                ":submission_id": _attribute(submission_id),
-                ":current_stage": _attribute("collect"),
-                ":updated_at": _attribute(iso_now()),
-                ":one": _attribute(1),
-            },
-        )
-
-    def _stage_retry(
-        self,
-        video_id: str,
-        *,
-        condition_name: str,
-        condition_value: str,
-        reason_code: str,
-        outbox_id: str,
-    ) -> None:
-        """Atomically persist retry intent before publishing the FIFO message."""
-        self._client.update_item(
-            TableName=self._table_name,
-            Key={"video_id": _attribute(video_id)},
-            ConditionExpression=(
-                f"(#status = :running AND #{condition_name} = :condition_value) OR "
-                "(#status = :retryable AND #retry_outbox_id = :outbox_id)"
-            ),
-            UpdateExpression=(
-                "SET #status = :retryable, #current_stage = :retry_outbox, "
-                "#last_reason_code = :reason, #retry_outbox_reason = :reason, "
-                "#retry_outbox_id = :outbox_id, #next_action = :next_action, "
-                "#updated_at = :updated_at, #version = #version + :one "
-                "REMOVE #claim_owner, #claim_expires_at"
-            ),
-            ExpressionAttributeNames={
-                "#status": "status",
-                f"#{condition_name}": condition_name,
-                "#current_stage": "current_stage",
-                "#last_reason_code": "last_reason_code",
-                "#retry_outbox_reason": "retry_outbox_reason",
-                "#retry_outbox_id": "retry_outbox_id",
-                "#next_action": "next_action",
-                "#updated_at": "updated_at",
-                "#version": "version",
-                "#claim_owner": "claim_owner",
-                "#claim_expires_at": "claim_expires_at",
-            },
-            ExpressionAttributeValues={
-                ":running": _attribute(VideoStatus.RUNNING.value),
-                ":retryable": _attribute(VideoStatus.RETRYABLE_FAILED.value),
-                ":condition_value": _attribute(condition_value),
-                ":retry_outbox": _attribute("retry_outbox"),
-                ":reason": _attribute(reason_code),
-                ":outbox_id": _attribute(outbox_id),
-                ":next_action": _attribute("retry"),
-                ":updated_at": _attribute(iso_now()),
-                ":one": _attribute(1),
-            },
-        )
-
-    def stage_batch_retry(
-        self, video_id: str, batch_job_id: str, reason_code: str, outbox_id: str
-    ) -> None:
-        self._stage_retry(
-            video_id,
-            condition_name="batch_job_id",
-            condition_value=batch_job_id,
-            reason_code=reason_code,
-            outbox_id=outbox_id,
-        )
-
-    def stage_submission_retry(
-        self, video_id: str, submission_id: str, reason_code: str, outbox_id: str
-    ) -> None:
-        self._stage_retry(
-            video_id,
-            condition_name="submission_id",
-            condition_value=submission_id,
-            reason_code=reason_code,
-            outbox_id=outbox_id,
-        )
 
     def mark_dispatch_failure(self, video_id: str, claim_owner: str, reason_code: str) -> None:
         self._client.update_item(
@@ -356,7 +221,7 @@ class DynamoIngestionRepository:
         channel_id: str | None = None,
         s3_prefix: str | None = None,
         run_id: str | None = None,
-        worker_image_digest: str | None = None,
+        worker_runtime: str | None = None,
         yt_dlp_version: str | None = None,
         checkpoint_manifest_key: str | None = None,
         checkpoint_manifest_sha256: str | None = None,
@@ -385,7 +250,7 @@ class DynamoIngestionRepository:
             ("#channel_id", "channel_id", channel_id),
             ("#s3_prefix", "s3_prefix", s3_prefix),
             ("#current_run_id", "current_run_id", run_id),
-            ("#worker_image_digest", "worker_image_digest", worker_image_digest),
+            ("#worker_runtime", "worker_runtime", worker_runtime),
             ("#yt_dlp_version", "yt_dlp_version", yt_dlp_version),
             ("#checkpoint_manifest_key", "checkpoint_manifest_key", checkpoint_manifest_key),
             (

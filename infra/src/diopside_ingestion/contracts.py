@@ -64,6 +64,7 @@ class VideoStatus(StrEnum):
 ARTIFACTS: Final[dict[str, str]] = {
     "metadata": "動画基本情報",
     "description": "説明文",
+    "transcript": "検証済み全編文字起こし",
     "thumbnails": "サムネイル",
     "subtitles": "作成者字幕",
     "automatic_captions": "自動字幕",
@@ -188,13 +189,9 @@ def initial_item(video_id: str, now: str) -> dict[str, object]:
         "manifest_key": None,
         "manifest_sha256": None,
         "attempt_count": 0,
-        "submission_id": None,
-        "batch_job_id": None,
-        "retry_outbox_id": None,
-        "retry_outbox_reason": None,
         "checkpoint_manifest_key": None,
         "checkpoint_manifest_sha256": None,
-        "worker_image_digest": None,
+        "worker_runtime": None,
         "yt_dlp_version": None,
         "last_reason_code": None,
         "next_action": "retry",
@@ -385,11 +382,19 @@ def update_artifact(
     return copied
 
 
-def video_terminal_status(artifacts: Mapping[str, Mapping[str, object]]) -> VideoStatus | None:
+def video_terminal_status(
+    artifacts: Mapping[str, Mapping[str, object]], *, completion_profile: str | None = None
+) -> VideoStatus | None:
     """Derive the video-level terminal status after every artifact reaches a terminal state."""
     statuses = [ArtifactStatus(str(value["status"])) for value in artifacts.values()]
     if any(status not in TERMINAL_ARTIFACT_STATUSES for status in statuses):
         return None
+    if (
+        completion_profile == "legacy_local_import_v1"
+        and any(status == ArtifactStatus.NOT_APPLICABLE for status in statuses)
+        and any(status == ArtifactStatus.SUCCEEDED for status in statuses)
+    ):
+        return VideoStatus.PARTIAL
     if all(
         status in {ArtifactStatus.SUCCEEDED, ArtifactStatus.NOT_APPLICABLE} for status in statuses
     ):

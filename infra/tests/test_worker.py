@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import subprocess
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
@@ -40,14 +41,6 @@ class FakeRepository:
     def claim(self, video_id: str, claim_owner: str, lease_seconds: int) -> ClaimResult:
         raise AssertionError("not used by worker")
 
-    def prepare_submission(self, video_id: str, claim_owner: str, submission_id: str) -> None:
-        raise AssertionError("not used by worker")
-
-    def record_batch_job(
-        self, video_id: str, claim_owner: str, submission_id: str, batch_job_id: str
-    ) -> None:
-        raise AssertionError("not used by worker")
-
     def mark_dispatch_failure(self, video_id: str, claim_owner: str, reason_code: str) -> None:
         raise AssertionError("not used by worker")
 
@@ -55,16 +48,6 @@ class FakeRepository:
         return self.item
 
     def scan_items(self) -> list[Mapping[str, object]]:
-        raise AssertionError("not used by worker")
-
-    def stage_batch_retry(
-        self, video_id: str, batch_job_id: str, reason_code: str, outbox_id: str
-    ) -> None:
-        raise AssertionError("not used by worker")
-
-    def stage_submission_retry(
-        self, video_id: str, submission_id: str, reason_code: str, outbox_id: str
-    ) -> None:
         raise AssertionError("not used by worker")
 
     def checkpoint(self, video_id: str, claim_owner: str, **kwargs: object) -> None:
@@ -144,6 +127,7 @@ class FakeStore:
 @dataclass
 class FakeRunner:
     fail_native_audio: bool = False
+    metadata_failure_stderr: bytes | None = None
     calls: list[list[str]] = field(default_factory=lambda: list[list[str]]())
 
     def run(self, args: Sequence[str], *, cwd: Path) -> subprocess.CompletedProcess[bytes]:
@@ -152,6 +136,13 @@ class FakeRunner:
         if command == ["yt-dlp", "--version"]:
             return subprocess.CompletedProcess(command, 0, b"2026.7.4\n", b"")
         if "--dump-single-json" in command:
+            if self.metadata_failure_stderr is not None:
+                return subprocess.CompletedProcess(
+                    command,
+                    1,
+                    b"provider metadata must not be logged",
+                    self.metadata_failure_stderr,
+                )
             return subprocess.CompletedProcess(
                 command,
                 0,
@@ -197,8 +188,45 @@ def _config(run_id: str = "run-1") -> WorkerConfig:
         claim_owner="message-1",
         bucket="private-bucket",
         table_name="VideoIngestion",
-        worker_image_digest="sha256:" + "a" * 64,
+        runtime_version="lambda-python3.12",
     )
+
+
+def test_worker_logs_allow_listed_metadata_failure_signals(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    stderr = (
+        b"[debug] yt-dlp version stable@2026.07.04\n"
+        b"[debug] Python 3.12.11 (CPython x86_64)\n"
+        b"[debug] JS runtimes: none\n"
+        b"[debug] Request Handlers: urllib, requests\n"
+        b"WARNING: API response from https://example.test/api?token=top-secret\n"
+        b"ERROR: Unable to download API page; Cookie: session-cookie-value\x00\n"
+    )
+    runner = FakeRunner(metadata_failure_stderr=stderr)
+
+    with caplog.at_level(logging.WARNING), pytest.raises(RetryableWorkerError):
+        IngestionWorker(_config(), FakeRepository(), FakeStore(), runner).run()
+
+    diagnostic = caplog.text
+    assert "operation=metadata" in diagnostic
+    assert "returncode=1" in diagnostic
+    assert "reason_code=extractor_error" in diagnostic
+    assert hashlib.sha256(stderr).hexdigest() in diagnostic
+    assert "stderr_bytes=" in diagnostic
+    assert "warning_count=1" in diagnostic
+    assert "error_count=1" in diagnostic
+    assert "yt_dlp_version=stable@2026.07.04" in diagnostic
+    assert "python_runtime=3.12.11" in diagnostic
+    assert "js_runtimes=none" in diagnostic
+    assert "request_handlers=urllib,requests" in diagnostic
+    assert "signals=api_transport" in diagnostic
+    assert "Unable to download API page" not in diagnostic
+    assert "API response" not in diagnostic
+    assert "https://example.test" not in diagnostic
+    assert "top-secret" not in diagnostic
+    assert "session-cookie-value" not in diagnostic
+    assert "provider metadata must not be logged" not in diagnostic
 
 
 def test_worker_writes_private_run_and_current_manifests() -> None:
@@ -223,6 +251,7 @@ def test_worker_writes_private_run_and_current_manifests() -> None:
         "kind": "youtube_watch",
         "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     }
+    assert document["worker_runtime"] == "lambda-python3.12"
     assert isinstance(document["captured_at"], str)
     assert document["artifact_objects"]["metadata"][0] == {
         "bytes": len(
@@ -381,14 +410,54 @@ def test_worker_merges_prior_attempt_objects_into_final_manifest() -> None:
 
     IngestionWorker(_config("run-2"), repository, store, FakeRunner()).run()
 
+    assert repository.completions[0]["status"] == "succeeded"
     final_put = next(
         put for put in store.puts if str(put.get("Key", "")).endswith("/runs/run-2/manifest.json")
     )
     document = json.loads(cast(bytes, final_put["Body"]).decode("utf-8"))
+    assert document["artifacts"]["asr_audio"]["status"] == "succeeded"
     subtitle_keys = [str(record["key"]) for record in document["artifact_objects"]["subtitles"]]
     audio_keys = [str(record["key"]) for record in document["artifact_objects"]["native_audio"]]
     assert any("/runs/run-1/" in key for key in subtitle_keys)
     assert any("/runs/run-2/" in key for key in audio_keys)
+
+
+def test_worker_restores_native_audio_checkpoint_before_asr_conversion() -> None:
+    @dataclass
+    class CrashAfterNativeAudioRepository(FakeRepository):
+        crash: bool = True
+
+        def checkpoint(self, video_id: str, claim_owner: str, **kwargs: object) -> None:
+            updates = {
+                key: value
+                for key, value in kwargs.items()
+                if value is not None
+                or key not in {"checkpoint_manifest_key", "checkpoint_manifest_sha256"}
+            }
+            self.item = {"video_id": video_id, **(self.item or {}), **updates}
+            self.checkpoints.append({"video_id": video_id, "claim_owner": claim_owner, **kwargs})
+            artifacts = kwargs.get("artifacts")
+            if not isinstance(artifacts, Mapping):
+                return
+            typed_artifacts = cast(Mapping[str, Mapping[str, object]], artifacts)
+            if (
+                self.crash
+                and typed_artifacts["native_audio"].get("status") == "succeeded"
+                and typed_artifacts["asr_audio"].get("status") == "pending"
+            ):
+                self.crash = False
+                raise RuntimeError("injected process stop after native audio checkpoint")
+
+    repository = CrashAfterNativeAudioRepository()
+    store = FakeStore()
+    with pytest.raises(RuntimeError, match="after native audio checkpoint"):
+        IngestionWorker(_config("run-1"), repository, store, FakeRunner()).run()
+
+    resumed_runner = FakeRunner()
+    IngestionWorker(_config("run-2"), repository, store, resumed_runner).run()
+
+    assert repository.completions[0]["status"] == "succeeded"
+    assert any(call and call[0] == "ffmpeg" for call in resumed_runner.calls)
 
 
 def test_empty_normalized_payload_is_not_successful(tmp_path: Path) -> None:

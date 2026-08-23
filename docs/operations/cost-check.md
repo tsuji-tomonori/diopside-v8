@@ -19,8 +19,8 @@
 
 ## 有限private backfillの費用分離
 
-Issue #465の過去動画素材バックフィルは公開更新ではない。`infra/` に隔離されたAWS KMS、S3、DynamoDB、SQS FIFO、Lambda、Batch Fargate、ECR、CloudWatch Logs、VPCだけを使うことがあるが、scheduled実行、新着検出、Pages接続、公開データへの投入を持たない。
+Issue #465の過去動画素材バックフィルは公開更新ではない。`infra/` に隔離されたraw S3 bucket、DynamoDB、SQS FIFO、Lambda、CloudWatch Logsだけを使い、S3 access log bucket、customer-managed KMS key、AWS Batch、Fargate、ECR、専用VPC、scheduled実行、新着検出、Pages接続、公開データへの投入を持たない。保存時暗号化は各serviceの標準方式を使い、access log保存費用、KMS keyの月額費用とAPI request費用を発生させない。
 
-- 実行前に固定manifest、worker image digest、サービス利用量・費用の観測方法を人が確認する。
+- 実行前に固定manifest、lock済みLambda asset、サービス利用量・費用の観測方法を人が確認する。
 - 月額0円の公開面停止条件をprivate backfillへ自動適用しない。ただし費用、利用量、契約条件を確認できない場合はdeploy、enqueue、backfillを開始せず、人が判断する。
 - 全対象が終端したらcompletion reportを確認する。資源の保持、停止、削除はこのPRでは行わず、別の明示承認で決める。

@@ -30,14 +30,14 @@
 | COST | 5 |
 | DEVICE | 11 |
 | DISPLAY | 13 |
-| INGEST | 11 |
+| INGEST | 12 |
 | OPS | 26 |
 | QUALITY | 5 |
 | SAFETY | 4 |
-| SEARCH | 19 |
+| SEARCH | 21 |
 | TAG | 35 |
 | TIME | 37 |
-| **合計** | **166** |
+| **合計** | **169** |
 
 ## 公開データの流れ
 
@@ -48,6 +48,9 @@
 | ファイル | 種別 | 名前 |
 |---|---|---|
 | `scripts/canonical-store.ts` | FunctionDeclaration | `readCanonicalVideos` |
+| `scripts/japanese-reading.ts` | FunctionDeclaration | `createJapaneseReadingNormalizer` |
+| `scripts/japanese-reading.ts` | VariableStatement | `japaneseReadingVersion` |
+| `scripts/japanese-reading.ts` | InterfaceDeclaration | `ReadingOverrides` |
 | `scripts/legacy-content.ts` | FunctionDeclaration | `buildLegacyContext` |
 | `scripts/legacy-content.ts` | InterfaceDeclaration | `ClassifiableVideo` |
 | `scripts/legacy-content.ts` | FunctionDeclaration | `classifyLegacyVideo` |
@@ -142,6 +145,7 @@
 | `src/domain/search.ts` | FunctionDeclaration | `additionalTagCounts` |
 | `src/domain/search.ts` | FunctionDeclaration | `applySearch` |
 | `src/domain/search.ts` | FunctionDeclaration | `bucketRange` |
+| `src/domain/search.ts` | FunctionDeclaration | `buildSearchSuggestions` |
 | `src/domain/search.ts` | InterfaceDeclaration | `ConditionError` |
 | `src/domain/search.ts` | FunctionDeclaration | `countWithAdditionalTag` |
 | `src/domain/search.ts` | FunctionDeclaration | `damerauLevenshtein` |
@@ -155,9 +159,12 @@
 | `src/domain/search.ts` | FunctionDeclaration | `resolveTagAlias` |
 | `src/domain/search.ts` | InterfaceDeclaration | `SearchCondition` |
 | `src/domain/search.ts` | InterfaceDeclaration | `SearchResult` |
+| `src/domain/search.ts` | InterfaceDeclaration | `SearchSuggestions` |
 | `src/domain/search.ts` | TypeAliasDeclaration | `SearchVideo` |
 | `src/domain/search.ts` | FunctionDeclaration | `serializeCondition` |
 | `src/domain/search.ts` | TypeAliasDeclaration | `SortOrder` |
+| `src/domain/search.ts` | InterfaceDeclaration | `SuggestionTag` |
+| `src/domain/search.ts` | InterfaceDeclaration | `SuggestionVideo` |
 | `src/domain/search.ts` | FunctionDeclaration | `tagCountsForResults` |
 | `src/domain/search.ts` | FunctionDeclaration | `tokenizeQuery` |
 | `src/domain/search.ts` | FunctionDeclaration | `validateCondition` |
@@ -192,4 +199,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力50ファイル、公開契約128件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力52ファイル、公開契約135件です。
