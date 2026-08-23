@@ -43,6 +43,14 @@
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "e1debd535be1f11f2950f7ebda9cf1cb6fc3fbb612955fe4e22b28c62eba3c10",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10315
+    },
+    {
+      "evidenceId": "evidence-full-transcript-timestamps",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕（既存タイムスタンプ根拠）",
       "inputFingerprint": "0a3272ea51705bea9290c1dce11330a67803e62eec05cd4aa63d95d2e586da33",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 10315
@@ -409,5 +417,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が免許取得後、約束していた助手席の相手を迎え、緊張しながら夜の道を進む。コンビニ巡りや車の操作、教習所の思い出をめぐる会話は、食べ物や近況へ寄り道しながら距離の近い雑談へ。安全運転を気にかけつつ約束を果たすひとときを味わえる。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "約束は守る女です",
+      "atSeconds": 7888,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "e1debd535be1f11f2950f7ebda9cf1cb6fc3fbb612955fe4e22b28c62eba3c10",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T04:26:38.484158Z"
   }
 }
