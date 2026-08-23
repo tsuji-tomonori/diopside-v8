@@ -43,6 +43,14 @@
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "5c81a69d8a6d24f390989d8c03a5a765deace4e5bb82cfee7a7e81ee8e1dfc06",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7876
+    },
+    {
+      "evidenceId": "evidence-full-transcript-timestamps",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕（既存タイムスタンプ根拠）",
       "inputFingerprint": "1f5af5e3165a380fb7cd8f0ab3613c950033bc7ec4dcb28930c767e98ffe436b",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 7876
@@ -598,5 +606,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T17:50:00+09:00",
     "basis": "運用者のゲーム配信タグ横断是正要求に基づき、公開タイトル・説明と既存作品タグを再確認"
+  },
+  "synopsis": {
+    "body": "誕生日を目前にした白雪巴が、年に一度のマイクラ配信へ。久しぶりの操作に戸惑いながら旅に出て、広大な建築や景色を巡り、仲間の工夫に驚きます。寄り道や雑談、視聴者とのやり取りも交えた、にぎやかな記念日前夜の冒険です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "明日は私とあなたたちだけの記念日なのよ",
+      "atSeconds": 197,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "5c81a69d8a6d24f390989d8c03a5a765deace4e5bb82cfee7a7e81ee8e1dfc06",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T03:32:07.206011Z"
   }
 }

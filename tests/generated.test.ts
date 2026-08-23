@@ -18,6 +18,7 @@ import {
 import { scanPublicBoundary } from '../src/domain/validation.ts';
 import { embeddedReleaseId } from '../src/generated/release.ts';
 import { canonicalJson, sha256 } from '../scripts/lib.ts';
+import { japaneseReadingVersion, type ReadingOverrides } from '../scripts/japanese-reading.ts';
 import { readCanonicalVideos } from '../scripts/canonical-store.ts';
 
 const root = process.cwd();
@@ -37,8 +38,19 @@ describe('決定的な公開成果物', () => {
     const workIntroductions = workIntroductionsSchema.parse(json('content/works/work-introductions.json'));
     const collaborationProfiles = collaborationProfilesSchema.parse(json('content/people/collaboration-profiles.json'));
     const channelPersonMappings = channelPersonMappingsSchema.parse(json('content/people/channel-person-mappings.json'));
+    const readingOverrides = json('content/search/reading-overrides.json') as ReadingOverrides;
     const videos = readCanonicalVideos(root).map(normalizeCanonicalVideo);
-    const expected = `release-${sha256(canonicalJson({ taxonomy, aliases, workIntroductions, collaborationProfiles, channelPersonMappings, videos })).slice(0, 16)}`;
+    const expected = `release-${sha256(canonicalJson({
+      taxonomy,
+      aliases,
+      workIntroductions,
+      collaborationProfiles,
+      channelPersonMappings,
+      searchNormalizationVersion: '2.0.0',
+      japaneseReadingVersion,
+      readingOverrides,
+      videos,
+    })).slice(0, 16)}`;
     expect(latest.releaseId).toBe(expected);
     expect(embeddedReleaseId).toBe(expected);
   });
@@ -58,6 +70,9 @@ describe('決定的な公開成果物', () => {
       ...Object.values(aliases.aliases),
     ];
     expect(allPublicTagIds.every((tagId) => !tagId.startsWith('tag-people-channel-'))).toBe(true);
+    expect(search.videos.every((video) => video.normalizedReading.length > 0)).toBe(true);
+    expect(tags.categories.flatMap((category) => category.subcategories).flatMap((subcategory) => subcategory.tags)
+      .every((tag) => tag.normalizedReading.length > 0)).toBe(true);
   });
 
   it('公開詳細シャードは全動画を持ち、作成済み件数が正本manifestと一致する', () => {

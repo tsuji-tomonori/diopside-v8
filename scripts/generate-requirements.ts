@@ -346,30 +346,46 @@ const requirements = sourceRequirements.map((item) => {
     ];
     requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-08-POST-MERGE-RELEASE';
   }
-  if (id === 'V8-SEARCH-008') {
+  if (id === 'V8-SEARCH-001') {
     requirement.revision = 2;
-    requirement.title = 'タグ補助候補欄は検索欄と分離し、該当する候補だけを表示して折り畳めなければならない';
-    requirement.object = 'タグ補助候補欄は検索欄と分離し、選択可能な日本語名と追加選択後の該当件数を表示しなければならない。現在の条件では該当件数が0件になる未選択タグを表示してはならない。利用者はタグ補助候補欄を折り畳み、選択条件を反映した動画一覧へ移動できなければならない。';
-    requirement.source_refs.push('owner-directive:2026-08-07');
+    requirement.title = '文字検索は、承認済み動画のタイトル表記とその検索専用読みだけを検索対象としなければならない';
+    requirement.object = '文字検索は、承認済み動画の動画タイトルから生成した表示表記と検索専用のひらがな読みだけを検索対象としなければならない。';
+    requirement.source_refs.push('spec/sources/owner-directive-2026-08-20-search-suggestions.md', 'user:2026-08-20');
+    requirement.acceptance_criteria[0]!.then = '検索語がタイトルの表示表記またはタイトルから生成した読みだけにある動画が文字一致候補になり、元タイトルは変更されない。';
+    requirement.last_changed_by = 'CHG-20260820-search-suggestions';
+  }
+  if (id === 'V8-SEARCH-002') {
+    requirement.revision = 2;
+    requirement.title = '説明文、タグ、タイムスタンプ等を動画の自由文字検索対象へ混入してはならない';
+    requirement.object = '説明文、タグ、タイムスタンプ、ワードクラウド、字幕、コメント、チャット、チャンネル名、生成来歴を動画の自由文字検索対象にしてはならない。タグ名は種類付き候補として提示できるが、選択時は不変タグIDの絞り込み条件として適用しなければならない。';
+    requirement.source_refs.push('spec/sources/owner-directive-2026-08-20-search-suggestions.md', 'user:2026-08-20');
+    requirement.acceptance_criteria[0]!.then = '検索語が除外対象にだけ存在する動画は自由文字検索だけでは表示されず、タグ候補を選択した場合だけ対応する不変タグIDで絞り込まれる。';
+    requirement.last_changed_by = 'CHG-20260820-search-suggestions';
+  }
+  if (id === 'V8-SEARCH-008') {
+    requirement.revision = 3;
+    requirement.title = '検索欄のタグ候補と詳細なタグ絞り込みは、選択だけで検索して自動的に折り畳まれなければならない';
+    requirement.object = '検索欄は登録済みタグを動画候補と区別して提示し、選択時に不変タグIDの絞り込み条件として適用しなければならない。詳細なタグ絞り込み欄は、選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。利用者が検索候補または詳細な候補タグを追加または解除した時点で、追加の確定操作なしに検索条件を反映し、タグ補助候補欄を折り畳み、動画一覧へ移動できなければならない。';
+    requirement.source_refs.push('owner-directive:2026-08-07', 'spec/sources/owner-directive-2026-08-20-search-suggestions.md', 'user:2026-08-20', 'owner-directive:2026-08-20');
     requirement.acceptance_criteria = [
       {
         id: 'AC-V8-SEARCH-008-1',
-        given: 'タイトル・公開日・動画長・選択済みタグの現在条件がある',
-        when: 'タグ候補の画面試験・件数契約試験',
-        then: '候補タグを1件追加した場合の件数が1件以上の未選択タグと、解除できる選択済みタグだけを日本語名と件数付きで示す。検索語を入力してもタグは自動選択されない。',
+        given: '検索欄へ登録済みタグ名またはその読みの一部を入力している',
+        when: '検索候補からタグを選択する画面試験',
+        then: '候補をタグと明示し、選択すると自由入力のタイトル語ではなく不変タグIDの絞り込み条件として適用して動画一覧を更新する。',
       },
       {
         id: 'AC-V8-SEARCH-008-2',
-        given: '利用者がタグ候補を選択している',
-        when: 'タグ候補欄の折り畳み操作試験',
-        then: 'タグ候補欄を折り畳む操作で選択条件を反映し、動画件数見出しへフォーカスと表示位置が移る。再度タグ候補欄を開くと選択状態を維持している。',
+        given: 'タイトル・公開日・動画長・選択済みタグの現在条件があり、利用者が検索候補または詳細な候補タグを追加または解除する',
+        when: 'タグ選択から検索結果までの画面操作試験・件数契約試験・折り畳み操作試験',
+        then: '追加後1件以上になる未選択タグと解除できる選択済みタグだけを日本語名と件数付きで示す。タグ選択だけで不変タグIDの検索条件と共有可能URLを更新し、タグ候補欄を滑らかに折り畳み、動画件数見出しへフォーカスと表示位置を移す。再度タグ候補欄を開くと選択状態を維持している。',
       },
     ];
     requirement.verification = {
-      method: 'タグ候補の画面試験・件数契約試験・折り畳み操作試験',
+      method: '検索候補・タグ条件適用・件数契約・折り畳み操作試験',
       evidence: 'src/domain/search.test.ts, e2e/search.spec.ts',
     };
-    requirement.last_changed_by = 'CHG-20260807-improve-tag-navigation';
+    requirement.last_changed_by = 'CHG-20260820-auto-apply-tag-search';
   }
   if (['V8-TIME-027', 'V8-TIME-028', 'V8-TIME-029'].includes(id)) {
     requirement.revision = 2;
@@ -1037,6 +1053,74 @@ const collaborationPageRequirements = [
     last_changed_by: 'CHG-20260815-collaboration-pages',
   },
 ];
+const searchSuggestionRequirements = [
+  {
+    id: 'V8-SEARCH-020',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: '検索欄は入力中に動画とタグを区別した候補を提示しなければならない',
+    subject: 'diopside v8の検索候補',
+    action: 'satisfy',
+    object: '検索欄は一文字以上の入力中に、承認済み動画タイトルと登録済みタグ名の一致候補を種類が分かる形で提示しなければならない。動画候補の選択は動画詳細へ移動し、タグ候補の選択は不変タグIDを絞り込み条件へ適用して動画一覧を更新しなければならない。',
+    rationale: 'タイトルと分類名のどちらを覚えている場合でも、入力途中から目的の動画または一覧へ直接移動できるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-20-search-suggestions.md', 'user:2026-08-20'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-SEARCH-020-1',
+        given: '承認済み動画と登録済みタグを読み込んだ検索画面がある',
+        when: '検索欄へ一致する文字を一文字以上入力する',
+        then: '候補を動画とタグの区分付きで表示し、動画候補は動画詳細へ、タグ候補はタグ適用済み動画一覧へキーボードまたはポインターで移動できる。',
+      },
+    ],
+    verification: {
+      method: '候補生成単体試験・IME・キーボード・ポインター画面試験',
+      evidence: 'src/domain/search.test.ts, e2e/search.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/domain/search.ts', 'src/features/search/SearchPage.tsx', 'src/styles.css'],
+      tests: ['src/domain/search.test.ts', 'e2e/search.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-20-search-suggestions.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260820-search-suggestions',
+  },
+  {
+    id: 'V8-SEARCH-021',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: '漢字・カタカナの動画タイトルとタグはひらがな一文字ごとの入力で候補にならなければならない',
+    subject: 'diopside v8の検索読み',
+    action: 'satisfy',
+    object: '漢字またはカタカナを含む承認済み動画タイトルと登録済みタグ名は、表示文字列を変えずに検索専用のひらがな読みを持ち、ひらがなの入力が一文字増えるたびに候補を更新しなければならない。読みの生成と候補照合は静的生成物とブラウザ内処理だけで完結しなければならない。',
+    rationale: '利用者が正確な漢字やカタカナ表記を思い出せなくても、読み始めから候補を絞り込めるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-20-search-suggestions.md', 'user:2026-08-20'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-SEARCH-021-1',
+        given: '漢字またはカタカナを含む動画タイトルとタグ名に検索専用読みがある',
+        when: '同じ読みをひらがなで一文字ずつ入力する',
+        then: '各入力段階で一致する動画またはタグ候補を更新し、IME変換確定前のEnterで誤選択せず、候補表示のための外部通信を行わない。',
+      },
+    ],
+    verification: {
+      method: '読み生成単体試験・一文字ごとの候補更新・IME・外部通信禁止画面試験',
+      evidence: 'tests/japanese-reading.test.ts, src/domain/search.test.ts, e2e/search.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['content/search/reading-overrides.json', 'scripts/japanese-reading.ts', 'scripts/build-public-data.ts', 'src/domain/search.ts', 'src/features/search/SearchPage.tsx'],
+      tests: ['tests/japanese-reading.test.ts', 'src/domain/search.test.ts', 'e2e/search.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-20-search-suggestions.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260820-search-suggestions',
+  },
+];
 const generatedRequirements = [
   ...requirements,
   ...ownerDirectiveRequirements,
@@ -1044,6 +1128,7 @@ const generatedRequirements = [
   ...synopsisHarnessRequirements,
   ...workPageRequirements,
   ...collaborationPageRequirements,
+  ...searchSuggestionRequirements,
 ];
 const issue465OverrideIds = new Set([
   'V8-COST-001',
@@ -1064,9 +1149,9 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 10, 11),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 11, 12),
   product: 'diopside v8',
-  updated_at: '2026-08-16',
+  updated_at: '2026-08-20',
   requirements: canonicalRequirements,
 }, null, 2)}\n`);
 writeFileSync(mapPath, `${JSON.stringify({
@@ -1080,4 +1165,4 @@ writeFileSync(mapPath, `${JSON.stringify({
   })),
 }, null, 2)}\n`);
 
-console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + collaborationPageRequirements.length}件の要件正本を生成しました。`);
+console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + collaborationPageRequirements.length + searchSuggestionRequirements.length}件の要件正本を生成しました。`);

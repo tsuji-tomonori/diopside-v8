@@ -82,14 +82,14 @@ selected_checks:
   result: pass
   evidence:
   - path:content/videos/pqX3CS5H8aY.json
-  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 正本schema、全編根拠、review hash、PR gateを検証する。
 - id: FAST-006
   class: Invariant
   result: pass
   evidence:
   - path:content/content-manifest.json
-  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 正本件数と決定的生成物のdriftを検証する。
 - id: FAST-007
   class: Invariant
@@ -128,7 +128,7 @@ selected_checks:
   result: pass
   evidence:
   - path:scripts/validate-content.ts
-  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 内容・1動画scope・生成差分をCIで検証する。
 - id: REV-007
   class: Invariant

@@ -12,7 +12,7 @@
     },
     {
       "path": "scripts/build-public-data.ts",
-      "sha256": "a27c15667b1808b3fc25b802fbac8c15e429f232cd99785409e2f5c96ec93d4c"
+      "sha256": "cf8040c90a132ed2d325e09ca6447e7f383a1eb5f78d916c61fa49b1c1379a1a"
     },
     {
       "path": "scripts/canonical-store.ts",
@@ -32,7 +32,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "af4a9e2862ad8148957bca5fe896b489aa4ddab2d263bcaa47e28571999e97a1"
+      "sha256": "a6abbca00b4124d38a8660c7c7a6915e366c1bef799cfc40a8490b6d298a178b"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -51,6 +51,10 @@
       "sha256": "67a6671d6413891f7612a34bedf3854c3747bba991ebbc69864eb6485519077f"
     },
     {
+      "path": "scripts/japanese-reading.ts",
+      "sha256": "1e4ced5cd803e3e4650857cbfd876bc7c7d419007652c2888e7fdd14b6e0144f"
+    },
+    {
       "path": "scripts/legacy-content.ts",
       "sha256": "b4c03b4039fb0aec56c688f618314ca8b0f5a3d5d89a06c0ce0463669a8a1895"
     },
@@ -65,6 +69,10 @@
     {
       "path": "scripts/prepare-site.ts",
       "sha256": "49346a97de9a3fb8623c2d389b0854f7df39899fe558c8ebb9147f23094c33f0"
+    },
+    {
+      "path": "scripts/refresh-person-icons.ts",
+      "sha256": "425303165287d3a98c491354a7b8c34c184f997a4f529edeb6453eedc309da1f"
     },
     {
       "path": "scripts/source-shards.ts",
@@ -92,7 +100,7 @@
     },
     {
       "path": "scripts/verify-repository-policy.ts",
-      "sha256": "e0dd7f2b0b0cb5e58f4bcef043d50282b4ad14ec2b65422d5978ba7eec5d00bb"
+      "sha256": "d07d4d64af5a05d2130876e79c9da72d18821bec34286e2091de3dc72d20fdd4"
     },
     {
       "path": "src/App.tsx",
@@ -136,7 +144,7 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "c5ee9e98dca8e9003347dcc32f9f255b11da4fdf545b106e7eef4e03e3402553"
+      "sha256": "12f0825602a45c3fed52457f97ceca7bb14d918f81fc6358f9eda7ab3f74f480"
     },
     {
       "path": "src/domain/game-title-detection.test.ts",
@@ -148,11 +156,11 @@
     },
     {
       "path": "src/domain/search.test.ts",
-      "sha256": "45d801cf77238a8ff4cc19dbde615148417a0651879c7b8068aed75b2b322c9b"
+      "sha256": "89e17d8a625a7302497255889384fc5db0ec35bcd6e61ca27d2b0a7d4fd9ad9f"
     },
     {
       "path": "src/domain/search.ts",
-      "sha256": "aa90bc679cfd06431533b812cc0db1878cbe1c8fecaa3a37bc1bbd47f8bd5b34"
+      "sha256": "e836a8a02dd751f31c5c81a7a9a2d50987d5ca705fc0d41a49299baaf65baa25"
     },
     {
       "path": "src/domain/validation.test.ts",
@@ -184,7 +192,7 @@
     },
     {
       "path": "src/features/search/SearchPage.tsx",
-      "sha256": "9f461bd135e74e721a47dcef638d6c3e241b03d1939dcfc41781c90f6ff53465"
+      "sha256": "3e4034d34aa47b4043847c751fa4b291b64ef16ae0219dd28838b949e0906054"
     },
     {
       "path": "src/features/works/WorkDetailPage.test.tsx",
@@ -208,6 +216,21 @@
       "file": "scripts/canonical-store.ts",
       "name": "readCanonicalVideos",
       "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/japanese-reading.ts",
+      "name": "createJapaneseReadingNormalizer",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/japanese-reading.ts",
+      "name": "japaneseReadingVersion",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "scripts/japanese-reading.ts",
+      "name": "ReadingOverrides",
+      "kind": "InterfaceDeclaration"
     },
     {
       "file": "scripts/legacy-content.ts",
@@ -681,6 +704,11 @@
     },
     {
       "file": "src/domain/search.ts",
+      "name": "buildSearchSuggestions",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
       "name": "ConditionError",
       "kind": "InterfaceDeclaration"
     },
@@ -746,6 +774,11 @@
     },
     {
       "file": "src/domain/search.ts",
+      "name": "SearchSuggestions",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
       "name": "SearchVideo",
       "kind": "TypeAliasDeclaration"
     },
@@ -758,6 +791,16 @@
       "file": "src/domain/search.ts",
       "name": "SortOrder",
       "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "SuggestionTag",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "SuggestionVideo",
+      "kind": "InterfaceDeclaration"
     },
     {
       "file": "src/domain/search.ts",

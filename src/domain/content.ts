@@ -378,20 +378,22 @@ export const publicIndexSchema = z.object({
 }).strict();
 
 export const searchIndexSchema = z.object({
-  schemaVersion: z.literal('1.0.0'),
+  schemaVersion: z.literal('2.0.0'),
   releaseId: z.string(),
-  normalizationVersion: z.literal('1.0.0'),
+  normalizationVersion: z.literal('2.0.0'),
   videos: z.array(publicVideoSummarySchema.pick({
     videoId: true,
     normalizedTitle: true,
     publishedAt: true,
     durationSeconds: true,
     tagIds: true,
-  })),
+  }).extend({
+    normalizedReading: z.string(),
+  }).strict()),
 }).strict();
 
 export const publicTagIndexSchema = z.object({
-  schemaVersion: z.literal('1.0.0'),
+  schemaVersion: z.literal('2.0.0'),
   releaseId: z.string(),
   taxonomyVersion: z.string(),
   aliasVersion: z.string(),
@@ -406,13 +408,14 @@ export const publicTagIndexSchema = z.object({
       tags: z.array(z.object({
         tagId: z.string(),
         canonicalName: z.string(),
+        normalizedReading: z.string(),
         count: z.number().int().nonnegative(),
         videoIds: z.array(videoId),
         personProfile: z.object({
           youtubeChannelUrl: z.url().regex(/^https:\/\/www\.youtube\.com\/channel\/[A-Za-z0-9_-]+$/u),
           iconPath: z.string().regex(/^data\/releases\/release-[a-f0-9]{16}\/people\/icons\/[A-Za-z0-9_-]+\.jpg$/u),
           iconRetrievedAt: isoDate,
-          iconKind: z.enum(['youtube-channel', 'generated-placeholder']),
+          iconKind: z.literal('youtube-channel'),
         }).strict().optional(),
         groupProfile: z.object({
           description: z.string().min(1).max(240),
@@ -425,7 +428,7 @@ export const publicTagIndexSchema = z.object({
             youtubeChannelUrl: z.url().regex(/^https:\/\/www\.youtube\.com\/channel\/[A-Za-z0-9_-]+$/u),
             iconPath: z.string().regex(/^data\/releases\/release-[a-f0-9]{16}\/people\/icons\/[A-Za-z0-9_-]+\.jpg$/u),
             iconRetrievedAt: isoDate,
-            iconKind: z.enum(['youtube-channel', 'generated-placeholder']),
+            iconKind: z.literal('youtube-channel'),
           }).strict()).min(2),
         }).strict().optional(),
         introduction: z.object({
@@ -464,7 +467,7 @@ export const collaborationProfilesSchema = z.object({
     youtubeChannelUrl: z.url().regex(/^https:\/\/www\.youtube\.com\/channel\/[A-Za-z0-9_-]+$/u),
     iconFile: z.string().regex(/^[A-Za-z0-9_-]+\.jpg$/u),
     iconRetrievedAt: isoDate,
-    iconKind: z.enum(['youtube-channel', 'generated-placeholder']),
+    iconKind: z.literal('youtube-channel'),
   }).strict()),
   groups: z.array(z.object({
     tagId: z.string().regex(/^tag-people-unit-[a-f0-9]{12}$/u),

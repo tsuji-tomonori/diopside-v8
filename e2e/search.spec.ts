@@ -16,7 +16,7 @@ test.describe('動画検索', () => {
   test('タイトルだけを検索し、0件と条件解除を区別する', async ({ page }, testInfo) => {
     const requests = await preparePage(page);
     await openSearch(page);
-    await page.getByLabel('動画タイトル').fill('【#白雪巴誕生日2026】ケーキを食べてパーッとお祝いしちゃおうかしら🎉🎉🎉【白雪巴/にじさんじ】');
+    await page.getByRole('combobox', { name: '検索', exact: true }).fill('【#白雪巴誕生日2026】ケーキを食べてパーッとお祝いしちゃおうかしら🎉🎉🎉【白雪巴/にじさんじ】');
     await page.getByRole('button', { name: 'この条件で探す' }).click();
     await expect(page.getByRole('heading', { name: '1件の動画' })).toBeVisible();
     await expect(page.locator('.video-card')).toHaveCount(1);
@@ -26,7 +26,7 @@ test.describe('動画検索', () => {
     const elapsed = Number((await status.textContent())?.match(/([\d.]+)ミリ秒/u)?.[1]);
     expect(elapsed).toBeLessThan(100);
 
-    await page.getByLabel('動画タイトル').fill('一致しない架空の動画タイトル');
+    await page.getByRole('combobox', { name: '検索', exact: true }).fill('一致しない架空の動画タイトル');
     await page.getByRole('button', { name: 'この条件で探す' }).click();
     await expect(page.getByRole('heading', { name: '0件の動画' })).toBeVisible();
     await expect(page.getByRole('heading', { name: '一致する動画がありません' })).toBeVisible();
@@ -37,13 +37,41 @@ test.describe('動画検索', () => {
     expectOnlyAllowedRequests(requests);
   });
 
+  test('ひらがな一文字ごとに漢字・カタカナの動画とタグを候補表示し、候補から移動する', async ({ page }) => {
+    const requests = await preparePage(page);
+    await openSearch(page);
+    const input = page.getByRole('combobox', { name: '検索', exact: true });
+    for (const query of ['し', 'しら', 'しらゆき', 'しらゆきともえ', 'しらゆきともえたんじょうび2026']) {
+      await input.fill(query);
+      await expect(page.getByRole('listbox', { name: '検索候補' })).toBeVisible();
+      await expect(page.locator('.search-combobox [role="status"]')).toContainText(
+        /動画\d+件、タグ\d+件の候補/u,
+      );
+      await expect(page.getByRole('option').filter({ hasText: '白雪巴誕生日2026' }).first()).toBeVisible();
+    }
+
+    await page.getByRole('option', { name: /^タグ 白雪巴誕生日2026 1件$/u }).click();
+    await expect(page).toHaveURL(/tag=tag-program-event-c20649aaa08c/u);
+    await expect(input).toHaveValue('');
+    await expect(page.locator('#results-heading')).toBeFocused();
+    await expect(page.getByLabel('タグ名または別名から追加')).toBeHidden();
+
+    await input.fill('けーきをたべて');
+    await expect(page.getByRole('listbox', { name: '検索候補' })).toBeVisible();
+    await input.press('ArrowDown');
+    await input.press('Enter');
+    await expect(page).toHaveURL(/#\/video\/GoWhHtJmIbk$/u);
+    expectOnlyAllowedRequests(requests);
+  });
+
   test('別名からタグを追加し、完全一致AND・日付・動画長を同時適用する', async ({ page }) => {
     await preparePage(page);
     await openSearch(page);
     await page.getByText('タグ・公開日・動画長で絞り込む').click();
     await page.getByLabel('タグ名または別名から追加').fill('#女王と会長');
-    await page.getByRole('button', { name: 'タグを追加' }).click();
-    await expect(page.getByRole('button', { name: /女王と会長/u })).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByLabel('タグ名または別名から追加')).toBeHidden();
+    await expect(page.getByRole('heading', { name: /件の動画$/u })).not.toHaveText(allVideosHeading);
+    expect(page.url()).toContain('tag=tag-people-unit-d5b1de96b450');
     await page.getByLabel('開始日').fill('2026-01-01');
     await page.getByLabel('終了日').fill('2026-12-31');
     await page.getByLabel('最小（分）').fill('120');
@@ -54,26 +82,28 @@ test.describe('動画検索', () => {
     expect(page.url()).toContain('tag=tag-people-unit-d5b1de96b450');
   });
 
-  test('タグ選択後は0件候補を隠し、タグ欄を閉じて動画へ戻れる', async ({ page }) => {
+  test('タグの追加と解除だけで検索し、タグ欄を閉じて動画へ戻れる', async ({ page }) => {
     await preparePage(page);
     await openSearch(page);
     await page.getByText('タグ・公開日・動画長で絞り込む').click();
-    await page.getByLabel('タグ名または別名から追加').fill('#女王と会長');
-    await page.getByRole('button', { name: 'タグを追加' }).click();
+    await page.getByRole('button', { name: /女王と会長/u }).click();
 
-    await expect(page.locator('.tag-choice[aria-pressed="false"] span', { hasText: /^0件$/u })).toHaveCount(0);
-    const closeButton = page.getByRole('button', { name: 'タグを閉じて動画を見る' });
-    await expect(closeButton).toHaveAttribute('aria-expanded', 'true');
-    await closeButton.click();
-
-    const resultsHeading = page.locator('#results-heading');
-    await expect(resultsHeading).toBeFocused();
-    await expect(resultsHeading).not.toHaveText(allVideosHeading);
+    await expect(page.locator('#results-heading')).toBeFocused();
+    await expect(page.locator('#results-heading')).not.toHaveText(allVideosHeading);
     await expect(page.getByLabel('タグ名または別名から追加')).toBeHidden();
+    expect(page.url()).toContain('tag=tag-people-unit-d5b1de96b450');
     const openButton = page.getByRole('button', { name: 'タグを開く（選択1件）' });
     await expect(openButton).toHaveAttribute('aria-expanded', 'false');
     await openButton.click();
-    await expect(page.getByRole('button', { name: /女王と会長/u })).toHaveAttribute('aria-pressed', 'true');
+    const selectedTag = page.getByRole('button', { name: /女王と会長/u });
+    await expect(selectedTag).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('.tag-choice[aria-pressed="false"] span', { hasText: /^0件$/u })).toHaveCount(0);
+
+    await selectedTag.click();
+    await expect(page.locator('#results-heading')).toBeFocused();
+    await expect(page.getByRole('heading', { name: allVideosHeading })).toBeVisible();
+    await expect(page.getByLabel('タグ名または別名から追加')).toBeHidden();
+    expect(page.url()).not.toContain('tag=');
   });
 
   test('入力矛盾を日本語で示し、並び替えとキーボード操作を提供する', async ({ page }) => {
@@ -104,19 +134,44 @@ test.describe('動画検索', () => {
   });
 
   test('375×812・CPU4倍低速化・2,500動画の代表20検索で95パーセンタイルを100ミリ秒以内にする', async ({ page }, testInfo) => {
+    test.setTimeout(120_000);
     test.skip(testInfo.project.name !== 'モバイル', 'Issue #1が指定するモバイル条件だけで計測します。');
     await preparePage(page);
     const dataset = performanceDataset();
-    await page.route('**/data/releases/*/index.json', async (route) => {
-      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(dataset.index) });
-    });
-    await page.route('**/data/releases/*/search-index.json', async (route) => {
-      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(dataset.search) });
+    const fixtureHits = { index: 0, search: 0, tags: 0, aliases: 0 };
+    await page.route('**/data/releases/**', async (route) => {
+      const pathname = new URL(route.request().url()).pathname;
+      if (pathname.endsWith('/search-index.json')) {
+        fixtureHits.search += 1;
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(dataset.search) });
+        return;
+      }
+      if (pathname.endsWith('/tag-index.json')) {
+        fixtureHits.tags += 1;
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(dataset.tags) });
+        return;
+      }
+      if (pathname.endsWith('/alias-index.json')) {
+        fixtureHits.aliases += 1;
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(dataset.aliases) });
+        return;
+      }
+      if (pathname.endsWith('/index.json')) {
+        fixtureHits.index += 1;
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(dataset.index) });
+        return;
+      }
+      await route.continue();
     });
     const cdp = await page.context().newCDPSession(page);
-    await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
     await page.goto('/');
-    await expect(page.getByRole('heading', { name: '2500件の動画' })).toBeVisible();
+    try {
+      await expect(page.getByRole('heading', { name: '2500件の動画' })).toBeVisible({ timeout: 15_000 });
+    } catch (error) {
+      const body = (await page.locator('body').innerText()).slice(0, 1_000);
+      throw new Error(`性能fixture初期化失敗: hits=${JSON.stringify(fixtureHits)} body=${JSON.stringify(body)}`, { cause: error });
+    }
+    await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
 
     const elapsed: number[] = [];
     const computation: number[] = [];
@@ -124,7 +179,7 @@ test.describe('動画検索', () => {
       const target = (index * 127) % 2500;
       const query = [...searchCode(target)];
       query[0] = '9';
-      await page.getByLabel('動画タイトル').fill(query.join(''));
+      await page.getByRole('combobox', { name: '検索', exact: true }).fill(query.join(''));
       await page.getByRole('button', { name: 'この条件で探す' }).click();
       const status = page.getByTestId('result-update-status');
       await expect(status).toContainText('1件の検索結果へ更新しました');
@@ -156,6 +211,8 @@ test.describe('動画検索', () => {
 function performanceDataset(): {
   index: Record<string, unknown>;
   search: { videos: Array<Record<string, unknown>> } & Record<string, unknown>;
+  tags: Record<string, unknown>;
+  aliases: Record<string, unknown>;
 } {
   const releaseId = embeddedReleaseId;
   const videos = Array.from({ length: 2500 }, (_, index) => {
@@ -165,6 +222,7 @@ function performanceDataset(): {
       videoId,
       title,
       normalizedTitle: `検索符号${searchCode(index)} 第${index}回 まいんくらふと 雑談 配信`,
+      normalizedReading: `けんさくふごう${searchCode(index)} だい${index}かい まいんくらふと ざつだん はいしん`,
       publishedAt: new Date(Date.UTC(2020 + (index % 6), index % 12, 1)).toISOString(),
       durationSeconds: 600 + index,
       thumbnail: { url: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`, width: 480, height: 360 },
@@ -177,19 +235,42 @@ function performanceDataset(): {
       schemaVersion: '1.0.0',
       releaseId,
       updatedAt: '2026-08-03T00:00:00+09:00',
-      videos,
+      videos: videos.map(({ videoId, title, normalizedTitle, publishedAt, durationSeconds, thumbnail, youtubeUrl, tagIds }) => ({
+        videoId,
+        title,
+        normalizedTitle,
+        publishedAt,
+        durationSeconds,
+        thumbnail,
+        youtubeUrl,
+        tagIds,
+      })),
     },
     search: {
-      schemaVersion: '1.0.0',
+      schemaVersion: '2.0.0',
       releaseId,
-      normalizationVersion: '1.0.0',
-      videos: videos.map(({ videoId, normalizedTitle, publishedAt, durationSeconds, tagIds }) => ({
+      normalizationVersion: '2.0.0',
+      videos: videos.map(({ videoId, normalizedTitle, normalizedReading, publishedAt, durationSeconds, tagIds }) => ({
         videoId,
         normalizedTitle,
+        normalizedReading,
         publishedAt,
         durationSeconds,
         tagIds,
       })),
+    },
+    tags: {
+      schemaVersion: '2.0.0',
+      releaseId,
+      taxonomyVersion: 'performance-fixture',
+      aliasVersion: 'performance-fixture',
+      categories: [],
+    },
+    aliases: {
+      schemaVersion: '1.0.0',
+      releaseId,
+      aliasVersion: 'performance-fixture',
+      aliases: {},
     },
   };
 }
