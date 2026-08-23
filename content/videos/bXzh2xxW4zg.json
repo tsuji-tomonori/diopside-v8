@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "bXzh2xxW4zg",
+  "title": "＃６【ポケモンレジェンズアルセウス】レントラー！！！！！【白雪 巴/にじさんじ】",
+  "publishedAt": "2022-02-25T16:21:27Z",
+  "durationSeconds": 9112,
+  "durationIso": "PT2H31M52S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/bXzh2xxW4zg/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=bXzh2xxW4zg",
+  "taxonomyVersion": "8.5.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.2.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "b432c9df2d77e58b6cb8eaab4b5c47471085a736911df73b6e59a6bf0bccf903"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "f1d60762f77be7a9bdcc7cbdda515fb6fb97fabf11de4319958604fe7a3792a6"
+    },
+    {
+      "evidenceId": "evidence-approved-tags",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "旧diopsideの承認済みタグ正本",
+      "inputFingerprint": "bebc3fe75789de7c4b4a75fb4d01b270ff840647470f42757c9a64af34a5165b"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "5809b537ad38f7556ce19bb1ab966ea45a3f4f79a0ec811fd07344f53851bd7b",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9112
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-0a2921b44ca8",
+      "reason": "公開タイトルまたは既存タグからゲーム作品「Pokémon LEGENDS アルセウス」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameSeries-4152eaae5317",
+      "reason": "既存タグ「ポケモン」からゲームシリーズ「ポケモン」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-b0f2de7922c1",
+      "reason": "既存分類と作品名からゲームジャンル「RPG」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "未作成",
+    "reason": "全編確認不足",
+    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "08e66f2399573164ecd45acd519cc907687817ec61e9a97f6c1481b8b7aac860",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『Pokémon LEGENDS アルセウス』でヒスイ地方を冒険。野生ポケモンの観察や捕獲、図鑑課題とレベリングを進めながら、技や編成を試して物語を進めます。レントラーへの熱い反応や軽快なトークも楽しめる実況です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "すごくいい回だったと思う",
+      "atSeconds": 9028,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "5809b537ad38f7556ce19bb1ab966ea45a3f4f79a0ec811fd07344f53851bd7b",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T08:31:00.452822Z"
+  }
+}
