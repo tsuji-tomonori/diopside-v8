@@ -30,6 +30,7 @@ CONVENTIONAL_SUBJECT_PATTERN = re.compile(
     r"^(?:\S+\s+)?(?P<type>[a-z]+)(?:\([^)]+\))?!?:"
 )
 GITHUB_SQUASH_SUBJECT_PATTERN = re.compile(r"\s\(#\d+\)$")
+GITHUB_MERGE_SUBJECT_PATTERN = re.compile(r"^Merge pull request #\d+ from \S+$")
 ALWAYS_TRIGGERS = {"常時", "全変更"}
 DERIVED_TRIGGERS = {
     "N/A使用時": "na_used",
@@ -366,18 +367,91 @@ def validate_github_squash_review(root: Path, commit_ref: str) -> Path:
     return active_review
 
 
+def validate_github_merge_review(root: Path, commit_ref: str) -> Path:
+    """Resolve the PR review behind one GitHub-created two-parent merge commit.
+
+    The merge tree may be accepted only when it contains exactly one changed CHG
+    review relative to the first parent, and the second parent has a Commit Comment that
+    points to that same unchanged review. This keeps conflict resolutions or
+    unrelated merge content from bypassing the review contract.
+    """
+    resolved_commit = git_text(root, "rev-parse", f"{commit_ref}^{{commit}}")
+    message = git_text(root, "show", "-s", "--format=%B", resolved_commit)
+    subject = message.splitlines()[0] if message else ""
+    if not GITHUB_MERGE_SUBJECT_PATTERN.fullmatch(subject):
+        raise ContractError(
+            f"{commit_ref}: fallback requires a GitHub merge commit subject"
+        )
+    parents = git_text(
+        root, "rev-list", "--parents", "-n", "1", resolved_commit
+    ).split()
+    if len(parents) != 3:
+        raise ContractError(
+            f"{commit_ref}: fallback requires exactly two merge parents"
+        )
+    base_parent, head_parent = parents[1], parents[2]
+    changed = git_text(
+        root,
+        "diff-tree",
+        "--no-commit-id",
+        "--name-only",
+        "-r",
+        base_parent,
+        resolved_commit,
+        "--",
+        "governance/reviews",
+    ).splitlines()
+    candidates = [
+        item
+        for item in changed
+        if Path(item).parent == Path("governance/reviews")
+        and Path(item).name.startswith("CHG-")
+        and Path(item).suffix in {".yaml", ".yml"}
+    ]
+    if len(candidates) != 1:
+        raise ContractError(
+            f"{commit_ref}: fallback requires exactly one changed CHG review, "
+            f"found {len(candidates)}"
+        )
+    active_review = safe_repo_path(root, candidates[0])
+    head_review = validate_commit(root, head_parent)
+    if head_review != active_review:
+        raise ContractError(
+            f"{commit_ref}: merge head Commit Comment points to another review"
+        )
+    review = validate_review_file(root, active_review, head_parent)
+    head_message = git_text(root, "show", "-s", "--format=%B", head_parent)
+    head_subject = head_message.splitlines()[0] if head_message else ""
+    validate_commit_type_flags(head_subject, review)
+    return active_review
+
+
+def validate_github_merged_review(root: Path, commit_ref: str) -> Path:
+    """Validate one GitHub-generated squash or two-parent merge commit."""
+    resolved_commit = git_text(root, "rev-parse", f"{commit_ref}^{{commit}}")
+    message = git_text(root, "show", "-s", "--format=%B", resolved_commit)
+    subject = message.splitlines()[0] if message else ""
+    if GITHUB_SQUASH_SUBJECT_PATTERN.search(subject):
+        return validate_github_squash_review(root, resolved_commit)
+    if GITHUB_MERGE_SUBJECT_PATTERN.fullmatch(subject):
+        return validate_github_merge_review(root, resolved_commit)
+    raise ContractError(
+        f"{commit_ref}: fallback requires a GitHub squash or merge commit subject"
+    )
+
+
 def validate_repository(
     root: Path,
     commit_ref: str,
     *,
-    allow_github_squash_fallback: bool = False,
+    allow_github_merge_fallback: bool = False,
 ) -> Path:
     try:
         active_review = validate_commit(root, commit_ref)
     except ContractError:
-        if not allow_github_squash_fallback:
+        if not allow_github_merge_fallback:
             raise
-        return validate_github_squash_review(root, commit_ref)
+        return validate_github_merged_review(root, commit_ref)
     reviews_root = (root / "governance" / "reviews").resolve()
     if active_review.parent != reviews_root or not active_review.name.startswith("CHG-"):
         raise ContractError(f"{commit_ref}: Review-Checklist must point under governance/reviews/CHG-*.yaml")
@@ -406,7 +480,12 @@ def main() -> int:
     selection.add_argument("--review", type=Path)
     parser.add_argument("--source-commit", default="HEAD")
     parser.add_argument("--require-squash", action="store_true")
-    parser.add_argument("--allow-github-squash-fallback", action="store_true")
+    parser.add_argument(
+        "--allow-github-merge-fallback",
+        "--allow-github-squash-fallback",
+        dest="allow_github_merge_fallback",
+        action="store_true",
+    )
     parser.add_argument("--print-review-path", action="store_true")
     args = parser.parse_args()
     try:
@@ -424,7 +503,7 @@ def main() -> int:
             active_review = validate_repository(
                 root,
                 args.commit or "HEAD",
-                allow_github_squash_fallback=args.allow_github_squash_fallback,
+                allow_github_merge_fallback=args.allow_github_merge_fallback,
             )
     except (ContractError, json.JSONDecodeError, yaml.YAMLError) as exc:
         print(f"FAIL: {exc}", file=sys.stderr)
