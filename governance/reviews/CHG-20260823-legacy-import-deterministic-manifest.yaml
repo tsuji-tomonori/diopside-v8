@@ -1,0 +1,158 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260823-legacy-import-deterministic-manifest
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: true
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+    note: 固定manifestの再実行を冪等にする既存受入条件の不具合修正であり、利用者向け要件は変更しない。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/legacy_import.py, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: Lambda実装資産に対応するCDK template hashが変わるため、実装由来の生成設計manifestを更新する。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260823-legacy-import-deterministic-manifest.yaml]
+    note: immutable objectへの書込みと再実行の冪等性に関わる共有ingestion実装のためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 外部書込みは修正branchのpush、PR作成、明示依頼済みのmergeに限定し、deployは行わない。
+  - id: IMP-009
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/cdk.out/DiopsideIngestionStack.template.json, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: CDK synth差分はLambda asset参照の更新だけで、resource、権限、network、削除・置換、費用の変更がないことを確認した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_legacy_import.py, workflow:要件・品質ゲート]
+    note: ingestion全テスト50件を実行し、実装とCDK assetの構築可能性を確認した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/legacy_import.py, workflow:要件・品質ゲート]
+    note: pyrightを実行し、エラー・警告がないことを確認した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/legacy_import.py, test:infra/tests/test_legacy_import.py]
+    note: ruff checkを変更対象を含むsrcとtestsへ実行した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_legacy_import.py]
+    note: 時刻が変わった同一manifestの再取り込みでも追加uploadが発生しないことを単体テストで固定した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_legacy_import.py, workflow:要件・品質ゲート]
+    note: 変更前は同一immutable keyへ異なるcaptured_atを生成して失敗する条件を、可変clockの回帰テストで再現可能にした。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: CDK設計を同一generatorで2回生成してbyte hash一致を確認し、check modeも通過した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: staged差分を実装、回帰テスト、生成設計manifest、review記録だけに限定し、生素材・識別子・秘密情報を含めない。
+  - id: FAST-012
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/cdk.out/DiopsideIngestionStack.template.json, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
+    note: synthと生成設計差分を確認し、Lambda asset hash以外のCloudFormation resource差分がないことを確認した。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/legacy_import.py, test:infra/tests/test_legacy_import.py]
+    note: import失敗は既存のfailed集計とdispatch failure記録で検知可能なままで、診断性を低下させない。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をlegacy importの決定的manifest生成と、その回帰テスト・生成設計・review記録に限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、review path、検証、互換性、残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:infra/tests/test_legacy_import.py]
+    note: 既存のimmutable import再実行契約を回復する不具合修正で、永続要件の追加・変更・廃止は不要と判定した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: 実装由来のCDK生成設計manifestを更新し、手書き設計やADRの二重管理は追加しない。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_legacy_import.py, workflow:要件・品質ゲート]
+    note: 回帰テストは既存ingestion全テストとprivate full-backfill workflowで実行される。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260823-legacy-import-deterministic-manifest.yaml]
+    note: 選択したcheckを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260823-legacy-import-deterministic-manifest.yaml]
+    note: trigger非該当checkをN/Aとして追加していない。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/legacy_import.py, test:infra/tests/test_legacy_import.py]
+    note: 既存の同一manifest再実行契約を回復する局所修正で、監視、復旧、runbook、migration手順の変更は不要と確認した。
+advisories: []
+residual_risks:
+  - manifest作成時刻をrun内のartifact時刻にも用いるため、legacy importの監査時刻は実行時刻ではなく固定snapshot作成時刻を表す。
+  - production deployはこのPRでは行わず、merge後の既存配備手順に委ねる。
