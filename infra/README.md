@@ -2,6 +2,30 @@
 
 このディレクトリは Issue #465 の一度限りの過去動画素材バックフィル基盤です。公開画面、GitHub Pages、通常の1動画コンテンツPRとは独立しており、CDK deployとbackfill投入はこのPRでは実行しません。
 
+## GitHub Actionsからの基盤デプロイ
+
+`.github/workflows/deploy-ingestion-infra.yml` は、検証済みmainの `DiopsideIngestionStack` だけを人がデプロイする入口です。schedule、push、PRでは起動せず、`DEPLOY` の確認入力とGitHub environment `private-backfill-infra` の承認を必須にします。workflowは基盤をデプロイするだけで、manifest作成、素材upload、SQS enqueue、削除、公開、mergeは実行しません。
+
+長期AWS access keyはGitHubへ保存しません。AWS accountには、事前にmodern CDK bootstrapと `https://token.actions.githubusercontent.com`、audience `sts.amazonaws.com` のOIDC providerが必要です。受けロールは `DiopsideGitHubDeploymentAccessStack` で一度だけ管理者が作成します。このstackはbootstrapを使わないため、既存OIDC providerの正確なsubjectをparameterに指定して単独deployできます。
+
+```console
+CDK_DEFAULT_ACCOUNT=123456789012 \
+CDK_DEFAULT_REGION=ap-northeast-1 \
+npm exec -- cdk deploy DiopsideGitHubDeploymentAccessStack \
+  --exclusively \
+  --parameters 'GitHubOidcSubject=repo:tsuji-tomonori/diopside-v8:environment:private-backfill-infra'
+```
+
+GitHubのimmutable OIDC subjectを有効化しているrepositoryでは、owner IDとrepository IDを含む実際のsubjectを完全一致で指定します。ワイルドカードへ広げません。OIDC providerが未作成の場合はAWS管理者が先に作成し、既存providerがある場合は再作成しません。
+
+GitHub environment `private-backfill-infra` はdeployment branchを `main` だけに限定し、required reviewerとprotection ruleのbypass禁止を設定します。次のenvironment variablesを登録します。
+
+- `AWS_ACCOUNT_ID`: 対象AWS account ID
+- `AWS_REGION`: bootstrap済みregion
+- `AWS_DEPLOY_ROLE_ARN`: access stackの `GitHubActionsDeployRoleArn` output
+
+受けロールは同じaccountとregionのCDK bootstrap `deploy`、`file-publishing`、`lookup` roleだけを引き受けます。ECR image publishing roleやAWS serviceの直接操作権限は持ちません。workflowはRuff、Pyright strict、mypy strict、pytest、CDK synth、cdk-nag、生成設計driftがすべて合格してからOIDC短期sessionを取得し、CloudFormation change set経由でデプロイします。
+
 ## 検証
 
 次の順で実行します。

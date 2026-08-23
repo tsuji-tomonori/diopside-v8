@@ -30,14 +30,14 @@
 | COST | 5 |
 | DEVICE | 11 |
 | DISPLAY | 13 |
-| INGEST | 12 |
+| INGEST | 13 |
 | OPS | 26 |
 | QUALITY | 5 |
 | SAFETY | 4 |
 | SEARCH | 21 |
 | TAG | 35 |
 | TIME | 37 |
-| **合計** | **169** |
+| **合計** | **170** |
 
 ## 公開データの流れ
 

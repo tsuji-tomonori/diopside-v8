@@ -1,0 +1,184 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260823-ingestion-github-deploy
+profile: regulated
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: true
+  auth_change: true
+  data_change: false
+  public_api_change: false
+  iac_change: true
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: true
+  important_ui_change: false
+  long_term_decision: true
+  squash: true
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self, path:spec/requirements/requirements.json]
+    note: V8-INGEST-009とV8-OPS-003を更新し、OIDC deploy境界をV8-INGEST-013として追加した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md, path:docs/design/generated/system.gen.md]
+    note: IAM resource、CDK app構成、恒久運用構成の設計影響を生成設計へ反映した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 認可とproduction deploy経路を変更するためregulatedを選択し、実deploy、push、mergeは権限外として実行していない。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [path:.github/workflows/deploy-ingestion-infra.yml, path:docs/operations/manual-content-update.md]
+    note: 外部書込みはmainの手動workflow、確認入力、protected environment承認後のDiopsideIngestionStack deployだけに限定した。
+  - id: IMP-005
+    class: Invariant
+    result: pass
+    evidence: [path:.github/workflows/deploy-ingestion-infra.yml, path:infra/README.md]
+    note: CloudFormationによる置換・削除可能性を不可逆境界として扱い、利用者の明示要求と実行時environment承認を必須にした。
+  - id: IMP-006
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_deployment/access_stack.py, test:infra/tests/test_deployment_access.py]
+    note: OIDC audienceとsubjectを完全一致にし、受けロールの委譲先を同一account・regionの3 bootstrap roleへ限定した。
+  - id: IMP-009
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/app.py, test:infra/tests/test_deployment_access.py, path:docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md]
+    note: 新規stackはIAM Roleとinline policyだけで、OIDC provider、access key、network、ECR resourceを作成しない。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_deployment_access.py, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: Python構文、unit test、2 stackのCDK synthを確認した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Pyrightとmypy strictがdeployment packageを含む27 sourceで合格した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Ruff formatとlint、および変更TypeScriptのESLintが合格した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_deployment_access.py, test:infra/tests/test_lambda_asset.py, test:tests/repository-policy.test.ts]
+    note: IAM trust・委譲先、Lambda asset分離、workflow境界を直接検証し、infra 51 testが合格した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-github-deployment-access/manifest.json, path:docs/design/generated/inventory.gen.json, workflow:要件・品質ゲート#as-built CDK設計差分を検査]
+    note: 要件表示、system設計、IAM CDK設計を正本から生成し、両CDK stackのcheck modeが合格した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [test:tests/repository-policy.test.ts, commit:self]
+    note: 長期AWS access keyやtokenを追加せず、repository方針スキャンが合格した。
+  - id: FAST-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_deployment_access.py, path:docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: synth、cdk-nag、template assertionでIAM trust、権限、意図しないresource不在を確認した。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:.github/workflows/deploy-ingestion-infra.yml, path:infra/README.md]
+    note: GitHub deploymentとCloudFormation結果を外部正本とし、concurrency、timeout、失敗終了、運用前提を記録した。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 変更をprivate backfill基盤deploy、OIDC受けロール、対応要件・生成設計・運用手順に限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: 最新所有者指示により手動AWS deploy例外とOIDC認可要件を正本revision 16へ反映した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md, path:docs/design/generated/system.gen.md]
+    note: 実装由来resourceは生成設計へ記録し、OIDC採用理由は公式推奨と利用者指定で自明なため新規ADRを作成していない。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:infra/tests/test_deployment_access.py, test:tests/repository-policy.test.ts]
+    note: V8-INGEST-009/013とV8-OPS-003から実装、IAM test、workflow test、生成設計へtraceできる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_deployment_access.py, test:infra/tests/test_lambda_asset.py, test:tests/repository-policy.test.ts, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: 変更受入条件を直接検証するtestとCI stepが存在する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260823-ingestion-github-deploy.yaml]
+    note: 選択checkだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260823-ingestion-github-deploy.yaml]
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+  - id: REV-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_deployment_access.py, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: 認可境界をtemplate assertionとcdk-nagの別oracleで確認した。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/README.md, path:docs/operations/manual-content-update.md, path:docs/operations/privacy-and-safety.md, path:docs/operations/cost-check.md]
+    note: 初回role作成、GitHub environment、費用確認、deployと素材投入の承認分離を運用正本へ反映した。
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence: [path:infra/README.md, commit:self]
+    note: OIDCとCDK bootstrap role委譲は利用者指定と公式security guidanceを直接実装しており、独自の代替判断を固定しないためADRは不要とした。
+advisories: []
+residual_risks:
+  - AWS accountのGitHub OIDC provider、modern CDK bootstrap、GitHub environment protectionはrepository外の前提であり、実環境では未確認である。
+  - 受けロールは委譲先を限定するが、CloudFormationExecutionRoleの実効権限とguardrailは対象AWS accountのbootstrap設定に依存する。
+  - 実AWS deployとpost-deploy smokeは行っておらず、初回はCloudFormation change setと保持対象resourceを人が確認する必要がある。

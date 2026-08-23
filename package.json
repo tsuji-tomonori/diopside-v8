@@ -26,7 +26,7 @@
     "test:ingestion:aws": "cd infra && uv run --locked pytest -q --no-cov tests/test_aws_integration.py",
     "test:ingestion:floci": "infra/scripts/verify-floci.sh",
     "synth:ingestion": "cd infra && npm exec -- cdk synth --quiet",
-    "check:ingestion-design": "python .agents/skills/generate-implementation-design/scripts/designflow.py cdk --template infra/cdk.out/DiopsideIngestionStack.template.json --out docs/design/generated/cdk/diopside-ingestion --repo-root . --check",
+    "check:ingestion-design": "python .agents/skills/generate-implementation-design/scripts/designflow.py cdk --template infra/cdk.out/DiopsideIngestionStack.template.json --out docs/design/generated/cdk/diopside-ingestion --repo-root . --check && python .agents/skills/generate-implementation-design/scripts/designflow.py cdk --template infra/cdk.out/DiopsideGitHubDeploymentAccessStack.template.json --out docs/design/generated/cdk/diopside-github-deployment-access --repo-root . --check",
     "verify:ingestion": "npm run lint:ingestion && npm run typecheck:ingestion && npm run test:ingestion && npm run synth:ingestion && npm run check:ingestion-design",
     "test": "vitest run --coverage=false",
     "test:timestamp-tools": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest tests/timestamp_tools_test.py tests/timestamp_harness_test.py tests/synopsis_harness_test.py tests/finalize_candidate_pr_merge_test.py tests/discover_video_candidates_test.py tests/caption_tools_test.py",
