@@ -1,0 +1,147 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260823-synopsis-jxnxpo1svia
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/jxNXpO1sVIA.json
+  note: 既存のあらすじ表示要件に従う1動画追加である。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 既存schemaだけを使い公開契約を変更しない。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/jxNXpO1sVIA.json
+  note: 全編根拠と独立三重reviewを伴うためassuredを選択した。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 人のcampaign要求がbranch、push、draft PR、台帳更新を許可している。
+- id: IMP-007
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/videos/jxNXpO1sVIA.json
+  note: 可逆な1動画あらすじ追加でありmigrationや削除はない。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/jxNXpO1sVIA.json
+  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+  note: 候補hash、全編根拠、独立reviewを検証する。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/content-manifest.json
+  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+  note: 正本件数と生成driftを検証する。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 生字幕、音声、文字起こし、個人情報を差分へ含めない。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/jxNXpO1sVIA.json
+  note: 差分を1動画正本、manifest、review YAMLへ限定する。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: Commit Commentへ必須影響・検証・リスクを記録する。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/requirements/requirements.json
+  - path:content/videos/jxNXpO1sVIA.json
+  note: V8-DISPLAY-011の受入条件へ適合する。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: schemaや画面を変えないためADRは不要である。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:scripts/validate-content.ts
+  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+  note: 内容・1動画scope・生成差分をCIで検証する。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260823-synopsis-jxnxpo1svia.yaml
+  note: 選択checkだけを保存する。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260823-synopsis-jxnxpo1svia.yaml
+  note: 未選択checkをN/Aとして保存しない。
+advisories: []
+residual_risks:
+- 候補hash 39bd07d289572ed6b2cfc8025b558068810b685f95057e3bad76ab28ecb99329 は人がdraft
+  PRをマージするまで公開されない。
