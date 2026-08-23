@@ -1,0 +1,148 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260823-timestamps-6uiqoedmd6u
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/6uiQOEDmD6U.json
+  note: 既存の有限batch・1動画1PR要件に従う正本追加である。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 既存schemaだけを使い公開契約を変更しない。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/6uiQOEDmD6U.json
+  note: 全編根拠と独立二重reviewを伴うためassuredを選択した。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 人の有限batch要求がbranch、push、draft PR、台帳更新を許可している。
+- id: IMP-007
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/videos/6uiQOEDmD6U.json
+  note: 可逆な1動画overrideでありmigrationや削除はない。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/6uiQOEDmD6U.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 正本schema、全編根拠、review hash、PR gateを検証する。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/content-manifest.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 正本件数と決定的生成物のdriftを検証する。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 生字幕、音声、文字起こし、チャット、秘密情報を差分へ含めない。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/6uiQOEDmD6U.json
+  - path:governance\reviews\CHG-20260823-timestamps-6uiqoedmd6u.yaml
+  note: 差分を1動画正本、manifest、review YAMLへ限定する。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: Commit Commentへ必須の影響・検証・リスクを記録する。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/requirements/requirements.json
+  - path:content/videos/6uiQOEDmD6U.json
+  note: 有限batchと独立reviewの受入条件を満たす。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: schemaや画面を変えないため生成設計・ADRは不要である。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:scripts/validate-content.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 内容・1動画scope・生成差分をCIで検証する。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance\reviews\CHG-20260823-timestamps-6uiqoedmd6u.yaml
+  note: 選択checkだけをreview YAMLへ保存する。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance\reviews\CHG-20260823-timestamps-6uiqoedmd6u.yaml
+  note: 未選択checkをN/Aとして登録しない。
+advisories: []
+residual_risks:
+- 候補hash 0177639288f3d127f78536ff6bed08df16dd06644c907772e96de2e29b174d99 は人によるdraft
+  PRのマージ完了まで公開されない。
