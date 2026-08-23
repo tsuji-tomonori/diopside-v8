@@ -10,6 +10,7 @@ from __future__ import annotations
 import gzip
 import hashlib
 import json
+import logging
 import mimetypes
 import os
 import subprocess
@@ -50,6 +51,22 @@ from diopside_ingestion.reuse import (
     read_verified_artifact_object,
 )
 from diopside_ingestion.state import DynamoIngestionRepository, IngestionRepository
+
+LOGGER = logging.getLogger(__name__)
+DIAGNOSTIC_SIGNALS = (
+    ("bot_challenge", ("not a bot", "bot challenge")),
+    ("js_challenge", ("javascript runtime", "challenge solver", "n challenge")),
+    ("api_transport", ("unable to download api page", "connection reset")),
+    ("http_403", ("http error 403", "status code 403")),
+    ("http_429", ("http error 429", "status code 429", "too many requests")),
+    ("http_5xx", ("http error 500", "http error 502", "http error 503")),
+    ("dns", ("name resolution", "name or service not known")),
+    ("tls", ("certificate verify failed", "ssl error", "tls error")),
+    ("timeout", ("timed out", "timeout")),
+    ("video_unavailable", ("video unavailable",)),
+)
+KNOWN_JS_RUNTIMES = ("deno", "node", "quickjs", "bun")
+KNOWN_REQUEST_HANDLERS = ("urllib", "requests", "websockets", "curl_cffi")
 
 
 class ObjectStore(ObjectReader, Protocol):
@@ -126,7 +143,7 @@ class WorkerConfig:
 
 
 class WorkerStageError(RuntimeError):
-    """A safe, classified stage failure; provider diagnostic text is never retained."""
+    """A safe, classified stage failure; provider text is not persisted in state."""
 
     def __init__(self, failure: Failure) -> None:
         super().__init__(failure.code)
@@ -155,6 +172,81 @@ def digest_file(path: Path) -> str:
         for chunk in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def safe_command_diagnostic(stderr: bytes) -> dict[str, str | int]:
+    """Derive bounded allow-listed signals without retaining provider diagnostic text."""
+    text = stderr.decode("utf-8", "replace")
+    lowered = text.lower()
+    lines = text.splitlines()
+
+    def known_values(marker: str, candidates: Sequence[str]) -> str:
+        matching_lines = [line.lower() for line in lines if marker in line.lower()]
+        values = [name for name in candidates if any(name in line for line in matching_lines)]
+        if values:
+            return ",".join(values)
+        if any("none" in line for line in matching_lines):
+            return "none"
+        return "unknown"
+
+    def allow_listed_token(marker: str) -> str:
+        for line in lines:
+            lowered_line = line.lower()
+            if marker not in lowered_line:
+                continue
+            marker_end = lowered_line.index(marker) + len(marker)
+            remainder = line[marker_end:].strip()
+            token = remainder.split(maxsplit=1)[0] if remainder else ""
+            if (
+                token
+                and len(token) <= 64
+                and all(character.isalnum() or character in "@._+-" for character in token)
+            ):
+                return token
+        return "unknown"
+
+    signals = [
+        name
+        for name, patterns in DIAGNOSTIC_SIGNALS
+        if any(pattern in lowered for pattern in patterns)
+    ]
+    return {
+        "stderr_sha256": hashlib.sha256(stderr).hexdigest(),
+        "stderr_bytes": len(stderr),
+        "warning_count": sum(line.lstrip().lower().startswith("warning:") for line in lines),
+        "error_count": sum(line.lstrip().lower().startswith("error:") for line in lines),
+        "yt_dlp_version": allow_listed_token("[debug] yt-dlp version"),
+        "python_runtime": allow_listed_token("[debug] python"),
+        "js_runtimes": known_values("[debug] js runtimes", KNOWN_JS_RUNTIMES),
+        "request_handlers": known_values("[debug] request handlers", KNOWN_REQUEST_HANDLERS),
+        "signals": ",".join(signals) or "none",
+    }
+
+
+def log_command_failure(
+    operation: str,
+    result: subprocess.CompletedProcess[bytes],
+    failure: Failure,
+) -> None:
+    """Log allow-listed command signals without provider diagnostic text or output."""
+    diagnostic = safe_command_diagnostic(result.stderr)
+    LOGGER.warning(
+        "External command failed operation=%s returncode=%s reason_code=%s "
+        "stderr_sha256=%s stderr_bytes=%s warning_count=%s error_count=%s "
+        "yt_dlp_version=%s python_runtime=%s js_runtimes=%s request_handlers=%s signals=%s",
+        operation,
+        result.returncode,
+        failure.code,
+        diagnostic["stderr_sha256"],
+        diagnostic["stderr_bytes"],
+        diagnostic["warning_count"],
+        diagnostic["error_count"],
+        diagnostic["yt_dlp_version"],
+        diagnostic["python_runtime"],
+        diagnostic["js_runtimes"],
+        diagnostic["request_handlers"],
+        diagnostic["signals"],
+    )
 
 
 def content_type_for(path: Path) -> str:
@@ -610,15 +702,15 @@ class IngestionWorker:
                 "--dump-single-json",
                 "--skip-download",
                 "--no-playlist",
-                "--no-warnings",
+                "--verbose",
                 source_url(self.config.video_id),
             ],
             cwd=workdir,
         )
         if result.returncode != 0:
-            raise WorkerStageError(
-                classify_failure(result.stderr.decode("utf-8", "replace"), stage="download")
-            )
+            failure = classify_failure(result.stderr.decode("utf-8", "replace"), stage="download")
+            log_command_failure("metadata", result, failure)
+            raise WorkerStageError(failure)
         try:
             parsed = json.loads(result.stdout.decode("utf-8"))
         except (UnicodeDecodeError, json.JSONDecodeError) as exc:
@@ -728,7 +820,7 @@ class IngestionWorker:
                 [
                     "yt-dlp",
                     "--no-playlist",
-                    "--no-warnings",
+                    "--verbose",
                     *options,
                     "-o",
                     output_template,
@@ -737,9 +829,11 @@ class IngestionWorker:
                 cwd=workdir,
             )
             if result.returncode != 0:
-                raise WorkerStageError(
-                    classify_failure(result.stderr.decode("utf-8", "replace"), stage="download")
+                failure = classify_failure(
+                    result.stderr.decode("utf-8", "replace"), stage="download"
                 )
+                log_command_failure(f"artifact:{artifact_key}", result, failure)
+                raise WorkerStageError(failure)
             paths = sorted(path for path in stage_dir.iterdir() if path.is_file())
             if not paths:
                 return self._mark_absent(artifacts, artifact_key, f"{artifact_key}_not_present")
@@ -873,6 +967,36 @@ class IngestionWorker:
     ) -> dict[str, dict[str, object]]:
         native_path = workdir / "native_audio"
         candidates = sorted(path for path in native_path.glob("*") if path.is_file())
+        native_status = artifacts["native_audio"].get("status")
+        if not candidates and native_status == ArtifactStatus.FAILED_RETRYABLE.value:
+            return artifacts
+        if not candidates and native_status == ArtifactStatus.SUCCEEDED.value:
+            try:
+                candidates = self._restore_native_audio(native_path)
+            except PrivateObjectReadError as exc:
+                return self._record_failure(
+                    artifacts,
+                    "asr_audio",
+                    Failure(
+                        ReasonCategory.DEPENDENCY_ERROR,
+                        str(exc),
+                        "保存済み元音声を再開用に読み取れない",
+                        True,
+                        "retry_manifest",
+                    ),
+                )
+            if not candidates:
+                return self._record_failure(
+                    artifacts,
+                    "asr_audio",
+                    Failure(
+                        ReasonCategory.DEPENDENCY_ERROR,
+                        "native_audio_checkpoint_missing",
+                        "保存済み元音声の参照がcheckpointに存在しない",
+                        True,
+                        "retry_manifest",
+                    ),
+                )
         if not candidates:
             return self._mark_dependency_unavailable(artifacts, None, artifact_key="asr_audio")
         output = workdir / "asr-audio.flac"
@@ -881,10 +1005,12 @@ class IngestionWorker:
             cwd=workdir,
         )
         if result.returncode != 0 or not output.is_file():
+            failure = classify_failure(result.stderr.decode("utf-8", "replace"), stage="convert")
+            log_command_failure("asr_audio:convert", result, failure)
             return self._record_failure(
                 artifacts,
                 "asr_audio",
-                classify_failure(result.stderr.decode("utf-8", "replace"), stage="convert"),
+                failure,
             )
         return self._upload_paths(
             artifacts,
@@ -895,6 +1021,25 @@ class IngestionWorker:
             "derived/asr-audio",
             storage_field="derived_s3_key",
         )
+
+    def _restore_native_audio(self, destination: Path) -> list[Path]:
+        """Materialize a verified native-audio checkpoint for a later ASR attempt."""
+        records = sorted(
+            self.artifact_objects.get("native_audio", []),
+            key=lambda record: str(record.get("key", "")),
+        )
+        for record in records:
+            key = record.get("key")
+            if record.get("kind") != "raw" or not isinstance(key, str):
+                continue
+            suffix = Path(key).suffix.lower()
+            target = destination / f"checkpoint-native-audio{suffix}"
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(
+                read_verified_artifact_object(self.store, self.config.bucket, record)
+            )
+            return [target]
+        return []
 
     def _normalize_caption_files(self, paths: Sequence[Path], destination: Path) -> list[Path]:
         destination.mkdir(exist_ok=True)
@@ -1252,6 +1397,15 @@ class IngestionWorker:
         channel_id: str,
         prefix: str,
     ) -> None:
+        artifacts = update_artifact(
+            artifacts,
+            artifact_key="transcript",
+            status=ArtifactStatus.NOT_APPLICABLE,
+            current_phase="completed",
+            now=iso_now(),
+            availability="not_applicable",
+            phase_status=PhaseStatus.NOT_APPLICABLE,
+        )
         current_key = current_manifest_key(channel_id, self.config.video_id)
         manifest_artifacts = update_artifact(
             artifacts,
