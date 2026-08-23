@@ -1,0 +1,373 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "feK0q7DIyvM",
+  "title": "【夕鬼】ねぇ‥夕鬼、しよ？【白雪 巴/にじさんじ】",
+  "publishedAt": "2022-03-05T19:23:54Z",
+  "durationSeconds": 19968,
+  "durationIso": "PT5H32M48S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/feK0q7DIyvM/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=feK0q7DIyvM",
+  "taxonomyVersion": "8.5.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.2.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "d5596e6f1bdac7a6bd397ab7acb7f5d88e1c086805b161c920086f74dfc305f1"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "837a4493ceff47aece93e94d8648a646b8d7719876fb35167b18502a368ec018"
+    },
+    {
+      "evidenceId": "evidence-approved-tags",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "旧diopsideの承認済みタグ正本",
+      "inputFingerprint": "4e6c0d6c3eb4c1a727c1331aed36237f9397ce13c58ca435d0b07b0eeb1cb736"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "2659e188596ce6363bde5b4f63dd2a18f04526eb0ff9022d0fd7d5b5ffec8ad2"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "edc2e953a13cebeee9d0744a452478c63bbb9d53ef426573b65c44bbb79c17a3",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 19968
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-2f04dcbd8559",
+      "reason": "公開タイトルまたは既存タグからゲーム作品「夕鬼」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-1cc53dc4a37d",
+      "reason": "既存分類と作品名からゲームジャンル「ホラー」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-62278ec71bd0",
+      "reason": "既存分類と作品名からゲームジャンル「アクション」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-27f68e2b",
+        "startSeconds": 0,
+        "label": "配信開始・夕鬼の紹介",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-397-e4b3918f",
+        "startSeconds": 397,
+        "label": "夕鬼のプロローグ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-871-1fc05f42",
+        "startSeconds": 871,
+        "label": "最初の隠れんぼ・チュートリアル",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1327-3eaacfdf",
+        "startSeconds": 1327,
+        "label": "物語場面から第一章へ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1610-5aa05640",
+        "startSeconds": 1610,
+        "label": "第一章・人形を探す",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2692-9f606208",
+        "startSeconds": 2692,
+        "label": "第一章・病院の鍵と経路探し",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4960-9e2f3c93",
+        "startSeconds": 4960,
+        "label": "第一章・帰路の追跡",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5292-3e25edec",
+        "startSeconds": 5292,
+        "label": "第一章後の物語パート",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5506-d605a930",
+        "startSeconds": 5506,
+        "label": "第二章・探索と追跡",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6795-6953bef1",
+        "startSeconds": 6795,
+        "label": "物語パート・次の手掛かり",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7618-6fc5aacd",
+        "startSeconds": 7618,
+        "label": "第三章・病院の探索",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9008-5c78da4e",
+        "startSeconds": 9008,
+        "label": "第三章・迷路を進む",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-11340-2a3ce5a9",
+        "startSeconds": 11340,
+        "label": "物語パート・人形と登場人物",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-11914-14f788d5",
+        "startSeconds": 11914,
+        "label": "第四章・迷路の探索",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-14483-1598b3ec",
+        "startSeconds": 14483,
+        "label": "物語パート・診療所の場面",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-14915-127f4423",
+        "startSeconds": 14915,
+        "label": "第五章・迷路のルート探し",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-16316-06ab821e",
+        "startSeconds": 16316,
+        "label": "終盤の探索・記憶の手掛かり",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-17104-dd065f5d",
+        "startSeconds": 17104,
+        "label": "終盤の経路を再確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-18141-2a4d9263",
+        "startSeconds": 18141,
+        "label": "最後のルートへ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-19011-833fb350",
+        "startSeconds": 19011,
+        "label": "ゲーム後の物語パート",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-19400-18410857",
+        "startSeconds": 19400,
+        "label": "配信の締め・雑談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "21b423ac9b6c43d4f492eaf427d675a85511c3f25bd5f54fda8557829bd543f5",
+    "inputFingerprint": "2659e188596ce6363bde5b4f63dd2a18f04526eb0ff9022d0fd7d5b5ffec8ad2",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-23T00:59:29Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "21b423ac9b6c43d4f492eaf427d675a85511c3f25bd5f54fda8557829bd543f5",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "21b423ac9b6c43d4f492eaf427d675a85511c3f25bd5f54fda8557829bd543f5",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "3d320f6d186957399fea821a303ea96b744c696e67bfb01f804e10b7ac29e0a1",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴がホラーゲーム『夕鬼』を初見実況。夕暮れの学校や不穏な場所を探索し、鬼から逃げながら手掛かりを集めて物語の謎に迫る。驚きや考察を交え、登場人物の関係と過去を読み解きつつ、緊張感ある長時間プレイを楽しむ。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ホラー実況者になりたいんだよ",
+      "atSeconds": 15240,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "edc2e953a13cebeee9d0744a452478c63bbb9d53ef426573b65c44bbb79c17a3",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T09:02:57.444969Z"
+  }
+}
