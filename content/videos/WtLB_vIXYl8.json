@@ -43,6 +43,14 @@
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "e4f6b70d18c62120c656ef2de7cf0071e6093b3d1f1f74e7ee16056f75168a59",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5812
+    },
+    {
+      "evidenceId": "evidence-full-transcript-timestamps",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕（既存タイムスタンプ根拠）",
       "inputFingerprint": "06cca85bf2fe169fa1d9a196f741f865d3704d4fa15e989ca7bea2161debb462",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 5812
@@ -499,5 +507,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『トロッコ問題 オブ アルマゲドン』で、命を左右する究極の二択に挑戦。人数や善悪、年齢、家族や友人との距離まで一問ごとに理屈を重ね、多数派との違いにも驚きながら、何度も揺れ動く自分の判断と向き合う。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私、誰かを殺すぐらいなら自分が死ぬよ",
+      "atSeconds": 2174,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "e4f6b70d18c62120c656ef2de7cf0071e6093b3d1f1f74e7ee16056f75168a59",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T04:26:38.718604Z"
   }
 }

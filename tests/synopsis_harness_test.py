@@ -1,13 +1,16 @@
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
 import os
 import subprocess
+import sys
 import tempfile
 import tomllib
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / ".agents/skills/run-synopsis-work-harness/scripts/harness.py"
@@ -44,6 +47,24 @@ LEDGER_HEADERS = [
     "未作成原因",
     "作業メモ（進行中）",
 ]
+
+
+def load_harness_module():
+    spec = importlib.util.spec_from_file_location("synopsis_harness", SCRIPT)
+    if spec is None or spec.loader is None:
+        raise AssertionError("synopsis harness moduleを読み込めません。")
+    module = importlib.util.module_from_spec(spec)
+    scripts_path = str(SCRIPT.parent)
+    saved_common = sys.modules.pop("harness_common", None)
+    sys.path.insert(0, scripts_path)
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        sys.path.remove(scripts_path)
+        sys.modules.pop("harness_common", None)
+        if saved_common is not None:
+            sys.modules["harness_common"] = saved_common
+    return module
 
 
 class SynopsisHarnessTest(unittest.TestCase):
@@ -123,6 +144,28 @@ class SynopsisHarnessTest(unittest.TestCase):
         self.assertEqual(len(all_ids), len(set(all_ids)))
         self.assertTrue(all(lane["reasoningEffort"] == "medium" for lane in lanes))
         self.assertTrue(all(lane["model"] == "gpt-5.6-luna" for lane in lanes))
+
+    def test_remote_main_is_refreshed_and_stale_checkout_is_rejected(self) -> None:
+        harness = load_harness_module()
+        outputs = ["origin\n", "", "a" * 40 + "\n", "b" * 40 + "\n"]
+
+        def completed(command, **_kwargs):
+            return subprocess.CompletedProcess(command, 0, stdout=outputs.pop(0), stderr="")
+
+        with patch.object(harness, "run", side_effect=completed) as mocked_run:
+            with self.assertRaisesRegex(harness.HarnessError, "最新origin/main"):
+                harness.resolve_fresh_base_commit("origin/main")
+
+        self.assertEqual(
+            mocked_run.call_args_list[1].args[0],
+            [
+                "git",
+                "fetch",
+                "--no-tags",
+                "origin",
+                "+refs/heads/main:refs/remotes/origin/main",
+            ],
+        )
 
     def test_missing_ledger_row_is_appended_as_unclaimed_until_recorded(self) -> None:
         self.ledger.write_text(
