@@ -106,6 +106,37 @@ test.describe('動画検索', () => {
     expect(page.url()).not.toContain('tag=');
   });
 
+  test('375px幅で絞り込みフォームとヘッダーが画面外へはみ出さない', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'モバイル', 'モバイル固有のレスポンシブ回帰を検証します。');
+    await preparePage(page);
+    await openSearch(page);
+    await page.getByText('タグ・公開日・動画長で絞り込む').click();
+    await page.getByRole('button', { name: /女王と会長/u }).click();
+    await expect(page.getByRole('button', { name: 'タグを開く（選択1件）' })).toBeVisible();
+
+    const layout = await page.evaluate(() => {
+      const viewportWidth = document.documentElement.clientWidth;
+      const overflowingElements = Array.from(document.body.querySelectorAll<HTMLElement>('*')).flatMap((element) => {
+        const rect = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        if (style.display === 'none' || style.visibility === 'hidden' || rect.width === 0) return [];
+        if (rect.left >= -0.5 && rect.right <= viewportWidth + 0.5) return [];
+        return [`${element.tagName.toLowerCase()}.${element.className}:${rect.left.toFixed(1)}..${rect.right.toFixed(1)}`];
+      });
+      return {
+        viewportWidth,
+        documentWidth: document.documentElement.scrollWidth,
+        scrollX: window.scrollX,
+        overflowingElements: overflowingElements.slice(0, 20),
+      };
+    });
+
+    expect(layout.scrollX).toBe(0);
+    expect(layout.documentWidth, JSON.stringify(layout.overflowingElements)).toBeLessThanOrEqual(layout.viewportWidth);
+    expect(layout.overflowingElements).toEqual([]);
+    await capture(page, testInfo, 'モバイル', 'search-filter-mobile.jpg');
+  });
+
   test('入力矛盾を日本語で示し、並び替えとキーボード操作を提供する', async ({ page }) => {
     await preparePage(page);
     await openSearch(page);
