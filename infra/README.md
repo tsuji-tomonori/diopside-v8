@@ -17,6 +17,18 @@
 
 CDK synth中にcdk-nagのAWS Solutions checksを実行します。抑制は生成template内で根拠を確認できる最小範囲だけに限定します。
 
+`pytest`はMotoのHTTP serverを一時起動し、SQS受信からDispatcher、DynamoDBのclaim・checkpoint・complete、S3 manifestまでを実プロトコルで検証します。Dockerを利用できる環境では、同じ統合試験を固定版Flociに対して実行できます。
+
+```console
+npm run test:ingestion:floci
+```
+
+既に起動済みのFloci、LocalStack等を使う場合は、試験専用endpointを明示します。実AWS endpointは指定しないでください。試験は一意な一時resourceだけを作成し、終了時に削除します。
+
+```console
+DIOPSIDE_AWS_ENDPOINT_URL=http://127.0.0.1:4566 npm run test:ingestion:aws
+```
+
 ## 運用上の入口
 
 diopside-backfill manifest は、最新mainの content/catalog と既存台帳snapshotを統合して、不変の対象manifestを生成します。enqueue と report は、そのmanifestを指定して実行します。すべての外部リクエスト本文は video_id だけです。
