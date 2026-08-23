@@ -65,7 +65,7 @@ selected_checks:
   - id: IMP-009
     class: Risk-selected
     result: pass
-    evidence: [path:infra/cdk.out/DiopsideIngestionStack.template.json, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    evidence: [path:docs/design/generated/cdk/diopside-ingestion/manifest.json, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
     note: CDK synth差分はLambda asset参照の更新だけで、resource、権限、network、削除・置換、費用の変更がないことを確認した。
   - id: FAST-001
     class: Invariant
@@ -105,7 +105,7 @@ selected_checks:
   - id: FAST-012
     class: Risk-selected
     result: pass
-    evidence: [path:infra/cdk.out/DiopsideIngestionStack.template.json, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
+    evidence: [path:docs/design/generated/cdk/diopside-ingestion/manifest.json, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
     note: synthと生成設計差分を確認し、Lambda asset hash以外のCloudFormation resource差分がないことを確認した。
   - id: FAST-015
     class: Advisory
