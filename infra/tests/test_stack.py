@@ -22,6 +22,7 @@ def test_stack_has_one_table_fifo_queue_and_bounded_lambda_worker() -> None:
     )
     table = next(iter(template.find_resources("AWS::DynamoDB::Table").values()))
     assert "GlobalSecondaryIndexes" not in table["Properties"]
+    assert table["Properties"]["SSESpecification"] == {"SSEEnabled": False}
 
     template.resource_count_is("AWS::SQS::Queue", 2)
     template.has_resource_properties("AWS::SQS::Queue", {"FifoQueue": True})
@@ -43,7 +44,15 @@ def test_stack_has_one_table_fifo_queue_and_bounded_lambda_worker() -> None:
     template.resource_count_is("AWS::EC2::VPC", 0)
     template.resource_count_is("AWS::ECR::Repository", 0)
     template.resource_count_is("AWS::Events::Rule", 0)
+    template.resource_count_is("AWS::KMS::Key", 0)
+    template.resource_count_is("AWS::KMS::Alias", 0)
     assert "WorkerImageDigest" not in template.to_json().get("Parameters", {})
+
+    for queue in template.find_resources("AWS::SQS::Queue").values():
+        assert queue["Properties"]["SqsManagedSseEnabled"] is True
+
+    worker_policies = template.find_resources("AWS::IAM::Policy")
+    assert "kms:" not in str(worker_policies).lower()
 
     request_queues = template.find_resources(
         "AWS::SQS::Queue", {"Properties": {"VisibilityTimeout": 5400}}
@@ -57,9 +66,16 @@ def test_stack_keeps_material_bucket_private_and_versioned() -> None:
     app = App()
     stack = IngestionStack(app, "TestIngestion")
     template = Template.from_stack(stack)
+    template.resource_count_is("AWS::S3::Bucket", 1)
+    template.resource_count_is("AWS::S3::BucketPolicy", 1)
     template.has_resource_properties(
         "AWS::S3::Bucket",
         {
+            "BucketEncryption": {
+                "ServerSideEncryptionConfiguration": [
+                    {"ServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}
+                ]
+            },
             "VersioningConfiguration": {"Status": "Enabled"},
             "PublicAccessBlockConfiguration": {
                 "BlockPublicAcls": True,
@@ -69,3 +85,7 @@ def test_stack_keeps_material_bucket_private_and_versioned() -> None:
             },
         },
     )
+    bucket = next(iter(template.find_resources("AWS::S3::Bucket").values()))
+    assert "LoggingConfiguration" not in bucket["Properties"]
+    for log_group in template.find_resources("AWS::Logs::LogGroup").values():
+        assert "KmsKeyId" not in log_group["Properties"]
