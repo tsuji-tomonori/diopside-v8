@@ -42,7 +42,9 @@ jobs:
       - name: 公開版を生成して検証
         run: npm run verify:main-release
       - name: 検証スクリーンショットの一時差分を破棄
-        run: git restore -- reports/screenshots
+        run: |
+          git restore -- reports/screenshots
+          git clean -fd -- reports/screenshots
       - name: 生成差分をcommitしてrelease PRを作成
         id: commit
         env:
