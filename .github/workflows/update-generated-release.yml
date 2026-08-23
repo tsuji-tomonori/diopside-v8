@@ -18,7 +18,7 @@ jobs:
     name: 検証済みmainから公開版を生成してPR化
     # release commitもPages公開のための通常のmain pushとして処理し、
     # この生成jobだけを除外して自己再実行の循環を防ぐ。
-    if: ${{ !startsWith(github.event.head_commit.message, '🚀 release(data):') }}
+    if: ${{ !contains(github.event.head_commit.message, '🚀 release(data):') }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     outputs:
@@ -42,7 +42,9 @@ jobs:
       - name: 公開版を生成して検証
         run: npm run verify:main-release
       - name: 検証スクリーンショットの一時差分を破棄
-        run: git restore -- reports/screenshots
+        run: |
+          git restore -- reports/screenshots
+          git clean -fd -- reports/screenshots
       - name: 生成差分をcommitしてrelease PRを作成
         id: commit
         env:
@@ -72,7 +74,7 @@ jobs:
           review_path="$(python governance/reviews/validate.py \
             --root . \
             --commit "$VERIFIED_SHA" \
-            --allow-github-squash-fallback \
+            --allow-github-merge-fallback \
             --print-review-path)"
           case "$review_path" in
             governance/reviews/CHG-*.yaml|governance/reviews/CHG-*.yml) ;;
@@ -177,7 +179,7 @@ jobs:
     name: GitHub Pages公開データをHTTPで検査
     # 生成差分があればrelease PRのmainマージ後に検査し、差分がなければこのpushを検査する。
     needs: update
-    if: ${{ always() && (startsWith(github.event.head_commit.message, '🚀 release(data):') || needs.update.outputs.release_pending == 'false') }}
+    if: ${{ always() && (contains(github.event.head_commit.message, '🚀 release(data):') || needs.update.outputs.release_pending == 'false') }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
