@@ -85,11 +85,20 @@ class Dispatcher:
             self.worker_factory(config).run()
         except subprocess.TimeoutExpired:
             self.repository.mark_dispatch_failure(request.video_id, message_id, "lambda_timeout")
-            LOGGER.warning("Ingestion will be retried message_id=%s", message_id)
+            LOGGER.warning(
+                "Ingestion will be retried video_id=%s message_id=%s reason_code=lambda_timeout",
+                request.video_id,
+                message_id,
+            )
             return True
         except RetryableWorkerError as error:
             self.repository.mark_dispatch_failure(request.video_id, message_id, str(error))
-            LOGGER.warning("Ingestion will be retried message_id=%s", message_id)
+            LOGGER.warning(
+                "Ingestion will be retried video_id=%s message_id=%s reason_code=%s",
+                request.video_id,
+                message_id,
+                str(error),
+            )
             return True
         except Exception as error:
             self.repository.mark_dispatch_failure(
