@@ -48,6 +48,10 @@ describe('タグ・動画正本と公開境界', () => {
       const profile = collaborationProfiles.people.find((item) => item.tagId === performer.tagId);
       expect(profile?.name).toBe(performer.canonicalName);
       expect(profile?.youtubeChannelUrl).toBe(`https://www.youtube.com/channel/${profile?.channelId}`);
+      expect(profile?.iconKind).toBe('youtube-channel');
+      expect(profile?.iconFile).toBe(`${profile?.channelId}.jpg`);
+      const icon = readFileSync(path.join(root, 'content/people/icons', profile!.iconFile));
+      expect(icon.subarray(0, 3).toString('hex')).toBe('ffd8ff');
     }
     for (const unit of units) {
       const profile = collaborationProfiles.groups.find((item) => item.tagId === unit.tagId);
