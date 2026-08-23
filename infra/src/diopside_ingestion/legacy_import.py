@@ -567,10 +567,11 @@ class LegacyLocalImporter:
         """Import one selected video; a false claim is an idempotent no-op."""
         run_id = f"legacy-{self.manifest.sha256[:20]}"
         owner = f"legacy-local:{self.manifest.sha256[:32]}"
+        captured_at = self.manifest.created_at
         if not self.repository.claim(video.video_id, owner, 900).claimed:
             return None
         prefix = run_prefix(video.channel_id, video.video_id, run_id)
-        artifacts = initial_artifacts(iso_now())
+        artifacts = initial_artifacts(captured_at)
         records: dict[str, list[dict[str, object]]] = {key: [] for key in ARTIFACTS}
         by_role: dict[str, list[LocalObject]] = {}
         for item in video.files:
@@ -643,7 +644,7 @@ class LegacyLocalImporter:
                     artifact_key=artifact,
                     status=ArtifactStatus.SUCCEEDED,
                     current_phase="verify",
-                    now=iso_now(),
+                    now=captured_at,
                     availability="available",
                     phase_status=PhaseStatus.SUCCEEDED,
                     fields={
@@ -657,7 +658,7 @@ class LegacyLocalImporter:
                     artifact_key=artifact,
                     status=ArtifactStatus.NOT_APPLICABLE,
                     current_phase="completed",
-                    now=iso_now(),
+                    now=captured_at,
                     availability="not_applicable",
                     phase_status=PhaseStatus.NOT_APPLICABLE,
                 )
@@ -667,7 +668,7 @@ class LegacyLocalImporter:
             artifact_key="manifest",
             status=ArtifactStatus.SUCCEEDED,
             current_phase="verify",
-            now=iso_now(),
+            now=captured_at,
             availability="available",
             phase_status=PhaseStatus.SUCCEEDED,
             fields={"raw_s3_key": current_key, "variant_count": 2},
@@ -686,7 +687,7 @@ class LegacyLocalImporter:
                 "manifest_sha256": self.manifest.sha256,
                 "transcript_source": video.transcript_source,
             },
-            "captured_at": iso_now(),
+            "captured_at": captured_at,
             "artifacts": artifacts,
             "artifact_objects": records,
         }
