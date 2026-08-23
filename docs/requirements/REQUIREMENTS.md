@@ -812,9 +812,9 @@ diopside v8のprivate backfill基盤deployは、GitHub ActionsからのCDK deplo
 - `AC-V8-INGEST-013-1` 前提: AWS accountにGitHub OIDC providerとmodern CDK bootstrap roleがある。条件: deployment access stackをsynthしてIAM trustと権限policyを検査する。期待結果: 受けロールはaudienceとprotected environmentを含む完全一致subjectだけを信頼し、AWS access keyを作らず、同一accountとregionのdeploy、file-publishing、lookup bootstrap roleだけを引き受けられる。。
 - `AC-V8-INGEST-013-2` 前提: 検証済みmainのprivate backfill基盤をデプロイする。条件: 運用者がGitHub Actionsのdeploy workflowを明示開始する。期待結果: workflowはmain、確認入力、protected environment承認、account ID照合、lock済み依存、Ruff、strict型検査、pytest、CDK synth、cdk-nag、生成設計差分の合格後だけOIDC短期sessionでDiopsideIngestionStackをデプロイし、enqueue、upload、削除、公開、mergeを実行しない。。
 
-要求源: user:2026-08-23, GitHub Actions OIDC for AWS, AWS CDK security best practices
+要求源: Issue #465, user:2026-08-23, GitHub Actions OIDC for AWS, AWS CDK security best practices
 検証証跡: infra/tests/test_deployment_access.py, tests/repository-policy.test.ts, .github/workflows/verify.yml
-トレース: 設計=docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md,docs/design/generated/cdk/diopside-github-deployment-access/PARAMETERS.gen.md,docs/operations/manual-content-update.md,docs/operations/privacy-and-safety.md; 実装=infra/src/diopside_deployment/access_stack.py,infra/app.py,.github/workflows/deploy-ingestion-infra.yml; テスト=infra/tests/test_deployment_access.py,tests/repository-policy.test.ts; 参照資料=GitHub Actions OIDC for AWS,AWS CDK security best practices,dev-standard regulated profile
+トレース: 設計=docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md,docs/design/generated/cdk/diopside-github-deployment-access/PARAMETERS.gen.md,docs/operations/manual-content-update.md,docs/operations/privacy-and-safety.md; 実装=infra/src/diopside_deployment/access_stack.py,infra/app.py,.github/workflows/deploy-ingestion-infra.yml; テスト=infra/tests/test_deployment_access.py,tests/repository-policy.test.ts; 参照資料=Issue #465,GitHub Actions OIDC for AWS,AWS CDK security best practices,dev-standard regulated profile
 
 ## V8-OPS-001: タイムスタンプ一括処理は、人の1回の明示要求で有限の適格対象集合を固定して開始しなければならない
 
