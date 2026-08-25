@@ -179,7 +179,7 @@ selected_checks:
       - test:src/domain/search.test.ts
       - test:e2e/search.spec.ts
       - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
-    note: 範囲選択、境界、URL互換、エラー、回復、キーボード、モバイルの受入条件をCIで実行する。
+    note: 範囲選択、境界、URL互換、エラー、回復、キーボード、モバイルの受入条件をCIで実行する。初回CIで公開日と動画長の同名「指定なし」が曖昧一致したため、動画長側をexact指定へ修正した。
   - id: REV-007
     class: Invariant
     result: pass

@@ -150,13 +150,13 @@ test.describe('動画検索', () => {
     await expect(page.getByLabel('最小（分）')).toHaveAttribute('type', 'range');
     await expect(page.getByLabel('最大（分）')).toHaveAttribute('type', 'range');
     await expect(page.getByRole('alert')).toContainText('最小値は最大値以下');
-    await page.getByRole('button', { name: '指定なし' }).click();
+    await page.getByRole('button', { name: '指定なし', exact: true }).click();
     await expect(page.getByRole('alert')).toHaveCount(0);
     const minimumSlider = page.getByLabel('最小（分）');
     await minimumSlider.focus();
     await minimumSlider.press('ArrowRight');
     await expect(minimumSlider).toHaveValue('1');
-    await page.getByRole('button', { name: '指定なし' }).click();
+    await page.getByRole('button', { name: '指定なし', exact: true }).click();
     await page.getByRole('button', { name: '絞り込みを反映' }).click();
     await page.getByLabel('並び順').selectOption('公開日の古い順');
     await expect(page.locator('.video-card').first()).toHaveAttribute('data-video-id', 'qp-w9AZJuLs');
