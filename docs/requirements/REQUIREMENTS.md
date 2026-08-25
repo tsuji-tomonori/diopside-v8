@@ -1,7 +1,7 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 18
+- カタログ版: 19
 - 更新日: 2026-08-25
 - 正本: `spec/requirements/requirements.json`
 
@@ -37,6 +37,7 @@
 | `V8-DISPLAY-012` | 1 | 有効 | 機能 | diopside v8の作品タグと作品ページは、動画詳細の作品タグは、その作品タグを持つ公開動画の一覧ページへ移動できなければならない。ゲーム作品ページは、確認日を持つ短い公式説明の引用、引用元名、HTTPSの公式ページリンクを表示し、外部ページは利用者がリンクを押した場合だけ開かなければならない。を**satisfy** | 公開データ構造試験、作品タグ遷移E2E、公式リンク・引用表示・外部自動通信禁止試験 |
 | `V8-DISPLAY-013` | 1 | 有効 | 機能 | diopside v8のコラボ相手タグとコンビ・ユニットページは、動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページはYouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画を表示する。コンビ・ユニットページは出典付きの説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。を**satisfy** | 公開データ構造・人物名・コンビ説明・メンバーリンク・ローカルアイコン・外部自動通信禁止試験 |
 | `V8-DISPLAY-014` | 1 | 有効 | 機能 | diopside v8の定期・連続企画名タグとシリーズページは、動画詳細の定期・連続企画名タグは押下可能でなければならず、不変タグIDをURLに持つ一覧ページへ移動して、そのタグを持つ公開動画だけを公開日の新しい順で表示しなければならない。を**satisfy** | 正本タグ網羅試験、定期・連続企画名タグ遷移単体・E2E、一覧内容・順序・アクセシビリティ試験 |
+| `V8-DISPLAY-015` | 1 | 有効 | 機能 | diopside v8の歌唱楽曲一覧と導線は、主または副ジャンル「歌」を押すと歌唱楽曲一覧へ移動しなければならない。一覧は楽曲名、原曲アーティスト、確認済みの原曲リンク、歌唱種別、対象動画、公開日を表示する。配信内歌唱と鼻歌は対象開始秒、単曲動画は動画先頭を開き、楽曲タグのURLで曲別表示できなければならない。を**satisfy** | 楽曲一覧表示、ジャンル・楽曲タグ遷移、原曲リンク、YouTube開始秒、外部自動通信禁止試験 |
 | `V8-INGEST-001` | 1 | 有効 | インターフェース | diopside v8のprivate ingestion要求は、外部ingestion要求は11文字のYouTube video_idだけを含み、未知fieldまたは内部状態を含んではならない。を**強制する** | 契約単体試験 |
 | `V8-INGEST-002` | 2 | 有効 | データ | diopside v8のprivate backfill対象は、歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。を**強制する** | manifest生成・改ざん・enqueue試験 |
 | `V8-INGEST-003` | 1 | 有効 | データ | diopside v8のprivate ingestion状態は、進捗状態はVideoIngestion単一DynamoDB tableのvideo_id partition keyだけを使う一動画一itemで保持し、sort key、GSI、用途別item typeを追加してはならない。を**強制する** | CDK template・状態repository試験 |
@@ -142,6 +143,8 @@
 | `V8-TAG-034` | 1 | 有効 | データ | diopside v8のタグは、タグ表示名は公式な日本語名がある場合は日本語を用い、公式固有名詞と一般に定着した略称は出典表記を保たなければならない。を**satisfy** | 文言一覧・人手確認 |
 | `V8-TAG-035` | 1 | 有効 | データ | diopside v8のタグは、人物・グループ分類を除くタグが1動画あたり12件を超える候補は、過剰付与の確認待ちにしなければならない。を**satisfy** | 基数集計・人手確認 |
 | `V8-TAG-036` | 1 | 有効 | データ | diopside v8の定期・連続企画タグは、公開タイトルまたは承認済み既存タグから定期・連続企画名を直接確認できる動画は当該定期・連続企画名タグを持ち、名称中の「杯」等の部分一致だけでイベント・大会名へ重複分類してはならない。を**satisfy** | 正本全件タグ網羅・重複分類試験、旧タグ再生成回帰試験 |
+| `V8-TAG-037` | 1 | 有効 | 機能 | diopside v8の歌唱実績と楽曲タグは、楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲タグを持たなければならない。楽曲タグは動画の主・副ジャンルが「歌」であるかに依存せず、公開一覧・検索索引・タグ索引・動画詳細のすべてに一貫して反映しなければならない。を**satisfy** | 歌唱正本構造、非歌ジャンル鼻歌、公開索引の楽曲タグ反映試験 |
+| `V8-TAG-038` | 1 | 有効 | 品質 | diopside v8の歌唱実績検証と公開境界は、各歌唱実績は既知動画、白雪巴本人の参加、動画長内の開始秒、動画内で解決できる根拠参照を持たなければならない。承認済みタイムスタンプを参照する場合は開始秒が一致し、鼻歌は終了秒も持たなければならない。公開データには内部の根拠参照・判定理由を含めてはならない。を**satisfy** | 未知動画・根拠・時刻・タイムスタンプ不整合・鼻歌範囲・公開境界試験 |
 | `V8-TIME-001` | 1 | 有効 | データ | diopside v8の時刻は、タイムスタンプは動画全体を移動するための目次として作り、見どころ候補と別のデータとして扱わなければならない。を**satisfy** | 意味論監査 |
 | `V8-TIME-002` | 1 | 有効 | データ | diopside v8の時刻は、v8.0では動画形式が「配信」の動画を既定の作成対象とし、「Shorts」と単曲の「歌ってみた」は対象外にしなければならない。を**satisfy** | 対象集合・境界値試験 |
 | `V8-TIME-003` | 1 | 有効 | データ | diopside v8の時刻は、各対象動画は「作成済み」または理由付きの「未作成」の状態を持たなければならない。を**satisfy** | 状態遷移・画面試験 |
@@ -636,6 +639,23 @@ diopside v8の定期・連続企画名タグとシリーズページは、動画
 要求源: spec/sources/owner-directive-2026-08-25-recurring-series-pages.md, user:2026-08-25
 検証証跡: tests/content-validation.test.ts, src/features/series/SeriesDetailPage.test.tsx, e2e/detail.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/App.tsx,src/features/detail/VideoDetailPage.tsx,src/features/series/SeriesDetailPage.tsx; テスト=tests/content-validation.test.ts,src/features/series/SeriesDetailPage.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-25-recurring-series-pages.md,dev-standard default profile
+
+## V8-DISPLAY-015: ジャンル「歌」と楽曲タグは原曲・対象場面リンク付きの歌唱楽曲一覧へ移動できなければならない
+
+diopside v8の歌唱楽曲一覧と導線は、主または副ジャンル「歌」を押すと歌唱楽曲一覧へ移動しなければならない。一覧は楽曲名、原曲アーティスト、確認済みの原曲リンク、歌唱種別、対象動画、公開日を表示する。配信内歌唱と鼻歌は対象開始秒、単曲動画は動画先頭を開き、楽曲タグのURLで曲別表示できなければならない。を**satisfy**。
+
+根拠: 歌枠と単曲カバーを横断して曲から探し、長時間配信でも対象場面へ直接移動できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-015-1` 前提: 検索画面または動画詳細に主・副ジャンル「歌」が表示されている。条件: 利用者が「歌」を押す。期待結果: 歌唱楽曲一覧へ移動し、楽曲名または原曲アーティストで絞り込める。。
+- `AC-V8-DISPLAY-015-2` 前提: 歌ってみたと配信内歌唱が登録されている。条件: 利用者が各歌唱実績のリンクを押す。期待結果: 歌ってみたは対象動画を、配信内歌唱は対象動画の同じ開始秒をYouTubeで開く。。
+- `AC-V8-DISPLAY-015-3` 前提: 楽曲に確認済みの原曲公開先がある。条件: 一覧または曲別ページを表示する。期待結果: 出典名と確認日付きのHTTPS原曲リンクを表示し、表示だけで外部サイトへ通信しない。。
+
+要求源: spec/sources/owner-directive-2026-08-25-song-performance-index.md, user:2026-08-25
+検証証跡: src/features/songs/SongIndexPage.test.tsx, e2e/song-index.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/songs/SongIndexPage.tsx,src/features/search/SearchPage.tsx,src/features/detail/VideoDetailPage.tsx,src/App.tsx; テスト=src/features/songs/SongIndexPage.test.tsx,e2e/song-index.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-25-song-performance-index.md,dev-standard assured profile
 
 ## V8-INGEST-001: 外部ingestion要求はvideo_idだけを含む厳格な11文字契約でなければならない
 
@@ -2240,6 +2260,39 @@ diopside v8の定期・連続企画タグは、公開タイトルまたは承認
 要求源: spec/sources/owner-directive-2026-08-25-recurring-series-pages.md, user:2026-08-25
 検証証跡: tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=scripts/legacy-content.ts,content/videos; テスト=tests/content-validation.test.ts; 参照資料=spec/sources/owner-directive-2026-08-25-recurring-series-pages.md,dev-standard default profile
+
+## V8-TAG-037: 確認済みの各歌唱実績は動画ジャンルと独立した楽曲タグとして検索できなければならない
+
+diopside v8の歌唱実績と楽曲タグは、楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲タグを持たなければならない。楽曲タグは動画の主・副ジャンルが「歌」であるかに依存せず、公開一覧・検索索引・タグ索引・動画詳細のすべてに一貫して反映しなければならない。を**satisfy**。
+
+根拠: 通常配信の一部で歌った曲や鼻歌を、動画全体のジャンルに埋もれさせず曲から再発見できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-TAG-037-1` 前提: 楽曲名と白雪巴の歌唱参加が確認済みである。条件: 歌唱実績を正本化して公開データを生成する。期待結果: 歌唱種別と不変の楽曲タグIDを付け、対象動画の一覧・検索・タグ・詳細索引に同じIDを反映する。。
+- `AC-V8-TAG-037-2` 前提: 主ジャンルが歌でない通常配信で歌唱または鼻歌が確認された。条件: 実績を登録する。期待結果: 動画ジャンルの変更を必須とせず、配信内歌唱または鼻歌の種別で楽曲タグを公開できる。。
+
+要求源: spec/sources/owner-directive-2026-08-25-song-performance-index.md, user:2026-08-25
+検証証跡: tests/content-validation.test.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=content/songs/song-performances.json,src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts; テスト=tests/content-validation.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-25-song-performance-index.md,dev-standard assured profile
+
+## V8-TAG-038: 歌唱実績は楽曲名・本人参加・開始秒・根拠を検証し、未確認の曲を公開してはならない
+
+diopside v8の歌唱実績検証と公開境界は、各歌唱実績は既知動画、白雪巴本人の参加、動画長内の開始秒、動画内で解決できる根拠参照を持たなければならない。承認済みタイムスタンプを参照する場合は開始秒が一致し、鼻歌は終了秒も持たなければならない。公開データには内部の根拠参照・判定理由を含めてはならない。を**satisfy**。
+
+根拠: コラボ配信で他者が歌った曲、曲名不明の歌唱、根拠のない推測を白雪巴の楽曲タグとして誤公開せず、公開データを必要最小限に保つため。
+
+分類: `product` / `nonfunctional`
+
+受入条件:
+- `AC-V8-TAG-038-1` 前提: 歌唱実績候補に未知動画、解決不能の根拠、動画長外の時刻、または開始秒の異なるタイムスタンプがある。条件: 正本検証または公開データ生成を行う。期待結果: 候補を拒否し、不整合の種類と場所を示す。。
+- `AC-V8-TAG-038-2` 前提: 鼻歌の歌唱実績候補がある。条件: 正本検証を行う。期待結果: 開始秒と終了秒が動画長内で正しい順序の場合だけ受け付ける。。
+- `AC-V8-TAG-038-3` 前提: 検証済みの歌唱実績がある。条件: 公開JSONを生成する。期待結果: 楽曲・原曲・動画・種別・時刻以外の内部根拠参照や判定理由を出力しない。。
+
+要求源: spec/sources/owner-directive-2026-08-25-song-performance-index.md, user:2026-08-25
+検証証跡: tests/content-validation.test.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts; テスト=tests/content-validation.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-25-song-performance-index.md,dev-standard assured profile
 
 ## V8-TIME-001: タイムスタンプは動画全体を移動するための目次として作り、見どころ候補と別のデータとして扱わなければならない
 

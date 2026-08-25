@@ -3,10 +3,12 @@ import type { ZodError } from 'zod';
 import {
   buildTaxonomyLookup,
   canonicalVideoSchema,
+  songPerformanceCatalogSchema,
   type ChannelPersonMappings,
   tagAliasesSchema,
   tagTaxonomySchema,
   type CanonicalVideo,
+  type SongPerformanceCatalog,
   type TagAliases,
   type TagTaxonomy,
   type TaxonomyLookupItem,
@@ -244,6 +246,71 @@ export function validateChannelPersonMappings(
     }
   }
 
+  return issues;
+}
+
+export function validateSongPerformanceCatalog(
+  input: unknown,
+  videos: CanonicalVideo[],
+): ValidationIssue[] {
+  const parsed = songPerformanceCatalogSchema.safeParse(input);
+  if (!parsed.success) return zodIssues(parsed.error);
+  const catalog: SongPerformanceCatalog = parsed.data;
+  const issues: ValidationIssue[] = [];
+  const videosById = new Map(videos.map((video) => [video.videoId, video]));
+  const tagIds = new Set<string>();
+  const titles = new Set<string>();
+  const appearanceIds = new Set<string>();
+
+  for (const [songIndex, song] of catalog.songs.entries()) {
+    if (tagIds.has(song.tagId)) {
+      issues.push(issue('SONG_TAG_DUPLICATED', `songs.${songIndex}.tagId`, '楽曲タグIDが重複しています。'));
+    }
+    tagIds.add(song.tagId);
+    const normalizedTitle = normalizeTagAlias(song.title);
+    if (titles.has(normalizedTitle)) {
+      issues.push(issue('SONG_TITLE_DUPLICATED', `songs.${songIndex}.title`, '正規化後の楽曲名が重複しています。'));
+    }
+    titles.add(normalizedTitle);
+
+    for (const [appearanceIndex, appearance] of song.appearances.entries()) {
+      const appearancePath = `songs.${songIndex}.appearances.${appearanceIndex}`;
+      if (appearanceIds.has(appearance.appearanceId)) {
+        issues.push(issue('SONG_APPEARANCE_DUPLICATED', `${appearancePath}.appearanceId`, '歌唱実績IDが重複しています。'));
+      }
+      appearanceIds.add(appearance.appearanceId);
+      const video = videosById.get(appearance.videoId);
+      if (!video) {
+        issues.push(issue('SONG_VIDEO_UNKNOWN', `${appearancePath}.videoId`, '歌唱実績が未知の動画を参照しています。'));
+        continue;
+      }
+      const evidenceIds = new Set(video.evidence.map((evidence) => evidence.evidenceId));
+      if (appearance.evidenceRefs.some((reference) => !evidenceIds.has(reference))) {
+        issues.push(issue('SONG_EVIDENCE_MISSING', `${appearancePath}.evidenceRefs`, '歌唱実績の根拠参照を動画で解決できません。'));
+      }
+      if (video.durationSeconds === null || appearance.startSeconds >= video.durationSeconds) {
+        issues.push(issue('SONG_START_OUT_OF_RANGE', `${appearancePath}.startSeconds`, '歌唱開始秒は動画長未満にしてください。'));
+      }
+      if (appearance.endSeconds !== undefined && (
+        appearance.endSeconds <= appearance.startSeconds
+        || video.durationSeconds === null
+        || appearance.endSeconds > video.durationSeconds
+      )) {
+        issues.push(issue('SONG_END_OUT_OF_RANGE', `${appearancePath}.endSeconds`, '歌唱終了秒は開始後かつ動画長以内にしてください。'));
+      }
+      if (appearance.performanceType === '鼻歌' && appearance.endSeconds === undefined) {
+        issues.push(issue('HUMMING_END_MISSING', `${appearancePath}.endSeconds`, '鼻歌は場面の範囲を示す終了秒も必要です。'));
+      }
+      if (appearance.timestampId) {
+        const timestamp = video.timestamps.status === '作成済み'
+          ? video.timestamps.items.find((item) => item.timestampId === appearance.timestampId)
+          : undefined;
+        if (!timestamp || timestamp.startSeconds !== appearance.startSeconds) {
+          issues.push(issue('SONG_TIMESTAMP_MISMATCH', `${appearancePath}.timestampId`, '歌唱実績の開始秒と承認済みタイムスタンプが一致しません。'));
+        }
+      }
+    }
+  }
   return issues;
 }
 

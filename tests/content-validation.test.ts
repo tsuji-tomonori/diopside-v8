@@ -5,12 +5,19 @@ import {
   channelPersonMappingsSchema,
   publicIndexSchema,
   collaborationProfilesSchema,
+  songPerformanceCatalogSchema,
   tagAliasesSchema,
   tagTaxonomySchema,
   workIntroductionsSchema,
 } from '../src/domain/content.ts';
 import { normalizeTagAlias } from '../src/domain/search.ts';
-import { scanPublicBoundary, validateCanonicalVideo, validateChannelPersonMappings, validateTaxonomy } from '../src/domain/validation.ts';
+import {
+  scanPublicBoundary,
+  validateCanonicalVideo,
+  validateChannelPersonMappings,
+  validateSongPerformanceCatalog,
+  validateTaxonomy,
+} from '../src/domain/validation.ts';
 import { readCanonicalVideos } from '../scripts/canonical-store.ts';
 import { classifyLegacyVideo } from '../scripts/legacy-content.ts';
 import { readSourceShards } from '../scripts/source-shards.ts';
@@ -24,6 +31,8 @@ const videos = readCanonicalVideos(root);
 const workIntroductions = workIntroductionsSchema.parse(json('content/works/work-introductions.json'));
 const collaborationProfiles = collaborationProfilesSchema.parse(json('content/people/collaboration-profiles.json'));
 const channelPersonMappings = channelPersonMappingsSchema.parse(json('content/people/channel-person-mappings.json'));
+const songPerformancesInput = json('content/songs/song-performances.json');
+const songPerformances = songPerformanceCatalogSchema.parse(songPerformancesInput);
 
 describe('タグ・動画正本と公開境界', () => {
   it('7大分類・30小分類・不変タグID・別名を一貫して検証する', () => {
@@ -241,6 +250,48 @@ describe('タグ・動画正本と公開境界', () => {
       accounted.add(unavailable.tagId);
     }
     expect(accounted).toEqual(workTagIds);
+  });
+
+  it('歌唱実績は原曲リンク・動画・開始秒・根拠を解決し、歌ってみたと配信内歌唱を持つ', () => {
+    expect(validateSongPerformanceCatalog(songPerformancesInput, videos)).toEqual([]);
+    expect(songPerformances.songs.every((song) => song.original.url.startsWith('https://'))).toBe(true);
+    const appearances = songPerformances.songs.flatMap((song) => song.appearances);
+    expect(appearances.some((appearance) => appearance.performanceType === '歌ってみた' && appearance.startSeconds === 0)).toBe(true);
+    expect(appearances.some((appearance) => appearance.performanceType === '歌枠' && appearance.startSeconds > 0 && appearance.timestampId)).toBe(true);
+  });
+
+  it('主ジャンルが歌でない通常配信でも、範囲と根拠のある鼻歌を楽曲として登録できる', () => {
+    const video = videos.find((item) => item.videoId === '7keH8yrqabc');
+    if (!video) throw new Error('鼻歌テスト用動画が見つかりません。');
+    const input = {
+      schemaVersion: '1.0.0',
+      updatedAt: '2026-08-25',
+      songs: [{
+        tagId: 'tag-works-songTitle-000000000001',
+        title: '鼻歌テスト曲',
+        original: {
+          artist: 'テスト作者',
+          url: 'https://www.youtube.com/watch?v=e1xCOsgWG0M',
+          sourceLabel: '公式公開',
+          retrievedAt: '2026-08-25',
+        },
+        appearances: [{
+          appearanceId: 'song-appearance-humming-test',
+          videoId: video.videoId,
+          performanceType: '鼻歌',
+          subjectParticipation: true,
+          startSeconds: 10,
+          endSeconds: 18,
+          confidence: '高',
+          evidenceRefs: [video.evidence[0]!.evidenceId],
+          reviewedAt: '2026-08-25T12:00:00+09:00',
+        }],
+      }],
+    };
+    expect(validateSongPerformanceCatalog(input, videos)).toEqual([]);
+    const missingEnd = structuredClone(input);
+    delete (missingEnd.songs[0]!.appearances[0] as { endSeconds?: number }).endSeconds;
+    expect(validateSongPerformanceCatalog(missingEnd, videos).map((item) => item.code)).toContain('HUMMING_END_MISSING');
   });
 });
 
