@@ -1143,7 +1143,7 @@ const seriesPageRequirements = [
     action: 'satisfy',
     object: '公開タイトルまたは承認済み既存タグから定期・連続企画名を直接確認できる動画は当該定期・連続企画名タグを持ち、名称中の「杯」等の部分一致だけでイベント・大会名へ重複分類してはならない。',
     rationale: 'シリーズ各回の取りこぼしと、一般語を大会名の指標として扱う誤分類を同時に防ぐため。',
-    source_refs: ['user:2026-08-25'],
+    source_refs: ['spec/sources/owner-directive-2026-08-25-recurring-series-pages.md', 'user:2026-08-25'],
     acceptance_criteria: [
       {
         id: 'AC-V8-TAG-036-1',
@@ -1166,7 +1166,7 @@ const seriesPageRequirements = [
       design: ['docs/design/generated/system.gen.md', 'content/taxonomy/tag-taxonomy.json'],
       implementation: ['scripts/legacy-content.ts', 'content/videos'],
       tests: ['tests/content-validation.test.ts'],
-      standards: ['user:2026-08-25', 'dev-standard default profile'],
+      standards: ['spec/sources/owner-directive-2026-08-25-recurring-series-pages.md', 'dev-standard default profile'],
     },
     last_changed_by: 'CHG-20260825-recurring-series-pages',
   },
@@ -1182,7 +1182,7 @@ const seriesPageRequirements = [
     action: 'satisfy',
     object: '動画詳細の定期・連続企画名タグは押下可能でなければならず、不変タグIDをURLに持つ一覧ページへ移動して、そのタグを持つ公開動画だけを公開日の新しい順で表示しなければならない。',
     rationale: '同じ定期企画や連続企画の各回を、個別動画から途切れずに探せるようにするため。',
-    source_refs: ['user:2026-08-25'],
+    source_refs: ['spec/sources/owner-directive-2026-08-25-recurring-series-pages.md', 'user:2026-08-25'],
     acceptance_criteria: [
       {
         id: 'AC-V8-DISPLAY-014-1',
@@ -1205,7 +1205,7 @@ const seriesPageRequirements = [
       design: ['docs/design/generated/system.gen.md'],
       implementation: ['src/App.tsx', 'src/features/detail/VideoDetailPage.tsx', 'src/features/series/SeriesDetailPage.tsx'],
       tests: ['tests/content-validation.test.ts', 'src/features/series/SeriesDetailPage.test.tsx', 'e2e/detail.spec.ts'],
-      standards: ['user:2026-08-25', 'dev-standard default profile'],
+      standards: ['spec/sources/owner-directive-2026-08-25-recurring-series-pages.md', 'dev-standard default profile'],
     },
     last_changed_by: 'CHG-20260825-recurring-series-pages',
   },

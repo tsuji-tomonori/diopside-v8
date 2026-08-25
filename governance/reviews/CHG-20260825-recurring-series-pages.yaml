@@ -54,7 +54,8 @@ selected_checks:
     result: pass
     evidence:
       - path:spec/requirements/requirements.json
-    note: 定期・連続企画の分類補正をV8-TAG-036、タグから一覧へ移動する利用者向け挙動をV8-DISPLAY-014として追加した。
+      - path:spec/sources/owner-directive-2026-08-25-recurring-series-pages.md
+    note: 所有者指示を正本資料として保存し、定期・連続企画の分類補正をV8-TAG-036、タグから一覧へ移動する利用者向け挙動をV8-DISPLAY-014として追加した。
   - id: IMP-002
     class: Invariant
     result: pass
@@ -171,6 +172,7 @@ selected_checks:
     result: pass
     evidence:
       - path:spec/requirements/requirements.json
+      - path:spec/sources/owner-directive-2026-08-25-recurring-series-pages.md
     note: 実装とV8-TAG-036の分類規則、およびV8-DISPLAY-014のシリーズ遷移・一覧受入条件が一致する。
   - id: REV-004
     class: Invariant

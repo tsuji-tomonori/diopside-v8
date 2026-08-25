@@ -633,9 +633,9 @@ diopside v8の定期・連続企画名タグとシリーズページは、動画
 - `AC-V8-DISPLAY-014-1` 前提: 動画詳細に定期・連続企画名の承認済みタグが表示されている。条件: 利用者が企画・シリーズ名タグを押す。期待結果: 不変タグIDをURLに持つシリーズページへ移動し、そのタグを持つ公開動画だけを公開日の新しい順で表示する。。
 - `AC-V8-DISPLAY-014-2` 前提: 公開タイトルで同じ定期・連続企画名が明示された複数の動画がある。条件: シリーズページの件数と動画カードを確認する。期待結果: 確認済みの同シリーズ動画を取りこぼさず、他の企画・シリーズの動画を混在させない。。
 
-要求源: user:2026-08-25
+要求源: spec/sources/owner-directive-2026-08-25-recurring-series-pages.md, user:2026-08-25
 検証証跡: tests/content-validation.test.ts, src/features/series/SeriesDetailPage.test.tsx, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/App.tsx,src/features/detail/VideoDetailPage.tsx,src/features/series/SeriesDetailPage.tsx; テスト=tests/content-validation.test.ts,src/features/series/SeriesDetailPage.test.tsx,e2e/detail.spec.ts; 参照資料=user:2026-08-25,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/App.tsx,src/features/detail/VideoDetailPage.tsx,src/features/series/SeriesDetailPage.tsx; テスト=tests/content-validation.test.ts,src/features/series/SeriesDetailPage.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-25-recurring-series-pages.md,dev-standard default profile
 
 ## V8-INGEST-001: 外部ingestion要求はvideo_idだけを含む厳格な11文字契約でなければならない
 
@@ -2237,9 +2237,9 @@ diopside v8の定期・連続企画タグは、公開タイトルまたは承認
 - `AC-V8-TAG-036-1` 前提: 公開タイトルに「#いっ杯晩酌」が明示された動画がある。条件: 承認済みタグ正本を全件検査する。期待結果: 対象14動画すべてが定期・連続企画名「いっ杯晩酌」を持つ。。
 - `AC-V8-TAG-036-2` 前提: 定期・連続企画名そのものに「杯」の文字が含まれる。条件: 旧タグから論理タグを再生成する。期待結果: 名称の部分一致だけを理由にイベント・大会名「いっ杯晩酌」を追加しない。。
 
-要求源: user:2026-08-25
+要求源: spec/sources/owner-directive-2026-08-25-recurring-series-pages.md, user:2026-08-25
 検証証跡: tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=scripts/legacy-content.ts,content/videos; テスト=tests/content-validation.test.ts; 参照資料=user:2026-08-25,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=scripts/legacy-content.ts,content/videos; テスト=tests/content-validation.test.ts; 参照資料=spec/sources/owner-directive-2026-08-25-recurring-series-pages.md,dev-standard default profile
 
 ## V8-TIME-001: タイムスタンプは動画全体を移動するための目次として作り、見どころ候補と別のデータとして扱わなければならない
 
