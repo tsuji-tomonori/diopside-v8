@@ -23,6 +23,9 @@ import { DurationRangeSlider } from './DurationRangeSlider.tsx';
 
 const sortOrders: SortOrder[] = ['関連度順', '公開日の新しい順', '公開日の古い順', '動画長の短い順', '動画長の長い順'];
 const pageSize = 24;
+const durationTagFilterSettleDelayMilliseconds = 100;
+
+type DurationFilter = Pick<SearchCondition, 'durationBucket' | 'durationMinMinutes' | 'durationMaxMinutes'>;
 
 export function SearchPage(): React.JSX.Element {
   const bundle = useBundle();
@@ -38,6 +41,11 @@ export function SearchPage(): React.JSX.Element {
   const [suggestionsOpen, setSuggestionsOpen] = useState(false);
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
   const [appliedCondition, setAppliedCondition] = useState<SearchCondition | null>(null);
+  const [settledDurationFilter, setSettledDurationFilter] = useState<DurationFilter>(() => durationFilterOf(
+    draft.durationBucket,
+    draft.durationMinMinutes,
+    draft.durationMaxMinutes,
+  ));
   const searchStartedAt = useRef<number | null>(null);
   const searchComputationMs = useRef(0);
   const pendingParams = useRef<URLSearchParams | null>(null);
@@ -105,7 +113,18 @@ export function SearchPage(): React.JSX.Element {
     return nextResults;
   }, [bundle.searchIndex.videos, condition]);
   const selected = new Set(draft.tagIds);
-  const draftResults = useMemo(() => applySearch(bundle.searchIndex.videos, draft), [bundle.searchIndex.videos, draft]);
+  const tagFilterCondition = useMemo<SearchCondition>(() => ({
+    query: draft.query,
+    tagIds: draft.tagIds,
+    ...(draft.publishedFrom ? { publishedFrom: draft.publishedFrom } : {}),
+    ...(draft.publishedTo ? { publishedTo: draft.publishedTo } : {}),
+    ...(draft.sort ? { sort: draft.sort } : {}),
+    ...settledDurationFilter,
+  }), [draft.publishedFrom, draft.publishedTo, draft.query, draft.sort, draft.tagIds, settledDurationFilter]);
+  const draftResults = useMemo(
+    () => applySearch(bundle.searchIndex.videos, tagFilterCondition),
+    [bundle.searchIndex.videos, tagFilterCondition],
+  );
   const draftResultCount = draftResults.length;
   const tagCounts = useMemo(() => tagCountsForResults(draftResults), [draftResults]);
   const availableTagIds = new Set(tags.flatMap((tag) => (
@@ -122,6 +141,17 @@ export function SearchPage(): React.JSX.Element {
       setAppliedCondition(null);
     }
   }, [appliedCondition, urlCondition]);
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setSettledDurationFilter(durationFilterOf(
+        draft.durationBucket,
+        draft.durationMinMinutes,
+        draft.durationMaxMinutes,
+      ));
+    }, durationTagFilterSettleDelayMilliseconds);
+    return () => window.clearTimeout(timeoutId);
+  }, [draft.durationBucket, draft.durationMaxMinutes, draft.durationMinMinutes]);
 
   useLayoutEffect(() => {
     if (searchStartedAt.current === null) return;
@@ -529,5 +559,17 @@ function searchFilterBounds(videos: Array<{ publishedAt: string; durationSeconds
     minimumDate: minimumDate || today,
     maximumDate: maximumDate || today,
     maximumDurationMinutes: Math.max(240, Math.ceil(maximumDurationSeconds / 1800) * 30),
+  };
+}
+
+function durationFilterOf(
+  durationBucket: DurationBucket | undefined,
+  durationMinMinutes: number | undefined,
+  durationMaxMinutes: number | undefined,
+): DurationFilter {
+  return {
+    ...(durationBucket ? { durationBucket } : {}),
+    ...(durationMinMinutes !== undefined ? { durationMinMinutes } : {}),
+    ...(durationMaxMinutes !== undefined ? { durationMaxMinutes } : {}),
   };
 }

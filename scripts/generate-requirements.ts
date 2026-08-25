@@ -1198,6 +1198,41 @@ const searchSuggestionRequirements = [
     last_changed_by: 'CHG-20260820-search-suggestions',
   },
 ];
+const searchInteractionRequirements = [
+  {
+    id: 'V8-SEARCH-022',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'nonfunctional',
+    type: 'quality',
+    title: '動画長Sliderの連続操作中はタグ候補と画面高を固定し、停止後100ミリ秒で更新しなければならない',
+    subject: 'diopside v8の動画長Slider',
+    action: 'satisfy',
+    object: '動画長Sliderの連続入力中と最後の入力から100ミリ秒未満は、つまみと現在値だけを即時更新し、動画長に応じたタグ候補・件数と画面の縦方向の長さを変更してはならない。最後の入力から約100ミリ秒後に、最新の動画長を使ってタグ候補と件数を一度だけ更新しなければならない。',
+    rationale: 'Slider操作中にタグ欄の増減で画面高が変わり、つまみの位置が動いて操作を妨げることを防ぐため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-25-duration-slider-stability.md', 'user:2026-08-25'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-SEARCH-022-1',
+        given: 'タグ候補を展開した状態で動画長Sliderを連続操作する',
+        when: 'Slider入力が継続している間、最後の入力から100ミリ秒未満、および約100ミリ秒経過後を確認する',
+        then: '操作中はつまみと現在値だけが即時更新され、タグ候補・件数と画面高は固定される。停止約100ミリ秒後に最新の動画長でタグ候補と件数が一度だけ更新される。',
+      },
+    ],
+    verification: {
+      method: 'Slider連続入力中のタグ候補数・画面高固定と停止100ミリ秒後の更新試験',
+      evidence: 'e2e/search.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/features/search/SearchPage.tsx'],
+      tests: ['e2e/search.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-25-duration-slider-stability.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260825-duration-slider-stability',
+  },
+];
 const generatedRequirements = [
   ...requirements,
   ...ownerDirectiveRequirements,
@@ -1206,6 +1241,7 @@ const generatedRequirements = [
   ...workPageRequirements,
   ...collaborationPageRequirements,
   ...searchSuggestionRequirements,
+  ...searchInteractionRequirements,
 ];
 const issue465OverrideIds = new Set([
   'V8-COST-001',
@@ -1226,7 +1262,7 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 11, 12),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 16, 17),
   product: 'diopside v8',
   updated_at: '2026-08-25',
   requirements: canonicalRequirements,
@@ -1242,4 +1278,4 @@ writeFileSync(mapPath, `${JSON.stringify({
   })),
 }, null, 2)}\n`);
 
-console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + collaborationPageRequirements.length + searchSuggestionRequirements.length}件の要件正本を生成しました。`);
+console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + collaborationPageRequirements.length + searchSuggestionRequirements.length + searchInteractionRequirements.length}件の要件正本を生成しました。`);
