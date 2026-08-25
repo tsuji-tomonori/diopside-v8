@@ -32,7 +32,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "cb43a049e88f66a4429ce76692820df918ece65a0257a270b39d77e60b49e393"
+      "sha256": "1f3dd02c51d2285e66e0cb442bcd5227d73dcae0c1a7cb48770a1d71fd6b7f72"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -56,7 +56,7 @@
     },
     {
       "path": "scripts/legacy-content.ts",
-      "sha256": "b4c03b4039fb0aec56c688f618314ca8b0f5a3d5d89a06c0ce0463669a8a1895"
+      "sha256": "4643ef9c73e1ad0dfcdc2707cc8803f060dc8e8c2b206ae1acc72f729637c1ef"
     },
     {
       "path": "scripts/lib.ts",
@@ -104,7 +104,7 @@
     },
     {
       "path": "src/App.tsx",
-      "sha256": "f9558d5b040f05f17fd98a7008a1f4b09109a2f04c16e541272a7376f1c1c974"
+      "sha256": "f6ece8071d227b63a380c4babbcde6cc8ab8663894f0655a05b68b8647e89c32"
     },
     {
       "path": "src/components/Header.tsx",
@@ -184,7 +184,7 @@
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
-      "sha256": "4f2c863e5b5598f2194529934806697d88cb620f5923104a20571cca2c6f39a2"
+      "sha256": "d34886052bcfe7350e6c336a3ea6aba348ba84c71211e8aa0be01684934cb62c"
     },
     {
       "path": "src/features/library/DeviceLibraryPage.tsx",
@@ -205,6 +205,14 @@
     {
       "path": "src/features/search/SearchPage.tsx",
       "sha256": "24a58687724454e1154f46e15cfc86d69c49183edee9458e5e1fba913eca4933"
+    },
+    {
+      "path": "src/features/series/SeriesDetailPage.test.tsx",
+      "sha256": "6bd8171c9af6fbee4eb9fb08b345f8e57eaf2ca83d0abcf550740b7cc5f4dbfd"
+    },
+    {
+      "path": "src/features/series/SeriesDetailPage.tsx",
+      "sha256": "d3dddb9b72effce18f6c9cd06f1a3a10843252892ee1fec68d92ae6cb4ed6cab"
     },
     {
       "path": "src/features/works/WorkDetailPage.test.tsx",
@@ -890,6 +898,11 @@
       "kind": "FunctionDeclaration"
     },
     {
+      "file": "src/features/series/SeriesDetailPage.tsx",
+      "name": "SeriesDetailPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
       "file": "src/features/works/WorkDetailPage.tsx",
       "name": "WorkDetailPage",
       "kind": "FunctionDeclaration"
@@ -916,6 +929,7 @@
     "/collaborators/:tagId",
     "/groups/:tagId",
     "/library",
+    "/series/:tagId",
     "/video/:videoId",
     "/works/:tagId"
   ],
@@ -931,6 +945,7 @@
     "src/domain/validation.test.ts",
     "src/features/collaborations/CollaborationDetailPages.test.tsx",
     "src/features/search/SearchFilterControls.test.tsx",
+    "src/features/series/SeriesDetailPage.test.tsx",
     "src/features/works/WorkDetailPage.test.tsx"
   ]
 }
