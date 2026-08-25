@@ -52,6 +52,12 @@
       "inputFingerprint": "5ddada1743f654410a938b7dee0106b17cc202f1b5e8f89b86fc69835cf773d2",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 5713
+    },
+    {
+      "evidenceId": "evidence-collaboration-horizontal",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
+      "inputFingerprint": "65fc46673c965a71fce1350ff96620954a87b9c0ff53086ad067f0d8c843aaf0"
     }
   ],
   "tagAssignments": [
@@ -108,6 +114,42 @@
         "evidence-title"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-unit-23ef0b95ff38",
+      "reason": "公開タイトル・参加者情報からコンビ・ユニット名「フルトイ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-b0469a7d02e8",
+      "reason": "人物名「フミ」をコンビ・ユニット「フルトイ」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-b1f239b005c7",
+      "reason": "人物名「ルイス・キャミー」をコンビ・ユニット「フルトイ」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "公開タイトル・参加者情報から参加形態「コラボ」を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
     }
   ],
   "timestamps": {
@@ -279,8 +321,8 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+    "approvedAt": "2026-08-25T23:20:56+09:00",
+    "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
   },
   "synopsis": {
     "body": "フルトイの白雪巴・フミ・ルイスが『スーパーマリオパーティ』で対決。個性豊かなマップを進み、ミニゲームやアイテムをめぐって一喜一憂しながら、罰ゲームをかけた勝負に挑む。仲良しならではの掛け合いも楽しいコラボ。",
