@@ -3,6 +3,10 @@
   "generator": "scripts/generate-design.ts",
   "sourceDigests": [
     {
+      "path": "scripts/audit-collaboration-tags.ts",
+      "sha256": "fbda33a70c0dc9330a4de9e0a214bbdd791dfd75ca2fb7ba25e83da0929666d5"
+    },
+    {
       "path": "scripts/audit-game-tags.ts",
       "sha256": "295525aeb86815c096f570d5965d42baa92e01f7ea358028e0022429842d8204"
     },
@@ -133,6 +137,14 @@
     {
       "path": "src/data/loadPublicData.ts",
       "sha256": "6666073cf8b335c46c9693c46a2a65e417f2029c433e7974181290e71b54d550"
+    },
+    {
+      "path": "src/domain/collaboration-group-audit.test.ts",
+      "sha256": "129dbd6473dab9d123ad9f3555a4d6bfbdfff7e22b9c02b968054789bb71d1a8"
+    },
+    {
+      "path": "src/domain/collaboration-group-audit.ts",
+      "sha256": "91a90a7642d3e9160dbc1c595f0f2be85a0e15157c5dd9b45b45d8b2d51c6135"
     },
     {
       "path": "src/domain/collaboration.test.ts",
@@ -461,6 +473,36 @@
       "file": "src/data/loadPublicData.ts",
       "name": "PublicDataError",
       "kind": "ClassDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "auditCollaborationGroupTags",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditAlias",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditGroup",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditResult",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditSource",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditVideo",
+      "kind": "TypeAliasDeclaration"
     },
     {
       "file": "src/domain/collaboration.ts",
@@ -939,6 +981,7 @@
     "e2e/search.spec.ts",
     "src/data/deviceStore.test.ts",
     "src/data/loadPublicData.test.ts",
+    "src/domain/collaboration-group-audit.test.ts",
     "src/domain/collaboration.test.ts",
     "src/domain/game-title-detection.test.ts",
     "src/domain/search.test.ts",

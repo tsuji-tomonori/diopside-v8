@@ -52,6 +52,12 @@
       "inputFingerprint": "2f20572d25c2821042a20b8a8f67922d58e6210682019f9c6b136173e7f82aa2",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 7013
+    },
+    {
+      "evidenceId": "evidence-collaboration-horizontal",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
+      "inputFingerprint": "a8a39946a21dd9a46b04a345aeb858f1326bba40148f770fe0c8f14018bcb107"
     }
   ],
   "tagAssignments": [
@@ -90,6 +96,33 @@
         "evidence-approved-tags"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-unit-01148a0ec454",
+      "reason": "公開タイトル・参加者情報からコンビ・ユニット名「Crossick」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-0d5a94165597",
+      "reason": "人物名「健屋花那」をコンビ・ユニット「Crossick」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "公開タイトル・参加者情報から参加形態「コラボ」を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
     }
   ],
   "timestamps": {
@@ -342,8 +375,8 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+    "approvedAt": "2026-08-25T23:20:56+09:00",
+    "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
   },
   "synopsis": {
     "body": "白雪巴と健屋花那が、にじさんじランドのステージを終えた夜にオフコラボ。乾杯と料理を囲み、リアルイベントの緊張や即興芝居、会場の反応を振り返りながら、サプライズの思い出や二人の活動、これから届けたい時間をゆっくり語ります。",

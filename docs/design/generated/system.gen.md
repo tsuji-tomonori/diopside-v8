@@ -94,6 +94,12 @@
 | `src/data/loadPublicData.ts` | FunctionDeclaration | `loadVideoDetail` |
 | `src/data/loadPublicData.ts` | InterfaceDeclaration | `PublicBundle` |
 | `src/data/loadPublicData.ts` | ClassDeclaration | `PublicDataError` |
+| `src/domain/collaboration-group-audit.ts` | VariableStatement | `auditCollaborationGroupTags` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditAlias` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditGroup` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditResult` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditSource` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditVideo` |
 | `src/domain/collaboration.ts` | InterfaceDeclaration | `CollaborationCandidate` |
 | `src/domain/collaboration.ts` | TypeAliasDeclaration | `CollaborationSelectionPolicy` |
 | `src/domain/collaboration.ts` | FunctionDeclaration | `selectCollaboratorNames` |
@@ -194,6 +200,7 @@
 - `e2e/search.spec.ts`
 - `src/data/deviceStore.test.ts`
 - `src/data/loadPublicData.test.ts`
+- `src/domain/collaboration-group-audit.test.ts`
 - `src/domain/collaboration.test.ts`
 - `src/domain/game-title-detection.test.ts`
 - `src/domain/search.test.ts`
@@ -205,4 +212,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力57ファイル、公開契約138件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力60ファイル、公開契約144件です。
