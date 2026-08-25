@@ -20,6 +20,7 @@
 - `/collaborators/:tagId`
 - `/groups/:tagId`
 - `/library`
+- `/series/:tagId`
 - `/video/:videoId`
 - `/works/:tagId`
 
@@ -29,15 +30,15 @@
 |---|---:|
 | COST | 5 |
 | DEVICE | 11 |
-| DISPLAY | 13 |
+| DISPLAY | 14 |
 | INGEST | 12 |
 | OPS | 26 |
 | QUALITY | 5 |
 | SAFETY | 4 |
 | SEARCH | 22 |
-| TAG | 35 |
+| TAG | 36 |
 | TIME | 37 |
-| **合計** | **170** |
+| **合計** | **172** |
 
 ## 公開データの流れ
 
@@ -93,6 +94,12 @@
 | `src/data/loadPublicData.ts` | FunctionDeclaration | `loadVideoDetail` |
 | `src/data/loadPublicData.ts` | InterfaceDeclaration | `PublicBundle` |
 | `src/data/loadPublicData.ts` | ClassDeclaration | `PublicDataError` |
+| `src/domain/collaboration-group-audit.ts` | VariableStatement | `auditCollaborationGroupTags` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditAlias` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditGroup` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditResult` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditSource` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditVideo` |
 | `src/domain/collaboration.ts` | InterfaceDeclaration | `CollaborationCandidate` |
 | `src/domain/collaboration.ts` | TypeAliasDeclaration | `CollaborationSelectionPolicy` |
 | `src/domain/collaboration.ts` | FunctionDeclaration | `selectCollaboratorNames` |
@@ -180,6 +187,7 @@
 | `src/features/search/DateRangePicker.tsx` | FunctionDeclaration | `DateRangePicker` |
 | `src/features/search/DurationRangeSlider.tsx` | FunctionDeclaration | `DurationRangeSlider` |
 | `src/features/search/SearchPage.tsx` | FunctionDeclaration | `SearchPage` |
+| `src/features/series/SeriesDetailPage.tsx` | FunctionDeclaration | `SeriesDetailPage` |
 | `src/features/works/WorkDetailPage.tsx` | FunctionDeclaration | `WorkDetailPage` |
 | `src/format.ts` | FunctionDeclaration | `formatDate` |
 | `src/format.ts` | FunctionDeclaration | `formatDuration` |
@@ -192,14 +200,16 @@
 - `e2e/search.spec.ts`
 - `src/data/deviceStore.test.ts`
 - `src/data/loadPublicData.test.ts`
+- `src/domain/collaboration-group-audit.test.ts`
 - `src/domain/collaboration.test.ts`
 - `src/domain/game-title-detection.test.ts`
 - `src/domain/search.test.ts`
 - `src/domain/validation.test.ts`
 - `src/features/collaborations/CollaborationDetailPages.test.tsx`
 - `src/features/search/SearchFilterControls.test.tsx`
+- `src/features/series/SeriesDetailPage.test.tsx`
 - `src/features/works/WorkDetailPage.test.tsx`
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力55ファイル、公開契約137件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力60ファイル、公開契約144件です。

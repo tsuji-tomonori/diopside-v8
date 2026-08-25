@@ -12,6 +12,7 @@ import {
 import { normalizeTagAlias } from '../src/domain/search.ts';
 import { scanPublicBoundary, validateCanonicalVideo, validateChannelPersonMappings, validateTaxonomy } from '../src/domain/validation.ts';
 import { readCanonicalVideos } from '../scripts/canonical-store.ts';
+import { classifyLegacyVideo } from '../scripts/legacy-content.ts';
 import { readSourceShards } from '../scripts/source-shards.ts';
 
 const root = process.cwd();
@@ -82,6 +83,56 @@ describe('タグ・動画正本と公開境界', () => {
     const callInPeople = callIn?.tagAssignments.filter((assignment) => assignment.tagId.startsWith('tag-people-performer-')).map((assignment) => lookup.get(assignment.tagId));
     expect(callInPeople).toEqual(['神田笑一']);
     expect(radio?.tagAssignments.map((assignment) => lookup.get(assignment.tagId))).not.toContain('コラボ');
+  });
+
+  it('公開タイトルで明示された定期・連続企画をシリーズ全件へ付与する', () => {
+    const recurringSeries = taxonomy.categories
+      .find((category) => category.categoryId === 'program')
+      ?.subcategories.find((subcategory) => subcategory.subcategoryId === 'recurringSeries');
+    const falseEventTagId = taxonomy.categories
+      .find((category) => category.categoryId === 'program')
+      ?.subcategories.find((subcategory) => subcategory.subcategoryId === 'event')
+      ?.tags.find((tag) => tag.canonicalName === 'いっ杯晩酌')?.tagId;
+    const cases = [
+      { name: 'いっ杯晩酌', titleFragment: '#いっ杯晩酌', expectedCount: 14 },
+      { name: 'バーチャル3分劇場', titleFragment: 'バーチャル3分劇場', expectedCount: 14 },
+    ];
+    expect(falseEventTagId, '誤分類を検出するイベントタグ').toBeDefined();
+
+    for (const item of cases) {
+      const tagId = recurringSeries?.tags.find((tag) => tag.canonicalName === item.name)?.tagId;
+      expect(tagId, `${item.name}の定期・連続企画タグ`).toBeDefined();
+      const seriesVideos = videos.filter((video) => video.title.includes(item.titleFragment));
+      expect(seriesVideos, `${item.name}の動画件数`).toHaveLength(item.expectedCount);
+      for (const video of seriesVideos) {
+        expect(video.tagAssignments.some((assignment) => assignment.tagId === tagId), video.videoId).toBe(true);
+        if (item.name === 'いっ杯晩酌') {
+          expect(video.tagAssignments.some((assignment) => assignment.tagId === falseEventTagId), video.videoId).toBe(false);
+        }
+      }
+    }
+  });
+
+  it('定期・連続企画名の「杯」をイベント・大会名へ誤分類しない', () => {
+    const logicalTags = classifyLegacyVideo({
+      videoId: '9AG7wO0Ua0w',
+      title: '【晩酌】一杯飲み終わるまでほろ酔いトーク #いっ杯晩酌 12軒目',
+      durationSeconds: 5528,
+      channelName: '白雪 巴/Shirayuki Tomoe',
+      legacyTags: ['雑談', '晩酌', 'いっ杯晩酌'],
+      hasApprovedTimestamps: true,
+    }, { gameTitles: [], gameGenres: new Map() });
+
+    expect(logicalTags).toContainEqual(expect.objectContaining({
+      categoryId: 'program',
+      subcategoryId: 'recurringSeries',
+      canonicalName: 'いっ杯晩酌',
+    }));
+    expect(logicalTags).not.toContainEqual(expect.objectContaining({
+      categoryId: 'program',
+      subcategoryId: 'event',
+      canonicalName: 'いっ杯晩酌',
+    }));
   });
 
   it('探索した既存データとv8固有動画を全件検証する', () => {
