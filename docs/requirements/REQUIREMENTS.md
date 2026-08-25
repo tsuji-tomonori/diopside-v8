@@ -1,7 +1,7 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 16
+- カタログ版: 17
 - 更新日: 2026-08-25
 - 正本: `spec/requirements/requirements.json`
 
@@ -104,6 +104,7 @@
 | `V8-SEARCH-019` | 1 | 有効 | 品質 | diopside v8の検索は、あいまい検索の品質を、版管理した日本語の固定評価データで検証しなければならない。を**satisfy** | 検索品質試験 |
 | `V8-SEARCH-020` | 1 | 有効 | 機能 | diopside v8の検索候補は、検索欄は一文字以上の入力中に、承認済み動画タイトルと登録済みタグ名の一致候補を種類が分かる形で提示しなければならない。動画候補の選択は動画詳細へ移動し、タグ候補の選択は不変タグIDを絞り込み条件へ適用して動画一覧を更新しなければならない。を**satisfy** | 候補生成単体試験・IME・キーボード・ポインター画面試験 |
 | `V8-SEARCH-021` | 1 | 有効 | 機能 | diopside v8の検索読みは、漢字またはカタカナを含む承認済み動画タイトルと登録済みタグ名は、表示文字列を変えずに検索専用のひらがな読みを持ち、ひらがなの入力が一文字増えるたびに候補を更新しなければならない。読みの生成と候補照合は静的生成物とブラウザ内処理だけで完結しなければならない。を**satisfy** | 読み生成単体試験・一文字ごとの候補更新・IME・外部通信禁止画面試験 |
+| `V8-SEARCH-022` | 1 | 有効 | 品質 | diopside v8の動画長Sliderは、動画長Sliderの連続入力中と最後の入力から100ミリ秒未満は、つまみと現在値だけを即時更新し、動画長に応じたタグ候補・件数と画面の縦方向の長さを変更してはならない。最後の入力から約100ミリ秒後に、最新の動画長を使ってタグ候補と件数を一度だけ更新しなければならない。を**satisfy** | Slider連続入力中のタグ候補数・画面高固定と停止100ミリ秒後の更新試験 |
 | `V8-TAG-001` | 1 | 有効 | データ | diopside v8のタグは、承認済み動画のタグは、版管理したタグ体系に基づかなければならない。を**satisfy** | 構造試験・追跡性確認 |
 | `V8-TAG-002` | 1 | 有効 | データ | diopside v8のタグは、タグは大分類、小分類、タグの3層で管理し、表示名だけの平坦な配列を正本にしてはならない。を**satisfy** | 構造試験 |
 | `V8-TAG-003` | 1 | 有効 | データ | diopside v8のタグは、各正規タグは表示名と独立した不変タグ識別子を持たなければならない。を**satisfy** | 移行試験 |
@@ -1663,6 +1664,21 @@ diopside v8の検索読みは、漢字またはカタカナを含む承認済み
 要求源: spec/sources/owner-directive-2026-08-20-search-suggestions.md, user:2026-08-20
 検証証跡: tests/japanese-reading.test.ts, src/domain/search.test.ts, e2e/search.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=content/search/reading-overrides.json,scripts/japanese-reading.ts,scripts/build-public-data.ts,src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=tests/japanese-reading.test.ts,src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-20-search-suggestions.md,dev-standard default profile
+
+## V8-SEARCH-022: 動画長Sliderの連続操作中はタグ候補と画面高を固定し、停止後100ミリ秒で更新しなければならない
+
+diopside v8の動画長Sliderは、動画長Sliderの連続入力中と最後の入力から100ミリ秒未満は、つまみと現在値だけを即時更新し、動画長に応じたタグ候補・件数と画面の縦方向の長さを変更してはならない。最後の入力から約100ミリ秒後に、最新の動画長を使ってタグ候補と件数を一度だけ更新しなければならない。を**satisfy**。
+
+根拠: Slider操作中にタグ欄の増減で画面高が変わり、つまみの位置が動いて操作を妨げることを防ぐため。
+
+分類: `product` / `nonfunctional`
+
+受入条件:
+- `AC-V8-SEARCH-022-1` 前提: タグ候補を展開した状態で動画長Sliderを連続操作する。条件: Slider入力が継続している間、最後の入力から100ミリ秒未満、および約100ミリ秒経過後を確認する。期待結果: 操作中はつまみと現在値だけが即時更新され、タグ候補・件数と画面高は固定される。停止約100ミリ秒後に最新の動画長でタグ候補と件数が一度だけ更新される。。
+
+要求源: spec/sources/owner-directive-2026-08-25-duration-slider-stability.md, user:2026-08-25
+検証証跡: e2e/search.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/search/SearchPage.tsx; テスト=e2e/search.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-25-duration-slider-stability.md,dev-standard default profile
 
 ## V8-TAG-001: 承認済み動画のタグは、版管理したタグ体系に基づかなければならない
 

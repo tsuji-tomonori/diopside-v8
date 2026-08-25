@@ -110,6 +110,39 @@ test.describe('動画検索', () => {
     expect(page.url()).not.toContain('tag=');
   });
 
+  test('動画長Sliderの連続操作中はタグ候補と画面高を固定し、停止100ミリ秒後に更新する', async ({ page }) => {
+    await preparePage(page);
+    await openSearch(page);
+    await page.getByText('タグ・公開日・動画長で絞り込む').click();
+
+    const tagLayout = async (): Promise<{ tagCount: number; documentHeight: number }> => page.evaluate(() => ({
+      tagCount: document.querySelectorAll('.tag-choice').length,
+      documentHeight: document.documentElement.scrollHeight,
+    }));
+    const before = await tagLayout();
+    const maximumSlider = page.getByLabel('最大（分）');
+
+    await maximumSlider.evaluate(async (element) => {
+      const input = element as HTMLInputElement;
+      const values = [600, 480, 360, 240, 120, 60, 30, 1];
+      for (const [index, value] of values.entries()) {
+        input.value = String(value);
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+        if (index < values.length - 1) await new Promise((resolve) => window.setTimeout(resolve, 40));
+      }
+    });
+
+    await expect(maximumSlider).toHaveValue('1');
+    expect(await tagLayout()).toEqual(before);
+    await page.waitForTimeout(50);
+    expect(await tagLayout()).toEqual(before);
+
+    await expect.poll(async () => (await tagLayout()).tagCount).toBeLessThan(before.tagCount);
+    const settled = await tagLayout();
+    expect(settled.documentHeight).toBeLessThan(before.documentHeight);
+  });
+
   test('375px幅で絞り込みフォームとヘッダーが画面外へはみ出さない', async ({ page }, testInfo) => {
     test.skip(testInfo.project.name !== 'モバイル', 'モバイル固有のレスポンシブ回帰を検証します。');
     await preparePage(page);
