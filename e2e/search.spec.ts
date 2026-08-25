@@ -122,10 +122,14 @@ test.describe('動画検索', () => {
     const before = await tagLayout();
     const maximumSlider = page.getByLabel('最大（分）');
 
-    await maximumSlider.evaluate(async (element) => {
+    const checkpoints = await maximumSlider.evaluate(async (element) => {
       const input = element as HTMLInputElement;
       const valueSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
       if (!valueSetter) throw new Error('range inputのnative value setterを取得できません。');
+      const currentTagLayout = (): { tagCount: number; documentHeight: number } => ({
+        tagCount: document.querySelectorAll('.tag-choice').length,
+        documentHeight: document.documentElement.scrollHeight,
+      });
       const values = [600, 480, 360, 240, 120, 60, 30, 1];
       for (const [index, value] of values.entries()) {
         valueSetter.call(input, String(value));
@@ -133,12 +137,14 @@ test.describe('動画検索', () => {
         input.dispatchEvent(new Event('change', { bubbles: true }));
         if (index < values.length - 1) await new Promise((resolve) => window.setTimeout(resolve, 40));
       }
+      const immediate = currentTagLayout();
+      await new Promise((resolve) => window.setTimeout(resolve, 50));
+      return { sliderValue: input.value, immediate, afterFiftyMilliseconds: currentTagLayout() };
     });
 
-    await expect(maximumSlider).toHaveValue('1');
-    expect(await tagLayout()).toEqual(before);
-    await page.waitForTimeout(50);
-    expect(await tagLayout()).toEqual(before);
+    expect(checkpoints.sliderValue).toBe('1');
+    expect(checkpoints.immediate).toEqual(before);
+    expect(checkpoints.afterFiftyMilliseconds).toEqual(before);
 
     await expect.poll(async () => (await tagLayout()).tagCount).toBeLessThan(before.tagCount);
     const settled = await tagLayout();
