@@ -108,7 +108,7 @@ selected_checks:
     result: pass
     evidence:
       - test:e2e/search.spec.ts
-    note: 連続Slider入力のたびにタグ候補数とdocument高が変わる旧挙動では失敗する再現条件を固定した。
+    note: 連続Slider入力のたびにタグ候補数とdocument高が変わる旧挙動では失敗する再現条件を固定した。初回CIではDOM値だけを変えてReact stateへ入力が届かなかったため、native value setter経由の実入力再現へ修正した。
   - id: FAST-006
     class: Invariant
     result: pass

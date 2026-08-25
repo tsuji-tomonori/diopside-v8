@@ -124,9 +124,11 @@ test.describe('動画検索', () => {
 
     await maximumSlider.evaluate(async (element) => {
       const input = element as HTMLInputElement;
+      const valueSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
+      if (!valueSetter) throw new Error('range inputのnative value setterを取得できません。');
       const values = [600, 480, 360, 240, 120, 60, 30, 1];
       for (const [index, value] of values.entries()) {
-        input.value = String(value);
+        valueSetter.call(input, String(value));
         input.dispatchEvent(new Event('input', { bubbles: true }));
         input.dispatchEvent(new Event('change', { bubbles: true }));
         if (index < values.length - 1) await new Promise((resolve) => window.setTimeout(resolve, 40));
@@ -364,7 +366,9 @@ function searchCode(index: number): string {
 async function setRangeValue(locator: Locator, value: number): Promise<void> {
   await locator.evaluate((element, nextValue) => {
     const input = element as HTMLInputElement;
-    input.value = String(nextValue);
+    const valueSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
+    if (!valueSetter) throw new Error('range inputのnative value setterを取得できません。');
+    valueSetter.call(input, String(nextValue));
     input.dispatchEvent(new Event('input', { bubbles: true }));
     input.dispatchEvent(new Event('change', { bubbles: true }));
   }, value);
