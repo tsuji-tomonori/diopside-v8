@@ -387,6 +387,83 @@ const requirements = sourceRequirements.map((item) => {
     };
     requirement.last_changed_by = 'CHG-20260820-auto-apply-tag-search';
   }
+  if (id === 'V8-SEARCH-011') {
+    requirement.revision = 2;
+    requirement.title = '公開日の開始日と終了日は一つの日付範囲Pickerで選択でき、日本標準時の日付として両端を含めて絞り込まなければならない';
+    requirement.object = '公開日の開始日と終了日は一つの日付範囲Pickerで選択でき、日本標準時の日付として両端を含めて絞り込まなければならない。';
+    requirement.rationale = '利用者が期間全体と両端を一つの操作面で把握し、意図した公開アーカイブへ速く絞り込めるようにするため。';
+    requirement.source_refs.push(
+      'spec/sources/owner-directive-2026-08-25-search-filter-controls.md',
+      'user:2026-08-25',
+      'https://www.inspora.design/posts/1-30',
+    );
+    requirement.acceptance_criteria = [
+      {
+        id: 'AC-V8-SEARCH-011-1',
+        given: '公開日フィルターを操作する',
+        when: 'カレンダー上の二つの日付、クイック期間、または開始日・終了日を選択する',
+        then: '開始日、終了日、両端を含む選択期間が一つのPicker内で確認でき、指定なしへ戻せる。',
+      },
+      {
+        id: 'AC-V8-SEARCH-011-2',
+        given: '公開日の開始日または終了日が指定されている',
+        when: '時差・月末・年末・逆転範囲を含む検索を実行する',
+        then: '開始日の0時0分0秒から終了日の23時59分59秒までを含み、URL等から開始日が終了日より後となった場合は日本語で入力誤りを示す。',
+      },
+    ];
+    requirement.verification = {
+      method: '日付範囲Picker操作、時差・月末・年末・逆転範囲試験',
+      evidence: 'src/features/search/SearchFilterControls.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts',
+    };
+    requirement.traces.implementation.push('src/features/search/DateRangePicker.tsx');
+    requirement.traces.tests.push('src/features/search/SearchFilterControls.test.tsx');
+    requirement.last_changed_by = 'CHG-20260825-search-filter-controls';
+  }
+  if (id === 'V8-SEARCH-012') {
+    requirement.revision = 2;
+    requirement.source_refs.push('spec/sources/owner-directive-2026-08-25-search-filter-controls.md', 'user:2026-08-25');
+    requirement.acceptance_criteria = [{
+      id: 'AC-V8-SEARCH-012-1',
+      given: '動画長のクイック区分を選択する',
+      when: '1799、1800、3599、3600、7199、7200秒の境界を含む検索を実行する',
+      then: '各動画は定義された区分に一意に入り、選択した区分と同じ境界がSliderの選択範囲へ反映される。',
+    }];
+    requirement.verification = {
+      method: '動画長区分とSliderの境界値試験',
+      evidence: 'src/features/search/SearchFilterControls.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts',
+    };
+    requirement.traces.implementation.push('src/features/search/DurationRangeSlider.tsx');
+    requirement.traces.tests.push('src/features/search/SearchFilterControls.test.tsx');
+    requirement.last_changed_by = 'CHG-20260825-search-filter-controls';
+  }
+  if (id === 'V8-SEARCH-013') {
+    requirement.revision = 2;
+    requirement.title = '動画長は二つのつまみを持つSliderで分単位の最小値・最大値を選択でき、範囲内の動画だけを表示しなければならない';
+    requirement.object = '動画長は二つのつまみを持つSliderで分単位の最小値・最大値を選択でき、最小値以上かつ最大値以下の動画だけを表示しなければならない。';
+    requirement.rationale = '利用者が動画長の範囲と現在値を視覚的に把握しながら、意図した長さのアーカイブへ絞り込めるようにするため。';
+    requirement.source_refs.push('spec/sources/owner-directive-2026-08-25-search-filter-controls.md', 'user:2026-08-25');
+    requirement.acceptance_criteria = [
+      {
+        id: 'AC-V8-SEARCH-013-1',
+        given: '動画長フィルターを操作する',
+        when: 'Sliderの最小または最大のつまみをマウス、タッチ、またはキーボードで動かす',
+        then: '分単位の片側指定、同値、両側指定ができ、最小値と最大値が交差せず、クイック区分の選択は解除される。',
+      },
+      {
+        id: 'AC-V8-SEARCH-013-2',
+        given: '動画長の範囲が指定されている',
+        when: '範囲境界、動画長不明、またはURL等から最小値が最大値を超える条件で検索する',
+        then: '最小値以上かつ最大値以下の動画だけを表示し、動画長不明を除外し、逆転範囲には日本語で入力誤りを示す。',
+      },
+    ];
+    requirement.verification = {
+      method: 'Slider操作、キーボード、範囲・欠損・誤入力試験',
+      evidence: 'src/features/search/SearchFilterControls.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts',
+    };
+    requirement.traces.implementation.push('src/features/search/DurationRangeSlider.tsx');
+    requirement.traces.tests.push('src/features/search/SearchFilterControls.test.tsx');
+    requirement.last_changed_by = 'CHG-20260825-search-filter-controls';
+  }
   if (['V8-TIME-027', 'V8-TIME-028', 'V8-TIME-029'].includes(id)) {
     requirement.revision = 2;
     requirement.title = `${requirement.title}（新規・変更候補。承認済み旧データ移行は別経路）`;
@@ -1151,7 +1228,7 @@ writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
   catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 11, 12),
   product: 'diopside v8',
-  updated_at: '2026-08-20',
+  updated_at: '2026-08-25',
   requirements: canonicalRequirements,
 }, null, 2)}\n`);
 writeFileSync(mapPath, `${JSON.stringify({

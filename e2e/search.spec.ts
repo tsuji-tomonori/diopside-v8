@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Locator } from '@playwright/test';
 
 import { embeddedReleaseId } from '../src/generated/release.ts';
 
@@ -72,10 +72,14 @@ test.describe('動画検索', () => {
     await expect(page.getByLabel('タグ名または別名から追加')).toBeHidden();
     await expect(page.getByRole('heading', { name: /件の動画$/u })).not.toHaveText(allVideosHeading);
     expect(page.url()).toContain('tag=tag-people-unit-d5b1de96b450');
+    await page.getByRole('button', { name: /公開日の範囲/u }).click();
     await page.getByLabel('開始日').fill('2026-01-01');
     await page.getByLabel('終了日').fill('2026-12-31');
-    await page.getByLabel('最小（分）').fill('120');
-    await page.getByLabel('最大（分）').fill('240');
+    await expect(page.getByRole('button', { name: /公開日の範囲/u })).toContainText('2026/1/1 — 2026/12/31');
+    await page.getByRole('button', { name: '完了' }).click();
+    await expect(page.getByLabel('最小（分）')).toHaveAttribute('type', 'range');
+    await setRangeValue(page.getByLabel('最小（分）'), 120);
+    await setRangeValue(page.getByLabel('最大（分）'), 240);
     await page.getByRole('button', { name: '絞り込みを反映' }).click();
     await expect(page.getByRole('heading', { name: '1件の動画' })).toBeVisible();
     await expect(page.locator('.video-card')).toContainText('魔法使いの愛した子');
@@ -113,6 +117,7 @@ test.describe('動画検索', () => {
     await page.getByText('タグ・公開日・動画長で絞り込む').click();
     await page.getByRole('button', { name: /女王と会長/u }).click();
     await expect(page.getByRole('button', { name: 'タグを開く（選択1件）' })).toBeVisible();
+    await page.getByRole('button', { name: /公開日の範囲/u }).click();
 
     const layout = await page.evaluate(() => {
       const viewportWidth = document.documentElement.clientWidth;
@@ -137,21 +142,34 @@ test.describe('動画検索', () => {
     await capture(page, testInfo, 'モバイル', 'search-filter-mobile.jpg');
   });
 
-  test('入力矛盾を日本語で示し、並び替えとキーボード操作を提供する', async ({ page }) => {
+  test('URLの入力矛盾を日本語で示し、Slider・並び替え・キーボード操作を提供する', async ({ page }) => {
     await preparePage(page);
-    await openSearch(page);
+    await page.goto('/#/?min=200&max=100');
+    await expect(page.getByRole('heading', { name: '動画を検索' })).toBeVisible();
     await page.getByText('タグ・公開日・動画長で絞り込む').click();
-    await page.getByLabel('最小（分）').fill('200');
-    await page.getByLabel('最大（分）').fill('100');
+    await expect(page.getByLabel('最小（分）')).toHaveAttribute('type', 'range');
+    await expect(page.getByLabel('最大（分）')).toHaveAttribute('type', 'range');
     await expect(page.getByRole('alert')).toContainText('最小値は最大値以下');
-    await page.getByLabel('最小（分）').fill('');
-    await page.getByLabel('最大（分）').fill('');
+    await page.getByRole('button', { name: '指定なし' }).click();
+    await expect(page.getByRole('alert')).toHaveCount(0);
+    const minimumSlider = page.getByLabel('最小（分）');
+    await minimumSlider.focus();
+    await minimumSlider.press('ArrowRight');
+    await expect(minimumSlider).toHaveValue('1');
+    await page.getByRole('button', { name: '指定なし' }).click();
+    await page.getByRole('button', { name: '絞り込みを反映' }).click();
     await page.getByLabel('並び順').selectOption('公開日の古い順');
     await expect(page.locator('.video-card').first()).toHaveAttribute('data-video-id', 'qp-w9AZJuLs');
 
     await page.reload();
     await page.keyboard.press('Tab');
     await expect(page.locator('.skip-link')).toBeFocused();
+    await page.getByText('タグ・公開日・動画長で絞り込む').click();
+    const dateRangeTrigger = page.getByRole('button', { name: /公開日の範囲/u });
+    await dateRangeTrigger.click();
+    await page.keyboard.press('Escape');
+    await expect(dateRangeTrigger).toBeFocused();
+    await dateRangeTrigger.click();
     await expectMinimumTargets(page);
     await expectNoSeriousAccessibilityViolations(page);
   });
@@ -308,4 +326,13 @@ function performanceDataset(): {
 
 function searchCode(index: number): string {
   return [...String(index).padStart(7, '0')].map((character) => character.repeat(3)).join('');
+}
+
+async function setRangeValue(locator: Locator, value: number): Promise<void> {
+  await locator.evaluate((element, nextValue) => {
+    const input = element as HTMLInputElement;
+    input.value = String(nextValue);
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  }, value);
 }
