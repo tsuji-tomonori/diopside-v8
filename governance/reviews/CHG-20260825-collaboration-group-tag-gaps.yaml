@@ -63,12 +63,12 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [commit:self]
-    note: 外部書込みは利用者が指定したGitHubへのブランチpushとDraft PR作成に限定し、merge・release・deployは行わない。
+    note: 利用者がmerge・release・deployを明示承認した。先行PR #1327とrelease #1331の完了を待ち、最新main統合と品質ゲート合格後だけ本PRと生成release PRを順次mergeする。
   - id: IMP-007
     class: Risk-selected
     result: pass
     evidence: [path:content/content-manifest.json]
-    note: 1696動画を維持し、82動画へ不足していた274タグ付与を追加して正本件数を再検証した。
+    note: 1696動画を維持し、main側のタグ1件減少と82動画への不足274件追加を合成した11726タグ付与を再検証した。
   - id: IMP-008
     class: Risk-selected
     result: pass
@@ -133,7 +133,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [test:src/domain/collaboration-group-audit.test.ts, path:.github/workflows/verify.yml, path:package.json]
-    note: 単体テスト、全正本監査、build、typecheck、lintを既存CI経路で実行する。
+    note: 最新main統合後のGitHub Actionsで単体100件、Python51件、全正本監査、build、typecheck、lint、E2E、有限private backfillを再実行する。
   - id: REV-007
     class: Invariant
     result: pass
@@ -153,4 +153,4 @@ advisories: []
 residual_risks:
   - 公開タイトルの「夜王国語」と凸待ち・逆凸3件は誤検出防止の明示除外として回帰監査へ固定した。
   - pPuuXBQmTCk.jsonを変更する既存Draft PR #584は、本変更のmerge後にrebaseしてタグ是正を保持する必要がある。
-  - 公開反映は本PRのmainマージ後に別途実行される既存release workflowへ依存する。
+  - 公開反映は本PRのmainマージ後に生成されるrelease PRの品質ゲート、merge、GitHub Pages反映の順で完了確認する。
