@@ -1,0 +1,157 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260825-fix-project-tag-2fl6jrsidke
+profile: direct
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/videos/2fl6JRSIdKE.json
+      - path:spec/requirements/requirements.json
+    note: V8-TAG-021とV8-TAG-022の既存要件を適用するデータ是正であり、永続要件は変更しない。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/videos/2fl6JRSIdKE.json
+      - path:content/taxonomy/tag-taxonomy.json
+    note: 既存taxonomyの包含・除外基準を適用するだけで、schema、生成設計、ADRへの影響はない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/videos/2fl6JRSIdKE.json
+    note: 正本動画1件と件数manifestだけの可逆なデータ修正であるためdirectを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 外部書込みはGitHubへのbranch、commit、Draft PR作成に限定し、merge、公開、production deployは行わない。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/videos/2fl6JRSIdKE.json
+      - path:content/content-manifest.json
+    note: 動画や根拠を削除せず、直接根拠のない副ジャンル1件だけを除外し、assignmentCountを1減らす可逆な変更である。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - path:scripts/validate-content.ts
+    note: 主ジャンル「ゲーム」、作品名「パタポン1+2 リプレイ」、ゲームジャンル2件を維持したまま全正本検証に合格することを確認する。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/videos/2fl6JRSIdKE.json
+      - path:content/catalog/ec.json
+    note: 旧カタログのフォールバック「企画」と上書き正本の持ち越し理由を再現根拠とし、差分で副ジャンル「企画」の除外を固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/content-manifest.json
+      - path:scripts/verify-generated-source.ts
+    note: 全正本のタグ付与件数とcontent-manifestのassignmentCountが一致することを確認する。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 公開タイトル、タグ理由、件数だけを変更し、生字幕、コメント、チャット、投稿者識別子、秘密情報を追加していない。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 対象動画2fl6JRSIdKEの誤った副ジャンル「企画」の是正だけに限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: Commit Commentへ目的、変更、要件・設計影響、検証契約、互換性、残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:content/videos/2fl6JRSIdKE.json
+    note: V8-TAG-021とV8-TAG-022を既存どおり適用し、直接確認できない「企画」を承認済みタグから除外した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/taxonomy/tag-taxonomy.json
+    note: 既存taxonomyの包含基準を適用するデータ修正であり、生成設計やADRを変更しない。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 正本検証、件数整合、通常動画PR範囲検証を既存CIで実行する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260825-fix-project-tag-2fl6jrsidke.yaml
+    note: 選択したcheckだけを本reviewへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260825-fix-project-tag-2fl6jrsidke.yaml
+    note: 未選択checkをN/Aで水増ししていない。
+advisories: []
+residual_risks:
+  - PR #467で同じ持ち越し理由が付いた残り66件は、本PRへ同梱せず動画ごとの独立根拠で再確認する必要がある。
+  - 公開反映は本PRを人がマージし、既存のmain/docs公開手順が完了した後となる。
