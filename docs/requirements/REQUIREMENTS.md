@@ -1,8 +1,8 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 15
-- 更新日: 2026-08-20
+- カタログ版: 16
+- 更新日: 2026-08-25
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
@@ -93,9 +93,9 @@
 | `V8-SEARCH-008` | 3 | 有効 | 機能 | diopside v8の検索は、検索欄は登録済みタグを動画候補と区別して提示し、選択時に不変タグIDの絞り込み条件として適用しなければならない。詳細なタグ絞り込み欄は、選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。利用者が検索候補または詳細な候補タグを追加または解除した時点で、追加の確定操作なしに検索条件を反映し、タグ補助候補欄を折り畳み、動画一覧へ移動できなければならない。を**satisfy** | 検索候補・タグ条件適用・件数契約・折り畳み操作試験 |
 | `V8-SEARCH-009` | 1 | 有効 | 機能 | diopside v8の検索は、タグ絞り込みは、選択された承認済みタグの不変識別子との完全一致で判定しなければならない。を**satisfy** | タグ契約試験 |
 | `V8-SEARCH-010` | 1 | 有効 | 機能 | diopside v8の検索は、複数タグを選択した場合は、選択したすべてのタグを持つ動画だけを表示しなければならない。を**satisfy** | 2件・3件・未知タグの積集合試験 |
-| `V8-SEARCH-011` | 1 | 有効 | 機能 | diopside v8の検索は、公開日の開始日と終了日は、日本標準時の日付として両端を含めて絞り込まなければならない。を**satisfy** | 時差・月末・年末・逆転範囲試験 |
-| `V8-SEARCH-012` | 1 | 有効 | 機能 | diopside v8の検索は、動画長は秒数を正本とし、画面では「30分未満」「30分以上1時間未満」「1時間以上2時間未満」「2時間以上」の重複しない区分で絞り込めなければならない。を**satisfy** | 境界値試験 |
-| `V8-SEARCH-013` | 1 | 有効 | 機能 | diopside v8の検索は、動画長の最小値・最大値を分単位で指定でき、最小値以上かつ最大値以下の動画だけを表示しなければならない。を**satisfy** | 範囲・欠損・誤入力試験 |
+| `V8-SEARCH-011` | 2 | 有効 | 機能 | diopside v8の検索は、公開日の開始日と終了日は一つの日付範囲Pickerで選択でき、日本標準時の日付として両端を含めて絞り込まなければならない。を**satisfy** | 日付範囲Picker操作、時差・月末・年末・逆転範囲試験 |
+| `V8-SEARCH-012` | 2 | 有効 | 機能 | diopside v8の検索は、動画長は秒数を正本とし、画面では「30分未満」「30分以上1時間未満」「1時間以上2時間未満」「2時間以上」の重複しない区分で絞り込めなければならない。を**satisfy** | 動画長区分とSliderの境界値試験 |
+| `V8-SEARCH-013` | 2 | 有効 | 機能 | diopside v8の検索は、動画長は二つのつまみを持つSliderで分単位の最小値・最大値を選択でき、最小値以上かつ最大値以下の動画だけを表示しなければならない。を**satisfy** | Slider操作、キーボード、範囲・欠損・誤入力試験 |
 | `V8-SEARCH-014` | 1 | 有効 | 機能 | diopside v8の検索は、タイトル検索、選択タグ、公開日、動画長は、指定された条件をすべて満たす動画だけを残すよう同時適用しなければならない。を**satisfy** | 組合せ試験 |
 | `V8-SEARCH-015` | 1 | 有効 | 機能 | diopside v8の検索は、検索語がある場合の初期並び順は関連度順、検索語がない場合の初期並び順は公開日の新しい順としなければならない。を**satisfy** | 画面状態試験 |
 | `V8-SEARCH-016` | 1 | 有効 | 機能 | diopside v8の検索は、利用者は、公開日の新しい順・古い順、動画長の短い順・長い順へ並べ替えられなければならない。を**satisfy** | 並び替え試験 |
@@ -1497,20 +1497,21 @@ diopside v8の検索は、複数タグを選択した場合は、選択したす
 検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-SEARCH-011: 公開日の開始日と終了日は、日本標準時の日付として両端を含めて絞り込まなければならない
+## V8-SEARCH-011: 公開日の開始日と終了日は一つの日付範囲Pickerで選択でき、日本標準時の日付として両端を含めて絞り込まなければならない
 
-diopside v8の検索は、公開日の開始日と終了日は、日本標準時の日付として両端を含めて絞り込まなければならない。を**satisfy**。
+diopside v8の検索は、公開日の開始日と終了日は一つの日付範囲Pickerで選択でき、日本標準時の日付として両端を含めて絞り込まなければならない。を**satisfy**。
 
-根拠: 利用者が題名の断片や表記揺れから、意図した公開アーカイブを速く再発見できるようにするため。
+根拠: 利用者が期間全体と両端を一つの操作面で把握し、意図した公開アーカイブへ速く絞り込めるようにするため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-SEARCH-011-1` 前提: V8-検索-011の前提を満たす公開データまたは操作がある。条件: 時差・月末・年末・逆転範囲試験。期待結果: 開始日の0時0分0秒から終了日の23時59分59秒までを含み、開始日が終了日より後の場合は日本語で入力誤りを示す。。
+- `AC-V8-SEARCH-011-1` 前提: 公開日フィルターを操作する。条件: カレンダー上の二つの日付、クイック期間、または開始日・終了日を選択する。期待結果: 開始日、終了日、両端を含む選択期間が一つのPicker内で確認でき、指定なしへ戻せる。。
+- `AC-V8-SEARCH-011-2` 前提: 公開日の開始日または終了日が指定されている。条件: 時差・月末・年末・逆転範囲を含む検索を実行する。期待結果: 開始日の0時0分0秒から終了日の23時59分59秒までを含み、URL等から開始日が終了日より後となった場合は日本語で入力誤りを示す。。
 
-要求源: Issue #1 V8-検索-011, user:2026-08-03
-検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-検索-011, user:2026-08-03, spec/sources/owner-directive-2026-08-25-search-filter-controls.md, user:2026-08-25, https://www.inspora.design/posts/1-30
+検証証跡: src/features/search/SearchFilterControls.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx,src/features/search/DateRangePicker.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts,src/features/search/SearchFilterControls.test.tsx; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-SEARCH-012: 動画長は秒数を正本とし、画面では「30分未満」「30分以上1時間未満」「1時間以上2時間未満」「2時間以上」の重複しない区分で絞り込めなければならない
 
@@ -1521,26 +1522,27 @@ diopside v8の検索は、動画長は秒数を正本とし、画面では「30�
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-SEARCH-012-1` 前提: V8-検索-012の前提を満たす公開データまたは操作がある。条件: 境界値試験。期待結果: 1799、1800、3599、3600、7199、7200秒が定義された区分に一意に入る。区分の選択は同じ境界値を最小値・最大値欄へ反映する。。
+- `AC-V8-SEARCH-012-1` 前提: 動画長のクイック区分を選択する。条件: 1799、1800、3599、3600、7199、7200秒の境界を含む検索を実行する。期待結果: 各動画は定義された区分に一意に入り、選択した区分と同じ境界がSliderの選択範囲へ反映される。。
 
-要求源: Issue #1 V8-検索-012, user:2026-08-03
-検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-検索-012, user:2026-08-03, spec/sources/owner-directive-2026-08-25-search-filter-controls.md, user:2026-08-25
+検証証跡: src/features/search/SearchFilterControls.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx,src/features/search/DurationRangeSlider.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts,src/features/search/SearchFilterControls.test.tsx; 参照資料=Issue #1,dev-standard default profile
 
-## V8-SEARCH-013: 動画長の最小値・最大値を分単位で指定でき、最小値以上かつ最大値以下の動画だけを表示しなければならない
+## V8-SEARCH-013: 動画長は二つのつまみを持つSliderで分単位の最小値・最大値を選択でき、範囲内の動画だけを表示しなければならない
 
-diopside v8の検索は、動画長の最小値・最大値を分単位で指定でき、最小値以上かつ最大値以下の動画だけを表示しなければならない。を**satisfy**。
+diopside v8の検索は、動画長は二つのつまみを持つSliderで分単位の最小値・最大値を選択でき、最小値以上かつ最大値以下の動画だけを表示しなければならない。を**satisfy**。
 
-根拠: 利用者が題名の断片や表記揺れから、意図した公開アーカイブを速く再発見できるようにするため。
+根拠: 利用者が動画長の範囲と現在値を視覚的に把握しながら、意図した長さのアーカイブへ絞り込めるようにするため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-SEARCH-013-1` 前提: V8-検索-013の前提を満たす公開データまたは操作がある。条件: 範囲・欠損・誤入力試験。期待結果: 片側だけの指定、同値、最小値が最大値を超える入力、動画長不明を定義どおり処理する。手入力時は区分選択を解除し、動画長不明は動画長指定時に除外する。。
+- `AC-V8-SEARCH-013-1` 前提: 動画長フィルターを操作する。条件: Sliderの最小または最大のつまみをマウス、タッチ、またはキーボードで動かす。期待結果: 分単位の片側指定、同値、両側指定ができ、最小値と最大値が交差せず、クイック区分の選択は解除される。。
+- `AC-V8-SEARCH-013-2` 前提: 動画長の範囲が指定されている。条件: 範囲境界、動画長不明、またはURL等から最小値が最大値を超える条件で検索する。期待結果: 最小値以上かつ最大値以下の動画だけを表示し、動画長不明を除外し、逆転範囲には日本語で入力誤りを示す。。
 
-要求源: Issue #1 V8-検索-013, user:2026-08-03
-検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-検索-013, user:2026-08-03, spec/sources/owner-directive-2026-08-25-search-filter-controls.md, user:2026-08-25
+検証証跡: src/features/search/SearchFilterControls.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx,src/features/search/DurationRangeSlider.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts,src/features/search/SearchFilterControls.test.tsx; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-SEARCH-014: タイトル検索、選択タグ、公開日、動画長は、指定された条件をすべて満たす動画だけを残すよう同時適用しなければならない
 

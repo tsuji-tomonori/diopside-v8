@@ -177,6 +177,8 @@
 | `src/features/collaborations/GroupDetailPage.tsx` | FunctionDeclaration | `GroupDetailPage` |
 | `src/features/detail/VideoDetailPage.tsx` | FunctionDeclaration | `VideoDetailPage` |
 | `src/features/library/DeviceLibraryPage.tsx` | FunctionDeclaration | `DeviceLibraryPage` |
+| `src/features/search/DateRangePicker.tsx` | FunctionDeclaration | `DateRangePicker` |
+| `src/features/search/DurationRangeSlider.tsx` | FunctionDeclaration | `DurationRangeSlider` |
 | `src/features/search/SearchPage.tsx` | FunctionDeclaration | `SearchPage` |
 | `src/features/works/WorkDetailPage.tsx` | FunctionDeclaration | `WorkDetailPage` |
 | `src/format.ts` | FunctionDeclaration | `formatDate` |
@@ -195,8 +197,9 @@
 - `src/domain/search.test.ts`
 - `src/domain/validation.test.ts`
 - `src/features/collaborations/CollaborationDetailPages.test.tsx`
+- `src/features/search/SearchFilterControls.test.tsx`
 - `src/features/works/WorkDetailPage.test.tsx`
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力52ファイル、公開契約135件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力55ファイル、公開契約137件です。

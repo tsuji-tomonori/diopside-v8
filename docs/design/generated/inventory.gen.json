@@ -32,7 +32,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "a6abbca00b4124d38a8660c7c7a6915e366c1bef799cfc40a8490b6d298a178b"
+      "sha256": "d8ac5ab1a1789147177b48b804524bf62e266199bca7103f20987221f3f68653"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -191,8 +191,20 @@
       "sha256": "70e219303f5c441543451088ad7f38bc36cc0498e21ef5af6670bbcda44034f9"
     },
     {
+      "path": "src/features/search/DateRangePicker.tsx",
+      "sha256": "b467a34fa2cee760e9773a43b27b98c0e204c8110ade01e12a0f6c9f27231109"
+    },
+    {
+      "path": "src/features/search/DurationRangeSlider.tsx",
+      "sha256": "a474a4866abf1e497919fcc7d476f60a4241355bc7ca1a6080565a4bd8c7a93e"
+    },
+    {
+      "path": "src/features/search/SearchFilterControls.test.tsx",
+      "sha256": "091ac28d14d88808ee051c257f20b32073a13b237a643cd054d696a3e6cb6b6b"
+    },
+    {
       "path": "src/features/search/SearchPage.tsx",
-      "sha256": "3e4034d34aa47b4043847c751fa4b291b64ef16ae0219dd28838b949e0906054"
+      "sha256": "33a880b50de157793dca42ce53c252248e08864e70adfd04d2f5a1ece6af166d"
     },
     {
       "path": "src/features/works/WorkDetailPage.test.tsx",
@@ -863,6 +875,16 @@
       "kind": "FunctionDeclaration"
     },
     {
+      "file": "src/features/search/DateRangePicker.tsx",
+      "name": "DateRangePicker",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/search/DurationRangeSlider.tsx",
+      "name": "DurationRangeSlider",
+      "kind": "FunctionDeclaration"
+    },
+    {
       "file": "src/features/search/SearchPage.tsx",
       "name": "SearchPage",
       "kind": "FunctionDeclaration"
@@ -908,6 +930,7 @@
     "src/domain/search.test.ts",
     "src/domain/validation.test.ts",
     "src/features/collaborations/CollaborationDetailPages.test.tsx",
+    "src/features/search/SearchFilterControls.test.tsx",
     "src/features/works/WorkDetailPage.test.tsx"
   ]
 }

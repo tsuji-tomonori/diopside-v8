@@ -6,16 +6,20 @@ import { useBundle, useDeviceStore } from '../../contexts.ts';
 import {
   applySearch,
   buildSearchSuggestions,
+  dateInJapan,
   durationBuckets,
   normalizeTagAlias,
   parseCondition,
   serializeCondition,
   tagCountsForResults,
   validateCondition,
+  type DurationBucket,
   type SearchCondition,
   type SortOrder,
 } from '../../domain/search.ts';
 import { formatDate } from '../../format.ts';
+import { DateRangePicker } from './DateRangePicker.tsx';
+import { DurationRangeSlider } from './DurationRangeSlider.tsx';
 
 const sortOrders: SortOrder[] = ['関連度順', '公開日の新しい順', '公開日の古い順', '動画長の短い順', '動画長の長い順'];
 const pageSize = 24;
@@ -40,6 +44,7 @@ export function SearchPage(): React.JSX.Element {
   const resultsHeadingRef = useRef<HTMLHeadingElement>(null);
   const parsedCondition = useMemo(() => parseCondition(params), [params]);
   const summaries = useMemo(() => new Map(bundle.index.videos.map((video) => [video.videoId, video])), [bundle.index.videos]);
+  const filterBounds = useMemo(() => searchFilterBounds(bundle.searchIndex.videos), [bundle.searchIndex.videos]);
   const tags = useMemo(() => bundle.tagIndex.categories.flatMap((category) => category.subcategories.flatMap((subcategory) => subcategory.tags)), [bundle.tagIndex.categories]);
   const aliasesByTagId = useMemo(() => {
     const result = new Map<string, string[]>();
@@ -211,27 +216,36 @@ export function SearchPage(): React.JSX.Element {
     if (tagId) selectTagAndShowResults(tagId, 'add');
   };
 
-  const updateBucket = (value: string): void => {
-    if (!value) {
-      setDraft(({ durationBucket: _removed, ...current }) => current);
+  const updateBucket = (value?: DurationBucket): void => {
+    const bucket = durationBuckets.find((item) => item.label === value);
+    if (!bucket) {
+      setDraft(({ durationBucket: _bucket, durationMinMinutes: _minimum, durationMaxMinutes: _maximum, ...current }) => current);
       return;
     }
-    const bucket = durationBuckets.find((item) => item.label === value);
-    if (!bucket) return;
     setDraft((current) => {
-      const { durationMinMinutes: _minimum, durationMaxMinutes: _maximum, ...rest } = current;
+      const { durationBucket: _bucket, durationMinMinutes: _minimum, durationMaxMinutes: _maximum, ...rest } = current;
       return {
-      ...rest,
-      durationBucket: bucket.label,
-      ...(bucket.minSeconds !== undefined ? { durationMinMinutes: bucket.minSeconds / 60 } : { durationMinMinutes: 0 }),
-      ...(bucket.maxSeconds !== undefined ? { durationMaxMinutes: bucket.maxSeconds / 60 } : {}),
-    }; });
+        ...rest,
+        durationBucket: bucket.label,
+        ...(bucket.minSeconds !== undefined ? { durationMinMinutes: bucket.minSeconds / 60 } : { durationMinMinutes: 0 }),
+        ...(bucket.maxSeconds !== undefined ? { durationMaxMinutes: bucket.maxSeconds / 60 } : {}),
+      };
+    });
   };
 
-  const updateManualDuration = (field: 'durationMinMinutes' | 'durationMaxMinutes', value: string): void => {
-    setDraft(({ durationBucket: _removed, ...current }) => ({
+  const updateDurationRange = (minimumMinutes?: number, maximumMinutes?: number): void => {
+    setDraft(({ durationBucket: _bucket, durationMinMinutes: _minimum, durationMaxMinutes: _maximum, ...current }) => ({
       ...current,
-      ...(value === '' ? { [field]: undefined } : { [field]: Number(value) }),
+      ...(minimumMinutes !== undefined ? { durationMinMinutes: minimumMinutes } : {}),
+      ...(maximumMinutes !== undefined ? { durationMaxMinutes: maximumMinutes } : {}),
+    }));
+  };
+
+  const updatePublishedRange = (range: { from?: string; to?: string }): void => {
+    setDraft(({ publishedFrom: _from, publishedTo: _to, ...current }) => ({
+      ...current,
+      ...(range.from ? { publishedFrom: range.from } : {}),
+      ...(range.to ? { publishedTo: range.to } : {}),
     }));
   };
 
@@ -423,23 +437,26 @@ export function SearchPage(): React.JSX.Element {
             </fieldset>
 
             <div className="filter-grid">
-              <fieldset>
+              <fieldset className="filter-card">
                 <legend>公開日</legend>
-                <label>開始日<input type="date" value={draft.publishedFrom ?? ''} onChange={(event) => setDraft((current) => setOptionalDate(current, 'publishedFrom', event.target.value))} /></label>
-                <label>終了日<input type="date" value={draft.publishedTo ?? ''} onChange={(event) => setDraft((current) => setOptionalDate(current, 'publishedTo', event.target.value))} /></label>
+                <DateRangePicker
+                  from={draft.publishedFrom}
+                  to={draft.publishedTo}
+                  minimumAvailableDate={filterBounds.minimumDate}
+                  maximumAvailableDate={filterBounds.maximumDate}
+                  onChange={updatePublishedRange}
+                />
               </fieldset>
-              <fieldset>
+              <fieldset className="filter-card">
                 <legend>動画長</legend>
-                <label>区分
-                  <select value={draft.durationBucket ?? ''} onChange={(event) => updateBucket(event.target.value)}>
-                    <option value="">指定しない</option>
-                    {durationBuckets.map((bucket) => <option key={bucket.label}>{bucket.label}</option>)}
-                  </select>
-                </label>
-                <div className="duration-inputs">
-                  <label>最小（分）<input min="0" type="number" value={draft.durationMinMinutes ?? ''} onChange={(event) => updateManualDuration('durationMinMinutes', event.target.value)} /></label>
-                  <label>最大（分）<input min="0" type="number" value={draft.durationMaxMinutes ?? ''} onChange={(event) => updateManualDuration('durationMaxMinutes', event.target.value)} /></label>
-                </div>
+                <DurationRangeSlider
+                  bucket={draft.durationBucket}
+                  minimumMinutes={draft.durationMinMinutes}
+                  maximumMinutes={draft.durationMaxMinutes}
+                  limitMinutes={filterBounds.maximumDurationMinutes}
+                  onBucketChange={updateBucket}
+                  onRangeChange={updateDurationRange}
+                />
               </fieldset>
             </div>
             {validateCondition(draft).map((error) => <p className="form-error" role="alert" key={error.field}>{error.message}</p>)}
@@ -493,16 +510,24 @@ export function SearchPage(): React.JSX.Element {
   );
 }
 
-function setOptionalDate(
-  condition: SearchCondition,
-  key: 'publishedFrom' | 'publishedTo',
-  value: string,
-): SearchCondition {
-  if (value) return { ...condition, [key]: value };
-  if (key === 'publishedFrom') {
-    const { publishedFrom: _removed, ...rest } = condition;
-    return rest;
+function searchFilterBounds(videos: Array<{ publishedAt: string; durationSeconds: number | null }>): {
+  minimumDate: string;
+  maximumDate: string;
+  maximumDurationMinutes: number;
+} {
+  const today = dateInJapan(new Date().toISOString());
+  let minimumDate = '';
+  let maximumDate = '';
+  let maximumDurationSeconds = 0;
+  for (const video of videos) {
+    const publishedDate = dateInJapan(video.publishedAt);
+    if (!minimumDate || publishedDate < minimumDate) minimumDate = publishedDate;
+    if (!maximumDate || publishedDate > maximumDate) maximumDate = publishedDate;
+    maximumDurationSeconds = Math.max(maximumDurationSeconds, video.durationSeconds ?? 0);
   }
-  const { publishedTo: _removed, ...rest } = condition;
-  return rest;
+  return {
+    minimumDate: minimumDate || today,
+    maximumDate: maximumDate || today,
+    maximumDurationMinutes: Math.max(240, Math.ceil(maximumDurationSeconds / 1800) * 30),
+  };
 }
