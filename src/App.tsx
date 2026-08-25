@@ -11,6 +11,7 @@ import { VideoDetailPage } from './features/detail/VideoDetailPage.tsx';
 import { WorkDetailPage } from './features/works/WorkDetailPage.tsx';
 import { CollaboratorDetailPage } from './features/collaborations/CollaboratorDetailPage.tsx';
 import { GroupDetailPage } from './features/collaborations/GroupDetailPage.tsx';
+import { SeriesDetailPage } from './features/series/SeriesDetailPage.tsx';
 
 export function App({ bundle, store }: { bundle: PublicBundle; store: DeviceStore }): React.JSX.Element {
   const [notice, setNotice] = useState('');
@@ -27,6 +28,7 @@ export function App({ bundle, store }: { bundle: PublicBundle; store: DeviceStor
             <Route path="/works/:tagId" element={<WorkDetailPage />} />
             <Route path="/collaborators/:tagId" element={<CollaboratorDetailPage />} />
             <Route path="/groups/:tagId" element={<GroupDetailPage />} />
+            <Route path="/series/:tagId" element={<SeriesDetailPage />} />
             <Route path="/library" element={<DeviceLibraryPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

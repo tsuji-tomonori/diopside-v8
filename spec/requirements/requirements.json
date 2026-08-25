@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_revision": 17,
+  "catalog_revision": 18,
   "product": "diopside v8",
   "updated_at": "2026-08-25",
   "requirements": [
@@ -1441,6 +1441,61 @@
         ]
       },
       "last_changed_by": "CHG-20260815-collaboration-pages"
+    },
+    {
+      "id": "V8-DISPLAY-014",
+      "revision": 1,
+      "status": "active",
+      "scope": "product",
+      "category": "functional",
+      "type": "functional",
+      "title": "定期・連続企画名タグは同じシリーズの動画一覧へ移動できなければならない",
+      "subject": "diopside v8の定期・連続企画名タグとシリーズページ",
+      "action": "satisfy",
+      "object": "動画詳細の定期・連続企画名タグは押下可能でなければならず、不変タグIDをURLに持つ一覧ページへ移動して、そのタグを持つ公開動画だけを公開日の新しい順で表示しなければならない。",
+      "rationale": "同じ定期企画や連続企画の各回を、個別動画から途切れずに探せるようにするため。",
+      "source_refs": [
+        "spec/sources/owner-directive-2026-08-25-recurring-series-pages.md",
+        "user:2026-08-25"
+      ],
+      "acceptance_criteria": [
+        {
+          "id": "AC-V8-DISPLAY-014-1",
+          "given": "動画詳細に定期・連続企画名の承認済みタグが表示されている",
+          "when": "利用者が企画・シリーズ名タグを押す",
+          "then": "不変タグIDをURLに持つシリーズページへ移動し、そのタグを持つ公開動画だけを公開日の新しい順で表示する。"
+        },
+        {
+          "id": "AC-V8-DISPLAY-014-2",
+          "given": "公開タイトルで同じ定期・連続企画名が明示された複数の動画がある",
+          "when": "シリーズページの件数と動画カードを確認する",
+          "then": "確認済みの同シリーズ動画を取りこぼさず、他の企画・シリーズの動画を混在させない。"
+        }
+      ],
+      "verification": {
+        "method": "正本タグ網羅試験、定期・連続企画名タグ遷移単体・E2E、一覧内容・順序・アクセシビリティ試験",
+        "evidence": "tests/content-validation.test.ts, src/features/series/SeriesDetailPage.test.tsx, e2e/detail.spec.ts"
+      },
+      "traces": {
+        "design": [
+          "docs/design/generated/system.gen.md"
+        ],
+        "implementation": [
+          "src/App.tsx",
+          "src/features/detail/VideoDetailPage.tsx",
+          "src/features/series/SeriesDetailPage.tsx"
+        ],
+        "tests": [
+          "tests/content-validation.test.ts",
+          "src/features/series/SeriesDetailPage.test.tsx",
+          "e2e/detail.spec.ts"
+        ],
+        "standards": [
+          "spec/sources/owner-directive-2026-08-25-recurring-series-pages.md",
+          "dev-standard default profile"
+        ]
+      },
+      "last_changed_by": "CHG-20260825-recurring-series-pages"
     },
     {
       "acceptance_criteria": [
@@ -6687,6 +6742,59 @@
         ]
       },
       "last_changed_by": "ISSUE-1-IMPLEMENTATION"
+    },
+    {
+      "id": "V8-TAG-036",
+      "revision": 1,
+      "status": "active",
+      "scope": "product",
+      "category": "functional",
+      "type": "data",
+      "title": "定期・連続企画名を明示する動画はシリーズタグを持ち、名称の部分一致だけでイベントへ重複分類してはならない",
+      "subject": "diopside v8の定期・連続企画タグ",
+      "action": "satisfy",
+      "object": "公開タイトルまたは承認済み既存タグから定期・連続企画名を直接確認できる動画は当該定期・連続企画名タグを持ち、名称中の「杯」等の部分一致だけでイベント・大会名へ重複分類してはならない。",
+      "rationale": "シリーズ各回の取りこぼしと、一般語を大会名の指標として扱う誤分類を同時に防ぐため。",
+      "source_refs": [
+        "spec/sources/owner-directive-2026-08-25-recurring-series-pages.md",
+        "user:2026-08-25"
+      ],
+      "acceptance_criteria": [
+        {
+          "id": "AC-V8-TAG-036-1",
+          "given": "公開タイトルに「#いっ杯晩酌」が明示された動画がある",
+          "when": "承認済みタグ正本を全件検査する",
+          "then": "対象14動画すべてが定期・連続企画名「いっ杯晩酌」を持つ。"
+        },
+        {
+          "id": "AC-V8-TAG-036-2",
+          "given": "定期・連続企画名そのものに「杯」の文字が含まれる",
+          "when": "旧タグから論理タグを再生成する",
+          "then": "名称の部分一致だけを理由にイベント・大会名「いっ杯晩酌」を追加しない。"
+        }
+      ],
+      "verification": {
+        "method": "正本全件タグ網羅・重複分類試験、旧タグ再生成回帰試験",
+        "evidence": "tests/content-validation.test.ts"
+      },
+      "traces": {
+        "design": [
+          "docs/design/generated/system.gen.md",
+          "content/taxonomy/tag-taxonomy.json"
+        ],
+        "implementation": [
+          "scripts/legacy-content.ts",
+          "content/videos"
+        ],
+        "tests": [
+          "tests/content-validation.test.ts"
+        ],
+        "standards": [
+          "spec/sources/owner-directive-2026-08-25-recurring-series-pages.md",
+          "dev-standard default profile"
+        ]
+      },
+      "last_changed_by": "CHG-20260825-recurring-series-pages"
     },
     {
       "id": "V8-TIME-001",
