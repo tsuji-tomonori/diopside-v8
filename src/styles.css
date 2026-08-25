@@ -208,6 +208,27 @@ legend { font-weight: 800; margin-bottom: .4rem; }
 .work-source a { min-height: 44px; display: inline-flex; align-items: center; color: var(--lavender-dark); font-weight: 700; }
 .work-source span { font-size: .8rem; }
 .work-results { padding-bottom: 0; }
+.song-page { padding: 2rem 0 5rem; }
+.song-intro { margin-bottom: 1.25rem; }
+.song-search { display: flex; align-items: end; justify-content: space-between; gap: 1.5rem; margin-bottom: 1rem; padding: 1.25rem; border: 1px solid var(--line); border-radius: 18px; background: var(--paper); }
+.song-search h2 { margin: 0; font: 600 clamp(1.25rem, 3vw, 1.8rem) Georgia, "Yu Mincho", serif; }
+.song-search label { display: grid; min-width: min(100%, 320px); gap: .4rem; color: var(--muted); font-size: .82rem; font-weight: 700; }
+.song-notice { margin: 0 0 1rem; }
+.song-list { display: grid; gap: 1rem; }
+.song-card { padding: clamp(1.25rem, 4vw, 2rem); border: 1px solid var(--line); border-radius: 22px; background: var(--paper); box-shadow: var(--shadow); }
+.song-card > header { display: flex; align-items: start; justify-content: space-between; gap: 1rem; }
+.song-card h2 { margin: 0; font: 600 clamp(1.45rem, 3vw, 2rem) Georgia, "Yu Mincho", serif; }
+.song-card h2 a { color: var(--lavender-dark); text-decoration-thickness: .08em; text-underline-offset: .18em; }
+.song-artist { margin: .5rem 0 0; color: var(--muted); }
+.song-source { color: var(--muted); font-size: .75rem; }
+.song-appearances { list-style: none; padding: 0; margin: 1rem 0 0; border-top: 1px solid var(--line); }
+.song-appearances li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 1rem; padding: 1rem 0; }
+.song-appearances li + li { border-top: 1px solid var(--line); }
+.song-appearances li > div { min-width: 0; }
+.song-appearances p { margin: .45rem 0 0; overflow: hidden; line-height: 1.55; text-overflow: ellipsis; white-space: nowrap; }
+.song-appearances time { margin-left: .55rem; color: var(--muted); font-size: .75rem; }
+.song-appearances a { display: inline-flex; min-height: 44px; align-items: center; color: var(--lavender-dark); font-weight: 700; }
+.song-kind { display: inline-flex; padding: .25rem .5rem; border-radius: 999px; color: var(--lavender-dark); background: var(--lavender-pale); font-size: .72rem; font-weight: 800; }
 .collaboration-page { padding: 2rem 0 5rem; }
 .person-intro { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: clamp(1.25rem, 4vw, 3rem); }
 .person-intro h1 { margin-bottom: 1.25rem; }
@@ -265,6 +286,10 @@ footer { padding: 2.5rem 1rem; text-align: center; color: var(--muted); border-t
   .timestamps small { grid-column: 2; }
   .simple-list li { grid-template-columns: 1fr auto; padding: .5rem 0; }
   .simple-list li > span { grid-column: 1; }
+  .song-search, .song-card > header { align-items: stretch; flex-direction: column; }
+  .song-search label, .song-card > header .button { width: 100%; }
+  .song-appearances li { grid-template-columns: 1fr; gap: .35rem; }
+  .song-appearances p { white-space: normal; }
 }
 
 @media (prefers-reduced-motion: reduce) {

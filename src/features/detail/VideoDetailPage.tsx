@@ -89,6 +89,16 @@ export function VideoDetailPage(): React.JSX.Element {
                       <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>シリーズ一覧を見る →</span>
                     </Link>
                   );
+                  if (group.categoryId === 'content' && ['primary', 'secondary'].includes(tag.subcategoryId) && tag.canonicalName === '歌') return (
+                    <Link className="detail-tag-link" key={tag.tagId} to="/songs">
+                      <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>歌った曲を見る →</span>
+                    </Link>
+                  );
+                  if (group.categoryId === 'works' && tag.subcategoryId === 'songTitle') return (
+                    <Link className="detail-tag-link" key={tag.tagId} to={`/songs/${tag.tagId}`}>
+                      <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>歌唱実績を見る →</span>
+                    </Link>
+                  );
                   if (group.categoryId === 'works') return (
                     <Link className="detail-tag-link" key={tag.tagId} to={`/works/${tag.tagId}`}>
                       <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>作品ページを見る →</span>

@@ -1083,6 +1083,137 @@ const workPageRequirements = [
     last_changed_by: 'CHG-20260815-work-pages',
   },
 ];
+const songPerformanceRequirements = [
+  {
+    id: 'V8-DISPLAY-015',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: 'ジャンル「歌」と楽曲タグは原曲・対象場面リンク付きの歌唱楽曲一覧へ移動できなければならない',
+    subject: 'diopside v8の歌唱楽曲一覧と導線',
+    action: 'satisfy',
+    object: '主または副ジャンル「歌」を押すと歌唱楽曲一覧へ移動しなければならない。一覧は楽曲名、原曲アーティスト、確認済みの原曲リンク、歌唱種別、対象動画、公開日を表示する。配信内歌唱と鼻歌は対象開始秒、単曲動画は動画先頭を開き、楽曲タグのURLで曲別表示できなければならない。',
+    rationale: '歌枠と単曲カバーを横断して曲から探し、長時間配信でも対象場面へ直接移動できるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'user:2026-08-25'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-015-1',
+        given: '検索画面または動画詳細に主・副ジャンル「歌」が表示されている',
+        when: '利用者が「歌」を押す',
+        then: '歌唱楽曲一覧へ移動し、楽曲名または原曲アーティストで絞り込める。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-015-2',
+        given: '歌ってみたと配信内歌唱が登録されている',
+        when: '利用者が各歌唱実績のリンクを押す',
+        then: '歌ってみたは対象動画を、配信内歌唱は対象動画の同じ開始秒をYouTubeで開く。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-015-3',
+        given: '楽曲に確認済みの原曲公開先がある',
+        when: '一覧または曲別ページを表示する',
+        then: '出典名と確認日付きのHTTPS原曲リンクを表示し、表示だけで外部サイトへ通信しない。',
+      },
+    ],
+    verification: {
+      method: '楽曲一覧表示、ジャンル・楽曲タグ遷移、原曲リンク、YouTube開始秒、外部自動通信禁止試験',
+      evidence: 'src/features/songs/SongIndexPage.test.tsx, e2e/song-index.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/features/songs/SongIndexPage.tsx', 'src/features/search/SearchPage.tsx', 'src/features/detail/VideoDetailPage.tsx', 'src/App.tsx'],
+      tests: ['src/features/songs/SongIndexPage.test.tsx', 'e2e/song-index.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260825-song-performance-index',
+  },
+  {
+    id: 'V8-TAG-037',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: '確認済みの各歌唱実績は動画ジャンルと独立した楽曲タグとして検索できなければならない',
+    subject: 'diopside v8の歌唱実績と楽曲タグ',
+    action: 'satisfy',
+    object: '楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲タグを持たなければならない。楽曲タグは動画の主・副ジャンルが「歌」であるかに依存せず、公開一覧・検索索引・タグ索引・動画詳細のすべてに一貫して反映しなければならない。',
+    rationale: '通常配信の一部で歌った曲や鼻歌を、動画全体のジャンルに埋もれさせず曲から再発見できるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'user:2026-08-25'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-037-1',
+        given: '楽曲名と白雪巴の歌唱参加が確認済みである',
+        when: '歌唱実績を正本化して公開データを生成する',
+        then: '歌唱種別と不変の楽曲タグIDを付け、対象動画の一覧・検索・タグ・詳細索引に同じIDを反映する。',
+      },
+      {
+        id: 'AC-V8-TAG-037-2',
+        given: '主ジャンルが歌でない通常配信で歌唱または鼻歌が確認された',
+        when: '実績を登録する',
+        then: '動画ジャンルの変更を必須とせず、配信内歌唱または鼻歌の種別で楽曲タグを公開できる。',
+      },
+    ],
+    verification: {
+      method: '歌唱正本構造、非歌ジャンル鼻歌、公開索引の楽曲タグ反映試験',
+      evidence: 'tests/content-validation.test.ts, tests/generated.test.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['content/songs/song-performances.json', 'src/domain/content.ts', 'src/domain/validation.ts', 'scripts/build-public-data.ts'],
+      tests: ['tests/content-validation.test.ts', 'tests/generated.test.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260825-song-performance-index',
+  },
+  {
+    id: 'V8-TAG-038',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'nonfunctional',
+    type: 'quality',
+    title: '歌唱実績は楽曲名・本人参加・開始秒・根拠を検証し、未確認の曲を公開してはならない',
+    subject: 'diopside v8の歌唱実績検証と公開境界',
+    action: 'satisfy',
+    object: '各歌唱実績は既知動画、白雪巴本人の参加、動画長内の開始秒、動画内で解決できる根拠参照を持たなければならない。承認済みタイムスタンプを参照する場合は開始秒が一致し、鼻歌は終了秒も持たなければならない。公開データには内部の根拠参照・判定理由を含めてはならない。',
+    rationale: 'コラボ配信で他者が歌った曲、曲名不明の歌唱、根拠のない推測を白雪巴の楽曲タグとして誤公開せず、公開データを必要最小限に保つため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'user:2026-08-25'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-038-1',
+        given: '歌唱実績候補に未知動画、解決不能の根拠、動画長外の時刻、または開始秒の異なるタイムスタンプがある',
+        when: '正本検証または公開データ生成を行う',
+        then: '候補を拒否し、不整合の種類と場所を示す。',
+      },
+      {
+        id: 'AC-V8-TAG-038-2',
+        given: '鼻歌の歌唱実績候補がある',
+        when: '正本検証を行う',
+        then: '開始秒と終了秒が動画長内で正しい順序の場合だけ受け付ける。',
+      },
+      {
+        id: 'AC-V8-TAG-038-3',
+        given: '検証済みの歌唱実績がある',
+        when: '公開JSONを生成する',
+        then: '楽曲・原曲・動画・種別・時刻以外の内部根拠参照や判定理由を出力しない。',
+      },
+    ],
+    verification: {
+      method: '未知動画・根拠・時刻・タイムスタンプ不整合・鼻歌範囲・公開境界試験',
+      evidence: 'tests/content-validation.test.ts, tests/generated.test.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/domain/content.ts', 'src/domain/validation.ts', 'scripts/build-public-data.ts'],
+      tests: ['tests/content-validation.test.ts', 'tests/generated.test.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260825-song-performance-index',
+  },
+];
 const collaborationPageRequirements = [
   {
     id: 'V8-DISPLAY-013',
@@ -1319,6 +1450,7 @@ const generatedRequirements = [
   ...timestampHarnessRequirements,
   ...synopsisHarnessRequirements,
   ...workPageRequirements,
+  ...songPerformanceRequirements,
   ...collaborationPageRequirements,
   ...seriesPageRequirements,
   ...searchSuggestionRequirements,
@@ -1343,7 +1475,7 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 17, 18),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 18, 19),
   product: 'diopside v8',
   updated_at: '2026-08-25',
   requirements: canonicalRequirements,
@@ -1359,4 +1491,4 @@ writeFileSync(mapPath, `${JSON.stringify({
   })),
 }, null, 2)}\n`);
 
-console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + collaborationPageRequirements.length + seriesPageRequirements.length + searchSuggestionRequirements.length + searchInteractionRequirements.length}件の要件正本を生成しました。`);
+console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + songPerformanceRequirements.length + collaborationPageRequirements.length + seriesPageRequirements.length + searchSuggestionRequirements.length + searchInteractionRequirements.length}件の要件正本を生成しました。`);

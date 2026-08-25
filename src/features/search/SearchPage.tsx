@@ -24,6 +24,10 @@ import { DurationRangeSlider } from './DurationRangeSlider.tsx';
 const sortOrders: SortOrder[] = ['関連度順', '公開日の新しい順', '公開日の古い順', '動画長の短い順', '動画長の長い順'];
 const pageSize = 24;
 const durationTagFilterSettleDelayMilliseconds = 100;
+const songGenreTagIds = new Set([
+  'tag-content-primary-90289feaebbf',
+  'tag-content-secondary-f86130d9b03d',
+]);
 
 type DurationFilter = Pick<SearchCondition, 'durationBucket' | 'durationMinMinutes' | 'durationMaxMinutes'>;
 
@@ -92,6 +96,7 @@ export function SearchPage(): React.JSX.Element {
   ], [suggestions]);
   const showSuggestions = suggestionsOpen && draft.query.trim().length > 0 && suggestionOptions.length > 0;
   const knownTagIds = useMemo(() => new Set(tags.map((tag) => tag.tagId)), [tags]);
+  const songTagIds = useMemo(() => new Set(bundle.songIndex.songs.map((song) => song.tagId)), [bundle.songIndex.songs]);
   const tagInputIndex = useMemo(() => {
     const index = new Map(Object.entries(bundle.aliasIndex.aliases));
     for (const tag of tags) index.set(normalizeTagAlias(tag.canonicalName), tag.tagId);
@@ -190,6 +195,14 @@ export function SearchPage(): React.JSX.Element {
   };
 
   const applyTagSuggestion = (tagId: string): void => {
+    if (songGenreTagIds.has(tagId)) {
+      navigate('/songs');
+      return;
+    }
+    if (songTagIds.has(tagId)) {
+      navigate(`/songs/${tagId}`);
+      return;
+    }
     const next = { ...draft, query: '', tagIds: [...new Set([...draft.tagIds, tagId])] };
     closeTagsAndShowResults(next);
   };
@@ -211,6 +224,14 @@ export function SearchPage(): React.JSX.Element {
   };
 
   const selectTagAndShowResults = (tagId: string, mode: 'add' | 'toggle'): void => {
+    if (songGenreTagIds.has(tagId)) {
+      navigate('/songs');
+      return;
+    }
+    if (songTagIds.has(tagId)) {
+      navigate(`/songs/${tagId}`);
+      return;
+    }
     const alreadySelected = selected.has(tagId);
     const nextTagIds = mode === 'toggle' && alreadySelected
       ? draft.tagIds.filter((id) => id !== tagId)

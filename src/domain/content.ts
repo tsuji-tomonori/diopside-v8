@@ -520,6 +520,66 @@ export const workIntroductionsSchema = z.object({
   }).strict()),
 }).strict();
 
+export const songPerformanceTypeSchema = z.enum([
+  '歌ってみた',
+  'オリジナル曲',
+  '歌枠',
+  '配信内歌唱',
+  '鼻歌',
+]);
+
+export const songPerformanceCatalogSchema = z.object({
+  schemaVersion: z.literal('1.0.0'),
+  updatedAt: isoDate,
+  songs: z.array(z.object({
+    tagId: z.string().regex(/^tag-works-songTitle-[a-f0-9]{12}$/u),
+    title: z.string().min(1).max(120),
+    original: z.object({
+      artist: z.string().min(1).max(120),
+      url: z.url().startsWith('https://'),
+      sourceLabel: z.string().min(1).max(80),
+      retrievedAt: isoDate,
+    }).strict(),
+    appearances: z.array(z.object({
+      appearanceId: z.string().regex(/^song-appearance-[a-z0-9-]+$/u),
+      videoId,
+      performanceType: songPerformanceTypeSchema,
+      subjectParticipation: z.literal(true),
+      startSeconds: z.number().int().nonnegative(),
+      endSeconds: z.number().int().positive().optional(),
+      confidence: confidenceSchema,
+      evidenceRefs: z.array(z.string()).min(1),
+      timestampId: z.string().regex(/^timestamp-[a-z0-9-]+$/u).optional(),
+      reviewedAt: isoDateTime,
+    }).strict()).min(1),
+  }).strict()).min(1),
+}).strict();
+
+export const publicSongIndexSchema = z.object({
+  schemaVersion: z.literal('1.0.0'),
+  releaseId: z.string(),
+  updatedAt: isoDate,
+  songs: z.array(z.object({
+    tagId: z.string().regex(/^tag-works-songTitle-[a-f0-9]{12}$/u),
+    title: z.string().min(1).max(120),
+    normalizedReading: z.string().min(1),
+    originalArtist: z.string().min(1).max(120),
+    originalUrl: z.url().startsWith('https://'),
+    originalSourceLabel: z.string().min(1).max(80),
+    originalRetrievedAt: isoDate,
+    appearances: z.array(z.object({
+      appearanceId: z.string(),
+      videoId,
+      videoTitle: z.string().min(1),
+      publishedAt: isoDateTime,
+      performanceType: songPerformanceTypeSchema,
+      startSeconds: z.number().int().nonnegative(),
+      endSeconds: z.number().int().positive().optional(),
+      youtubeUrl: z.url(),
+    }).strict()).min(1),
+  }).strict()).min(1),
+}).strict();
+
 export const publicAliasIndexSchema = z.object({
   schemaVersion: z.literal('1.0.0'),
   releaseId: z.string(),
@@ -539,6 +599,8 @@ export type SearchIndex = z.infer<typeof searchIndexSchema>;
 export type PublicTagIndex = z.infer<typeof publicTagIndexSchema>;
 export type PublicAliasIndex = z.infer<typeof publicAliasIndexSchema>;
 export type WorkIntroductions = z.infer<typeof workIntroductionsSchema>;
+export type SongPerformanceCatalog = z.infer<typeof songPerformanceCatalogSchema>;
+export type PublicSongIndex = z.infer<typeof publicSongIndexSchema>;
 export type CollaborationProfiles = z.infer<typeof collaborationProfilesSchema>;
 export type ChannelPersonMappings = z.infer<typeof channelPersonMappingsSchema>;
 
