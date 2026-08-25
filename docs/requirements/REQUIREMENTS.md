@@ -1,7 +1,7 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 17
+- カタログ版: 18
 - 更新日: 2026-08-25
 - 正本: `spec/requirements/requirements.json`
 
@@ -36,6 +36,7 @@
 | `V8-DISPLAY-011` | 2 | 有効 | データ | diopside v8の表示は、全編根拠を確認できる動画の詳細は、視聴意欲を促しつつ結末、正体、勝敗等のネタバレを避けた日本語あらすじを表示しなければならない。本文と末尾の引用符付きセリフは合計100〜150文字とし、最後に対象配信で白雪巴が実際に発した特徴的なセリフを一つ置かなければならない。を**satisfy** | あらすじ候補検証・公開データ検証・動画詳細画面試験・公開境界検査 |
 | `V8-DISPLAY-012` | 1 | 有効 | 機能 | diopside v8の作品タグと作品ページは、動画詳細の作品タグは、その作品タグを持つ公開動画の一覧ページへ移動できなければならない。ゲーム作品ページは、確認日を持つ短い公式説明の引用、引用元名、HTTPSの公式ページリンクを表示し、外部ページは利用者がリンクを押した場合だけ開かなければならない。を**satisfy** | 公開データ構造試験、作品タグ遷移E2E、公式リンク・引用表示・外部自動通信禁止試験 |
 | `V8-DISPLAY-013` | 1 | 有効 | 機能 | diopside v8のコラボ相手タグとコンビ・ユニットページは、動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページはYouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画を表示する。コンビ・ユニットページは出典付きの説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。を**satisfy** | 公開データ構造・人物名・コンビ説明・メンバーリンク・ローカルアイコン・外部自動通信禁止試験 |
+| `V8-DISPLAY-014` | 1 | 有効 | 機能 | diopside v8の定期・連続企画名タグとシリーズページは、動画詳細の定期・連続企画名タグは押下可能でなければならず、不変タグIDをURLに持つ一覧ページへ移動して、そのタグを持つ公開動画だけを公開日の新しい順で表示しなければならない。を**satisfy** | 正本タグ網羅試験、定期・連続企画名タグ遷移単体・E2E、一覧内容・順序・アクセシビリティ試験 |
 | `V8-INGEST-001` | 1 | 有効 | インターフェース | diopside v8のprivate ingestion要求は、外部ingestion要求は11文字のYouTube video_idだけを含み、未知fieldまたは内部状態を含んではならない。を**強制する** | 契約単体試験 |
 | `V8-INGEST-002` | 2 | 有効 | データ | diopside v8のprivate backfill対象は、歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。を**強制する** | manifest生成・改ざん・enqueue試験 |
 | `V8-INGEST-003` | 1 | 有効 | データ | diopside v8のprivate ingestion状態は、進捗状態はVideoIngestion単一DynamoDB tableのvideo_id partition keyだけを使う一動画一itemで保持し、sort key、GSI、用途別item typeを追加してはならない。を**強制する** | CDK template・状態repository試験 |
@@ -140,6 +141,7 @@
 | `V8-TAG-033` | 1 | 有効 | データ | diopside v8のタグは、動画詳細は承認済みタグを大分類ごとにまとめ、同名異義タグには小分類の文脈を示さなければならない。を**satisfy** | 画面・アクセシビリティ試験 |
 | `V8-TAG-034` | 1 | 有効 | データ | diopside v8のタグは、タグ表示名は公式な日本語名がある場合は日本語を用い、公式固有名詞と一般に定着した略称は出典表記を保たなければならない。を**satisfy** | 文言一覧・人手確認 |
 | `V8-TAG-035` | 1 | 有効 | データ | diopside v8のタグは、人物・グループ分類を除くタグが1動画あたり12件を超える候補は、過剰付与の確認待ちにしなければならない。を**satisfy** | 基数集計・人手確認 |
+| `V8-TAG-036` | 1 | 有効 | データ | diopside v8の定期・連続企画タグは、公開タイトルまたは承認済み既存タグから定期・連続企画名を直接確認できる動画は当該定期・連続企画名タグを持ち、名称中の「杯」等の部分一致だけでイベント・大会名へ重複分類してはならない。を**satisfy** | 正本全件タグ網羅・重複分類試験、旧タグ再生成回帰試験 |
 | `V8-TIME-001` | 1 | 有効 | データ | diopside v8の時刻は、タイムスタンプは動画全体を移動するための目次として作り、見どころ候補と別のデータとして扱わなければならない。を**satisfy** | 意味論監査 |
 | `V8-TIME-002` | 1 | 有効 | データ | diopside v8の時刻は、v8.0では動画形式が「配信」の動画を既定の作成対象とし、「Shorts」と単曲の「歌ってみた」は対象外にしなければならない。を**satisfy** | 対象集合・境界値試験 |
 | `V8-TIME-003` | 1 | 有効 | データ | diopside v8の時刻は、各対象動画は「作成済み」または理由付きの「未作成」の状態を持たなければならない。を**satisfy** | 状態遷移・画面試験 |
@@ -618,6 +620,22 @@ diopside v8のコラボ相手タグとコンビ・ユニットページは、動
 要求源: spec/sources/owner-directive-2026-08-15-collaboration-pages.md, user:2026-08-15
 検証証跡: tests/content-validation.test.ts, tests/generated.test.ts, src/features/collaborations/CollaborationDetailPages.test.tsx, e2e/detail.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=content/people/collaboration-profiles.json,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/features/collaborations/CollaboratorDetailPage.tsx,src/features/collaborations/GroupDetailPage.tsx; テスト=tests/content-validation.test.ts,tests/generated.test.ts,src/features/collaborations/CollaborationDetailPages.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-15-collaboration-pages.md,dev-standard default profile
+
+## V8-DISPLAY-014: 定期・連続企画名タグは同じシリーズの動画一覧へ移動できなければならない
+
+diopside v8の定期・連続企画名タグとシリーズページは、動画詳細の定期・連続企画名タグは押下可能でなければならず、不変タグIDをURLに持つ一覧ページへ移動して、そのタグを持つ公開動画だけを公開日の新しい順で表示しなければならない。を**satisfy**。
+
+根拠: 同じ定期企画や連続企画の各回を、個別動画から途切れずに探せるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-014-1` 前提: 動画詳細に定期・連続企画名の承認済みタグが表示されている。条件: 利用者が企画・シリーズ名タグを押す。期待結果: 不変タグIDをURLに持つシリーズページへ移動し、そのタグを持つ公開動画だけを公開日の新しい順で表示する。。
+- `AC-V8-DISPLAY-014-2` 前提: 公開タイトルで同じ定期・連続企画名が明示された複数の動画がある。条件: シリーズページの件数と動画カードを確認する。期待結果: 確認済みの同シリーズ動画を取りこぼさず、他の企画・シリーズの動画を混在させない。。
+
+要求源: user:2026-08-25
+検証証跡: tests/content-validation.test.ts, src/features/series/SeriesDetailPage.test.tsx, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/App.tsx,src/features/detail/VideoDetailPage.tsx,src/features/series/SeriesDetailPage.tsx; テスト=tests/content-validation.test.ts,src/features/series/SeriesDetailPage.test.tsx,e2e/detail.spec.ts; 参照資料=user:2026-08-25,dev-standard default profile
 
 ## V8-INGEST-001: 外部ingestion要求はvideo_idだけを含む厳格な11文字契約でなければならない
 
@@ -2206,6 +2224,22 @@ diopside v8のタグは、人物・グループ分類を除くタグが1動画�
 要求源: Issue #1 V8-タグ-035, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-TAG-036: 定期・連続企画名を明示する動画はシリーズタグを持ち、名称の部分一致だけでイベントへ重複分類してはならない
+
+diopside v8の定期・連続企画タグは、公開タイトルまたは承認済み既存タグから定期・連続企画名を直接確認できる動画は当該定期・連続企画名タグを持ち、名称中の「杯」等の部分一致だけでイベント・大会名へ重複分類してはならない。を**satisfy**。
+
+根拠: シリーズ各回の取りこぼしと、一般語を大会名の指標として扱う誤分類を同時に防ぐため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-TAG-036-1` 前提: 公開タイトルに「#いっ杯晩酌」が明示された動画がある。条件: 承認済みタグ正本を全件検査する。期待結果: 対象14動画すべてが定期・連続企画名「いっ杯晩酌」を持つ。。
+- `AC-V8-TAG-036-2` 前提: 定期・連続企画名そのものに「杯」の文字が含まれる。条件: 旧タグから論理タグを再生成する。期待結果: 名称の部分一致だけを理由にイベント・大会名「いっ杯晩酌」を追加しない。。
+
+要求源: user:2026-08-25
+検証証跡: tests/content-validation.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=scripts/legacy-content.ts,content/videos; テスト=tests/content-validation.test.ts; 参照資料=user:2026-08-25,dev-standard default profile
 
 ## V8-TIME-001: タイムスタンプは動画全体を移動するための目次として作り、見どころ候補と別のデータとして扱わなければならない
 

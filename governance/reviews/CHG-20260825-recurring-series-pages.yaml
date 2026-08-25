@@ -1,0 +1,237 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260825-recurring-series-pages
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: false
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: 定期・連続企画の分類補正をV8-TAG-036、タグから一覧へ移動する利用者向け挙動をV8-DISPLAY-014として追加した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+      - path:docs/design/generated/inventory.gen.json
+    note: 新しいseries route、SeriesDetailPage、要件生成器の入力指紋をas-built生成設計へ反映した。可逆な既存UIパターンの適用でありADRは不要である。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260825-recurring-series-pages.yaml
+    note: 複数動画の正本補正、永続要件、公開route、重要UI、E2Eへ影響するためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 利用者がGitHub権限を明示しており、feature branchのpushとdraft PR作成だけを行う。merge、release、production公開は行わない。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/content-manifest.json
+      - test:tests/content-validation.test.ts
+    note: 1696動画の総数を維持し、タグ付与件数を11452件へ再計算した。変更は13動画の全体JSON上書きでrevert可能でありschema migrationはない。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/App.tsx
+      - path:src/features/series/SeriesDetailPage.tsx
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 一時コピーで正本からrelease、Vite production bundle、Pages用成果物まで決定生成し、1696動画のbuildを完了した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:tsconfig.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: TypeScriptのブラウザ・Node両projectのtypecheckを完了した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/series/SeriesDetailPage.tsx
+      - test:e2e/detail.spec.ts
+      - test:tests/content-validation.test.ts
+    note: 変更したReact、生成器、正本分類規則、単体試験、E2Eのlintを警告0件で完了した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - test:src/features/series/SeriesDetailPage.test.tsx
+      - test:e2e/detail.spec.ts
+    note: 14件のシリーズ網羅、イベント誤分類防止、シリーズ一覧内容を関連単体14件で確認し、タグ押下経路を追加E2Eへ固定した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - test:e2e/detail.spec.ts
+    note: 旧挙動の6件付与漏れ、「杯」の部分一致による7件のイベント重複、タグから一覧へ移動できない状態で失敗する回帰条件を固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:docs/requirements/REQUIREMENTS.md
+      - path:docs/design/generated/system.gen.md
+      - path:docs/design/generated/inventory.gen.json
+    note: 要件表示とas-built設計を正本・実装から再生成し、同じ入力で差分が安定することを確認した。公開release生成物はPR規約どおり差分へ含めない。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 公開動画タイトルと既存正本だけを扱い、credential、個人情報、生字幕、コメント、チャット、投稿者識別子を追加していない。
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/series/SeriesDetailPage.test.tsx
+      - test:e2e/detail.spec.ts
+    note: シリーズページの通常、0件、未知タグの状態を実装し、同一タグ動画だけを新しい順で表示する主要状態をcomponentとE2Eで検証する。
+  - id: FAST-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/series/SeriesDetailPage.test.tsx
+      - test:e2e/detail.spec.ts
+    note: タグをnative Link、ページ名をh1、件数をh2として実装し、roleとaccessible nameをcomponent testで確認した。axeを含むブラウザ検証はPR CIで実行する。
+  - id: FAST-018
+    class: Risk-selected
+    result: na
+    evidence:
+      - test:e2e/detail.spec.ts
+    note: E2E変更triggerで選択後、対象が読取り専用の静的ページ遷移でありC/U/D API、DB、外部状態変更を含まないと確認した。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: いっ杯晩酌の分類補正と、定期・連続企画名から一覧へ移動する一つの目的に正本、規則、route、画面、要件、試験を限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更内容、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: 実装とV8-TAG-036の分類規則、およびV8-DISPLAY-014のシリーズ遷移・一覧受入条件が一致する。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+      - path:docs/design/generated/inventory.gen.json
+    note: 実装から生成できるrouteとcomponent構造を更新し、コードから自明でない長期architecture判断はないためADRを追加しない。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:scripts/legacy-content.ts
+      - path:src/features/series/SeriesDetailPage.tsx
+      - test:tests/content-validation.test.ts
+      - test:e2e/detail.spec.ts
+    note: V8-TAG-036とV8-DISPLAY-014から正本補正、再生成規則、route、画面、単体試験、E2Eへtraceできる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - test:src/features/series/SeriesDetailPage.test.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 2要件4受入条件へ対応する正本・再生成・component・ブラウザ試験があり、PR CIの既存全テスト経路で実行される。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260825-recurring-series-pages.yaml
+    note: 変更flagsから選択されたcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260825-recurring-series-pages.yaml
+    note: selectorで選択されなかったcheckを形式的なN/Aとして登録していない。
+  - id: REV-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/detail.spec.ts
+    note: FAST-018はE2E変更で選択後、CRUD・DB・外部状態を持たない静的UI試験と判明したためN/A根拠を記録した。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/App.tsx
+      - test:e2e/detail.spec.ts
+    note: 既存routeと公開JSON schemaを変更せずseries routeを追加した。未知tagIdは検索へ戻れる停止表示となり、既存URLとの後方互換性を維持する。
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/series/SeriesDetailPage.test.tsx
+      - test:e2e/detail.spec.ts
+    note: 動画詳細の企画名を押して14件一覧へ移動する主要タスク、意味構造、未知タグ状態をcomponentで確認し、mobile・desktop E2EをCIへ追加した。
+
+advisories: []
+residual_risks:
+  - ローカル環境ではViteの待受socketが許可されず、追加Playwright E2Eの実ブラウザ実行はPlaywright同梱containerを使うGitHub Actionsをmerge前の必須証拠とする。
+  - draft PRは人が確認してmergeするまで公開されず、この変更ではmerge、release、deployを行わない。
