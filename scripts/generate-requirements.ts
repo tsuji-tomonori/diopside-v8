@@ -326,22 +326,24 @@ const requirements = sourceRequirements.map((item) => {
     requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-08-TIMESTAMP-BATCH';
   }
   if (id === 'V8-OPS-003') {
-    requirement.revision = 4;
+    requirement.revision = 5;
     requirement.source_refs.push(
       'owner-directive:2026-08-04',
       'spec/sources/owner-directive-2026-08-08-post-merge-release.md',
       'user:2026-08-23',
+      'user:2026-08-26',
     );
-    requirement.acceptance_criteria[0]!.then = '`.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。動画確認、候補検出、公開準備の `workflow_dispatch` は読取専用に限定し、private backfill基盤deployだけをV8-INGEST-009とV8-INGEST-013の承認済み手動経路として分離し、静的成果物生成は検証済みmainだけを入力とする。';
+    requirement.acceptance_criteria[0]!.then = '`.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。動画確認、候補検出、公開準備のworkflow_dispatchは読取専用に限定し、private backfill基盤deployと1動画SQS投入だけをV8-INGEST-009、V8-INGEST-013、V8-INGEST-014の承認済み手動経路として分離し、静的成果物生成は検証済みmainだけを入力とする。';
     requirement.traces.implementation.push('.github/workflows/manual-content-operation.yml');
     requirement.traces.implementation = [
       ...requirement.traces.implementation,
       '.github/workflows/update-generated-release.yml',
       '.github/workflows/deploy-ingestion-infra.yml',
+      '.github/workflows/enqueue-ingestion-video.yml',
     ];
     requirement.traces.tests.push('tests/repository-policy.test.ts');
     requirement.verification.evidence = 'tests/operations.test.ts, tests/generated.test.ts, tests/repository-policy.test.ts';
-    requirement.last_changed_by = 'CHG-20260823-INGESTION-GITHUB-DEPLOY';
+    requirement.last_changed_by = 'CHG-20260827-INGESTION-GITHUB-ENQUEUE';
   }
   if (id === 'V8-OPS-007') {
     requirement.revision = 2;

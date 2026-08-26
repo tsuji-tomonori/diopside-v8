@@ -7,4 +7,5 @@ Check: `python .agents/skills/generate-implementation-design/scripts/designflow.
 
 | Name | Type | Default | Allowed values | Description |
 |---|---|---|---|---|
+| `GitHubEnqueueOidcSubject` | `String` | - | - | Exact GitHub Actions OIDC subject for the protected private-backfill-enqueue environment |
 | `GitHubOidcSubject` | `String` | - | - | Exact GitHub Actions OIDC subject for the protected private-backfill-infra environment |

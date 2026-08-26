@@ -1,0 +1,72 @@
+name: 1動画private backfill投入
+
+on:
+  workflow_dispatch:
+    inputs:
+      video_id:
+        description: SQSへ投入する11文字のYouTube video_id
+        required: true
+        type: string
+      confirmation:
+        description: 料金・利用量・契約条件を確認済みの場合は ENQUEUE と入力
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: enqueue-ingestion-video
+  cancel-in-progress: false
+
+jobs:
+  enqueue:
+    name: 検証済みvideo_idをFIFOへ1件投入
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment: private-backfill-enqueue
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      AWS_ENQUEUE_ROLE_ARN: ${{ vars.AWS_ENQUEUE_ROLE_ARN }}
+      AWS_INGESTION_QUEUE_URL: ${{ vars.AWS_INGESTION_QUEUE_URL }}
+      VIDEO_ID: ${{ inputs.video_id }}
+      CONFIRMATION: ${{ inputs.confirmation }}
+    steps:
+      - name: main・確認入力・対象AWS資源を検証
+        run: |
+          test "$GITHUB_REF" = 'refs/heads/main'
+          test "$CONFIRMATION" = 'ENQUEUE'
+          [[ "$VIDEO_ID" =~ ^[A-Za-z0-9_-]{11}$ ]]
+          [[ "$AWS_ACCOUNT_ID" =~ ^[0-9]{12}$ ]]
+          [[ "$AWS_REGION" =~ ^[a-z]{2}-[a-z]+-[0-9]+$ ]]
+          test "$AWS_ENQUEUE_ROLE_ARN" = "arn:aws:iam::$AWS_ACCOUNT_ID:role/diopside-github-actions-enqueue"
+          expected_queue_url="https://sqs.$AWS_REGION.amazonaws.com/$AWS_ACCOUNT_ID/diopside-ingestion-request.fifo"
+          test "$AWS_INGESTION_QUEUE_URL" = "$expected_queue_url"
+      - name: GitHub OIDCで短期AWS資格情報を取得
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
+        with:
+          role-to-assume: ${{ env.AWS_ENQUEUE_ROLE_ARN }}
+          role-session-name: diopside-enqueue-${{ github.run_id }}-${{ github.run_attempt }}
+          aws-region: ${{ env.AWS_REGION }}
+          allowed-account-ids: ${{ env.AWS_ACCOUNT_ID }}
+      - name: video_idだけをSQS FIFOへ送信
+        run: |
+          message_body="$(jq -cn --arg video_id "$VIDEO_ID" '{video_id:$video_id}')"
+          message_id="$(aws sqs send-message \
+            --region "$AWS_REGION" \
+            --queue-url "$AWS_INGESTION_QUEUE_URL" \
+            --message-body "$message_body" \
+            --message-group-id "$VIDEO_ID" \
+            --message-deduplication-id "github-actions:${GITHUB_RUN_ID}:${VIDEO_ID}" \
+            --query MessageId \
+            --output text)"
+          test -n "$message_id"
+          {
+            echo '### SQS投入結果'
+            echo "- video_id: \`$VIDEO_ID\`"
+            echo "- MessageId: \`$message_id\`"
+          } >> "$GITHUB_STEP_SUMMARY"

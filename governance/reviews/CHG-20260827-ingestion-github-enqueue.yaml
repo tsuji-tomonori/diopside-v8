@@ -1,0 +1,184 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260827-ingestion-github-enqueue
+profile: regulated
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: true
+  auth_change: true
+  data_change: false
+  public_api_change: false
+  iac_change: true
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: true
+  important_ui_change: false
+  long_term_decision: true
+  squash: true
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self, path:spec/requirements/requirements.json]
+    note: V8-COST-005、V8-INGEST-001/002/009、V8-OPS-003を更新し、最小権限の1動画投入境界をV8-INGEST-014として追加した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md, path:docs/design/generated/system.gen.md]
+    note: enqueue専用IAM role、policy、parameterと要件件数の設計影響を生成設計へ反映した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 認可境界と費用を伴う外部書込み経路を変更するためregulatedを選択し、AWS deployと実enqueueは実行していない。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [path:.github/workflows/enqueue-ingestion-video.yml, path:docs/operations/manual-content-update.md]
+    note: SQS書込みはmainの手動workflow、ENQUEUE確認、専用protected environment承認後の対象FIFOへの1件送信だけに限定した。今回の外部書込みは利用者が許可したGitHub branchとDraft PRだけである。
+  - id: IMP-005
+    class: Invariant
+    result: pass
+    evidence: [path:.github/workflows/enqueue-ingestion-video.yml, path:docs/operations/cost-check.md]
+    note: enqueue後はLambda処理とAWS費用が発生し得る不可逆境界として扱い、料金確認と実行時environment承認を必須にした。検証では実行していない。
+  - id: IMP-006
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_deployment/access_stack.py, test:infra/tests/test_deployment_access.py]
+    note: OIDC audienceとprotected environment subjectを完全一致にし、専用roleを対象FIFOへのsqs:SendMessageだけに限定した。
+  - id: IMP-009
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_deployment/access_stack.py, test:infra/tests/test_deployment_access.py, path:docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md]
+    note: 既存access stackへIAM roleとinline policyだけを追加し、queue、network、access key、KMS、compute resourceを追加していない。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_deployment_access.py, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: Workflow YAML parse、Python test、2 stackのCDK synth、root buildを確認した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Pyright、mypy strict、root TypeScript typecheckが合格した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, path:scripts/generate-requirements.ts, test:tests/repository-policy.test.ts]
+    note: Ruff format・lintとESLintが合格した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_deployment_access.py, test:tests/repository-policy.test.ts, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: IAM trust・権限とworkflowの起動・入力・送信境界を直接検証し、infra 53 testとroot 107 testが合格した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-github-deployment-access/manifest.json, path:docs/design/generated/inventory.gen.json, path:docs/requirements/REQUIREMENTS.md]
+    note: 要件表示、system設計、IAM CDK設計を正本から再生成し、requirements checkと両CDK stackのcheck modeが合格した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [test:tests/repository-policy.test.ts, commit:self]
+    note: 長期AWS access keyやtokenを追加せず、repository方針検査とstaged diff確認を行う。
+  - id: FAST-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_deployment_access.py, path:docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: synth、cdk-nag、template assertionで完全一致trust、SendMessage専用権限、wildcardと意図しないAWS権限の不在を確認した。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:.github/workflows/enqueue-ingestion-video.yml, path:infra/README.md]
+    note: AWS CLI失敗をjob失敗として検知し、成功時はMessageIdをGitHub step summaryへ残す。下流のretry、DLQ、状態観測は既存ingestion基盤を使う。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 変更を1動画SQS投入workflow、専用OIDC role、対応要件・生成設計・運用手順に限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: 利用者の1動画SQS投入指示を、既存の有限private backfillと手動実行制約へ統合した要件正本revision 21として反映した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md, path:docs/design/generated/system.gen.md]
+    note: 実装由来resourceは生成設計へ記録し、既存OIDC方式の用途追加であるため新規ADRは作成していない。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:infra/tests/test_deployment_access.py, test:tests/repository-policy.test.ts]
+    note: V8-INGEST-014を中心にV8-COST-005、V8-INGEST-001/002/009、V8-OPS-003から実装、IAM test、workflow test、生成設計へtraceできる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_deployment_access.py, test:tests/repository-policy.test.ts, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: 変更受入条件を直接検証するtestがあり、GitHub CIのrootとingestion-infra jobで実行される。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260827-ingestion-github-enqueue.yaml]
+    note: 選択checkだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260827-ingestion-github-enqueue.yaml]
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+  - id: REV-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_deployment_access.py, test:tests/repository-policy.test.ts, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: 認可境界をCDK template assertion、repository policy test、cdk-nagの別oracleで確認した。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/README.md, path:docs/operations/manual-content-update.md, path:docs/operations/privacy-and-safety.md, path:docs/operations/cost-check.md]
+    note: access stack更新、専用GitHub environment、対象変数、費用確認、1動画実行手順を運用正本へ反映した。
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence: [path:infra/README.md, commit:self]
+    note: OIDC短期sessionとSendMessage専用roleは既存採用方式を最小権限で拡張したもので、将来を新しく制約する独自判断ではないためADRは不要とした。
+advisories: []
+residual_risks:
+  - AWS accountのGitHub OIDC provider、request FIFO、access stackの更新、private-backfill-enqueue environment protectionと変数はrepository外の前提であり、実環境では未確認である。
+  - access stackをGitHubEnqueueOidcSubject付きで更新し、environment変数を設定するまではworkflowは安全に失敗する。実deployは今回行っていない。
+  - 実SQS enqueueと下流Lambdaのsmokeは行っていない。初回は既知の1動画、対象account・region、AWS料金を人が確認し、run-scoped deduplicationを含む処理結果を観測する必要がある。
