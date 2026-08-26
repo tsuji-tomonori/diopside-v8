@@ -192,7 +192,7 @@ describe('タグ・動画正本と公開境界', () => {
       records: Array<{ videoId: string }>;
     };
     expect(tagSource.selection.videoCount).toBe(30);
-    expect(tagSource.selection.tagAssignmentCount).toBe(225);
+    expect(tagSource.selection.tagAssignmentCount).toBe(224);
     expect(tagSource.videos.map((video) => video.videoId)).toEqual(tagSource.selection.videoIds);
     expect(timestampSource.selection.requestedVideoIds).toEqual(tagSource.selection.videoIds);
     expect(timestampSource.records).toHaveLength(timestampSource.selection.availableVideoCount);
@@ -207,6 +207,25 @@ describe('タグ・動画正本と公開境界', () => {
     const codes = validateCanonicalVideo(video, taxonomy, aliases).map((item) => item.code);
     expect(codes).toEqual(expect.arrayContaining(['TAG_UNKNOWN', 'TAG_DUPLICATED']));
     expect(codes).toContain('TAG_EVIDENCE_MISSING');
+  });
+
+  it('進行・企画特性のタイトル根拠が公開タイトルにない場合は拒否する', () => {
+    const video = structuredClone(videos.find((item) => item.videoId === '37R4N3H1Ji4')!);
+    const tournamentTagId = taxonomy.categories
+      .find((category) => category.categoryId === 'context')
+      ?.subcategories.find((subcategory) => subcategory.subcategoryId === 'feature')
+      ?.tags.find((tag) => tag.canonicalName === '大会')?.tagId;
+    expect(tournamentTagId).toBeDefined();
+    video.tagAssignments.push({
+      tagId: tournamentTagId!,
+      reason: 'タイトルが進行特性「大会」を明示',
+      confidence: '高',
+      evidenceRefs: [video.evidence[0]!.evidenceId],
+      reviewedAt: '2026-08-26T23:00:00+09:00',
+    });
+
+    expect(validateCanonicalVideo(video, taxonomy, aliases).map((item) => item.code))
+      .toContain('TAG_TITLE_EVIDENCE_MISMATCH');
   });
 
   it('除外記録の動画を正本へ同時に置かず、再追加防止境界を維持する', () => {

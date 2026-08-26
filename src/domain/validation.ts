@@ -22,6 +22,16 @@ export interface ValidationIssue {
   message: string;
 }
 
+const explicitFeatureTitlePatterns = new Map<string, RegExp>([
+  ['ゲリラ', /ゲリラ/u],
+  ['逆凸', /逆凸/u],
+  ['検証・チャレンジ', /(?:検証|チャレンジ|挑戦)/u],
+  ['初見', /初見/u],
+  ['耐久', /(?:耐久|クリアするまで|終わるまで)/u],
+  ['大会', /(?:大会|運動会|にじイカ祭り20\d{2}|(?:麻雀|スマブラ|マリカ|スプラ|DbD|DBD|ポケユナ|卓球|クイズ|ぷよテト|遊戯王)[^\s】#]{0,12}杯)/iu],
+  ['単発', /単発/u],
+]);
+
 function zodIssues(error: ZodError): ValidationIssue[] {
   return error.issues.map((issue) => ({
     code: 'STRUCTURE',
@@ -159,6 +169,17 @@ export function validateCanonicalVideo(
     assigned.set(assignment.tagId, tag);
     if (!assignment.reason.includes(tag.canonicalName)) {
       issues.push(issue('TAG_REASON_NOT_SPECIFIC', `tagAssignments.${index}.reason`, '付与理由に対象タグの判定事実を明示してください。'));
+    }
+    const titleIsSoleEvidence = /^(?:タイトルが|公開タイトルから)/u.test(assignment.reason);
+    const explicitFeaturePattern = tag.categoryId === 'context' && tag.subcategoryId === 'feature'
+      ? explicitFeatureTitlePatterns.get(tag.canonicalName)
+      : undefined;
+    if (titleIsSoleEvidence && explicitFeaturePattern && !explicitFeaturePattern.test(video.title)) {
+      issues.push(issue(
+        'TAG_TITLE_EVIDENCE_MISMATCH',
+        `tagAssignments.${index}.reason`,
+        `進行・企画特性「${tag.canonicalName}」のタイトル根拠を公開タイトルで確認できません。`,
+      ));
     }
   }
   if (video.taxonomyVersion !== taxonomy.taxonomyVersion) {
