@@ -27,6 +27,7 @@ describe('公開データ読込', () => {
     const bundle = await loadPublicBundle(store, repositoryFetcher());
     expect(bundle.latest.releaseId).toBe(embeddedReleaseId);
     expect(bundle.index.videos).toHaveLength(contentManifest.videoCount);
+    expect(bundle.songIndex.songs.length).toBeGreaterThan(0);
     expect((await store.readPublicCache())?.releaseId).toBe(embeddedReleaseId);
   });
 
