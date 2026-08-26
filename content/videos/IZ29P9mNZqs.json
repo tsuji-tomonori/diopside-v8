@@ -1,0 +1,125 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "IZ29P9mNZqs",
+  "title": "【めっちゃカメレオン】めっちゃ女子会カメレオン🌈🌈🌈【白雪巴/にじさんじ】",
+  "publishedAt": "2026-08-14T16:26:44Z",
+  "durationSeconds": 5969,
+  "durationIso": "PT1H39M29S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/IZ29P9mNZqs/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=IZ29P9mNZqs",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "YouTube公開動画タイトル",
+      "inputFingerprint": "d7185d3d90b60d07a61a3fc28a56ecab92737a3d682a4e99ee3193305198507d"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "YouTube公開チャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "YouTube公開動画長",
+      "inputFingerprint": "3bd8c9090458a32ffcdc0f9351f24e8dc544cfbb9cfb81b88160bf4d6d6db4df"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトルから主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-27T00:13:11+09:00"
+    },
+    {
+      "tagId": "tag-content-secondary-51d7ff1287db",
+      "reason": "同一作品の承認済み分類から副ジャンル「企画」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-27T00:13:11+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-62278ec71bd0",
+      "reason": "同一作品の承認済み分類からゲームジャンル「アクション」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-27T00:13:11+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-e39b9f75edc2",
+      "reason": "同一作品の承認済み分類からゲームジャンル「パーティーゲーム」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-27T00:13:11+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-a2b840a98d80",
+      "reason": "公開タイトルからゲーム作品名「めっちゃカメレオン」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-27T00:13:11+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開チャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-27T00:13:11+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "公開済みライブアーカイブと動画長から公開形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-27T00:13:11+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "未作成",
+    "reason": "確認待ち",
+    "detail": "公開全編根拠を取得し、タイムスタンプ候補を確認しています。",
+    "updatedAt": "2026-08-27T00:13:11+09:00"
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "確認待ち",
+    "detail": "本PRでは動画情報・タイムスタンプ・あらすじの確認を優先します。",
+    "updatedAt": "2026-08-27T00:13:11+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "01bbcf1d3edf6e330e05420a15da0dfedf67d2d66fd959c2e2246095aaa00d3e",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
+    "generatedAt": "2026-08-27T00:13:11+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/compare/main...agent/timestamps-IZ29P9mNZqs"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-27T00:13:11+09:00",
+    "basis": "運用者の直近2週間の未追加動画を処理する明示要求に基づく。公開はDraft PRの人手mergeを条件とする"
+  }
+}
