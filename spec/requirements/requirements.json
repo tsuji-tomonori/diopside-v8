@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "catalog_revision": 19,
+  "catalog_revision": 20,
   "product": "diopside v8",
-  "updated_at": "2026-08-25",
+  "updated_at": "2026-08-26",
   "requirements": [
     {
       "acceptance_criteria": [
@@ -1948,23 +1948,24 @@
     {
       "acceptance_criteria": [
         {
-          "given": "backfill用のコードとCIがある",
+          "given": "backfill用のコード、CI、AWS基盤deploy workflowがある",
           "id": "AC-V8-INGEST-009-1",
-          "then": "workflowはscheduleまたはdeployを持たず、通常backfillとlegacy local importはmanifest作成とAWS書込みを別commandにし、AWS書込みには固定manifestと全件またはvideo IDの明示選択を要求する。",
+          "then": "workflowはscheduleを持たず、AWS基盤deployはmainの手動起動、確認入力、protected environment承認、事前品質ゲートを必須にし、通常backfillとlegacy local importはmanifest作成とAWS書込みを別commandにして、enqueueまたはuploadには固定manifestと全件またはvideo IDの明示選択を要求する。",
           "when": "repositoryのworkflowとoperator commandを確認する"
         }
       ],
       "action": "enforce",
       "category": "functional",
       "id": "V8-INGEST-009",
-      "last_changed_by": "CHG-20260822-legacy-local-import",
-      "object": "private backfillは運用者が固定manifestと対象選択を明示して開始する有限作業であり、通常取得とlegacy local importのいずれもschedule、新着動画の自動発見、AWS deploy、enqueue、upload、削除、公開、mergeを自動実行してはならない。",
+      "last_changed_by": "CHG-20260823-ingestion-github-deploy",
+      "object": "private backfillは運用者が固定manifestと対象選択を明示して開始する有限作業であり、AWS基盤deployはmainのprotected environmentから人が開始し、通常取得とlegacy local importのenqueue、upload、削除、公開、mergeを自動実行してはならない。",
       "rationale": "歴史素材の回収を公開更新や無期限の外部スキャンへ変えず、人の承認境界を維持するため。",
-      "revision": 3,
+      "revision": 4,
       "scope": "project",
       "source_refs": [
         "Issue #465",
-        "user:2026-08-22"
+        "user:2026-08-22",
+        "user:2026-08-23"
       ],
       "status": "active",
       "subject": "diopside v8のprivate backfill運用",
@@ -1973,28 +1974,33 @@
         "design": [
           "docs/decisions/ADR-0003-lambda-private-material-backfill.md",
           "docs/decisions/ADR-0004-legacy-local-private-import.md",
-          "docs/operations/manual-content-update.md"
+          "docs/operations/manual-content-update.md",
+          "docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md"
         ],
         "implementation": [
           ".github/workflows/verify.yml",
+          ".github/workflows/deploy-ingestion-infra.yml",
           "infra/src/diopside_ingestion/cli.py",
           "infra/src/diopside_ingestion/legacy_import.py",
           "scripts/verify-repository-policy.ts"
         ],
         "standards": [
           "Issue #465",
-          "dev-standard assured profile"
+          "dev-standard regulated profile",
+          "GitHub Actions OIDC for AWS",
+          "AWS CDK security best practices"
         ],
         "tests": [
-          "tests/repository-policy.test.ts",
+          "infra/tests/test_manifest.py",
           "infra/tests/test_cli.py",
-          "infra/tests/test_legacy_import.py"
+          "infra/tests/test_deployment_access.py",
+          "tests/repository-policy.test.ts"
         ]
       },
       "type": "operational",
       "verification": {
-        "evidence": "tests/repository-policy.test.ts, infra/tests/test_cli.py, infra/tests/test_legacy_import.py",
-        "method": "workflow・CLI・運用文書確認"
+        "evidence": "infra/tests/test_deployment_access.py, infra/tests/test_manifest.py, infra/tests/test_cli.py, tests/repository-policy.test.ts",
+        "method": "workflow静的確認・IAM template試験・operator command試験"
       }
     },
     {
@@ -2152,6 +2158,67 @@
       }
     },
     {
+      "acceptance_criteria": [
+        {
+          "given": "AWS accountにGitHub OIDC providerとmodern CDK bootstrap roleがある",
+          "id": "AC-V8-INGEST-013-1",
+          "then": "受けロールはaudienceとprotected environmentを含む完全一致subjectだけを信頼し、AWS access keyを作らず、同一accountとregionのdeploy、file-publishing、lookup bootstrap roleだけを引き受けられる。",
+          "when": "deployment access stackをsynthしてIAM trustと権限policyを検査する"
+        },
+        {
+          "given": "検証済みmainのprivate backfill基盤をデプロイする",
+          "id": "AC-V8-INGEST-013-2",
+          "then": "workflowはmain、確認入力、protected environment承認、account ID照合、lock済み依存、Ruff、strict型検査、pytest、CDK synth、cdk-nag、生成設計差分の合格後だけOIDC短期sessionでDiopsideIngestionStackをデプロイし、enqueue、upload、削除、公開、mergeを実行しない。",
+          "when": "運用者がGitHub Actionsのdeploy workflowを明示開始する"
+        }
+      ],
+      "action": "enforce",
+      "category": "nonfunctional",
+      "id": "V8-INGEST-013",
+      "last_changed_by": "CHG-20260823-ingestion-github-deploy",
+      "object": "GitHub ActionsからのCDK deployはprotected environmentで承認されたmainの手動実行が完全一致OIDC subjectの短期sessionを使用し、同一accountとregionの必要なCDK bootstrap roleだけを引き受ける経路に限定しなければならない。",
+      "rationale": "長期AWS access keyとrepository横断の信頼を持たず、デプロイ権限を人が承認した有限private backfill基盤の変更だけへ閉じるため。",
+      "revision": 1,
+      "scope": "project",
+      "source_refs": [
+        "Issue #465",
+        "user:2026-08-23",
+        "GitHub Actions OIDC for AWS",
+        "AWS CDK security best practices"
+      ],
+      "status": "active",
+      "subject": "diopside v8のprivate backfill基盤deploy",
+      "title": "GitHub Actionsのprivate backfill基盤deployはOIDC短期sessionと限定CDK roleを使用しなければならない",
+      "traces": {
+        "design": [
+          "docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md",
+          "docs/design/generated/cdk/diopside-github-deployment-access/PARAMETERS.gen.md",
+          "docs/operations/manual-content-update.md",
+          "docs/operations/privacy-and-safety.md"
+        ],
+        "implementation": [
+          "infra/src/diopside_deployment/access_stack.py",
+          "infra/app.py",
+          ".github/workflows/deploy-ingestion-infra.yml"
+        ],
+        "standards": [
+          "Issue #465",
+          "GitHub Actions OIDC for AWS",
+          "AWS CDK security best practices",
+          "dev-standard regulated profile"
+        ],
+        "tests": [
+          "infra/tests/test_deployment_access.py",
+          "tests/repository-policy.test.ts"
+        ]
+      },
+      "type": "constraint",
+      "verification": {
+        "evidence": "infra/tests/test_deployment_access.py, tests/repository-policy.test.ts, .github/workflows/verify.yml",
+        "method": "IAM CloudFormation template assertion・workflow静的試験・CDK synth・cdk-nag"
+      }
+    },
+    {
       "id": "V8-OPS-001",
       "revision": 2,
       "status": "active",
@@ -2260,7 +2327,7 @@
     },
     {
       "id": "V8-OPS-003",
-      "revision": 3,
+      "revision": 4,
       "status": "active",
       "scope": "project",
       "category": "nonfunctional",
@@ -2274,19 +2341,20 @@
         "Issue #1 V8-運用-003",
         "user:2026-08-03",
         "owner-directive:2026-08-04",
-        "spec/sources/owner-directive-2026-08-08-post-merge-release.md"
+        "spec/sources/owner-directive-2026-08-08-post-merge-release.md",
+        "user:2026-08-23"
       ],
       "acceptance_criteria": [
         {
           "id": "AC-V8-OPS-003-1",
           "given": "V8-運用-003の前提を満たす公開データまたは操作がある",
           "when": "リポジトリ静的確認・手順試験",
-          "then": "`.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。人が開始する `workflow_dispatch` は読取専用の検証と候補検出に限定し、静的成果物生成は検証済みmainだけを入力とする。"
+          "then": "`.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。動画確認、候補検出、公開準備の `workflow_dispatch` は読取専用に限定し、private backfill基盤deployだけをV8-INGEST-009とV8-INGEST-013の承認済み手動経路として分離し、静的成果物生成は検証済みmainだけを入力とする。"
         }
       ],
       "verification": {
         "method": "リポジトリ静的確認・手順試験",
-        "evidence": "tests/operations.test.ts, tests/generated.test.ts"
+        "evidence": "tests/operations.test.ts, tests/generated.test.ts, tests/repository-policy.test.ts"
       },
       "traces": {
         "design": [
@@ -2298,18 +2366,20 @@
           "scripts/validate-content.ts",
           "scripts/build-public-data.ts",
           ".github/workflows/manual-content-operation.yml",
-          ".github/workflows/update-generated-release.yml"
+          ".github/workflows/update-generated-release.yml",
+          ".github/workflows/deploy-ingestion-infra.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
-          "tests/generated.test.ts"
+          "tests/generated.test.ts",
+          "tests/repository-policy.test.ts"
         ],
         "standards": [
           "Issue #1",
           "dev-standard default profile"
         ]
       },
-      "last_changed_by": "OWNER-DIRECTIVE-2026-08-08-POST-MERGE-RELEASE"
+      "last_changed_by": "CHG-20260823-INGESTION-GITHUB-DEPLOY"
     },
     {
       "id": "V8-OPS-004",

@@ -87,6 +87,22 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).not.toMatch(/actions\/(?:upload-artifact|cache)@/iu);
   });
 
+  it('private backfill基盤deployはmain・protected environment・OIDCへ限定する', () => {
+    const workflow = text('.github/workflows/deploy-ingestion-infra.yml');
+    expect(workflow).toMatch(/workflow_dispatch:/u);
+    expect(workflow).toMatch(/test "\$GITHUB_REF" = 'refs\/heads\/main'/u);
+    expect(workflow).toMatch(/test "\$CONFIRMATION" = 'DEPLOY'/u);
+    expect(workflow).toMatch(/environment: private-backfill-infra/u);
+    expect(workflow).toMatch(/id-token: write/u);
+    expect(workflow).toMatch(/allowed-account-ids:/u);
+    expect(workflow).toMatch(/aws-actions\/configure-aws-credentials@[0-9a-f]{40}/u);
+    expect(workflow).toMatch(/npm run verify:ingestion/u);
+    expect(workflow).toMatch(/cdk deploy DiopsideIngestionStack/u);
+    expect(workflow).toMatch(/--exclusively --ci --require-approval never/u);
+    expect(workflow).not.toMatch(/(?:pull_request:|push:|schedule:|cron:|openai|codex|chatgpt)/iu);
+    expect(workflow).not.toMatch(/(?:diopside-backfill|enqueue|legacy-local-import|aws s3)/iu);
+  });
+
   it('Pagesは公開リポジトリのmain/docs・許可済み独自ドメイン・branch方式だけを宣言する', () => {
     const policy = json('operations/pages-policy.json') as Record<string, unknown>;
     expect(policy).toMatchObject({
