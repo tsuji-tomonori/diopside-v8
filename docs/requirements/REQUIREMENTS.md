@@ -1,8 +1,8 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 16
-- 更新日: 2026-08-23
+- カタログ版: 20
+- 更新日: 2026-08-26
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
@@ -36,6 +36,8 @@
 | `V8-DISPLAY-011` | 2 | 有効 | データ | diopside v8の表示は、全編根拠を確認できる動画の詳細は、視聴意欲を促しつつ結末、正体、勝敗等のネタバレを避けた日本語あらすじを表示しなければならない。本文と末尾の引用符付きセリフは合計100〜150文字とし、最後に対象配信で白雪巴が実際に発した特徴的なセリフを一つ置かなければならない。を**satisfy** | あらすじ候補検証・公開データ検証・動画詳細画面試験・公開境界検査 |
 | `V8-DISPLAY-012` | 1 | 有効 | 機能 | diopside v8の作品タグと作品ページは、動画詳細の作品タグは、その作品タグを持つ公開動画の一覧ページへ移動できなければならない。ゲーム作品ページは、確認日を持つ短い公式説明の引用、引用元名、HTTPSの公式ページリンクを表示し、外部ページは利用者がリンクを押した場合だけ開かなければならない。を**satisfy** | 公開データ構造試験、作品タグ遷移E2E、公式リンク・引用表示・外部自動通信禁止試験 |
 | `V8-DISPLAY-013` | 1 | 有効 | 機能 | diopside v8のコラボ相手タグとコンビ・ユニットページは、動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページはYouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画を表示する。コンビ・ユニットページは出典付きの説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。を**satisfy** | 公開データ構造・人物名・コンビ説明・メンバーリンク・ローカルアイコン・外部自動通信禁止試験 |
+| `V8-DISPLAY-014` | 1 | 有効 | 機能 | diopside v8の定期・連続企画名タグとシリーズページは、動画詳細の定期・連続企画名タグは押下可能でなければならず、不変タグIDをURLに持つ一覧ページへ移動して、そのタグを持つ公開動画だけを公開日の新しい順で表示しなければならない。を**satisfy** | 正本タグ網羅試験、定期・連続企画名タグ遷移単体・E2E、一覧内容・順序・アクセシビリティ試験 |
+| `V8-DISPLAY-015` | 1 | 有効 | 機能 | diopside v8の歌唱楽曲一覧と導線は、主または副ジャンル「歌」を押すと歌唱楽曲一覧へ移動しなければならない。一覧は楽曲名、原曲アーティスト、確認済みの原曲リンク、歌唱種別、対象動画、公開日を表示する。配信内歌唱と鼻歌は対象開始秒、単曲動画は動画先頭を開き、楽曲タグのURLで曲別表示できなければならない。を**satisfy** | 楽曲一覧表示、ジャンル・楽曲タグ遷移、原曲リンク、YouTube開始秒、外部自動通信禁止試験 |
 | `V8-INGEST-001` | 1 | 有効 | インターフェース | diopside v8のprivate ingestion要求は、外部ingestion要求は11文字のYouTube video_idだけを含み、未知fieldまたは内部状態を含んではならない。を**強制する** | 契約単体試験 |
 | `V8-INGEST-002` | 2 | 有効 | データ | diopside v8のprivate backfill対象は、歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。を**強制する** | manifest生成・改ざん・enqueue試験 |
 | `V8-INGEST-003` | 1 | 有効 | データ | diopside v8のprivate ingestion状態は、進捗状態はVideoIngestion単一DynamoDB tableのvideo_id partition keyだけを使う一動画一itemで保持し、sort key、GSI、用途別item typeを追加してはならない。を**強制する** | CDK template・状態repository試験 |
@@ -94,9 +96,9 @@
 | `V8-SEARCH-008` | 3 | 有効 | 機能 | diopside v8の検索は、検索欄は登録済みタグを動画候補と区別して提示し、選択時に不変タグIDの絞り込み条件として適用しなければならない。詳細なタグ絞り込み欄は、選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。利用者が検索候補または詳細な候補タグを追加または解除した時点で、追加の確定操作なしに検索条件を反映し、タグ補助候補欄を折り畳み、動画一覧へ移動できなければならない。を**satisfy** | 検索候補・タグ条件適用・件数契約・折り畳み操作試験 |
 | `V8-SEARCH-009` | 1 | 有効 | 機能 | diopside v8の検索は、タグ絞り込みは、選択された承認済みタグの不変識別子との完全一致で判定しなければならない。を**satisfy** | タグ契約試験 |
 | `V8-SEARCH-010` | 1 | 有効 | 機能 | diopside v8の検索は、複数タグを選択した場合は、選択したすべてのタグを持つ動画だけを表示しなければならない。を**satisfy** | 2件・3件・未知タグの積集合試験 |
-| `V8-SEARCH-011` | 1 | 有効 | 機能 | diopside v8の検索は、公開日の開始日と終了日は、日本標準時の日付として両端を含めて絞り込まなければならない。を**satisfy** | 時差・月末・年末・逆転範囲試験 |
-| `V8-SEARCH-012` | 1 | 有効 | 機能 | diopside v8の検索は、動画長は秒数を正本とし、画面では「30分未満」「30分以上1時間未満」「1時間以上2時間未満」「2時間以上」の重複しない区分で絞り込めなければならない。を**satisfy** | 境界値試験 |
-| `V8-SEARCH-013` | 1 | 有効 | 機能 | diopside v8の検索は、動画長の最小値・最大値を分単位で指定でき、最小値以上かつ最大値以下の動画だけを表示しなければならない。を**satisfy** | 範囲・欠損・誤入力試験 |
+| `V8-SEARCH-011` | 2 | 有効 | 機能 | diopside v8の検索は、公開日の開始日と終了日は一つの日付範囲Pickerで選択でき、日本標準時の日付として両端を含めて絞り込まなければならない。を**satisfy** | 日付範囲Picker操作、時差・月末・年末・逆転範囲試験 |
+| `V8-SEARCH-012` | 2 | 有効 | 機能 | diopside v8の検索は、動画長は秒数を正本とし、画面では「30分未満」「30分以上1時間未満」「1時間以上2時間未満」「2時間以上」の重複しない区分で絞り込めなければならない。を**satisfy** | 動画長区分とSliderの境界値試験 |
+| `V8-SEARCH-013` | 2 | 有効 | 機能 | diopside v8の検索は、動画長は二つのつまみを持つSliderで分単位の最小値・最大値を選択でき、最小値以上かつ最大値以下の動画だけを表示しなければならない。を**satisfy** | Slider操作、キーボード、範囲・欠損・誤入力試験 |
 | `V8-SEARCH-014` | 1 | 有効 | 機能 | diopside v8の検索は、タイトル検索、選択タグ、公開日、動画長は、指定された条件をすべて満たす動画だけを残すよう同時適用しなければならない。を**satisfy** | 組合せ試験 |
 | `V8-SEARCH-015` | 1 | 有効 | 機能 | diopside v8の検索は、検索語がある場合の初期並び順は関連度順、検索語がない場合の初期並び順は公開日の新しい順としなければならない。を**satisfy** | 画面状態試験 |
 | `V8-SEARCH-016` | 1 | 有効 | 機能 | diopside v8の検索は、利用者は、公開日の新しい順・古い順、動画長の短い順・長い順へ並べ替えられなければならない。を**satisfy** | 並び替え試験 |
@@ -105,6 +107,7 @@
 | `V8-SEARCH-019` | 1 | 有効 | 品質 | diopside v8の検索は、あいまい検索の品質を、版管理した日本語の固定評価データで検証しなければならない。を**satisfy** | 検索品質試験 |
 | `V8-SEARCH-020` | 1 | 有効 | 機能 | diopside v8の検索候補は、検索欄は一文字以上の入力中に、承認済み動画タイトルと登録済みタグ名の一致候補を種類が分かる形で提示しなければならない。動画候補の選択は動画詳細へ移動し、タグ候補の選択は不変タグIDを絞り込み条件へ適用して動画一覧を更新しなければならない。を**satisfy** | 候補生成単体試験・IME・キーボード・ポインター画面試験 |
 | `V8-SEARCH-021` | 1 | 有効 | 機能 | diopside v8の検索読みは、漢字またはカタカナを含む承認済み動画タイトルと登録済みタグ名は、表示文字列を変えずに検索専用のひらがな読みを持ち、ひらがなの入力が一文字増えるたびに候補を更新しなければならない。読みの生成と候補照合は静的生成物とブラウザ内処理だけで完結しなければならない。を**satisfy** | 読み生成単体試験・一文字ごとの候補更新・IME・外部通信禁止画面試験 |
+| `V8-SEARCH-022` | 1 | 有効 | 品質 | diopside v8の動画長Sliderは、動画長Sliderの連続入力中と最後の入力から100ミリ秒未満は、つまみと現在値だけを即時更新し、動画長に応じたタグ候補・件数と画面の縦方向の長さを変更してはならない。最後の入力から約100ミリ秒後に、最新の動画長を使ってタグ候補と件数を一度だけ更新しなければならない。を**satisfy** | Slider連続入力中のタグ候補数・画面高固定と停止100ミリ秒後の更新試験 |
 | `V8-TAG-001` | 1 | 有効 | データ | diopside v8のタグは、承認済み動画のタグは、版管理したタグ体系に基づかなければならない。を**satisfy** | 構造試験・追跡性確認 |
 | `V8-TAG-002` | 1 | 有効 | データ | diopside v8のタグは、タグは大分類、小分類、タグの3層で管理し、表示名だけの平坦な配列を正本にしてはならない。を**satisfy** | 構造試験 |
 | `V8-TAG-003` | 1 | 有効 | データ | diopside v8のタグは、各正規タグは表示名と独立した不変タグ識別子を持たなければならない。を**satisfy** | 移行試験 |
@@ -140,6 +143,9 @@
 | `V8-TAG-033` | 1 | 有効 | データ | diopside v8のタグは、動画詳細は承認済みタグを大分類ごとにまとめ、同名異義タグには小分類の文脈を示さなければならない。を**satisfy** | 画面・アクセシビリティ試験 |
 | `V8-TAG-034` | 1 | 有効 | データ | diopside v8のタグは、タグ表示名は公式な日本語名がある場合は日本語を用い、公式固有名詞と一般に定着した略称は出典表記を保たなければならない。を**satisfy** | 文言一覧・人手確認 |
 | `V8-TAG-035` | 1 | 有効 | データ | diopside v8のタグは、人物・グループ分類を除くタグが1動画あたり12件を超える候補は、過剰付与の確認待ちにしなければならない。を**satisfy** | 基数集計・人手確認 |
+| `V8-TAG-036` | 1 | 有効 | データ | diopside v8の定期・連続企画タグは、公開タイトルまたは承認済み既存タグから定期・連続企画名を直接確認できる動画は当該定期・連続企画名タグを持ち、名称中の「杯」等の部分一致だけでイベント・大会名へ重複分類してはならない。を**satisfy** | 正本全件タグ網羅・重複分類試験、旧タグ再生成回帰試験 |
+| `V8-TAG-037` | 1 | 有効 | 機能 | diopside v8の歌唱実績と楽曲タグは、楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲タグを持たなければならない。楽曲タグは動画の主・副ジャンルが「歌」であるかに依存せず、公開一覧・検索索引・タグ索引・動画詳細のすべてに一貫して反映しなければならない。を**satisfy** | 歌唱正本構造、非歌ジャンル鼻歌、公開索引の楽曲タグ反映試験 |
+| `V8-TAG-038` | 1 | 有効 | 品質 | diopside v8の歌唱実績検証と公開境界は、各歌唱実績は既知動画、白雪巴本人の参加、動画長内の開始秒、動画内で解決できる根拠参照を持たなければならない。承認済みタイムスタンプを参照する場合は開始秒が一致し、鼻歌は終了秒も持たなければならない。公開データには内部の根拠参照・判定理由を含めてはならない。を**satisfy** | 未知動画・根拠・時刻・タイムスタンプ不整合・鼻歌範囲・公開境界試験 |
 | `V8-TIME-001` | 1 | 有効 | データ | diopside v8の時刻は、タイムスタンプは動画全体を移動するための目次として作り、見どころ候補と別のデータとして扱わなければならない。を**satisfy** | 意味論監査 |
 | `V8-TIME-002` | 1 | 有効 | データ | diopside v8の時刻は、v8.0では動画形式が「配信」の動画を既定の作成対象とし、「Shorts」と単曲の「歌ってみた」は対象外にしなければならない。を**satisfy** | 対象集合・境界値試験 |
 | `V8-TIME-003` | 1 | 有効 | データ | diopside v8の時刻は、各対象動画は「作成済み」または理由付きの「未作成」の状態を持たなければならない。を**satisfy** | 状態遷移・画面試験 |
@@ -618,6 +624,39 @@ diopside v8のコラボ相手タグとコンビ・ユニットページは、動
 要求源: spec/sources/owner-directive-2026-08-15-collaboration-pages.md, user:2026-08-15
 検証証跡: tests/content-validation.test.ts, tests/generated.test.ts, src/features/collaborations/CollaborationDetailPages.test.tsx, e2e/detail.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=content/people/collaboration-profiles.json,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/features/collaborations/CollaboratorDetailPage.tsx,src/features/collaborations/GroupDetailPage.tsx; テスト=tests/content-validation.test.ts,tests/generated.test.ts,src/features/collaborations/CollaborationDetailPages.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-15-collaboration-pages.md,dev-standard default profile
+
+## V8-DISPLAY-014: 定期・連続企画名タグは同じシリーズの動画一覧へ移動できなければならない
+
+diopside v8の定期・連続企画名タグとシリーズページは、動画詳細の定期・連続企画名タグは押下可能でなければならず、不変タグIDをURLに持つ一覧ページへ移動して、そのタグを持つ公開動画だけを公開日の新しい順で表示しなければならない。を**satisfy**。
+
+根拠: 同じ定期企画や連続企画の各回を、個別動画から途切れずに探せるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-014-1` 前提: 動画詳細に定期・連続企画名の承認済みタグが表示されている。条件: 利用者が企画・シリーズ名タグを押す。期待結果: 不変タグIDをURLに持つシリーズページへ移動し、そのタグを持つ公開動画だけを公開日の新しい順で表示する。。
+- `AC-V8-DISPLAY-014-2` 前提: 公開タイトルで同じ定期・連続企画名が明示された複数の動画がある。条件: シリーズページの件数と動画カードを確認する。期待結果: 確認済みの同シリーズ動画を取りこぼさず、他の企画・シリーズの動画を混在させない。。
+
+要求源: spec/sources/owner-directive-2026-08-25-recurring-series-pages.md, user:2026-08-25
+検証証跡: tests/content-validation.test.ts, src/features/series/SeriesDetailPage.test.tsx, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/App.tsx,src/features/detail/VideoDetailPage.tsx,src/features/series/SeriesDetailPage.tsx; テスト=tests/content-validation.test.ts,src/features/series/SeriesDetailPage.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-25-recurring-series-pages.md,dev-standard default profile
+
+## V8-DISPLAY-015: ジャンル「歌」と楽曲タグは原曲・対象場面リンク付きの歌唱楽曲一覧へ移動できなければならない
+
+diopside v8の歌唱楽曲一覧と導線は、主または副ジャンル「歌」を押すと歌唱楽曲一覧へ移動しなければならない。一覧は楽曲名、原曲アーティスト、確認済みの原曲リンク、歌唱種別、対象動画、公開日を表示する。配信内歌唱と鼻歌は対象開始秒、単曲動画は動画先頭を開き、楽曲タグのURLで曲別表示できなければならない。を**satisfy**。
+
+根拠: 歌枠と単曲カバーを横断して曲から探し、長時間配信でも対象場面へ直接移動できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-015-1` 前提: 検索画面または動画詳細に主・副ジャンル「歌」が表示されている。条件: 利用者が「歌」を押す。期待結果: 歌唱楽曲一覧へ移動し、楽曲名または原曲アーティストで絞り込める。。
+- `AC-V8-DISPLAY-015-2` 前提: 歌ってみたと配信内歌唱が登録されている。条件: 利用者が各歌唱実績のリンクを押す。期待結果: 歌ってみたは対象動画を、配信内歌唱は対象動画の同じ開始秒をYouTubeで開く。。
+- `AC-V8-DISPLAY-015-3` 前提: 楽曲に確認済みの原曲公開先がある。条件: 一覧または曲別ページを表示する。期待結果: 出典名と確認日付きのHTTPS原曲リンクを表示し、表示だけで外部サイトへ通信しない。。
+
+要求源: spec/sources/owner-directive-2026-08-25-song-performance-index.md, user:2026-08-25
+検証証跡: src/features/songs/SongIndexPage.test.tsx, e2e/song-index.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/songs/SongIndexPage.tsx,src/features/search/SearchPage.tsx,src/features/detail/VideoDetailPage.tsx,src/App.tsx; テスト=src/features/songs/SongIndexPage.test.tsx,e2e/song-index.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-25-song-performance-index.md,dev-standard assured profile
 
 ## V8-INGEST-001: 外部ingestion要求はvideo_idだけを含む厳格な11文字契約でなければならない
 
@@ -1514,20 +1553,21 @@ diopside v8の検索は、複数タグを選択した場合は、選択したす
 検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-SEARCH-011: 公開日の開始日と終了日は、日本標準時の日付として両端を含めて絞り込まなければならない
+## V8-SEARCH-011: 公開日の開始日と終了日は一つの日付範囲Pickerで選択でき、日本標準時の日付として両端を含めて絞り込まなければならない
 
-diopside v8の検索は、公開日の開始日と終了日は、日本標準時の日付として両端を含めて絞り込まなければならない。を**satisfy**。
+diopside v8の検索は、公開日の開始日と終了日は一つの日付範囲Pickerで選択でき、日本標準時の日付として両端を含めて絞り込まなければならない。を**satisfy**。
 
-根拠: 利用者が題名の断片や表記揺れから、意図した公開アーカイブを速く再発見できるようにするため。
+根拠: 利用者が期間全体と両端を一つの操作面で把握し、意図した公開アーカイブへ速く絞り込めるようにするため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-SEARCH-011-1` 前提: V8-検索-011の前提を満たす公開データまたは操作がある。条件: 時差・月末・年末・逆転範囲試験。期待結果: 開始日の0時0分0秒から終了日の23時59分59秒までを含み、開始日が終了日より後の場合は日本語で入力誤りを示す。。
+- `AC-V8-SEARCH-011-1` 前提: 公開日フィルターを操作する。条件: カレンダー上の二つの日付、クイック期間、または開始日・終了日を選択する。期待結果: 開始日、終了日、両端を含む選択期間が一つのPicker内で確認でき、指定なしへ戻せる。。
+- `AC-V8-SEARCH-011-2` 前提: 公開日の開始日または終了日が指定されている。条件: 時差・月末・年末・逆転範囲を含む検索を実行する。期待結果: 開始日の0時0分0秒から終了日の23時59分59秒までを含み、URL等から開始日が終了日より後となった場合は日本語で入力誤りを示す。。
 
-要求源: Issue #1 V8-検索-011, user:2026-08-03
-検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-検索-011, user:2026-08-03, spec/sources/owner-directive-2026-08-25-search-filter-controls.md, user:2026-08-25, https://www.inspora.design/posts/1-30
+検証証跡: src/features/search/SearchFilterControls.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx,src/features/search/DateRangePicker.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts,src/features/search/SearchFilterControls.test.tsx; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-SEARCH-012: 動画長は秒数を正本とし、画面では「30分未満」「30分以上1時間未満」「1時間以上2時間未満」「2時間以上」の重複しない区分で絞り込めなければならない
 
@@ -1538,26 +1578,27 @@ diopside v8の検索は、動画長は秒数を正本とし、画面では「30�
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-SEARCH-012-1` 前提: V8-検索-012の前提を満たす公開データまたは操作がある。条件: 境界値試験。期待結果: 1799、1800、3599、3600、7199、7200秒が定義された区分に一意に入る。区分の選択は同じ境界値を最小値・最大値欄へ反映する。。
+- `AC-V8-SEARCH-012-1` 前提: 動画長のクイック区分を選択する。条件: 1799、1800、3599、3600、7199、7200秒の境界を含む検索を実行する。期待結果: 各動画は定義された区分に一意に入り、選択した区分と同じ境界がSliderの選択範囲へ反映される。。
 
-要求源: Issue #1 V8-検索-012, user:2026-08-03
-検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-検索-012, user:2026-08-03, spec/sources/owner-directive-2026-08-25-search-filter-controls.md, user:2026-08-25
+検証証跡: src/features/search/SearchFilterControls.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx,src/features/search/DurationRangeSlider.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts,src/features/search/SearchFilterControls.test.tsx; 参照資料=Issue #1,dev-standard default profile
 
-## V8-SEARCH-013: 動画長の最小値・最大値を分単位で指定でき、最小値以上かつ最大値以下の動画だけを表示しなければならない
+## V8-SEARCH-013: 動画長は二つのつまみを持つSliderで分単位の最小値・最大値を選択でき、範囲内の動画だけを表示しなければならない
 
-diopside v8の検索は、動画長の最小値・最大値を分単位で指定でき、最小値以上かつ最大値以下の動画だけを表示しなければならない。を**satisfy**。
+diopside v8の検索は、動画長は二つのつまみを持つSliderで分単位の最小値・最大値を選択でき、最小値以上かつ最大値以下の動画だけを表示しなければならない。を**satisfy**。
 
-根拠: 利用者が題名の断片や表記揺れから、意図した公開アーカイブを速く再発見できるようにするため。
+根拠: 利用者が動画長の範囲と現在値を視覚的に把握しながら、意図した長さのアーカイブへ絞り込めるようにするため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-SEARCH-013-1` 前提: V8-検索-013の前提を満たす公開データまたは操作がある。条件: 範囲・欠損・誤入力試験。期待結果: 片側だけの指定、同値、最小値が最大値を超える入力、動画長不明を定義どおり処理する。手入力時は区分選択を解除し、動画長不明は動画長指定時に除外する。。
+- `AC-V8-SEARCH-013-1` 前提: 動画長フィルターを操作する。条件: Sliderの最小または最大のつまみをマウス、タッチ、またはキーボードで動かす。期待結果: 分単位の片側指定、同値、両側指定ができ、最小値と最大値が交差せず、クイック区分の選択は解除される。。
+- `AC-V8-SEARCH-013-2` 前提: 動画長の範囲が指定されている。条件: 範囲境界、動画長不明、またはURL等から最小値が最大値を超える条件で検索する。期待結果: 最小値以上かつ最大値以下の動画だけを表示し、動画長不明を除外し、逆転範囲には日本語で入力誤りを示す。。
 
-要求源: Issue #1 V8-検索-013, user:2026-08-03
-検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-検索-013, user:2026-08-03, spec/sources/owner-directive-2026-08-25-search-filter-controls.md, user:2026-08-25
+検証証跡: src/features/search/SearchFilterControls.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx,src/features/search/DurationRangeSlider.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts,src/features/search/SearchFilterControls.test.tsx; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-SEARCH-014: タイトル検索、選択タグ、公開日、動画長は、指定された条件をすべて満たす動画だけを残すよう同時適用しなければならない
 
@@ -1678,6 +1719,21 @@ diopside v8の検索読みは、漢字またはカタカナを含む承認済み
 要求源: spec/sources/owner-directive-2026-08-20-search-suggestions.md, user:2026-08-20
 検証証跡: tests/japanese-reading.test.ts, src/domain/search.test.ts, e2e/search.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=content/search/reading-overrides.json,scripts/japanese-reading.ts,scripts/build-public-data.ts,src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=tests/japanese-reading.test.ts,src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-20-search-suggestions.md,dev-standard default profile
+
+## V8-SEARCH-022: 動画長Sliderの連続操作中はタグ候補と画面高を固定し、停止後100ミリ秒で更新しなければならない
+
+diopside v8の動画長Sliderは、動画長Sliderの連続入力中と最後の入力から100ミリ秒未満は、つまみと現在値だけを即時更新し、動画長に応じたタグ候補・件数と画面の縦方向の長さを変更してはならない。最後の入力から約100ミリ秒後に、最新の動画長を使ってタグ候補と件数を一度だけ更新しなければならない。を**satisfy**。
+
+根拠: Slider操作中にタグ欄の増減で画面高が変わり、つまみの位置が動いて操作を妨げることを防ぐため。
+
+分類: `product` / `nonfunctional`
+
+受入条件:
+- `AC-V8-SEARCH-022-1` 前提: タグ候補を展開した状態で動画長Sliderを連続操作する。条件: Slider入力が継続している間、最後の入力から100ミリ秒未満、および約100ミリ秒経過後を確認する。期待結果: 操作中はつまみと現在値だけが即時更新され、タグ候補・件数と画面高は固定される。停止約100ミリ秒後に最新の動画長でタグ候補と件数が一度だけ更新される。。
+
+要求源: spec/sources/owner-directive-2026-08-25-duration-slider-stability.md, user:2026-08-25
+検証証跡: e2e/search.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/search/SearchPage.tsx; テスト=e2e/search.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-25-duration-slider-stability.md,dev-standard default profile
 
 ## V8-TAG-001: 承認済み動画のタグは、版管理したタグ体系に基づかなければならない
 
@@ -2205,6 +2261,55 @@ diopside v8のタグは、人物・グループ分類を除くタグが1動画�
 要求源: Issue #1 V8-タグ-035, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-TAG-036: 定期・連続企画名を明示する動画はシリーズタグを持ち、名称の部分一致だけでイベントへ重複分類してはならない
+
+diopside v8の定期・連続企画タグは、公開タイトルまたは承認済み既存タグから定期・連続企画名を直接確認できる動画は当該定期・連続企画名タグを持ち、名称中の「杯」等の部分一致だけでイベント・大会名へ重複分類してはならない。を**satisfy**。
+
+根拠: シリーズ各回の取りこぼしと、一般語を大会名の指標として扱う誤分類を同時に防ぐため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-TAG-036-1` 前提: 公開タイトルに「#いっ杯晩酌」が明示された動画がある。条件: 承認済みタグ正本を全件検査する。期待結果: 対象14動画すべてが定期・連続企画名「いっ杯晩酌」を持つ。。
+- `AC-V8-TAG-036-2` 前提: 定期・連続企画名そのものに「杯」の文字が含まれる。条件: 旧タグから論理タグを再生成する。期待結果: 名称の部分一致だけを理由にイベント・大会名「いっ杯晩酌」を追加しない。。
+
+要求源: spec/sources/owner-directive-2026-08-25-recurring-series-pages.md, user:2026-08-25
+検証証跡: tests/content-validation.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=scripts/legacy-content.ts,content/videos; テスト=tests/content-validation.test.ts; 参照資料=spec/sources/owner-directive-2026-08-25-recurring-series-pages.md,dev-standard default profile
+
+## V8-TAG-037: 確認済みの各歌唱実績は動画ジャンルと独立した楽曲タグとして検索できなければならない
+
+diopside v8の歌唱実績と楽曲タグは、楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲タグを持たなければならない。楽曲タグは動画の主・副ジャンルが「歌」であるかに依存せず、公開一覧・検索索引・タグ索引・動画詳細のすべてに一貫して反映しなければならない。を**satisfy**。
+
+根拠: 通常配信の一部で歌った曲や鼻歌を、動画全体のジャンルに埋もれさせず曲から再発見できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-TAG-037-1` 前提: 楽曲名と白雪巴の歌唱参加が確認済みである。条件: 歌唱実績を正本化して公開データを生成する。期待結果: 歌唱種別と不変の楽曲タグIDを付け、対象動画の一覧・検索・タグ・詳細索引に同じIDを反映する。。
+- `AC-V8-TAG-037-2` 前提: 主ジャンルが歌でない通常配信で歌唱または鼻歌が確認された。条件: 実績を登録する。期待結果: 動画ジャンルの変更を必須とせず、配信内歌唱または鼻歌の種別で楽曲タグを公開できる。。
+
+要求源: spec/sources/owner-directive-2026-08-25-song-performance-index.md, user:2026-08-25
+検証証跡: tests/content-validation.test.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=content/songs/song-performances.json,src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts; テスト=tests/content-validation.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-25-song-performance-index.md,dev-standard assured profile
+
+## V8-TAG-038: 歌唱実績は楽曲名・本人参加・開始秒・根拠を検証し、未確認の曲を公開してはならない
+
+diopside v8の歌唱実績検証と公開境界は、各歌唱実績は既知動画、白雪巴本人の参加、動画長内の開始秒、動画内で解決できる根拠参照を持たなければならない。承認済みタイムスタンプを参照する場合は開始秒が一致し、鼻歌は終了秒も持たなければならない。公開データには内部の根拠参照・判定理由を含めてはならない。を**satisfy**。
+
+根拠: コラボ配信で他者が歌った曲、曲名不明の歌唱、根拠のない推測を白雪巴の楽曲タグとして誤公開せず、公開データを必要最小限に保つため。
+
+分類: `product` / `nonfunctional`
+
+受入条件:
+- `AC-V8-TAG-038-1` 前提: 歌唱実績候補に未知動画、解決不能の根拠、動画長外の時刻、または開始秒の異なるタイムスタンプがある。条件: 正本検証または公開データ生成を行う。期待結果: 候補を拒否し、不整合の種類と場所を示す。。
+- `AC-V8-TAG-038-2` 前提: 鼻歌の歌唱実績候補がある。条件: 正本検証を行う。期待結果: 開始秒と終了秒が動画長内で正しい順序の場合だけ受け付ける。。
+- `AC-V8-TAG-038-3` 前提: 検証済みの歌唱実績がある。条件: 公開JSONを生成する。期待結果: 楽曲・原曲・動画・種別・時刻以外の内部根拠参照や判定理由を出力しない。。
+
+要求源: spec/sources/owner-directive-2026-08-25-song-performance-index.md, user:2026-08-25
+検証証跡: tests/content-validation.test.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts; テスト=tests/content-validation.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-25-song-performance-index.md,dev-standard assured profile
 
 ## V8-TIME-001: タイムスタンプは動画全体を移動するための目次として作り、見どころ候補と別のデータとして扱わなければならない
 

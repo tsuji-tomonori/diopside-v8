@@ -44,6 +44,12 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "6025fd22fc026c96266cb1f3d137a61419eccd8376d89d71858368a92895f826"
+    },
+    {
+      "evidenceId": "evidence-collaboration-horizontal",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
+      "inputFingerprint": "0d5b5cb5ee2e3d776a3d3738f7af45d590d09e1cc75c4099741394096d779734"
     }
   ],
   "tagAssignments": [
@@ -127,6 +133,15 @@
         "evidence-title"
       ],
       "reviewedAt": "2026-08-15T17:50:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-628c281ac2b2",
+      "reason": "人物名「グウェル・オス・ガール」をコンビ・ユニット「夜王国」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
     }
   ],
   "timestamps": {
@@ -352,7 +367,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-15T21:05:00+09:00",
-    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+    "approvedAt": "2026-08-25T23:20:56+09:00",
+    "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
   }
 }

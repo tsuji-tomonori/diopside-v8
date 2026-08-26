@@ -2,6 +2,7 @@ import {
   latestReleaseSchema,
   publicAliasIndexSchema,
   publicIndexSchema,
+  publicSongIndexSchema,
   publicTagIndexSchema,
   publicVideoDetailSchema,
   publicVideoShardSchema,
@@ -10,6 +11,7 @@ import {
   type LatestRelease,
   type PublicAliasIndex,
   type PublicIndex,
+  type PublicSongIndex,
   type PublicTagIndex,
   type PublicVideoDetail,
   type SearchIndex,
@@ -31,17 +33,19 @@ export interface PublicBundle {
   searchIndex: SearchIndex;
   tagIndex: PublicTagIndex;
   aliasIndex: PublicAliasIndex;
+  songIndex: PublicSongIndex;
 }
 
 export async function loadPublicBundle(store: DeviceStore, fetcher: typeof fetch = fetch): Promise<PublicBundle> {
   try {
     const latest = latestReleaseSchema.parse(await fetchJson('data/latest.json', fetcher));
     if (latest.releaseId !== embeddedReleaseId) throw mismatch();
-    const [indexInput, searchInput, tagInput, aliasInput] = await Promise.all([
+    const [indexInput, searchInput, tagInput, aliasInput, songInput] = await Promise.all([
       fetchJson(latest.indexPath, fetcher),
       fetchJson(latest.searchIndexPath, fetcher),
       fetchJson(latest.tagIndexPath, fetcher),
       fetchJson(latest.aliasIndexPath, fetcher),
+      fetchJson(`data/releases/${latest.releaseId}/song-index.json`, fetcher),
     ]);
     const bundle = {
       latest,
@@ -49,6 +53,7 @@ export async function loadPublicBundle(store: DeviceStore, fetcher: typeof fetch
       searchIndex: searchIndexSchema.parse(searchInput),
       tagIndex: publicTagIndexSchema.parse(tagInput),
       aliasIndex: publicAliasIndexSchema.parse(aliasInput),
+      songIndex: publicSongIndexSchema.parse(songInput),
     };
     assertSameRelease(bundle);
     await store.writePublicCache(bundle.latest.releaseId, bundle);
@@ -65,6 +70,7 @@ export async function loadPublicBundle(store: DeviceStore, fetcher: typeof fetch
           searchIndex: searchIndexSchema.parse(value.searchIndex),
           tagIndex: publicTagIndexSchema.parse(value.tagIndex),
           aliasIndex: publicAliasIndexSchema.parse(value.aliasIndex),
+          songIndex: publicSongIndexSchema.parse(value.songIndex),
         };
         assertSameRelease(bundle);
         return bundle;
@@ -105,6 +111,7 @@ function assertSameRelease(bundle: PublicBundle): void {
     bundle.searchIndex.releaseId,
     bundle.tagIndex.releaseId,
     bundle.aliasIndex.releaseId,
+    bundle.songIndex.releaseId,
     embeddedReleaseId,
   ];
   if (new Set(releaseIds).size !== 1) throw mismatch();

@@ -20,6 +20,9 @@
 - `/collaborators/:tagId`
 - `/groups/:tagId`
 - `/library`
+- `/series/:tagId`
+- `/songs`
+- `/songs/:tagId`
 - `/video/:videoId`
 - `/works/:tagId`
 
@@ -29,15 +32,15 @@
 |---|---:|
 | COST | 5 |
 | DEVICE | 11 |
-| DISPLAY | 13 |
+| DISPLAY | 15 |
 | INGEST | 13 |
 | OPS | 26 |
 | QUALITY | 5 |
 | SAFETY | 4 |
-| SEARCH | 21 |
-| TAG | 35 |
+| SEARCH | 22 |
+| TAG | 38 |
 | TIME | 37 |
-| **合計** | **170** |
+| **合計** | **176** |
 
 ## 公開データの流れ
 
@@ -93,6 +96,12 @@
 | `src/data/loadPublicData.ts` | FunctionDeclaration | `loadVideoDetail` |
 | `src/data/loadPublicData.ts` | InterfaceDeclaration | `PublicBundle` |
 | `src/data/loadPublicData.ts` | ClassDeclaration | `PublicDataError` |
+| `src/domain/collaboration-group-audit.ts` | VariableStatement | `auditCollaborationGroupTags` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditAlias` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditGroup` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditResult` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditSource` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditVideo` |
 | `src/domain/collaboration.ts` | InterfaceDeclaration | `CollaborationCandidate` |
 | `src/domain/collaboration.ts` | TypeAliasDeclaration | `CollaborationSelectionPolicy` |
 | `src/domain/collaboration.ts` | FunctionDeclaration | `selectCollaboratorNames` |
@@ -116,6 +125,8 @@
 | `src/domain/content.ts` | VariableStatement | `publicAliasIndexSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `PublicIndex` |
 | `src/domain/content.ts` | VariableStatement | `publicIndexSchema` |
+| `src/domain/content.ts` | TypeAliasDeclaration | `PublicSongIndex` |
+| `src/domain/content.ts` | VariableStatement | `publicSongIndexSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `PublicTagIndex` |
 | `src/domain/content.ts` | VariableStatement | `publicTagIndexSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `PublicVideoDetail` |
@@ -127,6 +138,9 @@
 | `src/domain/content.ts` | VariableStatement | `pullRequestMergeIndependentReviewSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `SearchIndex` |
 | `src/domain/content.ts` | VariableStatement | `searchIndexSchema` |
+| `src/domain/content.ts` | TypeAliasDeclaration | `SongPerformanceCatalog` |
+| `src/domain/content.ts` | VariableStatement | `songPerformanceCatalogSchema` |
+| `src/domain/content.ts` | VariableStatement | `songPerformanceTypeSchema` |
 | `src/domain/content.ts` | VariableStatement | `synopsisSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `TagAliases` |
 | `src/domain/content.ts` | VariableStatement | `tagAliasesSchema` |
@@ -171,13 +185,18 @@
 | `src/domain/validation.ts` | FunctionDeclaration | `scanPublicBoundary` |
 | `src/domain/validation.ts` | FunctionDeclaration | `validateCanonicalVideo` |
 | `src/domain/validation.ts` | FunctionDeclaration | `validateChannelPersonMappings` |
+| `src/domain/validation.ts` | FunctionDeclaration | `validateSongPerformanceCatalog` |
 | `src/domain/validation.ts` | FunctionDeclaration | `validateTaxonomy` |
 | `src/domain/validation.ts` | InterfaceDeclaration | `ValidationIssue` |
 | `src/features/collaborations/CollaboratorDetailPage.tsx` | FunctionDeclaration | `CollaboratorDetailPage` |
 | `src/features/collaborations/GroupDetailPage.tsx` | FunctionDeclaration | `GroupDetailPage` |
 | `src/features/detail/VideoDetailPage.tsx` | FunctionDeclaration | `VideoDetailPage` |
 | `src/features/library/DeviceLibraryPage.tsx` | FunctionDeclaration | `DeviceLibraryPage` |
+| `src/features/search/DateRangePicker.tsx` | FunctionDeclaration | `DateRangePicker` |
+| `src/features/search/DurationRangeSlider.tsx` | FunctionDeclaration | `DurationRangeSlider` |
 | `src/features/search/SearchPage.tsx` | FunctionDeclaration | `SearchPage` |
+| `src/features/series/SeriesDetailPage.tsx` | FunctionDeclaration | `SeriesDetailPage` |
+| `src/features/songs/SongIndexPage.tsx` | FunctionDeclaration | `SongIndexPage` |
 | `src/features/works/WorkDetailPage.tsx` | FunctionDeclaration | `WorkDetailPage` |
 | `src/format.ts` | FunctionDeclaration | `formatDate` |
 | `src/format.ts` | FunctionDeclaration | `formatDuration` |
@@ -188,15 +207,20 @@
 - `e2e/detail.spec.ts`
 - `e2e/library.spec.ts`
 - `e2e/search.spec.ts`
+- `e2e/song-index.spec.ts`
 - `src/data/deviceStore.test.ts`
 - `src/data/loadPublicData.test.ts`
+- `src/domain/collaboration-group-audit.test.ts`
 - `src/domain/collaboration.test.ts`
 - `src/domain/game-title-detection.test.ts`
 - `src/domain/search.test.ts`
 - `src/domain/validation.test.ts`
 - `src/features/collaborations/CollaborationDetailPages.test.tsx`
+- `src/features/search/SearchFilterControls.test.tsx`
+- `src/features/series/SeriesDetailPage.test.tsx`
+- `src/features/songs/SongIndexPage.test.tsx`
 - `src/features/works/WorkDetailPage.test.tsx`
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力52ファイル、公開契約135件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力62ファイル、公開契約151件です。
