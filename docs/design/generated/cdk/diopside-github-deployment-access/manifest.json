@@ -1,0 +1,17 @@
+{
+  "managed_by": "dev-standard-designflow",
+  "notice": "AUTO-GENERATED. DO NOT EDIT DIRECTLY.",
+  "generate_command": "python .agents/skills/generate-implementation-design/scripts/designflow.py cdk --template <template.yaml> --out <output>",
+  "check_command": "python .agents/skills/generate-implementation-design/scripts/designflow.py cdk --template <template.yaml> --out <output> --check",
+  "schema_version": 2,
+  "sources": [
+    {
+      "path": "template/DiopsideGitHubDeploymentAccessStack.template.json",
+      "sha256": "f0af9371b043ca231e5e2d9a4ee8f6a3f40c37502f3e8ac8f10140984b2e1f95"
+    }
+  ],
+  "generated": [
+    "PARAMETERS.gen.md",
+    "RESOURCES.gen.md"
+  ]
+}
