@@ -3,8 +3,12 @@
   "generator": "scripts/generate-design.ts",
   "sourceDigests": [
     {
+      "path": "scripts/audit-collaboration-tags.ts",
+      "sha256": "fbda33a70c0dc9330a4de9e0a214bbdd791dfd75ca2fb7ba25e83da0929666d5"
+    },
+    {
       "path": "scripts/audit-game-tags.ts",
-      "sha256": "857aa50517a31135ccd8cbfb119bd347c9e72799785037bec0c549f9dc2c9fe5"
+      "sha256": "295525aeb86815c096f570d5965d42baa92e01f7ea358028e0022429842d8204"
     },
     {
       "path": "scripts/audit-requirements.ts",
@@ -12,7 +16,7 @@
     },
     {
       "path": "scripts/build-public-data.ts",
-      "sha256": "cf8040c90a132ed2d325e09ca6447e7f383a1eb5f78d916c61fa49b1c1379a1a"
+      "sha256": "b724e000130a9637b422bf2f26517e0bddcd67174d9cee6b6e9b23da312e4625"
     },
     {
       "path": "scripts/canonical-store.ts",
@@ -32,7 +36,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "a6abbca00b4124d38a8660c7c7a6915e366c1bef799cfc40a8490b6d298a178b"
+      "sha256": "381473d05ce0a17ce3f116816d091fe8053e128760ddbe439bc792dc08988b97"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -56,7 +60,7 @@
     },
     {
       "path": "scripts/legacy-content.ts",
-      "sha256": "b4c03b4039fb0aec56c688f618314ca8b0f5a3d5d89a06c0ce0463669a8a1895"
+      "sha256": "4643ef9c73e1ad0dfcdc2707cc8803f060dc8e8c2b206ae1acc72f729637c1ef"
     },
     {
       "path": "scripts/lib.ts",
@@ -71,12 +75,16 @@
       "sha256": "49346a97de9a3fb8623c2d389b0854f7df39899fe558c8ebb9147f23094c33f0"
     },
     {
+      "path": "scripts/refresh-person-icons.ts",
+      "sha256": "425303165287d3a98c491354a7b8c34c184f997a4f529edeb6453eedc309da1f"
+    },
+    {
       "path": "scripts/source-shards.ts",
       "sha256": "931dcc5b53ed28f6bf4fcd75af343e8ae925395dc9f24c71dedf4c2e550fdaa7"
     },
     {
       "path": "scripts/validate-content.ts",
-      "sha256": "4554f901a5080a23e073da919425536d6b56b64bf6f87b67f943a0ca72fabac0"
+      "sha256": "5867f4c0d31b2380b68f4b1a8dfdaaf446d84eb74c9f756f08dfd8aa5216908d"
     },
     {
       "path": "scripts/validate-release-pr-scope.ts",
@@ -100,11 +108,11 @@
     },
     {
       "path": "src/App.tsx",
-      "sha256": "f9558d5b040f05f17fd98a7008a1f4b09109a2f04c16e541272a7376f1c1c974"
+      "sha256": "da9498319389d22300e2ae3c4cf616495f6178ddba949cfef307a1162b7e6ac4"
     },
     {
       "path": "src/components/Header.tsx",
-      "sha256": "6ae0349c657e22b58417ccdeda5cd8dc60d89eb0d0b5f8390b507dc3a1445d98"
+      "sha256": "42ffc95c2d33a2afd999616d6b81bb0d18b4554e255d6547f6a33d69b8ac64e9"
     },
     {
       "path": "src/components/VideoCard.tsx",
@@ -124,11 +132,19 @@
     },
     {
       "path": "src/data/loadPublicData.test.ts",
-      "sha256": "5f8f904f146a97c85bb25265ae10f767af2845a9ac4220aba384e12565874fbc"
+      "sha256": "e77be0445ffd2ccbe8978a0c11c5cd9ff55fca24f09b7bd09e7e8fe0d3ccda29"
     },
     {
       "path": "src/data/loadPublicData.ts",
-      "sha256": "6666073cf8b335c46c9693c46a2a65e417f2029c433e7974181290e71b54d550"
+      "sha256": "e6f49da77d7c53bc105f5ba98a75bb8f99a5859cd526e28c3da3e896c5464469"
+    },
+    {
+      "path": "src/domain/collaboration-group-audit.test.ts",
+      "sha256": "129dbd6473dab9d123ad9f3555a4d6bfbdfff7e22b9c02b968054789bb71d1a8"
+    },
+    {
+      "path": "src/domain/collaboration-group-audit.ts",
+      "sha256": "91a90a7642d3e9160dbc1c595f0f2be85a0e15157c5dd9b45b45d8b2d51c6135"
     },
     {
       "path": "src/domain/collaboration.test.ts",
@@ -140,7 +156,7 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "de069ddd8a5c7aa2b45730272b6cf165205363cedfbb9ece4bbbdfcc09cc4a49"
+      "sha256": "4167e7a5206bf7bfb553646f9a210b4a7054257054cedb4601aeca4d420cca93"
     },
     {
       "path": "src/domain/game-title-detection.test.ts",
@@ -164,11 +180,11 @@
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "e1c85798d71df15792b9ad3cbc065fc3aa4f6682b080c5c81dfff23d2ee251fd"
+      "sha256": "b53f4b7c7a53e5331a37dcc6563e55e5bbb1cc445ad5e549246ad166ae5da835"
     },
     {
       "path": "src/features/collaborations/CollaborationDetailPages.test.tsx",
-      "sha256": "c7b404c00f23bbe8b078f52fedbb215bf1f87e74c17bf50678984a46e804c2d7"
+      "sha256": "1e135ba3424d93807164e23bdca883ff314fc1cc736806febdedd983159a6bc8"
     },
     {
       "path": "src/features/collaborations/CollaboratorDetailPage.tsx",
@@ -180,19 +196,47 @@
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
-      "sha256": "4f2c863e5b5598f2194529934806697d88cb620f5923104a20571cca2c6f39a2"
+      "sha256": "50a1f6b9e53b98f3185790f129962e604a131bfa69ab971f0751ff1e5fe7964c"
     },
     {
       "path": "src/features/library/DeviceLibraryPage.tsx",
       "sha256": "70e219303f5c441543451088ad7f38bc36cc0498e21ef5af6670bbcda44034f9"
     },
     {
+      "path": "src/features/search/DateRangePicker.tsx",
+      "sha256": "b467a34fa2cee760e9773a43b27b98c0e204c8110ade01e12a0f6c9f27231109"
+    },
+    {
+      "path": "src/features/search/DurationRangeSlider.tsx",
+      "sha256": "a474a4866abf1e497919fcc7d476f60a4241355bc7ca1a6080565a4bd8c7a93e"
+    },
+    {
+      "path": "src/features/search/SearchFilterControls.test.tsx",
+      "sha256": "091ac28d14d88808ee051c257f20b32073a13b237a643cd054d696a3e6cb6b6b"
+    },
+    {
       "path": "src/features/search/SearchPage.tsx",
-      "sha256": "3e4034d34aa47b4043847c751fa4b291b64ef16ae0219dd28838b949e0906054"
+      "sha256": "d6a22f124cd357d48c5c247aed2392021f88371e1cc8be36946da9f1087f76f5"
+    },
+    {
+      "path": "src/features/series/SeriesDetailPage.test.tsx",
+      "sha256": "fa67428e97cc8136aa00c8abe76815e5e55e8574de88fdfbde57cf6d7e87ff4d"
+    },
+    {
+      "path": "src/features/series/SeriesDetailPage.tsx",
+      "sha256": "d3dddb9b72effce18f6c9cd06f1a3a10843252892ee1fec68d92ae6cb4ed6cab"
+    },
+    {
+      "path": "src/features/songs/SongIndexPage.test.tsx",
+      "sha256": "b278e40a6da20a32c8f986c88db2e24288acc9c5c1af9ca439d634f611f195f2"
+    },
+    {
+      "path": "src/features/songs/SongIndexPage.tsx",
+      "sha256": "bb7673f484f1e0feb7486f563465d613257c6fcdf4978fcf00c79e42e7613757"
     },
     {
       "path": "src/features/works/WorkDetailPage.test.tsx",
-      "sha256": "0f684063eb524bb0a2f2cced73794d2fec744051efb84125f369769b8871a9cb"
+      "sha256": "5288f536bd81ba2d4fb9a0406b6ae6b7dcbd67c151e17d6c27f86db65d036814"
     },
     {
       "path": "src/features/works/WorkDetailPage.tsx",
@@ -439,6 +483,36 @@
       "kind": "ClassDeclaration"
     },
     {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "auditCollaborationGroupTags",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditAlias",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditGroup",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditResult",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditSource",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditVideo",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
       "file": "src/domain/collaboration.ts",
       "name": "CollaborationCandidate",
       "kind": "InterfaceDeclaration"
@@ -555,6 +629,16 @@
     },
     {
       "file": "src/domain/content.ts",
+      "name": "PublicSongIndex",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "publicSongIndexSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
       "name": "PublicTagIndex",
       "kind": "TypeAliasDeclaration"
     },
@@ -606,6 +690,21 @@
     {
       "file": "src/domain/content.ts",
       "name": "searchIndexSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "SongPerformanceCatalog",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "songPerformanceCatalogSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "songPerformanceTypeSchema",
       "kind": "VariableStatement"
     },
     {
@@ -830,6 +929,11 @@
     },
     {
       "file": "src/domain/validation.ts",
+      "name": "validateSongPerformanceCatalog",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/validation.ts",
       "name": "validateTaxonomy",
       "kind": "FunctionDeclaration"
     },
@@ -859,8 +963,28 @@
       "kind": "FunctionDeclaration"
     },
     {
+      "file": "src/features/search/DateRangePicker.tsx",
+      "name": "DateRangePicker",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/search/DurationRangeSlider.tsx",
+      "name": "DurationRangeSlider",
+      "kind": "FunctionDeclaration"
+    },
+    {
       "file": "src/features/search/SearchPage.tsx",
       "name": "SearchPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/series/SeriesDetailPage.tsx",
+      "name": "SeriesDetailPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/songs/SongIndexPage.tsx",
+      "name": "SongIndexPage",
       "kind": "FunctionDeclaration"
     },
     {
@@ -890,6 +1014,9 @@
     "/collaborators/:tagId",
     "/groups/:tagId",
     "/library",
+    "/series/:tagId",
+    "/songs",
+    "/songs/:tagId",
     "/video/:videoId",
     "/works/:tagId"
   ],
@@ -897,13 +1024,18 @@
     "e2e/detail.spec.ts",
     "e2e/library.spec.ts",
     "e2e/search.spec.ts",
+    "e2e/song-index.spec.ts",
     "src/data/deviceStore.test.ts",
     "src/data/loadPublicData.test.ts",
+    "src/domain/collaboration-group-audit.test.ts",
     "src/domain/collaboration.test.ts",
     "src/domain/game-title-detection.test.ts",
     "src/domain/search.test.ts",
     "src/domain/validation.test.ts",
     "src/features/collaborations/CollaborationDetailPages.test.tsx",
+    "src/features/search/SearchFilterControls.test.tsx",
+    "src/features/series/SeriesDetailPage.test.tsx",
+    "src/features/songs/SongIndexPage.test.tsx",
     "src/features/works/WorkDetailPage.test.tsx"
   ]
 }
