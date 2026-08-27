@@ -326,12 +326,22 @@ const requirements = sourceRequirements.map((item) => {
     requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-08-TIMESTAMP-BATCH';
   }
   if (id === 'V8-OPS-003') {
-    requirement.revision = 3;
-    requirement.source_refs.push('owner-directive:2026-08-04', 'spec/sources/owner-directive-2026-08-08-post-merge-release.md');
-    requirement.acceptance_criteria[0]!.then = '`.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。人が開始する `workflow_dispatch` は読取専用の検証と候補検出に限定し、静的成果物生成は検証済みmainだけを入力とする。';
+    requirement.revision = 4;
+    requirement.source_refs.push(
+      'owner-directive:2026-08-04',
+      'spec/sources/owner-directive-2026-08-08-post-merge-release.md',
+      'user:2026-08-23',
+    );
+    requirement.acceptance_criteria[0]!.then = '`.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。動画確認、候補検出、公開準備の `workflow_dispatch` は読取専用に限定し、private backfill基盤deployだけをV8-INGEST-009とV8-INGEST-013の承認済み手動経路として分離し、静的成果物生成は検証済みmainだけを入力とする。';
     requirement.traces.implementation.push('.github/workflows/manual-content-operation.yml');
-    requirement.traces.implementation = [...requirement.traces.implementation, '.github/workflows/update-generated-release.yml'];
-    requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-08-POST-MERGE-RELEASE';
+    requirement.traces.implementation = [
+      ...requirement.traces.implementation,
+      '.github/workflows/update-generated-release.yml',
+      '.github/workflows/deploy-ingestion-infra.yml',
+    ];
+    requirement.traces.tests.push('tests/repository-policy.test.ts');
+    requirement.verification.evidence = 'tests/operations.test.ts, tests/generated.test.ts, tests/repository-policy.test.ts';
+    requirement.last_changed_by = 'CHG-20260823-INGESTION-GITHUB-DEPLOY';
   }
   if (id === 'V8-OPS-007') {
     requirement.revision = 2;
@@ -386,6 +396,83 @@ const requirements = sourceRequirements.map((item) => {
       evidence: 'src/domain/search.test.ts, e2e/search.spec.ts',
     };
     requirement.last_changed_by = 'CHG-20260820-auto-apply-tag-search';
+  }
+  if (id === 'V8-SEARCH-011') {
+    requirement.revision = 2;
+    requirement.title = '公開日の開始日と終了日は一つの日付範囲Pickerで選択でき、日本標準時の日付として両端を含めて絞り込まなければならない';
+    requirement.object = '公開日の開始日と終了日は一つの日付範囲Pickerで選択でき、日本標準時の日付として両端を含めて絞り込まなければならない。';
+    requirement.rationale = '利用者が期間全体と両端を一つの操作面で把握し、意図した公開アーカイブへ速く絞り込めるようにするため。';
+    requirement.source_refs.push(
+      'spec/sources/owner-directive-2026-08-25-search-filter-controls.md',
+      'user:2026-08-25',
+      'https://www.inspora.design/posts/1-30',
+    );
+    requirement.acceptance_criteria = [
+      {
+        id: 'AC-V8-SEARCH-011-1',
+        given: '公開日フィルターを操作する',
+        when: 'カレンダー上の二つの日付、クイック期間、または開始日・終了日を選択する',
+        then: '開始日、終了日、両端を含む選択期間が一つのPicker内で確認でき、指定なしへ戻せる。',
+      },
+      {
+        id: 'AC-V8-SEARCH-011-2',
+        given: '公開日の開始日または終了日が指定されている',
+        when: '時差・月末・年末・逆転範囲を含む検索を実行する',
+        then: '開始日の0時0分0秒から終了日の23時59分59秒までを含み、URL等から開始日が終了日より後となった場合は日本語で入力誤りを示す。',
+      },
+    ];
+    requirement.verification = {
+      method: '日付範囲Picker操作、時差・月末・年末・逆転範囲試験',
+      evidence: 'src/features/search/SearchFilterControls.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts',
+    };
+    requirement.traces.implementation.push('src/features/search/DateRangePicker.tsx');
+    requirement.traces.tests.push('src/features/search/SearchFilterControls.test.tsx');
+    requirement.last_changed_by = 'CHG-20260825-search-filter-controls';
+  }
+  if (id === 'V8-SEARCH-012') {
+    requirement.revision = 2;
+    requirement.source_refs.push('spec/sources/owner-directive-2026-08-25-search-filter-controls.md', 'user:2026-08-25');
+    requirement.acceptance_criteria = [{
+      id: 'AC-V8-SEARCH-012-1',
+      given: '動画長のクイック区分を選択する',
+      when: '1799、1800、3599、3600、7199、7200秒の境界を含む検索を実行する',
+      then: '各動画は定義された区分に一意に入り、選択した区分と同じ境界がSliderの選択範囲へ反映される。',
+    }];
+    requirement.verification = {
+      method: '動画長区分とSliderの境界値試験',
+      evidence: 'src/features/search/SearchFilterControls.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts',
+    };
+    requirement.traces.implementation.push('src/features/search/DurationRangeSlider.tsx');
+    requirement.traces.tests.push('src/features/search/SearchFilterControls.test.tsx');
+    requirement.last_changed_by = 'CHG-20260825-search-filter-controls';
+  }
+  if (id === 'V8-SEARCH-013') {
+    requirement.revision = 2;
+    requirement.title = '動画長は二つのつまみを持つSliderで分単位の最小値・最大値を選択でき、範囲内の動画だけを表示しなければならない';
+    requirement.object = '動画長は二つのつまみを持つSliderで分単位の最小値・最大値を選択でき、最小値以上かつ最大値以下の動画だけを表示しなければならない。';
+    requirement.rationale = '利用者が動画長の範囲と現在値を視覚的に把握しながら、意図した長さのアーカイブへ絞り込めるようにするため。';
+    requirement.source_refs.push('spec/sources/owner-directive-2026-08-25-search-filter-controls.md', 'user:2026-08-25');
+    requirement.acceptance_criteria = [
+      {
+        id: 'AC-V8-SEARCH-013-1',
+        given: '動画長フィルターを操作する',
+        when: 'Sliderの最小または最大のつまみをマウス、タッチ、またはキーボードで動かす',
+        then: '分単位の片側指定、同値、両側指定ができ、最小値と最大値が交差せず、クイック区分の選択は解除される。',
+      },
+      {
+        id: 'AC-V8-SEARCH-013-2',
+        given: '動画長の範囲が指定されている',
+        when: '範囲境界、動画長不明、またはURL等から最小値が最大値を超える条件で検索する',
+        then: '最小値以上かつ最大値以下の動画だけを表示し、動画長不明を除外し、逆転範囲には日本語で入力誤りを示す。',
+      },
+    ];
+    requirement.verification = {
+      method: 'Slider操作、キーボード、範囲・欠損・誤入力試験',
+      evidence: 'src/features/search/SearchFilterControls.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts',
+    };
+    requirement.traces.implementation.push('src/features/search/DurationRangeSlider.tsx');
+    requirement.traces.tests.push('src/features/search/SearchFilterControls.test.tsx');
+    requirement.last_changed_by = 'CHG-20260825-search-filter-controls';
   }
   if (['V8-TIME-027', 'V8-TIME-028', 'V8-TIME-029'].includes(id)) {
     requirement.revision = 2;
@@ -1006,6 +1093,137 @@ const workPageRequirements = [
     last_changed_by: 'CHG-20260815-work-pages',
   },
 ];
+const songPerformanceRequirements = [
+  {
+    id: 'V8-DISPLAY-015',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: 'ジャンル「歌」と楽曲タグは原曲・対象場面リンク付きの歌唱楽曲一覧へ移動できなければならない',
+    subject: 'diopside v8の歌唱楽曲一覧と導線',
+    action: 'satisfy',
+    object: '主または副ジャンル「歌」を押すと歌唱楽曲一覧へ移動しなければならない。一覧は楽曲名、原曲アーティスト、確認済みの原曲リンク、歌唱種別、対象動画、公開日を表示する。配信内歌唱と鼻歌は対象開始秒、単曲動画は動画先頭を開き、楽曲タグのURLで曲別表示できなければならない。',
+    rationale: '歌枠と単曲カバーを横断して曲から探し、長時間配信でも対象場面へ直接移動できるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'user:2026-08-25'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-015-1',
+        given: '検索画面または動画詳細に主・副ジャンル「歌」が表示されている',
+        when: '利用者が「歌」を押す',
+        then: '歌唱楽曲一覧へ移動し、楽曲名または原曲アーティストで絞り込める。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-015-2',
+        given: '歌ってみたと配信内歌唱が登録されている',
+        when: '利用者が各歌唱実績のリンクを押す',
+        then: '歌ってみたは対象動画を、配信内歌唱は対象動画の同じ開始秒をYouTubeで開く。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-015-3',
+        given: '楽曲に確認済みの原曲公開先がある',
+        when: '一覧または曲別ページを表示する',
+        then: '出典名と確認日付きのHTTPS原曲リンクを表示し、表示だけで外部サイトへ通信しない。',
+      },
+    ],
+    verification: {
+      method: '楽曲一覧表示、ジャンル・楽曲タグ遷移、原曲リンク、YouTube開始秒、外部自動通信禁止試験',
+      evidence: 'src/features/songs/SongIndexPage.test.tsx, e2e/song-index.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/features/songs/SongIndexPage.tsx', 'src/features/search/SearchPage.tsx', 'src/features/detail/VideoDetailPage.tsx', 'src/App.tsx'],
+      tests: ['src/features/songs/SongIndexPage.test.tsx', 'e2e/song-index.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260825-song-performance-index',
+  },
+  {
+    id: 'V8-TAG-037',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: '確認済みの各歌唱実績は動画ジャンルと独立した楽曲タグとして検索できなければならない',
+    subject: 'diopside v8の歌唱実績と楽曲タグ',
+    action: 'satisfy',
+    object: '楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲タグを持たなければならない。楽曲タグは動画の主・副ジャンルが「歌」であるかに依存せず、公開一覧・検索索引・タグ索引・動画詳細のすべてに一貫して反映しなければならない。',
+    rationale: '通常配信の一部で歌った曲や鼻歌を、動画全体のジャンルに埋もれさせず曲から再発見できるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'user:2026-08-25'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-037-1',
+        given: '楽曲名と白雪巴の歌唱参加が確認済みである',
+        when: '歌唱実績を正本化して公開データを生成する',
+        then: '歌唱種別と不変の楽曲タグIDを付け、対象動画の一覧・検索・タグ・詳細索引に同じIDを反映する。',
+      },
+      {
+        id: 'AC-V8-TAG-037-2',
+        given: '主ジャンルが歌でない通常配信で歌唱または鼻歌が確認された',
+        when: '実績を登録する',
+        then: '動画ジャンルの変更を必須とせず、配信内歌唱または鼻歌の種別で楽曲タグを公開できる。',
+      },
+    ],
+    verification: {
+      method: '歌唱正本構造、非歌ジャンル鼻歌、公開索引の楽曲タグ反映試験',
+      evidence: 'tests/content-validation.test.ts, tests/generated.test.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['content/songs/song-performances.json', 'src/domain/content.ts', 'src/domain/validation.ts', 'scripts/build-public-data.ts'],
+      tests: ['tests/content-validation.test.ts', 'tests/generated.test.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260825-song-performance-index',
+  },
+  {
+    id: 'V8-TAG-038',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'nonfunctional',
+    type: 'quality',
+    title: '歌唱実績は楽曲名・本人参加・開始秒・根拠を検証し、未確認の曲を公開してはならない',
+    subject: 'diopside v8の歌唱実績検証と公開境界',
+    action: 'satisfy',
+    object: '各歌唱実績は既知動画、白雪巴本人の参加、動画長内の開始秒、動画内で解決できる根拠参照を持たなければならない。承認済みタイムスタンプを参照する場合は開始秒が一致し、鼻歌は終了秒も持たなければならない。公開データには内部の根拠参照・判定理由を含めてはならない。',
+    rationale: 'コラボ配信で他者が歌った曲、曲名不明の歌唱、根拠のない推測を白雪巴の楽曲タグとして誤公開せず、公開データを必要最小限に保つため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'user:2026-08-25'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-038-1',
+        given: '歌唱実績候補に未知動画、解決不能の根拠、動画長外の時刻、または開始秒の異なるタイムスタンプがある',
+        when: '正本検証または公開データ生成を行う',
+        then: '候補を拒否し、不整合の種類と場所を示す。',
+      },
+      {
+        id: 'AC-V8-TAG-038-2',
+        given: '鼻歌の歌唱実績候補がある',
+        when: '正本検証を行う',
+        then: '開始秒と終了秒が動画長内で正しい順序の場合だけ受け付ける。',
+      },
+      {
+        id: 'AC-V8-TAG-038-3',
+        given: '検証済みの歌唱実績がある',
+        when: '公開JSONを生成する',
+        then: '楽曲・原曲・動画・種別・時刻以外の内部根拠参照や判定理由を出力しない。',
+      },
+    ],
+    verification: {
+      method: '未知動画・根拠・時刻・タイムスタンプ不整合・鼻歌範囲・公開境界試験',
+      evidence: 'tests/content-validation.test.ts, tests/generated.test.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/domain/content.ts', 'src/domain/validation.ts', 'scripts/build-public-data.ts'],
+      tests: ['tests/content-validation.test.ts', 'tests/generated.test.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260825-song-performance-index',
+  },
+];
 const collaborationPageRequirements = [
   {
     id: 'V8-DISPLAY-013',
@@ -1051,6 +1269,86 @@ const collaborationPageRequirements = [
       standards: ['spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'dev-standard default profile'],
     },
     last_changed_by: 'CHG-20260815-collaboration-pages',
+  },
+];
+const seriesPageRequirements = [
+  {
+    id: 'V8-TAG-036',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'data',
+    title: '定期・連続企画名を明示する動画はシリーズタグを持ち、名称の部分一致だけでイベントへ重複分類してはならない',
+    subject: 'diopside v8の定期・連続企画タグ',
+    action: 'satisfy',
+    object: '公開タイトルまたは承認済み既存タグから定期・連続企画名を直接確認できる動画は当該定期・連続企画名タグを持ち、名称中の「杯」等の部分一致だけでイベント・大会名へ重複分類してはならない。',
+    rationale: 'シリーズ各回の取りこぼしと、一般語を大会名の指標として扱う誤分類を同時に防ぐため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-25-recurring-series-pages.md', 'user:2026-08-25'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-036-1',
+        given: '公開タイトルに「#いっ杯晩酌」が明示された動画がある',
+        when: '承認済みタグ正本を全件検査する',
+        then: '対象14動画すべてが定期・連続企画名「いっ杯晩酌」を持つ。',
+      },
+      {
+        id: 'AC-V8-TAG-036-2',
+        given: '定期・連続企画名そのものに「杯」の文字が含まれる',
+        when: '旧タグから論理タグを再生成する',
+        then: '名称の部分一致だけを理由にイベント・大会名「いっ杯晩酌」を追加しない。',
+      },
+    ],
+    verification: {
+      method: '正本全件タグ網羅・重複分類試験、旧タグ再生成回帰試験',
+      evidence: 'tests/content-validation.test.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md', 'content/taxonomy/tag-taxonomy.json'],
+      implementation: ['scripts/legacy-content.ts', 'content/videos'],
+      tests: ['tests/content-validation.test.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-25-recurring-series-pages.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260825-recurring-series-pages',
+  },
+  {
+    id: 'V8-DISPLAY-014',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: '定期・連続企画名タグは同じシリーズの動画一覧へ移動できなければならない',
+    subject: 'diopside v8の定期・連続企画名タグとシリーズページ',
+    action: 'satisfy',
+    object: '動画詳細の定期・連続企画名タグは押下可能でなければならず、不変タグIDをURLに持つ一覧ページへ移動して、そのタグを持つ公開動画だけを公開日の新しい順で表示しなければならない。',
+    rationale: '同じ定期企画や連続企画の各回を、個別動画から途切れずに探せるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-25-recurring-series-pages.md', 'user:2026-08-25'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-014-1',
+        given: '動画詳細に定期・連続企画名の承認済みタグが表示されている',
+        when: '利用者が企画・シリーズ名タグを押す',
+        then: '不変タグIDをURLに持つシリーズページへ移動し、そのタグを持つ公開動画だけを公開日の新しい順で表示する。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-014-2',
+        given: '公開タイトルで同じ定期・連続企画名が明示された複数の動画がある',
+        when: 'シリーズページの件数と動画カードを確認する',
+        then: '確認済みの同シリーズ動画を取りこぼさず、他の企画・シリーズの動画を混在させない。',
+      },
+    ],
+    verification: {
+      method: '正本タグ網羅試験、定期・連続企画名タグ遷移単体・E2E、一覧内容・順序・アクセシビリティ試験',
+      evidence: 'tests/content-validation.test.ts, src/features/series/SeriesDetailPage.test.tsx, e2e/detail.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/App.tsx', 'src/features/detail/VideoDetailPage.tsx', 'src/features/series/SeriesDetailPage.tsx'],
+      tests: ['tests/content-validation.test.ts', 'src/features/series/SeriesDetailPage.test.tsx', 'e2e/detail.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-25-recurring-series-pages.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260825-recurring-series-pages',
   },
 ];
 const searchSuggestionRequirements = [
@@ -1121,14 +1419,52 @@ const searchSuggestionRequirements = [
     last_changed_by: 'CHG-20260820-search-suggestions',
   },
 ];
+const searchInteractionRequirements = [
+  {
+    id: 'V8-SEARCH-022',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'nonfunctional',
+    type: 'quality',
+    title: '動画長Sliderの連続操作中はタグ候補と画面高を固定し、停止後100ミリ秒で更新しなければならない',
+    subject: 'diopside v8の動画長Slider',
+    action: 'satisfy',
+    object: '動画長Sliderの連続入力中と最後の入力から100ミリ秒未満は、つまみと現在値だけを即時更新し、動画長に応じたタグ候補・件数と画面の縦方向の長さを変更してはならない。最後の入力から約100ミリ秒後に、最新の動画長を使ってタグ候補と件数を一度だけ更新しなければならない。',
+    rationale: 'Slider操作中にタグ欄の増減で画面高が変わり、つまみの位置が動いて操作を妨げることを防ぐため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-25-duration-slider-stability.md', 'user:2026-08-25'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-SEARCH-022-1',
+        given: 'タグ候補を展開した状態で動画長Sliderを連続操作する',
+        when: 'Slider入力が継続している間、最後の入力から100ミリ秒未満、および約100ミリ秒経過後を確認する',
+        then: '操作中はつまみと現在値だけが即時更新され、タグ候補・件数と画面高は固定される。停止約100ミリ秒後に最新の動画長でタグ候補と件数が一度だけ更新される。',
+      },
+    ],
+    verification: {
+      method: 'Slider連続入力中のタグ候補数・画面高固定と停止100ミリ秒後の更新試験',
+      evidence: 'e2e/search.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/features/search/SearchPage.tsx'],
+      tests: ['e2e/search.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-25-duration-slider-stability.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260825-duration-slider-stability',
+  },
+];
 const generatedRequirements = [
   ...requirements,
   ...ownerDirectiveRequirements,
   ...timestampHarnessRequirements,
   ...synopsisHarnessRequirements,
   ...workPageRequirements,
+  ...songPerformanceRequirements,
   ...collaborationPageRequirements,
+  ...seriesPageRequirements,
   ...searchSuggestionRequirements,
+  ...searchInteractionRequirements,
 ];
 const issue465OverrideIds = new Set([
   'V8-COST-001',
@@ -1149,9 +1485,9 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 11, 12),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 20),
   product: 'diopside v8',
-  updated_at: '2026-08-20',
+  updated_at: existingCatalog?.updated_at ?? '2026-08-26',
   requirements: canonicalRequirements,
 }, null, 2)}\n`);
 writeFileSync(mapPath, `${JSON.stringify({
@@ -1165,4 +1501,4 @@ writeFileSync(mapPath, `${JSON.stringify({
   })),
 }, null, 2)}\n`);
 
-console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + collaborationPageRequirements.length + searchSuggestionRequirements.length}件の要件正本を生成しました。`);
+console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + songPerformanceRequirements.length + collaborationPageRequirements.length + seriesPageRequirements.length + searchSuggestionRequirements.length + searchInteractionRequirements.length}件の要件正本を生成しました。`);

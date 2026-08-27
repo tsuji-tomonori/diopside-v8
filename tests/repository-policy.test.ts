@@ -36,6 +36,10 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).toMatch(/PLAYWRIGHT_BROWSERS_PATH:\s*\/ms-playwright/u);
     expect(workflow).toMatch(/Git worktreeを信頼済みに設定[\s\S]*git config --global --add safe\.directory "\$GITHUB_WORKSPACE"/u);
     expect(workflow).toMatch(/actions\/setup-python@v5/u);
+    expect(workflow).not.toMatch(/ref: \$\{\{ github\.event\.pull_request\.head\.sha \|\| github\.sha \}\}/u);
+    expect(workflow).toMatch(/(?:^|\n)\s+- name: PR・非main通常変更の品質ゲートを実行[\s\S]*github\.ref != 'refs\/heads\/main'[\s\S]*PR_HEAD_SHA: \$\{\{ github\.event\.pull_request\.head\.sha \}\}[\s\S]*verify:local:base[\s\S]*--commit "\$PR_HEAD_SHA"[\s\S]*test:e2e:run/u);
+    expect(workflow).toMatch(/(?:^|\n)\s+- name: main通常変更の品質ゲートを実行[\s\S]*github\.ref == 'refs\/heads\/main'[\s\S]*run: npm run verify:main-release/u);
+    expect(workflow).toMatch(/release変更の品質ゲートを実行[\s\S]*--commit "\$review_source_commit" --allow-github-merge-fallback/u);
     expect(workflow).not.toMatch(/npx playwright install --with-deps chromium/u);
   });
 
@@ -45,7 +49,8 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).toMatch(/permissions:\s*\n\s+contents: write\s*\n\s+pull-requests: write/u);
     expect(workflow).toMatch(/ref: \$\{\{ github\.sha \}\}/u);
     expect(workflow).toMatch(/run: npm run verify:main-release/u);
-    expect(workflow).toMatch(/--allow-github-squash-fallback/u);
+    expect(workflow).toMatch(/git restore -- reports\/screenshots[\s\S]*git clean -fd -- reports\/screenshots/u);
+    expect(workflow).toMatch(/--allow-github-merge-fallback/u);
     expect(workflow).toMatch(/--print-review-path/u);
     expect(workflow).not.toMatch(/sed -n 's\/\^Review-Checklist:/u);
     expect(workflow).toMatch(/git status --porcelain -- spec\/requirements docs\/requirements docs\/design\/generated/u);
@@ -62,7 +67,9 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(verifyWorkflow).toMatch(/automation\/generated-release-/u);
     expect(verifyWorkflow).toMatch(/--allow-generated-only/u);
     expect(verifyWorkflow).toMatch(/IS_GENERATED_RELEASE_PR/u);
-    expect(verifyWorkflow).toMatch(/IS_GENERATED_RELEASE_MAIN:[\s\S]*startsWith\(github\.event\.head_commit\.message, '🚀 release\(data\):'\)/u);
+    expect(verifyWorkflow).toMatch(/IS_GENERATED_RELEASE_MAIN:[\s\S]*contains\(github\.event\.head_commit\.message, '🚀 release\(data\):'\)/u);
+    expect(workflow).toMatch(/!contains\(github\.event\.head_commit\.message, '🚀 release\(data\):'\)/u);
+    expect(workflow).toMatch(/always\(\)[\s\S]*contains\(github\.event\.head_commit\.message, '🚀 release\(data\):'\)/u);
     expect(verifyWorkflow.match(/git merge-base "origin\/\$BASE_BRANCH" HEAD/gu)).toHaveLength(2);
     expect(verifyWorkflow).toMatch(/release_source_commit[\s\S]*--allow-generated-only/u);
     expect(verifyWorkflow).toMatch(/review_source_commit="\$\(git merge-base[\s\S]*review_source_commit="\$\(git rev-parse HEAD\^\)"[\s\S]*verify:local:base[\s\S]*validate\.py --root \. --commit "\$review_source_commit"[\s\S]*test:e2e:run/u);
@@ -78,6 +85,22 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).toMatch(/候補は0件/u);
     expect(workflow).not.toMatch(/(?:pull_request:|push:|schedule:|cron:|openai|codex|chatgpt|deploy-pages|upload-pages-artifact|configure-pages)/iu);
     expect(workflow).not.toMatch(/actions\/(?:upload-artifact|cache)@/iu);
+  });
+
+  it('private backfill基盤deployはmain・protected environment・OIDCへ限定する', () => {
+    const workflow = text('.github/workflows/deploy-ingestion-infra.yml');
+    expect(workflow).toMatch(/workflow_dispatch:/u);
+    expect(workflow).toMatch(/test "\$GITHUB_REF" = 'refs\/heads\/main'/u);
+    expect(workflow).toMatch(/test "\$CONFIRMATION" = 'DEPLOY'/u);
+    expect(workflow).toMatch(/environment: private-backfill-infra/u);
+    expect(workflow).toMatch(/id-token: write/u);
+    expect(workflow).toMatch(/allowed-account-ids:/u);
+    expect(workflow).toMatch(/aws-actions\/configure-aws-credentials@[0-9a-f]{40}/u);
+    expect(workflow).toMatch(/npm run verify:ingestion/u);
+    expect(workflow).toMatch(/cdk deploy DiopsideIngestionStack/u);
+    expect(workflow).toMatch(/--exclusively --ci --require-approval never/u);
+    expect(workflow).not.toMatch(/(?:pull_request:|push:|schedule:|cron:|openai|codex|chatgpt)/iu);
+    expect(workflow).not.toMatch(/(?:diopside-backfill|enqueue|legacy-local-import|aws s3)/iu);
   });
 
   it('Pagesは公開リポジトリのmain/docs・許可済み独自ドメイン・branch方式だけを宣言する', () => {
