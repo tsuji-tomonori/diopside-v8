@@ -9,6 +9,7 @@ export function Header(): React.JSX.Element {
       </NavLink>
       <nav aria-label="主要メニュー">
         <NavLink to="/" end>動画を探す</NavLink>
+        <NavLink to="/songs">歌を探す</NavLink>
         <NavLink to="/library">端末内リスト</NavLink>
       </nav>
     </header>
