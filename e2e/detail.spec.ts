@@ -109,6 +109,19 @@ test.describe('動画詳細', () => {
     await expectNoSeriousAccessibilityViolations(page);
   });
 
+  test('定期・連続企画名から同じシリーズの動画一覧へ移動できる', async ({ page }) => {
+    const requests = await preparePage(page);
+    await page.goto('/#/video/9AG7wO0Ua0w');
+    const seriesLink = page.getByRole('link', { name: /いっ杯晩酌/u });
+    await expect(seriesLink).toBeVisible();
+    await seriesLink.click();
+    await expect(page).toHaveURL(/#\/series\/tag-program-recurringSeries-4eb7f61b38ea$/u);
+    await expect(page.getByRole('heading', { level: 1, name: 'いっ杯晩酌' })).toBeVisible();
+    await expect(page.locator('.series-results .video-card')).toHaveCount(14);
+    expectOnlyAllowedRequests(requests);
+    await expectNoSeriousAccessibilityViolations(page);
+  });
+
   test('人物名タグとフルトイタグからアイコン・YouTube導線付き一覧へ移動できる', async ({ page }) => {
     const requests = await preparePage(page);
     await page.goto('/#/video/O6tuTZ_f1vo');
