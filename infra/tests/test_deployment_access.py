@@ -2,15 +2,19 @@ from __future__ import annotations
 
 import json
 
-from aws_cdk import App
+from aws_cdk import App, Environment
 from aws_cdk.assertions import Template
 
 from diopside_deployment.access_stack import GitHubDeploymentAccessStack
 
 
-def deployment_access_template() -> Template:
+def deployment_access_template(*, stack_region: str = "ap-northeast-1") -> Template:
     app = App()
-    stack = GitHubDeploymentAccessStack(app, "TestDeploymentAccess")
+    stack = GitHubDeploymentAccessStack(
+        app,
+        "TestDeploymentAccess",
+        env=Environment(account="123456789012", region=stack_region),
+    )
     return Template.from_stack(stack)
 
 
@@ -20,7 +24,8 @@ def test_deployment_role_trusts_only_the_exact_protected_github_environment() ->
         "GitHubOidcSubject",
         {
             "Type": "String",
-            "AllowedPattern": ("^repo:[^:]+/[^:]+:environment:private-backfill-infra$"),
+            "Default": ("repo:tsuji-tomonori/diopside-v8:environment:private-backfill-infra"),
+            "AllowedValues": ["repo:tsuji-tomonori/diopside-v8:environment:private-backfill-infra"],
         },
     )
     template.resource_count_is("AWS::IAM::OIDCProvider", 0)
@@ -58,7 +63,15 @@ def test_deployment_role_trusts_only_the_exact_protected_github_environment() ->
 
 
 def test_deployment_role_can_only_assume_required_same_environment_bootstrap_roles() -> None:
-    template = deployment_access_template()
+    template = deployment_access_template(stack_region="us-east-1")
+    template.has_parameter(
+        "TargetDeploymentRegion",
+        {
+            "Type": "String",
+            "Default": "ap-northeast-1",
+            "AllowedValues": ["ap-northeast-1"],
+        },
+    )
     policies = template.find_resources("AWS::IAM::Policy")
     assert len(policies) == 1
     policy = next(iter(policies.values()))
@@ -75,5 +88,12 @@ def test_deployment_role_can_only_assume_required_same_environment_bootstrap_rol
     assert "cdk-hnb659fds-deploy-role-" in serialized
     assert "cdk-hnb659fds-file-publishing-role-" in serialized
     assert "cdk-hnb659fds-lookup-role-" in serialized
+    assert '"Ref": "TargetDeploymentRegion"' in serialized
+    assert "us-east-1" not in serialized
     assert "image-publishing" not in serialized
     assert '"*"' not in serialized
+
+    template.has_output(
+        "GitHubActionsDeploymentRegion",
+        {"Value": {"Ref": "TargetDeploymentRegion"}},
+    )

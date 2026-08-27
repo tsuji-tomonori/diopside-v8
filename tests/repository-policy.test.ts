@@ -95,6 +95,8 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).toMatch(/environment: private-backfill-infra/u);
     expect(workflow).toMatch(/id-token: write/u);
     expect(workflow).toMatch(/allowed-account-ids:/u);
+    expect(workflow).toMatch(/test "\$AWS_REGION" = 'ap-northeast-1'/u);
+    expect(workflow).toMatch(/role\/diopside-github-actions-deploy/u);
     expect(workflow).toMatch(/aws-actions\/configure-aws-credentials@[0-9a-f]{40}/u);
     expect(workflow).toMatch(/npm run verify:ingestion/u);
     expect(workflow).toMatch(/cdk deploy DiopsideIngestionStack/u);
