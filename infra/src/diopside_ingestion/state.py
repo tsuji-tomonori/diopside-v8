@@ -4,8 +4,9 @@ from __future__ import annotations
 
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
+from decimal import Decimal
 from time import time
-from typing import TYPE_CHECKING, Any, Protocol
+from typing import TYPE_CHECKING, Any, Protocol, cast
 
 from boto3.dynamodb.types import TypeDeserializer, TypeSerializer
 from botocore.exceptions import ClientError
@@ -76,8 +77,24 @@ def _attribute(value: object) -> AttributeValueTypeDef:
     return _SERIALIZER.serialize(value)
 
 
+def _normalize_number(value: object) -> object:
+    """Convert DynamoDB integer numbers back to the application's integer contract."""
+    if isinstance(value, Decimal):
+        if value != value.to_integral_value():
+            raise RuntimeError("DynamoDB item contains a non-integral number")
+        return int(value)
+    if isinstance(value, Mapping):
+        typed_mapping = cast(Mapping[str, object], value)
+        return {key: _normalize_number(item) for key, item in typed_mapping.items()}
+    if isinstance(value, list):
+        return [_normalize_number(item) for item in cast(list[object], value)]
+    if isinstance(value, set):
+        return {_normalize_number(item) for item in cast(set[object], value)}
+    return value
+
+
 def _read_item(item: Mapping[str, AttributeValueTypeDef]) -> dict[str, object]:
-    return {key: _DESERIALIZER.deserialize(value) for key, value in item.items()}
+    return {key: _normalize_number(_DESERIALIZER.deserialize(value)) for key, value in item.items()}
 
 
 class DynamoIngestionRepository:

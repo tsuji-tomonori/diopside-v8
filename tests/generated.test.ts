@@ -7,9 +7,11 @@ import {
   collaborationProfilesSchema,
   publicAliasIndexSchema,
   publicIndexSchema,
+  publicSongIndexSchema,
   publicTagIndexSchema,
   publicVideoShardSchema,
   searchIndexSchema,
+  songPerformanceCatalogSchema,
   tagAliasesSchema,
   tagTaxonomySchema,
   workIntroductionsSchema,
@@ -36,6 +38,7 @@ describe('決定的な公開成果物', () => {
     const taxonomy = tagTaxonomySchema.parse(json('content/taxonomy/tag-taxonomy.json'));
     const aliases = tagAliasesSchema.parse(json('content/taxonomy/tag-aliases.json'));
     const workIntroductions = workIntroductionsSchema.parse(json('content/works/work-introductions.json'));
+    const songPerformances = songPerformanceCatalogSchema.parse(json('content/songs/song-performances.json'));
     const collaborationProfiles = collaborationProfilesSchema.parse(json('content/people/collaboration-profiles.json'));
     const channelPersonMappings = channelPersonMappingsSchema.parse(json('content/people/channel-person-mappings.json'));
     const readingOverrides = json('content/search/reading-overrides.json') as ReadingOverrides;
@@ -44,6 +47,7 @@ describe('決定的な公開成果物', () => {
       taxonomy,
       aliases,
       workIntroductions,
+      songPerformances,
       collaborationProfiles,
       channelPersonMappings,
       searchNormalizationVersion: '2.0.0',
@@ -60,7 +64,8 @@ describe('決定的な公開成果物', () => {
     const search = searchIndexSchema.parse(json(`public/${latest.searchIndexPath}`));
     const tags = publicTagIndexSchema.parse(json(`public/${latest.tagIndexPath}`));
     const aliases = publicAliasIndexSchema.parse(json(`public/${latest.aliasIndexPath}`));
-    expect(new Set([latest.releaseId, index.releaseId, search.releaseId, tags.releaseId, aliases.releaseId, embeddedReleaseId]).size).toBe(1);
+    const songs = publicSongIndexSchema.parse(json(`public/data/releases/${latest.releaseId}/song-index.json`));
+    expect(new Set([latest.releaseId, index.releaseId, search.releaseId, tags.releaseId, aliases.releaseId, songs.releaseId, embeddedReleaseId]).size).toBe(1);
     expect(index.videos.map((video) => video.videoId)).toEqual(search.videos.map((video) => video.videoId));
     expect(index.videos).toHaveLength(contentManifest.videoCount);
     const allPublicTagIds = [
@@ -68,6 +73,7 @@ describe('決定的な公開成果物', () => {
       ...search.videos.flatMap((video) => video.tagIds),
       ...tags.categories.flatMap((category) => category.subcategories.flatMap((subcategory) => subcategory.tags.map((tag) => tag.tagId))),
       ...Object.values(aliases.aliases),
+      ...songs.songs.map((song) => song.tagId),
     ];
     expect(allPublicTagIds.every((tagId) => !tagId.startsWith('tag-people-channel-'))).toBe(true);
     expect(search.videos.every((video) => video.normalizedReading.length > 0)).toBe(true);
@@ -94,7 +100,7 @@ describe('決定的な公開成果物', () => {
     expect(manifest.releaseId).toBe(latest.releaseId);
     const profiles = collaborationProfilesSchema.parse(json('content/people/collaboration-profiles.json'));
     const uniqueIconFiles = new Set(profiles.people.map((person) => person.iconFile));
-    expect(manifest.files).toHaveLength(260 + uniqueIconFiles.size);
+    expect(manifest.files).toHaveLength(261 + uniqueIconFiles.size);
     expect(new Set(manifest.files.map((file) => file.path)).size).toBe(manifest.files.length);
     for (const file of manifest.files) {
       expect(sha256(readFileSync(path.join(releaseRoot, file.path)))).toBe(file.sha256);
