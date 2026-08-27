@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "03bb66ba825e4e5e936b43d71dbb53b08864571b5c2081001641542e0c100620"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "c35cc8d0acd921cd0a6393651ab3709185eba491c3493312d12194e1167aad79",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10319
     }
   ],
   "tagAssignments": [
@@ -360,5 +368,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴と相棒が『ASTRONEER』で未知の惑星を探索。酸素を確保しながら資源を集め、拠点や酸素ネットワークを整備してクラフトを進める。役割分担と試行錯誤で基地を発展させ、宇宙での暮らしを楽しむ協力プレイ。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "お前すぐ酸素ないやん",
+      "atSeconds": 5781,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "c35cc8d0acd921cd0a6393651ab3709185eba491c3493312d12194e1167aad79",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T15:53:17.959690Z"
   }
 }
