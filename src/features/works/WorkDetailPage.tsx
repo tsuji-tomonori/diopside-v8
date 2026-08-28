@@ -48,7 +48,14 @@ export function WorkDetailPage(): React.JSX.Element {
             <ul className="game-sources" aria-label="ゲームジャンル確認元">
               {game.sources.map((source) => (
                 <li key={source.url}>
-                  <a href={source.url} target="_blank" rel="noreferrer" aria-label={`ゲームジャンル確認元: ${source.label}`}>{source.label}</a>
+                  <a
+                    href={source.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`ゲームジャンル確認元を開く: ${new URL(source.url).hostname}`}
+                  >
+                    {source.label}
+                  </a>
                   {' '}（確認日: {formatDate(`${source.checkedAt}T00:00:00+09:00`)}）
                 </li>
               ))}

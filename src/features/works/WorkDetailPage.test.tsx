@@ -28,8 +28,8 @@ describe('作品ページ', () => {
     expect(screen.getByRole('link', { name: 'アドベンチャー' })).toBeVisible();
     expect(screen.getByRole('link', { name: 'ビジュアルノベル' })).toBeVisible();
     expect(screen.queryByRole('link', { name: 'アクション' })).not.toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'ゲームジャンル確認元: Steam公式ストア' })).toHaveAttribute('href', 'https://store.steampowered.com/app/575480/WAGAMAMA_HIGH_SPEC/');
-    expect(screen.getByRole('link', { name: 'ゲームジャンル確認元: コンシューマ版公式サイト' })).toHaveAttribute('href', 'https://imel.co.jp/wagahigh/');
+    expect(screen.getByRole('link', { name: 'ゲームジャンル確認元を開く: store.steampowered.com' })).toHaveAttribute('href', 'https://store.steampowered.com/app/575480/WAGAMAMA_HIGH_SPEC/');
+    expect(screen.getByRole('link', { name: 'ゲームジャンル確認元を開く: imel.co.jp' })).toHaveAttribute('href', 'https://imel.co.jp/wagahigh/');
     expect(document.querySelectorAll('.work-results .video-card')).toHaveLength(6);
   });
 
