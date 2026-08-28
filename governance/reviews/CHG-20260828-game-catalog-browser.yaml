@@ -248,5 +248,5 @@ advisories: []
 residual_risks:
   - 247ゲームの根拠URLと確認日を正本へ保存した。ストア上の表示やタグは将来変わり得るため、次回分類変更時も同じ正本で根拠と確認日を更新する。
   - ローカル環境ではPlaywright用Chromiumが未配置で、配布元からの取得もtimeoutしたため、Playwright同梱containerを使うGitHub Actions E2E合格をmerge前の必須証拠とする。
-  - 初回Actions E2Eで、既存作品公式リンクとのアクセシブル名重複と375px幅のヘッダーoverflowを検出した。確認元リンク名をURLドメインで一意化し、モバイルナビを2列へ収めて再検証する。
+  - Actions E2Eで、既存作品公式リンクとのアクセシブル名重複、375px幅のヘッダーoverflow、2列化後の32px操作領域を検出した。確認元リンク名をURLドメインで一意化し、モバイルナビを2列・高さ44pxへ収め、sticky位置を88pxヘッダーへ合わせて再検証する。
   - draft PRは人が確認してmergeするまで公開版へ反映されず、この変更ではmerge、release、deployを行わない。
