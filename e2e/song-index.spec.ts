@@ -25,6 +25,12 @@ test.describe('歌唱楽曲一覧', () => {
       'href',
       'https://www.youtube.com/watch?v=K4xLi8IF1FM',
     );
+    await expect(song.getByRole('link', { name: '動画を見る ↗' })).toHaveClass(/primary/u);
+    await expect(song.getByRole('link', { name: '原曲を聴く ↗' })).toHaveClass(/secondary/u);
+    const sectionOrder = await song.locator('.song-performance, .song-original').evaluateAll(
+      (sections) => sections.map((section) => section.className),
+    );
+    expect(sectionOrder).toEqual(['song-performance', 'song-original']);
     expectOnlyAllowedRequests(requests);
     await expectNoSeriousAccessibilityViolations(page);
   });

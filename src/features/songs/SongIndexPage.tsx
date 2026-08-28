@@ -78,31 +78,42 @@ export function SongIndexPage(): React.JSX.Element {
 }
 
 function SongCard({ song, linkedTitle }: { song: PublicSong; linkedTitle: boolean }): React.JSX.Element {
+  const performanceHeadingId = `${song.tagId}-performances`;
+  const originalHeadingId = `${song.tagId}-original`;
+
   return (
     <article className="song-card" id={song.tagId}>
-      <header>
+      <header className="song-card-heading">
         <div>
           <p className="eyebrow">楽曲タグ</p>
           <h2>{linkedTitle ? <Link to={`/songs/${song.tagId}`}>{song.title}</Link> : song.title}</h2>
-          <p className="song-artist">原曲: {song.originalArtist}</p>
         </div>
-        <a className="button secondary" href={song.originalUrl} target="_blank" rel="noreferrer">原曲を聴く ↗</a>
       </header>
-      <p className="song-source">原曲リンク: {song.originalSourceLabel}・確認日 {formatDate(`${song.originalRetrievedAt}T00:00:00+09:00`)}</p>
-      <ol className="song-appearances">
-        {song.appearances.map((appearance) => (
-          <li key={appearance.appearanceId}>
-            <div>
-              <span className="song-kind">{appearance.performanceType}</span>
-              <time dateTime={appearance.publishedAt}>{formatDate(appearance.publishedAt)}</time>
-              <p>{appearance.videoTitle}</p>
-            </div>
-            <a href={appearance.youtubeUrl} target="_blank" rel="noreferrer">
-              {appearance.startSeconds === 0 ? '動画を見る' : `${formatTimestamp(appearance.startSeconds)} から見る`} ↗
-            </a>
-          </li>
-        ))}
-      </ol>
+      <section className="song-performance" aria-labelledby={performanceHeadingId}>
+        <h3 className="eyebrow" id={performanceHeadingId}>白雪巴の歌唱</h3>
+        <ol className="song-appearances">
+          {song.appearances.map((appearance) => (
+            <li key={appearance.appearanceId}>
+              <div>
+                <span className="song-kind">{appearance.performanceType}</span>
+                <time dateTime={appearance.publishedAt}>{formatDate(appearance.publishedAt)}</time>
+                <p>{appearance.videoTitle}</p>
+              </div>
+              <a className="button primary song-performance-link" href={appearance.youtubeUrl} target="_blank" rel="noreferrer">
+                {appearance.startSeconds === 0 ? '動画を見る' : `${formatTimestamp(appearance.startSeconds)} から見る`} ↗
+              </a>
+            </li>
+          ))}
+        </ol>
+      </section>
+      <section className="song-original" aria-labelledby={originalHeadingId}>
+        <div>
+          <h3 className="eyebrow" id={originalHeadingId}>原曲情報</h3>
+          <p className="song-artist">原曲: {song.originalArtist}</p>
+          <p className="song-source">原曲リンク: {song.originalSourceLabel}・確認日 {formatDate(`${song.originalRetrievedAt}T00:00:00+09:00`)}</p>
+        </div>
+        <a className="button secondary song-original-link" href={song.originalUrl} target="_blank" rel="noreferrer">原曲を聴く ↗</a>
+      </section>
     </article>
   );
 }
