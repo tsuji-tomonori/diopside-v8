@@ -111,7 +111,7 @@ selected_checks:
     evidence:
       - test:src/features/songs/SongIndexPage.test.tsx
       - test:e2e/song-index.spec.ts
-    note: 修正前の原曲先行かつ原曲ボタン強調を失敗条件としてDOM順序とbutton classの回帰testに固定した。
+    note: 修正前の原曲先行かつ原曲ボタン強調を失敗条件としてDOM順序とbutton classの回帰testに固定し、初回CIで実データの開始位置10:33へ期待値を合わせて再検証した。
   - id: FAST-007
     class: Invariant
     result: pass
