@@ -120,7 +120,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: staged対象を検索UI、テスト、要件正本・生成元・生成表示、生成設計、Pages生成物、review記録へ限定し、credentialや個人情報を含めない。
+    note: staged対象を検索UI、テスト、要件正本・生成元・生成表示、生成設計、review記録へ限定し、credentialや個人情報を含めない。初回CIで通常PRのrelease生成物スコープ違反を検出したため、docs/index.html、docs/404.html、docs/assetsはmainの状態へ戻し、配信用成果物をmainマージ後の自動更新経路へ委ねた。
   - id: FAST-013
     class: Risk-selected
     result: pass
