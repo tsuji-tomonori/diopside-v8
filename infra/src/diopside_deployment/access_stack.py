@@ -11,9 +11,9 @@ from constructs import Construct
 
 _GITHUB_OIDC_PROVIDER_HOST = "token.actions.githubusercontent.com"
 _GITHUB_OIDC_AUDIENCE = "sts.amazonaws.com"
-_GITHUB_REPOSITORY = "tsuji-tomonori/diopside-v8"
+_GITHUB_OIDC_REPOSITORY = "tsuji-tomonori@39981658/diopside-v8@1321865971"
 _DEPLOYMENT_ENVIRONMENT = "private-backfill-infra"
-_GITHUB_OIDC_SUBJECT = f"repo:{_GITHUB_REPOSITORY}:environment:{_DEPLOYMENT_ENVIRONMENT}"
+_GITHUB_OIDC_SUBJECT = f"repo:{_GITHUB_OIDC_REPOSITORY}:environment:{_DEPLOYMENT_ENVIRONMENT}"
 _TARGET_DEPLOYMENT_REGION = "ap-northeast-1"
 _BOOTSTRAP_QUALIFIER = "hnb659fds"
 
@@ -30,7 +30,7 @@ class GitHubDeploymentAccessStack(Stack):
             type="String",
             default=_GITHUB_OIDC_SUBJECT,
             description=(
-                "Exact GitHub Actions OIDC subject for the protected "
+                "Exact immutable GitHub Actions OIDC subject for the protected "
                 f"{_DEPLOYMENT_ENVIRONMENT} environment"
             ),
             allowed_values=[_GITHUB_OIDC_SUBJECT],
