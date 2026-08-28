@@ -20,7 +20,7 @@ impact_flags:
   typed_code_change: true
   behavior_change: true
   bug_fix: true
-  generated_change: false
+  generated_change: true
   sql_change: false
   e2e_change: true
   migration: false
@@ -60,8 +60,8 @@ selected_checks:
     class: Invariant
     result: pass
     evidence:
-      - commit:self
-    note: 既存route、component、state、公開データ契約を変えず、同一SongCard内の意味構造と装飾だけを修正するため生成設計とADRは変更しない。
+      - path:docs/design/generated/inventory.gen.json
+    note: SongCardと対象testの入力指紋を生成設計へ反映した。既存route、state、公開データ契約は変えず、長期判断ではないためADRは不要である。
   - id: IMP-003
     class: Invariant
     result: pass
@@ -112,6 +112,13 @@ selected_checks:
       - test:src/features/songs/SongIndexPage.test.tsx
       - test:e2e/song-index.spec.ts
     note: 修正前の原曲先行かつ原曲ボタン強調を失敗条件としてDOM順序とbutton classの回帰testに固定し、初回CIで実データの開始位置10:33へ期待値を合わせて再検証した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: scripts/generate-design.tsが算出したSongIndexPageと対象testの入力指紋をinventoryへ反映し、check modeでdriftを検査する。
   - id: FAST-007
     class: Invariant
     result: pass
@@ -161,8 +168,8 @@ selected_checks:
     class: Invariant
     result: pass
     evidence:
-      - commit:self
-    note: component境界、route、state、公開契約、長期判断を変えないため生成設計とADRは対象外と記録した。
+      - path:docs/design/generated/inventory.gen.json
+    note: 変更したSongCardと対象testの入力指紋を生成設計へ反映した。component境界、route、state、公開契約、長期判断は変えずADRは不要である。
   - id: REV-006
     class: Invariant
     result: pass
