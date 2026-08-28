@@ -3,8 +3,10 @@ import type { ZodError } from 'zod';
 import {
   buildTaxonomyLookup,
   canonicalVideoSchema,
+  gameCatalogSchema,
   songPerformanceCatalogSchema,
   type ChannelPersonMappings,
+  type GameCatalog,
   tagAliasesSchema,
   tagTaxonomySchema,
   type CanonicalVideo,
@@ -12,7 +14,9 @@ import {
   type TagAliases,
   type TagTaxonomy,
   type TaxonomyLookupItem,
+  type WorkIntroductions,
 } from './content.ts';
+import { applyGameCatalogGenres, catalogGameGenreTagIds } from './game-catalog.ts';
 import { normalizeTagAlias } from './search.ts';
 import { detectExplicitGameTitleTagIds } from './game-title-detection.ts';
 
@@ -182,7 +186,10 @@ export function validateCanonicalVideo(
       ));
     }
   }
-  if (video.taxonomyVersion !== taxonomy.taxonomyVersion) {
+  if (
+    video.taxonomyVersion !== taxonomy.taxonomyVersion
+    && !taxonomy.compatibleCanonicalVideoTaxonomyVersions.includes(video.taxonomyVersion)
+  ) {
     issues.push(issue('TAXONOMY_VERSION_MISMATCH', 'taxonomyVersion', '動画とタグ体系の版が一致しません。'));
   }
   if (video.aliasVersion !== aliases.aliasVersion || video.aliasVersion !== taxonomy.aliasVersion) {
@@ -197,6 +204,114 @@ export function validateCanonicalVideo(
   const latestTagReview = video.tagAssignments.map((assignment) => Date.parse(assignment.reviewedAt)).sort((left, right) => right - left)[0] ?? 0;
   if (Date.parse(video.approval.approvedAt) < latestTagReview) {
     issues.push(issue('APPROVAL_BEFORE_REVIEW', 'approval.approvedAt', '最終承認はタグ確認後に行ってください。'));
+  }
+  return issues;
+}
+
+export function validateGameCatalog(
+  input: unknown,
+  taxonomy: TagTaxonomy,
+  workIntroductions: WorkIntroductions,
+  videos: CanonicalVideo[],
+): ValidationIssue[] {
+  const parsed = gameCatalogSchema.safeParse(input);
+  if (!parsed.success) return zodIssues(parsed.error);
+  const catalog: GameCatalog = parsed.data;
+  const issues: ValidationIssue[] = [];
+  const lookup = buildTaxonomyLookup(taxonomy);
+  const activeGameTitles = new Map(
+    taxonomy.categories
+      .find((category) => category.categoryId === 'works')
+      ?.subcategories.find((subcategory) => subcategory.subcategoryId === 'gameTitle')
+      ?.tags.filter((tag) => tag.active).map((tag) => [tag.tagId, tag.canonicalName]) ?? [],
+  );
+  const nonSpecificWorkTagIds = new Set(
+    workIntroductions.unavailable
+      .filter((item) => item.reasonCode === 'not-specific-work')
+      .map((item) => item.tagId),
+  );
+  const expectedGameTitleTagIds = new Set(
+    [...activeGameTitles.keys()].filter((tagId) => !nonSpecificWorkTagIds.has(tagId)),
+  );
+  const seenGameTitleTagIds = new Set<string>();
+  const seenTitles = new Set<string>();
+
+  for (const [gameIndex, game] of catalog.games.entries()) {
+    const gamePath = `games.${gameIndex}`;
+    const groupedGameTitleTagIds = [game.gameTitleTagId, ...(game.equivalentGameTitleTagIds ?? [])];
+    for (const [tagIndex, gameTitleTagId] of groupedGameTitleTagIds.entries()) {
+      const tagPath = tagIndex === 0 ? `${gamePath}.gameTitleTagId` : `${gamePath}.equivalentGameTitleTagIds.${tagIndex - 1}`;
+      if (seenGameTitleTagIds.has(gameTitleTagId)) {
+        issues.push(issue('GAME_CATALOG_TAG_DUPLICATED', tagPath, 'ゲーム作品名タグが重複しています。'));
+      }
+      seenGameTitleTagIds.add(gameTitleTagId);
+      const canonicalTitle = activeGameTitles.get(gameTitleTagId);
+      if (!canonicalTitle) {
+        issues.push(issue('GAME_CATALOG_UNKNOWN_TITLE', tagPath, '有効なゲーム作品名タグではありません。'));
+      }
+      if (nonSpecificWorkTagIds.has(gameTitleTagId)) {
+        issues.push(issue('GAME_CATALOG_NOT_SPECIFIC_WORK', tagPath, '特定作品ではないラベルをゲームカタログへ登録できません。'));
+      }
+    }
+    if (seenTitles.has(game.title)) {
+      issues.push(issue('GAME_CATALOG_TITLE_DUPLICATED', `${gamePath}.title`, 'ゲーム作品名が重複しています。'));
+    }
+    seenTitles.add(game.title);
+
+    const canonicalTitle = activeGameTitles.get(game.gameTitleTagId);
+    if (canonicalTitle && canonicalTitle !== game.title) {
+      issues.push(issue('GAME_CATALOG_TITLE_MISMATCH', `${gamePath}.title`, 'ゲーム作品名がタグ体系の正規名と一致しません。'));
+    }
+
+    const genreIds = new Set<string>();
+    for (const [genreIndex, tagId] of game.gameGenreTagIds.entries()) {
+      const genre = lookup.get(tagId);
+      if (!genre || genre.categoryId !== 'content' || genre.subcategoryId !== 'gameGenre') {
+        issues.push(issue('GAME_CATALOG_UNKNOWN_GENRE', `${gamePath}.gameGenreTagIds.${genreIndex}`, '有効なゲームジャンルタグではありません。'));
+      }
+      if (genreIds.has(tagId)) {
+        issues.push(issue('GAME_CATALOG_GENRE_DUPLICATED', `${gamePath}.gameGenreTagIds.${genreIndex}`, '同じゲームジャンルを重複指定できません。'));
+      }
+      genreIds.add(tagId);
+    }
+    const sourceUrls = new Set<string>();
+    for (const [sourceIndex, source] of game.sources.entries()) {
+      if (sourceUrls.has(source.url)) {
+        issues.push(issue('GAME_CATALOG_SOURCE_DUPLICATED', `${gamePath}.sources.${sourceIndex}.url`, '同じ確認元URLを重複指定できません。'));
+      }
+      sourceUrls.add(source.url);
+      if (source.checkedAt > game.reviewedAt) {
+        issues.push(issue('GAME_CATALOG_REVIEW_BEFORE_SOURCE', `${gamePath}.reviewedAt`, 'ゲームジャンルの確認日は確認元の参照日以後にしてください。'));
+      }
+    }
+  }
+
+  for (const tagId of expectedGameTitleTagIds) {
+    if (!seenGameTitleTagIds.has(tagId)) {
+      issues.push(issue('GAME_CATALOG_ENTRY_MISSING', 'games', `ゲーム作品「${activeGameTitles.get(tagId) ?? tagId}」のジャンル正本がありません。`));
+    }
+  }
+  for (const tagId of seenGameTitleTagIds) {
+    if (!expectedGameTitleTagIds.has(tagId)) {
+      issues.push(issue('GAME_CATALOG_ENTRY_UNEXPECTED', 'games', `ゲームカタログの対象外タグです: ${tagId}`));
+    }
+  }
+
+  for (const video of videos) {
+    const assignedTagIds = video.tagAssignments.map((assignment) => assignment.tagId);
+    const catalogGenres = catalogGameGenreTagIds(assignedTagIds, catalog);
+    if (catalogGenres.length === 0) continue;
+    const effective = applyGameCatalogGenres(assignedTagIds, taxonomy, catalog);
+    const effectiveGenres = effective.filter((tagId) => {
+      const tag = lookup.get(tagId);
+      return tag?.categoryId === 'content' && tag.subcategoryId === 'gameGenre';
+    });
+    if (effectiveGenres.length < 1 || effectiveGenres.length > 3) {
+      issues.push(issue('GAME_CATALOG_VIDEO_GENRE_COUNT', `${video.videoId}.tagAssignments`, 'ゲームカタログから導出する動画のゲームジャンルは1〜3件にしてください。'));
+    }
+    if (effectiveGenres.some((tagId) => !catalogGenres.includes(tagId))) {
+      issues.push(issue('GAME_CATALOG_VIDEO_GENRE_DRIFT', `${video.videoId}.tagAssignments`, '公開ゲームジャンルがゲーム単位の正本と一致しません。'));
+    }
   }
   return issues;
 }

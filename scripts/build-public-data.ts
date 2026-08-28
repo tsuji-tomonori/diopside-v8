@@ -5,8 +5,10 @@ import {
   buildTaxonomyLookup,
   channelPersonMappingsSchema,
   collaborationProfilesSchema,
+  gameCatalogSchema,
   latestReleaseSchema,
   publicAliasIndexSchema,
+  publicGameIndexSchema,
   publicIndexSchema,
   publicSongIndexSchema,
   publicTagIndexSchema,
@@ -22,11 +24,13 @@ import {
   type PublicVideoSummary,
   videoShardId,
 } from '../src/domain/content.ts';
+import { applyGameCatalogGenres } from '../src/domain/game-catalog.ts';
 import { normalizeTitleForSearch } from '../src/domain/search.ts';
 import {
   scanPublicBoundary,
   validateCanonicalVideo,
   validateChannelPersonMappings,
+  validateGameCatalog,
   validateSongPerformanceCatalog,
   validateTaxonomy,
 } from '../src/domain/validation.ts';
@@ -48,6 +52,7 @@ const generatedSourceDir = path.join(root, 'src/generated');
 const taxonomyInput = readJson(path.join(root, 'content/taxonomy/tag-taxonomy.json'));
 const aliasesInput = readJson(path.join(root, 'content/taxonomy/tag-aliases.json'));
 const workIntroductionsInput = readJson(path.join(root, 'content/works/work-introductions.json'));
+const gameCatalogInput = readJson(path.join(root, 'content/works/game-catalog.json'));
 const songPerformancesInput = readJson(path.join(root, 'content/songs/song-performances.json'));
 const collaborationProfilesInput = readJson(path.join(root, 'content/people/collaboration-profiles.json'));
 const channelPersonMappingsInput = readJson(path.join(root, 'content/people/channel-person-mappings.json'));
@@ -55,6 +60,7 @@ const readingOverridesInput = readJson(path.join(root, 'content/search/reading-o
 const taxonomy = tagTaxonomySchema.parse(taxonomyInput);
 const aliases = tagAliasesSchema.parse(aliasesInput);
 const workIntroductions = workIntroductionsSchema.parse(workIntroductionsInput);
+const gameCatalog = gameCatalogSchema.parse(gameCatalogInput);
 const songPerformances = songPerformanceCatalogSchema.parse(songPerformancesInput);
 const collaborationProfiles = collaborationProfilesSchema.parse(collaborationProfilesInput);
 const channelPersonMappings = channelPersonMappingsSchema.parse(channelPersonMappingsInput);
@@ -77,11 +83,16 @@ const songPerformanceIssues = validateSongPerformanceCatalog(songPerformancesInp
 if (songPerformanceIssues.length > 0) {
   throw new Error(songPerformanceIssues.map((item) => `${item.code}:${item.path}:${item.message}`).join('\n'));
 }
+const gameCatalogIssues = validateGameCatalog(gameCatalogInput, taxonomy, workIntroductions, videos);
+if (gameCatalogIssues.length > 0) {
+  throw new Error(gameCatalogIssues.map((item) => `${item.code}:${item.path}:${item.message}`).join('\n'));
+}
 
 const releaseSeed = {
   taxonomy,
   aliases,
   workIntroductions,
+  gameCatalog,
   songPerformances,
   collaborationProfiles,
   channelPersonMappings,
@@ -328,6 +339,24 @@ const songIndex = publicSongIndexSchema.parse({
     )),
   })).sort((left, right) => left.title.localeCompare(right.title, 'ja')),
 });
+const gameIndex = publicGameIndexSchema.parse({
+  schemaVersion: '1.0.0',
+  releaseId,
+  updatedAt: gameCatalog.updatedAt,
+  games: gameCatalog.games.map((game) => ({
+    gameTitleTagId: game.gameTitleTagId,
+    ...(game.equivalentGameTitleTagIds ? { equivalentGameTitleTagIds: game.equivalentGameTitleTagIds } : {}),
+    title: game.title,
+    normalizedReading: normalizeReading(game.title),
+    gameGenreTagIds: game.gameGenreTagIds,
+    sources: game.sources,
+    reviewedAt: game.reviewedAt,
+    videoIds: [...new Set(
+      [game.gameTitleTagId, ...(game.equivalentGameTitleTagIds ?? [])]
+        .flatMap((tagId) => [...(tagToVideoIds.get(tagId) ?? [])]),
+    )].sort(),
+  })).sort((left, right) => left.title.localeCompare(right.title, 'ja')),
+});
 
 const outputFiles = new Map<string, unknown>([
   ['index.json', index],
@@ -335,6 +364,7 @@ const outputFiles = new Map<string, unknown>([
   ['tag-index.json', tagIndex],
   ['alias-index.json', aliasIndex],
   ['song-index.json', songIndex],
+  ['game-index.json', gameIndex],
 ]);
 const detailShards = new Map<string, Record<string, PublicVideoDetail>>();
 for (const video of videos) {
@@ -393,6 +423,7 @@ const latest = latestReleaseSchema.parse({
   searchIndexPath: `${base}/search-index.json`,
   tagIndexPath: `${base}/tag-index.json`,
   aliasIndexPath: `${base}/alias-index.json`,
+  gameIndexPath: `${base}/game-index.json`,
   manifestPath: `${base}/manifest.json`,
   videoShardCount: 256,
   videoShardPathTemplate: `${base}/video-shards/{shard}.json`,
@@ -411,6 +442,11 @@ function normalizeCanonicalVideo(video: CanonicalVideo): CanonicalVideo {
 
 function toSummary(video: CanonicalVideo): PublicVideoSummary {
   const songTagIds = songTagIdsByVideo.get(video.videoId) ?? new Set<string>();
+  const effectiveTagIds = applyGameCatalogGenres(
+    video.tagAssignments.map((assignment) => assignment.tagId),
+    taxonomy,
+    gameCatalog,
+  );
   return {
     videoId: video.videoId,
     title: video.title,
@@ -420,7 +456,7 @@ function toSummary(video: CanonicalVideo): PublicVideoSummary {
     thumbnail: video.thumbnail,
     youtubeUrl: video.youtubeUrl,
     tagIds: [...new Set([
-      ...video.tagAssignments.map((assignment) => assignment.tagId).filter(isPublicTagId),
+      ...effectiveTagIds.filter(isPublicTagId),
       ...songTagIds,
     ])].sort(),
   };
@@ -463,12 +499,16 @@ function toDetail(video: CanonicalVideo, currentReleaseId: string): PublicVideoD
   const tagDates = [
     ...video.tagAssignments.map((assignment) => assignment.reviewedAt),
     ...(songReviewDatesByVideo.get(video.videoId) ?? []),
+    ...gameCatalog.games
+      .filter((game) => [game.gameTitleTagId, ...(game.equivalentGameTitleTagIds ?? [])]
+        .some((tagId) => summary.tagIds.includes(tagId)))
+      .map((game) => `${game.reviewedAt}T00:00:00+09:00`),
   ].sort();
   if (video.tagAssignments.some((assignment) => !lookup.has(assignment.tagId))) throw new Error(`${video.videoId}: 未知タグ`);
   return {
     ...summary,
     releaseId: currentReleaseId,
-    taxonomyVersion: video.taxonomyVersion,
+    taxonomyVersion: taxonomy.taxonomyVersion,
     tagsUpdatedAt: tagDates.at(-1) ?? contentManifest.generatedAt,
     synopsis: video.synopsis
       ? {

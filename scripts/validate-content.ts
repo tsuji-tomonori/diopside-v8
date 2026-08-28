@@ -4,13 +4,16 @@ import { z } from 'zod';
 import {
   channelPersonMappingsSchema,
   collaborationProfilesSchema,
+  gameCatalogSchema,
   songPerformanceCatalogSchema,
   tagAliasesSchema,
   tagTaxonomySchema,
+  workIntroductionsSchema,
 } from '../src/domain/content.ts';
 import {
   validateCanonicalVideo,
   validateChannelPersonMappings,
+  validateGameCatalog,
   validateSongPerformanceCatalog,
   validateTaxonomy,
 } from '../src/domain/validation.ts';
@@ -45,11 +48,15 @@ const aliasesInput = readJson(path.join(root, 'content/taxonomy/tag-aliases.json
 const collaborationProfilesInput = readJson(path.join(root, 'content/people/collaboration-profiles.json'));
 const channelPersonMappingsInput = readJson(path.join(root, 'content/people/channel-person-mappings.json'));
 const songPerformancesInput = readJson(path.join(root, 'content/songs/song-performances.json'));
+const gameCatalogInput = readJson(path.join(root, 'content/works/game-catalog.json'));
+const workIntroductionsInput = readJson(path.join(root, 'content/works/work-introductions.json'));
 const taxonomy = tagTaxonomySchema.parse(taxonomyInput);
 const aliases = tagAliasesSchema.parse(aliasesInput);
 const collaborationProfiles = collaborationProfilesSchema.parse(collaborationProfilesInput);
 const channelPersonMappings = channelPersonMappingsSchema.parse(channelPersonMappingsInput);
 const songPerformances = songPerformanceCatalogSchema.parse(songPerformancesInput);
+const gameCatalog = gameCatalogSchema.parse(gameCatalogInput);
+const workIntroductions = workIntroductionsSchema.parse(workIntroductionsInput);
 const manifest = manifestSchema.parse(readJson(path.join(root, 'content/content-manifest.json')));
 const exclusions = readJson(path.join(root, 'content/exclusions.json')) as { records?: Array<{ videoId?: string }> };
 
@@ -58,6 +65,7 @@ const videos = readCanonicalVideos(root);
 for (const video of videos) errors.push(...validateCanonicalVideo(video, taxonomy, aliases).map((item) => `${video.videoId}.json:${formatIssue(item)}`));
 errors.push(...validateChannelPersonMappings(videos, taxonomy, channelPersonMappings, collaborationProfiles.subjectPersonTagId).map(formatIssue));
 errors.push(...validateSongPerformanceCatalog(songPerformancesInput, videos).map(formatIssue));
+errors.push(...validateGameCatalog(gameCatalogInput, taxonomy, workIntroductions, videos).map(formatIssue));
 
 const uniqueVideoIds = new Set(videos.map((video) => video.videoId));
 if (uniqueVideoIds.size !== videos.length) errors.push('content/videos:VIDEO_ID_DUPLICATED:動画識別子が重複しています。');
@@ -83,7 +91,7 @@ if (errors.length > 0) {
   process.exitCode = 1;
 } else {
   const appearanceCount = songPerformances.songs.reduce((total, song) => total + song.appearances.length, 0);
-  console.log(`正本検証合格: ${videos.length}動画・${assignmentCount}タグ付与・${songPerformances.songs.length}楽曲・${appearanceCount}歌唱実績・7大分類・30小分類`);
+  console.log(`正本検証合格: ${videos.length}動画・${assignmentCount}タグ付与・${gameCatalog.games.length}ゲーム・${songPerformances.songs.length}楽曲・${appearanceCount}歌唱実績・7大分類・30小分類`);
 }
 
 function formatIssue(item: { code: string; path: string; message: string }): string {

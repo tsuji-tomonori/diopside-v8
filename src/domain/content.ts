@@ -261,6 +261,7 @@ export const tagTaxonomySchema = z.object({
   aliasVersion: z.string(),
   rulesVersion: z.string(),
   effectiveDate: isoDate,
+  compatibleCanonicalVideoTaxonomyVersions: z.array(z.string().min(1)).default([]),
   categoryCount: z.literal(7),
   subcategoryCount: z.literal(30),
   prohibitedCanonicalNames: z.array(z.string()),
@@ -365,6 +366,7 @@ export const latestReleaseSchema = z.object({
   searchIndexPath: z.string(),
   tagIndexPath: z.string(),
   aliasIndexPath: z.string(),
+  gameIndexPath: z.string(),
   manifestPath: z.string(),
   videoShardCount: z.literal(256),
   videoShardPathTemplate: z.string().includes('{shard}'),
@@ -532,6 +534,27 @@ export const workIntroductionsSchema = z.object({
   }).strict()),
 }).strict();
 
+export const gameCatalogSchema = z.object({
+  schemaVersion: z.literal('1.0.0'),
+  updatedAt: isoDate,
+  games: z.array(z.object({
+    gameTitleTagId: z.string().regex(/^tag-works-gameTitle-[a-f0-9]{12}$/u),
+    equivalentGameTitleTagIds: z.array(
+      z.string().regex(/^tag-works-gameTitle-[a-f0-9]{12}$/u),
+    ).min(1).max(5).optional(),
+    title: z.string().min(1).max(120),
+    gameGenreTagIds: z.array(
+      z.string().regex(/^tag-content-gameGenre-[a-f0-9]{12}$/u),
+    ).min(1).max(3),
+    sources: z.array(z.object({
+      url: z.url().startsWith('https://'),
+      label: z.string().min(1).max(80),
+      checkedAt: isoDate,
+    }).strict()).min(1).max(3),
+    reviewedAt: isoDate,
+  }).strict()).min(1),
+}).strict();
+
 export const songPerformanceTypeSchema = z.enum([
   '歌ってみた',
   'オリジナル曲',
@@ -592,6 +615,30 @@ export const publicSongIndexSchema = z.object({
   }).strict()).min(1),
 }).strict();
 
+export const publicGameIndexSchema = z.object({
+  schemaVersion: z.literal('1.0.0'),
+  releaseId: z.string(),
+  updatedAt: isoDate,
+  games: z.array(z.object({
+    gameTitleTagId: z.string().regex(/^tag-works-gameTitle-[a-f0-9]{12}$/u),
+    equivalentGameTitleTagIds: z.array(
+      z.string().regex(/^tag-works-gameTitle-[a-f0-9]{12}$/u),
+    ).min(1).max(5).optional(),
+    title: z.string().min(1).max(120),
+    normalizedReading: z.string().min(1),
+    gameGenreTagIds: z.array(
+      z.string().regex(/^tag-content-gameGenre-[a-f0-9]{12}$/u),
+    ).min(1).max(3),
+    sources: z.array(z.object({
+      url: z.url().startsWith('https://'),
+      label: z.string().min(1).max(80),
+      checkedAt: isoDate,
+    }).strict()).min(1).max(3),
+    reviewedAt: isoDate,
+    videoIds: z.array(videoId).min(1),
+  }).strict()).min(1),
+}).strict();
+
 export const publicAliasIndexSchema = z.object({
   schemaVersion: z.literal('1.0.0'),
   releaseId: z.string(),
@@ -611,8 +658,10 @@ export type SearchIndex = z.infer<typeof searchIndexSchema>;
 export type PublicTagIndex = z.infer<typeof publicTagIndexSchema>;
 export type PublicAliasIndex = z.infer<typeof publicAliasIndexSchema>;
 export type WorkIntroductions = z.infer<typeof workIntroductionsSchema>;
+export type GameCatalog = z.infer<typeof gameCatalogSchema>;
 export type SongPerformanceCatalog = z.infer<typeof songPerformanceCatalogSchema>;
 export type PublicSongIndex = z.infer<typeof publicSongIndexSchema>;
+export type PublicGameIndex = z.infer<typeof publicGameIndexSchema>;
 export type CollaborationProfiles = z.infer<typeof collaborationProfilesSchema>;
 export type ChannelPersonMappings = z.infer<typeof channelPersonMappingsSchema>;
 

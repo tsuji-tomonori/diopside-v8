@@ -79,6 +79,7 @@ function publicBundle(): PublicBundle {
     tagIndex: json(`public/${latest.tagIndexPath}`) as PublicBundle['tagIndex'],
     aliasIndex: json(`public/${latest.aliasIndexPath}`) as PublicBundle['aliasIndex'],
     songIndex: json(`public/data/releases/${latest.releaseId}/song-index.json`) as PublicBundle['songIndex'],
+    gameIndex: json(`public/${latest.gameIndexPath}`) as PublicBundle['gameIndex'],
   };
 }
 
