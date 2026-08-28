@@ -261,6 +261,7 @@ export const tagTaxonomySchema = z.object({
   aliasVersion: z.string(),
   rulesVersion: z.string(),
   effectiveDate: isoDate,
+  compatibleCanonicalVideoTaxonomyVersions: z.array(z.string().min(1)).default([]),
   categoryCount: z.literal(7),
   subcategoryCount: z.literal(30),
   prohibitedCanonicalNames: z.array(z.string()),
@@ -526,6 +527,9 @@ export const gameCatalogSchema = z.object({
   updatedAt: isoDate,
   games: z.array(z.object({
     gameTitleTagId: z.string().regex(/^tag-works-gameTitle-[a-f0-9]{12}$/u),
+    equivalentGameTitleTagIds: z.array(
+      z.string().regex(/^tag-works-gameTitle-[a-f0-9]{12}$/u),
+    ).min(1).max(5).optional(),
     title: z.string().min(1).max(120),
     gameGenreTagIds: z.array(
       z.string().regex(/^tag-content-gameGenre-[a-f0-9]{12}$/u),
@@ -605,6 +609,9 @@ export const publicGameIndexSchema = z.object({
   updatedAt: isoDate,
   games: z.array(z.object({
     gameTitleTagId: z.string().regex(/^tag-works-gameTitle-[a-f0-9]{12}$/u),
+    equivalentGameTitleTagIds: z.array(
+      z.string().regex(/^tag-works-gameTitle-[a-f0-9]{12}$/u),
+    ).min(1).max(5).optional(),
     title: z.string().min(1).max(120),
     normalizedReading: z.string().min(1),
     gameGenreTagIds: z.array(

@@ -1471,7 +1471,7 @@ const searchInteractionRequirements = [
 const gameCatalogRequirements = [
   {
     id: 'V8-TAG-039',
-    revision: 1,
+    revision: 2,
     status: 'active',
     scope: 'product',
     category: 'functional',
@@ -1479,21 +1479,21 @@ const gameCatalogRequirements = [
     title: 'ゲームジャンルは確認元を持つゲーム単位の正本から全配信へ一貫して導出しなければならない',
     subject: 'diopside v8のゲーム作品とゲームジャンル',
     action: 'satisfy',
-    object: '特定のゲーム作品は、Steam、公式ストアまたは対象作品の公式サイトを確認元として、1〜3件のゲームジャンルをゲーム単位の正本に持たなければならない。同じゲーム作品を持つ全公開動画は、この正本から同じジャンルを導出し、動画単位の移行前ジャンルを公開分類として使ってはならない。特定作品ではない一般ラベルをゲーム作品一覧へ含めてはならない。',
+    object: '特定のゲーム作品は、Steam、公式ストアまたは対象作品の公式サイトを確認元として、1〜3件のゲームジャンルをゲーム単位の正本に持たなければならない。同じゲームを指す表記違いは一つのゲーム単位へ統合し、その全公開動画へ同じジャンルを導出しなければならない。動画単位の移行前ジャンルを公開分類として使わず、特定作品ではない一般ラベルをゲーム作品一覧へ含めてはならない。',
     rationale: '同じゲームの配信ごとにジャンルが揺れる状態と、根拠のない既定値による誤分類を防ぎ、作品単位で再確認できるようにするため。',
-    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28'],
+    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28', 'user:2026-08-28-follow-up'],
     acceptance_criteria: [
       {
         id: 'AC-V8-TAG-039-1',
         given: '有効な特定ゲーム作品タグと、その作品を持つ公開動画がある',
         when: '正本検証と公開データ生成を行う',
-        then: '各作品にHTTPSの確認元・確認日・1〜3件の有効なゲームジャンルが一度だけ登録され、同じ作品の全動画へその分類を導出する。',
+        then: '各ゲーム単位にHTTPSの確認元・確認日・1〜3件の有効なゲームジャンルが一度だけ登録され、表記違いを含む同じゲームの全動画へその分類を導出する。',
       },
       {
         id: 'AC-V8-TAG-039-2',
         given: 'ワガママハイスペックを持つ6件の公開動画がある',
         when: '公式サイトとSteamを確認元にゲーム分類を生成する',
-        then: '6件すべてを「アドベンチャー」「ビジュアルノベル」とし、「アクション」を公開しない。',
+        then: '6件すべてを「アドベンチャー」「カジュアル」「ビジュアルノベル」とし、「アクション」を公開しない。',
       },
       {
         id: 'AC-V8-TAG-039-3',
@@ -1515,8 +1515,53 @@ const gameCatalogRequirements = [
     last_changed_by: 'CHG-20260828-game-catalog-browser',
   },
   {
-    id: 'V8-DISPLAY-016',
+    id: 'V8-TAG-040',
     revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'data',
+    title: 'ゲームジャンル語彙は根拠・識別性・再利用性を満たす分類だけを追加しなければならない',
+    subject: 'diopside v8のゲームジャンル語彙',
+    action: 'satisfy',
+    object: '既存語彙で作品のプレイ性を適切に表せない場合は、Steam、公式ストアまたは公式サイトで確認でき、既存分類と区別でき、複数作品の探索に再利用できるゲームジャンルだけを追加しなければならない。テーマ、販売形態、単発の仕掛け、または既存タグの組合せで表せる複合語を追加してはならない。',
+    rationale: '不足ジャンルによる誤分類を防ぎつつ、根拠の弱い細分化でゲーム探索画面を増殖させないため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28-follow-up'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-040-1',
+        given: '公式ストアの分類または上位人気タグが既存のゲームジャンル語彙では表せない',
+        when: 'ゲーム単位のジャンルを再確認する',
+        then: '確認元・既存分類との差・複数作品での再利用性を満たす分類だけを有効タグとして追加する。',
+      },
+      {
+        id: 'AC-V8-TAG-040-2',
+        given: '候補が販売形態、テーマ、単発の仕掛け、または既存タグの組合せで表せる複合語である',
+        when: 'ゲームジャンル語彙への追加可否を判定する',
+        then: '候補を新しいゲームジャンルとして追加しない。',
+      },
+      {
+        id: 'AC-V8-TAG-040-3',
+        given: '再確認対象のゲーム正本がある',
+        when: '追加済みゲームジャンルの利用状況を検証する',
+        then: '各追加ジャンルは複数のゲーム単位で使用され、1〜3件の基数と有効タグ制約を満たす。',
+      },
+    ],
+    verification: {
+      method: '追加ジャンル包含・除外基準、複数作品利用、ゲーム単位分類、代表作品回帰試験',
+      evidence: 'tests/content-validation.test.ts, scripts/audit-game-tags.ts, tests/generated.test.ts',
+    },
+    traces: {
+      design: ['content/taxonomy/tag-taxonomy.json', 'docs/design/generated/system.gen.md'],
+      implementation: ['spec/sources/tag-taxonomy-v2.json', 'content/works/game-catalog.json', 'src/domain/validation.ts'],
+      tests: ['tests/content-validation.test.ts', 'scripts/audit-game-tags.ts', 'tests/generated.test.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260828-game-catalog-browser',
+  },
+  {
+    id: 'V8-DISPLAY-016',
+    revision: 2,
     status: 'active',
     scope: 'product',
     category: 'functional',
@@ -1524,9 +1569,9 @@ const gameCatalogRequirements = [
     title: 'ゲームジャンルからプレイ作品を選び、そのゲームの配信一覧へ移動できなければならない',
     subject: 'diopside v8のゲームジャンル・作品・配信導線',
     action: 'satisfy',
-    object: 'ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示しなければならない。利用者がゲーム作品を押すと、その作品を持つ公開配信だけを一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。',
+    object: 'ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示しなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。',
     rationale: '動画単位のタグ絞り込みだけでなく、遊んだゲームをジャンルから眺め、同じ作品の配信を続けて探せるようにするため。',
-    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28'],
+    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28', 'user:2026-08-28-follow-up'],
     acceptance_criteria: [
       {
         id: 'AC-V8-DISPLAY-016-1',
@@ -1545,6 +1590,12 @@ const gameCatalogRequirements = [
         given: '検索画面または動画詳細にゲーム、ゲームジャンル、ゲーム作品のタグがある',
         when: '利用者が該当タグを選ぶ',
         then: 'ゲームはジャンル一覧へ、ゲームジャンルは該当作品一覧へ、ゲーム作品は該当配信一覧へ移動する。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-016-4',
+        given: '同じゲームを指す複数の作品名タグに公開動画がある',
+        when: 'ゲーム一覧またはいずれかの作品名から作品ページを開く',
+        then: 'ゲームを一作品として表示し、すべての表記に属する公開動画を重複なく一覧表示する。',
       },
     ],
     verification: {

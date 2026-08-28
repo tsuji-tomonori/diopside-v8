@@ -87,11 +87,13 @@ describe('決定的な公開成果物', () => {
   });
 
   it('公開詳細シャードは全動画を持ち、作成済み件数が正本manifestと一致する', () => {
+    const taxonomy = tagTaxonomySchema.parse(json('content/taxonomy/tag-taxonomy.json'));
     const details = Array.from({ length: latest.videoShardCount }, (_, index) => {
       const shardId = index.toString(16).padStart(2, '0');
       return publicVideoShardSchema.parse(json(`public/data/releases/${latest.releaseId}/video-shards/${shardId}.json`));
     }).flatMap((shard) => Object.values(shard.videos));
     expect(details).toHaveLength(contentManifest.videoCount);
+    expect(details.every((detail) => detail.taxonomyVersion === taxonomy.taxonomyVersion)).toBe(true);
     expect(details.every((detail) => detail.tagIds.every((tagId) => !tagId.startsWith('tag-people-channel-')))).toBe(true);
     expect(details.filter((detail) => detail.timestamps.status === '作成済み')).toHaveLength(contentManifest.createdTimestampVideoCount);
     expect(details.reduce((total, detail) => total + (detail.timestamps.status === '作成済み' ? detail.timestamps.items.length : 0), 0)).toBe(contentManifest.timestampItemCount);
@@ -104,6 +106,7 @@ describe('決定的な公開成果物', () => {
     expect(target).toBeDefined();
     expect(target?.gameGenreTagIds).toEqual([
       'tag-content-gameGenre-2ec4e38c680d',
+      'tag-content-gameGenre-025f45eb0729',
       'tag-content-gameGenre-75b81f24091b',
     ]);
     expect(target?.videoIds).toHaveLength(6);
@@ -112,6 +115,9 @@ describe('決定的な公開成果物', () => {
       expect(video?.tagIds).toEqual(expect.arrayContaining(target?.gameGenreTagIds ?? []));
       expect(video?.tagIds).not.toContain('tag-content-gameGenre-62278ec71bd0');
     }
+    const mahjong = games.games.find((game) => game.title === '雀魂 -じゃんたま-');
+    expect(mahjong?.equivalentGameTitleTagIds).toEqual(['tag-works-gameTitle-7533c687b358']);
+    expect(new Set(mahjong?.videoIds).size).toBe(mahjong?.videoIds.length);
   });
 
   it('版マニフェストの全ファイル指紋が実ファイルと一致する', () => {

@@ -40,13 +40,36 @@ const gameCatalog = gameCatalogSchema.parse(gameCatalogInput);
 
 describe('タグ・動画正本と公開境界', () => {
   it('特定ゲーム作品をゲーム単位の確認元・1〜3ジャンルで全件管理する', () => {
-    expect(gameCatalog.games).toHaveLength(247);
+    expect(gameCatalog.games).toHaveLength(244);
     expect(validateGameCatalog(gameCatalogInput, taxonomy, workIntroductions, videos)).toEqual([]);
     expect(gameCatalog.games.every((game) => game.sources.every((source) => source.url.startsWith('https://')))).toBe(true);
     expect(gameCatalog.games.find((game) => game.title === 'ワガママハイスペック')?.gameGenreTagIds).toEqual([
       'tag-content-gameGenre-2ec4e38c680d',
+      'tag-content-gameGenre-025f45eb0729',
       'tag-content-gameGenre-75b81f24091b',
     ]);
+    const addedGenreIds = [
+      'tag-content-gameGenre-025f45eb0729',
+      'tag-content-gameGenre-9cdd2236dd93',
+      'tag-content-gameGenre-1f2267252ae2',
+      'tag-content-gameGenre-f23195c740c8',
+      'tag-content-gameGenre-d28648a42d53',
+      'tag-content-gameGenre-6d726452e75c',
+    ];
+    for (const tagId of addedGenreIds) {
+      expect(gameCatalog.games.filter((game) => game.gameGenreTagIds.includes(tagId)).length).toBeGreaterThanOrEqual(2);
+    }
+    expect(gameCatalog.games.filter((game) => game.equivalentGameTitleTagIds).length).toBe(3);
+  });
+
+  it('追加型のタグ体系更新だけは明示した直前版動画を受け入れ、それ以前は拒否する', () => {
+    const compatible = structuredClone(videos[0]!);
+    compatible.taxonomyVersion = '8.6.0';
+    expect(validateCanonicalVideo(compatible, taxonomy, aliases).map((issue) => issue.code)).not.toContain('TAXONOMY_VERSION_MISMATCH');
+
+    const incompatible = structuredClone(compatible);
+    incompatible.taxonomyVersion = '8.5.0';
+    expect(validateCanonicalVideo(incompatible, taxonomy, aliases).map((issue) => issue.code)).toContain('TAXONOMY_VERSION_MISMATCH');
   });
 
   it('7大分類・30小分類・不変タグID・別名を一貫して検証する', () => {

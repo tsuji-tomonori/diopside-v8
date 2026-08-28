@@ -16,7 +16,9 @@ export function applyGameCatalogGenres(
       ?.subcategories.find((subcategory) => subcategory.subcategoryId === 'gameGenre')
       ?.tags.filter((tag) => tag.active).map((tag) => tag.tagId) ?? [],
   );
-  const gamesByTagId = new Map(catalog.games.map((game) => [game.gameTitleTagId, game]));
+  const gamesByTagId = new Map(catalog.games.flatMap((game) => (
+    [game.gameTitleTagId, ...(game.equivalentGameTitleTagIds ?? [])].map((tagId) => [tagId, game] as const)
+  )));
   const assignedGames = [...effective].flatMap((tagId) => {
     const game = gamesByTagId.get(tagId);
     return game ? [game] : [];
@@ -37,6 +39,6 @@ export function catalogGameGenreTagIds(
 ): string[] {
   const assigned = new Set(assignedTagIds);
   return [...new Set(catalog.games
-    .filter((game) => assigned.has(game.gameTitleTagId))
+    .filter((game) => [game.gameTitleTagId, ...(game.equivalentGameTitleTagIds ?? [])].some((tagId) => assigned.has(tagId)))
     .flatMap((game) => game.gameGenreTagIds))].sort();
 }

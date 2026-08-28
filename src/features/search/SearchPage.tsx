@@ -97,7 +97,9 @@ export function SearchPage(): React.JSX.Element {
   const showSuggestions = suggestionsOpen && draft.query.trim().length > 0 && suggestionOptions.length > 0;
   const knownTagIds = useMemo(() => new Set(tags.map((tag) => tag.tagId)), [tags]);
   const songTagIds = useMemo(() => new Set(bundle.songIndex.songs.map((song) => song.tagId)), [bundle.songIndex.songs]);
-  const gameTitleTagIds = useMemo(() => new Set(bundle.gameIndex.games.map((game) => game.gameTitleTagId)), [bundle.gameIndex.games]);
+  const gameTitleTagIds = useMemo(() => new Set(bundle.gameIndex.games.flatMap((game) => (
+    [game.gameTitleTagId, ...(game.equivalentGameTitleTagIds ?? [])]
+  ))), [bundle.gameIndex.games]);
   const gameGenreTagIds = useMemo(() => new Set(
     bundle.tagIndex.categories
       .find((category) => category.categoryId === 'content')

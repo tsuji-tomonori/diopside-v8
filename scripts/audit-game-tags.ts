@@ -85,7 +85,15 @@ for (const correction of regression.corrections) {
   }
   const canonicalAssigned = new Set(video.tagAssignments.map((assignment) => assignment.tagId));
   const assigned = new Set(applyGameCatalogGenres(canonicalAssigned, taxonomy, gameCatalog));
-  const required = [gamePrimaryTagId, correction.gameTitleTagId, ...correction.gameGenreTagIds].filter((tagId): tagId is string => Boolean(tagId));
+  const catalogGame = gameCatalog.games.find((game) => (
+    game.gameTitleTagId === correction.gameTitleTagId
+    || game.equivalentGameTitleTagIds?.includes(correction.gameTitleTagId)
+  ));
+  const required = [
+    gamePrimaryTagId,
+    correction.gameTitleTagId,
+    ...(catalogGame?.gameGenreTagIds ?? correction.gameGenreTagIds),
+  ].filter((tagId): tagId is string => Boolean(tagId));
   for (const tagId of required) {
     if (!assigned.has(tagId)) errors.push(`${correction.videoId}:回帰監査で必要なゲームタグ ${lookup.get(tagId)?.canonicalName ?? tagId} がありません。`);
   }
@@ -98,24 +106,36 @@ const wagamama = gameCatalog.games.find((game) => game.title === 'ワガママ�
 const actionTagId = [...lookup.values()].find((tag) => tag.subcategoryId === 'gameGenre' && tag.canonicalName === 'アクション')?.tagId;
 const adventureTagId = [...lookup.values()].find((tag) => tag.subcategoryId === 'gameGenre' && tag.canonicalName === 'アドベンチャー')?.tagId;
 const visualNovelTagId = [...lookup.values()].find((tag) => tag.subcategoryId === 'gameGenre' && tag.canonicalName === 'ビジュアルノベル')?.tagId;
-if (!wagamama || !adventureTagId || !visualNovelTagId || !actionTagId) {
+const casualTagId = [...lookup.values()].find((tag) => tag.subcategoryId === 'gameGenre' && tag.canonicalName === 'カジュアル')?.tagId;
+if (!wagamama || !adventureTagId || !visualNovelTagId || !casualTagId || !actionTagId) {
   errors.push('ワガママハイスペックのゲーム単位回帰監査に必要なタグを解決できません。');
 } else {
-  const expected = [adventureTagId, visualNovelTagId].sort();
+  const expected = [adventureTagId, casualTagId, visualNovelTagId].sort();
   if (JSON.stringify([...wagamama.gameGenreTagIds].sort()) !== JSON.stringify(expected)) {
-    errors.push('ワガママハイスペックの正本ジャンルは「アドベンチャー」「ビジュアルノベル」でなければなりません。');
+    errors.push('ワガママハイスペックの正本ジャンルは「アドベンチャー」「カジュアル」「ビジュアルノベル」でなければなりません。');
   }
   for (const video of videos.filter((item) => item.tagAssignments.some((assignment) => assignment.tagId === wagamama.gameTitleTagId))) {
     const effective = new Set(applyGameCatalogGenres(video.tagAssignments.map((assignment) => assignment.tagId), taxonomy, gameCatalog));
-    if (!effective.has(adventureTagId) || !effective.has(visualNovelTagId) || effective.has(actionTagId)) {
+    if (!effective.has(adventureTagId) || !effective.has(casualTagId) || !effective.has(visualNovelTagId) || effective.has(actionTagId)) {
       errors.push(`${video.videoId}:ワガママハイスペックの公開ジャンルがゲーム単位の正本と一致しません。`);
     }
   }
+}
+
+for (const genreName of ['カジュアル', 'プラットフォーマー', 'サバイバル', 'ステルス', 'ローグライク', 'ウォーキングシミュレーター']) {
+  const genreTagId = [...lookup.values()].find((tag) => tag.subcategoryId === 'gameGenre' && tag.canonicalName === genreName)?.tagId;
+  if (!genreTagId) {
+    errors.push(`追加ゲームジャンル「${genreName}」を解決できません。`);
+    continue;
+  }
+  const gameCount = gameCatalog.games.filter((game) => game.gameGenreTagIds.includes(genreTagId)).length;
+  if (gameCount < 2) errors.push(`追加ゲームジャンル「${genreName}」は複数作品の探索軸として使われていません。`);
 }
 
 if (errors.length > 0) {
   console.error(errors.join('\n'));
   process.exitCode = 1;
 } else {
-  console.log(`ゲームタグ横断監査合格: ${gameCatalog.games.length}作品のゲーム単位ジャンルと、明示作品名・主分類の整合性を確認しました。`);
+  const titleTagCount = gameCatalog.games.reduce((total, game) => total + 1 + (game.equivalentGameTitleTagIds?.length ?? 0), 0);
+  console.log(`ゲームタグ横断監査合格: ${titleTagCount}作品名を${gameCatalog.games.length}ゲーム単位へ統合し、ジャンルと明示作品名・主分類の整合性を確認しました。`);
 }

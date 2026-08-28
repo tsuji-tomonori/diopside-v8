@@ -339,12 +339,16 @@ const gameIndex = publicGameIndexSchema.parse({
   updatedAt: gameCatalog.updatedAt,
   games: gameCatalog.games.map((game) => ({
     gameTitleTagId: game.gameTitleTagId,
+    ...(game.equivalentGameTitleTagIds ? { equivalentGameTitleTagIds: game.equivalentGameTitleTagIds } : {}),
     title: game.title,
     normalizedReading: normalizeReading(game.title),
     gameGenreTagIds: game.gameGenreTagIds,
     sources: game.sources,
     reviewedAt: game.reviewedAt,
-    videoIds: [...(tagToVideoIds.get(game.gameTitleTagId) ?? [])].sort(),
+    videoIds: [...new Set(
+      [game.gameTitleTagId, ...(game.equivalentGameTitleTagIds ?? [])]
+        .flatMap((tagId) => [...(tagToVideoIds.get(tagId) ?? [])]),
+    )].sort(),
   })).sort((left, right) => left.title.localeCompare(right.title, 'ja')),
 });
 
@@ -490,14 +494,15 @@ function toDetail(video: CanonicalVideo, currentReleaseId: string): PublicVideoD
     ...video.tagAssignments.map((assignment) => assignment.reviewedAt),
     ...(songReviewDatesByVideo.get(video.videoId) ?? []),
     ...gameCatalog.games
-      .filter((game) => summary.tagIds.includes(game.gameTitleTagId))
+      .filter((game) => [game.gameTitleTagId, ...(game.equivalentGameTitleTagIds ?? [])]
+        .some((tagId) => summary.tagIds.includes(tagId)))
       .map((game) => `${game.reviewedAt}T00:00:00+09:00`),
   ].sort();
   if (video.tagAssignments.some((assignment) => !lookup.has(assignment.tagId))) throw new Error(`${video.videoId}: 未知タグ`);
   return {
     ...summary,
     releaseId: currentReleaseId,
-    taxonomyVersion: video.taxonomyVersion,
+    taxonomyVersion: taxonomy.taxonomyVersion,
     tagsUpdatedAt: tagDates.at(-1) ?? contentManifest.generatedAt,
     synopsis: video.synopsis
       ? {

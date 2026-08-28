@@ -186,7 +186,10 @@ export function validateCanonicalVideo(
       ));
     }
   }
-  if (video.taxonomyVersion !== taxonomy.taxonomyVersion) {
+  if (
+    video.taxonomyVersion !== taxonomy.taxonomyVersion
+    && !taxonomy.compatibleCanonicalVideoTaxonomyVersions.includes(video.taxonomyVersion)
+  ) {
     issues.push(issue('TAXONOMY_VERSION_MISMATCH', 'taxonomyVersion', '動画とタグ体系の版が一致しません。'));
   }
   if (video.aliasVersion !== aliases.aliasVersion || video.aliasVersion !== taxonomy.aliasVersion) {
@@ -235,23 +238,29 @@ export function validateGameCatalog(
 
   for (const [gameIndex, game] of catalog.games.entries()) {
     const gamePath = `games.${gameIndex}`;
-    if (seenGameTitleTagIds.has(game.gameTitleTagId)) {
-      issues.push(issue('GAME_CATALOG_TAG_DUPLICATED', `${gamePath}.gameTitleTagId`, 'ゲーム作品名タグが重複しています。'));
+    const groupedGameTitleTagIds = [game.gameTitleTagId, ...(game.equivalentGameTitleTagIds ?? [])];
+    for (const [tagIndex, gameTitleTagId] of groupedGameTitleTagIds.entries()) {
+      const tagPath = tagIndex === 0 ? `${gamePath}.gameTitleTagId` : `${gamePath}.equivalentGameTitleTagIds.${tagIndex - 1}`;
+      if (seenGameTitleTagIds.has(gameTitleTagId)) {
+        issues.push(issue('GAME_CATALOG_TAG_DUPLICATED', tagPath, 'ゲーム作品名タグが重複しています。'));
+      }
+      seenGameTitleTagIds.add(gameTitleTagId);
+      const canonicalTitle = activeGameTitles.get(gameTitleTagId);
+      if (!canonicalTitle) {
+        issues.push(issue('GAME_CATALOG_UNKNOWN_TITLE', tagPath, '有効なゲーム作品名タグではありません。'));
+      }
+      if (nonSpecificWorkTagIds.has(gameTitleTagId)) {
+        issues.push(issue('GAME_CATALOG_NOT_SPECIFIC_WORK', tagPath, '特定作品ではないラベルをゲームカタログへ登録できません。'));
+      }
     }
-    seenGameTitleTagIds.add(game.gameTitleTagId);
     if (seenTitles.has(game.title)) {
       issues.push(issue('GAME_CATALOG_TITLE_DUPLICATED', `${gamePath}.title`, 'ゲーム作品名が重複しています。'));
     }
     seenTitles.add(game.title);
 
     const canonicalTitle = activeGameTitles.get(game.gameTitleTagId);
-    if (!canonicalTitle) {
-      issues.push(issue('GAME_CATALOG_UNKNOWN_TITLE', `${gamePath}.gameTitleTagId`, '有効なゲーム作品名タグではありません。'));
-    } else if (canonicalTitle !== game.title) {
+    if (canonicalTitle && canonicalTitle !== game.title) {
       issues.push(issue('GAME_CATALOG_TITLE_MISMATCH', `${gamePath}.title`, 'ゲーム作品名がタグ体系の正規名と一致しません。'));
-    }
-    if (nonSpecificWorkTagIds.has(game.gameTitleTagId)) {
-      issues.push(issue('GAME_CATALOG_NOT_SPECIFIC_WORK', `${gamePath}.gameTitleTagId`, '特定作品ではないラベルをゲームカタログへ登録できません。'));
     }
 
     const genreIds = new Set<string>();

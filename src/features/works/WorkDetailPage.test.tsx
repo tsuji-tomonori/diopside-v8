@@ -12,7 +12,7 @@ import { WorkDetailPage } from './WorkDetailPage.tsx';
 const root = process.cwd();
 
 describe('作品ページ', () => {
-  it('ワガママハイスペックをゲーム単位でアドベンチャー／ビジュアルノベルに統一する', () => {
+  it('ワガママハイスペックをゲーム単位で公式分類の3ジャンルに統一する', () => {
     const bundle = publicBundle();
     render(
       <MemoryRouter initialEntries={['/works/tag-works-gameTitle-ea18b3c09633']}>
@@ -26,11 +26,30 @@ describe('作品ページ', () => {
 
     expect(screen.getByRole('heading', { level: 1, name: 'ワガママハイスペック' })).toBeVisible();
     expect(screen.getByRole('link', { name: 'アドベンチャー' })).toBeVisible();
+    expect(screen.getByRole('link', { name: 'カジュアル' })).toBeVisible();
     expect(screen.getByRole('link', { name: 'ビジュアルノベル' })).toBeVisible();
     expect(screen.queryByRole('link', { name: 'アクション' })).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'ゲームジャンル確認元を開く: store.steampowered.com' })).toHaveAttribute('href', 'https://store.steampowered.com/app/575480/WAGAMAMA_HIGH_SPEC/');
     expect(screen.getByRole('link', { name: 'ゲームジャンル確認元を開く: imel.co.jp' })).toHaveAttribute('href', 'https://imel.co.jp/wagahigh/');
     expect(document.querySelectorAll('.work-results .video-card')).toHaveLength(6);
+  });
+
+  it('同じゲームの表記違いから全対象配信をまとめて表示する', () => {
+    const bundle = publicBundle();
+    const mahjong = bundle.gameIndex.games.find((game) => game.title === '雀魂 -じゃんたま-');
+    if (!mahjong?.equivalentGameTitleTagIds?.[0]) throw new Error('同一ゲームの表記違いがありません。');
+    render(
+      <MemoryRouter initialEntries={[`/works/${mahjong.equivalentGameTitleTagIds[0]}`]}>
+        <DeviceStoreContext.Provider value={new DeviceStore()}>
+          <BundleContext.Provider value={bundle}>
+            <Routes><Route path="/works/:tagId" element={<WorkDetailPage />} /></Routes>
+          </BundleContext.Provider>
+        </DeviceStoreContext.Provider>
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name: '雀魂 -じゃんたま-' })).toBeVisible();
+    expect(document.querySelectorAll('.work-results .video-card')).toHaveLength(mahjong.videoIds.length);
   });
 
   it('公式説明の引用・出典リンク・同じ作品の動画だけを表示する', () => {

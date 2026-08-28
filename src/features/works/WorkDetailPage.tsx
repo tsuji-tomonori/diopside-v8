@@ -15,7 +15,9 @@ export function WorkDetailPage(): React.JSX.Element {
       subcategoryName: subcategory.name,
     })))
     .find((tag) => tag.tagId === tagId);
-  const game = bundle.gameIndex.games.find((item) => item.gameTitleTagId === tagId);
+  const game = bundle.gameIndex.games.find((item) => (
+    item.gameTitleTagId === tagId || item.equivalentGameTitleTagIds?.includes(tagId)
+  ));
   const gameGenres = game?.gameGenreTagIds.flatMap((genreTagId) => {
     const genre = bundle.tagIndex.categories
       .find((category) => category.categoryId === 'content')
@@ -38,7 +40,7 @@ export function WorkDetailPage(): React.JSX.Element {
       <Link className="back-link" to={game ? '/games' : '/'}>← {game ? 'ゲームを探す' : '動画検索'}へ戻る</Link>
       <section className="page-intro work-intro" aria-labelledby="work-heading">
         <p className="eyebrow">{work.subcategoryName}</p>
-        <h1 id="work-heading">{work.canonicalName}</h1>
+        <h1 id="work-heading">{game?.title ?? work.canonicalName}</h1>
         {game ? (
           <section className="game-classification" aria-labelledby="game-classification-heading">
             <h2 id="game-classification-heading">ゲーム単位のジャンル</h2>

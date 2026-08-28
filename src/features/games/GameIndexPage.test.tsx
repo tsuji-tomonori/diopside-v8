@@ -19,6 +19,10 @@ describe('ゲームを探す', () => {
       'href',
       '/games/genres/tag-content-gameGenre-2ec4e38c680d',
     );
+    expect(screen.getByRole('link', { name: /カジュアル/u })).toHaveAttribute(
+      'href',
+      '/games/genres/tag-content-gameGenre-025f45eb0729',
+    );
     expect(screen.queryByText('恋愛ゲーム')).not.toBeInTheDocument();
   });
 

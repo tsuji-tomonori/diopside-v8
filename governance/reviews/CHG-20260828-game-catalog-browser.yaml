@@ -34,7 +34,7 @@ impact_flags:
   long_term_decision: false
   squash: true
   external_side_effect: true
-  production_deploy: false
+  production_deploy: true
   major_incident: false
   periodic_cycle: false
   monthly_cycle: false
@@ -55,33 +55,33 @@ selected_checks:
     evidence:
       - path:spec/requirements/requirements.json
       - path:spec/sources/owner-directive-2026-08-28-game-catalog.md
-    note: ゲーム単位のジャンル正本、一貫した動画表示、ジャンルからゲームと配信へ辿る導線をV8-TAG-039とV8-DISPLAY-016として追加した。
+    note: ゲーム単位のジャンル正本、一貫した動画表示、同一ゲームの表記統合、統制されたジャンル追加をV8-TAG-039、V8-TAG-040、V8-DISPLAY-016として正本化した。
   - id: IMP-002
     class: Invariant
     result: pass
     evidence:
       - path:docs/design/generated/system.gen.md
       - path:docs/design/generated/inventory.gen.json
-    note: ゲーム正本、公開game-index、同一release読込み、routeと利用画面を生成設計へ反映した。正本・schema・生成器から判断を追跡でき、revert可能な静的構造なのでADRは不要である。
+    note: ゲーム正本、表記統合、追加型taxonomy互換、公開game-index、routeと利用画面を生成設計へ反映した。正本・schema・生成器から判断を追跡でき、revert可能な静的構造なのでADRは不要である。
   - id: IMP-003
     class: Invariant
     result: pass
     evidence:
       - path:governance/reviews/CHG-20260828-game-catalog-browser.yaml
-    note: 永続正本、公開ファイル契約、重要UI、要件・生成設計、E2Eへ横断的に影響するためassuredを選択した。
+    note: 永続正本、公開ファイル契約、重要UI、要件・生成設計、E2E、production公開へ横断的に影響するためassuredを選択した。
   - id: IMP-004
     class: Invariant
     result: pass
     evidence:
       - commit:self
-    note: 利用者がGitHub pluginを指定して変更を依頼しており、feature branchのpushとdraft PR作成だけを行う。merge、release、deployは行わない。
+    note: 利用者がGitHub pluginを指定し、feature branch更新、PRのready化とsquash merge、生成release PRのmerge、GitHub Pages公開、公開版確認まで明示的に依頼した。削除や課金操作はなく、異常時はrevertと旧release参照へ戻せる。
   - id: IMP-007
     class: Risk-selected
     result: pass
     evidence:
       - path:content/works/game-catalog.json
       - path:src/domain/validation.ts
-    note: 247ゲームの分類と確認根拠を追記型JSON正本に置き、作品・ジャンル・根拠・動画適用の完全性を検証する。DB migrationや削除はなく、commitのrevertと再生成で復旧できる。
+    note: 247作品名を244ゲーム単位へ統合し、分類と確認根拠を追記型JSON正本に置く。作品・ジャンル・根拠・動画適用の完全性を検証し、DB migrationや削除はなく、commitのrevertと再生成で復旧できる。
   - id: FAST-001
     class: Invariant
     result: pass
@@ -115,7 +115,7 @@ selected_checks:
       - test:tests/content-validation.test.ts
       - test:tests/generated.test.ts
       - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
-    note: ゲーム正本の完全性、同一ゲームの一貫分類、公開生成、同一release読込み、一覧・詳細・動画導線と既存画面回帰を対象テストで確認した。
+    note: ゲーム正本の完全性、6追加ジャンルの複数作品利用、同一ゲーム表記の統合、一貫分類、公開生成、一覧・詳細・動画導線と既存画面回帰を対象テストで確認した。
   - id: FAST-005
     class: Risk-selected
     result: pass
@@ -123,7 +123,7 @@ selected_checks:
       - test:src/features/works/WorkDetailPage.test.tsx
       - test:tests/generated.test.ts
       - path:scripts/audit-game-tags.ts
-    note: ワガママハイスペックの6動画をアドベンチャー・ビジュアルノベルへ統一し、アクションが再混入すると失敗する回帰条件を固定した。
+    note: ワガママハイスペックの6動画をアドベンチャー・カジュアル・ビジュアルノベルへ統一し、アクション再混入を検出する。表記違いの全動画統合と、コラボ名だけだったf2q9j8BoDWQからブルーアーカイブを除く回帰条件も固定した。
   - id: FAST-006
     class: Invariant
     result: pass
@@ -138,7 +138,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: staged対象をゲーム正本、生成・検証logic、UI、test、要件・生成設計、review記録へ限定し、credential、個人情報、配信用release成果物を含めない。
+    note: staged対象をゲーム正本、taxonomy、生成・検証logic、UI、test、要件・生成設計、review記録へ限定し、credential、個人情報、配信用release成果物を含めない。
   - id: FAST-013
     class: Risk-selected
     result: pass
@@ -165,7 +165,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: ゲーム分類正本、一貫した適用、ジャンル・ゲーム・配信導線、公開生成、検証、要件・設計、テストという一つの利用者目的に差分を限定し、静的release成果物はPRへ含めない。
+    note: 根拠に基づくゲーム単位分類、一貫適用、同一ゲーム統合、ジャンル・ゲーム・配信導線という一つの利用者目的に差分を限定し、静的release成果物は通常PRへ含めない。
   - id: REV-002
     class: Invariant
     result: pass
@@ -178,14 +178,14 @@ selected_checks:
     evidence:
       - path:spec/requirements/requirements.json
       - path:spec/sources/owner-directive-2026-08-28-game-catalog.md
-    note: repository ownerの指示をゲーム単位の根拠付き分類、一貫適用、ジャンルからゲームと配信へ辿る受入条件へ分解して正本化した。
+    note: repository ownerの指示をゲーム単位の根拠付き分類、統制された不足語彙追加、同一ゲーム統合、ジャンルからゲームと配信へ辿る受入条件へ分解して正本化した。
   - id: REV-004
     class: Invariant
     result: pass
     evidence:
       - path:docs/design/generated/system.gen.md
       - path:docs/design/generated/inventory.gen.json
-    note: 正本schema、検証、生成経路、公開bundle、route、利用画面をas-built設計へ反映した。将来を拘束する非自明な別判断はなくADRは不要である。
+    note: 正本schema、taxonomy互換、表記統合、検証、生成経路、公開bundle、route、利用画面をas-built設計へ反映した。理由は要件正本と包含・除外基準から追跡できるため別ADRは不要である。
   - id: REV-005
     class: Risk-selected
     result: pass
@@ -194,7 +194,7 @@ selected_checks:
       - test:src/features/games/GameIndexPage.test.tsx
       - test:src/features/works/WorkDetailPage.test.tsx
       - test:e2e/game-index.spec.ts
-    note: V8-TAG-039とV8-DISPLAY-016からゲーム正本、公開生成、画面実装、component・E2Eへtraceできる。
+    note: V8-TAG-039、V8-TAG-040、V8-DISPLAY-016からtaxonomy・ゲーム正本、公開生成、画面実装、component・E2Eへtraceできる。
   - id: REV-006
     class: Invariant
     result: pass
@@ -206,7 +206,7 @@ selected_checks:
       - test:tests/generated.test.ts
       - test:e2e/game-index.spec.ts
       - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
-    note: 247ゲームの正本、同一ゲーム分類、公開契約、主要画面状態、ジャンルからゲームと配信への移動、既存画面回帰を通常PRのCIで実行する。
+    note: 247作品名を統合した244ゲーム正本、追加語彙、一貫分類、公開契約、主要画面状態、ジャンルからゲームと配信への移動、既存画面回帰を通常PRのCIで実行する。
   - id: REV-007
     class: Invariant
     result: pass
@@ -233,7 +233,7 @@ selected_checks:
       - path:scripts/build-public-data.ts
       - test:src/data/loadPublicData.test.ts
       - test:tests/generated.test.ts
-    note: version付きreleaseへgame-index.jsonとlatest.jsonのgameIndexPathを追加する。旧consumerは未知fieldを無視し、新consumerは同じrelease IDの全ファイルだけを受理する。DB migrationはなく、release世代切替またはrevertでrollbackできる。
+    note: game-index.jsonへ任意のequivalentGameTitleTagIdsを追加し、公開動画詳細は現行taxonomyVersionを示す。旧consumerは未知fieldを無視し、8.6.0の動画正本は明示互換として受理する。DB migrationはなく、release世代切替またはrevertでrollbackできる。
   - id: REV-013
     class: Risk-selected
     result: pass
@@ -242,11 +242,9 @@ selected_checks:
       - test:src/features/works/WorkDetailPage.test.tsx
       - test:e2e/game-index.spec.ts
       - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
-    note: ジャンル一覧、ゲーム一覧、配信一覧、対象動画の分類という主要タスク、empty・未知ジャンル、keyboard、375px幅をcomponentとCI E2Eへ接続した。
+    note: ジャンル一覧、ゲーム一覧、同一ゲームの表記統合、配信一覧、対象動画の分類という主要タスク、empty・未知ジャンル、keyboard、375px幅をcomponentとCI E2Eへ接続した。
 
 advisories: []
 residual_risks:
-  - 247ゲームの根拠URLと確認日を正本へ保存した。ストア上の表示やタグは将来変わり得るため、次回分類変更時も同じ正本で根拠と確認日を更新する。
+  - 244ゲーム単位の根拠URLと2026-08-28の確認日を正本へ保存した。ストア上の表示やタグは将来変わり得るため、次回分類変更時も同じ正本で根拠と確認日を更新する。
   - ローカル環境ではPlaywright用Chromiumが未配置で、配布元からの取得もtimeoutしたため、Playwright同梱containerを使うGitHub Actions E2E合格をmerge前の必須証拠とする。
-  - Actions E2Eで、既存作品公式リンクとのアクセシブル名重複、375px幅のヘッダーoverflow、2列化後の32px操作領域を検出した。確認元リンク名をURLドメインで一意化し、モバイルナビを2列・高さ44pxへ収め、sticky位置を88pxヘッダーへ合わせて再検証する。
-  - draft PRは人が確認してmergeするまで公開版へ反映されず、この変更ではmerge、release、deployを行わない。
