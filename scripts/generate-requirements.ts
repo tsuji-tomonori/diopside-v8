@@ -1241,7 +1241,7 @@ const songPerformanceRequirements = [
 const collaborationPageRequirements = [
   {
     id: 'V8-DISPLAY-013',
-    revision: 1,
+    revision: 2,
     status: 'active',
     scope: 'product',
     category: 'functional',
@@ -1249,21 +1249,21 @@ const collaborationPageRequirements = [
     title: '人物名とコンビ・ユニットのタグから出典・YouTube導線付き動画一覧へ移動できなければならない',
     subject: 'diopside v8のコラボ相手タグとコンビ・ユニットページ',
     action: 'satisfy',
-    object: '動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページはYouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画を表示する。コンビ・ユニットページは出典付きの説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。',
+    object: '動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページは確かな一次情報に基づく出典・確認日付きの説明、YouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画、その人物と白雪巴の確認済みコンビ・ユニットへのリンクを表示する。コンビ・ユニットページは運営または構成員の公式情報を出典とする説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。',
     rationale: 'コラボ動画を相手や定着した組み合わせから連続して探し、名称だけを知らない利用者も人物と関係を視覚的に把握できるようにするため。',
-    source_refs: ['spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'user:2026-08-15'],
+    source_refs: ['spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'user:2026-08-15', 'spec/sources/owner-directive-2026-08-28-collaboration-profile-descriptions.md', 'user:2026-08-28'],
     acceptance_criteria: [
       {
         id: 'AC-V8-DISPLAY-013-1',
         given: '動画詳細に白雪巴以外の人物名タグが表示されている',
         when: '利用者が人物タグを押す',
-        then: '人物アイコン、人物名、YouTubeチャンネルリンク、その人物タグを持つ公開動画だけを新しい順で表示する。',
+        then: '確かな一次情報に基づく出典・確認日付きの説明、人物アイコン、人物名、YouTubeチャンネルリンク、その人物タグを持つ公開動画だけを新しい順で表示する。',
       },
       {
         id: 'AC-V8-DISPLAY-013-2',
         given: '動画詳細に確認済みのコンビ・ユニットタグが表示されている',
         when: '利用者がコンビ・ユニットタグを押す',
-        then: '参考元と確認日を持つ説明、全メンバーのアイコン・人物名・各YouTubeチャンネルリンク、そのタグを持つ公開動画を表示する。',
+        then: '運営公式サイトまたは構成員本人の公式情報を参考元とし、確認日を持つ説明、全メンバーのアイコン・人物名・各YouTubeチャンネルリンク、そのタグを持つ公開動画を表示し、非公式Wikiだけを出典にしない。',
       },
       {
         id: 'AC-V8-DISPLAY-013-3',
@@ -1271,18 +1271,24 @@ const collaborationPageRequirements = [
         when: 'ブラウザの通信先を検査する',
         then: '保存済みローカルアイコンだけを読み、利用者が外部リンクを押すまでYouTubeまたは参考元へ通信しない。',
       },
+      {
+        id: 'AC-V8-DISPLAY-013-4',
+        given: 'コラボ相手と白雪巴の確認済みコンビ・ユニットがある',
+        when: '利用者が人物ページを表示してコンビ・ユニット名を押す',
+        then: '人物ページ内に名称・概要・公開動画件数を表示し、押下後はそのコンビ・ユニットの説明・構成員・公開動画一覧を表示する。',
+      },
     ],
     verification: {
-      method: '公開データ構造・人物名・コンビ説明・メンバーリンク・ローカルアイコン・外部自動通信禁止試験',
+      method: '一次情報出典・人物説明・関連ユニット導線・コンビ説明・メンバーリンク・ローカルアイコン・外部自動通信禁止試験',
       evidence: 'tests/content-validation.test.ts, tests/generated.test.ts, src/features/collaborations/CollaborationDetailPages.test.tsx, e2e/detail.spec.ts',
     },
     traces: {
       design: ['docs/design/generated/system.gen.md'],
       implementation: ['content/people/collaboration-profiles.json', 'scripts/build-public-data.ts', 'src/features/detail/VideoDetailPage.tsx', 'src/features/collaborations/CollaboratorDetailPage.tsx', 'src/features/collaborations/GroupDetailPage.tsx'],
       tests: ['tests/content-validation.test.ts', 'tests/generated.test.ts', 'src/features/collaborations/CollaborationDetailPages.test.tsx', 'e2e/detail.spec.ts'],
-      standards: ['spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'dev-standard default profile'],
+      standards: ['spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'spec/sources/owner-directive-2026-08-28-collaboration-profile-descriptions.md', 'dev-standard assured profile'],
     },
-    last_changed_by: 'CHG-20260815-collaboration-pages',
+    last_changed_by: 'CHG-20260828-collaboration-profile-units-sources',
   },
 ];
 const seriesPageRequirements = [

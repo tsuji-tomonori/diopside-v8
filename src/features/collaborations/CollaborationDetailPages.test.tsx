@@ -13,12 +13,14 @@ import { GroupDetailPage } from './GroupDetailPage.tsx';
 const root = process.cwd();
 
 describe('コラボ相手・コンビページ', () => {
-  it('人物名、ローカルアイコン、YouTubeチャンネル、共演動画を表示する', () => {
+  it('人物の公式説明、関連ユニット導線、YouTubeチャンネル、共演動画を表示する', () => {
     const bundle = publicBundle();
-    const fumi = findTag(bundle, 'performer', 'フミ');
-    if (!fumi.personProfile) throw new Error('フミの人物プロフィールがありません。');
+    const luis = findTag(bundle, 'performer', 'ルイス・キャミー');
+    const fultoi = findTag(bundle, 'unit', 'フルトイ');
+    const furutona = findTag(bundle, 'unit', 'ふるとな');
+    if (!luis.personProfile) throw new Error('ルイス・キャミーの人物プロフィールがありません。');
     render(
-      <MemoryRouter initialEntries={[`/collaborators/${fumi.tagId}`]}>
+      <MemoryRouter initialEntries={[`/collaborators/${luis.tagId}`]}>
         <DeviceStoreContext.Provider value={new DeviceStore()}>
           <BundleContext.Provider value={bundle}>
             <Routes><Route path="/collaborators/:tagId" element={<CollaboratorDetailPage />} /></Routes>
@@ -27,9 +29,14 @@ describe('コラボ相手・コンビページ', () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByRole('heading', { level: 1, name: 'フミ' })).toBeVisible();
+    expect(screen.getByRole('heading', { level: 1, name: 'ルイス・キャミー' })).toBeVisible();
     expect(document.querySelector('.person-avatar')).toHaveAttribute('src', expect.stringContaining('/people/icons/'));
-    expect(screen.getByRole('link', { name: 'YouTubeチャンネルを見る' })).toHaveAttribute('href', fumi.personProfile.youtubeChannelUrl);
+    expect(screen.getByText(luis.personProfile.description)).toBeVisible();
+    expect(screen.getByRole('link', { name: luis.personProfile.sourceLabel })).toHaveAttribute('href', luis.personProfile.sourceUrl);
+    expect(screen.getByRole('heading', { level: 2, name: '白雪巴とのユニット' })).toBeVisible();
+    expect(document.querySelector(`.related-group-card[href="/groups/${fultoi.tagId}"]`)).toBeVisible();
+    expect(document.querySelector(`.related-group-card[href="/groups/${furutona.tagId}"]`)).toBeVisible();
+    expect(screen.getByRole('link', { name: 'YouTubeチャンネルを見る' })).toHaveAttribute('href', luis.personProfile.youtubeChannelUrl);
     expect(document.querySelectorAll('.collaboration-results .video-card').length).toBeGreaterThan(0);
   });
 
@@ -48,7 +55,7 @@ describe('コラボ相手・コンビページ', () => {
 
     expect(screen.getByRole('heading', { level: 1, name: 'フルトイ' })).toBeVisible();
     expect(screen.getByText(/フミ、ルイス・キャミー、白雪巴/u)).toBeVisible();
-    expect(screen.getByRole('link', { name: 'にじさんじ非公式Wiki「フルトイ」' })).toHaveAttribute('href', 'https://wikiwiki.jp/nijisanji/%E3%83%95%E3%83%AB%E3%83%88%E3%82%A4');
+    expect(screen.getByRole('link', { name: 'にじさんじ Anniversary Festival 2021 公式サイト' })).toHaveAttribute('href', 'https://anniversaryfes.nijisanji.jp/goods/');
     expect(screen.getAllByText('YouTubeチャンネル →')).toHaveLength(3);
     expect(document.querySelectorAll('.collaboration-results .video-card').length).toBeGreaterThan(0);
   });

@@ -250,11 +250,17 @@ const tagIndex = publicTagIndexSchema.parse({
             iconPath: iconPath(person.iconFile),
             iconRetrievedAt: person.iconRetrievedAt,
             iconKind: person.iconKind,
+            description: person.description,
+            sourceUrl: person.sourceUrl,
+            sourceLabel: person.sourceLabel,
+            sourceKind: person.sourceKind,
+            retrievedAt: person.retrievedAt,
           } } : {}),
           ...(group ? { groupProfile: {
             description: group.description,
             sourceUrl: group.sourceUrl,
             sourceLabel: group.sourceLabel,
+            sourceKind: group.sourceKind,
             retrievedAt: group.retrievedAt,
             members: group.memberTagIds.map((memberTagId) => {
               const member = peopleByTagId.get(memberTagId);

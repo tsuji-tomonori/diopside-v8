@@ -74,7 +74,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: 利用者がGitHub pluginを指定し、feature branch更新、PRのready化とsquash merge、生成release PRのmerge、GitHub Pages公開、公開版確認まで明示的に依頼した。削除や課金操作はなく、異常時はrevertと旧release参照へ戻せる。
+    note: 利用者がGitHub pluginを指定し、feature branch更新、PRのready化とsquash merge、生成release PRのmerge、GitHub Pages公開、公開版確認まで明示的に依頼した。競合解消のため最新main 528f18aを取り込む操作もこの範囲に含み、削除や課金操作はなく、異常時はrevertと旧release参照へ戻せる。
   - id: IMP-007
     class: Risk-selected
     result: pass

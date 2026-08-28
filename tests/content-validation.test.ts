@@ -97,6 +97,10 @@ describe('タグ・動画正本と公開境界', () => {
       expect(profile?.youtubeChannelUrl).toBe(`https://www.youtube.com/channel/${profile?.channelId}`);
       expect(profile?.iconKind).toBe('youtube-channel');
       expect(profile?.iconFile).toBe(`${profile?.channelId}.jpg`);
+      expect(profile?.description.length).toBeGreaterThan(0);
+      expect(profile?.sourceKind).toMatch(/^official-/u);
+      expect(profile?.sourceUrl).toMatch(/^https:\/\//u);
+      expect(new URL(profile!.sourceUrl).hostname).not.toBe('wikiwiki.jp');
       const icon = readFileSync(path.join(root, 'content/people/icons', profile!.iconFile));
       expect(icon.subarray(0, 3).toString('hex')).toBe('ffd8ff');
     }
@@ -105,6 +109,8 @@ describe('タグ・動画正本と公開境界', () => {
       expect(profile?.name).toBe(unit.canonicalName);
       expect(profile?.memberTagIds.length).toBeGreaterThanOrEqual(2);
       expect(profile?.sourceUrl).toMatch(/^https:\/\//u);
+      expect(profile?.sourceKind).toMatch(/^official-/u);
+      expect(new URL(profile!.sourceUrl).hostname).not.toBe('wikiwiki.jp');
     }
   });
 

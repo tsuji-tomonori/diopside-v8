@@ -122,7 +122,7 @@ test.describe('動画詳細', () => {
     await expectNoSeriousAccessibilityViolations(page);
   });
 
-  test('人物名タグとフルトイタグからアイコン・YouTube導線付き一覧へ移動できる', async ({ page }) => {
+  test('人物名タグから公式説明と関連ユニットをたどり、その動画一覧へ移動できる', async ({ page }) => {
     const requests = await preparePage(page);
     await page.goto('/#/video/O6tuTZ_f1vo');
 
@@ -132,11 +132,15 @@ test.describe('動画詳細', () => {
     await personLink.click();
     await expect(page).toHaveURL(/#\/collaborators\/tag-people-performer-/u);
     await expect(page.getByRole('heading', { level: 1, name: 'ルイス・キャミー' })).toBeVisible();
+    await expect(page.getByText(/闇夜を駆ける女怪盗/u)).toBeVisible();
+    await expect(page.getByRole('link', { name: 'にじさんじ公式プロフィール「ルイス・キャミー」' })).toHaveAttribute('href', 'https://www.nijisanji.jp/talents/l/luis-cammy');
     await expect(page.getByRole('link', { name: 'YouTubeチャンネルを見る' })).toHaveAttribute('href', /^https:\/\/www\.youtube\.com\/channel\//u);
+    await expect(page.getByRole('heading', { level: 2, name: '白雪巴とのユニット' })).toBeVisible();
+    await expect(page.locator('.related-group-card')).toHaveCount(2);
+    await expect(page.locator('.related-group-card').filter({ hasText: 'ふるとな' })).toBeVisible();
     expectOnlyAllowedRequests(requests);
 
-    await page.goto('/#/video/O6tuTZ_f1vo');
-    await page.getByRole('link', { name: /フルトイ/u }).click();
+    await page.locator('.related-group-card').filter({ hasText: 'フルトイ' }).click();
     await expect(page).toHaveURL(/#\/groups\/tag-people-unit-/u);
     await expect(page.getByRole('heading', { level: 1, name: 'フルトイ' })).toBeVisible();
     await expect(page.getByText(/フミ、ルイス・キャミー、白雪巴/u)).toBeVisible();

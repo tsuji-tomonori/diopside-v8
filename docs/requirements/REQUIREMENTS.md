@@ -35,7 +35,7 @@
 | `V8-DISPLAY-010` | 1 | 有効 | 機能 | diopside v8の表示は、動画詳細は、タグ、タイムスタンプ、ワードクラウドの最終更新日を日本語で示さなければならない。を**satisfy** | 画面契約試験 |
 | `V8-DISPLAY-011` | 2 | 有効 | データ | diopside v8の表示は、全編根拠を確認できる動画の詳細は、視聴意欲を促しつつ結末、正体、勝敗等のネタバレを避けた日本語あらすじを表示しなければならない。本文と末尾の引用符付きセリフは合計100〜150文字とし、最後に対象配信で白雪巴が実際に発した特徴的なセリフを一つ置かなければならない。を**satisfy** | あらすじ候補検証・公開データ検証・動画詳細画面試験・公開境界検査 |
 | `V8-DISPLAY-012` | 1 | 有効 | 機能 | diopside v8の作品タグと作品ページは、動画詳細の作品タグは、その作品タグを持つ公開動画の一覧ページへ移動できなければならない。ゲーム作品ページは、確認日を持つ短い公式説明の引用、引用元名、HTTPSの公式ページリンクを表示し、外部ページは利用者がリンクを押した場合だけ開かなければならない。を**satisfy** | 公開データ構造試験、作品タグ遷移E2E、公式リンク・引用表示・外部自動通信禁止試験 |
-| `V8-DISPLAY-013` | 1 | 有効 | 機能 | diopside v8のコラボ相手タグとコンビ・ユニットページは、動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページはYouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画を表示する。コンビ・ユニットページは出典付きの説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。を**satisfy** | 公開データ構造・人物名・コンビ説明・メンバーリンク・ローカルアイコン・外部自動通信禁止試験 |
+| `V8-DISPLAY-013` | 2 | 有効 | 機能 | diopside v8のコラボ相手タグとコンビ・ユニットページは、動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページは確かな一次情報に基づく出典・確認日付きの説明、YouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画、その人物と白雪巴の確認済みコンビ・ユニットへのリンクを表示する。コンビ・ユニットページは運営または構成員の公式情報を出典とする説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。を**satisfy** | 一次情報出典・人物説明・関連ユニット導線・コンビ説明・メンバーリンク・ローカルアイコン・外部自動通信禁止試験 |
 | `V8-DISPLAY-014` | 1 | 有効 | 機能 | diopside v8の定期・連続企画名タグとシリーズページは、動画詳細の定期・連続企画名タグは押下可能でなければならず、不変タグIDをURLに持つ一覧ページへ移動して、そのタグを持つ公開動画だけを公開日の新しい順で表示しなければならない。を**satisfy** | 正本タグ網羅試験、定期・連続企画名タグ遷移単体・E2E、一覧内容・順序・アクセシビリティ試験 |
 | `V8-DISPLAY-015` | 1 | 有効 | 機能 | diopside v8の歌唱楽曲一覧と導線は、主または副ジャンル「歌」を押すと歌唱楽曲一覧へ移動しなければならない。一覧は楽曲名、原曲アーティスト、確認済みの原曲リンク、歌唱種別、対象動画、公開日を表示する。配信内歌唱と鼻歌は対象開始秒、単曲動画は動画先頭を開き、楽曲タグのURLで曲別表示できなければならない。を**satisfy** | 楽曲一覧表示、ジャンル・楽曲タグ遷移、原曲リンク、YouTube開始秒、外部自動通信禁止試験 |
 | `V8-DISPLAY-016` | 2 | 有効 | 機能 | diopside v8のゲームジャンル・作品・配信導線は、ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示しなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。を**satisfy** | ジャンル件数・作品除外・ジャンル遷移・作品遷移・配信一覧・アクセシビリティE2E |
@@ -613,20 +613,21 @@ diopside v8の作品タグと作品ページは、動画詳細の作品タグは
 
 ## V8-DISPLAY-013: 人物名とコンビ・ユニットのタグから出典・YouTube導線付き動画一覧へ移動できなければならない
 
-diopside v8のコラボ相手タグとコンビ・ユニットページは、動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページはYouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画を表示する。コンビ・ユニットページは出典付きの説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。を**satisfy**。
+diopside v8のコラボ相手タグとコンビ・ユニットページは、動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページは確かな一次情報に基づく出典・確認日付きの説明、YouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画、その人物と白雪巴の確認済みコンビ・ユニットへのリンクを表示する。コンビ・ユニットページは運営または構成員の公式情報を出典とする説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。を**satisfy**。
 
 根拠: コラボ動画を相手や定着した組み合わせから連続して探し、名称だけを知らない利用者も人物と関係を視覚的に把握できるようにするため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-DISPLAY-013-1` 前提: 動画詳細に白雪巴以外の人物名タグが表示されている。条件: 利用者が人物タグを押す。期待結果: 人物アイコン、人物名、YouTubeチャンネルリンク、その人物タグを持つ公開動画だけを新しい順で表示する。。
-- `AC-V8-DISPLAY-013-2` 前提: 動画詳細に確認済みのコンビ・ユニットタグが表示されている。条件: 利用者がコンビ・ユニットタグを押す。期待結果: 参考元と確認日を持つ説明、全メンバーのアイコン・人物名・各YouTubeチャンネルリンク、そのタグを持つ公開動画を表示する。。
+- `AC-V8-DISPLAY-013-1` 前提: 動画詳細に白雪巴以外の人物名タグが表示されている。条件: 利用者が人物タグを押す。期待結果: 確かな一次情報に基づく出典・確認日付きの説明、人物アイコン、人物名、YouTubeチャンネルリンク、その人物タグを持つ公開動画だけを新しい順で表示する。。
+- `AC-V8-DISPLAY-013-2` 前提: 動画詳細に確認済みのコンビ・ユニットタグが表示されている。条件: 利用者がコンビ・ユニットタグを押す。期待結果: 運営公式サイトまたは構成員本人の公式情報を参考元とし、確認日を持つ説明、全メンバーのアイコン・人物名・各YouTubeチャンネルリンク、そのタグを持つ公開動画を表示し、非公式Wikiだけを出典にしない。。
 - `AC-V8-DISPLAY-013-3` 前提: 人物またはコンビ・ユニットページを表示する。条件: ブラウザの通信先を検査する。期待結果: 保存済みローカルアイコンだけを読み、利用者が外部リンクを押すまでYouTubeまたは参考元へ通信しない。。
+- `AC-V8-DISPLAY-013-4` 前提: コラボ相手と白雪巴の確認済みコンビ・ユニットがある。条件: 利用者が人物ページを表示してコンビ・ユニット名を押す。期待結果: 人物ページ内に名称・概要・公開動画件数を表示し、押下後はそのコンビ・ユニットの説明・構成員・公開動画一覧を表示する。。
 
-要求源: spec/sources/owner-directive-2026-08-15-collaboration-pages.md, user:2026-08-15
+要求源: spec/sources/owner-directive-2026-08-15-collaboration-pages.md, user:2026-08-15, spec/sources/owner-directive-2026-08-28-collaboration-profile-descriptions.md, user:2026-08-28
 検証証跡: tests/content-validation.test.ts, tests/generated.test.ts, src/features/collaborations/CollaborationDetailPages.test.tsx, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=content/people/collaboration-profiles.json,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/features/collaborations/CollaboratorDetailPage.tsx,src/features/collaborations/GroupDetailPage.tsx; テスト=tests/content-validation.test.ts,tests/generated.test.ts,src/features/collaborations/CollaborationDetailPages.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-15-collaboration-pages.md,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md; 実装=content/people/collaboration-profiles.json,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/features/collaborations/CollaboratorDetailPage.tsx,src/features/collaborations/GroupDetailPage.tsx; テスト=tests/content-validation.test.ts,tests/generated.test.ts,src/features/collaborations/CollaborationDetailPages.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-15-collaboration-pages.md,spec/sources/owner-directive-2026-08-28-collaboration-profile-descriptions.md,dev-standard assured profile
 
 ## V8-DISPLAY-014: 定期・連続企画名タグは同じシリーズの動画一覧へ移動できなければならない
 
