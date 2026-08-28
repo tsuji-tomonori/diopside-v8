@@ -416,11 +416,17 @@ export const publicTagIndexSchema = z.object({
           iconPath: z.string().regex(/^data\/releases\/release-[a-f0-9]{16}\/people\/icons\/[A-Za-z0-9_-]+\.jpg$/u),
           iconRetrievedAt: isoDate,
           iconKind: z.literal('youtube-channel'),
+          description: z.string().min(1).max(240),
+          sourceUrl: z.url().startsWith('https://'),
+          sourceLabel: z.string().min(1).max(80),
+          sourceKind: z.enum(['official-profile', 'official-channel', 'official-content']),
+          retrievedAt: isoDate,
         }).strict().optional(),
         groupProfile: z.object({
           description: z.string().min(1).max(240),
           sourceUrl: z.url().startsWith('https://'),
           sourceLabel: z.string().min(1).max(80),
+          sourceKind: z.enum(['official-profile', 'official-channel', 'official-content']),
           retrievedAt: isoDate,
           members: z.array(z.object({
             tagId: z.string().regex(/^tag-people-performer-[a-f0-9]{12}$/u),
@@ -457,7 +463,7 @@ export const publicTagIndexSchema = z.object({
 }).strict();
 
 export const collaborationProfilesSchema = z.object({
-  schemaVersion: z.literal('1.0.0'),
+  schemaVersion: z.literal('1.1.0'),
   updatedAt: isoDate,
   subjectPersonTagId: z.string().regex(/^tag-people-performer-[a-f0-9]{12}$/u),
   people: z.array(z.object({
@@ -468,6 +474,11 @@ export const collaborationProfilesSchema = z.object({
     iconFile: z.string().regex(/^[A-Za-z0-9_-]+\.jpg$/u),
     iconRetrievedAt: isoDate,
     iconKind: z.literal('youtube-channel'),
+    description: z.string().min(1).max(240),
+    sourceUrl: z.url().startsWith('https://'),
+    sourceLabel: z.string().min(1).max(80),
+    sourceKind: z.enum(['official-profile', 'official-channel', 'official-content']),
+    retrievedAt: isoDate,
   }).strict()),
   groups: z.array(z.object({
     tagId: z.string().regex(/^tag-people-unit-[a-f0-9]{12}$/u),
@@ -475,6 +486,7 @@ export const collaborationProfilesSchema = z.object({
     description: z.string().min(1).max(240),
     sourceUrl: z.url().startsWith('https://'),
     sourceLabel: z.string().min(1).max(80),
+    sourceKind: z.enum(['official-profile', 'official-channel', 'official-content']),
     retrievedAt: isoDate,
     memberTagIds: z.array(z.string().regex(/^tag-people-performer-[a-f0-9]{12}$/u)).min(2),
   }).strict()),
