@@ -217,10 +217,11 @@
 - `src/domain/validation.test.ts`
 - `src/features/collaborations/CollaborationDetailPages.test.tsx`
 - `src/features/search/SearchFilterControls.test.tsx`
+- `src/features/search/SearchPage.test.tsx`
 - `src/features/series/SeriesDetailPage.test.tsx`
 - `src/features/songs/SongIndexPage.test.tsx`
 - `src/features/works/WorkDetailPage.test.tsx`
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力62ファイル、公開契約151件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力63ファイル、公開契約151件です。

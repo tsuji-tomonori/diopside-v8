@@ -135,6 +135,12 @@ export function SearchPage(): React.JSX.Element {
   const availableTagIds = new Set(tags.flatMap((tag) => (
     selected.has(tag.tagId) || (tagCounts.get(tag.tagId) ?? 0) > 0 ? [tag.tagId] : []
   )));
+  const selectedTags = tags.filter((tag) => selected.has(tag.tagId));
+  const quickTags = (bundle.tagIndex.categories
+    .find((category) => category.categoryId === 'content')
+    ?.subcategories.find((subcategory) => subcategory.subcategoryId === 'primary')
+    ?.tags ?? [])
+    .filter((tag) => availableTagIds.has(tag.tagId) && !selected.has(tag.tagId));
 
   useEffect(() => {
     setDraft(condition);
@@ -300,6 +306,21 @@ export function SearchPage(): React.JSX.Element {
     }));
   };
 
+  const renderTagChoice = (tag: (typeof tags)[number]): React.JSX.Element => {
+    const count = selected.has(tag.tagId) ? draftResultCount : (tagCounts.get(tag.tagId) ?? 0);
+    return (
+      <button
+        type="button"
+        key={tag.tagId}
+        className="tag-choice"
+        aria-pressed={selected.has(tag.tagId)}
+        onClick={() => selectTagAndShowResults(tag.tagId, 'toggle')}
+      >
+        {tag.canonicalName}<span>{count}件</span>
+      </button>
+    );
+  };
+
   return (
     <main>
       <section className="hero">
@@ -423,69 +444,6 @@ export function SearchPage(): React.JSX.Element {
 
           <details className="filter-drawer" open={draft.tagIds.length > 0}>
             <summary>タグ・公開日・動画長で絞り込む</summary>
-            <fieldset className="tag-filter">
-              <legend>タグ</legend>
-              <div className="tag-filter-toolbar">
-                <p className="hint">タグ名はタイトル検索へ自動では追加されません。複数選択は「すべて含む」です。</p>
-                <button
-                  className="button secondary"
-                  type="button"
-                  aria-controls="tag-filter-content"
-                  aria-expanded={tagsExpanded}
-                  onClick={() => tagsExpanded ? closeTagsAndShowResults() : setTagsExpanded(true)}
-                >
-                  {tagsExpanded ? 'タグを閉じて動画を見る' : `タグを開く（選択${selected.size}件）`}
-                </button>
-              </div>
-              <div
-                id="tag-filter-content"
-                className={`tag-filter-content${tagsExpanded ? ' is-expanded' : ''}`}
-                aria-hidden={!tagsExpanded}
-                inert={!tagsExpanded}
-              >
-                <div className="tag-filter-content-inner">
-                  <label className="tag-input-label" htmlFor="tag-name">タグ名または別名から追加</label>
-                  <div className="tag-input-row">
-                    <input id="tag-name" list="tag-name-options" value={tagInput} onChange={(event) => updateTagInput(event.target.value)} />
-                    <datalist id="tag-name-options">
-                      {tags.filter((tag) => availableTagIds.has(tag.tagId)).map((tag) => <option key={tag.tagId} value={tag.canonicalName} />)}
-                      {Object.entries(bundle.aliasIndex.aliases)
-                        .filter(([, tagId]) => availableTagIds.has(tagId))
-                        .map(([alias]) => <option key={`alias-${alias}`} value={alias} />)}
-                    </datalist>
-                    <button className="button secondary" type="button" onClick={addTagByName}>タグを追加</button>
-                  </div>
-                  {tagError && <p className="form-error" role="alert">{tagError}</p>}
-                  {bundle.tagIndex.categories.map((category) => {
-                    const visible = category.subcategories
-                      .flatMap((subcategory) => subcategory.tags)
-                      .filter((tag) => availableTagIds.has(tag.tagId));
-                    if (visible.length === 0) return null;
-                    return (
-                      <div className="tag-group" key={category.categoryId}>
-                        <h3>{category.name}</h3>
-                        <div className="tag-choices">
-                          {visible.map((tag) => {
-                            const count = selected.has(tag.tagId) ? draftResultCount : (tagCounts.get(tag.tagId) ?? 0);
-                            return (
-                              <button
-                                type="button"
-                                key={tag.tagId}
-                                className="tag-choice"
-                                aria-pressed={selected.has(tag.tagId)}
-                                onClick={() => selectTagAndShowResults(tag.tagId, 'toggle')}
-                              >
-                                {tag.canonicalName}<span>{count}件</span>
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </fieldset>
 
             <div className="filter-grid">
               <fieldset className="filter-card">
@@ -515,6 +473,106 @@ export function SearchPage(): React.JSX.Element {
               <button className="button primary" type="submit">絞り込みを反映</button>
               <button className="button ghost" type="button" onClick={clear}>条件をすべて解除</button>
             </div>
+
+            <fieldset className="tag-filter">
+              <legend>タグ</legend>
+              <div className="tag-filter-toolbar">
+                <p className="hint">よく使う主ジャンル、タグ名入力、分類一覧から選べます。複数選択は「すべて含む」です。</p>
+                <button
+                  className="button secondary"
+                  type="button"
+                  aria-controls="tag-filter-content"
+                  aria-expanded={tagsExpanded}
+                  onClick={() => tagsExpanded ? closeTagsAndShowResults() : setTagsExpanded(true)}
+                >
+                  {tagsExpanded ? 'タグを閉じて動画を見る' : `タグを開く（選択${selected.size}件）`}
+                </button>
+              </div>
+              <div
+                id="tag-filter-content"
+                className={`tag-filter-content${tagsExpanded ? ' is-expanded' : ''}`}
+                aria-hidden={!tagsExpanded}
+                inert={!tagsExpanded}
+              >
+                <div className="tag-filter-content-inner">
+                  <label className="tag-input-label" htmlFor="tag-name">タグ名または別名から追加</label>
+                  <div className="tag-input-row">
+                    <input id="tag-name" list="tag-name-options" value={tagInput} onChange={(event) => updateTagInput(event.target.value)} />
+                    <datalist id="tag-name-options">
+                      {tags.filter((tag) => availableTagIds.has(tag.tagId)).map((tag) => <option key={tag.tagId} value={tag.canonicalName} />)}
+                      {Object.entries(bundle.aliasIndex.aliases)
+                        .filter(([, tagId]) => availableTagIds.has(tagId))
+                        .map(([alias]) => <option key={`alias-${alias}`} value={alias} />)}
+                    </datalist>
+                    <button className="button secondary" type="button" onClick={addTagByName}>タグを追加</button>
+                  </div>
+                  {tagError && <p className="form-error" role="alert">{tagError}</p>}
+                  {selectedTags.length > 0 && (
+                    <section className="tag-shortcut-group selected-tags" aria-labelledby="selected-tags-heading">
+                      <div className="tag-shortcut-heading">
+                        <h3 id="selected-tags-heading">選択中</h3>
+                        <span>{selectedTags.length}件</span>
+                      </div>
+                      <div className="tag-choices">{selectedTags.map(renderTagChoice)}</div>
+                    </section>
+                  )}
+                  {quickTags.length > 0 && (
+                    <section className="tag-shortcut-group quick-tags" aria-labelledby="quick-tags-heading">
+                      <div className="tag-shortcut-heading">
+                        <h3 id="quick-tags-heading">よく使う主ジャンル</h3>
+                        <span>1回で選択</span>
+                      </div>
+                      <div className="tag-choices">{quickTags.map(renderTagChoice)}</div>
+                    </section>
+                  )}
+                  <div className="tag-browser-heading">
+                    <h3>すべてのタグ</h3>
+                    <p className="hint">大分類と小分類を順に開くと、必要なタグだけを表示できます。</p>
+                  </div>
+                  <div className="tag-accordion">
+                    {bundle.tagIndex.categories.map((category) => {
+                      const visibleSubcategories = category.subcategories
+                        .map((subcategory) => ({
+                          subcategory,
+                          visibleTags: subcategory.tags.filter((tag) => availableTagIds.has(tag.tagId)),
+                        }))
+                        .filter(({ visibleTags }) => visibleTags.length > 0);
+                      const visibleTagCount = visibleSubcategories
+                        .reduce((total, { visibleTags }) => total + visibleTags.length, 0);
+                      const selectedTagCount = visibleSubcategories
+                        .reduce((total, { visibleTags }) => total + visibleTags.filter((tag) => selected.has(tag.tagId)).length, 0);
+                      if (visibleTagCount === 0) return null;
+                      return (
+                        <details className="tag-category" key={category.categoryId}>
+                          <summary>
+                            <span>{category.name}</span>
+                            <span className="tag-accordion-count">
+                              {selectedTagCount > 0 ? `${selectedTagCount}件選択中・` : ''}{visibleTagCount}件
+                            </span>
+                          </summary>
+                          <div className="tag-category-content">
+                            {visibleSubcategories.map(({ subcategory, visibleTags }) => {
+                              const subcategorySelectedCount = visibleTags.filter((tag) => selected.has(tag.tagId)).length;
+                              return (
+                                <details className="tag-subcategory" key={subcategory.subcategoryId}>
+                                  <summary>
+                                    <span>{subcategory.name}</span>
+                                    <span className="tag-accordion-count">
+                                      {subcategorySelectedCount > 0 ? `${subcategorySelectedCount}件選択中・` : ''}{visibleTags.length}件
+                                    </span>
+                                  </summary>
+                                  <div className="tag-choices">{visibleTags.map(renderTagChoice)}</div>
+                                </details>
+                              );
+                            })}
+                          </div>
+                        </details>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </fieldset>
           </details>
         </form>
       </section>
