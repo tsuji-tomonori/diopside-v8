@@ -132,6 +132,12 @@ selected_checks:
       - path:src/features/songs/SongIndexPage.tsx
       - test:e2e/song-index.spec.ts
     note: 白雪巴の歌唱と原曲情報をsemantic sectionと見出しで区別し、通常linkのaccessible nameとkeyboard操作を維持する。
+  - id: FAST-018
+    class: Risk-selected
+    result: na
+    evidence:
+      - test:e2e/song-index.spec.ts
+    note: E2E変更triggerで選択後、対象が読取り専用の静的楽曲ページでありC/U/D API、DB、外部状態変更を含まないと確認した。
   - id: REV-001
     class: Invariant
     result: pass
@@ -177,6 +183,12 @@ selected_checks:
     evidence:
       - path:governance/reviews/CHG-20260828-song-performance-priority.yaml
     note: selectorで選択されなかったcheckをN/Aとして登録していない。
+  - id: REV-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/song-index.spec.ts
+    note: FAST-018はE2E変更で選択後、CRUD・DB・外部状態を持たない静的UI試験と判明したためN/A根拠を記録した。
   - id: REV-013
     class: Risk-selected
     result: pass
