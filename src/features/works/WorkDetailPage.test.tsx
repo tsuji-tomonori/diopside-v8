@@ -12,6 +12,27 @@ import { WorkDetailPage } from './WorkDetailPage.tsx';
 const root = process.cwd();
 
 describe('作品ページ', () => {
+  it('ワガママハイスペックをゲーム単位でアドベンチャー／ビジュアルノベルに統一する', () => {
+    const bundle = publicBundle();
+    render(
+      <MemoryRouter initialEntries={['/works/tag-works-gameTitle-ea18b3c09633']}>
+        <DeviceStoreContext.Provider value={new DeviceStore()}>
+          <BundleContext.Provider value={bundle}>
+            <Routes><Route path="/works/:tagId" element={<WorkDetailPage />} /></Routes>
+          </BundleContext.Provider>
+        </DeviceStoreContext.Provider>
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole('heading', { level: 1, name: 'ワガママハイスペック' })).toBeVisible();
+    expect(screen.getByRole('link', { name: 'アドベンチャー' })).toBeVisible();
+    expect(screen.getByRole('link', { name: 'ビジュアルノベル' })).toBeVisible();
+    expect(screen.queryByRole('link', { name: 'アクション' })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'ゲームジャンル確認元: Steam公式ストア' })).toHaveAttribute('href', 'https://store.steampowered.com/app/575480/WAGAMAMA_HIGH_SPEC/');
+    expect(screen.getByRole('link', { name: 'ゲームジャンル確認元: コンシューマ版公式サイト' })).toHaveAttribute('href', 'https://imel.co.jp/wagahigh/');
+    expect(document.querySelectorAll('.work-results .video-card')).toHaveLength(6);
+  });
+
   it('公式説明の引用・出典リンク・同じ作品の動画だけを表示する', () => {
     const bundle = publicBundle();
     render(
@@ -80,6 +101,7 @@ function publicBundle(): PublicBundle {
     tagIndex: json(`public/${latest.tagIndexPath}`) as PublicBundle['tagIndex'],
     aliasIndex: json(`public/${latest.aliasIndexPath}`) as PublicBundle['aliasIndex'],
     songIndex: json(`public/data/releases/${latest.releaseId}/song-index.json`) as PublicBundle['songIndex'],
+    gameIndex: json(`public/${latest.gameIndexPath}`) as PublicBundle['gameIndex'],
   };
 }
 

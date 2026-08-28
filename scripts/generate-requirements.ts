@@ -1468,6 +1468,98 @@ const searchInteractionRequirements = [
     last_changed_by: 'CHG-20260825-duration-slider-stability',
   },
 ];
+const gameCatalogRequirements = [
+  {
+    id: 'V8-TAG-039',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'data',
+    title: 'ゲームジャンルは確認元を持つゲーム単位の正本から全配信へ一貫して導出しなければならない',
+    subject: 'diopside v8のゲーム作品とゲームジャンル',
+    action: 'satisfy',
+    object: '特定のゲーム作品は、Steam、公式ストアまたは対象作品の公式サイトを確認元として、1〜3件のゲームジャンルをゲーム単位の正本に持たなければならない。同じゲーム作品を持つ全公開動画は、この正本から同じジャンルを導出し、動画単位の移行前ジャンルを公開分類として使ってはならない。特定作品ではない一般ラベルをゲーム作品一覧へ含めてはならない。',
+    rationale: '同じゲームの配信ごとにジャンルが揺れる状態と、根拠のない既定値による誤分類を防ぎ、作品単位で再確認できるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-039-1',
+        given: '有効な特定ゲーム作品タグと、その作品を持つ公開動画がある',
+        when: '正本検証と公開データ生成を行う',
+        then: '各作品にHTTPSの確認元・確認日・1〜3件の有効なゲームジャンルが一度だけ登録され、同じ作品の全動画へその分類を導出する。',
+      },
+      {
+        id: 'AC-V8-TAG-039-2',
+        given: 'ワガママハイスペックを持つ6件の公開動画がある',
+        when: '公式サイトとSteamを確認元にゲーム分類を生成する',
+        then: '6件すべてを「アドベンチャー」「ビジュアルノベル」とし、「アクション」を公開しない。',
+      },
+      {
+        id: 'AC-V8-TAG-039-3',
+        given: 'ゲーム作品名小分類に特定作品ではない一般ラベルがある',
+        when: 'ゲームカタログとゲーム一覧を生成する',
+        then: '一般ラベルをゲームカタログおよびプレイ作品一覧へ含めない。',
+      },
+    ],
+    verification: {
+      method: 'ゲーム正本構造・全作品網羅・公開ジャンル導出・対象作品回帰・一般ラベル除外試験',
+      evidence: 'scripts/audit-game-tags.ts, tests/generated.test.ts, src/features/games/GameIndexPage.test.tsx',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md', 'content/taxonomy/tag-taxonomy.json'],
+      implementation: ['content/works/game-catalog.json', 'src/domain/game-catalog.ts', 'src/domain/validation.ts', 'scripts/build-public-data.ts'],
+      tests: ['scripts/audit-game-tags.ts', 'tests/generated.test.ts', 'src/features/games/GameIndexPage.test.tsx', 'e2e/game-index.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260828-game-catalog-browser',
+  },
+  {
+    id: 'V8-DISPLAY-016',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: 'ゲームジャンルからプレイ作品を選び、そのゲームの配信一覧へ移動できなければならない',
+    subject: 'diopside v8のゲームジャンル・作品・配信導線',
+    action: 'satisfy',
+    object: 'ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示しなければならない。利用者がゲーム作品を押すと、その作品を持つ公開配信だけを一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。',
+    rationale: '動画単位のタグ絞り込みだけでなく、遊んだゲームをジャンルから眺め、同じ作品の配信を続けて探せるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-016-1',
+        given: 'ゲーム正本と公開動画索引が読み込まれている',
+        when: '利用者がゲーム探索画面を開く',
+        then: '公開動画があるゲームジャンルを作品数・配信数と共に表示し、ジャンル選択で該当する特定ゲーム作品だけを表示する。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-016-2',
+        given: '利用者がジャンル別一覧でゲーム作品を選ぶ',
+        when: '作品リンクを押す',
+        then: 'ゲーム単位のジャンルと確認元を表示し、そのゲーム作品を持つ公開配信だけを新しい順で一覧表示する。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-016-3',
+        given: '検索画面または動画詳細にゲーム、ゲームジャンル、ゲーム作品のタグがある',
+        when: '利用者が該当タグを選ぶ',
+        then: 'ゲームはジャンル一覧へ、ゲームジャンルは該当作品一覧へ、ゲーム作品は該当配信一覧へ移動する。',
+      },
+    ],
+    verification: {
+      method: 'ジャンル件数・作品除外・ジャンル遷移・作品遷移・配信一覧・アクセシビリティE2E',
+      evidence: 'src/features/games/GameIndexPage.test.tsx, src/features/works/WorkDetailPage.test.tsx, e2e/game-index.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/App.tsx', 'src/components/Header.tsx', 'src/features/games/GameIndexPage.tsx', 'src/features/works/WorkDetailPage.tsx', 'src/features/detail/VideoDetailPage.tsx', 'src/features/search/SearchPage.tsx'],
+      tests: ['src/features/games/GameIndexPage.test.tsx', 'src/features/works/WorkDetailPage.test.tsx', 'e2e/game-index.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260828-game-catalog-browser',
+  },
+];
 const generatedRequirements = [
   ...requirements,
   ...ownerDirectiveRequirements,
@@ -1479,6 +1571,7 @@ const generatedRequirements = [
   ...seriesPageRequirements,
   ...searchSuggestionRequirements,
   ...searchInteractionRequirements,
+  ...gameCatalogRequirements,
 ];
 const issue465OverrideIds = new Set([
   'V8-COST-001',
@@ -1499,7 +1592,7 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 20),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 22),
   product: 'diopside v8',
   updated_at: existingCatalog?.updated_at ?? '2026-08-26',
   requirements: canonicalRequirements,
@@ -1515,4 +1608,4 @@ writeFileSync(mapPath, `${JSON.stringify({
   })),
 }, null, 2)}\n`);
 
-console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + songPerformanceRequirements.length + collaborationPageRequirements.length + seriesPageRequirements.length + searchSuggestionRequirements.length + searchInteractionRequirements.length}件の要件正本を生成しました。`);
+console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + songPerformanceRequirements.length + collaborationPageRequirements.length + seriesPageRequirements.length + searchSuggestionRequirements.length + searchInteractionRequirements.length + gameCatalogRequirements.length}件の要件正本を生成しました。`);

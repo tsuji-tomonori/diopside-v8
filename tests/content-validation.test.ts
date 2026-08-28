@@ -5,6 +5,7 @@ import {
   channelPersonMappingsSchema,
   publicIndexSchema,
   collaborationProfilesSchema,
+  gameCatalogSchema,
   songPerformanceCatalogSchema,
   tagAliasesSchema,
   tagTaxonomySchema,
@@ -15,6 +16,7 @@ import {
   scanPublicBoundary,
   validateCanonicalVideo,
   validateChannelPersonMappings,
+  validateGameCatalog,
   validateSongPerformanceCatalog,
   validateTaxonomy,
 } from '../src/domain/validation.ts';
@@ -33,8 +35,20 @@ const collaborationProfiles = collaborationProfilesSchema.parse(json('content/pe
 const channelPersonMappings = channelPersonMappingsSchema.parse(json('content/people/channel-person-mappings.json'));
 const songPerformancesInput = json('content/songs/song-performances.json');
 const songPerformances = songPerformanceCatalogSchema.parse(songPerformancesInput);
+const gameCatalogInput = json('content/works/game-catalog.json');
+const gameCatalog = gameCatalogSchema.parse(gameCatalogInput);
 
 describe('タグ・動画正本と公開境界', () => {
+  it('特定ゲーム作品をゲーム単位の確認元・1〜3ジャンルで全件管理する', () => {
+    expect(gameCatalog.games).toHaveLength(247);
+    expect(validateGameCatalog(gameCatalogInput, taxonomy, workIntroductions, videos)).toEqual([]);
+    expect(gameCatalog.games.every((game) => game.sources.every((source) => source.url.startsWith('https://')))).toBe(true);
+    expect(gameCatalog.games.find((game) => game.title === 'ワガママハイスペック')?.gameGenreTagIds).toEqual([
+      'tag-content-gameGenre-2ec4e38c680d',
+      'tag-content-gameGenre-75b81f24091b',
+    ]);
+  });
+
   it('7大分類・30小分類・不変タグID・別名を一貫して検証する', () => {
     expect(validateTaxonomy(taxonomyInput, aliasesInput)).toEqual([]);
     const subcategories = taxonomy.categories.flatMap((category) => category.subcategories);

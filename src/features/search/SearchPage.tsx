@@ -97,6 +97,19 @@ export function SearchPage(): React.JSX.Element {
   const showSuggestions = suggestionsOpen && draft.query.trim().length > 0 && suggestionOptions.length > 0;
   const knownTagIds = useMemo(() => new Set(tags.map((tag) => tag.tagId)), [tags]);
   const songTagIds = useMemo(() => new Set(bundle.songIndex.songs.map((song) => song.tagId)), [bundle.songIndex.songs]);
+  const gameTitleTagIds = useMemo(() => new Set(bundle.gameIndex.games.map((game) => game.gameTitleTagId)), [bundle.gameIndex.games]);
+  const gameGenreTagIds = useMemo(() => new Set(
+    bundle.tagIndex.categories
+      .find((category) => category.categoryId === 'content')
+      ?.subcategories.find((subcategory) => subcategory.subcategoryId === 'gameGenre')
+      ?.tags.map((tag) => tag.tagId) ?? [],
+  ), [bundle.tagIndex.categories]);
+  const gameRootTagIds = useMemo(() => new Set(
+    bundle.tagIndex.categories
+      .find((category) => category.categoryId === 'content')
+      ?.subcategories.filter((subcategory) => ['primary', 'secondary'].includes(subcategory.subcategoryId))
+      .flatMap((subcategory) => subcategory.tags.filter((tag) => tag.canonicalName === 'ゲーム').map((tag) => tag.tagId)) ?? [],
+  ), [bundle.tagIndex.categories]);
   const tagInputIndex = useMemo(() => {
     const index = new Map(Object.entries(bundle.aliasIndex.aliases));
     for (const tag of tags) index.set(normalizeTagAlias(tag.canonicalName), tag.tagId);
@@ -201,6 +214,18 @@ export function SearchPage(): React.JSX.Element {
   };
 
   const applyTagSuggestion = (tagId: string): void => {
+    if (gameRootTagIds.has(tagId)) {
+      navigate('/games');
+      return;
+    }
+    if (gameGenreTagIds.has(tagId)) {
+      navigate(`/games/genres/${tagId}`);
+      return;
+    }
+    if (gameTitleTagIds.has(tagId)) {
+      navigate(`/works/${tagId}`);
+      return;
+    }
     if (songGenreTagIds.has(tagId)) {
       navigate('/songs');
       return;
@@ -230,6 +255,18 @@ export function SearchPage(): React.JSX.Element {
   };
 
   const selectTagAndShowResults = (tagId: string, mode: 'add' | 'toggle'): void => {
+    if (gameRootTagIds.has(tagId)) {
+      navigate('/games');
+      return;
+    }
+    if (gameGenreTagIds.has(tagId)) {
+      navigate(`/games/genres/${tagId}`);
+      return;
+    }
+    if (gameTitleTagIds.has(tagId)) {
+      navigate(`/works/${tagId}`);
+      return;
+    }
     if (songGenreTagIds.has(tagId)) {
       navigate('/songs');
       return;

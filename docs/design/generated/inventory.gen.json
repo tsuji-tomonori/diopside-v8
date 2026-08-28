@@ -8,7 +8,7 @@
     },
     {
       "path": "scripts/audit-game-tags.ts",
-      "sha256": "295525aeb86815c096f570d5965d42baa92e01f7ea358028e0022429842d8204"
+      "sha256": "a9fb353a339085dac43a6404a2d3eb53c4d46b09d3203fb8812eeaffeeed9568"
     },
     {
       "path": "scripts/audit-requirements.ts",
@@ -16,7 +16,7 @@
     },
     {
       "path": "scripts/build-public-data.ts",
-      "sha256": "b724e000130a9637b422bf2f26517e0bddcd67174d9cee6b6e9b23da312e4625"
+      "sha256": "abec4c876e2a52f8a148806badda48b053784005fc3cfc1cbf5280b0896eb7ff"
     },
     {
       "path": "scripts/canonical-store.ts",
@@ -36,7 +36,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "5ed9b18d9e9f5a7ca7057f3f5cf3286d8ed5466bbd9a3fc78d6e31bd7f1624ff"
+      "sha256": "ae65a41295bad1a42bd2857c0e2f686495aa11670d382e09a5b4dc7d7f04a37a"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -84,7 +84,7 @@
     },
     {
       "path": "scripts/validate-content.ts",
-      "sha256": "5867f4c0d31b2380b68f4b1a8dfdaaf446d84eb74c9f756f08dfd8aa5216908d"
+      "sha256": "a35fcc579994e053d12b6ef4bf63ada0999ae1cce9cba1fe07b3a392037e4eaa"
     },
     {
       "path": "scripts/validate-release-pr-scope.ts",
@@ -108,11 +108,11 @@
     },
     {
       "path": "src/App.tsx",
-      "sha256": "da9498319389d22300e2ae3c4cf616495f6178ddba949cfef307a1162b7e6ac4"
+      "sha256": "371d717d42c196f9a3c91158601b244f680888355a28031f1cbd2490228e992e"
     },
     {
       "path": "src/components/Header.tsx",
-      "sha256": "42ffc95c2d33a2afd999616d6b81bb0d18b4554e255d6547f6a33d69b8ac64e9"
+      "sha256": "850159d1d4f589350154c612420de605bae7ba2db5a2372ce163c0c90292facb"
     },
     {
       "path": "src/components/VideoCard.tsx",
@@ -132,11 +132,11 @@
     },
     {
       "path": "src/data/loadPublicData.test.ts",
-      "sha256": "e77be0445ffd2ccbe8978a0c11c5cd9ff55fca24f09b7bd09e7e8fe0d3ccda29"
+      "sha256": "baa9cee9647b5ae6992ba450d59a9da6ea1e5a2bf7d2db2b3681e8142f0233fb"
     },
     {
       "path": "src/data/loadPublicData.ts",
-      "sha256": "e6f49da77d7c53bc105f5ba98a75bb8f99a5859cd526e28c3da3e896c5464469"
+      "sha256": "69c389963eb94f242613eb334b42bfd3e913a7f2b6f0340aff7c5d8dc601ef3b"
     },
     {
       "path": "src/domain/collaboration-group-audit.test.ts",
@@ -156,7 +156,11 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "4167e7a5206bf7bfb553646f9a210b4a7054257054cedb4601aeca4d420cca93"
+      "sha256": "4153aa2c72bec6df884e73f07c92feb87e98c03b7c99008342cd38d61bfa2479"
+    },
+    {
+      "path": "src/domain/game-catalog.ts",
+      "sha256": "04b0fe5ce42d8f0e546310f6b7ed30afa8f3ca6e9ae5fba23efdaf03f94d87dd"
     },
     {
       "path": "src/domain/game-title-detection.test.ts",
@@ -180,11 +184,11 @@
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "b53f4b7c7a53e5331a37dcc6563e55e5bbb1cc445ad5e549246ad166ae5da835"
+      "sha256": "0dd2ebf1ad05d4af899b020e8a1b6ed85557becca5e742afdaeaccadd72171e2"
     },
     {
       "path": "src/features/collaborations/CollaborationDetailPages.test.tsx",
-      "sha256": "1e135ba3424d93807164e23bdca883ff314fc1cc736806febdedd983159a6bc8"
+      "sha256": "a3610e78df69f3c90122a299da607df6c2f134fc34178bf758d7c0ef0b145b00"
     },
     {
       "path": "src/features/collaborations/CollaboratorDetailPage.tsx",
@@ -196,7 +200,15 @@
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
-      "sha256": "50a1f6b9e53b98f3185790f129962e604a131bfa69ab971f0751ff1e5fe7964c"
+      "sha256": "b1b2a379706a79241c66575b4eccbf659ce3375cf73ed0a9f9049df1c296dc64"
+    },
+    {
+      "path": "src/features/games/GameIndexPage.test.tsx",
+      "sha256": "925420a5d86216dd6b04e3bc05498a27cfe1bd64f63ca0bc74967e047cb5b00a"
+    },
+    {
+      "path": "src/features/games/GameIndexPage.tsx",
+      "sha256": "afa680f7a92d97b7a57a66806382e5588279838571821dab5a8af1390230db79"
     },
     {
       "path": "src/features/library/DeviceLibraryPage.tsx",
@@ -216,15 +228,15 @@
     },
     {
       "path": "src/features/search/SearchPage.test.tsx",
-      "sha256": "5b55b7dbf921c37dce178b8baa86ea025f040c93e20112de2bee3ef2f37d67f5"
+      "sha256": "f6903ca103a81aec94ad3da87554764436bac1d72ec01017ddbb0f897841ba40"
     },
     {
       "path": "src/features/search/SearchPage.tsx",
-      "sha256": "3719a2c2791fbff8ff95715a4c9ecdf9b5c9ba0e2dd5444868c0d21fac719eb9"
+      "sha256": "b206dd068f853a4972cca86becaea6cdfd386ca906d54318a58550c5038a3c2a"
     },
     {
       "path": "src/features/series/SeriesDetailPage.test.tsx",
-      "sha256": "fa67428e97cc8136aa00c8abe76815e5e55e8574de88fdfbde57cf6d7e87ff4d"
+      "sha256": "e3b8dc0b1698ee1a4a17d02908feb7bc52ba28ff9851cecc2a800d58b0e21a84"
     },
     {
       "path": "src/features/series/SeriesDetailPage.tsx",
@@ -232,7 +244,7 @@
     },
     {
       "path": "src/features/songs/SongIndexPage.test.tsx",
-      "sha256": "b278e40a6da20a32c8f986c88db2e24288acc9c5c1af9ca439d634f611f195f2"
+      "sha256": "47c123068eb481e063f6c6187a5475ed0b4d196aa2b0f694103c9723f67457b8"
     },
     {
       "path": "src/features/songs/SongIndexPage.tsx",
@@ -240,11 +252,11 @@
     },
     {
       "path": "src/features/works/WorkDetailPage.test.tsx",
-      "sha256": "5288f536bd81ba2d4fb9a0406b6ae6b7dcbd67c151e17d6c27f86db65d036814"
+      "sha256": "a531b2acb4009ca349a7d0c8873a41cd4918cf374ca90ed97749d4a0cb642749"
     },
     {
       "path": "src/features/works/WorkDetailPage.tsx",
-      "sha256": "f721808fdbbe1dc67b2a756ae1a19579bfdaeaba8c815c7aa646876421eb31cd"
+      "sha256": "0e2e0b37c353975c10deb43d2fbb98e72b883d05dba41374813782db963e0b0a"
     },
     {
       "path": "src/format.ts",
@@ -593,6 +605,16 @@
     },
     {
       "file": "src/domain/content.ts",
+      "name": "GameCatalog",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "gameCatalogSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
       "name": "independentReviewSchema",
       "kind": "VariableStatement"
     },
@@ -619,6 +641,16 @@
     {
       "file": "src/domain/content.ts",
       "name": "publicAliasIndexSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "PublicGameIndex",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "publicGameIndexSchema",
       "kind": "VariableStatement"
     },
     {
@@ -782,6 +814,16 @@
       "kind": "VariableStatement"
     },
     {
+      "file": "src/domain/game-catalog.ts",
+      "name": "applyGameCatalogGenres",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/game-catalog.ts",
+      "name": "catalogGameGenreTagIds",
+      "kind": "FunctionDeclaration"
+    },
+    {
       "file": "src/domain/game-title-detection.ts",
       "name": "detectExplicitGameTitleTagIds",
       "kind": "FunctionDeclaration"
@@ -933,6 +975,11 @@
     },
     {
       "file": "src/domain/validation.ts",
+      "name": "validateGameCatalog",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/validation.ts",
       "name": "validateSongPerformanceCatalog",
       "kind": "FunctionDeclaration"
     },
@@ -959,6 +1006,11 @@
     {
       "file": "src/features/detail/VideoDetailPage.tsx",
       "name": "VideoDetailPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/games/GameIndexPage.tsx",
+      "name": "GameIndexPage",
       "kind": "FunctionDeclaration"
     },
     {
@@ -1016,6 +1068,8 @@
     "*",
     "/",
     "/collaborators/:tagId",
+    "/games",
+    "/games/genres/:tagId",
     "/groups/:tagId",
     "/library",
     "/series/:tagId",
@@ -1026,6 +1080,7 @@
   ],
   "tests": [
     "e2e/detail.spec.ts",
+    "e2e/game-index.spec.ts",
     "e2e/library.spec.ts",
     "e2e/search.spec.ts",
     "e2e/song-index.spec.ts",
@@ -1037,6 +1092,7 @@
     "src/domain/search.test.ts",
     "src/domain/validation.test.ts",
     "src/features/collaborations/CollaborationDetailPages.test.tsx",
+    "src/features/games/GameIndexPage.test.tsx",
     "src/features/search/SearchFilterControls.test.tsx",
     "src/features/search/SearchPage.test.tsx",
     "src/features/series/SeriesDetailPage.test.tsx",

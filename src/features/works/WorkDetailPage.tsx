@@ -15,22 +15,46 @@ export function WorkDetailPage(): React.JSX.Element {
       subcategoryName: subcategory.name,
     })))
     .find((tag) => tag.tagId === tagId);
+  const game = bundle.gameIndex.games.find((item) => item.gameTitleTagId === tagId);
+  const gameGenres = game?.gameGenreTagIds.flatMap((genreTagId) => {
+    const genre = bundle.tagIndex.categories
+      .find((category) => category.categoryId === 'content')
+      ?.subcategories.find((subcategory) => subcategory.subcategoryId === 'gameGenre')
+      ?.tags.find((tag) => tag.tagId === genreTagId);
+    return genre ? [genre] : [];
+  }) ?? [];
 
   if (!work) {
     return <main className="state-panel" role="status"><h1>作品が見つかりません</h1><p>公開中の作品タグではありません。</p><Link className="button secondary" to="/">動画検索へ戻る</Link></main>;
   }
 
   const summaries = new Map(bundle.index.videos.map((video) => [video.videoId, video]));
-  const videos = work.videoIds
+  const videos = (game?.videoIds ?? work.videoIds)
     .flatMap((videoId) => summaries.get(videoId) ? [summaries.get(videoId) as PublicVideoSummary] : [])
     .sort((left, right) => new Date(right.publishedAt).getTime() - new Date(left.publishedAt).getTime() || left.videoId.localeCompare(right.videoId));
 
   return (
     <main className="work-page">
-      <Link className="back-link" to="/">← 動画検索へ戻る</Link>
+      <Link className="back-link" to={game ? '/games' : '/'}>← {game ? 'ゲームを探す' : '動画検索'}へ戻る</Link>
       <section className="page-intro work-intro" aria-labelledby="work-heading">
         <p className="eyebrow">{work.subcategoryName}</p>
         <h1 id="work-heading">{work.canonicalName}</h1>
+        {game ? (
+          <section className="game-classification" aria-labelledby="game-classification-heading">
+            <h2 id="game-classification-heading">ゲーム単位のジャンル</h2>
+            <div className="game-genre-links">
+              {gameGenres.map((genre) => <Link key={genre.tagId} to={`/games/genres/${genre.tagId}`}>{genre.canonicalName}</Link>)}
+            </div>
+            <ul className="game-sources" aria-label="ゲームジャンル確認元">
+              {game.sources.map((source) => (
+                <li key={source.url}>
+                  <a href={source.url} target="_blank" rel="noreferrer" aria-label={`ゲームジャンル確認元: ${source.label}`}>{source.label}</a>
+                  {' '}（確認日: {formatDate(`${source.checkedAt}T00:00:00+09:00`)}）
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
         {work.introduction ? (
           <>
             <blockquote className="work-quote"><p>「{work.introduction.quote}」</p></blockquote>
