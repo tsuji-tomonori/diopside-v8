@@ -36,7 +36,7 @@ describe('歌唱楽曲一覧', () => {
     const performanceHeading = within(card).getByRole('heading', { level: 3, name: '白雪巴の歌唱' });
     const originalHeading = within(card).getByRole('heading', { level: 3, name: '原曲情報' });
     expect(performanceHeading.compareDocumentPosition(originalHeading)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
-    expect(within(card).getByRole('link', { name: '動画を見る ↗' })).toHaveClass('primary');
+    expect(within(card).getByRole('link', { name: '10:33 から見る ↗' })).toHaveClass('primary');
     expect(within(card).getByRole('link', { name: '原曲を聴く ↗' })).toHaveClass('secondary');
   });
 
