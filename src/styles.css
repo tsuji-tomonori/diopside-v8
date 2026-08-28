@@ -72,14 +72,31 @@ legend { font-weight: 800; margin-bottom: .4rem; }
 .tag-filter-content { display: grid; grid-template-rows: 0fr; opacity: 0; visibility: hidden; transition: grid-template-rows .18s ease, opacity .12s ease, visibility 0s linear .18s; }
 .tag-filter-content.is-expanded { grid-template-rows: 1fr; opacity: 1; visibility: visible; transition: grid-template-rows .18s ease, opacity .12s ease; }
 .tag-filter-content-inner { min-height: 0; overflow: hidden; }
-.tag-group { padding: .85rem 0; border-bottom: 1px solid #eeeaf3; }
 .tag-input-label { display: block; margin-top: 1rem; color: var(--ink); font-size: .86rem; font-weight: 700; }
 .tag-input-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .65rem; margin: .45rem 0 1rem; }
-.tag-group h3 { margin: 0 0 .65rem; font-size: .9rem; }
 .tag-choices { display: flex; flex-wrap: wrap; gap: .5rem; }
 .tag-choice { min-height: 44px; padding: .45rem .75rem; border: 1px solid var(--line); border-radius: 999px; background: white; color: var(--ink); cursor: pointer; }
 .tag-choice span { margin-left: .4rem; color: var(--muted); font-size: .75rem; }
 .tag-choice[aria-pressed="true"] { border-color: var(--lavender); color: var(--lavender-dark); background: var(--lavender-pale); }
+.tag-shortcut-group { margin-top: .85rem; padding: .85rem; border: 1px solid #e1dbea; border-radius: 14px; background: #fcfbfd; }
+.tag-shortcut-heading { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: .65rem; }
+.tag-shortcut-heading h3, .tag-browser-heading h3 { margin: 0; color: var(--ink); font-size: .9rem; }
+.tag-shortcut-heading span { color: var(--muted); font-size: .72rem; font-weight: 700; }
+.selected-tags { border-color: #cfc3df; background: var(--lavender-pale); }
+.tag-browser-heading { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-top: 1.15rem; }
+.tag-browser-heading .hint { margin: 0; text-align: right; }
+.tag-accordion { display: grid; gap: .55rem; margin-top: .65rem; }
+.tag-category, .tag-subcategory { overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: white; }
+.tag-category > summary, .tag-subcategory > summary { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: .65rem; min-height: 48px; padding: .55rem .75rem; color: var(--ink); font-weight: 800; cursor: pointer; list-style: none; }
+.tag-category > summary::-webkit-details-marker, .tag-subcategory > summary::-webkit-details-marker { display: none; }
+.tag-category > summary::after, .tag-subcategory > summary::after { color: var(--lavender); content: "⌄"; font-size: 1rem; transition: transform .18s ease; }
+.tag-category[open] > summary::after, .tag-subcategory[open] > summary::after { transform: rotate(180deg); }
+.tag-category[open] > summary { color: var(--lavender-dark); background: var(--lavender-pale); }
+.tag-accordion-count { color: var(--muted); font-size: .72rem; font-weight: 700; white-space: nowrap; }
+.tag-category-content { display: grid; gap: .5rem; padding: .6rem; }
+.tag-subcategory { border-radius: 11px; background: #fcfbfd; }
+.tag-subcategory > summary { min-height: 46px; font-size: .84rem; font-weight: 700; }
+.tag-subcategory > .tag-choices { padding: .7rem; border-top: 1px solid var(--line); background: white; }
 .filter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
 .filter-card { min-width: 0; margin: 0 0 1.25rem; padding: 1rem; border: 1px solid var(--line); border-radius: 18px; background: #fcfbfd; }
 .filter-card > legend { padding: 0 .35rem; color: var(--lavender-dark); }
@@ -272,6 +289,9 @@ footer { padding: 2.5rem 1rem; text-align: center; color: var(--muted); border-t
   .search-row { grid-template-columns: 1fr; }
   .search-suggestions { position: static; max-height: min(50vh, 360px); margin-top: .4rem; }
   .tag-input-row { grid-template-columns: 1fr; }
+  .tag-browser-heading { align-items: start; flex-direction: column; gap: .25rem; }
+  .tag-browser-heading .hint { text-align: left; }
+  .tag-category > summary, .tag-subcategory > summary { gap: .4rem; padding-inline: .65rem; }
   .filter-grid, .video-grid { grid-template-columns: 1fr; }
   .filter-card { padding: .75rem .25rem 1rem; }
   .date-range-panel { padding: .7rem .25rem; }

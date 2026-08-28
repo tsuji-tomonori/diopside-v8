@@ -373,10 +373,17 @@ const requirements = sourceRequirements.map((item) => {
     requirement.last_changed_by = 'CHG-20260820-search-suggestions';
   }
   if (id === 'V8-SEARCH-008') {
-    requirement.revision = 3;
-    requirement.title = '検索欄のタグ候補と詳細なタグ絞り込みは、選択だけで検索して自動的に折り畳まれなければならない';
-    requirement.object = '検索欄は登録済みタグを動画候補と区別して提示し、選択時に不変タグIDの絞り込み条件として適用しなければならない。詳細なタグ絞り込み欄は、選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。利用者が検索候補または詳細な候補タグを追加または解除した時点で、追加の確定操作なしに検索条件を反映し、タグ補助候補欄を折り畳み、動画一覧へ移動できなければならない。';
-    requirement.source_refs.push('owner-directive:2026-08-07', 'spec/sources/owner-directive-2026-08-20-search-suggestions.md', 'user:2026-08-20', 'owner-directive:2026-08-20');
+    requirement.revision = 4;
+    requirement.title = '検索欄のタグ候補と詳細なタグ絞り込みは、選択だけで検索し、分類ごとに折り畳めなければならない';
+    requirement.object = '検索欄は登録済みタグを動画候補と区別して提示し、選択時に不変タグIDの絞り込み条件として適用しなければならない。詳細な絞り込みでは、公開日と動画長を全タグ一覧より前で操作できなければならない。タグ絞り込み欄は、選択中タグ、よく使う主ジャンル、タグ名または別名の入力を全タグの展開なしに提示し、全タグを大分類と小分類ごとに初期状態で折り畳まなければならない。選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。利用者が検索候補または詳細な候補タグを追加または解除した時点で、追加の確定操作なしに検索条件を反映し、タグ補助候補欄を折り畳み、動画一覧へ移動できなければならない。';
+    requirement.source_refs.push(
+      'owner-directive:2026-08-07',
+      'spec/sources/owner-directive-2026-08-20-search-suggestions.md',
+      'user:2026-08-20',
+      'owner-directive:2026-08-20',
+      'spec/sources/owner-directive-2026-08-28-search-filter-navigation.md',
+      'user:2026-08-28',
+    );
     requirement.acceptance_criteria = [
       {
         id: 'AC-V8-SEARCH-008-1',
@@ -390,12 +397,19 @@ const requirements = sourceRequirements.map((item) => {
         when: 'タグ選択から検索結果までの画面操作試験・件数契約試験・折り畳み操作試験',
         then: '追加後1件以上になる未選択タグと解除できる選択済みタグだけを日本語名と件数付きで示す。タグ選択だけで不変タグIDの検索条件と共有可能URLを更新し、タグ候補欄を滑らかに折り畳み、動画件数見出しへフォーカスと表示位置を移す。再度タグ候補欄を開くと選択状態を維持している。',
       },
+      {
+        id: 'AC-V8-SEARCH-008-3',
+        given: '多数のタグを持つ詳細絞り込みをモバイルまたはデスクトップで開いている',
+        when: '公開日・動画長またはタグを選ぶ画面操作試験・折り畳み構造試験',
+        then: '公開日と動画長を全タグ一覧より前で操作できる。選択中タグ、よく使う主ジャンル、タグ名または別名の入力は全分類を開かずに利用でき、全タグは大分類と小分類が閉じた状態から必要な分類だけを開ける。',
+      },
     ];
     requirement.verification = {
-      method: '検索候補・タグ条件適用・件数契約・折り畳み操作試験',
-      evidence: 'src/domain/search.test.ts, e2e/search.spec.ts',
+      method: '検索候補・タグ条件適用・件数契約・公開日到達順・大分類と小分類の折り畳み操作試験',
+      evidence: 'src/features/search/SearchPage.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts',
     };
-    requirement.last_changed_by = 'CHG-20260820-auto-apply-tag-search';
+    requirement.traces.tests.push('src/features/search/SearchPage.test.tsx');
+    requirement.last_changed_by = 'CHG-20260828-grouped-search-filters';
   }
   if (id === 'V8-SEARCH-011') {
     requirement.revision = 2;
