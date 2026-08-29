@@ -6,26 +6,29 @@
 
 `.github/workflows/deploy-ingestion-infra.yml` は、検証済みmainの `DiopsideIngestionStack` だけを人がデプロイする入口です。schedule、push、PRでは起動せず、`DEPLOY` の確認入力とGitHub environment `private-backfill-infra` の承認を必須にします。workflowは基盤をデプロイするだけで、manifest作成、素材upload、SQS enqueue、削除、公開、mergeは実行しません。
 
-長期AWS access keyはGitHubへ保存しません。AWS accountには、事前にmodern CDK bootstrapと `https://token.actions.githubusercontent.com`、audience `sts.amazonaws.com` のOIDC providerが必要です。受けロールは `DiopsideGitHubDeploymentAccessStack` で一度だけ管理者が作成します。このstackはbootstrapを使わないため、既存OIDC providerの正確なsubjectをparameterに指定して単独deployできます。
+長期AWS access keyはGitHubへ保存しません。AWS accountには、事前にmodern CDK bootstrapと `https://token.actions.githubusercontent.com`、audience `sts.amazonaws.com` のOIDC providerが必要です。受けロールは `DiopsideGitHubDeploymentAccessStack` で一度だけ管理者が作成します。このstackはbootstrapを使わないため、既存OIDC providerの正確なsubjectと、bootstrap済みの対象regionをparameterに指定して単独deployできます。
+
+IAM roleはregionに属しません。一方、CloudFormation stackの配置regionと、受けロールが引き受けるCDK bootstrap roleのregionは別の設定です。既存access stackが `us-east-1` にある場合も削除や再作成はせず、そのstackを更新して委譲先を `ap-northeast-1` にします。
 
 ```console
 CDK_DEFAULT_ACCOUNT=123456789012 \
-CDK_DEFAULT_REGION=ap-northeast-1 \
+CDK_DEFAULT_REGION=us-east-1 \
 npm exec -- cdk deploy DiopsideGitHubDeploymentAccessStack \
   --exclusively \
-  --parameters 'GitHubOidcSubject=repo:tsuji-tomonori/diopside-v8:environment:private-backfill-infra' \
-  --parameters 'GitHubEnqueueOidcSubject=repo:tsuji-tomonori/diopside-v8:environment:private-backfill-enqueue'
+  --parameters 'GitHubOidcSubject=repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-infra' \
+  --parameters 'GitHubEnqueueOidcSubject=repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-enqueue' \
+  --parameters 'TargetDeploymentRegion=ap-northeast-1'
 ```
 
-GitHubのimmutable OIDC subjectを有効化しているrepositoryでは、owner IDとrepository IDを含む実際のsubjectを完全一致で指定します。ワイルドカードへ広げません。OIDC providerが未作成の場合はAWS管理者が先に作成し、既存providerがある場合は再作成しません。
+このrepositoryは2026-07-15以降に作成されたため、GitHubのdefault OIDC subjectはowner IDとrepository IDを含むimmutable形式です。deploy用subjectは `repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-infra`、enqueue用subjectは `repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-enqueue` に固定し、旧name-based subject、別repository、別environmentをparameterで指定できないようにします。`gh api repos/tsuji-tomonori/diopside-v8/actions/oidc/customization/sub` の `sub_claim_prefix` を変更前に再確認します。OIDC providerが未作成の場合はAWS管理者が先に作成し、既存providerがある場合は再作成しません。
 
 GitHub environment `private-backfill-infra` はdeployment branchを `main` だけに限定し、required reviewerとprotection ruleのbypass禁止を設定します。次のenvironment variablesを登録します。
 
 - `AWS_ACCOUNT_ID`: 対象AWS account ID
-- `AWS_REGION`: bootstrap済みregion
+- `AWS_REGION`: `ap-northeast-1`
 - `AWS_DEPLOY_ROLE_ARN`: access stackの `GitHubActionsDeployRoleArn` output
 
-受けロールは同じaccountとregionのCDK bootstrap `deploy`、`file-publishing`、`lookup` roleだけを引き受けます。ECR image publishing roleやAWS serviceの直接操作権限は持ちません。workflowはRuff、Pyright strict、mypy strict、pytest、CDK synth、cdk-nag、生成設計driftがすべて合格してからOIDC短期sessionを取得し、CloudFormation change set経由でデプロイします。
+受けロールは同じaccountの `ap-northeast-1` にあるCDK bootstrap `deploy`、`file-publishing`、`lookup` roleだけを引き受けます。access stack自体の配置regionには依存しません。ECR image publishing roleやAWS serviceの直接操作権限は持ちません。workflowはRuff、Pyright strict、mypy strict、pytest、CDK synth、cdk-nag、生成設計driftがすべて合格してからOIDC短期sessionを取得し、CloudFormation change set経由でデプロイします。
 
 ## GitHub Actionsからの1動画投入
 
@@ -34,11 +37,11 @@ GitHub environment `private-backfill-infra` はdeployment branchを `main` だ�
 GitHub environment `private-backfill-enqueue` はdeployment branchを `main` だけに限定し、required reviewerとprotection ruleのbypass禁止を設定します。次のenvironment variablesを登録します。
 
 - `AWS_ACCOUNT_ID`: 対象AWS account ID
-- `AWS_REGION`: request queueをデプロイしたregion
+- `AWS_REGION`: `ap-northeast-1`（access stackの `GitHubActionsDeploymentRegion` output）
 - `AWS_ENQUEUE_ROLE_ARN`: access stackの `GitHubActionsEnqueueRoleArn` output
-- `AWS_INGESTION_QUEUE_URL`: `https://sqs.<region>.amazonaws.com/<account-id>/diopside-ingestion-request.fifo`
+- `AWS_INGESTION_QUEUE_URL`: `https://sqs.ap-northeast-1.amazonaws.com/<account-id>/diopside-ingestion-request.fifo`
 
-enqueue用ロールは完全一致OIDC subjectだけを信頼し、対象FIFOへの `sqs:SendMessage` だけを許可します。S3、DynamoDB、Lambda、CloudFormation、IAM、キュー削除の権限は持ちません。workflowはaccount、region、role ARN、queue URLを相互照合してから送信し、GitHub run IDとvideo IDをdeduplication IDに使います。別のworkflow runは運用者による新しい明示投入として扱います。
+enqueue用ロールはimmutableな完全一致OIDC subjectだけを信頼し、`TargetDeploymentRegion` の対象FIFOへの `sqs:SendMessage` だけを許可します。access stackが `us-east-1` にあってもqueue ARNは `ap-northeast-1` を参照します。S3、DynamoDB、Lambda、CloudFormation、IAM、キュー削除の権限は持ちません。workflowはaccount、region、role ARN、queue URLを相互照合してから送信し、GitHub run IDとvideo IDをdeduplication IDに使います。別のworkflow runは運用者による新しい明示投入として扱います。
 
 実行前にAWS料金、利用量、契約条件、対象動画を確認し、Actionsの「1動画private backfill投入」をmainから開始して `video_id` と `ENQUEUE` を入力します。workflowの成功はその1件のenqueueだけを示し、基盤deploy、素材の完了、削除、公開、mergeを意味しません。
 

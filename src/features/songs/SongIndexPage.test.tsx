@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 import { BundleContext } from '../../contexts.ts';
@@ -23,6 +23,21 @@ describe('歌唱楽曲一覧', () => {
     );
     expect(screen.getAllByText('歌ってみた').length).toBeGreaterThan(0);
     expect(screen.getAllByText('歌枠')).toHaveLength(4);
+  });
+
+  it('白雪巴の歌唱を原曲より先に表示し、動画を主操作にする', () => {
+    renderPage('/songs/tag-works-songTitle-f7c683c127e9');
+
+    const card = screen.getByRole('heading', { level: 2, name: '可愛くてごめん' }).closest('article');
+    if (!card) {
+      throw new Error('楽曲カードが見つかりません');
+    }
+
+    const performanceHeading = within(card).getByRole('heading', { level: 3, name: '白雪巴の歌唱' });
+    const originalHeading = within(card).getByRole('heading', { level: 3, name: '原曲情報' });
+    expect(performanceHeading.compareDocumentPosition(originalHeading)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(within(card).getByRole('link', { name: '10:33 から見る ↗' })).toHaveClass('primary');
+    expect(within(card).getByRole('link', { name: '原曲を聴く ↗' })).toHaveClass('secondary');
   });
 
   it('楽曲タグのURLで対象曲だけを表示する', () => {
@@ -54,6 +69,7 @@ function publicBundle(): PublicBundle {
     tagIndex: json(`public/${latest.tagIndexPath}`) as PublicBundle['tagIndex'],
     aliasIndex: json(`public/${latest.aliasIndexPath}`) as PublicBundle['aliasIndex'],
     songIndex: json(`public/data/releases/${latest.releaseId}/song-index.json`) as PublicBundle['songIndex'],
+    gameIndex: json(`public/${latest.gameIndexPath}`) as PublicBundle['gameIndex'],
   };
 }
 

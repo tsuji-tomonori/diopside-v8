@@ -2,32 +2,45 @@ from __future__ import annotations
 
 import json
 
-from aws_cdk import App
+from aws_cdk import App, Environment
 from aws_cdk.assertions import Template
 
 from diopside_deployment.access_stack import GitHubDeploymentAccessStack
 
+_IMMUTABLE_GITHUB_DEPLOY_OIDC_SUBJECT = (
+    "repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-infra"
+)
+_IMMUTABLE_GITHUB_ENQUEUE_OIDC_SUBJECT = (
+    "repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-enqueue"
+)
 
-def deployment_access_template() -> Template:
+
+def deployment_access_template(*, stack_region: str = "ap-northeast-1") -> Template:
     app = App()
-    stack = GitHubDeploymentAccessStack(app, "TestDeploymentAccess")
+    stack = GitHubDeploymentAccessStack(
+        app,
+        "TestDeploymentAccess",
+        env=Environment(account="123456789012", region=stack_region),
+    )
     return Template.from_stack(stack)
 
 
-def test_deployment_role_trusts_only_the_exact_protected_github_environment() -> None:
+def test_roles_trust_only_the_exact_immutable_github_subjects() -> None:
     template = deployment_access_template()
     template.has_parameter(
         "GitHubOidcSubject",
         {
             "Type": "String",
-            "AllowedPattern": ("^repo:[^:]+/[^:]+:environment:private-backfill-infra$"),
+            "Default": _IMMUTABLE_GITHUB_DEPLOY_OIDC_SUBJECT,
+            "AllowedValues": [_IMMUTABLE_GITHUB_DEPLOY_OIDC_SUBJECT],
         },
     )
     template.has_parameter(
         "GitHubEnqueueOidcSubject",
         {
             "Type": "String",
-            "AllowedPattern": ("^repo:[^:]+/[^:]+:environment:private-backfill-enqueue$"),
+            "Default": _IMMUTABLE_GITHUB_ENQUEUE_OIDC_SUBJECT,
+            "AllowedValues": [_IMMUTABLE_GITHUB_ENQUEUE_OIDC_SUBJECT],
         },
     )
     template.resource_count_is("AWS::IAM::OIDCProvider", 0)
@@ -72,9 +85,19 @@ def test_deployment_role_trusts_only_the_exact_protected_github_environment() ->
             }
         ]
 
+    assert "repo:tsuji-tomonori/diopside-v8:" not in json.dumps(roles)
 
-def test_deployment_role_can_only_assume_required_same_environment_bootstrap_roles() -> None:
-    template = deployment_access_template()
+
+def test_deployment_role_can_only_assume_required_target_region_bootstrap_roles() -> None:
+    template = deployment_access_template(stack_region="us-east-1")
+    template.has_parameter(
+        "TargetDeploymentRegion",
+        {
+            "Type": "String",
+            "Default": "ap-northeast-1",
+            "AllowedValues": ["ap-northeast-1"],
+        },
+    )
     role_ids_by_name = {
         role["Properties"]["RoleName"]: logical_id
         for logical_id, role in template.find_resources("AWS::IAM::Role").items()
@@ -102,12 +125,19 @@ def test_deployment_role_can_only_assume_required_same_environment_bootstrap_rol
     assert "cdk-hnb659fds-deploy-role-" in serialized
     assert "cdk-hnb659fds-file-publishing-role-" in serialized
     assert "cdk-hnb659fds-lookup-role-" in serialized
+    assert '"Ref": "TargetDeploymentRegion"' in serialized
+    assert "us-east-1" not in serialized
     assert "image-publishing" not in serialized
     assert '"*"' not in serialized
 
+    template.has_output(
+        "GitHubActionsDeploymentRegion",
+        {"Value": {"Ref": "TargetDeploymentRegion"}},
+    )
 
-def test_enqueue_role_can_only_send_to_the_private_ingestion_request_queue() -> None:
-    template = deployment_access_template()
+
+def test_enqueue_role_can_only_send_to_the_target_region_request_queue() -> None:
+    template = deployment_access_template(stack_region="us-east-1")
     role_ids_by_name = {
         role["Properties"]["RoleName"]: logical_id
         for logical_id, role in template.find_resources("AWS::IAM::Role").items()
@@ -133,7 +163,7 @@ def test_enqueue_role_can_only_send_to_the_private_ingestion_request_queue() -> 
                         "arn:",
                         {"Ref": "AWS::Partition"},
                         ":sqs:",
-                        {"Ref": "AWS::Region"},
+                        {"Ref": "TargetDeploymentRegion"},
                         ":",
                         {"Ref": "AWS::AccountId"},
                         ":diopside-ingestion-request.fifo",
@@ -144,8 +174,14 @@ def test_enqueue_role_can_only_send_to_the_private_ingestion_request_queue() -> 
         }
     ]
     serialized = json.dumps(policy, sort_keys=True)
+    assert "us-east-1" not in serialized
     assert '"*"' not in serialized
     assert "s3:" not in serialized.lower()
     assert "dynamodb:" not in serialized.lower()
     assert "lambda:" not in serialized.lower()
     assert "cloudformation:" not in serialized.lower()
+
+    template.has_output(
+        "GitHubActionsEnqueueRoleArn",
+        {"Value": {"Fn::GetAtt": [role_ids_by_name["diopside-github-actions-enqueue"], "Arn"]}},
+    )

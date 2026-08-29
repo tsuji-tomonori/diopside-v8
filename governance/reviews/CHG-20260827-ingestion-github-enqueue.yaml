@@ -51,12 +51,12 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [commit:self, path:spec/requirements/requirements.json]
-    note: V8-COST-005、V8-INGEST-001/002/009、V8-OPS-003を更新し、最小権限の1動画投入境界をV8-INGEST-014として追加した。
+    note: V8-COST-005、V8-INGEST-001/002/009、V8-OPS-003を更新して1動画投入境界をV8-INGEST-014として追加し、V8-INGEST-013/014をimmutable subjectとTargetDeploymentRegionの実態へ整合した。
   - id: IMP-002
     class: Invariant
     result: pass
     evidence: [path:docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md, path:docs/design/generated/system.gen.md]
-    note: enqueue専用IAM role、policy、parameterと要件件数の設計影響を生成設計へ反映した。
+    note: enqueue専用IAM role、policy、immutable subject parameter、TargetDeploymentRegion参照と要件件数の設計影響を生成設計へ反映した。
   - id: IMP-003
     class: Invariant
     result: pass
@@ -76,7 +76,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [path:infra/src/diopside_deployment/access_stack.py, test:infra/tests/test_deployment_access.py]
-    note: OIDC audienceとprotected environment subjectを完全一致にし、専用roleを対象FIFOへのsqs:SendMessageだけに限定した。
+    note: OIDC audienceとowner ID・repository IDを含むprotected environment subjectを完全一致にし、専用roleをaccess stackの配置regionではなくTargetDeploymentRegionの対象FIFOへのsqs:SendMessageだけに限定した。
   - id: IMP-009
     class: Risk-selected
     result: pass
@@ -101,7 +101,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [test:infra/tests/test_deployment_access.py, test:tests/repository-policy.test.ts, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
-    note: IAM trust・権限とworkflowの起動・入力・送信境界を直接検証し、infra 53 testとroot 107 testが合格した。
+    note: IAM trust・権限とworkflowの起動・入力・送信境界を直接検証し、infra 53 testとroot 116 testが合格した。
   - id: FAST-006
     class: Invariant
     result: pass
@@ -126,7 +126,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [commit:self]
-    note: 変更を1動画SQS投入workflow、専用OIDC role、対応要件・生成設計・運用手順に限定した。
+    note: 変更を1動画SQS投入workflow、専用OIDC role、既存deploy roleとのimmutable subject・target region整合、対応要件・生成設計・運用手順に限定した。
   - id: REV-002
     class: Invariant
     result: pass
@@ -136,7 +136,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
-    note: 利用者の1動画SQS投入指示を、既存の有限private backfillと手動実行制約へ統合した要件正本revision 21として反映した。
+    note: 利用者の1動画SQS投入指示とOIDC・region整合を、既存の有限private backfillと手動実行制約へ統合した要件正本revision 24として反映した。
   - id: REV-004
     class: Invariant
     result: pass
@@ -179,6 +179,6 @@ selected_checks:
     note: OIDC短期sessionとSendMessage専用roleは既存採用方式を最小権限で拡張したもので、将来を新しく制約する独自判断ではないためADRは不要とした。
 advisories: []
 residual_risks:
-  - AWS accountのGitHub OIDC provider、request FIFO、access stackの更新、private-backfill-enqueue environment protectionと変数はrepository外の前提であり、実環境では未確認である。
-  - access stackをGitHubEnqueueOidcSubject付きで更新し、environment変数を設定するまではworkflowは安全に失敗する。実deployは今回行っていない。
+  - 利用者報告ではimmutable subjectとTargetDeploymentRegionを使う既存access stackのdeploy経路は成功済みだが、このPRが追加するenqueue role、request FIFO、private-backfill-enqueue environment protectionと変数はrepository外の前提であり、この変更作業では実環境を検証していない。
+  - access stackをGitHubEnqueueOidcSubject付きで更新し、environment変数を設定するまではworkflowは安全に失敗する。この変更作業ではAWS deployを行っていない。
   - 実SQS enqueueと下流Lambdaのsmokeは行っていない。初回は既知の1動画、対象account・region、AWS料金を人が確認し、run-scoped deduplicationを含む処理結果を観測する必要がある。

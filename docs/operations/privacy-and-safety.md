@@ -17,6 +17,6 @@
 - S3 keyは `channel_id/video_id/runs/run_id/` とcurrent `manifest.json` に限定し、current objectを30日TTLにしない。AWS deploy、素材投入、削除、公開は明示承認なしに実行しない。
 - legacy local importでは生コメント・生チャットをprivate raw objectに限定し、normalized JSONLから投稿者名、channel ID、avatar、profile URLを除去する。ASR混在文字起こしをYouTube自動字幕へ偽装せず、由来をprivate manifestへ残す。
 - private S3はbucket defaultのSSE-S3、DynamoDBはAWS所有鍵、SQSはSSE-SQS、CloudWatch Logsはservice defaultで保存時暗号化する。customer-managed KMS keyは作成せず、local import実行者へは対象S3・tableの必要操作だけを許可し、CLI出力とログへ本文、識別子、AWS資格情報を出さない。
-- GitHub Actionsの基盤deployは長期AWS access keyを保存せず、protected environmentを含む完全一致OIDC subjectの短期sessionだけを使う。受けロールは同一account・regionのCDK bootstrap deploy、file-publishing、lookup roleだけを引き受け、素材取得、S3投入、SQS enqueue、削除、公開の直接権限を持たない。
-- GitHub Actionsの1動画enqueueも長期AWS access keyを保存せず、別のprotected environmentを含む完全一致OIDC subjectだけを使う。専用ロールは固定request FIFOへの `sqs:SendMessage` だけを許可し、入力本文を11文字 `video_id` 一項目に限定する。
+- GitHub Actionsの基盤deployは長期AWS access keyを保存せず、owner ID・repository ID・protected environmentを含むimmutableな完全一致OIDC subjectの短期sessionだけを使う。受けロールはaccess stackの配置regionと独立した同一accountのTargetDeploymentRegionにあるCDK bootstrap deploy、file-publishing、lookup roleだけを引き受け、素材取得、S3投入、SQS enqueue、削除、公開の直接権限を持たない。
+- GitHub Actionsの1動画enqueueも長期AWS access keyを保存せず、別のprotected environmentを含むimmutableな完全一致OIDC subjectだけを使う。専用ロールはTargetDeploymentRegionの固定request FIFOへの `sqs:SendMessage` だけを許可し、入力本文を11文字 `video_id` 一項目に限定する。
 - repository方針検査はGit管理外の `.devflow/` 一時素材を走査せず、公開またはcommitされる対象の検査と一時private evidenceの取扱いを分離する。

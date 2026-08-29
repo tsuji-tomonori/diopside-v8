@@ -11,8 +11,12 @@ from constructs import Construct
 
 _GITHUB_OIDC_PROVIDER_HOST = "token.actions.githubusercontent.com"
 _GITHUB_OIDC_AUDIENCE = "sts.amazonaws.com"
+_GITHUB_OIDC_REPOSITORY = "tsuji-tomonori@39981658/diopside-v8@1321865971"
 _DEPLOYMENT_ENVIRONMENT = "private-backfill-infra"
 _ENQUEUE_ENVIRONMENT = "private-backfill-enqueue"
+_GITHUB_OIDC_SUBJECT = f"repo:{_GITHUB_OIDC_REPOSITORY}:environment:{_DEPLOYMENT_ENVIRONMENT}"
+_GITHUB_ENQUEUE_OIDC_SUBJECT = f"repo:{_GITHUB_OIDC_REPOSITORY}:environment:{_ENQUEUE_ENVIRONMENT}"
+_TARGET_DEPLOYMENT_REGION = "ap-northeast-1"
 _BOOTSTRAP_QUALIFIER = "hnb659fds"
 _REQUEST_QUEUE_NAME = "diopside-ingestion-request.fifo"
 
@@ -27,14 +31,24 @@ class GitHubDeploymentAccessStack(Stack):
             self,
             "GitHubOidcSubject",
             type="String",
+            default=_GITHUB_OIDC_SUBJECT,
             description=(
-                "Exact GitHub Actions OIDC subject for the protected "
+                "Exact immutable GitHub Actions OIDC subject for the protected "
                 f"{_DEPLOYMENT_ENVIRONMENT} environment"
             ),
-            allowed_pattern=(rf"^repo:[^:]+/[^:]+:environment:{_DEPLOYMENT_ENVIRONMENT}$"),
+            allowed_values=[_GITHUB_OIDC_SUBJECT],
             constraint_description=(
-                "Use the exact repo:<owner>/<repository>:environment:"
-                f"{_DEPLOYMENT_ENVIRONMENT} subject emitted by GitHub"
+                f"Use the exact {_GITHUB_OIDC_SUBJECT} subject emitted by GitHub"
+            ),
+        )
+        target_deployment_region = CfnParameter(
+            self,
+            "TargetDeploymentRegion",
+            type="String",
+            default=_TARGET_DEPLOYMENT_REGION,
+            allowed_values=[_TARGET_DEPLOYMENT_REGION],
+            description=(
+                "Region containing the CDK bootstrap roles used by the private backfill deploy"
             ),
         )
         provider_arn = (
@@ -61,7 +75,7 @@ class GitHubDeploymentAccessStack(Stack):
             (
                 f"arn:{Aws.PARTITION}:iam::{Aws.ACCOUNT_ID}:role/"
                 f"cdk-{_BOOTSTRAP_QUALIFIER}-{role_kind}-role-"
-                f"{Aws.ACCOUNT_ID}-{Aws.REGION}"
+                f"{Aws.ACCOUNT_ID}-{target_deployment_region.value_as_string}"
             )
             for role_kind in ["deploy", "file-publishing", "lookup"]
         ]
@@ -77,14 +91,14 @@ class GitHubDeploymentAccessStack(Stack):
             self,
             "GitHubEnqueueOidcSubject",
             type="String",
+            default=_GITHUB_ENQUEUE_OIDC_SUBJECT,
             description=(
-                "Exact GitHub Actions OIDC subject for the protected "
+                "Exact immutable GitHub Actions OIDC subject for the protected "
                 f"{_ENQUEUE_ENVIRONMENT} environment"
             ),
-            allowed_pattern=(rf"^repo:[^:]+/[^:]+:environment:{_ENQUEUE_ENVIRONMENT}$"),
+            allowed_values=[_GITHUB_ENQUEUE_OIDC_SUBJECT],
             constraint_description=(
-                "Use the exact repo:<owner>/<repository>:environment:"
-                f"{_ENQUEUE_ENVIRONMENT} subject emitted by GitHub"
+                f"Use the exact {_GITHUB_ENQUEUE_OIDC_SUBJECT} subject emitted by GitHub"
             ),
         )
         enqueue_role = iam.Role(
@@ -108,7 +122,11 @@ class GitHubDeploymentAccessStack(Stack):
                 sid="SendOnlyToIngestionRequestQueue",
                 actions=["sqs:SendMessage"],
                 resources=[
-                    (f"arn:{Aws.PARTITION}:sqs:{Aws.REGION}:{Aws.ACCOUNT_ID}:{_REQUEST_QUEUE_NAME}")
+                    (
+                        f"arn:{Aws.PARTITION}:sqs:"
+                        f"{target_deployment_region.value_as_string}:"
+                        f"{Aws.ACCOUNT_ID}:{_REQUEST_QUEUE_NAME}"
+                    )
                 ],
             )
         )
@@ -118,6 +136,12 @@ class GitHubDeploymentAccessStack(Stack):
             "GitHubActionsDeployRoleArn",
             value=deploy_role.role_arn,
             description="Set this ARN as the protected environment AWS_DEPLOY_ROLE_ARN variable",
+        )
+        CfnOutput(
+            self,
+            "GitHubActionsDeploymentRegion",
+            value=target_deployment_region.value_as_string,
+            description="Set this value as the protected environment AWS_REGION variable",
         )
         CfnOutput(
             self,

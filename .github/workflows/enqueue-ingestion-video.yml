@@ -42,7 +42,7 @@ jobs:
           test "$CONFIRMATION" = 'ENQUEUE'
           [[ "$VIDEO_ID" =~ ^[A-Za-z0-9_-]{11}$ ]]
           [[ "$AWS_ACCOUNT_ID" =~ ^[0-9]{12}$ ]]
-          [[ "$AWS_REGION" =~ ^[a-z]{2}-[a-z]+-[0-9]+$ ]]
+          test "$AWS_REGION" = 'ap-northeast-1'
           test "$AWS_ENQUEUE_ROLE_ARN" = "arn:aws:iam::$AWS_ACCOUNT_ID:role/diopside-github-actions-enqueue"
           expected_queue_url="https://sqs.$AWS_REGION.amazonaws.com/$AWS_ACCOUNT_ID/diopside-ingestion-request.fifo"
           test "$AWS_INGESTION_QUEUE_URL" = "$expected_queue_url"
