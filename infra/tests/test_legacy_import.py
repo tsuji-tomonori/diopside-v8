@@ -237,9 +237,18 @@ def test_manifest_freezes_only_coverage_verified_inputs(tmp_path: Path) -> None:
         create_legacy_import_manifest(source, repository, expected_count=2)
 
 
-def test_import_uploads_raw_and_deidentified_copies_then_commits_partial(tmp_path: Path) -> None:
+def test_import_uploads_raw_and_deidentified_copies_then_commits_partial(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     source, repository_root = _local_fixture(tmp_path)
-    manifest = create_legacy_import_manifest(source, repository_root, expected_count=1)
+    manifest = create_legacy_import_manifest(
+        source,
+        repository_root,
+        expected_count=1,
+        created_at="2026-08-23T00:00:00Z",
+    )
+    clock = ["2026-08-23T00:00:01Z"]
+    monkeypatch.setattr("diopside_ingestion.legacy_import.iso_now", lambda: clock[0])
     store, repository = FakeStore(), FakeRepository()
     importer = LegacyLocalImporter(
         cast(LegacyObjectStore, store), repository, "private-bucket", source, manifest
@@ -271,6 +280,7 @@ def test_import_uploads_raw_and_deidentified_copies_then_commits_partial(tmp_pat
     assert current_document["artifact_objects"]["automatic_captions"] == []
 
     uploads = store.uploads
+    clock[0] = "2026-08-23T00:00:02Z"
     assert importer.import_video(manifest.videos[0]) == VideoStatus.PARTIAL
     assert store.uploads == uploads
 
