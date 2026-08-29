@@ -1,4 +1,4 @@
-"""GitHub Actions OIDC access for private ingestion infrastructure operations."""
+"""GitHub Actions OIDC access for storage infrastructure deployment."""
 # pyright: reportArgumentType=false
 
 from __future__ import annotations
@@ -16,7 +16,6 @@ _DEPLOYMENT_ENVIRONMENT = "private-backfill-infra"
 _GITHUB_OIDC_SUBJECT = f"repo:{_GITHUB_OIDC_REPOSITORY}:environment:{_DEPLOYMENT_ENVIRONMENT}"
 _TARGET_DEPLOYMENT_REGION = "ap-northeast-1"
 _BOOTSTRAP_QUALIFIER = "hnb659fds"
-_REQUEST_QUEUE_NAME = "diopside-ingestion-request.fifo"
 
 
 class GitHubDeploymentAccessStack(Stack):
@@ -56,9 +55,7 @@ class GitHubDeploymentAccessStack(Stack):
             self,
             "GitHubActionsDeployRole",
             role_name="diopside-github-actions-deploy",
-            description=(
-                "Receives short-lived OIDC sessions for private backfill deploy and enqueue"
-            ),
+            description="Receives short-lived OIDC sessions for private storage deployment",
             assumed_by=iam.FederatedPrincipal(
                 federated=provider_arn,
                 conditions={
@@ -86,20 +83,6 @@ class GitHubDeploymentAccessStack(Stack):
                 resources=bootstrap_role_arns,
             )
         )
-        deploy_role.add_to_policy(
-            iam.PolicyStatement(
-                sid="SendOnlyToIngestionRequestQueue",
-                actions=["sqs:SendMessage"],
-                resources=[
-                    (
-                        f"arn:{Aws.PARTITION}:sqs:"
-                        f"{target_deployment_region.value_as_string}:"
-                        f"{Aws.ACCOUNT_ID}:{_REQUEST_QUEUE_NAME}"
-                    )
-                ],
-            )
-        )
-
         CfnOutput(
             self,
             "GitHubActionsDeployRoleArn",

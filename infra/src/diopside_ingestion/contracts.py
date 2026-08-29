@@ -15,7 +15,7 @@ CHANNEL_ID_RE: Final = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
 
 
 class RequestValidationError(ValueError):
-    """Raised when an SQS request does not exactly match the external contract."""
+    """Raised when an operator request does not exactly match the external contract."""
 
 
 class ArtifactStatus(StrEnum):
@@ -97,7 +97,7 @@ TERMINAL_ARTIFACT_STATUSES: Final[frozenset[ArtifactStatus]] = frozenset(
 
 @dataclass(frozen=True)
 class IngestionRequest:
-    """The sole external request payload: one YouTube video ID."""
+    """The sole external operator input: one YouTube video ID."""
 
     video_id: str
 

@@ -90,7 +90,7 @@ class FakeRepository:
         assert lease_seconds == 900
         return ClaimResult(claimed=self.claim_result, attempt_count=1)
 
-    def mark_dispatch_failure(self, video_id: str, claim_owner: str, reason_code: str) -> None:
+    def mark_attempt_failure(self, video_id: str, claim_owner: str, reason_code: str) -> None:
         pass
 
     def load(self, video_id: str) -> Mapping[str, object] | None:

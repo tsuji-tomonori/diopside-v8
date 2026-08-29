@@ -41,7 +41,7 @@ class FakeRepository:
     def claim(self, video_id: str, claim_owner: str, lease_seconds: int) -> ClaimResult:
         raise AssertionError("not used by worker")
 
-    def mark_dispatch_failure(self, video_id: str, claim_owner: str, reason_code: str) -> None:
+    def mark_attempt_failure(self, video_id: str, claim_owner: str, reason_code: str) -> None:
         raise AssertionError("not used by worker")
 
     def load(self, video_id: str) -> Mapping[str, object] | None:
@@ -188,7 +188,7 @@ def _config(run_id: str = "run-1") -> WorkerConfig:
         claim_owner="message-1",
         bucket="private-bucket",
         table_name="VideoIngestion",
-        runtime_version="lambda-python3.12",
+        runtime_version="local-python3.12",
     )
 
 
@@ -251,7 +251,7 @@ def test_worker_writes_private_run_and_current_manifests() -> None:
         "kind": "youtube_watch",
         "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     }
-    assert document["worker_runtime"] == "lambda-python3.12"
+    assert document["worker_runtime"] == "local-python3.12"
     assert isinstance(document["captured_at"], str)
     assert document["artifact_objects"]["metadata"][0] == {
         "bytes": len(
