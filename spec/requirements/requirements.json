@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_revision": 24,
+  "catalog_revision": 25,
   "product": "diopside v8",
   "updated_at": "2026-08-29",
   "requirements": [
@@ -2252,34 +2252,35 @@
         {
           "given": "AWS accountにGitHub OIDC providerとmodern CDK bootstrap roleがある",
           "id": "AC-V8-INGEST-013-1",
-          "then": "受けロールはowner IDとrepository ID、audience、protected environmentを含むimmutableな完全一致subjectだけを信頼し、AWS access keyを作らず、access stackの配置regionと独立した同一accountのTargetDeploymentRegionにあるdeploy、file-publishing、lookup bootstrap roleだけを引き受けられる。",
+          "then": "共有infra roleはowner IDとrepository ID、audience、private-backfill-infra environmentを含むimmutableな完全一致subjectだけを信頼し、AWS access keyを作らず、access stackの配置regionと独立した同一accountのTargetDeploymentRegionにあるdeploy、file-publishing、lookup bootstrap roleの引受けと固定request FIFOへのsqs:SendMessageだけを許可する。",
           "when": "deployment access stackをsynthしてIAM trustと権限policyを検査する"
         },
         {
           "given": "検証済みmainのprivate backfill基盤をデプロイする",
           "id": "AC-V8-INGEST-013-2",
-          "then": "workflowはmain、確認入力、protected environment承認、account ID照合、lock済み依存、Ruff、strict型検査、pytest、CDK synth、cdk-nag、生成設計差分の合格後だけOIDC短期sessionでDiopsideIngestionStackをデプロイし、enqueue、upload、削除、公開、mergeを実行しない。",
+          "then": "workflowはmain、確認入力、共通protected environment承認、account ID照合、lock済み依存、Ruff、strict型検査、pytest、CDK synth、cdk-nag、生成設計差分の合格後だけ共有infra roleを引き受け、inline session policyを対象CDK bootstrap roleの引受けだけへ限定してDiopsideIngestionStackをデプロイし、enqueue、upload、削除、公開、mergeを実行しない。",
           "when": "運用者がGitHub Actionsのdeploy workflowを明示開始する"
         }
       ],
       "action": "enforce",
       "category": "nonfunctional",
       "id": "V8-INGEST-013",
-      "last_changed_by": "CHG-20260827-ingestion-github-enqueue",
-      "object": "GitHub ActionsからのCDK deployはprotected environmentで承認されたmainの手動実行がimmutableな完全一致OIDC subjectの短期sessionを使用し、access stackの配置regionと独立した同一accountのTargetDeploymentRegionにある必要なCDK bootstrap roleだけを引き受ける経路に限定しなければならない。",
-      "rationale": "長期AWS access keyとrepository横断の信頼を持たず、デプロイ権限を人が承認した有限private backfill基盤の変更だけへ閉じるため。",
-      "revision": 2,
+      "last_changed_by": "CHG-20260829-ingestion-infra-role-consolidation",
+      "object": "GitHub ActionsからのCDK deployはprivate-backfill-infra environmentで承認されたmainの手動実行が共有infra roleのimmutableな完全一致OIDC短期sessionを使用し、inline session policyでTargetDeploymentRegionの必要なCDK bootstrap roleだけを引き受ける経路に限定しなければならない。",
+      "rationale": "長期AWS access keyとrepository横断の信頼を持たず、共有するOIDC設定と実行ごとの最小権限sessionを両立するため。",
+      "revision": 3,
       "scope": "project",
       "source_refs": [
         "Issue #465",
         "user:2026-08-23",
         "user:2026-08-29",
+        "spec/sources/owner-directive-2026-08-29-ingestion-infra-role.md",
         "GitHub Actions OIDC for AWS",
         "AWS CDK security best practices"
       ],
       "status": "active",
       "subject": "diopside v8のprivate backfill基盤deploy",
-      "title": "GitHub Actionsのprivate backfill基盤deployはOIDC短期sessionと限定CDK roleを使用しなければならない",
+      "title": "GitHub Actionsのprivate backfill基盤deployは共有infra roleの操作別OIDC sessionを使用しなければならない",
       "traces": {
         "design": [
           "docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md",
@@ -2314,34 +2315,35 @@
         {
           "given": "AWS accountにGitHub OIDC providerとprivate ingestion request FIFOがある",
           "id": "AC-V8-INGEST-014-1",
-          "then": "enqueue roleはowner IDとrepository ID、audience、private-backfill-enqueue environmentを含むimmutableな完全一致subjectだけを信頼し、長期access keyを作らず、access stackの配置regionと独立したTargetDeploymentRegionのrequest FIFOへのsqs:SendMessage以外のAWS権限を持たない。",
-          "when": "deployment access stackをsynthしてenqueue roleを検査する"
+          "then": "基盤deployと同じ共有infra roleはowner IDとrepository ID、audience、private-backfill-infra environmentを含むimmutableな完全一致subjectだけを信頼し、enqueue workflowのinline session policyはaccess stackの配置regionと独立したTargetDeploymentRegionの固定request FIFOへのsqs:SendMessage以外を許可しない。",
+          "when": "deployment access stackと1動画enqueue workflowのrole・session policyを検査する"
         },
         {
           "given": "運用者が料金、利用量、契約条件を確認して1動画を投入する",
           "id": "AC-V8-INGEST-014-2",
-          "then": "11文字video ID、ENQUEUE確認、専用protected environment承認、account・region・role・queue照合がすべて成功した場合だけ、video_id一項目の本文を1件送信し、S3、DynamoDB、Lambda、CloudFormation、IAM、削除、公開、mergeを実行しない。",
+          "then": "11文字video ID、ENQUEUE確認、基盤deployと共通のprotected environment承認、account・region・共有role照合がすべて成功した場合だけ、固定queue URLへvideo_id一項目の本文を1件送信し、S3、DynamoDB、Lambda、CloudFormation、IAM、削除、公開、mergeを実行しない。",
           "when": "mainから1動画enqueue workflowを手動実行する"
         }
       ],
       "action": "enforce",
       "category": "nonfunctional",
       "id": "V8-INGEST-014",
-      "last_changed_by": "CHG-20260827-ingestion-github-enqueue",
-      "object": "mainの手動実行で承認された1件のvideo_idだけをimmutableな完全一致OIDC subjectの短期sessionとTargetDeploymentRegionの対象FIFOへのSendMessage専用roleで投入しなければならない。",
-      "rationale": "長期AWS access keyと過剰なAWS権限を持たず、費用確認済みの1動画だけを監査可能な人の操作として安全に再投入するため。",
-      "revision": 2,
+      "last_changed_by": "CHG-20260829-ingestion-infra-role-consolidation",
+      "object": "mainの手動実行で承認された1件のvideo_idだけを、基盤deployと共通のprotected environmentおよび共有infra roleから、TargetDeploymentRegionの対象FIFOへのSendMessage専用sessionで投入しなければならない。",
+      "rationale": "OIDC roleとenvironmentを基盤運用へ統合しながら、長期AWS access keyと実行時の過剰なAWS権限を持たず、費用確認済みの1動画だけを安全に再投入するため。",
+      "revision": 3,
       "scope": "project",
       "source_refs": [
         "Issue #465",
         "user:2026-08-26",
         "user:2026-08-29",
+        "spec/sources/owner-directive-2026-08-29-ingestion-infra-role.md",
         "GitHub Actions OIDC for AWS",
         "AWS IAM least privilege"
       ],
       "status": "active",
       "subject": "diopside v8のGitHub Actionsによる1動画投入",
-      "title": "GitHub Actionsの1動画SQS投入はOIDC短期sessionと専用最小権限roleを使用しなければならない",
+      "title": "GitHub Actionsの1動画SQS投入は共有infra roleのSendMessage専用sessionを使用しなければならない",
       "traces": {
         "design": [
           "docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md",

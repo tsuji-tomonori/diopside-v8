@@ -9,5 +9,3 @@ Check: `python .agents/skills/generate-implementation-design/scripts/designflow.
 |---|---|---|---|
 | `GitHubActionsDeployRoleA6F4AD3D` | `AWS::IAM::Role` | - | - |
 | `GitHubActionsDeployRoleDefaultPolicy3AC475A7` | `AWS::IAM::Policy` | - | - |
-| `GitHubActionsEnqueueRoleDefaultPolicy8CF1182B` | `AWS::IAM::Policy` | - | - |
-| `GitHubActionsEnqueueRoleE53E980A` | `AWS::IAM::Role` | - | - |
