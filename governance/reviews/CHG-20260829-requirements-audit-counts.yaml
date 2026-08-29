@@ -17,7 +17,7 @@ impact_flags:
   typed_code_change: true
   behavior_change: true
   bug_fix: true
-  generated_change: false
+  generated_change: true
   sql_change: false
   e2e_change: false
   migration: false
@@ -50,8 +50,8 @@ selected_checks:
   - id: IMP-002
     class: Invariant
     result: pass
-    evidence: [test:tests/audit-requirements.test.ts]
-    note: CI workflow、監査出力schema、生成設計、ADR、公開契約は変更しない。
+    evidence: [test:tests/audit-requirements.test.ts, path:docs/design/generated/system.gen.md]
+    note: CI workflowと監査出力schemaは維持し、要件正本から生成されるsystem設計のINGEST件数と総件数だけを同期する。ADRと公開契約は変更しない。
   - id: IMP-003
     class: Invariant
     result: pass
@@ -87,6 +87,11 @@ selected_checks:
     result: pass
     evidence: [test:tests/audit-requirements.test.ts, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
     note: 要件3件追加後に固定値180との比較で失敗した条件を、正本連動の集計検証へ置き換えて再発を防止した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/design/generated/system.gen.md, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: generate:designを同一入力で再実行してbyte一致を確認し、INGEST 17件・合計183件を生成設計へ同期した。
   - id: FAST-007
     class: Invariant
     result: pass
@@ -96,7 +101,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [commit:self]
-    note: 差分を要件監査の固定件数除去、対応回帰検証、本reviewに限定した。
+    note: 差分を要件監査の固定件数除去、対応回帰検証、正本由来の生成設計同期、本reviewに限定した。
   - id: REV-002
     class: Invariant
     result: pass
@@ -110,13 +115,13 @@ selected_checks:
   - id: REV-004
     class: Invariant
     result: pass
-    evidence: [test:tests/audit-requirements.test.ts]
-    note: 監査出力schemaとCI workflowは維持し、生成設計やADRを更新する設計影響はない。
+    evidence: [test:tests/audit-requirements.test.ts, path:docs/design/generated/system.gen.md]
+    note: 要件正本から生成される件数表を同期する設計影響がある。生成logic、監査出力schema、CI workflow、ADRは変更しない。
   - id: REV-006
     class: Invariant
     result: pass
     evidence: [test:tests/audit-requirements.test.ts, workflow:要件・品質ゲート]
-    note: 失敗したVitestを直接修復し、現在HEADで既存のbuild、typecheck、lint、全Vitest、要件監査を再実行する。
+    note: 失敗したVitestと生成差分を直接修復し、現在HEADで既存のbuild、typecheck、lint、全Vitest、生成差分、要件監査を再実行する。
   - id: REV-007
     class: Invariant
     result: pass
@@ -129,4 +134,4 @@ selected_checks:
     note: trigger非該当checkを形式的N/Aとして追加していない。
 advisories: []
 residual_risks:
-  - 既に失敗したActions run 33255952251は履歴として残る。修正commitをpush後、現在HEADの要件・品質ゲートを結果の正本として確認する。
+  - 既に失敗したActions run 33255952251と33257320543は履歴として残る。生成設計同期後の現在HEADに対する要件・品質ゲートを結果の正本として確認する。
