@@ -51,6 +51,7 @@ from diopside_ingestion.staging import (
     video_workspace,
 )
 from diopside_ingestion.state import DynamoIngestionRepository
+from diopside_ingestion.trace import LocalExecutionTrace
 from diopside_ingestion.worker import (
     IngestionWorker,
     SubprocessRunner,
@@ -248,6 +249,11 @@ def run_staged_targets(
     results: list[dict[str, object]] = []
     for video_id in video_ids:
         workspace = video_workspace(work_root, video_id)
+        trace = LocalExecutionTrace.start(
+            workspace,
+            video_id,
+            [stage.value for stage in stages],
+        )
         processor = StagedLocalProcessor(video_id, workspace, SubprocessRunner())
         stage_results: list[dict[str, object]] = []
         completed = True
@@ -257,25 +263,32 @@ def run_staged_targets(
             for stage in stages:
                 if stage is LocalStage.ACQUIRE:
                     result = processor.acquire()
-                    stage_results.append(result.to_document(workspace))
+                    stage_document = result.to_document(workspace)
+                    stage_results.append(stage_document)
+                    trace.record_step(stage_document)
                     completed = completed and result.successful
                     status = result.outcome
                 elif stage is LocalStage.PROCESS:
                     result = processor.process()
-                    stage_results.append(result.to_document(workspace))
+                    stage_document = result.to_document(workspace)
+                    stage_results.append(stage_document)
+                    trace.record_step(stage_document)
                     completed = completed and result.successful
                     status = result.outcome
                 else:
                     bundle = load_processed_manifest(workspace, video_id)
                     if not process_completed(bundle):
                         reason = bundle.get("reason_code")
-                        stage_results.append(
+                        stage_document = cast(
+                            dict[str, object],
                             {
                                 "stage": LocalStage.UPLOAD.value,
                                 "outcome": "skipped_dependency",
                                 "reason_code": reason if isinstance(reason, str) else None,
-                            }
+                            },
                         )
+                        stage_results.append(stage_document)
+                        trace.record_step(stage_document)
                         completed = False
                         status = "retryable_failed"
                         continue
@@ -283,7 +296,8 @@ def run_staged_targets(
                         raise ValueError("upload runner is required for the upload stage")
                     upload = upload_runner.process(video_id, max_attempts=max_attempts)
                     upload_result = upload
-                    stage_results.append(
+                    stage_document = cast(
+                        dict[str, object],
                         {
                             "stage": LocalStage.UPLOAD.value,
                             "outcome": upload.outcome,
@@ -291,8 +305,10 @@ def run_staged_targets(
                             "attempt_count": upload.attempt_count,
                             "run_id": upload.run_id,
                             "status": upload.status,
-                        }
+                        },
                     )
+                    stage_results.append(stage_document)
+                    trace.record_step(stage_document)
                     completed = upload.completed
                     status = upload.status
         except (OSError, ValueError, subprocess.TimeoutExpired) as error:
@@ -301,13 +317,16 @@ def run_staged_targets(
                 video_id,
                 type(error).__name__,
             )
-            stage_results.append(
+            stage_document = cast(
+                dict[str, object],
                 {
                     "stage": "precondition",
                     "outcome": "failed",
                     "reason_code": "local_stage_precondition_failed",
-                }
+                },
             )
+            stage_results.append(stage_document)
+            trace.record_step(stage_document)
             completed = False
             status = "retryable_failed"
         summary: dict[str, object] = {
@@ -320,6 +339,8 @@ def run_staged_targets(
         }
         if upload_result is not None:
             summary.update(upload_result.to_document())
+        trace.finish(completed=completed, status=status)
+        summary["trace"] = trace.to_document() if retained else None
         results.append(summary)
     return results
 

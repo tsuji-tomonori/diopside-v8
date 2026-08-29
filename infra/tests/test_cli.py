@@ -162,6 +162,10 @@ def test_acquire_stage_does_not_create_aws_runner(
     assert exit_code == 0
     assert output["selected_stages"] == ["acquire"]
     assert output["workspace"] == str(tmp_path / "dQw4w9WgXcQ")
+    assert output["trace"]["status"] == "execution-status.json"
+    assert output["trace"]["history"] == "execution-history.jsonl"
+    assert (tmp_path / "dQw4w9WgXcQ" / "execution-status.json").is_file()
+    assert (tmp_path / "dQw4w9WgXcQ" / "execution-history.jsonl").is_file()
 
 
 def test_ingest_command_rejects_unbounded_retry_count() -> None:
@@ -258,6 +262,7 @@ def test_ingest_command_runs_local_worker_and_returns_safe_json(
         ]
     )
     output = json.loads(capsys.readouterr().out)
+    trace = output.pop("trace")
 
     assert exit_code == 0
     assert calls == [("dQw4w9WgXcQ", 4)]
@@ -283,6 +288,8 @@ def test_ingest_command_runs_local_worker_and_returns_safe_json(
         "video_id": "dQw4w9WgXcQ",
         "workspace": str(tmp_path / "dQw4w9WgXcQ"),
     }
+    assert trace["status"] == "execution-status.json"
+    assert trace["history"] == "execution-history.jsonl"
 
 
 def test_materialize_private_caption_only_after_manifest_verification(tmp_path: Path) -> None:

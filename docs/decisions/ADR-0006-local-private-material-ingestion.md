@@ -13,6 +13,8 @@ CLIは11文字のvideo IDを1件、または不変target manifestを受け取り
 
 公開音声・字幕のGoogle Video ServerによるHTTP 403へ対応するため、lock済みの`bgutil-ytdlp-pot-provider` pluginと同versionのローカルHTTP providerを使い、yt-dlpの`mweb` clientへ動画単位のPO Tokenを供給する。providerはloopbackだけで利用し、Node.jsによるJavaScript challenge処理とは独立させる。PO Tokenは公開配信requestのattestationであり、YouTube account、Cookie、login、proxyを導入しない。providerが停止中またはTokenを取得できない場合も認証へ切り替えず、artifactごとの安全な再試行可能状態へ分類する。
 
+永続work rootを選んだ段階処理は、動画workspaceへ現在状態をatomic JSON、時系列eventを追記型JSONLとして保存する。既存acquire/process manifestはchecksum付きで現在状態へ回復し、再試行は過去eventを削除しない。traceは再開と監査に必要なstage、結果、reason code、attempt、run ID、manifest相対path・checksumだけに限定し、生素材または外部providerの応答本文を含めない。一時work rootを選んだ全段階実行は従来どおり完走後にworkspaceとtraceを削除する。
+
 ## 理由
 
 AWS上とCodex Workからの取得が成立せず、クラウド側IPへの制限が原因の可能性がある。保存契約は動作環境に依存しないため、既存Lambda workerの処理本体を再利用し、起動・claim・retryだけをローカルrunnerへ置き換える。これにより取得元制限とLambdaの15分上限から処理を分離し、AWSの実行資源と権限を削減できる。

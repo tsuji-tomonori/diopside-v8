@@ -150,6 +150,22 @@ uv run --directory infra --locked diopside-backfill ingest \
 
 `--stage`を省略すると3段階すべてを実行します。`--work-root`も省略した場合だけ一時directoryを使い、完了後にローカル成果物を削除します。段階を一部だけ選ぶ場合は、後段を別commandで再開できるよう`--work-root`が必須です。raw素材をGitへ追加せず、accessを制限したprivate directoryを指定してください。
 
+永続`--work-root`を指定した実行では、動画workspaceへ次の安全なtraceを残します。
+
+- `execution-status.json`: 完了済みstep、現在step、次step、最後のinvocation結果、各manifestの相対pathとSHA-256を持つ現在状態。
+- `execution-history.jsonl`: invocation開始、既存manifest回復、step終了、invocation終了を時系列に追記する履歴。再試行時も既存行を削除しない。
+
+CLIの出力JSONにも両fileの相対pathとinvocation IDが含まれます。現在の進捗は次のように確認できます。
+
+```console
+jq '{video_id, workflow_status, completed_steps, current_step, next_step, last_invocation_status}' \
+  /path/to/private/diopside-ingestion/VIDEO_ID/execution-status.json
+```
+
+traceにはstage、結果、reason code、attempt、run ID、manifest checksumだけを保存します。生素材、字幕、chat、comment、投稿者識別子、provider応答・stderr本文、PO Token、Cookie、AWS credentialは保存しません。`--work-root`を省略した全段階実行ではworkspace自体を完走後に削除するため、traceも保持されません。
+
+WSLの`/mnt/c`や`/mnt/d`等では`chmod 0600`がmode表示へ反映されない場合があります。その場合はWindows側ACLでwork rootをprivateにするか、Linux filesystem上のprivate directoryを使用してください。
+
 upload段階でCLIがDynamoDBの条件付きclaimを取得します。各uploadはS3を再読してbyte数、content type、SHA-256を確認し、checkpoint後にだけDynamoDBを進めます。
 
 retryableな失敗は既定で最大3 attemptまで同じcommand内で再開します。`--max-attempts`は1〜10に限定されます。別processが同じvideo IDを実行中なら`already_running`として上書きせず終了code 2を返します。既に終端manifestがある場合は`already_complete`として再downloadせず終了code 0を返します。出力JSONには安全なstatus、attempt数、run ID、reason codeだけを含み、生素材やprovider応答本文を含めません。

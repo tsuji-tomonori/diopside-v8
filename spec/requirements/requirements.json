@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_revision": 27,
+  "catalog_revision": 28,
   "product": "diopside v8",
   "updated_at": "2026-08-29",
   "requirements": [
@@ -2494,6 +2494,66 @@
       "verification": {
         "evidence": "infra/tests/test_staging.py, infra/tests/test_cli.py",
         "method": "work root・stage選択・部分実行前提・再開試験"
+      }
+    },
+    {
+      "acceptance_criteria": [
+        {
+          "given": "運用者が永続private work rootで1件または固定video集合の段階処理を実行する",
+          "id": "AC-V8-INGEST-017-1",
+          "then": "動画workspaceはinvocation ID、選択段階、時刻、各段階の結果、reason code、manifest相対pathとchecksumを含む現在状態と時系列履歴を処理後も保持する。",
+          "when": "invocationを開始し、各段階またはinvocationが終了する"
+        },
+        {
+          "given": "同じvideo workspaceに既存manifestまたは過去の実行履歴がある",
+          "id": "AC-V8-INGEST-017-2",
+          "then": "既存の検証可能な段階状態を現在状態へ反映し、新しいinvocationは過去履歴を消さず追記し、完了段階と次段階を判定できる。",
+          "when": "処理を再開する"
+        },
+        {
+          "given": "実行状態と履歴をprivate workspaceへ保存する",
+          "id": "AC-V8-INGEST-017-3",
+          "then": "生素材、字幕、chat、comment、投稿者識別子、provider応答本文、stderr本文、PO Token、Cookie、AWS credentialを実行traceへ含めない。",
+          "when": "trace eventまたは現在状態を生成する"
+        }
+      ],
+      "action": "maintain",
+      "category": "nonfunctional",
+      "id": "V8-INGEST-017",
+      "last_changed_by": "CHG-20260829-staged-execution-trace",
+      "object": "ローカル段階処理は永続private video workspaceへ安全な現在状態と追記型の実行履歴を保存し、作業後も完了段階、次段階、結果の根拠を追跡可能にしなければならない。",
+      "rationale": "端末出力が失われても取得・加工・uploadの実行有無と再開位置を確認し、再試行で過去の失敗または成功を上書きしないため。",
+      "revision": 1,
+      "scope": "project",
+      "source_refs": [
+        "Issue #465",
+        "user:2026-08-29-execution-trace"
+      ],
+      "status": "active",
+      "subject": "diopside v8のローカルprivate material実行trace",
+      "title": "ローカル段階処理は安全な現在状態と追記型実行履歴を保持しなければならない",
+      "traces": {
+        "design": [
+          "docs/decisions/ADR-0006-local-private-material-ingestion.md"
+        ],
+        "implementation": [
+          "infra/src/diopside_ingestion/trace.py",
+          "infra/src/diopside_ingestion/cli.py",
+          "infra/README.md"
+        ],
+        "standards": [
+          "Issue #465",
+          "dev-standard assured profile"
+        ],
+        "tests": [
+          "infra/tests/test_trace.py",
+          "infra/tests/test_cli.py"
+        ]
+      },
+      "type": "operational",
+      "verification": {
+        "evidence": "infra/tests/test_trace.py, infra/tests/test_cli.py",
+        "method": "現在状態・追記履歴・manifest回復・秘密値非保持・CLI統合試験"
       }
     },
     {
