@@ -77,19 +77,61 @@ test -n "$TABLE_NAME"
 
 ローカル実行者に必要なAWS data-plane権限は、対象bucketへの`GetObject`、`PutObject`、`AbortMultipartUpload`と、対象tableへの`GetItem`、`UpdateItem`です。`report`は追加で`dynamodb:Scan`、複数動画manifestのuploadは同じbucketへの書込みを使います。削除、IAM、Lambda、SQS、CloudFormation変更の権限は素材取得には不要です。
 
-## 1動画を直接取得する
+## 1動画を3段階で処理する
 
-11文字のYouTube video IDを1件だけ明示します。`--profile`を省略した場合は標準AWS credential chainを使います。
+処理は次の3段階です。各段階は動画ごとのchecksum付きmanifestを入力・出力境界にするため、別commandで安全に再開できます。
+
+1. `acquire`: metadata、thumbnail、字幕、chat、comments、native audioの一次情報をローカルへ取得する。AWS clientは作成しない。
+2. `process`: 一次情報のchecksumを再確認し、description、匿名化字幕JSONL、ASR用FLACをローカルで作る。AWS clientは作成しない。
+3. `upload`: acquire/process manifestと全fileのchecksumを再確認し、DynamoDBをclaimしてprivate S3へuploadする。
+
+11文字のYouTube video IDを1件だけ明示し、永続化する親directoryを`--work-root`で選びます。以下は一次情報の取得だけを行い、AWS credential、bucket、tableを必要としません。
 
 ```console
 uv run --directory infra --locked diopside-backfill ingest \
   --video-id gl5UkwS_jmM \
+  --stage acquire \
+  --work-root /path/to/private/diopside-ingestion
+```
+
+取得に成功した一次情報は`<work-root>/gl5UkwS_jmM/acquired/`、安全な状態と各fileのSHA-256は`acquire-manifest.json`へ保存されます。provider応答本文やstderr本文はログへ出さず、失敗時はallow-list済みsignal、stderrのbyte数とSHA-256、reason codeだけを記録します。
+
+次に加工だけを行います。
+
+```console
+uv run --directory infra --locked diopside-backfill ingest \
+  --video-id gl5UkwS_jmM \
+  --stage process \
+  --work-root /path/to/private/diopside-ingestion
+```
+
+加工物は`processed/`、取得manifestとの対応と全fileのSHA-256は`process-manifest.json`へ保存されます。一次情報またはmanifestが変更・欠落していれば、upload前に停止します。
+
+最後にuploadだけを行います。`--profile`を省略した場合は標準AWS credential chainを使います。
+
+```console
+uv run --directory infra --locked diopside-backfill ingest \
+  --video-id gl5UkwS_jmM \
+  --stage upload \
+  --work-root /path/to/private/diopside-ingestion \
   --bucket "$BUCKET_NAME" \
   --table "$TABLE_NAME" \
   --region ap-northeast-1
 ```
 
-CLI自身がDynamoDBの条件付きclaimを取得し、metadata、description、thumbnail、subtitles、automatic captions、chat、comments、native audio、ASR用派生音声を独立処理します。各uploadはS3を再読してbyte数、content type、SHA-256を確認し、checkpoint後にだけDynamoDBを進めます。
+複数段階は`--stage`を繰り返して選べます。指定順に関係なく`acquire`、`process`、`upload`の順で実行します。
+
+```console
+uv run --directory infra --locked diopside-backfill ingest \
+  --video-id gl5UkwS_jmM \
+  --stage acquire \
+  --stage process \
+  --work-root /path/to/private/diopside-ingestion
+```
+
+`--stage`を省略すると3段階すべてを実行します。`--work-root`も省略した場合だけ一時directoryを使い、完了後にローカル成果物を削除します。段階を一部だけ選ぶ場合は、後段を別commandで再開できるよう`--work-root`が必須です。raw素材をGitへ追加せず、accessを制限したprivate directoryを指定してください。
+
+upload段階でCLIがDynamoDBの条件付きclaimを取得します。各uploadはS3を再読してbyte数、content type、SHA-256を確認し、checkpoint後にだけDynamoDBを進めます。
 
 retryableな失敗は既定で最大3 attemptまで同じcommand内で再開します。`--max-attempts`は1〜10に限定されます。別processが同じvideo IDを実行中なら`already_running`として上書きせず終了code 2を返します。既に終端manifestがある場合は`already_complete`として再downloadせず終了code 0を返します。出力JSONには安全なstatus、attempt数、run ID、reason codeだけを含み、生素材やprovider応答本文を含めません。
 
@@ -109,6 +151,7 @@ uv run --directory infra --locked diopside-backfill manifest \
 ```console
 uv run --directory infra --locked diopside-backfill ingest-manifest \
   --manifest /tmp/diopside-backfill.json \
+  --work-root /path/to/private/diopside-ingestion \
   --bucket "$BUCKET_NAME" \
   --table "$TABLE_NAME" \
   --region ap-northeast-1

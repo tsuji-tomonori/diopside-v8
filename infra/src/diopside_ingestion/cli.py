@@ -8,7 +8,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
+import subprocess
 import sys
+import tempfile
 from collections.abc import Iterable, Mapping
 from pathlib import Path
 from typing import Protocol, cast
@@ -39,6 +42,14 @@ from diopside_ingestion.reuse import (
     select_japanese_caption_object,
     select_verified_transcript_object,
 )
+from diopside_ingestion.staging import (
+    LocalStage,
+    StagedLocalProcessor,
+    load_processed_manifest,
+    process_completed,
+    select_stages,
+    video_workspace,
+)
 from diopside_ingestion.state import DynamoIngestionRepository
 from diopside_ingestion.worker import (
     IngestionWorker,
@@ -46,6 +57,8 @@ from diopside_ingestion.worker import (
     WorkerConfig,
 )
 from diopside_ingestion.worker import ObjectStore as WorkerObjectStore
+
+LOGGER = logging.getLogger(__name__)
 
 
 class ObjectStore(ObjectLister, Protocol):
@@ -148,6 +161,7 @@ def build_local_runner(
     table: str,
     profile: str | None,
     region: str,
+    staged_work_root: Path | None = None,
 ) -> LocalIngestionRunner:
     """Create S3/DynamoDB clients from the operator's standard AWS credential chain."""
     session = boto3.Session(  # pyright: ignore[reportUnknownMemberType] -- boto3 overload issue.
@@ -167,6 +181,11 @@ def build_local_runner(
             repository=repository,
             store=store,
             runner=SubprocessRunner(),
+            staged_workspace=(
+                video_workspace(staged_work_root, config.video_id)
+                if staged_work_root is not None
+                else None
+            ),
         )
 
     return LocalIngestionRunner(
@@ -197,12 +216,112 @@ def bounded_attempt_count(value: str) -> int:
 
 
 def add_local_aws_arguments(command: argparse.ArgumentParser) -> None:
-    """Add shared local execution arguments without accepting credentials as values."""
-    command.add_argument("--bucket", required=True)
-    command.add_argument("--table", required=True)
+    """Add staged execution arguments without accepting credentials as values."""
+    command.add_argument("--bucket")
+    command.add_argument("--table")
     command.add_argument("--profile")
     command.add_argument("--region", default="ap-northeast-1")
     command.add_argument("--max-attempts", type=bounded_attempt_count, default=3)
+    command.add_argument(
+        "--stage",
+        action="append",
+        choices=[stage.value for stage in LocalStage],
+        help="stage to run; repeat to select multiple stages (default: all three)",
+    )
+    command.add_argument(
+        "--work-root",
+        type=Path,
+        help="persistent local root; required when fewer than all stages are selected",
+    )
+
+
+def run_staged_targets(
+    video_ids: Iterable[str],
+    *,
+    work_root: Path,
+    stages: tuple[LocalStage, ...],
+    upload_runner: LocalIngestionRunner | None,
+    max_attempts: int,
+    retained: bool,
+) -> list[dict[str, object]]:
+    """Run finite staged targets independently and return content-free summaries."""
+    results: list[dict[str, object]] = []
+    for video_id in video_ids:
+        workspace = video_workspace(work_root, video_id)
+        processor = StagedLocalProcessor(video_id, workspace, SubprocessRunner())
+        stage_results: list[dict[str, object]] = []
+        completed = True
+        status = "not_started"
+        upload_result: LocalIngestionResult | None = None
+        try:
+            for stage in stages:
+                if stage is LocalStage.ACQUIRE:
+                    result = processor.acquire()
+                    stage_results.append(result.to_document(workspace))
+                    completed = completed and result.successful
+                    status = result.outcome
+                elif stage is LocalStage.PROCESS:
+                    result = processor.process()
+                    stage_results.append(result.to_document(workspace))
+                    completed = completed and result.successful
+                    status = result.outcome
+                else:
+                    bundle = load_processed_manifest(workspace, video_id)
+                    if not process_completed(bundle):
+                        reason = bundle.get("reason_code")
+                        stage_results.append(
+                            {
+                                "stage": LocalStage.UPLOAD.value,
+                                "outcome": "skipped_dependency",
+                                "reason_code": reason if isinstance(reason, str) else None,
+                            }
+                        )
+                        completed = False
+                        status = "retryable_failed"
+                        continue
+                    if upload_runner is None:
+                        raise ValueError("upload runner is required for the upload stage")
+                    upload = upload_runner.process(video_id, max_attempts=max_attempts)
+                    upload_result = upload
+                    stage_results.append(
+                        {
+                            "stage": LocalStage.UPLOAD.value,
+                            "outcome": upload.outcome,
+                            "reason_code": upload.last_reason_code,
+                            "attempt_count": upload.attempt_count,
+                            "run_id": upload.run_id,
+                            "status": upload.status,
+                        }
+                    )
+                    completed = upload.completed
+                    status = upload.status
+        except (OSError, ValueError, subprocess.TimeoutExpired) as error:
+            LOGGER.warning(
+                "Local stage failed safely video_id=%s error_type=%s",
+                video_id,
+                type(error).__name__,
+            )
+            stage_results.append(
+                {
+                    "stage": "precondition",
+                    "outcome": "failed",
+                    "reason_code": "local_stage_precondition_failed",
+                }
+            )
+            completed = False
+            status = "retryable_failed"
+        summary: dict[str, object] = {
+            "video_id": video_id,
+            "workspace": str(workspace) if retained else None,
+            "selected_stages": [stage.value for stage in stages],
+            "stages": stage_results,
+            "completed": completed,
+            "status": status,
+        }
+        if upload_result is not None:
+            summary.update(upload_result.to_document())
+        results.append(summary)
+    return results
 
 
 def materialize_private_transcript(
@@ -252,14 +371,14 @@ def build_parser() -> argparse.ArgumentParser:
 
     ingest = commands.add_parser(
         "ingest",
-        help="locally collect one explicit video and write it directly to S3/DynamoDB",
+        help="run selected acquire/process/upload stages for one explicit video",
     )
     ingest.add_argument("--video-id", required=True)
     add_local_aws_arguments(ingest)
 
     ingest_manifest = commands.add_parser(
         "ingest-manifest",
-        help="locally process every target in one immutable manifest",
+        help="run selected stages for every target in one immutable manifest",
     )
     ingest_manifest.add_argument("--manifest", type=Path, required=True)
     add_local_aws_arguments(ingest_manifest)
@@ -303,7 +422,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """Run a single opt-in operator command and print only non-raw operational data."""
-    args = build_parser().parse_args(argv)
+    parser = build_parser()
+    args = parser.parse_args(argv)
     if args.command == "manifest":
         manifest = create_manifest(args.repo_root.resolve(), revision=args.revision)
         args.output.write_bytes(manifest_bytes(manifest))
@@ -395,33 +515,60 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command in {"ingest", "ingest-manifest"}:
-        runner = build_local_runner(
-            bucket=args.bucket,
-            table=args.table,
-            profile=args.profile,
-            region=args.region,
-        )
+        stages = select_stages(args.stage)
+        if args.work_root is None and stages != tuple(LocalStage):
+            parser.error("--work-root is required when selecting fewer than all stages")
+        if LocalStage.UPLOAD in stages and (not args.bucket or not args.table):
+            parser.error("--bucket and --table are required when the upload stage is selected")
         if args.command == "ingest":
             video_ids = [IngestionRequest.from_document({"video_id": args.video_id}).video_id]
         else:
             target_manifest = load_manifest(args.manifest)
             video_ids = [target.video_id for target in target_manifest.videos]
-        results = run_local_targets(runner, video_ids, max_attempts=args.max_attempts)
+
+        def execute(work_root: Path, *, retained: bool) -> list[dict[str, object]]:
+            upload_runner = (
+                build_local_runner(
+                    bucket=cast(str, args.bucket),
+                    table=cast(str, args.table),
+                    profile=args.profile,
+                    region=args.region,
+                    staged_work_root=work_root,
+                )
+                if LocalStage.UPLOAD in stages
+                else None
+            )
+            return run_staged_targets(
+                video_ids,
+                work_root=work_root,
+                stages=stages,
+                upload_runner=upload_runner,
+                max_attempts=args.max_attempts,
+                retained=retained,
+            )
+
+        if args.work_root is not None:
+            results = execute(args.work_root, retained=True)
+        else:
+            with tempfile.TemporaryDirectory(prefix="diopside-ingestion-staged-") as temporary:
+                results = execute(Path(temporary), retained=False)
         if args.command == "ingest":
-            print(json.dumps(results[0].to_document(), ensure_ascii=False, sort_keys=True))
+            print(json.dumps(results[0], ensure_ascii=False, sort_keys=True))
         else:
             print(
                 json.dumps(
                     {
                         "target_count": len(results),
-                        "completed_count": sum(result.completed for result in results),
-                        "results": [result.to_document() for result in results],
+                        "completed_count": sum(
+                            result.get("completed") is True for result in results
+                        ),
+                        "results": results,
                     },
                     ensure_ascii=False,
                     sort_keys=True,
                 )
             )
-        return 0 if all(result.completed for result in results) else 2
+        return 0 if all(result.get("completed") is True for result in results) else 2
 
     manifest = load_manifest(args.manifest)
     if args.command == "upload-manifest":

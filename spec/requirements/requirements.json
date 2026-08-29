@@ -2398,6 +2398,105 @@
       }
     },
     {
+      "acceptance_criteria": [
+        {
+          "given": "1件のvideo IDとローカル実行環境がある",
+          "id": "AC-V8-INGEST-015-1",
+          "then": "一次情報取得と加工はAWS clientを生成せずローカルmanifestを出力し、uploadは取得・加工manifestと全fileのSHA-256・byte数を検証した後だけDynamoDB claimとS3書込みを開始する。",
+          "when": "ローカルprivate material処理を段階実行する"
+        }
+      ],
+      "action": "enforce",
+      "category": "functional",
+      "id": "V8-INGEST-015",
+      "last_changed_by": "CHG-20260829-staged-local-ingestion",
+      "object": "ローカルprivate material処理は一次情報取得、加工、S3/DynamoDB uploadの3段階をchecksum付きmanifest境界で分離し、upload段階だけがAWSへ接続しなければならない。",
+      "rationale": "取得失敗の診断、加工の再試行、AWS書込みを分離し、生素材を再取得せず検証済み段階から安全に再開するため。",
+      "revision": 1,
+      "scope": "project",
+      "source_refs": [
+        "Issue #465",
+        "user:2026-08-29-follow-up",
+        "spec/sources/owner-directive-2026-08-29-local-private-ingestion.md"
+      ],
+      "status": "active",
+      "subject": "diopside v8のローカルprivate material段階処理",
+      "title": "ローカル素材処理は取得・加工・uploadを検証可能な3段階へ分離しなければならない",
+      "traces": {
+        "design": [
+          "docs/decisions/ADR-0006-local-private-material-ingestion.md"
+        ],
+        "implementation": [
+          "infra/src/diopside_ingestion/staging.py",
+          "infra/src/diopside_ingestion/worker.py",
+          "infra/src/diopside_ingestion/cli.py"
+        ],
+        "standards": [
+          "Issue #465",
+          "dev-standard assured profile"
+        ],
+        "tests": [
+          "infra/tests/test_staging.py",
+          "infra/tests/test_worker.py",
+          "infra/tests/test_cli.py"
+        ]
+      },
+      "type": "functional",
+      "verification": {
+        "evidence": "infra/tests/test_staging.py, infra/tests/test_worker.py, infra/tests/test_cli.py",
+        "method": "段階分離・checksum改竄検出・AWS接続境界・upload再利用試験"
+      }
+    },
+    {
+      "acceptance_criteria": [
+        {
+          "given": "1件または固定manifestの有限video集合をローカル処理する",
+          "id": "AC-V8-INGEST-016-1",
+          "then": "運用者はwork rootと実行段階を明示でき、部分実行では永続work rootを必須とし、同じvideo workspaceの検証済み前段manifestから後段だけを再開できる。stage未指定の全段階実行では一時work rootも選択できる。",
+          "when": "ローカルCLIの保存先と実行段階を選択する"
+        }
+      ],
+      "action": "enforce",
+      "category": "functional",
+      "id": "V8-INGEST-016",
+      "last_changed_by": "CHG-20260829-staged-local-ingestion",
+      "object": "ローカルCLIは運用者がprivate work rootと取得・加工・uploadの実行段階を選択し、動画単位のworkspaceを保持または全段階完走後に破棄できなければならない。",
+      "rationale": "生素材の保持場所と保持期間を運用者が管理し、失敗した段階だけを再実行して不要なdownloadとAWS書込みを避けるため。",
+      "revision": 1,
+      "scope": "project",
+      "source_refs": [
+        "Issue #465",
+        "user:2026-08-29-follow-up",
+        "spec/sources/owner-directive-2026-08-29-local-private-ingestion.md"
+      ],
+      "status": "active",
+      "subject": "diopside v8のローカルprivate material workspace",
+      "title": "ローカルCLIは保持先と実行段階を運用者が選択できなければならない",
+      "traces": {
+        "design": [
+          "docs/decisions/ADR-0006-local-private-material-ingestion.md"
+        ],
+        "implementation": [
+          "infra/src/diopside_ingestion/staging.py",
+          "infra/src/diopside_ingestion/cli.py",
+          "infra/README.md"
+        ],
+        "standards": [
+          "Issue #465",
+          "dev-standard assured profile"
+        ],
+        "tests": [
+          "infra/tests/test_staging.py",
+          "infra/tests/test_cli.py"
+        ]
+      },
+      "type": "operational",
+      "verification": {
+        "evidence": "infra/tests/test_staging.py, infra/tests/test_cli.py",
+        "method": "work root・stage選択・部分実行前提・再開試験"
+      }
+    },
+    {
       "id": "V8-OPS-001",
       "revision": 2,
       "status": "active",

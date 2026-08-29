@@ -377,12 +377,16 @@ class IngestionWorker:
     repository: IngestionRepository
     store: ObjectStore
     runner: CommandRunner
+    staged_workspace: Path | None = None
     artifact_objects: dict[str, list[dict[str, object]]] = field(
         default_factory=empty_artifact_objects
     )
 
     def run(self) -> None:
         """Process the single requested video; retryable failures leave a resumable checkpoint."""
+        if self.staged_workspace is not None:
+            self._upload_staged_workspace()
+            return
         existing_item = self.repository.load(self.config.video_id)
         try:
             existing_manifest = self._load_current_manifest(existing_item)
@@ -561,6 +565,211 @@ class IngestionWorker:
             if self._has_retryable_failure(artifacts):
                 raise RetryableWorkerError("retryable_artifact_failure")
             self._complete_with_manifest(artifacts, channel_id, prefix)
+
+    def _upload_staged_workspace(self) -> None:
+        """Upload one fully verified local process bundle without contacting YouTube."""
+        from diopside_ingestion.staging import (
+            load_processed_manifest,
+            local_artifact_record,
+            local_failure,
+            processed_artifact_paths,
+        )
+
+        workspace = self.staged_workspace
+        if workspace is None:  # pragma: no cover - narrowed by the public entry point.
+            raise ValueError("staged workspace is required")
+        bundle = load_processed_manifest(workspace, self.config.video_id)
+        existing_item = self.repository.load(self.config.video_id)
+        try:
+            existing_manifest = self._load_current_manifest(existing_item)
+        except PrivateObjectReadError as exc:
+            artifacts = self._record_failure(
+                initial_artifacts(iso_now()),
+                "manifest",
+                Failure(
+                    ReasonCategory.DEPENDENCY_ERROR,
+                    str(exc),
+                    "既存のprivate manifestを読み取れない",
+                    True,
+                    "retry_manifest",
+                ),
+            )
+            self._checkpoint(artifacts, current_stage="manifest")
+            raise RetryableWorkerError(str(exc)) from exc
+        if existing_manifest is not None and existing_manifest.status is not None:
+            self._complete_from_existing_manifest(existing_manifest)
+            return
+
+        # A staged retry has a complete verified local bundle, so it re-uploads a new
+        # immutable run instead of depending on object records from an older checkpoint.
+        artifacts = initial_artifacts(iso_now())
+        metadata_record = local_artifact_record(bundle, "metadata")
+        if metadata_record.get("status") != ArtifactStatus.SUCCEEDED.value:
+            failure = local_failure(metadata_record, "metadata")
+            artifacts = self._record_failure(artifacts, "metadata", failure)
+            artifacts = self._mark_dependency_unavailable(artifacts, failure)
+            if failure.retryable:
+                self._checkpoint(artifacts, current_stage="metadata")
+                raise RetryableWorkerError(failure.code)
+            self._complete_unavailable(artifacts, failure)
+            return
+
+        channel_id_value = bundle.get("channel_id")
+        if not isinstance(channel_id_value, str):
+            raise RetryableWorkerError("staged_channel_id_missing")
+        channel_id = validate_channel_id(channel_id_value)
+        known_channel_id = self._known_channel_id(existing_item)
+        if known_channel_id is not None and known_channel_id != channel_id:
+            raise RetryableWorkerError("channel_id_mismatch")
+        prefix = run_prefix(channel_id, self.config.video_id, self.config.run_id)
+        self._checkpoint(
+            artifacts,
+            current_stage="upload",
+            channel_id=channel_id,
+            s3_prefix=video_prefix(channel_id, self.config.video_id),
+        )
+
+        raw_directories = {
+            "metadata": "raw/info",
+            "description": "raw/description",
+            "thumbnails": "raw/thumbnails",
+            "native_audio": "raw/audio",
+        }
+        for artifact_key, directory in raw_directories.items():
+            artifacts = self._upload_staged_artifact(
+                artifacts,
+                bundle,
+                workspace,
+                artifact_key,
+                channel_id,
+                prefix,
+                directory,
+                "raw",
+                "raw_s3_key",
+            )
+
+        for artifact_key, raw_directory in (
+            ("subtitles", "raw/subtitles"),
+            ("automatic_captions", "raw/automatic-captions"),
+            ("chat", "raw/chat"),
+            ("comments", "raw/comments"),
+        ):
+            if not self._needs_work(artifacts, artifact_key):
+                continue
+            record = local_artifact_record(bundle, artifact_key)
+            if record.get("status") != ArtifactStatus.SUCCEEDED.value:
+                artifacts = self._apply_staged_unavailable(artifacts, artifact_key, record)
+                continue
+            raw_paths = processed_artifact_paths(workspace, bundle, artifact_key, "raw")
+            normalized_paths = processed_artifact_paths(
+                workspace, bundle, artifact_key, "normalized"
+            )
+            artifacts = self._upload_paths(
+                artifacts,
+                artifact_key,
+                raw_paths,
+                channel_id,
+                prefix,
+                raw_directory,
+                terminal=False,
+            )
+            artifacts = self._upload_paths(
+                artifacts,
+                artifact_key,
+                normalized_paths,
+                channel_id,
+                prefix,
+                f"normalized/{artifact_key}",
+                storage_field="normalized_s3_key",
+            )
+
+        artifacts = self._upload_staged_artifact(
+            artifacts,
+            bundle,
+            workspace,
+            "asr_audio",
+            channel_id,
+            prefix,
+            "derived/asr-audio",
+            "derived",
+            "derived_s3_key",
+        )
+        self._checkpoint(
+            artifacts,
+            current_stage="verify",
+            channel_id=channel_id,
+            s3_prefix=video_prefix(channel_id, self.config.video_id),
+        )
+        if self._has_retryable_failure(artifacts):
+            raise RetryableWorkerError("retryable_local_stage_failure")
+        self._complete_with_manifest(artifacts, channel_id, prefix)
+
+    def _upload_staged_artifact(
+        self,
+        artifacts: dict[str, dict[str, object]],
+        bundle: Mapping[str, object],
+        workspace: Path,
+        artifact_key: str,
+        channel_id: str,
+        prefix: str,
+        directory: str,
+        kind: str,
+        storage_field: str,
+    ) -> dict[str, dict[str, object]]:
+        """Upload one verified local artifact or preserve its safe terminal state."""
+        from diopside_ingestion.staging import (
+            local_artifact_record,
+            processed_artifact_paths,
+        )
+
+        if not self._needs_work(artifacts, artifact_key):
+            return artifacts
+        record = local_artifact_record(bundle, artifact_key)
+        if record.get("status") != ArtifactStatus.SUCCEEDED.value:
+            return self._apply_staged_unavailable(artifacts, artifact_key, record)
+        paths = processed_artifact_paths(workspace, bundle, artifact_key, kind)
+        if not paths:
+            return self._mark_absent(artifacts, artifact_key, f"{artifact_key}_not_present")
+        return self._upload_paths(
+            artifacts,
+            artifact_key,
+            paths,
+            channel_id,
+            prefix,
+            directory,
+            storage_field=storage_field,
+        )
+
+    def _apply_staged_unavailable(
+        self,
+        artifacts: dict[str, dict[str, object]],
+        artifact_key: str,
+        record: Mapping[str, object],
+    ) -> dict[str, dict[str, object]]:
+        """Translate a safe local status into the existing DynamoDB artifact contract."""
+        from diopside_ingestion.staging import local_failure
+
+        status = record.get("status")
+        if status == ArtifactStatus.SKIPPED_DEPENDENCY.value:
+            return update_artifact(
+                artifacts,
+                artifact_key=artifact_key,
+                status=ArtifactStatus.SKIPPED_DEPENDENCY,
+                current_phase="completed",
+                now=iso_now(),
+                availability="unavailable",
+            )
+        if status == ArtifactStatus.NOT_APPLICABLE.value:
+            return update_artifact(
+                artifacts,
+                artifact_key=artifact_key,
+                status=ArtifactStatus.NOT_APPLICABLE,
+                current_phase="completed",
+                now=iso_now(),
+                availability="not_applicable",
+                phase_status=PhaseStatus.NOT_APPLICABLE,
+            )
+        return self._record_failure(artifacts, artifact_key, local_failure(record, artifact_key))
 
     def _known_channel_id(self, item: Mapping[str, object] | None) -> str | None:
         if item is None:

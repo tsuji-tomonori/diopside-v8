@@ -15,6 +15,7 @@ from botocore.exceptions import ClientError
 
 from diopside_ingestion.contracts import initial_artifacts
 from diopside_ingestion.paths import current_manifest_key
+from diopside_ingestion.staging import StagedLocalProcessor, video_workspace
 from diopside_ingestion.state import ClaimResult
 from diopside_ingestion.worker import (
     IngestionWorker,
@@ -191,6 +192,32 @@ def _config(run_id: str = "run-1") -> WorkerConfig:
         bucket="private-bucket",
         table_name="VideoIngestion",
         runtime_version="local-python3.12",
+    )
+
+
+def test_staged_upload_uses_verified_workspace_without_redownloading(tmp_path: Path) -> None:
+    workspace = video_workspace(tmp_path, "dQw4w9WgXcQ")
+    StagedLocalProcessor("dQw4w9WgXcQ", workspace, FakeRunner()).acquire()
+    StagedLocalProcessor("dQw4w9WgXcQ", workspace, FakeRunner()).process()
+    repository = FakeRepository()
+    store = FakeStore()
+    upload_runner = FakeRunner()
+
+    IngestionWorker(
+        _config(),
+        repository,
+        store,
+        upload_runner,
+        staged_workspace=workspace,
+    ).run()
+
+    assert repository.completions[-1]["status"] == "succeeded"
+    assert any(key.endswith("/raw/info/info.json") for _, key in store.uploads)
+    assert any(key.endswith("/derived/asr-audio/asr-audio.flac") for _, key in store.uploads)
+    assert all(
+        command == ["yt-dlp", "--version"]
+        for command in upload_runner.calls
+        if command[0] == "yt-dlp"
     )
 
 
