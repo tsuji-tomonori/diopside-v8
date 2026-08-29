@@ -1,7 +1,7 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 24
+- カタログ版: 25
 - 更新日: 2026-08-29
 - 正本: `spec/requirements/requirements.json`
 
@@ -51,8 +51,8 @@
 | `V8-INGEST-010` | 1 | 有効 | 運用 | diopside v8のprivate backfill報告は、backfill完了報告は固定target manifestの各video_idに対する成功、部分成功、利用不能、未完了、artifact件数、reason codeを安全に集計し私有S3へ保存しなければならない。を**強制する** | report集計・S3 key試験 |
 | `V8-INGEST-011` | 3 | 有効 | 制約 | diopside v8のprivate backfill基盤は、private backfill基盤はservice標準の保存時暗号化、TLS強制、public block、KMS権限を含まない最小権限IAM、Lambda 15分上限、lock済み依存、Ruff、strict型検査、pytest、CDK synth、cdk-nagを適用し、customer-managed KMS key、AWS Batch、Fargate、ECR、専用VPCを構成してはならない。を**強制する** | CDK synth・cdk-nag・静的解析・unit test |
 | `V8-INGEST-012` | 1 | 有効 | 運用 | diopside v8のlegacy local importは、全編coverage検証済み1,598動画だけをchecksum付きmanifestへ固定し、provider再取得を行わず、rawと匿名化normalized copyを分離し、S3再読検証後にrun manifest、current manifest、DynamoDBのpartial終端状態を確定しなければならない。を**強制する** | legacy manifest・改ざん・匿名化・S3再読・DynamoDB終端試験 |
-| `V8-INGEST-013` | 2 | 有効 | 制約 | diopside v8のprivate backfill基盤deployは、GitHub ActionsからのCDK deployはprotected environmentで承認されたmainの手動実行がimmutableな完全一致OIDC subjectの短期sessionを使用し、access stackの配置regionと独立した同一accountのTargetDeploymentRegionにある必要なCDK bootstrap roleだけを引き受ける経路に限定しなければならない。を**強制する** | IAM CloudFormation template assertion・workflow静的試験・CDK synth・cdk-nag |
-| `V8-INGEST-014` | 2 | 有効 | 運用 | diopside v8のGitHub Actionsによる1動画投入は、mainの手動実行で承認された1件のvideo_idだけをimmutableな完全一致OIDC subjectの短期sessionとTargetDeploymentRegionの対象FIFOへのSendMessage専用roleで投入しなければならない。を**強制する** | IAM template試験・workflow静的確認 |
+| `V8-INGEST-013` | 3 | 有効 | 制約 | diopside v8のprivate backfill基盤deployは、GitHub ActionsからのCDK deployはprivate-backfill-infra environmentで承認されたmainの手動実行が共有infra roleのimmutableな完全一致OIDC短期sessionを使用し、inline session policyでTargetDeploymentRegionの必要なCDK bootstrap roleだけを引き受ける経路に限定しなければならない。を**強制する** | IAM CloudFormation template assertion・workflow静的試験・CDK synth・cdk-nag |
+| `V8-INGEST-014` | 3 | 有効 | 運用 | diopside v8のGitHub Actionsによる1動画投入は、mainの手動実行で承認された1件のvideo_idだけを、基盤deployと共通のprotected environmentおよび共有infra roleから、TargetDeploymentRegionの対象FIFOへのSendMessage専用sessionで投入しなければならない。を**強制する** | IAM template試験・workflow静的確認 |
 | `V8-OPS-001` | 2 | 有効 | 運用 | diopside v8の運用は、タイムスタンプ一括処理は、運用者による1回の明示的なChatGPT／Codex要求で指定された識別子または有限の選定条件から、今回処理する適格動画の有限集合を開始時に固定しなければならない。固定後は、動画ごとの追加チャット承認を開始条件としてはならない。を**satisfy** | 一括処理の開始境界・対象集合固定・状態遷移試験 |
 | `V8-OPS-002` | 1 | 有効 | 運用 | diopside v8の運用は、GitHub ActionsからChatGPT／Codexを呼び出してはならない。を**satisfy** | リポジトリ静的確認 |
 | `V8-OPS-003` | 5 | 有効 | 運用 | diopside v8の運用は、動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない。を**satisfy** | リポジトリ静的確認・手順試験 |
@@ -862,35 +862,35 @@ diopside v8のlegacy local importは、全編coverage検証済み1,598動画だ�
 検証証跡: infra/tests/test_legacy_import.py
 トレース: 設計=docs/decisions/ADR-0004-legacy-local-private-import.md,docs/operations/manual-content-update.md; 実装=infra/src/diopside_ingestion/legacy_import.py,infra/src/diopside_ingestion/cli.py,infra/src/diopside_ingestion/contracts.py,infra/src/diopside_ingestion/reuse.py; テスト=infra/tests/test_legacy_import.py,infra/tests/test_reuse.py; 参照資料=Issue #465,dev-standard assured profile
 
-## V8-INGEST-013: GitHub Actionsのprivate backfill基盤deployはOIDC短期sessionと限定CDK roleを使用しなければならない
+## V8-INGEST-013: GitHub Actionsのprivate backfill基盤deployは共有infra roleの操作別OIDC sessionを使用しなければならない
 
-diopside v8のprivate backfill基盤deployは、GitHub ActionsからのCDK deployはprotected environmentで承認されたmainの手動実行がimmutableな完全一致OIDC subjectの短期sessionを使用し、access stackの配置regionと独立した同一accountのTargetDeploymentRegionにある必要なCDK bootstrap roleだけを引き受ける経路に限定しなければならない。を**強制する**。
+diopside v8のprivate backfill基盤deployは、GitHub ActionsからのCDK deployはprivate-backfill-infra environmentで承認されたmainの手動実行が共有infra roleのimmutableな完全一致OIDC短期sessionを使用し、inline session policyでTargetDeploymentRegionの必要なCDK bootstrap roleだけを引き受ける経路に限定しなければならない。を**強制する**。
 
-根拠: 長期AWS access keyとrepository横断の信頼を持たず、デプロイ権限を人が承認した有限private backfill基盤の変更だけへ閉じるため。
+根拠: 長期AWS access keyとrepository横断の信頼を持たず、共有するOIDC設定と実行ごとの最小権限sessionを両立するため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-INGEST-013-1` 前提: AWS accountにGitHub OIDC providerとmodern CDK bootstrap roleがある。条件: deployment access stackをsynthしてIAM trustと権限policyを検査する。期待結果: 受けロールはowner IDとrepository ID、audience、protected environmentを含むimmutableな完全一致subjectだけを信頼し、AWS access keyを作らず、access stackの配置regionと独立した同一accountのTargetDeploymentRegionにあるdeploy、file-publishing、lookup bootstrap roleだけを引き受けられる。。
-- `AC-V8-INGEST-013-2` 前提: 検証済みmainのprivate backfill基盤をデプロイする。条件: 運用者がGitHub Actionsのdeploy workflowを明示開始する。期待結果: workflowはmain、確認入力、protected environment承認、account ID照合、lock済み依存、Ruff、strict型検査、pytest、CDK synth、cdk-nag、生成設計差分の合格後だけOIDC短期sessionでDiopsideIngestionStackをデプロイし、enqueue、upload、削除、公開、mergeを実行しない。。
+- `AC-V8-INGEST-013-1` 前提: AWS accountにGitHub OIDC providerとmodern CDK bootstrap roleがある。条件: deployment access stackをsynthしてIAM trustと権限policyを検査する。期待結果: 共有infra roleはowner IDとrepository ID、audience、private-backfill-infra environmentを含むimmutableな完全一致subjectだけを信頼し、AWS access keyを作らず、access stackの配置regionと独立した同一accountのTargetDeploymentRegionにあるdeploy、file-publishing、lookup bootstrap roleの引受けと固定request FIFOへのsqs:SendMessageだけを許可する。。
+- `AC-V8-INGEST-013-2` 前提: 検証済みmainのprivate backfill基盤をデプロイする。条件: 運用者がGitHub Actionsのdeploy workflowを明示開始する。期待結果: workflowはmain、確認入力、共通protected environment承認、account ID照合、lock済み依存、Ruff、strict型検査、pytest、CDK synth、cdk-nag、生成設計差分の合格後だけ共有infra roleを引き受け、inline session policyを対象CDK bootstrap roleの引受けだけへ限定してDiopsideIngestionStackをデプロイし、enqueue、upload、削除、公開、mergeを実行しない。。
 
-要求源: Issue #465, user:2026-08-23, user:2026-08-29, GitHub Actions OIDC for AWS, AWS CDK security best practices
+要求源: Issue #465, user:2026-08-23, user:2026-08-29, spec/sources/owner-directive-2026-08-29-ingestion-infra-role.md, GitHub Actions OIDC for AWS, AWS CDK security best practices
 検証証跡: infra/tests/test_deployment_access.py, tests/repository-policy.test.ts, .github/workflows/verify.yml
 トレース: 設計=docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md,docs/design/generated/cdk/diopside-github-deployment-access/PARAMETERS.gen.md,docs/operations/manual-content-update.md,docs/operations/privacy-and-safety.md; 実装=infra/src/diopside_deployment/access_stack.py,infra/app.py,.github/workflows/deploy-ingestion-infra.yml; テスト=infra/tests/test_deployment_access.py,tests/repository-policy.test.ts; 参照資料=Issue #465,GitHub Actions OIDC for AWS,AWS CDK security best practices,dev-standard regulated profile
 
-## V8-INGEST-014: GitHub Actionsの1動画SQS投入はOIDC短期sessionと専用最小権限roleを使用しなければならない
+## V8-INGEST-014: GitHub Actionsの1動画SQS投入は共有infra roleのSendMessage専用sessionを使用しなければならない
 
-diopside v8のGitHub Actionsによる1動画投入は、mainの手動実行で承認された1件のvideo_idだけをimmutableな完全一致OIDC subjectの短期sessionとTargetDeploymentRegionの対象FIFOへのSendMessage専用roleで投入しなければならない。を**強制する**。
+diopside v8のGitHub Actionsによる1動画投入は、mainの手動実行で承認された1件のvideo_idだけを、基盤deployと共通のprotected environmentおよび共有infra roleから、TargetDeploymentRegionの対象FIFOへのSendMessage専用sessionで投入しなければならない。を**強制する**。
 
-根拠: 長期AWS access keyと過剰なAWS権限を持たず、費用確認済みの1動画だけを監査可能な人の操作として安全に再投入するため。
+根拠: OIDC roleとenvironmentを基盤運用へ統合しながら、長期AWS access keyと実行時の過剰なAWS権限を持たず、費用確認済みの1動画だけを安全に再投入するため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-INGEST-014-1` 前提: AWS accountにGitHub OIDC providerとprivate ingestion request FIFOがある。条件: deployment access stackをsynthしてenqueue roleを検査する。期待結果: enqueue roleはowner IDとrepository ID、audience、private-backfill-enqueue environmentを含むimmutableな完全一致subjectだけを信頼し、長期access keyを作らず、access stackの配置regionと独立したTargetDeploymentRegionのrequest FIFOへのsqs:SendMessage以外のAWS権限を持たない。。
-- `AC-V8-INGEST-014-2` 前提: 運用者が料金、利用量、契約条件を確認して1動画を投入する。条件: mainから1動画enqueue workflowを手動実行する。期待結果: 11文字video ID、ENQUEUE確認、専用protected environment承認、account・region・role・queue照合がすべて成功した場合だけ、video_id一項目の本文を1件送信し、S3、DynamoDB、Lambda、CloudFormation、IAM、削除、公開、mergeを実行しない。。
+- `AC-V8-INGEST-014-1` 前提: AWS accountにGitHub OIDC providerとprivate ingestion request FIFOがある。条件: deployment access stackと1動画enqueue workflowのrole・session policyを検査する。期待結果: 基盤deployと同じ共有infra roleはowner IDとrepository ID、audience、private-backfill-infra environmentを含むimmutableな完全一致subjectだけを信頼し、enqueue workflowのinline session policyはaccess stackの配置regionと独立したTargetDeploymentRegionの固定request FIFOへのsqs:SendMessage以外を許可しない。。
+- `AC-V8-INGEST-014-2` 前提: 運用者が料金、利用量、契約条件を確認して1動画を投入する。条件: mainから1動画enqueue workflowを手動実行する。期待結果: 11文字video ID、ENQUEUE確認、基盤deployと共通のprotected environment承認、account・region・共有role照合がすべて成功した場合だけ、固定queue URLへvideo_id一項目の本文を1件送信し、S3、DynamoDB、Lambda、CloudFormation、IAM、削除、公開、mergeを実行しない。。
 
-要求源: Issue #465, user:2026-08-26, user:2026-08-29, GitHub Actions OIDC for AWS, AWS IAM least privilege
+要求源: Issue #465, user:2026-08-26, user:2026-08-29, spec/sources/owner-directive-2026-08-29-ingestion-infra-role.md, GitHub Actions OIDC for AWS, AWS IAM least privilege
 検証証跡: infra/tests/test_deployment_access.py, tests/repository-policy.test.ts
 トレース: 設計=docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md,infra/README.md,docs/operations/manual-content-update.md,docs/operations/privacy-and-safety.md,docs/operations/cost-check.md; 実装=infra/src/diopside_deployment/access_stack.py,.github/workflows/enqueue-ingestion-video.yml; テスト=infra/tests/test_deployment_access.py,tests/repository-policy.test.ts; 参照資料=Issue #465,GitHub Actions OIDC for AWS,AWS IAM least privilege,dev-standard regulated profile
 

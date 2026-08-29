@@ -1,4 +1,4 @@
-"""GitHub Actions OIDC access for private ingestion deploy and enqueue operations."""
+"""GitHub Actions OIDC access for private ingestion infrastructure operations."""
 # pyright: reportArgumentType=false
 
 from __future__ import annotations
@@ -13,16 +13,14 @@ _GITHUB_OIDC_PROVIDER_HOST = "token.actions.githubusercontent.com"
 _GITHUB_OIDC_AUDIENCE = "sts.amazonaws.com"
 _GITHUB_OIDC_REPOSITORY = "tsuji-tomonori@39981658/diopside-v8@1321865971"
 _DEPLOYMENT_ENVIRONMENT = "private-backfill-infra"
-_ENQUEUE_ENVIRONMENT = "private-backfill-enqueue"
 _GITHUB_OIDC_SUBJECT = f"repo:{_GITHUB_OIDC_REPOSITORY}:environment:{_DEPLOYMENT_ENVIRONMENT}"
-_GITHUB_ENQUEUE_OIDC_SUBJECT = f"repo:{_GITHUB_OIDC_REPOSITORY}:environment:{_ENQUEUE_ENVIRONMENT}"
 _TARGET_DEPLOYMENT_REGION = "ap-northeast-1"
 _BOOTSTRAP_QUALIFIER = "hnb659fds"
 _REQUEST_QUEUE_NAME = "diopside-ingestion-request.fifo"
 
 
 class GitHubDeploymentAccessStack(Stack):
-    """Allow exact protected GitHub environments to deploy or enqueue one video."""
+    """Allow one exact protected GitHub environment to run infrastructure operations."""
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs: Any) -> None:
         super().__init__(scope, construct_id, **kwargs)
@@ -58,7 +56,9 @@ class GitHubDeploymentAccessStack(Stack):
             self,
             "GitHubActionsDeployRole",
             role_name="diopside-github-actions-deploy",
-            description="Receives short-lived OIDC sessions for the private backfill CDK deploy",
+            description=(
+                "Receives short-lived OIDC sessions for private backfill deploy and enqueue"
+            ),
             assumed_by=iam.FederatedPrincipal(
                 federated=provider_arn,
                 conditions={
@@ -86,38 +86,7 @@ class GitHubDeploymentAccessStack(Stack):
                 resources=bootstrap_role_arns,
             )
         )
-
-        enqueue_oidc_subject = CfnParameter(
-            self,
-            "GitHubEnqueueOidcSubject",
-            type="String",
-            default=_GITHUB_ENQUEUE_OIDC_SUBJECT,
-            description=(
-                "Exact immutable GitHub Actions OIDC subject for the protected "
-                f"{_ENQUEUE_ENVIRONMENT} environment"
-            ),
-            allowed_values=[_GITHUB_ENQUEUE_OIDC_SUBJECT],
-            constraint_description=(
-                f"Use the exact {_GITHUB_ENQUEUE_OIDC_SUBJECT} subject emitted by GitHub"
-            ),
-        )
-        enqueue_role = iam.Role(
-            self,
-            "GitHubActionsEnqueueRole",
-            role_name="diopside-github-actions-enqueue",
-            description="Receives short-lived OIDC sessions for one-video SQS enqueue",
-            assumed_by=iam.FederatedPrincipal(
-                federated=provider_arn,
-                conditions={
-                    "StringEquals": {
-                        f"{_GITHUB_OIDC_PROVIDER_HOST}:aud": _GITHUB_OIDC_AUDIENCE,
-                        f"{_GITHUB_OIDC_PROVIDER_HOST}:sub": (enqueue_oidc_subject.value_as_string),
-                    }
-                },
-                assume_role_action="sts:AssumeRoleWithWebIdentity",
-            ),
-        )
-        enqueue_role.add_to_policy(
+        deploy_role.add_to_policy(
             iam.PolicyStatement(
                 sid="SendOnlyToIngestionRequestQueue",
                 actions=["sqs:SendMessage"],
@@ -142,10 +111,4 @@ class GitHubDeploymentAccessStack(Stack):
             "GitHubActionsDeploymentRegion",
             value=target_deployment_region.value_as_string,
             description="Set this value as the protected environment AWS_REGION variable",
-        )
-        CfnOutput(
-            self,
-            "GitHubActionsEnqueueRoleArn",
-            value=enqueue_role.role_arn,
-            description="Set this ARN as the protected environment AWS_ENQUEUE_ROLE_ARN variable",
         )

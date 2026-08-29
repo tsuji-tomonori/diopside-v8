@@ -98,14 +98,16 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).toMatch(/test "\$AWS_REGION" = 'ap-northeast-1'/u);
     expect(workflow).toMatch(/role\/diopside-github-actions-deploy/u);
     expect(workflow).toMatch(/aws-actions\/configure-aws-credentials@[0-9a-f]{40}/u);
+    expect(workflow).toMatch(/inline-session-policy:[\s\S]*sts:AssumeRole[\s\S]*cdk-hnb659fds-deploy-role/u);
     expect(workflow).toMatch(/npm run verify:ingestion/u);
     expect(workflow).toMatch(/cdk deploy DiopsideIngestionStack/u);
     expect(workflow).toMatch(/--exclusively --ci --require-approval never/u);
     expect(workflow).not.toMatch(/(?:pull_request:|push:|schedule:|cron:|openai|codex|chatgpt)/iu);
     expect(workflow).not.toMatch(/(?:diopside-backfill|enqueue|legacy-local-import|aws s3)/iu);
+    expect(workflow).not.toMatch(/sqs:SendMessage/u);
   });
 
-  it('1動画SQS投入はmain・専用protected environment・最小権限OIDCへ限定する', () => {
+  it('1動画SQS投入はmain・共通infra environment・操作別最小権限sessionへ限定する', () => {
     const workflow = text('.github/workflows/enqueue-ingestion-video.yml');
     expect(workflow).toMatch(/workflow_dispatch:/u);
     expect(workflow).toMatch(/video_id:[\s\S]*required: true/u);
@@ -113,19 +115,22 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).toMatch(/test "\$GITHUB_REF" = 'refs\/heads\/main'/u);
     expect(workflow).toMatch(/test "\$CONFIRMATION" = 'ENQUEUE'/u);
     expect(workflow).toMatch(/\^\[A-Za-z0-9_-\]\{11\}\$/u);
-    expect(workflow).toMatch(/environment: private-backfill-enqueue/u);
+    expect(workflow).toMatch(/environment: private-backfill-infra/u);
     expect(workflow).toMatch(/id-token: write/u);
-    expect(workflow).toMatch(/diopside-github-actions-enqueue/u);
+    expect(workflow).toMatch(/AWS_DEPLOY_ROLE_ARN/u);
+    expect(workflow).toMatch(/diopside-github-actions-deploy/u);
     expect(workflow).toMatch(/diopside-ingestion-request\.fifo/u);
     expect(workflow).toMatch(/allowed-account-ids:/u);
     expect(workflow).toMatch(/test "\$AWS_REGION" = 'ap-northeast-1'/u);
     expect(workflow).toMatch(/aws-actions\/configure-aws-credentials@[0-9a-f]{40}/u);
+    expect(workflow).toMatch(/inline-session-policy:[\s\S]*sqs:SendMessage[\s\S]*arn:aws:sqs:/u);
     expect(workflow).toMatch(/aws sqs send-message/u);
     expect(workflow).toMatch(/\{video_id:\$video_id\}/u);
     expect(workflow).toMatch(/--message-group-id "\$VIDEO_ID"/u);
     expect(workflow).toMatch(/--message-deduplication-id "github-actions:\$\{GITHUB_RUN_ID\}:\$\{VIDEO_ID\}"/u);
     expect(workflow).not.toMatch(/(?:pull_request:|push:|schedule:|cron:|openai|codex|chatgpt)/iu);
     expect(workflow).not.toMatch(/aws (?:s3|dynamodb|lambda|cloudformation|iam)|delete-message|purge-queue/iu);
+    expect(workflow).not.toMatch(/AWS_ENQUEUE_ROLE_ARN|AWS_INGESTION_QUEUE_URL|private-backfill-enqueue|diopside-github-actions-enqueue|sts:AssumeRole/u);
   });
 
   it('Pagesは公開リポジトリのmain/docs・許可済み独自ドメイン・branch方式だけを宣言する', () => {

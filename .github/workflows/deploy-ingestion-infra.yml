@@ -85,6 +85,8 @@ jobs:
           role-session-name: diopside-${{ github.run_id }}-${{ github.run_attempt }}
           aws-region: ${{ env.AWS_REGION }}
           allowed-account-ids: ${{ env.AWS_ACCOUNT_ID }}
+          inline-session-policy: >-
+            {"Version":"2012-10-17","Statement":[{"Sid":"AssumeRequiredCdkBootstrapRoles","Effect":"Allow","Action":"sts:AssumeRole","Resource":["arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/cdk-hnb659fds-deploy-role-${{ env.AWS_ACCOUNT_ID }}-${{ env.AWS_REGION }}","arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/cdk-hnb659fds-file-publishing-role-${{ env.AWS_ACCOUNT_ID }}-${{ env.AWS_REGION }}","arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/cdk-hnb659fds-lookup-role-${{ env.AWS_ACCOUNT_ID }}-${{ env.AWS_REGION }}"]}]}
       - name: 検証済みcommitのprivate backfill基盤だけをデプロイ
         env:
           CDK_DEFAULT_ACCOUNT: ${{ env.AWS_ACCOUNT_ID }}
