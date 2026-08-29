@@ -55,6 +55,7 @@ DIAGNOSTIC_SIGNALS = (
     ("bot_challenge", ("not a bot", "bot challenge")),
     ("js_challenge", ("javascript runtime", "challenge solver", "n challenge")),
     ("js_runtime_missing", ("js runtimes: none", "javascript runtime is not available")),
+    ("pot_provider_missing", ("po token providers: none",)),
     ("age_restricted", ("age-restricted", "confirm your age")),
     ("authentication_required", ("login_required", "sign in to confirm")),
     ("api_transport", ("unable to download api page", "connection reset")),
@@ -67,6 +68,7 @@ DIAGNOSTIC_SIGNALS = (
     ("video_unavailable", ("video unavailable",)),
 )
 KNOWN_JS_RUNTIMES = ("deno", "node", "quickjs", "bun")
+KNOWN_PO_TOKEN_PROVIDERS = ("bgutil:http",)
 KNOWN_REQUEST_HANDLERS = ("urllib", "requests", "websockets", "curl_cffi")
 KNOWN_PLAYABILITY_STATUSES = (
     "OK",
@@ -75,7 +77,12 @@ KNOWN_PLAYABILITY_STATUSES = (
     "UNPLAYABLE",
     "LIVE_STREAM_OFFLINE",
 )
-YT_DLP_JS_OPTIONS = ("--js-runtimes", "node")
+YT_DLP_RUNTIME_OPTIONS = (
+    "--js-runtimes",
+    "node",
+    "--extractor-args",
+    "youtube:player_client=mweb",
+)
 
 
 class ObjectStore(ObjectReader, Protocol):
@@ -107,7 +114,7 @@ class SubprocessRunner:
                 sys.executable,
                 "-m",
                 "yt_dlp",
-                *YT_DLP_JS_OPTIONS,
+                *YT_DLP_RUNTIME_OPTIONS,
                 *command[1:],
             ]
         elif command[0] == "ffmpeg":
@@ -220,6 +227,7 @@ def safe_command_diagnostic(stderr: bytes) -> dict[str, str | int]:
         "yt_dlp_version": allow_listed_token("[debug] yt-dlp version"),
         "python_runtime": allow_listed_token("[debug] python"),
         "js_runtimes": known_values("[debug] js runtimes", KNOWN_JS_RUNTIMES),
+        "pot_providers": known_values("po token providers:", KNOWN_PO_TOKEN_PROVIDERS),
         "request_handlers": known_values("[debug] request handlers", KNOWN_REQUEST_HANDLERS),
         "playability_statuses": ",".join(playability_statuses) or "none",
         "signals": ",".join(signals) or "none",
@@ -236,7 +244,8 @@ def log_command_failure(
     LOGGER.warning(
         "External command failed operation=%s returncode=%s reason_code=%s "
         "stderr_sha256=%s stderr_bytes=%s warning_count=%s error_count=%s "
-        "yt_dlp_version=%s python_runtime=%s js_runtimes=%s request_handlers=%s "
+        "yt_dlp_version=%s python_runtime=%s js_runtimes=%s pot_providers=%s "
+        "request_handlers=%s "
         "playability_statuses=%s signals=%s",
         operation,
         result.returncode,
@@ -248,6 +257,7 @@ def log_command_failure(
         diagnostic["yt_dlp_version"],
         diagnostic["python_runtime"],
         diagnostic["js_runtimes"],
+        diagnostic["pot_providers"],
         diagnostic["request_handlers"],
         diagnostic["playability_statuses"],
         diagnostic["signals"],

@@ -243,6 +243,8 @@ def test_subprocess_runner_enables_node_for_ytdlp(
             "yt_dlp",
             "--js-runtimes",
             "node",
+            "--extractor-args",
+            "youtube:player_client=mweb",
             "--version",
         ]
     ]
@@ -284,6 +286,9 @@ def test_worker_logs_allow_listed_metadata_failure_signals(
         b"[debug] yt-dlp version stable@2026.07.04\n"
         b"[debug] Python 3.12.11 (CPython x86_64)\n"
         b"[debug] JS runtimes: none\n"
+        b"[debug] [youtube] [pot] PO Token Providers: "
+        b"bgutil:http-1.3.2 (external), bgutil:script-node-1.3.2 (external), "
+        b"bgutil:script-deno-1.3.2 (external, unavailable)\n"
         b"[debug] Request Handlers: urllib, requests\n"
         b"WARNING: API response from https://example.test/api?token=top-secret\n"
         b"ERROR: Unable to download API page; Cookie: session-cookie-value\x00\n"
@@ -304,6 +309,7 @@ def test_worker_logs_allow_listed_metadata_failure_signals(
     assert "yt_dlp_version=stable@2026.07.04" in diagnostic
     assert "python_runtime=3.12.11" in diagnostic
     assert "js_runtimes=none" in diagnostic
+    assert "pot_providers=bgutil:http" in diagnostic
     assert "request_handlers=urllib,requests" in diagnostic
     assert "playability_statuses=none" in diagnostic
     assert "signals=js_runtime_missing,api_transport" in diagnostic
@@ -320,6 +326,7 @@ def test_worker_logs_age_authentication_separately_from_missing_js_runtime(
 ) -> None:
     stderr = (
         b"[debug] JS runtimes: none\n"
+        b"[debug] [youtube] [pot] PO Token Providers: none\n"
         b"[debug] JS Challenge Providers: node (unavailable)\n"
         b"[debug] android_vr player response playability status: LOGIN_REQUIRED\n"
         b"WARNING: This video is age-restricted\n"
@@ -335,8 +342,12 @@ def test_worker_logs_age_authentication_separately_from_missing_js_runtime(
     assert repository.completions[0]["status"] == "unavailable"
     assert "reason_code=age_restricted" in diagnostic
     assert "js_runtimes=none" in diagnostic
+    assert "pot_providers=none" in diagnostic
     assert "playability_statuses=LOGIN_REQUIRED" in diagnostic
-    assert "signals=js_runtime_missing,age_restricted,authentication_required" in diagnostic
+    assert (
+        "signals=js_runtime_missing,pot_provider_missing,age_restricted,"
+        "authentication_required" in diagnostic
+    )
     assert "Sign in to confirm your age" not in diagnostic
 
 

@@ -42,17 +42,36 @@ GitHub environmentには次を登録します。
 
 ## ローカルPCの準備
 
-Python 3.12、uv、Node.js、通常のAWS credential chainを使います。`uv sync`でlock済みの`yt-dlp-ejs`を導入し、workerはyt-dlpへNode.js runtimeを明示してYouTubeのJavaScript challengeを処理します。access keyやsecret keyをcommand引数、設定file、Gitへ書かず、既存のAWS profileまたは短期credentialを利用してください。
+Python 3.12、uv、Node.js、通常のAWS credential chainを使います。`uv sync`でlock済みの`yt-dlp-ejs`と`bgutil-ytdlp-pot-provider` pluginを導入し、workerはyt-dlpへNode.js runtimeを明示してYouTubeのJavaScript challengeを処理します。access keyやsecret keyをcommand引数、設定file、Gitへ書かず、既存のAWS profileまたは短期credentialを利用してください。
 
 ```console
 uv sync --directory infra --locked --all-groups
 ```
 
-準備後、次の出力に`JS runtimes: node`と表示されることを確認できます。これは公開動画のchallenge解決を有効にしますが、`LOGIN_REQUIRED`となる年齢制限、非公開、メンバー限定動画の認証要求は回避しません。
+PO Tokenの生成処理はPython pluginと別processです。providerとpluginのversionを一致させ、公開素材を保存するprivate領域へ公式providerを固定取得してbuildします。次の例はNode版providerを既定の`127.0.0.1:4416`で起動します。
+
+```console
+POT_PROVIDER_HOME=/path/to/private/diopside-tools/bgutil-ytdlp-pot-provider-1.3.2
+git clone --depth 1 --single-branch --branch 1.3.2 \
+  https://github.com/Brainicism/bgutil-ytdlp-pot-provider.git \
+  "$POT_PROVIDER_HOME"
+npm ci --prefix "$POT_PROVIDER_HOME/server"
+npm exec --prefix "$POT_PROVIDER_HOME/server" tsc
+node "$POT_PROVIDER_HOME/server/build/main.js"
+```
+
+providerは別terminalで起動したままにします。health checkが`1.3.2`を返すことを確認してください。
+
+```console
+curl --fail --silent --show-error http://127.0.0.1:4416/ping
+```
+
+準備後、次の出力に`JS runtimes: node`と`PO Token Providers: bgutil:http-1.3.2`が表示されることを確認できます。workerは公式推奨の`mweb` clientを常に指定し、Node.jsはJavaScript challenge、ローカルproviderはGoogle Video Server向けPO Tokenをそれぞれ処理します。CookieやYouTube loginは使用しません。PO Tokenは403の発生率を下げますが取得成功を保証せず、`LOGIN_REQUIRED`となる年齢制限、非公開、メンバー限定動画の認証要求は回避しません。
 
 ```console
 uv run --directory infra --locked python -m yt_dlp \
   --js-runtimes node \
+  --extractor-args 'youtube:player_client=mweb' \
   --verbose \
   --simulate \
   'https://www.youtube.com/watch?v=VIDEO_ID'
