@@ -2,6 +2,33 @@
 
 このディレクトリは Issue #465 の一度限りの過去動画素材バックフィル基盤です。公開画面、GitHub Pages、通常の1動画コンテンツPRとは独立しており、CDK deployとbackfill投入はこのPRでは実行しません。
 
+## GitHub Actionsからの基盤デプロイ
+
+`.github/workflows/deploy-ingestion-infra.yml` は、検証済みmainの `DiopsideIngestionStack` だけを人がデプロイする入口です。schedule、push、PRでは起動せず、`DEPLOY` の確認入力とGitHub environment `private-backfill-infra` の承認を必須にします。workflowは基盤をデプロイするだけで、manifest作成、素材upload、SQS enqueue、削除、公開、mergeは実行しません。
+
+長期AWS access keyはGitHubへ保存しません。AWS accountには、事前にmodern CDK bootstrapと `https://token.actions.githubusercontent.com`、audience `sts.amazonaws.com` のOIDC providerが必要です。受けロールは `DiopsideGitHubDeploymentAccessStack` で一度だけ管理者が作成します。このstackはbootstrapを使わないため、既存OIDC providerの正確なsubjectと、bootstrap済みの対象regionをparameterに指定して単独deployできます。
+
+IAM roleはregionに属しません。一方、CloudFormation stackの配置regionと、受けロールが引き受けるCDK bootstrap roleのregionは別の設定です。既存access stackが `us-east-1` にある場合も削除や再作成はせず、そのstackを更新して委譲先を `ap-northeast-1` にします。
+
+```console
+CDK_DEFAULT_ACCOUNT=123456789012 \
+CDK_DEFAULT_REGION=us-east-1 \
+npm exec -- cdk deploy DiopsideGitHubDeploymentAccessStack \
+  --exclusively \
+  --parameters 'GitHubOidcSubject=repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-infra' \
+  --parameters 'TargetDeploymentRegion=ap-northeast-1'
+```
+
+このrepositoryは2026-07-15以降に作成されたため、GitHubのdefault OIDC subjectはowner IDとrepository IDを含むimmutable形式です。subjectは `repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-infra` に固定し、旧name-based subject、別repository、別environmentをparameterで指定できないようにします。`gh api repos/tsuji-tomonori/diopside-v8/actions/oidc/customization/sub` の `sub_claim_prefix` を変更前に再確認します。OIDC providerが未作成の場合はAWS管理者が先に作成し、既存providerがある場合は再作成しません。
+
+GitHub environment `private-backfill-infra` はdeployment branchを `main` だけに限定し、required reviewerとprotection ruleのbypass禁止を設定します。次のenvironment variablesを登録します。
+
+- `AWS_ACCOUNT_ID`: 対象AWS account ID
+- `AWS_REGION`: `ap-northeast-1`
+- `AWS_DEPLOY_ROLE_ARN`: access stackの `GitHubActionsDeployRoleArn` output
+
+受けロールは同じaccountの `ap-northeast-1` にあるCDK bootstrap `deploy`、`file-publishing`、`lookup` roleだけを引き受けます。access stack自体の配置regionには依存しません。ECR image publishing roleやAWS serviceの直接操作権限は持ちません。workflowはRuff、Pyright strict、mypy strict、pytest、CDK synth、cdk-nag、生成設計driftがすべて合格してからOIDC短期sessionを取得し、CloudFormation change set経由でデプロイします。
+
 ## 検証
 
 次の順で実行します。
@@ -16,6 +43,18 @@
 8. npx cdk synth
 
 CDK synth中にcdk-nagのAWS Solutions checksを実行します。抑制は生成template内で根拠を確認できる最小範囲だけに限定します。
+
+`pytest`はMotoのHTTP serverを一時起動し、SQS受信からDispatcher、DynamoDBのclaim・checkpoint・complete、S3 manifestまでを実プロトコルで検証します。Dockerを利用できる環境では、同じ統合試験を固定版Flociに対して実行できます。
+
+```console
+npm run test:ingestion:floci
+```
+
+既に起動済みのFloci、LocalStack等を使う場合は、試験専用endpointを明示します。実AWS endpointは指定しないでください。試験は一意な一時resourceだけを作成し、終了時に削除します。
+
+```console
+DIOPSIDE_AWS_ENDPOINT_URL=http://127.0.0.1:4566 npm run test:ingestion:aws
+```
 
 ## 運用上の入口
 
