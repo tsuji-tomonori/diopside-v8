@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "catalog_revision": 25,
+  "catalog_revision": 27,
   "product": "diopside v8",
   "updated_at": "2026-08-29",
   "requirements": [
@@ -16,15 +16,17 @@
       "action": "satisfy",
       "category": "nonfunctional",
       "id": "V8-COST-001",
-      "last_changed_by": "CHG-20260815-yt-dlp-backfill",
+      "last_changed_by": "CHG-20260829-local-private-ingestion",
       "object": "公開閲覧、検索、生成、配信に起因する請求額は、既存のChatGPT／Codex契約を除いて毎月0円でなければならない。",
       "rationale": "公開Pagesの個人運用を持続可能に保ちつつ、公開面に接続しない有限private backfillの費用判断を明確に分離するため。",
-      "revision": 2,
+      "revision": 3,
       "scope": "project",
       "source_refs": [
         "Issue #1 V8-費用-001",
         "Issue #465",
-        "user:2026-08-03"
+        "user:2026-08-03",
+        "user:2026-08-29",
+        "spec/sources/owner-directive-2026-08-29-local-private-ingestion.md"
       ],
       "status": "active",
       "subject": "diopside v8の費用",
@@ -32,8 +34,7 @@
       "traces": {
         "design": [
           "docs/decisions/ADR-0001-zero-cost-static-pages.md",
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md",
-          "docs/decisions/ADR-0003-lambda-private-material-backfill.md",
+          "docs/decisions/ADR-0006-local-private-material-ingestion.md",
           "docs/operations/cost-check.md"
         ],
         "implementation": [
@@ -109,23 +110,25 @@
         {
           "given": "公開面または有限private backfillの構成定義がある",
           "id": "AC-V8-COST-003-1",
-          "then": "公開面はクラウド認証情報なしに全手順を実行でき、有料資源の構成を持たず、private backfillはinfra配下のS3、DynamoDB、SQS FIFO、Lambda、CloudWatch Logsだけを使い、customer-managed KMS key、AWS Batch、Fargate、ECR、専用VPCを構成しない。",
+          "then": "公開面はクラウド認証情報なしに全手順を実行でき、有料資源の構成を持たない。private backfillはinfra配下のprivate S3とDynamoDBだけをAWSに配置し、SQS、Lambda、worker Log Group、customer-managed KMS key、Batch、Fargate、ECR、専用VPCを構成しない。",
           "when": "構成確認"
         }
       ],
       "action": "satisfy",
       "category": "nonfunctional",
       "id": "V8-COST-003",
-      "last_changed_by": "CHG-20260822-remove-kms",
+      "last_changed_by": "CHG-20260829-local-private-ingestion",
       "object": "AWSその他の有料クラウド資源を公開面の閲覧、検索、生成、配信に使用してはならず、既知動画だけの有限private backfillは承認された隔離基盤だけに限定しなければならない。",
-      "rationale": "公開面のゼロ円静的構成を保ちながら、公開に接続しない履歴素材の安全な回復基盤だけを明示的に分離するため。",
-      "revision": 4,
+      "rationale": "公開面のゼロ円静的構成を保ちながら、公開に接続しない履歴素材のprivate保存だけを明示的に分離するため。",
+      "revision": 5,
       "scope": "project",
       "source_refs": [
         "Issue #1 V8-費用-003",
         "Issue #465",
         "user:2026-08-03",
-        "user:2026-08-22"
+        "user:2026-08-22",
+        "user:2026-08-29",
+        "spec/sources/owner-directive-2026-08-29-local-private-ingestion.md"
       ],
       "status": "active",
       "subject": "diopside v8の費用",
@@ -133,9 +136,8 @@
       "traces": {
         "design": [
           "docs/decisions/ADR-0001-zero-cost-static-pages.md",
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md",
-          "docs/decisions/ADR-0003-lambda-private-material-backfill.md",
           "docs/decisions/ADR-0005-service-managed-encryption.md",
+          "docs/decisions/ADR-0006-local-private-material-ingestion.md",
           "docs/operations/cost-check.md"
         ],
         "implementation": [
@@ -164,29 +166,31 @@
         {
           "given": "公開面とprivate backfillの依存関係がある",
           "id": "AC-V8-COST-004-1",
-          "then": "公開面の外部依存一覧に課金が発生し得る実行時サービスが0件であり、DynamoDB、S3、CloudWatch Logsはprivate backfillの内部境界からのみ参照される。",
+          "then": "公開面の外部依存一覧に課金が発生し得る実行時サービスが0件であり、DynamoDBとS3はprivate backfillの内部境界からのみ参照される。",
           "when": "依存関係・通信確認"
         }
       ],
       "action": "satisfy",
       "category": "nonfunctional",
       "id": "V8-COST-004",
-      "last_changed_by": "CHG-20260815-yt-dlp-backfill",
-      "object": "公開面は有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならず、private backfillの状態保存と監視は公開面から分離しなければならない。",
+      "last_changed_by": "CHG-20260829-local-private-ingestion",
+      "object": "公開面は有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならず、private backfillの状態と素材保存は公開面から分離しなければならない。",
       "rationale": "公開利用者の通信と運用コストを外部従量課金サービスから隔離するため。",
-      "revision": 2,
+      "revision": 3,
       "scope": "project",
       "source_refs": [
         "Issue #1 V8-費用-004",
         "Issue #465",
-        "user:2026-08-03"
+        "user:2026-08-03",
+        "user:2026-08-29",
+        "spec/sources/owner-directive-2026-08-29-local-private-ingestion.md"
       ],
       "status": "active",
       "subject": "diopside v8の費用",
       "title": "公開面は有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならない",
       "traces": {
         "design": [
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md",
+          "docs/decisions/ADR-0006-local-private-material-ingestion.md",
           "docs/operations/cost-check.md"
         ],
         "implementation": [
@@ -215,35 +219,38 @@
         {
           "given": "公開面またはprivate backfillの運用手順がある",
           "id": "AC-V8-COST-005-1",
-          "then": "費用0円を確認できない状態では公開更新を行わず人へ判断を求め、private backfillは料金、利用量、契約条件を確認できない場合にdeployまたはenqueueを開始しない。",
+          "then": "費用0円を確認できない状態では公開更新を行わず人へ判断を求め、private backfillはS3・DynamoDBの料金、利用量、契約条件を確認できない場合に保存基盤deployまたはローカル取得を開始しない。",
           "when": "費用条件を確認する"
         }
       ],
       "action": "satisfy",
       "category": "nonfunctional",
       "id": "V8-COST-005",
-      "last_changed_by": "CHG-20260827-ingestion-github-enqueue",
+      "last_changed_by": "CHG-20260829-local-private-ingestion",
       "object": "公開面の外部サービスの料金または無償条件が変わり請求が発生し得る場合は、課金して継続せず該当公開処理を停止しなければならず、private backfillの費用は自動停止ではなく人の開始判断に委ねなければならない。",
       "rationale": "公開更新のゼロ円停止条件と、明示承認された有限作業の費用観測を混同しないため。",
-      "revision": 3,
+      "revision": 4,
       "scope": "project",
       "source_refs": [
         "Issue #1 V8-費用-005",
         "Issue #465",
         "user:2026-08-03",
-        "user:2026-08-26"
+        "user:2026-08-26",
+        "user:2026-08-29",
+        "spec/sources/owner-directive-2026-08-29-local-private-ingestion.md"
       ],
       "status": "active",
       "subject": "diopside v8の費用",
       "title": "公開面の料金または無償条件が変わり請求が発生し得る場合は課金して継続せず該当公開処理を停止しなければならない",
       "traces": {
         "design": [
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md",
+          "docs/decisions/ADR-0006-local-private-material-ingestion.md",
           "docs/operations/cost-check.md"
         ],
         "implementation": [
           "operations/cost-policy.json",
-          ".github/workflows/enqueue-ingestion-video.yml"
+          ".github/workflows/deploy-ingestion-infra.yml",
+          "infra/src/diopside_ingestion/cli.py"
         ],
         "standards": [
           "Issue #1",
@@ -251,7 +258,8 @@
           "dev-standard regulated profile"
         ],
         "tests": [
-          "tests/repository-policy.test.ts"
+          "tests/repository-policy.test.ts",
+          "infra/tests/test_cli.py"
         ]
       },
       "type": "operational",
@@ -1643,37 +1651,37 @@
     {
       "acceptance_criteria": [
         {
-          "given": "SQSまたはCLIからingestion要求を渡す",
+          "given": "運用者がローカルCLIからingestionを開始する",
           "id": "AC-V8-INGEST-001-1",
-          "then": "正確にvideo_id一項目かつ11文字IDの要求だけを受け付け、未知fieldまたは不正IDは再試行またはDLQへ送る。",
+          "then": "11文字のvideo_id一項目だけを処理対象とし、不正IDはAWS書込みや取得を始める前に拒否する。",
           "when": "要求を検証する"
         }
       ],
       "action": "enforce",
       "category": "functional",
       "id": "V8-INGEST-001",
-      "last_changed_by": "CHG-20260827-ingestion-github-enqueue",
-      "object": "外部ingestion要求は11文字のYouTube video_idだけを含み、未知fieldまたは内部状態を含んではならない。",
-      "rationale": "SQS再試行とLambda内実行で入力契約を変えず、任意の外部状態注入を防ぐため。",
-      "revision": 2,
+      "last_changed_by": "CHG-20260829-local-private-ingestion",
+      "object": "運用者が指定するingestion要求は11文字のYouTube video_id一項目だけを含み、認証情報または内部状態を含んではならない。",
+      "rationale": "ローカルPCからの明示実行でも任意の外部状態や資格情報を取得workerへ注入せず、一動画の対象を決定的にするため。",
+      "revision": 3,
       "scope": "project",
       "source_refs": [
         "Issue #465",
-        "user:2026-08-26"
+        "user:2026-08-29",
+        "spec/sources/owner-directive-2026-08-29-local-private-ingestion.md"
       ],
       "status": "active",
-      "subject": "diopside v8のprivate ingestion要求",
-      "title": "外部ingestion要求はvideo_idだけを含む厳格な11文字契約でなければならない",
+      "subject": "diopside v8のローカルprivate ingestion要求",
+      "title": "ローカルingestion要求はvideo_idだけを含む厳格な11文字契約でなければならない",
       "traces": {
         "design": [
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md",
+          "docs/decisions/ADR-0006-local-private-material-ingestion.md",
           "docs/operations/privacy-and-safety.md"
         ],
         "implementation": [
           "infra/src/diopside_ingestion/contracts.py",
-          "infra/src/diopside_ingestion/dispatcher.py",
           "infra/src/diopside_ingestion/cli.py",
-          ".github/workflows/enqueue-ingestion-video.yml"
+          "infra/src/diopside_ingestion/local_runner.py"
         ],
         "standards": [
           "Issue #465",
@@ -1681,48 +1689,49 @@
         ],
         "tests": [
           "infra/tests/test_contracts.py",
-          "infra/tests/test_dispatcher.py",
           "infra/tests/test_cli.py",
-          "tests/repository-policy.test.ts"
+          "infra/tests/test_local_runner.py"
         ]
       },
       "type": "interface",
       "verification": {
-        "evidence": "infra/tests/test_contracts.py, infra/tests/test_dispatcher.py, tests/repository-policy.test.ts",
-        "method": "契約単体試験・workflow静的確認"
+        "evidence": "infra/tests/test_contracts.py, infra/tests/test_cli.py, infra/tests/test_local_runner.py",
+        "method": "契約・CLI単体試験"
       }
     },
     {
       "acceptance_criteria": [
         {
-          "given": "既知動画catalogとtimestamp ledgerから複数動画を投入する",
+          "given": "既知動画catalogとtimestamp ledgerから複数動画をローカル処理する",
           "id": "AC-V8-INGEST-002-1",
-          "then": "重複を除いたvideo_id、source、base commit、revision、SHA-256を固定し、そのmanifestに含まれる動画だけをFIFOへ投入する。対象を変更する場合は新しいrevisionとSHA-256を持つmanifestを明示作成し、実行中manifestを置き換えない。",
-          "when": "manifestを作成してenqueueする"
+          "then": "重複を除いたvideo_id、source、base commit、revision、SHA-256を固定し、そのmanifestに含まれる動画だけを指定順に処理する。対象を変える場合は新しいrevisionとSHA-256を持つmanifestを明示作成する。",
+          "when": "manifestを作成してingest-manifestを実行する"
         }
       ],
       "action": "enforce",
       "category": "functional",
       "id": "V8-INGEST-002",
-      "last_changed_by": "CHG-20260827-ingestion-github-enqueue",
+      "last_changed_by": "CHG-20260829-local-private-ingestion",
       "object": "複数動画の歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。",
-      "rationale": "複数件の対象の欠落、重複、新着動画への無限拡張を防ぎ、再開と完了報告を決定的にしながら、運用者が明示する1動画投入を独立させるため。",
-      "revision": 3,
+      "rationale": "複数件の対象の欠落、重複、新着動画への無限拡張を防ぎ、ローカル実行を決定的に再開するため。",
+      "revision": 4,
       "scope": "project",
       "source_refs": [
         "Issue #465",
-        "user:2026-08-26"
+        "user:2026-08-29",
+        "spec/sources/owner-directive-2026-08-29-local-private-ingestion.md"
       ],
       "status": "active",
       "subject": "diopside v8のprivate backfill対象",
       "title": "複数動画の歴史素材backfillは既知動画だけの不変target manifestを開始時に固定しなければならない",
       "traces": {
         "design": [
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md"
+          "docs/decisions/ADR-0006-local-private-material-ingestion.md"
         ],
         "implementation": [
           "infra/src/diopside_ingestion/manifest.py",
-          "infra/src/diopside_ingestion/cli.py"
+          "infra/src/diopside_ingestion/cli.py",
+          "infra/src/diopside_ingestion/local_runner.py"
         ],
         "standards": [
           "Issue #465",
@@ -1736,28 +1745,30 @@
       "type": "data",
       "verification": {
         "evidence": "infra/tests/test_manifest.py, infra/tests/test_cli.py",
-        "method": "manifest生成・改ざん・enqueue試験"
+        "method": "manifest生成・改ざん・ローカル実行試験"
       }
     },
     {
       "acceptance_criteria": [
         {
-          "given": "CDK templateと進捗repositoryがある",
+          "given": "保存限定のCDK templateとローカルrunnerがある",
           "id": "AC-V8-INGEST-003-1",
-          "then": "tableはvideo_idだけを主キーに持ち、条件付き更新でclaim owner、attempt、artifact状態、S3 key、digest、終端状態を一itemへ記録する。",
+          "then": "tableはvideo_idだけを主キーに持ち、条件付き更新でclaim owner、lease、attempt、artifact状態、S3 key、digest、終端状態を一itemへ記録する。",
           "when": "一動画をclaim、checkpoint、completeする"
         }
       ],
       "action": "enforce",
       "category": "functional",
       "id": "V8-INGEST-003",
-      "last_changed_by": "CHG-20260815-yt-dlp-backfill",
+      "last_changed_by": "CHG-20260829-local-private-ingestion",
       "object": "進捗状態はVideoIngestion単一DynamoDB tableのvideo_id partition keyだけを使う一動画一itemで保持し、sort key、GSI、用途別item typeを追加してはならない。",
       "rationale": "同一動画のclaim、再試行、部分成功、完了判定を一貫した条件付き更新で復元するため。",
-      "revision": 1,
+      "revision": 2,
       "scope": "project",
       "source_refs": [
-        "Issue #465"
+        "Issue #465",
+        "user:2026-08-29",
+        "spec/sources/owner-directive-2026-08-29-local-private-ingestion.md"
       ],
       "status": "active",
       "subject": "diopside v8のprivate ingestion状態",
@@ -1765,12 +1776,12 @@
       "traces": {
         "design": [
           "docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md",
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md",
-          "docs/decisions/ADR-0003-lambda-private-material-backfill.md"
+          "docs/decisions/ADR-0006-local-private-material-ingestion.md"
         ],
         "implementation": [
           "infra/src/diopside_ingestion/stack.py",
-          "infra/src/diopside_ingestion/state.py"
+          "infra/src/diopside_ingestion/state.py",
+          "infra/src/diopside_ingestion/local_runner.py"
         ],
         "standards": [
           "Issue #465",
@@ -1778,65 +1789,67 @@
         ],
         "tests": [
           "infra/tests/test_stack.py",
-          "infra/tests/test_dispatcher.py"
+          "infra/tests/test_state.py",
+          "infra/tests/test_local_runner.py",
+          "infra/tests/test_aws_integration.py"
         ]
       },
       "type": "data",
       "verification": {
-        "evidence": "infra/tests/test_stack.py, infra/tests/test_dispatcher.py",
-        "method": "CDK template・状態repository試験"
+        "evidence": "infra/tests/test_stack.py, infra/tests/test_state.py, infra/tests/test_local_runner.py, infra/tests/test_aws_integration.py",
+        "method": "CDK template・状態repository・ローカル統合試験"
       }
     },
     {
       "acceptance_criteria": [
         {
-          "given": "同じvideo_idの重複FIFO要求、Lambda失敗、または15分timeoutがある",
+          "given": "同じvideo_idの重複実行、retryableな取得失敗、またはローカルprocess中断がある",
           "id": "AC-V8-INGEST-004-1",
-          "then": "最初の条件付きclaimだけが実処理Lambdaを継続し、900秒以内に完了しない処理を成功扱いせず、SQSが3回まで再試行した後request DLQへ隔離する。",
-          "when": "SQSから実処理Lambdaを起動する"
+          "then": "有効なclaimを持つ一実行だけが処理を継続し、checkpointごとにleaseを延長し、1〜10の明示attempt上限内で確定済みartifactを再利用する。",
+          "when": "運用者がローカルingestionを実行または再実行する"
         }
       ],
       "action": "enforce",
       "category": "functional",
       "id": "V8-INGEST-004",
-      "last_changed_by": "CHG-20260822-lambda-ingestion",
-      "object": "SQS FIFOから起動する実処理Lambdaは条件付きclaim、checkpoint、partial batch failure、request DLQを使い、同じvideo_idを重複実行せず、15分以内に完了しない処理をエラーとして再試行可能にしなければならない。",
-      "rationale": "SQS重複配送、Lambda timeout、部分成果の後にも既知対象を安全に再試行し、15分を超える処理を誤って成功扱いしないため。",
-      "revision": 2,
+      "last_changed_by": "CHG-20260829-local-private-ingestion",
+      "object": "ローカルrunnerは同一video_idの条件付きclaim、checkpoint時のlease延長、安全なreason code、有限attemptを使い、重複処理を避けて確定済み工程から再開しなければならない。",
+      "rationale": "ローカルprocessの中断、長時間処理、複数PCからの誤った重複実行の後にも、不変成果を上書きせず回復できるようにするため。",
+      "revision": 3,
       "scope": "project",
       "source_refs": [
         "Issue #465",
-        "user:2026-08-22"
+        "user:2026-08-29",
+        "spec/sources/owner-directive-2026-08-29-local-private-ingestion.md",
+        "docs/decisions/ADR-0006-local-private-material-ingestion.md"
       ],
       "status": "active",
-      "subject": "diopside v8のprivate ingestion実行",
-      "title": "SQS起動Lambdaは15分上限で重複なく再試行可能に処理しなければならない",
+      "subject": "diopside v8のローカルprivate ingestion実行",
+      "title": "ローカルrunnerは条件付きclaimとcheckpointで重複なく有限再試行できなければならない",
       "traces": {
         "design": [
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md",
-          "docs/decisions/ADR-0003-lambda-private-material-backfill.md",
-          "docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md"
+          "docs/decisions/ADR-0006-local-private-material-ingestion.md"
         ],
         "implementation": [
-          "infra/src/diopside_ingestion/dispatcher.py",
+          "infra/src/diopside_ingestion/local_runner.py",
           "infra/src/diopside_ingestion/state.py",
-          "infra/src/diopside_ingestion/worker.py",
-          "infra/src/diopside_ingestion/stack.py"
+          "infra/src/diopside_ingestion/worker.py"
         ],
         "standards": [
           "Issue #465",
           "dev-standard assured profile"
         ],
         "tests": [
-          "infra/tests/test_dispatcher.py",
+          "infra/tests/test_local_runner.py",
+          "infra/tests/test_state.py",
           "infra/tests/test_worker.py",
-          "infra/tests/test_stack.py"
+          "infra/tests/test_aws_integration.py"
         ]
       },
       "type": "functional",
       "verification": {
-        "evidence": "infra/tests/test_dispatcher.py, infra/tests/test_worker.py, infra/tests/test_stack.py",
-        "method": "重複claim・Lambda timeout・SQS retry・DLQ境界試験"
+        "evidence": "infra/tests/test_local_runner.py, infra/tests/test_state.py, infra/tests/test_worker.py, infra/tests/test_aws_integration.py",
+        "method": "claim重複・lease延長・有限retry・checkpoint再開試験"
       }
     },
     {
@@ -1937,35 +1950,35 @@
     {
       "acceptance_criteria": [
         {
-          "given": "known video_idとlock済みLambda assetがある",
+          "given": "known video_idとlock済みローカル依存がある",
           "id": "AC-V8-INGEST-007-1",
-          "then": "各artifactは独立したstatusでcheckpointされ、captionはnormalized copyを持ち、native audioからASR用派生音声を作成し、取得元の本文やdiagnosticをログへ保存しない。",
-          "when": "workerが取得工程を実行する"
+          "then": "各artifactは独立したstatusでcheckpointされ、captionはanonymous normalized copyを持ち、native audioからASR用派生音声を作成し、取得元の本文やdiagnosticをログへ保存しない。",
+          "when": "workerが運用者PCで取得工程を実行する"
         }
       ],
       "action": "enforce",
       "category": "functional",
       "id": "V8-INGEST-007",
-      "last_changed_by": "CHG-20260822-lambda-ingestion",
-      "object": "実処理Lambdaはlockされたyt-dlpとffmpegでmetadata、description、thumbnail、subtitles、automatic captions、chat、comments、native audio、ASR derived audioを独立して取得または分類しなければならない。",
-      "rationale": "一つの取得不能素材が残りの素材と回復可能な部分成果を失わせないため。",
-      "revision": 2,
+      "last_changed_by": "CHG-20260829-local-private-ingestion",
+      "object": "ローカルworkerはlockされたyt-dlpとffmpegでmetadata、description、thumbnail、subtitles、automatic captions、chat、comments、native audio、ASR derived audioを独立して取得または分類しなければならない。",
+      "rationale": "クラウド実行環境の取得制限と一artifactの失敗が、ローカルPCで取得可能な残りの素材と回復可能な部分成果を失わせないため。",
+      "revision": 3,
       "scope": "project",
       "source_refs": [
         "Issue #465",
-        "user:2026-08-22"
+        "user:2026-08-29",
+        "spec/sources/owner-directive-2026-08-29-local-private-ingestion.md"
       ],
       "status": "active",
-      "subject": "diopside v8のprivate material worker",
-      "title": "実処理Lambdaはlock済みyt-dlpとffmpegで独立したartifactを取得しなければならない",
+      "subject": "diopside v8のローカルprivate material worker",
+      "title": "ローカルworkerはlock済みyt-dlpとffmpegで独立artifactを取得しなければならない",
       "traces": {
         "design": [
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md",
-          "docs/decisions/ADR-0003-lambda-private-material-backfill.md"
+          "docs/decisions/ADR-0006-local-private-material-ingestion.md"
         ],
         "implementation": [
-          "infra/src/diopside_ingestion/lambda_asset.py",
           "infra/src/diopside_ingestion/worker.py",
+          "infra/src/diopside_ingestion/local_runner.py",
           "infra/pyproject.toml"
         ],
         "standards": [
@@ -1973,12 +1986,13 @@
           "dev-standard assured profile"
         ],
         "tests": [
-          "infra/tests/test_worker.py"
+          "infra/tests/test_worker.py",
+          "infra/tests/test_aws_integration.py"
         ]
       },
       "type": "functional",
       "verification": {
-        "evidence": "infra/tests/test_worker.py",
+        "evidence": "infra/tests/test_worker.py, infra/tests/test_aws_integration.py",
         "method": "worker pipeline・正規化・失敗回復試験"
       }
     },
@@ -1994,26 +2008,27 @@
       "action": "enforce",
       "category": "functional",
       "id": "V8-INGEST-008",
-      "last_changed_by": "CHG-20260815-yt-dlp-backfill",
+      "last_changed_by": "CHG-20260829-local-private-ingestion",
       "object": "workerはcookie、login、認証情報、proxy、bot回避、非公開素材取得を使用してはならず、制限を安全な終端分類として扱わなければならない。",
       "rationale": "取得可能性を高めるために認証境界や取得元の制限を回避しないため。",
-      "revision": 1,
+      "revision": 2,
       "scope": "project",
       "source_refs": [
-        "Issue #465"
+        "Issue #465",
+        "user:2026-08-29",
+        "spec/sources/owner-directive-2026-08-29-local-private-ingestion.md"
       ],
       "status": "active",
       "subject": "diopside v8のprivate material取得安全",
       "title": "workerは認証回避または非公開経路を使用してはならない",
       "traces": {
         "design": [
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md",
+          "docs/decisions/ADR-0006-local-private-material-ingestion.md",
           "docs/operations/privacy-and-safety.md"
         ],
         "implementation": [
           "infra/src/diopside_ingestion/contracts.py",
           "infra/src/diopside_ingestion/worker.py",
-          "infra/src/diopside_ingestion/lambda_asset.py",
           "infra/pyproject.toml"
         ],
         "standards": [
@@ -2035,32 +2050,34 @@
     {
       "acceptance_criteria": [
         {
-          "given": "backfill用のコード、CI、AWS基盤deploy workflow、1動画enqueue workflowがある",
+          "given": "backfill用コード、CI、AWS保存基盤deploy workflow、ローカルCLIがある",
           "id": "AC-V8-INGEST-009-1",
-          "then": "workflowはscheduleを持たず、AWS基盤deployはmainの手動起動、確認入力、protected environment承認、事前品質ゲートを必須にする。複数動画とlegacy local importはmanifest作成とAWS書込みを分離し、1動画enqueueはmainの手動起動、11文字video ID、確認入力、専用protected environment承認を必須にして、対象FIFOへ1件だけ送る。",
+          "then": "workflowはscheduleまたは素材取得起動を持たず、AWS保存基盤deployはmainの手動起動、確認入力、protected environment承認、事前品質ゲートを必須にする。素材取得はローカルCLIが明示video IDまたは不変manifestだけを処理する。",
           "when": "repositoryのworkflowとoperator commandを確認する"
         }
       ],
       "action": "enforce",
       "category": "functional",
       "id": "V8-INGEST-009",
-      "last_changed_by": "CHG-20260827-ingestion-github-enqueue",
-      "object": "private backfillは運用者が固定manifestまたは1件のvideo_idを明示して開始する有限作業であり、AWS基盤deployとSQS投入はmainのprotected environmentから人が開始し、予定実行、upload、削除、公開、mergeを自動実行してはならない。",
-      "rationale": "歴史素材の回収を公開更新や無期限の外部スキャンへ変えず、複数動画と1動画のどちらでも人の承認境界を維持するため。",
-      "revision": 5,
+      "last_changed_by": "CHG-20260829-local-private-ingestion",
+      "object": "private backfillは運用者がローカルPCで固定manifestまたは1件のvideo_idを明示して開始する有限作業とし、保存基盤deploy、素材取得、削除、公開、mergeを自動実行してはならない。",
+      "rationale": "歴史素材の回収を公開更新や無期限の外部スキャンへ変えず、AWS上の保存基盤とローカル取得の承認境界を分離するため。",
+      "revision": 6,
       "scope": "project",
       "source_refs": [
         "Issue #465",
         "user:2026-08-22",
         "user:2026-08-23",
-        "user:2026-08-26"
+        "user:2026-08-26",
+        "user:2026-08-29",
+        "spec/sources/owner-directive-2026-08-29-local-private-ingestion.md"
       ],
       "status": "active",
       "subject": "diopside v8のprivate backfill運用",
       "title": "private backfillは運用者が明示開始する有限作業でなければならない",
       "traces": {
         "design": [
-          "docs/decisions/ADR-0003-lambda-private-material-backfill.md",
+          "docs/decisions/ADR-0006-local-private-material-ingestion.md",
           "docs/decisions/ADR-0004-legacy-local-private-import.md",
           "docs/operations/manual-content-update.md",
           "docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md"
@@ -2068,8 +2085,8 @@
         "implementation": [
           ".github/workflows/verify.yml",
           ".github/workflows/deploy-ingestion-infra.yml",
-          ".github/workflows/enqueue-ingestion-video.yml",
           "infra/src/diopside_ingestion/cli.py",
+          "infra/src/diopside_ingestion/local_runner.py",
           "infra/src/diopside_ingestion/legacy_import.py",
           "infra/src/diopside_deployment/access_stack.py",
           "scripts/verify-repository-policy.ts"
@@ -2083,13 +2100,14 @@
         "tests": [
           "infra/tests/test_manifest.py",
           "infra/tests/test_cli.py",
+          "infra/tests/test_local_runner.py",
           "infra/tests/test_deployment_access.py",
           "tests/repository-policy.test.ts"
         ]
       },
       "type": "operational",
       "verification": {
-        "evidence": "infra/tests/test_deployment_access.py, infra/tests/test_manifest.py, infra/tests/test_cli.py, tests/repository-policy.test.ts",
+        "evidence": "infra/tests/test_deployment_access.py, infra/tests/test_cli.py, infra/tests/test_local_runner.py, tests/repository-policy.test.ts",
         "method": "workflow静的確認・IAM template試験・operator command試験"
       }
     },
@@ -2142,36 +2160,39 @@
     {
       "acceptance_criteria": [
         {
-          "given": "CDK stackとlock済みLambda asset CIがある",
+          "given": "CDK stackとlock済みローカルworker CIがある",
           "id": "AC-V8-INGEST-011-1",
-          "then": "S3のSSE-S3、DynamoDBのAWS所有鍵、SQSのSSE-SQS、CloudWatch Logsの標準暗号化、TLS、public block、FIFO DLQ、Lambda 900秒timeout、10 GiB一時領域、KMS権限を含まないleast-privilege policy、customer-managed KMS key・Batch・ECR・VPC不在をtemplateで確認し、Ruff、Pyright strict、mypy strict、pytest、CDK synth、cdk-nagが合格する。",
+          "then": "S3のSSE-S3、versioning、TLS、public blockとDynamoDBの標準暗号化、PITRをtemplateで確認し、SQS、Lambda、worker IAM role、worker Log Group、customer-managed KMS key、Batch、ECR、VPCが存在せず、Ruff、Pyright strict、mypy strict、pytest、CDK synth、cdk-nagが合格する。",
           "when": "品質ゲートを実行する"
         }
       ],
       "action": "enforce",
       "category": "nonfunctional",
       "id": "V8-INGEST-011",
-      "last_changed_by": "CHG-20260822-remove-kms",
-      "object": "private backfill基盤はservice標準の保存時暗号化、TLS強制、public block、KMS権限を含まない最小権限IAM、Lambda 15分上限、lock済み依存、Ruff、strict型検査、pytest、CDK synth、cdk-nagを適用し、customer-managed KMS key、AWS Batch、Fargate、ECR、専用VPCを構成してはならない。",
-      "rationale": "生素材を扱う限定基盤の暗号化、権限、依存を監査可能にしつつ、所有者が不要としたcustomer-managed KMS key、Batch、network、image運用をdeploy対象から除外するため。",
-      "revision": 3,
+      "last_changed_by": "CHG-20260829-local-private-ingestion",
+      "object": "private backfill基盤はservice標準の保存時暗号化、TLS強制、public blockを持つprivate S3と、AWS所有鍵で暗号化しPITRを有効にしたDynamoDBだけを配置し、AWS上の取得・retry実行資源を構成してはならない。",
+      "rationale": "生素材のprivate保存契約を維持しながら、取得制限の影響を受けるSQS、Lambdaと付帯IAM・Log Groupをdeploy対象から除くため。",
+      "revision": 4,
       "scope": "project",
       "source_refs": [
         "Issue #465",
-        "user:2026-08-22"
+        "user:2026-08-22",
+        "user:2026-08-29",
+        "spec/sources/owner-directive-2026-08-29-local-private-ingestion.md",
+        "docs/decisions/ADR-0006-local-private-material-ingestion.md"
       ],
       "status": "active",
       "subject": "diopside v8のprivate backfill基盤",
-      "title": "private backfill基盤は暗号化・最小権限・15分Lambda境界で防御しなければならない",
+      "title": "private backfill基盤は暗号化したS3・DynamoDB保存だけに限定しなければならない",
       "traces": {
         "design": [
           "docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md",
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md",
-          "docs/decisions/ADR-0003-lambda-private-material-backfill.md",
-          "docs/decisions/ADR-0005-service-managed-encryption.md"
+          "docs/decisions/ADR-0005-service-managed-encryption.md",
+          "docs/decisions/ADR-0006-local-private-material-ingestion.md"
         ],
         "implementation": [
           "infra/src/diopside_ingestion/stack.py",
+          "infra/src/diopside_ingestion/local_runner.py",
           "infra/pyproject.toml",
           ".github/workflows/verify.yml"
         ],
@@ -2181,14 +2202,15 @@
         ],
         "tests": [
           "infra/tests/test_stack.py",
-          "infra/tests/test_contracts.py",
+          "infra/tests/test_local_runner.py",
+          "infra/tests/test_aws_integration.py",
           "tests/repository-policy.test.ts"
         ]
       },
       "type": "constraint",
       "verification": {
-        "evidence": "infra/tests/test_stack.py, .github/workflows/verify.yml",
-        "method": "CDK synth・cdk-nag・静的解析・unit test"
+        "evidence": "infra/tests/test_stack.py, infra/tests/test_aws_integration.py, .github/workflows/verify.yml",
+        "method": "CDK synth・cdk-nag・静的解析・unit・AWS protocol統合試験"
       }
     },
     {
@@ -2252,29 +2274,30 @@
         {
           "given": "AWS accountにGitHub OIDC providerとmodern CDK bootstrap roleがある",
           "id": "AC-V8-INGEST-013-1",
-          "then": "共有infra roleはowner IDとrepository ID、audience、private-backfill-infra environmentを含むimmutableな完全一致subjectだけを信頼し、AWS access keyを作らず、access stackの配置regionと独立した同一accountのTargetDeploymentRegionにあるdeploy、file-publishing、lookup bootstrap roleの引受けと固定request FIFOへのsqs:SendMessageだけを許可する。",
+          "then": "共有infra roleはowner IDとrepository ID、audience、private-backfill-infra environmentを含むimmutableな完全一致subjectだけを信頼し、AWS access keyを作らず、TargetDeploymentRegionのdeploy、file-publishing、lookup bootstrap roleの引受けだけを許可する。",
           "when": "deployment access stackをsynthしてIAM trustと権限policyを検査する"
         },
         {
-          "given": "検証済みmainのprivate backfill基盤をデプロイする",
+          "given": "検証済みmainのprivate保存基盤をデプロイする",
           "id": "AC-V8-INGEST-013-2",
-          "then": "workflowはmain、確認入力、共通protected environment承認、account ID照合、lock済み依存、Ruff、strict型検査、pytest、CDK synth、cdk-nag、生成設計差分の合格後だけ共有infra roleを引き受け、inline session policyを対象CDK bootstrap roleの引受けだけへ限定してDiopsideIngestionStackをデプロイし、enqueue、upload、削除、公開、mergeを実行しない。",
+          "then": "workflowはmain、確認入力、protected environment承認、account ID照合、品質ゲートの合格後だけ共有infra roleを引き受け、inline session policyを対象CDK bootstrap roleの引受けだけへ限定してS3・DynamoDB stackをデプロイし、素材取得、upload、削除、公開、mergeを実行しない。",
           "when": "運用者がGitHub Actionsのdeploy workflowを明示開始する"
         }
       ],
       "action": "enforce",
       "category": "nonfunctional",
       "id": "V8-INGEST-013",
-      "last_changed_by": "CHG-20260829-ingestion-infra-role-consolidation",
+      "last_changed_by": "CHG-20260829-local-private-ingestion",
       "object": "GitHub ActionsからのCDK deployはprivate-backfill-infra environmentで承認されたmainの手動実行が共有infra roleのimmutableな完全一致OIDC短期sessionを使用し、inline session policyでTargetDeploymentRegionの必要なCDK bootstrap roleだけを引き受ける経路に限定しなければならない。",
-      "rationale": "長期AWS access keyとrepository横断の信頼を持たず、共有するOIDC設定と実行ごとの最小権限sessionを両立するため。",
-      "revision": 3,
+      "rationale": "長期AWS access keyとrepository横断の信頼を持たず、保存基盤deployとローカル素材取得の権限を分離するため。",
+      "revision": 4,
       "scope": "project",
       "source_refs": [
         "Issue #465",
         "user:2026-08-23",
         "user:2026-08-29",
         "spec/sources/owner-directive-2026-08-29-ingestion-infra-role.md",
+        "spec/sources/owner-directive-2026-08-29-local-private-ingestion.md",
         "GitHub Actions OIDC for AWS",
         "AWS CDK security best practices"
       ],
@@ -2328,10 +2351,11 @@
       "action": "enforce",
       "category": "nonfunctional",
       "id": "V8-INGEST-014",
-      "last_changed_by": "CHG-20260829-ingestion-infra-role-consolidation",
+      "last_changed_by": "CHG-20260829-local-private-ingestion",
       "object": "mainの手動実行で承認された1件のvideo_idだけを、基盤deployと共通のprotected environmentおよび共有infra roleから、TargetDeploymentRegionの対象FIFOへのSendMessage専用sessionで投入しなければならない。",
       "rationale": "OIDC roleとenvironmentを基盤運用へ統合しながら、長期AWS access keyと実行時の過剰なAWS権限を持たず、費用確認済みの1動画だけを安全に再投入するため。",
-      "revision": 3,
+      "retirement_reason": "2026-08-29所有者指示によりGitHub ActionsのSQS投入経路を廃止し、V8-INGEST-001、V8-INGEST-004、V8-INGEST-009のローカル直接投入経路へ置換したため。",
+      "revision": 4,
       "scope": "project",
       "source_refs": [
         "Issue #465",
@@ -2341,7 +2365,7 @@
         "GitHub Actions OIDC for AWS",
         "AWS IAM least privilege"
       ],
-      "status": "active",
+      "status": "retired",
       "subject": "diopside v8のGitHub Actionsによる1動画投入",
       "title": "GitHub Actionsの1動画SQS投入は共有infra roleのSendMessage専用sessionを使用しなければならない",
       "traces": {
@@ -2482,7 +2506,7 @@
     },
     {
       "id": "V8-OPS-003",
-      "revision": 5,
+      "revision": 6,
       "status": "active",
       "scope": "project",
       "category": "nonfunctional",
@@ -2498,14 +2522,16 @@
         "owner-directive:2026-08-04",
         "spec/sources/owner-directive-2026-08-08-post-merge-release.md",
         "user:2026-08-23",
-        "user:2026-08-26"
+        "user:2026-08-26",
+        "user:2026-08-29",
+        "spec/sources/owner-directive-2026-08-29-local-private-ingestion.md"
       ],
       "acceptance_criteria": [
         {
           "id": "AC-V8-OPS-003-1",
           "given": "V8-運用-003の前提を満たす公開データまたは操作がある",
           "when": "リポジトリ静的確認・手順試験",
-          "then": "`.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。動画確認、候補検出、公開準備のworkflow_dispatchは読取専用に限定し、private backfill基盤deployと1動画SQS投入だけをV8-INGEST-009、V8-INGEST-013、V8-INGEST-014の承認済み手動経路として分離し、静的成果物生成は検証済みmainだけを入力とする。"
+          "then": "`.github/workflows` に予定実行、AI/API呼出し、独自Pages deploy、素材取得起動が存在しない。動画確認、候補検出、公開準備のworkflow_dispatchは読取専用に限定し、private backfillはV8-INGEST-009とV8-INGEST-013の承認済み保存基盤deployとローカル処理に分離し、静的成果物生成は検証済みmainだけを入力とする。"
         }
       ],
       "verification": {
@@ -2515,7 +2541,8 @@
       "traces": {
         "design": [
           "docs/design/generated/system.gen.md",
-          "docs/operations/manual-content-update.md"
+          "docs/operations/manual-content-update.md",
+          "docs/decisions/ADR-0006-local-private-material-ingestion.md"
         ],
         "implementation": [
           "scripts/detect-video-candidates.ts",
@@ -2524,7 +2551,7 @@
           ".github/workflows/manual-content-operation.yml",
           ".github/workflows/update-generated-release.yml",
           ".github/workflows/deploy-ingestion-infra.yml",
-          ".github/workflows/enqueue-ingestion-video.yml"
+          "infra/src/diopside_ingestion/cli.py"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2533,10 +2560,10 @@
         ],
         "standards": [
           "Issue #1",
-          "dev-standard default profile"
+          "dev-standard regulated profile"
         ]
       },
-      "last_changed_by": "CHG-20260827-INGESTION-GITHUB-ENQUEUE"
+      "last_changed_by": "CHG-20260829-local-private-ingestion"
     },
     {
       "id": "V8-OPS-004",

@@ -731,7 +731,7 @@ class LegacyLocalImporter:
             except Exception:
                 counts["failed"] += 1
                 with suppress(Exception):
-                    self.repository.mark_dispatch_failure(
+                    self.repository.mark_attempt_failure(
                         video.video_id,
                         f"legacy-local:{self.manifest.sha256[:32]}",
                         "legacy_local_import_failed",

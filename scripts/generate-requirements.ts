@@ -326,24 +326,28 @@ const requirements = sourceRequirements.map((item) => {
     requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-08-TIMESTAMP-BATCH';
   }
   if (id === 'V8-OPS-003') {
-    requirement.revision = 5;
+    requirement.revision = 6;
     requirement.source_refs.push(
       'owner-directive:2026-08-04',
       'spec/sources/owner-directive-2026-08-08-post-merge-release.md',
       'user:2026-08-23',
       'user:2026-08-26',
+      'user:2026-08-29',
+      'spec/sources/owner-directive-2026-08-29-local-private-ingestion.md',
     );
-    requirement.acceptance_criteria[0]!.then = '`.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。動画確認、候補検出、公開準備のworkflow_dispatchは読取専用に限定し、private backfill基盤deployと1動画SQS投入だけをV8-INGEST-009、V8-INGEST-013、V8-INGEST-014の承認済み手動経路として分離し、静的成果物生成は検証済みmainだけを入力とする。';
-    requirement.traces.implementation.push('.github/workflows/manual-content-operation.yml');
+    requirement.acceptance_criteria[0]!.then = '`.github/workflows` に予定実行、AI/API呼出し、独自Pages deploy、素材取得起動が存在しない。動画確認、候補検出、公開準備のworkflow_dispatchは読取専用に限定し、private backfillはV8-INGEST-009とV8-INGEST-013の承認済み保存基盤deployとローカル処理に分離し、静的成果物生成は検証済みmainだけを入力とする。';
+    requirement.traces.design.push('docs/decisions/ADR-0006-local-private-material-ingestion.md');
     requirement.traces.implementation = [
       ...requirement.traces.implementation,
+      '.github/workflows/manual-content-operation.yml',
       '.github/workflows/update-generated-release.yml',
       '.github/workflows/deploy-ingestion-infra.yml',
-      '.github/workflows/enqueue-ingestion-video.yml',
+      'infra/src/diopside_ingestion/cli.py',
     ];
     requirement.traces.tests.push('tests/repository-policy.test.ts');
+    requirement.traces.standards = ['Issue #1', 'dev-standard regulated profile'];
     requirement.verification.evidence = 'tests/operations.test.ts, tests/generated.test.ts, tests/repository-policy.test.ts';
-    requirement.last_changed_by = 'CHG-20260827-INGESTION-GITHUB-ENQUEUE';
+    requirement.last_changed_by = 'CHG-20260829-local-private-ingestion';
   }
   if (id === 'V8-OPS-007') {
     requirement.revision = 2;

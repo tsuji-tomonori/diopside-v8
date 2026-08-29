@@ -98,12 +98,8 @@ def test_deployment_role_can_only_assume_required_target_region_bootstrap_roles(
         {"Ref": role_ids_by_name["diopside-github-actions-deploy"]}
     ]
     statements = policy["Properties"]["PolicyDocument"]["Statement"]
-    assert len(statements) == 2
-    statement = next(
-        statement
-        for statement in statements
-        if statement["Sid"] == "AssumeRequiredCdkBootstrapRoles"
-    )
+    assert len(statements) == 1
+    statement = statements[0]
     assert statement["Action"] == "sts:AssumeRole"
     assert statement["Effect"] == "Allow"
     assert statement["Sid"] == "AssumeRequiredCdkBootstrapRoles"
@@ -118,64 +114,13 @@ def test_deployment_role_can_only_assume_required_target_region_bootstrap_roles(
     assert "us-east-1" not in serialized
     assert "image-publishing" not in serialized
     assert '"*"' not in serialized
+    assert "sqs:" not in serialized.lower()
+    assert "s3:" not in serialized.lower()
+    assert "dynamodb:" not in serialized.lower()
 
     template.has_output(
         "GitHubActionsDeploymentRegion",
         {"Value": {"Ref": "TargetDeploymentRegion"}},
     )
-
-
-def test_infrastructure_role_can_only_send_to_the_target_region_request_queue() -> None:
-    template = deployment_access_template(stack_region="us-east-1")
-    role_ids_by_name = {
-        role["Properties"]["RoleName"]: logical_id
-        for logical_id, role in template.find_resources("AWS::IAM::Role").items()
-    }
-    policies = template.find_resources("AWS::IAM::Policy")
-    policy = next(
-        policy
-        for policy in policies.values()
-        if "sqs:SendMessage" in json.dumps(policy, sort_keys=True)
-    )
-    assert policy["Properties"]["Roles"] == [
-        {"Ref": role_ids_by_name["diopside-github-actions-deploy"]}
-    ]
-    statements = policy["Properties"]["PolicyDocument"]["Statement"]
-    send_statement = next(
-        statement
-        for statement in statements
-        if statement["Sid"] == "SendOnlyToIngestionRequestQueue"
-    )
-    assert send_statement == {
-        "Action": "sqs:SendMessage",
-        "Effect": "Allow",
-        "Resource": {
-            "Fn::Join": [
-                "",
-                [
-                    "arn:",
-                    {"Ref": "AWS::Partition"},
-                    ":sqs:",
-                    {"Ref": "TargetDeploymentRegion"},
-                    ":",
-                    {"Ref": "AWS::AccountId"},
-                    ":diopside-ingestion-request.fifo",
-                ],
-            ]
-        },
-        "Sid": "SendOnlyToIngestionRequestQueue",
-    }
-    assert {statement["Sid"] for statement in statements} == {
-        "AssumeRequiredCdkBootstrapRoles",
-        "SendOnlyToIngestionRequestQueue",
-    }
-    serialized = json.dumps(policy, sort_keys=True)
-    assert "us-east-1" not in serialized
-    assert '"*"' not in serialized
-    assert "s3:" not in serialized.lower()
-    assert "dynamodb:" not in serialized.lower()
-    assert "lambda:" not in serialized.lower()
-    assert "cloudformation:" not in serialized.lower()
-
     outputs = template.to_json().get("Outputs", {})
     assert set(outputs) == {"GitHubActionsDeployRoleArn", "GitHubActionsDeploymentRegion"}
