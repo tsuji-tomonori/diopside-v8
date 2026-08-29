@@ -284,7 +284,15 @@ def classify_failure(text: str, *, stage: str) -> Failure:
             True,
             "retry_download",
         )
-    if "5" in normalized and "http" in normalized:
+    if "403" in normalized and "http" in normalized:
+        return Failure(
+            ReasonCategory.TECHNICAL_ERROR,
+            "http_403",
+            "取得元が公開素材のdownloadを拒否した",
+            True,
+            "retry_download",
+        )
+    if any(code in normalized for code in ("http error 500", "http error 502", "http error 503")):
         return Failure(
             ReasonCategory.TECHNICAL_ERROR,
             "http_5xx",

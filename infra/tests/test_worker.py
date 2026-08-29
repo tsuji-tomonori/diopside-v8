@@ -24,6 +24,7 @@ from diopside_ingestion.worker import (
     WorkerConfig,
     normalized_caption,
     normalized_json3,
+    normalized_live_chat,
 )
 
 
@@ -245,6 +246,35 @@ def test_subprocess_runner_enables_node_for_ytdlp(
             "--version",
         ]
     ]
+
+
+def test_live_chat_normalization_drops_author_identifiers() -> None:
+    source = json.dumps(
+        {
+            "replayChatItemAction": {
+                "videoOffsetTimeMsec": "1250",
+                "actions": [
+                    {
+                        "addChatItemAction": {
+                            "item": {
+                                "liveChatTextMessageRenderer": {
+                                    "authorName": {"simpleText": "private-author"},
+                                    "authorExternalChannelId": "private-channel",
+                                    "message": {"runs": [{"text": "message"}]},
+                                }
+                            }
+                        }
+                    }
+                ],
+            }
+        }
+    )
+
+    normalized = normalized_live_chat(source)
+
+    assert normalized == '{"offset_seconds":1.25,"text":"message"}\n'
+    assert "private-author" not in normalized
+    assert "private-channel" not in normalized
 
 
 def test_worker_logs_allow_listed_metadata_failure_signals(

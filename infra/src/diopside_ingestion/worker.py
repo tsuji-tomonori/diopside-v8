@@ -369,6 +369,76 @@ def normalized_comments(text: str) -> str:
     return "\n".join(rows) + ("\n" if rows else "")
 
 
+def normalized_live_chat(text: str) -> str:
+    """Render replay-chat NDJSON without retaining author or channel identifiers."""
+    rows: list[str] = []
+    for line in text.splitlines():
+        try:
+            document = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(document, dict):
+            continue
+        replay = cast(dict[str, object], document).get("replayChatItemAction")
+        if not isinstance(replay, dict):
+            continue
+        typed_replay = cast(dict[str, object], replay)
+        offset = typed_replay.get("videoOffsetTimeMsec")
+        actions = typed_replay.get("actions")
+        if not isinstance(actions, list):
+            continue
+        try:
+            offset_seconds = round(int(str(offset)) / 1000, 3)
+        except (TypeError, ValueError):
+            continue
+        for raw_action in cast(list[object], actions):
+            if not isinstance(raw_action, dict):
+                continue
+            action = cast(dict[str, object], raw_action).get("addChatItemAction")
+            if not isinstance(action, dict):
+                continue
+            item = cast(dict[str, object], action).get("item")
+            if not isinstance(item, dict):
+                continue
+            typed_item = cast(dict[str, object], item)
+            renderer = typed_item.get("liveChatTextMessageRenderer")
+            if not isinstance(renderer, dict):
+                renderer = typed_item.get("liveChatPaidMessageRenderer")
+            if not isinstance(renderer, dict):
+                continue
+            message = cast(dict[str, object], renderer).get("message")
+            if not isinstance(message, dict):
+                continue
+            runs = cast(dict[str, object], message).get("runs")
+            if not isinstance(runs, list):
+                continue
+            fragments: list[str] = []
+            for raw_run in cast(list[object], runs):
+                if not isinstance(raw_run, dict):
+                    continue
+                run = cast(dict[str, object], raw_run)
+                value = run.get("text")
+                if isinstance(value, str):
+                    fragments.append(value)
+                    continue
+                emoji = run.get("emoji")
+                if not isinstance(emoji, dict):
+                    continue
+                shortcuts = cast(dict[str, object], emoji).get("shortcuts")
+                if isinstance(shortcuts, list) and shortcuts and isinstance(shortcuts[0], str):
+                    fragments.append(shortcuts[0])
+            message_text = "".join(fragments).strip()
+            if message_text:
+                rows.append(
+                    json.dumps(
+                        {"offset_seconds": offset_seconds, "text": message_text},
+                        ensure_ascii=False,
+                        separators=(",", ":"),
+                    )
+                )
+    return "\n".join(rows) + ("\n" if rows else "")
+
+
 @dataclass
 class IngestionWorker:
     """Coordinates independent artifact stages and a one-item DynamoDB checkpoint."""

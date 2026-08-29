@@ -31,6 +31,7 @@ from diopside_ingestion.worker import (
     normalized_caption,
     normalized_comments,
     normalized_json3,
+    normalized_live_chat,
     source_url,
 )
 
@@ -66,7 +67,14 @@ SOURCE_SPECS: Final = (
     ),
     SourceSpec(
         "subtitles",
-        ("--write-subs", "--skip-download", "--sub-langs", "all", "--sub-format", "json3"),
+        (
+            "--write-subs",
+            "--skip-download",
+            "--sub-langs",
+            "all,-live_chat",
+            "--sub-format",
+            "json3",
+        ),
         "raw/subtitles",
     ),
     SourceSpec(
@@ -75,7 +83,7 @@ SOURCE_SPECS: Final = (
             "--write-auto-subs",
             "--skip-download",
             "--sub-langs",
-            "all",
+            "ja.*,ja",
             "--sub-format",
             "json3",
         ),
@@ -574,6 +582,9 @@ class StagedLocalProcessor:
             elif path.suffix.lower() == ".json3":
                 target = output_dir / f"{path.stem}.jsonl.gz"
                 text = normalized_json3(source)
+            elif path.name.endswith(".live_chat.json"):
+                target = output_dir / f"{path.stem}.jsonl.gz"
+                text = normalized_live_chat(source)
             elif path.suffix.lower() == ".json":
                 target = output_dir / f"{path.stem}.jsonl.gz"
                 text = normalized_comments(source)
