@@ -7,8 +7,11 @@ from aws_cdk.assertions import Template
 
 from diopside_deployment.access_stack import GitHubDeploymentAccessStack
 
-_IMMUTABLE_GITHUB_OIDC_SUBJECT = (
+_IMMUTABLE_GITHUB_DEPLOY_OIDC_SUBJECT = (
     "repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-infra"
+)
+_IMMUTABLE_GITHUB_ENQUEUE_OIDC_SUBJECT = (
+    "repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-enqueue"
 )
 
 
@@ -22,52 +25,70 @@ def deployment_access_template(*, stack_region: str = "ap-northeast-1") -> Templ
     return Template.from_stack(stack)
 
 
-def test_deployment_role_trusts_only_the_exact_immutable_github_subject() -> None:
+def test_roles_trust_only_the_exact_immutable_github_subjects() -> None:
     template = deployment_access_template()
     template.has_parameter(
         "GitHubOidcSubject",
         {
             "Type": "String",
-            "Default": _IMMUTABLE_GITHUB_OIDC_SUBJECT,
-            "AllowedValues": [_IMMUTABLE_GITHUB_OIDC_SUBJECT],
+            "Default": _IMMUTABLE_GITHUB_DEPLOY_OIDC_SUBJECT,
+            "AllowedValues": [_IMMUTABLE_GITHUB_DEPLOY_OIDC_SUBJECT],
+        },
+    )
+    template.has_parameter(
+        "GitHubEnqueueOidcSubject",
+        {
+            "Type": "String",
+            "Default": _IMMUTABLE_GITHUB_ENQUEUE_OIDC_SUBJECT,
+            "AllowedValues": [_IMMUTABLE_GITHUB_ENQUEUE_OIDC_SUBJECT],
         },
     )
     template.resource_count_is("AWS::IAM::OIDCProvider", 0)
     template.resource_count_is("AWS::IAM::AccessKey", 0)
-    template.resource_count_is("AWS::IAM::Role", 1)
+    template.resource_count_is("AWS::IAM::Role", 2)
 
-    role = next(iter(template.find_resources("AWS::IAM::Role").values()))
-    trust = role["Properties"]["AssumeRolePolicyDocument"]["Statement"]
-    assert trust == [
-        {
-            "Action": "sts:AssumeRoleWithWebIdentity",
-            "Condition": {
-                "StringEquals": {
-                    "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-                    "token.actions.githubusercontent.com:sub": {"Ref": "GitHubOidcSubject"},
-                }
-            },
-            "Effect": "Allow",
-            "Principal": {
-                "Federated": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "arn:",
-                            {"Ref": "AWS::Partition"},
-                            ":iam::",
-                            {"Ref": "AWS::AccountId"},
-                            ":oidc-provider/token.actions.githubusercontent.com",
-                        ],
-                    ]
-                }
-            },
-        }
-    ]
-    assert "repo:tsuji-tomonori/diopside-v8:" not in json.dumps(role)
+    roles = template.find_resources("AWS::IAM::Role")
+    role_by_name = {role["Properties"]["RoleName"]: role for role in roles.values()}
+    assert set(role_by_name) == {
+        "diopside-github-actions-deploy",
+        "diopside-github-actions-enqueue",
+    }
+    for role_name, subject_parameter in [
+        ("diopside-github-actions-deploy", "GitHubOidcSubject"),
+        ("diopside-github-actions-enqueue", "GitHubEnqueueOidcSubject"),
+    ]:
+        trust = role_by_name[role_name]["Properties"]["AssumeRolePolicyDocument"]["Statement"]
+        assert trust == [
+            {
+                "Action": "sts:AssumeRoleWithWebIdentity",
+                "Condition": {
+                    "StringEquals": {
+                        "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+                        "token.actions.githubusercontent.com:sub": {"Ref": subject_parameter},
+                    }
+                },
+                "Effect": "Allow",
+                "Principal": {
+                    "Federated": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "arn:",
+                                {"Ref": "AWS::Partition"},
+                                ":iam::",
+                                {"Ref": "AWS::AccountId"},
+                                ":oidc-provider/token.actions.githubusercontent.com",
+                            ],
+                        ]
+                    }
+                },
+            }
+        ]
+
+    assert "repo:tsuji-tomonori/diopside-v8:" not in json.dumps(roles)
 
 
-def test_deployment_role_can_only_assume_required_same_environment_bootstrap_roles() -> None:
+def test_deployment_role_can_only_assume_required_target_region_bootstrap_roles() -> None:
     template = deployment_access_template(stack_region="us-east-1")
     template.has_parameter(
         "TargetDeploymentRegion",
@@ -77,9 +98,20 @@ def test_deployment_role_can_only_assume_required_same_environment_bootstrap_rol
             "AllowedValues": ["ap-northeast-1"],
         },
     )
+    role_ids_by_name = {
+        role["Properties"]["RoleName"]: logical_id
+        for logical_id, role in template.find_resources("AWS::IAM::Role").items()
+    }
     policies = template.find_resources("AWS::IAM::Policy")
-    assert len(policies) == 1
-    policy = next(iter(policies.values()))
+    assert len(policies) == 2
+    policy = next(
+        policy
+        for policy in policies.values()
+        if "sts:AssumeRole" in json.dumps(policy, sort_keys=True)
+    )
+    assert policy["Properties"]["Roles"] == [
+        {"Ref": role_ids_by_name["diopside-github-actions-deploy"]}
+    ]
     statements = policy["Properties"]["PolicyDocument"]["Statement"]
     assert len(statements) == 1
     statement = statements[0]
@@ -101,4 +133,55 @@ def test_deployment_role_can_only_assume_required_same_environment_bootstrap_rol
     template.has_output(
         "GitHubActionsDeploymentRegion",
         {"Value": {"Ref": "TargetDeploymentRegion"}},
+    )
+
+
+def test_enqueue_role_can_only_send_to_the_target_region_request_queue() -> None:
+    template = deployment_access_template(stack_region="us-east-1")
+    role_ids_by_name = {
+        role["Properties"]["RoleName"]: logical_id
+        for logical_id, role in template.find_resources("AWS::IAM::Role").items()
+    }
+    policies = template.find_resources("AWS::IAM::Policy")
+    policy = next(
+        policy
+        for policy in policies.values()
+        if "sqs:SendMessage" in json.dumps(policy, sort_keys=True)
+    )
+    assert policy["Properties"]["Roles"] == [
+        {"Ref": role_ids_by_name["diopside-github-actions-enqueue"]}
+    ]
+    statements = policy["Properties"]["PolicyDocument"]["Statement"]
+    assert statements == [
+        {
+            "Action": "sqs:SendMessage",
+            "Effect": "Allow",
+            "Resource": {
+                "Fn::Join": [
+                    "",
+                    [
+                        "arn:",
+                        {"Ref": "AWS::Partition"},
+                        ":sqs:",
+                        {"Ref": "TargetDeploymentRegion"},
+                        ":",
+                        {"Ref": "AWS::AccountId"},
+                        ":diopside-ingestion-request.fifo",
+                    ],
+                ]
+            },
+            "Sid": "SendOnlyToIngestionRequestQueue",
+        }
+    ]
+    serialized = json.dumps(policy, sort_keys=True)
+    assert "us-east-1" not in serialized
+    assert '"*"' not in serialized
+    assert "s3:" not in serialized.lower()
+    assert "dynamodb:" not in serialized.lower()
+    assert "lambda:" not in serialized.lower()
+    assert "cloudformation:" not in serialized.lower()
+
+    template.has_output(
+        "GitHubActionsEnqueueRoleArn",
+        {"Value": {"Fn::GetAtt": [role_ids_by_name["diopside-github-actions-enqueue"], "Arn"]}},
     )

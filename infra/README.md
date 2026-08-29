@@ -1,6 +1,6 @@
 # diopside 過去動画素材バックフィル
 
-このディレクトリは Issue #465 の一度限りの過去動画素材バックフィル基盤です。公開画面、GitHub Pages、通常の1動画コンテンツPRとは独立しており、CDK deployとbackfill投入はこのPRでは実行しません。
+このディレクトリは Issue #465 の一度限りの過去動画素材バックフィル基盤です。公開画面、GitHub Pages、通常の1動画コンテンツPRとは独立しており、CDK deployとSQSへの実投入は実行ごとに人が承認します。
 
 ## GitHub Actionsからの基盤デプロイ
 
@@ -16,10 +16,11 @@ CDK_DEFAULT_REGION=us-east-1 \
 npm exec -- cdk deploy DiopsideGitHubDeploymentAccessStack \
   --exclusively \
   --parameters 'GitHubOidcSubject=repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-infra' \
+  --parameters 'GitHubEnqueueOidcSubject=repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-enqueue' \
   --parameters 'TargetDeploymentRegion=ap-northeast-1'
 ```
 
-このrepositoryは2026-07-15以降に作成されたため、GitHubのdefault OIDC subjectはowner IDとrepository IDを含むimmutable形式です。subjectは `repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-infra` に固定し、旧name-based subject、別repository、別environmentをparameterで指定できないようにします。`gh api repos/tsuji-tomonori/diopside-v8/actions/oidc/customization/sub` の `sub_claim_prefix` を変更前に再確認します。OIDC providerが未作成の場合はAWS管理者が先に作成し、既存providerがある場合は再作成しません。
+このrepositoryは2026-07-15以降に作成されたため、GitHubのdefault OIDC subjectはowner IDとrepository IDを含むimmutable形式です。deploy用subjectは `repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-infra`、enqueue用subjectは `repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-enqueue` に固定し、旧name-based subject、別repository、別environmentをparameterで指定できないようにします。`gh api repos/tsuji-tomonori/diopside-v8/actions/oidc/customization/sub` の `sub_claim_prefix` を変更前に再確認します。OIDC providerが未作成の場合はAWS管理者が先に作成し、既存providerがある場合は再作成しません。
 
 GitHub environment `private-backfill-infra` はdeployment branchを `main` だけに限定し、required reviewerとprotection ruleのbypass禁止を設定します。次のenvironment variablesを登録します。
 
@@ -28,6 +29,21 @@ GitHub environment `private-backfill-infra` はdeployment branchを `main` だ�
 - `AWS_DEPLOY_ROLE_ARN`: access stackの `GitHubActionsDeployRoleArn` output
 
 受けロールは同じaccountの `ap-northeast-1` にあるCDK bootstrap `deploy`、`file-publishing`、`lookup` roleだけを引き受けます。access stack自体の配置regionには依存しません。ECR image publishing roleやAWS serviceの直接操作権限は持ちません。workflowはRuff、Pyright strict、mypy strict、pytest、CDK synth、cdk-nag、生成設計driftがすべて合格してからOIDC短期sessionを取得し、CloudFormation change set経由でデプロイします。
+
+## GitHub Actionsからの1動画投入
+
+`.github/workflows/enqueue-ingestion-video.yml` は、運用者が指定した1件の `video_id` だけを `diopside-ingestion-request.fifo` へ送る入口です。schedule、push、PRでは起動せず、mainからの手動起動、`ENQUEUE` の確認入力、GitHub environment `private-backfill-enqueue` の承認を必須にします。入力は11文字のYouTube video IDに限定し、SQS本文は `{"video_id":"..."}` の一項目だけです。
+
+GitHub environment `private-backfill-enqueue` はdeployment branchを `main` だけに限定し、required reviewerとprotection ruleのbypass禁止を設定します。次のenvironment variablesを登録します。
+
+- `AWS_ACCOUNT_ID`: 対象AWS account ID
+- `AWS_REGION`: `ap-northeast-1`（access stackの `GitHubActionsDeploymentRegion` output）
+- `AWS_ENQUEUE_ROLE_ARN`: access stackの `GitHubActionsEnqueueRoleArn` output
+- `AWS_INGESTION_QUEUE_URL`: `https://sqs.ap-northeast-1.amazonaws.com/<account-id>/diopside-ingestion-request.fifo`
+
+enqueue用ロールはimmutableな完全一致OIDC subjectだけを信頼し、`TargetDeploymentRegion` の対象FIFOへの `sqs:SendMessage` だけを許可します。access stackが `us-east-1` にあってもqueue ARNは `ap-northeast-1` を参照します。S3、DynamoDB、Lambda、CloudFormation、IAM、キュー削除の権限は持ちません。workflowはaccount、region、role ARN、queue URLを相互照合してから送信し、GitHub run IDとvideo IDをdeduplication IDに使います。別のworkflow runは運用者による新しい明示投入として扱います。
+
+実行前にAWS料金、利用量、契約条件、対象動画を確認し、Actionsの「1動画private backfill投入」をmainから開始して `video_id` と `ENQUEUE` を入力します。workflowの成功はその1件のenqueueだけを示し、基盤deploy、素材の完了、削除、公開、mergeを意味しません。
 
 ## 検証
 
@@ -58,7 +74,7 @@ DIOPSIDE_AWS_ENDPOINT_URL=http://127.0.0.1:4566 npm run test:ingestion:aws
 
 ## 運用上の入口
 
-diopside-backfill manifest は、最新mainの content/catalog と既存台帳snapshotを統合して、不変の対象manifestを生成します。enqueue と report は、そのmanifestを指定して実行します。すべての外部リクエスト本文は video_id だけです。
+複数動画の歴史素材backfillでは、diopside-backfill manifest が最新mainの content/catalog と既存台帳snapshotを統合して、不変の対象manifestを生成します。enqueue と report は、そのmanifestを指定して実行します。1動画だけを追加投入する場合は前節の手動Actionsを使えます。どちらも外部リクエスト本文は video_id だけです。
 
 対象を変更する場合は既存manifestを置き換えず、`manifest --revision <次の整数>` で新しいSHA-256付きmanifestを明示的に作成します。
 

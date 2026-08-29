@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "catalog_revision": 23,
+  "catalog_revision": 24,
   "product": "diopside v8",
-  "updated_at": "2026-08-28",
+  "updated_at": "2026-08-29",
   "requirements": [
     {
       "acceptance_criteria": [
@@ -222,15 +222,16 @@
       "action": "satisfy",
       "category": "nonfunctional",
       "id": "V8-COST-005",
-      "last_changed_by": "CHG-20260815-yt-dlp-backfill",
+      "last_changed_by": "CHG-20260827-ingestion-github-enqueue",
       "object": "公開面の外部サービスの料金または無償条件が変わり請求が発生し得る場合は、課金して継続せず該当公開処理を停止しなければならず、private backfillの費用は自動停止ではなく人の開始判断に委ねなければならない。",
       "rationale": "公開更新のゼロ円停止条件と、明示承認された有限作業の費用観測を混同しないため。",
-      "revision": 2,
+      "revision": 3,
       "scope": "project",
       "source_refs": [
         "Issue #1 V8-費用-005",
         "Issue #465",
-        "user:2026-08-03"
+        "user:2026-08-03",
+        "user:2026-08-26"
       ],
       "status": "active",
       "subject": "diopside v8の費用",
@@ -241,12 +242,13 @@
           "docs/operations/cost-check.md"
         ],
         "implementation": [
-          "operations/cost-policy.json"
+          "operations/cost-policy.json",
+          ".github/workflows/enqueue-ingestion-video.yml"
         ],
         "standards": [
           "Issue #1",
           "Issue #465",
-          "dev-standard assured profile"
+          "dev-standard regulated profile"
         ],
         "tests": [
           "tests/repository-policy.test.ts"
@@ -1650,46 +1652,50 @@
       "action": "enforce",
       "category": "functional",
       "id": "V8-INGEST-001",
-      "last_changed_by": "CHG-20260815-yt-dlp-backfill",
+      "last_changed_by": "CHG-20260827-ingestion-github-enqueue",
       "object": "外部ingestion要求は11文字のYouTube video_idだけを含み、未知fieldまたは内部状態を含んではならない。",
       "rationale": "SQS再試行とLambda内実行で入力契約を変えず、任意の外部状態注入を防ぐため。",
-      "revision": 1,
+      "revision": 2,
       "scope": "project",
       "source_refs": [
-        "Issue #465"
+        "Issue #465",
+        "user:2026-08-26"
       ],
       "status": "active",
       "subject": "diopside v8のprivate ingestion要求",
       "title": "外部ingestion要求はvideo_idだけを含む厳格な11文字契約でなければならない",
       "traces": {
         "design": [
-          "docs/decisions/ADR-0002-historical-private-material-backfill.md"
+          "docs/decisions/ADR-0002-historical-private-material-backfill.md",
+          "docs/operations/privacy-and-safety.md"
         ],
         "implementation": [
           "infra/src/diopside_ingestion/contracts.py",
           "infra/src/diopside_ingestion/dispatcher.py",
-          "infra/src/diopside_ingestion/cli.py"
+          "infra/src/diopside_ingestion/cli.py",
+          ".github/workflows/enqueue-ingestion-video.yml"
         ],
         "standards": [
           "Issue #465",
-          "dev-standard assured profile"
+          "dev-standard regulated profile"
         ],
         "tests": [
           "infra/tests/test_contracts.py",
           "infra/tests/test_dispatcher.py",
-          "infra/tests/test_cli.py"
+          "infra/tests/test_cli.py",
+          "tests/repository-policy.test.ts"
         ]
       },
       "type": "interface",
       "verification": {
-        "evidence": "infra/tests/test_contracts.py, infra/tests/test_dispatcher.py",
-        "method": "契約単体試験"
+        "evidence": "infra/tests/test_contracts.py, infra/tests/test_dispatcher.py, tests/repository-policy.test.ts",
+        "method": "契約単体試験・workflow静的確認"
       }
     },
     {
       "acceptance_criteria": [
         {
-          "given": "既知動画catalogとtimestamp ledgerがある",
+          "given": "既知動画catalogとtimestamp ledgerから複数動画を投入する",
           "id": "AC-V8-INGEST-002-1",
           "then": "重複を除いたvideo_id、source、base commit、revision、SHA-256を固定し、そのmanifestに含まれる動画だけをFIFOへ投入する。対象を変更する場合は新しいrevisionとSHA-256を持つmanifestを明示作成し、実行中manifestを置き換えない。",
           "when": "manifestを作成してenqueueする"
@@ -1698,17 +1704,18 @@
       "action": "enforce",
       "category": "functional",
       "id": "V8-INGEST-002",
-      "last_changed_by": "CHG-20260815-yt-dlp-backfill",
-      "object": "歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。",
-      "rationale": "対象の欠落、重複、新着動画への無限拡張を防ぎ、再開と完了報告を決定的にするため。",
-      "revision": 2,
+      "last_changed_by": "CHG-20260827-ingestion-github-enqueue",
+      "object": "複数動画の歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。",
+      "rationale": "複数件の対象の欠落、重複、新着動画への無限拡張を防ぎ、再開と完了報告を決定的にしながら、運用者が明示する1動画投入を独立させるため。",
+      "revision": 3,
       "scope": "project",
       "source_refs": [
-        "Issue #465"
+        "Issue #465",
+        "user:2026-08-26"
       ],
       "status": "active",
       "subject": "diopside v8のprivate backfill対象",
-      "title": "歴史素材backfillは既知動画だけの不変target manifestを開始時に固定しなければならない",
+      "title": "複数動画の歴史素材backfillは既知動画だけの不変target manifestを開始時に固定しなければならない",
       "traces": {
         "design": [
           "docs/decisions/ADR-0002-historical-private-material-backfill.md"
@@ -2028,24 +2035,25 @@
     {
       "acceptance_criteria": [
         {
-          "given": "backfill用のコード、CI、AWS基盤deploy workflowがある",
+          "given": "backfill用のコード、CI、AWS基盤deploy workflow、1動画enqueue workflowがある",
           "id": "AC-V8-INGEST-009-1",
-          "then": "workflowはscheduleを持たず、AWS基盤deployはmainの手動起動、確認入力、protected environment承認、事前品質ゲートを必須にし、通常backfillとlegacy local importはmanifest作成とAWS書込みを別commandにして、enqueueまたはuploadには固定manifestと全件またはvideo IDの明示選択を要求する。",
+          "then": "workflowはscheduleを持たず、AWS基盤deployはmainの手動起動、確認入力、protected environment承認、事前品質ゲートを必須にする。複数動画とlegacy local importはmanifest作成とAWS書込みを分離し、1動画enqueueはmainの手動起動、11文字video ID、確認入力、専用protected environment承認を必須にして、対象FIFOへ1件だけ送る。",
           "when": "repositoryのworkflowとoperator commandを確認する"
         }
       ],
       "action": "enforce",
       "category": "functional",
       "id": "V8-INGEST-009",
-      "last_changed_by": "CHG-20260823-ingestion-github-deploy",
-      "object": "private backfillは運用者が固定manifestと対象選択を明示して開始する有限作業であり、AWS基盤deployはmainのprotected environmentから人が開始し、通常取得とlegacy local importのenqueue、upload、削除、公開、mergeを自動実行してはならない。",
-      "rationale": "歴史素材の回収を公開更新や無期限の外部スキャンへ変えず、人の承認境界を維持するため。",
-      "revision": 4,
+      "last_changed_by": "CHG-20260827-ingestion-github-enqueue",
+      "object": "private backfillは運用者が固定manifestまたは1件のvideo_idを明示して開始する有限作業であり、AWS基盤deployとSQS投入はmainのprotected environmentから人が開始し、予定実行、upload、削除、公開、mergeを自動実行してはならない。",
+      "rationale": "歴史素材の回収を公開更新や無期限の外部スキャンへ変えず、複数動画と1動画のどちらでも人の承認境界を維持するため。",
+      "revision": 5,
       "scope": "project",
       "source_refs": [
         "Issue #465",
         "user:2026-08-22",
-        "user:2026-08-23"
+        "user:2026-08-23",
+        "user:2026-08-26"
       ],
       "status": "active",
       "subject": "diopside v8のprivate backfill運用",
@@ -2060,15 +2068,17 @@
         "implementation": [
           ".github/workflows/verify.yml",
           ".github/workflows/deploy-ingestion-infra.yml",
+          ".github/workflows/enqueue-ingestion-video.yml",
           "infra/src/diopside_ingestion/cli.py",
           "infra/src/diopside_ingestion/legacy_import.py",
+          "infra/src/diopside_deployment/access_stack.py",
           "scripts/verify-repository-policy.ts"
         ],
         "standards": [
           "Issue #465",
           "dev-standard regulated profile",
           "GitHub Actions OIDC for AWS",
-          "AWS CDK security best practices"
+          "AWS IAM least privilege"
         ],
         "tests": [
           "infra/tests/test_manifest.py",
@@ -2242,7 +2252,7 @@
         {
           "given": "AWS accountにGitHub OIDC providerとmodern CDK bootstrap roleがある",
           "id": "AC-V8-INGEST-013-1",
-          "then": "受けロールはaudienceとprotected environmentを含む完全一致subjectだけを信頼し、AWS access keyを作らず、同一accountとregionのdeploy、file-publishing、lookup bootstrap roleだけを引き受けられる。",
+          "then": "受けロールはowner IDとrepository ID、audience、protected environmentを含むimmutableな完全一致subjectだけを信頼し、AWS access keyを作らず、access stackの配置regionと独立した同一accountのTargetDeploymentRegionにあるdeploy、file-publishing、lookup bootstrap roleだけを引き受けられる。",
           "when": "deployment access stackをsynthしてIAM trustと権限policyを検査する"
         },
         {
@@ -2255,14 +2265,15 @@
       "action": "enforce",
       "category": "nonfunctional",
       "id": "V8-INGEST-013",
-      "last_changed_by": "CHG-20260823-ingestion-github-deploy",
-      "object": "GitHub ActionsからのCDK deployはprotected environmentで承認されたmainの手動実行が完全一致OIDC subjectの短期sessionを使用し、同一accountとregionの必要なCDK bootstrap roleだけを引き受ける経路に限定しなければならない。",
+      "last_changed_by": "CHG-20260827-ingestion-github-enqueue",
+      "object": "GitHub ActionsからのCDK deployはprotected environmentで承認されたmainの手動実行がimmutableな完全一致OIDC subjectの短期sessionを使用し、access stackの配置regionと独立した同一accountのTargetDeploymentRegionにある必要なCDK bootstrap roleだけを引き受ける経路に限定しなければならない。",
       "rationale": "長期AWS access keyとrepository横断の信頼を持たず、デプロイ権限を人が承認した有限private backfill基盤の変更だけへ閉じるため。",
-      "revision": 1,
+      "revision": 2,
       "scope": "project",
       "source_refs": [
         "Issue #465",
         "user:2026-08-23",
+        "user:2026-08-29",
         "GitHub Actions OIDC for AWS",
         "AWS CDK security best practices"
       ],
@@ -2296,6 +2307,68 @@
       "verification": {
         "evidence": "infra/tests/test_deployment_access.py, tests/repository-policy.test.ts, .github/workflows/verify.yml",
         "method": "IAM CloudFormation template assertion・workflow静的試験・CDK synth・cdk-nag"
+      }
+    },
+    {
+      "acceptance_criteria": [
+        {
+          "given": "AWS accountにGitHub OIDC providerとprivate ingestion request FIFOがある",
+          "id": "AC-V8-INGEST-014-1",
+          "then": "enqueue roleはowner IDとrepository ID、audience、private-backfill-enqueue environmentを含むimmutableな完全一致subjectだけを信頼し、長期access keyを作らず、access stackの配置regionと独立したTargetDeploymentRegionのrequest FIFOへのsqs:SendMessage以外のAWS権限を持たない。",
+          "when": "deployment access stackをsynthしてenqueue roleを検査する"
+        },
+        {
+          "given": "運用者が料金、利用量、契約条件を確認して1動画を投入する",
+          "id": "AC-V8-INGEST-014-2",
+          "then": "11文字video ID、ENQUEUE確認、専用protected environment承認、account・region・role・queue照合がすべて成功した場合だけ、video_id一項目の本文を1件送信し、S3、DynamoDB、Lambda、CloudFormation、IAM、削除、公開、mergeを実行しない。",
+          "when": "mainから1動画enqueue workflowを手動実行する"
+        }
+      ],
+      "action": "enforce",
+      "category": "nonfunctional",
+      "id": "V8-INGEST-014",
+      "last_changed_by": "CHG-20260827-ingestion-github-enqueue",
+      "object": "mainの手動実行で承認された1件のvideo_idだけをimmutableな完全一致OIDC subjectの短期sessionとTargetDeploymentRegionの対象FIFOへのSendMessage専用roleで投入しなければならない。",
+      "rationale": "長期AWS access keyと過剰なAWS権限を持たず、費用確認済みの1動画だけを監査可能な人の操作として安全に再投入するため。",
+      "revision": 2,
+      "scope": "project",
+      "source_refs": [
+        "Issue #465",
+        "user:2026-08-26",
+        "user:2026-08-29",
+        "GitHub Actions OIDC for AWS",
+        "AWS IAM least privilege"
+      ],
+      "status": "active",
+      "subject": "diopside v8のGitHub Actionsによる1動画投入",
+      "title": "GitHub Actionsの1動画SQS投入はOIDC短期sessionと専用最小権限roleを使用しなければならない",
+      "traces": {
+        "design": [
+          "docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md",
+          "infra/README.md",
+          "docs/operations/manual-content-update.md",
+          "docs/operations/privacy-and-safety.md",
+          "docs/operations/cost-check.md"
+        ],
+        "implementation": [
+          "infra/src/diopside_deployment/access_stack.py",
+          ".github/workflows/enqueue-ingestion-video.yml"
+        ],
+        "standards": [
+          "Issue #465",
+          "GitHub Actions OIDC for AWS",
+          "AWS IAM least privilege",
+          "dev-standard regulated profile"
+        ],
+        "tests": [
+          "infra/tests/test_deployment_access.py",
+          "tests/repository-policy.test.ts"
+        ]
+      },
+      "type": "operational",
+      "verification": {
+        "evidence": "infra/tests/test_deployment_access.py, tests/repository-policy.test.ts",
+        "method": "IAM template試験・workflow静的確認"
       }
     },
     {
@@ -2407,7 +2480,7 @@
     },
     {
       "id": "V8-OPS-003",
-      "revision": 4,
+      "revision": 5,
       "status": "active",
       "scope": "project",
       "category": "nonfunctional",
@@ -2422,14 +2495,15 @@
         "user:2026-08-03",
         "owner-directive:2026-08-04",
         "spec/sources/owner-directive-2026-08-08-post-merge-release.md",
-        "user:2026-08-23"
+        "user:2026-08-23",
+        "user:2026-08-26"
       ],
       "acceptance_criteria": [
         {
           "id": "AC-V8-OPS-003-1",
           "given": "V8-運用-003の前提を満たす公開データまたは操作がある",
           "when": "リポジトリ静的確認・手順試験",
-          "then": "`.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。動画確認、候補検出、公開準備の `workflow_dispatch` は読取専用に限定し、private backfill基盤deployだけをV8-INGEST-009とV8-INGEST-013の承認済み手動経路として分離し、静的成果物生成は検証済みmainだけを入力とする。"
+          "then": "`.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。動画確認、候補検出、公開準備のworkflow_dispatchは読取専用に限定し、private backfill基盤deployと1動画SQS投入だけをV8-INGEST-009、V8-INGEST-013、V8-INGEST-014の承認済み手動経路として分離し、静的成果物生成は検証済みmainだけを入力とする。"
         }
       ],
       "verification": {
@@ -2447,7 +2521,8 @@
           "scripts/build-public-data.ts",
           ".github/workflows/manual-content-operation.yml",
           ".github/workflows/update-generated-release.yml",
-          ".github/workflows/deploy-ingestion-infra.yml"
+          ".github/workflows/deploy-ingestion-infra.yml",
+          ".github/workflows/enqueue-ingestion-video.yml"
         ],
         "tests": [
           "tests/operations.test.ts",
@@ -2459,7 +2534,7 @@
           "dev-standard default profile"
         ]
       },
-      "last_changed_by": "CHG-20260823-INGESTION-GITHUB-DEPLOY"
+      "last_changed_by": "CHG-20260827-INGESTION-GITHUB-ENQUEUE"
     },
     {
       "id": "V8-OPS-004",

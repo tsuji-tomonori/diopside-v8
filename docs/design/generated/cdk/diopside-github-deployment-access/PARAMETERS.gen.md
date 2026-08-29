@@ -7,5 +7,6 @@ Check: `python .agents/skills/generate-implementation-design/scripts/designflow.
 
 | Name | Type | Default | Allowed values | Description |
 |---|---|---|---|---|
+| `GitHubEnqueueOidcSubject` | `String` | repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-enqueue | repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-enqueue | Exact immutable GitHub Actions OIDC subject for the protected private-backfill-enqueue environment |
 | `GitHubOidcSubject` | `String` | repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-infra | repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-infra | Exact immutable GitHub Actions OIDC subject for the protected private-backfill-infra environment |
 | `TargetDeploymentRegion` | `String` | ap-northeast-1 | ap-northeast-1 | Region containing the CDK bootstrap roles used by the private backfill deploy |
