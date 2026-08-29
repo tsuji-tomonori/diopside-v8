@@ -7,6 +7,10 @@ from aws_cdk.assertions import Template
 
 from diopside_deployment.access_stack import GitHubDeploymentAccessStack
 
+_IMMUTABLE_GITHUB_OIDC_SUBJECT = (
+    "repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-infra"
+)
+
 
 def deployment_access_template(*, stack_region: str = "ap-northeast-1") -> Template:
     app = App()
@@ -18,14 +22,14 @@ def deployment_access_template(*, stack_region: str = "ap-northeast-1") -> Templ
     return Template.from_stack(stack)
 
 
-def test_deployment_role_trusts_only_the_exact_protected_github_environment() -> None:
+def test_deployment_role_trusts_only_the_exact_immutable_github_subject() -> None:
     template = deployment_access_template()
     template.has_parameter(
         "GitHubOidcSubject",
         {
             "Type": "String",
-            "Default": ("repo:tsuji-tomonori/diopside-v8:environment:private-backfill-infra"),
-            "AllowedValues": ["repo:tsuji-tomonori/diopside-v8:environment:private-backfill-infra"],
+            "Default": _IMMUTABLE_GITHUB_OIDC_SUBJECT,
+            "AllowedValues": [_IMMUTABLE_GITHUB_OIDC_SUBJECT],
         },
     )
     template.resource_count_is("AWS::IAM::OIDCProvider", 0)
@@ -60,6 +64,7 @@ def test_deployment_role_trusts_only_the_exact_protected_github_environment() ->
             },
         }
     ]
+    assert "repo:tsuji-tomonori/diopside-v8:" not in json.dumps(role)
 
 
 def test_deployment_role_can_only_assume_required_same_environment_bootstrap_roles() -> None:

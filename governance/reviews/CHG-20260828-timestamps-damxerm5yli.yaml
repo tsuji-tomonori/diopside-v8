@@ -145,3 +145,5 @@ selected_checks:
 advisories: []
 residual_risks:
 - タイムスタンプ候補hash 09a6dcdef54911c53cc791d9334a022114512573b083ffed665e2e2be5582f65 とあらすじ候補hash 4322a44f898f699d277fd640cb57de0f352b2713f2be662b8d40a05324a0fce6 は人によるdraft PRのマージ完了まで公開されない。
+# conflict-resolution: 現行taxonomy・tag rulesへ追随し、完成済みタイムスタンプ23区間とあらすじ、根拠、独立review hashを保持して最新headでCI再検証する。
+# revision-integrity: i8SAflb-w8I統合後のmainを取り込み、動画・タグ・タイムスタンプ・あらすじのmanifest累積件数を再生成して検証する。

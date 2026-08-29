@@ -1,31 +1,20 @@
 {
   "schemaVersion": "1.0.0",
   "changeType": "保守変更",
-  "previousTaxonomyVersion": "8.5.0",
+  "previousTaxonomyVersion": "8.6.0",
   "previousAliasVersion": "8.3.0",
-  "taxonomyVersion": "8.6.0",
+  "taxonomyVersion": "8.7.0",
   "aliasVersion": "8.3.0",
-  "rulesVersion": "8.4.0",
+  "rulesVersion": "8.5.0",
   "affectedTagIds": [
-    "tag-works-gameTitle-58f2dc1d67e5",
-    "tag-works-gameTitle-b391669088a0",
-    "tag-works-gameTitle-43eed052f942",
-    "tag-works-gameTitle-b6b846e67300",
-    "tag-works-gameTitle-7df61ac02828",
-    "tag-works-gameTitle-7f53d9abb363",
-    "tag-works-gameTitle-c30afcb74b4a",
-    "tag-works-gameTitle-19ca79f035d0",
-    "tag-works-gameTitle-d06deb2f4870",
-    "tag-works-gameTitle-7dfde7c2861c",
-    "tag-works-gameTitle-84d086760d65",
-    "tag-works-gameTitle-276d08ba56ed",
-    "tag-works-gameTitle-a245c3a698d1",
-    "tag-works-gameTitle-fd15029e860a",
-    "tag-works-gameTitle-72166c4b50e8",
-    "tag-works-gameTitle-6f43d39246bd",
-    "tag-works-gameTitle-cdbe959a9138"
+    "tag-content-gameGenre-025f45eb0729",
+    "tag-content-gameGenre-9cdd2236dd93",
+    "tag-content-gameGenre-1f2267252ae2",
+    "tag-content-gameGenre-f23195c740c8",
+    "tag-content-gameGenre-d28648a42d53",
+    "tag-content-gameGenre-6d726452e75c"
   ],
-  "affectedVideoCount": 19,
-  "migration": "公開タイトル・承認済みタイムスタンプ・公式作品情報を照合し、主に企画・雑談・朗読へ誤分類されていた28動画をゲーム配信へ是正した。",
-  "reviewedAt": "2026-08-23T16:00:00+09:00"
+  "affectedVideoCount": 0,
+  "migration": "既存ジャンルでは区別できない6分類を根拠・識別性・再利用性の基準で追加し、ゲーム正本から公開動画へ導出する。既存動画のタグ正本は8.6.0互換として保持する。",
+  "reviewedAt": "2026-08-28T18:00:00+09:00"
 }

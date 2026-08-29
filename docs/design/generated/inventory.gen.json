@@ -8,7 +8,7 @@
     },
     {
       "path": "scripts/audit-game-tags.ts",
-      "sha256": "295525aeb86815c096f570d5965d42baa92e01f7ea358028e0022429842d8204"
+      "sha256": "ba9e36f7c579c789efa57a6415d568b09885c724ca8f59d2a0f372f353f64c63"
     },
     {
       "path": "scripts/audit-requirements.ts",
@@ -16,7 +16,7 @@
     },
     {
       "path": "scripts/build-public-data.ts",
-      "sha256": "b724e000130a9637b422bf2f26517e0bddcd67174d9cee6b6e9b23da312e4625"
+      "sha256": "b4be8b308947bce0403ce1c3f9e95aa548dbb3a44835369d119362e02c95e69c"
     },
     {
       "path": "scripts/canonical-store.ts",
@@ -36,7 +36,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "381473d05ce0a17ce3f116816d091fe8053e128760ddbe439bc792dc08988b97"
+      "sha256": "fd514878f47731c7bba47879f2c42760d232f8c0639e3f8f41b86f877207f931"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -84,7 +84,7 @@
     },
     {
       "path": "scripts/validate-content.ts",
-      "sha256": "5867f4c0d31b2380b68f4b1a8dfdaaf446d84eb74c9f756f08dfd8aa5216908d"
+      "sha256": "a35fcc579994e053d12b6ef4bf63ada0999ae1cce9cba1fe07b3a392037e4eaa"
     },
     {
       "path": "scripts/validate-release-pr-scope.ts",
@@ -108,11 +108,11 @@
     },
     {
       "path": "src/App.tsx",
-      "sha256": "da9498319389d22300e2ae3c4cf616495f6178ddba949cfef307a1162b7e6ac4"
+      "sha256": "371d717d42c196f9a3c91158601b244f680888355a28031f1cbd2490228e992e"
     },
     {
       "path": "src/components/Header.tsx",
-      "sha256": "42ffc95c2d33a2afd999616d6b81bb0d18b4554e255d6547f6a33d69b8ac64e9"
+      "sha256": "850159d1d4f589350154c612420de605bae7ba2db5a2372ce163c0c90292facb"
     },
     {
       "path": "src/components/VideoCard.tsx",
@@ -132,11 +132,11 @@
     },
     {
       "path": "src/data/loadPublicData.test.ts",
-      "sha256": "e77be0445ffd2ccbe8978a0c11c5cd9ff55fca24f09b7bd09e7e8fe0d3ccda29"
+      "sha256": "baa9cee9647b5ae6992ba450d59a9da6ea1e5a2bf7d2db2b3681e8142f0233fb"
     },
     {
       "path": "src/data/loadPublicData.ts",
-      "sha256": "e6f49da77d7c53bc105f5ba98a75bb8f99a5859cd526e28c3da3e896c5464469"
+      "sha256": "69c389963eb94f242613eb334b42bfd3e913a7f2b6f0340aff7c5d8dc601ef3b"
     },
     {
       "path": "src/domain/collaboration-group-audit.test.ts",
@@ -156,7 +156,11 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "4167e7a5206bf7bfb553646f9a210b4a7054257054cedb4601aeca4d420cca93"
+      "sha256": "a599b6db188a4b11859f98298964c8e950b8f8b4dfe86614ddf3178fff6c7de4"
+    },
+    {
+      "path": "src/domain/game-catalog.ts",
+      "sha256": "32caea15e85f9096340597d99af2e23ae8b1b0dfe2e6b9d96301f323a59438f4"
     },
     {
       "path": "src/domain/game-title-detection.test.ts",
@@ -180,23 +184,31 @@
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "b53f4b7c7a53e5331a37dcc6563e55e5bbb1cc445ad5e549246ad166ae5da835"
+      "sha256": "12b2f426bbad7b791ba58583e6f387dcec3c93365444e9984f0fbb9cedf66c7e"
     },
     {
       "path": "src/features/collaborations/CollaborationDetailPages.test.tsx",
-      "sha256": "1e135ba3424d93807164e23bdca883ff314fc1cc736806febdedd983159a6bc8"
+      "sha256": "63eec72b9d3ed7c9846b930a75b016bcb8c9af6c65f05d6835a1adc308c0bcdd"
     },
     {
       "path": "src/features/collaborations/CollaboratorDetailPage.tsx",
-      "sha256": "b184102619565bde18e7a17a86b40250e8271609f81a070fc115b607a4458398"
+      "sha256": "d784257caa7eecf87bcb019268cd4eb0134c5ab2a8024d1aa4b77852f6a491fc"
     },
     {
       "path": "src/features/collaborations/GroupDetailPage.tsx",
-      "sha256": "3acc6d69d024b4f7722f200b4e34a115c973d6fa15902308ffb52cf5472b67ff"
+      "sha256": "ee1885f3813ed18d7b063ef98c36ace7974c1545b3c8b25fbbef5dd961167159"
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
-      "sha256": "50a1f6b9e53b98f3185790f129962e604a131bfa69ab971f0751ff1e5fe7964c"
+      "sha256": "b1b2a379706a79241c66575b4eccbf659ce3375cf73ed0a9f9049df1c296dc64"
+    },
+    {
+      "path": "src/features/games/GameIndexPage.test.tsx",
+      "sha256": "4d45f3d9c2cf69d4b32d563ac0d9b4b841dea0e4ede6467aacf35ac6f1617024"
+    },
+    {
+      "path": "src/features/games/GameIndexPage.tsx",
+      "sha256": "afa680f7a92d97b7a57a66806382e5588279838571821dab5a8af1390230db79"
     },
     {
       "path": "src/features/library/DeviceLibraryPage.tsx",
@@ -215,12 +227,16 @@
       "sha256": "091ac28d14d88808ee051c257f20b32073a13b237a643cd054d696a3e6cb6b6b"
     },
     {
+      "path": "src/features/search/SearchPage.test.tsx",
+      "sha256": "f6903ca103a81aec94ad3da87554764436bac1d72ec01017ddbb0f897841ba40"
+    },
+    {
       "path": "src/features/search/SearchPage.tsx",
-      "sha256": "d6a22f124cd357d48c5c247aed2392021f88371e1cc8be36946da9f1087f76f5"
+      "sha256": "082ec763b270e4258bcc96705cc70252b7fc25c8f1cc2608ec8ccc447deb9cd0"
     },
     {
       "path": "src/features/series/SeriesDetailPage.test.tsx",
-      "sha256": "fa67428e97cc8136aa00c8abe76815e5e55e8574de88fdfbde57cf6d7e87ff4d"
+      "sha256": "e3b8dc0b1698ee1a4a17d02908feb7bc52ba28ff9851cecc2a800d58b0e21a84"
     },
     {
       "path": "src/features/series/SeriesDetailPage.tsx",
@@ -228,19 +244,19 @@
     },
     {
       "path": "src/features/songs/SongIndexPage.test.tsx",
-      "sha256": "b278e40a6da20a32c8f986c88db2e24288acc9c5c1af9ca439d634f611f195f2"
+      "sha256": "48c913d1929f8a28a3c61eb0ef8b41bcc5f34a52f4502304c48faf007a8b2001"
     },
     {
       "path": "src/features/songs/SongIndexPage.tsx",
-      "sha256": "bb7673f484f1e0feb7486f563465d613257c6fcdf4978fcf00c79e42e7613757"
+      "sha256": "97fee6803f28fe0bcaa26dee498fcb920de2b97c6e1a84e4a6aa185a68c315c0"
     },
     {
       "path": "src/features/works/WorkDetailPage.test.tsx",
-      "sha256": "5288f536bd81ba2d4fb9a0406b6ae6b7dcbd67c151e17d6c27f86db65d036814"
+      "sha256": "8ae13ab06acde6386b2b0c351925324dfa5ba7d72ced2f7d5308ce61a62337f9"
     },
     {
       "path": "src/features/works/WorkDetailPage.tsx",
-      "sha256": "f721808fdbbe1dc67b2a756ae1a19579bfdaeaba8c815c7aa646876421eb31cd"
+      "sha256": "4e58329c6aa6966e35ba7aeb6336146360d8cc6c7b5cb020ecfce6f87b0b25af"
     },
     {
       "path": "src/format.ts",
@@ -589,6 +605,16 @@
     },
     {
       "file": "src/domain/content.ts",
+      "name": "GameCatalog",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "gameCatalogSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
       "name": "independentReviewSchema",
       "kind": "VariableStatement"
     },
@@ -615,6 +641,16 @@
     {
       "file": "src/domain/content.ts",
       "name": "publicAliasIndexSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "PublicGameIndex",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "publicGameIndexSchema",
       "kind": "VariableStatement"
     },
     {
@@ -778,6 +814,16 @@
       "kind": "VariableStatement"
     },
     {
+      "file": "src/domain/game-catalog.ts",
+      "name": "applyGameCatalogGenres",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/game-catalog.ts",
+      "name": "catalogGameGenreTagIds",
+      "kind": "FunctionDeclaration"
+    },
+    {
       "file": "src/domain/game-title-detection.ts",
       "name": "detectExplicitGameTitleTagIds",
       "kind": "FunctionDeclaration"
@@ -929,6 +975,11 @@
     },
     {
       "file": "src/domain/validation.ts",
+      "name": "validateGameCatalog",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/validation.ts",
       "name": "validateSongPerformanceCatalog",
       "kind": "FunctionDeclaration"
     },
@@ -955,6 +1006,11 @@
     {
       "file": "src/features/detail/VideoDetailPage.tsx",
       "name": "VideoDetailPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/games/GameIndexPage.tsx",
+      "name": "GameIndexPage",
       "kind": "FunctionDeclaration"
     },
     {
@@ -1012,6 +1068,8 @@
     "*",
     "/",
     "/collaborators/:tagId",
+    "/games",
+    "/games/genres/:tagId",
     "/groups/:tagId",
     "/library",
     "/series/:tagId",
@@ -1022,6 +1080,7 @@
   ],
   "tests": [
     "e2e/detail.spec.ts",
+    "e2e/game-index.spec.ts",
     "e2e/library.spec.ts",
     "e2e/search.spec.ts",
     "e2e/song-index.spec.ts",
@@ -1033,7 +1092,9 @@
     "src/domain/search.test.ts",
     "src/domain/validation.test.ts",
     "src/features/collaborations/CollaborationDetailPages.test.tsx",
+    "src/features/games/GameIndexPage.test.tsx",
     "src/features/search/SearchFilterControls.test.tsx",
+    "src/features/search/SearchPage.test.tsx",
     "src/features/series/SeriesDetailPage.test.tsx",
     "src/features/songs/SongIndexPage.test.tsx",
     "src/features/works/WorkDetailPage.test.tsx"

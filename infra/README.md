@@ -15,11 +15,11 @@ CDK_DEFAULT_ACCOUNT=123456789012 \
 CDK_DEFAULT_REGION=us-east-1 \
 npm exec -- cdk deploy DiopsideGitHubDeploymentAccessStack \
   --exclusively \
-  --parameters 'GitHubOidcSubject=repo:tsuji-tomonori/diopside-v8:environment:private-backfill-infra' \
+  --parameters 'GitHubOidcSubject=repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-infra' \
   --parameters 'TargetDeploymentRegion=ap-northeast-1'
 ```
 
-このrepositoryのOIDC subjectは `repo:tsuji-tomonori/diopside-v8:environment:private-backfill-infra` に固定し、別repositoryや別environmentをparameterで指定できないようにします。OIDC providerが未作成の場合はAWS管理者が先に作成し、既存providerがある場合は再作成しません。
+このrepositoryは2026-07-15以降に作成されたため、GitHubのdefault OIDC subjectはowner IDとrepository IDを含むimmutable形式です。subjectは `repo:tsuji-tomonori@39981658/diopside-v8@1321865971:environment:private-backfill-infra` に固定し、旧name-based subject、別repository、別environmentをparameterで指定できないようにします。`gh api repos/tsuji-tomonori/diopside-v8/actions/oidc/customization/sub` の `sub_claim_prefix` を変更前に再確認します。OIDC providerが未作成の場合はAWS管理者が先に作成し、既存providerがある場合は再作成しません。
 
 GitHub environment `private-backfill-infra` はdeployment branchを `main` だけに限定し、required reviewerとprotection ruleのbypass禁止を設定します。次のenvironment variablesを登録します。
 

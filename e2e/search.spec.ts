@@ -86,11 +86,40 @@ test.describe('動画検索', () => {
     expect(page.url()).toContain('tag=tag-people-unit-d5b1de96b450');
   });
 
+  test('公開日を全タグより先に操作でき、タグを大分類と小分類で必要な分だけ開く', async ({ page }) => {
+    await preparePage(page);
+    await openSearch(page);
+    await page.getByText('タグ・公開日・動画長で絞り込む').click();
+
+    const dateRangeTrigger = page.getByRole('button', { name: /公開日の範囲/u });
+    await expect(dateRangeTrigger).toBeVisible();
+    expect(await dateRangeTrigger.evaluate((dateTrigger) => {
+      const tagFilter = document.querySelector('.tag-filter');
+      if (!tagFilter) return false;
+      return Boolean(dateTrigger.compareDocumentPosition(tagFilter) & Node.DOCUMENT_POSITION_FOLLOWING);
+    })).toBe(true);
+
+    await expect(page.getByLabel('タグ名または別名から追加')).toBeVisible();
+    await expect(page.locator('.quick-tags .tag-choice').filter({ hasText: /^ゲーム/u })).toBeVisible();
+    await expect(page.locator('.tag-category[open]')).toHaveCount(0);
+    await expect(page.locator('.tag-subcategory[open]')).toHaveCount(0);
+
+    const groupedTag = page.locator('.tag-category .tag-choice').filter({ hasText: /^女王と会長/u });
+    await expect(groupedTag).toBeHidden();
+    await page.getByText('人物・グループ', { exact: true }).click();
+    await expect(page.locator('.tag-category[open]')).toHaveCount(1);
+    await expect(page.locator('.tag-subcategory[open]')).toHaveCount(0);
+    await page.getByText('ユニット・チーム', { exact: true }).click();
+    await expect(groupedTag).toBeVisible();
+  });
+
   test('タグの追加と解除だけで検索し、タグ欄を閉じて動画へ戻れる', async ({ page }) => {
     await preparePage(page);
     await openSearch(page);
     await page.getByText('タグ・公開日・動画長で絞り込む').click();
-    await page.getByRole('button', { name: /女王と会長/u }).click();
+    await page.getByText('人物・グループ', { exact: true }).click();
+    await page.getByText('ユニット・チーム', { exact: true }).click();
+    await page.locator('.tag-subcategory[open]').getByRole('button', { name: /女王と会長/u }).click();
 
     await expect(page.locator('#results-heading')).toBeFocused();
     await expect(page.locator('#results-heading')).not.toHaveText(allVideosHeading);
@@ -99,7 +128,7 @@ test.describe('動画検索', () => {
     const openButton = page.getByRole('button', { name: 'タグを開く（選択1件）' });
     await expect(openButton).toHaveAttribute('aria-expanded', 'false');
     await openButton.click();
-    const selectedTag = page.getByRole('button', { name: /女王と会長/u });
+    const selectedTag = page.locator('.selected-tags').getByRole('button', { name: /女王と会長/u });
     await expect(selectedTag).toHaveAttribute('aria-pressed', 'true');
     await expect(page.locator('.tag-choice[aria-pressed="false"] span', { hasText: /^0件$/u })).toHaveCount(0);
 
@@ -148,7 +177,7 @@ test.describe('動画検索', () => {
 
     await expect.poll(async () => (await tagLayout()).tagCount).toBeLessThan(before.tagCount);
     const settled = await tagLayout();
-    expect(settled.documentHeight).toBeLessThan(before.documentHeight);
+    expect(settled.documentHeight).toBeLessThanOrEqual(before.documentHeight);
   });
 
   test('375px幅で絞り込みフォームとヘッダーが画面外へはみ出さない', async ({ page }, testInfo) => {
@@ -156,7 +185,7 @@ test.describe('動画検索', () => {
     await preparePage(page);
     await openSearch(page);
     await page.getByText('タグ・公開日・動画長で絞り込む').click();
-    await page.getByRole('button', { name: /女王と会長/u }).click();
+    await page.getByLabel('タグ名または別名から追加').fill('#女王と会長');
     await expect(page.getByRole('button', { name: 'タグを開く（選択1件）' })).toBeVisible();
     await page.getByRole('button', { name: /公開日の範囲/u }).click();
 

@@ -373,10 +373,17 @@ const requirements = sourceRequirements.map((item) => {
     requirement.last_changed_by = 'CHG-20260820-search-suggestions';
   }
   if (id === 'V8-SEARCH-008') {
-    requirement.revision = 3;
-    requirement.title = '検索欄のタグ候補と詳細なタグ絞り込みは、選択だけで検索して自動的に折り畳まれなければならない';
-    requirement.object = '検索欄は登録済みタグを動画候補と区別して提示し、選択時に不変タグIDの絞り込み条件として適用しなければならない。詳細なタグ絞り込み欄は、選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。利用者が検索候補または詳細な候補タグを追加または解除した時点で、追加の確定操作なしに検索条件を反映し、タグ補助候補欄を折り畳み、動画一覧へ移動できなければならない。';
-    requirement.source_refs.push('owner-directive:2026-08-07', 'spec/sources/owner-directive-2026-08-20-search-suggestions.md', 'user:2026-08-20', 'owner-directive:2026-08-20');
+    requirement.revision = 4;
+    requirement.title = '検索欄のタグ候補と詳細なタグ絞り込みは、選択だけで検索し、分類ごとに折り畳めなければならない';
+    requirement.object = '検索欄は登録済みタグを動画候補と区別して提示し、選択時に不変タグIDの絞り込み条件として適用しなければならない。詳細な絞り込みでは、公開日と動画長を全タグ一覧より前で操作できなければならない。タグ絞り込み欄は、選択中タグ、よく使う主ジャンル、タグ名または別名の入力を全タグの展開なしに提示し、全タグを大分類と小分類ごとに初期状態で折り畳まなければならない。選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。利用者が検索候補または詳細な候補タグを追加または解除した時点で、追加の確定操作なしに検索条件を反映し、タグ補助候補欄を折り畳み、動画一覧へ移動できなければならない。';
+    requirement.source_refs.push(
+      'owner-directive:2026-08-07',
+      'spec/sources/owner-directive-2026-08-20-search-suggestions.md',
+      'user:2026-08-20',
+      'owner-directive:2026-08-20',
+      'spec/sources/owner-directive-2026-08-28-search-filter-navigation.md',
+      'user:2026-08-28',
+    );
     requirement.acceptance_criteria = [
       {
         id: 'AC-V8-SEARCH-008-1',
@@ -390,12 +397,19 @@ const requirements = sourceRequirements.map((item) => {
         when: 'タグ選択から検索結果までの画面操作試験・件数契約試験・折り畳み操作試験',
         then: '追加後1件以上になる未選択タグと解除できる選択済みタグだけを日本語名と件数付きで示す。タグ選択だけで不変タグIDの検索条件と共有可能URLを更新し、タグ候補欄を滑らかに折り畳み、動画件数見出しへフォーカスと表示位置を移す。再度タグ候補欄を開くと選択状態を維持している。',
       },
+      {
+        id: 'AC-V8-SEARCH-008-3',
+        given: '多数のタグを持つ詳細絞り込みをモバイルまたはデスクトップで開いている',
+        when: '公開日・動画長またはタグを選ぶ画面操作試験・折り畳み構造試験',
+        then: '公開日と動画長を全タグ一覧より前で操作できる。選択中タグ、よく使う主ジャンル、タグ名または別名の入力は全分類を開かずに利用でき、全タグは大分類と小分類が閉じた状態から必要な分類だけを開ける。',
+      },
     ];
     requirement.verification = {
-      method: '検索候補・タグ条件適用・件数契約・折り畳み操作試験',
-      evidence: 'src/domain/search.test.ts, e2e/search.spec.ts',
+      method: '検索候補・タグ条件適用・件数契約・公開日到達順・大分類と小分類の折り畳み操作試験',
+      evidence: 'src/features/search/SearchPage.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts',
     };
-    requirement.last_changed_by = 'CHG-20260820-auto-apply-tag-search';
+    requirement.traces.tests.push('src/features/search/SearchPage.test.tsx');
+    requirement.last_changed_by = 'CHG-20260828-grouped-search-filters';
   }
   if (id === 'V8-SEARCH-011') {
     requirement.revision = 2;
@@ -1227,7 +1241,7 @@ const songPerformanceRequirements = [
 const collaborationPageRequirements = [
   {
     id: 'V8-DISPLAY-013',
-    revision: 1,
+    revision: 2,
     status: 'active',
     scope: 'product',
     category: 'functional',
@@ -1235,21 +1249,21 @@ const collaborationPageRequirements = [
     title: '人物名とコンビ・ユニットのタグから出典・YouTube導線付き動画一覧へ移動できなければならない',
     subject: 'diopside v8のコラボ相手タグとコンビ・ユニットページ',
     action: 'satisfy',
-    object: '動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページはYouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画を表示する。コンビ・ユニットページは出典付きの説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。',
+    object: '動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページは確かな一次情報に基づく出典・確認日付きの説明、YouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画、その人物と白雪巴の確認済みコンビ・ユニットへのリンクを表示する。コンビ・ユニットページは運営または構成員の公式情報を出典とする説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。',
     rationale: 'コラボ動画を相手や定着した組み合わせから連続して探し、名称だけを知らない利用者も人物と関係を視覚的に把握できるようにするため。',
-    source_refs: ['spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'user:2026-08-15'],
+    source_refs: ['spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'user:2026-08-15', 'spec/sources/owner-directive-2026-08-28-collaboration-profile-descriptions.md', 'user:2026-08-28'],
     acceptance_criteria: [
       {
         id: 'AC-V8-DISPLAY-013-1',
         given: '動画詳細に白雪巴以外の人物名タグが表示されている',
         when: '利用者が人物タグを押す',
-        then: '人物アイコン、人物名、YouTubeチャンネルリンク、その人物タグを持つ公開動画だけを新しい順で表示する。',
+        then: '確かな一次情報に基づく出典・確認日付きの説明、人物アイコン、人物名、YouTubeチャンネルリンク、その人物タグを持つ公開動画だけを新しい順で表示する。',
       },
       {
         id: 'AC-V8-DISPLAY-013-2',
         given: '動画詳細に確認済みのコンビ・ユニットタグが表示されている',
         when: '利用者がコンビ・ユニットタグを押す',
-        then: '参考元と確認日を持つ説明、全メンバーのアイコン・人物名・各YouTubeチャンネルリンク、そのタグを持つ公開動画を表示する。',
+        then: '運営公式サイトまたは構成員本人の公式情報を参考元とし、確認日を持つ説明、全メンバーのアイコン・人物名・各YouTubeチャンネルリンク、そのタグを持つ公開動画を表示し、非公式Wikiだけを出典にしない。',
       },
       {
         id: 'AC-V8-DISPLAY-013-3',
@@ -1257,18 +1271,24 @@ const collaborationPageRequirements = [
         when: 'ブラウザの通信先を検査する',
         then: '保存済みローカルアイコンだけを読み、利用者が外部リンクを押すまでYouTubeまたは参考元へ通信しない。',
       },
+      {
+        id: 'AC-V8-DISPLAY-013-4',
+        given: 'コラボ相手と白雪巴の確認済みコンビ・ユニットがある',
+        when: '利用者が人物ページを表示してコンビ・ユニット名を押す',
+        then: '人物ページ内に名称・概要・公開動画件数を表示し、押下後はそのコンビ・ユニットの説明・構成員・公開動画一覧を表示する。',
+      },
     ],
     verification: {
-      method: '公開データ構造・人物名・コンビ説明・メンバーリンク・ローカルアイコン・外部自動通信禁止試験',
+      method: '一次情報出典・人物説明・関連ユニット導線・コンビ説明・メンバーリンク・ローカルアイコン・外部自動通信禁止試験',
       evidence: 'tests/content-validation.test.ts, tests/generated.test.ts, src/features/collaborations/CollaborationDetailPages.test.tsx, e2e/detail.spec.ts',
     },
     traces: {
       design: ['docs/design/generated/system.gen.md'],
       implementation: ['content/people/collaboration-profiles.json', 'scripts/build-public-data.ts', 'src/features/detail/VideoDetailPage.tsx', 'src/features/collaborations/CollaboratorDetailPage.tsx', 'src/features/collaborations/GroupDetailPage.tsx'],
       tests: ['tests/content-validation.test.ts', 'tests/generated.test.ts', 'src/features/collaborations/CollaborationDetailPages.test.tsx', 'e2e/detail.spec.ts'],
-      standards: ['spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'dev-standard default profile'],
+      standards: ['spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'spec/sources/owner-directive-2026-08-28-collaboration-profile-descriptions.md', 'dev-standard assured profile'],
     },
-    last_changed_by: 'CHG-20260815-collaboration-pages',
+    last_changed_by: 'CHG-20260828-collaboration-profile-units-sources',
   },
 ];
 const seriesPageRequirements = [
@@ -1454,6 +1474,149 @@ const searchInteractionRequirements = [
     last_changed_by: 'CHG-20260825-duration-slider-stability',
   },
 ];
+const gameCatalogRequirements = [
+  {
+    id: 'V8-TAG-039',
+    revision: 2,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'data',
+    title: 'ゲームジャンルは確認元を持つゲーム単位の正本から全配信へ一貫して導出しなければならない',
+    subject: 'diopside v8のゲーム作品とゲームジャンル',
+    action: 'satisfy',
+    object: '特定のゲーム作品は、Steam、公式ストアまたは対象作品の公式サイトを確認元として、1〜3件のゲームジャンルをゲーム単位の正本に持たなければならない。同じゲームを指す表記違いは一つのゲーム単位へ統合し、その全公開動画へ同じジャンルを導出しなければならない。動画単位の移行前ジャンルを公開分類として使わず、特定作品ではない一般ラベルをゲーム作品一覧へ含めてはならない。',
+    rationale: '同じゲームの配信ごとにジャンルが揺れる状態と、根拠のない既定値による誤分類を防ぎ、作品単位で再確認できるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28', 'user:2026-08-28-follow-up'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-039-1',
+        given: '有効な特定ゲーム作品タグと、その作品を持つ公開動画がある',
+        when: '正本検証と公開データ生成を行う',
+        then: '各ゲーム単位にHTTPSの確認元・確認日・1〜3件の有効なゲームジャンルが一度だけ登録され、表記違いを含む同じゲームの全動画へその分類を導出する。',
+      },
+      {
+        id: 'AC-V8-TAG-039-2',
+        given: 'ワガママハイスペックを持つ6件の公開動画がある',
+        when: '公式サイトとSteamを確認元にゲーム分類を生成する',
+        then: '6件すべてを「アドベンチャー」「カジュアル」「ビジュアルノベル」とし、「アクション」を公開しない。',
+      },
+      {
+        id: 'AC-V8-TAG-039-3',
+        given: 'ゲーム作品名小分類に特定作品ではない一般ラベルがある',
+        when: 'ゲームカタログとゲーム一覧を生成する',
+        then: '一般ラベルをゲームカタログおよびプレイ作品一覧へ含めない。',
+      },
+    ],
+    verification: {
+      method: 'ゲーム正本構造・全作品網羅・公開ジャンル導出・対象作品回帰・一般ラベル除外試験',
+      evidence: 'scripts/audit-game-tags.ts, tests/generated.test.ts, src/features/games/GameIndexPage.test.tsx',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md', 'content/taxonomy/tag-taxonomy.json'],
+      implementation: ['content/works/game-catalog.json', 'src/domain/game-catalog.ts', 'src/domain/validation.ts', 'scripts/build-public-data.ts'],
+      tests: ['scripts/audit-game-tags.ts', 'tests/generated.test.ts', 'src/features/games/GameIndexPage.test.tsx', 'e2e/game-index.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260828-game-catalog-browser',
+  },
+  {
+    id: 'V8-TAG-040',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'data',
+    title: 'ゲームジャンル語彙は根拠・識別性・再利用性を満たす分類だけを追加しなければならない',
+    subject: 'diopside v8のゲームジャンル語彙',
+    action: 'satisfy',
+    object: '既存語彙で作品のプレイ性を適切に表せない場合は、Steam、公式ストアまたは公式サイトで確認でき、既存分類と区別でき、複数作品の探索に再利用できるゲームジャンルだけを追加しなければならない。テーマ、販売形態、単発の仕掛け、または既存タグの組合せで表せる複合語を追加してはならない。',
+    rationale: '不足ジャンルによる誤分類を防ぎつつ、根拠の弱い細分化でゲーム探索画面を増殖させないため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28-follow-up'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-040-1',
+        given: '公式ストアの分類または上位人気タグが既存のゲームジャンル語彙では表せない',
+        when: 'ゲーム単位のジャンルを再確認する',
+        then: '確認元・既存分類との差・複数作品での再利用性を満たす分類だけを有効タグとして追加する。',
+      },
+      {
+        id: 'AC-V8-TAG-040-2',
+        given: '候補が販売形態、テーマ、単発の仕掛け、または既存タグの組合せで表せる複合語である',
+        when: 'ゲームジャンル語彙への追加可否を判定する',
+        then: '候補を新しいゲームジャンルとして追加しない。',
+      },
+      {
+        id: 'AC-V8-TAG-040-3',
+        given: '再確認対象のゲーム正本がある',
+        when: '追加済みゲームジャンルの利用状況を検証する',
+        then: '各追加ジャンルは複数のゲーム単位で使用され、1〜3件の基数と有効タグ制約を満たす。',
+      },
+    ],
+    verification: {
+      method: '追加ジャンル包含・除外基準、複数作品利用、ゲーム単位分類、代表作品回帰試験',
+      evidence: 'tests/content-validation.test.ts, scripts/audit-game-tags.ts, tests/generated.test.ts',
+    },
+    traces: {
+      design: ['content/taxonomy/tag-taxonomy.json', 'docs/design/generated/system.gen.md'],
+      implementation: ['spec/sources/tag-taxonomy-v2.json', 'content/works/game-catalog.json', 'src/domain/validation.ts'],
+      tests: ['tests/content-validation.test.ts', 'scripts/audit-game-tags.ts', 'tests/generated.test.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260828-game-catalog-browser',
+  },
+  {
+    id: 'V8-DISPLAY-016',
+    revision: 2,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: 'ゲームジャンルからプレイ作品を選び、そのゲームの配信一覧へ移動できなければならない',
+    subject: 'diopside v8のゲームジャンル・作品・配信導線',
+    action: 'satisfy',
+    object: 'ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示しなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。',
+    rationale: '動画単位のタグ絞り込みだけでなく、遊んだゲームをジャンルから眺め、同じ作品の配信を続けて探せるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28', 'user:2026-08-28-follow-up'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-016-1',
+        given: 'ゲーム正本と公開動画索引が読み込まれている',
+        when: '利用者がゲーム探索画面を開く',
+        then: '公開動画があるゲームジャンルを作品数・配信数と共に表示し、ジャンル選択で該当する特定ゲーム作品だけを表示する。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-016-2',
+        given: '利用者がジャンル別一覧でゲーム作品を選ぶ',
+        when: '作品リンクを押す',
+        then: 'ゲーム単位のジャンルと確認元を表示し、そのゲーム作品を持つ公開配信だけを新しい順で一覧表示する。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-016-3',
+        given: '検索画面または動画詳細にゲーム、ゲームジャンル、ゲーム作品のタグがある',
+        when: '利用者が該当タグを選ぶ',
+        then: 'ゲームはジャンル一覧へ、ゲームジャンルは該当作品一覧へ、ゲーム作品は該当配信一覧へ移動する。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-016-4',
+        given: '同じゲームを指す複数の作品名タグに公開動画がある',
+        when: 'ゲーム一覧またはいずれかの作品名から作品ページを開く',
+        then: 'ゲームを一作品として表示し、すべての表記に属する公開動画を重複なく一覧表示する。',
+      },
+    ],
+    verification: {
+      method: 'ジャンル件数・作品除外・ジャンル遷移・作品遷移・配信一覧・アクセシビリティE2E',
+      evidence: 'src/features/games/GameIndexPage.test.tsx, src/features/works/WorkDetailPage.test.tsx, e2e/game-index.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/App.tsx', 'src/components/Header.tsx', 'src/features/games/GameIndexPage.tsx', 'src/features/works/WorkDetailPage.tsx', 'src/features/detail/VideoDetailPage.tsx', 'src/features/search/SearchPage.tsx'],
+      tests: ['src/features/games/GameIndexPage.test.tsx', 'src/features/works/WorkDetailPage.test.tsx', 'e2e/game-index.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260828-game-catalog-browser',
+  },
+];
 const generatedRequirements = [
   ...requirements,
   ...ownerDirectiveRequirements,
@@ -1465,6 +1628,7 @@ const generatedRequirements = [
   ...seriesPageRequirements,
   ...searchSuggestionRequirements,
   ...searchInteractionRequirements,
+  ...gameCatalogRequirements,
 ];
 const issue465OverrideIds = new Set([
   'V8-COST-001',
@@ -1485,7 +1649,7 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 20),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 22),
   product: 'diopside v8',
   updated_at: existingCatalog?.updated_at ?? '2026-08-26',
   requirements: canonicalRequirements,
@@ -1501,4 +1665,4 @@ writeFileSync(mapPath, `${JSON.stringify({
   })),
 }, null, 2)}\n`);
 
-console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + songPerformanceRequirements.length + collaborationPageRequirements.length + seriesPageRequirements.length + searchSuggestionRequirements.length + searchInteractionRequirements.length}件の要件正本を生成しました。`);
+console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + songPerformanceRequirements.length + collaborationPageRequirements.length + seriesPageRequirements.length + searchSuggestionRequirements.length + searchInteractionRequirements.length + gameCatalogRequirements.length}件の要件正本を生成しました。`);

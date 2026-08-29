@@ -1,8 +1,8 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 20
-- 更新日: 2026-08-26
+- カタログ版: 23
+- 更新日: 2026-08-28
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
@@ -35,9 +35,10 @@
 | `V8-DISPLAY-010` | 1 | 有効 | 機能 | diopside v8の表示は、動画詳細は、タグ、タイムスタンプ、ワードクラウドの最終更新日を日本語で示さなければならない。を**satisfy** | 画面契約試験 |
 | `V8-DISPLAY-011` | 2 | 有効 | データ | diopside v8の表示は、全編根拠を確認できる動画の詳細は、視聴意欲を促しつつ結末、正体、勝敗等のネタバレを避けた日本語あらすじを表示しなければならない。本文と末尾の引用符付きセリフは合計100〜150文字とし、最後に対象配信で白雪巴が実際に発した特徴的なセリフを一つ置かなければならない。を**satisfy** | あらすじ候補検証・公開データ検証・動画詳細画面試験・公開境界検査 |
 | `V8-DISPLAY-012` | 1 | 有効 | 機能 | diopside v8の作品タグと作品ページは、動画詳細の作品タグは、その作品タグを持つ公開動画の一覧ページへ移動できなければならない。ゲーム作品ページは、確認日を持つ短い公式説明の引用、引用元名、HTTPSの公式ページリンクを表示し、外部ページは利用者がリンクを押した場合だけ開かなければならない。を**satisfy** | 公開データ構造試験、作品タグ遷移E2E、公式リンク・引用表示・外部自動通信禁止試験 |
-| `V8-DISPLAY-013` | 1 | 有効 | 機能 | diopside v8のコラボ相手タグとコンビ・ユニットページは、動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページはYouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画を表示する。コンビ・ユニットページは出典付きの説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。を**satisfy** | 公開データ構造・人物名・コンビ説明・メンバーリンク・ローカルアイコン・外部自動通信禁止試験 |
+| `V8-DISPLAY-013` | 2 | 有効 | 機能 | diopside v8のコラボ相手タグとコンビ・ユニットページは、動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページは確かな一次情報に基づく出典・確認日付きの説明、YouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画、その人物と白雪巴の確認済みコンビ・ユニットへのリンクを表示する。コンビ・ユニットページは運営または構成員の公式情報を出典とする説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。を**satisfy** | 一次情報出典・人物説明・関連ユニット導線・コンビ説明・メンバーリンク・ローカルアイコン・外部自動通信禁止試験 |
 | `V8-DISPLAY-014` | 1 | 有効 | 機能 | diopside v8の定期・連続企画名タグとシリーズページは、動画詳細の定期・連続企画名タグは押下可能でなければならず、不変タグIDをURLに持つ一覧ページへ移動して、そのタグを持つ公開動画だけを公開日の新しい順で表示しなければならない。を**satisfy** | 正本タグ網羅試験、定期・連続企画名タグ遷移単体・E2E、一覧内容・順序・アクセシビリティ試験 |
 | `V8-DISPLAY-015` | 1 | 有効 | 機能 | diopside v8の歌唱楽曲一覧と導線は、主または副ジャンル「歌」を押すと歌唱楽曲一覧へ移動しなければならない。一覧は楽曲名、原曲アーティスト、確認済みの原曲リンク、歌唱種別、対象動画、公開日を表示する。配信内歌唱と鼻歌は対象開始秒、単曲動画は動画先頭を開き、楽曲タグのURLで曲別表示できなければならない。を**satisfy** | 楽曲一覧表示、ジャンル・楽曲タグ遷移、原曲リンク、YouTube開始秒、外部自動通信禁止試験 |
+| `V8-DISPLAY-016` | 2 | 有効 | 機能 | diopside v8のゲームジャンル・作品・配信導線は、ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示しなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。を**satisfy** | ジャンル件数・作品除外・ジャンル遷移・作品遷移・配信一覧・アクセシビリティE2E |
 | `V8-INGEST-001` | 1 | 有効 | インターフェース | diopside v8のprivate ingestion要求は、外部ingestion要求は11文字のYouTube video_idだけを含み、未知fieldまたは内部状態を含んではならない。を**強制する** | 契約単体試験 |
 | `V8-INGEST-002` | 2 | 有効 | データ | diopside v8のprivate backfill対象は、歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。を**強制する** | manifest生成・改ざん・enqueue試験 |
 | `V8-INGEST-003` | 1 | 有効 | データ | diopside v8のprivate ingestion状態は、進捗状態はVideoIngestion単一DynamoDB tableのvideo_id partition keyだけを使う一動画一itemで保持し、sort key、GSI、用途別item typeを追加してはならない。を**強制する** | CDK template・状態repository試験 |
@@ -93,7 +94,7 @@
 | `V8-SEARCH-005` | 1 | 有効 | 機能 | diopside v8の検索は、3文字以上の検索語には、軽微な脱字、余分な1文字、1文字の誤り、隣接2文字の入れ替わりを許容するあいまい検索を適用しなければならない。を**satisfy** | 編集距離の正常・境界・超過試験 |
 | `V8-SEARCH-006` | 1 | 有効 | 機能 | diopside v8の検索は、あいまい一致は、検索語の長さを `n`、許容編集距離を `d` としたとき、タイトル内の長さ `n-d` から `n+d` までの連続部分との最小Damerau–Levenshtein距離で判定しなければならない。を**satisfy** | 長文タイトルの固定例試験 |
 | `V8-SEARCH-007` | 1 | 有効 | 機能 | diopside v8の検索は、検索結果は、一致の確かさが高い順に決定的に並べなければならない。を**satisfy** | 順位契約試験 |
-| `V8-SEARCH-008` | 3 | 有効 | 機能 | diopside v8の検索は、検索欄は登録済みタグを動画候補と区別して提示し、選択時に不変タグIDの絞り込み条件として適用しなければならない。詳細なタグ絞り込み欄は、選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。利用者が検索候補または詳細な候補タグを追加または解除した時点で、追加の確定操作なしに検索条件を反映し、タグ補助候補欄を折り畳み、動画一覧へ移動できなければならない。を**satisfy** | 検索候補・タグ条件適用・件数契約・折り畳み操作試験 |
+| `V8-SEARCH-008` | 4 | 有効 | 機能 | diopside v8の検索は、検索欄は登録済みタグを動画候補と区別して提示し、選択時に不変タグIDの絞り込み条件として適用しなければならない。詳細な絞り込みでは、公開日と動画長を全タグ一覧より前で操作できなければならない。タグ絞り込み欄は、選択中タグ、よく使う主ジャンル、タグ名または別名の入力を全タグの展開なしに提示し、全タグを大分類と小分類ごとに初期状態で折り畳まなければならない。選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。利用者が検索候補または詳細な候補タグを追加または解除した時点で、追加の確定操作なしに検索条件を反映し、タグ補助候補欄を折り畳み、動画一覧へ移動できなければならない。を**satisfy** | 検索候補・タグ条件適用・件数契約・公開日到達順・大分類と小分類の折り畳み操作試験 |
 | `V8-SEARCH-009` | 1 | 有効 | 機能 | diopside v8の検索は、タグ絞り込みは、選択された承認済みタグの不変識別子との完全一致で判定しなければならない。を**satisfy** | タグ契約試験 |
 | `V8-SEARCH-010` | 1 | 有効 | 機能 | diopside v8の検索は、複数タグを選択した場合は、選択したすべてのタグを持つ動画だけを表示しなければならない。を**satisfy** | 2件・3件・未知タグの積集合試験 |
 | `V8-SEARCH-011` | 2 | 有効 | 機能 | diopside v8の検索は、公開日の開始日と終了日は一つの日付範囲Pickerで選択でき、日本標準時の日付として両端を含めて絞り込まなければならない。を**satisfy** | 日付範囲Picker操作、時差・月末・年末・逆転範囲試験 |
@@ -146,6 +147,8 @@
 | `V8-TAG-036` | 1 | 有効 | データ | diopside v8の定期・連続企画タグは、公開タイトルまたは承認済み既存タグから定期・連続企画名を直接確認できる動画は当該定期・連続企画名タグを持ち、名称中の「杯」等の部分一致だけでイベント・大会名へ重複分類してはならない。を**satisfy** | 正本全件タグ網羅・重複分類試験、旧タグ再生成回帰試験 |
 | `V8-TAG-037` | 1 | 有効 | 機能 | diopside v8の歌唱実績と楽曲タグは、楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲タグを持たなければならない。楽曲タグは動画の主・副ジャンルが「歌」であるかに依存せず、公開一覧・検索索引・タグ索引・動画詳細のすべてに一貫して反映しなければならない。を**satisfy** | 歌唱正本構造、非歌ジャンル鼻歌、公開索引の楽曲タグ反映試験 |
 | `V8-TAG-038` | 1 | 有効 | 品質 | diopside v8の歌唱実績検証と公開境界は、各歌唱実績は既知動画、白雪巴本人の参加、動画長内の開始秒、動画内で解決できる根拠参照を持たなければならない。承認済みタイムスタンプを参照する場合は開始秒が一致し、鼻歌は終了秒も持たなければならない。公開データには内部の根拠参照・判定理由を含めてはならない。を**satisfy** | 未知動画・根拠・時刻・タイムスタンプ不整合・鼻歌範囲・公開境界試験 |
+| `V8-TAG-039` | 2 | 有効 | データ | diopside v8のゲーム作品とゲームジャンルは、特定のゲーム作品は、Steam、公式ストアまたは対象作品の公式サイトを確認元として、1〜3件のゲームジャンルをゲーム単位の正本に持たなければならない。同じゲームを指す表記違いは一つのゲーム単位へ統合し、その全公開動画へ同じジャンルを導出しなければならない。動画単位の移行前ジャンルを公開分類として使わず、特定作品ではない一般ラベルをゲーム作品一覧へ含めてはならない。を**satisfy** | ゲーム正本構造・全作品網羅・公開ジャンル導出・対象作品回帰・一般ラベル除外試験 |
+| `V8-TAG-040` | 1 | 有効 | データ | diopside v8のゲームジャンル語彙は、既存語彙で作品のプレイ性を適切に表せない場合は、Steam、公式ストアまたは公式サイトで確認でき、既存分類と区別でき、複数作品の探索に再利用できるゲームジャンルだけを追加しなければならない。テーマ、販売形態、単発の仕掛け、または既存タグの組合せで表せる複合語を追加してはならない。を**satisfy** | 追加ジャンル包含・除外基準、複数作品利用、ゲーム単位分類、代表作品回帰試験 |
 | `V8-TIME-001` | 1 | 有効 | データ | diopside v8の時刻は、タイムスタンプは動画全体を移動するための目次として作り、見どころ候補と別のデータとして扱わなければならない。を**satisfy** | 意味論監査 |
 | `V8-TIME-002` | 1 | 有効 | データ | diopside v8の時刻は、v8.0では動画形式が「配信」の動画を既定の作成対象とし、「Shorts」と単曲の「歌ってみた」は対象外にしなければならない。を**satisfy** | 対象集合・境界値試験 |
 | `V8-TIME-003` | 1 | 有効 | データ | diopside v8の時刻は、各対象動画は「作成済み」または理由付きの「未作成」の状態を持たなければならない。を**satisfy** | 状態遷移・画面試験 |
@@ -610,20 +613,21 @@ diopside v8の作品タグと作品ページは、動画詳細の作品タグは
 
 ## V8-DISPLAY-013: 人物名とコンビ・ユニットのタグから出典・YouTube導線付き動画一覧へ移動できなければならない
 
-diopside v8のコラボ相手タグとコンビ・ユニットページは、動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページはYouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画を表示する。コンビ・ユニットページは出典付きの説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。を**satisfy**。
+diopside v8のコラボ相手タグとコンビ・ユニットページは、動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページは確かな一次情報に基づく出典・確認日付きの説明、YouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画、その人物と白雪巴の確認済みコンビ・ユニットへのリンクを表示する。コンビ・ユニットページは運営または構成員の公式情報を出典とする説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。を**satisfy**。
 
 根拠: コラボ動画を相手や定着した組み合わせから連続して探し、名称だけを知らない利用者も人物と関係を視覚的に把握できるようにするため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-DISPLAY-013-1` 前提: 動画詳細に白雪巴以外の人物名タグが表示されている。条件: 利用者が人物タグを押す。期待結果: 人物アイコン、人物名、YouTubeチャンネルリンク、その人物タグを持つ公開動画だけを新しい順で表示する。。
-- `AC-V8-DISPLAY-013-2` 前提: 動画詳細に確認済みのコンビ・ユニットタグが表示されている。条件: 利用者がコンビ・ユニットタグを押す。期待結果: 参考元と確認日を持つ説明、全メンバーのアイコン・人物名・各YouTubeチャンネルリンク、そのタグを持つ公開動画を表示する。。
+- `AC-V8-DISPLAY-013-1` 前提: 動画詳細に白雪巴以外の人物名タグが表示されている。条件: 利用者が人物タグを押す。期待結果: 確かな一次情報に基づく出典・確認日付きの説明、人物アイコン、人物名、YouTubeチャンネルリンク、その人物タグを持つ公開動画だけを新しい順で表示する。。
+- `AC-V8-DISPLAY-013-2` 前提: 動画詳細に確認済みのコンビ・ユニットタグが表示されている。条件: 利用者がコンビ・ユニットタグを押す。期待結果: 運営公式サイトまたは構成員本人の公式情報を参考元とし、確認日を持つ説明、全メンバーのアイコン・人物名・各YouTubeチャンネルリンク、そのタグを持つ公開動画を表示し、非公式Wikiだけを出典にしない。。
 - `AC-V8-DISPLAY-013-3` 前提: 人物またはコンビ・ユニットページを表示する。条件: ブラウザの通信先を検査する。期待結果: 保存済みローカルアイコンだけを読み、利用者が外部リンクを押すまでYouTubeまたは参考元へ通信しない。。
+- `AC-V8-DISPLAY-013-4` 前提: コラボ相手と白雪巴の確認済みコンビ・ユニットがある。条件: 利用者が人物ページを表示してコンビ・ユニット名を押す。期待結果: 人物ページ内に名称・概要・公開動画件数を表示し、押下後はそのコンビ・ユニットの説明・構成員・公開動画一覧を表示する。。
 
-要求源: spec/sources/owner-directive-2026-08-15-collaboration-pages.md, user:2026-08-15
+要求源: spec/sources/owner-directive-2026-08-15-collaboration-pages.md, user:2026-08-15, spec/sources/owner-directive-2026-08-28-collaboration-profile-descriptions.md, user:2026-08-28
 検証証跡: tests/content-validation.test.ts, tests/generated.test.ts, src/features/collaborations/CollaborationDetailPages.test.tsx, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=content/people/collaboration-profiles.json,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/features/collaborations/CollaboratorDetailPage.tsx,src/features/collaborations/GroupDetailPage.tsx; テスト=tests/content-validation.test.ts,tests/generated.test.ts,src/features/collaborations/CollaborationDetailPages.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-15-collaboration-pages.md,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md; 実装=content/people/collaboration-profiles.json,scripts/build-public-data.ts,src/features/detail/VideoDetailPage.tsx,src/features/collaborations/CollaboratorDetailPage.tsx,src/features/collaborations/GroupDetailPage.tsx; テスト=tests/content-validation.test.ts,tests/generated.test.ts,src/features/collaborations/CollaborationDetailPages.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-15-collaboration-pages.md,spec/sources/owner-directive-2026-08-28-collaboration-profile-descriptions.md,dev-standard assured profile
 
 ## V8-DISPLAY-014: 定期・連続企画名タグは同じシリーズの動画一覧へ移動できなければならない
 
@@ -657,6 +661,24 @@ diopside v8の歌唱楽曲一覧と導線は、主または副ジャンル「歌
 要求源: spec/sources/owner-directive-2026-08-25-song-performance-index.md, user:2026-08-25
 検証証跡: src/features/songs/SongIndexPage.test.tsx, e2e/song-index.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/songs/SongIndexPage.tsx,src/features/search/SearchPage.tsx,src/features/detail/VideoDetailPage.tsx,src/App.tsx; テスト=src/features/songs/SongIndexPage.test.tsx,e2e/song-index.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-25-song-performance-index.md,dev-standard assured profile
+
+## V8-DISPLAY-016: ゲームジャンルからプレイ作品を選び、そのゲームの配信一覧へ移動できなければならない
+
+diopside v8のゲームジャンル・作品・配信導線は、ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示しなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。を**satisfy**。
+
+根拠: 動画単位のタグ絞り込みだけでなく、遊んだゲームをジャンルから眺め、同じ作品の配信を続けて探せるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-016-1` 前提: ゲーム正本と公開動画索引が読み込まれている。条件: 利用者がゲーム探索画面を開く。期待結果: 公開動画があるゲームジャンルを作品数・配信数と共に表示し、ジャンル選択で該当する特定ゲーム作品だけを表示する。。
+- `AC-V8-DISPLAY-016-2` 前提: 利用者がジャンル別一覧でゲーム作品を選ぶ。条件: 作品リンクを押す。期待結果: ゲーム単位のジャンルと確認元を表示し、そのゲーム作品を持つ公開配信だけを新しい順で一覧表示する。。
+- `AC-V8-DISPLAY-016-3` 前提: 検索画面または動画詳細にゲーム、ゲームジャンル、ゲーム作品のタグがある。条件: 利用者が該当タグを選ぶ。期待結果: ゲームはジャンル一覧へ、ゲームジャンルは該当作品一覧へ、ゲーム作品は該当配信一覧へ移動する。。
+- `AC-V8-DISPLAY-016-4` 前提: 同じゲームを指す複数の作品名タグに公開動画がある。条件: ゲーム一覧またはいずれかの作品名から作品ページを開く。期待結果: ゲームを一作品として表示し、すべての表記に属する公開動画を重複なく一覧表示する。。
+
+要求源: spec/sources/owner-directive-2026-08-28-game-catalog.md, user:2026-08-28, user:2026-08-28-follow-up
+検証証跡: src/features/games/GameIndexPage.test.tsx, src/features/works/WorkDetailPage.test.tsx, e2e/game-index.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/App.tsx,src/components/Header.tsx,src/features/games/GameIndexPage.tsx,src/features/works/WorkDetailPage.tsx,src/features/detail/VideoDetailPage.tsx,src/features/search/SearchPage.tsx; テスト=src/features/games/GameIndexPage.test.tsx,src/features/works/WorkDetailPage.test.tsx,e2e/game-index.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-28-game-catalog.md,dev-standard assured profile
 
 ## V8-INGEST-001: 外部ingestion要求はvideo_idだけを含む厳格な11文字契約でなければならない
 
@@ -1507,9 +1529,9 @@ diopside v8の検索は、検索結果は、一致の確かさが高い順に決
 検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-SEARCH-008: 検索欄のタグ候補と詳細なタグ絞り込みは、選択だけで検索して自動的に折り畳まれなければならない
+## V8-SEARCH-008: 検索欄のタグ候補と詳細なタグ絞り込みは、選択だけで検索し、分類ごとに折り畳めなければならない
 
-diopside v8の検索は、検索欄は登録済みタグを動画候補と区別して提示し、選択時に不変タグIDの絞り込み条件として適用しなければならない。詳細なタグ絞り込み欄は、選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。利用者が検索候補または詳細な候補タグを追加または解除した時点で、追加の確定操作なしに検索条件を反映し、タグ補助候補欄を折り畳み、動画一覧へ移動できなければならない。を**satisfy**。
+diopside v8の検索は、検索欄は登録済みタグを動画候補と区別して提示し、選択時に不変タグIDの絞り込み条件として適用しなければならない。詳細な絞り込みでは、公開日と動画長を全タグ一覧より前で操作できなければならない。タグ絞り込み欄は、選択中タグ、よく使う主ジャンル、タグ名または別名の入力を全タグの展開なしに提示し、全タグを大分類と小分類ごとに初期状態で折り畳まなければならない。選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。利用者が検索候補または詳細な候補タグを追加または解除した時点で、追加の確定操作なしに検索条件を反映し、タグ補助候補欄を折り畳み、動画一覧へ移動できなければならない。を**satisfy**。
 
 根拠: 利用者が題名の断片や表記揺れから、意図した公開アーカイブを速く再発見できるようにするため。
 
@@ -1518,10 +1540,11 @@ diopside v8の検索は、検索欄は登録済みタグを動画候補と区別
 受入条件:
 - `AC-V8-SEARCH-008-1` 前提: 検索欄へ登録済みタグ名またはその読みの一部を入力している。条件: 検索候補からタグを選択する画面試験。期待結果: 候補をタグと明示し、選択すると自由入力のタイトル語ではなく不変タグIDの絞り込み条件として適用して動画一覧を更新する。。
 - `AC-V8-SEARCH-008-2` 前提: タイトル・公開日・動画長・選択済みタグの現在条件があり、利用者が検索候補または詳細な候補タグを追加または解除する。条件: タグ選択から検索結果までの画面操作試験・件数契約試験・折り畳み操作試験。期待結果: 追加後1件以上になる未選択タグと解除できる選択済みタグだけを日本語名と件数付きで示す。タグ選択だけで不変タグIDの検索条件と共有可能URLを更新し、タグ候補欄を滑らかに折り畳み、動画件数見出しへフォーカスと表示位置を移す。再度タグ候補欄を開くと選択状態を維持している。。
+- `AC-V8-SEARCH-008-3` 前提: 多数のタグを持つ詳細絞り込みをモバイルまたはデスクトップで開いている。条件: 公開日・動画長またはタグを選ぶ画面操作試験・折り畳み構造試験。期待結果: 公開日と動画長を全タグ一覧より前で操作できる。選択中タグ、よく使う主ジャンル、タグ名または別名の入力は全分類を開かずに利用でき、全タグは大分類と小分類が閉じた状態から必要な分類だけを開ける。。
 
-要求源: Issue #1 V8-検索-008, user:2026-08-03, owner-directive:2026-08-07, spec/sources/owner-directive-2026-08-20-search-suggestions.md, user:2026-08-20, owner-directive:2026-08-20
-検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-検索-008, user:2026-08-03, owner-directive:2026-08-07, spec/sources/owner-directive-2026-08-20-search-suggestions.md, user:2026-08-20, owner-directive:2026-08-20, spec/sources/owner-directive-2026-08-28-search-filter-navigation.md, user:2026-08-28
+検証証跡: src/features/search/SearchPage.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts,src/features/search/SearchPage.test.tsx; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-SEARCH-009: タグ絞り込みは、選択された承認済みタグの不変識別子との完全一致で判定しなければならない
 
@@ -2310,6 +2333,40 @@ diopside v8の歌唱実績検証と公開境界は、各歌唱実績は既知動
 要求源: spec/sources/owner-directive-2026-08-25-song-performance-index.md, user:2026-08-25
 検証証跡: tests/content-validation.test.ts, tests/generated.test.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts; テスト=tests/content-validation.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-25-song-performance-index.md,dev-standard assured profile
+
+## V8-TAG-039: ゲームジャンルは確認元を持つゲーム単位の正本から全配信へ一貫して導出しなければならない
+
+diopside v8のゲーム作品とゲームジャンルは、特定のゲーム作品は、Steam、公式ストアまたは対象作品の公式サイトを確認元として、1〜3件のゲームジャンルをゲーム単位の正本に持たなければならない。同じゲームを指す表記違いは一つのゲーム単位へ統合し、その全公開動画へ同じジャンルを導出しなければならない。動画単位の移行前ジャンルを公開分類として使わず、特定作品ではない一般ラベルをゲーム作品一覧へ含めてはならない。を**satisfy**。
+
+根拠: 同じゲームの配信ごとにジャンルが揺れる状態と、根拠のない既定値による誤分類を防ぎ、作品単位で再確認できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-TAG-039-1` 前提: 有効な特定ゲーム作品タグと、その作品を持つ公開動画がある。条件: 正本検証と公開データ生成を行う。期待結果: 各ゲーム単位にHTTPSの確認元・確認日・1〜3件の有効なゲームジャンルが一度だけ登録され、表記違いを含む同じゲームの全動画へその分類を導出する。。
+- `AC-V8-TAG-039-2` 前提: ワガママハイスペックを持つ6件の公開動画がある。条件: 公式サイトとSteamを確認元にゲーム分類を生成する。期待結果: 6件すべてを「アドベンチャー」「カジュアル」「ビジュアルノベル」とし、「アクション」を公開しない。。
+- `AC-V8-TAG-039-3` 前提: ゲーム作品名小分類に特定作品ではない一般ラベルがある。条件: ゲームカタログとゲーム一覧を生成する。期待結果: 一般ラベルをゲームカタログおよびプレイ作品一覧へ含めない。。
+
+要求源: spec/sources/owner-directive-2026-08-28-game-catalog.md, user:2026-08-28, user:2026-08-28-follow-up
+検証証跡: scripts/audit-game-tags.ts, tests/generated.test.ts, src/features/games/GameIndexPage.test.tsx
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=content/works/game-catalog.json,src/domain/game-catalog.ts,src/domain/validation.ts,scripts/build-public-data.ts; テスト=scripts/audit-game-tags.ts,tests/generated.test.ts,src/features/games/GameIndexPage.test.tsx,e2e/game-index.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-28-game-catalog.md,dev-standard assured profile
+
+## V8-TAG-040: ゲームジャンル語彙は根拠・識別性・再利用性を満たす分類だけを追加しなければならない
+
+diopside v8のゲームジャンル語彙は、既存語彙で作品のプレイ性を適切に表せない場合は、Steam、公式ストアまたは公式サイトで確認でき、既存分類と区別でき、複数作品の探索に再利用できるゲームジャンルだけを追加しなければならない。テーマ、販売形態、単発の仕掛け、または既存タグの組合せで表せる複合語を追加してはならない。を**satisfy**。
+
+根拠: 不足ジャンルによる誤分類を防ぎつつ、根拠の弱い細分化でゲーム探索画面を増殖させないため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-TAG-040-1` 前提: 公式ストアの分類または上位人気タグが既存のゲームジャンル語彙では表せない。条件: ゲーム単位のジャンルを再確認する。期待結果: 確認元・既存分類との差・複数作品での再利用性を満たす分類だけを有効タグとして追加する。。
+- `AC-V8-TAG-040-2` 前提: 候補が販売形態、テーマ、単発の仕掛け、または既存タグの組合せで表せる複合語である。条件: ゲームジャンル語彙への追加可否を判定する。期待結果: 候補を新しいゲームジャンルとして追加しない。。
+- `AC-V8-TAG-040-3` 前提: 再確認対象のゲーム正本がある。条件: 追加済みゲームジャンルの利用状況を検証する。期待結果: 各追加ジャンルは複数のゲーム単位で使用され、1〜3件の基数と有効タグ制約を満たす。。
+
+要求源: spec/sources/owner-directive-2026-08-28-game-catalog.md, user:2026-08-28-follow-up
+検証証跡: tests/content-validation.test.ts, scripts/audit-game-tags.ts, tests/generated.test.ts
+トレース: 設計=content/taxonomy/tag-taxonomy.json,docs/design/generated/system.gen.md; 実装=spec/sources/tag-taxonomy-v2.json,content/works/game-catalog.json,src/domain/validation.ts; テスト=tests/content-validation.test.ts,scripts/audit-game-tags.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-28-game-catalog.md,dev-standard assured profile
 
 ## V8-TIME-001: タイムスタンプは動画全体を移動するための目次として作り、見どころ候補と別のデータとして扱わなければならない
 

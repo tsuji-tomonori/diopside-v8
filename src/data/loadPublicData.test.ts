@@ -14,6 +14,7 @@ const latest = json('public/data/latest.json') as {
   searchIndexPath: string;
   tagIndexPath: string;
   aliasIndexPath: string;
+  gameIndexPath: string;
 };
 const contentManifest = json('content/content-manifest.json') as { videoCount: number };
 
@@ -28,6 +29,7 @@ describe('公開データ読込', () => {
     expect(bundle.latest.releaseId).toBe(embeddedReleaseId);
     expect(bundle.index.videos).toHaveLength(contentManifest.videoCount);
     expect(bundle.songIndex.songs.length).toBeGreaterThan(0);
+    expect(bundle.gameIndex.games.length).toBeGreaterThan(0);
     expect((await store.readPublicCache())?.releaseId).toBe(embeddedReleaseId);
   });
 
