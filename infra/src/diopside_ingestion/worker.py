@@ -54,6 +54,9 @@ LOGGER = logging.getLogger(__name__)
 DIAGNOSTIC_SIGNALS = (
     ("bot_challenge", ("not a bot", "bot challenge")),
     ("js_challenge", ("javascript runtime", "challenge solver", "n challenge")),
+    ("js_runtime_missing", ("js runtimes: none", "javascript runtime is not available")),
+    ("age_restricted", ("age-restricted", "confirm your age")),
+    ("authentication_required", ("login_required", "sign in to confirm")),
     ("api_transport", ("unable to download api page", "connection reset")),
     ("http_403", ("http error 403", "status code 403")),
     ("http_429", ("http error 429", "status code 429", "too many requests")),
@@ -65,6 +68,14 @@ DIAGNOSTIC_SIGNALS = (
 )
 KNOWN_JS_RUNTIMES = ("deno", "node", "quickjs", "bun")
 KNOWN_REQUEST_HANDLERS = ("urllib", "requests", "websockets", "curl_cffi")
+KNOWN_PLAYABILITY_STATUSES = (
+    "OK",
+    "ERROR",
+    "LOGIN_REQUIRED",
+    "UNPLAYABLE",
+    "LIVE_STREAM_OFFLINE",
+)
+YT_DLP_JS_OPTIONS = ("--js-runtimes", "node")
 
 
 class ObjectStore(ObjectReader, Protocol):
@@ -92,7 +103,13 @@ class SubprocessRunner:
     def run(self, args: Sequence[str], *, cwd: Path) -> subprocess.CompletedProcess[bytes]:
         command = list(args)
         if command[0] == "yt-dlp":
-            command = [sys.executable, "-m", "yt_dlp", *command[1:]]
+            command = [
+                sys.executable,
+                "-m",
+                "yt_dlp",
+                *YT_DLP_JS_OPTIONS,
+                *command[1:],
+            ]
         elif command[0] == "ffmpeg":
             command[0] = imageio_ffmpeg.get_ffmpeg_exe()
         timeout = 20_000.0
@@ -183,6 +200,13 @@ def safe_command_diagnostic(stderr: bytes) -> dict[str, str | int]:
                 return token
         return "unknown"
 
+    playability_lines = [line.lower() for line in lines if "playability status:" in line.lower()]
+    playability_statuses = [
+        status
+        for status in KNOWN_PLAYABILITY_STATUSES
+        if any(f"playability status: {status.lower()}" in line for line in playability_lines)
+    ]
+
     signals = [
         name
         for name, patterns in DIAGNOSTIC_SIGNALS
@@ -197,6 +221,7 @@ def safe_command_diagnostic(stderr: bytes) -> dict[str, str | int]:
         "python_runtime": allow_listed_token("[debug] python"),
         "js_runtimes": known_values("[debug] js runtimes", KNOWN_JS_RUNTIMES),
         "request_handlers": known_values("[debug] request handlers", KNOWN_REQUEST_HANDLERS),
+        "playability_statuses": ",".join(playability_statuses) or "none",
         "signals": ",".join(signals) or "none",
     }
 
@@ -211,7 +236,8 @@ def log_command_failure(
     LOGGER.warning(
         "External command failed operation=%s returncode=%s reason_code=%s "
         "stderr_sha256=%s stderr_bytes=%s warning_count=%s error_count=%s "
-        "yt_dlp_version=%s python_runtime=%s js_runtimes=%s request_handlers=%s signals=%s",
+        "yt_dlp_version=%s python_runtime=%s js_runtimes=%s request_handlers=%s "
+        "playability_statuses=%s signals=%s",
         operation,
         result.returncode,
         failure.code,
@@ -223,6 +249,7 @@ def log_command_failure(
         diagnostic["python_runtime"],
         diagnostic["js_runtimes"],
         diagnostic["request_handlers"],
+        diagnostic["playability_statuses"],
         diagnostic["signals"],
     )
 

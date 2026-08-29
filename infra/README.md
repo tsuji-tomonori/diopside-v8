@@ -42,10 +42,20 @@ GitHub environmentには次を登録します。
 
 ## ローカルPCの準備
 
-Python 3.12、uv、通常のAWS credential chainを使います。access keyやsecret keyをcommand引数、設定file、Gitへ書かず、既存のAWS profileまたは短期credentialを利用してください。
+Python 3.12、uv、Node.js、通常のAWS credential chainを使います。`uv sync`でlock済みの`yt-dlp-ejs`を導入し、workerはyt-dlpへNode.js runtimeを明示してYouTubeのJavaScript challengeを処理します。access keyやsecret keyをcommand引数、設定file、Gitへ書かず、既存のAWS profileまたは短期credentialを利用してください。
 
 ```console
 uv sync --directory infra --locked --all-groups
+```
+
+準備後、次の出力に`JS runtimes: node`と表示されることを確認できます。これは公開動画のchallenge解決を有効にしますが、`LOGIN_REQUIRED`となる年齢制限、非公開、メンバー限定動画の認証要求は回避しません。
+
+```console
+uv run --directory infra --locked python -m yt_dlp \
+  --js-runtimes node \
+  --verbose \
+  --simulate \
+  'https://www.youtube.com/watch?v=VIDEO_ID'
 ```
 
 保存先はdeploy outputから取得できます。

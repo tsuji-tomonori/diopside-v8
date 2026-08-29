@@ -4,6 +4,7 @@ import hashlib
 import json
 import logging
 import subprocess
+import sys
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -18,6 +19,7 @@ from diopside_ingestion.state import ClaimResult
 from diopside_ingestion.worker import (
     IngestionWorker,
     RetryableWorkerError,
+    SubprocessRunner,
     WorkerConfig,
     normalized_caption,
     normalized_json3,
@@ -192,6 +194,32 @@ def _config(run_id: str = "run-1") -> WorkerConfig:
     )
 
 
+def test_subprocess_runner_enables_node_for_ytdlp(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    observed: list[list[str]] = []
+
+    def fake_run(command: Sequence[str], **_kwargs: object) -> subprocess.CompletedProcess[bytes]:
+        observed.append(list(command))
+        return subprocess.CompletedProcess(command, 0, b"2026.7.4\n", b"")
+
+    monkeypatch.setattr(subprocess, "run", fake_run)
+
+    SubprocessRunner().run(["yt-dlp", "--version"], cwd=tmp_path)
+
+    assert observed == [
+        [
+            sys.executable,
+            "-m",
+            "yt_dlp",
+            "--js-runtimes",
+            "node",
+            "--version",
+        ]
+    ]
+
+
 def test_worker_logs_allow_listed_metadata_failure_signals(
     caplog: pytest.LogCaptureFixture,
 ) -> None:
@@ -220,13 +248,39 @@ def test_worker_logs_allow_listed_metadata_failure_signals(
     assert "python_runtime=3.12.11" in diagnostic
     assert "js_runtimes=none" in diagnostic
     assert "request_handlers=urllib,requests" in diagnostic
-    assert "signals=api_transport" in diagnostic
+    assert "playability_statuses=none" in diagnostic
+    assert "signals=js_runtime_missing,api_transport" in diagnostic
     assert "Unable to download API page" not in diagnostic
     assert "API response" not in diagnostic
     assert "https://example.test" not in diagnostic
     assert "top-secret" not in diagnostic
     assert "session-cookie-value" not in diagnostic
     assert "provider metadata must not be logged" not in diagnostic
+
+
+def test_worker_logs_age_authentication_separately_from_missing_js_runtime(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    stderr = (
+        b"[debug] JS runtimes: none\n"
+        b"[debug] JS Challenge Providers: node (unavailable)\n"
+        b"[debug] android_vr player response playability status: LOGIN_REQUIRED\n"
+        b"WARNING: This video is age-restricted\n"
+        b"ERROR: Sign in to confirm your age\n"
+    )
+    runner = FakeRunner(metadata_failure_stderr=stderr)
+    repository = FakeRepository()
+
+    with caplog.at_level(logging.WARNING):
+        IngestionWorker(_config(), repository, FakeStore(), runner).run()
+
+    diagnostic = caplog.text
+    assert repository.completions[0]["status"] == "unavailable"
+    assert "reason_code=age_restricted" in diagnostic
+    assert "js_runtimes=none" in diagnostic
+    assert "playability_statuses=LOGIN_REQUIRED" in diagnostic
+    assert "signals=js_runtime_missing,age_restricted,authentication_required" in diagnostic
+    assert "Sign in to confirm your age" not in diagnostic
 
 
 def test_worker_writes_private_run_and_current_manifests() -> None:
