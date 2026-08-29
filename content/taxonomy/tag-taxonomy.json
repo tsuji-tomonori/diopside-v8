@@ -1,10 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "taxonomyVersion": "8.6.0",
+  "taxonomyVersion": "8.7.0",
   "sourceVersion": "2.0.0",
   "aliasVersion": "8.3.0",
-  "rulesVersion": "8.4.0",
-  "effectiveDate": "2026-08-23",
+  "rulesVersion": "8.5.0",
+  "effectiveDate": "2026-08-28",
+  "compatibleCanonicalVideoTaxonomyVersions": [
+    "8.6.0"
+  ],
   "categoryCount": 7,
   "subcategoryCount": 30,
   "prohibitedCanonicalNames": [
@@ -207,6 +210,48 @@
               "active": true,
               "inclusionCriteria": "ゲームジャンルとして公開情報から直接確認できること",
               "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-025f45eb0729",
+              "canonicalName": "カジュアル",
+              "active": true,
+              "inclusionCriteria": "Steam等の公式ストアまたは作品公式サイトがCasual・カジュアルとして明示していること",
+              "exclusionCriteria": "短時間、低難易度、家族向けという印象だけでは含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-9cdd2236dd93",
+              "canonicalName": "プラットフォーマー",
+              "active": true,
+              "inclusionCriteria": "公式情報またはSteam人気タグでプラットフォーム移動を中心とするジャンルと確認できること",
+              "exclusionCriteria": "一部にジャンプ操作があるだけの作品は含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-1f2267252ae2",
+              "canonicalName": "サバイバル",
+              "active": true,
+              "inclusionCriteria": "公式情報またはSteam人気タグで生存・資源管理・サバイバルホラーを中心とすると確認できること",
+              "exclusionCriteria": "物語上で生き残るだけ、または単なるホラーテーマだけでは含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-f23195c740c8",
+              "canonicalName": "ステルス",
+              "active": true,
+              "inclusionCriteria": "公式情報またはSteam人気タグで隠密・回避を主要な進行手段と確認できること",
+              "exclusionCriteria": "一場面だけ隠れる、または任意の隠密要素だけでは含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-d28648a42d53",
+              "canonicalName": "ローグライク",
+              "active": true,
+              "inclusionCriteria": "公式情報またはSteam人気タグで反復プレイと手続き生成・ラン単位進行を中心とすると確認できること",
+              "exclusionCriteria": "ランダム要素や周回要素が一部にあるだけでは含めない"
+            },
+            {
+              "tagId": "tag-content-gameGenre-6d726452e75c",
+              "canonicalName": "ウォーキングシミュレーター",
+              "active": true,
+              "inclusionCriteria": "Steam人気タグまたは公式説明で歩行探索と環境・物語の観察を中心とすると確認できること",
+              "exclusionCriteria": "一人称視点、探索場面、移動操作があるだけでは含めない"
             },
             {
               "tagId": "tag-content-gameGenre-9796af29a119",

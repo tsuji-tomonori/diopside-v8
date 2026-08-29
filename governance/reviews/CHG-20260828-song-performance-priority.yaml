@@ -73,7 +73,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: "@GitHubの指示に基づくbranch、commit、Draft PRだけを外部書込み対象とし、merge、release、deploy、公開は行わない。"
+    note: "@GitHubの当初指示に基づきbranch、commit、Draft PRを作成し、2026-08-29の明示指示に基づきmain同期、merge、公開反映後の動作確認を外部書込み・確認対象とする。"
   - id: FAST-001
     class: Invariant
     result: pass
@@ -206,4 +206,4 @@ selected_checks:
 
 advisories: []
 residual_risks:
-  - Draft PR段階ではproductionへ反映しないため、公開サイトの実機表示確認はmerge・release・deployが別途承認された後に行う。
+  - main同期後の品質ゲート、merge後のrelease・deploy workflow、公開HTTP smokeが成功するまで公開完了とはしない。
