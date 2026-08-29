@@ -82,14 +82,14 @@ selected_checks:
   result: pass
   evidence:
   - path:content/videos/navrPw5C0lo.json
-  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 候補hash、全編根拠、独立reviewを検証する。
 - id: FAST-006
   class: Invariant
   result: pass
   evidence:
   - path:content/content-manifest.json
-  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 正本件数と生成driftを検証する。
 - id: FAST-007
   class: Invariant
@@ -127,7 +127,7 @@ selected_checks:
   result: pass
   evidence:
   - path:scripts/validate-content.ts
-  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 内容・1動画scope・生成差分をCIで検証する。
 - id: REV-007
   class: Invariant
@@ -145,3 +145,5 @@ advisories: []
 residual_risks:
 - 候補hash e5758ff4ec05b04f66b7c12092511b2639d877c61380ac13c92efcdeec87bd27 は人がdraft
   PRをマージするまで公開されない。
+# conflict-resolution: 最新mainのタグ・メタデータ・既存タイムスタンプを保持し、候補の全編根拠とあらすじだけを統合して最新headでCI再検証する。
+# revision-integrity: 1L49WIJZSC0統合後のmainを取り込み、manifestを再生成して複数あらすじ追加の累積件数を検証する。
