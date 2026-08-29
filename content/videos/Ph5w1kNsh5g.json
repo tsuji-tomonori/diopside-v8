@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "c96fb498d43375e8e4ae7de0d4e4fb02cb0b1d271beb255ea6fb98ed4f04703c"
+    },
+    {
+      "evidenceId": "evidence-collaboration-horizontal",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "YouTube公開タイトル・概要欄の出演者横断照合",
+      "inputFingerprint": "a335deb1f7028e8ad473db375feaf04747c30638f936f5be9a5abc56037d6c6f"
     }
   ],
   "tagAssignments": [
@@ -94,6 +100,24 @@
         "evidence-title"
       ],
       "reviewedAt": "2026-08-25T23:00:00+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "YouTube公開タイトル・概要欄から来栖夏芽との参加形態「コラボ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-29T21:10:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-f1576533a080",
+      "reason": "YouTube公開タイトル・概要欄から出演者「来栖夏芽」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-29T21:10:00+09:00"
     }
   ],
   "timestamps": {
@@ -301,7 +325,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-25T23:00:00+09:00",
-    "basis": "ユーザー指示に基づく「いっ杯晩酌」シリーズタグ補正と公開境界の再検証"
+    "approvedAt": "2026-08-29T21:10:00+09:00",
+    "basis": "利用者指示とYouTube公開情報を基に、コラボ相手の付与漏れを横断是正"
   }
 }

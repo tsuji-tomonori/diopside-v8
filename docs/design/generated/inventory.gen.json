@@ -4,7 +4,7 @@
   "sourceDigests": [
     {
       "path": "scripts/audit-collaboration-tags.ts",
-      "sha256": "fbda33a70c0dc9330a4de9e0a214bbdd791dfd75ca2fb7ba25e83da0929666d5"
+      "sha256": "d8ec1165f8abb229f879377b07fbd10fe61970aefc2f0b9f6c6fe3761992b4da"
     },
     {
       "path": "scripts/audit-game-tags.ts",
@@ -140,11 +140,11 @@
     },
     {
       "path": "src/domain/collaboration-group-audit.test.ts",
-      "sha256": "129dbd6473dab9d123ad9f3555a4d6bfbdfff7e22b9c02b968054789bb71d1a8"
+      "sha256": "e97b12549954a1fb7f90f39b472716482fa9f40c349c18df8c0bb30bc6dfe423"
     },
     {
       "path": "src/domain/collaboration-group-audit.ts",
-      "sha256": "91a90a7642d3e9160dbc1c595f0f2be85a0e15157c5dd9b45b45d8b2d51c6135"
+      "sha256": "765170f173c2aef85d73589b5db565489d13cd7aee42d8b80f813298ce4e7f9e"
     },
     {
       "path": "src/domain/collaboration.test.ts",
@@ -511,6 +511,11 @@
     {
       "file": "src/domain/collaboration-group-audit.ts",
       "name": "CollaborationAuditGroup",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditPerson",
       "kind": "TypeAliasDeclaration"
     },
     {

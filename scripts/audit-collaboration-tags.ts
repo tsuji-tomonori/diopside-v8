@@ -10,6 +10,7 @@ import { readJson } from './lib.ts';
 
 const root = path.resolve(import.meta.dirname, '..');
 const profiles = readJson(path.join(root, 'content/people/collaboration-profiles.json')) as {
+  people: Array<{ tagId: string; name: string }>;
   groups: Array<{ tagId: string; name: string; memberTagIds: string[] }>;
 };
 const aliases = tagAliasesSchema.parse(readJson(path.join(root, 'content/taxonomy/tag-aliases.json')));
@@ -17,6 +18,7 @@ const source = readJson(path.join(root, 'spec/sources/collaboration-tag-correcti
 const result = auditCollaborationGroupTags({
   videos: readCanonicalVideos(root),
   groups: profiles.groups,
+  people: profiles.people,
   aliases: aliases.aliases,
   source,
 });
@@ -27,6 +29,7 @@ if (result.errors.length > 0) {
 } else {
   console.log(
     `コラボ・ユニットタグ横断監査合格: ${result.auditedAppearanceCount}件`
-    + `（タイトル明示 ${result.explicitAppearanceCount}件、確認済み出演 ${result.confirmedAppearanceCount}件）に不足はありません。`,
+    + `（タイトル明示 ${result.explicitAppearanceCount}件、確認済み出演 ${result.confirmedAppearanceCount}件）、`
+    + `出演者集合 ${result.confirmedParticipantVideoCount}動画・${result.confirmedParticipantCount}人に不足はありません。`,
   );
 }

@@ -10,6 +10,11 @@ export type CollaborationAuditGroup = {
   memberTagIds: readonly string[];
 };
 
+export type CollaborationAuditPerson = {
+  tagId: string;
+  name: string;
+};
+
 export type CollaborationAuditAlias = {
   alias: string;
   tagId: string;
@@ -19,6 +24,7 @@ export type CollaborationAuditSource = {
   subjectPerformerTagId: string;
   collaborationTagId: string;
   confirmedAppearances: ReadonlyArray<{ videoId: string; groupTagId: string }>;
+  confirmedParticipants: ReadonlyArray<{ videoId: string; performerTagIds: readonly string[] }>;
   excludedAppearances: ReadonlyArray<{ videoId: string; groupTagId: string; reason: string }>;
 };
 
@@ -28,6 +34,8 @@ export type CollaborationAuditResult = {
   explicitAppearanceCount: number;
   confirmedAppearanceCount: number;
   auditedAppearanceCount: number;
+  confirmedParticipantVideoCount: number;
+  confirmedParticipantCount: number;
 };
 
 const normalizeForMatch = (value: string): string => value
@@ -42,17 +50,20 @@ const appearanceKey = (videoId: string, groupTagId: string): string => `${videoI
 export const auditCollaborationGroupTags = ({
   videos,
   groups,
+  people,
   aliases,
   source,
 }: {
   videos: readonly CollaborationAuditVideo[];
   groups: readonly CollaborationAuditGroup[];
+  people: readonly CollaborationAuditPerson[];
   aliases: readonly CollaborationAuditAlias[];
   source: CollaborationAuditSource;
 }): CollaborationAuditResult => {
   const errors: string[] = [];
   const videosById = new Map(videos.map((video) => [video.videoId, video]));
   const groupsById = new Map(groups.map((group) => [group.tagId, group]));
+  const peopleById = new Map(people.map((person) => [person.tagId, person]));
   const aliasesByGroupId = new Map<string, string[]>();
   for (const alias of aliases) {
     if (!groupsById.has(alias.tagId)) continue;
@@ -111,6 +122,36 @@ export const auditCollaborationGroupTags = ({
     }
   }
 
+  for (const item of source.confirmedParticipants) {
+    const video = videosById.get(item.videoId);
+    if (!video) {
+      errors.push(`${item.videoId}:確認済み出演者の動画が正本にありません。`);
+      continue;
+    }
+    const assigned = new Set(video.tagAssignments.map((assignment) => assignment.tagId));
+    const uniquePerformerTagIds = new Set(item.performerTagIds);
+    if (uniquePerformerTagIds.size !== item.performerTagIds.length) {
+      errors.push(`${item.videoId}:確認済み出演者タグが重複しています。`);
+    }
+    for (const performerTagId of uniquePerformerTagIds) {
+      const person = peopleById.get(performerTagId);
+      if (!person) {
+        errors.push(`${item.videoId}:確認済み出演者 ${performerTagId} が人物プロフィール正本にありません。`);
+        continue;
+      }
+      if (performerTagId === source.subjectPerformerTagId) {
+        errors.push(`${item.videoId}:対象本人「${person.name}」をコラボ相手へ含めることはできません。`);
+        continue;
+      }
+      if (!assigned.has(performerTagId)) {
+        errors.push(`${item.videoId}:確認済み出演者「${person.name}」がありません。`);
+      }
+    }
+    if (uniquePerformerTagIds.size > 0 && !assigned.has(source.collaborationTagId)) {
+      errors.push(`${item.videoId}:確認済み出演者に必要な参加形態「コラボ」がありません。`);
+    }
+  }
+
   for (const item of source.excludedAppearances) {
     const video = videosById.get(item.videoId);
     const group = groupsById.get(item.groupTagId);
@@ -133,5 +174,10 @@ export const auditCollaborationGroupTags = ({
     explicitAppearanceCount,
     confirmedAppearanceCount: source.confirmedAppearances.length,
     auditedAppearanceCount: expected.size,
+    confirmedParticipantVideoCount: source.confirmedParticipants.length,
+    confirmedParticipantCount: source.confirmedParticipants.reduce(
+      (total, item) => total + item.performerTagIds.length,
+      0,
+    ),
   };
 };

@@ -1,20 +1,17 @@
 {
   "schemaVersion": "1.0.0",
   "changeType": "保守変更",
-  "previousTaxonomyVersion": "8.6.0",
+  "previousTaxonomyVersion": "8.7.0",
   "previousAliasVersion": "8.3.0",
-  "taxonomyVersion": "8.7.0",
+  "taxonomyVersion": "8.8.0",
   "aliasVersion": "8.3.0",
   "rulesVersion": "8.5.0",
   "affectedTagIds": [
-    "tag-content-gameGenre-025f45eb0729",
-    "tag-content-gameGenre-9cdd2236dd93",
-    "tag-content-gameGenre-1f2267252ae2",
-    "tag-content-gameGenre-f23195c740c8",
-    "tag-content-gameGenre-d28648a42d53",
-    "tag-content-gameGenre-6d726452e75c"
+    "tag-people-performer-40e26ebb77ca",
+    "tag-people-performer-a2703bb6b5d6",
+    "tag-people-performer-d4bf2e8b5d9a"
   ],
-  "affectedVideoCount": 0,
-  "migration": "既存ジャンルでは区別できない6分類を根拠・識別性・再利用性の基準で追加し、ゲーム正本から公開動画へ導出する。既存動画のタグ正本は8.6.0互換として保持する。",
-  "reviewedAt": "2026-08-28T18:00:00+09:00"
+  "affectedVideoCount": 1,
+  "migration": "YouTube公開概要欄・公式視点配信と所属事務所プロフィールを照合し、大西沙織・武田羅梨沙多胡・長縄まりあの出演者タグと人物プロフィールを追加する。既存動画正本の8.6.0・8.7.0互換を保持する。",
+  "reviewedAt": "2026-08-29T21:10:00+09:00"
 }

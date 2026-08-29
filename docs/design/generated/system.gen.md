@@ -101,6 +101,7 @@
 | `src/domain/collaboration-group-audit.ts` | VariableStatement | `auditCollaborationGroupTags` |
 | `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditAlias` |
 | `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditGroup` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditPerson` |
 | `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditResult` |
 | `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditSource` |
 | `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditVideo` |
@@ -236,4 +237,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力66ファイル、公開契約159件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力66ファイル、公開契約160件です。

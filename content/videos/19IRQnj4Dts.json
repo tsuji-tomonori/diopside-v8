@@ -44,6 +44,12 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "94942c86dd6243e1590d846d5b8279f83d9cfcbcea9b742131e792a6ef6d162a"
+    },
+    {
+      "evidenceId": "evidence-collaboration-horizontal",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "YouTube公開タイトル・概要欄の出演者横断照合",
+      "inputFingerprint": "425736acea28e5dc15f60ee67956e6bf9886d08ff3634ed7af457d79ad17bc7e"
     }
   ],
   "tagAssignments": [
@@ -100,6 +106,24 @@
         "evidence-channel"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-05cf3e85a30b",
+      "reason": "YouTube公開タイトル・概要欄から出演者「イブラヒム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-29T21:10:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-f81748d30a76",
+      "reason": "YouTube公開タイトル・概要欄から出演者「メリッサ・キンレンカ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-29T21:10:00+09:00"
     },
     {
       "tagId": "tag-people-performer-b2d66d295542",
@@ -316,7 +340,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-15T21:05:00+09:00",
-    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+    "approvedAt": "2026-08-29T21:10:00+09:00",
+    "basis": "利用者指示とYouTube公開情報を基に、コラボ相手の付与漏れを横断是正"
   }
 }
