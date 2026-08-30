@@ -82,14 +82,14 @@ selected_checks:
   result: pass
   evidence:
   - path:content/videos/KOjHwarBvJs.json
-  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 候補hash、全編根拠、独立reviewを検証する。
 - id: FAST-006
   class: Invariant
   result: pass
   evidence:
   - path:content/content-manifest.json
-  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 正本件数と生成driftを検証する。
 - id: FAST-007
   class: Invariant
@@ -127,7 +127,7 @@ selected_checks:
   result: pass
   evidence:
   - path:scripts/validate-content.ts
-  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 内容・1動画scope・生成差分をCIで検証する。
 - id: REV-007
   class: Invariant
@@ -143,5 +143,4 @@ selected_checks:
   note: 未選択checkをN/Aとして保存しない。
 advisories: []
 residual_risks:
-- 候補hash bc7dc2ab6dff3ce5e3039b151084efb3f6e0c22dc06ccb0b2bdd8a0e547c326f は人がdraft
-  PRをマージするまで公開されない。
+- 候補hash bc7dc2ab6dff3ce5e3039b151084efb3f6e0c22dc06ccb0b2bdd8a0e547c326f は、明示されたcampaign権限に基づき、検証済みPRをマージした時点で公開対象となる。
