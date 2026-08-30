@@ -84,6 +84,12 @@ selected_checks:
   - path:content/videos/0jznIhlKA2o.json
   - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 候補hash、全編根拠、独立reviewを検証する。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/videos/0jznIhlKA2o.json
+  note: 現行taxonomyVersionと既存タグ契約を検証し、PR段階の統合準備を確認する。
 - id: FAST-006
   class: Invariant
   result: pass
