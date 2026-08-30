@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "5f671a231a186eaa33bfcda3ebf7e65e1bb4397134f967a9fa77e982f4d0db81"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "c0640df1e94a4450134068e9d2da6de3ffdd905d3f8a167cb2aab5a4fc24c831",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5672
     }
   ],
   "tagAssignments": [
@@ -396,5 +404,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴が仲間たちとスプラトゥーン3の対戦コラボに挑戦。新しく使い始めたブキで塗り合いに臨み、前線で味方を助けながらチームの勝利を目指します。試合中の連携や惜しい場面に一喜一憂し、雑談も交えて賑やかに戦う配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ついでにガロンは昨日から使い始めました",
+      "atSeconds": 1586,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "c0640df1e94a4450134068e9d2da6de3ffdd905d3f8a167cb2aab5a4fc24c831",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T14:23:22.660918Z"
   }
 }

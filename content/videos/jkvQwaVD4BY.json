@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "166cfedbff5acdab2304989378130ae6851de5ba8e6d48fdc0dda81bf24d1b02"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "fab8cf81c7030459b34f5f5c204fde0f5672ffb97c3d59835367491a6bdb4087",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 12989
     }
   ],
   "tagAssignments": [
@@ -306,5 +314,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴が協力型パズルゲーム『We Were Here Forever』に挑戦。相棒と別々の場所で手掛かりを見つけ、言葉だけで情報を伝えながら仕掛けを解いて先へ進みます。迷いとひらめきが交差する謎解きに二人の掛け合いが重なり、難所にも粘り強く挑む回です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私たちどっちも謎解き好きだから",
+      "atSeconds": 12782,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "fab8cf81c7030459b34f5f5c204fde0f5672ffb97c3d59835367491a6bdb4087",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T13:54:29.794903Z"
   }
 }
