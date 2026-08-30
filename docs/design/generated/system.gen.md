@@ -18,8 +18,13 @@
 - `*`
 - `/`
 - `/collaborators/:tagId`
+- `/games`
+- `/games/genres/:tagId`
 - `/groups/:tagId`
 - `/library`
+- `/series/:tagId`
+- `/songs`
+- `/songs/:tagId`
 - `/video/:videoId`
 - `/works/:tagId`
 
@@ -29,15 +34,15 @@
 |---|---:|
 | COST | 5 |
 | DEVICE | 11 |
-| DISPLAY | 13 |
-| INGEST | 12 |
+| DISPLAY | 16 |
+| INGEST | 14 |
 | OPS | 26 |
 | QUALITY | 5 |
 | SAFETY | 4 |
-| SEARCH | 21 |
-| TAG | 35 |
+| SEARCH | 22 |
+| TAG | 40 |
 | TIME | 37 |
-| **合計** | **169** |
+| **合計** | **180** |
 
 ## 公開データの流れ
 
@@ -93,6 +98,12 @@
 | `src/data/loadPublicData.ts` | FunctionDeclaration | `loadVideoDetail` |
 | `src/data/loadPublicData.ts` | InterfaceDeclaration | `PublicBundle` |
 | `src/data/loadPublicData.ts` | ClassDeclaration | `PublicDataError` |
+| `src/domain/collaboration-group-audit.ts` | VariableStatement | `auditCollaborationGroupTags` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditAlias` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditGroup` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditResult` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditSource` |
+| `src/domain/collaboration-group-audit.ts` | TypeAliasDeclaration | `CollaborationAuditVideo` |
 | `src/domain/collaboration.ts` | InterfaceDeclaration | `CollaborationCandidate` |
 | `src/domain/collaboration.ts` | TypeAliasDeclaration | `CollaborationSelectionPolicy` |
 | `src/domain/collaboration.ts` | FunctionDeclaration | `selectCollaboratorNames` |
@@ -108,14 +119,20 @@
 | `src/domain/content.ts` | VariableStatement | `evidenceReferenceSchema` |
 | `src/domain/content.ts` | VariableStatement | `evidenceTypeSchema` |
 | `src/domain/content.ts` | FunctionDeclaration | `findTagId` |
+| `src/domain/content.ts` | TypeAliasDeclaration | `GameCatalog` |
+| `src/domain/content.ts` | VariableStatement | `gameCatalogSchema` |
 | `src/domain/content.ts` | VariableStatement | `independentReviewSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `LatestRelease` |
 | `src/domain/content.ts` | VariableStatement | `latestReleaseSchema` |
 | `src/domain/content.ts` | VariableStatement | `legacyIndependentReviewSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `PublicAliasIndex` |
 | `src/domain/content.ts` | VariableStatement | `publicAliasIndexSchema` |
+| `src/domain/content.ts` | TypeAliasDeclaration | `PublicGameIndex` |
+| `src/domain/content.ts` | VariableStatement | `publicGameIndexSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `PublicIndex` |
 | `src/domain/content.ts` | VariableStatement | `publicIndexSchema` |
+| `src/domain/content.ts` | TypeAliasDeclaration | `PublicSongIndex` |
+| `src/domain/content.ts` | VariableStatement | `publicSongIndexSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `PublicTagIndex` |
 | `src/domain/content.ts` | VariableStatement | `publicTagIndexSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `PublicVideoDetail` |
@@ -127,6 +144,9 @@
 | `src/domain/content.ts` | VariableStatement | `pullRequestMergeIndependentReviewSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `SearchIndex` |
 | `src/domain/content.ts` | VariableStatement | `searchIndexSchema` |
+| `src/domain/content.ts` | TypeAliasDeclaration | `SongPerformanceCatalog` |
+| `src/domain/content.ts` | VariableStatement | `songPerformanceCatalogSchema` |
+| `src/domain/content.ts` | VariableStatement | `songPerformanceTypeSchema` |
 | `src/domain/content.ts` | VariableStatement | `synopsisSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `TagAliases` |
 | `src/domain/content.ts` | VariableStatement | `tagAliasesSchema` |
@@ -141,6 +161,8 @@
 | `src/domain/content.ts` | VariableStatement | `wordCloudMissingReasonSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `WorkIntroductions` |
 | `src/domain/content.ts` | VariableStatement | `workIntroductionsSchema` |
+| `src/domain/game-catalog.ts` | FunctionDeclaration | `applyGameCatalogGenres` |
+| `src/domain/game-catalog.ts` | FunctionDeclaration | `catalogGameGenreTagIds` |
 | `src/domain/game-title-detection.ts` | FunctionDeclaration | `detectExplicitGameTitleTagIds` |
 | `src/domain/search.ts` | FunctionDeclaration | `additionalTagCounts` |
 | `src/domain/search.ts` | FunctionDeclaration | `applySearch` |
@@ -171,13 +193,20 @@
 | `src/domain/validation.ts` | FunctionDeclaration | `scanPublicBoundary` |
 | `src/domain/validation.ts` | FunctionDeclaration | `validateCanonicalVideo` |
 | `src/domain/validation.ts` | FunctionDeclaration | `validateChannelPersonMappings` |
+| `src/domain/validation.ts` | FunctionDeclaration | `validateGameCatalog` |
+| `src/domain/validation.ts` | FunctionDeclaration | `validateSongPerformanceCatalog` |
 | `src/domain/validation.ts` | FunctionDeclaration | `validateTaxonomy` |
 | `src/domain/validation.ts` | InterfaceDeclaration | `ValidationIssue` |
 | `src/features/collaborations/CollaboratorDetailPage.tsx` | FunctionDeclaration | `CollaboratorDetailPage` |
 | `src/features/collaborations/GroupDetailPage.tsx` | FunctionDeclaration | `GroupDetailPage` |
 | `src/features/detail/VideoDetailPage.tsx` | FunctionDeclaration | `VideoDetailPage` |
+| `src/features/games/GameIndexPage.tsx` | FunctionDeclaration | `GameIndexPage` |
 | `src/features/library/DeviceLibraryPage.tsx` | FunctionDeclaration | `DeviceLibraryPage` |
+| `src/features/search/DateRangePicker.tsx` | FunctionDeclaration | `DateRangePicker` |
+| `src/features/search/DurationRangeSlider.tsx` | FunctionDeclaration | `DurationRangeSlider` |
 | `src/features/search/SearchPage.tsx` | FunctionDeclaration | `SearchPage` |
+| `src/features/series/SeriesDetailPage.tsx` | FunctionDeclaration | `SeriesDetailPage` |
+| `src/features/songs/SongIndexPage.tsx` | FunctionDeclaration | `SongIndexPage` |
 | `src/features/works/WorkDetailPage.tsx` | FunctionDeclaration | `WorkDetailPage` |
 | `src/format.ts` | FunctionDeclaration | `formatDate` |
 | `src/format.ts` | FunctionDeclaration | `formatDuration` |
@@ -186,17 +215,25 @@
 ## 自動試験
 
 - `e2e/detail.spec.ts`
+- `e2e/game-index.spec.ts`
 - `e2e/library.spec.ts`
 - `e2e/search.spec.ts`
+- `e2e/song-index.spec.ts`
 - `src/data/deviceStore.test.ts`
 - `src/data/loadPublicData.test.ts`
+- `src/domain/collaboration-group-audit.test.ts`
 - `src/domain/collaboration.test.ts`
 - `src/domain/game-title-detection.test.ts`
 - `src/domain/search.test.ts`
 - `src/domain/validation.test.ts`
 - `src/features/collaborations/CollaborationDetailPages.test.tsx`
+- `src/features/games/GameIndexPage.test.tsx`
+- `src/features/search/SearchFilterControls.test.tsx`
+- `src/features/search/SearchPage.test.tsx`
+- `src/features/series/SeriesDetailPage.test.tsx`
+- `src/features/songs/SongIndexPage.test.tsx`
 - `src/features/works/WorkDetailPage.test.tsx`
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力51ファイル、公開契約135件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力66ファイル、公開契約159件です。
