@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "2d1c51af55eefce16f1755bdcc0ca8b8c4d7339ce0211cc74ede3aea034b19eb"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "1007886ad3532919bddd8d5942f0c19a2c7acaf313991ccca64088e1619d2492",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7783
     }
   ],
   "tagAssignments": [
@@ -160,5 +168,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴が4人の仲間と協力してホラーゲームに挑戦。暗い建物を探索し、ガソリンや鍵などの道具を集め、襲い来る存在をかわしながら仕掛けを解きます。仲間の位置を確認して助け合い、迷路のような場所からの脱出を目指す配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "悪霊退散してから行くね",
+      "atSeconds": 3141,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "1007886ad3532919bddd8d5942f0c19a2c7acaf313991ccca64088e1619d2492",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T13:53:17.957375Z"
   }
 }
