@@ -71,6 +71,12 @@ selected_checks:
   evidence:
   - commit:self
   note: 人のcampaign要求がbranch、push、draft PR、台帳更新を許可している。
+- id: IMP-007
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/videos/Fu-EnJhu4vY.json
+  note: 可逆な1動画あらすじ追加でありmigrationや削除はない。
 - id: FAST-004
   class: Invariant
   result: pass
