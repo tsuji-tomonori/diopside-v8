@@ -1,7 +1,7 @@
 schema_version: 2
 catalog_version: 3
 catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
-change_id: CHG-20260823-synopsis-dnquxitzpt0
+change_id: CHG-20260823-synopsis-ltc3gcprbue
 profile: assured
 source_ref: self
 completed_timings:
@@ -51,7 +51,7 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/DNqUXiTZpT0.json
+  - path:content/videos/LTc3gcpRBUE.json
   note: 既存のあらすじ表示要件に従う1動画追加である。
 - id: IMP-002
   class: Invariant
@@ -63,7 +63,7 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/DNqUXiTZpT0.json
+  - path:content/videos/LTc3gcpRBUE.json
   note: 全編根拠と独立三重reviewを伴うためassuredを選択した。
 - id: IMP-004
   class: Invariant
@@ -75,13 +75,13 @@ selected_checks:
   class: Risk-selected
   result: pass
   evidence:
-  - path:content/videos/DNqUXiTZpT0.json
+  - path:content/videos/LTc3gcpRBUE.json
   note: 可逆な1動画あらすじ追加でありmigrationや削除はない。
 - id: FAST-004
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/DNqUXiTZpT0.json
+  - path:content/videos/LTc3gcpRBUE.json
   - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 候補hash、全編根拠、独立reviewを検証する。
 - id: FAST-006
@@ -101,7 +101,7 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/DNqUXiTZpT0.json
+  - path:content/videos/LTc3gcpRBUE.json
   note: 差分を1動画正本、manifest、review YAMLへ限定する。
 - id: REV-002
   class: Invariant
@@ -114,7 +114,7 @@ selected_checks:
   result: pass
   evidence:
   - path:spec/requirements/requirements.json
-  - path:content/videos/DNqUXiTZpT0.json
+  - path:content/videos/LTc3gcpRBUE.json
   note: V8-DISPLAY-011の受入条件へ適合する。
 - id: REV-004
   class: Invariant
@@ -133,16 +133,16 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:governance/reviews/CHG-20260823-synopsis-dnquxitzpt0.yaml
+  - path:governance/reviews/CHG-20260823-synopsis-ltc3gcprbue.yaml
   note: 選択checkだけを保存する。
 - id: REV-008
   class: Invariant
   result: pass
   evidence:
-  - path:governance/reviews/CHG-20260823-synopsis-dnquxitzpt0.yaml
+  - path:governance/reviews/CHG-20260823-synopsis-ltc3gcprbue.yaml
   note: 未選択checkをN/Aとして保存しない。
 advisories: []
 residual_risks:
-- 候補hash 6684d31284a42cf289f199697d74e1364e863f3d05fde7ecf9a74fc36ce40738 を親Solが最終確認済みであり、明示されたマージ権限に基づき、PR head一致とCI成功を確認してマージする。
-- main d1959456c29a4d652af7061db0f4995841cf72cf から全動画を決定的に再集計し、DNqUXiTZpT0を加えたsynopsis 259件とmanifest件数259件の一致を確認した。
-- 既存branch head 05b1c7cf0962afa8ae02fb2ec1433f7884d6fd7f を履歴へ保持し、force updateを使わず最新mainへ統合する。
+- 候補hash 87d25ee78cbb9ddd05f04c41cc6233c7d0c4ea966b4e4b620a5ab18033b8eadb を親Solが最終確認済みであり、明示されたマージ権限に基づき、PR head一致とCI成功を確認してマージする。
+- main 1e4eef7a8fca1c145a0f75ea6af356346195acf8 から全動画を決定的に再集計し、synopsisを持つ動画258件とmanifest件数258件の一致を確認した。
+- 既存branch head d173a5c8400a8165136a0c519cff0bccbb88f7aa を履歴へ保持し、force updateを使わず最新mainへ統合する。
