@@ -11,10 +11,11 @@
 
 ## private material backfill
 
-- 外部SQS入力は `{ "video_id": "11 chars" }` だけを受け、未知field、cookie、認証、proxy、login、bot回避を受け入れない。
-- workerはknown video IDの固定manifestだけを処理する。scheduleや将来動画の自動発見はしない。
+- ローカルCLI入力は11文字のvideo IDまたは検証済み不変manifestだけを受け、cookie、認証、proxy、login、bot回避を受け入れない。
+- workerは運用者がローカルPCで明示したvideo IDだけを処理し、対象private S3・DynamoDBへ直接書き込む。GitHub Actions、SQS、Lambda、schedule、将来動画の自動発見で取得を起動しない。
 - yt-dlp、ffmpeg、取得元の応答本文は診断ログへ残さない。分類済みreason codeと再試行可否だけを残す。
 - S3 keyは `channel_id/video_id/runs/run_id/` とcurrent `manifest.json` に限定し、current objectを30日TTLにしない。AWS deploy、素材投入、削除、公開は明示承認なしに実行しない。
 - legacy local importでは生コメント・生チャットをprivate raw objectに限定し、normalized JSONLから投稿者名、channel ID、avatar、profile URLを除去する。ASR混在文字起こしをYouTube自動字幕へ偽装せず、由来をprivate manifestへ残す。
-- private S3はbucket defaultのSSE-S3、DynamoDBはAWS所有鍵、SQSはSSE-SQS、CloudWatch Logsはservice defaultで保存時暗号化する。customer-managed KMS keyは作成せず、local import実行者へは対象S3・tableの必要操作だけを許可し、CLI出力とログへ本文、識別子、AWS資格情報を出さない。
+- private S3はbucket defaultのSSE-S3、DynamoDBはAWS所有鍵で保存時暗号化する。customer-managed KMS keyは作成せず、ローカル実行者へは対象S3・tableの必要操作だけを許可する。CLI出力とログは明示video ID、run ID、安全な状態codeに限定し、取得本文、投稿者等の識別情報、AWS資格情報を出さない。
+- GitHub Actionsの保存基盤deployは長期AWS access keyを保存せず、owner ID・repository ID・protected environmentを含むimmutableな完全一致OIDC subjectと共有infra roleを使う。共有roleとinline session policyはTargetDeploymentRegionのCDK bootstrap deploy、file-publishing、lookup roleの引受けだけを許可し、S3、DynamoDB、SQS、Lambdaのdata-plane操作を許可しない。
 - repository方針検査はGit管理外の `.devflow/` 一時素材を走査せず、公開またはcommitされる対象の検査と一時private evidenceの取扱いを分離する。
