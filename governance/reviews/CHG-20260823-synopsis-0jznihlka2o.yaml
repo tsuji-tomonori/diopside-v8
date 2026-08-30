@@ -149,7 +149,6 @@ selected_checks:
   note: 未選択checkをN/Aとして保存しない。
 advisories: []
 residual_risks:
-- 候補hash a88dc8aace96c205f0fc1dfc45bc51bf6ad56282d6fe24648dd59835f5de14f2 は人がdraft
-  PRをマージするまで公開されない。
+- 候補hash a88dc8aace96c205f0fc1dfc45bc51bf6ad56282d6fe24648dd59835f5de14f2 は、利用者の明示したmerge権限に基づき、確認済みheadとCI成功を照合して公開する。
 - 最新main統合時に動画taxonomyVersionを現行8.7.0へ整合した。
-- 最終origin/main（0ed18eca2796c630fe5dd74f1c406ae4e842392d）再統合後にmanifest件数を再集計した。
+- 最新main統合後に全動画を決定的に再集計し、synopsisを持つ動画250件とmanifest件数250件の一致を確認した。
