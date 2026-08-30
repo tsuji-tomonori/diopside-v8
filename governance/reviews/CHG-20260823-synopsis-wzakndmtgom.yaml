@@ -1,7 +1,7 @@
 schema_version: 2
 catalog_version: 3
 catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
-change_id: CHG-20260823-synopsis-zszv06mgx04
+change_id: CHG-20260823-synopsis-wzakndmtgom
 profile: assured
 source_ref: self
 completed_timings:
@@ -51,7 +51,7 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/ZsZV06Mgx04.json
+  - path:content/videos/WzAknDMtGOM.json
   note: 既存のあらすじ表示要件に従う1動画追加である。
 - id: IMP-002
   class: Invariant
@@ -63,7 +63,7 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/ZsZV06Mgx04.json
+  - path:content/videos/WzAknDMtGOM.json
   note: 全編根拠と独立三重reviewを伴うためassuredを選択した。
 - id: IMP-004
   class: Invariant
@@ -75,13 +75,13 @@ selected_checks:
   class: Risk-selected
   result: pass
   evidence:
-  - path:content/videos/ZsZV06Mgx04.json
+  - path:content/videos/WzAknDMtGOM.json
   note: 可逆な1動画あらすじ追加でありmigrationや削除はない。
 - id: FAST-004
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/ZsZV06Mgx04.json
+  - path:content/videos/WzAknDMtGOM.json
   - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 候補hash、全編根拠、独立reviewを検証する。
 - id: FAST-006
@@ -101,7 +101,7 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/ZsZV06Mgx04.json
+  - path:content/videos/WzAknDMtGOM.json
   note: 差分を1動画正本、manifest、review YAMLへ限定する。
 - id: REV-002
   class: Invariant
@@ -114,7 +114,7 @@ selected_checks:
   result: pass
   evidence:
   - path:spec/requirements/requirements.json
-  - path:content/videos/ZsZV06Mgx04.json
+  - path:content/videos/WzAknDMtGOM.json
   note: V8-DISPLAY-011の受入条件へ適合する。
 - id: REV-004
   class: Invariant
@@ -133,16 +133,16 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:governance/reviews/CHG-20260823-synopsis-zszv06mgx04.yaml
+  - path:governance/reviews/CHG-20260823-synopsis-wzakndmtgom.yaml
   note: 選択checkだけを保存する。
 - id: REV-008
   class: Invariant
   result: pass
   evidence:
-  - path:governance/reviews/CHG-20260823-synopsis-zszv06mgx04.yaml
+  - path:governance/reviews/CHG-20260823-synopsis-wzakndmtgom.yaml
   note: 未選択checkをN/Aとして保存しない。
 advisories: []
 residual_risks:
-- 候補hash 299331b66e720ea038cfb948ff60d66b5f9ee3dbfbca700b80a46b1267fe78d7 を親Solが最終確認済みであり、明示されたマージ権限に基づき、PR head一致とCI成功を確認してマージする。
-- main 84e1e89c8ce3d28579936a0a1016ae16dc6b9d7d から全動画を決定的に再集計し、synopsisを持つ動画256件とmanifest件数256件の一致を確認した。
-- 既存branch head dd09f35c23455063e88dbc49a4b10af622470a18 を履歴へ保持し、force updateを使わず最新mainへ統合する。
+- 候補hash 7ab9f3d340c8f4a191167975e563166c7d2762e82f3dc4129ccfa70e487c30c5 を親Solが最終確認済みであり、明示されたマージ権限に基づき、PR head一致とCI成功を確認してマージする。
+- main e93b55262d1e98a5ec409f99d8710596c433bf99 から全動画を決定的に再集計し、synopsisを持つ動画255件とmanifest件数255件の一致を確認した。
+- 既存branch head e03ec6f8a978551715d8b32a89da792377bb9897 を履歴へ保持し、force updateを使わず最新mainへ統合した。
