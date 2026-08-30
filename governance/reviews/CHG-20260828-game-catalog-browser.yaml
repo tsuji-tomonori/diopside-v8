@@ -1,0 +1,250 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260828-game-catalog-browser
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: false
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: true
+  external_side_effect: true
+  production_deploy: true
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:spec/sources/owner-directive-2026-08-28-game-catalog.md
+    note: ゲーム単位のジャンル正本、一貫した動画表示、同一ゲームの表記統合、統制されたジャンル追加をV8-TAG-039、V8-TAG-040、V8-DISPLAY-016として正本化した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+      - path:docs/design/generated/inventory.gen.json
+    note: ゲーム正本、表記統合、追加型taxonomy互換、公開game-index、routeと利用画面を生成設計へ反映した。正本・schema・生成器から判断を追跡でき、revert可能な静的構造なのでADRは不要である。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260828-game-catalog-browser.yaml
+    note: 永続正本、公開ファイル契約、重要UI、要件・生成設計、E2E、production公開へ横断的に影響するためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 利用者がGitHub pluginを指定し、feature branch更新、PRのready化とsquash merge、生成release PRのmerge、GitHub Pages公開、公開版確認まで明示的に依頼した。競合解消のため最新main 528f18aを取り込む操作もこの範囲に含み、削除や課金操作はなく、異常時はrevertと旧release参照へ戻せる。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/works/game-catalog.json
+      - path:src/domain/validation.ts
+    note: 247作品名を244ゲーム単位へ統合し、分類と確認根拠を追記型JSON正本に置く。作品・ジャンル・根拠・動画適用の完全性を検証し、DB migrationや削除はなく、commitのrevertと再生成で復旧できる。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/build-public-data.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 要件・公開データ・生成設計を含むproduction buildをローカルで完了し、同じ契約をCIで再実行する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:tsconfig.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: ブラウザ用とNode用のTypeScript strict型検査を完了した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/games/GameIndexPage.tsx
+      - path:src/domain/game-catalog.ts
+      - test:e2e/game-index.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 変更したReact、domain、生成script、CSS、unit test、E2Eを含むlintを警告0件で完了した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/features/games/GameIndexPage.test.tsx
+      - test:src/features/works/WorkDetailPage.test.tsx
+      - test:src/data/loadPublicData.test.ts
+      - test:tests/content-validation.test.ts
+      - test:tests/generated.test.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: ゲーム正本の完全性、6追加ジャンルの複数作品利用、同一ゲーム表記の統合、一貫分類、公開生成、一覧・詳細・動画導線と既存画面回帰を対象テストで確認した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/works/WorkDetailPage.test.tsx
+      - test:tests/generated.test.ts
+      - path:scripts/audit-game-tags.ts
+    note: ワガママハイスペックの6動画をアドベンチャー・カジュアル・ビジュアルノベルへ統一し、アクション再混入を検出する。表記違いの全動画統合と、コラボ名だけだったf2q9j8BoDWQからブルーアーカイブを除く回帰条件も固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/requirements/REQUIREMENTS.md
+      - path:docs/design/generated/system.gen.md
+      - path:docs/design/generated/inventory.gen.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 要件表示とas-built設計を正本・generator・実装から決定的に再生成した。commit後のgenerated drift checkとCIで一致を再確認する。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: staged対象をゲーム正本、taxonomy、生成・検証logic、UI、test、要件・生成設計、review記録へ限定し、credential、個人情報、配信用release成果物を含めない。
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/games/GameIndexPage.test.tsx
+      - test:src/features/works/WorkDetailPage.test.tsx
+      - test:e2e/game-index.spec.ts
+    note: loadingと構造エラーは共通公開bundle境界、success・empty・未知ジャンルはゲーム一覧、作品詳細、E2Eで確認し、既存検索への回復導線を維持する。
+  - id: FAST-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/games/GameIndexPage.test.tsx
+      - test:e2e/game-index.spec.ts
+    note: semanticな見出しと通常linkを使い、ジャンル、ゲーム、配信へのkeyboard操作とaccessible nameをcomponent・E2E契約へ含めた。
+  - id: FAST-018
+    class: Risk-selected
+    result: na
+    evidence:
+      - test:e2e/game-index.spec.ts
+    note: E2E変更triggerで選択後、対象が読取り専用の静的ゲーム探索ページでありC/U/D API、DB、外部状態変更を含まないと確認した。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 根拠に基づくゲーム単位分類、一貫適用、同一ゲーム統合、ジャンル・ゲーム・配信導線という一つの利用者目的に差分を限定し、静的release成果物は通常PRへ含めない。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: Commit Commentへ目的、変更内容、要件・設計影響、review path、検証契約、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:spec/sources/owner-directive-2026-08-28-game-catalog.md
+    note: repository ownerの指示をゲーム単位の根拠付き分類、統制された不足語彙追加、同一ゲーム統合、ジャンルからゲームと配信へ辿る受入条件へ分解して正本化した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+      - path:docs/design/generated/inventory.gen.json
+    note: 正本schema、taxonomy互換、表記統合、検証、生成経路、公開bundle、route、利用画面をas-built設計へ反映した。理由は要件正本と包含・除外基準から追跡できるため別ADRは不要である。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - test:src/features/games/GameIndexPage.test.tsx
+      - test:src/features/works/WorkDetailPage.test.tsx
+      - test:e2e/game-index.spec.ts
+    note: V8-TAG-039、V8-TAG-040、V8-DISPLAY-016からtaxonomy・ゲーム正本、公開生成、画面実装、component・E2Eへtraceできる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/features/games/GameIndexPage.test.tsx
+      - test:src/features/works/WorkDetailPage.test.tsx
+      - test:src/data/loadPublicData.test.ts
+      - test:tests/content-validation.test.ts
+      - test:tests/generated.test.ts
+      - test:e2e/game-index.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 247作品名を統合した244ゲーム正本、追加語彙、一貫分類、公開契約、主要画面状態、ジャンルからゲームと配信への移動、既存画面回帰を通常PRのCIで実行する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260828-game-catalog-browser.yaml
+    note: 変更flagsから選択されたcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260828-game-catalog-browser.yaml
+    note: selectorで選択されなかったcheckを形式的なN/Aとして登録していない。
+  - id: REV-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/game-index.spec.ts
+    note: FAST-018はE2E変更で選択後、CRUD・DB・外部状態を持たない静的UI試験と判明したためN/A根拠を記録した。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/domain/content.ts
+      - path:scripts/build-public-data.ts
+      - test:src/data/loadPublicData.test.ts
+      - test:tests/generated.test.ts
+    note: game-index.jsonへ任意のequivalentGameTitleTagIdsを追加し、公開動画詳細は現行taxonomyVersionを示す。旧consumerは未知fieldを無視し、8.6.0の動画正本は明示互換として受理する。DB migrationはなく、release世代切替またはrevertでrollbackできる。
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/games/GameIndexPage.test.tsx
+      - test:src/features/works/WorkDetailPage.test.tsx
+      - test:e2e/game-index.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: ジャンル一覧、ゲーム一覧、同一ゲームの表記統合、配信一覧、対象動画の分類という主要タスク、empty・未知ジャンル、keyboard、375px幅をcomponentとCI E2Eへ接続した。
+
+advisories: []
+residual_risks:
+  - 244ゲーム単位の根拠URLと2026-08-28の確認日を正本へ保存した。ストア上の表示やタグは将来変わり得るため、次回分類変更時も同じ正本で根拠と確認日を更新する。
+  - ローカル環境ではPlaywright用Chromiumが未配置で、配布元からの取得もtimeoutしたため、Playwright同梱containerを使うGitHub Actions E2E合格をmerge前の必須証拠とする。
