@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=Hefv7SSmlV4",
-  "taxonomyVersion": "8.5.0",
+  "taxonomyVersion": "8.6.0",
   "aliasVersion": "8.3.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -43,6 +43,14 @@
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "48bdd00957ce4f4a9207dedbe4150224ab5263ec80bd24e87f4f961d5d435a9f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8938
+    },
+    {
+      "evidenceId": "evidence-full-transcript-timestamps",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕（既存タイムスタンプ根拠）",
       "inputFingerprint": "497cd2becd3723746c1adcdbe083f713dc2b60c38cd2d2413c382c05abc2340c",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 8938
@@ -595,5 +603,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-16T12:05:00+09:00",
     "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  },
+  "synopsis": {
+    "body": "スマブラ大会の本番へ向け、白雪巴がゼルダとホムラ／ヒカリの動きを直前まで確かめる。ほかの試合を見守りながら、対戦相手とのボイスチャットでは緊張も笑いに変え、好きなキャラクターと自分らしい攻め方で一戦ずつ大会に挑んでいく。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私は好きなキャラを使いたい",
+      "atSeconds": 4648,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "48bdd00957ce4f4a9207dedbe4150224ab5263ec80bd24e87f4f961d5d435a9f",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T04:26:38.786821Z"
   }
 }
