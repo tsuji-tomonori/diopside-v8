@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=jNdro_NRQdM",
-  "taxonomyVersion": "8.5.0",
+  "taxonomyVersion": "8.6.0",
   "aliasVersion": "8.3.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -44,6 +44,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "cb16b8a0aca84a6bc013eabf49c40c6fb9d21d92ce9d07d4f5248dab48e3a5ab"
+    },
+    {
+      "evidenceId": "evidence-collaboration-horizontal",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
+      "inputFingerprint": "92f212fb7a7e05054c88be465f7eae1bb64ebee2c3f6fb4a820c53f5e591fd96"
     },
     {
       "evidenceId": "evidence-full-transcript",
@@ -99,6 +105,33 @@
         "evidence-approved-tags"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-unit-d5b1de96b450",
+      "reason": "公開タイトル・参加者情報からコンビ・ユニット名「女王と会長」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-f1576533a080",
+      "reason": "人物名「来栖夏芽」をコンビ・ユニット「女王と会長」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "公開タイトル・参加者情報から参加形態「コラボ」を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
     }
   ],
   "timestamps": {
@@ -450,8 +483,8 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+    "approvedAt": "2026-08-25T23:20:56+09:00",
+    "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
   },
   "synopsis": {
     "body": "白雪巴と夏目さんが協力型パズルゲーム『We Were Here Forever』の最終回に挑戦。離れた場所の情報を伝え合い、装置や仕掛けを解く謎解きに奔走する。意見を交わしながら試行錯誤を重ね、迷いとひらめきに盛り上がる最終章を届ける。",
