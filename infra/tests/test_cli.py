@@ -8,8 +8,10 @@ from pathlib import Path
 
 import pytest
 
-from diopside_ingestion.cli import enqueue_manifest, materialize_private_caption, upload_manifest
+from diopside_ingestion import cli
+from diopside_ingestion.cli import build_parser, materialize_private_caption, upload_manifest
 from diopside_ingestion.contracts import initial_artifacts
+from diopside_ingestion.local_runner import LocalIngestionResult
 from diopside_ingestion.manifest import BackfillManifest, VideoTarget
 from diopside_ingestion.paths import current_manifest_key
 
@@ -63,15 +65,6 @@ class FakeStore:
         return {"Contents": [{"Key": key} for key in self.listings.get(prefix, [])]}
 
 
-@dataclass
-class FakeQueue:
-    sent: list[dict[str, object]] = field(default_factory=lambda: list[dict[str, object]]())
-
-    def send_message(self, **kwargs: object) -> Mapping[str, object]:
-        self.sent.append(dict(kwargs))
-        return {}
-
-
 def test_upload_manifest_is_immutable_and_idempotent() -> None:
     store = FakeStore()
     key = upload_manifest(store, "private-bucket", _manifest())
@@ -83,11 +76,100 @@ def test_upload_manifest_is_immutable_and_idempotent() -> None:
     assert existing.puts == []
 
 
-def test_enqueue_manifest_body_has_only_video_id() -> None:
-    queue = FakeQueue()
-    assert enqueue_manifest(queue, "https://sqs.example/queue", _manifest()) == 1
-    assert queue.sent[0]["MessageBody"] == '{"video_id":"dQw4w9WgXcQ"}'
-    assert queue.sent[0]["MessageGroupId"] == "dQw4w9WgXcQ"
+def test_ingest_command_requires_one_video_and_storage_destination() -> None:
+    args = build_parser().parse_args(
+        [
+            "ingest",
+            "--video-id",
+            "dQw4w9WgXcQ",
+            "--bucket",
+            "private-bucket",
+            "--table",
+            "VideoIngestion",
+            "--profile",
+            "diopside",
+        ]
+    )
+
+    assert args.command == "ingest"
+    assert args.video_id == "dQw4w9WgXcQ"
+    assert args.bucket == "private-bucket"
+    assert args.table == "VideoIngestion"
+    assert args.profile == "diopside"
+    assert args.region == "ap-northeast-1"
+    assert args.max_attempts == 3
+
+
+def test_ingest_command_rejects_unbounded_retry_count() -> None:
+    with pytest.raises(SystemExit):
+        build_parser().parse_args(
+            [
+                "ingest",
+                "--video-id",
+                "dQw4w9WgXcQ",
+                "--bucket",
+                "private-bucket",
+                "--table",
+                "VideoIngestion",
+                "--max-attempts",
+                "11",
+            ]
+        )
+
+
+def test_ingest_command_runs_local_worker_and_returns_safe_json(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    calls: list[tuple[str, int]] = []
+
+    @dataclass
+    class FakeRunner:
+        def process(self, video_id: str, *, max_attempts: int) -> LocalIngestionResult:
+            calls.append((video_id, max_attempts))
+            return LocalIngestionResult(
+                video_id=video_id,
+                outcome="completed",
+                status="succeeded",
+                completed=True,
+                skipped_existing=False,
+                attempt_count=1,
+                run_id=f"ingest-{video_id}-1",
+                last_reason_code=None,
+            )
+
+    def fake_build_local_runner(**_kwargs: object) -> FakeRunner:
+        return FakeRunner()
+
+    monkeypatch.setattr(cli, "build_local_runner", fake_build_local_runner)
+
+    exit_code = cli.main(
+        [
+            "ingest",
+            "--video-id",
+            "dQw4w9WgXcQ",
+            "--bucket",
+            "private-bucket",
+            "--table",
+            "VideoIngestion",
+            "--max-attempts",
+            "4",
+        ]
+    )
+    output = json.loads(capsys.readouterr().out)
+
+    assert exit_code == 0
+    assert calls == [("dQw4w9WgXcQ", 4)]
+    assert output == {
+        "attempt_count": 1,
+        "completed": True,
+        "last_reason_code": None,
+        "outcome": "completed",
+        "run_id": "ingest-dQw4w9WgXcQ-1",
+        "skipped_existing": False,
+        "status": "succeeded",
+        "video_id": "dQw4w9WgXcQ",
+    }
 
 
 def test_materialize_private_caption_only_after_manifest_verification(tmp_path: Path) -> None:

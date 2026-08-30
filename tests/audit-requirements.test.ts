@@ -29,6 +29,8 @@ describe('要件受入監査', () => {
     const audit = JSON.parse(readFileSync(outputPath, 'utf8')) as {
       acceptancePassed: boolean;
       authorizationPassed: boolean;
+      catalogRequirementCount: number;
+      retiredRequirementCount: number;
       blockingIncompleteCount: number;
       acceptedIncompleteCount: number;
       rows: Array<{ id: string; status: string }>;
@@ -37,8 +39,11 @@ describe('要件受入監査', () => {
 
     expect(audit.acceptancePassed).toBe(false);
     expect(audit.authorizationPassed).toBe(true);
+    expect(audit.catalogRequirementCount).toBe(180);
+    expect(audit.retiredRequirementCount).toBe(1);
     expect(audit.blockingIncompleteCount).toBe(0);
     expect(audit.acceptedIncompleteCount).toBe(2);
     expect(acceptedRows.map((row) => row.id).sort()).toEqual(['V8-COST-001', 'V8-QUALITY-002']);
+    expect(audit.rows.some((row) => row.id === 'V8-INGEST-014')).toBe(false);
   });
 });
