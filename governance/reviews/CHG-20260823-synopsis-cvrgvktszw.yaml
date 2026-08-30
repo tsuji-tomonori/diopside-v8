@@ -70,7 +70,7 @@ selected_checks:
   result: pass
   evidence:
   - commit:self
-  note: 人のcampaign要求がbranch、push、draft PR、台帳更新を許可している。
+  note: 人のcampaign要求がbranch、push、PR、台帳更新、検証後のmergeを明示的に許可している。
 - id: IMP-007
   class: Risk-selected
   result: pass
