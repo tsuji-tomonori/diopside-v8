@@ -3,7 +3,6 @@ from __future__ import annotations
 import json
 import os
 import subprocess
-import time
 from collections.abc import Iterator, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -15,15 +14,13 @@ import pytest
 from botocore.config import Config
 from moto.server import ThreadedMotoServer
 
-import diopside_ingestion.dispatcher as dispatcher_module
-from diopside_ingestion.dispatcher import Dispatcher, lambda_handler
+from diopside_ingestion.local_runner import LocalIngestionRunner
 from diopside_ingestion.state import DynamoIngestionRepository
 from diopside_ingestion.worker import IngestionWorker, ObjectStore, WorkerConfig
 
 if TYPE_CHECKING:
     from mypy_boto3_dynamodb import DynamoDBClient
     from mypy_boto3_s3 import S3Client
-    from mypy_boto3_sqs import SQSClient
 
 REGION: Literal["ap-northeast-1"] = "ap-northeast-1"
 VIDEO_ID = "dQw4w9WgXcQ"
@@ -33,16 +30,14 @@ VIDEO_ID = "dQw4w9WgXcQ"
 class AwsResources:
     dynamodb: DynamoDBClient
     s3: S3Client
-    sqs: SQSClient
     table_name: str
     bucket_name: str
-    queue_url: str
 
 
 @dataclass
 class FixtureRunner:
     fail_native_audio: bool = False
-    calls: list[list[str]] = field(default_factory=lambda: list[list[str]]())
+    calls: list[list[str]] = field(default_factory=lambda: [])
 
     def run(self, args: Sequence[str], *, cwd: Path) -> subprocess.CompletedProcess[bytes]:
         command = list(args)
@@ -70,9 +65,6 @@ class FixtureRunner:
         if "--sub-format" in command and "json3" in command:
             extension = "json3"
             payload = b'{"events":[{"tStartMs":0,"dDurationMs":1000,"segs":[{"utf8":"caption"}]}]}'
-        elif "--sub-format" in command and "vtt" in command:
-            extension = "vtt"
-            payload = b"WEBVTT\n\n00:00.000 --> 00:01.000\ncaption\n"
         elif "--write-comments" in command:
             payload = b'{"comments":[{"timestamp":1,"text":"comment"}]}'
         if "-f" in command:
@@ -81,12 +73,6 @@ class FixtureRunner:
             extension = "jpg"
         (output.parent / f"artifact.{extension}").write_bytes(payload)
         return subprocess.CompletedProcess(command, 0, b"", b"")
-
-
-@dataclass(frozen=True)
-class LambdaContextFixture:
-    def get_remaining_time_in_millis(self) -> int:
-        return 900_000
 
 
 @pytest.fixture(scope="module")
@@ -133,14 +119,6 @@ def aws_resources(aws_endpoint: str) -> Iterator[AwsResources]:
             s3={"addressing_style": "path"},
         ),
     )
-    sqs = boto3.client(  # pyright: ignore[reportUnknownMemberType] -- boto3 overload issue.
-        "sqs",
-        endpoint_url=aws_endpoint,
-        region_name=REGION,
-        aws_access_key_id=local_credential,
-        aws_secret_access_key=local_credential,
-        config=retry_config,
-    )
     table_name = f"VideoIngestion-{suffix}"
     bucket_name = f"diopside-integration-{suffix}"
 
@@ -158,68 +136,31 @@ def aws_resources(aws_endpoint: str) -> Iterator[AwsResources]:
         Bucket=bucket_name,
         CreateBucketConfiguration={"LocationConstraint": REGION},
     )
-    queue_url = sqs.create_queue(
-        QueueName=f"diopside-integration-{suffix}.fifo",
-        Attributes={"FifoQueue": "true", "ContentBasedDeduplication": "true"},
-    )["QueueUrl"]
     resources = AwsResources(
         dynamodb=dynamodb,
         s3=s3,
-        sqs=sqs,
         table_name=table_name,
         bucket_name=bucket_name,
-        queue_url=queue_url,
     )
 
     try:
         yield resources
     finally:
         listed = s3.list_objects_v2(Bucket=bucket_name)
-        objects = listed.get("Contents", [])
-        object_keys: list[str] = []
-        for item in objects:
-            key = item.get("Key")
-            if isinstance(key, str):
-                object_keys.append(key)
+        object_keys = [
+            key for item in listed.get("Contents", []) if isinstance(key := item.get("Key"), str)
+        ]
         if object_keys:
             s3.delete_objects(
                 Bucket=bucket_name,
                 Delete={"Objects": [{"Key": key} for key in object_keys]},
             )
         s3.delete_bucket(Bucket=bucket_name)
-        sqs.delete_queue(QueueUrl=queue_url)
         dynamodb.delete_table(TableName=table_name)
 
 
 def repository(resources: AwsResources) -> DynamoIngestionRepository:
     return DynamoIngestionRepository(resources.dynamodb, resources.table_name)
-
-
-def receive_record(resources: AwsResources) -> tuple[dict[str, object], str]:
-    for _attempt in range(20):
-        response = resources.sqs.receive_message(
-            QueueUrl=resources.queue_url,
-            MaxNumberOfMessages=1,
-            WaitTimeSeconds=1,
-        )
-        messages = response.get("Messages", [])
-        if messages:
-            message = messages[0]
-            message_id = message.get("MessageId")
-            body = message.get("Body")
-            receipt_handle = message.get("ReceiptHandle")
-            if (
-                not isinstance(message_id, str)
-                or not isinstance(body, str)
-                or not isinstance(receipt_handle, str)
-            ):
-                raise AssertionError("SQS response omitted a required message field")
-            return (
-                {"messageId": message_id, "body": body},
-                receipt_handle,
-            )
-        time.sleep(0.05)
-    raise AssertionError("SQS message was not available")
 
 
 @pytest.mark.aws_integration
@@ -228,15 +169,15 @@ def test_real_dynamodb_claim_decodes_numbers_and_enforces_lease(
 ) -> None:
     state = repository(aws_resources)
 
-    first = state.claim(VIDEO_ID, "message-1", 900)
-    blocked = state.claim(VIDEO_ID, "message-2", 900)
+    first = state.claim(VIDEO_ID, "local-1", 900)
+    blocked = state.claim(VIDEO_ID, "local-2", 900)
     aws_resources.dynamodb.update_item(
         TableName=aws_resources.table_name,
         Key={"video_id": {"S": VIDEO_ID}},
         UpdateExpression="SET claim_expires_at = :expired",
         ExpressionAttributeValues={":expired": {"N": "0"}},
     )
-    resumed = state.claim(VIDEO_ID, "message-2", 900)
+    resumed = state.claim(VIDEO_ID, "local-2", 900)
     item = state.load(VIDEO_ID)
 
     assert first.claimed is True
@@ -246,13 +187,12 @@ def test_real_dynamodb_claim_decodes_numbers_and_enforces_lease(
     assert resumed.attempt_count == 2
     assert item is not None
     assert item["attempt_count"] == 2
-    assert isinstance(item["attempt_count"], int)
+    assert item["current_stage"] == "local_claim"
 
 
 @pytest.mark.aws_integration
-def test_sqs_lambda_dispatcher_retries_and_completes_with_real_state_and_objects(
+def test_local_runner_retries_and_completes_with_real_storage(
     aws_resources: AwsResources,
-    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     state = repository(aws_resources)
     configs: list[WorkerConfig] = []
@@ -266,50 +206,27 @@ def test_sqs_lambda_dispatcher_retries_and_completes_with_real_state_and_objects
             runner=FixtureRunner(fail_native_audio=config.run_id.endswith("-1")),
         )
 
-    dispatcher = Dispatcher(
+    local_runner = LocalIngestionRunner(
         repository=state,
         worker_factory=worker_factory,
         bucket=aws_resources.bucket_name,
         table_name=aws_resources.table_name,
-        runtime_version="lambda-python3.12",
+        runtime_version="local-python3.12",
+        claim_owner_factory=lambda: "local-integration",
     )
 
-    def build_dispatcher(_context: object) -> Dispatcher:
-        return dispatcher
+    result = local_runner.process(VIDEO_ID)
 
-    monkeypatch.setattr(dispatcher_module, "build_dispatcher", build_dispatcher)
-    aws_resources.sqs.send_message(
-        QueueUrl=aws_resources.queue_url,
-        MessageBody=json.dumps({"video_id": VIDEO_ID}),
-        MessageGroupId=VIDEO_ID,
-    )
-
-    first_record, first_receipt = receive_record(aws_resources)
-    first_result = lambda_handler({"Records": [first_record]}, LambdaContextFixture())
-    assert first_result == {"batchItemFailures": [{"itemIdentifier": first_record["messageId"]}]}
-
-    aws_resources.sqs.change_message_visibility(
-        QueueUrl=aws_resources.queue_url,
-        ReceiptHandle=first_receipt,
-        VisibilityTimeout=0,
-    )
-    second_record, second_receipt = receive_record(aws_resources)
-    second_result = lambda_handler({"Records": [second_record]}, LambdaContextFixture())
-    assert second_result == {"batchItemFailures": []}
-    aws_resources.sqs.delete_message(
-        QueueUrl=aws_resources.queue_url,
-        ReceiptHandle=second_receipt,
-    )
-
-    item = state.load(VIDEO_ID)
-    assert item is not None
-    assert item["status"] == "succeeded"
-    assert item["attempt_count"] == 2
-    assert isinstance(item["attempt_count"], int)
+    assert result.completed is True
+    assert result.status == "succeeded"
+    assert result.attempt_count == 2
     assert [config.run_id for config in configs] == [
         f"ingest-{VIDEO_ID}-1",
         f"ingest-{VIDEO_ID}-2",
     ]
+    item = state.load(VIDEO_ID)
+    assert item is not None
+    assert item["worker_runtime"] == "local-python3.12"
 
     listed = aws_resources.s3.list_objects_v2(Bucket=aws_resources.bucket_name)
     keys = [key for item in listed.get("Contents", []) if isinstance(key := item.get("Key"), str)]

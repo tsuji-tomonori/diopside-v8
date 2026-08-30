@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Synthesize the one-off historical material ingestion stack."""
+"""Synthesize storage for the one-off historical material ingestion."""
 
 import os
 
@@ -7,7 +7,6 @@ from aws_cdk import App, Aspects, BootstraplessSynthesizer, Environment
 from cdk_nag import AwsSolutionsChecks
 
 from diopside_deployment.access_stack import GitHubDeploymentAccessStack
-from diopside_ingestion.lambda_asset import bundled_lambda_source
 from diopside_ingestion.stack import IngestionStack
 
 
@@ -22,18 +21,12 @@ def deployment_environment() -> Environment | None:
 
 app = App()
 environment = deployment_environment()
-with bundled_lambda_source() as lambda_source_directory:
-    IngestionStack(
-        app,
-        "DiopsideIngestionStack",
-        lambda_source_directory=lambda_source_directory,
-        env=environment,
-    )
-    GitHubDeploymentAccessStack(
-        app,
-        "DiopsideGitHubDeploymentAccessStack",
-        env=environment,
-        synthesizer=BootstraplessSynthesizer(),
-    )
-    Aspects.of(app).add(AwsSolutionsChecks(verbose=True))
-    app.synth()
+IngestionStack(app, "DiopsideIngestionStack", env=environment)
+GitHubDeploymentAccessStack(
+    app,
+    "DiopsideGitHubDeploymentAccessStack",
+    env=environment,
+    synthesizer=BootstraplessSynthesizer(),
+)
+Aspects.of(app).add(AwsSolutionsChecks(verbose=True))
+app.synth()

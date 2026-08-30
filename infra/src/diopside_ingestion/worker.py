@@ -1,8 +1,8 @@
-"""Bounded Lambda worker for one historical video.
+"""Local worker for one historical video.
 
 The worker deliberately has no cookies, proxy, login, browser automation, or future
 discovery loop.  It receives one validated video ID, checkpoints only safe status data,
-and writes raw material exclusively to the private S3 bucket supplied by the stack.
+and writes raw material exclusively to the configured private S3 bucket.
 """
 
 from __future__ import annotations
@@ -12,7 +12,6 @@ import hashlib
 import json
 import logging
 import mimetypes
-import os
 import subprocess
 import sys
 import tempfile
@@ -22,7 +21,6 @@ from pathlib import Path
 from time import monotonic
 from typing import Protocol, cast
 
-import boto3
 import imageio_ffmpeg  # type: ignore[import-untyped]
 
 from diopside_ingestion.contracts import (
@@ -50,7 +48,7 @@ from diopside_ingestion.reuse import (
     load_verified_video_manifest,
     read_verified_artifact_object,
 )
-from diopside_ingestion.state import DynamoIngestionRepository, IngestionRepository
+from diopside_ingestion.state import IngestionRepository
 
 LOGGER = logging.getLogger(__name__)
 DIAGNOSTIC_SIGNALS = (
@@ -87,7 +85,7 @@ class CommandRunner(Protocol):
 
 @dataclass(frozen=True)
 class SubprocessRunner:
-    """Run packaged yt-dlp and ffmpeg before the Lambda invocation deadline."""
+    """Run the locked yt-dlp and ffmpeg dependencies on the operator's machine."""
 
     deadline: float | None = None
 
@@ -111,7 +109,7 @@ class SubprocessRunner:
 
 @dataclass(frozen=True)
 class WorkerConfig:
-    """Non-secret Lambda execution values; the external request remains one video ID."""
+    """Non-secret local execution values; the external request remains one video ID."""
 
     video_id: str
     run_id: str
@@ -119,27 +117,7 @@ class WorkerConfig:
     bucket: str
     table_name: str
     runtime_version: str
-
-    @classmethod
-    def from_environment(cls) -> WorkerConfig:
-        def required(name: str) -> str:
-            value = os.environ.get(name)
-            if not value:
-                raise RuntimeError(f"missing required environment variable: {name}")
-            return value
-
-        video_id = IngestionRequest.from_document({"video_id": required("VIDEO_ID")}).video_id
-        run_id = required("RUN_ID")
-        if "/" in run_id or ".." in run_id:
-            raise RuntimeError("RUN_ID must be an internal safe identifier")
-        return cls(
-            video_id=video_id,
-            run_id=run_id,
-            claim_owner=required("CLAIM_OWNER"),
-            bucket=required("S3_BUCKET"),
-            table_name=required("VIDEO_INGESTION_TABLE"),
-            runtime_version=required("WORKER_RUNTIME"),
-        )
+    claim_lease_seconds: int = 24 * 60 * 60
 
 
 class WorkerStageError(RuntimeError):
@@ -151,7 +129,7 @@ class WorkerStageError(RuntimeError):
 
 
 class RetryableWorkerError(RuntimeError):
-    """Return the SQS record as failed after a retryable checkpoint is recorded."""
+    """Ask the local runner to start another claimed attempt from the checkpoint."""
 
 
 def empty_artifact_objects() -> dict[str, list[dict[str, object]]]:
@@ -1369,6 +1347,7 @@ class IngestionWorker:
             yt_dlp_version=self._yt_dlp_version(),
             checkpoint_manifest_key=checkpoint_manifest_key,
             checkpoint_manifest_sha256=checkpoint_manifest_sha256,
+            claim_lease_seconds=self.config.claim_lease_seconds,
         )
 
     def _yt_dlp_version(self) -> str:
@@ -1469,26 +1448,3 @@ class IngestionWorker:
             last_reason_code=last_reason,
             next_action="none",
         )
-
-
-def build_worker() -> IngestionWorker:
-    """Construct a local worker from the same locked dependencies as the Lambda asset."""
-    config = WorkerConfig.from_environment()
-    dynamodb = boto3.client("dynamodb")  # pyright: ignore[reportUnknownMemberType] -- boto3 overload issue.
-    store = cast(ObjectStore, boto3.client("s3"))  # pyright: ignore[reportUnknownMemberType] -- boto3 overload issue.
-    return IngestionWorker(
-        config=config,
-        repository=DynamoIngestionRepository(dynamodb, config.table_name),
-        store=store,
-        runner=SubprocessRunner(),
-    )
-
-
-def main() -> int:
-    """Run one local worker task for operator diagnostics."""
-    build_worker().run()
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

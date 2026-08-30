@@ -142,10 +142,6 @@ dynamodb = [
 s3 = [
     { name = "mypy-boto3-s3" },
 ]
-sqs = [
-    { name = "mypy-boto3-sqs" },
-]
-
 [[package]]
 name = "botocore"
 version = "1.43.72"
@@ -398,7 +394,7 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
-    { name = "boto3-stubs", extra = ["dynamodb", "s3", "sqs"] },
+    { name = "boto3-stubs", extra = ["dynamodb", "s3"] },
     { name = "moto", extra = ["server"] },
     { name = "mypy" },
     { name = "pyright" },
@@ -420,7 +416,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "boto3-stubs", extras = ["dynamodb", "s3", "sqs"], specifier = ">=1.34.0,<2.0.0" },
+    { name = "boto3-stubs", extras = ["dynamodb", "s3"], specifier = ">=1.34.0,<2.0.0" },
     { name = "moto", extras = ["server"], specifier = ">=5.1.0,<6.0.0" },
     { name = "mypy", specifier = ">=1.11.0,<2.0.0" },
     { name = "pyright", specifier = ">=1.1.390,<2.0.0" },
@@ -785,15 +781,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/5f/b4/d9af4054a80a46e27bfec10ead824ac1d39a974179b47db4ad9844bc5658/mypy_boto3_s3-1.43.66.tar.gz", hash = "sha256:b2f74763e373b3f3d64cfcd2f00cdb1c10c8a4cefe6d4cdbc1ed4a6ade085c07", size = 78866 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/73/bc/8ed7dad2bc1506732cc503ccbbc0fd48786d85900bb2c6577a26a634843b/mypy_boto3_s3-1.43.66-py3-none-any.whl", hash = "sha256:f9385e190d423690dbc161260dac02439e3b6c9841e992ba6a92d15c1050b3af", size = 86296 },
-]
-
-[[package]]
-name = "mypy-boto3-sqs"
-version = "1.43.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/42/1e/226725696a99c7dadfe8ebfba01575107fa15146029a7fb0082c650d8689/mypy_boto3_sqs-1.43.0.tar.gz", hash = "sha256:3ec8e1e651e830affcf7fe151b2e3090b8ea98d73cb069053b09ca4c7f4c8636", size = 23318 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/f2/5e/5d4deb1ee7aec7fcdddbca616c623f07bfc72a1cd3e80b0e2a0c39904fae/mypy_boto3_sqs-1.43.0-py3-none-any.whl", hash = "sha256:f90225486756a4041db9f056967cb3cee202264bbe57682031c1e94d83e8ca39", size = 33604 },
 ]
 
 [[package]]

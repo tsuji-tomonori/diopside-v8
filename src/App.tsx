@@ -13,6 +13,7 @@ import { WorkDetailPage } from './features/works/WorkDetailPage.tsx';
 import { CollaboratorDetailPage } from './features/collaborations/CollaboratorDetailPage.tsx';
 import { GroupDetailPage } from './features/collaborations/GroupDetailPage.tsx';
 import { SeriesDetailPage } from './features/series/SeriesDetailPage.tsx';
+import { GameIndexPage } from './features/games/GameIndexPage.tsx';
 
 export function App({ bundle, store }: { bundle: PublicBundle; store: DeviceStore }): React.JSX.Element {
   const [notice, setNotice] = useState('');
@@ -27,6 +28,8 @@ export function App({ bundle, store }: { bundle: PublicBundle; store: DeviceStor
             <Route path="/" element={<SearchPage />} />
             <Route path="/video/:videoId" element={<VideoDetailPage />} />
             <Route path="/works/:tagId" element={<WorkDetailPage />} />
+            <Route path="/games" element={<GameIndexPage />} />
+            <Route path="/games/genres/:tagId" element={<GameIndexPage />} />
             <Route path="/songs" element={<SongIndexPage />} />
             <Route path="/songs/:tagId" element={<SongIndexPage />} />
             <Route path="/collaborators/:tagId" element={<CollaboratorDetailPage />} />

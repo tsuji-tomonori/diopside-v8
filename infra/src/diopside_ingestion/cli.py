@@ -1,13 +1,14 @@
-"""Explicit operator commands for a finite historical backfill.
+"""Explicit local operator commands for a finite historical backfill.
 
-Nothing in this module is scheduled.  Operators create a manifest, upload that immutable
-target set, enqueue it once, and later write a bounded completion report.
+Nothing in this module is scheduled. Operators select video IDs, run the worker locally,
+and persist only private artifacts and safe state in AWS storage.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import sys
 from collections.abc import Iterable, Mapping
 from pathlib import Path
 from typing import Protocol, cast
@@ -22,6 +23,7 @@ from diopside_ingestion.legacy_import import (
     create_legacy_import_manifest,
     load_legacy_import_manifest,
 )
+from diopside_ingestion.local_runner import LocalIngestionResult, LocalIngestionRunner
 from diopside_ingestion.manifest import (
     BackfillManifest,
     build_report,
@@ -38,6 +40,12 @@ from diopside_ingestion.reuse import (
     select_verified_transcript_object,
 )
 from diopside_ingestion.state import DynamoIngestionRepository
+from diopside_ingestion.worker import (
+    IngestionWorker,
+    SubprocessRunner,
+    WorkerConfig,
+)
+from diopside_ingestion.worker import ObjectStore as WorkerObjectStore
 
 
 class ObjectStore(ObjectLister, Protocol):
@@ -46,12 +54,6 @@ class ObjectStore(ObjectLister, Protocol):
     def head_object(self, **kwargs: object) -> Mapping[str, object]: ...
 
     def put_object(self, **kwargs: object) -> Mapping[str, object]: ...
-
-
-class FifoQueue(Protocol):
-    """Minimal FIFO surface; request bodies are restricted by IngestionRequest."""
-
-    def send_message(self, **kwargs: object) -> Mapping[str, object]: ...
 
 
 def manifest_bytes(manifest: BackfillManifest) -> bytes:
@@ -83,19 +85,6 @@ def upload_manifest(store: ObjectStore, bucket: str, manifest: BackfillManifest)
         Metadata={"sha256": manifest.sha256},
     )
     return key
-
-
-def enqueue_manifest(queue: FifoQueue, queue_url: str, manifest: BackfillManifest) -> int:
-    """Manually enqueue each frozen target with exactly the one-field external body."""
-    for target in manifest.videos:
-        request = IngestionRequest.from_document({"video_id": target.video_id})
-        queue.send_message(
-            QueueUrl=queue_url,
-            MessageBody=json.dumps({"video_id": request.video_id}, separators=(",", ":")),
-            MessageGroupId=request.video_id,
-            MessageDeduplicationId=f"{manifest.sha256}:{request.video_id}",
-        )
-    return len(manifest.videos)
 
 
 def write_report(
@@ -153,6 +142,69 @@ def materialize_private_caption(
     return destination
 
 
+def build_local_runner(
+    *,
+    bucket: str,
+    table: str,
+    profile: str | None,
+    region: str,
+) -> LocalIngestionRunner:
+    """Create S3/DynamoDB clients from the operator's standard AWS credential chain."""
+    session = boto3.Session(  # pyright: ignore[reportUnknownMemberType] -- boto3 overload issue.
+        profile_name=profile,
+        region_name=region,
+    )
+    dynamodb = session.client("dynamodb")  # pyright: ignore[reportUnknownMemberType] -- boto3 overload issue.
+    store = cast(
+        WorkerObjectStore,
+        session.client("s3"),  # pyright: ignore[reportUnknownMemberType] -- boto3 overload issue.
+    )
+    repository = DynamoIngestionRepository(dynamodb, table)
+
+    def worker_factory(config: WorkerConfig) -> IngestionWorker:
+        return IngestionWorker(
+            config=config,
+            repository=repository,
+            store=store,
+            runner=SubprocessRunner(),
+        )
+
+    return LocalIngestionRunner(
+        repository=repository,
+        worker_factory=worker_factory,
+        bucket=bucket,
+        table_name=table,
+        runtime_version=f"local-python{sys.version_info.major}.{sys.version_info.minor}",
+    )
+
+
+def run_local_targets(
+    runner: LocalIngestionRunner,
+    video_ids: Iterable[str],
+    *,
+    max_attempts: int,
+) -> list[LocalIngestionResult]:
+    """Run every frozen target independently so one failure does not stop the remainder."""
+    return [runner.process(video_id, max_attempts=max_attempts) for video_id in video_ids]
+
+
+def bounded_attempt_count(value: str) -> int:
+    """Validate an intentionally small local retry count at argument parsing time."""
+    parsed = int(value)
+    if not 1 <= parsed <= 10:
+        raise argparse.ArgumentTypeError("max-attempts must be between 1 and 10")
+    return parsed
+
+
+def add_local_aws_arguments(command: argparse.ArgumentParser) -> None:
+    """Add shared local execution arguments without accepting credentials as values."""
+    command.add_argument("--bucket", required=True)
+    command.add_argument("--table", required=True)
+    command.add_argument("--profile")
+    command.add_argument("--region", default="ap-northeast-1")
+    command.add_argument("--max-attempts", type=bounded_attempt_count, default=3)
+
+
 def materialize_private_transcript(
     store: ObjectStore,
     bucket: str,
@@ -198,9 +250,19 @@ def build_parser() -> argparse.ArgumentParser:
     upload.add_argument("--manifest", type=Path, required=True)
     upload.add_argument("--bucket", required=True)
 
-    enqueue = commands.add_parser("enqueue", help="enqueue one manifest once")
-    enqueue.add_argument("--manifest", type=Path, required=True)
-    enqueue.add_argument("--queue-url", required=True)
+    ingest = commands.add_parser(
+        "ingest",
+        help="locally collect one explicit video and write it directly to S3/DynamoDB",
+    )
+    ingest.add_argument("--video-id", required=True)
+    add_local_aws_arguments(ingest)
+
+    ingest_manifest = commands.add_parser(
+        "ingest-manifest",
+        help="locally process every target in one immutable manifest",
+    )
+    ingest_manifest.add_argument("--manifest", type=Path, required=True)
+    add_local_aws_arguments(ingest_manifest)
 
     report = commands.add_parser("report", help="write a safe completion report for one manifest")
     report.add_argument("--manifest", type=Path, required=True)
@@ -332,16 +394,40 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(importer.run(selected), sort_keys=True))
         return 0
 
+    if args.command in {"ingest", "ingest-manifest"}:
+        runner = build_local_runner(
+            bucket=args.bucket,
+            table=args.table,
+            profile=args.profile,
+            region=args.region,
+        )
+        if args.command == "ingest":
+            video_ids = [IngestionRequest.from_document({"video_id": args.video_id}).video_id]
+        else:
+            target_manifest = load_manifest(args.manifest)
+            video_ids = [target.video_id for target in target_manifest.videos]
+        results = run_local_targets(runner, video_ids, max_attempts=args.max_attempts)
+        if args.command == "ingest":
+            print(json.dumps(results[0].to_document(), ensure_ascii=False, sort_keys=True))
+        else:
+            print(
+                json.dumps(
+                    {
+                        "target_count": len(results),
+                        "completed_count": sum(result.completed for result in results),
+                        "results": [result.to_document() for result in results],
+                    },
+                    ensure_ascii=False,
+                    sort_keys=True,
+                )
+            )
+        return 0 if all(result.completed for result in results) else 2
+
     manifest = load_manifest(args.manifest)
     if args.command == "upload-manifest":
         store = cast(ObjectStore, boto3.client("s3"))  # pyright: ignore[reportUnknownMemberType] -- boto3 overload issue.
         key = upload_manifest(store, args.bucket, manifest)
         print(json.dumps({"key": key, "sha256": manifest.sha256}))
-        return 0
-    if args.command == "enqueue":
-        queue = cast(FifoQueue, boto3.client("sqs"))  # pyright: ignore[reportUnknownMemberType] -- boto3 overload issue.
-        count = enqueue_manifest(queue, args.queue_url, manifest)
-        print(json.dumps({"enqueued_count": count, "target_manifest_sha256": manifest.sha256}))
         return 0
     if args.command == "report":
         dynamodb = boto3.client("dynamodb")  # pyright: ignore[reportUnknownMemberType] -- boto3 overload issue.
