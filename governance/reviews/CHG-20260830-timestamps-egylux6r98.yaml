@@ -148,3 +148,4 @@ residual_risks:
 - 既存branch head 71ed0d5591d26a309d1e51268998160b6f279deb を履歴へ保持し、force updateを使わず最新mainへ統合する。
 - 明示されたマージ権限に基づき、PR head一致とCI成功を確認してマージし、Google Sheetsをmerge SHAで再読確認する。
 - main 876f82ca380ac7c1e6217ddd75beb5b4e5b48a95 から全動画を決定的に再集計し、timestamp作成済み1287件・items 24988件・synopsis 257件をmanifestへ記録した。
+- 候補確定に伴い処理中bootstrap markerを削除し、公開差分をmanifest・対象動画・review YAMLの3ファイルへ限定した。
