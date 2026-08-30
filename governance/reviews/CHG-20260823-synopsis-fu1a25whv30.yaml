@@ -143,5 +143,5 @@ selected_checks:
   note: 未選択checkをN/Aとして保存しない。
 advisories: []
 residual_risks:
-- 候補hash e45a7b49eeea9f85f72fa8e1de5acf43c5fd261779d01788c599fe6c688f1d29 は人がdraft
-  PRをマージするまで公開されない。
+- 候補hash e45a7b49eeea9f85f72fa8e1de5acf43c5fd261779d01788c599fe6c688f1d29 は、利用者の明示したmerge権限に基づき、確認済みheadとCI成功を照合して公開する。
+- 最新main統合後に全動画を決定的に再集計し、synopsisを持つ動画246件とmanifest件数246件の一致を確認した。
