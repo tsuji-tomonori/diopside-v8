@@ -1,7 +1,7 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 27
+- カタログ版: 28
 - 更新日: 2026-08-29
 - 正本: `spec/requirements/requirements.json`
 
@@ -53,6 +53,9 @@
 | `V8-INGEST-012` | 1 | 有効 | 運用 | diopside v8のlegacy local importは、全編coverage検証済み1,598動画だけをchecksum付きmanifestへ固定し、provider再取得を行わず、rawと匿名化normalized copyを分離し、S3再読検証後にrun manifest、current manifest、DynamoDBのpartial終端状態を確定しなければならない。を**強制する** | legacy manifest・改ざん・匿名化・S3再読・DynamoDB終端試験 |
 | `V8-INGEST-013` | 4 | 有効 | 制約 | diopside v8のprivate backfill基盤deployは、GitHub ActionsからのCDK deployはprivate-backfill-infra environmentで承認されたmainの手動実行が共有infra roleのimmutableな完全一致OIDC短期sessionを使用し、inline session policyでTargetDeploymentRegionの必要なCDK bootstrap roleだけを引き受ける経路に限定しなければならない。を**強制する** | IAM CloudFormation template assertion・workflow静的試験・CDK synth・cdk-nag |
 | `V8-INGEST-014` | 4 | 廃止 | 運用 | diopside v8のGitHub Actionsによる1動画投入は、mainの手動実行で承認された1件のvideo_idだけを、基盤deployと共通のprotected environmentおよび共有infra roleから、TargetDeploymentRegionの対象FIFOへのSendMessage専用sessionで投入しなければならない。を**強制する** | IAM template試験・workflow静的確認 |
+| `V8-INGEST-015` | 1 | 有効 | 機能 | diopside v8のローカルprivate material段階処理は、ローカルprivate material処理は一次情報取得、加工、S3/DynamoDB uploadの3段階をchecksum付きmanifest境界で分離し、upload段階だけがAWSへ接続しなければならない。を**強制する** | 段階分離・checksum改竄検出・AWS接続境界・upload再利用試験 |
+| `V8-INGEST-016` | 1 | 有効 | 運用 | diopside v8のローカルprivate material workspaceは、ローカルCLIは運用者がprivate work rootと取得・加工・uploadの実行段階を選択し、動画単位のworkspaceを保持または全段階完走後に破棄できなければならない。を**強制する** | work root・stage選択・部分実行前提・再開試験 |
+| `V8-INGEST-017` | 1 | 有効 | 運用 | diopside v8のローカルprivate material実行traceは、ローカル段階処理は永続private video workspaceへ安全な現在状態と追記型の実行履歴を保存し、作業後も完了段階、次段階、結果の根拠を追跡可能にしなければならない。を**維持する** | 現在状態・追記履歴・manifest回復・秘密値非保持・CLI統合試験 |
 | `V8-OPS-001` | 2 | 有効 | 運用 | diopside v8の運用は、タイムスタンプ一括処理は、運用者による1回の明示的なChatGPT／Codex要求で指定された識別子または有限の選定条件から、今回処理する適格動画の有限集合を開始時に固定しなければならない。固定後は、動画ごとの追加チャット承認を開始条件としてはならない。を**satisfy** | 一括処理の開始境界・対象集合固定・状態遷移試験 |
 | `V8-OPS-002` | 1 | 有効 | 運用 | diopside v8の運用は、GitHub ActionsからChatGPT／Codexを呼び出してはならない。を**satisfy** | リポジトリ静的確認 |
 | `V8-OPS-003` | 6 | 有効 | 運用 | diopside v8の運用は、動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない。を**satisfy** | リポジトリ静的確認・手順試験 |
@@ -894,6 +897,53 @@ diopside v8のGitHub Actionsによる1動画投入は、mainの手動実行で�
 検証証跡: infra/tests/test_deployment_access.py, tests/repository-policy.test.ts
 トレース: 設計=docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md,infra/README.md,docs/operations/manual-content-update.md,docs/operations/privacy-and-safety.md,docs/operations/cost-check.md; 実装=infra/src/diopside_deployment/access_stack.py,.github/workflows/enqueue-ingestion-video.yml; テスト=infra/tests/test_deployment_access.py,tests/repository-policy.test.ts; 参照資料=Issue #465,GitHub Actions OIDC for AWS,AWS IAM least privilege,dev-standard regulated profile
 廃止理由: 2026-08-29所有者指示によりGitHub ActionsのSQS投入経路を廃止し、V8-INGEST-001、V8-INGEST-004、V8-INGEST-009のローカル直接投入経路へ置換したため。
+
+## V8-INGEST-015: ローカル素材処理は取得・加工・uploadを検証可能な3段階へ分離しなければならない
+
+diopside v8のローカルprivate material段階処理は、ローカルprivate material処理は一次情報取得、加工、S3/DynamoDB uploadの3段階をchecksum付きmanifest境界で分離し、upload段階だけがAWSへ接続しなければならない。を**強制する**。
+
+根拠: 取得失敗の診断、加工の再試行、AWS書込みを分離し、生素材を再取得せず検証済み段階から安全に再開するため。
+
+分類: `project` / `functional`
+
+受入条件:
+- `AC-V8-INGEST-015-1` 前提: 1件のvideo IDとローカル実行環境がある。条件: ローカルprivate material処理を段階実行する。期待結果: 一次情報取得と加工はAWS clientを生成せずローカルmanifestを出力し、uploadは取得・加工manifestと全fileのSHA-256・byte数を検証した後だけDynamoDB claimとS3書込みを開始する。。
+
+要求源: Issue #465, user:2026-08-29-follow-up, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md
+検証証跡: infra/tests/test_staging.py, infra/tests/test_worker.py, infra/tests/test_cli.py
+トレース: 設計=docs/decisions/ADR-0006-local-private-material-ingestion.md; 実装=infra/src/diopside_ingestion/staging.py,infra/src/diopside_ingestion/worker.py,infra/src/diopside_ingestion/cli.py; テスト=infra/tests/test_staging.py,infra/tests/test_worker.py,infra/tests/test_cli.py; 参照資料=Issue #465,dev-standard assured profile
+
+## V8-INGEST-016: ローカルCLIは保持先と実行段階を運用者が選択できなければならない
+
+diopside v8のローカルprivate material workspaceは、ローカルCLIは運用者がprivate work rootと取得・加工・uploadの実行段階を選択し、動画単位のworkspaceを保持または全段階完走後に破棄できなければならない。を**強制する**。
+
+根拠: 生素材の保持場所と保持期間を運用者が管理し、失敗した段階だけを再実行して不要なdownloadとAWS書込みを避けるため。
+
+分類: `project` / `functional`
+
+受入条件:
+- `AC-V8-INGEST-016-1` 前提: 1件または固定manifestの有限video集合をローカル処理する。条件: ローカルCLIの保存先と実行段階を選択する。期待結果: 運用者はwork rootと実行段階を明示でき、部分実行では永続work rootを必須とし、同じvideo workspaceの検証済み前段manifestから後段だけを再開できる。stage未指定の全段階実行では一時work rootも選択できる。。
+
+要求源: Issue #465, user:2026-08-29-follow-up, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md
+検証証跡: infra/tests/test_staging.py, infra/tests/test_cli.py
+トレース: 設計=docs/decisions/ADR-0006-local-private-material-ingestion.md; 実装=infra/src/diopside_ingestion/staging.py,infra/src/diopside_ingestion/cli.py,infra/README.md; テスト=infra/tests/test_staging.py,infra/tests/test_cli.py; 参照資料=Issue #465,dev-standard assured profile
+
+## V8-INGEST-017: ローカル段階処理は安全な現在状態と追記型実行履歴を保持しなければならない
+
+diopside v8のローカルprivate material実行traceは、ローカル段階処理は永続private video workspaceへ安全な現在状態と追記型の実行履歴を保存し、作業後も完了段階、次段階、結果の根拠を追跡可能にしなければならない。を**維持する**。
+
+根拠: 端末出力が失われても取得・加工・uploadの実行有無と再開位置を確認し、再試行で過去の失敗または成功を上書きしないため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-INGEST-017-1` 前提: 運用者が永続private work rootで1件または固定video集合の段階処理を実行する。条件: invocationを開始し、各段階またはinvocationが終了する。期待結果: 動画workspaceはinvocation ID、選択段階、時刻、各段階の結果、reason code、manifest相対pathとchecksumを含む現在状態と時系列履歴を処理後も保持する。。
+- `AC-V8-INGEST-017-2` 前提: 同じvideo workspaceに既存manifestまたは過去の実行履歴がある。条件: 処理を再開する。期待結果: 既存の検証可能な段階状態を現在状態へ反映し、新しいinvocationは過去履歴を消さず追記し、完了段階と次段階を判定できる。。
+- `AC-V8-INGEST-017-3` 前提: 実行状態と履歴をprivate workspaceへ保存する。条件: trace eventまたは現在状態を生成する。期待結果: 生素材、字幕、chat、comment、投稿者識別子、provider応答本文、stderr本文、PO Token、Cookie、AWS credentialを実行traceへ含めない。。
+
+要求源: Issue #465, user:2026-08-29-execution-trace
+検証証跡: infra/tests/test_trace.py, infra/tests/test_cli.py
+トレース: 設計=docs/decisions/ADR-0006-local-private-material-ingestion.md; 実装=infra/src/diopside_ingestion/trace.py,infra/src/diopside_ingestion/cli.py,infra/README.md; テスト=infra/tests/test_trace.py,infra/tests/test_cli.py; 参照資料=Issue #465,dev-standard assured profile
 
 ## V8-OPS-001: タイムスタンプ一括処理は、人の1回の明示要求で有限の適格対象集合を固定して開始しなければならない
 
