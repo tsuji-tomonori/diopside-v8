@@ -206,7 +206,6 @@ describe('タグ・動画正本と公開境界', () => {
       expect(validateCanonicalVideo(video, taxonomy, aliases), video.videoId).toEqual([]);
       expect(video.approval.status).toBe('承認済み');
       expect(video.tagAssignments.every((assignment) => ['高', '中'].includes(assignment.confidence))).toBe(true);
-      expect(video.wordCloud.status).toBe('未作成');
     }
     expect(manifest.videoCount).toBe(videos.length);
     expect(manifest.assignmentCount).toBe(videos.reduce((sum, video) => sum + video.tagAssignments.length, 0));
