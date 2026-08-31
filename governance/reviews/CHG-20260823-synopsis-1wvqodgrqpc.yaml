@@ -82,14 +82,14 @@ selected_checks:
   result: pass
   evidence:
   - path:content/videos/1wVqoDgrqpc.json
-  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 候補hash、全編根拠、独立reviewを検証する。
 - id: FAST-006
   class: Invariant
   result: pass
   evidence:
   - path:content/content-manifest.json
-  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 正本件数と生成driftを検証する。
 - id: FAST-007
   class: Invariant
@@ -127,7 +127,7 @@ selected_checks:
   result: pass
   evidence:
   - path:scripts/validate-content.ts
-  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 内容・1動画scope・生成差分をCIで検証する。
 - id: REV-007
   class: Invariant
@@ -143,5 +143,6 @@ selected_checks:
   note: 未選択checkをN/Aとして保存しない。
 advisories: []
 residual_risks:
-- 候補hash 65bb97c9f06730b9a1f4382627a913a28220b9272bd2c87a32b3daa71196aecf は人がdraft
-  PRをマージするまで公開されない。
+- 候補hash 65bb97c9f06730b9a1f4382627a913a28220b9272bd2c87a32b3daa71196aecf を親Solが最終確認済みであり、明示されたマージ権限に基づき、PR head一致とCI成功を確認してマージする。
+- main dcf6acd5d6c193193fe8afcb8c223beccca9764d から全動画を決定的に再集計し、1wVqoDgrqpcを加えたsynopsis 261件とmanifest件数261件の一致を確認する。
+- 既存branch head 3e915bdaf4f5fe1abf414b07c4eab02249abe4e3 を履歴へ保持し、force updateを使わず最新mainへ統合する。
