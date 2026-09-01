@@ -42,10 +42,39 @@ GitHub environmentには次を登録します。
 
 ## ローカルPCの準備
 
-Python 3.12、uv、通常のAWS credential chainを使います。access keyやsecret keyをcommand引数、設定file、Gitへ書かず、既存のAWS profileまたは短期credentialを利用してください。
+Python 3.12、uv、Node.js、通常のAWS credential chainを使います。`uv sync`でlock済みの`yt-dlp-ejs`と`bgutil-ytdlp-pot-provider` pluginを導入し、workerはyt-dlpへNode.js runtimeを明示してYouTubeのJavaScript challengeを処理します。access keyやsecret keyをcommand引数、設定file、Gitへ書かず、既存のAWS profileまたは短期credentialを利用してください。
 
 ```console
 uv sync --directory infra --locked --all-groups
+```
+
+PO Tokenの生成処理はPython pluginと別processです。providerとpluginのversionを一致させ、公開素材を保存するprivate領域へ公式providerを固定取得してbuildします。次の例はNode版providerを既定の`127.0.0.1:4416`で起動します。
+
+```console
+POT_PROVIDER_HOME=/path/to/private/diopside-tools/bgutil-ytdlp-pot-provider-1.3.2
+git clone --depth 1 --single-branch --branch 1.3.2 \
+  https://github.com/Brainicism/bgutil-ytdlp-pot-provider.git \
+  "$POT_PROVIDER_HOME"
+npm ci --prefix "$POT_PROVIDER_HOME/server"
+npm exec --prefix "$POT_PROVIDER_HOME/server" tsc
+node "$POT_PROVIDER_HOME/server/build/main.js"
+```
+
+providerは別terminalで起動したままにします。health checkが`1.3.2`を返すことを確認してください。
+
+```console
+curl --fail --silent --show-error http://127.0.0.1:4416/ping
+```
+
+準備後、次の出力に`JS runtimes: node`と`PO Token Providers: bgutil:http-1.3.2`が表示されることを確認できます。workerは公式推奨の`mweb` clientを常に指定し、Node.jsはJavaScript challenge、ローカルproviderはGoogle Video Server向けPO Tokenをそれぞれ処理します。CookieやYouTube loginは使用しません。PO Tokenは403の発生率を下げますが取得成功を保証せず、`LOGIN_REQUIRED`となる年齢制限、非公開、メンバー限定動画の認証要求は回避しません。
+
+```console
+uv run --directory infra --locked python -m yt_dlp \
+  --js-runtimes node \
+  --extractor-args 'youtube:player_client=mweb' \
+  --verbose \
+  --simulate \
+  'https://www.youtube.com/watch?v=VIDEO_ID'
 ```
 
 保存先はdeploy outputから取得できます。
@@ -67,19 +96,77 @@ test -n "$TABLE_NAME"
 
 ローカル実行者に必要なAWS data-plane権限は、対象bucketへの`GetObject`、`PutObject`、`AbortMultipartUpload`と、対象tableへの`GetItem`、`UpdateItem`です。`report`は追加で`dynamodb:Scan`、複数動画manifestのuploadは同じbucketへの書込みを使います。削除、IAM、Lambda、SQS、CloudFormation変更の権限は素材取得には不要です。
 
-## 1動画を直接取得する
+## 1動画を3段階で処理する
 
-11文字のYouTube video IDを1件だけ明示します。`--profile`を省略した場合は標準AWS credential chainを使います。
+処理は次の3段階です。各段階は動画ごとのchecksum付きmanifestを入力・出力境界にするため、別commandで安全に再開できます。
+
+1. `acquire`: metadata、thumbnail、字幕、chat、comments、native audioの一次情報をローカルへ取得する。AWS clientは作成しない。
+2. `process`: 一次情報のchecksumを再確認し、description、匿名化字幕JSONL、ASR用FLACをローカルで作る。AWS clientは作成しない。
+3. `upload`: acquire/process manifestと全fileのchecksumを再確認し、DynamoDBをclaimしてprivate S3へuploadする。
+
+11文字のYouTube video IDを1件だけ明示し、永続化する親directoryを`--work-root`で選びます。以下は一次情報の取得だけを行い、AWS credential、bucket、tableを必要としません。
 
 ```console
 uv run --directory infra --locked diopside-backfill ingest \
   --video-id gl5UkwS_jmM \
+  --stage acquire \
+  --work-root /path/to/private/diopside-ingestion
+```
+
+取得に成功した一次情報は`<work-root>/gl5UkwS_jmM/acquired/`、安全な状態と各fileのSHA-256は`acquire-manifest.json`へ保存されます。provider応答本文やstderr本文はログへ出さず、失敗時はallow-list済みsignal、stderrのbyte数とSHA-256、reason codeだけを記録します。
+
+次に加工だけを行います。
+
+```console
+uv run --directory infra --locked diopside-backfill ingest \
+  --video-id gl5UkwS_jmM \
+  --stage process \
+  --work-root /path/to/private/diopside-ingestion
+```
+
+加工物は`processed/`、取得manifestとの対応と全fileのSHA-256は`process-manifest.json`へ保存されます。一次情報またはmanifestが変更・欠落していれば、upload前に停止します。
+
+最後にuploadだけを行います。`--profile`を省略した場合は標準AWS credential chainを使います。
+
+```console
+uv run --directory infra --locked diopside-backfill ingest \
+  --video-id gl5UkwS_jmM \
+  --stage upload \
+  --work-root /path/to/private/diopside-ingestion \
   --bucket "$BUCKET_NAME" \
   --table "$TABLE_NAME" \
   --region ap-northeast-1
 ```
 
-CLI自身がDynamoDBの条件付きclaimを取得し、metadata、description、thumbnail、subtitles、automatic captions、chat、comments、native audio、ASR用派生音声を独立処理します。各uploadはS3を再読してbyte数、content type、SHA-256を確認し、checkpoint後にだけDynamoDBを進めます。
+複数段階は`--stage`を繰り返して選べます。指定順に関係なく`acquire`、`process`、`upload`の順で実行します。
+
+```console
+uv run --directory infra --locked diopside-backfill ingest \
+  --video-id gl5UkwS_jmM \
+  --stage acquire \
+  --stage process \
+  --work-root /path/to/private/diopside-ingestion
+```
+
+`--stage`を省略すると3段階すべてを実行します。`--work-root`も省略した場合だけ一時directoryを使い、完了後にローカル成果物を削除します。段階を一部だけ選ぶ場合は、後段を別commandで再開できるよう`--work-root`が必須です。raw素材をGitへ追加せず、accessを制限したprivate directoryを指定してください。
+
+永続`--work-root`を指定した実行では、動画workspaceへ次の安全なtraceを残します。
+
+- `execution-status.json`: 完了済みstep、現在step、次step、最後のinvocation結果、各manifestの相対pathとSHA-256を持つ現在状態。
+- `execution-history.jsonl`: invocation開始、既存manifest回復、step終了、invocation終了を時系列に追記する履歴。再試行時も既存行を削除しない。
+
+CLIの出力JSONにも両fileの相対pathとinvocation IDが含まれます。現在の進捗は次のように確認できます。
+
+```console
+jq '{video_id, workflow_status, completed_steps, current_step, next_step, last_invocation_status}' \
+  /path/to/private/diopside-ingestion/VIDEO_ID/execution-status.json
+```
+
+traceにはstage、結果、reason code、attempt、run ID、manifest checksumだけを保存します。生素材、字幕、chat、comment、投稿者識別子、provider応答・stderr本文、PO Token、Cookie、AWS credentialは保存しません。`--work-root`を省略した全段階実行ではworkspace自体を完走後に削除するため、traceも保持されません。
+
+WSLの`/mnt/c`や`/mnt/d`等では`chmod 0600`がmode表示へ反映されない場合があります。その場合はWindows側ACLでwork rootをprivateにするか、Linux filesystem上のprivate directoryを使用してください。
+
+upload段階でCLIがDynamoDBの条件付きclaimを取得します。各uploadはS3を再読してbyte数、content type、SHA-256を確認し、checkpoint後にだけDynamoDBを進めます。
 
 retryableな失敗は既定で最大3 attemptまで同じcommand内で再開します。`--max-attempts`は1〜10に限定されます。別processが同じvideo IDを実行中なら`already_running`として上書きせず終了code 2を返します。既に終端manifestがある場合は`already_complete`として再downloadせず終了code 0を返します。出力JSONには安全なstatus、attempt数、run ID、reason codeだけを含み、生素材やprovider応答本文を含めません。
 
@@ -99,6 +186,7 @@ uv run --directory infra --locked diopside-backfill manifest \
 ```console
 uv run --directory infra --locked diopside-backfill ingest-manifest \
   --manifest /tmp/diopside-backfill.json \
+  --work-root /path/to/private/diopside-ingestion \
   --bucket "$BUCKET_NAME" \
   --table "$TABLE_NAME" \
   --region ap-northeast-1

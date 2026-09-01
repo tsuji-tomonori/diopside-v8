@@ -54,6 +54,10 @@ LOGGER = logging.getLogger(__name__)
 DIAGNOSTIC_SIGNALS = (
     ("bot_challenge", ("not a bot", "bot challenge")),
     ("js_challenge", ("javascript runtime", "challenge solver", "n challenge")),
+    ("js_runtime_missing", ("js runtimes: none", "javascript runtime is not available")),
+    ("pot_provider_missing", ("po token providers: none",)),
+    ("age_restricted", ("age-restricted", "confirm your age")),
+    ("authentication_required", ("login_required", "sign in to confirm")),
     ("api_transport", ("unable to download api page", "connection reset")),
     ("http_403", ("http error 403", "status code 403")),
     ("http_429", ("http error 429", "status code 429", "too many requests")),
@@ -64,7 +68,21 @@ DIAGNOSTIC_SIGNALS = (
     ("video_unavailable", ("video unavailable",)),
 )
 KNOWN_JS_RUNTIMES = ("deno", "node", "quickjs", "bun")
+KNOWN_PO_TOKEN_PROVIDERS = ("bgutil:http",)
 KNOWN_REQUEST_HANDLERS = ("urllib", "requests", "websockets", "curl_cffi")
+KNOWN_PLAYABILITY_STATUSES = (
+    "OK",
+    "ERROR",
+    "LOGIN_REQUIRED",
+    "UNPLAYABLE",
+    "LIVE_STREAM_OFFLINE",
+)
+YT_DLP_RUNTIME_OPTIONS = (
+    "--js-runtimes",
+    "node",
+    "--extractor-args",
+    "youtube:player_client=mweb",
+)
 
 
 class ObjectStore(ObjectReader, Protocol):
@@ -92,7 +110,13 @@ class SubprocessRunner:
     def run(self, args: Sequence[str], *, cwd: Path) -> subprocess.CompletedProcess[bytes]:
         command = list(args)
         if command[0] == "yt-dlp":
-            command = [sys.executable, "-m", "yt_dlp", *command[1:]]
+            command = [
+                sys.executable,
+                "-m",
+                "yt_dlp",
+                *YT_DLP_RUNTIME_OPTIONS,
+                *command[1:],
+            ]
         elif command[0] == "ffmpeg":
             command[0] = imageio_ffmpeg.get_ffmpeg_exe()
         timeout = 20_000.0
@@ -183,6 +207,13 @@ def safe_command_diagnostic(stderr: bytes) -> dict[str, str | int]:
                 return token
         return "unknown"
 
+    playability_lines = [line.lower() for line in lines if "playability status:" in line.lower()]
+    playability_statuses = [
+        status
+        for status in KNOWN_PLAYABILITY_STATUSES
+        if any(f"playability status: {status.lower()}" in line for line in playability_lines)
+    ]
+
     signals = [
         name
         for name, patterns in DIAGNOSTIC_SIGNALS
@@ -196,7 +227,9 @@ def safe_command_diagnostic(stderr: bytes) -> dict[str, str | int]:
         "yt_dlp_version": allow_listed_token("[debug] yt-dlp version"),
         "python_runtime": allow_listed_token("[debug] python"),
         "js_runtimes": known_values("[debug] js runtimes", KNOWN_JS_RUNTIMES),
+        "pot_providers": known_values("po token providers:", KNOWN_PO_TOKEN_PROVIDERS),
         "request_handlers": known_values("[debug] request handlers", KNOWN_REQUEST_HANDLERS),
+        "playability_statuses": ",".join(playability_statuses) or "none",
         "signals": ",".join(signals) or "none",
     }
 
@@ -211,7 +244,9 @@ def log_command_failure(
     LOGGER.warning(
         "External command failed operation=%s returncode=%s reason_code=%s "
         "stderr_sha256=%s stderr_bytes=%s warning_count=%s error_count=%s "
-        "yt_dlp_version=%s python_runtime=%s js_runtimes=%s request_handlers=%s signals=%s",
+        "yt_dlp_version=%s python_runtime=%s js_runtimes=%s pot_providers=%s "
+        "request_handlers=%s "
+        "playability_statuses=%s signals=%s",
         operation,
         result.returncode,
         failure.code,
@@ -222,7 +257,9 @@ def log_command_failure(
         diagnostic["yt_dlp_version"],
         diagnostic["python_runtime"],
         diagnostic["js_runtimes"],
+        diagnostic["pot_providers"],
         diagnostic["request_handlers"],
+        diagnostic["playability_statuses"],
         diagnostic["signals"],
     )
 
@@ -342,6 +379,76 @@ def normalized_comments(text: str) -> str:
     return "\n".join(rows) + ("\n" if rows else "")
 
 
+def normalized_live_chat(text: str) -> str:
+    """Render replay-chat NDJSON without retaining author or channel identifiers."""
+    rows: list[str] = []
+    for line in text.splitlines():
+        try:
+            document = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(document, dict):
+            continue
+        replay = cast(dict[str, object], document).get("replayChatItemAction")
+        if not isinstance(replay, dict):
+            continue
+        typed_replay = cast(dict[str, object], replay)
+        offset = typed_replay.get("videoOffsetTimeMsec")
+        actions = typed_replay.get("actions")
+        if not isinstance(actions, list):
+            continue
+        try:
+            offset_seconds = round(int(str(offset)) / 1000, 3)
+        except (TypeError, ValueError):
+            continue
+        for raw_action in cast(list[object], actions):
+            if not isinstance(raw_action, dict):
+                continue
+            action = cast(dict[str, object], raw_action).get("addChatItemAction")
+            if not isinstance(action, dict):
+                continue
+            item = cast(dict[str, object], action).get("item")
+            if not isinstance(item, dict):
+                continue
+            typed_item = cast(dict[str, object], item)
+            renderer = typed_item.get("liveChatTextMessageRenderer")
+            if not isinstance(renderer, dict):
+                renderer = typed_item.get("liveChatPaidMessageRenderer")
+            if not isinstance(renderer, dict):
+                continue
+            message = cast(dict[str, object], renderer).get("message")
+            if not isinstance(message, dict):
+                continue
+            runs = cast(dict[str, object], message).get("runs")
+            if not isinstance(runs, list):
+                continue
+            fragments: list[str] = []
+            for raw_run in cast(list[object], runs):
+                if not isinstance(raw_run, dict):
+                    continue
+                run = cast(dict[str, object], raw_run)
+                value = run.get("text")
+                if isinstance(value, str):
+                    fragments.append(value)
+                    continue
+                emoji = run.get("emoji")
+                if not isinstance(emoji, dict):
+                    continue
+                shortcuts = cast(dict[str, object], emoji).get("shortcuts")
+                if isinstance(shortcuts, list) and shortcuts and isinstance(shortcuts[0], str):
+                    fragments.append(shortcuts[0])
+            message_text = "".join(fragments).strip()
+            if message_text:
+                rows.append(
+                    json.dumps(
+                        {"offset_seconds": offset_seconds, "text": message_text},
+                        ensure_ascii=False,
+                        separators=(",", ":"),
+                    )
+                )
+    return "\n".join(rows) + ("\n" if rows else "")
+
+
 @dataclass
 class IngestionWorker:
     """Coordinates independent artifact stages and a one-item DynamoDB checkpoint."""
@@ -350,12 +457,16 @@ class IngestionWorker:
     repository: IngestionRepository
     store: ObjectStore
     runner: CommandRunner
+    staged_workspace: Path | None = None
     artifact_objects: dict[str, list[dict[str, object]]] = field(
         default_factory=empty_artifact_objects
     )
 
     def run(self) -> None:
         """Process the single requested video; retryable failures leave a resumable checkpoint."""
+        if self.staged_workspace is not None:
+            self._upload_staged_workspace()
+            return
         existing_item = self.repository.load(self.config.video_id)
         try:
             existing_manifest = self._load_current_manifest(existing_item)
@@ -534,6 +645,211 @@ class IngestionWorker:
             if self._has_retryable_failure(artifacts):
                 raise RetryableWorkerError("retryable_artifact_failure")
             self._complete_with_manifest(artifacts, channel_id, prefix)
+
+    def _upload_staged_workspace(self) -> None:
+        """Upload one fully verified local process bundle without contacting YouTube."""
+        from diopside_ingestion.staging import (
+            load_processed_manifest,
+            local_artifact_record,
+            local_failure,
+            processed_artifact_paths,
+        )
+
+        workspace = self.staged_workspace
+        if workspace is None:  # pragma: no cover - narrowed by the public entry point.
+            raise ValueError("staged workspace is required")
+        bundle = load_processed_manifest(workspace, self.config.video_id)
+        existing_item = self.repository.load(self.config.video_id)
+        try:
+            existing_manifest = self._load_current_manifest(existing_item)
+        except PrivateObjectReadError as exc:
+            artifacts = self._record_failure(
+                initial_artifacts(iso_now()),
+                "manifest",
+                Failure(
+                    ReasonCategory.DEPENDENCY_ERROR,
+                    str(exc),
+                    "既存のprivate manifestを読み取れない",
+                    True,
+                    "retry_manifest",
+                ),
+            )
+            self._checkpoint(artifacts, current_stage="manifest")
+            raise RetryableWorkerError(str(exc)) from exc
+        if existing_manifest is not None and existing_manifest.status is not None:
+            self._complete_from_existing_manifest(existing_manifest)
+            return
+
+        # A staged retry has a complete verified local bundle, so it re-uploads a new
+        # immutable run instead of depending on object records from an older checkpoint.
+        artifacts = initial_artifacts(iso_now())
+        metadata_record = local_artifact_record(bundle, "metadata")
+        if metadata_record.get("status") != ArtifactStatus.SUCCEEDED.value:
+            failure = local_failure(metadata_record, "metadata")
+            artifacts = self._record_failure(artifacts, "metadata", failure)
+            artifacts = self._mark_dependency_unavailable(artifacts, failure)
+            if failure.retryable:
+                self._checkpoint(artifacts, current_stage="metadata")
+                raise RetryableWorkerError(failure.code)
+            self._complete_unavailable(artifacts, failure)
+            return
+
+        channel_id_value = bundle.get("channel_id")
+        if not isinstance(channel_id_value, str):
+            raise RetryableWorkerError("staged_channel_id_missing")
+        channel_id = validate_channel_id(channel_id_value)
+        known_channel_id = self._known_channel_id(existing_item)
+        if known_channel_id is not None and known_channel_id != channel_id:
+            raise RetryableWorkerError("channel_id_mismatch")
+        prefix = run_prefix(channel_id, self.config.video_id, self.config.run_id)
+        self._checkpoint(
+            artifacts,
+            current_stage="upload",
+            channel_id=channel_id,
+            s3_prefix=video_prefix(channel_id, self.config.video_id),
+        )
+
+        raw_directories = {
+            "metadata": "raw/info",
+            "description": "raw/description",
+            "thumbnails": "raw/thumbnails",
+            "native_audio": "raw/audio",
+        }
+        for artifact_key, directory in raw_directories.items():
+            artifacts = self._upload_staged_artifact(
+                artifacts,
+                bundle,
+                workspace,
+                artifact_key,
+                channel_id,
+                prefix,
+                directory,
+                "raw",
+                "raw_s3_key",
+            )
+
+        for artifact_key, raw_directory in (
+            ("subtitles", "raw/subtitles"),
+            ("automatic_captions", "raw/automatic-captions"),
+            ("chat", "raw/chat"),
+            ("comments", "raw/comments"),
+        ):
+            if not self._needs_work(artifacts, artifact_key):
+                continue
+            record = local_artifact_record(bundle, artifact_key)
+            if record.get("status") != ArtifactStatus.SUCCEEDED.value:
+                artifacts = self._apply_staged_unavailable(artifacts, artifact_key, record)
+                continue
+            raw_paths = processed_artifact_paths(workspace, bundle, artifact_key, "raw")
+            normalized_paths = processed_artifact_paths(
+                workspace, bundle, artifact_key, "normalized"
+            )
+            artifacts = self._upload_paths(
+                artifacts,
+                artifact_key,
+                raw_paths,
+                channel_id,
+                prefix,
+                raw_directory,
+                terminal=False,
+            )
+            artifacts = self._upload_paths(
+                artifacts,
+                artifact_key,
+                normalized_paths,
+                channel_id,
+                prefix,
+                f"normalized/{artifact_key}",
+                storage_field="normalized_s3_key",
+            )
+
+        artifacts = self._upload_staged_artifact(
+            artifacts,
+            bundle,
+            workspace,
+            "asr_audio",
+            channel_id,
+            prefix,
+            "derived/asr-audio",
+            "derived",
+            "derived_s3_key",
+        )
+        self._checkpoint(
+            artifacts,
+            current_stage="verify",
+            channel_id=channel_id,
+            s3_prefix=video_prefix(channel_id, self.config.video_id),
+        )
+        if self._has_retryable_failure(artifacts):
+            raise RetryableWorkerError("retryable_local_stage_failure")
+        self._complete_with_manifest(artifacts, channel_id, prefix)
+
+    def _upload_staged_artifact(
+        self,
+        artifacts: dict[str, dict[str, object]],
+        bundle: Mapping[str, object],
+        workspace: Path,
+        artifact_key: str,
+        channel_id: str,
+        prefix: str,
+        directory: str,
+        kind: str,
+        storage_field: str,
+    ) -> dict[str, dict[str, object]]:
+        """Upload one verified local artifact or preserve its safe terminal state."""
+        from diopside_ingestion.staging import (
+            local_artifact_record,
+            processed_artifact_paths,
+        )
+
+        if not self._needs_work(artifacts, artifact_key):
+            return artifacts
+        record = local_artifact_record(bundle, artifact_key)
+        if record.get("status") != ArtifactStatus.SUCCEEDED.value:
+            return self._apply_staged_unavailable(artifacts, artifact_key, record)
+        paths = processed_artifact_paths(workspace, bundle, artifact_key, kind)
+        if not paths:
+            return self._mark_absent(artifacts, artifact_key, f"{artifact_key}_not_present")
+        return self._upload_paths(
+            artifacts,
+            artifact_key,
+            paths,
+            channel_id,
+            prefix,
+            directory,
+            storage_field=storage_field,
+        )
+
+    def _apply_staged_unavailable(
+        self,
+        artifacts: dict[str, dict[str, object]],
+        artifact_key: str,
+        record: Mapping[str, object],
+    ) -> dict[str, dict[str, object]]:
+        """Translate a safe local status into the existing DynamoDB artifact contract."""
+        from diopside_ingestion.staging import local_failure
+
+        status = record.get("status")
+        if status == ArtifactStatus.SKIPPED_DEPENDENCY.value:
+            return update_artifact(
+                artifacts,
+                artifact_key=artifact_key,
+                status=ArtifactStatus.SKIPPED_DEPENDENCY,
+                current_phase="completed",
+                now=iso_now(),
+                availability="unavailable",
+            )
+        if status == ArtifactStatus.NOT_APPLICABLE.value:
+            return update_artifact(
+                artifacts,
+                artifact_key=artifact_key,
+                status=ArtifactStatus.NOT_APPLICABLE,
+                current_phase="completed",
+                now=iso_now(),
+                availability="not_applicable",
+                phase_status=PhaseStatus.NOT_APPLICABLE,
+            )
+        return self._record_failure(artifacts, artifact_key, local_failure(record, artifact_key))
 
     def _known_channel_id(self, item: Mapping[str, object] | None) -> str | None:
         if item is None:
