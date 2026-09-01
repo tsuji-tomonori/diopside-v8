@@ -162,6 +162,34 @@ export function VideoDetailPage(): React.JSX.Element {
           )}
         </section>
 
+        {detail.customEmojiUsage ? (
+          <section className="detail-section custom-emoji-section" aria-labelledby="custom-emoji-heading">
+            <div className="section-heading">
+              <div><p className="eyebrow">チャットで使われたリアクション</p><h2 id="custom-emoji-heading">カスタム絵文字</h2></div>
+              <p>最終更新: {formatDate(detail.customEmojiUsage.updatedAt)}</p>
+            </div>
+            <div className="custom-emoji-overview" aria-label="カスタム絵文字の集計概要">
+              <p><strong>{detail.customEmojiUsage.totalCount.toLocaleString('ja-JP')}</strong><span>総使用回数</span></p>
+              <p><strong>{detail.customEmojiUsage.items.length.toLocaleString('ja-JP')}</strong><span>絵文字の種類</span></p>
+            </div>
+            <p className="notice">公開チャットリプレイ内のカスタム絵文字だけを全件集計しています。比率は総使用回数に占める割合です。</p>
+            <ol className="custom-emoji-chart" aria-label="カスタム絵文字の使用比率">
+              {detail.customEmojiUsage.items.map((item) => {
+                const ratio = item.count / detail.customEmojiUsage!.totalCount;
+                return (
+                  <li key={item.customEmojiId}>
+                    <div>
+                      <code>{item.label}</code>
+                      <span>{item.count.toLocaleString('ja-JP')}回 <small>{formatRatio(ratio)}</small></span>
+                    </div>
+                    <progress value={item.count} max={detail.customEmojiUsage!.totalCount} aria-label={`${item.label} ${formatRatio(ratio)}`} />
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+        ) : null}
+
         <section className="detail-section" aria-labelledby="word-cloud-heading">
           <div className="section-heading">
             <div><p className="eyebrow">動画を表す言葉</p><h2 id="word-cloud-heading">ワードクラウド</h2></div>
@@ -184,4 +212,13 @@ export function VideoDetailPage(): React.JSX.Element {
 
 function StatePanel({ title, message }: { title: string; message: string }): React.JSX.Element {
   return <main className="state-panel" role="status"><h1>{title}</h1><p>{message}</p><Link className="button secondary" to="/">動画検索へ戻る</Link></main>;
+}
+
+function formatRatio(ratio: number): string {
+  const maximumFractionDigits = ratio < 0.01 ? 2 : 1;
+  return new Intl.NumberFormat('ja-JP', {
+    style: 'percent',
+    minimumFractionDigits: 1,
+    maximumFractionDigits,
+  }).format(ratio);
 }

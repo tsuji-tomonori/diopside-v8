@@ -28,6 +28,7 @@ const regression = readJson(path.join(root, 'spec/sources/game-tag-corrections-v
     gameTitleTagId: string;
     gameGenreTagIds: string[];
     removeTagIds?: string[];
+    evidence?: { url: string; label: string; checkedAt: string };
   }>;
 };
 const errors: string[] = [];
@@ -80,6 +81,11 @@ for (const video of videos) {
 
 const videosById = new Map(videos.map((video) => [video.videoId, video]));
 for (const correction of regression.corrections) {
+  if (correction.evidence && (
+    !correction.evidence.url.startsWith('https://')
+    || correction.evidence.label.trim().length === 0
+    || !/^\d{4}-\d{2}-\d{2}$/u.test(correction.evidence.checkedAt)
+  )) errors.push(`${correction.videoId}:ゲーム作品名の追加根拠が不正です。`);
   const video = videosById.get(correction.videoId);
   if (!video) {
     errors.push(`${correction.videoId}:回帰監査対象の動画が正本にありません。`);

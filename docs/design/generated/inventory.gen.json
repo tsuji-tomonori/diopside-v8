@@ -3,12 +3,20 @@
   "generator": "scripts/generate-design.ts",
   "sourceDigests": [
     {
+      "path": "scripts/aggregate-custom-emoji-usage.ts",
+      "sha256": "01b9fd42bdb02663c50e19a527b3e8283cd6f1e685ef04c8e308b72fb786039b"
+    },
+    {
+      "path": "scripts/apply-custom-emoji-usage.ts",
+      "sha256": "1ea3487c1bbb5b5071a71628cb2d2edd2636b9a1df394b06cfdc8ff57d94d86e"
+    },
+    {
       "path": "scripts/audit-collaboration-tags.ts",
       "sha256": "fbda33a70c0dc9330a4de9e0a214bbdd791dfd75ca2fb7ba25e83da0929666d5"
     },
     {
       "path": "scripts/audit-game-tags.ts",
-      "sha256": "ae7d7372b8a19dd0ef42f4f6bf961ff8428a51a182d8d6f0c28d7a71159c2de7"
+      "sha256": "1a0bb774bfc0528a9996aa54ec7079fe0bbecacde3d6c10579ac767c582079c4"
     },
     {
       "path": "scripts/audit-requirements.ts",
@@ -20,7 +28,7 @@
     },
     {
       "path": "scripts/build-public-data.ts",
-      "sha256": "fe10835d84d8981b37e581b7176937e7ac248d90883d76aa6d0ed478ab46daa3"
+      "sha256": "74f023b6d98c580aac3f348a44cfa7873ddd2dac03fe24a18045457f996b55eb"
     },
     {
       "path": "scripts/canonical-store.ts",
@@ -40,7 +48,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "bedc2892655d3af756979da8ba29ccfa2a297da5de99b0bddbf9dd5f09e10ef4"
+      "sha256": "f023a57cf892d08230e4002c33d0d41f3ea092748a2141a2ab3e24c535de80ed"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -48,7 +56,7 @@
     },
     {
       "path": "scripts/import-legacy-content.ts",
-      "sha256": "a8cac2bcac44598641837bff72341ce8a842b482224dba55b7870dd6102d054f"
+      "sha256": "582f94be7a9c9c6060732b44014009f283c0f5aee83fbac1b2e320c948f203d0"
     },
     {
       "path": "scripts/import-reference-taxonomy.ts",
@@ -92,7 +100,7 @@
     },
     {
       "path": "scripts/validate-content.ts",
-      "sha256": "279a5680829f7888830a28c21774757c1451aab03e39c2bb2de1230bb482b524"
+      "sha256": "f6be8b2c7a7167a9cd7d384a6bd22a89cacae062ee6d82500e16570122d0503e"
     },
     {
       "path": "scripts/validate-release-pr-scope.ts",
@@ -164,7 +172,7 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "b6e4207218e93d50bb41b89caea67b1e379818ff1e7db09687522610e53f4707"
+      "sha256": "a99c397fc454af6d46327bfb41547636c93784920b6a22367fafd63738ba2b0b"
     },
     {
       "path": "src/domain/entities.ts",
@@ -192,11 +200,11 @@
     },
     {
       "path": "src/domain/validation.test.ts",
-      "sha256": "c2344311d2db59ddfd43d6ff3458dfbf7786ebf90f25ca5e77b60efa518d8431"
+      "sha256": "2a00f4dc81e5101f74eddba4db97283c21967fded239659c002eaea46b30c8b5"
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "6ca216727d22919f032523b6e04028f91dbfd4d8130d4932cda818905403ef64"
+      "sha256": "fa6b1406441f419639b3ff0102a482097165424973833fa9dd79624d4cb7e4a1"
     },
     {
       "path": "src/features/collaborations/CollaborationDetailPages.test.tsx",
@@ -212,7 +220,7 @@
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
-      "sha256": "a12899d49b2af690587f09562d72f5faad3891524bb3dbd3e2a5b5c0bfe73d9b"
+      "sha256": "755375d563b09b29509a48b25c036d1d28d7f717aadfdb712fe6e0964b1852d7"
     },
     {
       "path": "src/features/entities/EntityIndexPage.test.tsx",
@@ -288,6 +296,21 @@
     }
   ],
   "exports": [
+    {
+      "file": "scripts/aggregate-custom-emoji-usage.ts",
+      "name": "aggregateCustomEmojiUsage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/aggregate-custom-emoji-usage.ts",
+      "name": "CustomEmojiUsageAggregate",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/aggregate-custom-emoji-usage.ts",
+      "name": "CustomEmojiUsageItem",
+      "kind": "InterfaceDeclaration"
+    },
     {
       "file": "scripts/canonical-store.ts",
       "name": "readCanonicalVideos",
@@ -606,6 +629,11 @@
     {
       "file": "src/domain/content.ts",
       "name": "confidenceSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "customEmojiUsageSchema",
       "kind": "VariableStatement"
     },
     {

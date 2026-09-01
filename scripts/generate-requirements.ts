@@ -1786,7 +1786,7 @@ const semanticEntityRequirements = [
     last_changed_by: 'CHG-20260901-semantic-entity-model',
   },
   {
-    id: 'V8-DISPLAY-017',
+    id: 'V8-DISPLAY-019',
     revision: 1,
     status: 'active',
     scope: 'product',
@@ -1800,7 +1800,7 @@ const semanticEntityRequirements = [
     source_refs: ['spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'user:2026-08-31'],
     acceptance_criteria: [
       {
-        id: 'AC-V8-DISPLAY-017-1',
+        id: 'AC-V8-DISPLAY-019-1',
         given: '公開エンティティ索引と動画索引が読み込まれている',
         when: '利用者が一覧またはエンティティ詳細を操作する',
         then: '名前・種類で絞り込み、関係種別別件数と関連対象を確認し、関連動画または関連エンティティへ移動できる。',
@@ -1816,6 +1816,74 @@ const semanticEntityRequirements = [
     last_changed_by: 'CHG-20260901-semantic-entity-model',
   },
 ];
+const customEmojiUsageRequirements = [
+  {
+    id: 'V8-DISPLAY-017',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'data',
+    title: '公開チャットを取得できる動画はカスタム絵文字の全出現回数を種類別に集計できなければならない',
+    subject: 'diopside v8のカスタム絵文字集計',
+    action: 'satisfy',
+    object: '公開チャットリプレイを取得できる動画は、通常のUnicode絵文字を除外し、全編に現れるカスタム絵文字の出現回数を種類別に集計しなければならない。項目別回数の合計は総使用回数と一致しなければならない。',
+    rationale: '視聴者のリアクション傾向を動画ごとに比較できるようにしながら、上位項目だけへ切り詰めた分布の誤認を防ぐため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md', 'user:2026-08-31'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-017-1',
+        given: '公開チャットリプレイを全編取得できる動画がある',
+        when: 'カスタム絵文字集計を実行する',
+        then: '通常のUnicode絵文字を含めず、全カスタム絵文字の項目別回数合計が総使用回数と一致する。',
+      },
+    ],
+    verification: {
+      method: '全件集計・Unicode除外・合計整合試験',
+      evidence: 'tests/custom-emoji-usage.test.ts, src/domain/validation.test.ts, tests/content-validation.test.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['scripts/aggregate-custom-emoji-usage.ts', 'src/domain/content.ts', 'src/domain/validation.ts', 'scripts/build-public-data.ts'],
+      tests: ['tests/custom-emoji-usage.test.ts', 'src/domain/validation.test.ts', 'tests/content-validation.test.ts'],
+      standards: ['V8-SAFETY-002', 'spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md', 'dev-standard regulated profile'],
+    },
+    last_changed_by: 'CHG-20260901-custom-emoji-usage',
+  },
+  {
+    id: 'V8-DISPLAY-018',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: '集計済み動画の詳細は全カスタム絵文字の使用回数と比率をチャートで表示しなければならない',
+    subject: 'diopside v8のカスタム絵文字表示',
+    action: 'satisfy',
+    object: 'カスタム絵文字を集計済みの動画詳細は、全種類を省略せず、使用回数の降順でショートコード、正確な回数、カスタム絵文字総使用回数に占める比率を比較できるチャートとして表示しなければならない。',
+    rationale: '少数の上位項目だけでなく動画固有の全リアクション分布を、画面幅や視覚条件にかかわらず読み取れるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md', 'user:2026-08-31'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-018-1',
+        given: 'カスタム絵文字集計を持つ動画詳細を表示する',
+        when: 'デスクトップ・モバイル・支援技術でチャートを確認する',
+        then: '集計に含まれる全種類がショートコード、回数、比率付きで表示され、各棒に読上げ可能な名前と割合がある。',
+      },
+    ],
+    verification: {
+      method: '動画詳細画面・全項目件数・アクセシビリティ試験',
+      evidence: 'e2e/detail.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/features/detail/VideoDetailPage.tsx', 'src/styles.css'],
+      tests: ['e2e/detail.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md', 'dev-standard regulated profile'],
+    },
+    last_changed_by: 'CHG-20260901-custom-emoji-usage',
+  },
+];
 const generatedRequirements = [
   ...requirements,
   ...ownerDirectiveRequirements,
@@ -1829,6 +1897,7 @@ const generatedRequirements = [
   ...searchInteractionRequirements,
   ...gameCatalogRequirements,
   ...semanticEntityRequirements,
+  ...customEmojiUsageRequirements,
 ];
 const issue465OverrideIds = new Set([
   'V8-COST-001',
@@ -1849,9 +1918,9 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 23),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 30),
   product: 'diopside v8',
-  updated_at: '2026-09-01',
+  updated_at: existingCatalog?.updated_at && existingCatalog.updated_at > '2026-09-01' ? existingCatalog.updated_at : '2026-09-01',
   requirements: canonicalRequirements,
 }, null, 2)}\n`);
 writeFileSync(mapPath, `${JSON.stringify({
@@ -1865,4 +1934,4 @@ writeFileSync(mapPath, `${JSON.stringify({
   })),
 }, null, 2)}\n`);
 
-console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + songPerformanceRequirements.length + collaborationPageRequirements.length + seriesPageRequirements.length + searchSuggestionRequirements.length + searchInteractionRequirements.length + gameCatalogRequirements.length + semanticEntityRequirements.length}件の要件正本を生成しました。`);
+console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + songPerformanceRequirements.length + collaborationPageRequirements.length + seriesPageRequirements.length + searchSuggestionRequirements.length + searchInteractionRequirements.length + gameCatalogRequirements.length + semanticEntityRequirements.length + customEmojiUsageRequirements.length}件の要件正本を生成しました。`);

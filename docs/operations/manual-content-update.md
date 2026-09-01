@@ -20,6 +20,12 @@ Issue #465のprivate material backfillは、この公開内容更新手順とは
 8. `npm run validate:video-pr-scope -- --base origin/main` で1動画範囲を確認し、モバイル・デスクトップの画面を添付してプルリクエストを作る。
 9. 人がYouTube、タグ根拠、全編の時刻目次、ワードクラウド、差分、画面、CIを確認する。修正、差戻し、承認、マージは人が判断する。
 
+## カスタム絵文字集計
+
+公開チャットリプレイを取得できる動画は、取得物をGit管理外の一時ディレクトリだけへ置き、`scripts/aggregate-custom-emoji-usage.ts`でカスタム絵文字の全出現回数を集約する。通常のUnicode絵文字を除き、元の絵文字IDはSHA-256由来の匿名IDへ変換する。集計結果には公開ショートコード、項目別回数、総使用回数、入力指紋、規則版、更新日時だけを残す。
+
+集計結果は`scripts/apply-custom-emoji-usage.ts`で対象1動画の`content/videos/<videoId>.json`へ適用する。項目別合計と総数、決定順、公開禁止項目を検証し、通常の動画更新と同じく1動画PRで人が全種類・回数・比率チャートを確認する。生チャットは集計確認後に一時ディレクトリから破棄し、正本、PR本文、review YAML、Pagesへ含めない。
+
 ## ChatGPT Workからの有限一括タイムスタンプ処理
 
 複数動画を台帳から完了まで進める場合は、`.agents/skills/run-timestamp-work-harness/SKILL.md`を入口にする。WorkがGoogle Sheetsの`対象動画`タブを読み、Pythonハーネスが作成済み・除外・既存PRを除く有限集合を行指紋付きで固定する。同じbatch IDの再実行は同じ集合から再開し、集合または元行が変わった場合は上書きしない。

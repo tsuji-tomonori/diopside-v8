@@ -38,6 +38,12 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "e0fdd6d72b274da346d4f62df2249e0b6a64e0f7e51513590f4443870adc3f11"
+    },
+    {
+      "evidenceId": "evidence-official-game-playlist",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "白雪巴公式YouTube「白衣性恋愛症候群RE:Therapy」再生リスト",
+      "inputFingerprint": "bd5f2db835c15b59d99c936c5efcb0dbc7d5259215f2414f4e0012d7dcebb65b"
     }
   ],
   "tagAssignments": [
@@ -69,15 +75,6 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     },
     {
-      "tagId": "tag-content-gameGenre-62278ec71bd0",
-      "reason": "既存分類と作品名からゲームジャンル「アクション」を確認",
-      "confidence": "中",
-      "evidenceRefs": [
-        "evidence-title"
-      ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
-    },
-    {
       "tagId": "tag-context-theme-ae8c2b2f1d2b",
       "reason": "既存タグから中心テーマ「百合」を確認",
       "confidence": "高",
@@ -85,6 +82,24 @@
         "evidence-approved-tags"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-7850d212d2b4",
+      "reason": "白雪巴公式YouTubeの作品別再生リストに当該公式切り抜きが収録されていることから、ゲーム作品「白衣性恋愛症候群RE:Therapy」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-official-game-playlist"
+      ],
+      "reviewedAt": "2026-09-01T23:10:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-75b81f24091b",
+      "reason": "公式再生リストで同一作品を確定し、作品マスターの分類からゲームジャンル「ビジュアルノベル」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-official-game-playlist"
+      ],
+      "reviewedAt": "2026-09-01T23:10:00+09:00"
     }
   ],
   "timestamps": {
@@ -107,7 +122,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-09-01T12:00:00+09:00",
-    "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+    "approvedAt": "2026-09-01T23:10:00+09:00",
+    "basis": "公式作品別再生リストを一次根拠としてゲーム作品名を確定し、誤ったアクション分類を除去"
   }
 }

@@ -52,7 +52,7 @@ selected_checks:
   result: pass
   evidence:
   - path:spec/requirements/requirements.json
-  note: V8-TAG-041から044、V8-DISPLAY-017、TAG-037、SEARCH-020へ意味境界・網羅性監査・探索導線を反映した。
+  note: V8-TAG-041から044、V8-DISPLAY-019、TAG-037、SEARCH-020へ意味境界・網羅性監査・探索導線を反映した。mainでV8-DISPLAY-017/018が先に確定したため、競合解消時に未使用の019へ採番した。
 - id: IMP-002
   class: Invariant
   result: pass
@@ -71,7 +71,7 @@ selected_checks:
   result: pass
   evidence:
   - commit:self
-  note: 利用者がGoogle Driveのレポート更新、GitHubへのpush、PR作成を明示的に依頼しており、mergeとdeployは行わない。
+  note: 利用者がGoogle Driveのレポート更新、GitHubへのpush、PR作成に加えて、本ターンでmergeとproduction deployを明示的に依頼した。
 - id: IMP-007
   class: Risk-selected
   result: pass
@@ -104,14 +104,16 @@ selected_checks:
   - test:src/features/entities/EntityIndexPage.test.tsx
   - test:tests/content-validation.test.ts
   - test:tests/generated.test.ts
-  note: 23ファイル117単体テストでエンティティ探索、正本意味境界、公開索引の参照整合を検証した。
+  note: 最新main統合後の24ファイル119単体テストでエンティティ探索、正本意味境界、公開索引の参照整合を検証した。
 - id: FAST-005
   class: Risk-selected
   result: pass
   evidence:
   - path:scripts/audit-game-tags.ts
+  - path:spec/sources/game-tag-corrections-v1.json
+  - path:content/videos/_pE8SztXhW8.json
   - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
-  note: CIで再現したTaxonomyLookupItem.activeの型エラーを、正本taxonomy由来のactiveTagIdsと未解決判定へ置き換え、typecheckとゲーム回帰監査で再発を防止した。
+  note: CIで再現したTaxonomyLookupItem.activeの型エラーを正本taxonomy由来のactiveTagIdsと未解決判定へ置き換えた。残る1動画は白雪巴公式YouTube作品別再生リストで「白衣性恋愛症候群RE:Therapy」と確定し、ゲーム監査1047/1047・候補0件で再発を防止した。
 - id: FAST-006
   class: Invariant
   result: pass
@@ -162,7 +164,7 @@ selected_checks:
   result: pass
   evidence:
   - commit:self
-  note: 最新main（de2f85aa04f5efd7305886fecb63b096b47fccca）を通常mergeで取り込み、1704動画の正本へ検索用データモデル再設計、正本migration、横断監査、探索UIとその検証を適用した。
+  note: 最新main（f9bf9069c8c539110c305dbf69c8a435fdb9cb1c）を通常mergeで取り込み、1704動画の正本へ検索用データモデル再設計、正本migration、横断監査、探索UIとその検証を適用した。main側のワードクラウド・カスタム絵文字要件と実装を保持し、重複した表示要件IDだけを未使用のV8-DISPLAY-019へ解消した。
 - id: REV-002
   class: Invariant
   result: pass
@@ -246,6 +248,5 @@ selected_checks:
   note: 長期判断の理由は所有者指示と正本から生成する設計へ保持され、追加ADRなしでも追跡可能と判定した。
 advisories: []
 residual_risks:
-- ゲーム配信1動画は一次根拠から正式作品名を特定できず、作品名を推測せず未抽出候補1件として監査結果に残す。
 - 楽曲、出演者、言及人物、イベントの網羅性はpartialであり、期待件数・実件数・候補件数を継続監査する。
 - 選択肢が1件の警告有無と投稿受付手段は意味と利用実績があるため直ちに削除せず、検索結果の差分価値を継続評価する。

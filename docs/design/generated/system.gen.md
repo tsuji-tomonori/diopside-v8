@@ -36,7 +36,7 @@
 |---|---:|
 | COST | 5 |
 | DEVICE | 11 |
-| DISPLAY | 17 |
+| DISPLAY | 19 |
 | INGEST | 17 |
 | OPS | 26 |
 | QUALITY | 5 |
@@ -44,7 +44,7 @@
 | SEARCH | 22 |
 | TAG | 44 |
 | TIME | 37 |
-| **合計** | **188** |
+| **合計** | **190** |
 
 ## 公開データの流れ
 
@@ -54,6 +54,9 @@
 
 | ファイル | 種別 | 名前 |
 |---|---|---|
+| `scripts/aggregate-custom-emoji-usage.ts` | FunctionDeclaration | `aggregateCustomEmojiUsage` |
+| `scripts/aggregate-custom-emoji-usage.ts` | InterfaceDeclaration | `CustomEmojiUsageAggregate` |
+| `scripts/aggregate-custom-emoji-usage.ts` | InterfaceDeclaration | `CustomEmojiUsageItem` |
 | `scripts/canonical-store.ts` | FunctionDeclaration | `readCanonicalVideos` |
 | `scripts/japanese-reading.ts` | FunctionDeclaration | `createJapaneseReadingNormalizer` |
 | `scripts/japanese-reading.ts` | VariableStatement | `japaneseReadingVersion` |
@@ -118,6 +121,7 @@
 | `src/domain/content.ts` | TypeAliasDeclaration | `CollaborationProfiles` |
 | `src/domain/content.ts` | VariableStatement | `collaborationProfilesSchema` |
 | `src/domain/content.ts` | VariableStatement | `confidenceSchema` |
+| `src/domain/content.ts` | VariableStatement | `customEmojiUsageSchema` |
 | `src/domain/content.ts` | VariableStatement | `entityRelationTypeSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `EntityType` |
 | `src/domain/content.ts` | VariableStatement | `entityTypeSchema` |
@@ -251,4 +255,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力71ファイル、公開契約171件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力73ファイル、公開契約175件です。
