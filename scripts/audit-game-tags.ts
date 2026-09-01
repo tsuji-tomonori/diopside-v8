@@ -20,6 +20,8 @@ const gameCatalogInput = readJson(path.join(root, 'content/works/game-catalog.js
 const gameCatalog = gameCatalogSchema.parse(gameCatalogInput);
 const workIntroductions = workIntroductionsSchema.parse(readJson(path.join(root, 'content/works/work-introductions.json')));
 const lookup = buildTaxonomyLookup(taxonomy);
+const activeTagIds = new Set(taxonomy.categories.flatMap((category) => category.subcategories
+  .flatMap((subcategory) => subcategory.tags.filter((tag) => tag.active).map((tag) => tag.tagId))));
 const regression = readJson(path.join(root, 'spec/sources/game-tag-corrections-v1.json')) as {
   corrections: Array<{
     videoId: string;
@@ -85,7 +87,8 @@ for (const correction of regression.corrections) {
   }
   const correctionTarget = lookup.get(correction.gameTitleTagId);
   if (
-    !correctionTarget?.active
+    !correctionTarget
+    || !activeTagIds.has(correction.gameTitleTagId)
     || correctionTarget.categoryId !== 'works'
     || correctionTarget.subcategoryId !== 'gameTitle'
   ) {

@@ -19,7 +19,7 @@ impact_flags:
   code_change: true
   typed_code_change: true
   behavior_change: true
-  bug_fix: false
+  bug_fix: true
   generated_change: true
   sql_change: false
   e2e_change: false
@@ -90,7 +90,7 @@ selected_checks:
   result: pass
   evidence:
   - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
-  note: npm run typecheckを合格した。
+  note: taxonomy lookupの公開型にactiveが含まれないことをCIで検出し、正本taxonomyからactiveTagIdsを構築する実装へ修正した上でnpm run typecheckを合格した。
 - id: FAST-003
   class: Invariant
   result: pass
@@ -105,6 +105,13 @@ selected_checks:
   - test:tests/content-validation.test.ts
   - test:tests/generated.test.ts
   note: 23ファイル117単体テストでエンティティ探索、正本意味境界、公開索引の参照整合を検証した。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:scripts/audit-game-tags.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: CIで再現したTaxonomyLookupItem.activeの型エラーを、正本taxonomy由来のactiveTagIdsと未解決判定へ置き換え、typecheckとゲーム回帰監査で再発を防止した。
 - id: FAST-006
   class: Invariant
   result: pass
