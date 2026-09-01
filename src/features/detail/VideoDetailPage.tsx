@@ -84,11 +84,6 @@ export function VideoDetailPage(): React.JSX.Element {
               <h3>{group.name}</h3>
               <div className="detail-tags">
                 {group.tags.map((tag) => {
-                  if (tag.entityId) return (
-                    <Link className="detail-tag-link" key={tag.tagId} to={`/entities/${tag.entityId}`}>
-                      <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>関連情報を見る →</span>
-                    </Link>
-                  );
                   if (group.categoryId === 'program' && tag.subcategoryId === 'recurringSeries') return (
                     <Link className="detail-tag-link" key={tag.tagId} to={`/series/${tag.tagId}`}>
                       <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>シリーズ一覧を見る →</span>
@@ -128,6 +123,11 @@ export function VideoDetailPage(): React.JSX.Element {
                   if (group.categoryId === 'people' && tag.subcategoryId === 'unit' && tag.groupProfile) return (
                     <Link className="detail-tag-link" key={tag.tagId} to={`/groups/${tag.tagId}`}>
                       <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>コンビ・ユニットを見る →</span>
+                    </Link>
+                  );
+                  if (tag.entityId) return (
+                    <Link className="detail-tag-link" key={tag.tagId} to={`/entities/${tag.entityId}`}>
+                      <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>関連情報を見る →</span>
                     </Link>
                   );
                   return <span key={tag.tagId}><small>{tag.subcategoryName}</small>{tag.canonicalName}</span>;

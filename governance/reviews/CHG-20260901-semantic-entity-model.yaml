@@ -22,7 +22,7 @@ impact_flags:
   bug_fix: true
   generated_change: true
   sql_change: false
-  e2e_change: false
+  e2e_change: true
   migration: true
   ui_change: true
   interactive_ui_change: true
@@ -139,14 +139,24 @@ selected_checks:
   evidence:
   - path:src/features/entities/EntityIndexPage.tsx
   - test:src/features/entities/EntityIndexPage.test.tsx
-  note: 一覧・名前検索・種類絞り込み・空状態・詳細・関連動画・関連エンティティを実装した。
+  - test:e2e/search.spec.ts
+  note: 一覧・名前検索・種類絞り込み・空状態・詳細・関連動画・関連エンティティを実装し、検索候補からエンティティ詳細へ遷移するブラウザ契約へ接続した。
 - id: FAST-014
   class: Risk-selected
   result: pass
   evidence:
   - test:src/features/entities/EntityIndexPage.test.tsx
   - test:src/features/search/SearchPage.test.tsx
-  note: label付き入力、semantic link、accessible name、通常のkeyboard操作が成立する構造を確認した。
+  - test:e2e/detail.spec.ts
+  - test:e2e/search.spec.ts
+  note: label付き入力、semantic link、accessible name、通常のkeyboard操作を確認し、既存の作品・人物・楽曲詳細導線と汎用エンティティ導線を両立させた。
+- id: FAST-018
+  class: Risk-selected
+  result: na
+  evidence:
+  - test:e2e/detail.spec.ts
+  - test:e2e/search.spec.ts
+  note: E2E変更triggerで選択したが、DB・CRUD・外部状態変更はなく、静的公開データを使う画面遷移と検索状態の検証であるため状態永続化assertは対象外とした。
 - id: REV-001
   class: Invariant
   result: pass
@@ -189,7 +199,9 @@ selected_checks:
   - path:.github/workflows/verify.yml
   - test:tests/content-validation.test.ts
   - test:src/features/entities/EntityIndexPage.test.tsx
-  note: build、型、lint、単体、正本、migration、生成差分、E2EをPR品質ゲートで実行する。
+  - test:e2e/detail.spec.ts
+  - test:e2e/search.spec.ts
+  note: build、型、lint、単体、正本、migration、生成差分、既存詳細導線と新規エンティティ導線のE2EをPR品質ゲートで実行する。
 - id: REV-007
   class: Invariant
   result: pass
@@ -202,6 +214,13 @@ selected_checks:
   evidence:
   - path:governance/reviews/CHG-20260901-semantic-entity-model.yaml
   note: 未選択チェックを形式的なN/Aとして記録しない。
+- id: REV-009
+  class: Risk-selected
+  result: pass
+  evidence:
+  - test:e2e/detail.spec.ts
+  - test:e2e/search.spec.ts
+  note: FAST-018はE2E変更で選択後、CRUD・DB・外部状態を持たない静的公開データの画面遷移・検索状態検証と判明したためN/Aとする具体的根拠を確認した。
 - id: REV-011
   class: Risk-selected
   result: pass
@@ -215,7 +234,9 @@ selected_checks:
   evidence:
   - test:src/features/entities/EntityIndexPage.test.tsx
   - test:src/features/search/SearchPage.test.tsx
-  note: 名前検索、イベントから対象ゲームへの遷移、検索候補からエンティティ詳細への遷移をタスク単位で確認した。
+  - test:e2e/detail.spec.ts
+  - test:e2e/search.spec.ts
+  note: 名前検索、イベントから対象ゲームへの遷移、検索候補からエンティティ詳細への遷移、作品・人物・楽曲の既存詳細導線をタスク単位で確認した。
 - id: REV-015
   class: Advisory
   result: pass
