@@ -1,7 +1,7 @@
 schema_version: 2
 catalog_version: 3
 catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
-change_id: CHG-20260823-synopsis-innyw2i7l8a
+change_id: CHG-20260823-synopsis-lmcfx2jp0i4
 profile: assured
 source_ref: self
 completed_timings:
@@ -51,7 +51,7 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/iNnyw2I7L8A.json
+  - path:content/videos/lMcfx2jP0i4.json
   note: 既存のあらすじ表示要件に従う1動画追加である。
 - id: IMP-002
   class: Invariant
@@ -63,7 +63,7 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/iNnyw2I7L8A.json
+  - path:content/videos/lMcfx2jP0i4.json
   note: 全編根拠と独立三重reviewを伴うためassuredを選択した。
 - id: IMP-004
   class: Invariant
@@ -75,13 +75,13 @@ selected_checks:
   class: Risk-selected
   result: pass
   evidence:
-  - path:content/videos/iNnyw2I7L8A.json
+  - path:content/videos/lMcfx2jP0i4.json
   note: 可逆な1動画あらすじ追加でありmigrationや削除はない。
 - id: FAST-004
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/iNnyw2I7L8A.json
+  - path:content/videos/lMcfx2jP0i4.json
   - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 候補hash、全編根拠、独立reviewを検証する。
 - id: FAST-006
@@ -101,7 +101,7 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/iNnyw2I7L8A.json
+  - path:content/videos/lMcfx2jP0i4.json
   note: 差分を1動画正本、manifest、review YAMLへ限定する。
 - id: REV-002
   class: Invariant
@@ -114,7 +114,7 @@ selected_checks:
   result: pass
   evidence:
   - path:spec/requirements/requirements.json
-  - path:content/videos/iNnyw2I7L8A.json
+  - path:content/videos/lMcfx2jP0i4.json
   note: V8-DISPLAY-011の受入条件へ適合する。
 - id: REV-004
   class: Invariant
@@ -133,16 +133,16 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:governance/reviews/CHG-20260823-synopsis-innyw2i7l8a.yaml
+  - path:governance/reviews/CHG-20260823-synopsis-lmcfx2jp0i4.yaml
   note: 選択checkだけを保存する。
 - id: REV-008
   class: Invariant
   result: pass
   evidence:
-  - path:governance/reviews/CHG-20260823-synopsis-innyw2i7l8a.yaml
+  - path:governance/reviews/CHG-20260823-synopsis-lmcfx2jp0i4.yaml
   note: 未選択checkをN/Aとして保存しない。
 advisories: []
 residual_risks:
-- 候補hash ee64d4856c8cd6d575a0a25458c37d1b3fe787b0249c5a74cc3f801d7207b0d3 を親Solが最終確認済みであり、明示されたマージ権限に基づき、PR head一致とCI成功を確認してマージする。
-- main d743290007ea0ea97ea6b15287774d9f0b8860dc から全動画を決定的に再集計し、iNnyw2I7L8Aを加えたsynopsis 265件とmanifest件数265件の一致を確認する。
-- 既存branch head 5d2b0fed4f71e2886d03b88aaeb3a9930e5cb249 を履歴へ保持し、force updateを使わず最新mainへ統合する。
+- 候補hash a63e8fc46d05abca1f591a52c5646127c8dcfe57d8d793889c090661d5bf4f89 を親Solが最終確認済みであり、明示されたマージ権限に基づき、PR head一致とCI成功を確認してマージする。
+- main 9bbd43b4a8335d763406dc9fa0bdcfea79a89e6c から全動画を決定的に再集計し、lMcfx2jP0i4を加えたsynopsis 264件とmanifest件数264件の一致を確認する。
+- 既存branch head f1a89f40cc4adc2e2862bfc9ac17ddead3096ae4 を履歴へ保持し、force updateを使わず最新mainへ統合する。

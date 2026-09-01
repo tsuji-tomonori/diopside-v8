@@ -1,7 +1,7 @@
 schema_version: 2
 catalog_version: 3
 catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
-change_id: CHG-20260823-synopsis-innyw2i7l8a
+change_id: CHG-20260830-timestamps-snjz3pf5s4
 profile: assured
 source_ref: self
 completed_timings:
@@ -51,8 +51,8 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/iNnyw2I7L8A.json
-  note: 既存のあらすじ表示要件に従う1動画追加である。
+  - path:content/videos/-sNJZ3Pf5s4.json
+  note: 既存の有限batch・1動画1PR要件に従う正本追加である。
 - id: IMP-002
   class: Invariant
   result: pass
@@ -63,65 +63,66 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/iNnyw2I7L8A.json
-  note: 全編根拠と独立三重reviewを伴うためassuredを選択した。
+  - path:content/videos/-sNJZ3Pf5s4.json
+  note: 全編根拠、タイムスタンプ独立二重review、あらすじ三重reviewを伴うためassuredを選択した。
 - id: IMP-004
   class: Invariant
   result: pass
   evidence:
   - commit:self
-  note: 人のcampaign要求がbranch、push、draft PR、台帳更新を許可している。
+  note: 人の有限batch要求がbranch、push、draft PR、台帳更新を許可している。
 - id: IMP-007
   class: Risk-selected
   result: pass
   evidence:
-  - path:content/videos/iNnyw2I7L8A.json
-  note: 可逆な1動画あらすじ追加でありmigrationや削除はない。
+  - path:content/videos/-sNJZ3Pf5s4.json
+  note: 可逆な1動画overrideでありmigrationや削除はない。
 - id: FAST-004
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/iNnyw2I7L8A.json
+  - path:content/videos/-sNJZ3Pf5s4.json
   - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
-  note: 候補hash、全編根拠、独立reviewを検証する。
+  note: 正本schema、全編根拠、review hash、PR gateを検証する。
 - id: FAST-006
   class: Invariant
   result: pass
   evidence:
   - path:content/content-manifest.json
   - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
-  note: 正本件数と生成driftを検証する。
+  note: 正本件数と決定的生成物のdriftを検証する。
 - id: FAST-007
   class: Invariant
   result: pass
   evidence:
   - commit:self
-  note: 生字幕、音声、文字起こし、個人情報を差分へ含めない。
+  note: 生字幕、音声、文字起こし、チャット、秘密情報を差分へ含めない。
 - id: REV-001
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/iNnyw2I7L8A.json
+  - path:content/videos/-sNJZ3Pf5s4.json
+  - path:governance/reviews/CHG-20260830-timestamps-snjz3pf5s4.yaml
   note: 差分を1動画正本、manifest、review YAMLへ限定する。
 - id: REV-002
   class: Invariant
   result: pass
   evidence:
   - commit:self
-  note: Commit Commentへ必須影響・検証・リスクを記録する。
+  note: Commit Commentへ必須の影響・検証・リスクを記録する。
 - id: REV-003
   class: Invariant
   result: pass
   evidence:
   - path:spec/requirements/requirements.json
-  - path:content/videos/iNnyw2I7L8A.json
-  note: V8-DISPLAY-011の受入条件へ適合する。
+  - path:content/videos/-sNJZ3Pf5s4.json
+  note: 有限batchと独立reviewの受入条件を満たす。
 - id: REV-004
   class: Invariant
   result: pass
   evidence:
   - commit:self
-  note: schemaや画面を変えないためADRは不要である。
+  note: schemaや画面を変えないため生成設計・ADRは不要である。
 - id: REV-006
   class: Invariant
   result: pass
@@ -133,16 +134,14 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:governance/reviews/CHG-20260823-synopsis-innyw2i7l8a.yaml
-  note: 選択checkだけを保存する。
+  - path:governance/reviews/CHG-20260830-timestamps-snjz3pf5s4.yaml
+  note: 選択checkだけをreview YAMLへ保存する。
 - id: REV-008
   class: Invariant
   result: pass
   evidence:
-  - path:governance/reviews/CHG-20260823-synopsis-innyw2i7l8a.yaml
-  note: 未選択checkをN/Aとして保存しない。
+  - path:governance/reviews/CHG-20260830-timestamps-snjz3pf5s4.yaml
+  note: 未選択checkをN/Aとして登録しない。
 advisories: []
 residual_risks:
-- 候補hash ee64d4856c8cd6d575a0a25458c37d1b3fe787b0249c5a74cc3f801d7207b0d3 を親Solが最終確認済みであり、明示されたマージ権限に基づき、PR head一致とCI成功を確認してマージする。
-- main d743290007ea0ea97ea6b15287774d9f0b8860dc から全動画を決定的に再集計し、iNnyw2I7L8Aを加えたsynopsis 265件とmanifest件数265件の一致を確認する。
-- 既存branch head 5d2b0fed4f71e2886d03b88aaeb3a9930e5cb249 を履歴へ保持し、force updateを使わず最新mainへ統合する。
+- タイムスタンプ候補hash bdcb5fcbafbee1f3c7a92064a83ae64bcbd9de1ad5db2011ba45ef8d77d2c054 とあらすじ候補hash 70ea449ccc9814bc781788684fe9a151b1f37bd1888d395c6b21b3dcf5f65a9b は最新main（d7abba7）との競合は解消済みであり、人によるPRマージ完了まで公開されない。
