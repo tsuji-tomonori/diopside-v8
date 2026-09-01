@@ -2,6 +2,7 @@ import {
   latestReleaseSchema,
   publicAliasIndexSchema,
   publicGameIndexSchema,
+  publicEntityIndexSchema,
   publicIndexSchema,
   publicSongIndexSchema,
   publicTagIndexSchema,
@@ -12,6 +13,7 @@ import {
   type LatestRelease,
   type PublicAliasIndex,
   type PublicGameIndex,
+  type PublicEntityIndex,
   type PublicIndex,
   type PublicSongIndex,
   type PublicTagIndex,
@@ -37,19 +39,21 @@ export interface PublicBundle {
   aliasIndex: PublicAliasIndex;
   songIndex: PublicSongIndex;
   gameIndex: PublicGameIndex;
+  entityIndex: PublicEntityIndex;
 }
 
 export async function loadPublicBundle(store: DeviceStore, fetcher: typeof fetch = fetch): Promise<PublicBundle> {
   try {
     const latest = latestReleaseSchema.parse(await fetchJson('data/latest.json', fetcher));
     if (latest.releaseId !== embeddedReleaseId) throw mismatch();
-    const [indexInput, searchInput, tagInput, aliasInput, songInput, gameInput] = await Promise.all([
+    const [indexInput, searchInput, tagInput, aliasInput, songInput, gameInput, entityInput] = await Promise.all([
       fetchJson(latest.indexPath, fetcher),
       fetchJson(latest.searchIndexPath, fetcher),
       fetchJson(latest.tagIndexPath, fetcher),
       fetchJson(latest.aliasIndexPath, fetcher),
       fetchJson(`data/releases/${latest.releaseId}/song-index.json`, fetcher),
       fetchJson(latest.gameIndexPath, fetcher),
+      fetchJson(latest.entityIndexPath, fetcher),
     ]);
     const bundle = {
       latest,
@@ -59,6 +63,7 @@ export async function loadPublicBundle(store: DeviceStore, fetcher: typeof fetch
       aliasIndex: publicAliasIndexSchema.parse(aliasInput),
       songIndex: publicSongIndexSchema.parse(songInput),
       gameIndex: publicGameIndexSchema.parse(gameInput),
+      entityIndex: publicEntityIndexSchema.parse(entityInput),
     };
     assertSameRelease(bundle);
     await store.writePublicCache(bundle.latest.releaseId, bundle);
@@ -77,6 +82,7 @@ export async function loadPublicBundle(store: DeviceStore, fetcher: typeof fetch
           aliasIndex: publicAliasIndexSchema.parse(value.aliasIndex),
           songIndex: publicSongIndexSchema.parse(value.songIndex),
           gameIndex: publicGameIndexSchema.parse(value.gameIndex),
+          entityIndex: publicEntityIndexSchema.parse(value.entityIndex),
         };
         assertSameRelease(bundle);
         return bundle;
@@ -119,6 +125,7 @@ function assertSameRelease(bundle: PublicBundle): void {
     bundle.aliasIndex.releaseId,
     bundle.songIndex.releaseId,
     bundle.gameIndex.releaseId,
+    bundle.entityIndex.releaseId,
     embeddedReleaseId,
   ];
   if (new Set(releaseIds).size !== 1) throw mismatch();

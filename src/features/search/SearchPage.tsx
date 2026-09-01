@@ -58,6 +58,10 @@ export function SearchPage(): React.JSX.Element {
   const summaries = useMemo(() => new Map(bundle.index.videos.map((video) => [video.videoId, video])), [bundle.index.videos]);
   const filterBounds = useMemo(() => searchFilterBounds(bundle.searchIndex.videos), [bundle.searchIndex.videos]);
   const tags = useMemo(() => bundle.tagIndex.categories.flatMap((category) => category.subcategories.flatMap((subcategory) => subcategory.tags)), [bundle.tagIndex.categories]);
+  const classificationTags = useMemo(() => bundle.tagIndex.categories.flatMap((category) => category.subcategories
+    .filter((subcategory) => subcategory.valueKind === 'classification')
+    .flatMap((subcategory) => subcategory.tags)), [bundle.tagIndex.categories]);
+  const entityIdByTagId = useMemo(() => new Map(tags.flatMap((tag) => tag.entityId ? [[tag.tagId, tag.entityId] as const] : [])), [tags]);
   const aliasesByTagId = useMemo(() => {
     const result = new Map<string, string[]>();
     for (const [alias, tagId] of Object.entries(bundle.aliasIndex.aliases)) {
@@ -85,6 +89,7 @@ export function SearchPage(): React.JSX.Element {
       normalizedReading: tag.normalizedReading,
       count: tag.count,
       aliases: aliasesByTagId.get(tag.tagId) ?? [],
+      ...(tag.entityId ? { entityId: tag.entityId } : {}),
     })), [aliasesByTagId, tags]);
   const suggestions = useMemo(
     () => buildSearchSuggestions(draft.query, suggestionVideos, suggestionTags),
@@ -216,6 +221,11 @@ export function SearchPage(): React.JSX.Element {
   };
 
   const applyTagSuggestion = (tagId: string): void => {
+    const entityId = entityIdByTagId.get(tagId);
+    if (entityId) {
+      navigate(`/entities/${entityId}`);
+      return;
+    }
     if (gameRootTagIds.has(tagId)) {
       navigate('/games');
       return;
@@ -257,6 +267,11 @@ export function SearchPage(): React.JSX.Element {
   };
 
   const selectTagAndShowResults = (tagId: string, mode: 'add' | 'toggle'): void => {
+    const entityId = entityIdByTagId.get(tagId);
+    if (entityId) {
+      navigate(`/entities/${entityId}`);
+      return;
+    }
     if (gameRootTagIds.has(tagId)) {
       navigate('/games');
       return;
@@ -443,8 +458,8 @@ export function SearchPage(): React.JSX.Element {
                     </section>
                   )}
                   {suggestions.tags.length > 0 && (
-                    <section role="group" aria-label="タグ候補">
-                      <h2>タグ</h2>
+                    <section role="group" aria-label="分類・エンティティ候補">
+                      <h2>分類・人物・作品・企画</h2>
                       {suggestions.tags.map((tag) => {
                         const optionIndex = suggestionOptions.findIndex((option) => option.kind === 'tag' && option.id === tag.tagId);
                         return (
@@ -458,7 +473,7 @@ export function SearchPage(): React.JSX.Element {
                             onMouseEnter={() => setActiveSuggestionIndex(optionIndex)}
                             onClick={() => applyTagSuggestion(tag.tagId)}
                           >
-                            <span className="suggestion-kind">タグ</span>
+                            <span className="suggestion-kind">{tag.entityId ? '関連項目' : '分類'}</span>
                             <span>{tag.canonicalName}</span>
                             <small>{tag.count}件</small>
                           </button>
@@ -538,7 +553,7 @@ export function SearchPage(): React.JSX.Element {
                   <div className="tag-input-row">
                     <input id="tag-name" list="tag-name-options" value={tagInput} onChange={(event) => updateTagInput(event.target.value)} />
                     <datalist id="tag-name-options">
-                      {tags.filter((tag) => availableTagIds.has(tag.tagId)).map((tag) => <option key={tag.tagId} value={tag.canonicalName} />)}
+                      {classificationTags.filter((tag) => availableTagIds.has(tag.tagId)).map((tag) => <option key={tag.tagId} value={tag.canonicalName} />)}
                       {Object.entries(bundle.aliasIndex.aliases)
                         .filter(([, tagId]) => availableTagIds.has(tagId))
                         .map(([alias]) => <option key={`alias-${alias}`} value={alias} />)}
@@ -565,12 +580,13 @@ export function SearchPage(): React.JSX.Element {
                     </section>
                   )}
                   <div className="tag-browser-heading">
-                    <h3>すべてのタグ</h3>
-                    <p className="hint">大分類と小分類を順に開くと、必要なタグだけを表示できます。</p>
+                    <h3>分類から絞り込む</h3>
+                    <p className="hint">人物・作品・企画は上の検索候補または専用一覧から開けます。</p>
                   </div>
                   <div className="tag-accordion">
                     {bundle.tagIndex.categories.map((category) => {
                       const visibleSubcategories = category.subcategories
+                        .filter((subcategory) => subcategory.valueKind === 'classification')
                         .map((subcategory) => ({
                           subcategory,
                           visibleTags: subcategory.tags.filter((tag) => availableTagIds.has(tag.tagId)),

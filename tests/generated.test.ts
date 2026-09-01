@@ -8,6 +8,7 @@ import {
   gameCatalogSchema,
   publicAliasIndexSchema,
   publicGameIndexSchema,
+  publicEntityIndexSchema,
   publicIndexSchema,
   publicSongIndexSchema,
   publicTagIndexSchema,
@@ -55,6 +56,7 @@ describe('決定的な公開成果物', () => {
       collaborationProfiles,
       channelPersonMappings,
       searchNormalizationVersion: '2.0.0',
+      semanticEntityModelVersion: '1.0.0',
       japaneseReadingVersion,
       readingOverrides,
       videos,
@@ -70,7 +72,8 @@ describe('決定的な公開成果物', () => {
     const aliases = publicAliasIndexSchema.parse(json(`public/${latest.aliasIndexPath}`));
     const songs = publicSongIndexSchema.parse(json(`public/data/releases/${latest.releaseId}/song-index.json`));
     const games = publicGameIndexSchema.parse(json(`public/${latest.gameIndexPath}`));
-    expect(new Set([latest.releaseId, index.releaseId, search.releaseId, tags.releaseId, aliases.releaseId, songs.releaseId, games.releaseId, embeddedReleaseId]).size).toBe(1);
+    const entities = publicEntityIndexSchema.parse(json(`public/${latest.entityIndexPath}`));
+    expect(new Set([latest.releaseId, index.releaseId, search.releaseId, tags.releaseId, aliases.releaseId, songs.releaseId, games.releaseId, entities.releaseId, embeddedReleaseId]).size).toBe(1);
     expect(index.videos.map((video) => video.videoId)).toEqual(search.videos.map((video) => video.videoId));
     expect(index.videos).toHaveLength(contentManifest.videoCount);
     const allPublicTagIds = [
@@ -82,6 +85,7 @@ describe('決定的な公開成果物', () => {
     ];
     expect(allPublicTagIds.every((tagId) => !tagId.startsWith('tag-people-channel-'))).toBe(true);
     expect(search.videos.every((video) => video.normalizedReading.length > 0)).toBe(true);
+    expect(index.videos.every((video) => video.entityRefs.every((reference) => entities.entities.some((entity) => entity.entityId === reference.entityId)))).toBe(true);
     expect(tags.categories.flatMap((category) => category.subcategories).flatMap((subcategory) => subcategory.tags)
       .every((tag) => tag.normalizedReading.length > 0)).toBe(true);
   });
@@ -128,7 +132,7 @@ describe('決定的な公開成果物', () => {
     expect(manifest.releaseId).toBe(latest.releaseId);
     const profiles = collaborationProfilesSchema.parse(json('content/people/collaboration-profiles.json'));
     const uniqueIconFiles = new Set(profiles.people.map((person) => person.iconFile));
-    expect(manifest.files).toHaveLength(262 + uniqueIconFiles.size);
+    expect(manifest.files).toHaveLength(263 + uniqueIconFiles.size);
     expect(new Set(manifest.files.map((file) => file.path)).size).toBe(manifest.files.length);
     for (const file of manifest.files) {
       expect(sha256(readFileSync(path.join(releaseRoot, file.path)))).toBe(file.sha256);

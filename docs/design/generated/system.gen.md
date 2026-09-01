@@ -18,6 +18,8 @@
 - `*`
 - `/`
 - `/collaborators/:tagId`
+- `/entities`
+- `/entities/:entityId`
 - `/games`
 - `/games/genres/:tagId`
 - `/groups/:tagId`
@@ -34,15 +36,15 @@
 |---|---:|
 | COST | 5 |
 | DEVICE | 11 |
-| DISPLAY | 16 |
+| DISPLAY | 17 |
 | INGEST | 17 |
 | OPS | 26 |
 | QUALITY | 5 |
 | SAFETY | 4 |
 | SEARCH | 22 |
-| TAG | 40 |
+| TAG | 44 |
 | TIME | 37 |
-| **合計** | **183** |
+| **合計** | **188** |
 
 ## 公開データの流れ
 
@@ -116,6 +118,9 @@
 | `src/domain/content.ts` | TypeAliasDeclaration | `CollaborationProfiles` |
 | `src/domain/content.ts` | VariableStatement | `collaborationProfilesSchema` |
 | `src/domain/content.ts` | VariableStatement | `confidenceSchema` |
+| `src/domain/content.ts` | VariableStatement | `entityRelationTypeSchema` |
+| `src/domain/content.ts` | TypeAliasDeclaration | `EntityType` |
+| `src/domain/content.ts` | VariableStatement | `entityTypeSchema` |
 | `src/domain/content.ts` | VariableStatement | `evidenceReferenceSchema` |
 | `src/domain/content.ts` | VariableStatement | `evidenceTypeSchema` |
 | `src/domain/content.ts` | FunctionDeclaration | `findTagId` |
@@ -127,6 +132,8 @@
 | `src/domain/content.ts` | VariableStatement | `legacyIndependentReviewSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `PublicAliasIndex` |
 | `src/domain/content.ts` | VariableStatement | `publicAliasIndexSchema` |
+| `src/domain/content.ts` | TypeAliasDeclaration | `PublicEntityIndex` |
+| `src/domain/content.ts` | VariableStatement | `publicEntityIndexSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `PublicGameIndex` |
 | `src/domain/content.ts` | VariableStatement | `publicGameIndexSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `PublicIndex` |
@@ -154,13 +161,19 @@
 | `src/domain/content.ts` | TypeAliasDeclaration | `TagTaxonomy` |
 | `src/domain/content.ts` | VariableStatement | `tagTaxonomySchema` |
 | `src/domain/content.ts` | InterfaceDeclaration | `TaxonomyLookupItem` |
+| `src/domain/content.ts` | VariableStatement | `taxonomyValueKindSchema` |
 | `src/domain/content.ts` | VariableStatement | `timestampItemSchema` |
 | `src/domain/content.ts` | VariableStatement | `timestampMissingReasonSchema` |
 | `src/domain/content.ts` | VariableStatement | `timestampOriginSchema` |
+| `src/domain/content.ts` | TypeAliasDeclaration | `VideoEntityRole` |
+| `src/domain/content.ts` | VariableStatement | `videoEntityRoleSchema` |
 | `src/domain/content.ts` | FunctionDeclaration | `videoShardId` |
 | `src/domain/content.ts` | VariableStatement | `wordCloudMissingReasonSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `WorkIntroductions` |
 | `src/domain/content.ts` | VariableStatement | `workIntroductionsSchema` |
+| `src/domain/entities.ts` | FunctionDeclaration | `buildEntityProjection` |
+| `src/domain/entities.ts` | InterfaceDeclaration | `BuildEntityProjectionInput` |
+| `src/domain/entities.ts` | InterfaceDeclaration | `EntityProjection` |
 | `src/domain/game-catalog.ts` | FunctionDeclaration | `applyGameCatalogGenres` |
 | `src/domain/game-catalog.ts` | FunctionDeclaration | `catalogGameGenreTagIds` |
 | `src/domain/game-title-detection.ts` | FunctionDeclaration | `detectExplicitGameTitleTagIds` |
@@ -200,6 +213,7 @@
 | `src/features/collaborations/CollaboratorDetailPage.tsx` | FunctionDeclaration | `CollaboratorDetailPage` |
 | `src/features/collaborations/GroupDetailPage.tsx` | FunctionDeclaration | `GroupDetailPage` |
 | `src/features/detail/VideoDetailPage.tsx` | FunctionDeclaration | `VideoDetailPage` |
+| `src/features/entities/EntityIndexPage.tsx` | FunctionDeclaration | `EntityIndexPage` |
 | `src/features/games/GameIndexPage.tsx` | FunctionDeclaration | `GameIndexPage` |
 | `src/features/library/DeviceLibraryPage.tsx` | FunctionDeclaration | `DeviceLibraryPage` |
 | `src/features/search/DateRangePicker.tsx` | FunctionDeclaration | `DateRangePicker` |
@@ -227,6 +241,7 @@
 - `src/domain/search.test.ts`
 - `src/domain/validation.test.ts`
 - `src/features/collaborations/CollaborationDetailPages.test.tsx`
+- `src/features/entities/EntityIndexPage.test.tsx`
 - `src/features/games/GameIndexPage.test.tsx`
 - `src/features/search/SearchFilterControls.test.tsx`
 - `src/features/search/SearchPage.test.tsx`
@@ -236,4 +251,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力66ファイル、公開契約159件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力71ファイル、公開契約171件です。

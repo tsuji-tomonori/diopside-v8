@@ -64,7 +64,7 @@ const errors: string[] = validateTaxonomy(taxonomyInput, aliasesInput).map(forma
 const videos = readCanonicalVideos(root);
 for (const video of videos) errors.push(...validateCanonicalVideo(video, taxonomy, aliases).map((item) => `${video.videoId}.json:${formatIssue(item)}`));
 errors.push(...validateChannelPersonMappings(videos, taxonomy, channelPersonMappings, collaborationProfiles.subjectPersonTagId).map(formatIssue));
-errors.push(...validateSongPerformanceCatalog(songPerformancesInput, videos).map(formatIssue));
+errors.push(...validateSongPerformanceCatalog(songPerformancesInput, videos, taxonomy).map(formatIssue));
 errors.push(...validateGameCatalog(gameCatalogInput, taxonomy, workIntroductions, videos).map(formatIssue));
 
 const uniqueVideoIds = new Set(videos.map((video) => video.videoId));
@@ -91,7 +91,7 @@ if (errors.length > 0) {
   process.exitCode = 1;
 } else {
   const appearanceCount = songPerformances.songs.reduce((total, song) => total + song.appearances.length, 0);
-  console.log(`正本検証合格: ${videos.length}動画・${assignmentCount}タグ付与・${gameCatalog.games.length}ゲーム・${songPerformances.songs.length}楽曲・${appearanceCount}歌唱実績・7大分類・30小分類`);
+  console.log(`正本検証合格: ${videos.length}動画・${assignmentCount}タグ付与・${gameCatalog.games.length}ゲーム・${songPerformances.songs.length}楽曲・${appearanceCount}歌唱実績・7大分類・28小分類`);
 }
 
 function formatIssue(item: { code: string; path: string; message: string }): string {

@@ -40,7 +40,7 @@ const gameCatalog = gameCatalogSchema.parse(gameCatalogInput);
 
 describe('タグ・動画正本と公開境界', () => {
   it('特定ゲーム作品をゲーム単位の確認元・1〜3ジャンルで全件管理する', () => {
-    expect(gameCatalog.games).toHaveLength(244);
+    expect(gameCatalog.games).toHaveLength(245);
     expect(validateGameCatalog(gameCatalogInput, taxonomy, workIntroductions, videos)).toEqual([]);
     expect(gameCatalog.games.every((game) => game.sources.every((source) => source.url.startsWith('https://')))).toBe(true);
     expect(gameCatalog.games.find((game) => game.title === 'ワガママハイスペック')?.gameGenreTagIds).toEqual([
@@ -72,12 +72,17 @@ describe('タグ・動画正本と公開境界', () => {
     expect(validateCanonicalVideo(incompatible, taxonomy, aliases).map((issue) => issue.code)).toContain('TAXONOMY_VERSION_MISMATCH');
   });
 
-  it('7大分類・30小分類・不変タグID・別名を一貫して検証する', () => {
+  it('7大分類・28小分類・不変タグID・意味種別・別名を一貫して検証する', () => {
     expect(validateTaxonomy(taxonomyInput, aliasesInput)).toEqual([]);
     const subcategories = taxonomy.categories.flatMap((category) => category.subcategories);
     const tags = subcategories.flatMap((subcategory) => subcategory.tags);
     expect(taxonomy.categories).toHaveLength(7);
-    expect(subcategories).toHaveLength(30);
+    expect(subcategories).toHaveLength(28);
+    expect(subcategories.every((subcategory) => (
+      subcategory.valueKind === 'classification'
+        ? subcategory.entityType === undefined && subcategory.videoRelation === undefined
+        : subcategory.entityType !== undefined && subcategory.videoRelation !== undefined
+    ))).toBe(true);
     expect(new Set(tags.map((tag) => tag.tagId)).size).toBe(tags.length);
     for (const alias of aliases.aliases) {
       expect(alias.normalizedAlias).toBe(normalizeTagAlias(alias.alias));
@@ -290,10 +295,14 @@ describe('タグ・動画正本と公開境界', () => {
     expect(JSON.stringify(index)).not.toMatch(/(?:transcript|subtitles|comments|chat|authorId)/iu);
   });
 
-  it('全作品タグに公式紹介または掲載不能の具体的理由があり、両者は重複しない', () => {
+  it('有効な作品は紹介・掲載不能理由・ゲーム正本・楽曲正本のいずれかで確認元を持つ', () => {
     const workTagIds = new Set(taxonomy.categories
       .find((category) => category.categoryId === 'works')!
-      .subcategories.flatMap((subcategory) => subcategory.tags.map((tag) => tag.tagId)));
+      .subcategories.flatMap((subcategory) => subcategory.tags.filter((tag) => tag.active).map((tag) => tag.tagId)));
+    const sourceBackedTagIds = new Set([
+      ...gameCatalog.games.flatMap((game) => [game.gameTitleTagId, ...(game.equivalentGameTitleTagIds ?? [])]),
+      ...songPerformances.songs.map((song) => song.tagId),
+    ]);
     expect(workIntroductions.introductions.length).toBeGreaterThan(0);
     expect(new Set(workIntroductions.introductions.map((item) => item.tagId)).size).toBe(workIntroductions.introductions.length);
     expect(new Set(workIntroductions.unavailable.map((item) => item.tagId)).size).toBe(workIntroductions.unavailable.length);
@@ -311,11 +320,11 @@ describe('タグ・動画正本と公開境界', () => {
       if (unavailable.reference) expect(unavailable.reference.url).toMatch(/^https:\/\//u);
       accounted.add(unavailable.tagId);
     }
-    expect(accounted).toEqual(workTagIds);
+    expect([...workTagIds].every((tagId) => accounted.has(tagId) || sourceBackedTagIds.has(tagId))).toBe(true);
   });
 
   it('歌唱実績は原曲リンク・動画・開始秒・根拠を解決し、歌ってみたと配信内歌唱を持つ', () => {
-    expect(validateSongPerformanceCatalog(songPerformancesInput, videos)).toEqual([]);
+    expect(validateSongPerformanceCatalog(songPerformancesInput, videos, taxonomy)).toEqual([]);
     expect(songPerformances.songs.every((song) => song.original.url.startsWith('https://'))).toBe(true);
     const appearances = songPerformances.songs.flatMap((song) => song.appearances);
     expect(appearances.some((appearance) => appearance.performanceType === '歌ってみた' && appearance.startSeconds === 0)).toBe(true);

@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 import { BundleContext, DeviceStoreContext } from '../../contexts.ts';
@@ -30,15 +30,19 @@ describe('検索画面の詳細絞り込み', () => {
     expect(screen.getByLabelText('タグ名または別名から追加')).toBeVisible();
     expect(document.querySelector('.quick-tags .tag-choice')).toBeVisible();
 
-    const categorySummary = screen.getByText('人物・グループ');
+    expect(screen.queryByText('人物・グループ')).not.toBeInTheDocument();
+    expect(screen.getByText('分類から絞り込む')).toBeVisible();
+    const categorySummary = screen.getByText('内容');
     fireEvent.click(categorySummary);
     expect(categorySummary.closest('details')).toHaveAttribute('open');
     expect(document.querySelectorAll('.tag-subcategory[open]')).toHaveLength(0);
 
-    const subcategorySummary = screen.getByText('ユニット・チーム');
+    const subcategorySummary = screen.getByText('主ジャンル');
     fireEvent.click(subcategorySummary);
     expect(subcategorySummary.closest('details')).toHaveAttribute('open');
-    expect(screen.getByRole('button', { name: /女王と会長/u })).toBeVisible();
+    const subcategoryDetails = subcategorySummary.closest('details');
+    if (!subcategoryDetails) throw new Error('主ジャンルの分類を取得できません。');
+    expect(within(subcategoryDetails).getByRole('button', { name: /^ゲーム/u })).toBeVisible();
   }, 20_000);
 });
 
@@ -64,6 +68,7 @@ function publicBundle(): PublicBundle {
     aliasIndex: json(`public/${latest.aliasIndexPath}`) as PublicBundle['aliasIndex'],
     songIndex: json(`public/data/releases/${latest.releaseId}/song-index.json`) as PublicBundle['songIndex'],
     gameIndex: json(`public/${latest.gameIndexPath}`) as PublicBundle['gameIndex'],
+    entityIndex: json(`public/${latest.entityIndexPath}`) as PublicBundle['entityIndex'],
   };
 }
 

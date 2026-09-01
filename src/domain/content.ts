@@ -34,6 +34,37 @@ const isoDateTime = z.iso.datetime({ offset: true });
 const isoDate = z.iso.date();
 const videoId = z.string().regex(/^[A-Za-z0-9_-]{11}$/u);
 
+export const taxonomyValueKindSchema = z.enum(['classification', 'entity-reference']);
+export const entityTypeSchema = z.enum([
+  'person',
+  'group',
+  'channel',
+  'game',
+  'event',
+  'series',
+  'song',
+  'work',
+  'artist',
+]);
+export const videoEntityRoleSchema = z.enum([
+  'publishedBy',
+  'features',
+  'mentions',
+  'plays',
+  'watches',
+  'performs',
+  'featuresMusic',
+  'participatesIn',
+  'partOfSeries',
+]);
+export const entityRelationTypeSchema = z.enum([
+  'represents',
+  'memberOf',
+  'hasMember',
+  'createdBy',
+  'usesGame',
+]);
+
 export const evidenceReferenceSchema = z.object({
   evidenceId: z.string().regex(/^evidence-[a-z0-9-]+$/u),
   type: evidenceTypeSchema,
@@ -244,6 +275,9 @@ const taxonomySubcategorySchema = z.object({
   subcategoryId: z.string().regex(/^[a-z][a-zA-Z0-9]*$/u),
   name: z.string().min(1),
   order: z.number().int().positive(),
+  valueKind: taxonomyValueKindSchema,
+  entityType: entityTypeSchema.optional(),
+  videoRelation: videoEntityRoleSchema.optional(),
   cardinality: z.string(),
   requiredWhen: z.string().optional(),
   appliesWhen: z.string().optional(),
@@ -263,7 +297,7 @@ export const tagTaxonomySchema = z.object({
   effectiveDate: isoDate,
   compatibleCanonicalVideoTaxonomyVersions: z.array(z.string().min(1)).default([]),
   categoryCount: z.literal(7),
-  subcategoryCount: z.literal(30),
+  subcategoryCount: z.literal(28),
   prohibitedCanonicalNames: z.array(z.string()),
   categories: z.array(z.object({
     categoryId: z.string().regex(/^[a-z][a-zA-Z0-9]*$/u),
@@ -303,6 +337,10 @@ export const publicVideoSummarySchema = z.object({
   thumbnail: z.object({ url: z.url(), width: z.number(), height: z.number() }).strict(),
   youtubeUrl: z.url(),
   tagIds: z.array(z.string()),
+  entityRefs: z.array(z.object({
+    entityId: z.string().regex(/^entity-(?:person|group|channel|game|event|series|song|work|artist)-[a-f0-9]{12}$/u),
+    roles: z.array(videoEntityRoleSchema).min(1),
+  }).strict()),
 }).strict();
 
 const publicTimestampSchema = z.discriminatedUnion('status', [
@@ -352,14 +390,14 @@ export const publicVideoDetailSchema = publicVideoSummarySchema.extend({
 }).strict();
 
 export const publicVideoShardSchema = z.object({
-  schemaVersion: z.literal('1.0.0'),
+  schemaVersion: z.literal('1.1.0'),
   releaseId: z.string(),
   shardId: z.string().regex(/^[a-f0-9]{2}$/u),
   videos: z.record(videoId, publicVideoDetailSchema),
 }).strict();
 
 export const latestReleaseSchema = z.object({
-  schemaVersion: z.literal('1.0.0'),
+  schemaVersion: z.literal('1.1.0'),
   releaseId: z.string().regex(/^release-[a-f0-9]{16}$/u),
   updatedAt: isoDateTime,
   indexPath: z.string(),
@@ -367,20 +405,21 @@ export const latestReleaseSchema = z.object({
   tagIndexPath: z.string(),
   aliasIndexPath: z.string(),
   gameIndexPath: z.string(),
+  entityIndexPath: z.string(),
   manifestPath: z.string(),
   videoShardCount: z.literal(256),
   videoShardPathTemplate: z.string().includes('{shard}'),
 }).strict();
 
 export const publicIndexSchema = z.object({
-  schemaVersion: z.literal('1.0.0'),
+  schemaVersion: z.literal('1.1.0'),
   releaseId: z.string(),
   updatedAt: isoDateTime,
   videos: z.array(publicVideoSummarySchema),
 }).strict();
 
 export const searchIndexSchema = z.object({
-  schemaVersion: z.literal('2.0.0'),
+  schemaVersion: z.literal('2.1.0'),
   releaseId: z.string(),
   normalizationVersion: z.literal('2.0.0'),
   videos: z.array(publicVideoSummarySchema.pick({
@@ -391,11 +430,12 @@ export const searchIndexSchema = z.object({
     tagIds: true,
   }).extend({
     normalizedReading: z.string(),
+    entityIds: z.array(z.string().regex(/^entity-(?:person|group|channel|game|event|series|song|work|artist)-[a-f0-9]{12}$/u)),
   }).strict()),
 }).strict();
 
 export const publicTagIndexSchema = z.object({
-  schemaVersion: z.literal('2.0.0'),
+  schemaVersion: z.literal('2.1.0'),
   releaseId: z.string(),
   taxonomyVersion: z.string(),
   aliasVersion: z.string(),
@@ -407,12 +447,16 @@ export const publicTagIndexSchema = z.object({
       subcategoryId: z.string(),
       name: z.string(),
       order: z.number(),
+      valueKind: taxonomyValueKindSchema,
+      entityType: entityTypeSchema.optional(),
+      videoRelation: videoEntityRoleSchema.optional(),
       tags: z.array(z.object({
         tagId: z.string(),
         canonicalName: z.string(),
         normalizedReading: z.string(),
         count: z.number().int().nonnegative(),
         videoIds: z.array(videoId),
+        entityId: z.string().regex(/^entity-(?:person|group|channel|game|event|series|song|work|artist)-[a-f0-9]{12}$/u).optional(),
         personProfile: z.object({
           youtubeChannelUrl: z.url().regex(/^https:\/\/www\.youtube\.com\/channel\/[A-Za-z0-9_-]+$/u),
           iconPath: z.string().regex(/^data\/releases\/release-[a-f0-9]{16}\/people\/icons\/[A-Za-z0-9_-]+\.jpg$/u),
@@ -461,6 +505,45 @@ export const publicTagIndexSchema = z.object({
         }).strict().optional(),
       }).strict()),
     }).strict()),
+  }).strict()),
+}).strict();
+
+export const publicEntityIndexSchema = z.object({
+  schemaVersion: z.literal('1.0.0'),
+  releaseId: z.string(),
+  updatedAt: isoDateTime,
+  entities: z.array(z.object({
+    entityId: z.string().regex(/^entity-(?:person|group|channel|game|event|series|song|work|artist)-[a-f0-9]{12}$/u),
+    entityType: entityTypeSchema,
+    canonicalName: z.string().min(1).max(160),
+    normalizedReading: z.string().min(1),
+    legacyTagIds: z.array(z.string().regex(/^tag-[a-zA-Z0-9-]+$/u)),
+    classificationTagIds: z.array(z.string().regex(/^tag-[a-zA-Z0-9-]+$/u)),
+    description: z.string().min(1).max(240).optional(),
+    imagePath: z.string().min(1).optional(),
+    externalUrl: z.url().startsWith('https://').optional(),
+    sources: z.array(z.object({
+      url: z.url().startsWith('https://'),
+      label: z.string().min(1).max(80),
+      checkedAt: isoDate.optional(),
+    }).strict()),
+    relations: z.array(z.object({
+      relationType: entityRelationTypeSchema,
+      entityId: z.string().regex(/^entity-(?:person|group|channel|game|event|series|song|work|artist)-[a-f0-9]{12}$/u),
+    }).strict()),
+    videoRelations: z.array(z.object({
+      role: videoEntityRoleSchema,
+      videoIds: z.array(videoId).min(1),
+    }).strict()),
+  }).strict()),
+  coverage: z.array(z.object({
+    scope: z.enum(['songs', 'performers', 'mentionedPeople', 'gameTitles', 'events']),
+    expectedCount: z.number().int().nonnegative().nullable(),
+    actualEntityCount: z.number().int().nonnegative(),
+    actualRelationCount: z.number().int().nonnegative(),
+    candidateCount: z.number().int().nonnegative().nullable(),
+    status: z.enum(['complete', 'partial', 'unmeasured']),
+    cause: z.string().min(1).max(240),
   }).strict()),
 }).strict();
 
@@ -656,6 +739,7 @@ export type LatestRelease = z.infer<typeof latestReleaseSchema>;
 export type PublicIndex = z.infer<typeof publicIndexSchema>;
 export type SearchIndex = z.infer<typeof searchIndexSchema>;
 export type PublicTagIndex = z.infer<typeof publicTagIndexSchema>;
+export type PublicEntityIndex = z.infer<typeof publicEntityIndexSchema>;
 export type PublicAliasIndex = z.infer<typeof publicAliasIndexSchema>;
 export type WorkIntroductions = z.infer<typeof workIntroductionsSchema>;
 export type GameCatalog = z.infer<typeof gameCatalogSchema>;
@@ -664,6 +748,8 @@ export type PublicSongIndex = z.infer<typeof publicSongIndexSchema>;
 export type PublicGameIndex = z.infer<typeof publicGameIndexSchema>;
 export type CollaborationProfiles = z.infer<typeof collaborationProfilesSchema>;
 export type ChannelPersonMappings = z.infer<typeof channelPersonMappingsSchema>;
+export type EntityType = z.infer<typeof entityTypeSchema>;
+export type VideoEntityRole = z.infer<typeof videoEntityRoleSchema>;
 
 export interface TaxonomyLookupItem {
   categoryId: string;

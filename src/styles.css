@@ -247,6 +247,27 @@ legend { font-weight: 800; margin-bottom: .4rem; }
 .game-sources { margin: .85rem 0 0; padding-left: 1.2rem; color: var(--muted); font-size: .8rem; }
 .game-sources li + li { margin-top: .35rem; }
 .game-sources a { color: var(--lavender-dark); font-weight: 700; }
+.entity-page { padding: 2rem 0 5rem; }
+.entity-intro { margin-bottom: 1.25rem; }
+.entity-toolbar { display: grid; grid-template-columns: minmax(0, 1fr) minmax(180px, 280px); gap: 1rem; margin-bottom: 1.25rem; padding: 1.25rem; border: 1px solid var(--line); border-radius: 18px; background: var(--paper); box-shadow: var(--shadow); }
+.entity-toolbar label { display: grid; gap: .4rem; color: var(--muted); font-size: .82rem; font-weight: 700; }
+.entity-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.entity-card { display: grid; align-content: start; gap: .55rem; min-height: 160px; padding: 1.25rem; color: inherit; text-decoration: none; border: 1px solid var(--line); border-radius: 18px; background: var(--paper); box-shadow: var(--shadow); }
+.entity-card:hover, .entity-card:focus-visible { border-color: var(--lavender); transform: translateY(-2px); }
+.entity-card > span { color: var(--lavender-dark); font-size: .72rem; font-weight: 800; }
+.entity-card h3 { margin: 0; font: 600 1.35rem/1.4 Georgia, "Yu Mincho", serif; }
+.entity-card p { margin: auto 0 0; color: var(--muted); font-size: .82rem; }
+.entity-detail-intro { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: clamp(1.25rem, 4vw, 3rem); }
+.entity-detail-intro h1 { overflow-wrap: anywhere; }
+.entity-relations { margin-top: 1.25rem; padding: 1.25rem; border: 1px solid var(--line); border-radius: 18px; background: var(--paper); box-shadow: var(--shadow); }
+.entity-relations h2 { margin: 0 0 1rem; font: 600 1.35rem Georgia, "Yu Mincho", serif; }
+.entity-relation-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.entity-relation-chips > span, .entity-relation-chips > a { display: inline-flex; min-height: 38px; align-items: center; gap: .4rem; padding: .4rem .75rem; color: var(--lavender-dark); text-decoration: none; border-radius: 999px; background: var(--lavender-pale); }
+.entity-related-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
+.entity-related-grid a { display: grid; gap: .3rem; padding: .9rem; color: inherit; text-decoration: none; border: 1px solid var(--line); border-radius: 12px; }
+.entity-related-grid a:hover { border-color: var(--lavender); }
+.entity-related-grid small, .entity-related-grid span { color: var(--muted); font-size: .72rem; }
+.entity-videos { padding-bottom: 0; }
 .song-page { padding: 2rem 0 5rem; }
 .song-intro { margin-bottom: 1.25rem; }
 .song-search { display: flex; align-items: end; justify-content: space-between; gap: 1.5rem; margin-bottom: 1rem; padding: 1.25rem; border: 1px solid var(--line); border-radius: 18px; background: var(--paper); }
@@ -313,7 +334,7 @@ footer { padding: 2.5rem 1rem; text-align: center; color: var(--muted); border-t
 
 @media (max-width: 850px) {
   .video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .game-genre-grid, .game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .game-genre-grid, .game-grid, .entity-grid, .entity-related-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .detail-hero { grid-template-columns: 1fr; }
   .person-intro { grid-template-columns: 1fr; }
 }
@@ -334,8 +355,9 @@ footer { padding: 2.5rem 1rem; text-align: center; color: var(--muted); border-t
   .tag-browser-heading { align-items: start; flex-direction: column; gap: .25rem; }
   .tag-browser-heading .hint { text-align: left; }
   .tag-category > summary, .tag-subcategory > summary { gap: .4rem; padding-inline: .65rem; }
-  .filter-grid, .video-grid { grid-template-columns: 1fr; }
-  .game-genre-grid, .game-grid { grid-template-columns: 1fr; }
+  .filter-grid, .video-grid, .entity-toolbar { grid-template-columns: 1fr; }
+  .game-genre-grid, .game-grid, .entity-grid, .entity-related-grid { grid-template-columns: 1fr; }
+  .entity-detail-intro { grid-template-columns: 1fr; }
   .filter-card { padding: .75rem .25rem 1rem; }
   .date-range-panel { padding: .7rem .25rem; }
   .date-range-inputs { grid-template-columns: 1fr; padding-inline: .35rem; }
