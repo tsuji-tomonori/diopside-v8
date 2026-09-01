@@ -16,15 +16,19 @@
     },
     {
       "path": "scripts/audit-game-tags.ts",
-      "sha256": "ba9e36f7c579c789efa57a6415d568b09885c724ca8f59d2a0f372f353f64c63"
+      "sha256": "1a0bb774bfc0528a9996aa54ec7079fe0bbecacde3d6c10579ac767c582079c4"
     },
     {
       "path": "scripts/audit-requirements.ts",
       "sha256": "a851a2e6b59bb1282445b10e639986e980e3cd3132f227b8322f8c1ec66a342d"
     },
     {
+      "path": "scripts/audit-semantic-entities.ts",
+      "sha256": "03027429c71a1935ac21dc9ffe28b1b71174feeb552d96f98894b5bbb784df1c"
+    },
+    {
       "path": "scripts/build-public-data.ts",
-      "sha256": "d380262231df681a510c963ec5c13e1904d85229586f7846171d769fe639039a"
+      "sha256": "74f023b6d98c580aac3f348a44cfa7873ddd2dac03fe24a18045457f996b55eb"
     },
     {
       "path": "scripts/canonical-store.ts",
@@ -44,7 +48,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "bd6682b42aca0c6fbddf7bef8775c4598fada77c0b3163bc988365ef7feeeecb"
+      "sha256": "f023a57cf892d08230e4002c33d0d41f3ea092748a2141a2ab3e24c535de80ed"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -56,7 +60,7 @@
     },
     {
       "path": "scripts/import-reference-taxonomy.ts",
-      "sha256": "be8b47ded984aa0546fdc727f82498bc1594417bf1bcb1ab85e3a2c48bed83da"
+      "sha256": "c1b4e313b9d393ce584f22ca265234c139e7656d938c9b9a7241e37d65b219f9"
     },
     {
       "path": "scripts/import-reference-videos.ts",
@@ -73,6 +77,10 @@
     {
       "path": "scripts/lib.ts",
       "sha256": "a06c8b55d786b6d621a767012951cb746bcbdc134abdf1b02b4f70a1646590a3"
+    },
+    {
+      "path": "scripts/migrate-semantic-entity-model.ts",
+      "sha256": "0fa1ded4294e25b7b8ff8c7ae4854f4186718534a4fbae760a9171c7a7f75c16"
     },
     {
       "path": "scripts/postbuild.ts",
@@ -92,7 +100,7 @@
     },
     {
       "path": "scripts/validate-content.ts",
-      "sha256": "47acd62afd01d3640467d12f6d89ab65e3ebdd008c6901873f49f799b403bd7f"
+      "sha256": "f6be8b2c7a7167a9cd7d384a6bd22a89cacae062ee6d82500e16570122d0503e"
     },
     {
       "path": "scripts/validate-release-pr-scope.ts",
@@ -100,7 +108,7 @@
     },
     {
       "path": "scripts/validate-taxonomy-change.ts",
-      "sha256": "d3e3c0ebad8d39b70f703c696b1bcff3beed849a1e436e8d1a5de2437c0904b8"
+      "sha256": "169f55e188fa01425c3eb27c3546b1047f2a6c75cbbc2e19e5f7264bd6ca3014"
     },
     {
       "path": "scripts/validate-video-pr-scope.ts",
@@ -116,11 +124,11 @@
     },
     {
       "path": "src/App.tsx",
-      "sha256": "371d717d42c196f9a3c91158601b244f680888355a28031f1cbd2490228e992e"
+      "sha256": "35f454de7cd39769efb9d1f39c9c2fb7d6118df4cd35c612164f6bf9cfd0b699"
     },
     {
       "path": "src/components/Header.tsx",
-      "sha256": "850159d1d4f589350154c612420de605bae7ba2db5a2372ce163c0c90292facb"
+      "sha256": "e93ad6eed5e664b7643bc66f8bb9fcaf9b3569bc97c869eb351faed49423cde0"
     },
     {
       "path": "src/components/VideoCard.tsx",
@@ -132,7 +140,7 @@
     },
     {
       "path": "src/data/deviceStore.test.ts",
-      "sha256": "6780f1f53ba1e420a473ffe99814452d9373fbbc397b61a5e99d4fdc7c84cfdc"
+      "sha256": "a483955de84832844f8bb2625806475af1625c7ee19a5c0bf1a0ab36d7634e9d"
     },
     {
       "path": "src/data/deviceStore.ts",
@@ -144,7 +152,7 @@
     },
     {
       "path": "src/data/loadPublicData.ts",
-      "sha256": "69c389963eb94f242613eb334b42bfd3e913a7f2b6f0340aff7c5d8dc601ef3b"
+      "sha256": "2b3ad2b9894d184f8ce690fae86c560db5fb9c149515c5e616ed207fb28c7a41"
     },
     {
       "path": "src/domain/collaboration-group-audit.test.ts",
@@ -164,7 +172,11 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "52ac8d989996b354f01317b4f472ed962954f173d71ca86083651058e2e0331a"
+      "sha256": "a99c397fc454af6d46327bfb41547636c93784920b6a22367fafd63738ba2b0b"
+    },
+    {
+      "path": "src/domain/entities.ts",
+      "sha256": "f141d0992e37f679524b38912c0bbff40217cea68cc8f21d1be3cb34bbb6b06c"
     },
     {
       "path": "src/domain/game-catalog.ts",
@@ -180,11 +192,11 @@
     },
     {
       "path": "src/domain/search.test.ts",
-      "sha256": "89e17d8a625a7302497255889384fc5db0ec35bcd6e61ca27d2b0a7d4fd9ad9f"
+      "sha256": "65534c5450e35c00dc9e8e548af520d8626cc1d6b1f19109179c062522dc4284"
     },
     {
       "path": "src/domain/search.ts",
-      "sha256": "e836a8a02dd751f31c5c81a7a9a2d50987d5ca705fc0d41a49299baaf65baa25"
+      "sha256": "9a5ae0fa50152fcb9e36f91cacd4fbec614e24b6cbd0d1f57281da1db449cd19"
     },
     {
       "path": "src/domain/validation.test.ts",
@@ -192,11 +204,11 @@
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "3ad585a08a541e9234a9a5ce9328c37a68a092194b20ca472298201f3a66e921"
+      "sha256": "fa6b1406441f419639b3ff0102a482097165424973833fa9dd79624d4cb7e4a1"
     },
     {
       "path": "src/features/collaborations/CollaborationDetailPages.test.tsx",
-      "sha256": "63eec72b9d3ed7c9846b930a75b016bcb8c9af6c65f05d6835a1adc308c0bcdd"
+      "sha256": "728da07f88bcaf1035998a8dd583de5de2aaeadf4df78005d1ea2fd870bc04e3"
     },
     {
       "path": "src/features/collaborations/CollaboratorDetailPage.tsx",
@@ -208,11 +220,19 @@
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
-      "sha256": "1a465660776354ae19be93234b35151e519dedc93c687581390f7b53fbda44d6"
+      "sha256": "755375d563b09b29509a48b25c036d1d28d7f717aadfdb712fe6e0964b1852d7"
+    },
+    {
+      "path": "src/features/entities/EntityIndexPage.test.tsx",
+      "sha256": "7aabf832e88f551e9a264ef733a6919b506092037d23968231d47c905e862635"
+    },
+    {
+      "path": "src/features/entities/EntityIndexPage.tsx",
+      "sha256": "79648958c954a73997cd320f71adddcc83cdfb1e373fb0af04b943531b3beb42"
     },
     {
       "path": "src/features/games/GameIndexPage.test.tsx",
-      "sha256": "4d45f3d9c2cf69d4b32d563ac0d9b4b841dea0e4ede6467aacf35ac6f1617024"
+      "sha256": "674245bbb18a2140f5e21b83a81d64c05e51188cedeef19e12ffb29b1f7045af"
     },
     {
       "path": "src/features/games/GameIndexPage.tsx",
@@ -236,15 +256,15 @@
     },
     {
       "path": "src/features/search/SearchPage.test.tsx",
-      "sha256": "f6903ca103a81aec94ad3da87554764436bac1d72ec01017ddbb0f897841ba40"
+      "sha256": "452b520cfbf929d8e23842c8d2c5a00c12da94ad1acccf8da33bb7a560df4f6f"
     },
     {
       "path": "src/features/search/SearchPage.tsx",
-      "sha256": "082ec763b270e4258bcc96705cc70252b7fc25c8f1cc2608ec8ccc447deb9cd0"
+      "sha256": "7c2e97b1b6c0559797ca83d846f575f32167531686161edb3dcb020ecffe58d1"
     },
     {
       "path": "src/features/series/SeriesDetailPage.test.tsx",
-      "sha256": "e3b8dc0b1698ee1a4a17d02908feb7bc52ba28ff9851cecc2a800d58b0e21a84"
+      "sha256": "2641314974c4582db1ccd51d8afa9b29a430b0235b353d90ef284e72f6cf45cf"
     },
     {
       "path": "src/features/series/SeriesDetailPage.tsx",
@@ -252,7 +272,7 @@
     },
     {
       "path": "src/features/songs/SongIndexPage.test.tsx",
-      "sha256": "48c913d1929f8a28a3c61eb0ef8b41bcc5f34a52f4502304c48faf007a8b2001"
+      "sha256": "0cb5aa66fc2b075a225c7a12c97914e042a8c0ca0cc6c4dc9442df4b4f411ef1"
     },
     {
       "path": "src/features/songs/SongIndexPage.tsx",
@@ -260,7 +280,7 @@
     },
     {
       "path": "src/features/works/WorkDetailPage.test.tsx",
-      "sha256": "8ae13ab06acde6386b2b0c351925324dfa5ba7d72ced2f7d5308ce61a62337f9"
+      "sha256": "5fae2064503d986f2c1fcea4213180551f91b7c453d6c0e18f8bdabb52854639"
     },
     {
       "path": "src/features/works/WorkDetailPage.tsx",
@@ -618,6 +638,21 @@
     },
     {
       "file": "src/domain/content.ts",
+      "name": "entityRelationTypeSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "EntityType",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "entityTypeSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
       "name": "evidenceReferenceSchema",
       "kind": "VariableStatement"
     },
@@ -669,6 +704,16 @@
     {
       "file": "src/domain/content.ts",
       "name": "publicAliasIndexSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "PublicEntityIndex",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "publicEntityIndexSchema",
       "kind": "VariableStatement"
     },
     {
@@ -808,6 +853,11 @@
     },
     {
       "file": "src/domain/content.ts",
+      "name": "taxonomyValueKindSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
       "name": "timestampItemSchema",
       "kind": "VariableStatement"
     },
@@ -819,6 +869,16 @@
     {
       "file": "src/domain/content.ts",
       "name": "timestampOriginSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "VideoEntityRole",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "videoEntityRoleSchema",
       "kind": "VariableStatement"
     },
     {
@@ -840,6 +900,21 @@
       "file": "src/domain/content.ts",
       "name": "workIntroductionsSchema",
       "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/entities.ts",
+      "name": "buildEntityProjection",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/entities.ts",
+      "name": "BuildEntityProjectionInput",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/domain/entities.ts",
+      "name": "EntityProjection",
+      "kind": "InterfaceDeclaration"
     },
     {
       "file": "src/domain/game-catalog.ts",
@@ -1037,6 +1112,11 @@
       "kind": "FunctionDeclaration"
     },
     {
+      "file": "src/features/entities/EntityIndexPage.tsx",
+      "name": "EntityIndexPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
       "file": "src/features/games/GameIndexPage.tsx",
       "name": "GameIndexPage",
       "kind": "FunctionDeclaration"
@@ -1096,6 +1176,8 @@
     "*",
     "/",
     "/collaborators/:tagId",
+    "/entities",
+    "/entities/:entityId",
     "/games",
     "/games/genres/:tagId",
     "/groups/:tagId",
@@ -1120,6 +1202,7 @@
     "src/domain/search.test.ts",
     "src/domain/validation.test.ts",
     "src/features/collaborations/CollaborationDetailPages.test.tsx",
+    "src/features/entities/EntityIndexPage.test.tsx",
     "src/features/games/GameIndexPage.test.tsx",
     "src/features/search/SearchFilterControls.test.tsx",
     "src/features/search/SearchPage.test.tsx",

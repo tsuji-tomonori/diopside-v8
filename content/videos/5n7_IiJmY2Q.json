@@ -48,24 +48,6 @@
   ],
   "tagAssignments": [
     {
-      "tagId": "tag-content-gameGenre-1cff1b833661",
-      "reason": "既存分類と作品名からゲームジャンル「人狼・正体隠匿」を確認",
-      "confidence": "中",
-      "evidenceRefs": [
-        "evidence-title"
-      ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
-    },
-    {
-      "tagId": "tag-content-primary-0dbfa3115896",
-      "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-title"
-      ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
-    },
-    {
       "tagId": "tag-context-participation-a4911ea059bb",
       "reason": "コラボ正本v2で共同出演を確認（all-partners）",
       "confidence": "高",
@@ -139,12 +121,21 @@
     },
     {
       "tagId": "tag-works-gameTitle-e1c7f53e6774",
-      "reason": "公開タイトルまたは既存タグからゲーム作品「#人狼怪画」を確認",
+      "reason": "公開タイトルまたは既存の確認済み情報から特定企画・イベント「人狼怪画」への参加を確認",
       "confidence": "中",
       "evidenceRefs": [
         "evidence-title"
       ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
+      "reviewedAt": "2026-09-01T12:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-primary-9eedbc0013d1",
+      "reason": "公開タイトルの企画内容から主ジャンル「企画」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-09-01T12:00:00+09:00"
     }
   ],
   "timestamps": {
@@ -343,7 +334,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-15T21:05:00+09:00",
-    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+    "approvedAt": "2026-09-01T12:00:00+09:00",
+    "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
   }
 }

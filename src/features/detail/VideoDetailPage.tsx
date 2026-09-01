@@ -125,6 +125,11 @@ export function VideoDetailPage(): React.JSX.Element {
                       <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>コンビ・ユニットを見る →</span>
                     </Link>
                   );
+                  if (tag.entityId) return (
+                    <Link className="detail-tag-link" key={tag.tagId} to={`/entities/${tag.entityId}`}>
+                      <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>関連情報を見る →</span>
+                    </Link>
+                  );
                   return <span key={tag.tagId}><small>{tag.subcategoryName}</small>{tag.canonicalName}</span>;
                 })}
               </div>

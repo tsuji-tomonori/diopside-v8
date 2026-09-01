@@ -50,16 +50,16 @@ test.describe('動画検索', () => {
       await expect(page.getByRole('option').filter({ hasText: '白雪巴誕生日2026' }).first()).toBeVisible();
     }
 
-    await page.getByRole('option', { name: /^タグ 白雪巴誕生日2026 1件$/u }).click();
-    await expect(page).toHaveURL(/tag=tag-program-event-c20649aaa08c/u);
-    await expect(input).toHaveValue('');
-    await expect(page.locator('#results-heading')).toBeFocused();
-    await expect(page.getByLabel('タグ名または別名から追加')).toBeHidden();
+    await page.getByRole('option', { name: /^関連項目 白雪巴誕生日2026 1件$/u }).click();
+    await expect(page).toHaveURL(/#\/entities\/entity-event-/u);
+    await expect(page.getByRole('heading', { level: 1, name: '白雪巴誕生日2026' })).toBeVisible();
 
-    await input.fill('けーきをたべて');
+    await openSearch(page);
+    const nextInput = page.getByRole('combobox', { name: '検索', exact: true });
+    await nextInput.fill('けーきをたべて');
     await expect(page.getByRole('listbox', { name: '検索候補' })).toBeVisible();
-    await input.press('ArrowDown');
-    await input.press('Enter');
+    await nextInput.press('ArrowDown');
+    await nextInput.press('Enter');
     await expect(page).toHaveURL(/#\/video\/GoWhHtJmIbk$/u);
     expectOnlyAllowedRequests(requests);
   });
@@ -68,10 +68,10 @@ test.describe('動画検索', () => {
     await preparePage(page);
     await openSearch(page);
     await page.getByText('タグ・公開日・動画長で絞り込む').click();
-    await page.getByLabel('タグ名または別名から追加').fill('#女王と会長');
+    await page.getByLabel('タグ名または別名から追加').fill('生誕祭');
     await expect(page.getByLabel('タグ名または別名から追加')).toBeHidden();
     await expect(page.getByRole('heading', { name: /件の動画$/u })).not.toHaveText(allVideosHeading);
-    expect(page.url()).toContain('tag=tag-people-unit-d5b1de96b450');
+    expect(page.url()).toContain('tag=tag-context-occasion-0c807041f530');
     await page.getByRole('button', { name: /公開日の範囲/u }).click();
     await page.getByLabel('開始日').fill('2026-01-01');
     await page.getByLabel('終了日').fill('2026-12-31');
@@ -82,8 +82,8 @@ test.describe('動画検索', () => {
     await setRangeValue(page.getByLabel('最大（分）'), 240);
     await page.getByRole('button', { name: '絞り込みを反映' }).click();
     await expect(page.getByRole('heading', { name: '1件の動画' })).toBeVisible();
-    await expect(page.locator('.video-card')).toContainText('魔法使いの愛した子');
-    expect(page.url()).toContain('tag=tag-people-unit-d5b1de96b450');
+    await expect(page.locator('.video-card')).toContainText('凸待ちでタロット占い');
+    expect(page.url()).toContain('tag=tag-context-occasion-0c807041f530');
   });
 
   test('公開日を全タグより先に操作でき、タグを大分類と小分類で必要な分だけ開く', async ({ page }) => {
@@ -104,31 +104,31 @@ test.describe('動画検索', () => {
     await expect(page.locator('.tag-category[open]')).toHaveCount(0);
     await expect(page.locator('.tag-subcategory[open]')).toHaveCount(0);
 
-    const groupedTag = page.locator('.tag-category .tag-choice').filter({ hasText: /^女王と会長/u });
-    await expect(groupedTag).toBeHidden();
-    await page.getByText('人物・グループ', { exact: true }).click();
+    const classificationTag = page.locator('.tag-category .tag-choice').filter({ hasText: /^コラボ/u });
+    await expect(classificationTag).toBeHidden();
+    await page.getByText('配信特性', { exact: true }).click();
     await expect(page.locator('.tag-category[open]')).toHaveCount(1);
     await expect(page.locator('.tag-subcategory[open]')).toHaveCount(0);
-    await page.getByText('ユニット・チーム', { exact: true }).click();
-    await expect(groupedTag).toBeVisible();
+    await page.getByText('参加形態', { exact: true }).click();
+    await expect(classificationTag).toBeVisible();
   });
 
   test('タグの追加と解除だけで検索し、タグ欄を閉じて動画へ戻れる', async ({ page }) => {
     await preparePage(page);
     await openSearch(page);
     await page.getByText('タグ・公開日・動画長で絞り込む').click();
-    await page.getByText('人物・グループ', { exact: true }).click();
-    await page.getByText('ユニット・チーム', { exact: true }).click();
-    await page.locator('.tag-subcategory[open]').getByRole('button', { name: /女王と会長/u }).click();
+    await page.getByText('配信特性', { exact: true }).click();
+    await page.getByText('参加形態', { exact: true }).click();
+    await page.locator('.tag-subcategory[open]').getByRole('button', { name: /^コラボ/u }).click();
 
     await expect(page.locator('#results-heading')).toBeFocused();
     await expect(page.locator('#results-heading')).not.toHaveText(allVideosHeading);
     await expect(page.getByLabel('タグ名または別名から追加')).toBeHidden();
-    expect(page.url()).toContain('tag=tag-people-unit-d5b1de96b450');
+    expect(page.url()).toContain('tag=tag-context-participation-a4911ea059bb');
     const openButton = page.getByRole('button', { name: 'タグを開く（選択1件）' });
     await expect(openButton).toHaveAttribute('aria-expanded', 'false');
     await openButton.click();
-    const selectedTag = page.locator('.selected-tags').getByRole('button', { name: /女王と会長/u });
+    const selectedTag = page.locator('.selected-tags').getByRole('button', { name: /^コラボ/u });
     await expect(selectedTag).toHaveAttribute('aria-pressed', 'true');
     await expect(page.locator('.tag-choice[aria-pressed="false"] span', { hasText: /^0件$/u })).toHaveCount(0);
 
@@ -185,7 +185,7 @@ test.describe('動画検索', () => {
     await preparePage(page);
     await openSearch(page);
     await page.getByText('タグ・公開日・動画長で絞り込む').click();
-    await page.getByLabel('タグ名または別名から追加').fill('#女王と会長');
+    await page.getByLabel('タグ名または別名から追加').fill('生誕祭');
     await expect(page.getByRole('button', { name: 'タグを開く（選択1件）' })).toBeVisible();
     await page.getByRole('button', { name: /公開日の範囲/u }).click();
 
@@ -347,11 +347,12 @@ function performanceDataset(): {
       thumbnail: { url: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`, width: 480, height: 360 },
       youtubeUrl: `https://www.youtube.com/watch?v=${videoId}`,
       tagIds: ['tag-format-media-45323ed44f37'],
+      entityIds: [],
     };
   });
   return {
     index: {
-      schemaVersion: '1.0.0',
+      schemaVersion: '1.1.0',
       releaseId,
       updatedAt: '2026-08-03T00:00:00+09:00',
       videos: videos.map(({ videoId, title, normalizedTitle, publishedAt, durationSeconds, thumbnail, youtubeUrl, tagIds }) => ({
@@ -363,23 +364,25 @@ function performanceDataset(): {
         thumbnail,
         youtubeUrl,
         tagIds,
+        entityRefs: [],
       })),
     },
     search: {
-      schemaVersion: '2.0.0',
+      schemaVersion: '2.1.0',
       releaseId,
       normalizationVersion: '2.0.0',
-      videos: videos.map(({ videoId, normalizedTitle, normalizedReading, publishedAt, durationSeconds, tagIds }) => ({
+      videos: videos.map(({ videoId, normalizedTitle, normalizedReading, publishedAt, durationSeconds, tagIds, entityIds }) => ({
         videoId,
         normalizedTitle,
         normalizedReading,
         publishedAt,
         durationSeconds,
         tagIds,
+        entityIds,
       })),
     },
     tags: {
-      schemaVersion: '2.0.0',
+      schemaVersion: '2.1.0',
       releaseId,
       taxonomyVersion: 'performance-fixture',
       aliasVersion: 'performance-fixture',

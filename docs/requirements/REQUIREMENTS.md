@@ -1,7 +1,7 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 29
+- カタログ版: 30
 - 更新日: 2026-09-01
 - 正本: `spec/requirements/requirements.json`
 
@@ -41,6 +41,7 @@
 | `V8-DISPLAY-016` | 2 | 有効 | 機能 | diopside v8のゲームジャンル・作品・配信導線は、ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示しなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。を**satisfy** | ジャンル件数・作品除外・ジャンル遷移・作品遷移・配信一覧・アクセシビリティE2E |
 | `V8-DISPLAY-017` | 1 | 有効 | データ | diopside v8のカスタム絵文字集計は、公開チャットリプレイを取得できる動画は、通常のUnicode絵文字を除外し、全編に現れるカスタム絵文字の出現回数を種類別に集計しなければならない。項目別回数の合計は総使用回数と一致しなければならない。を**satisfy** | 全件集計・Unicode除外・合計整合試験 |
 | `V8-DISPLAY-018` | 1 | 有効 | 機能 | diopside v8のカスタム絵文字表示は、カスタム絵文字を集計済みの動画詳細は、全種類を省略せず、使用回数の降順でショートコード、正確な回数、カスタム絵文字総使用回数に占める比率を比較できるチャートとして表示しなければならない。を**satisfy** | 動画詳細画面・全項目件数・アクセシビリティ試験 |
+| `V8-DISPLAY-019` | 1 | 有効 | 機能 | diopside v8のエンティティ探索画面は、人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。を**satisfy** | 一覧絞り込み・関係表示・検索候補・動画詳細導線試験 |
 | `V8-INGEST-001` | 3 | 有効 | インターフェース | diopside v8のローカルprivate ingestion要求は、運用者が指定するingestion要求は11文字のYouTube video_id一項目だけを含み、認証情報または内部状態を含んではならない。を**強制する** | 契約・CLI単体試験 |
 | `V8-INGEST-002` | 4 | 有効 | データ | diopside v8のprivate backfill対象は、複数動画の歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。を**強制する** | manifest生成・改ざん・ローカル実行試験 |
 | `V8-INGEST-003` | 2 | 有効 | データ | diopside v8のprivate ingestion状態は、進捗状態はVideoIngestion単一DynamoDB tableのvideo_id partition keyだけを使う一動画一itemで保持し、sort key、GSI、用途別item typeを追加してはならない。を**強制する** | CDK template・状態repository・ローカル統合試験 |
@@ -112,16 +113,16 @@
 | `V8-SEARCH-017` | 1 | 有効 | 機能 | diopside v8の検索は、空の検索、結果0件、条件解除をそれぞれ区別して表示しなければならない。を**satisfy** | 画面試験 |
 | `V8-SEARCH-018` | 1 | 有効 | 品質 | diopside v8の検索は、2,500動画の標準データでは、検索・絞り込み開始から結果更新までを100ミリ秒以内に完了しなければならない。を**satisfy** | ブラウザ性能試験 |
 | `V8-SEARCH-019` | 1 | 有効 | 品質 | diopside v8の検索は、あいまい検索の品質を、版管理した日本語の固定評価データで検証しなければならない。を**satisfy** | 検索品質試験 |
-| `V8-SEARCH-020` | 1 | 有効 | 機能 | diopside v8の検索候補は、検索欄は一文字以上の入力中に、承認済み動画タイトルと登録済みタグ名の一致候補を種類が分かる形で提示しなければならない。動画候補の選択は動画詳細へ移動し、タグ候補の選択は不変タグIDを絞り込み条件へ適用して動画一覧を更新しなければならない。を**satisfy** | 候補生成単体試験・IME・キーボード・ポインター画面試験 |
+| `V8-SEARCH-020` | 2 | 有効 | 機能 | diopside v8の検索候補は、検索欄は一文字以上の入力中に、承認済み動画タイトル、分類値、人物・作品・企画等のエンティティ名の一致候補を種類が分かる形で提示しなければならない。動画候補は動画詳細へ、分類候補は不変タグIDの絞り込みへ、エンティティ候補は不変エンティティIDの詳細へ移動しなければならない。を**satisfy** | 候補生成単体試験・IME・キーボード・ポインター画面試験 |
 | `V8-SEARCH-021` | 1 | 有効 | 機能 | diopside v8の検索読みは、漢字またはカタカナを含む承認済み動画タイトルと登録済みタグ名は、表示文字列を変えずに検索専用のひらがな読みを持ち、ひらがなの入力が一文字増えるたびに候補を更新しなければならない。読みの生成と候補照合は静的生成物とブラウザ内処理だけで完結しなければならない。を**satisfy** | 読み生成単体試験・一文字ごとの候補更新・IME・外部通信禁止画面試験 |
 | `V8-SEARCH-022` | 1 | 有効 | 品質 | diopside v8の動画長Sliderは、動画長Sliderの連続入力中と最後の入力から100ミリ秒未満は、つまみと現在値だけを即時更新し、動画長に応じたタグ候補・件数と画面の縦方向の長さを変更してはならない。最後の入力から約100ミリ秒後に、最新の動画長を使ってタグ候補と件数を一度だけ更新しなければならない。を**satisfy** | Slider連続入力中のタグ候補数・画面高固定と停止100ミリ秒後の更新試験 |
 | `V8-TAG-001` | 1 | 有効 | データ | diopside v8のタグは、承認済み動画のタグは、版管理したタグ体系に基づかなければならない。を**satisfy** | 構造試験・追跡性確認 |
-| `V8-TAG-002` | 1 | 有効 | データ | diopside v8のタグは、タグは大分類、小分類、タグの3層で管理し、表示名だけの平坦な配列を正本にしてはならない。を**satisfy** | 構造試験 |
+| `V8-TAG-002` | 2 | 有効 | データ | diopside v8のタグは、検索条件として使う分類値は大分類・小分類・値の3層で管理しなければならない。人物、グループ、チャンネル、ゲーム、イベント、シリーズ、楽曲、作品、アーティストは独立したエンティティとしてIDで管理し、分類値の平坦な文字列配列を正本にしてはならない。を**satisfy** | 分類値・エンティティ意味境界の構造試験 |
 | `V8-TAG-003` | 1 | 有効 | データ | diopside v8のタグは、各正規タグは表示名と独立した不変タグ識別子を持たなければならない。を**satisfy** | 移行試験 |
-| `V8-TAG-004` | 1 | 有効 | データ | diopside v8のタグは、同じ表示名でも小分類または意味が異なるタグは別の不変識別子として扱わなければならない。を**satisfy** | 同名異義試験 |
+| `V8-TAG-004` | 2 | 有効 | データ | diopside v8のタグは、同じ表示名でも分類上の意味が異なる値は別の不変タグIDとして扱わなければならない。一方、同じ人物または作品が出演・言及等の異なる役割へ現れる場合は同じエンティティIDへ解決し、役割を関係種別として保持しなければならない。を**satisfy** | 同名異義分類・同一エンティティ統合試験 |
 | `V8-TAG-005` | 1 | 有効 | データ | diopside v8のタグは、承認済みの全動画は主ジャンルをちょうど1件持たなければならない。を**satisfy** | 基数試験 |
 | `V8-TAG-006` | 1 | 有効 | データ | diopside v8のタグは、承認済みの全動画は動画形式をちょうど1件持たなければならない。を**satisfy** | 基数試験 |
-| `V8-TAG-007` | 1 | 有効 | データ | diopside v8のタグは、承認済みの全動画は公開チャンネルをちょうど1件持たなければならない。を**satisfy** | 基数試験・人手確認 |
+| `V8-TAG-007` | 2 | 有効 | データ | diopside v8のタグは、承認済みの全動画は配信元チャンネルをちょうど1件持たなければならない。チャンネルは独立エンティティとし、対応する人物とはrepresents関係で結び、出演者、人物の所属または公式チャンネルと混同してはならない。を**satisfy** | チャンネル基数・人物分離・関係解決試験 |
 | `V8-TAG-008` | 1 | 有効 | データ | diopside v8のタグは、主ジャンル、動画形式、公開チャンネル以外は、タグ体系に定めた基数の範囲で異なる検索軸のタグを複数付与できなければならない。を**satisfy** | 基数・組合せ試験 |
 | `V8-TAG-009` | 1 | 有効 | データ | diopside v8のタグは、ゲームを主または副ジャンルに持つ動画は、ゲーム作品名を1件以上、ゲームジャンルを1件以上3件以下持たなければならない。を**satisfy** | 条件付き必須試験 |
 | `V8-TAG-010` | 1 | 有効 | データ | diopside v8のタグは、雑談を主または副ジャンルに持つ動画は、雑談種別を1件以上3件以下持たなければならない。を**satisfy** | 条件付き必須試験 |
@@ -129,7 +130,7 @@
 | `V8-TAG-012` | 1 | 有効 | データ | diopside v8のタグは、朗読・声劇を主ジャンルに持つ動画は、朗読・声劇種別を1件持たなければならない。を**satisfy** | 条件付き必須試験 |
 | `V8-TAG-013` | 2 | 有効 | データ | diopside v8のタグは、コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸は配信主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。を**satisfy** | 人物タグ正本・表示名・役割別コラボ相手選別試験 |
 | `V8-TAG-014` | 1 | 有効 | データ | diopside v8のタグは、ユニット・チームタグを持つ動画は「コラボ」と実際に出演した構成員を持ち、欠席者や対戦相手を自動追加してはならない。を**satisfy** | 固定例試験・人手確認 |
-| `V8-TAG-015` | 1 | 有効 | データ | diopside v8のタグは、実出演者と、配信中に名前を話題にしただけの言及人物を分離しなければならない。を**satisfy** | 排他試験 |
+| `V8-TAG-015` | 2 | 有効 | データ | diopside v8のタグは、実出演者と配信中に名前を話題にした人物は、それぞれfeaturesとmentionsの動画関係として分離しなければならない。同じ人物が両方の役割へ現れても人物マスターを複製せず、同じ人物エンティティIDへ解決しなければならない。言及だけでコラボを付与してはならない。を**satisfy** | 人物同一性・役割分離・コラボ非導出試験 |
 | `V8-TAG-016` | 1 | 有効 | データ | diopside v8のタグは、一つのタグには一つの検索対象または一つの分類事実だけを保存し、複数人物や独立概念を連結したタグは分解しなければならない。を**satisfy** | 分解規則試験 |
 | `V8-TAG-017` | 1 | 有効 | データ | diopside v8のタグは、タグ照合はUnicode互換正規化、前後空白除去、連続空白の統合、英字大小の同一視、先頭ハッシュ記号の同一視を定義順で行わなければならない。を**satisfy** | 正規化境界値試験 |
 | `V8-TAG-018` | 1 | 有効 | データ | diopside v8のタグは、登録済み別名は完全一致で正規タグへ解決し、公開データと画面には正規タグだけを表示しなければならない。を**satisfy** | 別名契約試験 |
@@ -151,10 +152,14 @@
 | `V8-TAG-034` | 1 | 有効 | データ | diopside v8のタグは、タグ表示名は公式な日本語名がある場合は日本語を用い、公式固有名詞と一般に定着した略称は出典表記を保たなければならない。を**satisfy** | 文言一覧・人手確認 |
 | `V8-TAG-035` | 1 | 有効 | データ | diopside v8のタグは、人物・グループ分類を除くタグが1動画あたり12件を超える候補は、過剰付与の確認待ちにしなければならない。を**satisfy** | 基数集計・人手確認 |
 | `V8-TAG-036` | 1 | 有効 | データ | diopside v8の定期・連続企画タグは、公開タイトルまたは承認済み既存タグから定期・連続企画名を直接確認できる動画は当該定期・連続企画名タグを持ち、名称中の「杯」等の部分一致だけでイベント・大会名へ重複分類してはならない。を**satisfy** | 正本全件タグ網羅・重複分類試験、旧タグ再生成回帰試験 |
-| `V8-TAG-037` | 1 | 有効 | 機能 | diopside v8の歌唱実績と楽曲タグは、楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲タグを持たなければならない。楽曲タグは動画の主・副ジャンルが「歌」であるかに依存せず、公開一覧・検索索引・タグ索引・動画詳細のすべてに一貫して反映しなければならない。を**satisfy** | 歌唱正本構造、非歌ジャンル鼻歌、公開索引の楽曲タグ反映試験 |
+| `V8-TAG-037` | 2 | 有効 | 機能 | diopside v8の歌唱実績と楽曲タグは、楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲エンティティIDを持たなければならない。楽曲は動画ジャンルから独立し、原アーティストとのcreatedBy関係を持ち、互換用の楽曲タグIDを公開一覧・検索索引・タグ索引・動画詳細で同じエンティティへ解決しなければならない。を**satisfy** | 歌唱正本構造、非歌ジャンル鼻歌、公開索引の楽曲タグ反映試験 |
 | `V8-TAG-038` | 1 | 有効 | 品質 | diopside v8の歌唱実績検証と公開境界は、各歌唱実績は既知動画、白雪巴本人の参加、動画長内の開始秒、動画内で解決できる根拠参照を持たなければならない。承認済みタイムスタンプを参照する場合は開始秒が一致し、鼻歌は終了秒も持たなければならない。公開データには内部の根拠参照・判定理由を含めてはならない。を**satisfy** | 未知動画・根拠・時刻・タイムスタンプ不整合・鼻歌範囲・公開境界試験 |
 | `V8-TAG-039` | 2 | 有効 | データ | diopside v8のゲーム作品とゲームジャンルは、特定のゲーム作品は、Steam、公式ストアまたは対象作品の公式サイトを確認元として、1〜3件のゲームジャンルをゲーム単位の正本に持たなければならない。同じゲームを指す表記違いは一つのゲーム単位へ統合し、その全公開動画へ同じジャンルを導出しなければならない。動画単位の移行前ジャンルを公開分類として使わず、特定作品ではない一般ラベルをゲーム作品一覧へ含めてはならない。を**satisfy** | ゲーム正本構造・全作品網羅・公開ジャンル導出・対象作品回帰・一般ラベル除外試験 |
 | `V8-TAG-040` | 1 | 有効 | データ | diopside v8のゲームジャンル語彙は、既存語彙で作品のプレイ性を適切に表せない場合は、Steam、公式ストアまたは公式サイトで確認でき、既存分類と区別でき、複数作品の探索に再利用できるゲームジャンルだけを追加しなければならない。テーマ、販売形態、単発の仕掛け、または既存タグの組合せで表せる複合語を追加してはならない。を**satisfy** | 追加ジャンル包含・除外基準、複数作品利用、ゲーム単位分類、代表作品回帰試験 |
+| `V8-TAG-041` | 1 | 有効 | データ | diopside v8の分類意味境界は、ゲーム作品名にはゲーム正本へ解決できる正式作品名だけを置き、ゲームジャンルとイベント・大会・企画を含めてはならない。イベントには特定対象を識別しない「大会」「祭り」等の一般語を置かず、投稿受付手段、配信元チャンネル、人物属性、テーマをそれぞれ別の意味として管理しなければならない。を**satisfy** | ゲーム作品・イベント・受付手段・廃止軸の意味境界監査 |
+| `V8-TAG-042` | 1 | 有効 | データ | diopside v8のエンティティ関係は、公開データは人物、グループ、チャンネル、ゲーム、イベント、シリーズ、楽曲、作品、アーティストを不変エンティティIDで識別し、動画との配信元・出演・言及・プレイ・視聴・歌唱・イベント参加・シリーズ所属を型付き関係として保持しなければならない。楽曲から原アーティスト、イベントから対象ゲーム、人物から所属グループ等のエンティティ間関係もIDで解決しなければならない。を**satisfy** | エンティティID一意性・関係参照整合性・公開版一致試験 |
+| `V8-TAG-043` | 1 | 有効 | 品質 | diopside v8の一覧探索価値は、各classification小分類について、有効値数、実使用値数、付与件数を決定的に集計しなければならない。使用値が一つ以下、選択しても結果集合が実質変わらない、または利用者の探索ユースケースを説明できない軸は再評価対象として報告し、必要性を確認せず新しい一覧を公開してはならない。を**satisfy** | 分類軸の値数・実使用値数・付与件数監査 |
+| `V8-TAG-044` | 1 | 有効 | 運用 | diopside v8のエンティティ網羅性監査は、楽曲、出演者、言及人物、ゲーム作品、イベントは分類の意味検証とは別に、期待件数、実エンティティ件数、実関係件数、未抽出候補件数、監査状態、原因を公開版ごとに記録しなければならない。期待または候補を計測できない領域は完了とせずpartialまたはunmeasuredと明示しなければならない。を**satisfy** | 網羅性メトリクス構造・状態整合性・既知候補試験 |
 | `V8-TIME-001` | 1 | 有効 | データ | diopside v8の時刻は、タイムスタンプは動画全体を移動するための目次として作り、見どころ候補と別のデータとして扱わなければならない。を**satisfy** | 意味論監査 |
 | `V8-TIME-002` | 1 | 有効 | データ | diopside v8の時刻は、v8.0では動画形式が「配信」の動画を既定の作成対象とし、「Shorts」と単曲の「歌ってみた」は対象外にしなければならない。を**satisfy** | 対象集合・境界値試験 |
 | `V8-TIME-003` | 1 | 有効 | データ | diopside v8の時刻は、各対象動画は「作成済み」または理由付きの「未作成」の状態を持たなければならない。を**satisfy** | 状態遷移・画面試験 |
@@ -715,6 +720,21 @@ diopside v8のカスタム絵文字表示は、カスタム絵文字を集計済
 要求源: spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md, user:2026-08-31
 検証証跡: e2e/detail.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md,dev-standard regulated profile
+
+## V8-DISPLAY-019: 人物・作品・企画一覧は関係種別と関連対象を保った動画探索導線を提供しなければならない
+
+diopside v8のエンティティ探索画面は、人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。を**satisfy**。
+
+根拠: 断片的な人物名・作品名・イベント名から、役割の意味を失わず過去配信へ到達できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-019-1` 前提: 公開エンティティ索引と動画索引が読み込まれている。条件: 利用者が一覧またはエンティティ詳細を操作する。期待結果: 名前・種類で絞り込み、関係種別別件数と関連対象を確認し、関連動画または関連エンティティへ移動できる。。
+
+要求源: spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: src/features/entities/EntityIndexPage.test.tsx, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/entities/EntityIndexPage.tsx,src/features/search/SearchPage.tsx,src/features/detail/VideoDetailPage.tsx,src/App.tsx; テスト=src/features/entities/EntityIndexPage.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-31-semantic-entity-model.md,dev-standard assured profile
 
 ## V8-INGEST-001: ローカルingestion要求はvideo_idだけを含む厳格な11文字契約でなければならない
 
@@ -1813,18 +1833,18 @@ diopside v8の検索は、あいまい検索の品質を、版管理した日本
 検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-SEARCH-020: 検索欄は入力中に動画とタグを区別した候補を提示しなければならない
+## V8-SEARCH-020: 検索欄は入力中に動画・分類・エンティティを区別した候補を提示しなければならない
 
-diopside v8の検索候補は、検索欄は一文字以上の入力中に、承認済み動画タイトルと登録済みタグ名の一致候補を種類が分かる形で提示しなければならない。動画候補の選択は動画詳細へ移動し、タグ候補の選択は不変タグIDを絞り込み条件へ適用して動画一覧を更新しなければならない。を**satisfy**。
+diopside v8の検索候補は、検索欄は一文字以上の入力中に、承認済み動画タイトル、分類値、人物・作品・企画等のエンティティ名の一致候補を種類が分かる形で提示しなければならない。動画候補は動画詳細へ、分類候補は不変タグIDの絞り込みへ、エンティティ候補は不変エンティティIDの詳細へ移動しなければならない。を**satisfy**。
 
 根拠: タイトルと分類名のどちらを覚えている場合でも、入力途中から目的の動画または一覧へ直接移動できるようにするため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-SEARCH-020-1` 前提: 承認済み動画と登録済みタグを読み込んだ検索画面がある。条件: 検索欄へ一致する文字を一文字以上入力する。期待結果: 候補を動画とタグの区分付きで表示し、動画候補は動画詳細へ、タグ候補はタグ適用済み動画一覧へキーボードまたはポインターで移動できる。。
+- `AC-V8-SEARCH-020-1` 前提: 承認済み動画と登録済みタグを読み込んだ検索画面がある。条件: 検索欄へ一致する文字を一文字以上入力する。期待結果: 候補を動画・分類・エンティティの区分付きで表示し、動画は詳細へ、分類は絞り込み済み一覧へ、エンティティは同じIDの詳細へキーボードまたはポインターで移動できる。。
 
-要求源: spec/sources/owner-directive-2026-08-20-search-suggestions.md, user:2026-08-20
+要求源: spec/sources/owner-directive-2026-08-20-search-suggestions.md, spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-20, user:2026-08-31
 検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx,src/styles.css; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-20-search-suggestions.md,dev-standard default profile
 
@@ -1873,20 +1893,20 @@ diopside v8のタグは、承認済み動画のタグは、版管理したタグ
 検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-TAG-002: タグは大分類、小分類、タグの3層で管理し、表示名だけの平坦な配列を正本にしてはならない
+## V8-TAG-002: 分類値は大分類・小分類・値で管理し、人物・作品等のエンティティと混在させてはならない
 
-diopside v8のタグは、タグは大分類、小分類、タグの3層で管理し、表示名だけの平坦な配列を正本にしてはならない。を**satisfy**。
+diopside v8のタグは、検索条件として使う分類値は大分類・小分類・値の3層で管理しなければならない。人物、グループ、チャンネル、ゲーム、イベント、シリーズ、楽曲、作品、アーティストは独立したエンティティとしてIDで管理し、分類値の平坦な文字列配列を正本にしてはならない。を**satisfy**。
 
 根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-TAG-002-1` 前提: V8-タグ-002の前提を満たす公開データまたは操作がある。条件: 構造試験。期待結果: すべてのタグに大分類と小分類があり、分類不明のタグが0件である。。
+- `AC-V8-TAG-002-1` 前提: V8-タグ-002の前提を満たす公開データまたは操作がある。条件: 構造試験。期待結果: 全小分類がclassificationまたはentity-referenceを明示し、エンティティ参照には型と動画関係があり、分類値とエンティティを同じ意味として扱わない。。
 
-要求源: Issue #1 V8-タグ-002, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-タグ-002, user:2026-08-03, spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: tests/content-validation.test.ts, scripts/audit-semantic-entities.ts
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/entities.ts,scripts/audit-semantic-entities.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,scripts/audit-semantic-entities.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TAG-003: 各正規タグは表示名と独立した不変タグ識別子を持たなければならない
 
@@ -1903,20 +1923,20 @@ diopside v8のタグは、各正規タグは表示名と独立した不変タグ
 検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-TAG-004: 同じ表示名でも小分類または意味が異なるタグは別の不変識別子として扱わなければならない
+## V8-TAG-004: 同名異義の分類値は別IDとし、同一対象の役割違いは一つのエンティティIDへ統合しなければならない
 
-diopside v8のタグは、同じ表示名でも小分類または意味が異なるタグは別の不変識別子として扱わなければならない。を**satisfy**。
+diopside v8のタグは、同じ表示名でも分類上の意味が異なる値は別の不変タグIDとして扱わなければならない。一方、同じ人物または作品が出演・言及等の異なる役割へ現れる場合は同じエンティティIDへ解決し、役割を関係種別として保持しなければならない。を**satisfy**。
 
 根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-TAG-004-1` 前提: V8-タグ-004の前提を満たす公開データまたは操作がある。条件: 同名異義試験。期待結果: ゲームジャンルの「ホラー」と中心テーマの「ホラー」、歌種別の「ライブ」と同時視聴メディアの「ライブ」が別タグになる。。
+- `AC-V8-TAG-004-1` 前提: V8-タグ-004の前提を満たす公開データまたは操作がある。条件: 同名異義試験。期待結果: 同名異義の分類値は別タグIDになり、出演者と同名の言及人物は同じ人物エンティティIDへ解決され、出演とmentionsの関係を区別する。。
 
-要求源: Issue #1 V8-タグ-004, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-タグ-004, user:2026-08-03, spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: tests/content-validation.test.ts, scripts/audit-semantic-entities.ts
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/entities.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TAG-005: 承認済みの全動画は主ジャンルをちょうど1件持たなければならない
 
@@ -1948,20 +1968,20 @@ diopside v8のタグは、承認済みの全動画は動画形式をちょうど
 検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-TAG-007: 承認済みの全動画は公開チャンネルをちょうど1件持たなければならない
+## V8-TAG-007: 承認済み動画は配信元チャンネルを一つ持ち、人物属性・出演関係から分離しなければならない
 
-diopside v8のタグは、承認済みの全動画は公開チャンネルをちょうど1件持たなければならない。を**satisfy**。
+diopside v8のタグは、承認済みの全動画は配信元チャンネルをちょうど1件持たなければならない。チャンネルは独立エンティティとし、対応する人物とはrepresents関係で結び、出演者、人物の所属または公式チャンネルと混同してはならない。を**satisfy**。
 
 根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-TAG-007-1` 前提: V8-タグ-007の前提を満たす公開データまたは操作がある。条件: 基数試験・人手確認。期待結果: 実際のYouTubeチャンネルを確認できない候補は承認済みにならない。。
+- `AC-V8-TAG-007-1` 前提: V8-タグ-007の前提を満たす公開データまたは操作がある。条件: 基数試験・人手確認。期待結果: 各動画のpublishedByが1件のチャンネルIDへ解決され、対応人物がある場合はrepresentsで結ばれ、出演者一覧へチャンネル名を混入させない。。
 
-要求源: Issue #1 V8-タグ-007, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-タグ-007, user:2026-08-03, spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: tests/content-validation.test.ts, scripts/audit-semantic-entities.ts
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/entities.ts,content/people/channel-person-mappings.json; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TAG-008: 主ジャンル、動画形式、公開チャンネル以外は、タグ体系に定めた基数の範囲で異なる検索軸のタグを複数付与できなければならない
 
@@ -2070,20 +2090,20 @@ diopside v8のタグは、ユニット・チームタグを持つ動画は「コ
 検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-TAG-015: 実出演者と、配信中に名前を話題にしただけの言及人物を分離しなければならない
+## V8-TAG-015: 実出演と人物言及は関係種別で分離し、同一人物は同じ人物IDへ解決しなければならない
 
-diopside v8のタグは、実出演者と、配信中に名前を話題にしただけの言及人物を分離しなければならない。を**satisfy**。
+diopside v8のタグは、実出演者と配信中に名前を話題にした人物は、それぞれfeaturesとmentionsの動画関係として分離しなければならない。同じ人物が両方の役割へ現れても人物マスターを複製せず、同じ人物エンティティIDへ解決しなければならない。言及だけでコラボを付与してはならない。を**satisfy**。
 
 根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-TAG-015-1` 前提: V8-タグ-015の前提を満たす公開データまたは操作がある。条件: 排他試験。期待結果: 同一人物が同じ動画で出演者と言及人物の両方にならず、言及だけで「コラボ」が付かない。。
+- `AC-V8-TAG-015-1` 前提: V8-タグ-015の前提を満たす公開データまたは操作がある。条件: 排他試験。期待結果: 出演と人物言及を別関係で保持し、同名の対象人物は一つの人物IDへ統合され、mentionsだけではコラボにならない。。
 
-要求源: Issue #1 V8-タグ-015, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-タグ-015, user:2026-08-03, spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: tests/content-validation.test.ts, scripts/audit-semantic-entities.ts
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/entities.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TAG-016: 一つのタグには一つの検索対象または一つの分類事実だけを保存し、複数人物や独立概念を連結したタグは分解しなければならない
 
@@ -2401,21 +2421,21 @@ diopside v8の定期・連続企画タグは、公開タイトルまたは承認
 検証証跡: tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=scripts/legacy-content.ts,content/videos; テスト=tests/content-validation.test.ts; 参照資料=spec/sources/owner-directive-2026-08-25-recurring-series-pages.md,dev-standard default profile
 
-## V8-TAG-037: 確認済みの各歌唱実績は動画ジャンルと独立した楽曲タグとして検索できなければならない
+## V8-TAG-037: 確認済みの各歌唱実績は動画ジャンルと独立した楽曲エンティティとして検索できなければならない
 
-diopside v8の歌唱実績と楽曲タグは、楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲タグを持たなければならない。楽曲タグは動画の主・副ジャンルが「歌」であるかに依存せず、公開一覧・検索索引・タグ索引・動画詳細のすべてに一貫して反映しなければならない。を**satisfy**。
+diopside v8の歌唱実績と楽曲タグは、楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲エンティティIDを持たなければならない。楽曲は動画ジャンルから独立し、原アーティストとのcreatedBy関係を持ち、互換用の楽曲タグIDを公開一覧・検索索引・タグ索引・動画詳細で同じエンティティへ解決しなければならない。を**satisfy**。
 
 根拠: 通常配信の一部で歌った曲や鼻歌を、動画全体のジャンルに埋もれさせず曲から再発見できるようにするため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-TAG-037-1` 前提: 楽曲名と白雪巴の歌唱参加が確認済みである。条件: 歌唱実績を正本化して公開データを生成する。期待結果: 歌唱種別と不変の楽曲タグIDを付け、対象動画の一覧・検索・タグ・詳細索引に同じIDを反映する。。
+- `AC-V8-TAG-037-1` 前提: 楽曲名と白雪巴の歌唱参加が確認済みである。条件: 歌唱実績を正本化して公開データを生成する。期待結果: 歌唱種別と不変の楽曲エンティティIDを付け、原アーティストへ関連付け、互換用タグを含む対象動画の一覧・検索・タグ・詳細索引を同じエンティティへ解決する。。
 - `AC-V8-TAG-037-2` 前提: 主ジャンルが歌でない通常配信で歌唱または鼻歌が確認された。条件: 実績を登録する。期待結果: 動画ジャンルの変更を必須とせず、配信内歌唱または鼻歌の種別で楽曲タグを公開できる。。
 
-要求源: spec/sources/owner-directive-2026-08-25-song-performance-index.md, user:2026-08-25
+要求源: spec/sources/owner-directive-2026-08-25-song-performance-index.md, spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-25, user:2026-08-31
 検証証跡: tests/content-validation.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=content/songs/song-performances.json,src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts; テスト=tests/content-validation.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-25-song-performance-index.md,dev-standard assured profile
+トレース: 設計=docs/design/generated/system.gen.md; 実装=content/songs/song-performances.json,src/domain/content.ts,src/domain/entities.ts,src/domain/validation.ts,scripts/build-public-data.ts; テスト=tests/content-validation.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-25-song-performance-index.md,spec/sources/owner-directive-2026-08-31-semantic-entity-model.md,dev-standard assured profile
 
 ## V8-TAG-038: 歌唱実績は楽曲名・本人参加・開始秒・根拠を検証し、未確認の曲を公開してはならない
 
@@ -2467,6 +2487,66 @@ diopside v8のゲームジャンル語彙は、既存語彙で作品のプレイ
 要求源: spec/sources/owner-directive-2026-08-28-game-catalog.md, user:2026-08-28-follow-up
 検証証跡: tests/content-validation.test.ts, scripts/audit-game-tags.ts, tests/generated.test.ts
 トレース: 設計=content/taxonomy/tag-taxonomy.json,docs/design/generated/system.gen.md; 実装=spec/sources/tag-taxonomy-v2.json,content/works/game-catalog.json,src/domain/validation.ts; テスト=tests/content-validation.test.ts,scripts/audit-game-tags.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-28-game-catalog.md,dev-standard assured profile
+
+## V8-TAG-041: 作品・ジャンル・イベント・人物・チャンネル・媒体・テーマの意味境界を検証しなければならない
+
+diopside v8の分類意味境界は、ゲーム作品名にはゲーム正本へ解決できる正式作品名だけを置き、ゲームジャンルとイベント・大会・企画を含めてはならない。イベントには特定対象を識別しない「大会」「祭り」等の一般語を置かず、投稿受付手段、配信元チャンネル、人物属性、テーマをそれぞれ別の意味として管理しなければならない。を**satisfy**。
+
+根拠: 異なる概念が同じ一覧へ混入して検索結果の意味が崩れることを防ぐため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-TAG-041-1` 前提: タグ体系、ゲーム正本、イベント、投稿受付手段のデータがある。条件: 意味境界の決定的監査を行う。期待結果: 有効なゲーム作品名は全件がゲーム正本へ解決され、イベント一般語と廃止した言及種別・言及関係が0件で、マシュマロは投稿受付手段として扱われる。。
+
+要求源: spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: scripts/audit-semantic-entities.ts, tests/content-validation.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/validation.ts,scripts/audit-semantic-entities.ts,scripts/migrate-semantic-entity-model.ts; テスト=tests/content-validation.test.ts,scripts/audit-semantic-entities.ts; 参照資料=spec/sources/owner-directive-2026-08-31-semantic-entity-model.md,dev-standard assured profile
+
+## V8-TAG-042: 動画とエンティティの関係およびエンティティ間関係を型付きIDで公開しなければならない
+
+diopside v8のエンティティ関係は、公開データは人物、グループ、チャンネル、ゲーム、イベント、シリーズ、楽曲、作品、アーティストを不変エンティティIDで識別し、動画との配信元・出演・言及・プレイ・視聴・歌唱・イベント参加・シリーズ所属を型付き関係として保持しなければならない。楽曲から原アーティスト、イベントから対象ゲーム、人物から所属グループ等のエンティティ間関係もIDで解決しなければならない。を**satisfy**。
+
+根拠: 文字列一致に依存せず、同一対象の複数役割と関連対象を横断して探索できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-TAG-042-1` 前提: 分類体系、人物・ゲーム・楽曲正本と公開動画がある。条件: 公開エンティティ索引を生成する。期待結果: すべての有効なエンティティ参照タグが一意のエンティティIDへ解決され、動画関係とエンティティ間関係の参照先が同じ公開版内に存在する。。
+
+要求源: spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: scripts/audit-semantic-entities.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/entities.ts,src/domain/content.ts,scripts/build-public-data.ts; テスト=tests/content-validation.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-31-semantic-entity-model.md,dev-standard assured profile
+
+## V8-TAG-043: 各分類一覧は利用実績と探索価値を監査し、意味の薄い軸を公開してはならない
+
+diopside v8の一覧探索価値は、各classification小分類について、有効値数、実使用値数、付与件数を決定的に集計しなければならない。使用値が一つ以下、選択しても結果集合が実質変わらない、または利用者の探索ユースケースを説明できない軸は再評価対象として報告し、必要性を確認せず新しい一覧を公開してはならない。を**satisfy**。
+
+根拠: データを作れることではなく、有用な動画集合へ到達できることを一覧の存在理由にするため。
+
+分類: `product` / `nonfunctional`
+
+受入条件:
+- `AC-V8-TAG-043-1` 前提: 公開候補のclassification小分類と全動画付与がある。条件: 意味論・利用実績監査を実行する。期待結果: 全軸の有効値数・実使用値数・付与件数を出力し、実使用値が一つ以下の軸をreviewとして識別する。。
+
+要求源: spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: scripts/audit-semantic-entities.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=scripts/audit-semantic-entities.ts,src/features/search/SearchPage.tsx; テスト=scripts/audit-semantic-entities.ts; 参照資料=spec/sources/owner-directive-2026-08-31-semantic-entity-model.md,dev-standard assured profile
+
+## V8-TAG-044: 分類の正しさと抽出網羅性を分離し、期待・実績・候補・原因を横断監査しなければならない
+
+diopside v8のエンティティ網羅性監査は、楽曲、出演者、言及人物、ゲーム作品、イベントは分類の意味検証とは別に、期待件数、実エンティティ件数、実関係件数、未抽出候補件数、監査状態、原因を公開版ごとに記録しなければならない。期待または候補を計測できない領域は完了とせずpartialまたはunmeasuredと明示しなければならない。を**satisfy**。
+
+根拠: 正しく分類した少数データを網羅済みと誤認せず、追加監査の範囲と原因を追跡するため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-TAG-044-1` 前提: 公開候補の動画とエンティティ関係がある。条件: 公開エンティティ索引と横断監査を生成する。期待結果: 5領域すべてに期待・実績・候補・状態・原因を出力し、未計測の期待件数または候補件数を持つ領域をcompleteにしない。。
+
+要求源: spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: scripts/audit-semantic-entities.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/entities.ts,scripts/audit-semantic-entities.ts,scripts/build-public-data.ts; テスト=tests/content-validation.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-31-semantic-entity-model.md,dev-standard assured profile
 
 ## V8-TIME-001: タイムスタンプは動画全体を移動するための目次として作り、見どころ候補と別のデータとして扱わなければならない
 
