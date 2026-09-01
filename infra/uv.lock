@@ -100,6 +100,15 @@ wheels = [
 ]
 
 [[package]]
+name = "bgutil-ytdlp-pot-provider"
+version = "1.3.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/ef/df/56fa3c1e0af648d1474cdcd4f6630e5b2a42081850cfd50e95434bbfbc2c/bgutil_ytdlp_pot_provider-1.3.2.tar.gz", hash = "sha256:9971733ebba2b69ca1f1b8c6036a114154330a9f8af54491c6baa941863df87a", size = 11502 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4b/cd/2af89f094c7d404a001b78e6467a6740360483e734a334ab601e07489fbb/bgutil_ytdlp_pot_provider-1.3.2-py3-none-any.whl", hash = "sha256:9674227441402b56fe06f4e7559a691f33913eebfc7d50831894ccb24c8bc479", size = 12163 },
+]
+
+[[package]]
 name = "blinker"
 version = "1.9.0"
 source = { registry = "https://pypi.org/simple" }
@@ -142,6 +151,7 @@ dynamodb = [
 s3 = [
     { name = "mypy-boto3-s3" },
 ]
+
 [[package]]
 name = "botocore"
 version = "1.43.72"
@@ -385,11 +395,13 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "aws-cdk-lib" },
+    { name = "bgutil-ytdlp-pot-provider" },
     { name = "boto3" },
     { name = "cdk-nag" },
     { name = "constructs" },
     { name = "imageio-ffmpeg" },
     { name = "yt-dlp" },
+    { name = "yt-dlp-ejs" },
 ]
 
 [package.dev-dependencies]
@@ -407,11 +419,13 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "aws-cdk-lib", specifier = ">=2.0.0,<3.0.0" },
+    { name = "bgutil-ytdlp-pot-provider", specifier = "==1.3.2" },
     { name = "boto3", specifier = ">=1.34.0,<2.0.0" },
     { name = "cdk-nag", specifier = ">=2.0.0,<3.0.0" },
     { name = "constructs", specifier = ">=10.0.0,<11.0.0" },
     { name = "imageio-ffmpeg", specifier = ">=0.6.0,<1.0.0" },
     { name = "yt-dlp", specifier = "==2026.7.4" },
+    { name = "yt-dlp-ejs", specifier = "==0.8.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -1341,4 +1355,13 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/47/c5/9972af4b472b0d55badf841ebafd2f98944cb0ae0f46e11d01f363ea5b91/yt_dlp-2026.7.4.tar.gz", hash = "sha256:b094813404f87a9dd2186f00815231df32e5fd8a5403be0f807b3bb2d21a4432", size = 3049326 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f9/8a/cd4c9b02c10c563adfe78118310129641900e1cd6de888cfae2452072696/yt_dlp-2026.7.4-py3-none-any.whl", hash = "sha256:f11f2b11d5a8ac4059f9bdf29fa4407dc7c6bb00c5097e95ca22a7a9db518266", size = 3184705 },
+]
+
+[[package]]
+name = "yt-dlp-ejs"
+version = "0.8.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/d3/e6/cceb9530e8f4e5940f6f7822d90e9d94f1b85343329a16baaf47bbbb3de1/yt_dlp_ejs-0.8.0.tar.gz", hash = "sha256:d5fa1639f63b5c4af8d932495f60689d5370f1a095782c944f7f62a303eb104e", size = 96571 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e3/bd/520769863744b669440a924271a6159ddd82ad5ae26b4ac4d4b69e9f8d44/yt_dlp_ejs-0.8.0-py3-none-any.whl", hash = "sha256:79300e5fca7f937a1eeede11f0456862c1b41107ce1d726871e0207424f4bdb4", size = 53443 },
 ]
