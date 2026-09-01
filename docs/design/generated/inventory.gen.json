@@ -3,6 +3,14 @@
   "generator": "scripts/generate-design.ts",
   "sourceDigests": [
     {
+      "path": "scripts/aggregate-custom-emoji-usage.ts",
+      "sha256": "01b9fd42bdb02663c50e19a527b3e8283cd6f1e685ef04c8e308b72fb786039b"
+    },
+    {
+      "path": "scripts/apply-custom-emoji-usage.ts",
+      "sha256": "1ea3487c1bbb5b5071a71628cb2d2edd2636b9a1df394b06cfdc8ff57d94d86e"
+    },
+    {
       "path": "scripts/audit-collaboration-tags.ts",
       "sha256": "fbda33a70c0dc9330a4de9e0a214bbdd791dfd75ca2fb7ba25e83da0929666d5"
     },
@@ -16,7 +24,7 @@
     },
     {
       "path": "scripts/build-public-data.ts",
-      "sha256": "b4be8b308947bce0403ce1c3f9e95aa548dbb3a44835369d119362e02c95e69c"
+      "sha256": "d380262231df681a510c963ec5c13e1904d85229586f7846171d769fe639039a"
     },
     {
       "path": "scripts/canonical-store.ts",
@@ -36,7 +44,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "678e2bce66c9319f9f867b283e829c98ffa87086361ad783c0ba3d924d5587af"
+      "sha256": "bd6682b42aca0c6fbddf7bef8775c4598fada77c0b3163bc988365ef7feeeecb"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -44,7 +52,7 @@
     },
     {
       "path": "scripts/import-legacy-content.ts",
-      "sha256": "a8cac2bcac44598641837bff72341ce8a842b482224dba55b7870dd6102d054f"
+      "sha256": "582f94be7a9c9c6060732b44014009f283c0f5aee83fbac1b2e320c948f203d0"
     },
     {
       "path": "scripts/import-reference-taxonomy.ts",
@@ -84,7 +92,7 @@
     },
     {
       "path": "scripts/validate-content.ts",
-      "sha256": "a35fcc579994e053d12b6ef4bf63ada0999ae1cce9cba1fe07b3a392037e4eaa"
+      "sha256": "47acd62afd01d3640467d12f6d89ab65e3ebdd008c6901873f49f799b403bd7f"
     },
     {
       "path": "scripts/validate-release-pr-scope.ts",
@@ -156,7 +164,7 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "a599b6db188a4b11859f98298964c8e950b8f8b4dfe86614ddf3178fff6c7de4"
+      "sha256": "52ac8d989996b354f01317b4f472ed962954f173d71ca86083651058e2e0331a"
     },
     {
       "path": "src/domain/game-catalog.ts",
@@ -180,11 +188,11 @@
     },
     {
       "path": "src/domain/validation.test.ts",
-      "sha256": "c2344311d2db59ddfd43d6ff3458dfbf7786ebf90f25ca5e77b60efa518d8431"
+      "sha256": "2a00f4dc81e5101f74eddba4db97283c21967fded239659c002eaea46b30c8b5"
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "12b2f426bbad7b791ba58583e6f387dcec3c93365444e9984f0fbb9cedf66c7e"
+      "sha256": "3ad585a08a541e9234a9a5ce9328c37a68a092194b20ca472298201f3a66e921"
     },
     {
       "path": "src/features/collaborations/CollaborationDetailPages.test.tsx",
@@ -200,7 +208,7 @@
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
-      "sha256": "b1b2a379706a79241c66575b4eccbf659ce3375cf73ed0a9f9049df1c296dc64"
+      "sha256": "1a465660776354ae19be93234b35151e519dedc93c687581390f7b53fbda44d6"
     },
     {
       "path": "src/features/games/GameIndexPage.test.tsx",
@@ -268,6 +276,21 @@
     }
   ],
   "exports": [
+    {
+      "file": "scripts/aggregate-custom-emoji-usage.ts",
+      "name": "aggregateCustomEmojiUsage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/aggregate-custom-emoji-usage.ts",
+      "name": "CustomEmojiUsageAggregate",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/aggregate-custom-emoji-usage.ts",
+      "name": "CustomEmojiUsageItem",
+      "kind": "InterfaceDeclaration"
+    },
     {
       "file": "scripts/canonical-store.ts",
       "name": "readCanonicalVideos",
@@ -586,6 +609,11 @@
     {
       "file": "src/domain/content.ts",
       "name": "confidenceSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "customEmojiUsageSchema",
       "kind": "VariableStatement"
     },
     {

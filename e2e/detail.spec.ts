@@ -82,6 +82,52 @@ test.describe('動画詳細', () => {
     await expect(page.getByLabel('ワードクラウド').locator('span')).toHaveCount(20);
   });
 
+  test('カスタム絵文字を全種類、回数と比率の横棒チャートで表示する', async ({ page }) => {
+    await preparePage(page);
+    const videoId = 'c9TnpjK3ZZE';
+    const shardId = videoShardId(videoId);
+    const relative = `public/data/releases/${latest.releaseId}/video-shards/${shardId}.json`;
+    const shard = JSON.parse(readFileSync(path.join(root, relative), 'utf8')) as { videos: Record<string, Record<string, unknown>> };
+    const detail = shard.videos[videoId]!;
+    detail.customEmojiUsage = {
+      status: '集計済み',
+      totalCount: 100,
+      items: [
+        { customEmojiId: 'custom-emoji-1111111111111111', label: ':kusa:', count: 60 },
+        { customEmojiId: 'custom-emoji-2222222222222222', label: ':wan:', count: 25 },
+        { customEmojiId: 'custom-emoji-3333333333333333', label: ':taiki:', count: 15 },
+      ],
+      rulesVersion: '1.0.0',
+      updatedAt: '2026-08-31T21:34:00+09:00',
+    };
+    await page.route(`**/data/releases/${latest.releaseId}/video-shards/${shardId}.json`, async (route) => route.fulfill({ json: shard }));
+    await page.goto(`/#/video/${videoId}`);
+
+    await expect(page.getByRole('heading', { name: 'カスタム絵文字' })).toBeVisible();
+    await expect(page.getByLabel('カスタム絵文字の使用比率').locator('li')).toHaveCount(3);
+    await expect(page.getByText('60回')).toBeVisible();
+    await expect(page.getByText('60.0%')).toBeVisible();
+    await expect(page.getByLabel(':kusa: 60.0%')).toHaveAttribute('value', '60');
+    await expectNoSeriousAccessibilityViolations(page);
+  });
+
+  test('先行3動画で実集計した全種類と総使用回数を表示する', async ({ page }) => {
+    await preparePage(page);
+    const pilots = [
+      { videoId: 'UZcmZzKQWYc', totalCount: '2,335', uniqueCount: 37 },
+      { videoId: '4zN7YiSw06c', totalCount: '401', uniqueCount: 15 },
+      { videoId: 'BZkCPMIsz1k', totalCount: '1,015', uniqueCount: 16 },
+    ];
+    for (const pilot of pilots) {
+      await page.goto(`/#/video/${pilot.videoId}`);
+      const section = page.locator('.custom-emoji-section');
+      await expect(section.getByRole('heading', { name: 'カスタム絵文字' })).toBeVisible();
+      await expect(section.getByText(pilot.totalCount, { exact: true })).toBeVisible();
+      await expect(section.locator('.custom-emoji-chart li')).toHaveCount(pilot.uniqueCount);
+    }
+    await expectNoSeriousAccessibilityViolations(page);
+  });
+
   test('詳細JSONの構造不適合を日本語で停止表示する', async ({ page }) => {
     await preparePage(page);
     const shardId = videoShardId('c9TnpjK3ZZE');

@@ -184,6 +184,19 @@ const wordCloudMissingSchema = z.object({
   updatedAt: isoDateTime,
 }).strict();
 
+export const customEmojiUsageSchema = z.object({
+  status: z.literal('集計済み'),
+  totalCount: z.number().int().positive(),
+  items: z.array(z.object({
+    customEmojiId: z.string().regex(/^custom-emoji-[a-f0-9]{16}$/u),
+    label: z.string().regex(/^:[^:\r\n]{1,38}:$/u),
+    count: z.number().int().positive(),
+  }).strict()).min(1),
+  inputFingerprint: z.string().regex(/^[a-f0-9]{64}$/u),
+  rulesVersion: z.literal('1.0.0'),
+  updatedAt: isoDateTime,
+}).strict();
+
 export const synopsisSchema = z.object({
   body: z.string().min(1).max(150),
   bodyEvidenceRefs: z.array(z.string()).min(1),
@@ -219,6 +232,7 @@ export const canonicalVideoSchema = z.object({
   synopsis: synopsisSchema.optional(),
   timestamps: z.discriminatedUnion('status', [timestampsCreatedSchema, timestampsMissingSchema]),
   wordCloud: z.discriminatedUnion('status', [wordCloudCreatedSchema, wordCloudMissingSchema]),
+  customEmojiUsage: customEmojiUsageSchema.optional(),
   provenance: z.object({
     inputFingerprint: z.string().regex(/^[a-f0-9]{64}$/u),
     generatorVersion: z.string().min(1),
@@ -337,6 +351,8 @@ const publicSynopsisSchema = z.object({
   updatedAt: isoDateTime,
 }).strict();
 
+const publicCustomEmojiUsageSchema = customEmojiUsageSchema.omit({ inputFingerprint: true });
+
 export const publicVideoDetailSchema = publicVideoSummarySchema.extend({
   releaseId: z.string(),
   taxonomyVersion: z.string(),
@@ -344,6 +360,7 @@ export const publicVideoDetailSchema = publicVideoSummarySchema.extend({
   synopsis: publicSynopsisSchema.optional(),
   timestamps: publicTimestampSchema,
   wordCloud: publicWordCloudSchema,
+  customEmojiUsage: publicCustomEmojiUsageSchema.optional(),
   provenance: z.object({
     generatorVersion: z.string(),
     generatedAt: isoDateTime,

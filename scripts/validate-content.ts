@@ -40,6 +40,7 @@ const manifestSchema = z.object({
   createdTimestampVideoCount: z.number().int().nonnegative(),
   timestampItemCount: z.number().int().nonnegative(),
   createdSynopsisVideoCount: z.number().int().nonnegative(),
+  customEmojiUsageVideoCount: z.number().int().nonnegative(),
 }).strict();
 
 const root = path.resolve(import.meta.dirname, '..');
@@ -79,6 +80,8 @@ const timestampItemCount = createdTimestampVideos.reduce((total, video) => total
 if (manifest.timestampItemCount !== timestampItemCount) errors.push('content-manifest:TIMESTAMP_ITEM_COUNT:タイムスタンプ区間数が一致しません。');
 const createdSynopsisVideoCount = videos.filter((video) => video.synopsis !== undefined).length;
 if (manifest.createdSynopsisVideoCount !== createdSynopsisVideoCount) errors.push('content-manifest:SYNOPSIS_VIDEO_COUNT:作成済みあらすじ動画数が一致しません。');
+const customEmojiUsageVideoCount = videos.filter((video) => video.customEmojiUsage !== undefined).length;
+if (manifest.customEmojiUsageVideoCount !== customEmojiUsageVideoCount) errors.push('content-manifest:CUSTOM_EMOJI_USAGE_VIDEO_COUNT:カスタム絵文字集計済み動画数が一致しません。');
 if (manifest.taxonomyVersion !== taxonomy.taxonomyVersion) errors.push('content-manifest:TAXONOMY_VERSION:タグ体系版が一致しません。');
 if (manifest.aliasVersion !== aliases.aliasVersion) errors.push('content-manifest:ALIAS_VERSION:別名版が一致しません。');
 if (manifest.tagRulesVersion !== taxonomy.rulesVersion) errors.push('content-manifest:RULES_VERSION:規則版が一致しません。');

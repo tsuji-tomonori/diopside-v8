@@ -201,6 +201,7 @@ export function validateCanonicalVideo(
   validateSynopsis(video, issues);
   validateTimestamps(video, tags, issues);
   validateWordCloud(video, issues);
+  validateCustomEmojiUsage(video, issues);
   const latestTagReview = video.tagAssignments.map((assignment) => Date.parse(assignment.reviewedAt)).sort((left, right) => right - left)[0] ?? 0;
   if (Date.parse(video.approval.approvedAt) < latestTagReview) {
     issues.push(issue('APPROVAL_BEFORE_REVIEW', 'approval.approvedAt', '最終承認はタグ確認後に行ってください。'));
@@ -763,6 +764,31 @@ function validateWordCloud(video: CanonicalVideo, issues: ValidationIssue[]): vo
   const expectedOrder = [...wordCloud.words].sort((left, right) => right.weight - left.weight || left.term.localeCompare(right.term, 'ja'));
   if (wordCloud.words.some((word, index) => word.term !== expectedOrder[index]?.term || word.weight !== expectedOrder[index]?.weight)) {
     issues.push(issue('WORD_CLOUD_ORDER', 'wordCloud.words', 'ワードクラウド語句は重要度の降順、同値は日本語名順で決定的に保存してください。'));
+  }
+}
+
+function validateCustomEmojiUsage(video: CanonicalVideo, issues: ValidationIssue[]): void {
+  const usage = video.customEmojiUsage;
+  if (!usage) return;
+  const ids = new Set<string>();
+  let actualTotal = 0;
+  for (const [index, item] of usage.items.entries()) {
+    if (ids.has(item.customEmojiId)) {
+      issues.push(issue('CUSTOM_EMOJI_DUPLICATED', `customEmojiUsage.items.${index}.customEmojiId`, 'カスタム絵文字識別子が重複しています。'));
+    }
+    ids.add(item.customEmojiId);
+    actualTotal += item.count;
+  }
+  if (actualTotal !== usage.totalCount) {
+    issues.push(issue('CUSTOM_EMOJI_TOTAL_MISMATCH', 'customEmojiUsage.totalCount', 'カスタム絵文字の総出現回数と項目別回数の合計が一致しません。'));
+  }
+  const expected = [...usage.items].sort((left, right) => right.count - left.count
+    || left.label.localeCompare(right.label, 'ja')
+    || left.customEmojiId.localeCompare(right.customEmojiId));
+  if (usage.items.some((item, index) => item.customEmojiId !== expected[index]?.customEmojiId
+    || item.label !== expected[index]?.label
+    || item.count !== expected[index]?.count)) {
+    issues.push(issue('CUSTOM_EMOJI_ORDER', 'customEmojiUsage.items', 'カスタム絵文字は回数の降順、同数は表示名と識別子の順で保存してください。'));
   }
 }
 
