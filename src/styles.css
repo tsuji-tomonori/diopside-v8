@@ -213,6 +213,21 @@ legend { font-weight: 800; margin-bottom: .4rem; }
 .timestamps time { color: var(--lavender-dark); font-weight: 800; }
 .timestamps small { color: var(--muted); }
 .word-cloud { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: .6rem 1rem; min-height: 240px; padding: 2rem; border-radius: 18px; background: radial-gradient(circle at 50% 40%, #fff, #f3edf8); color: var(--lavender-dark); }
+.custom-emoji-section { background: linear-gradient(145deg, #fff 0%, #fbf8ff 58%, #fff9f3 100%); }
+.custom-emoji-overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+.custom-emoji-overview p { display: grid; gap: .1rem; margin: 0; padding: 1rem 1.2rem; border: 1px solid #e8dff0; border-radius: 16px; background: rgb(255 255 255 / 82%); }
+.custom-emoji-overview strong { color: var(--lavender-dark); font: 700 clamp(1.55rem, 4vw, 2.1rem)/1.1 Georgia, "Yu Mincho", serif; }
+.custom-emoji-overview span { color: var(--muted); font-size: .75rem; }
+.custom-emoji-chart { display: grid; gap: .9rem; padding: 0; margin: 1.5rem 0 0; list-style: none; }
+.custom-emoji-chart li { display: grid; gap: .38rem; }
+.custom-emoji-chart li > div { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.custom-emoji-chart code { overflow: hidden; color: var(--lavender-dark); font: 700 .84rem/1.4 ui-monospace, "SFMono-Regular", Consolas, monospace; text-overflow: ellipsis; white-space: nowrap; }
+.custom-emoji-chart li > div > span { flex: 0 0 auto; color: var(--ink); font-size: .82rem; font-weight: 700; }
+.custom-emoji-chart small { display: inline-block; min-width: 4.4rem; color: var(--muted); font-size: .75rem; font-weight: 500; text-align: right; }
+.custom-emoji-chart progress { overflow: hidden; width: 100%; height: .62rem; border: 0; border-radius: 999px; background: #ece7f2; color: var(--lavender); }
+.custom-emoji-chart progress::-webkit-progress-bar { border-radius: 999px; background: #ece7f2; }
+.custom-emoji-chart progress::-webkit-progress-value { border-radius: 999px; background: linear-gradient(90deg, var(--lavender-dark), #a98cc3 70%, var(--gold)); }
+.custom-emoji-chart progress::-moz-progress-bar { border-radius: 999px; background: linear-gradient(90deg, var(--lavender-dark), #a98cc3 70%, var(--gold)); }
 
 .page-intro { padding: clamp(1.5rem, 5vw, 3rem); margin-bottom: 1.25rem; }
 .page-intro h1 { font-size: clamp(2.2rem, 5vw, 4rem); }

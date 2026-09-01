@@ -495,6 +495,15 @@ function toDetail(video: CanonicalVideo, currentReleaseId: string): PublicVideoD
         rulesVersion: video.wordCloud.rulesVersion,
         updatedAt: video.wordCloud.updatedAt,
       };
+  const customEmojiUsage = video.customEmojiUsage
+    ? {
+        status: video.customEmojiUsage.status,
+        totalCount: video.customEmojiUsage.totalCount,
+        items: video.customEmojiUsage.items,
+        rulesVersion: video.customEmojiUsage.rulesVersion,
+        updatedAt: video.customEmojiUsage.updatedAt,
+      }
+    : undefined;
   const lookup = buildTaxonomyLookup(taxonomy);
   const tagDates = [
     ...video.tagAssignments.map((assignment) => assignment.reviewedAt),
@@ -523,6 +532,7 @@ function toDetail(video: CanonicalVideo, currentReleaseId: string): PublicVideoD
       : undefined,
     timestamps,
     wordCloud,
+    customEmojiUsage,
     provenance: {
       generatorVersion: video.provenance.generatorVersion,
       generatedAt: video.provenance.generatedAt,
