@@ -83,6 +83,16 @@ for (const correction of regression.corrections) {
     errors.push(`${correction.videoId}:回帰監査対象の動画が正本にありません。`);
     continue;
   }
+  const correctionTarget = lookup.get(correction.gameTitleTagId);
+  if (
+    !correctionTarget?.active
+    || correctionTarget.categoryId !== 'works'
+    || correctionTarget.subcategoryId !== 'gameTitle'
+  ) {
+    // 過去のゲーム作品名が意味境界migrationで無効化またはイベントへ再分類された場合、
+    // 旧分類に基づくゲーム主分類・ジャンルの回帰条件は適用しない。
+    continue;
+  }
   const canonicalAssigned = new Set(video.tagAssignments.map((assignment) => assignment.tagId));
   const assigned = new Set(applyGameCatalogGenres(canonicalAssigned, taxonomy, gameCatalog));
   const catalogGame = gameCatalog.games.find((game) => (

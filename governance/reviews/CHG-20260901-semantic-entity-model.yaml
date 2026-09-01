@@ -145,7 +145,7 @@ selected_checks:
   result: pass
   evidence:
   - commit:self
-  note: 差分を検索用データモデル再設計、正本migration、横断監査、探索UIとその検証へ限定した。
+  note: 最新main（de2f85aa04f5efd7305886fecb63b096b47fccca）を通常mergeで取り込み、1704動画の正本へ検索用データモデル再設計、正本migration、横断監査、探索UIとその検証を適用した。
 - id: REV-002
   class: Invariant
   result: pass
