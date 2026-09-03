@@ -25,7 +25,10 @@ parent Work turn; never pass credentials to a Luna worker or `codex exec`.
    campaign.
 2. Run `harness.py plan-luna-wave <campaign-id> --wave <n>
    --source-snapshot <source> --ledger-snapshot <ledger>`. It returns up to ten
-   active logical lanes with disjoint fallback claims.
+   active logical lanes with disjoint fallback claims. The command refreshes the
+   remote main ref and refuses to plan from a checkout that is not that exact
+   commit; move to a clean latest-main checkout and retry instead of claiming from
+   stale canonical data.
 3. Parent Sol executes each returned branch and marker action, acknowledges the
    observed claim commit with `record-claim`, creates the processing draft PR, and
    records its real URL with `record-pr`. Branch creation conflicts are normal lost
