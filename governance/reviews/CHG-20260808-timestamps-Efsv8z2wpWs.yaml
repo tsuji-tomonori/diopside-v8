@@ -1,0 +1,149 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260808-timestamps-efsv8z2wpws
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/videos/Efsv8z2wpWs.json
+    note: V8-TIME既存要件へ適合する8章の正本化であり、要件正本は変更しない
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 既存schemaの正本データ値と決定的公開成果物だけを更新し、生成設計・ADR・公開契約は変更しない
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 全編根拠と独立事実・編集review済みの公開contentを扱うためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 利用者がcommit、push、PR、台帳更新を明示承認しており、merge・公開は実行しない
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/videos/Efsv8z2wpWs.json
+    note: 既存schemaへ1動画overrideを追加する可逆なdata変更であり、migrationは不要でrevert可能である
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - test:tests/timestamp_tools_test.py
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: 正本schema、timestamp整合、公開参照、candidate review hashを既存test・workflowで確認する
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:public/data/latest.json
+      - path:docs/data/latest.json
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: 正本から公開dataとPages成果物を決定的に再生成し、drift check対象へ含める
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 生字幕・transcript本文・コメント・チャット・投稿者識別子・秘密情報を差分へ含めない
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 正本動画はEfsv8z2wpWsの1件だけで、taxonomy・Skill・validator・UI・workflow変更を含めない
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記載する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:content/videos/Efsv8z2wpWs.json
+    note: V8-TIME-001、010、012、013、014、024、035を弱めず、既存受入条件に沿う正本化である
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 公開schemaと画面構造を変えない局所的な正本更新で、生成設計・ADRは不要と判定した
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - test:tests/timestamp_tools_test.py
+      - workflow:要件・品質ゲート#142要件の品質ゲートを実行
+    note: 正本検証、timestamp tool、build、E2Eを既存CI契約で実行する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-timestamps-Efsv8z2wpWs.yaml
+    note: 選択checkだけを本review YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-timestamps-Efsv8z2wpWs.yaml
+    note: 未選択checkをN/Aとして登録していない
+advisories: []
+residual_risks:
+  - 公開はPR #18を人がreviewしてmergeする操作に委ね、agentはmergeしない

@@ -21,7 +21,7 @@ describe('正本検証', () => {
     expect(validateCanonicalVideo(canonicalInput, taxonomy, aliases)).toEqual([]);
   });
 
-  it('全編根拠と三つの同一候補確認がある作成済みタイムスタンプを許可する', () => {
+  it('legacyの人による最終確認を持つ作成済みタイムスタンプを引き続き許可する', () => {
     const candidateHash = createHash('sha256').update('candidate').digest('hex');
     const video = structuredClone(canonicalVideoSchema.parse(canonicalInput));
     if (video.durationSeconds === null) throw new Error('固定動画の長さがありません。');
@@ -53,6 +53,60 @@ describe('正本検証', () => {
       },
     };
     expect(validateCanonicalVideo(video, taxonomy, aliases)).toEqual([]);
+  });
+
+  it('同一候補へ合格した独立確認とPRマージ公開ゲートを許可する', () => {
+    const candidateHash = createHash('sha256').update('pr-merge-candidate').digest('hex');
+    const inputFingerprint = createHash('sha256').update('pr-merge-input').digest('hex');
+    const video = structuredClone(canonicalVideoSchema.parse(canonicalInput));
+    if (video.durationSeconds === null) throw new Error('固定動画の長さがありません。');
+    video.evidence.push({
+      evidenceId: 'evidence-full-transcript',
+      type: '運用者提供の公開本文',
+      sourceLabel: '全編確認用の公開本文',
+      inputFingerprint,
+      coverageStartSeconds: 0,
+      coverageEndSeconds: video.durationSeconds,
+    });
+    video.provenance.reviewPullRequest = 'https://github.com/tsuji-tomonori/diopside-v8/pull/123';
+    video.timestamps = {
+      status: '作成済み',
+      origin: 'diopsideで作成した時刻一覧',
+      items: [
+        { timestampId: 'timestamp-opening', startSeconds: 0, label: '冒険の準備', confidence: '高', evidenceRefs: [] },
+        { timestampId: 'timestamp-first-area', startSeconds: 600, label: '最初のエリアを探索', confidence: '高', evidenceRefs: ['evidence-full-transcript'] },
+        { timestampId: 'timestamp-next-area', startSeconds: 1200, label: '次のエリアへ移動', confidence: '中', evidenceRefs: ['evidence-full-transcript'] },
+      ],
+      candidateHash,
+      inputFingerprint,
+      rulesVersion: '8.0.0',
+      generatedAt: '2026-08-03T00:00:00+09:00',
+      updatedAt: '2026-08-03T00:20:00+09:00',
+      review: {
+        factCheck: { status: '合格', route: '全編根拠による生成', checks: factChecks, candidateHash, majorIssues: 0, reviewedAt: '2026-08-03T00:10:00+09:00' },
+        editorialCheck: { status: '合格', factCheckResultWasHidden: true, checks: editorialChecks, candidateHash, majorIssues: 0, reviewedAt: '2026-08-03T00:20:00+09:00' },
+        publicationGate: { mode: 'pull-request-merge', candidateHash, pullRequest: 'https://github.com/tsuji-tomonori/diopside-v8/pull/123' },
+      },
+    };
+    expect(validateCanonicalVideo(video, taxonomy, aliases)).toEqual([]);
+
+    const wrongHash = structuredClone(video);
+    if (wrongHash.timestamps.status !== '作成済み' || !('publicationGate' in wrongHash.timestamps.review)) {
+      throw new Error('PRマージ公開ゲートの固定候補ではありません。');
+    }
+    wrongHash.timestamps.review.publicationGate.candidateHash = 'f'.repeat(64);
+    expect(validateCanonicalVideo(wrongHash, taxonomy, aliases).map((item) => item.code)).toContain('TIMESTAMP_REVIEW_VERSION_MISMATCH');
+
+    const wrongProvenance = structuredClone(video);
+    wrongProvenance.provenance.reviewPullRequest = 'https://github.com/tsuji-tomonori/diopside-v8/pull/124';
+    expect(validateCanonicalVideo(wrongProvenance, taxonomy, aliases).map((item) => item.code)).toContain('TIMESTAMP_PUBLICATION_PR_MISMATCH');
+
+    const invalidPullRequest = structuredClone(video);
+    if (invalidPullRequest.timestamps.status !== '作成済み' || !('publicationGate' in invalidPullRequest.timestamps.review)) {
+      throw new Error('PRマージ公開ゲートの固定候補ではありません。');
+    }
+    invalidPullRequest.timestamps.review.publicationGate.pullRequest = 'https://example.com/pull/123';
+    expect(validateCanonicalVideo(invalidPullRequest, taxonomy, aliases).map((item) => item.code)).toContain('STRUCTURE');
   });
 
   it('既存承認済み時刻の移行元revision・承認状態・入力指紋を追跡する', () => {
@@ -118,5 +172,32 @@ describe('正本検証', () => {
   it('公開データの生資料・投稿者・秘密情報を拒否する', () => {
     const issues = scanPublicBoundary({ transcript: '全文', nested: { authorId: 'person', token: `sk-${'x'.repeat(24)}` } });
     expect(issues.map((item) => item.code)).toEqual(['PUBLIC_FORBIDDEN_FIELD', 'PUBLIC_FORBIDDEN_FIELD', 'PUBLIC_SECRET']);
+  });
+
+  it('カスタム絵文字の全件合計、重複、決定順を検証する', () => {
+    const video = structuredClone(canonicalVideoSchema.parse(canonicalInput));
+    video.customEmojiUsage = {
+      status: '集計済み',
+      totalCount: 5,
+      items: [
+        { customEmojiId: 'custom-emoji-1111111111111111', label: ':kusa:', count: 3 },
+        { customEmojiId: 'custom-emoji-2222222222222222', label: ':wan:', count: 2 },
+      ],
+      inputFingerprint: 'a'.repeat(64),
+      rulesVersion: '1.0.0',
+      updatedAt: '2026-08-31T21:34:00+09:00',
+    };
+    expect(validateCanonicalVideo(video, taxonomy, aliases)).toEqual([]);
+
+    const broken = structuredClone(video);
+    broken.customEmojiUsage!.totalCount = 99;
+    broken.customEmojiUsage!.items.reverse();
+    broken.customEmojiUsage!.items[1]!.customEmojiId = broken.customEmojiUsage!.items[0]!.customEmojiId;
+    const codes = validateCanonicalVideo(broken, taxonomy, aliases).map((item) => item.code);
+    expect(codes).toEqual(expect.arrayContaining([
+      'CUSTOM_EMOJI_DUPLICATED',
+      'CUSTOM_EMOJI_TOTAL_MISMATCH',
+      'CUSTOM_EMOJI_ORDER',
+    ]));
   });
 });
