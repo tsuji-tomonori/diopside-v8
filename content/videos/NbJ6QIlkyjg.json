@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "d36ab43de11c02b9a968682369c78a1f297a39486a3091db3b0e2f16eca15a9f"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "afc44e7c9f4418ad50a5f46a2e612e0b403061b8608c569a771a1f50560c9865",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3362
     }
   ],
   "tagAssignments": [
@@ -255,5 +263,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "「にじさんじ最弱王」の称号を懸けたマリオカート対決へ、白雪巴が新しく選んだ自慢の車で参戦。開幕前から自分の最下位を予想した視聴者への「罰ゲーム」を練る強気な姿と、アイテムに翻弄されながら順位を追う緊迫のレース、終了後の振り返りまでを届けます。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "最弱そんなの知りません",
+      "atSeconds": 1555,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "afc44e7c9f4418ad50a5f46a2e612e0b403061b8608c569a771a1f50560c9865",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T13:24:20.206157Z"
   }
 }
