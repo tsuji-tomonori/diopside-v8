@@ -91,6 +91,31 @@ def validate_worker_id(value: str) -> str:
     return value
 
 
+def resolve_fresh_base_commit(base_ref: str) -> str:
+    remote, separator, branch = base_ref.partition("/")
+    remotes = run(["git", "remote"], cwd=ROOT).stdout.splitlines()
+    if separator and remote in remotes:
+        run(
+            [
+                "git",
+                "fetch",
+                "--no-tags",
+                remote,
+                f"+refs/heads/{branch}:refs/remotes/{remote}/{branch}",
+            ],
+            cwd=ROOT,
+        )
+        base_commit = run(["git", "rev-parse", f"{base_ref}^{{commit}}"], cwd=ROOT).stdout.strip()
+        head_commit = run(["git", "rev-parse", "HEAD^{commit}"], cwd=ROOT).stdout.strip()
+        if head_commit != base_commit:
+            raise HarnessError(
+                f"作業treeのHEADが最新{base_ref}ではありません。"
+                "追跡中の変更を保持したまま最新mainのclean checkoutで再実行してください。"
+            )
+        return base_commit
+    return run(["git", "rev-parse", f"{base_ref}^{{commit}}"], cwd=ROOT).stdout.strip()
+
+
 def snapshot_items(
     source_snapshot: dict[str, Any],
     ledger_snapshot: dict[str, Any],
@@ -211,13 +236,13 @@ def claim_action(item: dict[str, Any], worker_id: str, base_commit: str) -> dict
 
 
 def command_plan_luna_wave(args: argparse.Namespace) -> dict[str, Any]:
+    base_commit = resolve_fresh_base_commit(args.base_ref)
     source = read_json(args.source_snapshot)
     ledger = read_json(args.ledger_snapshot)
     selected, skipped = snapshot_items(source, ledger, limit=args.scan_limit)
     campaign_id = validate_campaign_id(args.campaign_id)
     if not 1 <= args.wave <= 99:
         raise HarnessError("wave番号は1から99にしてください。")
-    base_commit = run(["git", "rev-parse", f"{args.base_ref}^{{commit}}"], cwd=ROOT).stdout.strip()
     lanes = []
     for lane_index in range(LUNA_POOL_SIZE):
         lane_items = selected[lane_index::LUNA_POOL_SIZE]
