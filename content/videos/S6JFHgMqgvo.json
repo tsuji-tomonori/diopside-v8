@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=S6JFHgMqgvo",
-  "taxonomyVersion": "8.5.0",
+  "taxonomyVersion": "8.6.0",
   "aliasVersion": "8.3.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -43,6 +43,14 @@
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "7bd4ea59a4bb3509640ab09f1c53037788f91839fbc796aac73a8cddab999576",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 18820
+    },
+    {
+      "evidenceId": "evidence-full-transcript-timestamps",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕（既存タイムスタンプ根拠）",
       "inputFingerprint": "6c3f906cf4992ba40c3c430b68c81d33dcabe957480be5ab9575bdc9d2c768f7",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 18820
@@ -79,15 +87,6 @@
     {
       "tagId": "tag-context-occasion-a1593b617b1d",
       "reason": "公開タイトルまたは既存タグから記念区分「周年記念」を確認",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
-    },
-    {
-      "tagId": "tag-program-event-be236d3812e8",
-      "reason": "既存タグ「周年記念」からイベント・大会名「周年記念」を確認",
       "confidence": "高",
       "evidenceRefs": [
         "evidence-approved-tags"
@@ -686,7 +685,23 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+    "approvedAt": "2026-09-01T12:00:00+09:00",
+    "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "約3か月ぶりの通常配信で5周年を迎えた白雪巴が、待ってくれた視聴者へ感謝を伝え、休止中に支えられた出来事を振り返る。夜王国の歌ってみた制作秘話や新たな表情のお披露目、今後の活動予定も語り、祝福への返事と寄り道の雑談を重ねていく。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "あなたたちがいるって思ってたから帰ってきた",
+      "atSeconds": 5596,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "7bd4ea59a4bb3509640ab09f1c53037788f91839fbc796aac73a8cddab999576",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T04:44:55.012542Z"
   }
 }
