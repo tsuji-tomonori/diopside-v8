@@ -70,7 +70,8 @@ jobs:
 
           ready=false
           for _attempt in $(seq 1 30); do
-            if test "$(curl --fail --silent http://127.0.0.1:4416/ping)" = "1.3.2"; then
+            if curl --fail --silent http://127.0.0.1:4416/ping \
+              | jq --exit-status '.version == "1.3.2"' >/dev/null; then
               ready=true
               break
             fi

@@ -86,7 +86,7 @@ selected_checks:
     class: Advisory
     result: pass
     evidence: [path:scripts/build_next_preview.py, path:.github/workflows/next-preview-experiment.yml]
-    note: download・clip・render段階、sample ID、ffprobe結果を安全に診断でき、workflow summaryで成果物本数と形式を確認できる。
+    note: providerの構造化health response、download・clip・render段階、sample ID、ffprobe結果を安全に診断でき、workflow summaryで成果物本数と形式を確認できる。
   - id: REV-001
     class: Invariant
     result: pass
