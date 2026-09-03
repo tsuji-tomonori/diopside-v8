@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=PZKnXvLFm7U",
-  "taxonomyVersion": "8.5.0",
+  "taxonomyVersion": "8.6.0",
   "aliasVersion": "8.3.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -44,6 +44,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "799cef0263a260aac3515e405ce12fa634c92c0e5c8234a82067fb713a6658c1"
+    },
+    {
+      "evidenceId": "evidence-collaboration-horizontal",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
+      "inputFingerprint": "77c264a3bcaec30d16b8e3cd70fc69dcbb8da8a1734e6792d7ed13a64e5cd96f"
     },
     {
       "evidenceId": "evidence-full-transcript",
@@ -128,15 +134,6 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     },
     {
-      "tagId": "tag-program-event-08c3ea003283",
-      "reason": "既存タグ「大会」からイベント・大会名「大会」を確認",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
-    },
-    {
       "tagId": "tag-program-event-4501145c5c22",
       "reason": "既存タグ「にじさんじポケユナ大会」からイベント・大会名「にじさんじポケユナ大会」を確認",
       "confidence": "高",
@@ -144,6 +141,60 @@
         "evidence-approved-tags"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-unit-8888d0ac1b8d",
+      "reason": "公開タイトル・参加者情報からコンビ・ユニット名「タリキホンガンジム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-5d3cc9d97a40",
+      "reason": "人物名「エクス・アルビオ」をコンビ・ユニット「タリキホンガンジム」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-3c46214bce41",
+      "reason": "人物名「不破湊」をコンビ・ユニット「タリキホンガンジム」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-e877def1ca57",
+      "reason": "人物名「夕陽リリ」をコンビ・ユニット「タリキホンガンジム」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-4ae4f4527489",
+      "reason": "人物名「夜見れな」をコンビ・ユニット「タリキホンガンジム」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "公開タイトル・参加者情報から参加形態「コラボ」を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
     }
   ],
   "timestamps": {
@@ -333,8 +384,8 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+    "approvedAt": "2026-09-01T12:00:00+09:00",
+    "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
   },
   "synopsis": {
     "body": "白雪巴が『ポケモンユナイト』大会で氷ポケモンを使い、タリキホンガンジムの一員として対戦に挑戦。味方との連携や守りの判断、技の使いどころを考えながら奮闘し、試合後はチームの練習や戦いを振り返ります。",
