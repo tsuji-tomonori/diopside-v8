@@ -1,0 +1,189 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260823-mobile-search-filter-overflow
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: false
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: 375画素幅を主要環境とするV8-QUALITY-002の既存受入条件へ戻す不具合修正であり、永続要件の意味は変更しない
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: CSSと回帰E2Eだけの局所修正であり、生成設計、ADR、公開契約、データモデル、構成へ影響しない
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260823-mobile-search-filter-overflow.yaml
+    note: 主要なモバイル検索フローと共有ヘッダーへ影響するためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 利用者から付与されたGitHub権限の範囲で機能branchのpushとdraft PR作成だけを行い、mergeとproduction公開は含めない
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+      - path:src/styles.css
+    note: 本番Vite buildで変更後のCSSを含む静的サイトを生成できることをローカル確認した
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: TypeScriptのブラウザ・Node両projectの型検査をローカル確認した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: srcとe2eを含むESLintを警告なしでローカル確認した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:e2e/search.spec.ts
+      - test:src/domain/search.test.ts
+    note: 検索単体テスト16件をローカル確認し、モバイル表示はPRのChromium E2Eで検証する
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/search.spec.ts
+    note: 375画素幅でタグ1件を選択し、タグ欄を閉じた検索フォームとヘッダーの横はみ出しを検出する再現条件を固定した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 対象差分にcredential、token、個人情報、production dumpを追加していない
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/styles.css
+      - test:e2e/search.spec.ts
+    note: タグ選択後の公開日・動画長入力、操作ボタン、検索結果へ戻る状態を375画素幅で検証する
+  - id: FAST-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/search.spec.ts
+    note: 既存の意味構造と44画素操作対象を維持し、入力欄とボタンを画面内に収めることでモバイル操作不能を防ぐ
+  - id: FAST-018
+    class: Risk-selected
+    result: na
+    evidence:
+      - test:e2e/search.spec.ts
+    note: E2E変更triggerで選択した後、対象が読取り専用の静的検索UIでありC/U/D API、DB、外部状態変更を含まないと確認した
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: モバイル横はみ出しを修正するCSS、直接再現するE2E、選択check結果だけへ差分を限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更内容、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記録する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: 新しい外部挙動は追加せず、V8-QUALITY-002の375画素幅という既存受入条件へ戻す修正である
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/styles.css
+    note: 既存レスポンシブ構造内の可逆なCSS修正で、生成設計更新やADRを要する長期判断はない
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:e2e/search.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: Chromiumを含むCIでモバイル横幅、既存検索フロー、アクセシビリティを実行する経路がある
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260823-mobile-search-filter-overflow.yaml
+    note: 選択checkだけを本review YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260823-mobile-search-filter-overflow.yaml
+    note: selectorで選択されなかったcheckを形式的なN/Aとして登録していない
+  - id: REV-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/search.spec.ts
+    note: FAST-018はE2E変更で選択後、CRUD・DB・外部状態を持たない表示回帰試験と判明したためN/A根拠を記録した
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/search.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 375画素幅でタグ選択後のフォーム、ヘッダー、全可視要素の境界とdocument幅を直接検証する
+advisories: []
+residual_risks:
+  - ローカル環境にはChromium実行ファイルがないため、追加E2Eの実行結果はPRのPlaywrightコンテナ上にあるGitHub Actionsを正本とする

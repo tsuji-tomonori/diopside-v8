@@ -3,9 +3,9 @@
 公開更新前と月初に `operations/cost-policy.json`、リポジトリ公開設定、Pages公開元、依存、通信先を確認する。
 
 - 既存のChatGPT／Codex契約以外の月次サービス請求は0円である。
-- GitHubリポジトリは公開で、Pagesは既定の `github.io` URLと `main/docs` のbranch方式だけを使う。
-- CIと手動運用入口は、公開リポジトリで追加請求が生じない標準runnerだけを使う。手動ワークフローは検証と候補検出に限定し、予定実行、外部生成、Pages公開を行わない。
-- AWS、外部検索、データベース、解析、広告、監視、生成、配信、独自ドメイン、従量課金APIを使わない。
+- GitHubリポジトリは公開で、Pagesは `main/docs` のbranch方式と、`operations/pages-policy.json` と `docs/CNAME` が完全一致する所有者承認済みの独自ドメインだけを使う。
+- CI、手動運用入口、検証済みmainからの静的成果物生成は、公開リポジトリで追加請求が生じない標準runnerだけを使う。動画確認と候補検出の手動ワークフローは読取専用に限定する。private backfillのS3・DynamoDB保存基盤deployだけは専用protected environmentで承認したmainの手動実行に限定し、素材取得は運用者のローカルPCから明示的に実行する。予定実行、外部生成、独自Pages deployを行わない。
+- 公開面ではAWS、外部検索、データベース、解析、広告、監視、生成、配信、従量課金APIを使わない。独自ドメインはGitHub Pagesの許可済みCNAMEだけを例外とする。
 - 実行時通信は同じPages配下の静的ファイル、サムネイル、利用者が明示的に開くYouTubeだけである。
 
 無償条件の変更、請求、利用量上限、ライセンスを確認できない場合は、課金して続行せず公開更新を停止し、運用者へ判断を求める。
@@ -16,3 +16,13 @@
 - [GitHub Actionsの料金](https://docs.github.com/billing/managing-billing-for-github-actions/about-billing-for-github-actions): 公開リポジトリの標準GitHub-hosted runnerは無料。larger runner、成果物保存、外部有料サービスは使わない。
 
 条件は変更され得るため、上記の日付を最終確認日として扱い、月初確認時に更新する。
+
+## 有限private backfillの費用分離
+
+Issue #465の過去動画素材バックフィルは公開更新ではない。`infra/` に隔離されたraw S3 bucketとDynamoDB tableだけをAWSに配置し、SQS、Lambda、worker用CloudWatch Logs、S3 access log bucket、customer-managed KMS key、AWS Batch、Fargate、ECR、専用VPC、scheduled実行、新着検出、Pages接続、公開データへの投入を持たない。保存時暗号化は各serviceの標準方式を使い、access log保存費用、KMS keyの月額費用とAPI request費用を発生させない。
+
+- 実行前に固定manifestまたは明示video ID、lock済みローカルworker、S3・DynamoDBの利用量・費用の観測方法を人が確認する。
+- 基盤deploy workflowを開始する前に対象account・region、CloudFormation差分、GitHub environment承認、AWS料金条件を人が確認する。workflow成功は素材投入またはbackfill開始の承認を兼ねない。
+- ローカル取得を開始する前に対象video ID、account・region、bucket・table、保存量の料金条件、実行者権限を確認する。
+- 月額0円の公開面停止条件をprivate backfillへ自動適用しない。ただし費用、利用量、契約条件を確認できない場合はdeployまたはbackfillを開始せず、人が判断する。
+- 全対象が終端したらcompletion reportを確認する。資源の保持、停止、削除はこのPRでは行わず、別の明示承認で決める。
