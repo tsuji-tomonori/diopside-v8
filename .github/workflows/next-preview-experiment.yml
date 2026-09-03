@@ -1,0 +1,117 @@
+name: 次回予告風・実音声クリップ試作
+
+on:
+  push:
+    branches:
+      - experiment/next-preview-20260903
+    paths:
+      - .github/workflows/next-preview-experiment.yml
+      - scripts/build_next_preview.py
+      - tests/next_preview_experiment_test.py
+      - governance/reviews/CHG-20260903-next-preview-experiment.yaml
+      - package.json
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: next-preview-experiment-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  render:
+    name: 公開配信3本から短尺MP4を生成
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: ソースを取得
+        uses: actions/checkout@v4
+
+      - name: Node.jsを準備
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.0
+
+      - name: uvを準備
+        uses: astral-sh/setup-uv@v5
+
+      - name: 映像ツールと日本語フォントを準備
+        run: sudo apt-get update && sudo apt-get install --yes ffmpeg fonts-noto-cjk
+
+      - name: lock済み公開素材取得ツールを準備
+        run: uv sync --directory infra --locked --all-groups
+
+      - name: 発話区間と短尺引用上限を検証
+        run: |
+          uv run --directory infra --locked --all-groups \
+            python ../tests/next_preview_experiment_test.py
+          uv run --directory infra --locked --all-groups \
+            ruff check ../scripts/build_next_preview.py ../tests/next_preview_experiment_test.py
+          uv run --directory infra --locked --all-groups \
+            python ../scripts/build_next_preview.py --validate-only
+
+      - name: 公開配信音声から試作3本を生成
+        shell: bash
+        run: |
+          set -euo pipefail
+          provider_home="$RUNNER_TEMP/bgutil-ytdlp-pot-provider-1.3.2"
+          git clone --depth 1 --single-branch --branch 1.3.2 \
+            https://github.com/Brainicism/bgutil-ytdlp-pot-provider.git \
+            "$provider_home"
+          npm ci --prefix "$provider_home/server"
+          npm exec --prefix "$provider_home/server" tsc
+          node "$provider_home/server/build/main.js" \
+            >"$RUNNER_TEMP/pot-provider.log" 2>&1 &
+          provider_pid=$!
+          trap 'kill "$provider_pid" 2>/dev/null || true' EXIT
+
+          ready=false
+          for _attempt in $(seq 1 30); do
+            if test "$(curl --fail --silent http://127.0.0.1:4416/ping)" = "1.3.2"; then
+              ready=true
+              break
+            fi
+            sleep 1
+          done
+          if test "$ready" != "true"; then
+            echo "PO Token provider did not become ready" >&2
+            exit 1
+          fi
+
+          uv run --directory infra --locked --all-groups \
+            python ../scripts/build_next_preview.py \
+            --output-dir "$RUNNER_TEMP/next-preview-output"
+
+      - name: 成果物を検証して要約
+        shell: bash
+        run: |
+          set -euo pipefail
+          output_dir="$RUNNER_TEMP/next-preview-output"
+          test "$(find "$output_dir" -maxdepth 1 -name '*.mp4' | wc -l)" -eq 4
+          while IFS= read -r video; do
+            ffprobe -v error \
+              -show_entries stream=codec_type,codec_name,width,height \
+              -show_entries format=duration,size \
+              -of json "$video" >/dev/null
+          done < <(find "$output_dir" -maxdepth 1 -name '*.mp4' -print)
+          {
+            echo '### 次回予告風・実音声クリップ試作'
+            echo
+            echo '- 個別試作: 3本'
+            echo '- 比較版: 1本'
+            echo '- 映像: 1280×720 / H.264'
+            echo '- 音声: AAC / 公開配信からの短い引用'
+            echo '- 元音声・字幕全文・コメント: artifact対象外'
+          } >>"$GITHUB_STEP_SUMMARY"
+
+      - name: 短尺の派生成果物だけを保存
+        uses: actions/upload-artifact@v4
+        with:
+          name: next-preview-prototypes-20260903
+          path: |
+            ${{ runner.temp }}/next-preview-output/*.mp4
+            ${{ runner.temp }}/next-preview-output/manifest.json
+            ${{ runner.temp }}/next-preview-output/README.txt
+          if-no-files-found: error
+          retention-days: 7

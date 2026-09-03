@@ -1,0 +1,128 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260903-next-preview-experiment
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: false
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 3本の一時的な試作生成であり、diopsideの永続要件、利用者向けサイト挙動、受入条件は変更しない。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/build_next_preview.py, path:.github/workflows/next-preview-experiment.yml]
+    note: 実験branch限定workflowと自己完結した生成scriptを追加するが、生成設計、ADR、公開契約、データモデル、IaCは変更しない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260903-next-preview-experiment.yaml]
+    note: 外部公開配信の有限取得、GitHub artifact、Drive転送を伴うためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self, path:.github/workflows/next-preview-experiment.yml]
+    note: 外部書込みは実験branch、Draft PR、GitHub artifact、利用者指定Google Drive folderに限定し、main mergeやproduction deployは行わない。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/build_next_preview.py, workflow:次回予告風・実音声クリップ試作]
+    note: Python構文、固定excerpt plan、ffmpegによる3本と比較版の生成、ffprobeによるMP4構造検証をworkflowで実行する。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/build_next_preview.py, path:tests/next_preview_experiment_test.py, workflow:次回予告風・実音声クリップ試作]
+    note: 変更したPython scriptと単体testへlock済みRuffを適用する。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/next_preview_experiment_test.py, workflow:次回予告風・実音声クリップ試作]
+    note: 3配信の識別、短尺引用上限、timeline、入力拒否、選択順、ASS時刻を対象単体testで固定する。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self, path:.github/workflows/next-preview-experiment.yml]
+    note: Cookie、credential、Token、元音声、字幕全文、コメントをGitへ保存せず、artifactは短尺MP4、manifest、READMEだけに限定する。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:scripts/build_next_preview.py, path:.github/workflows/next-preview-experiment.yml]
+    note: download・clip・render段階、sample ID、ffprobe結果を安全に診断でき、workflow summaryで成果物本数と形式を確認できる。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分を短尺試作生成script、専用workflow、対象test、review YAML、既存検証接続だけに限定する。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、review path、検証契約、互換性、残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, commit:self]
+    note: 一時的な制作検証であり、既存要件IDと受入条件を変更しない。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/build_next_preview.py, path:.github/workflows/next-preview-experiment.yml]
+    note: 実験branch限定で将来実装を制約せず、生成設計やADRの更新は不要と判定した。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/next_preview_experiment_test.py, workflow:次回予告風・実音声クリップ試作]
+    note: 対象単体test、Ruff、validate-only、実音声render、ffprobeを専用workflowへ接続する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260903-next-preview-experiment.yaml]
+    note: 選択したcheckを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260903-next-preview-experiment.yaml]
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+advisories: []
+residual_risks:
+  - 公開配信側またはYouTube取得仕様の変更により再実行が失敗する可能性がある。Cookieやloginへ自動切替せず、有限の手動再試行に留める。
+  - 自動字幕を基に時刻を選定しているため軽微な表示文言差が残る可能性がある。実音声と映像の技術検証後、必要なら別変更で文言を微調整する。
