@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=9L0AU4u7TPs",
-  "taxonomyVersion": "8.5.0",
+  "taxonomyVersion": "8.6.0",
   "aliasVersion": "8.3.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -44,6 +44,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "65b8f94b0c99cdd1ba2b5a5c17a221c667064cd2c395def88d67045bfcb2a538"
+    },
+    {
+      "evidenceId": "evidence-collaboration-horizontal",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
+      "inputFingerprint": "eed7c73bfbfc6e2c70cb5e438f49ef99c53086e317faef3d46eace7bd139dd98"
     },
     {
       "evidenceId": "evidence-full-transcript",
@@ -108,6 +114,33 @@
         "evidence-approved-tags"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-unit-17a77babcac5",
+      "reason": "公開タイトル・参加者情報からコンビ・ユニット名「W白雪コラボ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-6a98384c4ce5",
+      "reason": "人物名「白雪みしろ」をコンビ・ユニット「W白雪コラボ」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "公開タイトル・参加者情報から参加形態「コラボ」を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
     }
   ],
   "timestamps": {
@@ -288,8 +321,8 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+    "approvedAt": "2026-08-25T23:20:56+09:00",
+    "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
   },
   "synopsis": {
     "body": "白雪巴と白雪みしろが『スーパーバニーマン』で協力プレイ。つかむ、跳ぶ、支える操作に翻弄され、助け合いと責任の押しつけ合いを往復しながら難所へ挑む。息を合わせたい二人の掛け合いと、思わぬ落下が笑いを呼ぶゲーム配信。",
