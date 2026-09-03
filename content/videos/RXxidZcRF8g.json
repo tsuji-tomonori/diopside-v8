@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "4ba6aed86a1f5e53254e4576fcae3ddc3fd8de1d7fe9d80705d644a9d376ca0d"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "7071615ac2900a13f7c776018903aefe9f1689867534616b5eaa48a8d21af5fb",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6642
     }
   ],
   "tagAssignments": [
@@ -327,5 +335,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が、寄せられた多彩な罵倒や甘やかしの台詞を自分なりの場面と解釈で演じ分ける投稿紹介。強めの言葉から勉強を励ます一言、膝枕の甘い場面まで、思わぬ照れや言い直しも交えつつ、一人ひとり異なる好みを楽しげに見つめていく。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "こんな感じで結構カオスよね",
+      "atSeconds": 1472,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "7071615ac2900a13f7c776018903aefe9f1689867534616b5eaa48a8d21af5fb",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T07:53:14.443825Z"
   }
 }
