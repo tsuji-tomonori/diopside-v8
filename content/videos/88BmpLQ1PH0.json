@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "88BmpLQ1PH0",
+  "title": "【#にじワイテ人狼RPG】第二夜。信じられるのは自分だけ【白雪 巴/にじさんじ】",
+  "publishedAt": "2020-04-09T13:16:10Z",
+  "durationSeconds": 5897,
+  "durationIso": "PT1H38M17S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/88BmpLQ1PH0/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=88BmpLQ1PH0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "19e88c6683e8013ec406182160dfa41e4aa31348cb80e2690dd308a6f55d2b3e"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "283a878b6bd42a506c1fd72fba756fc926692175d700be6d89f518fec32cad52"
+    },
+    {
+      "evidenceId": "evidence-approved-tags",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "旧diopsideの承認済みタグ正本",
+      "inputFingerprint": "272fe5aa7703d43de488c09cc94c2639c04e82ee2b5d58a1d77bdca63cd321e3"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-63939ad6aca3",
+      "reason": "公開タイトルと既存分類から主ジャンル「TRPG」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-secondary-164dbab60187",
+      "reason": "既存分類から副ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-b8d484a2b65b",
+      "reason": "公開タイトルまたは既存の確認済み情報から特定企画・イベント「にじワイテ人狼RPG」への参加を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-09-01T12:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-1cff1b833661",
+      "reason": "既存分類と作品名からゲームジャンル「人狼・正体隠匿」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-5168a0f83814",
+      "reason": "公開タイトルまたはイベントの公式対象からゲーム作品「Minecraft」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-09-01T12:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "未作成",
+    "reason": "全編確認不足",
+    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "a7d0cc7fefd90617f79b863086d40756141536f1f0ba91dc27131f39ca1c3a7e",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-09-01T12:00:00+09:00",
+    "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  }
+}
