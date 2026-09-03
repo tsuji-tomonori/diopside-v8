@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=49Egkez2lWc",
-  "taxonomyVersion": "8.5.0",
+  "taxonomyVersion": "8.6.0",
   "aliasVersion": "8.3.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -46,6 +46,12 @@
       "inputFingerprint": "b4900c1c7aa7a6074a15e1257fca979c4119e575a5ced8989ce14bc48a72fade"
     },
     {
+      "evidenceId": "evidence-game-classification",
+      "type": "動画タイトル",
+      "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+      "inputFingerprint": "cde818f94214e170f25258775d633688713d3a16aa9234939242c6adfcbbc3cf"
+    },
+    {
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
@@ -55,15 +61,6 @@
     }
   ],
   "tagAssignments": [
-    {
-      "tagId": "tag-content-primary-9eedbc0013d1",
-      "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
-    },
     {
       "tagId": "tag-people-channel-e0fc18a727d8",
       "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
@@ -117,6 +114,42 @@
         "evidence-approved-tags"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-23T16:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-276d08ba56ed",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「事故物件」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-23T16:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-1cc53dc4a37d",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「ホラー」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-23T16:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-2ec4e38c680d",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「アドベンチャー」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-23T16:00:00+09:00"
     }
   ],
   "timestamps": {
@@ -333,8 +366,8 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+    "approvedAt": "2026-08-23T16:00:00+09:00",
+    "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
   },
   "synopsis": {
     "body": "白雪巴と健屋花那が、ビビったら交代と罰ゲームのルールを添えてホラーゲーム『事故物件』へ。機材トラブルさえ怪異めいて騒ぎつつ、日記や御札、供え物の手掛かりを二人で探し、怖がる相手を支えながら複数の選択を試していく。",
