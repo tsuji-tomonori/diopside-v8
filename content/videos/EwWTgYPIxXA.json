@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "2b621824fcc3349380f54cbb820b5249128259dd95dee4166bb8980a271d5b59"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "c104cfb39e0a18f2a91a11e0b39e907c5810c682c24337a7d128ccccdf63485a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6130
     }
   ],
   "tagAssignments": [
@@ -246,5 +254,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が注意喚起を添えて、視聴者から届いた匿名マシュマロを読み上げる第3回。投稿への鋭い罵倒やアドリブを交えつつ、背景や配信の近況も語り、最後まで独特の距離感で進む雑談です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "聞いてくれてありがとう",
+      "atSeconds": 4855,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "c104cfb39e0a18f2a91a11e0b39e907c5810c682c24337a7d128ccccdf63485a",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T22:44:49.905487Z"
   }
 }
