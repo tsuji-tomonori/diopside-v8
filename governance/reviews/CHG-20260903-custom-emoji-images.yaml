@@ -92,6 +92,11 @@ selected_checks:
     result: pass
     evidence: [test:tests/custom-emoji-usage.test.ts, test:tests/content-validation.test.ts]
     note: 信頼済み最大画像の採用、未許可ホスト除外、匿名化、合計整合、正本互換を単体試験で検証する。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/review_contract_test.py, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: source_refと修正コミットimpact flagの不整合をvalidate:reviewで再現し、schema適合と必須check選択で再発を防ぐ。
   - id: FAST-006
     class: Invariant
     result: pass
