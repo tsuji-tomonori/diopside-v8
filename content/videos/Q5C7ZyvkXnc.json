@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "156d0bc8677136b74c80229e17b1e2f20db2f1e33577bd2966d2226d2e2eb34b"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "f0ac4782fa97e28b17b7c0c3da7018fec3538257edb0b6db2255035fae7094f7",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9442
     }
   ],
   "tagAssignments": [
@@ -417,5 +425,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が「マリカにじさんじ杯」Cチームの団体戦に挑戦。コースやアイテムの使い方を確かめ、仲間の走りを見守りながら作戦を相談します。練習の反省を生かし、チームで声を掛け合って本番のレースに臨む配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "自分なりに走ろうと思います",
+      "atSeconds": 9384,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "f0ac4782fa97e28b17b7c0c3da7018fec3538257edb0b6db2255035fae7094f7",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T06:48:50.711903Z"
   }
 }
