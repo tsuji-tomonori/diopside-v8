@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=NEaOgZr3qkY",
-  "taxonomyVersion": "8.5.0",
+  "taxonomyVersion": "8.6.0",
   "aliasVersion": "8.3.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -44,6 +44,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "45d0ce85a20f2ac15ae2b93728524dadd218ac3dc5f8e17a8ac0c1e9a34fd759"
+    },
+    {
+      "evidenceId": "evidence-collaboration-horizontal",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
+      "inputFingerprint": "ea9d0b04b6b80066b3a84b1706e6819c7ddd63b87b3813a864a2a17de3345f69"
     },
     {
       "evidenceId": "evidence-full-transcript",
@@ -108,6 +114,42 @@
         "evidence-approved-tags"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-unit-31175672222e",
+      "reason": "公開タイトル・参加者情報からコンビ・ユニット名「夜王国」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-628c281ac2b2",
+      "reason": "人物名「グウェル・オス・ガール」をコンビ・ユニット「夜王国」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-3c46214bce41",
+      "reason": "人物名「不破湊」をコンビ・ユニット「夜王国」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "公開タイトル・参加者情報から参加形態「コラボ」を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
     }
   ],
   "timestamps": {
@@ -270,8 +312,8 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+    "approvedAt": "2026-08-25T23:20:56+09:00",
+    "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
   },
   "synopsis": {
     "body": "二日酔いの白雪巴が仲間たちと『Friday the 13th』へ。脱出の道具を探し、声を掛け合って車や警察の手配を進める一方、殺人鬼の接近には悲鳴と笑いが飛び交う。回線落ちや操作の混乱もにぎやかに乗り越えるコラボ配信。",
