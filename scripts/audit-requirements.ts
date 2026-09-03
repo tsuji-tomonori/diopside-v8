@@ -6,7 +6,8 @@ import { prettyJson, readJson } from './lib.ts';
 
 const requirementSchema = z.object({
   id: z.string().regex(/^V8-[A-Z]+-\d{3}$/u),
-  status: z.literal('active'),
+  status: z.enum(['active', 'retired']),
+  retirement_reason: z.string().min(1).optional(),
   title: z.string().min(1),
   source_refs: z.array(z.string()).min(1),
   acceptance_criteria: z.array(z.object({
@@ -27,12 +28,21 @@ const requirementSchema = z.object({
 const catalogSchema = z.object({
   schema_version: z.literal(1),
   catalog_revision: z.number().int().positive(),
-  requirements: z.array(requirementSchema).length(143),
+  requirements: z.array(requirementSchema).min(142),
 }).passthrough();
 
 const resultStatusSchema = z.enum(['未実施', '不合格', '合格']);
+const acceptedIncompleteRequirementSchema = z.object({
+  requirementId: z.enum(['V8-COST-001', 'V8-QUALITY-002']),
+  decision: z.literal('non-blocking'),
+  acceptedAt: z.iso.datetime({ offset: true }),
+  acceptedBy: z.literal('product-owner'),
+  sourceRef: z.literal('user:2026-08-08'),
+  scope: z.literal('GitHub Actionsの受入監査における非blocking扱い。merge・公開の承認は含まない。'),
+  finding: z.string().min(1),
+}).strict();
 const acceptanceEvidenceSchema = z.object({
-  schemaVersion: z.literal('1.0.0'),
+  schemaVersion: z.literal('1.1.0'),
   updatedAt: z.iso.datetime({ offset: true }),
   productOwnerApproval: z.object({
     status: resultStatusSchema,
@@ -40,6 +50,11 @@ const acceptanceEvidenceSchema = z.object({
     evidenceUrl: z.url().nullable(),
     finding: z.string().min(1),
   }).strict(),
+  acceptedIncompleteRequirements: z.array(acceptedIncompleteRequirementSchema).length(2).superRefine((items, context) => {
+    if (new Set(items.map((item) => item.requirementId)).size !== items.length) {
+      context.addIssue({ code: 'custom', message: '許可済み未完了要件のIDが重複しています。' });
+    }
+  }),
   pagesPublication: z.object({
     status: resultStatusSchema,
     sourceBranch: z.string().nullable(),
@@ -105,11 +120,17 @@ const sourceMap = z.object({
   }).strict()).length(142),
 }).passthrough().parse(readJson(path.join(root, 'spec/requirements/source-id-map.json')));
 const sourceByCanonicalId = new Map(sourceMap.mappings.map((item) => [item.canonicalId, item]));
+const acceptedIncompleteById = new Map<string, (typeof acceptanceEvidence.acceptedIncompleteRequirements)[number]>(
+  acceptanceEvidence.acceptedIncompleteRequirements.map((item) => [item.requirementId, item]),
+);
 const ids = new Set<string>();
-const rows = catalog.requirements.map((requirement) => {
+const activeRequirements = catalog.requirements.filter((requirement) => requirement.status === 'active');
+const rows = activeRequirements.map((requirement) => {
   const findings: string[] = [];
   const source = sourceByCanonicalId.get(requirement.id);
-  if (!source) findings.push('Issue要件ID対応なし');
+  const ownerDirective = requirement.source_refs.find((reference) => reference.startsWith('spec/sources/owner-directive-'));
+  const issue465 = requirement.source_refs.find((reference) => reference === 'Issue #465');
+  if (!source && !ownerDirective && !issue465) findings.push('Issue要件IDまたは所有者指示対応なし');
   if (ids.has(requirement.id)) findings.push('要件ID重複');
   ids.add(requirement.id);
   const tracePaths = [...requirement.traces.design, ...requirement.traces.implementation, ...requirement.traces.tests];
@@ -121,32 +142,45 @@ const rows = catalog.requirements.map((requirement) => {
   for (const evidencePath of requirement.verification.evidence.split(',').map((value) => value.trim()).filter(Boolean)) {
     if (!existsSync(safePath(evidencePath))) findings.push(`検証証跡なし: ${evidencePath}`);
   }
-  findings.push(...acceptanceFindings(requirement.id));
+  const requirementAcceptanceFindings = acceptanceFindings(requirement.id);
+  const structuralFindingCount = findings.length;
+  findings.push(...requirementAcceptanceFindings);
+  const acceptedIncomplete = structuralFindingCount === 0 && requirementAcceptanceFindings.length > 0
+    ? acceptedIncompleteById.get(requirement.id)
+    : undefined;
   return {
     id: requirement.id,
-    sourceId: source?.sourceId ?? '',
-    priority: source?.priority ?? '',
+    sourceId: source?.sourceId ?? ownerDirective ?? issue465 ?? '',
+    priority: source?.priority ?? (ownerDirective ? '所有者指示' : issue465 ? 'Issue' : ''),
     title: requirement.title,
     acceptanceCriteria: requirement.acceptance_criteria.map((criterion) => criterion.then).join(' / '),
     verification: requirement.verification.method,
     evidence: requirement.verification.evidence,
-    status: findings.length === 0 ? '完了' : '未完了',
+    status: findings.length === 0 ? '完了' : acceptedIncomplete ? '許可済み未完了' : '未完了',
     findings,
+    acceptedIncomplete: acceptedIncomplete ?? null,
   };
 });
 
 const incomplete = rows.filter((row) => row.status !== '完了');
+const blockingIncomplete = rows.filter((row) => row.status === '未完了');
+const acceptedIncomplete = rows.filter((row) => row.status === '許可済み未完了');
 const externalGateFindings = acceptanceEvidence.productOwnerApproval.status === '合格'
   && acceptanceEvidence.productOwnerApproval.approvedAt !== null
   && acceptanceEvidence.productOwnerApproval.evidenceUrl !== null
   ? []
   : [acceptanceEvidence.productOwnerApproval.finding];
 const output = {
-  schemaVersion: '1.0.0',
+  schemaVersion: '1.1.0',
   acceptancePassed: incomplete.length === 0 && externalGateFindings.length === 0,
+  authorizationPassed: blockingIncomplete.length === 0 && externalGateFindings.length === 0,
+  catalogRequirementCount: catalog.requirements.length,
+  retiredRequirementCount: catalog.requirements.length - activeRequirements.length,
   requirementCount: rows.length,
   completedCount: rows.length - incomplete.length,
   incompleteCount: incomplete.length,
+  blockingIncompleteCount: blockingIncomplete.length,
+  acceptedIncompleteCount: acceptedIncomplete.length,
   externalGates: {
     productOwnerApproval: acceptanceEvidence.productOwnerApproval,
     findings: externalGateFindings,
@@ -157,13 +191,18 @@ const outputArg = argument('--output');
 const outputPath = outputArg ? path.resolve(process.cwd(), outputArg) : path.join(root, 'reports/requirements-audit.json');
 mkdirSync(path.dirname(outputPath), { recursive: true });
 writeFileSync(outputPath, prettyJson(output));
-if (incomplete.length > 0 || externalGateFindings.length > 0) {
+if (blockingIncomplete.length > 0 || externalGateFindings.length > 0) {
   const findings = [
-    ...incomplete.map((row) => `${row.id}: ${row.findings.join('、')}`),
+    ...blockingIncomplete.map((row) => `${row.id}: ${row.findings.join('、')}`),
     ...externalGateFindings.map((finding) => `外部ゲート（プロダクト責任者承認）: ${finding}`),
   ];
   console.error(findings.join('\n'));
   process.exitCode = 1;
+} else if (acceptedIncomplete.length > 0) {
+  console.warn([
+    `要件追跡監査許可: ${rows.length - incomplete.length}件完了、${acceptedIncomplete.length}件は所有者許可済み未完了です。`,
+    ...acceptedIncomplete.map((row) => `${row.id}: ${row.findings.join('、')}（${row.acceptedIncomplete?.finding}）`),
+  ].join('\n'));
 } else {
   console.log(`要件追跡監査合格: ${rows.length}件すべてに受入条件・検証方法・実装・試験証跡があります。`);
 }
