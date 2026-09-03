@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "b93e7c3473b01f1c12812f67210136d1931a4384ae599a0c233aebf47382589d"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "c250660db7540c02e0fabd44ec58cd77e67b27b1b77f1b42a69b6d13ea55244f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7299
     }
   ],
   "tagAssignments": [
@@ -414,5 +422,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴が夜王国の仲間と「Knockout City」でチーム対戦。ボールを投げ合う試合で連携や読み合いを楽しみ、勝敗に一喜一憂しながら何度も対戦を重ねます。終盤は戦績を振り返り、次回配信の予定を案内します。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "チームワークを見せましたね",
+      "atSeconds": 3432,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "c250660db7540c02e0fabd44ec58cd77e67b27b1b77f1b42a69b6d13ea55244f",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T00:27:27.200585Z"
   }
 }
