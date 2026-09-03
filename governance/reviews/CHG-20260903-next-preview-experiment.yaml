@@ -122,6 +122,11 @@ selected_checks:
     result: pass
     evidence: [path:governance/reviews/CHG-20260903-next-preview-experiment.yaml]
     note: trigger非該当checkを形式的N/Aとして追加していない。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:.github/workflows/next-preview-experiment.yml, path:scripts/build_next_preview.py]
+    note: 手動起動、有限client、短いsection、一時directory、安全診断、GitHub保存なし、認証へ拡張しない停止境界をworkflowとscriptに固定し、別runbookは不要と判定した。
 advisories: []
 residual_risks:
   - 公開配信側またはYouTube取得仕様の変更により再実行が失敗する可能性がある。指定した短いsectionを公式の公開client 5種で音声単体、音声付き360p以下HLSの順に有限に試し、Cookieやloginへ自動切替しない。
