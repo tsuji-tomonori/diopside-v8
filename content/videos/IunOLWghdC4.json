@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "0f9ae13526f704b34b733b8e64c9f094a2252e80f7b3bd47e6eb5b395b78ebad"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "173f1eac92525cc8a7ab9b5ebd137fa529abe421a8bcf9952b40246ea12d2a44",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6576
     }
   ],
   "tagAssignments": [
@@ -342,5 +350,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-23T16:00:00+09:00",
     "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  },
+  "synopsis": {
+    "body": "白雪巴が、告知を挟みつつ、奇妙なアパートを舞台にした「例外配達」を手探りで進める配信。ビラ配りのはずが、住人や動物、不可思議な仕掛けに出会うたび、驚きと推理、軽妙なツッコミが飛び出します。不思議な出来事を味わえる一本です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "びっくりしたーー",
+      "atSeconds": 2789,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "173f1eac92525cc8a7ab9b5ebd137fa529abe421a8bcf9952b40246ea12d2a44",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T00:02:39.158847Z"
   }
 }
