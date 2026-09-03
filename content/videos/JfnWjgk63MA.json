@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=JfnWjgk63MA",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -38,6 +38,20 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "a290fd60467b411275051de5b4c8c705211a854b7f8599f6d50ca38e8d45e451"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "fa0b16ff22e487de1e31fb8e96585942e0af8b97c610a5e461a5155871a3c073",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6835
+    },
+    {
+      "evidenceId": "evidence-collaboration-horizontal",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
+      "inputFingerprint": "630b0b6842d4cacf13471de9f7267dc1dd7eb7e41ae04c3fd35d40b3f5f5013c"
     },
     {
       "evidenceId": "evidence-synopsis-transcript",
@@ -102,13 +116,368 @@
         "evidence-approved-tags"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-unit-23ef0b95ff38",
+      "reason": "公開タイトル・参加者情報からコンビ・ユニット名「フルトイ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-b0469a7d02e8",
+      "reason": "人物名「フミ」をコンビ・ユニット「フルトイ」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-b1f239b005c7",
+      "reason": "人物名「ルイス・キャミー」をコンビ・ユニット「フルトイ」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "公開タイトル・参加者情報から参加形態「コラボ」を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-043c65ff",
+        "startSeconds": 0,
+        "label": "オープニング歌唱",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-322-1acf3d58",
+        "startSeconds": 322,
+        "label": "開会挨拶と冬ソンカラオケ選手権の説明",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-498-222170ec",
+        "startSeconds": 498,
+        "label": "ソロ部門1組目の歌唱",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-753-1183e3ff",
+        "startSeconds": 753,
+        "label": "ソロ部門1組目のトークと審査",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1030-4fc38b3e",
+        "startSeconds": 1030,
+        "label": "ソロ部門2組目「津軽海峡・冬景色」",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1301-7a6dab93",
+        "startSeconds": 1301,
+        "label": "ソロ部門2組目のトークと審査",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1661-5e993bb1",
+        "startSeconds": 1661,
+        "label": "ソロ部門3組目の案内と進行立て直し",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1759-8332ef5e",
+        "startSeconds": 1759,
+        "label": "ソロ部門3組目「粉雪」",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1931-ec875a1d",
+        "startSeconds": 1931,
+        "label": "ソロ部門4組目の歌唱",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2201-e0ee055d",
+        "startSeconds": 2201,
+        "label": "ソロ部門4組目のトークと審査",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2611-0b047626",
+        "startSeconds": 2611,
+        "label": "ソロ部門最終組の登場と歌唱",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2855-3cf062dd",
+        "startSeconds": 2855,
+        "label": "ソロ部門最終組のトークと審査",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3219-71641672",
+        "startSeconds": 3219,
+        "label": "ソロ部門の振り返り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3258-b8a278f8",
+        "startSeconds": 3258,
+        "label": "ユニット部門への転換・休憩",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3428-ddd6b8c6",
+        "startSeconds": 3428,
+        "label": "ユニット部門開幕・1組目の登場と歌唱",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3737-e69064be",
+        "startSeconds": 3737,
+        "label": "ユニット1組目のトークと審査",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4156-b89d7f9b",
+        "startSeconds": 4156,
+        "label": "ユニット2組目の紹介と歌唱",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4512-8cf14531",
+        "startSeconds": 4512,
+        "label": "ユニット2組目のトークと審査",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4782-88d7a011",
+        "startSeconds": 4782,
+        "label": "ユニット最終組の登場と歌唱",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5063-385d3eba",
+        "startSeconds": 5063,
+        "label": "ユニット最終組の歌唱後トーク",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5223-2edba83a",
+        "startSeconds": 5223,
+        "label": "ユニット最終組の審査",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5588-c1f83c76",
+        "startSeconds": 5588,
+        "label": "結果発表までの休憩",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5838-9727f181",
+        "startSeconds": 5838,
+        "label": "ソロ部門の優勝者発表",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5973-52c2076d",
+        "startSeconds": 5973,
+        "label": "ユニット部門の優勝者発表",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6130-32db9264",
+        "startSeconds": 6130,
+        "label": "敗者集合と残念会",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6295-ebbb8a75",
+        "startSeconds": 6295,
+        "label": "クリスマス限定菓子のプレゼント",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6358-f3fd7d1e",
+        "startSeconds": 6358,
+        "label": "企画の感想と参加者への感謝",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6482-a8ffd75c",
+        "startSeconds": 6482,
+        "label": "LINEスタンプ発売告知",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6528-ee72c98b",
+        "startSeconds": 6528,
+        "label": "フィナーレ曲とクリスマスプレゼント談義",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6739-9b51ee92",
+        "startSeconds": 6739,
+        "label": "別れの挨拶とメリークリスマス",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6752-b9ddc9f4",
+        "startSeconds": 6752,
+        "label": "エンディング音楽",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "3d5aca6bc08c11e78feaa06de5178e154bc714f4c2fd89aa35cf9ef2688e2d7a",
+    "inputFingerprint": "fa0b16ff22e487de1e31fb8e96585942e0af8b97c610a5e461a5155871a3c073",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-08-14T04:30:00+00:00",
+    "updatedAt": "2026-08-14T05:00:00+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "3d5aca6bc08c11e78feaa06de5178e154bc714f4c2fd89aa35cf9ef2688e2d7a",
+        "majorIssues": 0,
+        "reviewedAt": "2026-08-14T05:00:00+00:00",
+        "route": "全編根拠による生成",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        }
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "3d5aca6bc08c11e78feaa06de5178e154bc714f4c2fd89aa35cf9ef2688e2d7a",
+        "majorIssues": 0,
+        "reviewedAt": "2026-08-14T05:00:00+00:00",
+        "factCheckResultWasHidden": true,
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        }
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "3d5aca6bc08c11e78feaa06de5178e154bc714f4c2fd89aa35cf9ef2688e2d7a",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/315"
+      }
+    }
   },
   "wordCloud": {
     "status": "未作成",
@@ -118,14 +487,14 @@
   },
   "provenance": {
     "inputFingerprint": "2a3e8287aa136eb2277761e4a483e2b68b22aa7f330af3a95873a237d0647db7",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/315"
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+    "approvedAt": "2026-08-25T23:20:56+09:00",
+    "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
   },
   "synopsis": {
     "body": "白雪巴・フミ・ルイスのフルトイが、3Dで冬ソンカラオケ選手権を開催。多彩なゲストがソロとユニットで歌や演出を競い、3人はクリスマス度や盛り上がり、各自の視点から審査する。選曲の理由や歌唱後の感想も聞きながら、パフォーマンスと掛け合いを楽しむ特別企画。",
