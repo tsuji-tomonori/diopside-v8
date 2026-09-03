@@ -184,6 +184,7 @@ writeFileSync(path.join(root, 'content/content-manifest.json'), prettyJson({
   createdTimestampVideoCount: createdTimestampVideos.length,
   timestampItemCount: chapterCount,
   createdSynopsisVideoCount: allVideos.filter((video) => video.synopsis !== undefined).length,
+  customEmojiUsageVideoCount: allVideos.filter((video) => video.customEmojiUsage !== undefined).length,
 }));
 writeFileSync(path.join(root, 'content/exclusions.json'), prettyJson({
   schemaVersion: '1.0.0',
