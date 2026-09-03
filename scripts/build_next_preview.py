@@ -33,11 +33,16 @@ MAX_CLIP_SECONDS = 4.80
 MAX_QUOTED_SECONDS_PER_SAMPLE = 19.0
 YOUTUBE_URL = "https://www.youtube.com/watch?v={video_id}"
 AUDIO_CLIENT_FALLBACKS = (
-    "visionos",
     "web_safari",
+    "ios",
     "tv_simply",
     "android_vr",
     "mweb",
+)
+SECTION_FORMAT_SELECTOR = (
+    "bestaudio[abr<=96]/bestaudio/"
+    "best[protocol^=m3u8][height<=360][acodec!=none]/"
+    "best[height<=360][acodec!=none]/worst[acodec!=none]"
 )
 
 
@@ -266,7 +271,7 @@ def download_excerpts(sample: Sample, destination: Path) -> list[Path]:
             "--extractor-args",
             f"youtube:player_client={client}",
             "--format",
-            "bestaudio[abr<=96]/bestaudio",
+            SECTION_FORMAT_SELECTOR,
             "--force-keyframes-at-cuts",
             "--output",
             str(output_template),

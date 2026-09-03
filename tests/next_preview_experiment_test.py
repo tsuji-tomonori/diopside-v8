@@ -74,7 +74,10 @@ class NextPreviewExperimentTest(unittest.TestCase):
         self.assertEqual(len(clients), len(set(clients)))
         self.assertLessEqual(len(clients), 5)
         self.assertNotIn("all", clients)
+        self.assertEqual(clients[0], "web_safari")
         self.assertEqual(clients[-1], "mweb")
+        self.assertIn("height<=360", MODULE.SECTION_FORMAT_SELECTOR)
+        self.assertIn("acodec!=none", MODULE.SECTION_FORMAT_SELECTOR)
 
     def test_download_ranges_cover_only_declared_excerpts(self) -> None:
         sample = MODULE.SAMPLES[0]

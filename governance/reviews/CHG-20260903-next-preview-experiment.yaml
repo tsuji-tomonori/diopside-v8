@@ -124,6 +124,6 @@ selected_checks:
     note: trigger非該当checkを形式的N/Aとして追加していない。
 advisories: []
 residual_risks:
-  - 公開配信側またはYouTube取得仕様の変更により再実行が失敗する可能性がある。指定した短いsectionを公式の公開client 5種だけで有限に試し、Cookieやloginへ自動切替しない。
+  - 公開配信側またはYouTube取得仕様の変更により再実行が失敗する可能性がある。指定した短いsectionを公式の公開client 5種で音声単体、音声付き360p以下HLSの順に有限に試し、Cookieやloginへ自動切替しない。
   - 自動字幕を基に時刻を選定しているため軽微な表示文言差が残る可能性がある。実音声と映像の技術検証後、必要なら別変更で文言を微調整する。
   - 固定providerのbuild-time npm依存は現時点のauditでmoderate 1件を報告する。loopbackの一時runnerだけで使用し、provider自体を配布成果物へ含めない。
