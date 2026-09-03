@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "1926588783b53c35d1fe32184da80303ffc5669258cb1bedd8567179fdf217e6"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "ffa64e4a4abe03ace4c7ec6c41fbcd1b7daf5be335d152a00d5b4fceeacc334a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 12669
     }
   ],
   "tagAssignments": [
@@ -291,5 +299,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "初の誕生日凸企画に挑む白雪巴が、機材トラブルや緊張に奮闘しながら、縁あるライバーや初めて話す相手と次々に言葉を交わします。思い出や互いの印象、今後やりたい企画を語り、同期を迎えたクイズと激辛焼きそばまで、祝いの夜をにぎやかに進めます。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "今はね、後悔してない。本当にやってよかったって思ってる",
+      "atSeconds": 8298,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "ffa64e4a4abe03ace4c7ec6c41fbcd1b7daf5be335d152a00d5b4fceeacc334a",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T08:27:06.539555Z"
   }
 }
