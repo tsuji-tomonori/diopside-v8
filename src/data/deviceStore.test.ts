@@ -12,7 +12,8 @@ function summary(index: number): PublicVideoSummary {
     durationSeconds: 600,
     thumbnail: { url: `https://i.ytimg.com/vi/video${String(index).padStart(6, '0')}/hqdefault.jpg`, width: 480, height: 360 },
     youtubeUrl: `https://www.youtube.com/watch?v=video${String(index).padStart(6, '0')}`,
-    tagIds: [],
+  tagIds: [],
+  entityRefs: [],
   };
 }
 
