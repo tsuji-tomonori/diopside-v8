@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "ad364f0bdf59a37fc7ee5987ed149d630182d1919e92595e135718be435c5f93"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "17b304eea237e21452466b382fa6b3a7ce1c221dcf3421d91ee52c34f8c24ab3",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3101
     }
   ],
   "tagAssignments": [
@@ -273,5 +281,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "#にじテトグランプリ予選Dブロックに挑む白雪 巴。配信設定やマッチングのトラブルにもめげず、視聴者と「バッジ狙いからカウンターへ」の作戦を練り、言うことを聞かない親指と格闘しながらテトリス99を粘り強く進めます。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "急がば廻れってね",
+      "atSeconds": 2747,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "17b304eea237e21452466b382fa6b3a7ce1c221dcf3421d91ee52c34f8c24ab3",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T14:30:21.748894Z"
   }
 }
