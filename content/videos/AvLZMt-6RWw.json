@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "0c5c19adde0d9f96034117f64533bb6fd6930b7a3339af308fd49b2c2bbe3eef"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "c82a2d82bf9a0f1bc54118453e101a7dcc37c4f1f9dc14bbfd74358082cfd318",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5352
     }
   ],
   "tagAssignments": [
@@ -333,5 +341,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴が夜王国の仲間たちと『スプラトゥーン2』の大会を見据えて、ルールやステージ、武器を相談しながら練習。試合中の助言と軽快な掛け合いを重ね、連携を探る時間を味わえる配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私、やぐらにしか興味ないんで",
+      "atSeconds": 2373,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "c82a2d82bf9a0f1bc54118453e101a7dcc37c4f1f9dc14bbfd74358082cfd318",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T10:15:09.108946Z"
   }
 }
