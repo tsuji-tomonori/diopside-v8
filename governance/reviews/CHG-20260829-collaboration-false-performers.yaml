@@ -1,0 +1,180 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260829-collaboration-false-performers
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/requirements/requirements.json
+  - path:content/videos/DhawDr_VJdk.json
+  note: 既存要件V8-TAG-013の実出演者だけを付与する条件へ戻す不具合修正であり、要件変更はない。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:docs/design/generated/system.gen.md
+  note: 横断監査の型付き公開構造追加を生成設計へ反映する。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/domain/collaboration-group-audit.test.ts
+  note: 複数動画正本と共通監査ロジックを変更するためassuredを選択した。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 利用者のGitHub修正指示に基づきbranch pushとDraft PR作成だけを行い、mergeとdeployは行わない。
+- id: IMP-007
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/videos/DhawDr_VJdk.json
+  - path:content/videos/JqeSSJenqco.json
+  note: 可逆な動画タグ正本の是正であり、schema migrationや動画削除はない。
+- id: FAST-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:package.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: npm run buildで正本生成とVite production buildを確認し、CIでも同じ品質ゲートを実行する。
+- id: FAST-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/domain/collaboration-group-audit.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: TypeScriptのアプリ・Node両設定で型検査する。
+- id: FAST-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/domain/collaboration-group-audit.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 変更対象を含むESLintをmax-warnings 0で実行する。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence:
+  - test:src/domain/collaboration-group-audit.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 正常系、旧誤出演者、除外対象、必須出演者の失敗経路を直接検証する。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - test:src/domain/collaboration-group-audit.test.ts
+  - path:spec/sources/collaboration-tag-corrections-v1.json
+  note: DhawDr_VJdkの健屋花那誤タグを再現する単体テストと4件の除外記録を固定した。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:docs/design/generated/inventory.gen.json
+  - path:docs/design/generated/system.gen.md
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: generate:designで監査ロジック由来の設計指紋と公開構造一覧を再生成する。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: staged diffを限定し、credential、token、非公開本文、個人情報を含めない。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 4件の誤出演者是正と同じ原因を防ぐ横断監査だけに差分を限定する。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: Commit Commentへ目的、影響、検証契約、残存リスクを記録する。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/requirements/requirements.json
+  - path:content/videos/DhawDr_VJdk.json
+  note: V8-TAG-013の受入条件を変更せず、誤データを既存条件へ適合させる。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:docs/design/generated/system.gen.md
+  note: 共通監査の構造差分は生成設計へ反映し、長期判断や公開契約変更がないためADRは不要である。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence:
+  - test:src/domain/collaboration-group-audit.test.ts
+  - path:scripts/audit-collaboration-tags.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 単体テストと1701動画の横断監査がCIの通常品質ゲートで実行される。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260829-collaboration-false-performers.yaml
+  note: 選択checkの結果だけを保存する。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260829-collaboration-false-performers.yaml
+  note: 未選択checkをN/Aとして保存しない。
+advisories: []
+residual_risks:
+- 修正は人がDraft PRをレビューしてmergeするまで公開されず、公開release生成はmainマージ後の専用workflowに委ねる。
+- 自動根拠判定は旧v7由来の出演者タグを対象とし、公開情報で機械判定できない正しい4件は個別確認記録で維持する。
+# conflict-resolution: 最新main 164e1dbc8942618f629a61606874837fd1c827bb を履歴へ保持し、1705動画・11711タグの正本、生成設計、対象監査を現在HEADで再検証する。
