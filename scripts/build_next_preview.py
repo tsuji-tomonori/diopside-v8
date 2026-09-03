@@ -17,11 +17,10 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from collections.abc import Sequence
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Sequence
-
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 WIDTH = 1280
@@ -64,7 +63,7 @@ SAMPLES = (
         source_title="めっちゃカメレオン",
         published_at="2026-08-14T16:26:44Z",
         clips=(
-            Clip(1046.25, 2.65, "これは人ですか？"),
+            Clip(1046.25, 2.65, "これは人ですか？"),  # noqa: RUF001
             Clip(1332.70, 2.30, "とりあえず威嚇射撃"),
             Clip(3644.25, 4.25, "ひとりタイタニック"),
             Clip(4460.00, 3.30, "塗るということは\\N塗るということです"),
@@ -80,7 +79,7 @@ SAMPLES = (
             Clip(139.15, 4.45, "もう飲もう。すぐ飲もう。"),
             Clip(802.05, 2.45, "腰バリ痛い"),
             Clip(1812.85, 2.55, "ちょっとあんた、降りなさいよ"),
-            Clip(2539.45, 2.60, "お前？ 休めよ"),
+            Clip(2539.45, 2.60, "お前？ 休めよ"),  # noqa: RUF001
             Clip(3793.50, 3.55, "闇落ちメンヘラ"),
         ),
     ),
@@ -176,7 +175,7 @@ def run(
 ) -> subprocess.CompletedProcess[str]:
     printable = " ".join(command[:3])
     print(f"[next-preview] run: {printable} ...", flush=True)
-    return subprocess.run(
+    return subprocess.run(  # noqa: S603 -- commands come from fixed internal templates.
         list(command),
         cwd=cwd,
         check=True,
@@ -342,7 +341,7 @@ def ass_time(seconds: float) -> str:
 
 
 def ass_text(value: str) -> str:
-    return value.replace("{", "（").replace("}", "）")
+    return value.replace("{", "(").replace("}", ")")
 
 
 def timeline(sample: Sample) -> tuple[list[tuple[float, float, str]], float, float]:
@@ -357,7 +356,7 @@ def timeline(sample: Sample) -> tuple[list[tuple[float, float, str]], float, flo
 
 def write_ass(sample: Sample, destination: Path) -> float:
     events, total_duration, end_card_start = timeline(sample)
-    source_line = f"配信音声：{sample.source_title}  ·  {sample.video_id}"
+    source_line = f"配信音声: {sample.source_title}  ·  {sample.video_id}"
     lines = [
         "[Script Info]",
         "ScriptType: v4.00+",
@@ -626,7 +625,7 @@ def write_readme(samples: Sequence[Sample], output_dir: Path) -> Path:
                 f"  {YOUTUBE_URL.format(video_id=sample.video_id)}",
                 "  引用箇所: "
                 + ", ".join(
-                    f"{clip.start:.2f}s–{clip.start + clip.duration:.2f}s"
+                    f"{clip.start:.2f}s-{clip.start + clip.duration:.2f}s"
                     for clip in sample.clips
                 ),
             ]

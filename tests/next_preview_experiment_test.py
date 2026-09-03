@@ -4,11 +4,11 @@ import unittest
 from dataclasses import replace
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts/build_next_preview.py"
 SPEC = importlib.util.spec_from_file_location("build_next_preview", SCRIPT)
-assert SPEC is not None and SPEC.loader is not None
+if SPEC is None or SPEC.loader is None:
+    raise RuntimeError(f"cannot load preview builder: {SCRIPT}")
 MODULE = importlib.util.module_from_spec(SPEC)
 sys.modules[SPEC.name] = MODULE
 SPEC.loader.exec_module(MODULE)

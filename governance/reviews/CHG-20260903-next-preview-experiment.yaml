@@ -71,7 +71,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [path:scripts/build_next_preview.py, path:tests/next_preview_experiment_test.py, workflow:次回予告風・実音声クリップ試作]
-    note: 変更したPython scriptと単体testへlock済みRuffを適用する。
+    note: 変更したPython scriptと単体testへinfra/pyproject.tomlの厳格設定とlock済みRuffを適用する。
   - id: FAST-004
     class: Invariant
     result: pass
