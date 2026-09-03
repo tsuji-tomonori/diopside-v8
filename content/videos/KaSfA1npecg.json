@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "9858afd35fe8a858c58971b766088e26643c53e5992ec44f98b4886a926f56de"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "e91a61c24fc90e4c01d861220279ae8441006b1da614b8b91f12e724fab2c903",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8976
     }
   ],
   "tagAssignments": [
@@ -342,5 +350,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴がゲストとともに、男性から寄せられたお悩みマシュマロを読み上げ、仕事の重責や大人らしさ、友人から恋愛へ進む距離感を語る。マッチングアプリ、身だしなみ、推しへの気持ち、会話の境界線まで、三人の率直な意見と軽快な掛け合いで考えていく相談配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "好きな自分が一番だと思うよ",
+      "atSeconds": 5055,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "e91a61c24fc90e4c01d861220279ae8441006b1da614b8b91f12e724fab2c903",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T22:53:45.300339Z"
   }
 }
