@@ -38,6 +38,14 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "236acc667056ac73a2f6ff234d31d1c1c008754bc19c61dc97bb2040f479e67d"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "4575d4d634a4d386d17ce5e18941f01a8d2773ee8048df3add023a8e863330b0",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 760
     }
   ],
   "tagAssignments": [
@@ -118,5 +126,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が初めてのソロARKに挑戦。操作に戸惑いながら拠点を整え、木材や木の実を集め、恐竜たちの餌やりや世話に奔走する。仲間との距離を保ちつつ資源を集め、次回の建築や冒険に向けた準備を進める。和やかな短編実況。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "面倒を見るからね",
+      "atSeconds": 231,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "4575d4d634a4d386d17ce5e18941f01a8d2773ee8048df3add023a8e863330b0",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T04:14:12.328040Z"
   }
 }
