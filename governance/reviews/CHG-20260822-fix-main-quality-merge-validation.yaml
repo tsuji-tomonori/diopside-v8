@@ -1,0 +1,143 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260822-fix-main-quality-merge-validation
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: false
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+    note: 既存の品質ゲートとreview証跡要件を弱めず、main pushでもmerge後のPR証跡を検証する。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:.github/workflows/verify.yml, path:governance/reviews/validate.py]
+    note: 要件・品質ゲートのevent分岐だけを変更し、公開契約、AWS構成、生成設計は変更しない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:.github/workflows/verify.yml]
+    note: mainとPRの共有品質ゲートへ影響するgovernance修正のためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 外部書込みは修正branchのpushとPR作成に限定し、merge、deploy、main workflow再実行は行わない。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:.github/workflows/verify.yml, workflow:要件・品質ゲート]
+    note: workflowのmain・PR分岐と既存検証コマンドを確認した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [test:tests/repository-policy.test.ts]
+    note: TypeScript契約試験を既存strict構成のまま実行した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [test:tests/repository-policy.test.ts]
+    note: 変更した契約試験を既存ESLint対象に維持した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/repository-policy.test.ts]
+    note: PR・非mainはverify:quality、mainはverify:main-releaseを使う分岐を回帰試験で固定した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/repository-policy.test.ts, path:governance/reviews/validate.py]
+    note: PRでは直接Commit Commentを検証し、mainでは安全条件付きmerge fallbackを使う境界を検査した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 秘密情報やCIログを追加せず、workflow、契約試験、review記録だけを差分に含めた。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:.github/workflows/verify.yml]
+    note: generated releaseの専用経路を維持し、通常mainだけを既存merge対応コマンドへ分岐する。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分を要件・品質ゲートのmain分岐と対応する契約試験へ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、review path、検証、互換性、残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+    note: 永続要件を変更せず、既存CIを実際のmain merge形式へ適合させる修正のため要件改訂は不要と判定した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:.github/workflows/verify.yml]
+    note: governance上のCI分岐だけが変わり、実装由来の生成設計、ADR、公開契約は変わらない。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/repository-policy.test.ts, workflow:要件・品質ゲート]
+    note: event分岐の契約試験と現在HEADの全品質ゲートをGitHub Actionsで実行する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-fix-main-quality-merge-validation.yaml]
+    note: 選択したcheckを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-fix-main-quality-merge-validation.yaml]
+    note: trigger非該当checkをN/Aとして追加していない。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:.github/workflows/verify.yml, path:package.json]
+    note: main pushと手動main実行はmerge対応検証、PRと非main手動実行は直接検証となり、失敗位置をworkflow stepで判別できる。
+advisories: []
+residual_risks:
+  - github.refがrefs/heads/main以外の手動実行はPR相当の直接Commit Comment検証となるため、merge commitを持つ別branchでは意図どおりfail-closedする。
+  - 失敗済みmain run自体は更新されず、このPRをmergeした後のmain runで回復を確認する必要がある。
