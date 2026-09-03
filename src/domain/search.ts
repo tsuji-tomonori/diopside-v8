@@ -35,6 +35,7 @@ export interface SuggestionTag {
   normalizedReading: string;
   count: number;
   aliases: string[];
+  entityId?: string;
 }
 
 export interface SearchSuggestions {
