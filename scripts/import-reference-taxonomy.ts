@@ -16,6 +16,9 @@ interface SourceSubcategory {
   id: string;
   name: string;
   cardinality: string;
+  valueKind: 'classification' | 'entity-reference';
+  entityType?: 'person' | 'group' | 'channel' | 'game' | 'event' | 'series' | 'song' | 'work' | 'artist';
+  videoRelation?: 'publishedBy' | 'features' | 'mentions' | 'plays' | 'watches' | 'performs' | 'featuresMusic' | 'participatesIn' | 'partOfSeries';
   values?: string[];
   valuesFrom?: string;
   requiredWhen?: string;
@@ -133,6 +136,9 @@ const categories = source.categories.map((category, categoryOrder) => ({
       subcategoryId: subcategory.id,
       name: subcategory.name,
       order: subcategoryOrder + 1,
+      valueKind: subcategory.valueKind,
+      ...(subcategory.entityType ? { entityType: subcategory.entityType } : {}),
+      ...(subcategory.videoRelation ? { videoRelation: subcategory.videoRelation } : {}),
       cardinality: subcategory.cardinality,
       ...(subcategory.requiredWhen ? { requiredWhen: subcategory.requiredWhen } : {}),
       ...(subcategory.appliesWhen ? { appliesWhen: subcategory.appliesWhen } : {}),
@@ -152,8 +158,8 @@ const categories = source.categories.map((category, categoryOrder) => ({
 }));
 
 const subcategoryCount = categories.reduce((total, category) => total + category.subcategories.length, 0);
-if (categories.length !== 7 || subcategoryCount !== 30) {
-  throw new Error(`分類体系は7大分類・30小分類である必要があります（${categories.length}・${subcategoryCount}）`);
+if (categories.length !== 7 || subcategoryCount !== 28) {
+  throw new Error(`分類体系は7大分類・28小分類である必要があります（${categories.length}・${subcategoryCount}）`);
 }
 
 const tagLookup = new Map<string, string>();
@@ -235,4 +241,4 @@ writeFileSync(path.join(outDir, 'change-record.json'), `${JSON.stringify({
   reviewedAt: '2026-08-04T15:00:00+09:00',
 }, null, 2)}\n`);
 
-console.log(`7大分類・30小分類・${tagLookup.size}タグを取り込みました。`);
+console.log(`7大分類・28小分類・${tagLookup.size}タグを取り込みました。`);
