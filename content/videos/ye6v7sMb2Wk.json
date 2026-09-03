@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=ye6v7sMb2Wk",
-  "taxonomyVersion": "8.5.0",
+  "taxonomyVersion": "8.6.0",
   "aliasVersion": "8.3.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -43,6 +43,14 @@
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "b1bdd161912780380d2477abdacbeca766cacfc575660fd971d2471a4d7e1823",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10997
+    },
+    {
+      "evidenceId": "evidence-full-transcript-timestamps",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕（既存タイムスタンプ根拠）",
       "inputFingerprint": "eda4bebbacbeb3b79486f1b2b3ff8446fbb11bd46aab34e90e68af014cbb18b8",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 10997
@@ -607,5 +615,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『崩壊：スターレイル』ピノコニー編の続きを進め、ホタルとの観光や夢の仕掛けを満喫。奇妙なゲームやパズル、個性豊かな人物とのやり取りに驚きつつ、物語の奥にある気配へ少しずつ近づいていく一枠です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ゴミ箱用意してんの",
+      "atSeconds": 3526,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "b1bdd161912780380d2477abdacbeca766cacfc575660fd971d2471a4d7e1823",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T04:26:38.777997Z"
   }
 }
