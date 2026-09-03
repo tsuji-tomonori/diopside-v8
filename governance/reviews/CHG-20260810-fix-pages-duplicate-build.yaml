@@ -1,0 +1,195 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260810-fix-pages-duplicate-build
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: true
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+      - path:spec/requirements/requirements.json
+    note: V8-OPS-017のrelease commit後にmain/docsのbranch buildを行う受入結果は維持し、起動の重複だけを除くため要件影響なしと判定した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/decisions/ADR-0001-zero-cost-static-pages.md
+      - path:docs/design/generated/inventory.gen.json
+      - path:.github/workflows/update-generated-release.yml
+    note: Pages buildの起動方法とworkflow最小権限をADRへ反映し、変更スクリプトの生成inventoryも更新するため設計影響ありと判定した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260810-fix-pages-duplicate-build.yaml
+    note: workflow、運用ポリシー、契約テスト、ADRへ跨る可逆な保守変更のためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.github/workflows/update-generated-release.yml
+    note: 将来の外部書込みは検証済みmainへのrelease commitだけで、重複していたPages build API書込みとpages write権限を削除した
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+      - path:scripts/verify-repository-policy.ts
+    note: 対象方針検査とTypeScript型検査に合格し、CIでも同じ検査を実行する
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/verify-repository-policy.ts
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: npm run typecheckに合格した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/verify-repository-policy.ts
+      - test:tests/repository-policy.test.ts
+    note: 変更したTypeScriptへESLintを実行し警告0件で合格した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/repository-policy.test.ts
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: Pages workflowと運用ポリシーを検証する対象Vitest 7件に合格した
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/repository-policy.test.ts
+      - workflow:mainマージ後の静的成果物更新
+    note: 同一SHAの明示API buildがcancelとなりbranch buildが成功した再現条件を、pages writeとpages/buildsの再導入拒否として固定した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - path:scripts/generate-design.ts
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: design generatorで変更スクリプトのSHAをinventoryへ反映し、verify:generatedのdrift検査へ接続した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 差分を確認し、credential、個人情報、production dumpを追加していない
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:docs/operations/manual-content-update.md
+      - workflow:mainマージ後の静的成果物更新
+    note: release commitとPages buildはGitHub Actions上で個別に確認でき、二重起動時もcancel runと成功runを識別できた
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.github/workflows/update-generated-release.yml
+      - path:tests/repository-policy.test.ts
+      - path:docs/decisions/ADR-0001-zero-cost-static-pages.md
+    note: Pages二重buildの除去と直接の契約・運用文書だけを専用worktreeへ分離した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性と残存リスクをCommit Commentへ記録する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+      - path:spec/requirements/requirements.json
+    note: Pages buildの到達結果は変えず、同じcommitへの重複要求だけを除くため要件影響なしの判定と差分が一致する
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/decisions/ADR-0001-zero-cost-static-pages.md
+      - path:docs/design/generated/inventory.gen.json
+    note: GitHub上の実測で誤りと判明した起動仮定を既存ADRへ、実装由来のSHAを生成inventoryへ反映した
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/repository-policy.test.ts
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: 重複起動と不要権限の再導入を契約テストと方針検査が拒否し、CIから実行される
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260810-fix-pages-duplicate-build.yaml
+    note: 選択したcheckだけをreview YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260810-fix-pages-duplicate-build.yaml
+    note: 未選択checkをN/Aとして登録していない
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:docs/operations/manual-content-update.md
+      - path:operations/pages-policy.json
+    note: release commitによる自動branch buildと明示API禁止を運用手順と機械可読policyへ反映した
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:docs/decisions/ADR-0001-zero-cost-static-pages.md
+    note: 将来の実装が重複APIを再導入しないよう、実測した起動契約と却下理由を既存ADRへ記録した
+advisories: []
+residual_risks:
+  - 修正の効果はrelease commitを伴う次回main更新で単一のPages buildが成功することをGitHub Actions上で最終確認する
