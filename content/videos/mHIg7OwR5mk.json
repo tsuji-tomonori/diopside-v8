@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=mHIg7OwR5mk",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -44,14 +44,6 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "a1ead8b50fa95e6801af76d7d849f707ac9909e194f0eaafc61e5405e5a6bfd2"
-    },
-    {
-      "evidenceId": "evidence-synopsis-transcript",
-      "type": "公開の日本語原文字幕",
-      "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
-      "inputFingerprint": "52d391beee1309836aa67bddf101f57864cad474420afa8afe6a48a367f6241e",
-      "coverageStartSeconds": 0,
-      "coverageEndSeconds": 13816
     }
   ],
   "tagAssignments": [
@@ -103,15 +95,6 @@
     {
       "tagId": "tag-program-recurringSeries-4eb7f61b38ea",
       "reason": "既存タグ「いっ杯晩酌」から定期・連続企画「いっ杯晩酌」を確認",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
-    },
-    {
-      "tagId": "tag-program-event-763e0c668987",
-      "reason": "既存タグ「いっ杯晩酌」からイベント・大会名「いっ杯晩酌」を確認",
       "confidence": "高",
       "evidenceRefs": [
         "evidence-approved-tags"
@@ -450,23 +433,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
-  "synopsis": {
-    "body": "一杯を飲み終えるまで、近況やカラオケ後の食事、後輩との交流を気ままに語る晩酌配信。寄り道を重ねながら、恋愛や仕事、配信者と視聴者の「依存」を、自立や支え合いとの違いからじっくり考える。お酒の失敗談や学生時代の思い出も飛び出す。",
-    "bodyEvidenceRefs": [
-      "evidence-synopsis-transcript"
-    ],
-    "featuredQuote": {
-      "text": "飲み会のこの2時間経つ頃の話題っぽい",
-      "atSeconds": 6079,
-      "evidenceRefs": [
-        "evidence-synopsis-transcript"
-      ]
-    },
-    "inputFingerprint": "52d391beee1309836aa67bddf101f57864cad474420afa8afe6a48a367f6241e",
-    "rulesVersion": "1.0.0",
-    "updatedAt": "2026-08-09T12:00:00+09:00"
+    "approvedAt": "2026-08-25T23:00:00+09:00",
+    "basis": "ユーザー指示に基づく「いっ杯晩酌」の定期・連続企画への分類補正と公開境界の再検証"
   }
 }
