@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=zPoP351L6IM",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-approved-tags",
@@ -92,15 +92,6 @@
       "reviewedAt": "2026-08-04T12:00:00+09:00"
     },
     {
-      "tagId": "tag-reference-relation-3b130aa9bad3",
-      "reason": "本文言及の関係を「一般言及」と判定（判定タグ: 一般言及）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T12:00:00+09:00"
-    },
-    {
       "tagId": "tag-format-media-45323ed44f37",
       "reason": "公開インデックスの動画形式を採用（判定タグ: 配信）",
       "confidence": "高",
@@ -112,11 +103,15 @@
   ],
   "synopsis": {
     "body": "夜見サンタから贈られた『Mouthwashing』を完全初見で実況。閉ざされた宇宙貨物船を進みながら、不穏な会話や次々と現れる謎に鋭く反応し、予想を何度も塗り替えられていく一夜。",
-    "bodyEvidenceRefs": ["evidence-synopsis-transcript"],
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
     "featuredQuote": {
       "text": "ちょっとハッピーエンドを浴びたいね。",
       "atSeconds": 13174,
-      "evidenceRefs": ["evidence-synopsis-transcript"]
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
     },
     "inputFingerprint": "848ea6fba2e08f07962657d289bb3c8821ed8a7d1ccb5701940074976493daf0",
     "rulesVersion": "1.0.0",
@@ -408,7 +403,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T12:00:00+09:00",
-    "basis": "提供データの明示30件を全件移行し、時刻は既存承認済み23件だけを収録"
+    "approvedAt": "2026-09-01T12:00:00+09:00",
+    "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
   }
 }
