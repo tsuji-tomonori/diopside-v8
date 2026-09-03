@@ -11,6 +11,7 @@ const source = {
   subjectPerformerTagId: 'performer-tomoe',
   collaborationTagId: 'context-collaboration',
   confirmedAppearances: [{ videoId: 'target', groupTagId: group.tagId }],
+  confirmedParticipants: [],
   excludedAppearances: [{ videoId: 'solo', groupTagId: group.tagId, reason: '単独配信の言葉遊び' }],
   confirmedLegacyPerformers: [],
   excludedPerformers: [],
@@ -172,5 +173,49 @@ describe('auditCollaborationGroupTags', () => {
       expect.stringContaining('除外条件「公開参加者に含まれない」'),
       expect.stringContaining('必須出演者「正しい出演者」がありません'),
     ]));
+  });
+  it('確認済みの出演者集合とコラボタグを動画単位で要求する', () => {
+    const result = auditCollaborationGroupTags({
+      videos: [
+        { videoId: 'party', title: '女子会ゲーム', tagAssignments: [{ tagId: 'performer-fumi' }] },
+      ],
+      groups: [],
+      people: [
+        { tagId: 'performer-fumi', name: 'フミ' },
+        { tagId: 'performer-saori', name: '大西沙織' },
+      ],
+      aliases: [],
+      source: {
+        ...source,
+        confirmedAppearances: [],
+        confirmedParticipants: [{
+          videoId: 'party',
+          performerTagIds: ['performer-fumi', 'performer-saori'],
+        }],
+      },
+    });
+
+    expect(result.errors).toEqual(expect.arrayContaining([
+      'party:確認済み出演者「大西沙織」がありません。',
+      'party:確認済み出演者に必要な参加形態「コラボ」がありません。',
+    ]));
+    expect(result.confirmedParticipantVideoCount).toBe(1);
+    expect(result.confirmedParticipantCount).toBe(2);
+  });
+
+  it('未登録の出演者タグを確認済み集合から拒否する', () => {
+    const result = auditCollaborationGroupTags({
+      videos: [{ videoId: 'party', title: '女子会ゲーム', tagAssignments: [] }],
+      groups: [],
+      people: [],
+      aliases: [],
+      source: {
+        ...source,
+        confirmedAppearances: [],
+        confirmedParticipants: [{ videoId: 'party', performerTagIds: ['performer-unknown'] }],
+      },
+    });
+
+    expect(result.errors).toContain('party:確認済み出演者 performer-unknown が人物プロフィール正本にありません。');
   });
 });

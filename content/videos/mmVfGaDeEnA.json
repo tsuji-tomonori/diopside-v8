@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "7186c21e66432e825549c05aa06a8e85bbebe9a95b1771a01382b51915dac010"
+    },
+    {
+      "evidenceId": "evidence-collaboration-horizontal",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "YouTube公開タイトル・概要欄の出演者横断照合",
+      "inputFingerprint": "2752310f12f6f30f6c667435bf1275b1d3ec8ebf0d7eebaaf52d3d6c29500ea7"
     }
   ],
   "tagAssignments": [
@@ -94,6 +100,24 @@
         "evidence-title"
       ],
       "reviewedAt": "2026-08-25T23:00:00+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "YouTube公開タイトル・概要欄から愛園愛美との参加形態「コラボ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-29T21:10:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-c6b8ade39e95",
+      "reason": "YouTube公開タイトル・概要欄から出演者「愛園愛美」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-29T21:10:00+09:00"
     }
   ],
   "timestamps": {
@@ -328,7 +352,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-25T23:00:00+09:00",
-    "basis": "ユーザー指示に基づく「いっ杯晩酌」シリーズタグ補正と公開境界の再検証"
+    "approvedAt": "2026-08-29T21:10:00+09:00",
+    "basis": "利用者指示とYouTube公開情報を基に、コラボ相手の付与漏れを横断是正"
   }
 }

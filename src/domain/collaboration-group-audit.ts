@@ -8,15 +8,15 @@ export type CollaborationAuditVideo = {
   };
 };
 
-export type CollaborationAuditPerson = {
-  tagId: string;
-  name: string;
-};
-
 export type CollaborationAuditGroup = {
   tagId: string;
   name: string;
   memberTagIds: readonly string[];
+};
+
+export type CollaborationAuditPerson = {
+  tagId: string;
+  name: string;
 };
 
 export type CollaborationAuditAlias = {
@@ -28,6 +28,7 @@ export type CollaborationAuditSource = {
   subjectPerformerTagId: string;
   collaborationTagId: string;
   confirmedAppearances: ReadonlyArray<{ videoId: string; groupTagId: string }>;
+  confirmedParticipants: ReadonlyArray<{ videoId: string; performerTagIds: readonly string[] }>;
   excludedAppearances: ReadonlyArray<{ videoId: string; groupTagId: string; reason: string }>;
   confirmedLegacyPerformers: ReadonlyArray<{
     videoId: string;
@@ -52,6 +53,8 @@ export type CollaborationAuditResult = {
   explicitAppearanceCount: number;
   confirmedAppearanceCount: number;
   auditedAppearanceCount: number;
+  confirmedParticipantVideoCount: number;
+  confirmedParticipantCount: number;
   auditedLegacyPerformerCount: number;
   confirmedLegacyPerformerCount: number;
   excludedPerformerCount: number;
@@ -141,6 +144,36 @@ export const auditCollaborationGroupTags = ({
       if (!assigned.has(memberTagId)) {
         errors.push(`${video.videoId}:ユニット「${group.name}」の出演者 ${memberTagId} がありません。`);
       }
+    }
+  }
+
+  for (const item of source.confirmedParticipants) {
+    const video = videosById.get(item.videoId);
+    if (!video) {
+      errors.push(`${item.videoId}:確認済み出演者の動画が正本にありません。`);
+      continue;
+    }
+    const assigned = new Set(video.tagAssignments.map((assignment) => assignment.tagId));
+    const uniquePerformerTagIds = new Set(item.performerTagIds);
+    if (uniquePerformerTagIds.size !== item.performerTagIds.length) {
+      errors.push(`${item.videoId}:確認済み出演者タグが重複しています。`);
+    }
+    for (const performerTagId of uniquePerformerTagIds) {
+      const person = peopleById.get(performerTagId);
+      if (!person) {
+        errors.push(`${item.videoId}:確認済み出演者 ${performerTagId} が人物プロフィール正本にありません。`);
+        continue;
+      }
+      if (performerTagId === source.subjectPerformerTagId) {
+        errors.push(`${item.videoId}:対象本人「${person.name}」をコラボ相手へ含めることはできません。`);
+        continue;
+      }
+      if (!assigned.has(performerTagId)) {
+        errors.push(`${item.videoId}:確認済み出演者「${person.name}」がありません。`);
+      }
+    }
+    if (uniquePerformerTagIds.size > 0 && !assigned.has(source.collaborationTagId)) {
+      errors.push(`${item.videoId}:確認済み出演者に必要な参加形態「コラボ」がありません。`);
     }
   }
 
@@ -251,6 +284,11 @@ export const auditCollaborationGroupTags = ({
     explicitAppearanceCount,
     confirmedAppearanceCount: source.confirmedAppearances.length,
     auditedAppearanceCount: expected.size,
+    confirmedParticipantVideoCount: source.confirmedParticipants.length,
+    confirmedParticipantCount: source.confirmedParticipants.reduce(
+      (total, item) => total + item.performerTagIds.length,
+      0,
+    ),
     auditedLegacyPerformerCount,
     confirmedLegacyPerformerCount: source.confirmedLegacyPerformers.length,
     excludedPerformerCount: source.excludedPerformers.length,

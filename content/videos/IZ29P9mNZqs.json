@@ -40,6 +40,12 @@
       "inputFingerprint": "ddd4c0d86882b5323ddda4f3c19a1da11209cd86dc1f231c2c495a7733a7bd29",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 5969
+    },
+    {
+      "evidenceId": "evidence-collaboration-horizontal",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "YouTube公開概要欄・公式視点配信の参加メンバー横断照合",
+      "inputFingerprint": "eeb87a574ec118863f1481737d347c6a6041c200d57ceaa7e663aaa686b19529"
     }
   ],
   "tagAssignments": [
@@ -116,22 +122,58 @@
       "reviewedAt": "2026-08-27T01:08:43+09:00"
     },
     {
-      "tagId": "tag-people-performer-afc4e5a1237d",
-      "reason": "公開の全編字幕から出演者「山神カルタ」を確認",
+      "tagId": "tag-people-performer-b0469a7d02e8",
+      "reason": "YouTube公開概要欄・公式視点配信から出演者「フミ」を確認",
       "confidence": "高",
       "evidenceRefs": [
-        "evidence-full-transcript"
+        "evidence-collaboration-horizontal"
       ],
-      "reviewedAt": "2026-08-27T01:08:43+09:00"
+      "reviewedAt": "2026-08-29T21:10:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-afc4e5a1237d",
+      "reason": "YouTube公開概要欄・公式視点配信から出演者「山神カルタ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-29T21:10:00+09:00"
     },
     {
       "tagId": "tag-people-performer-f1576533a080",
-      "reason": "公開の全編字幕から出演者「来栖夏芽」を確認",
+      "reason": "YouTube公開概要欄・公式視点配信から出演者「来栖夏芽」を確認",
       "confidence": "高",
       "evidenceRefs": [
-        "evidence-full-transcript"
+        "evidence-collaboration-horizontal"
       ],
-      "reviewedAt": "2026-08-27T01:08:43+09:00"
+      "reviewedAt": "2026-08-29T21:10:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-40e26ebb77ca",
+      "reason": "YouTube公開概要欄・公式視点配信から出演者「大西沙織」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-29T21:10:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-a2703bb6b5d6",
+      "reason": "YouTube公開概要欄・公式視点配信から出演者「武田羅梨沙多胡」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-29T21:10:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-d4bf2e8b5d9a",
+      "reason": "YouTube公開概要欄・公式視点配信から出演者「長縄まりあ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-29T21:10:00+09:00"
     }
   ],
   "timestamps": {
@@ -307,7 +349,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-27T01:08:43+09:00",
-    "basis": "運用者の直近2週間の未追加動画を処理する明示要求に基づく。公開はDraft PRの人手mergeを条件とする"
+    "approvedAt": "2026-08-29T21:10:00+09:00",
+    "basis": "利用者指示とYouTube公開情報を基に、コラボ相手の付与漏れを横断是正"
   }
 }

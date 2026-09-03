@@ -30,6 +30,7 @@ if (result.errors.length > 0) {
   console.log(
     `コラボ・ユニットタグ横断監査合格: ${result.auditedAppearanceCount}件`
     + `（タイトル明示 ${result.explicitAppearanceCount}件、確認済み出演 ${result.confirmedAppearanceCount}件）、`
+    + `出演者集合 ${result.confirmedParticipantVideoCount}動画・${result.confirmedParticipantCount}人、`
     + `旧出演者タグ ${result.auditedLegacyPerformerCount}件`
     + `（個別確認 ${result.confirmedLegacyPerformerCount}件）、`
     + `出演者除外 ${result.excludedPerformerCount}件、必須出演者 ${result.requiredPerformerCount}件に不整合はありません。`,
