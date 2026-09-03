@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "21ebfd8824cdea64f4175e76ea2c82b008c869b918c398b3e1d88125dc0e7252"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "2a06497365ee37240357a7620c742a944dbd5e202f6ac3eeffa405d1dc040e55",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8949
     }
   ],
   "tagAssignments": [
@@ -273,5 +281,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪 巴がチームEの仲間と、にじスプラ大会を前に『スプラトゥーン2』で練習。エリアやヤグラの試合を重ねながら、武器の相性やスペシャルの使いどころを相談し、声を掛け合って立ち回りを整えていく。試合中の率直な反応と、終盤の振り返りまで楽しめる配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私で動揺しないことだなぁ",
+      "atSeconds": 6342,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "2a06497365ee37240357a7620c742a944dbd5e202f6ac3eeffa405d1dc040e55",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T05:35:44.078395Z"
   }
 }
