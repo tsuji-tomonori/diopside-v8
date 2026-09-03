@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "eca1777a7b9c166d30e096ea89ac883e73b4743654c5f4bc628f99c5d26fb009"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "63c95a98a5cf3d468c6ff934f24a0bd7316f2c58d14d31038ab931e3a1346c52",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7684
     }
   ],
   "tagAssignments": [
@@ -327,5 +335,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が女性限定のマシュマロを読み、体の悩みや生理、恋愛・結婚、依存、性別表現、仕事や家族との距離感まで、経験を交えながら率直に語る。相談者の迷いを受け止めつつ、自分らしい選択と人との向き合い方を考えていく、笑いと真剣さが行き交う長時間配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "結婚したいと思える人に出会いたい",
+      "atSeconds": 2781,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "63c95a98a5cf3d468c6ff934f24a0bd7316f2c58d14d31038ab931e3a1346c52",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T15:56:48.323323Z"
   }
 }
