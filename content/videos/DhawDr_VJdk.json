@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "7824d8bf525fafecadf99e566130aed44d23ad29a3034fb74943fed01abbd09f"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "a3d8b49cf8bf1eea6cf37ee63353f1136da8dc091062f8efbe66a96244209dca",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3169
     }
   ],
   "tagAssignments": [
@@ -306,5 +314,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-29T11:34:20+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・ユニット構成を照合し、旧v7由来の誤った出演者タグを除外"
+  },
+  "synopsis": {
+    "body": "ベルモンド・バンデラスと『Paranormal Cleanup』で事故物件の清掃へ。通話設定に四苦八苦しつつ、ゴミを袋にまとめて車へ運ぶ操作を確認する。物音や扉の異変に翻弄されながら、鍵と回復手段を探して別行動。声を掛け合い、隠れ場所で怪異をかわしながら作業を進める。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "スノーベルでやりたいですね",
+      "atSeconds": 2942,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "a3d8b49cf8bf1eea6cf37ee63353f1136da8dc091062f8efbe66a96244209dca",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-10T01:20:00+09:00"
   }
 }
