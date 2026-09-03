@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "7e6bec913659e7a38ad5aa9f16505b4461f61ad3ec40be4617ff0c8590753420"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "73fadd72cc1b9ee0d68c91aea562c73a2fbe6a746a91c4218114ffda6547f332",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5084
     }
   ],
   "tagAssignments": [
@@ -279,5 +287,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "ホワイトデーを題材に、白雪巴が視聴者の回答を選びながら「白雪との初デート」を即興で組み立てる参加型企画。職場での誘いから水族館、食事、プラネタリウムへと場面を移し、胸キュン案と珍回答を軽快にさばきながら理想の展開を探ります。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "これからも白雪どんどん攻略していってくださいね",
+      "atSeconds": 4965,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "73fadd72cc1b9ee0d68c91aea562c73a2fbe6a746a91c4218114ffda6547f332",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T12:49:24.165384Z"
   }
 }
