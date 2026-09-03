@@ -121,6 +121,7 @@ function publicBundle(): PublicBundle {
     aliasIndex: json(`public/${latest.aliasIndexPath}`) as PublicBundle['aliasIndex'],
     songIndex: json(`public/data/releases/${latest.releaseId}/song-index.json`) as PublicBundle['songIndex'],
     gameIndex: json(`public/${latest.gameIndexPath}`) as PublicBundle['gameIndex'],
+    entityIndex: json(`public/${latest.entityIndexPath}`) as PublicBundle['entityIndex'],
   };
 }
 

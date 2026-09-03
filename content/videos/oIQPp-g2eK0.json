@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "1fd3c4d7d8030a1c7ec6fb97bfd134c2f7638f53a41b0afd4fd38ea245445b58"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "f65d38dfc08d71f9cabee60f4139aa30acbb7c20402c73dd4941eaae31ad4607",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10632
     }
   ],
   "tagAssignments": [
@@ -405,5 +413,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴が相棒と協力型謎解きゲーム『We Were Here Forever』に挑戦。別々の場所から見える情報を伝え合い、装置や記号の仕掛けを読み解きながら探索を進める。ひらめきと掛け合いで難題に挑み、次回へ続く冒険を楽しむ一枠。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "なぜか通じあっちゃうんだね",
+      "atSeconds": 10557,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "f65d38dfc08d71f9cabee60f4139aa30acbb7c20402c73dd4941eaae31ad4607",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T13:53:19.244425Z"
   }
 }

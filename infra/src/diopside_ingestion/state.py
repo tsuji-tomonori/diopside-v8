@@ -20,18 +20,18 @@ from diopside_ingestion.contracts import VideoStatus, initial_artifacts, initial
 
 @dataclass(frozen=True)
 class ClaimResult:
-    """Whether a dispatcher acquired the only active worker claim for a video."""
+    """Whether a local runner acquired the only active worker claim for a video."""
 
     claimed: bool
     attempt_count: int = 0
 
 
 class IngestionRepository(Protocol):
-    """Persistence boundary shared by Lambda handlers and the worker."""
+    """Persistence boundary shared by local commands and the worker."""
 
     def claim(self, video_id: str, claim_owner: str, lease_seconds: int) -> ClaimResult: ...
 
-    def mark_dispatch_failure(self, video_id: str, claim_owner: str, reason_code: str) -> None: ...
+    def mark_attempt_failure(self, video_id: str, claim_owner: str, reason_code: str) -> None: ...
 
     def load(self, video_id: str) -> Mapping[str, object] | None: ...
 
@@ -51,6 +51,7 @@ class IngestionRepository(Protocol):
         yt_dlp_version: str | None = None,
         checkpoint_manifest_key: str | None = None,
         checkpoint_manifest_sha256: str | None = None,
+        claim_lease_seconds: int | None = None,
     ) -> None: ...
 
     def complete(
@@ -118,7 +119,7 @@ class DynamoIngestionRepository:
                     "(attribute_not_exists(#claim_expires_at) OR #claim_expires_at < :now_epoch))"
                 ),
                 UpdateExpression=(
-                    "SET #status = :running, #current_stage = :dispatch, "
+                    "SET #status = :running, #current_stage = :local_claim, "
                     "#artifacts = if_not_exists(#artifacts, :artifacts), "
                     "#attempt_count = if_not_exists(#attempt_count, :zero) + :one, "
                     "#claim_owner = :claim_owner, #claim_expires_at = :claim_expires_at, "
@@ -145,7 +146,7 @@ class DynamoIngestionRepository:
                     ":queued": _attribute(VideoStatus.QUEUED.value),
                     ":retryable": _attribute(VideoStatus.RETRYABLE_FAILED.value),
                     ":running": _attribute(VideoStatus.RUNNING.value),
-                    ":dispatch": _attribute("dispatch"),
+                    ":local_claim": _attribute("local_claim"),
                     ":artifacts": _attribute(initial_artifacts(now)),
                     ":zero": _attribute(0),
                     ":one": _attribute(1),
@@ -170,7 +171,7 @@ class DynamoIngestionRepository:
             raise RuntimeError("DynamoDB claim result has no integer attempt_count")
         return ClaimResult(claimed=True, attempt_count=attempt_count)
 
-    def mark_dispatch_failure(self, video_id: str, claim_owner: str, reason_code: str) -> None:
+    def mark_attempt_failure(self, video_id: str, claim_owner: str, reason_code: str) -> None:
         self._client.update_item(
             TableName=self._table_name,
             Key={"video_id": _attribute(video_id)},
@@ -194,7 +195,7 @@ class DynamoIngestionRepository:
             ExpressionAttributeValues={
                 ":claim_owner": _attribute(claim_owner),
                 ":status": _attribute(VideoStatus.RETRYABLE_FAILED.value),
-                ":current_stage": _attribute("dispatch"),
+                ":current_stage": _attribute("local_run"),
                 ":reason": _attribute(reason_code),
                 ":next_action": _attribute("retry"),
                 ":updated_at": _attribute(iso_now()),
@@ -225,6 +226,7 @@ class DynamoIngestionRepository:
         yt_dlp_version: str | None = None,
         checkpoint_manifest_key: str | None = None,
         checkpoint_manifest_sha256: str | None = None,
+        claim_lease_seconds: int | None = None,
     ) -> None:
         names = {
             "#claim_owner": "claim_owner",
@@ -246,6 +248,12 @@ class DynamoIngestionRepository:
             "#updated_at = :updated_at",
             "#version = #version + :one",
         ]
+        if claim_lease_seconds is not None:
+            if claim_lease_seconds < 1:
+                raise ValueError("claim_lease_seconds must be positive")
+            names["#claim_expires_at"] = "claim_expires_at"
+            values[":claim_expires_at"] = _attribute(int(time()) + claim_lease_seconds)
+            assignments.append("#claim_expires_at = :claim_expires_at")
         for placeholder, attribute_name, value in (
             ("#channel_id", "channel_id", channel_id),
             ("#s3_prefix", "s3_prefix", s3_prefix),

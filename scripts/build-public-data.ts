@@ -24,6 +24,7 @@ import {
   type PublicVideoSummary,
   videoShardId,
 } from '../src/domain/content.ts';
+import { buildEntityProjection } from '../src/domain/entities.ts';
 import { applyGameCatalogGenres } from '../src/domain/game-catalog.ts';
 import { normalizeTitleForSearch } from '../src/domain/search.ts';
 import {
@@ -79,7 +80,7 @@ const channelPersonMappingIssues = validateChannelPersonMappings(videos, taxonom
 if (channelPersonMappingIssues.length > 0) {
   throw new Error(channelPersonMappingIssues.map((item) => `${item.code}:${item.path}:${item.message}`).join('\n'));
 }
-const songPerformanceIssues = validateSongPerformanceCatalog(songPerformancesInput, videos);
+const songPerformanceIssues = validateSongPerformanceCatalog(songPerformancesInput, videos, taxonomy);
 if (songPerformanceIssues.length > 0) {
   throw new Error(songPerformanceIssues.map((item) => `${item.code}:${item.path}:${item.message}`).join('\n'));
 }
@@ -97,11 +98,23 @@ const releaseSeed = {
   collaborationProfiles,
   channelPersonMappings,
   searchNormalizationVersion: '2.0.0',
+  semanticEntityModelVersion: '1.0.0',
   japaneseReadingVersion,
   readingOverrides: readingOverridesInput,
   videos: videos.map(normalizeCanonicalVideo),
 };
 const releaseId = `release-${sha256(canonicalJson(releaseSeed)).slice(0, 16)}`;
+const entityProjection = buildEntityProjection({
+  releaseId,
+  updatedAt: contentManifest.generatedAt,
+  taxonomy,
+  gameCatalog,
+  songPerformances,
+  collaborationProfiles,
+  channelPersonMappings,
+  videos,
+  normalizeReading,
+});
 const releaseDir = path.join(publicDataDir, 'releases', releaseId);
 rmSync(publicDataDir, { recursive: true, force: true });
 mkdirSync(releaseDir, { recursive: true });
@@ -125,22 +138,23 @@ const summaries = videos
   .sort((left, right) => new Date(right.publishedAt).getTime() - new Date(left.publishedAt).getTime() || left.videoId.localeCompare(right.videoId));
 const titleByVideoId = new Map(videos.map((video) => [video.videoId, video.title]));
 const index = publicIndexSchema.parse({
-  schemaVersion: '1.0.0',
+  schemaVersion: '1.1.0',
   releaseId,
   updatedAt: contentManifest.generatedAt,
   videos: summaries,
 });
 const searchIndex = searchIndexSchema.parse({
-  schemaVersion: '2.0.0',
+  schemaVersion: '2.1.0',
   releaseId,
   normalizationVersion: '2.0.0',
-  videos: summaries.map(({ videoId, normalizedTitle, publishedAt, durationSeconds, tagIds }) => ({
+  videos: summaries.map(({ videoId, normalizedTitle, publishedAt, durationSeconds, tagIds, entityRefs }) => ({
     videoId,
     normalizedTitle,
     normalizedReading: normalizeReading(titleByVideoId.get(videoId) ?? normalizedTitle),
     publishedAt,
     durationSeconds,
     tagIds,
+    entityIds: entityRefs.map((reference) => reference.entityId),
   })),
 });
 
@@ -183,23 +197,33 @@ for (const tag of unitTags) {
 for (const group of collaborationProfiles.groups) {
   if (!unitTags.some((tag) => tag.tagId === group.tagId)) throw new Error(`コンビ・ユニットプロフィールが有効なタグを参照していません: ${group.tagId}`);
 }
-const workTagIds = new Set(
+const allWorkTagIds = new Set(
   taxonomy.categories
     .find((category) => category.categoryId === 'works')
     ?.subcategories.flatMap((subcategory) => subcategory.tags.map((tag) => tag.tagId)) ?? [],
 );
+const activeWorkTagIds = new Set(
+  taxonomy.categories
+    .find((category) => category.categoryId === 'works')
+    ?.subcategories.flatMap((subcategory) => subcategory.tags.filter((tag) => tag.active).map((tag) => tag.tagId)) ?? [],
+);
+const sourceBackedWorkTagIds = new Set([
+  ...gameCatalog.games.flatMap((game) => [game.gameTitleTagId, ...(game.equivalentGameTitleTagIds ?? [])]),
+  ...songPerformances.songs.map((song) => song.tagId),
+]);
 const introductionsByTagId = new Map(workIntroductions.introductions.map((introduction) => [introduction.tagId, introduction]));
 if (introductionsByTagId.size !== workIntroductions.introductions.length) throw new Error('作品紹介のタグIDが重複しています。');
 for (const tagId of introductionsByTagId.keys()) {
-  if (!workTagIds.has(tagId)) throw new Error(`作品紹介が作品タグを参照していません: ${tagId}`);
+  if (!allWorkTagIds.has(tagId)) throw new Error(`作品紹介が作品タグを参照していません: ${tagId}`);
 }
 const unavailableByTagId = new Map(workIntroductions.unavailable.map((item) => [item.tagId, item]));
 if (unavailableByTagId.size !== workIntroductions.unavailable.length) throw new Error('作品紹介不能理由のタグIDが重複しています。');
 for (const tagId of unavailableByTagId.keys()) {
-  if (!workTagIds.has(tagId)) throw new Error(`作品紹介不能理由が作品タグを参照していません: ${tagId}`);
+  if (!allWorkTagIds.has(tagId)) throw new Error(`作品紹介不能理由が作品タグを参照していません: ${tagId}`);
   if (introductionsByTagId.has(tagId)) throw new Error(`作品紹介と紹介不能理由が同時に設定されています: ${tagId}`);
 }
-for (const tagId of workTagIds) {
+for (const tagId of activeWorkTagIds) {
+  if (sourceBackedWorkTagIds.has(tagId)) continue;
   if (!introductionsByTagId.has(tagId) && !unavailableByTagId.has(tagId)) throw new Error(`作品紹介の調査結果が未設定です: ${tagId}`);
 }
 const taxonomySongTags = taxonomy.categories
@@ -214,7 +238,7 @@ for (const song of songPerformances.songs) {
   if (sameName && sameName.tagId !== song.tagId) throw new Error(`楽曲名が別IDの既存タグと衝突しています: ${song.title}`);
 }
 const tagIndex = publicTagIndexSchema.parse({
-  schemaVersion: '2.0.0',
+  schemaVersion: '2.1.0',
   releaseId,
   taxonomyVersion: taxonomy.taxonomyVersion,
   aliasVersion: taxonomy.aliasVersion,
@@ -222,22 +246,20 @@ const tagIndex = publicTagIndexSchema.parse({
     categoryId: category.categoryId,
     name: category.name,
     order: category.order,
-    subcategories: category.subcategories.map((subcategory) => {
-      const songTags = subcategory.subcategoryId === 'songTitle'
-        ? songPerformances.songs
-            .filter((song) => !taxonomySongTagsById.has(song.tagId))
-            .map((song) => ({ tagId: song.tagId, canonicalName: song.title, active: true }))
-        : [];
-      return {
+    subcategories: category.subcategories.map((subcategory) => ({
       subcategoryId: subcategory.subcategoryId,
       name: subcategory.name,
       order: subcategory.order,
-      tags: [...subcategory.tags, ...songTags].filter((tag) => tag.active && isPublicTagId(tag.tagId)).map((tag) => {
+      valueKind: subcategory.valueKind,
+      ...(subcategory.entityType ? { entityType: subcategory.entityType } : {}),
+      ...(subcategory.videoRelation ? { videoRelation: subcategory.videoRelation } : {}),
+      tags: subcategory.tags.filter((tag) => tag.active && isPublicTagId(tag.tagId)).map((tag) => {
         const videoIds = [...(tagToVideoIds.get(tag.tagId) ?? [])].sort();
         const introduction = introductionsByTagId.get(tag.tagId);
         const introductionUnavailable = unavailableByTagId.get(tag.tagId);
         const person = tag.tagId === collaborationProfiles.subjectPersonTagId ? undefined : peopleByTagId.get(tag.tagId);
         const group = groupsByTagId.get(tag.tagId);
+        const entityId = entityProjection.entityIdByLegacyTagId.get(tag.tagId);
         const iconPath = (iconFile: string): string => `data/releases/${releaseId}/people/icons/${iconFile}`;
         return {
           tagId: tag.tagId,
@@ -245,6 +267,7 @@ const tagIndex = publicTagIndexSchema.parse({
           normalizedReading: normalizeReading(tag.canonicalName),
           count: videoIds.length,
           videoIds,
+          ...(entityId ? { entityId } : {}),
           ...(person ? { personProfile: {
             youtubeChannelUrl: person.youtubeChannelUrl,
             iconPath: iconPath(person.iconFile),
@@ -289,8 +312,7 @@ const tagIndex = publicTagIndexSchema.parse({
           } } : {}),
         };
       }),
-    };
-    }),
+    })),
   })),
 });
 const aliasIndex = publicAliasIndexSchema.parse({
@@ -365,6 +387,7 @@ const outputFiles = new Map<string, unknown>([
   ['alias-index.json', aliasIndex],
   ['song-index.json', songIndex],
   ['game-index.json', gameIndex],
+  ['entity-index.json', entityProjection.index],
 ]);
 const detailShards = new Map<string, Record<string, PublicVideoDetail>>();
 for (const video of videos) {
@@ -377,7 +400,7 @@ for (const video of videos) {
 for (let index = 0; index < 256; index += 1) {
   const shardId = index.toString(16).padStart(2, '0');
   outputFiles.set(`video-shards/${shardId}.json`, publicVideoShardSchema.parse({
-    schemaVersion: '1.0.0',
+    schemaVersion: '1.1.0',
     releaseId,
     shardId,
     videos: Object.fromEntries(Object.entries(detailShards.get(shardId) ?? {}).sort(([left], [right]) => left.localeCompare(right))),
@@ -416,7 +439,7 @@ writeFileSync(path.join(releaseDir, 'manifest.json'), prettyJson(publicManifest)
 
 const base = `data/releases/${releaseId}`;
 const latest = latestReleaseSchema.parse({
-  schemaVersion: '1.0.0',
+  schemaVersion: '1.1.0',
   releaseId,
   updatedAt: contentManifest.generatedAt,
   indexPath: `${base}/index.json`,
@@ -424,6 +447,7 @@ const latest = latestReleaseSchema.parse({
   tagIndexPath: `${base}/tag-index.json`,
   aliasIndexPath: `${base}/alias-index.json`,
   gameIndexPath: `${base}/game-index.json`,
+  entityIndexPath: `${base}/entity-index.json`,
   manifestPath: `${base}/manifest.json`,
   videoShardCount: 256,
   videoShardPathTemplate: `${base}/video-shards/{shard}.json`,
@@ -459,6 +483,7 @@ function toSummary(video: CanonicalVideo): PublicVideoSummary {
       ...effectiveTagIds.filter(isPublicTagId),
       ...songTagIds,
     ])].sort(),
+    entityRefs: entityProjection.entityRefsByVideoId.get(video.videoId) ?? [],
   };
 }
 
@@ -495,6 +520,15 @@ function toDetail(video: CanonicalVideo, currentReleaseId: string): PublicVideoD
         rulesVersion: video.wordCloud.rulesVersion,
         updatedAt: video.wordCloud.updatedAt,
       };
+  const customEmojiUsage = video.customEmojiUsage
+    ? {
+        status: video.customEmojiUsage.status,
+        totalCount: video.customEmojiUsage.totalCount,
+        items: video.customEmojiUsage.items,
+        rulesVersion: video.customEmojiUsage.rulesVersion,
+        updatedAt: video.customEmojiUsage.updatedAt,
+      }
+    : undefined;
   const lookup = buildTaxonomyLookup(taxonomy);
   const tagDates = [
     ...video.tagAssignments.map((assignment) => assignment.reviewedAt),
@@ -523,6 +557,7 @@ function toDetail(video: CanonicalVideo, currentReleaseId: string): PublicVideoD
       : undefined,
     timestamps,
     wordCloud,
+    customEmojiUsage,
     provenance: {
       generatorVersion: video.provenance.generatorVersion,
       generatedAt: video.provenance.generatedAt,

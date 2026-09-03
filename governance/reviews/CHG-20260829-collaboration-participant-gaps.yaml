@@ -29,7 +29,7 @@ impact_flags:
   critical_change: false
   important_ui_change: false
   long_term_decision: false
-  squash: false
+  squash: true
   external_side_effect: true
   production_deploy: false
   major_incident: false
@@ -63,17 +63,17 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [commit:self]
-    note: 利用者のGitHub権限指定に基づきfeature branchのpushとDraft PR作成だけを行う。merge、release、deployは行わない。
+    note: 利用者がPR #1379のmergeを明示したため、feature branch更新と人手squash mergeを行う。release、deployは既存workflowへ委ねる。
   - id: IMP-007
     class: Risk-selected
     result: pass
     evidence: [path:content/content-manifest.json, path:content/taxonomy/change-record.json]
-    note: 最新mainの1702動画を維持し、5動画へ12タグを追加した11772タグ付与とtaxonomy 8.8.0の影響1動画を再計数した。
+    note: 最新mainの1705動画を維持し、5動画へ12タグを追加した11723タグ付与とtaxonomy 9.1.0の影響1動画を再計数した。
   - id: IMP-008
     class: Risk-selected
     result: pass
     evidence: [path:content/taxonomy/tag-taxonomy.json, path:content/taxonomy/change-record.json]
-    note: 出演者タグ3件を加算的に追加し、8.6.0・8.7.0動画正本との互換を明示した。既存ID、alias、tag rule、ファイルschemaは維持する。
+    note: 出演者タグ3件を加算的に追加し、8.6.0・8.7.0・8.8.0・9.0.0動画正本との互換を明示した。既存ID、alias、tag rule、ファイルschemaは維持する。
   - id: FAST-001
     class: Invariant
     result: pass
@@ -148,9 +148,10 @@ selected_checks:
     class: Risk-selected
     result: pass
     evidence: [path:content/taxonomy/tag-taxonomy.json, path:scripts/validate-taxonomy-change.ts, path:scripts/validate-content.ts]
-    note: taxonomyを8.8.0へ更新し、旧動画版との互換、影響タグと動画件数、人物プロフィール・画像の完全性を検証した。
+    note: taxonomyを9.1.0へ更新し、旧動画版との互換、影響タグと動画件数、人物プロフィール・画像の完全性を検証した。
 advisories: []
 residual_risks:
   - tF3D9Nyg-zEの剣持刀也は多数ゲスト面接企画の既存call-in-host-only判定、LiA_Ou5o_z0の癒月ちょこは逆凸の配信主限定規則に従い追加していない。
   - Ph5w1kNsh5g.jsonを今後変更する既存Draft PR #240は、本変更のmerge後にrebaseしてコラボ是正を保持する必要がある。
-  - 公開反映は本Draft PRの人手merge後に生成されるrelease workflowへ依存し、本変更ではmerge、release、deployを行わない。
+  - 公開反映は本PRの人手squash merge後に生成されるrelease workflowへ依存し、本変更ではrelease、deployを直接行わない。
+# conflict-resolution: 最新main 1aab026782ae8a0c20386e0642381b8fef98fee4 を履歴へ保持し、1705動画・11723タグ、taxonomy 9.1.0、監査7テストを現在HEADで再検証する。
