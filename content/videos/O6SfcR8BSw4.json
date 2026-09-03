@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "f6033ae51ce4ed81060504c820608b3ccaad4d915e901d16f7e46ebd9c869f78"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "1c30ba6cb1b9198c4e3bd58c94e9d4f7278a7d056fd26d17e548fd8b547654bd",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8077
     }
   ],
   "tagAssignments": [
@@ -300,5 +308,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "にじさんじスプラ杯本番、白雪巴がCチームの仲間と声を掛け合い、塗りと支援を軸に各試合へ挑む。作戦確認や待ち時間の冗談、インタビューを挟み、緊張と手応えが行き交う大会の流れを追える。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "わたしゃ指示を聞いてただけです、本当",
+      "atSeconds": 7951,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "1c30ba6cb1b9198c4e3bd58c94e9d4f7278a7d056fd26d17e548fd8b547654bd",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T12:20:20.615950Z"
   }
 }
