@@ -173,4 +173,31 @@ describe('正本検証', () => {
     const issues = scanPublicBoundary({ transcript: '全文', nested: { authorId: 'person', token: `sk-${'x'.repeat(24)}` } });
     expect(issues.map((item) => item.code)).toEqual(['PUBLIC_FORBIDDEN_FIELD', 'PUBLIC_FORBIDDEN_FIELD', 'PUBLIC_SECRET']);
   });
+
+  it('カスタム絵文字の全件合計、重複、決定順を検証する', () => {
+    const video = structuredClone(canonicalVideoSchema.parse(canonicalInput));
+    video.customEmojiUsage = {
+      status: '集計済み',
+      totalCount: 5,
+      items: [
+        { customEmojiId: 'custom-emoji-1111111111111111', label: ':kusa:', count: 3 },
+        { customEmojiId: 'custom-emoji-2222222222222222', label: ':wan:', count: 2 },
+      ],
+      inputFingerprint: 'a'.repeat(64),
+      rulesVersion: '1.0.0',
+      updatedAt: '2026-08-31T21:34:00+09:00',
+    };
+    expect(validateCanonicalVideo(video, taxonomy, aliases)).toEqual([]);
+
+    const broken = structuredClone(video);
+    broken.customEmojiUsage!.totalCount = 99;
+    broken.customEmojiUsage!.items.reverse();
+    broken.customEmojiUsage!.items[1]!.customEmojiId = broken.customEmojiUsage!.items[0]!.customEmojiId;
+    const codes = validateCanonicalVideo(broken, taxonomy, aliases).map((item) => item.code);
+    expect(codes).toEqual(expect.arrayContaining([
+      'CUSTOM_EMOJI_DUPLICATED',
+      'CUSTOM_EMOJI_TOTAL_MISMATCH',
+      'CUSTOM_EMOJI_ORDER',
+    ]));
+  });
 });
