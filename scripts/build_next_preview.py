@@ -32,6 +32,13 @@ TAIL_SECONDS = 1.20
 MAX_CLIP_SECONDS = 4.80
 MAX_QUOTED_SECONDS_PER_SAMPLE = 19.0
 YOUTUBE_URL = "https://www.youtube.com/watch?v={video_id}"
+AUDIO_CLIENT_FALLBACKS = (
+    "visionos",
+    "web_safari",
+    "tv_simply",
+    "android_vr",
+    "mweb",
+)
 
 
 @dataclass(frozen=True)
@@ -224,47 +231,59 @@ def locate_font() -> Path:
 
 def download_source(sample: Sample, destination: Path) -> Path:
     output_template = destination / "source.%(ext)s"
-    command = [
-        sys.executable,
-        "-m",
-        "yt_dlp",
-        "--ignore-config",
-        "--no-playlist",
-        "--no-progress",
-        "--force-ipv4",
-        "--retries",
-        "10",
-        "--fragment-retries",
-        "10",
-        "--retry-sleep",
-        "http:exp=1:8",
-        "--retry-sleep",
-        "fragment:exp=1:8",
-        "--js-runtimes",
-        "node",
-        "--extractor-args",
-        "youtube:player_client=mweb",
-        "--format",
-        "bestaudio[abr<=96]/worstaudio",
-        "--output",
-        str(output_template),
-        "--print",
-        "after_move:filepath",
-        YOUTUBE_URL.format(video_id=sample.video_id),
-    ]
-    result = run(command, cwd=REPOSITORY_ROOT, capture_output=True)
-    for line in reversed(result.stdout.splitlines()):
-        candidate = Path(line.strip())
-        if candidate.is_file() and candidate.parent == destination:
-            return candidate
-    candidates = [
-        path
-        for path in destination.glob("source.*")
-        if path.is_file() and path.suffix not in {".part", ".ytdl"}
-    ]
-    if len(candidates) != 1:
-        raise RuntimeError(f"download did not produce one source for {sample.key}")
-    return candidates[0]
+    last_error: subprocess.CalledProcessError | None = None
+    for client in AUDIO_CLIENT_FALLBACKS:
+        for stale in destination.glob("source.*"):
+            if stale.is_file():
+                stale.unlink()
+        print(f"[next-preview] audio client: {client}", flush=True)
+        command = [
+            sys.executable,
+            "-m",
+            "yt_dlp",
+            "--ignore-config",
+            "--no-playlist",
+            "--no-progress",
+            "--force-ipv4",
+            "--retries",
+            "5",
+            "--fragment-retries",
+            "5",
+            "--retry-sleep",
+            "http:exp=1:8",
+            "--retry-sleep",
+            "fragment:exp=1:8",
+            "--js-runtimes",
+            "node",
+            "--extractor-args",
+            f"youtube:player_client={client}",
+            "--format",
+            "bestaudio[abr<=96]/bestaudio/best[height<=240]/worst",
+            "--output",
+            str(output_template),
+            "--print",
+            "after_move:filepath",
+            YOUTUBE_URL.format(video_id=sample.video_id),
+        ]
+        try:
+            result = run(command, cwd=REPOSITORY_ROOT, capture_output=True)
+        except subprocess.CalledProcessError as error:
+            last_error = error
+            continue
+        for line in reversed(result.stdout.splitlines()):
+            candidate = Path(line.strip())
+            if candidate.is_file() and candidate.parent == destination:
+                return candidate
+        candidates = [
+            path
+            for path in destination.glob("source.*")
+            if path.is_file() and path.suffix not in {".part", ".ytdl"}
+        ]
+        if len(candidates) == 1:
+            return candidates[0]
+    raise RuntimeError(
+        f"all public audio clients failed for {sample.key}"
+    ) from last_error
 
 
 def make_silence(path: Path, duration: float) -> None:

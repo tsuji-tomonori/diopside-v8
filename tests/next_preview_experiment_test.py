@@ -69,6 +69,13 @@ class NextPreviewExperimentTest(unittest.TestCase):
         self.assertIn("[url]", diagnostic)
         self.assertIn("[redacted]", diagnostic)
 
+    def test_public_audio_fallbacks_are_finite_and_explicit(self) -> None:
+        clients = MODULE.AUDIO_CLIENT_FALLBACKS
+        self.assertEqual(len(clients), len(set(clients)))
+        self.assertLessEqual(len(clients), 5)
+        self.assertNotIn("all", clients)
+        self.assertEqual(clients[-1], "mweb")
+
 
 if __name__ == "__main__":
     unittest.main()

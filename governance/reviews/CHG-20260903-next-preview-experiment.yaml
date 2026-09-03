@@ -76,7 +76,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [test:tests/next_preview_experiment_test.py, workflow:次回予告風・実音声クリップ試作]
-    note: 3配信の識別、短尺引用上限、timeline、入力拒否、選択順、ASS時刻、安全な診断redactionを対象単体testで固定する。
+    note: 3配信の識別、短尺引用上限、timeline、入力拒否、選択順、ASS時刻、安全な診断redaction、有限client fallbackを対象単体testで固定する。
   - id: FAST-007
     class: Invariant
     result: pass
@@ -124,6 +124,6 @@ selected_checks:
     note: trigger非該当checkを形式的N/Aとして追加していない。
 advisories: []
 residual_risks:
-  - 公開配信側またはYouTube取得仕様の変更により再実行が失敗する可能性がある。Cookieやloginへ自動切替せず、有限の手動再試行に留める。
+  - 公開配信側またはYouTube取得仕様の変更により再実行が失敗する可能性がある。公式の公開client 5種だけを有限に試し、Cookieやloginへ自動切替しない。
   - 自動字幕を基に時刻を選定しているため軽微な表示文言差が残る可能性がある。実音声と映像の技術検証後、必要なら別変更で文言を微調整する。
   - 固定providerのbuild-time npm依存は現時点のauditでmoderate 1件を報告する。loopbackの一時runnerだけで使用し、provider自体を配布成果物へ含めない。
