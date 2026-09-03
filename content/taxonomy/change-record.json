@@ -1,24 +1,17 @@
 {
   "schemaVersion": "1.0.0",
   "changeType": "保守変更",
-  "previousTaxonomyVersion": "8.4.0",
-  "previousAliasVersion": "8.2.0",
-  "taxonomyVersion": "8.5.0",
+  "previousTaxonomyVersion": "9.0.0",
+  "previousAliasVersion": "8.3.0",
+  "taxonomyVersion": "9.1.0",
   "aliasVersion": "8.3.0",
-  "rulesVersion": "8.3.0",
+  "rulesVersion": "9.0.0",
   "affectedTagIds": [
-    "tag-works-gameTitle-c08b74e0b8b5",
-    "tag-works-gameTitle-70169990eb5e",
-    "tag-works-gameTitle-33efe2c34ae5",
-    "tag-works-gameTitle-47cf65a5d06b",
-    "tag-works-gameTitle-214c9ab266a6",
-    "tag-works-gameTitle-b4e549a68ce9",
-    "tag-works-gameTitle-cf251daa451f",
-    "tag-works-gameTitle-cae1ecaa4ea2",
-    "tag-works-gameTitle-49daec0c4459",
-    "tag-works-gameTitle-07f62a745ad4"
+    "tag-people-performer-40e26ebb77ca",
+    "tag-people-performer-a2703bb6b5d6",
+    "tag-people-performer-d4bf2e8b5d9a"
   ],
-  "affectedVideoCount": 11,
-  "migration": "公開タイトル・承認済みタイムスタンプ・公式作品情報を照合し、ゲームなのにゲームタグが不足していた58動画へ既存・新規の作品名とゲームジャンルを反映した。",
-  "reviewedAt": "2026-08-16T12:05:00+09:00"
+  "affectedVideoCount": 1,
+  "migration": "現行9.0.0の意味境界を維持したまま、YouTube公開情報と所属事務所プロフィールを照合し、大西沙織・武田羅梨沙多胡・長縄まりあの出演者タグと人物プロフィールを追加する。既存動画正本の8.6.0・8.7.0・8.8.0・9.0.0互換を保持する。",
+  "reviewedAt": "2026-09-03T22:07:08+09:00"
 }
