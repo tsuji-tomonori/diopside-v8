@@ -6,7 +6,8 @@ import { prettyJson, readJson } from './lib.ts';
 
 const requirementSchema = z.object({
   id: z.string().regex(/^V8-[A-Z]+-\d{3}$/u),
-  status: z.literal('active'),
+  status: z.enum(['active', 'retired']),
+  retirement_reason: z.string().min(1).optional(),
   title: z.string().min(1),
   source_refs: z.array(z.string()).min(1),
   acceptance_criteria: z.array(z.object({
@@ -123,7 +124,8 @@ const acceptedIncompleteById = new Map<string, (typeof acceptanceEvidence.accept
   acceptanceEvidence.acceptedIncompleteRequirements.map((item) => [item.requirementId, item]),
 );
 const ids = new Set<string>();
-const rows = catalog.requirements.map((requirement) => {
+const activeRequirements = catalog.requirements.filter((requirement) => requirement.status === 'active');
+const rows = activeRequirements.map((requirement) => {
   const findings: string[] = [];
   const source = sourceByCanonicalId.get(requirement.id);
   const ownerDirective = requirement.source_refs.find((reference) => reference.startsWith('spec/sources/owner-directive-'));
@@ -172,6 +174,8 @@ const output = {
   schemaVersion: '1.1.0',
   acceptancePassed: incomplete.length === 0 && externalGateFindings.length === 0,
   authorizationPassed: blockingIncomplete.length === 0 && externalGateFindings.length === 0,
+  catalogRequirementCount: catalog.requirements.length,
+  retiredRequirementCount: catalog.requirements.length - activeRequirements.length,
   requirementCount: rows.length,
   completedCount: rows.length - incomplete.length,
   incompleteCount: incomplete.length,
