@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "2738d37ab1cd54d949f3633e50fd19a5fc7f320b911db2ccc585cb46b04da533"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "61785e149d168b3b1d2a49b9259b3f654c00a7265f2e58b999627ffbedf6b96a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8505
     }
   ],
   "tagAssignments": [
@@ -327,5 +335,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が「ARK: Crystal Isles」で拠点整備や資源集め、恐竜の世話を進めます。増え続ける作業を整理し、探索と建築、装備づくりを並行しながら仲間と協力。試行錯誤の連続を楽しみつつ、島での生活を着実に広げる配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "今日はタスクが増えてない",
+      "atSeconds": 4321,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "61785e149d168b3b1d2a49b9259b3f654c00a7265f2e58b999627ffbedf6b96a",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T04:46:08.762497Z"
   }
 }
