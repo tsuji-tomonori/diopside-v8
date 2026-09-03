@@ -4,6 +4,7 @@ import hashlib
 import json
 import logging
 import subprocess
+import sys
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -14,13 +15,16 @@ from botocore.exceptions import ClientError
 
 from diopside_ingestion.contracts import initial_artifacts
 from diopside_ingestion.paths import current_manifest_key
+from diopside_ingestion.staging import StagedLocalProcessor, video_workspace
 from diopside_ingestion.state import ClaimResult
 from diopside_ingestion.worker import (
     IngestionWorker,
     RetryableWorkerError,
+    SubprocessRunner,
     WorkerConfig,
     normalized_caption,
     normalized_json3,
+    normalized_live_chat,
 )
 
 
@@ -41,7 +45,7 @@ class FakeRepository:
     def claim(self, video_id: str, claim_owner: str, lease_seconds: int) -> ClaimResult:
         raise AssertionError("not used by worker")
 
-    def mark_dispatch_failure(self, video_id: str, claim_owner: str, reason_code: str) -> None:
+    def mark_attempt_failure(self, video_id: str, claim_owner: str, reason_code: str) -> None:
         raise AssertionError("not used by worker")
 
     def load(self, video_id: str) -> Mapping[str, object] | None:
@@ -188,8 +192,91 @@ def _config(run_id: str = "run-1") -> WorkerConfig:
         claim_owner="message-1",
         bucket="private-bucket",
         table_name="VideoIngestion",
-        runtime_version="lambda-python3.12",
+        runtime_version="local-python3.12",
     )
+
+
+def test_staged_upload_uses_verified_workspace_without_redownloading(tmp_path: Path) -> None:
+    workspace = video_workspace(tmp_path, "dQw4w9WgXcQ")
+    StagedLocalProcessor("dQw4w9WgXcQ", workspace, FakeRunner()).acquire()
+    StagedLocalProcessor("dQw4w9WgXcQ", workspace, FakeRunner()).process()
+    repository = FakeRepository()
+    store = FakeStore()
+    upload_runner = FakeRunner()
+
+    IngestionWorker(
+        _config(),
+        repository,
+        store,
+        upload_runner,
+        staged_workspace=workspace,
+    ).run()
+
+    assert repository.completions[-1]["status"] == "succeeded"
+    assert any(key.endswith("/raw/info/info.json") for _, key in store.uploads)
+    assert any(key.endswith("/derived/asr-audio/asr-audio.flac") for _, key in store.uploads)
+    assert all(
+        command == ["yt-dlp", "--version"]
+        for command in upload_runner.calls
+        if command[0] == "yt-dlp"
+    )
+
+
+def test_subprocess_runner_enables_node_for_ytdlp(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    observed: list[list[str]] = []
+
+    def fake_run(command: Sequence[str], **_kwargs: object) -> subprocess.CompletedProcess[bytes]:
+        observed.append(list(command))
+        return subprocess.CompletedProcess(command, 0, b"2026.7.4\n", b"")
+
+    monkeypatch.setattr(subprocess, "run", fake_run)
+
+    SubprocessRunner().run(["yt-dlp", "--version"], cwd=tmp_path)
+
+    assert observed == [
+        [
+            sys.executable,
+            "-m",
+            "yt_dlp",
+            "--js-runtimes",
+            "node",
+            "--extractor-args",
+            "youtube:player_client=mweb",
+            "--version",
+        ]
+    ]
+
+
+def test_live_chat_normalization_drops_author_identifiers() -> None:
+    source = json.dumps(
+        {
+            "replayChatItemAction": {
+                "videoOffsetTimeMsec": "1250",
+                "actions": [
+                    {
+                        "addChatItemAction": {
+                            "item": {
+                                "liveChatTextMessageRenderer": {
+                                    "authorName": {"simpleText": "private-author"},
+                                    "authorExternalChannelId": "private-channel",
+                                    "message": {"runs": [{"text": "message"}]},
+                                }
+                            }
+                        }
+                    }
+                ],
+            }
+        }
+    )
+
+    normalized = normalized_live_chat(source)
+
+    assert normalized == '{"offset_seconds":1.25,"text":"message"}\n'
+    assert "private-author" not in normalized
+    assert "private-channel" not in normalized
 
 
 def test_worker_logs_allow_listed_metadata_failure_signals(
@@ -199,6 +286,9 @@ def test_worker_logs_allow_listed_metadata_failure_signals(
         b"[debug] yt-dlp version stable@2026.07.04\n"
         b"[debug] Python 3.12.11 (CPython x86_64)\n"
         b"[debug] JS runtimes: none\n"
+        b"[debug] [youtube] [pot] PO Token Providers: "
+        b"bgutil:http-1.3.2 (external), bgutil:script-node-1.3.2 (external), "
+        b"bgutil:script-deno-1.3.2 (external, unavailable)\n"
         b"[debug] Request Handlers: urllib, requests\n"
         b"WARNING: API response from https://example.test/api?token=top-secret\n"
         b"ERROR: Unable to download API page; Cookie: session-cookie-value\x00\n"
@@ -219,14 +309,46 @@ def test_worker_logs_allow_listed_metadata_failure_signals(
     assert "yt_dlp_version=stable@2026.07.04" in diagnostic
     assert "python_runtime=3.12.11" in diagnostic
     assert "js_runtimes=none" in diagnostic
+    assert "pot_providers=bgutil:http" in diagnostic
     assert "request_handlers=urllib,requests" in diagnostic
-    assert "signals=api_transport" in diagnostic
+    assert "playability_statuses=none" in diagnostic
+    assert "signals=js_runtime_missing,api_transport" in diagnostic
     assert "Unable to download API page" not in diagnostic
     assert "API response" not in diagnostic
     assert "https://example.test" not in diagnostic
     assert "top-secret" not in diagnostic
     assert "session-cookie-value" not in diagnostic
     assert "provider metadata must not be logged" not in diagnostic
+
+
+def test_worker_logs_age_authentication_separately_from_missing_js_runtime(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    stderr = (
+        b"[debug] JS runtimes: none\n"
+        b"[debug] [youtube] [pot] PO Token Providers: none\n"
+        b"[debug] JS Challenge Providers: node (unavailable)\n"
+        b"[debug] android_vr player response playability status: LOGIN_REQUIRED\n"
+        b"WARNING: This video is age-restricted\n"
+        b"ERROR: Sign in to confirm your age\n"
+    )
+    runner = FakeRunner(metadata_failure_stderr=stderr)
+    repository = FakeRepository()
+
+    with caplog.at_level(logging.WARNING):
+        IngestionWorker(_config(), repository, FakeStore(), runner).run()
+
+    diagnostic = caplog.text
+    assert repository.completions[0]["status"] == "unavailable"
+    assert "reason_code=age_restricted" in diagnostic
+    assert "js_runtimes=none" in diagnostic
+    assert "pot_providers=none" in diagnostic
+    assert "playability_statuses=LOGIN_REQUIRED" in diagnostic
+    assert (
+        "signals=js_runtime_missing,pot_provider_missing,age_restricted,"
+        "authentication_required" in diagnostic
+    )
+    assert "Sign in to confirm your age" not in diagnostic
 
 
 def test_worker_writes_private_run_and_current_manifests() -> None:
@@ -251,7 +373,7 @@ def test_worker_writes_private_run_and_current_manifests() -> None:
         "kind": "youtube_watch",
         "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     }
-    assert document["worker_runtime"] == "lambda-python3.12"
+    assert document["worker_runtime"] == "local-python3.12"
     assert isinstance(document["captured_at"], str)
     assert document["artifact_objects"]["metadata"][0] == {
         "bytes": len(

@@ -9,13 +9,20 @@
 
 決定的検査は公開禁止の項目名と秘密情報らしい値を拒否する。機械検査で安全性を断定せず、プルリクエストで人が公開差分を確認する。
 
+## カスタム絵文字集計
+
+- 公開チャットの一時取得物はGit管理外だけで処理し、本文、投稿者名、投稿者ID、チャンネルID、プロフィール情報を集計結果へ転記しない。
+- 元のカスタム絵文字IDはそのまま保存せず、公開正本にはSHA-256由来の匿名ID、公開ショートコード、回数、総数、入力指紋、規則版、更新日時だけを許可する。
+- 公開画面の比率は匿名集計の項目別回数を総使用回数で割ってブラウザ内で算出し、外部解析サービスへ送らない。
+- 集計確認後は一時取得物を破棄する。再集計が必要な場合は、人の明示要求に基づいて公開チャットを改めて一時取得する。
+
 ## private material backfill
 
-- 外部SQS入力は `{ "video_id": "11 chars" }` だけを受け、未知field、cookie、認証、proxy、login、bot回避を受け入れない。
-- workerはknown video IDの固定manifestだけを処理する。scheduleや将来動画の自動発見はしない。
+- ローカルCLI入力は11文字のvideo IDまたは検証済み不変manifestだけを受け、cookie、認証、proxy、login、bot回避を受け入れない。
+- workerは運用者がローカルPCで明示したvideo IDだけを処理し、対象private S3・DynamoDBへ直接書き込む。GitHub Actions、SQS、Lambda、schedule、将来動画の自動発見で取得を起動しない。
 - yt-dlp、ffmpeg、取得元の応答本文は診断ログへ残さない。分類済みreason codeと再試行可否だけを残す。
 - S3 keyは `channel_id/video_id/runs/run_id/` とcurrent `manifest.json` に限定し、current objectを30日TTLにしない。AWS deploy、素材投入、削除、公開は明示承認なしに実行しない。
 - legacy local importでは生コメント・生チャットをprivate raw objectに限定し、normalized JSONLから投稿者名、channel ID、avatar、profile URLを除去する。ASR混在文字起こしをYouTube自動字幕へ偽装せず、由来をprivate manifestへ残す。
-- private S3はbucket defaultのSSE-S3、DynamoDBはAWS所有鍵、SQSはSSE-SQS、CloudWatch Logsはservice defaultで保存時暗号化する。customer-managed KMS keyは作成せず、local import実行者へは対象S3・tableの必要操作だけを許可し、CLI出力とログへ本文、識別子、AWS資格情報を出さない。
-- GitHub Actionsの基盤deployは長期AWS access keyを保存せず、protected environmentを含む完全一致OIDC subjectの短期sessionだけを使う。受けロールは同一account・regionのCDK bootstrap deploy、file-publishing、lookup roleだけを引き受け、素材取得、S3投入、SQS enqueue、削除、公開の直接権限を持たない。
+- private S3はbucket defaultのSSE-S3、DynamoDBはAWS所有鍵で保存時暗号化する。customer-managed KMS keyは作成せず、ローカル実行者へは対象S3・tableの必要操作だけを許可する。CLI出力とログは明示video ID、run ID、安全な状態codeに限定し、取得本文、投稿者等の識別情報、AWS資格情報を出さない。
+- GitHub Actionsの保存基盤deployは長期AWS access keyを保存せず、owner ID・repository ID・protected environmentを含むimmutableな完全一致OIDC subjectと共有infra roleを使う。共有roleとinline session policyはTargetDeploymentRegionのCDK bootstrap deploy、file-publishing、lookup roleの引受けだけを許可し、S3、DynamoDB、SQS、Lambdaのdata-plane操作を許可しない。
 - repository方針検査はGit管理外の `.devflow/` 一時素材を走査せず、公開またはcommitされる対象の検査と一時private evidenceの取扱いを分離する。

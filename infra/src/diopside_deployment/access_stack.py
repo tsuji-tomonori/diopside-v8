@@ -1,4 +1,4 @@
-"""GitHub Actions OIDC access for deploying the private ingestion stack."""
+"""GitHub Actions OIDC access for storage infrastructure deployment."""
 # pyright: reportArgumentType=false
 
 from __future__ import annotations
@@ -19,7 +19,7 @@ _BOOTSTRAP_QUALIFIER = "hnb659fds"
 
 
 class GitHubDeploymentAccessStack(Stack):
-    """Allow one protected GitHub environment to assume the required CDK roles."""
+    """Allow one exact protected GitHub environment to run infrastructure operations."""
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs: Any) -> None:
         super().__init__(scope, construct_id, **kwargs)
@@ -55,7 +55,7 @@ class GitHubDeploymentAccessStack(Stack):
             self,
             "GitHubActionsDeployRole",
             role_name="diopside-github-actions-deploy",
-            description="Receives short-lived OIDC sessions for the private backfill CDK deploy",
+            description="Receives short-lived OIDC sessions for private storage deployment",
             assumed_by=iam.FederatedPrincipal(
                 federated=provider_arn,
                 conditions={
@@ -83,7 +83,6 @@ class GitHubDeploymentAccessStack(Stack):
                 resources=bootstrap_role_arns,
             )
         )
-
         CfnOutput(
             self,
             "GitHubActionsDeployRoleArn",

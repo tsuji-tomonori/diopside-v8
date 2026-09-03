@@ -15,8 +15,10 @@ if TYPE_CHECKING:
 class FakeDynamoClient:
     update_response: dict[str, object] = field(default_factory=lambda: dict[str, object]())
     get_response: dict[str, object] = field(default_factory=lambda: dict[str, object]())
+    updates: list[dict[str, object]] = field(default_factory=lambda: [])
 
-    def update_item(self, **_kwargs: object) -> dict[str, object]:
+    def update_item(self, **kwargs: object) -> dict[str, object]:
+        self.updates.append(dict(kwargs))
         return self.update_response
 
     def get_item(self, **_kwargs: object) -> dict[str, object]:
@@ -81,3 +83,21 @@ def test_load_rejects_non_integral_dynamodb_numbers() -> None:
 
     with pytest.raises(RuntimeError, match="non-integral"):
         repository(client).load("dQw4w9WgXcQ")
+
+
+def test_checkpoint_renews_the_local_claim_lease(monkeypatch: pytest.MonkeyPatch) -> None:
+    client = FakeDynamoClient()
+    monkeypatch.setattr("diopside_ingestion.state.time", lambda: 1_000)
+
+    repository(client).checkpoint(
+        "dQw4w9WgXcQ",
+        "local-owner",
+        artifacts={},
+        current_stage="metadata",
+        claim_lease_seconds=300,
+    )
+
+    update = client.updates[0]
+    assert "#claim_expires_at = :claim_expires_at" in str(update["UpdateExpression"])
+    values = cast(dict[str, object], update["ExpressionAttributeValues"])
+    assert values[":claim_expires_at"] == {"N": "1300"}

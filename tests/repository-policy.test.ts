@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
@@ -98,11 +98,23 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).toMatch(/test "\$AWS_REGION" = 'ap-northeast-1'/u);
     expect(workflow).toMatch(/role\/diopside-github-actions-deploy/u);
     expect(workflow).toMatch(/aws-actions\/configure-aws-credentials@[0-9a-f]{40}/u);
+    expect(workflow).toMatch(/inline-session-policy:[\s\S]*sts:AssumeRole[\s\S]*cdk-hnb659fds-deploy-role/u);
     expect(workflow).toMatch(/npm run verify:ingestion/u);
     expect(workflow).toMatch(/cdk deploy DiopsideIngestionStack/u);
     expect(workflow).toMatch(/--exclusively --ci --require-approval never/u);
     expect(workflow).not.toMatch(/(?:pull_request:|push:|schedule:|cron:|openai|codex|chatgpt)/iu);
     expect(workflow).not.toMatch(/(?:diopside-backfill|enqueue|legacy-local-import|aws s3)/iu);
+    expect(workflow).not.toMatch(/sqs:SendMessage/u);
+  });
+
+  it('1動画の素材取得はGitHub Actionsで起動せずローカルCLIに限定する', () => {
+    expect(existsSync(path.join(root, '.github/workflows/enqueue-ingestion-video.yml'))).toBe(false);
+    const cli = text('infra/src/diopside_ingestion/cli.py');
+    expect(cli).toMatch(/"ingest"/u);
+    expect(cli).toMatch(/--video-id/u);
+    expect(cli).toMatch(/--bucket/u);
+    expect(cli).toMatch(/--table/u);
+    expect(cli).not.toMatch(/send_message|sqs/u);
   });
 
   it('Pagesは公開リポジトリのmain/docs・許可済み独自ドメイン・branch方式だけを宣言する', () => {
@@ -150,8 +162,8 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     ]));
     expect(policy.stopCondition).toContain('停止');
     expect(policy.stopCondition).toContain('人へ判断');
-    expect(policy.historicalPrivateBackfill.permittedServices).toEqual(expect.arrayContaining(['AWS Lambda', 'AWS S3']));
-    expect(policy.historicalPrivateBackfill.permittedServices).not.toEqual(expect.arrayContaining(['AWS Batch Fargate', 'AWS ECR', 'AWS VPC']));
+    expect(policy.historicalPrivateBackfill.permittedServices).toEqual(['AWS S3', 'AWS DynamoDB']);
+    expect(policy.historicalPrivateBackfill.permittedServices).not.toEqual(expect.arrayContaining(['AWS SQS FIFO', 'AWS Lambda', 'AWS CloudWatch Logs', 'AWS Batch Fargate', 'AWS ECR', 'AWS VPC']));
     expect(policy.historicalPrivateBackfill.publicBoundary).toContain('infra/');
     expect(policy.historicalPrivateBackfill.schedule).toContain('禁止');
   });

@@ -1,17 +1,17 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 23
-- 更新日: 2026-08-28
+- カタログ版: 30
+- 更新日: 2026-09-01
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
 |---|---:|---|---|---|---|
-| `V8-COST-001` | 2 | 有効 | 運用 | diopside v8の費用は、公開閲覧、検索、生成、配信に起因する請求額は、既存のChatGPT／Codex契約を除いて毎月0円でなければならない。を**satisfy** | 月次請求確認 |
+| `V8-COST-001` | 3 | 有効 | 運用 | diopside v8の費用は、公開閲覧、検索、生成、配信に起因する請求額は、既存のChatGPT／Codex契約を除いて毎月0円でなければならない。を**satisfy** | 月次請求確認 |
 | `V8-COST-002` | 2 | 有効 | 運用 | diopside v8の費用は、公開基盤は、公開リポジトリで利用できるGitHub Pagesの `main/docs` branch方式と、Pages設定および `docs/CNAME` で同じ値を明示した独自ドメインだけに限定しなければならない。追加の公開実行時サービスまたは有料のGitHubプランを必要としてはならない。を**satisfy** | リポジトリ・Pages設定・CNAME整合性確認 |
-| `V8-COST-003` | 4 | 有効 | 運用 | diopside v8の費用は、AWSその他の有料クラウド資源を公開面の閲覧、検索、生成、配信に使用してはならず、既知動画だけの有限private backfillは承認された隔離基盤だけに限定しなければならない。を**satisfy** | 構成確認 |
-| `V8-COST-004` | 2 | 有効 | 運用 | diopside v8の費用は、公開面は有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならず、private backfillの状態保存と監視は公開面から分離しなければならない。を**satisfy** | 依存関係・通信確認 |
-| `V8-COST-005` | 2 | 有効 | 運用 | diopside v8の費用は、公開面の外部サービスの料金または無償条件が変わり請求が発生し得る場合は、課金して継続せず該当公開処理を停止しなければならず、private backfillの費用は自動停止ではなく人の開始判断に委ねなければならない。を**satisfy** | 運用手順確認 |
+| `V8-COST-003` | 5 | 有効 | 運用 | diopside v8の費用は、AWSその他の有料クラウド資源を公開面の閲覧、検索、生成、配信に使用してはならず、既知動画だけの有限private backfillは承認された隔離基盤だけに限定しなければならない。を**satisfy** | 構成確認 |
+| `V8-COST-004` | 3 | 有効 | 運用 | diopside v8の費用は、公開面は有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならず、private backfillの状態と素材保存は公開面から分離しなければならない。を**satisfy** | 依存関係・通信確認 |
+| `V8-COST-005` | 4 | 有効 | 運用 | diopside v8の費用は、公開面の外部サービスの料金または無償条件が変わり請求が発生し得る場合は、課金して継続せず該当公開処理を停止しなければならず、private backfillの費用は自動停止ではなく人の開始判断に委ねなければならない。を**satisfy** | 運用手順確認 |
 | `V8-DEVICE-001` | 1 | 有効 | 機能 | diopside v8の端末は、閲覧履歴はブラウザ内データベースへ保存しなければならない。を**satisfy** | ブラウザ試験 |
 | `V8-DEVICE-002` | 1 | 有効 | 機能 | diopside v8の端末は、お気に入りはブラウザ内データベースへ保存しなければならない。を**satisfy** | ブラウザ試験 |
 | `V8-DEVICE-003` | 1 | 有効 | 機能 | diopside v8の端末は、最近の検索語と絞り込み条件はブラウザ内データベースへ保存しなければならない。を**satisfy** | ブラウザ試験 |
@@ -39,22 +39,29 @@
 | `V8-DISPLAY-014` | 1 | 有効 | 機能 | diopside v8の定期・連続企画名タグとシリーズページは、動画詳細の定期・連続企画名タグは押下可能でなければならず、不変タグIDをURLに持つ一覧ページへ移動して、そのタグを持つ公開動画だけを公開日の新しい順で表示しなければならない。を**satisfy** | 正本タグ網羅試験、定期・連続企画名タグ遷移単体・E2E、一覧内容・順序・アクセシビリティ試験 |
 | `V8-DISPLAY-015` | 1 | 有効 | 機能 | diopside v8の歌唱楽曲一覧と導線は、主または副ジャンル「歌」を押すと歌唱楽曲一覧へ移動しなければならない。一覧は楽曲名、原曲アーティスト、確認済みの原曲リンク、歌唱種別、対象動画、公開日を表示する。配信内歌唱と鼻歌は対象開始秒、単曲動画は動画先頭を開き、楽曲タグのURLで曲別表示できなければならない。を**satisfy** | 楽曲一覧表示、ジャンル・楽曲タグ遷移、原曲リンク、YouTube開始秒、外部自動通信禁止試験 |
 | `V8-DISPLAY-016` | 2 | 有効 | 機能 | diopside v8のゲームジャンル・作品・配信導線は、ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示しなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。を**satisfy** | ジャンル件数・作品除外・ジャンル遷移・作品遷移・配信一覧・アクセシビリティE2E |
-| `V8-INGEST-001` | 1 | 有効 | インターフェース | diopside v8のprivate ingestion要求は、外部ingestion要求は11文字のYouTube video_idだけを含み、未知fieldまたは内部状態を含んではならない。を**強制する** | 契約単体試験 |
-| `V8-INGEST-002` | 2 | 有効 | データ | diopside v8のprivate backfill対象は、歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。を**強制する** | manifest生成・改ざん・enqueue試験 |
-| `V8-INGEST-003` | 1 | 有効 | データ | diopside v8のprivate ingestion状態は、進捗状態はVideoIngestion単一DynamoDB tableのvideo_id partition keyだけを使う一動画一itemで保持し、sort key、GSI、用途別item typeを追加してはならない。を**強制する** | CDK template・状態repository試験 |
-| `V8-INGEST-004` | 2 | 有効 | 機能 | diopside v8のprivate ingestion実行は、SQS FIFOから起動する実処理Lambdaは条件付きclaim、checkpoint、partial batch failure、request DLQを使い、同じvideo_idを重複実行せず、15分以内に完了しない処理をエラーとして再試行可能にしなければならない。を**強制する** | 重複claim・Lambda timeout・SQS retry・DLQ境界試験 |
+| `V8-DISPLAY-017` | 1 | 有効 | データ | diopside v8のカスタム絵文字集計は、公開チャットリプレイを取得できる動画は、通常のUnicode絵文字を除外し、全編に現れるカスタム絵文字の出現回数を種類別に集計しなければならない。項目別回数の合計は総使用回数と一致しなければならない。を**satisfy** | 全件集計・Unicode除外・合計整合試験 |
+| `V8-DISPLAY-018` | 1 | 有効 | 機能 | diopside v8のカスタム絵文字表示は、カスタム絵文字を集計済みの動画詳細は、全種類を省略せず、使用回数の降順でショートコード、正確な回数、カスタム絵文字総使用回数に占める比率を比較できるチャートとして表示しなければならない。を**satisfy** | 動画詳細画面・全項目件数・アクセシビリティ試験 |
+| `V8-DISPLAY-019` | 1 | 有効 | 機能 | diopside v8のエンティティ探索画面は、人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。を**satisfy** | 一覧絞り込み・関係表示・検索候補・動画詳細導線試験 |
+| `V8-INGEST-001` | 3 | 有効 | インターフェース | diopside v8のローカルprivate ingestion要求は、運用者が指定するingestion要求は11文字のYouTube video_id一項目だけを含み、認証情報または内部状態を含んではならない。を**強制する** | 契約・CLI単体試験 |
+| `V8-INGEST-002` | 4 | 有効 | データ | diopside v8のprivate backfill対象は、複数動画の歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。を**強制する** | manifest生成・改ざん・ローカル実行試験 |
+| `V8-INGEST-003` | 2 | 有効 | データ | diopside v8のprivate ingestion状態は、進捗状態はVideoIngestion単一DynamoDB tableのvideo_id partition keyだけを使う一動画一itemで保持し、sort key、GSI、用途別item typeを追加してはならない。を**強制する** | CDK template・状態repository・ローカル統合試験 |
+| `V8-INGEST-004` | 3 | 有効 | 機能 | diopside v8のローカルprivate ingestion実行は、ローカルrunnerは同一video_idの条件付きclaim、checkpoint時のlease延長、安全なreason code、有限attemptを使い、重複処理を避けて確定済み工程から再開しなければならない。を**強制する** | claim重複・lease延長・有限retry・checkpoint再開試験 |
 | `V8-INGEST-005` | 1 | 有効 | データ | diopside v8のprivate artifact状態は、各artifactはsource_check、download、normalize、upload、verifyの状態と不存在、無効、制限、技術失敗、依存失敗、次actionを分離して保持しなければならない。を**強制する** | 状態遷移・分類・worker checkpoint試験 |
 | `V8-INGEST-006` | 1 | 有効 | データ | diopside v8のprivate artifact保存は、private S3はchannel_id、video_id、run_idで分離した不変run成果物とvideoごとのcurrent manifestを保持し、current manifestへ30日TTLを設定してはならない。を**強制する** | S3 key・CDK lifecycle・worker manifest試験 |
-| `V8-INGEST-007` | 2 | 有効 | 機能 | diopside v8のprivate material workerは、実処理Lambdaはlockされたyt-dlpとffmpegでmetadata、description、thumbnail、subtitles、automatic captions、chat、comments、native audio、ASR derived audioを独立して取得または分類しなければならない。を**強制する** | worker pipeline・正規化・失敗回復試験 |
-| `V8-INGEST-008` | 1 | 有効 | 制約 | diopside v8のprivate material取得安全は、workerはcookie、login、認証情報、proxy、bot回避、非公開素材取得を使用してはならず、制限を安全な終端分類として扱わなければならない。を**強制する** | 制限分類・設定監査試験 |
-| `V8-INGEST-009` | 4 | 有効 | 運用 | diopside v8のprivate backfill運用は、private backfillは運用者が固定manifestと対象選択を明示して開始する有限作業であり、AWS基盤deployはmainのprotected environmentから人が開始し、通常取得とlegacy local importのenqueue、upload、削除、公開、mergeを自動実行してはならない。を**強制する** | workflow静的確認・IAM template試験・operator command試験 |
+| `V8-INGEST-007` | 3 | 有効 | 機能 | diopside v8のローカルprivate material workerは、ローカルworkerはlockされたyt-dlpとffmpegでmetadata、description、thumbnail、subtitles、automatic captions、chat、comments、native audio、ASR derived audioを独立して取得または分類しなければならない。を**強制する** | worker pipeline・正規化・失敗回復試験 |
+| `V8-INGEST-008` | 2 | 有効 | 制約 | diopside v8のprivate material取得安全は、workerはcookie、login、認証情報、proxy、bot回避、非公開素材取得を使用してはならず、制限を安全な終端分類として扱わなければならない。を**強制する** | 制限分類・設定監査試験 |
+| `V8-INGEST-009` | 6 | 有効 | 運用 | diopside v8のprivate backfill運用は、private backfillは運用者がローカルPCで固定manifestまたは1件のvideo_idを明示して開始する有限作業とし、保存基盤deploy、素材取得、削除、公開、mergeを自動実行してはならない。を**強制する** | workflow静的確認・IAM template試験・operator command試験 |
 | `V8-INGEST-010` | 1 | 有効 | 運用 | diopside v8のprivate backfill報告は、backfill完了報告は固定target manifestの各video_idに対する成功、部分成功、利用不能、未完了、artifact件数、reason codeを安全に集計し私有S3へ保存しなければならない。を**強制する** | report集計・S3 key試験 |
-| `V8-INGEST-011` | 3 | 有効 | 制約 | diopside v8のprivate backfill基盤は、private backfill基盤はservice標準の保存時暗号化、TLS強制、public block、KMS権限を含まない最小権限IAM、Lambda 15分上限、lock済み依存、Ruff、strict型検査、pytest、CDK synth、cdk-nagを適用し、customer-managed KMS key、AWS Batch、Fargate、ECR、専用VPCを構成してはならない。を**強制する** | CDK synth・cdk-nag・静的解析・unit test |
+| `V8-INGEST-011` | 4 | 有効 | 制約 | diopside v8のprivate backfill基盤は、private backfill基盤はservice標準の保存時暗号化、TLS強制、public blockを持つprivate S3と、AWS所有鍵で暗号化しPITRを有効にしたDynamoDBだけを配置し、AWS上の取得・retry実行資源を構成してはならない。を**強制する** | CDK synth・cdk-nag・静的解析・unit・AWS protocol統合試験 |
 | `V8-INGEST-012` | 1 | 有効 | 運用 | diopside v8のlegacy local importは、全編coverage検証済み1,598動画だけをchecksum付きmanifestへ固定し、provider再取得を行わず、rawと匿名化normalized copyを分離し、S3再読検証後にrun manifest、current manifest、DynamoDBのpartial終端状態を確定しなければならない。を**強制する** | legacy manifest・改ざん・匿名化・S3再読・DynamoDB終端試験 |
-| `V8-INGEST-013` | 1 | 有効 | 制約 | diopside v8のprivate backfill基盤deployは、GitHub ActionsからのCDK deployはprotected environmentで承認されたmainの手動実行が完全一致OIDC subjectの短期sessionを使用し、同一accountとregionの必要なCDK bootstrap roleだけを引き受ける経路に限定しなければならない。を**強制する** | IAM CloudFormation template assertion・workflow静的試験・CDK synth・cdk-nag |
+| `V8-INGEST-013` | 4 | 有効 | 制約 | diopside v8のprivate backfill基盤deployは、GitHub ActionsからのCDK deployはprivate-backfill-infra environmentで承認されたmainの手動実行が共有infra roleのimmutableな完全一致OIDC短期sessionを使用し、inline session policyでTargetDeploymentRegionの必要なCDK bootstrap roleだけを引き受ける経路に限定しなければならない。を**強制する** | IAM CloudFormation template assertion・workflow静的試験・CDK synth・cdk-nag |
+| `V8-INGEST-014` | 4 | 廃止 | 運用 | diopside v8のGitHub Actionsによる1動画投入は、mainの手動実行で承認された1件のvideo_idだけを、基盤deployと共通のprotected environmentおよび共有infra roleから、TargetDeploymentRegionの対象FIFOへのSendMessage専用sessionで投入しなければならない。を**強制する** | IAM template試験・workflow静的確認 |
+| `V8-INGEST-015` | 1 | 有効 | 機能 | diopside v8のローカルprivate material段階処理は、ローカルprivate material処理は一次情報取得、加工、S3/DynamoDB uploadの3段階をchecksum付きmanifest境界で分離し、upload段階だけがAWSへ接続しなければならない。を**強制する** | 段階分離・checksum改竄検出・AWS接続境界・upload再利用試験 |
+| `V8-INGEST-016` | 1 | 有効 | 運用 | diopside v8のローカルprivate material workspaceは、ローカルCLIは運用者がprivate work rootと取得・加工・uploadの実行段階を選択し、動画単位のworkspaceを保持または全段階完走後に破棄できなければならない。を**強制する** | work root・stage選択・部分実行前提・再開試験 |
+| `V8-INGEST-017` | 1 | 有効 | 運用 | diopside v8のローカルprivate material実行traceは、ローカル段階処理は永続private video workspaceへ安全な現在状態と追記型の実行履歴を保存し、作業後も完了段階、次段階、結果の根拠を追跡可能にしなければならない。を**維持する** | 現在状態・追記履歴・manifest回復・秘密値非保持・CLI統合試験 |
 | `V8-OPS-001` | 2 | 有効 | 運用 | diopside v8の運用は、タイムスタンプ一括処理は、運用者による1回の明示的なChatGPT／Codex要求で指定された識別子または有限の選定条件から、今回処理する適格動画の有限集合を開始時に固定しなければならない。固定後は、動画ごとの追加チャット承認を開始条件としてはならない。を**satisfy** | 一括処理の開始境界・対象集合固定・状態遷移試験 |
 | `V8-OPS-002` | 1 | 有効 | 運用 | diopside v8の運用は、GitHub ActionsからChatGPT／Codexを呼び出してはならない。を**satisfy** | リポジトリ静的確認 |
-| `V8-OPS-003` | 4 | 有効 | 運用 | diopside v8の運用は、動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない。を**satisfy** | リポジトリ静的確認・手順試験 |
+| `V8-OPS-003` | 6 | 有効 | 運用 | diopside v8の運用は、動画確認、候補生成、検証、静的成果物生成、公開準備を行う独自の定期GitHub Actionsを持ってはならない。を**satisfy** | リポジトリ静的確認・手順試験 |
 | `V8-OPS-004` | 1 | 有効 | 運用 | diopside v8の運用は、ChatGPT／Codexの利用は、運用者が契約済みの画面上の利用範囲に限定しなければならない。を**satisfy** | 構成確認・秘密情報確認 |
 | `V8-OPS-005` | 3 | 有効 | 運用 | diopside v8の運用は、1回の明示要求で固定した有限の適格タイムスタンプ対象集合は、各動画が1動画だけを対象とするdraft PRの作成・最終commitのpush・台帳反映確認を完了した状態、または根拠を示した処理不能状態のいずれかへ到達するまで処理しなければならない。ある動画の失敗を理由に、集合内の未処理動画を停止してはならない。を**satisfy** | 対象集合の固定データ・一括処理の終端・失敗分離試験 |
 | `V8-OPS-006` | 1 | 有効 | 運用 | diopside v8の運用は、対象候補が0件の場合は、生成物、ブランチ、プルリクエストを作成してはならない。を**satisfy** | 否定試験 |
@@ -106,16 +113,16 @@
 | `V8-SEARCH-017` | 1 | 有効 | 機能 | diopside v8の検索は、空の検索、結果0件、条件解除をそれぞれ区別して表示しなければならない。を**satisfy** | 画面試験 |
 | `V8-SEARCH-018` | 1 | 有効 | 品質 | diopside v8の検索は、2,500動画の標準データでは、検索・絞り込み開始から結果更新までを100ミリ秒以内に完了しなければならない。を**satisfy** | ブラウザ性能試験 |
 | `V8-SEARCH-019` | 1 | 有効 | 品質 | diopside v8の検索は、あいまい検索の品質を、版管理した日本語の固定評価データで検証しなければならない。を**satisfy** | 検索品質試験 |
-| `V8-SEARCH-020` | 1 | 有効 | 機能 | diopside v8の検索候補は、検索欄は一文字以上の入力中に、承認済み動画タイトルと登録済みタグ名の一致候補を種類が分かる形で提示しなければならない。動画候補の選択は動画詳細へ移動し、タグ候補の選択は不変タグIDを絞り込み条件へ適用して動画一覧を更新しなければならない。を**satisfy** | 候補生成単体試験・IME・キーボード・ポインター画面試験 |
+| `V8-SEARCH-020` | 2 | 有効 | 機能 | diopside v8の検索候補は、検索欄は一文字以上の入力中に、承認済み動画タイトル、分類値、人物・作品・企画等のエンティティ名の一致候補を種類が分かる形で提示しなければならない。動画候補は動画詳細へ、分類候補は不変タグIDの絞り込みへ、エンティティ候補は不変エンティティIDの詳細へ移動しなければならない。を**satisfy** | 候補生成単体試験・IME・キーボード・ポインター画面試験 |
 | `V8-SEARCH-021` | 1 | 有効 | 機能 | diopside v8の検索読みは、漢字またはカタカナを含む承認済み動画タイトルと登録済みタグ名は、表示文字列を変えずに検索専用のひらがな読みを持ち、ひらがなの入力が一文字増えるたびに候補を更新しなければならない。読みの生成と候補照合は静的生成物とブラウザ内処理だけで完結しなければならない。を**satisfy** | 読み生成単体試験・一文字ごとの候補更新・IME・外部通信禁止画面試験 |
 | `V8-SEARCH-022` | 1 | 有効 | 品質 | diopside v8の動画長Sliderは、動画長Sliderの連続入力中と最後の入力から100ミリ秒未満は、つまみと現在値だけを即時更新し、動画長に応じたタグ候補・件数と画面の縦方向の長さを変更してはならない。最後の入力から約100ミリ秒後に、最新の動画長を使ってタグ候補と件数を一度だけ更新しなければならない。を**satisfy** | Slider連続入力中のタグ候補数・画面高固定と停止100ミリ秒後の更新試験 |
 | `V8-TAG-001` | 1 | 有効 | データ | diopside v8のタグは、承認済み動画のタグは、版管理したタグ体系に基づかなければならない。を**satisfy** | 構造試験・追跡性確認 |
-| `V8-TAG-002` | 1 | 有効 | データ | diopside v8のタグは、タグは大分類、小分類、タグの3層で管理し、表示名だけの平坦な配列を正本にしてはならない。を**satisfy** | 構造試験 |
+| `V8-TAG-002` | 2 | 有効 | データ | diopside v8のタグは、検索条件として使う分類値は大分類・小分類・値の3層で管理しなければならない。人物、グループ、チャンネル、ゲーム、イベント、シリーズ、楽曲、作品、アーティストは独立したエンティティとしてIDで管理し、分類値の平坦な文字列配列を正本にしてはならない。を**satisfy** | 分類値・エンティティ意味境界の構造試験 |
 | `V8-TAG-003` | 1 | 有効 | データ | diopside v8のタグは、各正規タグは表示名と独立した不変タグ識別子を持たなければならない。を**satisfy** | 移行試験 |
-| `V8-TAG-004` | 1 | 有効 | データ | diopside v8のタグは、同じ表示名でも小分類または意味が異なるタグは別の不変識別子として扱わなければならない。を**satisfy** | 同名異義試験 |
+| `V8-TAG-004` | 2 | 有効 | データ | diopside v8のタグは、同じ表示名でも分類上の意味が異なる値は別の不変タグIDとして扱わなければならない。一方、同じ人物または作品が出演・言及等の異なる役割へ現れる場合は同じエンティティIDへ解決し、役割を関係種別として保持しなければならない。を**satisfy** | 同名異義分類・同一エンティティ統合試験 |
 | `V8-TAG-005` | 1 | 有効 | データ | diopside v8のタグは、承認済みの全動画は主ジャンルをちょうど1件持たなければならない。を**satisfy** | 基数試験 |
 | `V8-TAG-006` | 1 | 有効 | データ | diopside v8のタグは、承認済みの全動画は動画形式をちょうど1件持たなければならない。を**satisfy** | 基数試験 |
-| `V8-TAG-007` | 1 | 有効 | データ | diopside v8のタグは、承認済みの全動画は公開チャンネルをちょうど1件持たなければならない。を**satisfy** | 基数試験・人手確認 |
+| `V8-TAG-007` | 2 | 有効 | データ | diopside v8のタグは、承認済みの全動画は配信元チャンネルをちょうど1件持たなければならない。チャンネルは独立エンティティとし、対応する人物とはrepresents関係で結び、出演者、人物の所属または公式チャンネルと混同してはならない。を**satisfy** | チャンネル基数・人物分離・関係解決試験 |
 | `V8-TAG-008` | 1 | 有効 | データ | diopside v8のタグは、主ジャンル、動画形式、公開チャンネル以外は、タグ体系に定めた基数の範囲で異なる検索軸のタグを複数付与できなければならない。を**satisfy** | 基数・組合せ試験 |
 | `V8-TAG-009` | 1 | 有効 | データ | diopside v8のタグは、ゲームを主または副ジャンルに持つ動画は、ゲーム作品名を1件以上、ゲームジャンルを1件以上3件以下持たなければならない。を**satisfy** | 条件付き必須試験 |
 | `V8-TAG-010` | 1 | 有効 | データ | diopside v8のタグは、雑談を主または副ジャンルに持つ動画は、雑談種別を1件以上3件以下持たなければならない。を**satisfy** | 条件付き必須試験 |
@@ -123,7 +130,7 @@
 | `V8-TAG-012` | 1 | 有効 | データ | diopside v8のタグは、朗読・声劇を主ジャンルに持つ動画は、朗読・声劇種別を1件持たなければならない。を**satisfy** | 条件付き必須試験 |
 | `V8-TAG-013` | 2 | 有効 | データ | diopside v8のタグは、コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸は配信主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。を**satisfy** | 人物タグ正本・表示名・役割別コラボ相手選別試験 |
 | `V8-TAG-014` | 1 | 有効 | データ | diopside v8のタグは、ユニット・チームタグを持つ動画は「コラボ」と実際に出演した構成員を持ち、欠席者や対戦相手を自動追加してはならない。を**satisfy** | 固定例試験・人手確認 |
-| `V8-TAG-015` | 1 | 有効 | データ | diopside v8のタグは、実出演者と、配信中に名前を話題にしただけの言及人物を分離しなければならない。を**satisfy** | 排他試験 |
+| `V8-TAG-015` | 2 | 有効 | データ | diopside v8のタグは、実出演者と配信中に名前を話題にした人物は、それぞれfeaturesとmentionsの動画関係として分離しなければならない。同じ人物が両方の役割へ現れても人物マスターを複製せず、同じ人物エンティティIDへ解決しなければならない。言及だけでコラボを付与してはならない。を**satisfy** | 人物同一性・役割分離・コラボ非導出試験 |
 | `V8-TAG-016` | 1 | 有効 | データ | diopside v8のタグは、一つのタグには一つの検索対象または一つの分類事実だけを保存し、複数人物や独立概念を連結したタグは分解しなければならない。を**satisfy** | 分解規則試験 |
 | `V8-TAG-017` | 1 | 有効 | データ | diopside v8のタグは、タグ照合はUnicode互換正規化、前後空白除去、連続空白の統合、英字大小の同一視、先頭ハッシュ記号の同一視を定義順で行わなければならない。を**satisfy** | 正規化境界値試験 |
 | `V8-TAG-018` | 1 | 有効 | データ | diopside v8のタグは、登録済み別名は完全一致で正規タグへ解決し、公開データと画面には正規タグだけを表示しなければならない。を**satisfy** | 別名契約試験 |
@@ -145,10 +152,14 @@
 | `V8-TAG-034` | 1 | 有効 | データ | diopside v8のタグは、タグ表示名は公式な日本語名がある場合は日本語を用い、公式固有名詞と一般に定着した略称は出典表記を保たなければならない。を**satisfy** | 文言一覧・人手確認 |
 | `V8-TAG-035` | 1 | 有効 | データ | diopside v8のタグは、人物・グループ分類を除くタグが1動画あたり12件を超える候補は、過剰付与の確認待ちにしなければならない。を**satisfy** | 基数集計・人手確認 |
 | `V8-TAG-036` | 1 | 有効 | データ | diopside v8の定期・連続企画タグは、公開タイトルまたは承認済み既存タグから定期・連続企画名を直接確認できる動画は当該定期・連続企画名タグを持ち、名称中の「杯」等の部分一致だけでイベント・大会名へ重複分類してはならない。を**satisfy** | 正本全件タグ網羅・重複分類試験、旧タグ再生成回帰試験 |
-| `V8-TAG-037` | 1 | 有効 | 機能 | diopside v8の歌唱実績と楽曲タグは、楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲タグを持たなければならない。楽曲タグは動画の主・副ジャンルが「歌」であるかに依存せず、公開一覧・検索索引・タグ索引・動画詳細のすべてに一貫して反映しなければならない。を**satisfy** | 歌唱正本構造、非歌ジャンル鼻歌、公開索引の楽曲タグ反映試験 |
+| `V8-TAG-037` | 2 | 有効 | 機能 | diopside v8の歌唱実績と楽曲タグは、楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲エンティティIDを持たなければならない。楽曲は動画ジャンルから独立し、原アーティストとのcreatedBy関係を持ち、互換用の楽曲タグIDを公開一覧・検索索引・タグ索引・動画詳細で同じエンティティへ解決しなければならない。を**satisfy** | 歌唱正本構造、非歌ジャンル鼻歌、公開索引の楽曲タグ反映試験 |
 | `V8-TAG-038` | 1 | 有効 | 品質 | diopside v8の歌唱実績検証と公開境界は、各歌唱実績は既知動画、白雪巴本人の参加、動画長内の開始秒、動画内で解決できる根拠参照を持たなければならない。承認済みタイムスタンプを参照する場合は開始秒が一致し、鼻歌は終了秒も持たなければならない。公開データには内部の根拠参照・判定理由を含めてはならない。を**satisfy** | 未知動画・根拠・時刻・タイムスタンプ不整合・鼻歌範囲・公開境界試験 |
 | `V8-TAG-039` | 2 | 有効 | データ | diopside v8のゲーム作品とゲームジャンルは、特定のゲーム作品は、Steam、公式ストアまたは対象作品の公式サイトを確認元として、1〜3件のゲームジャンルをゲーム単位の正本に持たなければならない。同じゲームを指す表記違いは一つのゲーム単位へ統合し、その全公開動画へ同じジャンルを導出しなければならない。動画単位の移行前ジャンルを公開分類として使わず、特定作品ではない一般ラベルをゲーム作品一覧へ含めてはならない。を**satisfy** | ゲーム正本構造・全作品網羅・公開ジャンル導出・対象作品回帰・一般ラベル除外試験 |
 | `V8-TAG-040` | 1 | 有効 | データ | diopside v8のゲームジャンル語彙は、既存語彙で作品のプレイ性を適切に表せない場合は、Steam、公式ストアまたは公式サイトで確認でき、既存分類と区別でき、複数作品の探索に再利用できるゲームジャンルだけを追加しなければならない。テーマ、販売形態、単発の仕掛け、または既存タグの組合せで表せる複合語を追加してはならない。を**satisfy** | 追加ジャンル包含・除外基準、複数作品利用、ゲーム単位分類、代表作品回帰試験 |
+| `V8-TAG-041` | 1 | 有効 | データ | diopside v8の分類意味境界は、ゲーム作品名にはゲーム正本へ解決できる正式作品名だけを置き、ゲームジャンルとイベント・大会・企画を含めてはならない。イベントには特定対象を識別しない「大会」「祭り」等の一般語を置かず、投稿受付手段、配信元チャンネル、人物属性、テーマをそれぞれ別の意味として管理しなければならない。を**satisfy** | ゲーム作品・イベント・受付手段・廃止軸の意味境界監査 |
+| `V8-TAG-042` | 1 | 有効 | データ | diopside v8のエンティティ関係は、公開データは人物、グループ、チャンネル、ゲーム、イベント、シリーズ、楽曲、作品、アーティストを不変エンティティIDで識別し、動画との配信元・出演・言及・プレイ・視聴・歌唱・イベント参加・シリーズ所属を型付き関係として保持しなければならない。楽曲から原アーティスト、イベントから対象ゲーム、人物から所属グループ等のエンティティ間関係もIDで解決しなければならない。を**satisfy** | エンティティID一意性・関係参照整合性・公開版一致試験 |
+| `V8-TAG-043` | 1 | 有効 | 品質 | diopside v8の一覧探索価値は、各classification小分類について、有効値数、実使用値数、付与件数を決定的に集計しなければならない。使用値が一つ以下、選択しても結果集合が実質変わらない、または利用者の探索ユースケースを説明できない軸は再評価対象として報告し、必要性を確認せず新しい一覧を公開してはならない。を**satisfy** | 分類軸の値数・実使用値数・付与件数監査 |
+| `V8-TAG-044` | 1 | 有効 | 運用 | diopside v8のエンティティ網羅性監査は、楽曲、出演者、言及人物、ゲーム作品、イベントは分類の意味検証とは別に、期待件数、実エンティティ件数、実関係件数、未抽出候補件数、監査状態、原因を公開版ごとに記録しなければならない。期待または候補を計測できない領域は完了とせずpartialまたはunmeasuredと明示しなければならない。を**satisfy** | 網羅性メトリクス構造・状態整合性・既知候補試験 |
 | `V8-TIME-001` | 1 | 有効 | データ | diopside v8の時刻は、タイムスタンプは動画全体を移動するための目次として作り、見どころ候補と別のデータとして扱わなければならない。を**satisfy** | 意味論監査 |
 | `V8-TIME-002` | 1 | 有効 | データ | diopside v8の時刻は、v8.0では動画形式が「配信」の動画を既定の作成対象とし、「Shorts」と単曲の「歌ってみた」は対象外にしなければならない。を**satisfy** | 対象集合・境界値試験 |
 | `V8-TIME-003` | 1 | 有効 | データ | diopside v8の時刻は、各対象動画は「作成済み」または理由付きの「未作成」の状態を持たなければならない。を**satisfy** | 状態遷移・画面試験 |
@@ -198,9 +209,9 @@ diopside v8の費用は、公開閲覧、検索、生成、配信に起因する
 受入条件:
 - `AC-V8-COST-001-1` 前提: 公開面のデータまたは操作がある。条件: 月次請求確認。期待結果: GitHub、公開配信、公開データ取得、公開保存、公開検索、公開監視、公開ドメイン、公開外部APIの月次請求額がすべて0円である。既存端末、電気、通信回線と公開面に接続しない有限private backfillは算定外とする。。
 
-要求源: Issue #1 V8-費用-001, Issue #465, user:2026-08-03
+要求源: Issue #1 V8-費用-001, Issue #465, user:2026-08-03, user:2026-08-29, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md
 検証証跡: tests/repository-policy.test.ts
-トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/decisions/ADR-0003-lambda-private-material-backfill.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,Issue #465,dev-standard assured profile
+トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/decisions/ADR-0006-local-private-material-ingestion.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,Issue #465,dev-standard assured profile
 
 ## V8-COST-002: 公開基盤は公開リポジトリのGitHub Pages branch方式と、明示設定した独自ドメインだけに限定しなければならない
 
@@ -221,31 +232,31 @@ diopside v8の費用は、公開基盤は、公開リポジトリで利用でき
 
 diopside v8の費用は、AWSその他の有料クラウド資源を公開面の閲覧、検索、生成、配信に使用してはならず、既知動画だけの有限private backfillは承認された隔離基盤だけに限定しなければならない。を**satisfy**。
 
-根拠: 公開面のゼロ円静的構成を保ちながら、公開に接続しない履歴素材の安全な回復基盤だけを明示的に分離するため。
+根拠: 公開面のゼロ円静的構成を保ちながら、公開に接続しない履歴素材のprivate保存だけを明示的に分離するため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-COST-003-1` 前提: 公開面または有限private backfillの構成定義がある。条件: 構成確認。期待結果: 公開面はクラウド認証情報なしに全手順を実行でき、有料資源の構成を持たず、private backfillはinfra配下のS3、DynamoDB、SQS FIFO、Lambda、CloudWatch Logsだけを使い、customer-managed KMS key、AWS Batch、Fargate、ECR、専用VPCを構成しない。。
+- `AC-V8-COST-003-1` 前提: 公開面または有限private backfillの構成定義がある。条件: 構成確認。期待結果: 公開面はクラウド認証情報なしに全手順を実行でき、有料資源の構成を持たない。private backfillはinfra配下のprivate S3とDynamoDBだけをAWSに配置し、SQS、Lambda、worker Log Group、customer-managed KMS key、Batch、Fargate、ECR、専用VPCを構成しない。。
 
-要求源: Issue #1 V8-費用-003, Issue #465, user:2026-08-03, user:2026-08-22
+要求源: Issue #1 V8-費用-003, Issue #465, user:2026-08-03, user:2026-08-22, user:2026-08-29, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md
 検証証跡: tests/repository-policy.test.ts
-トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/decisions/ADR-0003-lambda-private-material-backfill.md,docs/decisions/ADR-0005-service-managed-encryption.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts,infra/src/diopside_ingestion/stack.py; テスト=tests/repository-policy.test.ts,infra/tests/test_stack.py; 参照資料=Issue #1,Issue #465,dev-standard assured profile
+トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/decisions/ADR-0005-service-managed-encryption.md,docs/decisions/ADR-0006-local-private-material-ingestion.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts,infra/src/diopside_ingestion/stack.py; テスト=tests/repository-policy.test.ts,infra/tests/test_stack.py; 参照資料=Issue #1,Issue #465,dev-standard assured profile
 
 ## V8-COST-004: 公開面は有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならない
 
-diopside v8の費用は、公開面は有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならず、private backfillの状態保存と監視は公開面から分離しなければならない。を**satisfy**。
+diopside v8の費用は、公開面は有料または従量課金の検索、データベース、アクセス解析、監視、生成、配信サービスへ依存してはならず、private backfillの状態と素材保存は公開面から分離しなければならない。を**satisfy**。
 
 根拠: 公開利用者の通信と運用コストを外部従量課金サービスから隔離するため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-COST-004-1` 前提: 公開面とprivate backfillの依存関係がある。条件: 依存関係・通信確認。期待結果: 公開面の外部依存一覧に課金が発生し得る実行時サービスが0件であり、DynamoDB、S3、CloudWatch Logsはprivate backfillの内部境界からのみ参照される。。
+- `AC-V8-COST-004-1` 前提: 公開面とprivate backfillの依存関係がある。条件: 依存関係・通信確認。期待結果: 公開面の外部依存一覧に課金が発生し得る実行時サービスが0件であり、DynamoDBとS3はprivate backfillの内部境界からのみ参照される。。
 
-要求源: Issue #1 V8-費用-004, Issue #465, user:2026-08-03
+要求源: Issue #1 V8-費用-004, Issue #465, user:2026-08-03, user:2026-08-29, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md
 検証証跡: tests/repository-policy.test.ts
-トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts,infra/src/diopside_ingestion/stack.py; テスト=tests/repository-policy.test.ts,infra/tests/test_stack.py; 参照資料=Issue #1,Issue #465,dev-standard assured profile
+トレース: 設計=docs/decisions/ADR-0006-local-private-material-ingestion.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,scripts/verify-repository-policy.ts,infra/src/diopside_ingestion/stack.py; テスト=tests/repository-policy.test.ts,infra/tests/test_stack.py; 参照資料=Issue #1,Issue #465,dev-standard assured profile
 
 ## V8-COST-005: 公開面の料金または無償条件が変わり請求が発生し得る場合は課金して継続せず該当公開処理を停止しなければならない
 
@@ -256,11 +267,11 @@ diopside v8の費用は、公開面の外部サービスの料金または無償
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-COST-005-1` 前提: 公開面またはprivate backfillの運用手順がある。条件: 費用条件を確認する。期待結果: 費用0円を確認できない状態では公開更新を行わず人へ判断を求め、private backfillは料金、利用量、契約条件を確認できない場合にdeployまたはenqueueを開始しない。。
+- `AC-V8-COST-005-1` 前提: 公開面またはprivate backfillの運用手順がある。条件: 費用条件を確認する。期待結果: 費用0円を確認できない状態では公開更新を行わず人へ判断を求め、private backfillはS3・DynamoDBの料金、利用量、契約条件を確認できない場合に保存基盤deployまたはローカル取得を開始しない。。
 
-要求源: Issue #1 V8-費用-005, Issue #465, user:2026-08-03
+要求源: Issue #1 V8-費用-005, Issue #465, user:2026-08-03, user:2026-08-26, user:2026-08-29, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md
 検証証跡: tests/repository-policy.test.ts
-トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json; テスト=tests/repository-policy.test.ts; 参照資料=Issue #1,Issue #465,dev-standard assured profile
+トレース: 設計=docs/decisions/ADR-0006-local-private-material-ingestion.md,docs/operations/cost-check.md; 実装=operations/cost-policy.json,.github/workflows/deploy-ingestion-infra.yml,infra/src/diopside_ingestion/cli.py; テスト=tests/repository-policy.test.ts,infra/tests/test_cli.py; 参照資料=Issue #1,Issue #465,dev-standard regulated profile
 
 ## V8-DEVICE-001: 閲覧履歴はブラウザ内データベースへ保存しなければならない
 
@@ -680,35 +691,80 @@ diopside v8のゲームジャンル・作品・配信導線は、ゲーム探索
 検証証跡: src/features/games/GameIndexPage.test.tsx, src/features/works/WorkDetailPage.test.tsx, e2e/game-index.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/App.tsx,src/components/Header.tsx,src/features/games/GameIndexPage.tsx,src/features/works/WorkDetailPage.tsx,src/features/detail/VideoDetailPage.tsx,src/features/search/SearchPage.tsx; テスト=src/features/games/GameIndexPage.test.tsx,src/features/works/WorkDetailPage.test.tsx,e2e/game-index.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-28-game-catalog.md,dev-standard assured profile
 
-## V8-INGEST-001: 外部ingestion要求はvideo_idだけを含む厳格な11文字契約でなければならない
+## V8-DISPLAY-017: 公開チャットを取得できる動画はカスタム絵文字の全出現回数を種類別に集計できなければならない
 
-diopside v8のprivate ingestion要求は、外部ingestion要求は11文字のYouTube video_idだけを含み、未知fieldまたは内部状態を含んではならない。を**強制する**。
+diopside v8のカスタム絵文字集計は、公開チャットリプレイを取得できる動画は、通常のUnicode絵文字を除外し、全編に現れるカスタム絵文字の出現回数を種類別に集計しなければならない。項目別回数の合計は総使用回数と一致しなければならない。を**satisfy**。
 
-根拠: SQS再試行とLambda内実行で入力契約を変えず、任意の外部状態注入を防ぐため。
+根拠: 視聴者のリアクション傾向を動画ごとに比較できるようにしながら、上位項目だけへ切り詰めた分布の誤認を防ぐため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-017-1` 前提: 公開チャットリプレイを全編取得できる動画がある。条件: カスタム絵文字集計を実行する。期待結果: 通常のUnicode絵文字を含めず、全カスタム絵文字の項目別回数合計が総使用回数と一致する。。
+
+要求源: spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md, user:2026-08-31
+検証証跡: tests/custom-emoji-usage.test.ts, src/domain/validation.test.ts, tests/content-validation.test.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=scripts/aggregate-custom-emoji-usage.ts,src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts; テスト=tests/custom-emoji-usage.test.ts,src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=V8-SAFETY-002,spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md,dev-standard regulated profile
+
+## V8-DISPLAY-018: 集計済み動画の詳細は全カスタム絵文字の使用回数と比率をチャートで表示しなければならない
+
+diopside v8のカスタム絵文字表示は、カスタム絵文字を集計済みの動画詳細は、全種類を省略せず、使用回数の降順でショートコード、正確な回数、カスタム絵文字総使用回数に占める比率を比較できるチャートとして表示しなければならない。を**satisfy**。
+
+根拠: 少数の上位項目だけでなく動画固有の全リアクション分布を、画面幅や視覚条件にかかわらず読み取れるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-018-1` 前提: カスタム絵文字集計を持つ動画詳細を表示する。条件: デスクトップ・モバイル・支援技術でチャートを確認する。期待結果: 集計に含まれる全種類がショートコード、回数、比率付きで表示され、各棒に読上げ可能な名前と割合がある。。
+
+要求源: spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md, user:2026-08-31
+検証証跡: e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md,dev-standard regulated profile
+
+## V8-DISPLAY-019: 人物・作品・企画一覧は関係種別と関連対象を保った動画探索導線を提供しなければならない
+
+diopside v8のエンティティ探索画面は、人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。を**satisfy**。
+
+根拠: 断片的な人物名・作品名・イベント名から、役割の意味を失わず過去配信へ到達できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-019-1` 前提: 公開エンティティ索引と動画索引が読み込まれている。条件: 利用者が一覧またはエンティティ詳細を操作する。期待結果: 名前・種類で絞り込み、関係種別別件数と関連対象を確認し、関連動画または関連エンティティへ移動できる。。
+
+要求源: spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: src/features/entities/EntityIndexPage.test.tsx, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/entities/EntityIndexPage.tsx,src/features/search/SearchPage.tsx,src/features/detail/VideoDetailPage.tsx,src/App.tsx; テスト=src/features/entities/EntityIndexPage.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-31-semantic-entity-model.md,dev-standard assured profile
+
+## V8-INGEST-001: ローカルingestion要求はvideo_idだけを含む厳格な11文字契約でなければならない
+
+diopside v8のローカルprivate ingestion要求は、運用者が指定するingestion要求は11文字のYouTube video_id一項目だけを含み、認証情報または内部状態を含んではならない。を**強制する**。
+
+根拠: ローカルPCからの明示実行でも任意の外部状態や資格情報を取得workerへ注入せず、一動画の対象を決定的にするため。
 
 分類: `project` / `functional`
 
 受入条件:
-- `AC-V8-INGEST-001-1` 前提: SQSまたはCLIからingestion要求を渡す。条件: 要求を検証する。期待結果: 正確にvideo_id一項目かつ11文字IDの要求だけを受け付け、未知fieldまたは不正IDは再試行またはDLQへ送る。。
+- `AC-V8-INGEST-001-1` 前提: 運用者がローカルCLIからingestionを開始する。条件: 要求を検証する。期待結果: 11文字のvideo_id一項目だけを処理対象とし、不正IDはAWS書込みや取得を始める前に拒否する。。
 
-要求源: Issue #465
-検証証跡: infra/tests/test_contracts.py, infra/tests/test_dispatcher.py
-トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md; 実装=infra/src/diopside_ingestion/contracts.py,infra/src/diopside_ingestion/dispatcher.py,infra/src/diopside_ingestion/cli.py; テスト=infra/tests/test_contracts.py,infra/tests/test_dispatcher.py,infra/tests/test_cli.py; 参照資料=Issue #465,dev-standard assured profile
+要求源: Issue #465, user:2026-08-29, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md
+検証証跡: infra/tests/test_contracts.py, infra/tests/test_cli.py, infra/tests/test_local_runner.py
+トレース: 設計=docs/decisions/ADR-0006-local-private-material-ingestion.md,docs/operations/privacy-and-safety.md; 実装=infra/src/diopside_ingestion/contracts.py,infra/src/diopside_ingestion/cli.py,infra/src/diopside_ingestion/local_runner.py; テスト=infra/tests/test_contracts.py,infra/tests/test_cli.py,infra/tests/test_local_runner.py; 参照資料=Issue #465,dev-standard regulated profile
 
-## V8-INGEST-002: 歴史素材backfillは既知動画だけの不変target manifestを開始時に固定しなければならない
+## V8-INGEST-002: 複数動画の歴史素材backfillは既知動画だけの不変target manifestを開始時に固定しなければならない
 
-diopside v8のprivate backfill対象は、歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。を**強制する**。
+diopside v8のprivate backfill対象は、複数動画の歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。を**強制する**。
 
-根拠: 対象の欠落、重複、新着動画への無限拡張を防ぎ、再開と完了報告を決定的にするため。
+根拠: 複数件の対象の欠落、重複、新着動画への無限拡張を防ぎ、ローカル実行を決定的に再開するため。
 
 分類: `project` / `functional`
 
 受入条件:
-- `AC-V8-INGEST-002-1` 前提: 既知動画catalogとtimestamp ledgerがある。条件: manifestを作成してenqueueする。期待結果: 重複を除いたvideo_id、source、base commit、revision、SHA-256を固定し、そのmanifestに含まれる動画だけをFIFOへ投入する。対象を変更する場合は新しいrevisionとSHA-256を持つmanifestを明示作成し、実行中manifestを置き換えない。。
+- `AC-V8-INGEST-002-1` 前提: 既知動画catalogとtimestamp ledgerから複数動画をローカル処理する。条件: manifestを作成してingest-manifestを実行する。期待結果: 重複を除いたvideo_id、source、base commit、revision、SHA-256を固定し、そのmanifestに含まれる動画だけを指定順に処理する。対象を変える場合は新しいrevisionとSHA-256を持つmanifestを明示作成する。。
 
-要求源: Issue #465
+要求源: Issue #465, user:2026-08-29, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md
 検証証跡: infra/tests/test_manifest.py, infra/tests/test_cli.py
-トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md; 実装=infra/src/diopside_ingestion/manifest.py,infra/src/diopside_ingestion/cli.py; テスト=infra/tests/test_manifest.py,infra/tests/test_cli.py; 参照資料=Issue #465,dev-standard assured profile
+トレース: 設計=docs/decisions/ADR-0006-local-private-material-ingestion.md; 実装=infra/src/diopside_ingestion/manifest.py,infra/src/diopside_ingestion/cli.py,infra/src/diopside_ingestion/local_runner.py; テスト=infra/tests/test_manifest.py,infra/tests/test_cli.py; 参照資料=Issue #465,dev-standard assured profile
 
 ## V8-INGEST-003: 進捗状態はVideoIngestion単一tableのvideo_id一itemで保持しなければならない
 
@@ -719,26 +775,26 @@ diopside v8のprivate ingestion状態は、進捗状態はVideoIngestion単一Dy
 分類: `project` / `functional`
 
 受入条件:
-- `AC-V8-INGEST-003-1` 前提: CDK templateと進捗repositoryがある。条件: 一動画をclaim、checkpoint、completeする。期待結果: tableはvideo_idだけを主キーに持ち、条件付き更新でclaim owner、attempt、artifact状態、S3 key、digest、終端状態を一itemへ記録する。。
+- `AC-V8-INGEST-003-1` 前提: 保存限定のCDK templateとローカルrunnerがある。条件: 一動画をclaim、checkpoint、completeする。期待結果: tableはvideo_idだけを主キーに持ち、条件付き更新でclaim owner、lease、attempt、artifact状態、S3 key、digest、終端状態を一itemへ記録する。。
 
-要求源: Issue #465
-検証証跡: infra/tests/test_stack.py, infra/tests/test_dispatcher.py
-トレース: 設計=docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md,docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/decisions/ADR-0003-lambda-private-material-backfill.md; 実装=infra/src/diopside_ingestion/stack.py,infra/src/diopside_ingestion/state.py; テスト=infra/tests/test_stack.py,infra/tests/test_dispatcher.py; 参照資料=Issue #465,dev-standard assured profile
+要求源: Issue #465, user:2026-08-29, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md
+検証証跡: infra/tests/test_stack.py, infra/tests/test_state.py, infra/tests/test_local_runner.py, infra/tests/test_aws_integration.py
+トレース: 設計=docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md,docs/decisions/ADR-0006-local-private-material-ingestion.md; 実装=infra/src/diopside_ingestion/stack.py,infra/src/diopside_ingestion/state.py,infra/src/diopside_ingestion/local_runner.py; テスト=infra/tests/test_stack.py,infra/tests/test_state.py,infra/tests/test_local_runner.py,infra/tests/test_aws_integration.py; 参照資料=Issue #465,dev-standard assured profile
 
-## V8-INGEST-004: SQS起動Lambdaは15分上限で重複なく再試行可能に処理しなければならない
+## V8-INGEST-004: ローカルrunnerは条件付きclaimとcheckpointで重複なく有限再試行できなければならない
 
-diopside v8のprivate ingestion実行は、SQS FIFOから起動する実処理Lambdaは条件付きclaim、checkpoint、partial batch failure、request DLQを使い、同じvideo_idを重複実行せず、15分以内に完了しない処理をエラーとして再試行可能にしなければならない。を**強制する**。
+diopside v8のローカルprivate ingestion実行は、ローカルrunnerは同一video_idの条件付きclaim、checkpoint時のlease延長、安全なreason code、有限attemptを使い、重複処理を避けて確定済み工程から再開しなければならない。を**強制する**。
 
-根拠: SQS重複配送、Lambda timeout、部分成果の後にも既知対象を安全に再試行し、15分を超える処理を誤って成功扱いしないため。
+根拠: ローカルprocessの中断、長時間処理、複数PCからの誤った重複実行の後にも、不変成果を上書きせず回復できるようにするため。
 
 分類: `project` / `functional`
 
 受入条件:
-- `AC-V8-INGEST-004-1` 前提: 同じvideo_idの重複FIFO要求、Lambda失敗、または15分timeoutがある。条件: SQSから実処理Lambdaを起動する。期待結果: 最初の条件付きclaimだけが実処理Lambdaを継続し、900秒以内に完了しない処理を成功扱いせず、SQSが3回まで再試行した後request DLQへ隔離する。。
+- `AC-V8-INGEST-004-1` 前提: 同じvideo_idの重複実行、retryableな取得失敗、またはローカルprocess中断がある。条件: 運用者がローカルingestionを実行または再実行する。期待結果: 有効なclaimを持つ一実行だけが処理を継続し、checkpointごとにleaseを延長し、1〜10の明示attempt上限内で確定済みartifactを再利用する。。
 
-要求源: Issue #465, user:2026-08-22
-検証証跡: infra/tests/test_dispatcher.py, infra/tests/test_worker.py, infra/tests/test_stack.py
-トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/decisions/ADR-0003-lambda-private-material-backfill.md,docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md; 実装=infra/src/diopside_ingestion/dispatcher.py,infra/src/diopside_ingestion/state.py,infra/src/diopside_ingestion/worker.py,infra/src/diopside_ingestion/stack.py; テスト=infra/tests/test_dispatcher.py,infra/tests/test_worker.py,infra/tests/test_stack.py; 参照資料=Issue #465,dev-standard assured profile
+要求源: Issue #465, user:2026-08-29, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md, docs/decisions/ADR-0006-local-private-material-ingestion.md
+検証証跡: infra/tests/test_local_runner.py, infra/tests/test_state.py, infra/tests/test_worker.py, infra/tests/test_aws_integration.py
+トレース: 設計=docs/decisions/ADR-0006-local-private-material-ingestion.md; 実装=infra/src/diopside_ingestion/local_runner.py,infra/src/diopside_ingestion/state.py,infra/src/diopside_ingestion/worker.py; テスト=infra/tests/test_local_runner.py,infra/tests/test_state.py,infra/tests/test_worker.py,infra/tests/test_aws_integration.py; 参照資料=Issue #465,dev-standard assured profile
 
 ## V8-INGEST-005: artifact状態は取得段階と安全な失敗分類を分離して保持しなければならない
 
@@ -770,20 +826,20 @@ diopside v8のprivate artifact保存は、private S3はchannel_id、video_id、r
 検証証跡: infra/tests/test_worker.py, infra/tests/test_stack.py
 トレース: 設計=docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md,docs/decisions/ADR-0002-historical-private-material-backfill.md; 実装=infra/src/diopside_ingestion/paths.py,infra/src/diopside_ingestion/worker.py,infra/src/diopside_ingestion/stack.py; テスト=infra/tests/test_worker.py,infra/tests/test_stack.py; 参照資料=Issue #465,dev-standard assured profile
 
-## V8-INGEST-007: 実処理Lambdaはlock済みyt-dlpとffmpegで独立したartifactを取得しなければならない
+## V8-INGEST-007: ローカルworkerはlock済みyt-dlpとffmpegで独立artifactを取得しなければならない
 
-diopside v8のprivate material workerは、実処理Lambdaはlockされたyt-dlpとffmpegでmetadata、description、thumbnail、subtitles、automatic captions、chat、comments、native audio、ASR derived audioを独立して取得または分類しなければならない。を**強制する**。
+diopside v8のローカルprivate material workerは、ローカルworkerはlockされたyt-dlpとffmpegでmetadata、description、thumbnail、subtitles、automatic captions、chat、comments、native audio、ASR derived audioを独立して取得または分類しなければならない。を**強制する**。
 
-根拠: 一つの取得不能素材が残りの素材と回復可能な部分成果を失わせないため。
+根拠: クラウド実行環境の取得制限と一artifactの失敗が、ローカルPCで取得可能な残りの素材と回復可能な部分成果を失わせないため。
 
 分類: `project` / `functional`
 
 受入条件:
-- `AC-V8-INGEST-007-1` 前提: known video_idとlock済みLambda assetがある。条件: workerが取得工程を実行する。期待結果: 各artifactは独立したstatusでcheckpointされ、captionはnormalized copyを持ち、native audioからASR用派生音声を作成し、取得元の本文やdiagnosticをログへ保存しない。。
+- `AC-V8-INGEST-007-1` 前提: known video_idとlock済みローカル依存がある。条件: workerが運用者PCで取得工程を実行する。期待結果: 各artifactは独立したstatusでcheckpointされ、captionはanonymous normalized copyを持ち、native audioからASR用派生音声を作成し、取得元の本文やdiagnosticをログへ保存しない。。
 
-要求源: Issue #465, user:2026-08-22
-検証証跡: infra/tests/test_worker.py
-トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/decisions/ADR-0003-lambda-private-material-backfill.md; 実装=infra/src/diopside_ingestion/lambda_asset.py,infra/src/diopside_ingestion/worker.py,infra/pyproject.toml; テスト=infra/tests/test_worker.py; 参照資料=Issue #465,dev-standard assured profile
+要求源: Issue #465, user:2026-08-29, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md
+検証証跡: infra/tests/test_worker.py, infra/tests/test_aws_integration.py
+トレース: 設計=docs/decisions/ADR-0006-local-private-material-ingestion.md; 実装=infra/src/diopside_ingestion/worker.py,infra/src/diopside_ingestion/local_runner.py,infra/pyproject.toml; テスト=infra/tests/test_worker.py,infra/tests/test_aws_integration.py; 参照資料=Issue #465,dev-standard assured profile
 
 ## V8-INGEST-008: workerは認証回避または非公開経路を使用してはならない
 
@@ -796,24 +852,24 @@ diopside v8のprivate material取得安全は、workerはcookie、login、認証
 受入条件:
 - `AC-V8-INGEST-008-1` 前提: private、members-only、age restricted、geo restricted、bot challengeの動画がある。条件: workerがmetadataまたはartifact取得を試みる。期待結果: cookieやproxyを追加せず安全なreason codeとretryable判定だけを記録し、非retryableな制限は終端状態へ進める。。
 
-要求源: Issue #465
+要求源: Issue #465, user:2026-08-29, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md
 検証証跡: infra/tests/test_contracts.py, infra/tests/test_worker.py, infra/tests/test_stack.py
-トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/operations/privacy-and-safety.md; 実装=infra/src/diopside_ingestion/contracts.py,infra/src/diopside_ingestion/worker.py,infra/src/diopside_ingestion/lambda_asset.py,infra/pyproject.toml; テスト=infra/tests/test_contracts.py,infra/tests/test_worker.py,infra/tests/test_stack.py; 参照資料=Issue #465,dev-standard assured profile
+トレース: 設計=docs/decisions/ADR-0006-local-private-material-ingestion.md,docs/operations/privacy-and-safety.md; 実装=infra/src/diopside_ingestion/contracts.py,infra/src/diopside_ingestion/worker.py,infra/pyproject.toml; テスト=infra/tests/test_contracts.py,infra/tests/test_worker.py,infra/tests/test_stack.py; 参照資料=Issue #465,dev-standard assured profile
 
 ## V8-INGEST-009: private backfillは運用者が明示開始する有限作業でなければならない
 
-diopside v8のprivate backfill運用は、private backfillは運用者が固定manifestと対象選択を明示して開始する有限作業であり、AWS基盤deployはmainのprotected environmentから人が開始し、通常取得とlegacy local importのenqueue、upload、削除、公開、mergeを自動実行してはならない。を**強制する**。
+diopside v8のprivate backfill運用は、private backfillは運用者がローカルPCで固定manifestまたは1件のvideo_idを明示して開始する有限作業とし、保存基盤deploy、素材取得、削除、公開、mergeを自動実行してはならない。を**強制する**。
 
-根拠: 歴史素材の回収を公開更新や無期限の外部スキャンへ変えず、人の承認境界を維持するため。
+根拠: 歴史素材の回収を公開更新や無期限の外部スキャンへ変えず、AWS上の保存基盤とローカル取得の承認境界を分離するため。
 
 分類: `project` / `functional`
 
 受入条件:
-- `AC-V8-INGEST-009-1` 前提: backfill用のコード、CI、AWS基盤deploy workflowがある。条件: repositoryのworkflowとoperator commandを確認する。期待結果: workflowはscheduleを持たず、AWS基盤deployはmainの手動起動、確認入力、protected environment承認、事前品質ゲートを必須にし、通常backfillとlegacy local importはmanifest作成とAWS書込みを別commandにして、enqueueまたはuploadには固定manifestと全件またはvideo IDの明示選択を要求する。。
+- `AC-V8-INGEST-009-1` 前提: backfill用コード、CI、AWS保存基盤deploy workflow、ローカルCLIがある。条件: repositoryのworkflowとoperator commandを確認する。期待結果: workflowはscheduleまたは素材取得起動を持たず、AWS保存基盤deployはmainの手動起動、確認入力、protected environment承認、事前品質ゲートを必須にする。素材取得はローカルCLIが明示video IDまたは不変manifestだけを処理する。。
 
-要求源: Issue #465, user:2026-08-22, user:2026-08-23
-検証証跡: infra/tests/test_deployment_access.py, infra/tests/test_manifest.py, infra/tests/test_cli.py, tests/repository-policy.test.ts
-トレース: 設計=docs/decisions/ADR-0003-lambda-private-material-backfill.md,docs/decisions/ADR-0004-legacy-local-private-import.md,docs/operations/manual-content-update.md,docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md; 実装=.github/workflows/verify.yml,.github/workflows/deploy-ingestion-infra.yml,infra/src/diopside_ingestion/cli.py,infra/src/diopside_ingestion/legacy_import.py,scripts/verify-repository-policy.ts; テスト=infra/tests/test_manifest.py,infra/tests/test_cli.py,infra/tests/test_deployment_access.py,tests/repository-policy.test.ts; 参照資料=Issue #465,dev-standard regulated profile,GitHub Actions OIDC for AWS,AWS CDK security best practices
+要求源: Issue #465, user:2026-08-22, user:2026-08-23, user:2026-08-26, user:2026-08-29, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md
+検証証跡: infra/tests/test_deployment_access.py, infra/tests/test_cli.py, infra/tests/test_local_runner.py, tests/repository-policy.test.ts
+トレース: 設計=docs/decisions/ADR-0006-local-private-material-ingestion.md,docs/decisions/ADR-0004-legacy-local-private-import.md,docs/operations/manual-content-update.md,docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md; 実装=.github/workflows/verify.yml,.github/workflows/deploy-ingestion-infra.yml,infra/src/diopside_ingestion/cli.py,infra/src/diopside_ingestion/local_runner.py,infra/src/diopside_ingestion/legacy_import.py,infra/src/diopside_deployment/access_stack.py,scripts/verify-repository-policy.ts; テスト=infra/tests/test_manifest.py,infra/tests/test_cli.py,infra/tests/test_local_runner.py,infra/tests/test_deployment_access.py,tests/repository-policy.test.ts; 参照資料=Issue #465,dev-standard regulated profile,GitHub Actions OIDC for AWS,AWS IAM least privilege
 
 ## V8-INGEST-010: backfill完了報告は固定target manifestに対する安全な集計でなければならない
 
@@ -830,20 +886,20 @@ diopside v8のprivate backfill報告は、backfill完了報告は固定target ma
 検証証跡: infra/tests/test_manifest.py, infra/tests/test_cli.py
 トレース: 設計=docs/decisions/ADR-0002-historical-private-material-backfill.md; 実装=infra/src/diopside_ingestion/manifest.py,infra/src/diopside_ingestion/cli.py; テスト=infra/tests/test_manifest.py,infra/tests/test_cli.py; 参照資料=Issue #465,dev-standard assured profile
 
-## V8-INGEST-011: private backfill基盤は暗号化・最小権限・15分Lambda境界で防御しなければならない
+## V8-INGEST-011: private backfill基盤は暗号化したS3・DynamoDB保存だけに限定しなければならない
 
-diopside v8のprivate backfill基盤は、private backfill基盤はservice標準の保存時暗号化、TLS強制、public block、KMS権限を含まない最小権限IAM、Lambda 15分上限、lock済み依存、Ruff、strict型検査、pytest、CDK synth、cdk-nagを適用し、customer-managed KMS key、AWS Batch、Fargate、ECR、専用VPCを構成してはならない。を**強制する**。
+diopside v8のprivate backfill基盤は、private backfill基盤はservice標準の保存時暗号化、TLS強制、public blockを持つprivate S3と、AWS所有鍵で暗号化しPITRを有効にしたDynamoDBだけを配置し、AWS上の取得・retry実行資源を構成してはならない。を**強制する**。
 
-根拠: 生素材を扱う限定基盤の暗号化、権限、依存を監査可能にしつつ、所有者が不要としたcustomer-managed KMS key、Batch、network、image運用をdeploy対象から除外するため。
+根拠: 生素材のprivate保存契約を維持しながら、取得制限の影響を受けるSQS、Lambdaと付帯IAM・Log Groupをdeploy対象から除くため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-INGEST-011-1` 前提: CDK stackとlock済みLambda asset CIがある。条件: 品質ゲートを実行する。期待結果: S3のSSE-S3、DynamoDBのAWS所有鍵、SQSのSSE-SQS、CloudWatch Logsの標準暗号化、TLS、public block、FIFO DLQ、Lambda 900秒timeout、10 GiB一時領域、KMS権限を含まないleast-privilege policy、customer-managed KMS key・Batch・ECR・VPC不在をtemplateで確認し、Ruff、Pyright strict、mypy strict、pytest、CDK synth、cdk-nagが合格する。。
+- `AC-V8-INGEST-011-1` 前提: CDK stackとlock済みローカルworker CIがある。条件: 品質ゲートを実行する。期待結果: S3のSSE-S3、versioning、TLS、public blockとDynamoDBの標準暗号化、PITRをtemplateで確認し、SQS、Lambda、worker IAM role、worker Log Group、customer-managed KMS key、Batch、ECR、VPCが存在せず、Ruff、Pyright strict、mypy strict、pytest、CDK synth、cdk-nagが合格する。。
 
-要求源: Issue #465, user:2026-08-22
-検証証跡: infra/tests/test_stack.py, .github/workflows/verify.yml
-トレース: 設計=docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md,docs/decisions/ADR-0002-historical-private-material-backfill.md,docs/decisions/ADR-0003-lambda-private-material-backfill.md,docs/decisions/ADR-0005-service-managed-encryption.md; 実装=infra/src/diopside_ingestion/stack.py,infra/pyproject.toml,.github/workflows/verify.yml; テスト=infra/tests/test_stack.py,infra/tests/test_contracts.py,tests/repository-policy.test.ts; 参照資料=Issue #465,dev-standard assured profile
+要求源: Issue #465, user:2026-08-22, user:2026-08-29, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md, docs/decisions/ADR-0006-local-private-material-ingestion.md
+検証証跡: infra/tests/test_stack.py, infra/tests/test_aws_integration.py, .github/workflows/verify.yml
+トレース: 設計=docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md,docs/decisions/ADR-0005-service-managed-encryption.md,docs/decisions/ADR-0006-local-private-material-ingestion.md; 実装=infra/src/diopside_ingestion/stack.py,infra/src/diopside_ingestion/local_runner.py,infra/pyproject.toml,.github/workflows/verify.yml; テスト=infra/tests/test_stack.py,infra/tests/test_local_runner.py,infra/tests/test_aws_integration.py,tests/repository-policy.test.ts; 参照資料=Issue #465,dev-standard assured profile
 
 ## V8-INGEST-012: coverage検証済みlegacy local成果物は専用の検証済み取込経路で移行しなければならない
 
@@ -861,21 +917,85 @@ diopside v8のlegacy local importは、全編coverage検証済み1,598動画だ�
 検証証跡: infra/tests/test_legacy_import.py
 トレース: 設計=docs/decisions/ADR-0004-legacy-local-private-import.md,docs/operations/manual-content-update.md; 実装=infra/src/diopside_ingestion/legacy_import.py,infra/src/diopside_ingestion/cli.py,infra/src/diopside_ingestion/contracts.py,infra/src/diopside_ingestion/reuse.py; テスト=infra/tests/test_legacy_import.py,infra/tests/test_reuse.py; 参照資料=Issue #465,dev-standard assured profile
 
-## V8-INGEST-013: GitHub Actionsのprivate backfill基盤deployはOIDC短期sessionと限定CDK roleを使用しなければならない
+## V8-INGEST-013: GitHub Actionsのprivate backfill基盤deployは共有infra roleの操作別OIDC sessionを使用しなければならない
 
-diopside v8のprivate backfill基盤deployは、GitHub ActionsからのCDK deployはprotected environmentで承認されたmainの手動実行が完全一致OIDC subjectの短期sessionを使用し、同一accountとregionの必要なCDK bootstrap roleだけを引き受ける経路に限定しなければならない。を**強制する**。
+diopside v8のprivate backfill基盤deployは、GitHub ActionsからのCDK deployはprivate-backfill-infra environmentで承認されたmainの手動実行が共有infra roleのimmutableな完全一致OIDC短期sessionを使用し、inline session policyでTargetDeploymentRegionの必要なCDK bootstrap roleだけを引き受ける経路に限定しなければならない。を**強制する**。
 
-根拠: 長期AWS access keyとrepository横断の信頼を持たず、デプロイ権限を人が承認した有限private backfill基盤の変更だけへ閉じるため。
+根拠: 長期AWS access keyとrepository横断の信頼を持たず、保存基盤deployとローカル素材取得の権限を分離するため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-INGEST-013-1` 前提: AWS accountにGitHub OIDC providerとmodern CDK bootstrap roleがある。条件: deployment access stackをsynthしてIAM trustと権限policyを検査する。期待結果: 受けロールはaudienceとprotected environmentを含む完全一致subjectだけを信頼し、AWS access keyを作らず、同一accountとregionのdeploy、file-publishing、lookup bootstrap roleだけを引き受けられる。。
-- `AC-V8-INGEST-013-2` 前提: 検証済みmainのprivate backfill基盤をデプロイする。条件: 運用者がGitHub Actionsのdeploy workflowを明示開始する。期待結果: workflowはmain、確認入力、protected environment承認、account ID照合、lock済み依存、Ruff、strict型検査、pytest、CDK synth、cdk-nag、生成設計差分の合格後だけOIDC短期sessionでDiopsideIngestionStackをデプロイし、enqueue、upload、削除、公開、mergeを実行しない。。
+- `AC-V8-INGEST-013-1` 前提: AWS accountにGitHub OIDC providerとmodern CDK bootstrap roleがある。条件: deployment access stackをsynthしてIAM trustと権限policyを検査する。期待結果: 共有infra roleはowner IDとrepository ID、audience、private-backfill-infra environmentを含むimmutableな完全一致subjectだけを信頼し、AWS access keyを作らず、TargetDeploymentRegionのdeploy、file-publishing、lookup bootstrap roleの引受けだけを許可する。。
+- `AC-V8-INGEST-013-2` 前提: 検証済みmainのprivate保存基盤をデプロイする。条件: 運用者がGitHub Actionsのdeploy workflowを明示開始する。期待結果: workflowはmain、確認入力、protected environment承認、account ID照合、品質ゲートの合格後だけ共有infra roleを引き受け、inline session policyを対象CDK bootstrap roleの引受けだけへ限定してS3・DynamoDB stackをデプロイし、素材取得、upload、削除、公開、mergeを実行しない。。
 
-要求源: Issue #465, user:2026-08-23, GitHub Actions OIDC for AWS, AWS CDK security best practices
+要求源: Issue #465, user:2026-08-23, user:2026-08-29, spec/sources/owner-directive-2026-08-29-ingestion-infra-role.md, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md, GitHub Actions OIDC for AWS, AWS CDK security best practices
 検証証跡: infra/tests/test_deployment_access.py, tests/repository-policy.test.ts, .github/workflows/verify.yml
 トレース: 設計=docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md,docs/design/generated/cdk/diopside-github-deployment-access/PARAMETERS.gen.md,docs/operations/manual-content-update.md,docs/operations/privacy-and-safety.md; 実装=infra/src/diopside_deployment/access_stack.py,infra/app.py,.github/workflows/deploy-ingestion-infra.yml; テスト=infra/tests/test_deployment_access.py,tests/repository-policy.test.ts; 参照資料=Issue #465,GitHub Actions OIDC for AWS,AWS CDK security best practices,dev-standard regulated profile
+
+## V8-INGEST-014: GitHub Actionsの1動画SQS投入は共有infra roleのSendMessage専用sessionを使用しなければならない
+
+diopside v8のGitHub Actionsによる1動画投入は、mainの手動実行で承認された1件のvideo_idだけを、基盤deployと共通のprotected environmentおよび共有infra roleから、TargetDeploymentRegionの対象FIFOへのSendMessage専用sessionで投入しなければならない。を**強制する**。
+
+根拠: OIDC roleとenvironmentを基盤運用へ統合しながら、長期AWS access keyと実行時の過剰なAWS権限を持たず、費用確認済みの1動画だけを安全に再投入するため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-INGEST-014-1` 前提: AWS accountにGitHub OIDC providerとprivate ingestion request FIFOがある。条件: deployment access stackと1動画enqueue workflowのrole・session policyを検査する。期待結果: 基盤deployと同じ共有infra roleはowner IDとrepository ID、audience、private-backfill-infra environmentを含むimmutableな完全一致subjectだけを信頼し、enqueue workflowのinline session policyはaccess stackの配置regionと独立したTargetDeploymentRegionの固定request FIFOへのsqs:SendMessage以外を許可しない。。
+- `AC-V8-INGEST-014-2` 前提: 運用者が料金、利用量、契約条件を確認して1動画を投入する。条件: mainから1動画enqueue workflowを手動実行する。期待結果: 11文字video ID、ENQUEUE確認、基盤deployと共通のprotected environment承認、account・region・共有role照合がすべて成功した場合だけ、固定queue URLへvideo_id一項目の本文を1件送信し、S3、DynamoDB、Lambda、CloudFormation、IAM、削除、公開、mergeを実行しない。。
+
+要求源: Issue #465, user:2026-08-26, user:2026-08-29, spec/sources/owner-directive-2026-08-29-ingestion-infra-role.md, GitHub Actions OIDC for AWS, AWS IAM least privilege
+検証証跡: infra/tests/test_deployment_access.py, tests/repository-policy.test.ts
+トレース: 設計=docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md,infra/README.md,docs/operations/manual-content-update.md,docs/operations/privacy-and-safety.md,docs/operations/cost-check.md; 実装=infra/src/diopside_deployment/access_stack.py,.github/workflows/enqueue-ingestion-video.yml; テスト=infra/tests/test_deployment_access.py,tests/repository-policy.test.ts; 参照資料=Issue #465,GitHub Actions OIDC for AWS,AWS IAM least privilege,dev-standard regulated profile
+廃止理由: 2026-08-29所有者指示によりGitHub ActionsのSQS投入経路を廃止し、V8-INGEST-001、V8-INGEST-004、V8-INGEST-009のローカル直接投入経路へ置換したため。
+
+## V8-INGEST-015: ローカル素材処理は取得・加工・uploadを検証可能な3段階へ分離しなければならない
+
+diopside v8のローカルprivate material段階処理は、ローカルprivate material処理は一次情報取得、加工、S3/DynamoDB uploadの3段階をchecksum付きmanifest境界で分離し、upload段階だけがAWSへ接続しなければならない。を**強制する**。
+
+根拠: 取得失敗の診断、加工の再試行、AWS書込みを分離し、生素材を再取得せず検証済み段階から安全に再開するため。
+
+分類: `project` / `functional`
+
+受入条件:
+- `AC-V8-INGEST-015-1` 前提: 1件のvideo IDとローカル実行環境がある。条件: ローカルprivate material処理を段階実行する。期待結果: 一次情報取得と加工はAWS clientを生成せずローカルmanifestを出力し、uploadは取得・加工manifestと全fileのSHA-256・byte数を検証した後だけDynamoDB claimとS3書込みを開始する。。
+
+要求源: Issue #465, user:2026-08-29-follow-up, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md
+検証証跡: infra/tests/test_staging.py, infra/tests/test_worker.py, infra/tests/test_cli.py
+トレース: 設計=docs/decisions/ADR-0006-local-private-material-ingestion.md; 実装=infra/src/diopside_ingestion/staging.py,infra/src/diopside_ingestion/worker.py,infra/src/diopside_ingestion/cli.py; テスト=infra/tests/test_staging.py,infra/tests/test_worker.py,infra/tests/test_cli.py; 参照資料=Issue #465,dev-standard assured profile
+
+## V8-INGEST-016: ローカルCLIは保持先と実行段階を運用者が選択できなければならない
+
+diopside v8のローカルprivate material workspaceは、ローカルCLIは運用者がprivate work rootと取得・加工・uploadの実行段階を選択し、動画単位のworkspaceを保持または全段階完走後に破棄できなければならない。を**強制する**。
+
+根拠: 生素材の保持場所と保持期間を運用者が管理し、失敗した段階だけを再実行して不要なdownloadとAWS書込みを避けるため。
+
+分類: `project` / `functional`
+
+受入条件:
+- `AC-V8-INGEST-016-1` 前提: 1件または固定manifestの有限video集合をローカル処理する。条件: ローカルCLIの保存先と実行段階を選択する。期待結果: 運用者はwork rootと実行段階を明示でき、部分実行では永続work rootを必須とし、同じvideo workspaceの検証済み前段manifestから後段だけを再開できる。stage未指定の全段階実行では一時work rootも選択できる。。
+
+要求源: Issue #465, user:2026-08-29-follow-up, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md
+検証証跡: infra/tests/test_staging.py, infra/tests/test_cli.py
+トレース: 設計=docs/decisions/ADR-0006-local-private-material-ingestion.md; 実装=infra/src/diopside_ingestion/staging.py,infra/src/diopside_ingestion/cli.py,infra/README.md; テスト=infra/tests/test_staging.py,infra/tests/test_cli.py; 参照資料=Issue #465,dev-standard assured profile
+
+## V8-INGEST-017: ローカル段階処理は安全な現在状態と追記型実行履歴を保持しなければならない
+
+diopside v8のローカルprivate material実行traceは、ローカル段階処理は永続private video workspaceへ安全な現在状態と追記型の実行履歴を保存し、作業後も完了段階、次段階、結果の根拠を追跡可能にしなければならない。を**維持する**。
+
+根拠: 端末出力が失われても取得・加工・uploadの実行有無と再開位置を確認し、再試行で過去の失敗または成功を上書きしないため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-INGEST-017-1` 前提: 運用者が永続private work rootで1件または固定video集合の段階処理を実行する。条件: invocationを開始し、各段階またはinvocationが終了する。期待結果: 動画workspaceはinvocation ID、選択段階、時刻、各段階の結果、reason code、manifest相対pathとchecksumを含む現在状態と時系列履歴を処理後も保持する。。
+- `AC-V8-INGEST-017-2` 前提: 同じvideo workspaceに既存manifestまたは過去の実行履歴がある。条件: 処理を再開する。期待結果: 既存の検証可能な段階状態を現在状態へ反映し、新しいinvocationは過去履歴を消さず追記し、完了段階と次段階を判定できる。。
+- `AC-V8-INGEST-017-3` 前提: 実行状態と履歴をprivate workspaceへ保存する。条件: trace eventまたは現在状態を生成する。期待結果: 生素材、字幕、chat、comment、投稿者識別子、provider応答本文、stderr本文、PO Token、Cookie、AWS credentialを実行traceへ含めない。。
+
+要求源: Issue #465, user:2026-08-29-execution-trace
+検証証跡: infra/tests/test_trace.py, infra/tests/test_cli.py
+トレース: 設計=docs/decisions/ADR-0006-local-private-material-ingestion.md; 実装=infra/src/diopside_ingestion/trace.py,infra/src/diopside_ingestion/cli.py,infra/README.md; テスト=infra/tests/test_trace.py,infra/tests/test_cli.py; 参照資料=Issue #465,dev-standard assured profile
 
 ## V8-OPS-001: タイムスタンプ一括処理は、人の1回の明示要求で有限の適格対象集合を固定して開始しなければならない
 
@@ -917,11 +1037,11 @@ diopside v8の運用は、動画確認、候補生成、検証、静的成果物
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-OPS-003-1` 前提: V8-運用-003の前提を満たす公開データまたは操作がある。条件: リポジトリ静的確認・手順試験。期待結果: `.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。動画確認、候補検出、公開準備の `workflow_dispatch` は読取専用に限定し、private backfill基盤deployだけをV8-INGEST-009とV8-INGEST-013の承認済み手動経路として分離し、静的成果物生成は検証済みmainだけを入力とする。。
+- `AC-V8-OPS-003-1` 前提: V8-運用-003の前提を満たす公開データまたは操作がある。条件: リポジトリ静的確認・手順試験。期待結果: `.github/workflows` に予定実行、AI/API呼出し、独自Pages deploy、素材取得起動が存在しない。動画確認、候補検出、公開準備のworkflow_dispatchは読取専用に限定し、private backfillはV8-INGEST-009とV8-INGEST-013の承認済み保存基盤deployとローカル処理に分離し、静的成果物生成は検証済みmainだけを入力とする。。
 
-要求源: Issue #1 V8-運用-003, user:2026-08-03, owner-directive:2026-08-04, spec/sources/owner-directive-2026-08-08-post-merge-release.md, user:2026-08-23
+要求源: Issue #1 V8-運用-003, user:2026-08-03, owner-directive:2026-08-04, spec/sources/owner-directive-2026-08-08-post-merge-release.md, user:2026-08-23, user:2026-08-26, user:2026-08-29, spec/sources/owner-directive-2026-08-29-local-private-ingestion.md
 検証証跡: tests/operations.test.ts, tests/generated.test.ts, tests/repository-policy.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml,.github/workflows/update-generated-release.yml,.github/workflows/deploy-ingestion-infra.yml; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md,docs/decisions/ADR-0006-local-private-material-ingestion.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.github/workflows/manual-content-operation.yml,.github/workflows/update-generated-release.yml,.github/workflows/deploy-ingestion-infra.yml,infra/src/diopside_ingestion/cli.py; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard regulated profile
 
 ## V8-OPS-004: ChatGPT／Codexの利用は、運用者が契約済みの画面上の利用範囲に限定しなければならない
 
@@ -1713,18 +1833,18 @@ diopside v8の検索は、あいまい検索の品質を、版管理した日本
 検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-SEARCH-020: 検索欄は入力中に動画とタグを区別した候補を提示しなければならない
+## V8-SEARCH-020: 検索欄は入力中に動画・分類・エンティティを区別した候補を提示しなければならない
 
-diopside v8の検索候補は、検索欄は一文字以上の入力中に、承認済み動画タイトルと登録済みタグ名の一致候補を種類が分かる形で提示しなければならない。動画候補の選択は動画詳細へ移動し、タグ候補の選択は不変タグIDを絞り込み条件へ適用して動画一覧を更新しなければならない。を**satisfy**。
+diopside v8の検索候補は、検索欄は一文字以上の入力中に、承認済み動画タイトル、分類値、人物・作品・企画等のエンティティ名の一致候補を種類が分かる形で提示しなければならない。動画候補は動画詳細へ、分類候補は不変タグIDの絞り込みへ、エンティティ候補は不変エンティティIDの詳細へ移動しなければならない。を**satisfy**。
 
 根拠: タイトルと分類名のどちらを覚えている場合でも、入力途中から目的の動画または一覧へ直接移動できるようにするため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-SEARCH-020-1` 前提: 承認済み動画と登録済みタグを読み込んだ検索画面がある。条件: 検索欄へ一致する文字を一文字以上入力する。期待結果: 候補を動画とタグの区分付きで表示し、動画候補は動画詳細へ、タグ候補はタグ適用済み動画一覧へキーボードまたはポインターで移動できる。。
+- `AC-V8-SEARCH-020-1` 前提: 承認済み動画と登録済みタグを読み込んだ検索画面がある。条件: 検索欄へ一致する文字を一文字以上入力する。期待結果: 候補を動画・分類・エンティティの区分付きで表示し、動画は詳細へ、分類は絞り込み済み一覧へ、エンティティは同じIDの詳細へキーボードまたはポインターで移動できる。。
 
-要求源: spec/sources/owner-directive-2026-08-20-search-suggestions.md, user:2026-08-20
+要求源: spec/sources/owner-directive-2026-08-20-search-suggestions.md, spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-20, user:2026-08-31
 検証証跡: src/domain/search.test.ts, e2e/search.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/search.ts,src/features/search/SearchPage.tsx,src/styles.css; テスト=src/domain/search.test.ts,e2e/search.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-20-search-suggestions.md,dev-standard default profile
 
@@ -1773,20 +1893,20 @@ diopside v8のタグは、承認済み動画のタグは、版管理したタグ
 検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-TAG-002: タグは大分類、小分類、タグの3層で管理し、表示名だけの平坦な配列を正本にしてはならない
+## V8-TAG-002: 分類値は大分類・小分類・値で管理し、人物・作品等のエンティティと混在させてはならない
 
-diopside v8のタグは、タグは大分類、小分類、タグの3層で管理し、表示名だけの平坦な配列を正本にしてはならない。を**satisfy**。
+diopside v8のタグは、検索条件として使う分類値は大分類・小分類・値の3層で管理しなければならない。人物、グループ、チャンネル、ゲーム、イベント、シリーズ、楽曲、作品、アーティストは独立したエンティティとしてIDで管理し、分類値の平坦な文字列配列を正本にしてはならない。を**satisfy**。
 
 根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-TAG-002-1` 前提: V8-タグ-002の前提を満たす公開データまたは操作がある。条件: 構造試験。期待結果: すべてのタグに大分類と小分類があり、分類不明のタグが0件である。。
+- `AC-V8-TAG-002-1` 前提: V8-タグ-002の前提を満たす公開データまたは操作がある。条件: 構造試験。期待結果: 全小分類がclassificationまたはentity-referenceを明示し、エンティティ参照には型と動画関係があり、分類値とエンティティを同じ意味として扱わない。。
 
-要求源: Issue #1 V8-タグ-002, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-タグ-002, user:2026-08-03, spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: tests/content-validation.test.ts, scripts/audit-semantic-entities.ts
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/entities.ts,scripts/audit-semantic-entities.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,scripts/audit-semantic-entities.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TAG-003: 各正規タグは表示名と独立した不変タグ識別子を持たなければならない
 
@@ -1803,20 +1923,20 @@ diopside v8のタグは、各正規タグは表示名と独立した不変タグ
 検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-TAG-004: 同じ表示名でも小分類または意味が異なるタグは別の不変識別子として扱わなければならない
+## V8-TAG-004: 同名異義の分類値は別IDとし、同一対象の役割違いは一つのエンティティIDへ統合しなければならない
 
-diopside v8のタグは、同じ表示名でも小分類または意味が異なるタグは別の不変識別子として扱わなければならない。を**satisfy**。
+diopside v8のタグは、同じ表示名でも分類上の意味が異なる値は別の不変タグIDとして扱わなければならない。一方、同じ人物または作品が出演・言及等の異なる役割へ現れる場合は同じエンティティIDへ解決し、役割を関係種別として保持しなければならない。を**satisfy**。
 
 根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-TAG-004-1` 前提: V8-タグ-004の前提を満たす公開データまたは操作がある。条件: 同名異義試験。期待結果: ゲームジャンルの「ホラー」と中心テーマの「ホラー」、歌種別の「ライブ」と同時視聴メディアの「ライブ」が別タグになる。。
+- `AC-V8-TAG-004-1` 前提: V8-タグ-004の前提を満たす公開データまたは操作がある。条件: 同名異義試験。期待結果: 同名異義の分類値は別タグIDになり、出演者と同名の言及人物は同じ人物エンティティIDへ解決され、出演とmentionsの関係を区別する。。
 
-要求源: Issue #1 V8-タグ-004, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-タグ-004, user:2026-08-03, spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: tests/content-validation.test.ts, scripts/audit-semantic-entities.ts
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/entities.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TAG-005: 承認済みの全動画は主ジャンルをちょうど1件持たなければならない
 
@@ -1848,20 +1968,20 @@ diopside v8のタグは、承認済みの全動画は動画形式をちょうど
 検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-TAG-007: 承認済みの全動画は公開チャンネルをちょうど1件持たなければならない
+## V8-TAG-007: 承認済み動画は配信元チャンネルを一つ持ち、人物属性・出演関係から分離しなければならない
 
-diopside v8のタグは、承認済みの全動画は公開チャンネルをちょうど1件持たなければならない。を**satisfy**。
+diopside v8のタグは、承認済みの全動画は配信元チャンネルをちょうど1件持たなければならない。チャンネルは独立エンティティとし、対応する人物とはrepresents関係で結び、出演者、人物の所属または公式チャンネルと混同してはならない。を**satisfy**。
 
 根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-TAG-007-1` 前提: V8-タグ-007の前提を満たす公開データまたは操作がある。条件: 基数試験・人手確認。期待結果: 実際のYouTubeチャンネルを確認できない候補は承認済みにならない。。
+- `AC-V8-TAG-007-1` 前提: V8-タグ-007の前提を満たす公開データまたは操作がある。条件: 基数試験・人手確認。期待結果: 各動画のpublishedByが1件のチャンネルIDへ解決され、対応人物がある場合はrepresentsで結ばれ、出演者一覧へチャンネル名を混入させない。。
 
-要求源: Issue #1 V8-タグ-007, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-タグ-007, user:2026-08-03, spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: tests/content-validation.test.ts, scripts/audit-semantic-entities.ts
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/entities.ts,content/people/channel-person-mappings.json; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TAG-008: 主ジャンル、動画形式、公開チャンネル以外は、タグ体系に定めた基数の範囲で異なる検索軸のタグを複数付与できなければならない
 
@@ -1970,20 +2090,20 @@ diopside v8のタグは、ユニット・チームタグを持つ動画は「コ
 検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-TAG-015: 実出演者と、配信中に名前を話題にしただけの言及人物を分離しなければならない
+## V8-TAG-015: 実出演と人物言及は関係種別で分離し、同一人物は同じ人物IDへ解決しなければならない
 
-diopside v8のタグは、実出演者と、配信中に名前を話題にしただけの言及人物を分離しなければならない。を**satisfy**。
+diopside v8のタグは、実出演者と配信中に名前を話題にした人物は、それぞれfeaturesとmentionsの動画関係として分離しなければならない。同じ人物が両方の役割へ現れても人物マスターを複製せず、同じ人物エンティティIDへ解決しなければならない。言及だけでコラボを付与してはならない。を**satisfy**。
 
 根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-TAG-015-1` 前提: V8-タグ-015の前提を満たす公開データまたは操作がある。条件: 排他試験。期待結果: 同一人物が同じ動画で出演者と言及人物の両方にならず、言及だけで「コラボ」が付かない。。
+- `AC-V8-TAG-015-1` 前提: V8-タグ-015の前提を満たす公開データまたは操作がある。条件: 排他試験。期待結果: 出演と人物言及を別関係で保持し、同名の対象人物は一つの人物IDへ統合され、mentionsだけではコラボにならない。。
 
-要求源: Issue #1 V8-タグ-015, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-タグ-015, user:2026-08-03, spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: tests/content-validation.test.ts, scripts/audit-semantic-entities.ts
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/entities.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TAG-016: 一つのタグには一つの検索対象または一つの分類事実だけを保存し、複数人物や独立概念を連結したタグは分解しなければならない
 
@@ -2301,21 +2421,21 @@ diopside v8の定期・連続企画タグは、公開タイトルまたは承認
 検証証跡: tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=scripts/legacy-content.ts,content/videos; テスト=tests/content-validation.test.ts; 参照資料=spec/sources/owner-directive-2026-08-25-recurring-series-pages.md,dev-standard default profile
 
-## V8-TAG-037: 確認済みの各歌唱実績は動画ジャンルと独立した楽曲タグとして検索できなければならない
+## V8-TAG-037: 確認済みの各歌唱実績は動画ジャンルと独立した楽曲エンティティとして検索できなければならない
 
-diopside v8の歌唱実績と楽曲タグは、楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲タグを持たなければならない。楽曲タグは動画の主・副ジャンルが「歌」であるかに依存せず、公開一覧・検索索引・タグ索引・動画詳細のすべてに一貫して反映しなければならない。を**satisfy**。
+diopside v8の歌唱実績と楽曲タグは、楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲エンティティIDを持たなければならない。楽曲は動画ジャンルから独立し、原アーティストとのcreatedBy関係を持ち、互換用の楽曲タグIDを公開一覧・検索索引・タグ索引・動画詳細で同じエンティティへ解決しなければならない。を**satisfy**。
 
 根拠: 通常配信の一部で歌った曲や鼻歌を、動画全体のジャンルに埋もれさせず曲から再発見できるようにするため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-TAG-037-1` 前提: 楽曲名と白雪巴の歌唱参加が確認済みである。条件: 歌唱実績を正本化して公開データを生成する。期待結果: 歌唱種別と不変の楽曲タグIDを付け、対象動画の一覧・検索・タグ・詳細索引に同じIDを反映する。。
+- `AC-V8-TAG-037-1` 前提: 楽曲名と白雪巴の歌唱参加が確認済みである。条件: 歌唱実績を正本化して公開データを生成する。期待結果: 歌唱種別と不変の楽曲エンティティIDを付け、原アーティストへ関連付け、互換用タグを含む対象動画の一覧・検索・タグ・詳細索引を同じエンティティへ解決する。。
 - `AC-V8-TAG-037-2` 前提: 主ジャンルが歌でない通常配信で歌唱または鼻歌が確認された。条件: 実績を登録する。期待結果: 動画ジャンルの変更を必須とせず、配信内歌唱または鼻歌の種別で楽曲タグを公開できる。。
 
-要求源: spec/sources/owner-directive-2026-08-25-song-performance-index.md, user:2026-08-25
+要求源: spec/sources/owner-directive-2026-08-25-song-performance-index.md, spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-25, user:2026-08-31
 検証証跡: tests/content-validation.test.ts, tests/generated.test.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=content/songs/song-performances.json,src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts; テスト=tests/content-validation.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-25-song-performance-index.md,dev-standard assured profile
+トレース: 設計=docs/design/generated/system.gen.md; 実装=content/songs/song-performances.json,src/domain/content.ts,src/domain/entities.ts,src/domain/validation.ts,scripts/build-public-data.ts; テスト=tests/content-validation.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-25-song-performance-index.md,spec/sources/owner-directive-2026-08-31-semantic-entity-model.md,dev-standard assured profile
 
 ## V8-TAG-038: 歌唱実績は楽曲名・本人参加・開始秒・根拠を検証し、未確認の曲を公開してはならない
 
@@ -2367,6 +2487,66 @@ diopside v8のゲームジャンル語彙は、既存語彙で作品のプレイ
 要求源: spec/sources/owner-directive-2026-08-28-game-catalog.md, user:2026-08-28-follow-up
 検証証跡: tests/content-validation.test.ts, scripts/audit-game-tags.ts, tests/generated.test.ts
 トレース: 設計=content/taxonomy/tag-taxonomy.json,docs/design/generated/system.gen.md; 実装=spec/sources/tag-taxonomy-v2.json,content/works/game-catalog.json,src/domain/validation.ts; テスト=tests/content-validation.test.ts,scripts/audit-game-tags.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-28-game-catalog.md,dev-standard assured profile
+
+## V8-TAG-041: 作品・ジャンル・イベント・人物・チャンネル・媒体・テーマの意味境界を検証しなければならない
+
+diopside v8の分類意味境界は、ゲーム作品名にはゲーム正本へ解決できる正式作品名だけを置き、ゲームジャンルとイベント・大会・企画を含めてはならない。イベントには特定対象を識別しない「大会」「祭り」等の一般語を置かず、投稿受付手段、配信元チャンネル、人物属性、テーマをそれぞれ別の意味として管理しなければならない。を**satisfy**。
+
+根拠: 異なる概念が同じ一覧へ混入して検索結果の意味が崩れることを防ぐため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-TAG-041-1` 前提: タグ体系、ゲーム正本、イベント、投稿受付手段のデータがある。条件: 意味境界の決定的監査を行う。期待結果: 有効なゲーム作品名は全件がゲーム正本へ解決され、イベント一般語と廃止した言及種別・言及関係が0件で、マシュマロは投稿受付手段として扱われる。。
+
+要求源: spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: scripts/audit-semantic-entities.ts, tests/content-validation.test.ts
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/validation.ts,scripts/audit-semantic-entities.ts,scripts/migrate-semantic-entity-model.ts; テスト=tests/content-validation.test.ts,scripts/audit-semantic-entities.ts; 参照資料=spec/sources/owner-directive-2026-08-31-semantic-entity-model.md,dev-standard assured profile
+
+## V8-TAG-042: 動画とエンティティの関係およびエンティティ間関係を型付きIDで公開しなければならない
+
+diopside v8のエンティティ関係は、公開データは人物、グループ、チャンネル、ゲーム、イベント、シリーズ、楽曲、作品、アーティストを不変エンティティIDで識別し、動画との配信元・出演・言及・プレイ・視聴・歌唱・イベント参加・シリーズ所属を型付き関係として保持しなければならない。楽曲から原アーティスト、イベントから対象ゲーム、人物から所属グループ等のエンティティ間関係もIDで解決しなければならない。を**satisfy**。
+
+根拠: 文字列一致に依存せず、同一対象の複数役割と関連対象を横断して探索できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-TAG-042-1` 前提: 分類体系、人物・ゲーム・楽曲正本と公開動画がある。条件: 公開エンティティ索引を生成する。期待結果: すべての有効なエンティティ参照タグが一意のエンティティIDへ解決され、動画関係とエンティティ間関係の参照先が同じ公開版内に存在する。。
+
+要求源: spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: scripts/audit-semantic-entities.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/entities.ts,src/domain/content.ts,scripts/build-public-data.ts; テスト=tests/content-validation.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-31-semantic-entity-model.md,dev-standard assured profile
+
+## V8-TAG-043: 各分類一覧は利用実績と探索価値を監査し、意味の薄い軸を公開してはならない
+
+diopside v8の一覧探索価値は、各classification小分類について、有効値数、実使用値数、付与件数を決定的に集計しなければならない。使用値が一つ以下、選択しても結果集合が実質変わらない、または利用者の探索ユースケースを説明できない軸は再評価対象として報告し、必要性を確認せず新しい一覧を公開してはならない。を**satisfy**。
+
+根拠: データを作れることではなく、有用な動画集合へ到達できることを一覧の存在理由にするため。
+
+分類: `product` / `nonfunctional`
+
+受入条件:
+- `AC-V8-TAG-043-1` 前提: 公開候補のclassification小分類と全動画付与がある。条件: 意味論・利用実績監査を実行する。期待結果: 全軸の有効値数・実使用値数・付与件数を出力し、実使用値が一つ以下の軸をreviewとして識別する。。
+
+要求源: spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: scripts/audit-semantic-entities.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=scripts/audit-semantic-entities.ts,src/features/search/SearchPage.tsx; テスト=scripts/audit-semantic-entities.ts; 参照資料=spec/sources/owner-directive-2026-08-31-semantic-entity-model.md,dev-standard assured profile
+
+## V8-TAG-044: 分類の正しさと抽出網羅性を分離し、期待・実績・候補・原因を横断監査しなければならない
+
+diopside v8のエンティティ網羅性監査は、楽曲、出演者、言及人物、ゲーム作品、イベントは分類の意味検証とは別に、期待件数、実エンティティ件数、実関係件数、未抽出候補件数、監査状態、原因を公開版ごとに記録しなければならない。期待または候補を計測できない領域は完了とせずpartialまたはunmeasuredと明示しなければならない。を**satisfy**。
+
+根拠: 正しく分類した少数データを網羅済みと誤認せず、追加監査の範囲と原因を追跡するため。
+
+分類: `project` / `nonfunctional`
+
+受入条件:
+- `AC-V8-TAG-044-1` 前提: 公開候補の動画とエンティティ関係がある。条件: 公開エンティティ索引と横断監査を生成する。期待結果: 5領域すべてに期待・実績・候補・状態・原因を出力し、未計測の期待件数または候補件数を持つ領域をcompleteにしない。。
+
+要求源: spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+検証証跡: scripts/audit-semantic-entities.ts, tests/generated.test.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/domain/entities.ts,scripts/audit-semantic-entities.ts,scripts/build-public-data.ts; テスト=tests/content-validation.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-31-semantic-entity-model.md,dev-standard assured profile
 
 ## V8-TIME-001: タイムスタンプは動画全体を移動するための目次として作り、見どころ候補と別のデータとして扱わなければならない
 

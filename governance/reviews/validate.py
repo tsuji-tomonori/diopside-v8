@@ -370,10 +370,11 @@ def validate_github_squash_review(root: Path, commit_ref: str) -> Path:
 def validate_github_merge_review(root: Path, commit_ref: str) -> Path:
     """Resolve the PR review behind one GitHub-created two-parent merge commit.
 
-    The merge tree may be accepted only when it contains exactly one changed CHG
-    review relative to the first parent, and the second parent has a Commit Comment that
-    points to that same unchanged review. This keeps conflict resolutions or
-    unrelated merge content from bypassing the review contract.
+    Every commit unique to the PR head must update and reference one CHG review.
+    The set of referenced reviews must exactly match the CHG reviews changed by the
+    merge relative to its first parent. This accepts intentionally multi-commit PRs
+    without letting conflict resolutions or unrelated merge content bypass the
+    review contract.
     """
     resolved_commit = git_text(root, "rev-parse", f"{commit_ref}^{{commit}}")
     message = git_text(root, "show", "-s", "--format=%B", resolved_commit)
@@ -408,21 +409,81 @@ def validate_github_merge_review(root: Path, commit_ref: str) -> Path:
         and Path(item).name.startswith("CHG-")
         and Path(item).suffix in {".yaml", ".yml"}
     ]
-    if len(candidates) != 1:
+    if not candidates:
         raise ContractError(
-            f"{commit_ref}: fallback requires exactly one changed CHG review, "
-            f"found {len(candidates)}"
+            f"{commit_ref}: fallback requires at least one changed CHG review"
         )
-    active_review = safe_repo_path(root, candidates[0])
-    head_review = validate_commit(root, head_parent)
-    if head_review != active_review:
+
+    head_commits = git_text(
+        root,
+        "rev-list",
+        "--reverse",
+        head_parent,
+        f"^{base_parent}",
+    ).splitlines()
+    if not head_commits or head_parent not in head_commits:
         raise ContractError(
-            f"{commit_ref}: merge head Commit Comment points to another review"
+            f"{commit_ref}: fallback cannot resolve commits unique to the merge head"
         )
-    review = validate_review_file(root, active_review, head_parent)
-    head_message = git_text(root, "show", "-s", "--format=%B", head_parent)
-    head_subject = head_message.splitlines()[0] if head_message else ""
-    validate_commit_type_flags(head_subject, review)
+
+    reviews_root = (root / "governance" / "reviews").resolve()
+    commit_reviews: list[tuple[str, Path, str]] = []
+    for commit in head_commits:
+        review_path = validate_commit(root, commit)
+        if (
+            review_path.parent != reviews_root
+            or not review_path.name.startswith("CHG-")
+            or review_path.suffix not in {".yaml", ".yml"}
+        ):
+            raise ContractError(
+                f"{commit}: Review-Checklist must point under governance/reviews/CHG-*.yaml"
+            )
+        relative_review = review_path.relative_to(root).as_posix()
+        source_commit = git_text(
+            root,
+            "log",
+            "-1",
+            "--format=%H",
+            commit,
+            "--",
+            relative_review,
+        )
+        if source_commit != commit:
+            raise ContractError(
+                f"{review_path}: active review must be updated by {commit}"
+            )
+        commit_reviews.append((commit, review_path, relative_review))
+
+    changed_reviews = set(candidates)
+    referenced_reviews = {relative for _, _, relative in commit_reviews}
+    if referenced_reviews != changed_reviews:
+        unreferenced = sorted(changed_reviews - referenced_reviews)
+        unchanged = sorted(referenced_reviews - changed_reviews)
+        details = []
+        if unreferenced:
+            details.append(f"unreferenced changed reviews: {', '.join(unreferenced)}")
+        if unchanged:
+            details.append(f"referenced unchanged reviews: {', '.join(unchanged)}")
+        raise ContractError(
+            f"{commit_ref}: merge review set does not match changed CHG reviews "
+            f"({'; '.join(details)})"
+        )
+
+    validated_reviews: dict[str, dict[str, Any]] = {}
+    for commit, review_path, relative_review in commit_reviews:
+        review = validated_reviews.get(relative_review)
+        if review is None:
+            review = validate_review_file(root, review_path, head_parent)
+            validated_reviews[relative_review] = review
+        message = git_text(root, "show", "-s", "--format=%B", commit)
+        subject = message.splitlines()[0] if message else ""
+        validate_commit_type_flags(subject, review)
+
+    active_review = next(
+        review_path
+        for commit, review_path, _ in commit_reviews
+        if commit == head_parent
+    )
     return active_review
 
 

@@ -40,6 +40,7 @@ const manifestSchema = z.object({
   createdTimestampVideoCount: z.number().int().nonnegative(),
   timestampItemCount: z.number().int().nonnegative(),
   createdSynopsisVideoCount: z.number().int().nonnegative(),
+  customEmojiUsageVideoCount: z.number().int().nonnegative(),
 }).strict();
 
 const root = path.resolve(import.meta.dirname, '..');
@@ -64,7 +65,7 @@ const errors: string[] = validateTaxonomy(taxonomyInput, aliasesInput).map(forma
 const videos = readCanonicalVideos(root);
 for (const video of videos) errors.push(...validateCanonicalVideo(video, taxonomy, aliases).map((item) => `${video.videoId}.json:${formatIssue(item)}`));
 errors.push(...validateChannelPersonMappings(videos, taxonomy, channelPersonMappings, collaborationProfiles.subjectPersonTagId).map(formatIssue));
-errors.push(...validateSongPerformanceCatalog(songPerformancesInput, videos).map(formatIssue));
+errors.push(...validateSongPerformanceCatalog(songPerformancesInput, videos, taxonomy).map(formatIssue));
 errors.push(...validateGameCatalog(gameCatalogInput, taxonomy, workIntroductions, videos).map(formatIssue));
 
 const uniqueVideoIds = new Set(videos.map((video) => video.videoId));
@@ -79,6 +80,8 @@ const timestampItemCount = createdTimestampVideos.reduce((total, video) => total
 if (manifest.timestampItemCount !== timestampItemCount) errors.push('content-manifest:TIMESTAMP_ITEM_COUNT:タイムスタンプ区間数が一致しません。');
 const createdSynopsisVideoCount = videos.filter((video) => video.synopsis !== undefined).length;
 if (manifest.createdSynopsisVideoCount !== createdSynopsisVideoCount) errors.push('content-manifest:SYNOPSIS_VIDEO_COUNT:作成済みあらすじ動画数が一致しません。');
+const customEmojiUsageVideoCount = videos.filter((video) => video.customEmojiUsage !== undefined).length;
+if (manifest.customEmojiUsageVideoCount !== customEmojiUsageVideoCount) errors.push('content-manifest:CUSTOM_EMOJI_USAGE_VIDEO_COUNT:カスタム絵文字集計済み動画数が一致しません。');
 if (manifest.taxonomyVersion !== taxonomy.taxonomyVersion) errors.push('content-manifest:TAXONOMY_VERSION:タグ体系版が一致しません。');
 if (manifest.aliasVersion !== aliases.aliasVersion) errors.push('content-manifest:ALIAS_VERSION:別名版が一致しません。');
 if (manifest.tagRulesVersion !== taxonomy.rulesVersion) errors.push('content-manifest:RULES_VERSION:規則版が一致しません。');
@@ -91,7 +94,7 @@ if (errors.length > 0) {
   process.exitCode = 1;
 } else {
   const appearanceCount = songPerformances.songs.reduce((total, song) => total + song.appearances.length, 0);
-  console.log(`正本検証合格: ${videos.length}動画・${assignmentCount}タグ付与・${gameCatalog.games.length}ゲーム・${songPerformances.songs.length}楽曲・${appearanceCount}歌唱実績・7大分類・30小分類`);
+  console.log(`正本検証合格: ${videos.length}動画・${assignmentCount}タグ付与・${gameCatalog.games.length}ゲーム・${songPerformances.songs.length}楽曲・${appearanceCount}歌唱実績・7大分類・28小分類`);
 }
 
 function formatIssue(item: { code: string; path: string; message: string }): string {

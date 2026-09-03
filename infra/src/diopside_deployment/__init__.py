@@ -1,1 +1,1 @@
-"""Deployment-only CDK resources that are excluded from the Lambda asset."""
+"""Deployment-only CDK resources for the private storage stacks."""
