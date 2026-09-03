@@ -3,14 +3,20 @@ import type { ZodError } from 'zod';
 import {
   buildTaxonomyLookup,
   canonicalVideoSchema,
+  gameCatalogSchema,
+  songPerformanceCatalogSchema,
   type ChannelPersonMappings,
+  type GameCatalog,
   tagAliasesSchema,
   tagTaxonomySchema,
   type CanonicalVideo,
+  type SongPerformanceCatalog,
   type TagAliases,
   type TagTaxonomy,
   type TaxonomyLookupItem,
+  type WorkIntroductions,
 } from './content.ts';
+import { applyGameCatalogGenres, catalogGameGenreTagIds } from './game-catalog.ts';
 import { normalizeTagAlias } from './search.ts';
 import { detectExplicitGameTitleTagIds } from './game-title-detection.ts';
 
@@ -19,6 +25,16 @@ export interface ValidationIssue {
   path: string;
   message: string;
 }
+
+const explicitFeatureTitlePatterns = new Map<string, RegExp>([
+  ['ゲリラ', /ゲリラ/u],
+  ['逆凸', /逆凸/u],
+  ['検証・チャレンジ', /(?:検証|チャレンジ|挑戦)/u],
+  ['初見', /初見/u],
+  ['耐久', /(?:耐久|クリアするまで|終わるまで)/u],
+  ['大会', /(?:大会|運動会|にじイカ祭り20\d{2}|(?:麻雀|スマブラ|マリカ|スプラ|DbD|DBD|ポケユナ|卓球|クイズ|ぷよテト|遊戯王)[^\s】#]{0,12}杯)/iu],
+  ['単発', /単発/u],
+]);
 
 function zodIssues(error: ZodError): ValidationIssue[] {
   return error.issues.map((issue) => ({
@@ -61,6 +77,27 @@ export function validateTaxonomy(input: unknown, aliasesInput: unknown): Validat
         issues.push(issue('SUBCATEGORY_ID_DUPLICATED', subcategory.subcategoryId, '小分類識別子が重複しています。'));
       }
       subcategoryIds.add(subcategory.subcategoryId);
+      if (subcategory.valueKind === 'entity-reference' && (!subcategory.entityType || !subcategory.videoRelation)) {
+        issues.push(issue(
+          'ENTITY_SEMANTICS_MISSING',
+          `${category.categoryId}.${subcategory.subcategoryId}`,
+          'エンティティ参照の小分類にはエンティティ型と動画との関係種別が必要です。',
+        ));
+      }
+      if (subcategory.valueKind === 'classification' && (subcategory.entityType || subcategory.videoRelation)) {
+        issues.push(issue(
+          'CLASSIFICATION_SEMANTICS_CONFLICT',
+          `${category.categoryId}.${subcategory.subcategoryId}`,
+          '分類値の小分類へエンティティ型または動画との関係種別を指定できません。',
+        ));
+      }
+      if (category.categoryId === 'reference' && ['contentType', 'relation'].includes(subcategory.subcategoryId)) {
+        issues.push(issue(
+          'LOW_VALUE_REFERENCE_AXIS',
+          `${category.categoryId}.${subcategory.subcategoryId}`,
+          '利用者の探索結果を改善しない言及種別・言及関係は公開分類へ置けません。',
+        ));
+      }
     }
   }
   const allTags = taxonomy.categories.flatMap((category) => category.subcategories.flatMap((subcategory) => (
@@ -122,6 +159,9 @@ export function validateCanonicalVideo(
   const video = parsed.data;
   const issues: ValidationIssue[] = [];
   const lookup = buildTaxonomyLookup(taxonomy);
+  const activeTagIds = new Set(taxonomy.categories.flatMap((category) => category.subcategories.flatMap((subcategory) => (
+    subcategory.tags.filter((tag) => tag.active).map((tag) => tag.tagId)
+  ))));
   const evidenceIds = new Set<string>();
   for (const [index, evidence] of video.evidence.entries()) {
     if (evidenceIds.has(evidence.evidenceId)) {
@@ -151,6 +191,9 @@ export function validateCanonicalVideo(
       issues.push(issue('TAG_UNKNOWN', `tagAssignments.${index}.tagId`, 'タグ体系に存在しない識別子です。'));
       continue;
     }
+    if (!activeTagIds.has(assignment.tagId)) {
+      issues.push(issue('TAG_INACTIVE', `tagAssignments.${index}.tagId`, '廃止済みタグを動画へ付与できません。'));
+    }
     if (assigned.has(assignment.tagId)) {
       issues.push(issue('TAG_DUPLICATED', `tagAssignments.${index}.tagId`, '同じタグを重複付与できません。'));
     }
@@ -158,8 +201,22 @@ export function validateCanonicalVideo(
     if (!assignment.reason.includes(tag.canonicalName)) {
       issues.push(issue('TAG_REASON_NOT_SPECIFIC', `tagAssignments.${index}.reason`, '付与理由に対象タグの判定事実を明示してください。'));
     }
+    const titleIsSoleEvidence = /^(?:タイトルが|公開タイトルから)/u.test(assignment.reason);
+    const explicitFeaturePattern = tag.categoryId === 'context' && tag.subcategoryId === 'feature'
+      ? explicitFeatureTitlePatterns.get(tag.canonicalName)
+      : undefined;
+    if (titleIsSoleEvidence && explicitFeaturePattern && !explicitFeaturePattern.test(video.title)) {
+      issues.push(issue(
+        'TAG_TITLE_EVIDENCE_MISMATCH',
+        `tagAssignments.${index}.reason`,
+        `進行・企画特性「${tag.canonicalName}」のタイトル根拠を公開タイトルで確認できません。`,
+      ));
+    }
   }
-  if (video.taxonomyVersion !== taxonomy.taxonomyVersion) {
+  if (
+    video.taxonomyVersion !== taxonomy.taxonomyVersion
+    && !taxonomy.compatibleCanonicalVideoTaxonomyVersions.includes(video.taxonomyVersion)
+  ) {
     issues.push(issue('TAXONOMY_VERSION_MISMATCH', 'taxonomyVersion', '動画とタグ体系の版が一致しません。'));
   }
   if (video.aliasVersion !== aliases.aliasVersion || video.aliasVersion !== taxonomy.aliasVersion) {
@@ -171,9 +228,108 @@ export function validateCanonicalVideo(
   validateSynopsis(video, issues);
   validateTimestamps(video, tags, issues);
   validateWordCloud(video, issues);
+  validateCustomEmojiUsage(video, issues);
   const latestTagReview = video.tagAssignments.map((assignment) => Date.parse(assignment.reviewedAt)).sort((left, right) => right - left)[0] ?? 0;
   if (Date.parse(video.approval.approvedAt) < latestTagReview) {
     issues.push(issue('APPROVAL_BEFORE_REVIEW', 'approval.approvedAt', '最終承認はタグ確認後に行ってください。'));
+  }
+  return issues;
+}
+
+export function validateGameCatalog(
+  input: unknown,
+  taxonomy: TagTaxonomy,
+  _workIntroductions: WorkIntroductions,
+  videos: CanonicalVideo[],
+): ValidationIssue[] {
+  const parsed = gameCatalogSchema.safeParse(input);
+  if (!parsed.success) return zodIssues(parsed.error);
+  const catalog: GameCatalog = parsed.data;
+  const issues: ValidationIssue[] = [];
+  const lookup = buildTaxonomyLookup(taxonomy);
+  const activeGameTitles = new Map(
+    taxonomy.categories
+      .find((category) => category.categoryId === 'works')
+      ?.subcategories.find((subcategory) => subcategory.subcategoryId === 'gameTitle')
+      ?.tags.filter((tag) => tag.active).map((tag) => [tag.tagId, tag.canonicalName]) ?? [],
+  );
+  const expectedGameTitleTagIds = new Set(activeGameTitles.keys());
+  const seenGameTitleTagIds = new Set<string>();
+  const seenTitles = new Set<string>();
+
+  for (const [gameIndex, game] of catalog.games.entries()) {
+    const gamePath = `games.${gameIndex}`;
+    const groupedGameTitleTagIds = [game.gameTitleTagId, ...(game.equivalentGameTitleTagIds ?? [])];
+    for (const [tagIndex, gameTitleTagId] of groupedGameTitleTagIds.entries()) {
+      const tagPath = tagIndex === 0 ? `${gamePath}.gameTitleTagId` : `${gamePath}.equivalentGameTitleTagIds.${tagIndex - 1}`;
+      if (seenGameTitleTagIds.has(gameTitleTagId)) {
+        issues.push(issue('GAME_CATALOG_TAG_DUPLICATED', tagPath, 'ゲーム作品名タグが重複しています。'));
+      }
+      seenGameTitleTagIds.add(gameTitleTagId);
+      const canonicalTitle = activeGameTitles.get(gameTitleTagId);
+      if (!canonicalTitle) {
+        issues.push(issue('GAME_CATALOG_UNKNOWN_TITLE', tagPath, '有効なゲーム作品名タグではありません。'));
+      }
+    }
+    if (seenTitles.has(game.title)) {
+      issues.push(issue('GAME_CATALOG_TITLE_DUPLICATED', `${gamePath}.title`, 'ゲーム作品名が重複しています。'));
+    }
+    seenTitles.add(game.title);
+
+    const canonicalTitle = activeGameTitles.get(game.gameTitleTagId);
+    if (canonicalTitle && canonicalTitle !== game.title) {
+      issues.push(issue('GAME_CATALOG_TITLE_MISMATCH', `${gamePath}.title`, 'ゲーム作品名がタグ体系の正規名と一致しません。'));
+    }
+
+    const genreIds = new Set<string>();
+    for (const [genreIndex, tagId] of game.gameGenreTagIds.entries()) {
+      const genre = lookup.get(tagId);
+      if (!genre || genre.categoryId !== 'content' || genre.subcategoryId !== 'gameGenre') {
+        issues.push(issue('GAME_CATALOG_UNKNOWN_GENRE', `${gamePath}.gameGenreTagIds.${genreIndex}`, '有効なゲームジャンルタグではありません。'));
+      }
+      if (genreIds.has(tagId)) {
+        issues.push(issue('GAME_CATALOG_GENRE_DUPLICATED', `${gamePath}.gameGenreTagIds.${genreIndex}`, '同じゲームジャンルを重複指定できません。'));
+      }
+      genreIds.add(tagId);
+    }
+    const sourceUrls = new Set<string>();
+    for (const [sourceIndex, source] of game.sources.entries()) {
+      if (sourceUrls.has(source.url)) {
+        issues.push(issue('GAME_CATALOG_SOURCE_DUPLICATED', `${gamePath}.sources.${sourceIndex}.url`, '同じ確認元URLを重複指定できません。'));
+      }
+      sourceUrls.add(source.url);
+      if (source.checkedAt > game.reviewedAt) {
+        issues.push(issue('GAME_CATALOG_REVIEW_BEFORE_SOURCE', `${gamePath}.reviewedAt`, 'ゲームジャンルの確認日は確認元の参照日以後にしてください。'));
+      }
+    }
+  }
+
+  for (const tagId of expectedGameTitleTagIds) {
+    if (!seenGameTitleTagIds.has(tagId)) {
+      issues.push(issue('GAME_CATALOG_ENTRY_MISSING', 'games', `ゲーム作品「${activeGameTitles.get(tagId) ?? tagId}」のジャンル正本がありません。`));
+    }
+  }
+  for (const tagId of seenGameTitleTagIds) {
+    if (!expectedGameTitleTagIds.has(tagId)) {
+      issues.push(issue('GAME_CATALOG_ENTRY_UNEXPECTED', 'games', `ゲームカタログの対象外タグです: ${tagId}`));
+    }
+  }
+
+  for (const video of videos) {
+    const assignedTagIds = video.tagAssignments.map((assignment) => assignment.tagId);
+    const catalogGenres = catalogGameGenreTagIds(assignedTagIds, catalog);
+    if (catalogGenres.length === 0) continue;
+    const effective = applyGameCatalogGenres(assignedTagIds, taxonomy, catalog);
+    const effectiveGenres = effective.filter((tagId) => {
+      const tag = lookup.get(tagId);
+      return tag?.categoryId === 'content' && tag.subcategoryId === 'gameGenre';
+    });
+    if (effectiveGenres.length < 1 || effectiveGenres.length > 3) {
+      issues.push(issue('GAME_CATALOG_VIDEO_GENRE_COUNT', `${video.videoId}.tagAssignments`, 'ゲームカタログから導出する動画のゲームジャンルは1〜3件にしてください。'));
+    }
+    if (effectiveGenres.some((tagId) => !catalogGenres.includes(tagId))) {
+      issues.push(issue('GAME_CATALOG_VIDEO_GENRE_DRIFT', `${video.videoId}.tagAssignments`, '公開ゲームジャンルがゲーム単位の正本と一致しません。'));
+    }
   }
   return issues;
 }
@@ -244,6 +400,79 @@ export function validateChannelPersonMappings(
     }
   }
 
+  return issues;
+}
+
+export function validateSongPerformanceCatalog(
+  input: unknown,
+  videos: CanonicalVideo[],
+  taxonomy?: TagTaxonomy,
+): ValidationIssue[] {
+  const parsed = songPerformanceCatalogSchema.safeParse(input);
+  if (!parsed.success) return zodIssues(parsed.error);
+  const catalog: SongPerformanceCatalog = parsed.data;
+  const issues: ValidationIssue[] = [];
+  const videosById = new Map(videos.map((video) => [video.videoId, video]));
+  const tagIds = new Set<string>();
+  const titles = new Set<string>();
+  const appearanceIds = new Set<string>();
+  const taxonomySongs = new Map(taxonomy?.categories
+    .find((category) => category.categoryId === 'works')
+    ?.subcategories.find((subcategory) => subcategory.subcategoryId === 'songTitle')
+    ?.tags.filter((tag) => tag.active).map((tag) => [tag.tagId, tag.canonicalName]) ?? []);
+
+  for (const [songIndex, song] of catalog.songs.entries()) {
+    if (tagIds.has(song.tagId)) {
+      issues.push(issue('SONG_TAG_DUPLICATED', `songs.${songIndex}.tagId`, '楽曲タグIDが重複しています。'));
+    }
+    tagIds.add(song.tagId);
+    if (taxonomy && taxonomySongs.get(song.tagId) !== song.title) {
+      issues.push(issue('SONG_TAXONOMY_MISMATCH', `songs.${songIndex}.tagId`, '楽曲正本を有効な楽曲エンティティ参照タグへ解決できません。'));
+    }
+    const normalizedTitle = normalizeTagAlias(song.title);
+    if (titles.has(normalizedTitle)) {
+      issues.push(issue('SONG_TITLE_DUPLICATED', `songs.${songIndex}.title`, '正規化後の楽曲名が重複しています。'));
+    }
+    titles.add(normalizedTitle);
+
+    for (const [appearanceIndex, appearance] of song.appearances.entries()) {
+      const appearancePath = `songs.${songIndex}.appearances.${appearanceIndex}`;
+      if (appearanceIds.has(appearance.appearanceId)) {
+        issues.push(issue('SONG_APPEARANCE_DUPLICATED', `${appearancePath}.appearanceId`, '歌唱実績IDが重複しています。'));
+      }
+      appearanceIds.add(appearance.appearanceId);
+      const video = videosById.get(appearance.videoId);
+      if (!video) {
+        issues.push(issue('SONG_VIDEO_UNKNOWN', `${appearancePath}.videoId`, '歌唱実績が未知の動画を参照しています。'));
+        continue;
+      }
+      const evidenceIds = new Set(video.evidence.map((evidence) => evidence.evidenceId));
+      if (appearance.evidenceRefs.some((reference) => !evidenceIds.has(reference))) {
+        issues.push(issue('SONG_EVIDENCE_MISSING', `${appearancePath}.evidenceRefs`, '歌唱実績の根拠参照を動画で解決できません。'));
+      }
+      if (video.durationSeconds === null || appearance.startSeconds >= video.durationSeconds) {
+        issues.push(issue('SONG_START_OUT_OF_RANGE', `${appearancePath}.startSeconds`, '歌唱開始秒は動画長未満にしてください。'));
+      }
+      if (appearance.endSeconds !== undefined && (
+        appearance.endSeconds <= appearance.startSeconds
+        || video.durationSeconds === null
+        || appearance.endSeconds > video.durationSeconds
+      )) {
+        issues.push(issue('SONG_END_OUT_OF_RANGE', `${appearancePath}.endSeconds`, '歌唱終了秒は開始後かつ動画長以内にしてください。'));
+      }
+      if (appearance.performanceType === '鼻歌' && appearance.endSeconds === undefined) {
+        issues.push(issue('HUMMING_END_MISSING', `${appearancePath}.endSeconds`, '鼻歌は場面の範囲を示す終了秒も必要です。'));
+      }
+      if (appearance.timestampId) {
+        const timestamp = video.timestamps.status === '作成済み'
+          ? video.timestamps.items.find((item) => item.timestampId === appearance.timestampId)
+          : undefined;
+        if (!timestamp || timestamp.startSeconds !== appearance.startSeconds) {
+          issues.push(issue('SONG_TIMESTAMP_MISMATCH', `${appearancePath}.timestampId`, '歌唱実績の開始秒と承認済みタイムスタンプが一致しません。'));
+        }
+      }
+    }
+  }
   return issues;
 }
 
@@ -339,7 +568,6 @@ function validateConditionalTags(
     .filter((tag) => tag.categoryId === 'content' && (tag.subcategoryId === 'primary' || tag.subcategoryId === 'secondary'))
     .map((tag) => tag.canonicalName);
   if (genres.includes('ゲーム')) {
-    requireCount(issues, tags, 'works', 'gameTitle', 1, Number.POSITIVE_INFINITY, 'ゲーム作品名');
     requireCount(issues, tags, 'content', 'gameGenre', 1, 3, 'ゲームジャンル');
   }
   const assignedGameTitles = tags.filter((tag) => tag.categoryId === 'works' && tag.subcategoryId === 'gameTitle');
@@ -371,10 +599,6 @@ function validateConditionalTags(
   }
 
   const performerNames = new Set(tags.filter((tag) => tag.categoryId === 'people' && tag.subcategoryId === 'performer').map((tag) => tag.canonicalName));
-  const mentionedNames = new Set(tags.filter((tag) => tag.categoryId === 'reference' && tag.subcategoryId === 'mentionedPerson').map((tag) => tag.canonicalName));
-  for (const name of performerNames) {
-    if (mentionedNames.has(name)) issues.push(issue('PERFORMER_MENTION_DUPLICATED', 'tagAssignments', '同じ人物を出演者と言及人物へ重複登録できません。'));
-  }
   const isCollaboration = tags.some((tag) => tag.categoryId === 'context' && tag.subcategoryId === 'participation' && tag.canonicalName === 'コラボ');
   const units = tags.filter((tag) => tag.categoryId === 'people' && tag.subcategoryId === 'unit');
   const collaboratorNames = new Set([...performerNames].filter((name) => name !== '白雪巴'));
@@ -560,6 +784,31 @@ function validateWordCloud(video: CanonicalVideo, issues: ValidationIssue[]): vo
   const expectedOrder = [...wordCloud.words].sort((left, right) => right.weight - left.weight || left.term.localeCompare(right.term, 'ja'));
   if (wordCloud.words.some((word, index) => word.term !== expectedOrder[index]?.term || word.weight !== expectedOrder[index]?.weight)) {
     issues.push(issue('WORD_CLOUD_ORDER', 'wordCloud.words', 'ワードクラウド語句は重要度の降順、同値は日本語名順で決定的に保存してください。'));
+  }
+}
+
+function validateCustomEmojiUsage(video: CanonicalVideo, issues: ValidationIssue[]): void {
+  const usage = video.customEmojiUsage;
+  if (!usage) return;
+  const ids = new Set<string>();
+  let actualTotal = 0;
+  for (const [index, item] of usage.items.entries()) {
+    if (ids.has(item.customEmojiId)) {
+      issues.push(issue('CUSTOM_EMOJI_DUPLICATED', `customEmojiUsage.items.${index}.customEmojiId`, 'カスタム絵文字識別子が重複しています。'));
+    }
+    ids.add(item.customEmojiId);
+    actualTotal += item.count;
+  }
+  if (actualTotal !== usage.totalCount) {
+    issues.push(issue('CUSTOM_EMOJI_TOTAL_MISMATCH', 'customEmojiUsage.totalCount', 'カスタム絵文字の総出現回数と項目別回数の合計が一致しません。'));
+  }
+  const expected = [...usage.items].sort((left, right) => right.count - left.count
+    || left.label.localeCompare(right.label, 'ja')
+    || left.customEmojiId.localeCompare(right.customEmojiId));
+  if (usage.items.some((item, index) => item.customEmojiId !== expected[index]?.customEmojiId
+    || item.label !== expected[index]?.label
+    || item.count !== expected[index]?.count)) {
+    issues.push(issue('CUSTOM_EMOJI_ORDER', 'customEmojiUsage.items', 'カスタム絵文字は回数の降順、同数は表示名と識別子の順で保存してください。'));
   }
 }
 
