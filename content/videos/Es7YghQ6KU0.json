@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=Es7YghQ6KU0",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -92,6 +92,22 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "視聴者と夜更けの机を囲み、書類や動画編集を進める作業雑談。手を動かしては声の印象、漫画とゲーム、お酒の思い出や働き方へ話が広がり、区切りごとに作業へ戻る。集中して黙る時間も挟みつつ、大きな用事を一つずつ片づけ、互いの頑張りをねぎらう。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "本当本当にクリーンな作業配信なので",
+      "atSeconds": 5763,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "e6c2657eb927c5cd30087b79b9ee0f9c90f880b7ef16d14795f49de41c350ba8",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T20:56:11+09:00"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -344,21 +360,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
-  "synopsis": {
-    "body": "視聴者と夜更けの机を囲み、書類や動画編集を進める作業雑談。手を動かしては声の印象、漫画とゲーム、お酒の思い出や働き方へ話が広がり、区切りごとに作業へ戻る。集中して黙る時間も挟みつつ、大きな用事を一つずつ片づけ、互いの頑張りをねぎらう。",
-    "bodyEvidenceRefs": [
-      "evidence-synopsis-transcript"
-    ],
-    "featuredQuote": {
-      "text": "本当本当にクリーンな作業配信なので",
-      "atSeconds": 5763,
-      "evidenceRefs": [
-        "evidence-synopsis-transcript"
-      ]
-    },
-    "inputFingerprint": "e6c2657eb927c5cd30087b79b9ee0f9c90f880b7ef16d14795f49de41c350ba8",
-    "rulesVersion": "1.0.0",
-    "updatedAt": "2026-08-08T20:56:11+09:00"
   }
 }
