@@ -16,9 +16,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=_onN2qjzwsY",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -129,9 +129,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=3-iBxxgn1OY",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -391,9 +391,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=bfcLx1rzBgA",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -513,9 +513,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=JA4FII8TpxY",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -644,9 +644,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=qTio8lu1VZ0",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -921,9 +921,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=rSL6hdULr_s",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -948,18 +948,15 @@
           "type": "既存の承認済みタイムスタンプ",
           "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
           "inputFingerprint": "ff7e5f78e867d4ca193747ad1140b704b1bf0efa4e5ae900c299d3fcadadef88"
+        },
+        {
+          "evidenceId": "evidence-game-classification",
+          "type": "動画タイトル",
+          "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+          "inputFingerprint": "c9c0ba9c3445f247fdc5496dd172da384ff30fb3c87b942b75213c408e533093"
         }
       ],
       "tagAssignments": [
-        {
-          "tagId": "tag-content-primary-9eedbc0013d1",
-          "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
-          "confidence": "高",
-          "evidenceRefs": [
-            "evidence-title"
-          ],
-          "reviewedAt": "2026-08-04T15:00:00+09:00"
-        },
         {
           "tagId": "tag-people-channel-e0fc18a727d8",
           "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
@@ -977,6 +974,42 @@
             "evidence-duration"
           ],
           "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-primary-0dbfa3115896",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-works-gameTitle-cae1ecaa4ea2",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「隙マ」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-2ec4e38c680d",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「アドベンチャー」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-9709322940c3",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「シミュレーション」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
         }
       ],
       "timestamps": {
@@ -1157,8 +1190,8 @@
       },
       "approval": {
         "status": "承認済み",
-        "approvedAt": "2026-08-04T15:00:00+09:00",
-        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+        "approvedAt": "2026-08-16T12:05:00+09:00",
+        "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
       }
     },
     {
@@ -1174,9 +1207,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=zprJdYqIGe8",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
