@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "5b2da61ccafe33727fc89be13730da28fd9c5e54796f83409faab912129b1a40"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "d71718f2fecaa9781db82fb8bc1552bad886b89881328bef44171a4abee5f156",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6879
     }
   ],
   "tagAssignments": [
@@ -336,5 +344,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴がマシュマロに寄せられた理想のデート案を読み上げ、食事や美術館、ドライブなど多彩なプランを妄想する雑談。相手との距離感や過ごし方へのこだわりを語り、リスナーの提案に反応しながら理想像を膨らませていく。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "素敵なデートプランでした",
+      "atSeconds": 3487,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "d71718f2fecaa9781db82fb8bc1552bad886b89881328bef44171a4abee5f156",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T01:01:52.314306Z"
   }
 }
