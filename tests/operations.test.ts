@@ -6,6 +6,7 @@ import path from 'node:path';
 
 import { canonicalVideoSchema, type CanonicalVideo } from '../src/domain/content.ts';
 import { readCanonicalVideos } from '../scripts/canonical-store.ts';
+import { releaseGeneratedFiles, validateReleasePrScopeFiles } from '../scripts/validate-release-pr-scope.ts';
 import { validateVideoPrScopeFiles } from '../scripts/validate-video-pr-scope.ts';
 
 const root = process.cwd();
@@ -52,17 +53,25 @@ describe('手動動画更新運用', () => {
     expect(() => run('scripts/detect-video-candidates.ts', ['--input', input])).toThrow(/重複/u);
   });
 
-  it('通常の動画PRは正本1動画と生成物だけを許可する', () => {
+  it('通常の動画PRは正本1動画だけを許可し、公開生成物をmainマージ後へ分離する', () => {
     const allowed = validateVideoPrScopeFiles([
+      'content/videos/c9TnpjK3ZZE.json',
+      'content/content-manifest.json',
+      'reports/screenshots/detail-desktop.png',
+      'governance/reviews/CHG-20260808-video-c9TnpjK3ZZE.yaml',
+    ]);
+    expect(allowed.valid).toBe(true);
+    expect(validateVideoPrScopeFiles([
       'content/videos/c9TnpjK3ZZE.json',
       'content/content-manifest.json',
       'public/data/latest.json',
       'src/generated/release.ts',
       'docs/index.html',
-      'reports/screenshots/detail-desktop.png',
-      'governance/reviews/CHG-20260808-video-c9TnpjK3ZZE.yaml',
-    ]);
-    expect(allowed.valid).toBe(true);
+    ]).errors).toEqual(expect.arrayContaining([
+      '生成物はmainマージ後に自動更新します: public/data/latest.json',
+      '生成物はmainマージ後に自動更新します: src/generated/release.ts',
+      '生成物はmainマージ後に自動更新します: docs/index.html',
+    ]));
     expect(validateVideoPrScopeFiles(['content/videos/c9TnpjK3ZZE.json', 'content/videos/GoWhHtJmIbk.json']).valid).toBe(false);
     expect(validateVideoPrScopeFiles(['content/videos/c9TnpjK3ZZE.json', 'scripts/build-public-data.ts']).errors).toContain('保守PRへ分離してください: scripts/build-public-data.ts');
     expect(validateVideoPrScopeFiles([
@@ -74,6 +83,48 @@ describe('手動動画更新運用', () => {
       'content/videos/c9TnpjK3ZZE.json',
       'governance/checks/catalog.yaml',
     ]).errors).toContain('保守PRへ分離してください: governance/checks/catalog.yaml');
+  });
+
+  it('すべてのPRからrelease IDを含む配信用生成物だけを除外する', () => {
+    expect(releaseGeneratedFiles([
+      'content/videos/c9TnpjK3ZZE.json',
+      'docs/requirements/REQUIREMENTS.md',
+      'docs/design/generated/system.gen.md',
+      'public/data/latest.json',
+      'src/generated/release.ts',
+      'docs/data/latest.json',
+      'docs/assets/index-example.js',
+      'docs/index.html',
+      'docs/404.html',
+      'docs/.nojekyll',
+    ])).toEqual([
+      'public/data/latest.json',
+      'src/generated/release.ts',
+      'docs/data/latest.json',
+      'docs/assets/index-example.js',
+      'docs/index.html',
+      'docs/404.html',
+      'docs/.nojekyll',
+    ]);
+  });
+
+  it('保護されたmain向けrelease PRは配信用生成物だけを許可する', () => {
+    expect(validateReleasePrScopeFiles([
+      'public/data/latest.json',
+      'src/generated/release.ts',
+      'docs/data/latest.json',
+      'docs/assets/index-example.js',
+      'docs/index.html',
+    ], { allowGeneratedOnly: true })).toEqual({ valid: true, errors: [] });
+    expect(validateReleasePrScopeFiles([
+      'public/data/latest.json',
+      'content/videos/c9TnpjK3ZZE.json',
+    ], { allowGeneratedOnly: true }).errors).toContain(
+      'release PRには配信用生成物だけを含めてください: content/videos/c9TnpjK3ZZE.json',
+    );
+    expect(validateReleasePrScopeFiles([
+      'content/videos/c9TnpjK3ZZE.json',
+    ], { allowGeneratedOnly: true }).errors).toContain('release PRに配信用生成物がありません。');
   });
 
   it('PR本文へ外部入力を命令として展開せずMarkdownとHTMLを無害化する', () => {
@@ -91,6 +142,26 @@ describe('手動動画更新運用', () => {
     expect(body).toContain('&lt;script&gt;');
     expect(body).not.toContain('<script>');
     expect(body).toContain(`https://www.youtube.com/watch?v=${video.videoId}`);
+  });
+
+  it('PR本文へ候補版・独立確認・PRマージ承認チェックを安全に表示する', () => {
+    const directory = workDirectory();
+    const videoPath = path.join(directory, 'video.json');
+    const output = path.join(directory, 'body.md');
+    const video = withCreatedTimestamps(canonicalVideos[0]!);
+    writeJson(videoPath, video);
+    run('scripts/generate-video-pr-body.ts', ['--video', videoPath, '--output', output]);
+    const body = readFileSync(output, 'utf8');
+    expect(body).toContain(`候補ハッシュ: \`${'a'.repeat(64)}\``);
+    expect(body).toContain('事実確認: 合格 / 重大指摘 0件');
+    expect(body).toContain('編集確認: 合格 / 重大指摘 0件');
+    expect(body).toContain('公開ゲート: pull-request-merge');
+    expect(body).toContain('https://github.com/tsuji-tomonori/diopside-v8/pull/1');
+    expect(body).toContain(`https://www.youtube.com/watch?v=${video.videoId}`);
+    expect(body).toContain('人によるマージ承認チェックリスト');
+    expect(body).toContain('このPRのmergeをタイムスタンプ公開承認として扱う');
+    expect(body).toContain('根拠メタデータ（生資料なし）');
+    expect(body).not.toContain('transcriptText');
   });
 
   it('既存タイムスタンプの移動・改名には差分ごとの理由を必須にする', () => {
@@ -171,6 +242,7 @@ function withCreatedTimestamps(source: CanonicalVideo): CanonicalVideo {
     coverageStartSeconds: 0,
     coverageEndSeconds: video.durationSeconds,
   });
+  video.provenance.reviewPullRequest = 'https://github.com/tsuji-tomonori/diopside-v8/pull/1';
   video.timestamps = {
     status: '作成済み',
     origin: 'diopsideで作成した時刻一覧',
@@ -193,8 +265,8 @@ function withCreatedTimestamps(source: CanonicalVideo): CanonicalVideo {
         status: '合格', factCheckResultWasHidden: true, candidateHash, majorIssues: 0, reviewedAt: '2026-08-03T01:00:00+09:00',
         checks: { navigationValue: true, overSegmentation: true, underSegmentation: true, labelConsistency: true, spoilerSafety: true },
       },
-      finalHumanCheck: {
-        status: '承認済み', candidateHash, reviewedAt: '2026-08-03T02:00:00+09:00', pullRequest: 'https://github.com/tsuji-tomonori/diopside-v8/pull/1',
+      publicationGate: {
+        mode: 'pull-request-merge', candidateHash, pullRequest: 'https://github.com/tsuji-tomonori/diopside-v8/pull/1',
       },
     },
   };
