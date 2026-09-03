@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=l5kwbKAtQKQ",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -110,6 +110,22 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "マイクが声量を検知すると即終了するホラー『DON'T SCREAM』。感度を調整し、ささやき声で暗い森へ踏み込む。失踪者の手掛かりを追いながら物音や気配に身構え、驚いても声を飲み込もうと奮闘。最大の敵が恐怖なのか、実況中につい話し続ける癖なのかを探る。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "叫んでいいよ私は叫ばない",
+      "atSeconds": 457,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "69e7ac39f2dc85092a172a4a1c484e2f92ec937380c73f8ff8ec8bcf40c2f556",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T22:01:03+09:00"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -308,21 +324,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
-  "synopsis": {
-    "body": "マイクが声量を検知すると即終了するホラー『DON'T SCREAM』。感度を調整し、ささやき声で暗い森へ踏み込む。失踪者の手掛かりを追いながら物音や気配に身構え、驚いても声を飲み込もうと奮闘。最大の敵が恐怖なのか、実況中につい話し続ける癖なのかを探る。",
-    "bodyEvidenceRefs": [
-      "evidence-synopsis-transcript"
-    ],
-    "featuredQuote": {
-      "text": "叫んでいいよ私は叫ばない",
-      "atSeconds": 457,
-      "evidenceRefs": [
-        "evidence-synopsis-transcript"
-      ]
-    },
-    "inputFingerprint": "69e7ac39f2dc85092a172a4a1c484e2f92ec937380c73f8ff8ec8bcf40c2f556",
-    "rulesVersion": "1.0.0",
-    "updatedAt": "2026-08-08T22:01:03+09:00"
   }
 }
