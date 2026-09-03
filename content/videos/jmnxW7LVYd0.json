@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "44ccf594b2aeaa7858a45b494e243ff45b013e6559e89f580016184a1301ecb0"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "b1201a900926f64573b3b1dbf4e306c164009eb1cc5beef49bb1b5785e24cd2e",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3605
     }
   ],
   "tagAssignments": [
@@ -342,5 +350,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が複数のライバーと、ラジオを止めるためのホラーゲームに挑戦。前回の企画を振り返り、お便りを読みながらゲーム内を探索し、炎やベッドを手がかりに危険な場面へ進む。出演者同士の掛け合いと、驚き混じりの実況が交差する一時間。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "みんなでそのラジオを止めるために",
+      "atSeconds": 459,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "b1201a900926f64573b3b1dbf4e306c164009eb1cc5beef49bb1b5785e24cd2e",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T06:45:59.033889Z"
   }
 }
