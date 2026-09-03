@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "b5e90344a314ef6bcdf3c204fd24df8a75776439c576300c0fe62265b8c03558"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "93a0215d666bf57c8709691611ce3afda2c38a1d7b319e3911dd1c420b467aee",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2043
     }
   ],
   "tagAssignments": [
@@ -270,5 +278,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "『おえかきの森』大会に回答者として参加。描かれる絵を見て、浮かんだ言葉を急いで入力する。宇宙、家族、乗り物など幅広い連想に迷い、他参加者の速さや表現力に驚きながらも、とにかく回答を重ねる。途中で入力ルールの見落としに気づき、自分らしい慌てぶりで最後まで駆け抜ける。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "どんどん答える姿勢はいいよね",
+      "atSeconds": 617,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "93a0215d666bf57c8709691611ce3afda2c38a1d7b319e3911dd1c420b467aee",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-10T01:30:00+09:00"
   }
 }
