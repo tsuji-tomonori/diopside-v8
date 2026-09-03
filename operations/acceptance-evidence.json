@@ -1,12 +1,32 @@
 {
-  "schemaVersion": "1.0.0",
-  "updatedAt": "2026-08-07T23:08:06+09:00",
+  "schemaVersion": "1.1.0",
+  "updatedAt": "2026-08-08T20:40:17+09:00",
   "productOwnerApproval": {
     "status": "合格",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "evidenceUrl": "https://github.com/tsuji-tomonori/diopside-v8/pull/2",
     "finding": "2026-08-04の所有者指示により、旧承認済みデータ移行、手動Actions入口、品質確認後のmainマージが明示承認された。"
   },
+  "acceptedIncompleteRequirements": [
+    {
+      "requirementId": "V8-COST-001",
+      "decision": "non-blocking",
+      "acceptedAt": "2026-08-08T20:40:17+09:00",
+      "acceptedBy": "product-owner",
+      "sourceRef": "user:2026-08-08",
+      "scope": "GitHub Actionsの受入監査における非blocking扱い。merge・公開の承認は含まない。",
+      "finding": "所有者の請求画面による2026-08月の月次請求0円確認は未実施のまま、所有者が残存リスクを認識して受容した。"
+    },
+    {
+      "requirementId": "V8-QUALITY-002",
+      "decision": "non-blocking",
+      "acceptedAt": "2026-08-08T20:40:17+09:00",
+      "acceptedBy": "product-owner",
+      "sourceRef": "user:2026-08-08",
+      "scope": "GitHub Actionsの受入監査における非blocking扱い。merge・公開の承認は含まない。",
+      "finding": "初見利用者による375×812画素の代表5課題実測は未実施のまま、所有者が残存リスクを認識して受容した。"
+    }
+  ],
   "pagesPublication": {
     "status": "合格",
     "sourceBranch": "main",
