@@ -66,7 +66,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [path:scripts/build_next_preview.py, workflow:次回予告風・実音声クリップ試作]
-    note: Python構文、固定excerpt plan、ffmpegによる3本と比較版の生成、ffprobeによるMP4構造検証をworkflowで実行する。
+    note: 固定providerのserver配下build、Python構文、excerpt plan、ffmpegによる3本と比較版の生成、ffprobeによるMP4構造検証をworkflowで実行する。
   - id: FAST-003
     class: Invariant
     result: pass
@@ -126,3 +126,4 @@ advisories: []
 residual_risks:
   - 公開配信側またはYouTube取得仕様の変更により再実行が失敗する可能性がある。Cookieやloginへ自動切替せず、有限の手動再試行に留める。
   - 自動字幕を基に時刻を選定しているため軽微な表示文言差が残る可能性がある。実音声と映像の技術検証後、必要なら別変更で文言を微調整する。
+  - 固定providerのbuild-time npm依存は現時点のauditでmoderate 1件を報告する。loopbackの一時runnerだけで使用し、provider自体を配布成果物へ含めない。
