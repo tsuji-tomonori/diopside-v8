@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "KZcIROIS2Ew",
+  "title": "【花子さん】嘘だ！！花子さんがこんなに怖いわけがない！！！【白雪 巴/にじさんじ】",
+  "publishedAt": "2020-12-19T19:31:02Z",
+  "durationSeconds": 19308,
+  "durationIso": "PT5H21M48S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/KZcIROIS2Ew/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=KZcIROIS2Ew",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "8231d878645e0da608432776b6c9dd04a689ca8b2fbbf4db84be9c1ae75d64d8"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "b76ad8a32e3dc3072669b09c223979350db9009ef856d13d4cfa6452bacf195d"
+    },
+    {
+      "evidenceId": "evidence-approved-tags",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "旧diopsideの承認済みタグ正本",
+      "inputFingerprint": "dddb16a80f05c7233e46313596f8641fe9c0bb9847918f3e7ff75f7baafb512c"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "e020ea891f4c719d67ddad34fdefbd37fd6a54d33045510713cdfb4191e10f34",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 19308
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-2de112df4359",
+      "reason": "公開タイトルまたは既存タグからゲーム作品「花子さん」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-1cc53dc4a37d",
+      "reason": "既存分類と作品名からゲームジャンル「ホラー」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-62278ec71bd0",
+      "reason": "既存分類と作品名からゲームジャンル「アクション」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "未作成",
+    "reason": "全編確認不足",
+    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "cb7f60fcb90e21c0d2ec047f39b63ca543baf0394a1e88cee999fb149e82edd2",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が学校の怪談を題材にしたホラーゲームへ挑み、噂の残る校内を探索しながら手がかりや仕掛けを追う配信。驚きの声と軽妙な反応を交え、謎に向き合う緊張感をじっくり味わえる。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "朝までやることになるとは思わなかったんですけど",
+      "atSeconds": 19060,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "e020ea891f4c719d67ddad34fdefbd37fd6a54d33045510713cdfb4191e10f34",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T19:00:42.930771Z"
+  }
+}
