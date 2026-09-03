@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "2e41d16ce4461579c624735728304165dc7e4d3133252b90cfa71c70056e73c7"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "165b5a0b39054efef5d0d2a3f5362f7fcbd765f8ec75cd0b7b77cd4bed34566a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 29128
     }
   ],
   "tagAssignments": [
@@ -414,5 +422,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴と来栖夏芽が、互いに異なる景色を見る協力ゲーム『違う冬のぼくら』へ。見えている足場や記号を言葉で伝え、操作を分担して仕掛けを解きます。判断が割れる場面も、相談と軽妙な掛け合いで一歩ずつ進みます。",
+    "featuredQuote": {
+      "text": "私たちの力が試される",
+      "atSeconds": 291,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "165b5a0b39054efef5d0d2a3f5362f7fcbd765f8ec75cd0b7b77cd4bed34566a",
+    "rulesVersion": "1.0.0",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "updatedAt": "2026-08-09T23:05:00+09:00"
   }
 }
