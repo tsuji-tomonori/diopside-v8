@@ -326,12 +326,28 @@ const requirements = sourceRequirements.map((item) => {
     requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-08-TIMESTAMP-BATCH';
   }
   if (id === 'V8-OPS-003') {
-    requirement.revision = 3;
-    requirement.source_refs.push('owner-directive:2026-08-04', 'spec/sources/owner-directive-2026-08-08-post-merge-release.md');
-    requirement.acceptance_criteria[0]!.then = '`.github/workflows` に予定実行、AI/API呼出し、独自Pages deployが存在しない。人が開始する `workflow_dispatch` は読取専用の検証と候補検出に限定し、静的成果物生成は検証済みmainだけを入力とする。';
-    requirement.traces.implementation.push('.github/workflows/manual-content-operation.yml');
-    requirement.traces.implementation = [...requirement.traces.implementation, '.github/workflows/update-generated-release.yml'];
-    requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-08-POST-MERGE-RELEASE';
+    requirement.revision = 6;
+    requirement.source_refs.push(
+      'owner-directive:2026-08-04',
+      'spec/sources/owner-directive-2026-08-08-post-merge-release.md',
+      'user:2026-08-23',
+      'user:2026-08-26',
+      'user:2026-08-29',
+      'spec/sources/owner-directive-2026-08-29-local-private-ingestion.md',
+    );
+    requirement.acceptance_criteria[0]!.then = '`.github/workflows` に予定実行、AI/API呼出し、独自Pages deploy、素材取得起動が存在しない。動画確認、候補検出、公開準備のworkflow_dispatchは読取専用に限定し、private backfillはV8-INGEST-009とV8-INGEST-013の承認済み保存基盤deployとローカル処理に分離し、静的成果物生成は検証済みmainだけを入力とする。';
+    requirement.traces.design.push('docs/decisions/ADR-0006-local-private-material-ingestion.md');
+    requirement.traces.implementation = [
+      ...requirement.traces.implementation,
+      '.github/workflows/manual-content-operation.yml',
+      '.github/workflows/update-generated-release.yml',
+      '.github/workflows/deploy-ingestion-infra.yml',
+      'infra/src/diopside_ingestion/cli.py',
+    ];
+    requirement.traces.tests.push('tests/repository-policy.test.ts');
+    requirement.traces.standards = ['Issue #1', 'dev-standard regulated profile'];
+    requirement.verification.evidence = 'tests/operations.test.ts, tests/generated.test.ts, tests/repository-policy.test.ts';
+    requirement.last_changed_by = 'CHG-20260829-local-private-ingestion';
   }
   if (id === 'V8-OPS-007') {
     requirement.revision = 2;
@@ -363,10 +379,17 @@ const requirements = sourceRequirements.map((item) => {
     requirement.last_changed_by = 'CHG-20260820-search-suggestions';
   }
   if (id === 'V8-SEARCH-008') {
-    requirement.revision = 3;
-    requirement.title = '検索欄のタグ候補と詳細なタグ絞り込みは、選択だけで検索して自動的に折り畳まれなければならない';
-    requirement.object = '検索欄は登録済みタグを動画候補と区別して提示し、選択時に不変タグIDの絞り込み条件として適用しなければならない。詳細なタグ絞り込み欄は、選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。利用者が検索候補または詳細な候補タグを追加または解除した時点で、追加の確定操作なしに検索条件を反映し、タグ補助候補欄を折り畳み、動画一覧へ移動できなければならない。';
-    requirement.source_refs.push('owner-directive:2026-08-07', 'spec/sources/owner-directive-2026-08-20-search-suggestions.md', 'user:2026-08-20', 'owner-directive:2026-08-20');
+    requirement.revision = 4;
+    requirement.title = '検索欄のタグ候補と詳細なタグ絞り込みは、選択だけで検索し、分類ごとに折り畳めなければならない';
+    requirement.object = '検索欄は登録済みタグを動画候補と区別して提示し、選択時に不変タグIDの絞り込み条件として適用しなければならない。詳細な絞り込みでは、公開日と動画長を全タグ一覧より前で操作できなければならない。タグ絞り込み欄は、選択中タグ、よく使う主ジャンル、タグ名または別名の入力を全タグの展開なしに提示し、全タグを大分類と小分類ごとに初期状態で折り畳まなければならない。選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。利用者が検索候補または詳細な候補タグを追加または解除した時点で、追加の確定操作なしに検索条件を反映し、タグ補助候補欄を折り畳み、動画一覧へ移動できなければならない。';
+    requirement.source_refs.push(
+      'owner-directive:2026-08-07',
+      'spec/sources/owner-directive-2026-08-20-search-suggestions.md',
+      'user:2026-08-20',
+      'owner-directive:2026-08-20',
+      'spec/sources/owner-directive-2026-08-28-search-filter-navigation.md',
+      'user:2026-08-28',
+    );
     requirement.acceptance_criteria = [
       {
         id: 'AC-V8-SEARCH-008-1',
@@ -380,12 +403,96 @@ const requirements = sourceRequirements.map((item) => {
         when: 'タグ選択から検索結果までの画面操作試験・件数契約試験・折り畳み操作試験',
         then: '追加後1件以上になる未選択タグと解除できる選択済みタグだけを日本語名と件数付きで示す。タグ選択だけで不変タグIDの検索条件と共有可能URLを更新し、タグ候補欄を滑らかに折り畳み、動画件数見出しへフォーカスと表示位置を移す。再度タグ候補欄を開くと選択状態を維持している。',
       },
+      {
+        id: 'AC-V8-SEARCH-008-3',
+        given: '多数のタグを持つ詳細絞り込みをモバイルまたはデスクトップで開いている',
+        when: '公開日・動画長またはタグを選ぶ画面操作試験・折り畳み構造試験',
+        then: '公開日と動画長を全タグ一覧より前で操作できる。選択中タグ、よく使う主ジャンル、タグ名または別名の入力は全分類を開かずに利用でき、全タグは大分類と小分類が閉じた状態から必要な分類だけを開ける。',
+      },
     ];
     requirement.verification = {
-      method: '検索候補・タグ条件適用・件数契約・折り畳み操作試験',
-      evidence: 'src/domain/search.test.ts, e2e/search.spec.ts',
+      method: '検索候補・タグ条件適用・件数契約・公開日到達順・大分類と小分類の折り畳み操作試験',
+      evidence: 'src/features/search/SearchPage.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts',
     };
-    requirement.last_changed_by = 'CHG-20260820-auto-apply-tag-search';
+    requirement.traces.tests.push('src/features/search/SearchPage.test.tsx');
+    requirement.last_changed_by = 'CHG-20260828-grouped-search-filters';
+  }
+  if (id === 'V8-SEARCH-011') {
+    requirement.revision = 2;
+    requirement.title = '公開日の開始日と終了日は一つの日付範囲Pickerで選択でき、日本標準時の日付として両端を含めて絞り込まなければならない';
+    requirement.object = '公開日の開始日と終了日は一つの日付範囲Pickerで選択でき、日本標準時の日付として両端を含めて絞り込まなければならない。';
+    requirement.rationale = '利用者が期間全体と両端を一つの操作面で把握し、意図した公開アーカイブへ速く絞り込めるようにするため。';
+    requirement.source_refs.push(
+      'spec/sources/owner-directive-2026-08-25-search-filter-controls.md',
+      'user:2026-08-25',
+      'https://www.inspora.design/posts/1-30',
+    );
+    requirement.acceptance_criteria = [
+      {
+        id: 'AC-V8-SEARCH-011-1',
+        given: '公開日フィルターを操作する',
+        when: 'カレンダー上の二つの日付、クイック期間、または開始日・終了日を選択する',
+        then: '開始日、終了日、両端を含む選択期間が一つのPicker内で確認でき、指定なしへ戻せる。',
+      },
+      {
+        id: 'AC-V8-SEARCH-011-2',
+        given: '公開日の開始日または終了日が指定されている',
+        when: '時差・月末・年末・逆転範囲を含む検索を実行する',
+        then: '開始日の0時0分0秒から終了日の23時59分59秒までを含み、URL等から開始日が終了日より後となった場合は日本語で入力誤りを示す。',
+      },
+    ];
+    requirement.verification = {
+      method: '日付範囲Picker操作、時差・月末・年末・逆転範囲試験',
+      evidence: 'src/features/search/SearchFilterControls.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts',
+    };
+    requirement.traces.implementation.push('src/features/search/DateRangePicker.tsx');
+    requirement.traces.tests.push('src/features/search/SearchFilterControls.test.tsx');
+    requirement.last_changed_by = 'CHG-20260825-search-filter-controls';
+  }
+  if (id === 'V8-SEARCH-012') {
+    requirement.revision = 2;
+    requirement.source_refs.push('spec/sources/owner-directive-2026-08-25-search-filter-controls.md', 'user:2026-08-25');
+    requirement.acceptance_criteria = [{
+      id: 'AC-V8-SEARCH-012-1',
+      given: '動画長のクイック区分を選択する',
+      when: '1799、1800、3599、3600、7199、7200秒の境界を含む検索を実行する',
+      then: '各動画は定義された区分に一意に入り、選択した区分と同じ境界がSliderの選択範囲へ反映される。',
+    }];
+    requirement.verification = {
+      method: '動画長区分とSliderの境界値試験',
+      evidence: 'src/features/search/SearchFilterControls.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts',
+    };
+    requirement.traces.implementation.push('src/features/search/DurationRangeSlider.tsx');
+    requirement.traces.tests.push('src/features/search/SearchFilterControls.test.tsx');
+    requirement.last_changed_by = 'CHG-20260825-search-filter-controls';
+  }
+  if (id === 'V8-SEARCH-013') {
+    requirement.revision = 2;
+    requirement.title = '動画長は二つのつまみを持つSliderで分単位の最小値・最大値を選択でき、範囲内の動画だけを表示しなければならない';
+    requirement.object = '動画長は二つのつまみを持つSliderで分単位の最小値・最大値を選択でき、最小値以上かつ最大値以下の動画だけを表示しなければならない。';
+    requirement.rationale = '利用者が動画長の範囲と現在値を視覚的に把握しながら、意図した長さのアーカイブへ絞り込めるようにするため。';
+    requirement.source_refs.push('spec/sources/owner-directive-2026-08-25-search-filter-controls.md', 'user:2026-08-25');
+    requirement.acceptance_criteria = [
+      {
+        id: 'AC-V8-SEARCH-013-1',
+        given: '動画長フィルターを操作する',
+        when: 'Sliderの最小または最大のつまみをマウス、タッチ、またはキーボードで動かす',
+        then: '分単位の片側指定、同値、両側指定ができ、最小値と最大値が交差せず、クイック区分の選択は解除される。',
+      },
+      {
+        id: 'AC-V8-SEARCH-013-2',
+        given: '動画長の範囲が指定されている',
+        when: '範囲境界、動画長不明、またはURL等から最小値が最大値を超える条件で検索する',
+        then: '最小値以上かつ最大値以下の動画だけを表示し、動画長不明を除外し、逆転範囲には日本語で入力誤りを示す。',
+      },
+    ];
+    requirement.verification = {
+      method: 'Slider操作、キーボード、範囲・欠損・誤入力試験',
+      evidence: 'src/features/search/SearchFilterControls.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts',
+    };
+    requirement.traces.implementation.push('src/features/search/DurationRangeSlider.tsx');
+    requirement.traces.tests.push('src/features/search/SearchFilterControls.test.tsx');
+    requirement.last_changed_by = 'CHG-20260825-search-filter-controls';
   }
   if (['V8-TIME-027', 'V8-TIME-028', 'V8-TIME-029'].includes(id)) {
     requirement.revision = 2;
@@ -491,6 +598,47 @@ const requirements = sourceRequirements.map((item) => {
     requirement.traces.implementation.push('src/domain/collaboration.ts', 'content/people/collaboration-profiles.json');
     requirement.traces.tests.push('src/domain/collaboration.test.ts');
     requirement.last_changed_by = 'CHG-20260815-collaboration-pages';
+  }
+  if (id === 'V8-TAG-002') {
+    requirement.revision = 2;
+    requirement.title = '分類値は大分類・小分類・値で管理し、人物・作品等のエンティティと混在させてはならない';
+    requirement.object = '検索条件として使う分類値は大分類・小分類・値の3層で管理しなければならない。人物、グループ、チャンネル、ゲーム、イベント、シリーズ、楽曲、作品、アーティストは独立したエンティティとしてIDで管理し、分類値の平坦な文字列配列を正本にしてはならない。';
+    requirement.source_refs.push('spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'user:2026-08-31');
+    requirement.acceptance_criteria[0]!.then = '全小分類がclassificationまたはentity-referenceを明示し、エンティティ参照には型と動画関係があり、分類値とエンティティを同じ意味として扱わない。';
+    requirement.verification = { method: '分類値・エンティティ意味境界の構造試験', evidence: 'tests/content-validation.test.ts, scripts/audit-semantic-entities.ts' };
+    requirement.traces.implementation.push('src/domain/entities.ts', 'scripts/audit-semantic-entities.ts');
+    requirement.traces.tests.push('scripts/audit-semantic-entities.ts');
+    requirement.last_changed_by = 'CHG-20260901-semantic-entity-model';
+  }
+  if (id === 'V8-TAG-004') {
+    requirement.revision = 2;
+    requirement.title = '同名異義の分類値は別IDとし、同一対象の役割違いは一つのエンティティIDへ統合しなければならない';
+    requirement.object = '同じ表示名でも分類上の意味が異なる値は別の不変タグIDとして扱わなければならない。一方、同じ人物または作品が出演・言及等の異なる役割へ現れる場合は同じエンティティIDへ解決し、役割を関係種別として保持しなければならない。';
+    requirement.source_refs.push('spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'user:2026-08-31');
+    requirement.acceptance_criteria[0]!.then = '同名異義の分類値は別タグIDになり、出演者と同名の言及人物は同じ人物エンティティIDへ解決され、出演とmentionsの関係を区別する。';
+    requirement.verification = { method: '同名異義分類・同一エンティティ統合試験', evidence: 'tests/content-validation.test.ts, scripts/audit-semantic-entities.ts' };
+    requirement.traces.implementation.push('src/domain/entities.ts');
+    requirement.last_changed_by = 'CHG-20260901-semantic-entity-model';
+  }
+  if (id === 'V8-TAG-007') {
+    requirement.revision = 2;
+    requirement.title = '承認済み動画は配信元チャンネルを一つ持ち、人物属性・出演関係から分離しなければならない';
+    requirement.object = '承認済みの全動画は配信元チャンネルをちょうど1件持たなければならない。チャンネルは独立エンティティとし、対応する人物とはrepresents関係で結び、出演者、人物の所属または公式チャンネルと混同してはならない。';
+    requirement.source_refs.push('spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'user:2026-08-31');
+    requirement.acceptance_criteria[0]!.then = '各動画のpublishedByが1件のチャンネルIDへ解決され、対応人物がある場合はrepresentsで結ばれ、出演者一覧へチャンネル名を混入させない。';
+    requirement.verification = { method: 'チャンネル基数・人物分離・関係解決試験', evidence: 'tests/content-validation.test.ts, scripts/audit-semantic-entities.ts' };
+    requirement.traces.implementation.push('src/domain/entities.ts', 'content/people/channel-person-mappings.json');
+    requirement.last_changed_by = 'CHG-20260901-semantic-entity-model';
+  }
+  if (id === 'V8-TAG-015') {
+    requirement.revision = 2;
+    requirement.title = '実出演と人物言及は関係種別で分離し、同一人物は同じ人物IDへ解決しなければならない';
+    requirement.object = '実出演者と配信中に名前を話題にした人物は、それぞれfeaturesとmentionsの動画関係として分離しなければならない。同じ人物が両方の役割へ現れても人物マスターを複製せず、同じ人物エンティティIDへ解決しなければならない。言及だけでコラボを付与してはならない。';
+    requirement.source_refs.push('spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'user:2026-08-31');
+    requirement.acceptance_criteria[0]!.then = '出演と人物言及を別関係で保持し、同名の対象人物は一つの人物IDへ統合され、mentionsだけではコラボにならない。';
+    requirement.verification = { method: '人物同一性・役割分離・コラボ非導出試験', evidence: 'tests/content-validation.test.ts, scripts/audit-semantic-entities.ts' };
+    requirement.traces.implementation.push('src/domain/entities.ts');
+    requirement.last_changed_by = 'CHG-20260901-semantic-entity-model';
   }
   return requirement;
 });
@@ -1006,10 +1154,141 @@ const workPageRequirements = [
     last_changed_by: 'CHG-20260815-work-pages',
   },
 ];
+const songPerformanceRequirements = [
+  {
+    id: 'V8-DISPLAY-015',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: 'ジャンル「歌」と楽曲タグは原曲・対象場面リンク付きの歌唱楽曲一覧へ移動できなければならない',
+    subject: 'diopside v8の歌唱楽曲一覧と導線',
+    action: 'satisfy',
+    object: '主または副ジャンル「歌」を押すと歌唱楽曲一覧へ移動しなければならない。一覧は楽曲名、原曲アーティスト、確認済みの原曲リンク、歌唱種別、対象動画、公開日を表示する。配信内歌唱と鼻歌は対象開始秒、単曲動画は動画先頭を開き、楽曲タグのURLで曲別表示できなければならない。',
+    rationale: '歌枠と単曲カバーを横断して曲から探し、長時間配信でも対象場面へ直接移動できるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'user:2026-08-25'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-015-1',
+        given: '検索画面または動画詳細に主・副ジャンル「歌」が表示されている',
+        when: '利用者が「歌」を押す',
+        then: '歌唱楽曲一覧へ移動し、楽曲名または原曲アーティストで絞り込める。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-015-2',
+        given: '歌ってみたと配信内歌唱が登録されている',
+        when: '利用者が各歌唱実績のリンクを押す',
+        then: '歌ってみたは対象動画を、配信内歌唱は対象動画の同じ開始秒をYouTubeで開く。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-015-3',
+        given: '楽曲に確認済みの原曲公開先がある',
+        when: '一覧または曲別ページを表示する',
+        then: '出典名と確認日付きのHTTPS原曲リンクを表示し、表示だけで外部サイトへ通信しない。',
+      },
+    ],
+    verification: {
+      method: '楽曲一覧表示、ジャンル・楽曲タグ遷移、原曲リンク、YouTube開始秒、外部自動通信禁止試験',
+      evidence: 'src/features/songs/SongIndexPage.test.tsx, e2e/song-index.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/features/songs/SongIndexPage.tsx', 'src/features/search/SearchPage.tsx', 'src/features/detail/VideoDetailPage.tsx', 'src/App.tsx'],
+      tests: ['src/features/songs/SongIndexPage.test.tsx', 'e2e/song-index.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260825-song-performance-index',
+  },
+  {
+    id: 'V8-TAG-037',
+    revision: 2,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: '確認済みの各歌唱実績は動画ジャンルと独立した楽曲エンティティとして検索できなければならない',
+    subject: 'diopside v8の歌唱実績と楽曲タグ',
+    action: 'satisfy',
+    object: '楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲エンティティIDを持たなければならない。楽曲は動画ジャンルから独立し、原アーティストとのcreatedBy関係を持ち、互換用の楽曲タグIDを公開一覧・検索索引・タグ索引・動画詳細で同じエンティティへ解決しなければならない。',
+    rationale: '通常配信の一部で歌った曲や鼻歌を、動画全体のジャンルに埋もれさせず曲から再発見できるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'user:2026-08-25', 'user:2026-08-31'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-037-1',
+        given: '楽曲名と白雪巴の歌唱参加が確認済みである',
+        when: '歌唱実績を正本化して公開データを生成する',
+        then: '歌唱種別と不変の楽曲エンティティIDを付け、原アーティストへ関連付け、互換用タグを含む対象動画の一覧・検索・タグ・詳細索引を同じエンティティへ解決する。',
+      },
+      {
+        id: 'AC-V8-TAG-037-2',
+        given: '主ジャンルが歌でない通常配信で歌唱または鼻歌が確認された',
+        when: '実績を登録する',
+        then: '動画ジャンルの変更を必須とせず、配信内歌唱または鼻歌の種別で楽曲タグを公開できる。',
+      },
+    ],
+    verification: {
+      method: '歌唱正本構造、非歌ジャンル鼻歌、公開索引の楽曲タグ反映試験',
+      evidence: 'tests/content-validation.test.ts, tests/generated.test.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['content/songs/song-performances.json', 'src/domain/content.ts', 'src/domain/entities.ts', 'src/domain/validation.ts', 'scripts/build-public-data.ts'],
+      tests: ['tests/content-validation.test.ts', 'tests/generated.test.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260901-semantic-entity-model',
+  },
+  {
+    id: 'V8-TAG-038',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'nonfunctional',
+    type: 'quality',
+    title: '歌唱実績は楽曲名・本人参加・開始秒・根拠を検証し、未確認の曲を公開してはならない',
+    subject: 'diopside v8の歌唱実績検証と公開境界',
+    action: 'satisfy',
+    object: '各歌唱実績は既知動画、白雪巴本人の参加、動画長内の開始秒、動画内で解決できる根拠参照を持たなければならない。承認済みタイムスタンプを参照する場合は開始秒が一致し、鼻歌は終了秒も持たなければならない。公開データには内部の根拠参照・判定理由を含めてはならない。',
+    rationale: 'コラボ配信で他者が歌った曲、曲名不明の歌唱、根拠のない推測を白雪巴の楽曲タグとして誤公開せず、公開データを必要最小限に保つため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'user:2026-08-25'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-038-1',
+        given: '歌唱実績候補に未知動画、解決不能の根拠、動画長外の時刻、または開始秒の異なるタイムスタンプがある',
+        when: '正本検証または公開データ生成を行う',
+        then: '候補を拒否し、不整合の種類と場所を示す。',
+      },
+      {
+        id: 'AC-V8-TAG-038-2',
+        given: '鼻歌の歌唱実績候補がある',
+        when: '正本検証を行う',
+        then: '開始秒と終了秒が動画長内で正しい順序の場合だけ受け付ける。',
+      },
+      {
+        id: 'AC-V8-TAG-038-3',
+        given: '検証済みの歌唱実績がある',
+        when: '公開JSONを生成する',
+        then: '楽曲・原曲・動画・種別・時刻以外の内部根拠参照や判定理由を出力しない。',
+      },
+    ],
+    verification: {
+      method: '未知動画・根拠・時刻・タイムスタンプ不整合・鼻歌範囲・公開境界試験',
+      evidence: 'tests/content-validation.test.ts, tests/generated.test.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/domain/content.ts', 'src/domain/validation.ts', 'scripts/build-public-data.ts'],
+      tests: ['tests/content-validation.test.ts', 'tests/generated.test.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-25-song-performance-index.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260825-song-performance-index',
+  },
+];
 const collaborationPageRequirements = [
   {
     id: 'V8-DISPLAY-013',
-    revision: 1,
+    revision: 2,
     status: 'active',
     scope: 'product',
     category: 'functional',
@@ -1017,21 +1296,21 @@ const collaborationPageRequirements = [
     title: '人物名とコンビ・ユニットのタグから出典・YouTube導線付き動画一覧へ移動できなければならない',
     subject: 'diopside v8のコラボ相手タグとコンビ・ユニットページ',
     action: 'satisfy',
-    object: '動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページはYouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画を表示する。コンビ・ユニットページは出典付きの説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。',
+    object: '動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページは確かな一次情報に基づく出典・確認日付きの説明、YouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画、その人物と白雪巴の確認済みコンビ・ユニットへのリンクを表示する。コンビ・ユニットページは運営または構成員の公式情報を出典とする説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。',
     rationale: 'コラボ動画を相手や定着した組み合わせから連続して探し、名称だけを知らない利用者も人物と関係を視覚的に把握できるようにするため。',
-    source_refs: ['spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'user:2026-08-15'],
+    source_refs: ['spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'user:2026-08-15', 'spec/sources/owner-directive-2026-08-28-collaboration-profile-descriptions.md', 'user:2026-08-28'],
     acceptance_criteria: [
       {
         id: 'AC-V8-DISPLAY-013-1',
         given: '動画詳細に白雪巴以外の人物名タグが表示されている',
         when: '利用者が人物タグを押す',
-        then: '人物アイコン、人物名、YouTubeチャンネルリンク、その人物タグを持つ公開動画だけを新しい順で表示する。',
+        then: '確かな一次情報に基づく出典・確認日付きの説明、人物アイコン、人物名、YouTubeチャンネルリンク、その人物タグを持つ公開動画だけを新しい順で表示する。',
       },
       {
         id: 'AC-V8-DISPLAY-013-2',
         given: '動画詳細に確認済みのコンビ・ユニットタグが表示されている',
         when: '利用者がコンビ・ユニットタグを押す',
-        then: '参考元と確認日を持つ説明、全メンバーのアイコン・人物名・各YouTubeチャンネルリンク、そのタグを持つ公開動画を表示する。',
+        then: '運営公式サイトまたは構成員本人の公式情報を参考元とし、確認日を持つ説明、全メンバーのアイコン・人物名・各YouTubeチャンネルリンク、そのタグを持つ公開動画を表示し、非公式Wikiだけを出典にしない。',
       },
       {
         id: 'AC-V8-DISPLAY-013-3',
@@ -1039,40 +1318,126 @@ const collaborationPageRequirements = [
         when: 'ブラウザの通信先を検査する',
         then: '保存済みローカルアイコンだけを読み、利用者が外部リンクを押すまでYouTubeまたは参考元へ通信しない。',
       },
+      {
+        id: 'AC-V8-DISPLAY-013-4',
+        given: 'コラボ相手と白雪巴の確認済みコンビ・ユニットがある',
+        when: '利用者が人物ページを表示してコンビ・ユニット名を押す',
+        then: '人物ページ内に名称・概要・公開動画件数を表示し、押下後はそのコンビ・ユニットの説明・構成員・公開動画一覧を表示する。',
+      },
     ],
     verification: {
-      method: '公開データ構造・人物名・コンビ説明・メンバーリンク・ローカルアイコン・外部自動通信禁止試験',
+      method: '一次情報出典・人物説明・関連ユニット導線・コンビ説明・メンバーリンク・ローカルアイコン・外部自動通信禁止試験',
       evidence: 'tests/content-validation.test.ts, tests/generated.test.ts, src/features/collaborations/CollaborationDetailPages.test.tsx, e2e/detail.spec.ts',
     },
     traces: {
       design: ['docs/design/generated/system.gen.md'],
       implementation: ['content/people/collaboration-profiles.json', 'scripts/build-public-data.ts', 'src/features/detail/VideoDetailPage.tsx', 'src/features/collaborations/CollaboratorDetailPage.tsx', 'src/features/collaborations/GroupDetailPage.tsx'],
       tests: ['tests/content-validation.test.ts', 'tests/generated.test.ts', 'src/features/collaborations/CollaborationDetailPages.test.tsx', 'e2e/detail.spec.ts'],
-      standards: ['spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'dev-standard default profile'],
+      standards: ['spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'spec/sources/owner-directive-2026-08-28-collaboration-profile-descriptions.md', 'dev-standard assured profile'],
     },
-    last_changed_by: 'CHG-20260815-collaboration-pages',
+    last_changed_by: 'CHG-20260828-collaboration-profile-units-sources',
   },
 ];
-const searchSuggestionRequirements = [
+const seriesPageRequirements = [
   {
-    id: 'V8-SEARCH-020',
+    id: 'V8-TAG-036',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'data',
+    title: '定期・連続企画名を明示する動画はシリーズタグを持ち、名称の部分一致だけでイベントへ重複分類してはならない',
+    subject: 'diopside v8の定期・連続企画タグ',
+    action: 'satisfy',
+    object: '公開タイトルまたは承認済み既存タグから定期・連続企画名を直接確認できる動画は当該定期・連続企画名タグを持ち、名称中の「杯」等の部分一致だけでイベント・大会名へ重複分類してはならない。',
+    rationale: 'シリーズ各回の取りこぼしと、一般語を大会名の指標として扱う誤分類を同時に防ぐため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-25-recurring-series-pages.md', 'user:2026-08-25'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-036-1',
+        given: '公開タイトルに「#いっ杯晩酌」が明示された動画がある',
+        when: '承認済みタグ正本を全件検査する',
+        then: '対象14動画すべてが定期・連続企画名「いっ杯晩酌」を持つ。',
+      },
+      {
+        id: 'AC-V8-TAG-036-2',
+        given: '定期・連続企画名そのものに「杯」の文字が含まれる',
+        when: '旧タグから論理タグを再生成する',
+        then: '名称の部分一致だけを理由にイベント・大会名「いっ杯晩酌」を追加しない。',
+      },
+    ],
+    verification: {
+      method: '正本全件タグ網羅・重複分類試験、旧タグ再生成回帰試験',
+      evidence: 'tests/content-validation.test.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md', 'content/taxonomy/tag-taxonomy.json'],
+      implementation: ['scripts/legacy-content.ts', 'content/videos'],
+      tests: ['tests/content-validation.test.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-25-recurring-series-pages.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260825-recurring-series-pages',
+  },
+  {
+    id: 'V8-DISPLAY-014',
     revision: 1,
     status: 'active',
     scope: 'product',
     category: 'functional',
     type: 'functional',
-    title: '検索欄は入力中に動画とタグを区別した候補を提示しなければならない',
+    title: '定期・連続企画名タグは同じシリーズの動画一覧へ移動できなければならない',
+    subject: 'diopside v8の定期・連続企画名タグとシリーズページ',
+    action: 'satisfy',
+    object: '動画詳細の定期・連続企画名タグは押下可能でなければならず、不変タグIDをURLに持つ一覧ページへ移動して、そのタグを持つ公開動画だけを公開日の新しい順で表示しなければならない。',
+    rationale: '同じ定期企画や連続企画の各回を、個別動画から途切れずに探せるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-25-recurring-series-pages.md', 'user:2026-08-25'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-014-1',
+        given: '動画詳細に定期・連続企画名の承認済みタグが表示されている',
+        when: '利用者が企画・シリーズ名タグを押す',
+        then: '不変タグIDをURLに持つシリーズページへ移動し、そのタグを持つ公開動画だけを公開日の新しい順で表示する。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-014-2',
+        given: '公開タイトルで同じ定期・連続企画名が明示された複数の動画がある',
+        when: 'シリーズページの件数と動画カードを確認する',
+        then: '確認済みの同シリーズ動画を取りこぼさず、他の企画・シリーズの動画を混在させない。',
+      },
+    ],
+    verification: {
+      method: '正本タグ網羅試験、定期・連続企画名タグ遷移単体・E2E、一覧内容・順序・アクセシビリティ試験',
+      evidence: 'tests/content-validation.test.ts, src/features/series/SeriesDetailPage.test.tsx, e2e/detail.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/App.tsx', 'src/features/detail/VideoDetailPage.tsx', 'src/features/series/SeriesDetailPage.tsx'],
+      tests: ['tests/content-validation.test.ts', 'src/features/series/SeriesDetailPage.test.tsx', 'e2e/detail.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-25-recurring-series-pages.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260825-recurring-series-pages',
+  },
+];
+const searchSuggestionRequirements = [
+  {
+    id: 'V8-SEARCH-020',
+    revision: 2,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: '検索欄は入力中に動画・分類・エンティティを区別した候補を提示しなければならない',
     subject: 'diopside v8の検索候補',
     action: 'satisfy',
-    object: '検索欄は一文字以上の入力中に、承認済み動画タイトルと登録済みタグ名の一致候補を種類が分かる形で提示しなければならない。動画候補の選択は動画詳細へ移動し、タグ候補の選択は不変タグIDを絞り込み条件へ適用して動画一覧を更新しなければならない。',
+    object: '検索欄は一文字以上の入力中に、承認済み動画タイトル、分類値、人物・作品・企画等のエンティティ名の一致候補を種類が分かる形で提示しなければならない。動画候補は動画詳細へ、分類候補は不変タグIDの絞り込みへ、エンティティ候補は不変エンティティIDの詳細へ移動しなければならない。',
     rationale: 'タイトルと分類名のどちらを覚えている場合でも、入力途中から目的の動画または一覧へ直接移動できるようにするため。',
-    source_refs: ['spec/sources/owner-directive-2026-08-20-search-suggestions.md', 'user:2026-08-20'],
+    source_refs: ['spec/sources/owner-directive-2026-08-20-search-suggestions.md', 'spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'user:2026-08-20', 'user:2026-08-31'],
     acceptance_criteria: [
       {
         id: 'AC-V8-SEARCH-020-1',
         given: '承認済み動画と登録済みタグを読み込んだ検索画面がある',
         when: '検索欄へ一致する文字を一文字以上入力する',
-        then: '候補を動画とタグの区分付きで表示し、動画候補は動画詳細へ、タグ候補はタグ適用済み動画一覧へキーボードまたはポインターで移動できる。',
+        then: '候補を動画・分類・エンティティの区分付きで表示し、動画は詳細へ、分類は絞り込み済み一覧へ、エンティティは同じIDの詳細へキーボードまたはポインターで移動できる。',
       },
     ],
     verification: {
@@ -1085,7 +1450,7 @@ const searchSuggestionRequirements = [
       tests: ['src/domain/search.test.ts', 'e2e/search.spec.ts'],
       standards: ['spec/sources/owner-directive-2026-08-20-search-suggestions.md', 'dev-standard default profile'],
     },
-    last_changed_by: 'CHG-20260820-search-suggestions',
+    last_changed_by: 'CHG-20260901-semantic-entity-model',
   },
   {
     id: 'V8-SEARCH-021',
@@ -1121,14 +1486,418 @@ const searchSuggestionRequirements = [
     last_changed_by: 'CHG-20260820-search-suggestions',
   },
 ];
+const searchInteractionRequirements = [
+  {
+    id: 'V8-SEARCH-022',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'nonfunctional',
+    type: 'quality',
+    title: '動画長Sliderの連続操作中はタグ候補と画面高を固定し、停止後100ミリ秒で更新しなければならない',
+    subject: 'diopside v8の動画長Slider',
+    action: 'satisfy',
+    object: '動画長Sliderの連続入力中と最後の入力から100ミリ秒未満は、つまみと現在値だけを即時更新し、動画長に応じたタグ候補・件数と画面の縦方向の長さを変更してはならない。最後の入力から約100ミリ秒後に、最新の動画長を使ってタグ候補と件数を一度だけ更新しなければならない。',
+    rationale: 'Slider操作中にタグ欄の増減で画面高が変わり、つまみの位置が動いて操作を妨げることを防ぐため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-25-duration-slider-stability.md', 'user:2026-08-25'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-SEARCH-022-1',
+        given: 'タグ候補を展開した状態で動画長Sliderを連続操作する',
+        when: 'Slider入力が継続している間、最後の入力から100ミリ秒未満、および約100ミリ秒経過後を確認する',
+        then: '操作中はつまみと現在値だけが即時更新され、タグ候補・件数と画面高は固定される。停止約100ミリ秒後に最新の動画長でタグ候補と件数が一度だけ更新される。',
+      },
+    ],
+    verification: {
+      method: 'Slider連続入力中のタグ候補数・画面高固定と停止100ミリ秒後の更新試験',
+      evidence: 'e2e/search.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/features/search/SearchPage.tsx'],
+      tests: ['e2e/search.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-25-duration-slider-stability.md', 'dev-standard default profile'],
+    },
+    last_changed_by: 'CHG-20260825-duration-slider-stability',
+  },
+];
+const gameCatalogRequirements = [
+  {
+    id: 'V8-TAG-039',
+    revision: 2,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'data',
+    title: 'ゲームジャンルは確認元を持つゲーム単位の正本から全配信へ一貫して導出しなければならない',
+    subject: 'diopside v8のゲーム作品とゲームジャンル',
+    action: 'satisfy',
+    object: '特定のゲーム作品は、Steam、公式ストアまたは対象作品の公式サイトを確認元として、1〜3件のゲームジャンルをゲーム単位の正本に持たなければならない。同じゲームを指す表記違いは一つのゲーム単位へ統合し、その全公開動画へ同じジャンルを導出しなければならない。動画単位の移行前ジャンルを公開分類として使わず、特定作品ではない一般ラベルをゲーム作品一覧へ含めてはならない。',
+    rationale: '同じゲームの配信ごとにジャンルが揺れる状態と、根拠のない既定値による誤分類を防ぎ、作品単位で再確認できるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28', 'user:2026-08-28-follow-up'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-039-1',
+        given: '有効な特定ゲーム作品タグと、その作品を持つ公開動画がある',
+        when: '正本検証と公開データ生成を行う',
+        then: '各ゲーム単位にHTTPSの確認元・確認日・1〜3件の有効なゲームジャンルが一度だけ登録され、表記違いを含む同じゲームの全動画へその分類を導出する。',
+      },
+      {
+        id: 'AC-V8-TAG-039-2',
+        given: 'ワガママハイスペックを持つ6件の公開動画がある',
+        when: '公式サイトとSteamを確認元にゲーム分類を生成する',
+        then: '6件すべてを「アドベンチャー」「カジュアル」「ビジュアルノベル」とし、「アクション」を公開しない。',
+      },
+      {
+        id: 'AC-V8-TAG-039-3',
+        given: 'ゲーム作品名小分類に特定作品ではない一般ラベルがある',
+        when: 'ゲームカタログとゲーム一覧を生成する',
+        then: '一般ラベルをゲームカタログおよびプレイ作品一覧へ含めない。',
+      },
+    ],
+    verification: {
+      method: 'ゲーム正本構造・全作品網羅・公開ジャンル導出・対象作品回帰・一般ラベル除外試験',
+      evidence: 'scripts/audit-game-tags.ts, tests/generated.test.ts, src/features/games/GameIndexPage.test.tsx',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md', 'content/taxonomy/tag-taxonomy.json'],
+      implementation: ['content/works/game-catalog.json', 'src/domain/game-catalog.ts', 'src/domain/validation.ts', 'scripts/build-public-data.ts'],
+      tests: ['scripts/audit-game-tags.ts', 'tests/generated.test.ts', 'src/features/games/GameIndexPage.test.tsx', 'e2e/game-index.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260828-game-catalog-browser',
+  },
+  {
+    id: 'V8-TAG-040',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'data',
+    title: 'ゲームジャンル語彙は根拠・識別性・再利用性を満たす分類だけを追加しなければならない',
+    subject: 'diopside v8のゲームジャンル語彙',
+    action: 'satisfy',
+    object: '既存語彙で作品のプレイ性を適切に表せない場合は、Steam、公式ストアまたは公式サイトで確認でき、既存分類と区別でき、複数作品の探索に再利用できるゲームジャンルだけを追加しなければならない。テーマ、販売形態、単発の仕掛け、または既存タグの組合せで表せる複合語を追加してはならない。',
+    rationale: '不足ジャンルによる誤分類を防ぎつつ、根拠の弱い細分化でゲーム探索画面を増殖させないため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28-follow-up'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-040-1',
+        given: '公式ストアの分類または上位人気タグが既存のゲームジャンル語彙では表せない',
+        when: 'ゲーム単位のジャンルを再確認する',
+        then: '確認元・既存分類との差・複数作品での再利用性を満たす分類だけを有効タグとして追加する。',
+      },
+      {
+        id: 'AC-V8-TAG-040-2',
+        given: '候補が販売形態、テーマ、単発の仕掛け、または既存タグの組合せで表せる複合語である',
+        when: 'ゲームジャンル語彙への追加可否を判定する',
+        then: '候補を新しいゲームジャンルとして追加しない。',
+      },
+      {
+        id: 'AC-V8-TAG-040-3',
+        given: '再確認対象のゲーム正本がある',
+        when: '追加済みゲームジャンルの利用状況を検証する',
+        then: '各追加ジャンルは複数のゲーム単位で使用され、1〜3件の基数と有効タグ制約を満たす。',
+      },
+    ],
+    verification: {
+      method: '追加ジャンル包含・除外基準、複数作品利用、ゲーム単位分類、代表作品回帰試験',
+      evidence: 'tests/content-validation.test.ts, scripts/audit-game-tags.ts, tests/generated.test.ts',
+    },
+    traces: {
+      design: ['content/taxonomy/tag-taxonomy.json', 'docs/design/generated/system.gen.md'],
+      implementation: ['spec/sources/tag-taxonomy-v2.json', 'content/works/game-catalog.json', 'src/domain/validation.ts'],
+      tests: ['tests/content-validation.test.ts', 'scripts/audit-game-tags.ts', 'tests/generated.test.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260828-game-catalog-browser',
+  },
+  {
+    id: 'V8-DISPLAY-016',
+    revision: 2,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: 'ゲームジャンルからプレイ作品を選び、そのゲームの配信一覧へ移動できなければならない',
+    subject: 'diopside v8のゲームジャンル・作品・配信導線',
+    action: 'satisfy',
+    object: 'ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示しなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。',
+    rationale: '動画単位のタグ絞り込みだけでなく、遊んだゲームをジャンルから眺め、同じ作品の配信を続けて探せるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28', 'user:2026-08-28-follow-up'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-016-1',
+        given: 'ゲーム正本と公開動画索引が読み込まれている',
+        when: '利用者がゲーム探索画面を開く',
+        then: '公開動画があるゲームジャンルを作品数・配信数と共に表示し、ジャンル選択で該当する特定ゲーム作品だけを表示する。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-016-2',
+        given: '利用者がジャンル別一覧でゲーム作品を選ぶ',
+        when: '作品リンクを押す',
+        then: 'ゲーム単位のジャンルと確認元を表示し、そのゲーム作品を持つ公開配信だけを新しい順で一覧表示する。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-016-3',
+        given: '検索画面または動画詳細にゲーム、ゲームジャンル、ゲーム作品のタグがある',
+        when: '利用者が該当タグを選ぶ',
+        then: 'ゲームはジャンル一覧へ、ゲームジャンルは該当作品一覧へ、ゲーム作品は該当配信一覧へ移動する。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-016-4',
+        given: '同じゲームを指す複数の作品名タグに公開動画がある',
+        when: 'ゲーム一覧またはいずれかの作品名から作品ページを開く',
+        then: 'ゲームを一作品として表示し、すべての表記に属する公開動画を重複なく一覧表示する。',
+      },
+    ],
+    verification: {
+      method: 'ジャンル件数・作品除外・ジャンル遷移・作品遷移・配信一覧・アクセシビリティE2E',
+      evidence: 'src/features/games/GameIndexPage.test.tsx, src/features/works/WorkDetailPage.test.tsx, e2e/game-index.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/App.tsx', 'src/components/Header.tsx', 'src/features/games/GameIndexPage.tsx', 'src/features/works/WorkDetailPage.tsx', 'src/features/detail/VideoDetailPage.tsx', 'src/features/search/SearchPage.tsx'],
+      tests: ['src/features/games/GameIndexPage.test.tsx', 'src/features/works/WorkDetailPage.test.tsx', 'e2e/game-index.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260828-game-catalog-browser',
+  },
+];
+const semanticEntityRequirements = [
+  {
+    id: 'V8-TAG-041',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'data',
+    title: '作品・ジャンル・イベント・人物・チャンネル・媒体・テーマの意味境界を検証しなければならない',
+    subject: 'diopside v8の分類意味境界',
+    action: 'satisfy',
+    object: 'ゲーム作品名にはゲーム正本へ解決できる正式作品名だけを置き、ゲームジャンルとイベント・大会・企画を含めてはならない。イベントには特定対象を識別しない「大会」「祭り」等の一般語を置かず、投稿受付手段、配信元チャンネル、人物属性、テーマをそれぞれ別の意味として管理しなければならない。',
+    rationale: '異なる概念が同じ一覧へ混入して検索結果の意味が崩れることを防ぐため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'user:2026-08-31'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-041-1',
+        given: 'タグ体系、ゲーム正本、イベント、投稿受付手段のデータがある',
+        when: '意味境界の決定的監査を行う',
+        then: '有効なゲーム作品名は全件がゲーム正本へ解決され、イベント一般語と廃止した言及種別・言及関係が0件で、マシュマロは投稿受付手段として扱われる。',
+      },
+    ],
+    verification: { method: 'ゲーム作品・イベント・受付手段・廃止軸の意味境界監査', evidence: 'scripts/audit-semantic-entities.ts, tests/content-validation.test.ts' },
+    traces: {
+      design: ['docs/design/generated/system.gen.md', 'content/taxonomy/tag-taxonomy.json'],
+      implementation: ['src/domain/validation.ts', 'scripts/audit-semantic-entities.ts', 'scripts/migrate-semantic-entity-model.ts'],
+      tests: ['tests/content-validation.test.ts', 'scripts/audit-semantic-entities.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260901-semantic-entity-model',
+  },
+  {
+    id: 'V8-TAG-042',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'data',
+    title: '動画とエンティティの関係およびエンティティ間関係を型付きIDで公開しなければならない',
+    subject: 'diopside v8のエンティティ関係',
+    action: 'satisfy',
+    object: '公開データは人物、グループ、チャンネル、ゲーム、イベント、シリーズ、楽曲、作品、アーティストを不変エンティティIDで識別し、動画との配信元・出演・言及・プレイ・視聴・歌唱・イベント参加・シリーズ所属を型付き関係として保持しなければならない。楽曲から原アーティスト、イベントから対象ゲーム、人物から所属グループ等のエンティティ間関係もIDで解決しなければならない。',
+    rationale: '文字列一致に依存せず、同一対象の複数役割と関連対象を横断して探索できるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'user:2026-08-31'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-042-1',
+        given: '分類体系、人物・ゲーム・楽曲正本と公開動画がある',
+        when: '公開エンティティ索引を生成する',
+        then: 'すべての有効なエンティティ参照タグが一意のエンティティIDへ解決され、動画関係とエンティティ間関係の参照先が同じ公開版内に存在する。',
+      },
+    ],
+    verification: { method: 'エンティティID一意性・関係参照整合性・公開版一致試験', evidence: 'scripts/audit-semantic-entities.ts, tests/generated.test.ts' },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/domain/entities.ts', 'src/domain/content.ts', 'scripts/build-public-data.ts'],
+      tests: ['tests/content-validation.test.ts', 'tests/generated.test.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260901-semantic-entity-model',
+  },
+  {
+    id: 'V8-TAG-043',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'nonfunctional',
+    type: 'quality',
+    title: '各分類一覧は利用実績と探索価値を監査し、意味の薄い軸を公開してはならない',
+    subject: 'diopside v8の一覧探索価値',
+    action: 'satisfy',
+    object: '各classification小分類について、有効値数、実使用値数、付与件数を決定的に集計しなければならない。使用値が一つ以下、選択しても結果集合が実質変わらない、または利用者の探索ユースケースを説明できない軸は再評価対象として報告し、必要性を確認せず新しい一覧を公開してはならない。',
+    rationale: 'データを作れることではなく、有用な動画集合へ到達できることを一覧の存在理由にするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'user:2026-08-31'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-043-1',
+        given: '公開候補のclassification小分類と全動画付与がある',
+        when: '意味論・利用実績監査を実行する',
+        then: '全軸の有効値数・実使用値数・付与件数を出力し、実使用値が一つ以下の軸をreviewとして識別する。',
+      },
+    ],
+    verification: { method: '分類軸の値数・実使用値数・付与件数監査', evidence: 'scripts/audit-semantic-entities.ts' },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['scripts/audit-semantic-entities.ts', 'src/features/search/SearchPage.tsx'],
+      tests: ['scripts/audit-semantic-entities.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260901-semantic-entity-model',
+  },
+  {
+    id: 'V8-TAG-044',
+    revision: 1,
+    status: 'active',
+    scope: 'project',
+    category: 'nonfunctional',
+    type: 'operational',
+    title: '分類の正しさと抽出網羅性を分離し、期待・実績・候補・原因を横断監査しなければならない',
+    subject: 'diopside v8のエンティティ網羅性監査',
+    action: 'satisfy',
+    object: '楽曲、出演者、言及人物、ゲーム作品、イベントは分類の意味検証とは別に、期待件数、実エンティティ件数、実関係件数、未抽出候補件数、監査状態、原因を公開版ごとに記録しなければならない。期待または候補を計測できない領域は完了とせずpartialまたはunmeasuredと明示しなければならない。',
+    rationale: '正しく分類した少数データを網羅済みと誤認せず、追加監査の範囲と原因を追跡するため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'user:2026-08-31'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-TAG-044-1',
+        given: '公開候補の動画とエンティティ関係がある',
+        when: '公開エンティティ索引と横断監査を生成する',
+        then: '5領域すべてに期待・実績・候補・状態・原因を出力し、未計測の期待件数または候補件数を持つ領域をcompleteにしない。',
+      },
+    ],
+    verification: { method: '網羅性メトリクス構造・状態整合性・既知候補試験', evidence: 'scripts/audit-semantic-entities.ts, tests/generated.test.ts' },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/domain/entities.ts', 'scripts/audit-semantic-entities.ts', 'scripts/build-public-data.ts'],
+      tests: ['tests/content-validation.test.ts', 'tests/generated.test.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260901-semantic-entity-model',
+  },
+  {
+    id: 'V8-DISPLAY-019',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: '人物・作品・企画一覧は関係種別と関連対象を保った動画探索導線を提供しなければならない',
+    subject: 'diopside v8のエンティティ探索画面',
+    action: 'satisfy',
+    object: '人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。',
+    rationale: '断片的な人物名・作品名・イベント名から、役割の意味を失わず過去配信へ到達できるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'user:2026-08-31'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-019-1',
+        given: '公開エンティティ索引と動画索引が読み込まれている',
+        when: '利用者が一覧またはエンティティ詳細を操作する',
+        then: '名前・種類で絞り込み、関係種別別件数と関連対象を確認し、関連動画または関連エンティティへ移動できる。',
+      },
+    ],
+    verification: { method: '一覧絞り込み・関係表示・検索候補・動画詳細導線試験', evidence: 'src/features/entities/EntityIndexPage.test.tsx, e2e/detail.spec.ts' },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/features/entities/EntityIndexPage.tsx', 'src/features/search/SearchPage.tsx', 'src/features/detail/VideoDetailPage.tsx', 'src/App.tsx'],
+      tests: ['src/features/entities/EntityIndexPage.test.tsx', 'e2e/detail.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260901-semantic-entity-model',
+  },
+];
+const customEmojiUsageRequirements = [
+  {
+    id: 'V8-DISPLAY-017',
+    revision: 2,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'data',
+    title: '公開チャットを取得できる動画はカスタム絵文字の回数と信頼済み画像を種類別に集計できなければならない',
+    subject: 'diopside v8のカスタム絵文字集計',
+    action: 'satisfy',
+    object: '公開チャットリプレイを取得できる動画は、通常のUnicode絵文字を除外し、全編に現れるカスタム絵文字の出現回数を種類別に集計し、YouTubeが公開する信頼済み画像URLを取得できる種類へ関連付けなければならない。画像URLを取得できない種類も除外せず、項目別回数の合計は総使用回数と一致しなければならない。',
+    rationale: '視聴者のリアクションを絵柄と分布の両方で認識できるようにしながら、任意ホストの画像混入と取得不能項目の欠落を防ぐため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md', 'spec/sources/owner-directive-2026-09-03-custom-emoji-images.md', 'user:2026-08-31', 'user:2026-09-03'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-017-1',
+        given: '公開チャットリプレイを全編取得できる動画がある',
+        when: 'カスタム絵文字集計を実行する',
+        then: '通常のUnicode絵文字と未許可ホストのURLを含めず、取得可能な項目には信頼済み画像URLが付き、画像取得不能な項目を含む全回数合計が総使用回数と一致する。',
+      },
+    ],
+    verification: {
+      method: '全件集計・Unicode除外・画像URL許可ホスト・合計整合試験',
+      evidence: 'tests/custom-emoji-usage.test.ts, src/domain/validation.test.ts, tests/content-validation.test.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['scripts/aggregate-custom-emoji-usage.ts', 'src/domain/content.ts', 'src/domain/validation.ts', 'scripts/build-public-data.ts'],
+      tests: ['tests/custom-emoji-usage.test.ts', 'src/domain/validation.test.ts', 'tests/content-validation.test.ts'],
+      standards: ['V8-SAFETY-002', 'spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md', 'spec/sources/owner-directive-2026-09-03-custom-emoji-images.md', 'dev-standard regulated profile'],
+    },
+    last_changed_by: 'CHG-20260903-custom-emoji-images',
+  },
+  {
+    id: 'V8-DISPLAY-018',
+    revision: 2,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: '集計済み動画の詳細はカスタム絵文字画像、使用回数、比率をチャートで表示しなければならない',
+    subject: 'diopside v8のカスタム絵文字表示',
+    action: 'satisfy',
+    object: 'カスタム絵文字を集計済みの動画詳細は、全種類を省略せず、使用回数の降順でショートコード、正確な回数、総使用回数に占める比率を比較できるチャートとして表示しなければならない。画像を取得できる種類ではショートコードの横に絵文字画像を表示し、取得不能または読込失敗でもショートコード、回数、比率を維持しなければならない。',
+    rationale: '動画固有のリアクションを視覚的に識別しやすくしながら、画像配信状態や画面幅、視覚条件にかかわらず全分布を読み取れるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md', 'spec/sources/owner-directive-2026-09-03-custom-emoji-images.md', 'user:2026-08-31', 'user:2026-09-03'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-018-1',
+        given: 'カスタム絵文字集計を持つ動画詳細を表示する',
+        when: 'デスクトップ・モバイル・支援技術でチャートを確認する',
+        then: '集計に含まれる全種類がショートコード、回数、比率付きで表示され、取得可能な画像はショートコードの横に付き、画像なしまたは読込失敗でも文字情報と読上げ可能な割合が残る。',
+      },
+    ],
+    verification: {
+      method: '動画詳細画面・画像併記・フォールバック・全項目件数・アクセシビリティ試験',
+      evidence: 'e2e/detail.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/features/detail/VideoDetailPage.tsx', 'src/styles.css'],
+      tests: ['e2e/detail.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md', 'spec/sources/owner-directive-2026-09-03-custom-emoji-images.md', 'dev-standard regulated profile'],
+    },
+    last_changed_by: 'CHG-20260903-custom-emoji-images',
+  },
+];
 const generatedRequirements = [
   ...requirements,
   ...ownerDirectiveRequirements,
   ...timestampHarnessRequirements,
   ...synopsisHarnessRequirements,
   ...workPageRequirements,
+  ...songPerformanceRequirements,
   ...collaborationPageRequirements,
+  ...seriesPageRequirements,
   ...searchSuggestionRequirements,
+  ...searchInteractionRequirements,
+  ...gameCatalogRequirements,
+  ...semanticEntityRequirements,
+  ...customEmojiUsageRequirements,
 ];
 const issue465OverrideIds = new Set([
   'V8-COST-001',
@@ -1149,9 +1918,9 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 11, 12),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 31),
   product: 'diopside v8',
-  updated_at: '2026-08-20',
+  updated_at: existingCatalog?.updated_at && existingCatalog.updated_at > '2026-09-03' ? existingCatalog.updated_at : '2026-09-03',
   requirements: canonicalRequirements,
 }, null, 2)}\n`);
 writeFileSync(mapPath, `${JSON.stringify({
@@ -1165,4 +1934,4 @@ writeFileSync(mapPath, `${JSON.stringify({
   })),
 }, null, 2)}\n`);
 
-console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + collaborationPageRequirements.length + searchSuggestionRequirements.length}件の要件正本を生成しました。`);
+console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + songPerformanceRequirements.length + collaborationPageRequirements.length + seriesPageRequirements.length + searchSuggestionRequirements.length + searchInteractionRequirements.length + gameCatalogRequirements.length + semanticEntityRequirements.length + customEmojiUsageRequirements.length}件の要件正本を生成しました。`);
