@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "5fa72cadc7e885a5bffa65580daada4103cf664b746f69ca5cce3cece19ef287"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "60dd6d558fb285aa2a6629ffb03449951f403db8ec94499c51cc712d104a59af",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 14009
     }
   ],
   "tagAssignments": [
@@ -441,5 +449,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴とフルトイの仲間が百合ゲーム『推しのラブより恋のラブ』の続きをプレイ。会話や選択肢を読み進め、登場人物の恋心やすれ違いに共感とツッコミを重ねます。物語の展開を見守りながら、出演者同士で感想を語り合う実況です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "こんな素敵な世界でこんな素敵なお母さん",
+      "atSeconds": 13951,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "60dd6d558fb285aa2a6629ffb03449951f403db8ec94499c51cc712d104a59af",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T11:14:29.439462Z"
   }
 }
