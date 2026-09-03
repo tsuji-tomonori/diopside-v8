@@ -229,11 +229,17 @@ def locate_font() -> Path:
     raise RuntimeError("Noto Sans CJK font not found; install fonts-noto-cjk")
 
 
-def download_source(sample: Sample, destination: Path) -> Path:
-    output_template = destination / "source.%(ext)s"
+def section_ranges(sample: Sample) -> tuple[str, ...]:
+    return tuple(
+        f"*{clip.start:.3f}-{clip.start + clip.duration:.3f}" for clip in sample.clips
+    )
+
+
+def download_excerpts(sample: Sample, destination: Path) -> list[Path]:
+    output_template = destination / "source-%(section_number)02d.%(ext)s"
     last_error: subprocess.CalledProcessError | None = None
     for client in AUDIO_CLIENT_FALLBACKS:
-        for stale in destination.glob("source.*"):
+        for stale in destination.glob("source-*"):
             if stale.is_file():
                 stale.unlink()
         print(f"[next-preview] audio client: {client}", flush=True)
@@ -249,6 +255,8 @@ def download_source(sample: Sample, destination: Path) -> Path:
             "5",
             "--fragment-retries",
             "5",
+            "--concurrent-fragments",
+            "4",
             "--retry-sleep",
             "http:exp=1:8",
             "--retry-sleep",
@@ -258,29 +266,34 @@ def download_source(sample: Sample, destination: Path) -> Path:
             "--extractor-args",
             f"youtube:player_client={client}",
             "--format",
-            "bestaudio[abr<=96]/bestaudio/best[height<=240]/worst",
+            "bestaudio[abr<=96]/bestaudio",
+            "--force-keyframes-at-cuts",
             "--output",
             str(output_template),
             "--print",
             "after_move:filepath",
-            YOUTUBE_URL.format(video_id=sample.video_id),
         ]
+        for section in section_ranges(sample):
+            command.extend(("--download-sections", section))
+        command.append(YOUTUBE_URL.format(video_id=sample.video_id))
         try:
-            result = run(command, cwd=REPOSITORY_ROOT, capture_output=True)
+            run(command, cwd=REPOSITORY_ROOT, capture_output=True)
         except subprocess.CalledProcessError as error:
             last_error = error
             continue
-        for line in reversed(result.stdout.splitlines()):
-            candidate = Path(line.strip())
-            if candidate.is_file() and candidate.parent == destination:
-                return candidate
-        candidates = [
+        candidates = sorted(
             path
-            for path in destination.glob("source.*")
+            for path in destination.glob("source-*")
             if path.is_file() and path.suffix not in {".part", ".ytdl"}
-        ]
-        if len(candidates) == 1:
-            return candidates[0]
+        )
+        if len(candidates) == len(sample.clips):
+            return candidates
+        print(
+            f"[next-preview] expected {len(sample.clips)} excerpts, "
+            f"found {len(candidates)}",
+            file=sys.stderr,
+            flush=True,
+        )
     raise RuntimeError(
         f"all public audio clients failed for {sample.key}"
     ) from last_error
@@ -307,7 +320,7 @@ def make_silence(path: Path, duration: float) -> None:
     )
 
 
-def extract_clip(source: Path, clip: Clip, destination: Path) -> None:
+def normalize_clip(source: Path, clip: Clip, destination: Path) -> None:
     fade_out_start = max(0.0, clip.duration - 0.08)
     audio_filter = (
         "highpass=f=75,lowpass=f=12500,"
@@ -320,8 +333,6 @@ def extract_clip(source: Path, clip: Clip, destination: Path) -> None:
             "-hide_banner",
             "-loglevel",
             "error",
-            "-ss",
-            f"{clip.start:.3f}",
             "-i",
             str(source),
             "-t",
@@ -579,7 +590,7 @@ def render_sample(sample: Sample, output_dir: Path, temporary_root: Path, font: 
     workdir = temporary_root / sample.key
     workdir.mkdir(parents=True)
     print(f"[next-preview] source {sample.number:02d}: {sample.video_id}", flush=True)
-    source_audio = download_source(sample, workdir)
+    source_excerpts = download_excerpts(sample, workdir)
 
     parts: list[Path] = []
     lead = workdir / "lead.wav"
@@ -589,9 +600,11 @@ def render_sample(sample: Sample, output_dir: Path, temporary_root: Path, font: 
     make_silence(gap, GAP_SECONDS)
     make_silence(tail, TAIL_SECONDS)
     parts.append(lead)
-    for index, clip in enumerate(sample.clips):
+    for index, (clip, source_excerpt) in enumerate(
+        zip(sample.clips, source_excerpts, strict=True)
+    ):
         clip_path = workdir / f"clip-{index:02d}.wav"
-        extract_clip(source_audio, clip, clip_path)
+        normalize_clip(source_excerpt, clip, clip_path)
         parts.extend((clip_path, gap))
     parts.append(tail)
 
@@ -601,7 +614,8 @@ def render_sample(sample: Sample, output_dir: Path, temporary_root: Path, font: 
     total_duration = write_ass(sample, ass_path)
     destination = output_dir / sample.output_name
     render_video(sample, audio_path, ass_path, font, total_duration, destination)
-    source_audio.unlink(missing_ok=True)
+    for source_excerpt in source_excerpts:
+        source_excerpt.unlink(missing_ok=True)
     probe_video(destination)
     return destination
 

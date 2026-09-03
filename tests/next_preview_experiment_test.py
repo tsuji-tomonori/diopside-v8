@@ -76,6 +76,18 @@ class NextPreviewExperimentTest(unittest.TestCase):
         self.assertNotIn("all", clients)
         self.assertEqual(clients[-1], "mweb")
 
+    def test_download_ranges_cover_only_declared_excerpts(self) -> None:
+        sample = MODULE.SAMPLES[0]
+        self.assertEqual(
+            MODULE.section_ranges(sample),
+            (
+                "*1046.250-1048.900",
+                "*1332.700-1335.000",
+                "*3644.250-3648.500",
+                "*4460.000-4463.300",
+            ),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
