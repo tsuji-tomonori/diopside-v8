@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "9869f80d0a95403e8e2210a81c2f6ea5c69cb0004a4b7cbb37d83a98bcedbf40"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "1ccf98a44c8f5b1149c077cc9f981beaa19aee4a27f5588362c891fb33af7ffb",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3373
     }
   ],
   "tagAssignments": [
@@ -282,5 +290,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "デビュー翌日の白雪巴が、視聴者のコメントを拾いながら「安牌」なマシュマロを味わう雑談。呼び方や言い間違い、好きな音楽・アニメ、食の好み、勝負観まで、話題を軽やかに脱線させつつ、率直な言葉で自分らしさを伝えていく。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "あなた専用の呼び方が、私嬉しいかな",
+      "atSeconds": 988,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "1ccf98a44c8f5b1149c077cc9f981beaa19aee4a27f5588362c891fb33af7ffb",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T06:00:34.512698Z"
   }
 }
