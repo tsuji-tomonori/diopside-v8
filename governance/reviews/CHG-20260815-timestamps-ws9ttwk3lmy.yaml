@@ -1,0 +1,131 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260815-timestamps-ws9ttwk3lmy
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence: [path:content/videos/ws9TTWk3lmY.json]
+  note: 1動画1PRの正本差分のみを対象とする。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence: [commit:self]
+  note: 正本 schema を使用し、対象外の変更を含めない。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence: [path:content/videos/ws9TTWk3lmY.json]
+  note: 全編根拠と独立 review を確認する assured change である。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence: [commit:self]
+  note: 人の PR マージが公開承認境界である。
+- id: IMP-007
+  class: Risk-selected
+  result: pass
+  evidence: [path:content/videos/ws9TTWk3lmY.json]
+  note: 可逆な1動画 overrideであり migration や削除を含めない。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/ws9TTWk3lmY.json
+  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+  note: 正本 schema、全編根拠、synopsis candidate hash 261cb6ec416b21759b78869a7d38b68ae5184da850398c9b5654b9af087ba6b4、timestamp candidate hash d71d3dcab41e07e83170251072cfabc295508d5d987980f5baa126f6631b08ae、および PR gate を検証する。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence: [path:content/content-manifest.json, workflow:要件・品質ゲート#通常変更の品質ゲートを実行]
+  note: 正本件数と公開生成前提の drift を検証する。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence: [commit:self]
+  note: raw evidence、temporary artifacts、chat、投稿者識別子を含めない。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence: [path:content/videos/ws9TTWk3lmY.json, path:governance/reviews/CHG-20260815-timestamps-ws9ttwk3lmy.yaml]
+  note: 1動画の正本、manifest、review YAML を整合させる。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence: [commit:self]
+  note: Commit Comment に目的、影響、review、検証、残存リスクを記載する。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence: [path:spec/requirements/requirements.json, path:content/videos/ws9TTWk3lmY.json]
+  note: batch と独立 review の要件に適合する。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence: [commit:self]
+  note: schema と画面を変更しないため新規 ADR は不要である。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence: [path:scripts/validate-content.ts, workflow:要件・品質ゲート#通常変更の品質ゲートを実行]
+  note: content、1動画 scope、privacy を CI 相当の validator で確認する。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence: [path:governance/reviews/CHG-20260815-timestamps-ws9ttwk3lmy.yaml]
+  note: 選択した check のみを review YAML に保存する。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence: [path:governance/reviews/CHG-20260815-timestamps-ws9ttwk3lmy.yaml]
+  note: 未選択 check を N/A として記録しない。
+advisories: []
+residual_risks:
+- The final head-only CI includes the manifest-driven E2E video-count expectation from maintenance PR 421.
+- CI integrates the dynamic video-count quality gate by normal merge; the video artifact remains unpublished until human merge.
+- synopsis candidate hash 261cb6ec416b21759b78869a7d38b68ae5184da850398c9b5654b9af087ba6b4 と timestamp candidate hash d71d3dcab41e07e83170251072cfabc295508d5d987980f5baa126f6631b08ae は、人による同一 draft PR のマージまで公開承認されない。
