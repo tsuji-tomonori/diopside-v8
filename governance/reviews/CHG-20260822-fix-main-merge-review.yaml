@@ -1,0 +1,143 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260822-fix-main-merge-review
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: false
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+    note: 既存の品質ゲートとレビュー証跡要件を弱めず、GitHub通常merge後にもPR側の証跡を検証できるよう修復する。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/validate.py, path:.github/workflows/update-generated-release.yml]
+    note: main向けreview検証のmerge commit解決方法だけを変更し、公開契約、AWS構成、生成設計は変更しない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/validate.py]
+    note: mainとPRの共有品質ゲートへ影響するためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 外部書込みは修正branchのpushとdraft PR作成に限定し、merge、deploy、main workflow再実行は行わない。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/validate.py, workflow:要件・品質ゲート]
+    note: Python validatorの構文と関連するmain release検証を実行した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/validate.py]
+    note: 既存の型注釈を維持し、変更したPythonをRuffで確認した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/validate.py, test:tests/review_contract_test.py]
+    note: 変更したPythonのRuff lintとformat checkを確認した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/review_contract_test.py, test:tests/repository-policy.test.ts]
+    note: 2親mergeの正常系、親数不正、異なるreview参照、workflow flagを回帰試験で確認した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/review_contract_test.py]
+    note: merge commitだけを信頼せず、2親、単一review、PR headのCommit Comment、同一blobを必須とするfail-closed条件を固定した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 秘密情報、CIログ、生素材を追加せず、validator、workflow呼出、契約試験、review記録だけを含めた。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:governance/reviews/validate.py]
+    note: GitHub squashとの後方互換を維持し、想定外subject、親数、review数、参照不一致は明示エラーで停止する。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をmain merge review解決、呼出flag、回帰試験へ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、review path、検証、互換性、残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+    note: 永続要件は変更せず、既存review証跡を通常merge後も検証する実装修正のためrequirements.json改訂は不要と判定した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/validate.py]
+    note: 実装から生成するas-built設計の対象外であり、AWS、公開画面、データ構造の設計変更はない。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/review_contract_test.py, test:tests/repository-policy.test.ts, workflow:要件・品質ゲート]
+    note: validator単体試験とrepository policy試験が既存PR品質ゲートへ含まれることを確認した。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-fix-main-merge-review.yaml]
+    note: 選択したcheckを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-fix-main-merge-review.yaml]
+    note: trigger非該当checkをN/Aとして追加していない。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:governance/reviews/validate.py, path:package.json]
+    note: mainの通常mergeとsquash mergeを同じコマンドで復元し、契約不一致時は従来どおりCIを停止できる。
+advisories: []
+residual_risks:
+  - GitHubの通常merge subject形式が将来変わった場合はfail-closedで停止するため、その時点で明示的な契約更新が必要になる。
+  - ローカル全体検証では既存operations testが環境依存でtimeoutしたが、今回変更したvalidator試験とrepository policy試験、および実際に失敗したmain merge commitの再検証は成功している。
