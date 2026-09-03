@@ -30,7 +30,7 @@ export function GroupDetailPage(): React.JSX.Element {
         <h1 id="group-heading">{group.canonicalName}</h1>
         <p className="group-description">{group.groupProfile.description}</p>
         <p className="work-source">
-          参考: <a href={group.groupProfile.sourceUrl} target="_blank" rel="noreferrer">{group.groupProfile.sourceLabel}</a>
+          出典: <a href={group.groupProfile.sourceUrl} target="_blank" rel="noreferrer">{group.groupProfile.sourceLabel}</a>
           <span>確認日: {formatDate(`${group.groupProfile.retrievedAt}T00:00:00+09:00`)}</span>
         </p>
         <h2>メンバー</h2>

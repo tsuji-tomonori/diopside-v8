@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=zPoP351L6IM",
-  "taxonomyVersion": "8.5.0",
+  "taxonomyVersion": "8.6.0",
   "aliasVersion": "8.3.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-approved-tags",
@@ -85,15 +85,6 @@
     {
       "tagId": "tag-reference-mentionedPerson-6bd8d91e5724",
       "reason": "配信本文から戌亥とこへの一般言及を検出（候補根拠を個別確認済み）（判定タグ: 戌亥とこ）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T12:00:00+09:00"
-    },
-    {
-      "tagId": "tag-reference-relation-3b130aa9bad3",
-      "reason": "本文言及の関係を「一般言及」と判定（判定タグ: 一般言及）",
       "confidence": "高",
       "evidenceRefs": [
         "evidence-approved-tags"
@@ -412,7 +403,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T12:00:00+09:00",
-    "basis": "提供データの明示30件を全件移行し、時刻は既存承認済み23件だけを収録"
+    "approvedAt": "2026-09-01T12:00:00+09:00",
+    "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
   }
 }
