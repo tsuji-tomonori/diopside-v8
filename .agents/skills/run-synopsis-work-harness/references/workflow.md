@@ -11,6 +11,9 @@ Remote branch creation is the atomic claim. Parent Sol alone creates
 `agent/synopsis-<exact-video-id>`, a safe claim marker, and the processing draft
 PR. Luna receives the detached one-video worktree after that handshake. Never
 force, delete, lowercase the video ID, or reclaim a stale branch automatically.
+Before a wave is planned, the harness fetches the selected remote main ref and
+requires the campaign checkout HEAD to equal it. A stale remote-tracking ref or a
+feature-branch checkout must not become the base of claim branches.
 
 ## Snapshots
 
