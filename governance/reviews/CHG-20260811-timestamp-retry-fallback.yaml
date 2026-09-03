@@ -1,0 +1,155 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260811-timestamp-retry-fallback
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: true
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:spec/sources/owner-directive-2026-08-11-timestamp-retry-fallback.md, path:spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md, path:spec/sources/owner-directive-2026-08-12-timestamp-recovery-feedback.md]
+    note: 実campaignのdeferred理由記録、review自己矛盾の再確認、局所feedback loopをV8-OPS-024 revision 2へ正本化した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/references/workflow.md, path:.agents/skills/compose-stream-chapters/SKILL.md]
+    note: 公開構成を変えず一時dossier内の素材routeとsemantic map構成だけを変更した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260811-timestamp-retry-fallback.yaml]
+    note: 要件、生成元、素材取得、Codex実行境界、長時間字幕構成へ跨るためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/SKILL.md, test:tests/timestamp_harness_test.py]
+    note: 認証なし公開素材、read-only worker、親Sol最終確認、connector-only共有書込みを維持した
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [test:tests/timestamp_harness_test.py, workflow:要件・品質ゲート#要件の品質ゲートを実行]
+    note: retry route、MP3 ASR、品質昇格、chunk map誤検知、review契約、deferred台帳再読を直接試験へ追加した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/scripts/harness.py, test:tests/timestamp_harness_test.py]
+    note: 変更Pythonを既存RuffとPython単体試験の対象に維持する
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/timestamp_harness_test.py]
+    note: 技術再試行と品質昇格を分離し、現行yt-dlpの匿名optionを使ってcookieまたは有料APIを使わないことを検証する
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/timestamp_harness_test.py, test:tests/timestamp_tools_test.py]
+    note: Codex技術失敗、review自己矛盾、意味topic誤検知、deferred理由未記録、公開字幕失敗後の音声fallbackを回帰testで固定した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/generate-requirements.ts, path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/inventory.gen.json]
+    note: 要件151件revision 10と生成元SHA inventoryを既存generatorのCI出力へ決定的に同期した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 生字幕、音声、文字起こし、Codex認証をGit、PR、台帳へ追加しない
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/references/workflow.md, path:.agents/skills/run-timestamp-work-harness/scripts/harness.py]
+    note: 字幕、公開音声、ASR、Codex、map、composeの段階別reasonとattempt記録から停止箇所を診断できる
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/SKILL.md, path:.agents/skills/run-timestamp-work-harness/scripts/harness.py, path:.agents/skills/prepare-stream-evidence/scripts/download_audio.py]
+    note: 差分を素材復旧、Codex retry、局所feedback、deferred台帳note、要件生成元、直接試験へ限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性と残存リスクをCommit Commentへ記録する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:tests/timestamp_harness_test.py]
+    note: V8-OPS-019とV8-OPS-022〜024 revision 2の受入条件を実装と試験へtraceした
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/references/workflow.md]
+    note: 既存Workハーネスの派生運用設計更新であり新規ADRを不要と判定した
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:.agents/skills/run-timestamp-work-harness/scripts/harness.py, test:tests/timestamp_harness_test.py]
+    note: 全編根拠、同一モデルretry、review再確認、局所再構成、deferred台帳再読の要件から実装と検証へtraceを接続した
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/timestamp_harness_test.py, workflow:要件・品質ゲート#要件の品質ゲートを実行]
+    note: Python単体、生成差分、要件監査、リポジトリ全体の品質ゲートを実行する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260811-timestamp-retry-fallback.yaml]
+    note: 選択したcheckだけを保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260811-timestamp-retry-fallback.yaml]
+    note: 未選択checkをN/Aとして登録していない
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/SKILL.md, path:.agents/skills/run-timestamp-work-harness/references/workflow.md]
+    note: retry条件、review契約、局所feedback、deferred台帳note、既存claim再開を運用手順へ反映した
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence: [path:spec/sources/owner-directive-2026-08-11-timestamp-retry-fallback.md, path:spec/sources/owner-directive-2026-08-12-timestamp-recovery-feedback.md, path:.agents/skills/run-timestamp-work-harness/references/workflow.md]
+    note: 長期の素材fallback、モデルrouting、局所feedback、deferred理由記録を正本と派生設計へ保持し新規ADRを不要と判定した
+advisories: []
+residual_risks:
+  - drain期限までに回復できない動画は台帳へ安全な理由と再開手順だけを記録し、処理不能にせずdeferred_recoveryから再開する
+  - 長時間字幕は最大3 chunkを並行mapするため、実行環境の負荷に応じてDIOPSIDE_TRANSCRIPT_MAP_WORKERSを1から4で調整する
+  - worker-side shell読取失敗を避けるため字幕JSONLと検証済みmapを直接入力し、生成方式versionが古いmap、読取失敗、placeholderを決定的に拒否する
+  - 上限付き局所feedback loop後も決定的validatorまたは親Sol確認に合格しない候補は正本化しない
