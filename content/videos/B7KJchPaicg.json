@@ -56,6 +56,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "be5bb13d78528ab0cc9f1a3c1232d46a0d34c5545a729df590e1dccf86e50e35"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "f5f87775d579266983529b61bef492b923f25511bd14d8c2ac25acb985c4d416",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 12683
     }
   ],
   "tagAssignments": [
@@ -474,5 +482,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が『大乱闘スマッシュブラザーズ SPECIAL』の大会に参加し、白組の一員として仲間と対戦。キャラクターや立ち回りを相談しながら熱戦を見守り、練習の成果やチームメンバーへの感謝を語る、にじさんじ運動会の舞台裏配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "大会楽しいね",
+      "atSeconds": 12639,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "f5f87775d579266983529b61bef492b923f25511bd14d8c2ac25acb985c4d416",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T04:14:00.357602Z"
   }
 }
