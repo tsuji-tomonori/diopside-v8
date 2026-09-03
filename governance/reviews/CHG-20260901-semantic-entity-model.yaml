@@ -1,0 +1,252 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260901-semantic-entity-model
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: true
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: false
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: true
+  squash: true
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/requirements/requirements.json
+  note: V8-TAG-041から044、V8-DISPLAY-019、TAG-037、SEARCH-020へ意味境界・網羅性監査・探索導線を反映した。mainでV8-DISPLAY-017/018が先に確定したため、競合解消時に未使用の019へ採番した。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:docs/design/generated/system.gen.md
+  - path:src/domain/entities.ts
+  note: 分類値と型付きエンティティ・関係を分離する公開データモデル変更として判定した。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/taxonomy/change-record.json
+  note: 46動画の正本移行と公開契約変更を伴うためassuredを選択した。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 利用者がGoogle Driveのレポート更新、GitHubへのpush、PR作成に加えて、本ターンでmergeとproduction deployを明示的に依頼した。
+- id: IMP-007
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/taxonomy/change-record.json
+  - path:scripts/migrate-semantic-entity-model.ts
+  note: タグIDを可能な範囲で維持し、再実行可能な決定的migrationと影響46動画の記録を用意した。
+- id: FAST-001
+  class: Invariant
+  result: pass
+  evidence:
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: npm run buildで正本、公開データ、生成設計、Vite成果物を通しで生成した。
+- id: FAST-002
+  class: Invariant
+  result: pass
+  evidence:
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: taxonomy lookupの公開型にactiveが含まれないことをCIで検出し、正本taxonomyからactiveTagIdsを構築する実装へ修正した上でnpm run typecheckを合格した。
+- id: FAST-003
+  class: Invariant
+  result: pass
+  evidence:
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: npm run lintを警告0件で合格した。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence:
+  - test:src/features/entities/EntityIndexPage.test.tsx
+  - test:tests/content-validation.test.ts
+  - test:tests/generated.test.ts
+  note: 最新main統合後の24ファイル119単体テストでエンティティ探索、正本意味境界、公開索引の参照整合を検証した。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:scripts/audit-game-tags.ts
+  - path:spec/sources/game-tag-corrections-v1.json
+  - path:content/videos/_pE8SztXhW8.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: CIで再現したTaxonomyLookupItem.activeの型エラーを正本taxonomy由来のactiveTagIdsと未解決判定へ置き換えた。残る1動画は白雪巴公式YouTube作品別再生リストで「白衣性恋愛症候群RE:Therapy」と確定し、ゲーム監査1047/1047・候補0件で再発を防止した。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:scripts/build-public-data.ts
+  - path:scripts/generate-requirements.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 正本から要件、設計、公開データを決定的に再生成し、通常PRから配信用release成果物を除外した。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 差分は公開済みメタデータと実装だけで、credential、token、生字幕、音声、個人情報を含めない。
+- id: FAST-011
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:scripts/migrate-semantic-entity-model.ts
+  - test:tests/content-validation.test.ts
+  note: migrationは冪等で、旧タグIDの維持、schema版の更新、正本全件検証、Git revertによる復旧を確認した。
+- id: FAST-013
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:src/features/entities/EntityIndexPage.tsx
+  - test:src/features/entities/EntityIndexPage.test.tsx
+  - test:e2e/search.spec.ts
+  note: 一覧・名前検索・種類絞り込み・空状態・詳細・関連動画・関連エンティティを実装し、検索候補からエンティティ詳細へ遷移するブラウザ契約へ接続した。
+- id: FAST-014
+  class: Risk-selected
+  result: pass
+  evidence:
+  - test:src/features/entities/EntityIndexPage.test.tsx
+  - test:src/features/search/SearchPage.test.tsx
+  - test:e2e/detail.spec.ts
+  - test:e2e/search.spec.ts
+  note: label付き入力、semantic link、accessible name、通常のkeyboard操作を確認し、既存の作品・人物・楽曲詳細導線と汎用エンティティ導線を両立させた。
+- id: FAST-018
+  class: Risk-selected
+  result: na
+  evidence:
+  - test:e2e/detail.spec.ts
+  - test:e2e/search.spec.ts
+  note: E2E変更triggerで選択したが、DB・CRUD・外部状態変更はなく、静的公開データを使う画面遷移と検索状態の検証であるため状態永続化assertは対象外とした。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 最新main（19eb4cacf3c1bf429262dd10f81ac9cc84a333ec）を通常mergeで取り込み、1704動画の正本へ検索用データモデル再設計、正本migration、横断監査、探索UIとその検証を適用した。main側のワードクラウド・カスタム絵文字要件とrelease-6a09a8d3bb9f9d01を保持し、重複した表示要件IDだけを未使用のV8-DISPLAY-019へ解消した。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: commit本文へ目的、変更、要件影響、設計影響、チェックリスト、検証契約、互換性・残存リスクを記録する。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/requirements/requirements.json
+  - path:spec/sources/owner-directive-2026-08-31-semantic-entity-model.md
+  note: 利用者指示を正本sourceに残し、新規・変更要件と受入条件へ追跡可能にした。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:docs/design/generated/system.gen.md
+  - path:src/domain/entities.ts
+  note: 生成設計を再生成し、分類・エンティティ・関係・公開索引の設計を実装へ接続した。
+- id: REV-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:spec/requirements/requirements.json
+  - test:tests/content-validation.test.ts
+  - test:tests/generated.test.ts
+  - test:src/features/entities/EntityIndexPage.test.tsx
+  note: 影響要件から正本検証、公開索引、探索UIのテストまで追跡できる。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:.github/workflows/verify.yml
+  - test:tests/content-validation.test.ts
+  - test:src/features/entities/EntityIndexPage.test.tsx
+  - test:e2e/detail.spec.ts
+  - test:e2e/search.spec.ts
+  note: build、型、lint、単体、正本、migration、生成差分、既存詳細導線と新規エンティティ導線のE2EをPR品質ゲートで実行する。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260901-semantic-entity-model.yaml
+  note: 選択したチェック結果を本ファイルへ保存する。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260901-semantic-entity-model.yaml
+  note: 未選択チェックを形式的なN/Aとして記録しない。
+- id: REV-009
+  class: Risk-selected
+  result: pass
+  evidence:
+  - test:e2e/detail.spec.ts
+  - test:e2e/search.spec.ts
+  note: FAST-018はE2E変更で選択後、CRUD・DB・外部状態を持たない静的公開データの画面遷移・検索状態検証と判明したためN/Aとする具体的根拠を確認した。
+- id: REV-011
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:src/domain/content.ts
+  - test:tests/generated.test.ts
+  note: 公開JSONを版上げし、同一release参照をschema検証する。旧タグIDは維持し、旧releaseは版付きパスに残る。
+- id: REV-013
+  class: Risk-selected
+  result: pass
+  evidence:
+  - test:src/features/entities/EntityIndexPage.test.tsx
+  - test:src/features/search/SearchPage.test.tsx
+  - test:e2e/detail.spec.ts
+  - test:e2e/search.spec.ts
+  note: 名前検索、イベントから対象ゲームへの遷移、検索候補からエンティティ詳細への遷移、作品・人物・楽曲の既存詳細導線をタスク単位で確認した。
+- id: REV-015
+  class: Advisory
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-08-31-semantic-entity-model.md
+  - path:docs/design/generated/system.gen.md
+  note: 長期判断の理由は所有者指示と正本から生成する設計へ保持され、追加ADRなしでも追跡可能と判定した。
+advisories: []
+residual_risks:
+- 楽曲、出演者、言及人物、イベントの網羅性はpartialであり、期待件数・実件数・候補件数を継続監査する。
+- 選択肢が1件の警告有無と投稿受付手段は意味と利用実績があるため直ちに削除せず、検索結果の差分価値を継続評価する。
