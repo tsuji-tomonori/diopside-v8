@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "bceef55ad0f3c15a0a9c09bcd718e9780487d505bb35186b619986ae27708475"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "eefccc284d5bd8b17c86748869d1600b4042b95c710c6498f65fea3c50dadd4b",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3218
     }
   ],
   "tagAssignments": [
@@ -387,5 +395,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴がスプラトゥーン大会当日を迎え、チーム「極肆姉妹」の仲間と本番の試合に挑みます。試合中の状況や味方の動きを実況し、合間には作戦や手応えを振り返りながら、最後までチームで声を掛け合って戦います。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "楽しいチームだったよ本当に",
+      "atSeconds": 3141,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "eefccc284d5bd8b17c86748869d1600b4042b95c710c6498f65fea3c50dadd4b",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T06:11:10.726577Z"
   }
 }
