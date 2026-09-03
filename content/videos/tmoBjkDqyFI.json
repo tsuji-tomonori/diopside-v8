@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "7031d0f2d366f455c0635f27e0a12aff36c4f497ad9c070263d208b853972567"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "d7deb5a01f8ececd4277debe0e1662a1c3d15fc7a80f16fc1de5aa13019b268c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9832
     }
   ],
   "tagAssignments": [
@@ -408,5 +416,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が学生から寄せられた勉強や受験、部活、人間関係、恋愛、進路の悩みを読み、迷いや経験に寄り添いながら、ときに率直な言葉で向き合います。身近な人への聞き取りも交え、他人と比べず自分を理解する大切さを考える相談配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "あなたはあなただし",
+      "atSeconds": 9642,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "d7deb5a01f8ececd4277debe0e1662a1c3d15fc7a80f16fc1de5aa13019b268c",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T08:40:34.567896Z"
   }
 }
