@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=K-d078AxIJ4",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -44,6 +44,14 @@
       "type": "公開の日本語原文字幕",
       "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
       "inputFingerprint": "c375223f1bd108b9521f5756a41dc8484fca1bddd980a449e35cd85722b9202e",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 16463
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "7d4d3a439317215d368db734c7374f214e554e721cca805bb674d5bd84e817b5",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 16463
     }
@@ -104,29 +112,6 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     }
   ],
-  "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
-  },
-  "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
-  },
-  "provenance": {
-    "inputFingerprint": "0ffebfd7e18bd378acfc75ff7641b7f44083b43462fffadd2926174a2c25e8aa",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
-    "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
-  },
-  "approval": {
-    "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
   "synopsis": {
     "body": "『ファッションドリーマー』を初見プレイ。顔立ちや髪型を細かく選んで自分のミューズを作り、好みを聞きながら多彩な相手をコーディネートする。ロゴや配色を考えたオリジナル服、写真撮影、ショールーム作り、オンラインでの服探しまで、着せ替えの遊びを一つずつ広げる。",
     "bodyEvidenceRefs": [
@@ -142,5 +127,437 @@
     "inputFingerprint": "c375223f1bd108b9521f5756a41dc8484fca1bddd980a449e35cd85722b9202e",
     "rulesVersion": "1.0.0",
     "updatedAt": "2026-08-08T21:45:10+09:00"
+  },
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-d8e291f2",
+        "startSeconds": 0,
+        "label": "配信開始・ゲーム紹介",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-346-26d7bfdd",
+        "startSeconds": 346,
+        "label": "ミューズのキャラクター作成",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-867-978a6ca6",
+        "startSeconds": 867,
+        "label": "顔立ちとメイクを細かく調整",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1600-e72e26c8",
+        "startSeconds": 1600,
+        "label": "体型・髪型・雰囲気を仕上げる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2219-626b6dc8",
+        "startSeconds": 2219,
+        "label": "プロフィール設定とゲーム導入",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2444-bcc18c58",
+        "startSeconds": 2444,
+        "label": "コーデチェックのチュートリアル",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2669-5975dc96",
+        "startSeconds": 2669,
+        "label": "初めてのコーディネート作り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3099-d1229573",
+        "startSeconds": 3099,
+        "label": "フォロワー獲得とゲームシステム",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3403-badfcee9",
+        "startSeconds": 3403,
+        "label": "サロン機能とアイテム集め",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3787-b75a311d",
+        "startSeconds": 3787,
+        "label": "寒がりミューズの防寒コーデ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4126-66ea25c7",
+        "startSeconds": 4126,
+        "label": "リラックスコーデに挑戦",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4577-dddfa061",
+        "startSeconds": 4577,
+        "label": "Tipsで各種機能を確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4783-6a84f37a",
+        "startSeconds": 4783,
+        "label": "お気に入りミューズと写真撮影",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5180-35cab8f4",
+        "startSeconds": 5180,
+        "label": "ポップアップエリアで流行探し",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5725-4ed7b6de",
+        "startSeconds": 5725,
+        "label": "トレンド予報とガチャ解放",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5980-3ac46f7e",
+        "startSeconds": 5980,
+        "label": "マイブランド作りを開始",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7197-40904fbd",
+        "startSeconds": 7197,
+        "label": "ブランドパンプスの配色調整",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7538-522c09c6",
+        "startSeconds": 7538,
+        "label": "ビンゴでポイント稼ぎ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7810-f55fac54",
+        "startSeconds": 7810,
+        "label": "オンライン解放条件を確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8095-7bee112a",
+        "startSeconds": 8095,
+        "label": "Tシャツ中心のコーデ作り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8310-d564e2b1",
+        "startSeconds": 8310,
+        "label": "レア服を探してNPCをコーデ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8750-2897449e",
+        "startSeconds": 8750,
+        "label": "別のNPCへコーデを提案",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9265-799b5609",
+        "startSeconds": 9265,
+        "label": "メンズコーデに挑戦",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9701-ede1047c",
+        "startSeconds": 9701,
+        "label": "指定アイテムでランダムコーデ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9902-04c6f10e",
+        "startSeconds": 9902,
+        "label": "男性ミューズをスーツ風に",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-10180-9d79fd15",
+        "startSeconds": 10180,
+        "label": "ブロンズ到達とドローン撮影",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-10603-8ceed6db",
+        "startSeconds": 10603,
+        "label": "ショールーム作り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-11794-96fd500a",
+        "startSeconds": 11794,
+        "label": "オンライン公開の準備と接続",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-12058-310b85ec",
+        "startSeconds": 12058,
+        "label": "自分のショールームを公開",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-12784-350a78a8",
+        "startSeconds": 12784,
+        "label": "オンラインのミューズと交流",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-12976-67e2632c",
+        "startSeconds": 12976,
+        "label": "赤系レザーの上品コーデ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13324-3bba29d6",
+        "startSeconds": 13324,
+        "label": "世界のプレイヤーブランド巡り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13890-ca787e56",
+        "startSeconds": 13890,
+        "label": "マイワールド機能を確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-14150-b8c65631",
+        "startSeconds": 14150,
+        "label": "アクティブ系CPUをコーデ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-14510-f06bff90",
+        "startSeconds": 14510,
+        "label": "オンライン共有機能と次回予告",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-14580-298596e2",
+        "startSeconds": 14580,
+        "label": "フーディーのシンプルコーデ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-14950-dc645b17",
+        "startSeconds": 14950,
+        "label": "魔女風のユニークコーデ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-15225-8f4a6a43",
+        "startSeconds": 15225,
+        "label": "気に入った服と型紙を収集",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-15621-566a8f56",
+        "startSeconds": 15621,
+        "label": "ショールームの展示を調整",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-16160-d86b1236",
+        "startSeconds": 16160,
+        "label": "配信の振り返りと次回予定",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-16347-cb9df597",
+        "startSeconds": 16347,
+        "label": "視聴者へ感謝して配信終了",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "9aebe206ec4f62180776d4c207544eedbf6c2d718324f1e5f6ae456a1d1ff272",
+    "inputFingerprint": "7d4d3a439317215d368db734c7374f214e554e721cca805bb674d5bd84e817b5",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-08-14T12:00:00+09:00",
+    "updatedAt": "2026-08-14T12:30:00+09:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "9aebe206ec4f62180776d4c207544eedbf6c2d718324f1e5f6ae456a1d1ff272",
+        "majorIssues": 0,
+        "reviewedAt": "2026-08-14T12:30:00+09:00",
+        "route": "全編根拠による生成",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        }
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "9aebe206ec4f62180776d4c207544eedbf6c2d718324f1e5f6ae456a1d1ff272",
+        "majorIssues": 0,
+        "reviewedAt": "2026-08-14T12:00:00+09:00",
+        "factCheckResultWasHidden": true,
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        }
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "9aebe206ec4f62180776d4c207544eedbf6c2d718324f1e5f6ae456a1d1ff272",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/269"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "0ffebfd7e18bd378acfc75ff7641b7f44083b43462fffadd2926174a2c25e8aa",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/269"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
   }
 }
