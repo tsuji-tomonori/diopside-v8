@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=5ZOWMawSEew",
-  "taxonomyVersion": "8.5.0",
+  "taxonomyVersion": "8.6.0",
   "aliasVersion": "8.3.0",
-  "tagRulesVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -40,6 +40,12 @@
       "inputFingerprint": "5baf1caaf3af1f11dfb59db22b6b5ef6f42ab6b174b4e424da8d2fca5f833e4e",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 10087
+    },
+    {
+      "evidenceId": "evidence-collaboration-horizontal",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "YouTube公開タイトル・概要欄の出演者横断照合",
+      "inputFingerprint": "ef3149a4fefd329416be85a3b1f75049b82ef2796f7e457af11577306c1282ac"
     }
   ],
   "tagAssignments": [
@@ -78,6 +84,24 @@
         "evidence-duration"
       ],
       "reviewedAt": "2026-08-14T12:00:00+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "YouTube公開タイトル・概要欄からフミとの参加形態「コラボ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-29T21:10:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-b0469a7d02e8",
+      "reason": "YouTube公開タイトル・概要欄から出演者「フミ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-29T21:10:00+09:00"
     }
   ],
   "timestamps": {
@@ -275,8 +299,8 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-14T12:00:01+09:00",
-    "basis": "公開metadata確認済み。成果物はDraft PRで最終確認する。"
+    "approvedAt": "2026-08-29T21:10:00+09:00",
+    "basis": "利用者指示とYouTube公開情報を基に、コラボ相手の付与漏れを横断是正"
   },
   "synopsis": {
     "body": "フミと白雪巴が、ストーリープレイング『そして君とタイトルを』を通じて物語を組み立てるコラボ配信。白雪巴はマリーの視点から選択に向き合い、フミとの演技や会話を重ねていく。二人が役を演じながら受け止めた場面と、終演後に語り合う空気を見守れる。",
