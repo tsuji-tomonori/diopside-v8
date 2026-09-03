@@ -9,8 +9,8 @@ import rejectedPilotInput from './fixtures/pilot-timestamps-v1.json';
 
 const root = process.cwd();
 const expectedGenreCounts = {
-  ゲーム: 8,
-  企画: 6,
+  ゲーム: 10,
+  企画: 4,
   雑談: 5,
   ASMR: 3,
   歌: 2,
