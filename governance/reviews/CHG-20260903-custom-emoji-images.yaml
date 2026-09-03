@@ -100,8 +100,8 @@ selected_checks:
   - id: FAST-006
     class: Invariant
     result: pass
-    evidence: [path:docs/requirements/REQUIREMENTS.md, path:scripts/generate-requirements.ts]
-    note: 要件正本と人向け生成要件を同時更新し、公開生成物はrelease PR経路へ委ねる。
+    evidence: [path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/inventory.gen.json, path:scripts/generate-requirements.ts]
+    note: 要件正本、人向け生成要件、変更ソースdigestの設計inventoryを決定的生成結果へ同期し、公開生成物はrelease PR経路へ委ねる。
   - id: FAST-007
     class: Invariant
     result: pass
