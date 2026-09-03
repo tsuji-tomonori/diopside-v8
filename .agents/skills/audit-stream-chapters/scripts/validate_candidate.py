@@ -74,13 +74,14 @@ def normalized_draft(video_id: str, state: dict[str, Any], inputs: dict[str, Any
         refs = item.get("evidenceRefs")
         if not isinstance(refs, list) or (index > 0 and state["evidenceId"] not in refs):
             raise TimestampToolError("0秒以外の境界は全編または作成者一覧の根拠参照が必要です。")
+        public_refs = [state["evidenceId"]] if refs else []
         if start < 0 or start >= duration or (normalized and start - normalized[-1]["startSeconds"] < 10):
             raise TimestampToolError("開始秒は範囲内の厳密な昇順かつ10秒以上の間隔にしてください。")
         timestamp_id = item.get("timestampId") or f"timestamp-{start}-{digest_value(label)[:8]}"
         if not re.fullmatch(r"timestamp-[a-z0-9-]+", str(timestamp_id)) or timestamp_id in ids:
             raise TimestampToolError("タイムスタンプIDが不正または重複しています。")
         ids.add(str(timestamp_id))
-        normalized.append({"timestampId": str(timestamp_id), "startSeconds": start, "label": label, "confidence": confidence, "evidenceRefs": refs})
+        normalized.append({"timestampId": str(timestamp_id), "startSeconds": start, "label": label, "confidence": confidence, "evidenceRefs": public_refs})
     if normalized[0]["startSeconds"] != 0:
         raise TimestampToolError("先頭タイムスタンプは0秒にしてください。")
     generated_at = iso_time(draft.get("generatedAt"), "generatedAt")
@@ -140,7 +141,7 @@ def main() -> int:
         updated_at = max(fact_time, editorial_time).isoformat()
         preview = {"schemaVersion": "1.0.0", "videoId": args.video_id, "evidence": evidence, "timestamps": {"status": "作成済み", "origin": draft["origin"], "items": draft["items"], "candidateHash": candidate_hash, "inputFingerprint": draft["inputFingerprint"], "rulesVersion": draft["rulesVersion"], "generatedAt": draft["generatedAt"], "updatedAt": updated_at, "review": {"factCheck": {**fact, "route": draft["route"]}, "editorialCheck": editorial}}}
         atomic_json(directory / "candidate-preview.json", preview)
-        state.update({"stage": "ready_for_human_review", "candidateHash": candidate_hash, "updatedAt": preview["timestamps"]["updatedAt"]})
+        state.update({"stage": "ready_for_pr", "candidateHash": candidate_hash, "updatedAt": preview["timestamps"]["updatedAt"]})
         write_state(args.video_id, state)
         print(json.dumps({"videoId": args.video_id, "candidateHash": candidate_hash, "stage": state["stage"], "preview": str(directory / "candidate-preview.json")}, ensure_ascii=False))
         return 0

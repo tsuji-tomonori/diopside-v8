@@ -24,6 +24,9 @@ const tags = video.tagAssignments.map((assignment) => ({ ...assignment, tag: loo
 const timestampLines = video.timestamps.status === '未作成'
   ? `未作成（${video.timestamps.reason}）— ${markdownText(video.timestamps.detail)}`
   : video.timestamps.items.map((item) => `- ${seconds(item.startSeconds)} ${markdownText(item.label)}（${item.confidence}）`).join('\n');
+const timestampReviewLines = video.timestamps.status === '未作成'
+  ? '- 候補ハッシュ・独立確認: 対象外'
+  : reviewSummary(video.timestamps);
 const wordCloudLines = video.wordCloud.status === '未作成'
   ? `未作成（${video.wordCloud.reason}）— ${markdownText(video.wordCloud.detail)}`
   : video.wordCloud.words.map((word) => `${markdownText(word.term)}:${word.weight}`).join('、');
@@ -48,22 +51,35 @@ ${tags.map((item) => `| ${markdownCell(item.tag?.categoryName ?? '不明')} | ${
 
 ${timestampLines}
 
+### 候補版と独立確認
+
+${timestampReviewLines}
+
 ## ワードクラウド
 
 ${wordCloudLines}
 
-## 根拠
+## 根拠メタデータ（生資料なし）
 
 ${video.evidence.map((evidence) => `- \`${evidence.evidenceId}\` ${evidence.type} / ${markdownText(evidence.sourceLabel)} / 指紋 \`${evidence.inputFingerprint}\``).join('\n')}
 
-## 検証結果
+## 決定的検証結果
 
 - [x] 構造、タグ基数、根拠参照
 - [x] タイムスタンプ状態と独立確認契約
 - [x] ワードクラウド状態
 - [x] 公開禁止情報の非混入
 - [x] 静的画面・検索索引の決定的生成
-- [ ] YouTubeリンクを人が開いて最終確認
+- [x] PR本文に字幕・transcript・コメント・chat等の生資料を含めない
+
+## 人によるマージ承認チェックリスト
+
+- [ ] 対象動画のYouTubeリンクを開き、動画IDと内容が一致する
+- [ ] 候補ハッシュが事実確認・編集確認・publication gateで一致する
+- [ ] 事実確認と編集確認が独立に合格し、重大指摘が0件である
+- [ ] 根拠メタデータとタイムスタンプ候補を確認し、生資料がPRに含まれていない
+- [ ] 通常の1動画PRのscopeだけであり、保守変更を同梱していない
+- [ ] このPRのmergeをタイムスタンプ公開承認として扱う
 
 ## 画面確認
 
@@ -97,4 +113,28 @@ function markdownText(value: string): string {
 
 function markdownCell(value: string): string {
   return markdownText(value).replaceAll('|', '\\|');
+}
+
+function reviewSummary(timestamps: Extract<typeof video.timestamps, { status: '作成済み' }>): string {
+  const review = timestamps.review;
+  if ('mode' in review) {
+    return [
+      `- 候補ハッシュ: \`${timestamps.candidateHash}\``,
+      `- 既存承認済みデータ移行: ${review.mode} / 検証時刻 ${review.validatedAt}`,
+      `- 移行元PR: ${review.source.pullRequest}`,
+    ].join('\n');
+  }
+  const fact = review.factCheck;
+  const editorial = review.editorialCheck;
+  const gate = 'publicationGate' in review ? review.publicationGate : {
+    mode: 'legacy-final-human-check',
+    candidateHash: review.finalHumanCheck.candidateHash,
+    pullRequest: review.finalHumanCheck.pullRequest,
+  };
+  return [
+    `- 候補ハッシュ: \`${timestamps.candidateHash}\``,
+    `- 事実確認: ${fact.status} / 重大指摘 ${fact.majorIssues}件 / 候補 \`${fact.candidateHash}\` / ${fact.reviewedAt}`,
+    `- 編集確認: ${editorial.status} / 重大指摘 ${editorial.majorIssues}件 / 候補 \`${editorial.candidateHash}\` / ${editorial.reviewedAt}`,
+    `- 公開ゲート: ${gate.mode} / 候補 \`${gate.candidateHash}\` / ${gate.pullRequest}`,
+  ].join('\n');
 }
