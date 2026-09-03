@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "1f4a024c88ac5220943e2a1f0baa8fa1df91475e7aebd9cb60271b28f0f95500"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "11928593b0e574ff388e30f583bc5479786cb0e218be5db79c6e93ce05885348",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 11539
     }
   ],
   "tagAssignments": [
@@ -381,5 +389,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が視聴者参加型のボンバーマン大会に向け、赤白チームのルールで対戦。爆弾の置き方やパンチ・キックなどの操作を教わりながら、味方の誤爆や自爆も笑いに変えて連戦する。参加者との交流、食事や配信の雑談を挟みつつ、翌日の大会へ向けて腕を磨く一夜。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "自爆があるから面白いのあるよね",
+      "atSeconds": 5653,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "11928593b0e574ff388e30f583bc5479786cb0e218be5db79c6e93ce05885348",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T23:24:29.969637Z"
   }
 }
