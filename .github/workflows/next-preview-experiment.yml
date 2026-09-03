@@ -1,15 +1,6 @@
 name: 次回予告風・実音声クリップ試作
 
 on:
-  push:
-    branches:
-      - experiment/next-preview-20260903
-    paths:
-      - .github/workflows/next-preview-experiment.yml
-      - scripts/build_next_preview.py
-      - tests/next_preview_experiment_test.py
-      - governance/reviews/CHG-20260903-next-preview-experiment.yaml
-      - package.json
   workflow_dispatch:
 
 permissions:
@@ -107,14 +98,3 @@ jobs:
             echo '- 音声: AAC / 公開配信からの短い引用'
             echo '- 元音声・字幕全文・コメント: artifact対象外'
           } >>"$GITHUB_STEP_SUMMARY"
-
-      - name: 短尺の派生成果物だけを保存
-        uses: actions/upload-artifact@v4
-        with:
-          name: next-preview-prototypes-20260903
-          path: |
-            ${{ runner.temp }}/next-preview-output/*.mp4
-            ${{ runner.temp }}/next-preview-output/manifest.json
-            ${{ runner.temp }}/next-preview-output/README.txt
-          if-no-files-found: error
-          retention-days: 7

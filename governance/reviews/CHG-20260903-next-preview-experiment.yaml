@@ -61,7 +61,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [commit:self, path:.github/workflows/next-preview-experiment.yml]
-    note: 外部書込みは実験branch、Draft PR、GitHub artifact、利用者指定Google Drive folderに限定し、main mergeやproduction deployは行わない。
+    note: 外部書込みは実験branch、Draft PR、利用者指定Google Drive folderに限定し、GitHub artifact、main merge、production deployは行わない。
   - id: FAST-001
     class: Invariant
     result: pass
@@ -81,7 +81,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [commit:self, path:.github/workflows/next-preview-experiment.yml]
-    note: Cookie、credential、Token、元音声、字幕全文、コメントをGitへ保存せず、artifactは短尺MP4、manifest、READMEだけに限定する。
+    note: Cookie、credential、Token、元音声、字幕全文、コメント、生成MP4をGitやGitHub artifactへ保存しない。
   - id: FAST-015
     class: Advisory
     result: pass
