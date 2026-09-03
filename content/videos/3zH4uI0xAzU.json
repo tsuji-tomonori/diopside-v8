@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "0bb908171609c37be399ef1bbb1cb0f8b32b286e9734b94fafa4ed085853309b"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "1dba330013defe47970b2ae585ff2c6679e33381dec702ae46009d72bc0d3cbe",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7953
     }
   ],
   "tagAssignments": [
@@ -360,5 +368,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-29T11:34:20+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・ユニット構成を照合し、旧v7由来の誤った出演者タグを除外"
+  },
+  "synopsis": {
+    "body": "白雪巴が共演者と、明日の対戦に向けた練習を兼ねてマリオカートの視聴者参加型へ。ルーム作成や機材調整に苦戦しつつ、参加者と何度もレースを走り、コースやアイテムに一喜一憂。合間には罰ゲームの相談や軽妙な雑談も広がります。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "最弱を狙ってるわけじゃないですかね",
+      "atSeconds": 492,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "1dba330013defe47970b2ae585ff2c6679e33381dec702ae46009d72bc0d3cbe",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T13:17:46.410988Z"
   }
 }
