@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "9d55080fa4272f9ac3d08b057f4ab571ee9ca1929d732a99bc89531613ca5efe"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "8fdb8501e58a6d7356b5bbb53865a6a7ded0b04cacbd32df11f576cb6e6d113a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2721
     }
   ],
   "tagAssignments": [
@@ -282,5 +290,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "にじさんじスマブラ杯の出番を待ちながら、ゼルダの復帰、ファントム、ガード、アイテム操作を急いで確認。公式配信の進行を見守り、西園チグサとの一戦へ。試合後も動きを振り返り、次へつながる課題を整理します。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ちょっと待ってね操作方法から確認しよう",
+      "atSeconds": 447,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "8fdb8501e58a6d7356b5bbb53865a6a7ded0b04cacbd32df11f576cb6e6d113a",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-09T23:45:00+09:00"
   }
 }
