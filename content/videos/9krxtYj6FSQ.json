@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=9krxtYj6FSQ",
-  "taxonomyVersion": "8.5.0",
+  "taxonomyVersion": "8.6.0",
   "aliasVersion": "8.3.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -46,6 +46,12 @@
       "inputFingerprint": "e2d181be98edda88d09e2b9b80271475bc7b6ed51a2f096d78a3e1b43a2e45e7"
     },
     {
+      "evidenceId": "evidence-game-classification",
+      "type": "動画タイトル",
+      "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+      "inputFingerprint": "e8410ca48a663d9793a950faa2e6631e7394ad46921e319c852f3cd03476bef4"
+    },
+    {
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
@@ -55,15 +61,6 @@
     }
   ],
   "tagAssignments": [
-    {
-      "tagId": "tag-content-primary-9eedbc0013d1",
-      "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
-    },
     {
       "tagId": "tag-people-channel-e0fc18a727d8",
       "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
@@ -90,6 +87,42 @@
         "evidence-approved-tags"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-23T16:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-c30afcb74b4a",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「にじさんじのタイプ診断」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-23T16:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-2ec4e38c680d",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「アドベンチャー」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-23T16:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-75b81f24091b",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「ビジュアルノベル」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-23T16:00:00+09:00"
     }
   ],
   "timestamps": {
@@ -288,8 +321,8 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+    "approvedAt": "2026-08-23T16:00:00+09:00",
+    "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
   },
   "synopsis": {
     "body": "白雪巴が月ノ美兎制作の「にじ診断」で遊び、二次元の先輩たちを思い浮かべながら選択肢を進行。各設問への率直な反応や好きな作品の話を交え、診断ゲームの作り込みを楽しみます。視聴者にもプレイを勧めます。",
