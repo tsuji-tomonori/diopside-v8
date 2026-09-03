@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "45ce5e590d2b329f55d021718811d9968d2045e10f2c4309f85bd6678d4ef488"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "abee2787577f84b0c0a3100e059b76f15753077aa1a43322f321eaffef6835ee",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3757
     }
   ],
   "tagAssignments": [
@@ -306,5 +314,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "夜王国の3人が、過去の言い間違いや独特な言い回しを「夜王国語」として出題。母国語なら分かるはずという前提で、日本語との違いを解説しながら記憶と推理で答えを探り、珍回答や容赦ないツッコミを重ねる掛け合いを楽しめる企画配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "二人は答えられて当たり前",
+      "atSeconds": 359,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "abee2787577f84b0c0a3100e059b76f15753077aa1a43322f321eaffef6835ee",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T12:49:24.025063Z"
   }
 }
