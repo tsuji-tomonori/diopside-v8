@@ -58,6 +58,17 @@ class NextPreviewExperimentTest(unittest.TestCase):
     def test_formats_ass_time_at_centisecond_precision(self) -> None:
         self.assertEqual(MODULE.ass_time(62.345), "0:01:02.35")
 
+    def test_redacts_urls_and_token_values_from_command_diagnostics(self) -> None:
+        diagnostic = MODULE.safe_diagnostic(
+            "failed https://media.example.test/path?token=secret "
+            "po_token: sensitive visitor_data=private"
+        )
+        self.assertNotIn("media.example.test", diagnostic)
+        self.assertNotIn("sensitive", diagnostic)
+        self.assertNotIn("private", diagnostic)
+        self.assertIn("[url]", diagnostic)
+        self.assertIn("[redacted]", diagnostic)
+
 
 if __name__ == "__main__":
     unittest.main()

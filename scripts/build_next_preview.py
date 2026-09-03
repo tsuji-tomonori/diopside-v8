@@ -175,13 +175,30 @@ def run(
 ) -> subprocess.CompletedProcess[str]:
     printable = " ".join(command[:3])
     print(f"[next-preview] run: {printable} ...", flush=True)
-    return subprocess.run(  # noqa: S603 -- commands come from fixed internal templates.
+    result = subprocess.run(  # noqa: S603 -- commands come from fixed internal templates.
         list(command),
         cwd=cwd,
-        check=True,
+        check=False,
         text=True,
         capture_output=capture_output,
     )
+    if result.returncode != 0:
+        if result.stderr:
+            print(safe_diagnostic(result.stderr), file=sys.stderr, flush=True)
+        result.check_returncode()
+    return result
+
+
+def safe_diagnostic(value: str) -> str:
+    """Keep actionable command errors while suppressing URLs and token-like values."""
+    scrubbed = re.sub(r"https?://\S+", "[url]", value)
+    scrubbed = re.sub(
+        r"(?i)(po[_ -]?token|visitor[_ -]?data)(?:=|:|\s)+\S+",
+        r"\1=[redacted]",
+        scrubbed,
+    )
+    lines = [line for line in scrubbed.splitlines() if line.strip()]
+    return "\n".join(lines[-20:])
 
 
 def require_executable(name: str) -> str:

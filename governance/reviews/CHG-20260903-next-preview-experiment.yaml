@@ -76,7 +76,7 @@ selected_checks:
     class: Invariant
     result: pass
     evidence: [test:tests/next_preview_experiment_test.py, workflow:次回予告風・実音声クリップ試作]
-    note: 3配信の識別、短尺引用上限、timeline、入力拒否、選択順、ASS時刻を対象単体testで固定する。
+    note: 3配信の識別、短尺引用上限、timeline、入力拒否、選択順、ASS時刻、安全な診断redactionを対象単体testで固定する。
   - id: FAST-007
     class: Invariant
     result: pass
