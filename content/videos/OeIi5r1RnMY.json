@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "04e1295f1730dcfabb4406a5b4d86455404f233004fde8f6872a349ff9277b5e"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "a782f93215391cbf13731d1cb3cff316f4efb13e34ad449cedb84e8d9ca6f2b1",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10489
     }
   ],
   "tagAssignments": [
@@ -255,5 +263,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "誕生日に届いた贈り物を、白雪巴が手紙とともに一つずつ開封。百合漫画や実用品、手作りの作品まで、驚きや寄り道の雑談を交えて味わい、贈り手の思いと応援が日々を支えることへ丁寧に感謝を返していく。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "全部全部宝物です",
+      "atSeconds": 9959,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "a782f93215391cbf13731d1cb3cff316f4efb13e34ad449cedb84e8d9ca6f2b1",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T10:15:08.892806Z"
   }
 }
