@@ -8,6 +8,8 @@ Apply the common contract first: describe the viewing experience, cover the vide
 | One-shot game | Premise available near the start, play style, emotional or comedic reaction, and non-revealing atmosphere | Culprits, identities, fates, endings, final locations, puzzle answers, or the reason behind a twist |
 | Game series | Series or event context, the goal of this installment, familiar play style, and forward momentum | Prior-episode recap that resolves mysteries; late-story discoveries; match results |
 | Collaboration | Confirmed participants and the activity that structures the stream | Unconfirmed relationships, off-screen attendance, or chat claims |
+| Singing stream | The set's mood, musical range, and talk between songs | Lyrics or a sung line as the featured quote; song outcomes inferred from chat |
+| Advice or submissions | Recurring themes and Shirayuki Tomoe's public response style | Names, handles, locations, workplaces, medical details, or another identifying combination |
 
 ## Style
 
@@ -31,3 +33,5 @@ Choose a line that is:
 3. understandable without revealing a result;
 4. characteristic of that stream's humor, emotion, or motivation;
 5. linked to the first confirmed second in the evidence.
+
+For singing streams, select the quote from clearly spoken talk between songs. Never reproduce lyrics. For games, films, readings, or TRPG, distinguish Shirayuki Tomoe's own speech from character dialogue, game text, and another participant before accepting the quote.

@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=gFPZcH58UVo",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -110,6 +110,22 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "前回の手がかりを追ってシェルターを目指し、火や氷、送風機などの仕掛けが続く区画へ。ピクミンの編成と運搬順を細かく整え、難敵には慎重に作戦を変えながら、救助隊の探索と段取りの手応えを楽しみます。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "段取りの時間だ",
+      "atSeconds": 11745,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "fc0a3baa30ed37f2d6410e2a758b346dc87e5b0ebdd02e0b3e5e00addef7533a",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-09T12:00:00+09:00"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -371,21 +387,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
-  "synopsis": {
-    "body": "前回の手がかりを追ってシェルターを目指し、火や氷、送風機などの仕掛けが続く区画へ。ピクミンの編成と運搬順を細かく整え、難敵には慎重に作戦を変えながら、救助隊の探索と段取りの手応えを楽しみます。",
-    "bodyEvidenceRefs": [
-      "evidence-synopsis-transcript"
-    ],
-    "featuredQuote": {
-      "text": "段取りの時間だ",
-      "atSeconds": 11745,
-      "evidenceRefs": [
-        "evidence-synopsis-transcript"
-      ]
-    },
-    "inputFingerprint": "fc0a3baa30ed37f2d6410e2a758b346dc87e5b0ebdd02e0b3e5e00addef7533a",
-    "rulesVersion": "1.0.0",
-    "updatedAt": "2026-08-09T12:00:00+09:00"
   }
 }
