@@ -3,16 +3,32 @@
   "generator": "scripts/generate-design.ts",
   "sourceDigests": [
     {
+      "path": "scripts/aggregate-custom-emoji-usage.ts",
+      "sha256": "01b9fd42bdb02663c50e19a527b3e8283cd6f1e685ef04c8e308b72fb786039b"
+    },
+    {
+      "path": "scripts/apply-custom-emoji-usage.ts",
+      "sha256": "1ea3487c1bbb5b5071a71628cb2d2edd2636b9a1df394b06cfdc8ff57d94d86e"
+    },
+    {
+      "path": "scripts/audit-collaboration-tags.ts",
+      "sha256": "0b74d3bed91203ad84e1eb9e99a44d0b08a59b1b8a0beea17760be590c811e71"
+    },
+    {
       "path": "scripts/audit-game-tags.ts",
-      "sha256": "857aa50517a31135ccd8cbfb119bd347c9e72799785037bec0c549f9dc2c9fe5"
+      "sha256": "1a0bb774bfc0528a9996aa54ec7079fe0bbecacde3d6c10579ac767c582079c4"
     },
     {
       "path": "scripts/audit-requirements.ts",
-      "sha256": "d132c74a63e411e32dde27473c7d5355ac4f0a606b8d62acff569905fa9d6c4d"
+      "sha256": "a851a2e6b59bb1282445b10e639986e980e3cd3132f227b8322f8c1ec66a342d"
+    },
+    {
+      "path": "scripts/audit-semantic-entities.ts",
+      "sha256": "03027429c71a1935ac21dc9ffe28b1b71174feeb552d96f98894b5bbb784df1c"
     },
     {
       "path": "scripts/build-public-data.ts",
-      "sha256": "cf8040c90a132ed2d325e09ca6447e7f383a1eb5f78d916c61fa49b1c1379a1a"
+      "sha256": "74f023b6d98c580aac3f348a44cfa7873ddd2dac03fe24a18045457f996b55eb"
     },
     {
       "path": "scripts/canonical-store.ts",
@@ -32,7 +48,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "a6abbca00b4124d38a8660c7c7a6915e366c1bef799cfc40a8490b6d298a178b"
+      "sha256": "f023a57cf892d08230e4002c33d0d41f3ea092748a2141a2ab3e24c535de80ed"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -40,11 +56,11 @@
     },
     {
       "path": "scripts/import-legacy-content.ts",
-      "sha256": "a8cac2bcac44598641837bff72341ce8a842b482224dba55b7870dd6102d054f"
+      "sha256": "582f94be7a9c9c6060732b44014009f283c0f5aee83fbac1b2e320c948f203d0"
     },
     {
       "path": "scripts/import-reference-taxonomy.ts",
-      "sha256": "be8b47ded984aa0546fdc727f82498bc1594417bf1bcb1ab85e3a2c48bed83da"
+      "sha256": "c1b4e313b9d393ce584f22ca265234c139e7656d938c9b9a7241e37d65b219f9"
     },
     {
       "path": "scripts/import-reference-videos.ts",
@@ -56,11 +72,15 @@
     },
     {
       "path": "scripts/legacy-content.ts",
-      "sha256": "b4c03b4039fb0aec56c688f618314ca8b0f5a3d5d89a06c0ce0463669a8a1895"
+      "sha256": "4643ef9c73e1ad0dfcdc2707cc8803f060dc8e8c2b206ae1acc72f729637c1ef"
     },
     {
       "path": "scripts/lib.ts",
       "sha256": "a06c8b55d786b6d621a767012951cb746bcbdc134abdf1b02b4f70a1646590a3"
+    },
+    {
+      "path": "scripts/migrate-semantic-entity-model.ts",
+      "sha256": "0fa1ded4294e25b7b8ff8c7ae4854f4186718534a4fbae760a9171c7a7f75c16"
     },
     {
       "path": "scripts/postbuild.ts",
@@ -71,12 +91,16 @@
       "sha256": "49346a97de9a3fb8623c2d389b0854f7df39899fe558c8ebb9147f23094c33f0"
     },
     {
+      "path": "scripts/refresh-person-icons.ts",
+      "sha256": "425303165287d3a98c491354a7b8c34c184f997a4f529edeb6453eedc309da1f"
+    },
+    {
       "path": "scripts/source-shards.ts",
       "sha256": "931dcc5b53ed28f6bf4fcd75af343e8ae925395dc9f24c71dedf4c2e550fdaa7"
     },
     {
       "path": "scripts/validate-content.ts",
-      "sha256": "4554f901a5080a23e073da919425536d6b56b64bf6f87b67f943a0ca72fabac0"
+      "sha256": "f6be8b2c7a7167a9cd7d384a6bd22a89cacae062ee6d82500e16570122d0503e"
     },
     {
       "path": "scripts/validate-release-pr-scope.ts",
@@ -84,7 +108,7 @@
     },
     {
       "path": "scripts/validate-taxonomy-change.ts",
-      "sha256": "d3e3c0ebad8d39b70f703c696b1bcff3beed849a1e436e8d1a5de2437c0904b8"
+      "sha256": "169f55e188fa01425c3eb27c3546b1047f2a6c75cbbc2e19e5f7264bd6ca3014"
     },
     {
       "path": "scripts/validate-video-pr-scope.ts",
@@ -96,15 +120,15 @@
     },
     {
       "path": "scripts/verify-repository-policy.ts",
-      "sha256": "d07d4d64af5a05d2130876e79c9da72d18821bec34286e2091de3dc72d20fdd4"
+      "sha256": "58978c25a4938b8da13c4b127f4cee23bdb397e558583d34d53acbe22af689b7"
     },
     {
       "path": "src/App.tsx",
-      "sha256": "f9558d5b040f05f17fd98a7008a1f4b09109a2f04c16e541272a7376f1c1c974"
+      "sha256": "35f454de7cd39769efb9d1f39c9c2fb7d6118df4cd35c612164f6bf9cfd0b699"
     },
     {
       "path": "src/components/Header.tsx",
-      "sha256": "6ae0349c657e22b58417ccdeda5cd8dc60d89eb0d0b5f8390b507dc3a1445d98"
+      "sha256": "e93ad6eed5e664b7643bc66f8bb9fcaf9b3569bc97c869eb351faed49423cde0"
     },
     {
       "path": "src/components/VideoCard.tsx",
@@ -116,7 +140,7 @@
     },
     {
       "path": "src/data/deviceStore.test.ts",
-      "sha256": "6780f1f53ba1e420a473ffe99814452d9373fbbc397b61a5e99d4fdc7c84cfdc"
+      "sha256": "a483955de84832844f8bb2625806475af1625c7ee19a5c0bf1a0ab36d7634e9d"
     },
     {
       "path": "src/data/deviceStore.ts",
@@ -124,11 +148,19 @@
     },
     {
       "path": "src/data/loadPublicData.test.ts",
-      "sha256": "5f8f904f146a97c85bb25265ae10f767af2845a9ac4220aba384e12565874fbc"
+      "sha256": "baa9cee9647b5ae6992ba450d59a9da6ea1e5a2bf7d2db2b3681e8142f0233fb"
     },
     {
       "path": "src/data/loadPublicData.ts",
-      "sha256": "6666073cf8b335c46c9693c46a2a65e417f2029c433e7974181290e71b54d550"
+      "sha256": "2b3ad2b9894d184f8ce690fae86c560db5fb9c149515c5e616ed207fb28c7a41"
+    },
+    {
+      "path": "src/domain/collaboration-group-audit.test.ts",
+      "sha256": "c61e6c0e8580eb868720475f7b32e95a1137e6aaeb1266830816d7c4e460495f"
+    },
+    {
+      "path": "src/domain/collaboration-group-audit.ts",
+      "sha256": "6b9863fc83aefed7d012813d44245e5799d8c9d91703a46d1beaa009cf5b71ce"
     },
     {
       "path": "src/domain/collaboration.test.ts",
@@ -140,7 +172,15 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "de069ddd8a5c7aa2b45730272b6cf165205363cedfbb9ece4bbbdfcc09cc4a49"
+      "sha256": "a99c397fc454af6d46327bfb41547636c93784920b6a22367fafd63738ba2b0b"
+    },
+    {
+      "path": "src/domain/entities.ts",
+      "sha256": "f141d0992e37f679524b38912c0bbff40217cea68cc8f21d1be3cb34bbb6b06c"
+    },
+    {
+      "path": "src/domain/game-catalog.ts",
+      "sha256": "32caea15e85f9096340597d99af2e23ae8b1b0dfe2e6b9d96301f323a59438f4"
     },
     {
       "path": "src/domain/game-title-detection.test.ts",
@@ -152,51 +192,99 @@
     },
     {
       "path": "src/domain/search.test.ts",
-      "sha256": "89e17d8a625a7302497255889384fc5db0ec35bcd6e61ca27d2b0a7d4fd9ad9f"
+      "sha256": "65534c5450e35c00dc9e8e548af520d8626cc1d6b1f19109179c062522dc4284"
     },
     {
       "path": "src/domain/search.ts",
-      "sha256": "e836a8a02dd751f31c5c81a7a9a2d50987d5ca705fc0d41a49299baaf65baa25"
+      "sha256": "9a5ae0fa50152fcb9e36f91cacd4fbec614e24b6cbd0d1f57281da1db449cd19"
     },
     {
       "path": "src/domain/validation.test.ts",
-      "sha256": "c2344311d2db59ddfd43d6ff3458dfbf7786ebf90f25ca5e77b60efa518d8431"
+      "sha256": "2a00f4dc81e5101f74eddba4db97283c21967fded239659c002eaea46b30c8b5"
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "e1c85798d71df15792b9ad3cbc065fc3aa4f6682b080c5c81dfff23d2ee251fd"
+      "sha256": "fa6b1406441f419639b3ff0102a482097165424973833fa9dd79624d4cb7e4a1"
     },
     {
       "path": "src/features/collaborations/CollaborationDetailPages.test.tsx",
-      "sha256": "c7b404c00f23bbe8b078f52fedbb215bf1f87e74c17bf50678984a46e804c2d7"
+      "sha256": "728da07f88bcaf1035998a8dd583de5de2aaeadf4df78005d1ea2fd870bc04e3"
     },
     {
       "path": "src/features/collaborations/CollaboratorDetailPage.tsx",
-      "sha256": "b184102619565bde18e7a17a86b40250e8271609f81a070fc115b607a4458398"
+      "sha256": "d784257caa7eecf87bcb019268cd4eb0134c5ab2a8024d1aa4b77852f6a491fc"
     },
     {
       "path": "src/features/collaborations/GroupDetailPage.tsx",
-      "sha256": "3acc6d69d024b4f7722f200b4e34a115c973d6fa15902308ffb52cf5472b67ff"
+      "sha256": "ee1885f3813ed18d7b063ef98c36ace7974c1545b3c8b25fbbef5dd961167159"
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
-      "sha256": "4f2c863e5b5598f2194529934806697d88cb620f5923104a20571cca2c6f39a2"
+      "sha256": "755375d563b09b29509a48b25c036d1d28d7f717aadfdb712fe6e0964b1852d7"
+    },
+    {
+      "path": "src/features/entities/EntityIndexPage.test.tsx",
+      "sha256": "7aabf832e88f551e9a264ef733a6919b506092037d23968231d47c905e862635"
+    },
+    {
+      "path": "src/features/entities/EntityIndexPage.tsx",
+      "sha256": "79648958c954a73997cd320f71adddcc83cdfb1e373fb0af04b943531b3beb42"
+    },
+    {
+      "path": "src/features/games/GameIndexPage.test.tsx",
+      "sha256": "674245bbb18a2140f5e21b83a81d64c05e51188cedeef19e12ffb29b1f7045af"
+    },
+    {
+      "path": "src/features/games/GameIndexPage.tsx",
+      "sha256": "afa680f7a92d97b7a57a66806382e5588279838571821dab5a8af1390230db79"
     },
     {
       "path": "src/features/library/DeviceLibraryPage.tsx",
       "sha256": "70e219303f5c441543451088ad7f38bc36cc0498e21ef5af6670bbcda44034f9"
     },
     {
+      "path": "src/features/search/DateRangePicker.tsx",
+      "sha256": "b467a34fa2cee760e9773a43b27b98c0e204c8110ade01e12a0f6c9f27231109"
+    },
+    {
+      "path": "src/features/search/DurationRangeSlider.tsx",
+      "sha256": "a474a4866abf1e497919fcc7d476f60a4241355bc7ca1a6080565a4bd8c7a93e"
+    },
+    {
+      "path": "src/features/search/SearchFilterControls.test.tsx",
+      "sha256": "091ac28d14d88808ee051c257f20b32073a13b237a643cd054d696a3e6cb6b6b"
+    },
+    {
+      "path": "src/features/search/SearchPage.test.tsx",
+      "sha256": "452b520cfbf929d8e23842c8d2c5a00c12da94ad1acccf8da33bb7a560df4f6f"
+    },
+    {
       "path": "src/features/search/SearchPage.tsx",
-      "sha256": "3e4034d34aa47b4043847c751fa4b291b64ef16ae0219dd28838b949e0906054"
+      "sha256": "7c2e97b1b6c0559797ca83d846f575f32167531686161edb3dcb020ecffe58d1"
+    },
+    {
+      "path": "src/features/series/SeriesDetailPage.test.tsx",
+      "sha256": "2641314974c4582db1ccd51d8afa9b29a430b0235b353d90ef284e72f6cf45cf"
+    },
+    {
+      "path": "src/features/series/SeriesDetailPage.tsx",
+      "sha256": "d3dddb9b72effce18f6c9cd06f1a3a10843252892ee1fec68d92ae6cb4ed6cab"
+    },
+    {
+      "path": "src/features/songs/SongIndexPage.test.tsx",
+      "sha256": "0cb5aa66fc2b075a225c7a12c97914e042a8c0ca0cc6c4dc9442df4b4f411ef1"
+    },
+    {
+      "path": "src/features/songs/SongIndexPage.tsx",
+      "sha256": "97fee6803f28fe0bcaa26dee498fcb920de2b97c6e1a84e4a6aa185a68c315c0"
     },
     {
       "path": "src/features/works/WorkDetailPage.test.tsx",
-      "sha256": "0f684063eb524bb0a2f2cced73794d2fec744051efb84125f369769b8871a9cb"
+      "sha256": "5fae2064503d986f2c1fcea4213180551f91b7c453d6c0e18f8bdabb52854639"
     },
     {
       "path": "src/features/works/WorkDetailPage.tsx",
-      "sha256": "f721808fdbbe1dc67b2a756ae1a19579bfdaeaba8c815c7aa646876421eb31cd"
+      "sha256": "4e58329c6aa6966e35ba7aeb6336146360d8cc6c7b5cb020ecfce6f87b0b25af"
     },
     {
       "path": "src/format.ts",
@@ -208,6 +296,21 @@
     }
   ],
   "exports": [
+    {
+      "file": "scripts/aggregate-custom-emoji-usage.ts",
+      "name": "aggregateCustomEmojiUsage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/aggregate-custom-emoji-usage.ts",
+      "name": "CustomEmojiUsageAggregate",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/aggregate-custom-emoji-usage.ts",
+      "name": "CustomEmojiUsageItem",
+      "kind": "InterfaceDeclaration"
+    },
     {
       "file": "scripts/canonical-store.ts",
       "name": "readCanonicalVideos",
@@ -439,6 +542,41 @@
       "kind": "ClassDeclaration"
     },
     {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "auditCollaborationGroupTags",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditAlias",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditGroup",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditPerson",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditResult",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditSource",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/collaboration-group-audit.ts",
+      "name": "CollaborationAuditVideo",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
       "file": "src/domain/collaboration.ts",
       "name": "CollaborationCandidate",
       "kind": "InterfaceDeclaration"
@@ -500,6 +638,26 @@
     },
     {
       "file": "src/domain/content.ts",
+      "name": "customEmojiUsageSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "entityRelationTypeSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "EntityType",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "entityTypeSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
       "name": "evidenceReferenceSchema",
       "kind": "VariableStatement"
     },
@@ -512,6 +670,16 @@
       "file": "src/domain/content.ts",
       "name": "findTagId",
       "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "GameCatalog",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "gameCatalogSchema",
+      "kind": "VariableStatement"
     },
     {
       "file": "src/domain/content.ts",
@@ -545,12 +713,42 @@
     },
     {
       "file": "src/domain/content.ts",
+      "name": "PublicEntityIndex",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "publicEntityIndexSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "PublicGameIndex",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "publicGameIndexSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
       "name": "PublicIndex",
       "kind": "TypeAliasDeclaration"
     },
     {
       "file": "src/domain/content.ts",
       "name": "publicIndexSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "PublicSongIndex",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "publicSongIndexSchema",
       "kind": "VariableStatement"
     },
     {
@@ -610,6 +808,21 @@
     },
     {
       "file": "src/domain/content.ts",
+      "name": "SongPerformanceCatalog",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "songPerformanceCatalogSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "songPerformanceTypeSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
       "name": "synopsisSchema",
       "kind": "VariableStatement"
     },
@@ -645,6 +858,11 @@
     },
     {
       "file": "src/domain/content.ts",
+      "name": "taxonomyValueKindSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
       "name": "timestampItemSchema",
       "kind": "VariableStatement"
     },
@@ -656,6 +874,16 @@
     {
       "file": "src/domain/content.ts",
       "name": "timestampOriginSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "VideoEntityRole",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "videoEntityRoleSchema",
       "kind": "VariableStatement"
     },
     {
@@ -677,6 +905,31 @@
       "file": "src/domain/content.ts",
       "name": "workIntroductionsSchema",
       "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/entities.ts",
+      "name": "buildEntityProjection",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/entities.ts",
+      "name": "BuildEntityProjectionInput",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/domain/entities.ts",
+      "name": "EntityProjection",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/domain/game-catalog.ts",
+      "name": "applyGameCatalogGenres",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/game-catalog.ts",
+      "name": "catalogGameGenreTagIds",
+      "kind": "FunctionDeclaration"
     },
     {
       "file": "src/domain/game-title-detection.ts",
@@ -830,6 +1083,16 @@
     },
     {
       "file": "src/domain/validation.ts",
+      "name": "validateGameCatalog",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/validation.ts",
+      "name": "validateSongPerformanceCatalog",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/validation.ts",
       "name": "validateTaxonomy",
       "kind": "FunctionDeclaration"
     },
@@ -854,13 +1117,43 @@
       "kind": "FunctionDeclaration"
     },
     {
+      "file": "src/features/entities/EntityIndexPage.tsx",
+      "name": "EntityIndexPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/games/GameIndexPage.tsx",
+      "name": "GameIndexPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
       "file": "src/features/library/DeviceLibraryPage.tsx",
       "name": "DeviceLibraryPage",
       "kind": "FunctionDeclaration"
     },
     {
+      "file": "src/features/search/DateRangePicker.tsx",
+      "name": "DateRangePicker",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/search/DurationRangeSlider.tsx",
+      "name": "DurationRangeSlider",
+      "kind": "FunctionDeclaration"
+    },
+    {
       "file": "src/features/search/SearchPage.tsx",
       "name": "SearchPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/series/SeriesDetailPage.tsx",
+      "name": "SeriesDetailPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/songs/SongIndexPage.tsx",
+      "name": "SongIndexPage",
       "kind": "FunctionDeclaration"
     },
     {
@@ -888,22 +1181,38 @@
     "*",
     "/",
     "/collaborators/:tagId",
+    "/entities",
+    "/entities/:entityId",
+    "/games",
+    "/games/genres/:tagId",
     "/groups/:tagId",
     "/library",
+    "/series/:tagId",
+    "/songs",
+    "/songs/:tagId",
     "/video/:videoId",
     "/works/:tagId"
   ],
   "tests": [
     "e2e/detail.spec.ts",
+    "e2e/game-index.spec.ts",
     "e2e/library.spec.ts",
     "e2e/search.spec.ts",
+    "e2e/song-index.spec.ts",
     "src/data/deviceStore.test.ts",
     "src/data/loadPublicData.test.ts",
+    "src/domain/collaboration-group-audit.test.ts",
     "src/domain/collaboration.test.ts",
     "src/domain/game-title-detection.test.ts",
     "src/domain/search.test.ts",
     "src/domain/validation.test.ts",
     "src/features/collaborations/CollaborationDetailPages.test.tsx",
+    "src/features/entities/EntityIndexPage.test.tsx",
+    "src/features/games/GameIndexPage.test.tsx",
+    "src/features/search/SearchFilterControls.test.tsx",
+    "src/features/search/SearchPage.test.tsx",
+    "src/features/series/SeriesDetailPage.test.tsx",
+    "src/features/songs/SongIndexPage.test.tsx",
     "src/features/works/WorkDetailPage.test.tsx"
   ]
 }
