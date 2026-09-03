@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=belD54WwBdo",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -92,6 +92,22 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "恒例のふるさと納税選びで、ビールや餃子、肉、魚、果汁飲料などの返礼品を比較。保存しやすさや調理法、一人で楽しみやすい量を確かめ、視聴者の地元自慢やおすすめも聞きながら候補を絞ります。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "楽しみなんだみんなのおすすめを聞くの",
+      "atSeconds": 4846,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "5bfc76359b779d39dcb98126390aa3cbdab3f5c9a29984f322fdde6d7808099a",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-09T12:00:00+09:00"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -281,21 +297,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
-  "synopsis": {
-    "body": "恒例のふるさと納税選びで、ビールや餃子、肉、魚、果汁飲料などの返礼品を比較。保存しやすさや調理法、一人で楽しみやすい量を確かめ、視聴者の地元自慢やおすすめも聞きながら候補を絞ります。",
-    "bodyEvidenceRefs": [
-      "evidence-synopsis-transcript"
-    ],
-    "featuredQuote": {
-      "text": "楽しみなんだみんなのおすすめを聞くの",
-      "atSeconds": 4846,
-      "evidenceRefs": [
-        "evidence-synopsis-transcript"
-      ]
-    },
-    "inputFingerprint": "5bfc76359b779d39dcb98126390aa3cbdab3f5c9a29984f322fdde6d7808099a",
-    "rulesVersion": "1.0.0",
-    "updatedAt": "2026-08-09T12:00:00+09:00"
   }
 }

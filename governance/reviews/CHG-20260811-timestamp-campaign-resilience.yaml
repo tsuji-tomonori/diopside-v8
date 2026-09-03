@@ -1,0 +1,154 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260811-timestamp-campaign-resilience
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: true
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md]
+    note: V8-OPS-022を改訂し、証拠取得回復と実行失敗回復をV8-OPS-023、V8-OPS-024として正本化した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/references/workflow.md, path:docs/design/generated/system.gen.md]
+    note: Work campaignの状態機械、証拠取得経路、親子責務、期限drainを派生設計へ反映した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260811-timestamp-campaign-resilience.yaml]
+    note: 要件、実行ハーネス、agent prompt、取得script、運用文書へ跨るためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/SKILL.md, test:tests/timestamp_harness_test.py]
+    note: GitHubとSheetsの外部書込みは親Sol専用状態遷移でgateし、Lunaには共有書込みcommandを許可しない
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [test:tests/timestamp_harness_test.py, workflow:要件・品質ゲート#要件の品質ゲートを実行]
+    note: Python構文検査、要件生成・検証、リポジトリbuildを品質ゲートで確認する
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/scripts/harness.py, test:tests/timestamp_harness_test.py]
+    note: 変更Pythonと関連テストをlint:timestamp-tools対象に維持する
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/timestamp_harness_test.py, test:tests/timestamp_tools_test.py]
+    note: 10 lane slot、期限gate、recoverable state、trusted-destination再試行、MP3とbatch-local ASR契約を直接試験する
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/timestamp_harness_test.py, path:spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md]
+    note: 取得失敗をblockedへ確定する条件と10未満lane計画を回帰テストとして固定した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/inventory.gen.json]
+    note: 151件・catalog revision 9の正本と40入力の生成設計を既存generatorから決定的に再生成した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 生字幕、音声、文字起こし、チャット、credentialを追加せず、安全分類とdigestだけをignored stateへ記録する
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:.agents/skills/run-timestamp-work-harness/scripts/harness.py, path:.agents/skills/run-timestamp-work-harness/references/workflow.md]
+    note: 動画ごとの経路、stage、model、attempt、safe reason、candidate hashをignored event logから診断できる
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md]
+    note: 差分を失敗ログから特定したcampaign回復性とその正本・検証へ限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性と残存リスクをCommit Commentへ記録する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:tests/timestamp_harness_test.py]
+    note: V8-OPS-022、V8-OPS-023、V8-OPS-024の受入条件を状態遷移と取得scriptへtraceした
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/system.gen.md, path:.agents/skills/run-timestamp-work-harness/references/workflow.md]
+    note: 既存Work harnessの回復設計更新であり、新規の公開アーキテクチャ判断を追加しないためADR不要と判定した
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:.agents/skills/run-timestamp-work-harness/scripts/harness.py, test:tests/timestamp_harness_test.py]
+    note: 三要件から取得script、harness、agent prompt、単体試験、生成設計までtraceを接続した
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/timestamp_harness_test.py, workflow:要件・品質ゲート#要件の品質ゲートを実行]
+    note: 変更経路のPython単体試験とリポジトリ全体のverify:localをCIと同じ契約で実行する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260811-timestamp-campaign-resilience.yaml]
+    note: selectorで必要になったcheckだけを保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260811-timestamp-campaign-resilience.yaml]
+    note: 未選択checkをN/Aとして登録していない
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:docs/operations/manual-content-update.md, path:.agents/skills/run-timestamp-work-harness/SKILL.md]
+    note: recovery ladder、期限drain、台帳禁止条件、親Sol引継ぎを運用正本へ反映した
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence: [path:spec/sources/owner-directive-2026-08-11-timestamp-campaign-resilience.md, path:.agents/skills/run-timestamp-work-harness/references/workflow.md]
+    note: 既存のSol最終所有判断を失敗回復へ適用したもので、理由を正本とworkflowへ保持するため新規ADR不要と判定した
+advisories: []
+residual_risks:
+  - ChatGPT Workの物理同時thread数と実際の子モデル起動はcomposerとサービス側に依存するため、promptでGPT-5.6 Sol highとLuna mediumを明示し、10論理slotをqueue実行する
+  - Workの子agentは親のconnectorと権限を継承するため物理的には書込み可能であり、親専用command、状態gate、prompt契約で共有書込みを防止する
+  - 公開YouTube、yt-dlp、ffmpeg、faster-whisper model取得がdrain期限まで利用不能な場合は台帳を書き換えずdeferred_recovery checkpointから再開する
