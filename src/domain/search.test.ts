@@ -31,6 +31,7 @@ function video(
     publishedAt,
     durationSeconds,
     tagIds,
+    entityIds: [],
   };
 }
 
