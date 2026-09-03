@@ -1,0 +1,216 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260815-fix-game-tag-coverage
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: true
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: true
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/videos/oY8Bex-CK9I.json
+      - path:scripts/audit-game-tags.ts
+    note: 指定動画と同じ原因の全件監査を一つのゲームタグ整合性修正として扱った。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/domain/game-title-detection.ts
+    note: 既存の正本・タグ体系・別名契約を使い、明示作品名の取りこぼしだけを拒否する。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/domain/game-title-detection.test.ts
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: 1689動画の横断データ修正と再発防止検証を伴うためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 外部書込みはGitHubへのブランチpushとPR作成だけであり、merge・公開・production deployは行わない。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/content-manifest.json
+    note: 既存動画を削除せず、68動画の可逆なoverrideと版同期だけを行った。
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/domain/validation.ts
+    note: ゲーム作品名からゲーム分類への逆向き整合性と明示作品名一致を追加した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:package.json
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: Vite本体と公開データ・ドキュメントの各buildを実行し、成功した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:tsconfig.json
+      - path:tsconfig.node.json
+    note: appとnodeの両TypeScript設定をstrictで型検査し、成功した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/domain/game-title-detection.ts
+      - path:scripts/audit-game-tags.ts
+    note: 変更したTypeScriptと関連モジュールへESLintを実行し、blocking lintがないことを確認した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/domain/game-title-detection.test.ts
+      - path:content/videos/oY8Bex-CK9I.json
+    note: 指定動画が主ジャンル「ゲーム」、作品名「めっちゃカメレオン」、ゲームジャンル2件を持つことを確認した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/domain/game-title-detection.test.ts
+      - path:scripts/audit-game-tags.ts
+    note: 指定動画の取りこぼしと、罰ゲーム等の誤検出防止を再現テストおよび全件監査で固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/catalog/manifest.json
+      - path:content/content-manifest.json
+      - path:docs/design/generated/inventory.gen.json
+      - path:docs/design/generated/system.gen.md
+    note: 全シャード指紋、1689動画、9301タグ付与と実装由来設計を決定的に再計算し、生成差分がないことを確認した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/taxonomy/tag-taxonomy.json
+    note: 公開作品名と分類理由だけを含み、生字幕・秘密情報・投稿者識別子を追加していない。
+  - id: FAST-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:scripts/validate-content.ts
+    note: タグ体系、別名、タグ規則版と全正本動画の同期を検証した。
+  - id: FAST-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/taxonomy/change-record.json
+      - path:scripts/validate-taxonomy-change.ts
+    note: taxonomy・別名・タグ規則の版移行を前方検証し、既存IDを削除せず旧公開世代も保持できることを確認した。
+  - id: FAST-016
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:scripts/validate-taxonomy-change.ts
+    note: taxonomy、別名、変更記録を比較元mainに対して検証した。
+  - id: FAST-017
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/taxonomy/change-record.json
+    note: 新規ゲーム作品名9件と影響10動画を変更記録へ残した。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: ゲーム配信の主分類・作品名・ゲームジャンルの横断是正と再発防止に限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: Commit Commentへ目的、変更、要件・設計影響、検証契約、互換性、残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:scripts/audit-game-tags.ts
+    note: V8-TAG-009の作品名・ゲームジャンル必須条件を全正本へ適用した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/domain/game-title-detection.ts
+    note: 新しい設計文書を作らず実装と正本タグ体系を設計根拠とした。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/domain/game-title-detection.test.ts
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: 単体試験、全正本検証、タグ体系変更検証、決定的公開データ生成を実行した。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260815-fix-game-tag-coverage.yaml
+    note: 選択したcheckだけを本reviewへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260815-fix-game-tag-coverage.yaml
+    note: 未選択checkをN/Aで水増ししていない。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/taxonomy/change-record.json
+    note: taxonomy 8.3.0、別名8.2.0、タグ規則8.2.0へ更新し移行内容を記録した。
+advisories: []
+residual_risks:
+  - 公開タイトルだけでは使用作品を確定できない一般的な「お絵かき伝言ゲーム」等は、誤った作品名を推測せず今回の自動是正対象から除外した。
+  - 公開反映は本PRを人がマージし、既存のmain/docs公開手順が完了した後となる。
