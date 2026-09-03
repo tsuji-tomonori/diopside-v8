@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=gL17LIJCzz0",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -38,6 +38,14 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "a451480c6e52fdb1dc47c663d27837f47ce016863559dbbb303da10007c10318"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "f272d72b4d34e424c93bd876d7cdfa707466c30cf799276c66d1df9c4758b8f1",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 14051
     },
     {
       "evidenceId": "evidence-synopsis-transcript",
@@ -105,10 +113,464 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-fec635ad",
+        "startSeconds": 0,
+        "label": "オープニング",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-186-da28fb20",
+        "startSeconds": 186,
+        "label": "配信開始の挨拶と翌日のオフコラボ告知",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-294-8ee8666a",
+        "startSeconds": 294,
+        "label": "雪のモダンハウス建築を再開",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-561-b5e44e59",
+        "startSeconds": 561,
+        "label": "床材の配色と構造を検討",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-939-e9be3324",
+        "startSeconds": 939,
+        "label": "壁と柱の建築へ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1208-7204239b",
+        "startSeconds": 1208,
+        "label": "高所作業の足場づくり",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1451-a98475c7",
+        "startSeconds": 1451,
+        "label": "壁の積み方を変更",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1904-0b4e72a6",
+        "startSeconds": 1904,
+        "label": "窓まわりを仕上げて次の区画へ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2173-1030fb52",
+        "startSeconds": 2173,
+        "label": "資材サーバー行きの準備",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2468-2e8f515d",
+        "startSeconds": 2468,
+        "label": "トロッコで資材サーバーへ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2887-3704d44c",
+        "startSeconds": 2887,
+        "label": "資材サーバーに到着",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3059-92b91b94",
+        "startSeconds": 3059,
+        "label": "地下で安山岩を採掘",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3487-a0d33ad0",
+        "startSeconds": 3487,
+        "label": "深夜の採掘雑談",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3830-c34cd4c1",
+        "startSeconds": 3830,
+        "label": "普段見る動画と未解決事件の話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4005-46c2e80a",
+        "startSeconds": 4005,
+        "label": "採掘再開とエンダーマン対策",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4203-0bd77405",
+        "startSeconds": 4203,
+        "label": "地上へ戻りネザーについて学ぶ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4574-96b9cb33",
+        "startSeconds": 4574,
+        "label": "豆腐ハンバーグとファンクラブの話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4738-e5f41592",
+        "startSeconds": 4738,
+        "label": "水流のある洞窟を探索",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4968-b8ed3c27",
+        "startSeconds": 4968,
+        "label": "採掘を終えて帰宅の途へ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5251-2e1432d1",
+        "startSeconds": 5251,
+        "label": "自宅へ帰還",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5338-e21fc74e",
+        "startSeconds": 5338,
+        "label": "道具と資材を整理",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5553-4673ee06",
+        "startSeconds": 5553,
+        "label": "窓のある壁づくりを再開",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6247-2e190c10",
+        "startSeconds": 6247,
+        "label": "足場を増設して建築範囲を拡張",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6917-a3250ae3",
+        "startSeconds": 6917,
+        "label": "天井と屋根の建築へ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7210-860c40d4",
+        "startSeconds": 7210,
+        "label": "雪ブロックで外壁づくり",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7746-d3eca1d2",
+        "startSeconds": 7746,
+        "label": "ガレージ風の屋根と温泉を構想",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8120-d1b1361a",
+        "startSeconds": 8120,
+        "label": "出入口と正面装飾を整える",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8361-52faa05a",
+        "startSeconds": 8361,
+        "label": "ガラス装飾の準備",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8748-098e68ec",
+        "startSeconds": 8748,
+        "label": "白色ガラスの材料を集める",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9127-bf96e97b",
+        "startSeconds": 9127,
+        "label": "ガラス板を正面に取り付ける",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9297-e2e3db7f",
+        "startSeconds": 9297,
+        "label": "階段とトラップドアの外装づくり",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9780-d1203293",
+        "startSeconds": 9780,
+        "label": "玄関まわりを見本と照合",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-10759-936d46fb",
+        "startSeconds": 10759,
+        "label": "白いカーペットとガラスを検討",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-11040-9aae0a48",
+        "startSeconds": 11040,
+        "label": "ガラス張りの建物を仕上げる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-11381-6bfefe81",
+        "startSeconds": 11381,
+        "label": "2階と露天温泉を設計",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-11552-0b44ae62",
+        "startSeconds": 11552,
+        "label": "温泉の入口・天井・アーチづくり",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-11880-fd5242f8",
+        "startSeconds": 11880,
+        "label": "露天温泉と脱衣所を整える",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-12362-b339bc33",
+        "startSeconds": 12362,
+        "label": "鉄格子とガラスで窓を装飾",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-12820-0c4ed9d4",
+        "startSeconds": 12820,
+        "label": "照明と湧き潰しを調整",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13070-b987e4c9",
+        "startSeconds": 13070,
+        "label": "温泉棟の外観が完成",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13256-edd845e7",
+        "startSeconds": 13256,
+        "label": "博物館と今後の拡張構想",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13591-7f78e772",
+        "startSeconds": 13591,
+        "label": "雪の家が完成",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13617-b601fde3",
+        "startSeconds": 13617,
+        "label": "翌日のホラーゲームを告知",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13667-a1db4e63",
+        "startSeconds": 13667,
+        "label": "夜更かしマイクラを締めくくる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13736-0fe52601",
+        "startSeconds": 13736,
+        "label": "完成した家の記念撮影",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13829-cf782261",
+        "startSeconds": 13829,
+        "label": "スーパーチャットお礼とエンディング",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "81d549457ccf2d5acf0ffdf2421646f0cdabe0cc3d679e03395279f5b2a3b750",
+    "inputFingerprint": "f272d72b4d34e424c93bd876d7cdfa707466c30cf799276c66d1df9c4758b8f1",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-08-14T02:52:37.926951+00:00",
+    "updatedAt": "2026-08-14T12:00:00+09:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "81d549457ccf2d5acf0ffdf2421646f0cdabe0cc3d679e03395279f5b2a3b750",
+        "majorIssues": 0,
+        "reviewedAt": "2026-08-14T12:00:00+09:00",
+        "route": "全編根拠による生成",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        }
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "81d549457ccf2d5acf0ffdf2421646f0cdabe0cc3d679e03395279f5b2a3b750",
+        "majorIssues": 0,
+        "reviewedAt": "2026-08-14T12:00:00+09:00",
+        "factCheckResultWasHidden": true,
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        }
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "81d549457ccf2d5acf0ffdf2421646f0cdabe0cc3d679e03395279f5b2a3b750",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/299"
+      }
+    }
   },
   "wordCloud": {
     "status": "未作成",
@@ -118,9 +580,9 @@
   },
   "provenance": {
     "inputFingerprint": "dcd55cbcfc2155030bd207f92d362d33326e9721ccb8dfbf7bca116de126f598",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/299"
   },
   "approval": {
     "status": "承認済み",
