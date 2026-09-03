@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=aagziYEE9aY",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -38,6 +38,14 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "aea589a1c5e489778988e51d096f6648676128ea341d3c3091bc9fa77709a4a8"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "e8fc60a7603a3a6b563207a612be703deefdf22446171974826fb69395f170ef",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3696
     },
     {
       "evidenceId": "evidence-synopsis-transcript",
@@ -96,10 +104,139 @@
     }
   ],
   "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-0fa73be1",
+        "startSeconds": 0,
+        "label": "開始・あいさつ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-142-ec712571",
+        "startSeconds": 142,
+        "label": "ゲーム紹介",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-490-b98b9d92",
+        "startSeconds": 490,
+        "label": "半周年企画・特典紹介",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-814-d58b7398",
+        "startSeconds": 814,
+        "label": "ガチャを引く",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1622-463da869",
+        "startSeconds": 1622,
+        "label": "キャラクター確認・育成",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2290-173ad21f",
+        "startSeconds": 2290,
+        "label": "宿舎を紹介",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2521-c3a219b8",
+        "startSeconds": 2521,
+        "label": "バトルを実演",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3358-b9da55e6",
+        "startSeconds": 3358,
+        "label": "まとめ・ギフトコード案内",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "40ebaa3708f8ddaa7e1deace40a0f2c493acc7fc05516c13af9d00c05f27fe82",
+    "inputFingerprint": "e8fc60a7603a3a6b563207a612be703deefdf22446171974826fb69395f170ef",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-08-08T12:57:41+09:00",
+    "updatedAt": "2026-08-08T21:30:08+09:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "40ebaa3708f8ddaa7e1deace40a0f2c493acc7fc05516c13af9d00c05f27fe82",
+        "majorIssues": 0,
+        "reviewedAt": "2026-08-08T21:27:38+09:00",
+        "route": "全編根拠による生成",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        }
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "40ebaa3708f8ddaa7e1deace40a0f2c493acc7fc05516c13af9d00c05f27fe82",
+        "majorIssues": 0,
+        "reviewedAt": "2026-08-08T21:30:08+09:00",
+        "factCheckResultWasHidden": true,
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        }
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "40ebaa3708f8ddaa7e1deace40a0f2c493acc7fc05516c13af9d00c05f27fe82",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/62"
+      }
+    }
+  },
+  "wordCloud": {
     "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
     "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "d31714a9d2f3e12523e5f33393e1b8388f824085f344e9cdd558699ec998a0f7",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/62"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
   },
   "synopsis": {
     "body": "ケモノ娘と神殺しを描くRPG『エコカリプス』を白雪巴が初体験。半周年企画やコラボを紹介し、ガチャで迎えたキャラクターの衣装やボイスを堪能する。育成や宿舎、編成にも触れ、個性豊かな必殺技を見比べながらバトルへ挑む。",
@@ -116,22 +253,5 @@
       "evidence-synopsis-transcript"
     ],
     "updatedAt": "2026-08-09T12:00:00+09:00"
-  },
-  "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
-  },
-  "provenance": {
-    "inputFingerprint": "d31714a9d2f3e12523e5f33393e1b8388f824085f344e9cdd558699ec998a0f7",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
-    "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
-  },
-  "approval": {
-    "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
   }
 }
