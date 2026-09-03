@@ -1,0 +1,72 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260816-custom-domain-root-path
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - {id: IMP-001, class: Invariant, result: pass, evidence: ["commit:self"], note: "既存の独自ドメイン要件を変更せず、実装がtme.page.diopside.net直下で動くようにする不具合修正と判定した"}
+  - {id: IMP-002, class: Invariant, result: pass, evidence: ["path:vite.config.ts", "path:.github/workflows/update-generated-release.yml"], note: "アプリの静的base、Pages smoke test、E2Eの公開経路だけを整合させ、データモデル・ADR・IaCは変更しない"}
+  - {id: IMP-003, class: Invariant, result: pass, evidence: ["commit:self"], note: "公開URL、生成物、Actions検査、E2E導線をまたぐためassuredを選択した"}
+  - {id: IMP-004, class: Invariant, result: pass, evidence: ["commit:self"], note: "GitHubへのbranch・commit・push・draft PR作成は所有者から明示許可された範囲で行う。merge・公開は行わない"}
+  - {id: FAST-001, class: Invariant, result: pass, evidence: ["path:vite.config.ts", "test:tests/repository-policy.test.ts"], note: "Vite設定とPages経路の構文・最小buildを確認した"}
+  - {id: FAST-002, class: Invariant, result: pass, evidence: ["path:vite.config.ts", "path:playwright.config.ts"], note: "変更したTypeScript設定・E2E設定をstrict型検査で確認した"}
+  - {id: FAST-003, class: Invariant, result: pass, evidence: ["path:vite.config.ts", "path:.github/scripts/smoke-pages-publication.mjs"], note: "変更範囲をlintし、警告0件を確認した"}
+  - {id: FAST-004, class: Invariant, result: pass, evidence: ["test:tests/repository-policy.test.ts", "test:tests/pages-publication-smoke.test.ts"], note: "独自ドメインのルート参照と公開版HTTP検査のfixture回帰を確認した"}
+  - {id: FAST-005, class: Risk-selected, result: pass, evidence: ["test:tests/generated.test.ts", "test:tests/repository-policy.test.ts"], note: "旧/diopside-v8/ asset pathを生成物検査で拒否し、tme.page.diopside.net直下の/assetsを要求する再発検知を追加した"}
+  - {id: FAST-006, class: Invariant, result: pass, evidence: ["path:vite.config.ts", "test:tests/generated.test.ts"], note: "同じVite生成手順でdocs/index.htmlとdocs/404.htmlが/assetsを参照することを確認した。生成release差分はPRへ持ち込まない"}
+  - {id: FAST-007, class: Invariant, result: pass, evidence: ["commit:self"], note: "秘密情報、生字幕、音声、コメント、個人情報を追加していない"}
+  - {id: FAST-015, class: Advisory, result: pass, evidence: ["path:.github/scripts/smoke-pages-publication.mjs", "path:operations/pages-policy.json"], note: "公開後にroot asset・JSON・release IDの不整合を検知でき、独自ドメインの公開後受入記録は実測完了時に更新する"}
+  - {id: FAST-018, class: Risk-selected, result: na, evidence: [], note: "E2EファイルはSPAの公開ルート変更に伴うURL置換だけであり、SQL・CRUD・外部状態の検証変更ではないため、このCRUD状態整合checkは適用外とした"}
+  - {id: REV-001, class: Invariant, result: pass, evidence: ["commit:self"], note: "差分をtme.page.diopside.net直下配信の修正、検証、受入記録に限定した"}
+  - {id: REV-002, class: Invariant, result: pass, evidence: ["commit:self"], note: "Commit Commentへ目的、変更、要件・設計影響、チェックリスト、検証、残存リスクを記載する"}
+  - {id: REV-003, class: Invariant, result: pass, evidence: ["commit:self"], note: "要件本文・受入条件の意味は変更せず、既に承認済みの独自ドメインへ実装を適合させる"}
+  - {id: REV-004, class: Invariant, result: pass, evidence: ["path:vite.config.ts", "path:.github/workflows/update-generated-release.yml"], note: "設計影響は既存Pages配信先の実装整合に限定し、新規ADRやデータ設計は不要と判定した"}
+  - {id: REV-006, class: Invariant, result: pass, evidence: ["test:tests/repository-policy.test.ts", "path:.github/workflows/verify.yml"], note: "関連テストが既存CI品質ゲートへ含まれることを確認した"}
+  - {id: REV-007, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260816-custom-domain-root-path.yaml"], note: "今回選択したcheckだけをレビュー記録へ保存する"}
+  - {id: REV-008, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260816-custom-domain-root-path.yaml"], note: "未選択checkを形式的なN/Aとして記録していない"}
+  - {id: REV-009, class: Risk-selected, result: pass, evidence: ["path:governance/reviews/CHG-20260816-custom-domain-root-path.yaml"], note: "FAST-018のnaはE2EのURL置換のみでSQL・CRUD状態を変更しないという具体的事実に基づく"}
+  - {id: REV-014, class: Risk-selected, result: pass, evidence: ["path:operations/pages-policy.json", "path:docs/CNAME", "path:.github/scripts/smoke-pages-publication.mjs"], note: "公開後検査のoriginとPagesの独自ドメイン設定を実装へ揃えた。未merge・未公開のため受入記録は現行mainの証跡を維持し、公開後に実測更新する"}
+advisories: []
+residual_risks:
+  - PRをmergeしてmain後生成workflowが完了するまで、公開URLの既存HTMLは旧asset pathのままである。
+  - merge後にhttps://tme.page.diopside.net/のHTML、/assets/*.js、/assets/*.css、/data/latest.json、代表動画shardをHTTP smoke testで再確認する必要がある。
+  - 公開後のroot配信確認が完了するまで、operations/acceptance-evidence.jsonのPages受入記録は現行mainの証跡から更新しない。
+  - GitHub PagesのCNAME・HTTPS設定やDNSをこのPRでは変更しない。

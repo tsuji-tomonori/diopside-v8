@@ -1,0 +1,10 @@
+{
+  "app": "uv run --locked python app.py",
+  "versionReporting": false,
+  "context": {
+    "@aws-cdk/core:target-partitions": [
+      "aws",
+      "aws-cn"
+    ]
+  }
+}
