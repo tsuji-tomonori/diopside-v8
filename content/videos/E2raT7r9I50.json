@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "5839591764f58f9d65358d696940091aaabd82116ef2a0ddef4b7f231d7d22bf"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "1e79751becfdf699d106841b5a9f9ec50343a3038cf80022de3c9e4688072bee",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10101
     }
   ],
   "tagAssignments": [
@@ -315,5 +323,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴の家に出演者が集まり、ハロウィンのお泊まり仮装パーティーを開催。衣装を見せ合い、お菓子作りやゲーム、にぎやかな会話を楽しみながら、夜更けまで特別な時間を過ごします。自然体の掛け合いと遊び心が詰まったオフコラボです。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "みんな仮装しましょう",
+      "atSeconds": 576,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "1e79751becfdf699d106841b5a9f9ec50343a3038cf80022de3c9e4688072bee",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T04:46:20.794384Z"
   }
 }
