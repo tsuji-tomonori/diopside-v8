@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "d7959c4dd1097aa04bcd1ddd25aa54dba099d5d293ce8f8bbf38c878920f533c"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "a7714d44a6ad3b33a172061c77fd85f5deb9b2bb253723bb2c0f11de830908ab",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 13872
     }
   ],
   "tagAssignments": [
@@ -372,5 +380,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "『ワガママハイスペック』初回。機材トラブルを越えて始まると、漫画の締切と故障したPCに追われる主人公、双子との朝、個性豊かな学校生活が次々展開。白雪は軽妙な掛け合いに笑い、漫画づくりの悩みや生徒会をめぐる相談、校内の犬探しまでじっくり追います。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "めっちゃ愉快だなこの3人もう好きだね",
+      "atSeconds": 1897,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "a7714d44a6ad3b33a172061c77fd85f5deb9b2bb253723bb2c0f11de830908ab",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-10T22:15:00+09:00"
   }
 }
