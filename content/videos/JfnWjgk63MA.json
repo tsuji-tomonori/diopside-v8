@@ -52,6 +52,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "630b0b6842d4cacf13471de9f7267dc1dd7eb7e41ae04c3fd35d40b3f5f5013c"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "daf4231c1aec770783ddca6bfdefc00787b5758a5cbb8f1080c9b1a1c486884e",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6835
     }
   ],
   "tagAssignments": [
@@ -487,5 +495,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴・フミ・ルイスのフルトイが、3Dで冬ソンカラオケ選手権を開催。多彩なゲストがソロとユニットで歌や演出を競い、3人はクリスマス度や盛り上がり、各自の視点から審査する。選曲の理由や歌唱後の感想も聞きながら、パフォーマンスと掛け合いを楽しむ特別企画。",
+    "featuredQuote": {
+      "text": "たくさんの方とねいっぱい楽しいことできたらな",
+      "atSeconds": 6439,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "daf4231c1aec770783ddca6bfdefc00787b5758a5cbb8f1080c9b1a1c486884e",
+    "rulesVersion": "1.0.0",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "updatedAt": "2026-08-09T21:31:45+09:00"
   }
 }

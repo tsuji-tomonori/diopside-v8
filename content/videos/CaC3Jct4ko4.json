@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "80b5e29caaa4dbefc2e2f553685817cc7712ed2244083e355164d50529b5045d"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "5b5d98f4648acd37923a1e19ab1d580dda4f351b7ac33cc5d3ac0df93f2edc21",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2937
     }
   ],
   "tagAssignments": [
@@ -255,5 +263,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "にじさんじ麻雀杯の卓へ挑み、手牌や危険牌、リーチの判断を慎重に重ねる白雪。配信の接続確認から緊張感ある対局を見届け、終了後は参加者と牌の流れや狙いを振り返ります。勝敗を伏せつつ、静かに好機をうかがう駆け引きが伝わる大会配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "実はひっそり狙ってはいて",
+      "atSeconds": 2290,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "5b5d98f4648acd37923a1e19ab1d580dda4f351b7ac33cc5d3ac0df93f2edc21",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-10T16:20:00+09:00"
   }
 }

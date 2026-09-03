@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "14c410436e69225435182403e63341437888daf70d9aa33b250f37c69ecfd817"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "118ff14e39fca2589cb32183441f1ec31b992fd2ea6c0854742a75985bcf9694",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 13323
     }
   ],
   "tagAssignments": [
@@ -351,5 +359,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "本戦を見据え、ラブスノの二人が視聴者参加型でコースを反復練習。ショートカットやアイテムの使い所を試し、被弾や通信トラブルにも対応しながら走りを調整する。最後は模擬試合形式で実戦感覚を磨いていく。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "もうだめだもうねあのねマリカ全然私は大人になれないから嫌なんだよ",
+      "atSeconds": 13007,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "118ff14e39fca2589cb32183441f1ec31b992fd2ea6c0854742a75985bcf9694",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-10T15:45:00+09:00"
   }
 }

@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "8bed4c98108bb217953247f79baf1c4a692634d9011757e42a38a96a623717ef"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "ec707ad0c7f68e3e725ec92e6aa74fa1a5fa8a84dbc6a5bacd1ad0741b8efcde",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 11773
     }
   ],
   "tagAssignments": [
@@ -534,5 +542,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "3周年を記念し、にじ3Dライブ衣装で30曲に挑む歌枠。5曲ごとのMCで選曲や作品の思い出、失恋曲への思いを語り、アニメ・ロック・バラードなど幅広い曲調を生歌でつなぎます。コメントへ感謝を返しながら、声色と熱量を切り替え、節目の日を一緒に過ごす長時間ライブです。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "一緒に迎えてくれてありがとう",
+      "atSeconds": 693,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "ec707ad0c7f68e3e725ec92e6aa74fa1a5fa8a84dbc6a5bacd1ad0741b8efcde",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-10T23:10:00+09:00"
   }
 }

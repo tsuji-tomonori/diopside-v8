@@ -186,4 +186,4 @@ advisories: []
 residual_risks:
   - YouTube画像CDNのURLは後日取得不能または内容変更になる可能性があり、画面は画像だけを隠して文字情報を維持する。
   - 先行3動画の43種類中32種類へ確認済み画像URLを反映し、残る11種類は信頼済みURLを確認できるまで文字フォールバックとする。
-  - 最終結果は現在HEADに対するGitHub Actions、release PR、main/docsのPages build、公開画面確認で確定する。
+  - PR #1426のmerge後に並行したmain更新を含む統合状態は、最新HEADのGitHub Actions、release PR、main/docsのPages build、公開画面確認で確定する。
