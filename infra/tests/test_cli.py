@@ -8,10 +8,13 @@ from pathlib import Path
 
 import pytest
 
-from diopside_ingestion.cli import enqueue_manifest, materialize_private_caption, upload_manifest
+from diopside_ingestion import cli
+from diopside_ingestion.cli import build_parser, materialize_private_caption, upload_manifest
 from diopside_ingestion.contracts import initial_artifacts
+from diopside_ingestion.local_runner import LocalIngestionResult, LocalIngestionRunner
 from diopside_ingestion.manifest import BackfillManifest, VideoTarget
 from diopside_ingestion.paths import current_manifest_key
+from diopside_ingestion.staging import LocalStage, LocalStageResult
 
 
 @dataclass
@@ -63,15 +66,6 @@ class FakeStore:
         return {"Contents": [{"Key": key} for key in self.listings.get(prefix, [])]}
 
 
-@dataclass
-class FakeQueue:
-    sent: list[dict[str, object]] = field(default_factory=lambda: list[dict[str, object]]())
-
-    def send_message(self, **kwargs: object) -> Mapping[str, object]:
-        self.sent.append(dict(kwargs))
-        return {}
-
-
 def test_upload_manifest_is_immutable_and_idempotent() -> None:
     store = FakeStore()
     key = upload_manifest(store, "private-bucket", _manifest())
@@ -83,11 +77,219 @@ def test_upload_manifest_is_immutable_and_idempotent() -> None:
     assert existing.puts == []
 
 
-def test_enqueue_manifest_body_has_only_video_id() -> None:
-    queue = FakeQueue()
-    assert enqueue_manifest(queue, "https://sqs.example/queue", _manifest()) == 1
-    assert queue.sent[0]["MessageBody"] == '{"video_id":"dQw4w9WgXcQ"}'
-    assert queue.sent[0]["MessageGroupId"] == "dQw4w9WgXcQ"
+def test_ingest_command_requires_one_video_and_storage_destination() -> None:
+    args = build_parser().parse_args(
+        [
+            "ingest",
+            "--video-id",
+            "dQw4w9WgXcQ",
+            "--bucket",
+            "private-bucket",
+            "--table",
+            "VideoIngestion",
+            "--profile",
+            "diopside",
+        ]
+    )
+
+    assert args.command == "ingest"
+    assert args.video_id == "dQw4w9WgXcQ"
+    assert args.bucket == "private-bucket"
+    assert args.table == "VideoIngestion"
+    assert args.profile == "diopside"
+    assert args.region == "ap-northeast-1"
+    assert args.max_attempts == 3
+    assert args.stage is None
+    assert args.work_root is None
+
+
+def test_acquire_stage_does_not_require_aws_destination(tmp_path: Path) -> None:
+    args = build_parser().parse_args(
+        [
+            "ingest",
+            "--video-id",
+            "dQw4w9WgXcQ",
+            "--stage",
+            "acquire",
+            "--work-root",
+            str(tmp_path),
+        ]
+    )
+
+    assert args.stage == ["acquire"]
+    assert args.bucket is None
+    assert args.table is None
+
+
+def test_acquire_stage_does_not_create_aws_runner(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    @dataclass
+    class FakeProcessor:
+        video_id: str
+        workspace: Path
+        runner: object
+
+        def acquire(self) -> LocalStageResult:
+            return LocalStageResult(
+                LocalStage.ACQUIRE,
+                "completed",
+                self.workspace / "acquire-manifest.json",
+                "a" * 64,
+            )
+
+    def fail_build_local_runner(**_kwargs: object) -> LocalIngestionRunner:
+        raise AssertionError("AWS runner must not be created")
+
+    monkeypatch.setattr(cli, "StagedLocalProcessor", FakeProcessor)
+    monkeypatch.setattr(cli, "build_local_runner", fail_build_local_runner)
+
+    exit_code = cli.main(
+        [
+            "ingest",
+            "--video-id",
+            "dQw4w9WgXcQ",
+            "--stage",
+            "acquire",
+            "--work-root",
+            str(tmp_path),
+        ]
+    )
+    output = json.loads(capsys.readouterr().out)
+
+    assert exit_code == 0
+    assert output["selected_stages"] == ["acquire"]
+    assert output["workspace"] == str(tmp_path / "dQw4w9WgXcQ")
+    assert output["trace"]["status"] == "execution-status.json"
+    assert output["trace"]["history"] == "execution-history.jsonl"
+    assert (tmp_path / "dQw4w9WgXcQ" / "execution-status.json").is_file()
+    assert (tmp_path / "dQw4w9WgXcQ" / "execution-history.jsonl").is_file()
+
+
+def test_ingest_command_rejects_unbounded_retry_count() -> None:
+    with pytest.raises(SystemExit):
+        build_parser().parse_args(
+            [
+                "ingest",
+                "--video-id",
+                "dQw4w9WgXcQ",
+                "--bucket",
+                "private-bucket",
+                "--table",
+                "VideoIngestion",
+                "--max-attempts",
+                "11",
+            ]
+        )
+
+
+def test_partial_stage_requires_persistent_work_root() -> None:
+    with pytest.raises(SystemExit):
+        cli.main(
+            [
+                "ingest",
+                "--video-id",
+                "dQw4w9WgXcQ",
+                "--stage",
+                "acquire",
+            ]
+        )
+
+
+def test_upload_stage_requires_aws_destination(tmp_path: Path) -> None:
+    with pytest.raises(SystemExit):
+        cli.main(
+            [
+                "ingest",
+                "--video-id",
+                "dQw4w9WgXcQ",
+                "--stage",
+                "upload",
+                "--work-root",
+                str(tmp_path),
+            ]
+        )
+
+
+def test_ingest_command_runs_local_worker_and_returns_safe_json(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    calls: list[tuple[str, int]] = []
+
+    @dataclass
+    class FakeRunner:
+        def process(self, video_id: str, *, max_attempts: int) -> LocalIngestionResult:
+            calls.append((video_id, max_attempts))
+            return LocalIngestionResult(
+                video_id=video_id,
+                outcome="completed",
+                status="succeeded",
+                completed=True,
+                skipped_existing=False,
+                attempt_count=1,
+                run_id=f"ingest-{video_id}-1",
+                last_reason_code=None,
+            )
+
+    def fake_build_local_runner(**_kwargs: object) -> FakeRunner:
+        return FakeRunner()
+
+    def fake_load_processed_manifest(_workspace: Path, _video_id: str) -> dict[str, object]:
+        return {"outcome": "completed"}
+
+    monkeypatch.setattr(cli, "build_local_runner", fake_build_local_runner)
+    monkeypatch.setattr(cli, "load_processed_manifest", fake_load_processed_manifest)
+
+    exit_code = cli.main(
+        [
+            "ingest",
+            "--video-id",
+            "dQw4w9WgXcQ",
+            "--stage",
+            "upload",
+            "--work-root",
+            str(tmp_path),
+            "--bucket",
+            "private-bucket",
+            "--table",
+            "VideoIngestion",
+            "--max-attempts",
+            "4",
+        ]
+    )
+    output = json.loads(capsys.readouterr().out)
+    trace = output.pop("trace")
+
+    assert exit_code == 0
+    assert calls == [("dQw4w9WgXcQ", 4)]
+    assert output == {
+        "attempt_count": 1,
+        "completed": True,
+        "last_reason_code": None,
+        "outcome": "completed",
+        "run_id": "ingest-dQw4w9WgXcQ-1",
+        "selected_stages": ["upload"],
+        "skipped_existing": False,
+        "stages": [
+            {
+                "attempt_count": 1,
+                "outcome": "completed",
+                "reason_code": None,
+                "run_id": "ingest-dQw4w9WgXcQ-1",
+                "stage": "upload",
+                "status": "succeeded",
+            }
+        ],
+        "status": "succeeded",
+        "video_id": "dQw4w9WgXcQ",
+        "workspace": str(tmp_path / "dQw4w9WgXcQ"),
+    }
+    assert trace["status"] == "execution-status.json"
+    assert trace["history"] == "execution-history.jsonl"
 
 
 def test_materialize_private_caption_only_after_manifest_verification(tmp_path: Path) -> None:
