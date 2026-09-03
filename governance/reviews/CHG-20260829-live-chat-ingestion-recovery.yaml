@@ -1,0 +1,138 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260829-live-chat-ingestion-recovery
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: false
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:infra/tests/test_worker.py, test:infra/tests/test_staging.py]
+    note: V8-INGEST-007の独立artifact取得・匿名化normalized copyとV8-INGEST-008の安全分類へ実装を適合させるbug fixで、受入条件は変更しない。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/staging.py, path:infra/src/diopside_ingestion/worker.py, path:infra/src/diopside_ingestion/contracts.py]
+    note: live chat正規化と取得scope・reason分類の内部実装に影響するが、local manifest schema、CLI、S3/DynamoDB契約、CDK、ADR判断は変えない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-live-chat-ingestion-recovery.yaml]
+    note: 実データで判明した不具合が正規化・取得・分類の3 moduleにまたがるためassuredを選択した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/staging.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: 変更後のPython package import、全infra test、CDK synthを検証契約へ含めた。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Pyright strictとmypy strictをlive chat NDJSON parserとartifact処理へ適用した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Ruff format checkとlintをinfra全体へ適用した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_contracts.py, test:infra/tests/test_worker.py, test:infra/tests/test_staging.py]
+    note: 403分類、chat本文のoffset付き匿名JSONL化、投稿者・channel ID除去、stage pipeline回帰を直接検証した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_contracts.py, test:infra/tests/test_worker.py]
+    note: x15FfG7pm_Aで再現したlive_chat NDJSONのnormalization_emptyとHTTP 403のhttp_5xx誤分類を最小fixtureへ固定した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, test:infra/tests/test_worker.py, commit:self]
+    note: raw chat、投稿者名、channel ID、provider stderr本文をGitへ保存せず、匿名化処理と安全なreason codeだけを差分へ含めた。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/contracts.py, path:infra/src/diopside_ingestion/worker.py, test:infra/tests/test_contracts.py]
+    note: HTTP 403を5xxから分離し、js_challenge signalと合わせて匿名audio取得不能を安全に診断できる。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分を実データで再現したchat・字幕・403分類の回復と回帰test・review結果へ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、review path、検証、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:infra/tests/test_worker.py, test:infra/tests/test_staging.py]
+    note: V8-INGEST-007/008の既存受入条件へ戻すbug fixであり、requirements.json改訂は不要と判定した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/staging.py, path:infra/src/diopside_ingestion/worker.py, path:docs/decisions/ADR-0006-local-private-material-ingestion.md]
+    note: local normalization内部を修復するだけで、生成CDK設計・local manifest schema・既存ADRの実行境界は不変である。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_contracts.py, test:infra/tests/test_worker.py, test:infra/tests/test_staging.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: 追加回帰testがinfra全pytestと既存CIの対象に含まれる。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-live-chat-ingestion-recovery.yaml]
+    note: 選択したcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-live-chat-ingestion-recovery.yaml]
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/staging.py, path:infra/src/diopside_ingestion/contracts.py]
+    note: 既存CLI・workspace・再開手順は不変で、回復可能403をartifact reasonとして残し他素材の加工を継続する運用を維持した。
+advisories: []
+residual_risks:
+  - x15FfG7pm_Aのnative audioはbestaudioと低帯域audioの匿名公開media URLが繰り返しHTTP 403となり、cookie・認証・bot回避を使わないV8-INGEST-008の境界では取得できない。ASR audioは依存skipのままである。
+  - x15FfG7pm_Aのstep 2はmetadata、description、thumbnail、Japanese automatic captions、anonymous live chat、anonymous commentsをchecksum付きで保持したが、process manifest全体はnative audioの回復可能失敗によりretryable_failedである。
