@@ -1,0 +1,137 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260829-requirements-audit-counts
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:tests/audit-requirements.test.ts]
+    note: 永続要件と受入条件は変更せず、正本へ追加された要件数を監査試験が動的に検証するよう修復した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [test:tests/audit-requirements.test.ts, path:docs/design/generated/system.gen.md]
+    note: CI workflowと監査出力schemaは維持し、要件正本から生成されるsystem設計のINGEST件数と総件数だけを同期する。ADRと公開契約は変更しない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-requirements-audit-counts.yaml]
+    note: 要件監査のgovernance回帰試験を変更するためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 外部書込みは既存PR #1384のhead branch更新に限定し、merge、deploy、公開は行わない。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [test:tests/audit-requirements.test.ts, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: 対象Vitestと既存TypeScript品質ゲートで構文・実行可能性を検証する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [test:tests/audit-requirements.test.ts, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: 正本カタログと監査JSONの型を明示し、strict TypeScript検査対象に維持した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [test:tests/audit-requirements.test.ts, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: 変更した回帰試験を既存ESLint対象に維持した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/audit-requirements.test.ts]
+    note: 正本の総件数・active件数・retired件数・active ID集合と監査出力の一致、および許可済み未完了2件だけが非blockingであることを直接検証した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/audit-requirements.test.ts, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: 要件3件追加後に固定値180との比較で失敗した条件を、正本連動の集計検証へ置き換えて再発を防止した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/design/generated/system.gen.md, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: generate:designを同一入力で再実行してbyte一致を確認し、INGEST 17件・合計183件を生成設計へ同期した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分は回帰試験と選択checkだけで、credential、token、生素材、個人情報、Actions生ログを追加しない。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分を要件監査の固定件数除去、対応回帰検証、正本由来の生成設計同期、本reviewに限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:tests/audit-requirements.test.ts]
+    note: 正本要件は変更せず、既存の許可済み未完了2件の扱いも弱めない。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/audit-requirements.test.ts, path:docs/design/generated/system.gen.md]
+    note: 要件正本から生成される件数表を同期する設計影響がある。生成logic、監査出力schema、CI workflow、ADRは変更しない。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/audit-requirements.test.ts, workflow:要件・品質ゲート]
+    note: 失敗したVitestと生成差分を直接修復し、現在HEADで既存のbuild、typecheck、lint、全Vitest、生成差分、要件監査を再実行する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-requirements-audit-counts.yaml]
+    note: 選択したcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-requirements-audit-counts.yaml]
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+advisories: []
+residual_risks:
+  - 既に失敗したActions run 33255952251と33257320543は履歴として残る。生成設計同期後の現在HEADに対する要件・品質ゲートを結果の正本として確認する。
