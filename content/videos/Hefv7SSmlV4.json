@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=Hefv7SSmlV4",
-  "taxonomyVersion": "8.5.0",
+  "taxonomyVersion": "8.6.0",
   "aliasVersion": "8.3.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -43,6 +43,14 @@
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "48bdd00957ce4f4a9207dedbe4150224ab5263ec80bd24e87f4f961d5d435a9f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8938
+    },
+    {
+      "evidenceId": "evidence-full-transcript-timestamps",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕（既存タイムスタンプ根拠）",
       "inputFingerprint": "497cd2becd3723746c1adcdbe083f713dc2b60c38cd2d2413c382c05abc2340c",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 8938
@@ -76,15 +84,6 @@
     {
       "tagId": "tag-context-feature-500a8919343a",
       "reason": "公開タイトルまたは既存タグから企画特性「大会」を確認",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
-    },
-    {
-      "tagId": "tag-program-event-08c3ea003283",
-      "reason": "既存タグ「大会」からイベント・大会名「大会」を確認",
       "confidence": "高",
       "evidenceRefs": [
         "evidence-approved-tags"
@@ -593,7 +592,23 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-16T12:05:00+09:00",
-    "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+    "approvedAt": "2026-09-01T12:00:00+09:00",
+    "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "スマブラ大会の本番へ向け、白雪巴がゼルダとホムラ／ヒカリの動きを直前まで確かめる。ほかの試合を見守りながら、対戦相手とのボイスチャットでは緊張も笑いに変え、好きなキャラクターと自分らしい攻め方で一戦ずつ大会に挑んでいく。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私は好きなキャラを使いたい",
+      "atSeconds": 4648,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "48bdd00957ce4f4a9207dedbe4150224ab5263ec80bd24e87f4f961d5d435a9f",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T04:26:38.786821Z"
   }
 }
