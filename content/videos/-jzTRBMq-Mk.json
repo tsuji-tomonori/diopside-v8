@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=-jzTRBMq-Mk",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -46,24 +46,13 @@
       "inputFingerprint": "fda7b17105f5a91f86e62393a4b4117f2dc041a122c1e713271d22981731ec2f"
     },
     {
-      "evidenceId": "evidence-synopsis-transcript",
-      "type": "公開の日本語原文字幕",
-      "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
-      "inputFingerprint": "93a0215d666bf57c8709691611ce3afda2c38a1d7b319e3911dd1c420b467aee",
-      "coverageStartSeconds": 0,
-      "coverageEndSeconds": 2043
+      "evidenceId": "evidence-game-classification",
+      "type": "動画タイトル",
+      "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+      "inputFingerprint": "b5e90344a314ef6bcdf3c204fd24df8a75776439c576300c0fe62265b8c03558"
     }
   ],
   "tagAssignments": [
-    {
-      "tagId": "tag-content-primary-9eedbc0013d1",
-      "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
-    },
     {
       "tagId": "tag-people-channel-e0fc18a727d8",
       "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
@@ -92,15 +81,6 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     },
     {
-      "tagId": "tag-program-event-08c3ea003283",
-      "reason": "既存タグ「大会」からイベント・大会名「大会」を確認",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
-    },
-    {
       "tagId": "tag-program-event-e9d0d192a85d",
       "reason": "既存タグ「おえもりにじさんじ杯」からイベント・大会名「おえもりにじさんじ杯」を確認",
       "confidence": "高",
@@ -108,6 +88,42 @@
         "evidence-approved-tags"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-70169990eb5e",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「あつまれ！おえかきの森」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-e39b9f75edc2",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「パーティーゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-d579d1081076",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「パズル」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
     }
   ],
   "timestamps": {
@@ -252,23 +268,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
-  "synopsis": {
-    "body": "『おえかきの森』大会に回答者として参加。描かれる絵を見て、浮かんだ言葉を急いで入力する。宇宙、家族、乗り物など幅広い連想に迷い、他参加者の速さや表現力に驚きながらも、とにかく回答を重ねる。途中で入力ルールの見落としに気づき、自分らしい慌てぶりで最後まで駆け抜ける。",
-    "bodyEvidenceRefs": [
-      "evidence-synopsis-transcript"
-    ],
-    "featuredQuote": {
-      "text": "どんどん答える姿勢はいいよね",
-      "atSeconds": 617,
-      "evidenceRefs": [
-        "evidence-synopsis-transcript"
-      ]
-    },
-    "inputFingerprint": "93a0215d666bf57c8709691611ce3afda2c38a1d7b319e3911dd1c420b467aee",
-    "rulesVersion": "1.0.0",
-    "updatedAt": "2026-08-10T01:30:00+09:00"
+    "approvedAt": "2026-09-01T12:00:00+09:00",
+    "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
   }
 }
