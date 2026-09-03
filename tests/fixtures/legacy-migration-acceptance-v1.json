@@ -5,8 +5,8 @@
   "previousRejectedPilot": "tests/fixtures/pilot-timestamps-v1.json",
   "selectionRule": "主ジャンル別に動画ID順で固定し、各候補は承認済み移行経路とv8決定的検証に合格すること",
   "expectedGenreCounts": {
-    "ゲーム": 9,
-    "企画": 5,
+    "ゲーム": 10,
+    "企画": 4,
     "雑談": 5,
     "ASMR": 3,
     "歌": 2,
@@ -121,7 +121,7 @@
     },
     {
       "videoId": "_kbTrf1m2zA",
-      "genre": "企画",
+      "genre": "ゲーム",
       "scope": "外部チャンネル",
       "durationIso": "PT3H33M54S",
       "timestampItemCount": 35,
@@ -328,5 +328,5 @@
     "approvedForPublicCanonicalData": 30,
     "decision": "旧パイロットの不合格25件を合格へ読み替えず、別途確認できた承認済みデータから固定30件を選び直して移行受入を行う"
   },
-  "sampleFingerprint": "7ecf6136eee774c6f979830c4210aafee572ed67c252b2fa6c5a31386261dce4"
+  "sampleFingerprint": "45004ecdc51f524c4282b2366f9c61d7004b1b64f10fe8564d848a92f8febf70"
 }
