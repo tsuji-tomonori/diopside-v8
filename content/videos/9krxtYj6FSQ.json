@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "e8410ca48a663d9793a950faa2e6631e7394ad46921e319c852f3cd03476bef4"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "4ae2c72ff4c4d14a2c8fe3dfeadbbd545aeb90bbf61720ee35c47fb76ef12148",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5926
     }
   ],
   "tagAssignments": [
@@ -315,5 +323,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-23T16:00:00+09:00",
     "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  },
+  "synopsis": {
+    "body": "白雪巴が月ノ美兎制作の「にじ診断」で遊び、二次元の先輩たちを思い浮かべながら選択肢を進行。各設問への率直な反応や好きな作品の話を交え、診断ゲームの作り込みを楽しみます。視聴者にもプレイを勧めます。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "浅草好きなんだよねー",
+      "atSeconds": 878,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "4ae2c72ff4c4d14a2c8fe3dfeadbbd545aeb90bbf61720ee35c47fb76ef12148",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T04:46:03.132169Z"
   }
 }
