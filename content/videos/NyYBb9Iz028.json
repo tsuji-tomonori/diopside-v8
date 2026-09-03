@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "60503b882e4d5e25a4582f64ee7fae5910f1015eb25519128a10f58642f27c38"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "1138e030dfdbcbcec5a25cce3aac0cb78613c14f6e47ad705732c957ab73bc19",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8826
     }
   ],
   "tagAssignments": [
@@ -363,5 +371,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴がチームEの仲間と『スプラトゥーン2』の大会対戦に挑戦。武器や立ち位置を相談し、試合中の連携と状況判断に一喜一憂しながら戦い方を調整します。対戦後には動きや戦法を振り返り、チームで次の一手を考える実況です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "全然悪くないんじゃないかな",
+      "atSeconds": 8751,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "1138e030dfdbcbcec5a25cce3aac0cb78613c14f6e47ad705732c957ab73bc19",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T05:25:11.296509Z"
   }
 }
