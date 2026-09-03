@@ -1,0 +1,216 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260815-fix-game-tag-5uddfxxiagm
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: true
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: true
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/catalog/76.json
+      - path:scripts/audit-game-tags.ts
+    note: 指定動画の再分類と全正本のゲーム作品名監査を一つの整合性修正として扱った。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/taxonomy/tag-taxonomy.json
+      - path:content/works/work-introductions.json
+    note: 既存のタグ体系と作品紹介契約を使い、作品名・分類・公式引用を同期した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/domain/game-title-detection.test.ts
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: 全正本の版同期と公開データ変更を伴うためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 外部書込みはGitHubへのブランチpushとPR作成だけであり、merge・公開・production deployは行わない。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/content-manifest.json
+    note: 既存動画を削除せず、指定動画1件の可逆なタグ是正と版同期だけを行った。
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:scripts/audit-game-tags.ts
+    note: 公開タイトルに明示された登録済みゲーム作品名と主分類の整合性を全正本で確認した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:package.json
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: 公開データ・ドキュメント・Viteのbuildを実行し、成功した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:tsconfig.json
+      - path:tsconfig.node.json
+    note: appとnodeの両TypeScript設定をstrictで型検査した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/domain/game-title-detection.test.ts
+    note: 変更したTypeScript試験を含む対象へESLintを実行した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/catalog/76.json
+      - path:content/works/work-introductions.json
+    note: 指定動画が主ジャンル「ゲーム」、作品名「スゴイツヨイトウフ」、ゲームジャンル「アクション」を持ち、公式紹介を参照できることを確認した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/domain/game-title-detection.test.ts
+      - path:scripts/audit-game-tags.ts
+    note: 指定作品名の取りこぼしを再現試験と1689動画の全件監査で固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/catalog/manifest.json
+      - path:content/content-manifest.json
+      - path:docs/design/generated/inventory.gen.json
+      - path:docs/design/generated/system.gen.md
+    note: 全シャード指紋、1689動画、9303タグ付与と実装由来設計を決定的に再計算した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/taxonomy/tag-taxonomy.json
+    note: 公開作品名と分類理由だけを含み、生字幕・秘密情報・投稿者識別子を追加していない。
+  - id: FAST-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:scripts/validate-content.ts
+    note: タグ体系、別名、タグ規則版と全正本動画の同期を検証した。
+  - id: FAST-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/taxonomy/change-record.json
+      - path:scripts/validate-taxonomy-change.ts
+    note: taxonomy 8.4.0への移行を前方検証し、既存IDを削除せず旧公開世代も保持した。
+  - id: FAST-016
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:scripts/validate-taxonomy-change.ts
+    note: taxonomyと変更記録を比較元mainに対して検証した。
+  - id: FAST-017
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/taxonomy/change-record.json
+    note: 新規ゲーム作品名1件と影響1動画を変更記録へ残した。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 指定動画のゲーム分類・作品名・ゲームジャンルと公式紹介の是正に限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: Commit Commentへ目的、変更、要件・設計影響、検証契約、互換性、残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:scripts/audit-game-tags.ts
+    note: V8-TAG-009の作品名・ゲームジャンル必須条件を指定動画と全正本監査へ適用した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/taxonomy/tag-taxonomy.json
+    note: 新しい手書き設計を作らず正本タグ体系と生成設計を設計根拠とした。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/domain/game-title-detection.test.ts
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: 単体試験、全正本監査、タグ体系変更検証、決定的公開データ生成を実行した。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260815-fix-game-tag-5uddfxxiagm.yaml
+    note: 選択したcheckだけを本reviewへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260815-fix-game-tag-5uddfxxiagm.yaml
+    note: 未選択checkをN/Aで水増ししていない。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/taxonomy/change-record.json
+    note: taxonomy 8.4.0、別名8.2.0、タグ規則8.2.0へ同期した。
+advisories: []
+residual_risks:
+  - 登録済みの明示作品名は全件監査するが、公開タイトルだけで作品を確定できない一般表現は誤推測を避ける。
+  - 公開反映は本PRを人がマージし、既存のmain/docs公開手順が完了した後となる。
