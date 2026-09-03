@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=41_bO38sElU",
-  "taxonomyVersion": "8.5.0",
+  "taxonomyVersion": "8.6.0",
   "aliasVersion": "8.3.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -44,6 +44,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "933d0b026e28dbea994d2eee8d29f73b168bc239039b3b0066a62ffd59aa59c7"
+    },
+    {
+      "evidenceId": "evidence-collaboration-horizontal",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
+      "inputFingerprint": "bceef55ad0f3c15a0a9c09bcd718e9780487d505bb35186b619986ae27708475"
     },
     {
       "evidenceId": "evidence-full-transcript",
@@ -128,15 +134,6 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     },
     {
-      "tagId": "tag-program-event-08c3ea003283",
-      "reason": "既存タグ「大会」からイベント・大会名「大会」を確認",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
-    },
-    {
       "tagId": "tag-program-event-98107d7e011f",
       "reason": "既存タグ「にじスプラ大会」からイベント・大会名「にじスプラ大会」を確認",
       "confidence": "高",
@@ -144,6 +141,51 @@
         "evidence-approved-tags"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-unit-01c720b5d7b5",
+      "reason": "公開タイトル・参加者情報からコンビ・ユニット名「極肆姉妹」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-645d829c903b",
+      "reason": "人物名「ニュイ・ソシエール」をコンビ・ユニット「極肆姉妹」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-d0bd4fb58bfe",
+      "reason": "人物名「鷹宮リオン」をコンビ・ユニット「極肆姉妹」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-14bb1678cc61",
+      "reason": "人物名「夢追翔」をコンビ・ユニット「極肆姉妹」の出演者として確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "公開タイトル・参加者情報から参加形態「コラボ」を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-horizontal"
+      ],
+      "reviewedAt": "2026-08-25T23:20:56+09:00"
     }
   ],
   "timestamps": {
@@ -351,8 +393,8 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+    "approvedAt": "2026-09-01T12:00:00+09:00",
+    "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
   },
   "synopsis": {
     "body": "白雪巴がスプラトゥーン大会当日を迎え、チーム「極肆姉妹」の仲間と本番の試合に挑みます。試合中の状況や味方の動きを実況し、合間には作戦や手応えを振り返りながら、最後までチームで声を掛け合って戦います。",
