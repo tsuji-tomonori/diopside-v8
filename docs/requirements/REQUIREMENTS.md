@@ -1,8 +1,8 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 30
-- 更新日: 2026-09-01
+- カタログ版: 31
+- 更新日: 2026-09-03
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
@@ -39,8 +39,8 @@
 | `V8-DISPLAY-014` | 1 | 有効 | 機能 | diopside v8の定期・連続企画名タグとシリーズページは、動画詳細の定期・連続企画名タグは押下可能でなければならず、不変タグIDをURLに持つ一覧ページへ移動して、そのタグを持つ公開動画だけを公開日の新しい順で表示しなければならない。を**satisfy** | 正本タグ網羅試験、定期・連続企画名タグ遷移単体・E2E、一覧内容・順序・アクセシビリティ試験 |
 | `V8-DISPLAY-015` | 1 | 有効 | 機能 | diopside v8の歌唱楽曲一覧と導線は、主または副ジャンル「歌」を押すと歌唱楽曲一覧へ移動しなければならない。一覧は楽曲名、原曲アーティスト、確認済みの原曲リンク、歌唱種別、対象動画、公開日を表示する。配信内歌唱と鼻歌は対象開始秒、単曲動画は動画先頭を開き、楽曲タグのURLで曲別表示できなければならない。を**satisfy** | 楽曲一覧表示、ジャンル・楽曲タグ遷移、原曲リンク、YouTube開始秒、外部自動通信禁止試験 |
 | `V8-DISPLAY-016` | 2 | 有効 | 機能 | diopside v8のゲームジャンル・作品・配信導線は、ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示しなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。を**satisfy** | ジャンル件数・作品除外・ジャンル遷移・作品遷移・配信一覧・アクセシビリティE2E |
-| `V8-DISPLAY-017` | 1 | 有効 | データ | diopside v8のカスタム絵文字集計は、公開チャットリプレイを取得できる動画は、通常のUnicode絵文字を除外し、全編に現れるカスタム絵文字の出現回数を種類別に集計しなければならない。項目別回数の合計は総使用回数と一致しなければならない。を**satisfy** | 全件集計・Unicode除外・合計整合試験 |
-| `V8-DISPLAY-018` | 1 | 有効 | 機能 | diopside v8のカスタム絵文字表示は、カスタム絵文字を集計済みの動画詳細は、全種類を省略せず、使用回数の降順でショートコード、正確な回数、カスタム絵文字総使用回数に占める比率を比較できるチャートとして表示しなければならない。を**satisfy** | 動画詳細画面・全項目件数・アクセシビリティ試験 |
+| `V8-DISPLAY-017` | 2 | 有効 | データ | diopside v8のカスタム絵文字集計は、公開チャットリプレイを取得できる動画は、通常のUnicode絵文字を除外し、全編に現れるカスタム絵文字の出現回数を種類別に集計し、YouTubeが公開する信頼済み画像URLを取得できる種類へ関連付けなければならない。画像URLを取得できない種類も除外せず、項目別回数の合計は総使用回数と一致しなければならない。を**satisfy** | 全件集計・Unicode除外・画像URL許可ホスト・合計整合試験 |
+| `V8-DISPLAY-018` | 2 | 有効 | 機能 | diopside v8のカスタム絵文字表示は、カスタム絵文字を集計済みの動画詳細は、全種類を省略せず、使用回数の降順でショートコード、正確な回数、総使用回数に占める比率を比較できるチャートとして表示しなければならない。画像を取得できる種類ではショートコードの横に絵文字画像を表示し、取得不能または読込失敗でもショートコード、回数、比率を維持しなければならない。を**satisfy** | 動画詳細画面・画像併記・フォールバック・全項目件数・アクセシビリティ試験 |
 | `V8-DISPLAY-019` | 1 | 有効 | 機能 | diopside v8のエンティティ探索画面は、人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。を**satisfy** | 一覧絞り込み・関係表示・検索候補・動画詳細導線試験 |
 | `V8-INGEST-001` | 3 | 有効 | インターフェース | diopside v8のローカルprivate ingestion要求は、運用者が指定するingestion要求は11文字のYouTube video_id一項目だけを含み、認証情報または内部状態を含んではならない。を**強制する** | 契約・CLI単体試験 |
 | `V8-INGEST-002` | 4 | 有効 | データ | diopside v8のprivate backfill対象は、複数動画の歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。を**強制する** | manifest生成・改ざん・ローカル実行試験 |
@@ -691,35 +691,35 @@ diopside v8のゲームジャンル・作品・配信導線は、ゲーム探索
 検証証跡: src/features/games/GameIndexPage.test.tsx, src/features/works/WorkDetailPage.test.tsx, e2e/game-index.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/App.tsx,src/components/Header.tsx,src/features/games/GameIndexPage.tsx,src/features/works/WorkDetailPage.tsx,src/features/detail/VideoDetailPage.tsx,src/features/search/SearchPage.tsx; テスト=src/features/games/GameIndexPage.test.tsx,src/features/works/WorkDetailPage.test.tsx,e2e/game-index.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-28-game-catalog.md,dev-standard assured profile
 
-## V8-DISPLAY-017: 公開チャットを取得できる動画はカスタム絵文字の全出現回数を種類別に集計できなければならない
+## V8-DISPLAY-017: 公開チャットを取得できる動画はカスタム絵文字の回数と信頼済み画像を種類別に集計できなければならない
 
-diopside v8のカスタム絵文字集計は、公開チャットリプレイを取得できる動画は、通常のUnicode絵文字を除外し、全編に現れるカスタム絵文字の出現回数を種類別に集計しなければならない。項目別回数の合計は総使用回数と一致しなければならない。を**satisfy**。
+diopside v8のカスタム絵文字集計は、公開チャットリプレイを取得できる動画は、通常のUnicode絵文字を除外し、全編に現れるカスタム絵文字の出現回数を種類別に集計し、YouTubeが公開する信頼済み画像URLを取得できる種類へ関連付けなければならない。画像URLを取得できない種類も除外せず、項目別回数の合計は総使用回数と一致しなければならない。を**satisfy**。
 
-根拠: 視聴者のリアクション傾向を動画ごとに比較できるようにしながら、上位項目だけへ切り詰めた分布の誤認を防ぐため。
+根拠: 視聴者のリアクションを絵柄と分布の両方で認識できるようにしながら、任意ホストの画像混入と取得不能項目の欠落を防ぐため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-DISPLAY-017-1` 前提: 公開チャットリプレイを全編取得できる動画がある。条件: カスタム絵文字集計を実行する。期待結果: 通常のUnicode絵文字を含めず、全カスタム絵文字の項目別回数合計が総使用回数と一致する。。
+- `AC-V8-DISPLAY-017-1` 前提: 公開チャットリプレイを全編取得できる動画がある。条件: カスタム絵文字集計を実行する。期待結果: 通常のUnicode絵文字と未許可ホストのURLを含めず、取得可能な項目には信頼済み画像URLが付き、画像取得不能な項目を含む全回数合計が総使用回数と一致する。。
 
-要求源: spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md, user:2026-08-31
+要求源: spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md, spec/sources/owner-directive-2026-09-03-custom-emoji-images.md, user:2026-08-31, user:2026-09-03
 検証証跡: tests/custom-emoji-usage.test.ts, src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=scripts/aggregate-custom-emoji-usage.ts,src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts; テスト=tests/custom-emoji-usage.test.ts,src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=V8-SAFETY-002,spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md,dev-standard regulated profile
+トレース: 設計=docs/design/generated/system.gen.md; 実装=scripts/aggregate-custom-emoji-usage.ts,src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts; テスト=tests/custom-emoji-usage.test.ts,src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=V8-SAFETY-002,spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md,spec/sources/owner-directive-2026-09-03-custom-emoji-images.md,dev-standard regulated profile
 
-## V8-DISPLAY-018: 集計済み動画の詳細は全カスタム絵文字の使用回数と比率をチャートで表示しなければならない
+## V8-DISPLAY-018: 集計済み動画の詳細はカスタム絵文字画像、使用回数、比率をチャートで表示しなければならない
 
-diopside v8のカスタム絵文字表示は、カスタム絵文字を集計済みの動画詳細は、全種類を省略せず、使用回数の降順でショートコード、正確な回数、カスタム絵文字総使用回数に占める比率を比較できるチャートとして表示しなければならない。を**satisfy**。
+diopside v8のカスタム絵文字表示は、カスタム絵文字を集計済みの動画詳細は、全種類を省略せず、使用回数の降順でショートコード、正確な回数、総使用回数に占める比率を比較できるチャートとして表示しなければならない。画像を取得できる種類ではショートコードの横に絵文字画像を表示し、取得不能または読込失敗でもショートコード、回数、比率を維持しなければならない。を**satisfy**。
 
-根拠: 少数の上位項目だけでなく動画固有の全リアクション分布を、画面幅や視覚条件にかかわらず読み取れるようにするため。
+根拠: 動画固有のリアクションを視覚的に識別しやすくしながら、画像配信状態や画面幅、視覚条件にかかわらず全分布を読み取れるようにするため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-DISPLAY-018-1` 前提: カスタム絵文字集計を持つ動画詳細を表示する。条件: デスクトップ・モバイル・支援技術でチャートを確認する。期待結果: 集計に含まれる全種類がショートコード、回数、比率付きで表示され、各棒に読上げ可能な名前と割合がある。。
+- `AC-V8-DISPLAY-018-1` 前提: カスタム絵文字集計を持つ動画詳細を表示する。条件: デスクトップ・モバイル・支援技術でチャートを確認する。期待結果: 集計に含まれる全種類がショートコード、回数、比率付きで表示され、取得可能な画像はショートコードの横に付き、画像なしまたは読込失敗でも文字情報と読上げ可能な割合が残る。。
 
-要求源: spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md, user:2026-08-31
+要求源: spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md, spec/sources/owner-directive-2026-09-03-custom-emoji-images.md, user:2026-08-31, user:2026-09-03
 検証証跡: e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md,dev-standard regulated profile
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md,spec/sources/owner-directive-2026-09-03-custom-emoji-images.md,dev-standard regulated profile
 
 ## V8-DISPLAY-019: 人物・作品・企画一覧は関係種別と関連対象を保った動画探索導線を提供しなければならない
 

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "catalog_revision": 30,
+  "catalog_revision": 31,
   "product": "diopside v8",
-  "updated_at": "2026-09-01",
+  "updated_at": "2026-09-03",
   "requirements": [
     {
       "acceptance_criteria": [
@@ -1650,30 +1650,32 @@
     },
     {
       "id": "V8-DISPLAY-017",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "product",
       "category": "functional",
       "type": "data",
-      "title": "公開チャットを取得できる動画はカスタム絵文字の全出現回数を種類別に集計できなければならない",
+      "title": "公開チャットを取得できる動画はカスタム絵文字の回数と信頼済み画像を種類別に集計できなければならない",
       "subject": "diopside v8のカスタム絵文字集計",
       "action": "satisfy",
-      "object": "公開チャットリプレイを取得できる動画は、通常のUnicode絵文字を除外し、全編に現れるカスタム絵文字の出現回数を種類別に集計しなければならない。項目別回数の合計は総使用回数と一致しなければならない。",
-      "rationale": "視聴者のリアクション傾向を動画ごとに比較できるようにしながら、上位項目だけへ切り詰めた分布の誤認を防ぐため。",
+      "object": "公開チャットリプレイを取得できる動画は、通常のUnicode絵文字を除外し、全編に現れるカスタム絵文字の出現回数を種類別に集計し、YouTubeが公開する信頼済み画像URLを取得できる種類へ関連付けなければならない。画像URLを取得できない種類も除外せず、項目別回数の合計は総使用回数と一致しなければならない。",
+      "rationale": "視聴者のリアクションを絵柄と分布の両方で認識できるようにしながら、任意ホストの画像混入と取得不能項目の欠落を防ぐため。",
       "source_refs": [
         "spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md",
-        "user:2026-08-31"
+        "spec/sources/owner-directive-2026-09-03-custom-emoji-images.md",
+        "user:2026-08-31",
+        "user:2026-09-03"
       ],
       "acceptance_criteria": [
         {
           "id": "AC-V8-DISPLAY-017-1",
           "given": "公開チャットリプレイを全編取得できる動画がある",
           "when": "カスタム絵文字集計を実行する",
-          "then": "通常のUnicode絵文字を含めず、全カスタム絵文字の項目別回数合計が総使用回数と一致する。"
+          "then": "通常のUnicode絵文字と未許可ホストのURLを含めず、取得可能な項目には信頼済み画像URLが付き、画像取得不能な項目を含む全回数合計が総使用回数と一致する。"
         }
       ],
       "verification": {
-        "method": "全件集計・Unicode除外・合計整合試験",
+        "method": "全件集計・Unicode除外・画像URL許可ホスト・合計整合試験",
         "evidence": "tests/custom-emoji-usage.test.ts, src/domain/validation.test.ts, tests/content-validation.test.ts"
       },
       "traces": {
@@ -1694,37 +1696,40 @@
         "standards": [
           "V8-SAFETY-002",
           "spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md",
+          "spec/sources/owner-directive-2026-09-03-custom-emoji-images.md",
           "dev-standard regulated profile"
         ]
       },
-      "last_changed_by": "CHG-20260901-custom-emoji-usage"
+      "last_changed_by": "CHG-20260903-custom-emoji-images"
     },
     {
       "id": "V8-DISPLAY-018",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "product",
       "category": "functional",
       "type": "functional",
-      "title": "集計済み動画の詳細は全カスタム絵文字の使用回数と比率をチャートで表示しなければならない",
+      "title": "集計済み動画の詳細はカスタム絵文字画像、使用回数、比率をチャートで表示しなければならない",
       "subject": "diopside v8のカスタム絵文字表示",
       "action": "satisfy",
-      "object": "カスタム絵文字を集計済みの動画詳細は、全種類を省略せず、使用回数の降順でショートコード、正確な回数、カスタム絵文字総使用回数に占める比率を比較できるチャートとして表示しなければならない。",
-      "rationale": "少数の上位項目だけでなく動画固有の全リアクション分布を、画面幅や視覚条件にかかわらず読み取れるようにするため。",
+      "object": "カスタム絵文字を集計済みの動画詳細は、全種類を省略せず、使用回数の降順でショートコード、正確な回数、総使用回数に占める比率を比較できるチャートとして表示しなければならない。画像を取得できる種類ではショートコードの横に絵文字画像を表示し、取得不能または読込失敗でもショートコード、回数、比率を維持しなければならない。",
+      "rationale": "動画固有のリアクションを視覚的に識別しやすくしながら、画像配信状態や画面幅、視覚条件にかかわらず全分布を読み取れるようにするため。",
       "source_refs": [
         "spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md",
-        "user:2026-08-31"
+        "spec/sources/owner-directive-2026-09-03-custom-emoji-images.md",
+        "user:2026-08-31",
+        "user:2026-09-03"
       ],
       "acceptance_criteria": [
         {
           "id": "AC-V8-DISPLAY-018-1",
           "given": "カスタム絵文字集計を持つ動画詳細を表示する",
           "when": "デスクトップ・モバイル・支援技術でチャートを確認する",
-          "then": "集計に含まれる全種類がショートコード、回数、比率付きで表示され、各棒に読上げ可能な名前と割合がある。"
+          "then": "集計に含まれる全種類がショートコード、回数、比率付きで表示され、取得可能な画像はショートコードの横に付き、画像なしまたは読込失敗でも文字情報と読上げ可能な割合が残る。"
         }
       ],
       "verification": {
-        "method": "動画詳細画面・全項目件数・アクセシビリティ試験",
+        "method": "動画詳細画面・画像併記・フォールバック・全項目件数・アクセシビリティ試験",
         "evidence": "e2e/detail.spec.ts"
       },
       "traces": {
@@ -1740,10 +1745,11 @@
         ],
         "standards": [
           "spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md",
+          "spec/sources/owner-directive-2026-09-03-custom-emoji-images.md",
           "dev-standard regulated profile"
         ]
       },
-      "last_changed_by": "CHG-20260901-custom-emoji-usage"
+      "last_changed_by": "CHG-20260903-custom-emoji-images"
     },
     {
       "id": "V8-DISPLAY-019",

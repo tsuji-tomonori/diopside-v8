@@ -179,8 +179,23 @@ export function VideoDetailPage(): React.JSX.Element {
                 return (
                   <li key={item.customEmojiId}>
                     <div>
-                      <code>{item.label}</code>
-                      <span>{item.count.toLocaleString('ja-JP')}回 <small>{formatRatio(ratio)}</small></span>
+                      <span className="custom-emoji-label">
+                        {item.imageUrl ? (
+                          <img
+                            className="custom-emoji-image"
+                            src={item.imageUrl}
+                            alt=""
+                            width="40"
+                            height="40"
+                            loading="lazy"
+                            decoding="async"
+                            referrerPolicy="no-referrer"
+                            onError={(event) => { event.currentTarget.hidden = true; }}
+                          />
+                        ) : null}
+                        <code>{item.label}</code>
+                      </span>
+                      <span className="custom-emoji-count">{item.count.toLocaleString('ja-JP')}回 <small>{formatRatio(ratio)}</small></span>
                     </div>
                     <progress value={item.count} max={detail.customEmojiUsage!.totalCount} aria-label={`${item.label} ${formatRatio(ratio)}`} />
                   </li>

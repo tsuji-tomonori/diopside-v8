@@ -9,11 +9,13 @@ interface CustomEmojiSource {
   emojiId: string;
   isCustomEmoji: true;
   shortcuts?: unknown;
+  image?: unknown;
 }
 
 export interface CustomEmojiUsageItem {
   customEmojiId: string;
   label: string;
+  imageUrl?: string;
   count: number;
 }
 
@@ -22,12 +24,13 @@ export interface CustomEmojiUsageAggregate {
   totalCount: number;
   items: CustomEmojiUsageItem[];
   inputFingerprint: string;
-  rulesVersion: '1.0.0';
+  rulesVersion: '1.1.0';
   updatedAt: string;
 }
 
 interface MutableUsage {
   label: string;
+  imageUrl?: string;
   count: number;
 }
 
@@ -50,10 +53,16 @@ export async function aggregateCustomEmojiUsage(
     }
     for (const emoji of customEmojiRuns(value)) {
       const current = counts.get(emoji.emojiId);
+      const imageUrl = displayImageUrl(emoji);
       if (current) {
         current.count += 1;
+        if (!current.imageUrl && imageUrl) current.imageUrl = imageUrl;
       } else {
-        counts.set(emoji.emojiId, { label: displayLabel(emoji), count: 1 });
+        counts.set(emoji.emojiId, {
+          label: displayLabel(emoji),
+          ...(imageUrl ? { imageUrl } : {}),
+          count: 1,
+        });
       }
     }
   }
@@ -62,6 +71,7 @@ export async function aggregateCustomEmojiUsage(
     .map(([emojiId, usage]) => ({
       customEmojiId: `custom-emoji-${createHash('sha256').update(emojiId).digest('hex').slice(0, 16)}`,
       label: usage.label,
+      ...(usage.imageUrl ? { imageUrl: usage.imageUrl } : {}),
       count: usage.count,
     }))
     .sort((left, right) => right.count - left.count
@@ -75,7 +85,7 @@ export async function aggregateCustomEmojiUsage(
     totalCount,
     items,
     inputFingerprint: inputHash.digest('hex'),
-    rulesVersion: '1.0.0',
+    rulesVersion: '1.1.0',
     updatedAt,
   };
 }
@@ -110,6 +120,28 @@ function displayLabel(emoji: CustomEmojiSource): string {
   const preferred = names.find((name) => !name.startsWith('_')) ?? names[0]?.replace(/^_+/u, '');
   if (preferred) return `:${preferred}:`;
   return `:emoji-${createHash('sha256').update(emoji.emojiId).digest('hex').slice(0, 8)}:`;
+}
+
+const trustedYouTubeImageHosts = new Set(['yt3.ggpht.com', 'yt3.googleusercontent.com']);
+
+function displayImageUrl(emoji: CustomEmojiSource): string | undefined {
+  if (!isRecord(emoji.image) || !Array.isArray(emoji.image.thumbnails)) return undefined;
+  let best: { url: string; area: number } | undefined;
+  for (const thumbnail of emoji.image.thumbnails) {
+    if (!isRecord(thumbnail) || typeof thumbnail.url !== 'string') continue;
+    let parsed: URL;
+    try {
+      parsed = new URL(thumbnail.url);
+    } catch {
+      continue;
+    }
+    if (parsed.protocol !== 'https:' || !trustedYouTubeImageHosts.has(parsed.hostname)) continue;
+    const width = typeof thumbnail.width === 'number' && thumbnail.width > 0 ? thumbnail.width : 0;
+    const height = typeof thumbnail.height === 'number' && thumbnail.height > 0 ? thumbnail.height : 0;
+    const area = width * height;
+    if (!best || area > best.area) best = { url: thumbnail.url, area };
+  }
+  return best?.url;
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

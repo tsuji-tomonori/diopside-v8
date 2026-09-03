@@ -221,10 +221,14 @@ export const customEmojiUsageSchema = z.object({
   items: z.array(z.object({
     customEmojiId: z.string().regex(/^custom-emoji-[a-f0-9]{16}$/u),
     label: z.string().regex(/^:[^:\r\n]{1,38}:$/u),
+    imageUrl: z.url()
+      .max(2_048)
+      .regex(/^https:\/\/yt3\.(?:ggpht\.com|googleusercontent\.com)\//u)
+      .optional(),
     count: z.number().int().positive(),
   }).strict()).min(1),
   inputFingerprint: z.string().regex(/^[a-f0-9]{64}$/u),
-  rulesVersion: z.literal('1.0.0'),
+  rulesVersion: z.enum(['1.0.0', '1.1.0']),
   updatedAt: isoDateTime,
 }).strict();
 
