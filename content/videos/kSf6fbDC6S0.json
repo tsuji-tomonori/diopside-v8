@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "e8a3138edf0cc1fe82fea1a394993a89c46f8665f8be832a71366ba18f45dc86"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "b7d98e5f4832296d05ed207383f9f37e50b7f7876494667611ff10e6997dcb4a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3328
     }
   ],
   "tagAssignments": [
@@ -306,5 +314,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-23T16:00:00+09:00",
     "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  },
+  "synopsis": {
+    "body": "白雪巴が、彼氏のパチ代を稼ごうとする配信者ちゃんを救うゲームに挑戦。視聴者のコメントや投げ銭が展開に反映される仕組みに驚きつつ、彼女の置かれた状況を読み取り、相談や応援の方法を選びながら進めていく。選択肢ごとの空気を考え、勢いよく反応する実況を味わえる配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "めっちゃ可愛い",
+      "atSeconds": 2812,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "b7d98e5f4832296d05ed207383f9f37e50b7f7876494667611ff10e6997dcb4a",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T23:22:59.568780Z"
   }
 }
