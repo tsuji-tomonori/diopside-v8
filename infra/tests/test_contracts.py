@@ -31,6 +31,7 @@ def test_request_contract_requires_valid_youtube_id() -> None:
     [
         ("This video is private", "private", False),
         ("HTTP Error 429", "http_429", True),
+        ("HTTP Error 403: Forbidden", "http_403", True),
         ("Comments are turned off", "comments_disabled", False),
     ],
 )
