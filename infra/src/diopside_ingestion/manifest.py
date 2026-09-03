@@ -171,7 +171,7 @@ def create_manifest(
 
 
 def load_manifest(path: Path) -> BackfillManifest:
-    """Load and verify a manifest before enqueueing or reporting any target."""
+    """Load and verify a manifest before processing or reporting any target."""
     document = load_json_object(path, label="manifest")
     expected = {"schema_version", "revision", "base_commit", "created_at", "videos", "sha256"}
     if set(document) != expected or document["schema_version"] != "1.0":
