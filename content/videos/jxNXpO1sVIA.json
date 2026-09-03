@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "e604c91fdb88193aca4333838fe4544b467bb3a7bbc6617bd89ed978b98d31e9"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "0c6b84ef3020ad362f7c8a33257a34880c4816f4cac2297439410ab786931139",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5652
     }
   ],
   "tagAssignments": [
@@ -327,5 +335,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴がチームEの仲間とスプラトゥーン2をプレイ。大会を見据えて武器や立ち回りを試し、試合ごとに作戦を相談しながら連携を深めます。各メンバーの動きや相手への対策を語り、チーム始動の手応えを楽しむ練習配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "戦闘が楽しくなっちゃったわねぇ",
+      "atSeconds": 5515,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "0c6b84ef3020ad362f7c8a33257a34880c4816f4cac2297439410ab786931139",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T05:24:52.354438Z"
   }
 }
