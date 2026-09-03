@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=gN_d45SCmBU",
-  "taxonomyVersion": "8.5.0",
+  "taxonomyVersion": "8.6.0",
   "aliasVersion": "8.3.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -43,6 +43,14 @@
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "c5e2e50b4801d28d58babaa16c8de71afe3b8769863e43c63406ab93ddc0c349",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7774
+    },
+    {
+      "evidenceId": "evidence-full-transcript-timestamps",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕（既存タイムスタンプ根拠）",
       "inputFingerprint": "c24fd0528be83ea0204edd338117827a8a5d2f54fc3de1c316bcd146ad1beb01",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 7774
@@ -481,5 +489,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "療養を経て配信へ戻った白雪巴が、声の回復や教習所での適性検査・学科受講を振り返る雑談。麻雀杯の感想から『銀河英雄伝説』への熱弁、愛用し始めたスチーマーの話まで寄り道し、届いた言葉へ感謝を返しながら今後の予定と災害への思いを語ります。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私だけがね幸せでもしょうがなくてね",
+      "atSeconds": 6057,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "c5e2e50b4801d28d58babaa16c8de71afe3b8769863e43c63406ab93ddc0c349",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T04:26:38.521810Z"
   }
 }
