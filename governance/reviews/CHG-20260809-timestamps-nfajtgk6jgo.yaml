@@ -1,0 +1,123 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260809-timestamps-nfajtgk6jgo
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:content/videos/nfajTGk6jGo.json]
+    note: 全編根拠と独立fact・editorial reviewに合格した8章を1動画1PR要件へ適合させ、要件正本は変更しない
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 既存schemaの1動画正本と件数manifestだけを更新し、公開契約を変更しない
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:content/videos/nfajTGk6jGo.json]
+    note: 全編根拠と独立二重reviewを伴う公開候補のためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 利用者がこのDraft PR materializationを明示依頼しており、push・PR作成・merge・公開は本作業の権限境界外で未実行である
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/videos/nfajTGk6jGo.json, commit:self]
+    note: 可逆なtimestamp override追加でschema migrationや削除はなく、revert可能である
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/validate-content.ts, workflow:要件・品質ゲート]
+    note: 正本schema、timestamp境界、公開根拠参照、独立review hash、PR公開gateを検証する
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:content/content-manifest.json, workflow:要件・品質ゲート]
+    note: manifestの作成済み動画数を1件、区間数を8件増やし、要件・品質ゲートworkflowで正本から公開成果物を決定的に再生成する
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 生字幕・transcript・内部map・review原本・秘密情報を差分へ含めない
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: nfajTGk6jGoの1動画正本、件数manifest、本review YAMLだけに差分を限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記載する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:content/videos/nfajTGk6jGo.json, commit:self]
+    note: 全編根拠・独立二重reviewと1動画1PR境界を満たし、受入条件を変更しない
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: schema・画面・生成logicを変えない局所的追加で、生成設計・ADRは不要と判定した
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/validate-content.ts, path:scripts/validate-video-pr-scope.ts, workflow:要件・品質ゲート]
+    note: 正本全件検証、1動画PR範囲検証、review契約検証を実行する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260809-timestamps-nfajtgk6jgo.yaml]
+    note: 選択したcheckだけを本review YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260809-timestamps-nfajtgk6jgo.yaml]
+    note: 未選択checkをN/Aとして登録していない
+advisories: []
+residual_risks:
+  - 仮PR番号0はPR作成後に実際の番号へ機械的に更新する必要がある
+  - 人によるPR作成・レビュー・マージ完了まではpublicationGateが未充足である
