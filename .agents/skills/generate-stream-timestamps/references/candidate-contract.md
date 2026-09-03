@@ -9,6 +9,6 @@
 
 `route` is `作成者一覧の採用` or `全編根拠による生成`. Its origin and evidence type must agree with Issue #1.
 
-The deterministic validator derives stable timestamp IDs and a SHA-256 candidate hash. Reviews must cite that exact hash. The preview contains only the evidence reference and canonical timestamp fields needed for finalization; it never contains transcript text, audience records, internal topics, or human approval.
+The deterministic validator derives stable timestamp IDs and a SHA-256 candidate hash from the public canonical items. Reviews must cite that exact hash. Each preview item retains only the dossier-level `evidenceId` when its draft item has evidence references; draft-only cue IDs never enter the public preview or candidate hash. The preview contains only the evidence reference and canonical timestamp fields needed for finalization; it never contains transcript text, audience records, internal topics, or human approval.
 
-`finalize_candidate.py` requires a GitHub PR URL and an ISO 8601 human review time. Updating existing approved timestamps additionally requires a reason file matching `curate-video-content/references/timestamp-change-reasons.schema.json`.
+`finalize_candidate.py` requires a GitHub PR URL. Updating existing approved timestamps additionally requires a reason file matching `curate-video-content/references/timestamp-change-reasons.schema.json`.
