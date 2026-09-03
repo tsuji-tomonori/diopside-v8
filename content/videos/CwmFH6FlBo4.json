@@ -1,0 +1,349 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "CwmFH6FlBo4",
+  "title": "【Splatoon2】Crossickでハロウィンしなイカ！？【健屋花那/にじさんじ】",
+  "publishedAt": "2020-11-01T17:28:07Z",
+  "durationSeconds": 14342,
+  "durationIso": "PT3H59M2S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/CwmFH6FlBo4/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=CwmFH6FlBo4",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "41d3d781cb901d76ffcfb46c66c7c26a84a16991f760c2277fabfa38ce9760c9"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "7dbcb767ddef43d3933ac7c6ef10acb8ceaa7657d2053ea19bbb8e40d8a47488"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "dfc33b95f5ebad9b70c40a854c39effa9cf5bd2eb1d49e4cbb914b358b7baaa2"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "c621b34623aacbf941e6a84d2ad5e6cacf20f1877212a64d4a2b8eff0a233090"
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "29868dd6e2a8a4976735408bb28ce00da7043edd23bc29d9ceeae780953606fb"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-gameGenre-62278ec71bd0",
+      "reason": "公開作品名とゲーム内容からゲームジャンル「アクション」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-15T17:50:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-f021e7c4e2e7",
+      "reason": "公開作品名とゲーム内容からゲームジャンル「FPS/TPS」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-15T17:50:00+09:00"
+    },
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトルと作品名から主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-15T17:50:00+09:00"
+    },
+    {
+      "tagId": "tag-content-secondary-51d7ff1287db",
+      "reason": "既存の企画性を副ジャンル「企画」として保持",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-15T17:50:00+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-7cc7affe2c5e",
+      "reason": "公開台帳のチャンネル「健屋花那【にじさんじ】KanaSukoya」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-0d5a94165597",
+      "reason": "人物名「健屋花那」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-unit-01148a0ec454",
+      "reason": "コンビ・ユニット名「Crossick」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-fdbee30f2eef",
+      "reason": "公開タイトルまたは公開説明からゲーム作品「スプラトゥーン2」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-15T17:50:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-825d8977",
+        "startSeconds": 0,
+        "label": "配信開始・フェス準備",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-789-dabdc751",
+        "startSeconds": 789,
+        "label": "フェスマッチ序盤",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1800-163be0fa",
+        "startSeconds": 1800,
+        "label": "マッチング待ち・ハロウィン雑談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2690-7a759414",
+        "startSeconds": 2690,
+        "label": "フェスマッチ継続・次戦準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3633-32b8555a",
+        "startSeconds": 3633,
+        "label": "10倍チャレンジを目指すフェス",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4730-12501f94",
+        "startSeconds": 4730,
+        "label": "長いマッチング待ち・雑談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6326-518e2278",
+        "startSeconds": 6326,
+        "label": "参加型フェスの募集・準備",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6780-bf13896d",
+        "startSeconds": 6780,
+        "label": "参加型フェスの初戦と交代",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7498-2dce24a1",
+        "startSeconds": 7498,
+        "label": "参加型フェスの連戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8240-64f835f5",
+        "startSeconds": 8240,
+        "label": "参加者募集と部屋準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9070-0e91e1d9",
+        "startSeconds": 9070,
+        "label": "参加型フェスの試合と交代",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9885-9ac327ad",
+        "startSeconds": 9885,
+        "label": "参加型フェスの試合・次の部屋準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-10812-a13b453b",
+        "startSeconds": 10812,
+        "label": "参加型フェスの連続対戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-11998-15fbed80",
+        "startSeconds": 11998,
+        "label": "終盤のフェスマッチ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13299-ff189ecd",
+        "startSeconds": 13299,
+        "label": "最後の参加者を迎える",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13861-94b5b558",
+        "startSeconds": 13861,
+        "label": "最終フェスマッチ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-14202-5522eda2",
+        "startSeconds": 14202,
+        "label": "終了挨拶",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "9cd9506689959f1d8985bdd2596ba484a9c7e351ba6f027c9a84e70a095f6a38",
+    "inputFingerprint": "c621b34623aacbf941e6a84d2ad5e6cacf20f1877212a64d4a2b8eff0a233090",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-28T10:00:00Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "9cd9506689959f1d8985bdd2596ba484a9c7e351ba6f027c9a84e70a095f6a38",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "9cd9506689959f1d8985bdd2596ba484a9c7e351ba6f027c9a84e70a095f6a38",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "c06d258bd2de65464bbdb68e3327c6ff74f33c4d2ab5afbd890239c5ccf2812a",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-15T21:05:00+09:00",
+    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  }
+}

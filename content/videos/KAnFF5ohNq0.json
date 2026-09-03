@@ -5,36 +5,142 @@
   "publishedAt": "2023-01-26T16:22:06Z",
   "durationSeconds": 13715,
   "durationIso": "PT3H48M35S",
-  "thumbnail": {"url": "https://i.ytimg.com/vi/KAnFF5ohNq0/hqdefault.jpg", "width": 480, "height": 360},
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/KAnFF5ohNq0/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
   "youtubeUrl": "https://www.youtube.com/watch?v=KAnFF5ohNq0",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
-    {"evidenceId": "evidence-title", "type": "動画タイトル", "sourceLabel": "公開動画タイトル", "inputFingerprint": "29db18a7b686ee7b92f3085796acc3e43dba12cb5079dda301b3b26150953de2"},
-    {"evidenceId": "evidence-channel", "type": "公開チャンネル", "sourceLabel": "公開進捗台帳または旧正本のチャンネル", "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"},
-    {"evidenceId": "evidence-duration", "type": "動画長", "sourceLabel": "公開動画長", "inputFingerprint": "4b885bade17693e1fd5d75661fb5db1048434773a6088d181d07a617eb442d7b"},
-    {"evidenceId": "evidence-approved-tags", "type": "既存の承認済みタグ", "sourceLabel": "旧diopsideの承認済みタグ正本", "inputFingerprint": "3b271f7ead3312a55502505217772c62ec339e644dca3d1949eeb1d8f957d3c7"},
-    {"evidenceId": "evidence-synopsis-transcript", "type": "公開の日本語原文字幕", "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）", "inputFingerprint": "83060c3fa5b617cbbbc3c543bb41cc80f09ea8b6e0433911a9367fdc82b40795", "coverageStartSeconds": 0, "coverageEndSeconds": 13715}
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "29db18a7b686ee7b92f3085796acc3e43dba12cb5079dda301b3b26150953de2"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "4b885bade17693e1fd5d75661fb5db1048434773a6088d181d07a617eb442d7b"
+    },
+    {
+      "evidenceId": "evidence-approved-tags",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "旧diopsideの承認済みタグ正本",
+      "inputFingerprint": "3b271f7ead3312a55502505217772c62ec339e644dca3d1949eeb1d8f957d3c7"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
+      "inputFingerprint": "83060c3fa5b617cbbbc3c543bb41cc80f09ea8b6e0433911a9367fdc82b40795",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 13715
+    }
   ],
   "tagAssignments": [
-    {"tagId": "tag-content-primary-0dbfa3115896", "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認", "confidence": "高", "evidenceRefs": ["evidence-approved-tags"], "reviewedAt": "2026-08-04T15:00:00+09:00"},
-    {"tagId": "tag-people-channel-e0fc18a727d8", "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認", "confidence": "高", "evidenceRefs": ["evidence-channel"], "reviewedAt": "2026-08-04T15:00:00+09:00"},
-    {"tagId": "tag-format-media-45323ed44f37", "reason": "動画長と既存形式から動画形式「配信」を確認", "confidence": "高", "evidenceRefs": ["evidence-duration"], "reviewedAt": "2026-08-04T15:00:00+09:00"},
-    {"tagId": "tag-works-gameTitle-6c57f52fe2b4", "reason": "公開タイトルまたは既存タグからゲーム作品「ポケットモンスター スカーレット・バイオレット」を確認", "confidence": "高", "evidenceRefs": ["evidence-approved-tags"], "reviewedAt": "2026-08-04T15:00:00+09:00"},
-    {"tagId": "tag-works-gameSeries-4152eaae5317", "reason": "既存タグ「ポケモン」からゲームシリーズ「ポケモン」を確認", "confidence": "高", "evidenceRefs": ["evidence-approved-tags"], "reviewedAt": "2026-08-04T15:00:00+09:00"},
-    {"tagId": "tag-content-gameGenre-b0f2de7922c1", "reason": "既存分類と作品名からゲームジャンル「RPG」を確認", "confidence": "高", "evidenceRefs": ["evidence-approved-tags"], "reviewedAt": "2026-08-04T15:00:00+09:00"}
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-6c57f52fe2b4",
+      "reason": "公開タイトルまたは既存タグからゲーム作品「ポケットモンスター スカーレット・バイオレット」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameSeries-4152eaae5317",
+      "reason": "既存タグ「ポケモン」からゲームシリーズ「ポケモン」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-b0f2de7922c1",
+      "reason": "既存分類と作品名からゲームジャンル「RPG」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    }
   ],
-  "timestamps": {"status": "未作成", "reason": "全編確認不足", "detail": "承認済みの全編タイムスタンプが移行元にありません。", "updatedAt": "2026-08-04T15:00:00+09:00"},
-  "wordCloud": {"status": "未作成", "reason": "資料不足", "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。", "updatedAt": "2026-08-04T15:00:00+09:00"},
-  "provenance": {"inputFingerprint": "26688166f411a52e6b67f51ce7eb54c3a93298859ff89a17d80c601c284a934c", "generatorVersion": "v8-legacy-migration-1.0.0", "generatedAt": "2026-08-04T15:00:00+09:00", "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"},
-  "approval": {"status": "承認済み", "approvedAt": "2026-08-04T15:00:00+09:00", "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"},
+  "timestamps": {
+    "status": "未作成",
+    "reason": "全編確認不足",
+    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "26688166f411a52e6b67f51ce7eb54c3a93298859ff89a17d80c601c284a934c",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
   "synopsis": {
     "body": "白雪巴が『ポケモン バイオレット』で手持ちの編成や技を整え、残る複数の大きな目的へ。相性を読みながら各地の連戦に向き合い、作戦を組み直しながらポケモンリーグへの挑戦を進める。",
-    "featuredQuote": {"text": "ちょっとこっから先はもう手持ちのポケモンで行こうかな", "atSeconds": 244, "evidenceRefs": ["evidence-synopsis-transcript"]},
+    "featuredQuote": {
+      "text": "ちょっとこっから先はもう手持ちのポケモンで行こうかな",
+      "atSeconds": 244,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
     "inputFingerprint": "83060c3fa5b617cbbbc3c543bb41cc80f09ea8b6e0433911a9367fdc82b40795",
     "rulesVersion": "1.0.0",
-    "bodyEvidenceRefs": ["evidence-synopsis-transcript"],
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
     "updatedAt": "2026-08-09T22:43:00+09:00"
   }
 }
