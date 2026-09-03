@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "8dca706c09a7c019f735640f387675b6b59260e694369b3f04a922481a43e64a"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "0153866822ea47c3637dd3e4a58d7ee362a94d978aa0653d066502087c2b19a0",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 770
     }
   ],
   "tagAssignments": [
@@ -142,5 +150,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "3人組コラボ「フルトイ」の仲良しぶりを、短い切り抜きで紹介。近況トークやゲーム、衣装のお披露目を挟みながら、互いから見た性格や魅力を語り合います。テンポのよい掛け合いと、メンバーへの率直なリアクションから、長く続く関係性の温かさが伝わる雑談回です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "可愛いんだよね",
+      "atSeconds": 701,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "0153866822ea47c3637dd3e4a58d7ee362a94d978aa0653d066502087c2b19a0",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T04:46:32.174567Z"
   }
 }
