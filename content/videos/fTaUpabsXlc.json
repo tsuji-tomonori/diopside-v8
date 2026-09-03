@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "7b818bf6792e22c31f59c0baf328945fbf762a75b5386b5ac69ec9bd503a0959"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "44cf54ce0a9d2a736101c72b04a6d19d0d7cc93704ced51d4b9205ecc4d5d2ff",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8779
     }
   ],
   "tagAssignments": [
@@ -324,5 +332,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴が初めての三人麻雀に挑み、教わったばかりの役や牌の見方を手探りで実践。配牌やツモに一喜一憂し、相談しながら勝負の流れを読み、麻雀の奥深さと楽しさに触れていく実況です。初心者の率直な反応を楽しめる一本です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ちょっと悔しいですねっ",
+      "atSeconds": 2774,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "44cf54ce0a9d2a736101c72b04a6d19d0d7cc93704ced51d4b9205ecc4d5d2ff",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T08:02:09.387099Z"
   }
 }
