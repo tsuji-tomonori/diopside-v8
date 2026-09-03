@@ -1,0 +1,158 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260829-staged-execution-trace
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: true
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:infra/tests/test_trace.py]
+    note: 作業後も段階と根拠を追跡できる永続運用保証をV8-INGEST-017として追加し、現在状態・追記履歴・秘密値非保持を原子化した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/trace.py, path:docs/decisions/ADR-0006-local-private-material-ingestion.md]
+    note: local workspaceへatomic statusとappend-only historyを持つ構成をADR-0006へ反映し、CDK・S3/DynamoDB schemaは変えない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-staged-execution-trace.yaml]
+    note: 永続要件、CLI、local file contract、運用手順、生成要件文書へ影響するためassuredを選択した。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/trace.py, test:infra/tests/test_trace.py]
+    note: 新規local trace fileだけを追加し、既存workspaceはacquire/process manifestをchecksum付きで回復するためmigrationなしで後方互換にした。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/trace.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: infra package、全pytest、CDK synthを既存検証契約で確認した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/trace.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Pyright strictとmypy strictを新規trace module、CLI、testへ適用した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/trace.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Ruff format checkとlintをinfra全体へ適用した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_trace.py, test:infra/tests/test_cli.py]
+    note: 現在状態、追記保持、manifest回復、corrupt history停止、秘密field破棄、CLI trace pathを直接検証した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: specflowでrequirements正本を検証し、人向けREQUIREMENTSを再生成してbyte driftがないことを確認した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/trace.py, test:infra/tests/test_trace.py, commit:self]
+    note: allow-listしたstage結果だけを保存し、provider stderr、生素材、投稿者識別子、Token、Cookie、credentialをtraceへ写さない。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/trace.py, path:infra/README.md, test:infra/tests/test_trace.py]
+    note: current step、completed steps、next step、last invocation、manifest checksumをstatusへ、eventをJSONLへ追記し、再開位置を診断可能にした。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分を安全なlocal execution trace、CLI統合、V8-INGEST-017、ADR・運用説明、対応testへ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、review path、検証、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: V8-INGEST-017をproject nonfunctional operational requirementとして追加し、受入条件と実装・test traceを接続した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/decisions/ADR-0006-local-private-material-ingestion.md, path:infra/src/diopside_ingestion/trace.py]
+    note: atomic status、追記履歴、既存manifest回復、一時workspace例外の長期判断を既存ADR-0006へ反映した。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:infra/src/diopside_ingestion/trace.py, test:infra/tests/test_trace.py, test:infra/tests/test_cli.py]
+    note: V8-INGEST-017の3受入条件がtrace実装、秘密field破棄、manifest回復、CLI統合testへ到達する。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_trace.py, test:infra/tests/test_cli.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: 新規回帰testは既存infra pytest workflowで実行され、全71 testとcoverage contractを満たす。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-staged-execution-trace.yaml]
+    note: 選択したcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-staged-execution-trace.yaml]
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/README.md, test:infra/tests/test_cli.py, test:infra/tests/test_trace.py]
+    note: CLI summaryにはtrace fieldを追加するだけで既存fieldを維持し、既存workspaceはmanifestからbootstrapして移行操作なしで利用できる。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/README.md, path:docs/decisions/ADR-0006-local-private-material-ingestion.md]
+    note: traceの確認方法、保持・削除境界、禁止内容、WSL mountのACL注意を運用正本へ反映した。
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence: [path:docs/decisions/ADR-0006-local-private-material-ingestion.md]
+    note: status/historyの役割、追記・回復、内容制限、一時workspace例外を既存ADR-0006へ追記した。
+advisories: []
+residual_risks:
+  - WSLのdrvfs mountではchmod 0600がmode表示へ反映されず、/mnt/d配下のprivacyはWindows ACLへ依存する。traceはcontent-freeだがraw workspace全体にはprivate ACLが必要である。
+  - SIGKILLまたは電源断ではinvocation_startedが最後のeventとして残り得る。次回実行で既存manifestを回復し新しいinvocationを追記するが、自動的に過去eventをcompletedへ書き換えない。
