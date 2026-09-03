@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "HlqDfQpHyOE",
+  "title": "【#にじ女あもあす DAY1】本当なんです‥嘘じゃないんです‥！！！！！【白雪 巴/にじさんじ】",
+  "publishedAt": "2023-06-04T14:46:40Z",
+  "durationSeconds": 9473,
+  "durationIso": "PT2H37M53S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/HlqDfQpHyOE/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=HlqDfQpHyOE",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "5b6b6920c5c464578c0004bcc1b7da69cdb4ef8b9090e7c935f75dd78a986db3"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "c979ca35565a34540f29a92214a914e8cd56547ad7da84794393031c0ed4e15e"
+    },
+    {
+      "evidenceId": "evidence-approved-tags",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "旧diopsideの承認済みタグ正本",
+      "inputFingerprint": "b48f1bf9e9f33bbd9476ba6e39b2d1e35d215c5481b66fb688cca2b34ef6fdb0"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "869f8abd710cf2b12b9964dedc4924ebc9fe942cd58caa27d24424a5bdbfd80f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9473
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-14a91f9986dd",
+      "reason": "公開タイトルまたは既存タグからゲーム作品「Among Us」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-62278ec71bd0",
+      "reason": "既存分類と作品名からゲームジャンル「アクション」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-1cff1b833661",
+      "reason": "既存分類と作品名からゲームジャンル「人狼・正体隠匿」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "未作成",
+    "reason": "全編確認不足",
+    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "32cb1aefe18b25fa73b1c5869456fa3719e18452661a03293b9f986c7566bc2f",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が大人数コラボの『Among Us』に参加。議論と移動を重ね、仲間を信じたい気持ちと疑念の間で推理を巡らせます。緊迫した展開に悲鳴や軽妙なツッコミも飛び出し、視聴者と一緒に正体を探る一夜です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私はこういう配信で何が一番恐怖かって1人で延々と話し続けてるアーカイブを見ることが怖くて",
+      "atSeconds": 9399,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "869f8abd710cf2b12b9964dedc4924ebc9fe942cd58caa27d24424a5bdbfd80f",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T16:30:52.891400Z"
+  }
+}
