@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "b52dc4e5054c9c6385a64a25aa12c03a293f565b97f6e9d6f6e041da38c5014f"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "97a53d035b19302945781fab24ad408d742148d90917b744e7f19489c8dbb7ae",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 88
     }
   ],
   "tagAssignments": [
@@ -124,5 +132,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "愛園愛美を呼ぶ声から始まる、白雪巴との短いコラボ劇。二人はベッドをめぐる軽快な会話を交わし、居心地や過ごし方を楽しげに語る。終盤はメイドをめぐる甘い独占欲が顔を出し、らぶスノらしい親密さと可愛らしい掛け合いを凝縮した一編。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私だけのメイドになってくださいね",
+      "atSeconds": 44,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "97a53d035b19302945781fab24ad408d742148d90917b744e7f19489c8dbb7ae",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T09:02:59.420257Z"
   }
 }
