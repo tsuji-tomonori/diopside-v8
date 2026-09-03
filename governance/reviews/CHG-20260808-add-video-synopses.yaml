@@ -83,20 +83,20 @@ selected_checks:
     class: Invariant
     result: pass
     evidence:
-      - workflow:要件・品質ゲート#143要件の品質ゲートを実行
-      - path:docs/index.html
-    note: 正本再生成とVite本番buildを完了した
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+      - path:package.json
+    note: 正本再生成とVite本番buildを完了し、配信用生成物はmainマージ後の自動更新へ分離した
   - id: FAST-002
     class: Invariant
     result: pass
     evidence:
-      - workflow:要件・品質ゲート#143要件の品質ゲートを実行
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
     note: TypeScriptのブラウザ・Node両projectの型検査に合格した
   - id: FAST-003
     class: Invariant
     result: pass
     evidence:
-      - workflow:要件・品質ゲート#143要件の品質ゲートを実行
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
     note: src、scripts、tests、e2eのlintに合格した
   - id: FAST-004
     class: Invariant
@@ -105,7 +105,7 @@ selected_checks:
       - test:src/domain/validation.test.ts
       - test:tests/content-validation.test.ts
       - test:e2e/detail.spec.ts
-    note: 文字数、全編根拠、引用時刻、6件集計、143要件、詳細表示を直接検証した
+    note: 文字数、全編根拠、引用時刻、6件集計、144要件、詳細表示を直接検証した
   - id: FAST-006
     class: Invariant
     result: pass
@@ -113,9 +113,8 @@ selected_checks:
       - path:spec/requirements/requirements.json
       - path:docs/requirements/REQUIREMENTS.md
       - path:docs/design/generated/inventory.gen.json
-      - path:public/data/latest.json
-      - path:docs/index.html
-    note: 要件、as-built設計、公開データ、Pages成果物を正本から決定的に再生成した
+      - path:content/content-manifest.json
+    note: 要件、as-built設計、正本manifestを再生成・照合し、配信用生成物はmainマージ後の自動更新対象としてPRから除外した
   - id: FAST-007
     class: Invariant
     result: pass
@@ -194,7 +193,7 @@ selected_checks:
       - test:src/domain/validation.test.ts
       - test:tests/content-validation.test.ts
       - test:e2e/detail.spec.ts
-      - workflow:要件・品質ゲート#143要件の品質ゲートを実行
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
     note: 文字数、ネタバレ高リスク語、全編根拠、公開境界、末尾引用リンクの受入条件をCI対象へ接続した
   - id: REV-007
     class: Invariant
