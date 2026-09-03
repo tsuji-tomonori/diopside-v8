@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=bUbPZUQMlSo",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -92,6 +92,22 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "新しい勝負服を足元から少しずつ披露し、髪型やメイク、アクセサリーの差分を次々と試す白雪巴。見せ方を視聴者と相談しながら、表情やポーズを変え、衣装が生まれた経緯とデザインへのこだわりも語ります。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "かっこいいでしょう",
+      "atSeconds": 979,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "694228cd0136cda775a59bac61d02e630d459447c8bfb4db4dafb0b5eef0e92b",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-09T12:00:00+09:00"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -272,21 +288,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
-  "synopsis": {
-    "body": "新しい勝負服を足元から少しずつ披露し、髪型やメイク、アクセサリーの差分を次々と試す白雪巴。見せ方を視聴者と相談しながら、表情やポーズを変え、衣装が生まれた経緯とデザインへのこだわりも語ります。",
-    "bodyEvidenceRefs": [
-      "evidence-synopsis-transcript"
-    ],
-    "featuredQuote": {
-      "text": "かっこいいでしょう",
-      "atSeconds": 979,
-      "evidenceRefs": [
-        "evidence-synopsis-transcript"
-      ]
-    },
-    "inputFingerprint": "694228cd0136cda775a59bac61d02e630d459447c8bfb4db4dafb0b5eef0e92b",
-    "rulesVersion": "1.0.0",
-    "updatedAt": "2026-08-09T12:00:00+09:00"
   }
 }
