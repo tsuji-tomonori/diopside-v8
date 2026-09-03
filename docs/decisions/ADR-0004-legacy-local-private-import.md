@@ -2,7 +2,7 @@
 
 - 状態: 採用
 - 決定日: 2026-08-22
-- 関連: ADR-0003、Issue #465、所有者指示 `user:2026-08-22`
+- 関連: ADR-0003、ADR-0006、Issue #465、所有者指示 `user:2026-08-22`
 
 ## 決定
 
@@ -20,4 +20,4 @@
 
 ## 運用境界
 
-manifest作成はローカルreadだけでありAWSへ書き込まない。`legacy-local-import` は `--all` またはmanifest内の明示video IDを要求する。AWS deploy、実素材upload、SQS enqueue、削除、公開、mergeはそれぞれ人の明示承認なしに実行しない。
+manifest作成はローカルreadだけでありAWSへ書き込まない。`legacy-local-import` は `--all` またはmanifest内の明示video IDを要求する。AWS deploy、実素材upload、削除、公開、mergeはそれぞれ人の明示承認なしに実行しない。
