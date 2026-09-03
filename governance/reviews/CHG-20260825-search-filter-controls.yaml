@@ -1,0 +1,206 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260825-search-filter-controls
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: false
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: 公開日の範囲選択と動画長SliderをV8-SEARCH-011、V8-SEARCH-012、V8-SEARCH-013のrevision 2へ反映した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+    note: 新しい検索UI componentを生成設計へ反映した。公開契約や長期architecture判断は変えないためADRは不要である。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260825-search-filter-controls.yaml
+    note: 重要な対話UI、要件正本、生成設計、E2Eを変更するためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 利用者がGitHub権限を明示しており、feature branchのpushとdraft PR作成だけを行う。mergeと公開は行わない。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:package.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 要件・公開データ・生成設計を含むproduction buildを完了し、同じ契約をCIで再実行する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:tsconfig.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: TypeScript strictのtypecheckを完了した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/search/DateRangePicker.tsx
+      - path:src/features/search/DurationRangeSlider.tsx
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 変更したTypeScript、React、E2Eを含むlintを警告0件で完了した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/features/search/SearchFilterControls.test.tsx
+      - test:src/domain/search.test.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 日付の二日選択、直接入力、preset、Slider、区分境界と既存検索条件を単体テストで確認した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/requirements/REQUIREMENTS.md
+      - path:docs/design/generated/system.gen.md
+      - path:docs/design/generated/inventory.gen.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 要件表示とas-built設計を正本と実装から再生成し、要件drift checkを完了した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: staged対象をUI、テスト、要件正本、生成設計、review記録へ限定し、credentialや個人情報を含めない。
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/search/SearchFilterControls.test.tsx
+      - test:e2e/search.spec.ts
+    note: 指定なし、選択中、選択済み、逆転URLエラー、解除による回復、モバイル表示を検証対象にした。
+  - id: FAST-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/search/SearchFilterControls.test.tsx
+      - test:e2e/search.spec.ts
+    note: native button、date、rangeを使い、accessible name、Escape focus復帰、矢印キー、44px target、axe検査を組み込んだ。
+  - id: FAST-018
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/search.spec.ts
+    note: DB・SQL・CRUD変更はなく、変更したE2Eはブラウザ内検索状態、URL条件、解除後の状態不変を直接assertする。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 差分を検索画面の公開日範囲Pickerと動画長Sliderという一つの目的に限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: Commit Commentへ目的、変更、要件・設計影響、検証契約、互換性、残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:spec/sources/owner-directive-2026-08-25-search-filter-controls.md
+    note: repository ownerの指示をproduct functional requirementとして正本と再生成経路へ反映した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+    note: componentとtestのas-built構造を生成設計へ反映し、公開契約、DB、IaC、依存、ADRへの影響がないことを確認した。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - test:src/features/search/SearchFilterControls.test.tsx
+      - test:e2e/search.spec.ts
+    note: V8-SEARCH-011、V8-SEARCH-012、V8-SEARCH-013から実装と単体・E2E証拠へtraceできる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/features/search/SearchFilterControls.test.tsx
+      - test:src/domain/search.test.ts
+      - test:e2e/search.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 範囲選択、境界、URL互換、エラー、回復、キーボード、モバイルの受入条件をCIで実行する。初回CIで公開日と動画長の同名「指定なし」が曖昧一致したため、動画長側をexact指定へ修正した。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260825-search-filter-controls.yaml
+    note: 変更flagsから選択されたcheckだけをこのreview結果へ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260825-search-filter-controls.yaml
+    note: 未選択checkをN/Aとして保存していない。
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/search/SearchFilterControls.test.tsx
+      - test:e2e/search.spec.ts
+    note: 日付選択と動画長調整を独立testで確認し、検索への同時適用と375px幅をE2Eへ接続した。
+
+advisories: []
+residual_risks:
+  - ローカル環境ではChromium配布先が遮断されE2Eを起動できないため、Playwright同梱containerを使うGitHub Actionsの合格をmerge前の必須証拠とする。
+  - draft PRは人が確認してmergeするまで公開されず、この変更ではmerge、release、deployを行わない。
