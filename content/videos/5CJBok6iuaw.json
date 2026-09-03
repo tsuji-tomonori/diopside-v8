@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "6f9796c3480ec13b6355878e6bab8b45499e5687b213659205feaf5346a3ee59"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "866be82120ddcd7a42f13c967390003bd39e9c0718f2d3f26091b3acae74b3b1",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8204
     }
   ],
   "tagAssignments": [
@@ -369,5 +377,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴がエデン組と先輩たちのAmong Usコラボに参加し、初めて挑む広いマップでタスクと仲間の動きを追います。停電やすれ違い、緊急会議で証言を重ねながら、迷子になりがちな探索と読み合いを楽しむ配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "もう今私いっぱいいっぱいだから",
+      "atSeconds": 526,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "866be82120ddcd7a42f13c967390003bd39e9c0718f2d3f26091b3acae74b3b1",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T06:11:14.636368Z"
   }
 }
