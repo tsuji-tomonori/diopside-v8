@@ -1,0 +1,184 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260903-custom-emoji-images
+profile: regulated
+source_ref: spec/sources/owner-directive-2026-09-03-custom-emoji-images.md
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: true
+  important_ui_change: true
+  long_term_decision: false
+  squash: true
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:spec/sources/owner-directive-2026-09-03-custom-emoji-images.md]
+    note: V8-DISPLAY-017/018をrevision 2へ更新し、信頼済み画像の取得、横並び表示、画像なし・失敗時のフォールバックを正本化した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/content.ts, path:scripts/aggregate-custom-emoji-usage.ts, path:src/features/detail/VideoDetailPage.tsx]
+    note: optional画像URLを正本・公開契約・集計器・詳細画面へ一貫して追加し、既存の決定的静的生成経路を維持した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260903-custom-emoji-images.yaml]
+    note: 一時入力に投稿者識別子を含み得る公開チャットを扱うためregulatedを選択した。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:src/domain/content.ts, test:tests/content-validation.test.ts]
+    note: imageUrlはoptional、rulesVersionは1.0.0と1.1.0を受理し、既存正本と未画像項目にmigrationを要求しない。
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:src/domain/content.ts, path:scripts/build-public-data.ts, test:e2e/detail.spec.ts]
+    note: 公開契約はHTTPSのyt3.ggpht.comとyt3.googleusercontent.comだけを許可し、入力指紋と生チャットを公開しない。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:src/features/detail/VideoDetailPage.tsx]
+    note: production buildを既存PR品質ゲートで検証する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:src/domain/content.ts]
+    note: TypeScript strictのブラウザ・Node両構成を既存PR品質ゲートで検証する。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:scripts/aggregate-custom-emoji-usage.ts]
+    note: src、scripts、tests、e2eのlintを既存PR品質ゲートで検証する。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/custom-emoji-usage.test.ts, test:tests/content-validation.test.ts]
+    note: 信頼済み最大画像の採用、未許可ホスト除外、匿名化、合計整合、正本互換を単体試験で検証する。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/requirements/REQUIREMENTS.md, path:scripts/generate-requirements.ts]
+    note: 要件正本と人向け生成要件を同時更新し、公開生成物はrelease PR経路へ委ねる。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [test:tests/custom-emoji-usage.test.ts, path:docs/operations/privacy-and-safety.md]
+    note: 生本文、投稿者情報、元の絵文字ID、任意ホストURLを出力しない境界を試験と運用文書で固定した。
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/detail.spec.ts, path:src/features/detail/VideoDetailPage.tsx]
+    note: 画像あり、画像なし、全種類・回数・比率のsuccess状態とアクセシビリティをE2Eで検証する。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:scripts/aggregate-custom-emoji-usage.ts, path:docs/operations/manual-content-update.md]
+    note: 画像取得不能は項目除外や失敗にせず、同じ動画IDと入力で再集計できる。
+  - id: FAST-018
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/detail.spec.ts]
+    note: 画像併記と文字フォールバックをmockおよび先行3動画で検証し、重大axe違反がないことを既存E2E経路で確認する。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分を画像抽出・許可ホスト、optional公開契約、横並びUI、先行3動画、対応要件・運用手順へ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: 所有者指示をV8-DISPLAY-017/018 revision 2とcatalog revision 31へ反映した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/system.gen.md, commit:self]
+    note: 既存の静的詳細ページと動画正本のoptional拡張であり、生成設計の構成変更や新しい長期技術選択はない。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:scripts/aggregate-custom-emoji-usage.ts, path:src/features/detail/VideoDetailPage.tsx, test:e2e/detail.spec.ts]
+    note: V8-DISPLAY-017/018から集計器、schema、公開生成、UI、単体・E2E試験へ到達できる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/custom-emoji-usage.test.ts, test:e2e/detail.spec.ts, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: 許可ホスト、画像併記、画像なしフォールバックの受入条件を既存CIへ接続した。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260903-custom-emoji-images.yaml]
+    note: 選択したcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260903-custom-emoji-images.yaml]
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence: [path:src/domain/content.ts, test:tests/content-validation.test.ts, test:e2e/detail.spec.ts]
+    note: optional fieldと旧rulesVersion受理で既存consumerを維持し、rollbackは画像URLとUI分岐の除去で可能である。
+  - id: REV-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/custom-emoji-usage.test.ts, path:docs/operations/privacy-and-safety.md]
+    note: 出力試験と公開URL allowlistという別oracleで識別子・本文・任意URLの非保持を確認する。
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/detail.spec.ts, path:src/styles.css]
+    note: 40px画像、ショートコード、回数・比率、progressのaccessible name、responsive表示、重大axe違反なしを確認する。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:docs/operations/manual-content-update.md, path:docs/operations/privacy-and-safety.md]
+    note: 許可ホスト、referrer抑止、読込失敗時フォールバック、再集計手順を運用正本へ反映した。
+advisories: []
+residual_risks:
+  - YouTube画像CDNのURLは後日取得不能または内容変更になる可能性があり、画面は画像だけを隠して文字情報を維持する。
+  - 先行3動画の43種類中32種類へ確認済み画像URLを反映し、残る11種類は信頼済みURLを確認できるまで文字フォールバックとする。
+  - 最終結果は現在HEADに対するGitHub Actions、release PR、main/docsのPages build、公開画面確認で確定する。

@@ -82,8 +82,9 @@ test.describe('動画詳細', () => {
     await expect(page.getByLabel('ワードクラウド').locator('span')).toHaveCount(20);
   });
 
-  test('カスタム絵文字を全種類、回数と比率の横棒チャートで表示する', async ({ page }) => {
+  test('カスタム絵文字を画像、ショートコード、回数、比率付きで表示する', async ({ page }) => {
     await preparePage(page);
+    const customEmojiImageUrl = 'https://yt3.ggpht.com/emoji-kusa=w48-h48-c-k-nd';
     const videoId = 'c9TnpjK3ZZE';
     const shardId = videoShardId(videoId);
     const relative = `public/data/releases/${latest.releaseId}/video-shards/${shardId}.json`;
@@ -93,17 +94,21 @@ test.describe('動画詳細', () => {
       status: '集計済み',
       totalCount: 100,
       items: [
-        { customEmojiId: 'custom-emoji-1111111111111111', label: ':kusa:', count: 60 },
+        { customEmojiId: 'custom-emoji-1111111111111111', label: ':kusa:', imageUrl: customEmojiImageUrl, count: 60 },
         { customEmojiId: 'custom-emoji-2222222222222222', label: ':wan:', count: 25 },
         { customEmojiId: 'custom-emoji-3333333333333333', label: ':taiki:', count: 15 },
       ],
-      rulesVersion: '1.0.0',
-      updatedAt: '2026-08-31T21:34:00+09:00',
+      rulesVersion: '1.1.0',
+      updatedAt: '2026-09-03T00:00:00Z',
     };
     await page.route(`**/data/releases/${latest.releaseId}/video-shards/${shardId}.json`, async (route) => route.fulfill({ json: shard }));
     await page.goto(`/#/video/${videoId}`);
 
     await expect(page.getByRole('heading', { name: 'カスタム絵文字' })).toBeVisible();
+    const emojiImage = page.locator('img.custom-emoji-image');
+    await expect(emojiImage).toHaveCount(1);
+    await expect(emojiImage).toHaveAttribute('src', customEmojiImageUrl);
+    await expect(page.getByText(':wan:', { exact: true })).toBeVisible();
     await expect(page.getByLabel('カスタム絵文字の使用比率').locator('li')).toHaveCount(3);
     await expect(page.getByText('60回')).toBeVisible();
     await expect(page.getByText('60.0%')).toBeVisible();
@@ -124,6 +129,10 @@ test.describe('動画詳細', () => {
       await expect(section.getByRole('heading', { name: 'カスタム絵文字' })).toBeVisible();
       await expect(section.getByText(pilot.totalCount, { exact: true })).toBeVisible();
       await expect(section.locator('.custom-emoji-chart li')).toHaveCount(pilot.uniqueCount);
+      await expect(section.locator('img.custom-emoji-image').first()).toHaveAttribute(
+        'src',
+        /^https:\/\/yt3\.ggpht\.com\//u,
+      );
     }
     await expectNoSeriousAccessibilityViolations(page);
   });
