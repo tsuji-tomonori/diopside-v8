@@ -705,6 +705,7 @@ diopside v8のカスタム絵文字集計は、公開チャットリプレイを
 要求源: spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md, spec/sources/owner-directive-2026-09-03-custom-emoji-images.md, user:2026-08-31, user:2026-09-03
 検証証跡: tests/custom-emoji-usage.test.ts, src/domain/validation.test.ts, tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=scripts/aggregate-custom-emoji-usage.ts,src/domain/content.ts,src/domain/validation.ts,scripts/build-public-data.ts; テスト=tests/custom-emoji-usage.test.ts,src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=V8-SAFETY-002,spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md,spec/sources/owner-directive-2026-09-03-custom-emoji-images.md,dev-standard regulated profile
+
 ## V8-DISPLAY-018: 集計済み動画の詳細はカスタム絵文字画像、使用回数、比率をチャートで表示しなければならない
 
 diopside v8のカスタム絵文字表示は、カスタム絵文字を集計済みの動画詳細は、全種類を省略せず、使用回数の降順でショートコード、正確な回数、総使用回数に占める比率を比較できるチャートとして表示しなければならない。画像を取得できる種類ではショートコードの横に絵文字画像を表示し、取得不能または読込失敗でもショートコード、回数、比率を維持しなければならない。を**satisfy**。
@@ -719,6 +720,7 @@ diopside v8のカスタム絵文字表示は、カスタム絵文字を集計済
 要求源: spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md, spec/sources/owner-directive-2026-09-03-custom-emoji-images.md, user:2026-08-31, user:2026-09-03
 検証証跡: e2e/detail.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md,spec/sources/owner-directive-2026-09-03-custom-emoji-images.md,dev-standard regulated profile
+
 ## V8-DISPLAY-019: 人物・作品・企画一覧は関係種別と関連対象を保った動画探索導線を提供しなければならない
 
 diopside v8のエンティティ探索画面は、人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。を**satisfy**。
