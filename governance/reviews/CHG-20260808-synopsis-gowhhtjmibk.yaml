@@ -20,7 +20,7 @@ impact_flags:
   typed_code_change: false
   behavior_change: true
   bug_fix: false
-  generated_change: true
+  generated_change: false
   sql_change: false
   e2e_change: false
   migration: false
@@ -32,7 +32,7 @@ impact_flags:
   critical_change: false
   important_ui_change: false
   long_term_decision: false
-  squash: false
+  squash: true
   external_side_effect: false
   production_deploy: false
   major_incident: false
@@ -58,7 +58,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: 正本データ値と決定的公開成果物だけを更新し、schema・生成設計・ADRへの影響はない
+    note: 正本データだけを更新し、schema・生成設計・ADRへの影響はない
   - id: IMP-003
     class: Invariant
     result: pass
@@ -82,10 +82,9 @@ selected_checks:
     class: Invariant
     result: pass
     evidence:
-      - path:public/data/latest.json
-      - path:docs/data/latest.json
+      - path:content/content-manifest.json
       - workflow:要件・品質ゲート
-    note: 正本から公開data・Pages成果物を再生成し、drift check対象へ含める
+    note: PRは正本だけを更新し、配信用生成物はmainマージ後の決定生成へ分離する
   - id: FAST-007
     class: Invariant
     result: pass
@@ -123,7 +122,7 @@ selected_checks:
     evidence:
       - test:tests/content-validation.test.ts
       - workflow:要件・品質ゲート
-    note: 正本検証、あらすじ契約、build、生成差分を既存CI契約で実行する
+    note: 正本検証、あらすじ契約、build、PR scopeを既存CI契約で実行する
   - id: REV-007
     class: Invariant
     result: pass
