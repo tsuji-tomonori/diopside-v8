@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "15028d04741e7c754b8cd6f570896061edc75f7f7660065a6d2a7a82ecd10de3"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "ff61580f3f819515ad4fbda0bdc5f2693680b11c46e2dddf69c10342bdbbb06a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2248
     }
   ],
   "tagAssignments": [
@@ -282,5 +290,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が「にじさんじ麻雀杯」に挑戦。大会の緊張感の中で牌や点数を確認し、対局相手や解説の言葉にも反応しながら一局を進めます。二日酔いの声をものともせず、押し引きや勝負どころを楽しむ実況配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "麻雀も良かったらまたやりましょう",
+      "atSeconds": 2211,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "ff61580f3f819515ad4fbda0bdc5f2693680b11c46e2dddf69c10342bdbbb06a",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T07:24:26.345244Z"
   }
 }
