@@ -11,15 +11,15 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=37R4N3H1Ji4",
-  "taxonomyVersion": "8.5.0",
+  "taxonomyVersion": "8.6.0",
   "aliasVersion": "8.3.0",
-  "tagRulesVersion": "8.2.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-approved-tags",
       "type": "既存の承認済みタグ",
       "sourceLabel": "提供されたv2タグ監査済みスナップショット",
-      "inputFingerprint": "d0d4c45bb7a0124539c21cd25f799d6ac544d441f164502a1d4ee732e11d2121"
+      "inputFingerprint": "cabc6f1a6ee2b06503e2c17ff5e021bfb25ff06e391512937c13c5535dcb9c4a"
     },
     {
       "evidenceId": "evidence-approved-timestamps",
@@ -67,15 +67,6 @@
     {
       "tagId": "tag-program-recurringSeries-4eb7f61b38ea",
       "reason": "タイトル・既存タグが定期企画名を示す（判定タグ: いっ杯晩酌）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T12:00:00+09:00"
-    },
-    {
-      "tagId": "tag-context-feature-500a8919343a",
-      "reason": "タイトルが進行特性「大会」を明示（判定タグ: 大会）",
       "confidence": "高",
       "evidenceRefs": [
         "evidence-approved-tags"
@@ -297,14 +288,14 @@
     "updatedAt": "2026-08-04T12:00:00+09:00"
   },
   "provenance": {
-    "inputFingerprint": "f5dd4ec9d3edbca57d3d9c559f0d8f2446ebe4c89a95255cf63a30255801cb54",
+    "inputFingerprint": "74d6b9eb8564fba95970e4c889dd710f772e61b44e9f22597b4e21f50375ee7a",
     "generatorVersion": "v8-available-30-migration-1.0.0",
     "generatedAt": "2026-08-04T12:00:00+09:00",
     "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T12:00:00+09:00",
-    "basis": "提供データの明示30件を全件移行し、時刻は既存承認済み23件だけを収録"
+    "approvedAt": "2026-08-26T23:08:37+09:00",
+    "basis": "運用者の横断是正要求に基づき全進行特性を再監査し、公開タイトルに直接根拠がない大会タグを除外"
   }
 }
