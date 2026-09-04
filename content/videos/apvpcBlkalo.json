@@ -44,6 +44,12 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "24fffd9a791dfc340e1742a4046bd3c972bb9fc6e6bdc501d7b01a9da4c9ca26"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "c7d92d8b6b450a8a78e777c6564b14c9c4d01d3bf3dd5c9b627d1088e245a76d"
     }
   ],
   "tagAssignments": [
@@ -118,10 +124,215 @@
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "おかえり",
+        "weight": 70
+      },
+      {
+        "term": "おめでとう",
+        "weight": 66
+      },
+      {
+        "term": "壺",
+        "weight": 50
+      },
+      {
+        "term": "助かる",
+        "weight": 49
+      },
+      {
+        "term": "かわいい",
+        "weight": 48
+      },
+      {
+        "term": "雪",
+        "weight": 45
+      },
+      {
+        "term": "ルイス",
+        "weight": 41
+      },
+      {
+        "term": "頑張る",
+        "weight": 37
+      },
+      {
+        "term": "おじ",
+        "weight": 32
+      },
+      {
+        "term": "うまい",
+        "weight": 31
+      },
+      {
+        "term": "キレ",
+        "weight": 29
+      },
+      {
+        "term": "フミ",
+        "weight": 28
+      },
+      {
+        "term": "わかる",
+        "weight": 25
+      },
+      {
+        "term": "おじさん",
+        "weight": 23
+      },
+      {
+        "term": "まだ",
+        "weight": 23
+      },
+      {
+        "term": "配信",
+        "weight": 22
+      },
+      {
+        "term": "クリア",
+        "weight": 20
+      },
+      {
+        "term": "食べる",
+        "weight": 18
+      },
+      {
+        "term": "耐久",
+        "weight": 17
+      },
+      {
+        "term": "来る",
+        "weight": 17
+      },
+      {
+        "term": "もろ",
+        "weight": 16
+      },
+      {
+        "term": "bgm",
+        "weight": 15
+      },
+      {
+        "term": "終わる",
+        "weight": 15
+      },
+      {
+        "term": "鞭",
+        "weight": 13
+      },
+      {
+        "term": "怒る",
+        "weight": 12
+      },
+      {
+        "term": "惜しい",
+        "weight": 11
+      },
+      {
+        "term": "大好き",
+        "weight": 11
+      },
+      {
+        "term": "白",
+        "weight": 11
+      },
+      {
+        "term": "ママ",
+        "weight": 9
+      },
+      {
+        "term": "晴",
+        "weight": 8
+      },
+      {
+        "term": "声",
+        "weight": 8
+      },
+      {
+        "term": "みかん",
+        "weight": 7
+      },
+      {
+        "term": "大丈夫",
+        "weight": 7
+      },
+      {
+        "term": "落ち着く",
+        "weight": 7
+      },
+      {
+        "term": "好き",
+        "weight": 6
+      },
+      {
+        "term": "早い",
+        "weight": 6
+      },
+      {
+        "term": "すく",
+        "weight": 5
+      },
+      {
+        "term": "やめる",
+        "weight": 5
+      },
+      {
+        "term": "出る",
+        "weight": 5
+      },
+      {
+        "term": "人",
+        "weight": 5
+      },
+      {
+        "term": "幼女",
+        "weight": 5
+      },
+      {
+        "term": "ゲーム",
+        "weight": 3
+      },
+      {
+        "term": "戻る",
+        "weight": 3
+      },
+      {
+        "term": "落ちる",
+        "weight": 3
+      },
+      {
+        "term": "離婚",
+        "weight": 2
+      },
+      {
+        "term": "アッキーナ",
+        "weight": 1
+      },
+      {
+        "term": "すごい",
+        "weight": 1
+      },
+      {
+        "term": "フラグ",
+        "weight": 1
+      },
+      {
+        "term": "行く",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "c7d92d8b6b450a8a78e777c6564b14c9c4d01d3bf3dd5c9b627d1088e245a76d",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "97447d54bea4b8c542046901487417bcf344c1a03a3db1a15323157c26b5603d",
