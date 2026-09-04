@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "d30dde399b18f0d5cc9ad8169f7e38fced03317105b37e6df70247335a4f68fe"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "24ad5e8616846524e81f676cced7e0d592f083edf705bc7431d1f3b83c0672e9"
     }
   ],
   "tagAssignments": [
@@ -342,10 +348,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "すごい",
+        "weight": 46
+      },
+      {
+        "term": "かわいい",
+        "weight": 37
+      },
+      {
+        "term": "うまい",
+        "weight": 29
+      },
+      {
+        "term": "魔王",
+        "weight": 29
+      },
+      {
+        "term": "先生",
+        "weight": 26
+      },
+      {
+        "term": "声",
+        "weight": 23
+      },
+      {
+        "term": "面白い",
+        "weight": 22
+      },
+      {
+        "term": "ai",
+        "weight": 20
+      },
+      {
+        "term": "怖い",
+        "weight": 20
+      },
+      {
+        "term": "最後",
+        "weight": 18
+      },
+      {
+        "term": "話",
+        "weight": 18
+      },
+      {
+        "term": "トラウマ",
+        "weight": 17
+      },
+      {
+        "term": "音",
+        "weight": 15
+      },
+      {
+        "term": "勇者",
+        "weight": 15
+      },
+      {
+        "term": "雪",
+        "weight": 14
+      },
+      {
+        "term": "くし",
+        "weight": 13
+      },
+      {
+        "term": "すげる",
+        "weight": 13
+      },
+      {
+        "term": "人",
+        "weight": 12
+      },
+      {
+        "term": "おもろい",
+        "weight": 11
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 11
+      },
+      {
+        "term": "脱臼",
+        "weight": 10
+      },
+      {
+        "term": "さすが",
+        "weight": 9
+      },
+      {
+        "term": "ダメ",
+        "weight": 8
+      },
+      {
+        "term": "ミノタウロス",
+        "weight": 8
+      },
+      {
+        "term": "やばい",
+        "weight": 8
+      },
+      {
+        "term": "わかる",
+        "weight": 8
+      },
+      {
+        "term": "楽しい",
+        "weight": 8
+      },
+      {
+        "term": "頑張る",
+        "weight": 8
+      },
+      {
+        "term": "強い",
+        "weight": 8
+      },
+      {
+        "term": "ナイス",
+        "weight": 7
+      },
+      {
+        "term": "説明",
+        "weight": 7
+      },
+      {
+        "term": "料理",
+        "weight": 7
+      },
+      {
+        "term": "大丈夫",
+        "weight": 5
+      },
+      {
+        "term": "クリア",
+        "weight": 4
+      },
+      {
+        "term": "独特",
+        "weight": 4
+      },
+      {
+        "term": "いける",
+        "weight": 3
+      },
+      {
+        "term": "銀行",
+        "weight": 3
+      },
+      {
+        "term": "優しい",
+        "weight": 3
+      },
+      {
+        "term": "鷲尾",
+        "weight": 3
+      },
+      {
+        "term": "ギャル",
+        "weight": 2
+      },
+      {
+        "term": "姉さん",
+        "weight": 2
+      },
+      {
+        "term": "出る",
+        "weight": 2
+      },
+      {
+        "term": "笑う",
+        "weight": 2
+      },
+      {
+        "term": "おる",
+        "weight": 1
+      },
+      {
+        "term": "ぱいぱい",
+        "weight": 1
+      },
+      {
+        "term": "パパ",
+        "weight": 1
+      },
+      {
+        "term": "ふざける",
+        "weight": 1
+      },
+      {
+        "term": "悪口",
+        "weight": 1
+      },
+      {
+        "term": "難しい",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "24ad5e8616846524e81f676cced7e0d592f083edf705bc7431d1f3b83c0672e9",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "3f018235bd49634bc7a7b7b76dce085d9ebc7c6d9a9683500f616d9bc37f7e8d",
