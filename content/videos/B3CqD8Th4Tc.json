@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "01d82059c884d120367e7552c77f5b90d9e6045b5b31fc18174de5f17f033860"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "a88feac63379acddc6a1463673da6c978147f6b62045db8fb76eaa3f92e6554b"
     }
   ],
   "tagAssignments": [
@@ -315,10 +321,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "楽しみ",
+        "weight": 62
+      },
+      {
+        "term": "丹",
+        "weight": 62
+      },
+      {
+        "term": "かわいい",
+        "weight": 60
+      },
+      {
+        "term": "恒",
+        "weight": 52
+      },
+      {
+        "term": "たん",
+        "weight": 50
+      },
+      {
+        "term": "かっこいい",
+        "weight": 47
+      },
+      {
+        "term": "荒",
+        "weight": 43
+      },
+      {
+        "term": "笛",
+        "weight": 43
+      },
+      {
+        "term": "わくわく",
+        "weight": 33
+      },
+      {
+        "term": "タン",
+        "weight": 30
+      },
+      {
+        "term": "刃",
+        "weight": 29
+      },
+      {
+        "term": "男",
+        "weight": 26
+      },
+      {
+        "term": "わかる",
+        "weight": 23
+      },
+      {
+        "term": "誕生",
+        "weight": 23
+      },
+      {
+        "term": "すごい",
+        "weight": 21
+      },
+      {
+        "term": "ついえる",
+        "weight": 19
+      },
+      {
+        "term": "どうぞ",
+        "weight": 17
+      },
+      {
+        "term": "星",
+        "weight": 17
+      },
+      {
+        "term": "楓",
+        "weight": 17
+      },
+      {
+        "term": "ボイス",
+        "weight": 15
+      },
+      {
+        "term": "嬉しい",
+        "weight": 15
+      },
+      {
+        "term": "おめでとう",
+        "weight": 12
+      },
+      {
+        "term": "キャス",
+        "weight": 12
+      },
+      {
+        "term": "スタレ",
+        "weight": 12
+      },
+      {
+        "term": "ずっと",
+        "weight": 12
+      },
+      {
+        "term": "セイレンス",
+        "weight": 12
+      },
+      {
+        "term": "マネウォ",
+        "weight": 12
+      },
+      {
+        "term": "メロ",
+        "weight": 12
+      },
+      {
+        "term": "月",
+        "weight": 12
+      },
+      {
+        "term": "おぉ",
+        "weight": 10
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 10
+      },
+      {
+        "term": "配信",
+        "weight": 10
+      },
+      {
+        "term": "いっぱい",
+        "weight": 7
+      },
+      {
+        "term": "ガチ",
+        "weight": 7
+      },
+      {
+        "term": "かっこよい",
+        "weight": 7
+      },
+      {
+        "term": "応",
+        "weight": 7
+      },
+      {
+        "term": "激",
+        "weight": 7
+      },
+      {
+        "term": "大地",
+        "weight": 7
+      },
+      {
+        "term": "おおう",
+        "weight": 4
+      },
+      {
+        "term": "コウ",
+        "weight": 4
+      },
+      {
+        "term": "ついてる",
+        "weight": 4
+      },
+      {
+        "term": "モンエナ",
+        "weight": 4
+      },
+      {
+        "term": "飲",
+        "weight": 4
+      },
+      {
+        "term": "開拓",
+        "weight": 4
+      },
+      {
+        "term": "本当に",
+        "weight": 4
+      },
+      {
+        "term": "アツ",
+        "weight": 1
+      },
+      {
+        "term": "おやすみ",
+        "weight": 1
+      },
+      {
+        "term": "オンパロス",
+        "weight": 1
+      },
+      {
+        "term": "すぎる",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "a88feac63379acddc6a1463673da6c978147f6b62045db8fb76eaa3f92e6554b",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "905204f08a314f9ec61a9a5a0281284a96f7f46d4e6ddf388f6bc5a5c3a987cb",
