@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "6ef6273dec8c40fae08c3b9d1ba0eb98c179cc1b946f88e7a7694ccbfa248699"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "ee1f83552d57c2ebf7e421d96f1cb6a29b55c2cc9fc48b8414e1b18387504c7b"
     }
   ],
   "tagAssignments": [
@@ -243,10 +249,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "吸う",
+        "weight": 95
+      },
+      {
+        "term": "タバコ",
+        "weight": 92
+      },
+      {
+        "term": "作業",
+        "weight": 77
+      },
+      {
+        "term": "vape",
+        "weight": 71
+      },
+      {
+        "term": "喫煙",
+        "weight": 69
+      },
+      {
+        "term": "わかる",
+        "weight": 63
+      },
+      {
+        "term": "人",
+        "weight": 63
+      },
+      {
+        "term": "おめでとう",
+        "weight": 51
+      },
+      {
+        "term": "誕生",
+        "weight": 48
+      },
+      {
+        "term": "配信",
+        "weight": 46
+      },
+      {
+        "term": "あら",
+        "weight": 43
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 41
+      },
+      {
+        "term": "気",
+        "weight": 39
+      },
+      {
+        "term": "イメージ",
+        "weight": 37
+      },
+      {
+        "term": "すごい",
+        "weight": 37
+      },
+      {
+        "term": "へぇ",
+        "weight": 34
+      },
+      {
+        "term": "終わる",
+        "weight": 31
+      },
+      {
+        "term": "寝る",
+        "weight": 31
+      },
+      {
+        "term": "シーシャ",
+        "weight": 28
+      },
+      {
+        "term": "フレーバー",
+        "weight": 28
+      },
+      {
+        "term": "えらい",
+        "weight": 27
+      },
+      {
+        "term": "はい",
+        "weight": 23
+      },
+      {
+        "term": "葉巻",
+        "weight": 23
+      },
+      {
+        "term": "かわいい",
+        "weight": 21
+      },
+      {
+        "term": "楽しい",
+        "weight": 21
+      },
+      {
+        "term": "禁煙",
+        "weight": 19
+      },
+      {
+        "term": "出る",
+        "weight": 19
+      },
+      {
+        "term": "前",
+        "weight": 19
+      },
+      {
+        "term": "美味しい",
+        "weight": 19
+      },
+      {
+        "term": "キャメル",
+        "weight": 17
+      },
+      {
+        "term": "多い",
+        "weight": 17
+      },
+      {
+        "term": "聴く",
+        "weight": 17
+      },
+      {
+        "term": "フリー",
+        "weight": 15
+      },
+      {
+        "term": "レン",
+        "weight": 15
+      },
+      {
+        "term": "高い",
+        "weight": 15
+      },
+      {
+        "term": "大事",
+        "weight": 13
+      },
+      {
+        "term": "ニコチン",
+        "weight": 11
+      },
+      {
+        "term": "バニラ",
+        "weight": 11
+      },
+      {
+        "term": "手",
+        "weight": 11
+      },
+      {
+        "term": "食べる",
+        "weight": 11
+      },
+      {
+        "term": "味",
+        "weight": 11
+      },
+      {
+        "term": "まぁ",
+        "weight": 6
+      },
+      {
+        "term": "若い",
+        "weight": 6
+      },
+      {
+        "term": "吸える",
+        "weight": 4
+      },
+      {
+        "term": "仕事",
+        "weight": 4
+      },
+      {
+        "term": "使う",
+        "weight": 4
+      },
+      {
+        "term": "肌",
+        "weight": 4
+      },
+      {
+        "term": "トムヤムクン",
+        "weight": 1
+      },
+      {
+        "term": "わくわく",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "ee1f83552d57c2ebf7e421d96f1cb6a29b55c2cc9fc48b8414e1b18387504c7b",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "ac9840eea2b88a61df0cc359186fc96b5e45c9dbe42d4c4f9d6f91508a74d242",
