@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "7237655a1ceeb99798b318fb87f90ad82fc556be787e75d6de90f0bc650c9f3d"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "0c1a27a02e07d87056f877f016f8ac26830a1a0f5fdedf4a725dbf061c1b6f39"
     }
   ],
   "tagAssignments": [
@@ -225,10 +231,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "頑張る",
+        "weight": 74
+      },
+      {
+        "term": "織姫",
+        "weight": 70
+      },
+      {
+        "term": "彦星",
+        "weight": 58
+      },
+      {
+        "term": "流れ星",
+        "weight": 52
+      },
+      {
+        "term": "あら",
+        "weight": 46
+      },
+      {
+        "term": "素敵",
+        "weight": 39
+      },
+      {
+        "term": "願い",
+        "weight": 33
+      },
+      {
+        "term": "かわいい",
+        "weight": 32
+      },
+      {
+        "term": "わかる",
+        "weight": 31
+      },
+      {
+        "term": "短冊",
+        "weight": 27
+      },
+      {
+        "term": "雪",
+        "weight": 26
+      },
+      {
+        "term": "大事",
+        "weight": 26
+      },
+      {
+        "term": "つらい",
+        "weight": 25
+      },
+      {
+        "term": "叶う",
+        "weight": 23
+      },
+      {
+        "term": "ついえる",
+        "weight": 21
+      },
+      {
+        "term": "切実",
+        "weight": 21
+      },
+      {
+        "term": "優しい",
+        "weight": 21
+      },
+      {
+        "term": "くすぐる",
+        "weight": 18
+      },
+      {
+        "term": "わくわく",
+        "weight": 17
+      },
+      {
+        "term": "非課税",
+        "weight": 17
+      },
+      {
+        "term": "行く",
+        "weight": 15
+      },
+      {
+        "term": "タラバガニ",
+        "weight": 14
+      },
+      {
+        "term": "ファイトー",
+        "weight": 12
+      },
+      {
+        "term": "願う",
+        "weight": 12
+      },
+      {
+        "term": "おじいちゃん",
+        "weight": 10
+      },
+      {
+        "term": "会える",
+        "weight": 10
+      },
+      {
+        "term": "仕事",
+        "weight": 10
+      },
+      {
+        "term": "消える",
+        "weight": 10
+      },
+      {
+        "term": "猫",
+        "weight": 10
+      },
+      {
+        "term": "ファンタ",
+        "weight": 8
+      },
+      {
+        "term": "ほしい",
+        "weight": 8
+      },
+      {
+        "term": "白",
+        "weight": 8
+      },
+      {
+        "term": "忘れる",
+        "weight": 8
+      },
+      {
+        "term": "無理",
+        "weight": 8
+      },
+      {
+        "term": "流れる",
+        "weight": 8
+      },
+      {
+        "term": "いく",
+        "weight": 6
+      },
+      {
+        "term": "ファイト",
+        "weight": 6
+      },
+      {
+        "term": "記憶",
+        "weight": 6
+      },
+      {
+        "term": "幸せ",
+        "weight": 6
+      },
+      {
+        "term": "人",
+        "weight": 6
+      },
+      {
+        "term": "届く",
+        "weight": 6
+      },
+      {
+        "term": "お金",
+        "weight": 4
+      },
+      {
+        "term": "なんで",
+        "weight": 4
+      },
+      {
+        "term": "ひる",
+        "weight": 4
+      },
+      {
+        "term": "会う",
+        "weight": 4
+      },
+      {
+        "term": "書く",
+        "weight": 4
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 1
+      },
+      {
+        "term": "ゆき",
+        "weight": 1
+      },
+      {
+        "term": "愛す",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "0c1a27a02e07d87056f877f016f8ac26830a1a0f5fdedf4a725dbf061c1b6f39",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "0e75c60815310d112aae4a33d6d24c852e097ff048cad33f6483aa1aaf25124c",
