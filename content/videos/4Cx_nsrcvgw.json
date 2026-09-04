@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "a1d704864df6b9b58522d737d1a4d17c9b39c75e5e8f55beabfb428043a364bb"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "777fb8d91ab6fc5c434c3924307502e449568703a960dfb2ce1c74b6fff8192e"
     }
   ],
   "tagAssignments": [
@@ -270,10 +276,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "かわいい",
+        "weight": 57
+      },
+      {
+        "term": "わかる",
+        "weight": 57
+      },
+      {
+        "term": "かんぱ",
+        "weight": 41
+      },
+      {
+        "term": "人",
+        "weight": 41
+      },
+      {
+        "term": "行く",
+        "weight": 37
+      },
+      {
+        "term": "年上",
+        "weight": 36
+      },
+      {
+        "term": "楽しい",
+        "weight": 33
+      },
+      {
+        "term": "すごい",
+        "weight": 32
+      },
+      {
+        "term": "楽しむ",
+        "weight": 31
+      },
+      {
+        "term": "先生",
+        "weight": 30
+      },
+      {
+        "term": "配信",
+        "weight": 30
+      },
+      {
+        "term": "出る",
+        "weight": 22
+      },
+      {
+        "term": "虫",
+        "weight": 21
+      },
+      {
+        "term": "旅行",
+        "weight": 20
+      },
+      {
+        "term": "大学",
+        "weight": 19
+      },
+      {
+        "term": "可愛がる",
+        "weight": 18
+      },
+      {
+        "term": "えらい",
+        "weight": 16
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 16
+      },
+      {
+        "term": "怖い",
+        "weight": 15
+      },
+      {
+        "term": "嫌",
+        "weight": 13
+      },
+      {
+        "term": "多い",
+        "weight": 13
+      },
+      {
+        "term": "飲む",
+        "weight": 12
+      },
+      {
+        "term": "漫画",
+        "weight": 12
+      },
+      {
+        "term": "あら",
+        "weight": 11
+      },
+      {
+        "term": "おやすみ",
+        "weight": 11
+      },
+      {
+        "term": "楽しみ",
+        "weight": 11
+      },
+      {
+        "term": "寝る",
+        "weight": 11
+      },
+      {
+        "term": "大事",
+        "weight": 11
+      },
+      {
+        "term": "うん",
+        "weight": 9
+      },
+      {
+        "term": "気",
+        "weight": 9
+      },
+      {
+        "term": "好き",
+        "weight": 9
+      },
+      {
+        "term": "電車",
+        "weight": 9
+      },
+      {
+        "term": "東京",
+        "weight": 9
+      },
+      {
+        "term": "無理",
+        "weight": 9
+      },
+      {
+        "term": "甘やかす",
+        "weight": 7
+      },
+      {
+        "term": "晩酌",
+        "weight": 7
+      },
+      {
+        "term": "普通",
+        "weight": 7
+      },
+      {
+        "term": "面白い",
+        "weight": 7
+      },
+      {
+        "term": "どう",
+        "weight": 5
+      },
+      {
+        "term": "やばい",
+        "weight": 4
+      },
+      {
+        "term": "最近",
+        "weight": 4
+      },
+      {
+        "term": "仕事",
+        "weight": 4
+      },
+      {
+        "term": "時間",
+        "weight": 4
+      },
+      {
+        "term": "話",
+        "weight": 4
+      },
+      {
+        "term": "おじさん",
+        "weight": 3
+      },
+      {
+        "term": "無い",
+        "weight": 3
+      },
+      {
+        "term": "わぁ",
+        "weight": 1
+      },
+      {
+        "term": "保健",
+        "weight": 1
+      },
+      {
+        "term": "本当に",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "777fb8d91ab6fc5c434c3924307502e449568703a960dfb2ce1c74b6fff8192e",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "d7aaead0ce63762bc1ba211b31bd3562e6c1017d3884fe16fe9835540c4e6dca",
