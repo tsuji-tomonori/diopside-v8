@@ -38,6 +38,12 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "cc3b994ab77a5524af629cb3ffd908e5e7847175fe27c58489482265dc8e64fc"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "6e630ada0b2bc0095fc666be2944670427868b131207ebe7f82de135c765ab95"
     }
   ],
   "tagAssignments": [
@@ -94,10 +100,215 @@
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "かわいい",
+        "weight": 56
+      },
+      {
+        "term": "ロビン",
+        "weight": 54
+      },
+      {
+        "term": "ホタル",
+        "weight": 52
+      },
+      {
+        "term": "調和",
+        "weight": 48
+      },
+      {
+        "term": "サンデー",
+        "weight": 47
+      },
+      {
+        "term": "人",
+        "weight": 46
+      },
+      {
+        "term": "わかる",
+        "weight": 40
+      },
+      {
+        "term": "花火",
+        "weight": 35
+      },
+      {
+        "term": "秩序",
+        "weight": 32
+      },
+      {
+        "term": "鳥",
+        "weight": 31
+      },
+      {
+        "term": "パンチ",
+        "weight": 29
+      },
+      {
+        "term": "ピノコニー",
+        "weight": 27
+      },
+      {
+        "term": "強い",
+        "weight": 27
+      },
+      {
+        "term": "星",
+        "weight": 27
+      },
+      {
+        "term": "チュン",
+        "weight": 24
+      },
+      {
+        "term": "悩む",
+        "weight": 23
+      },
+      {
+        "term": "姫子",
+        "weight": 21
+      },
+      {
+        "term": "終わる",
+        "weight": 20
+      },
+      {
+        "term": "おじ",
+        "weight": 18
+      },
+      {
+        "term": "演技",
+        "weight": 18
+      },
+      {
+        "term": "選ぶ",
+        "weight": 18
+      },
+      {
+        "term": "夢",
+        "weight": 18
+      },
+      {
+        "term": "アルジェンティ",
+        "weight": 15
+      },
+      {
+        "term": "正解",
+        "weight": 15
+      },
+      {
+        "term": "凸",
+        "weight": 15
+      },
+      {
+        "term": "どう",
+        "weight": 13
+      },
+      {
+        "term": "ボタン",
+        "weight": 13
+      },
+      {
+        "term": "使う",
+        "weight": 12
+      },
+      {
+        "term": "死ぬ",
+        "weight": 12
+      },
+      {
+        "term": "純美",
+        "weight": 12
+      },
+      {
+        "term": "選択",
+        "weight": 12
+      },
+      {
+        "term": "考える",
+        "weight": 11
+      },
+      {
+        "term": "主人公",
+        "weight": 11
+      },
+      {
+        "term": "鳥かご",
+        "weight": 8
+      },
+      {
+        "term": "パズル",
+        "weight": 7
+      },
+      {
+        "term": "男",
+        "weight": 7
+      },
+      {
+        "term": "話",
+        "weight": 7
+      },
+      {
+        "term": "コイン",
+        "weight": 6
+      },
+      {
+        "term": "問題",
+        "weight": 6
+      },
+      {
+        "term": "ついえる",
+        "weight": 4
+      },
+      {
+        "term": "手羽",
+        "weight": 4
+      },
+      {
+        "term": "先",
+        "weight": 4
+      },
+      {
+        "term": "普通",
+        "weight": 4
+      },
+      {
+        "term": "ハヌ",
+        "weight": 3
+      },
+      {
+        "term": "ヨウ",
+        "weight": 3
+      },
+      {
+        "term": "楽しみ",
+        "weight": 3
+      },
+      {
+        "term": "好き",
+        "weight": 3
+      },
+      {
+        "term": "来る",
+        "weight": 3
+      },
+      {
+        "term": "ルアン",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "6e630ada0b2bc0095fc666be2944670427868b131207ebe7f82de135c765ab95",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "76f4a92a8fa3decdbd40ad4256fe48f3272ba97daaeaa3611c1adb868a1dc8ef",
