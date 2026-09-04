@@ -52,6 +52,12 @@
       "inputFingerprint": "4d1a211debb6d469a52c0f4cdd25559f1050c0eecc6c9ab0c0f2147e6cc1011d",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 5888
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "5454c480e1cbe3aae893ec426da8159589ad1db3d152a79872f4f0e4820b95d6"
     }
   ],
   "tagAssignments": [
@@ -311,10 +317,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "ナイス",
+        "weight": 55
+      },
+      {
+        "term": "献上",
+        "weight": 47
+      },
+      {
+        "term": "楽しい",
+        "weight": 46
+      },
+      {
+        "term": "楽しみ",
+        "weight": 40
+      },
+      {
+        "term": "くい",
+        "weight": 38
+      },
+      {
+        "term": "どん",
+        "weight": 38
+      },
+      {
+        "term": "スプラ",
+        "weight": 37
+      },
+      {
+        "term": "惜しい",
+        "weight": 35
+      },
+      {
+        "term": "女王",
+        "weight": 34
+      },
+      {
+        "term": "すい",
+        "weight": 31
+      },
+      {
+        "term": "かわいい",
+        "weight": 30
+      },
+      {
+        "term": "バイト",
+        "weight": 30
+      },
+      {
+        "term": "すごい",
+        "weight": 28
+      },
+      {
+        "term": "ついえる",
+        "weight": 26
+      },
+      {
+        "term": "ナイ",
+        "weight": 25
+      },
+      {
+        "term": "スー",
+        "weight": 23
+      },
+      {
+        "term": "強い",
+        "weight": 21
+      },
+      {
+        "term": "了解",
+        "weight": 20
+      },
+      {
+        "term": "肉",
+        "weight": 19
+      },
+      {
+        "term": "面白い",
+        "weight": 19
+      },
+      {
+        "term": "コラボ",
+        "weight": 18
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 18
+      },
+      {
+        "term": "優しい",
+        "weight": 18
+      },
+      {
+        "term": "ガスト",
+        "weight": 17
+      },
+      {
+        "term": "普通",
+        "weight": 16
+      },
+      {
+        "term": "首",
+        "weight": 15
+      },
+      {
+        "term": "キル",
+        "weight": 14
+      },
+      {
+        "term": "やばい",
+        "weight": 14
+      },
+      {
+        "term": "頑張る",
+        "weight": 14
+      },
+      {
+        "term": "ヨコヅナ",
+        "weight": 13
+      },
+      {
+        "term": "ついに",
+        "weight": 12
+      },
+      {
+        "term": "ナイスゥ",
+        "weight": 12
+      },
+      {
+        "term": "わくわく",
+        "weight": 12
+      },
+      {
+        "term": "食べる",
+        "weight": 10
+      },
+      {
+        "term": "生首",
+        "weight": 9
+      },
+      {
+        "term": "おおう",
+        "weight": 8
+      },
+      {
+        "term": "パブ",
+        "weight": 8
+      },
+      {
+        "term": "前線",
+        "weight": 8
+      },
+      {
+        "term": "大丈夫",
+        "weight": 8
+      },
+      {
+        "term": "セーフ",
+        "weight": 6
+      },
+      {
+        "term": "丼",
+        "weight": 6
+      },
+      {
+        "term": "臭",
+        "weight": 5
+      },
+      {
+        "term": "捧げる",
+        "weight": 5
+      },
+      {
+        "term": "ジビエ",
+        "weight": 3
+      },
+      {
+        "term": "ジャッカル",
+        "weight": 3
+      },
+      {
+        "term": "ドン",
+        "weight": 3
+      },
+      {
+        "term": "ビーズ",
+        "weight": 3
+      },
+      {
+        "term": "マイ",
+        "weight": 3
+      },
+      {
+        "term": "いく",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "5454c480e1cbe3aae893ec426da8159589ad1db3d152a79872f4f0e4820b95d6",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "746894c98c19691d2bdb55be3cfa0cc35fd0b9311f38eaf0b73fb8d02814d2fa",
