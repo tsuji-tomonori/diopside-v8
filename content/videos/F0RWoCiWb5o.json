@@ -44,6 +44,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "f1431d2ba592aa2495ffe22e94a646be586e3419576c33bede2790d434080188"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "73ea9437c79170b0cf3219252e97dfbf4f984c7cdfe71a68513e10f93c86f52a"
     }
   ],
   "tagAssignments": [
@@ -411,10 +417,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "最高",
+        "weight": 73
+      },
+      {
+        "term": "かわいい",
+        "weight": 72
+      },
+      {
+        "term": "かっこいい",
+        "weight": 60
+      },
+      {
+        "term": "おおう",
+        "weight": 46
+      },
+      {
+        "term": "うまい",
+        "weight": 45
+      },
+      {
+        "term": "かっこよい",
+        "weight": 37
+      },
+      {
+        "term": "声",
+        "weight": 36
+      },
+      {
+        "term": "タコ",
+        "weight": 34
+      },
+      {
+        "term": "綺麗",
+        "weight": 34
+      },
+      {
+        "term": "睡眠",
+        "weight": 33
+      },
+      {
+        "term": "はい",
+        "weight": 31
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 30
+      },
+      {
+        "term": "頑張る",
+        "weight": 30
+      },
+      {
+        "term": "すごい",
+        "weight": 29
+      },
+      {
+        "term": "ちる",
+        "weight": 29
+      },
+      {
+        "term": "ヒーロー",
+        "weight": 28
+      },
+      {
+        "term": "すぎる",
+        "weight": 22
+      },
+      {
+        "term": "伊波",
+        "weight": 22
+      },
+      {
+        "term": "素敵",
+        "weight": 18
+      },
+      {
+        "term": "うる",
+        "weight": 16
+      },
+      {
+        "term": "おぉ",
+        "weight": 16
+      },
+      {
+        "term": "スタッフ",
+        "weight": 16
+      },
+      {
+        "term": "ノンレム",
+        "weight": 15
+      },
+      {
+        "term": "むゆち",
+        "weight": 15
+      },
+      {
+        "term": "レム",
+        "weight": 14
+      },
+      {
+        "term": "ええ",
+        "weight": 13
+      },
+      {
+        "term": "歌",
+        "weight": 12
+      },
+      {
+        "term": "歌う",
+        "weight": 12
+      },
+      {
+        "term": "女将",
+        "weight": 12
+      },
+      {
+        "term": "まじ",
+        "weight": 9
+      },
+      {
+        "term": "美しい",
+        "weight": 9
+      },
+      {
+        "term": "おかえり",
+        "weight": 8
+      },
+      {
+        "term": "星",
+        "weight": 8
+      },
+      {
+        "term": "ハイッ",
+        "weight": 6
+      },
+      {
+        "term": "ライ",
+        "weight": 6
+      },
+      {
+        "term": "好き",
+        "weight": 6
+      },
+      {
+        "term": "新人",
+        "weight": 6
+      },
+      {
+        "term": "天才",
+        "weight": 6
+      },
+      {
+        "term": "導",
+        "weight": 6
+      },
+      {
+        "term": "良",
+        "weight": 6
+      },
+      {
+        "term": "カッコ",
+        "weight": 4
+      },
+      {
+        "term": "マジ",
+        "weight": 4
+      },
+      {
+        "term": "ラップ",
+        "weight": 4
+      },
+      {
+        "term": "楽しみ",
+        "weight": 4
+      },
+      {
+        "term": "いく",
+        "weight": 3
+      },
+      {
+        "term": "楽しい",
+        "weight": 3
+      },
+      {
+        "term": "高音",
+        "weight": 3
+      },
+      {
+        "term": "合う",
+        "weight": 2
+      },
+      {
+        "term": "ハモリ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "73ea9437c79170b0cf3219252e97dfbf4f984c7cdfe71a68513e10f93c86f52a",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "02bc59fa738dc6ffb31573e0664b72fc5957bc01b09f1a94d317ffa2eab10320",
