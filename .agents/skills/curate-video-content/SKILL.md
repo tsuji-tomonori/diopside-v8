@@ -43,7 +43,9 @@ Record only evidence type, a safe source label, input fingerprint, and coverage 
 
 ## 4. Assign tags
 
-Resolve tags to immutable IDs in the current taxonomy. Preserve official display names. Every assignment needs a tag-specific reason containing the canonical name or explicit deciding fact, confidence `高` or `中`, resolvable evidence references, and review time.
+Read `references/tag-assignment-authority.md` before assigning or reviewing tags. Resolve IDs, display names, and the final inclusion/exclusion decision from the current taxonomy; use `spec/sources/tag-assignment-audit-v1.json` only for deterministic candidates and regression examples. Do not treat legacy aliases, the daily audit sheet, or a title keyword by itself as a competing semantic authority.
+
+Preserve official display names. Every assignment needs a tag-specific reason containing the canonical name or explicit deciding fact, confidence `高` or `中`, resolvable evidence references, and review time. Run `npm run audit:tag-assignments` after a tag change. A blocking candidate without its tag or an explicit fixed exclusion stops approval; review-only candidates require video-specific evidence and a recorded reason.
 
 Enforce all cardinality and conditional rules in Issue #1. Do not publish `低`, pending, prohibited placeholders, duplicate IDs, unknown IDs, or 13+ non-person/group tags without an explicit over-tag human review reason.
 

@@ -213,6 +213,11 @@
 | `src/domain/search.ts` | FunctionDeclaration | `tagCountsForResults` |
 | `src/domain/search.ts` | FunctionDeclaration | `tokenizeQuery` |
 | `src/domain/search.ts` | FunctionDeclaration | `validateCondition` |
+| `src/domain/tag-assignment-audit.ts` | FunctionDeclaration | `auditTagAssignmentCoverage` |
+| `src/domain/tag-assignment-audit.ts` | InterfaceDeclaration | `TagAssignmentAuditResult` |
+| `src/domain/tag-assignment-audit.ts` | InterfaceDeclaration | `TagAssignmentAuditRow` |
+| `src/domain/tag-assignment-audit.ts` | TypeAliasDeclaration | `TagAssignmentAuditSource` |
+| `src/domain/tag-assignment-audit.ts` | VariableStatement | `tagAssignmentAuditSourceSchema` |
 | `src/domain/validation.ts` | FunctionDeclaration | `scanPublicBoundary` |
 | `src/domain/validation.ts` | FunctionDeclaration | `validateCanonicalVideo` |
 | `src/domain/validation.ts` | FunctionDeclaration | `validateChannelPersonMappings` |
@@ -256,6 +261,7 @@
 - `src/domain/collaboration.test.ts`
 - `src/domain/game-title-detection.test.ts`
 - `src/domain/search.test.ts`
+- `src/domain/tag-assignment-audit.test.ts`
 - `src/domain/validation.test.ts`
 - `src/features/collaborations/CollaborationDetailPages.test.tsx`
 - `src/features/detail/wordCloudLayout.test.ts`
@@ -269,4 +275,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力77ファイル、公開契約188件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力80ファイル、公開契約193件です。
