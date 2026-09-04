@@ -1,7 +1,7 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 34
+- カタログ版: 35
 - 更新日: 2026-09-04
 - 正本: `spec/requirements/requirements.json`
 
@@ -42,6 +42,8 @@
 | `V8-DISPLAY-017` | 2 | 有効 | データ | diopside v8のカスタム絵文字集計は、公開チャットリプレイを取得できる動画は、通常のUnicode絵文字を除外し、全編に現れるカスタム絵文字の出現回数を種類別に集計し、YouTubeが公開する信頼済み画像URLを取得できる種類へ関連付けなければならない。画像URLを取得できない種類も除外せず、項目別回数の合計は総使用回数と一致しなければならない。を**satisfy** | 全件集計・Unicode除外・画像URL許可ホスト・合計整合試験 |
 | `V8-DISPLAY-018` | 2 | 有効 | 機能 | diopside v8のカスタム絵文字表示は、カスタム絵文字を集計済みの動画詳細は、全種類を省略せず、使用回数の降順でショートコード、正確な回数、総使用回数に占める比率を比較できるチャートとして表示しなければならない。画像を取得できる種類ではショートコードの横に絵文字画像を表示し、取得不能または読込失敗でもショートコード、回数、比率を維持しなければならない。を**satisfy** | 動画詳細画面・画像併記・フォールバック・全項目件数・アクセシビリティ試験 |
 | `V8-DISPLAY-019` | 2 | 有効 | 機能 | diopside v8のエンティティ探索画面は、人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならず、公開中の関連動画が1件以上あるエンティティだけを一覧件数とカードへ含めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。を**satisfy** | 一覧絞り込み・0件除外・関係表示・検索候補・動画詳細導線試験 |
+| `V8-DISPLAY-020` | 1 | 有効 | 機能 | diopside v8のサイト識別表示は、公開画面は、diopsideが白雪巴さんの公開アーカイブを扱う非公式ファンサイトであることを明示しなければならない。を**satisfy** | 公開画面・メタデータ文言試験 |
+| `V8-DISPLAY-021` | 1 | 有効 | 機能 | diopside v8のAI生成情報表示は、公開画面は、タグ、あらすじ、タイムスタンプがAIによって生成され、誤りを含む場合があることを明示し、人が確認した情報であると表示してはならない。を**satisfy** | 検索画面・動画詳細・共通フッター文言試験 |
 | `V8-INGEST-001` | 3 | 有効 | インターフェース | diopside v8のローカルprivate ingestion要求は、運用者が指定するingestion要求は11文字のYouTube video_id一項目だけを含み、認証情報または内部状態を含んではならない。を**強制する** | 契約・CLI単体試験 |
 | `V8-INGEST-002` | 4 | 有効 | データ | diopside v8のprivate backfill対象は、複数動画の歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。を**強制する** | manifest生成・改ざん・ローカル実行試験 |
 | `V8-INGEST-003` | 2 | 有効 | データ | diopside v8のprivate ingestion状態は、進捗状態はVideoIngestion単一DynamoDB tableのvideo_id partition keyだけを使う一動画一itemで保持し、sort key、GSI、用途別item typeを追加してはならない。を**強制する** | CDK template・状態repository・ローカル統合試験 |
@@ -739,6 +741,36 @@ diopside v8のエンティティ探索画面は、人物・作品・企画一覧
 要求源: spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, spec/sources/owner-directive-2026-09-04-hide-zero-video-entities.md, user:2026-08-31, user:2026-09-04
 検証証跡: src/features/entities/EntityIndexPage.test.tsx, e2e/detail.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/entities/EntityIndexPage.tsx,src/features/search/SearchPage.tsx,src/features/detail/VideoDetailPage.tsx,src/App.tsx; テスト=src/features/entities/EntityIndexPage.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-31-semantic-entity-model.md,spec/sources/owner-directive-2026-09-04-hide-zero-video-entities.md,dev-standard assured profile
+
+## V8-DISPLAY-020: 公開画面はdiopsideが白雪巴さんの非公式ファンサイトであることを明示しなければならない
+
+diopside v8のサイト識別表示は、公開画面は、diopsideが白雪巴さんの公開アーカイブを扱う非公式ファンサイトであることを明示しなければならない。を**satisfy**。
+
+根拠: 公式サイトまたは公式サービスとの誤認を避け、利用者がサイトの立場を把握したうえで利用できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-020-1` 前提: 利用者または検索サービスが公開画面を表示する。条件: 画面本文またはページ説明を確認する。期待結果: 白雪巴さんの公開アーカイブを扱う非公式ファンサイトであることを確認できる。。
+
+要求源: spec/sources/owner-directive-2026-09-04-ai-generated-fan-site-disclosure.md, user:2026-09-04
+検証証跡: tests/site-disclosure.test.ts, e2e/detail.spec.ts, index.html
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/App.tsx,index.html; テスト=tests/site-disclosure.test.ts,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-09-04-ai-generated-fan-site-disclosure.md,dev-standard assured profile
+
+## V8-DISPLAY-021: 公開画面はタグ・あらすじ・タイムスタンプがAI生成であることを明示しなければならない
+
+diopside v8のAI生成情報表示は、公開画面は、タグ、あらすじ、タイムスタンプがAIによって生成され、誤りを含む場合があることを明示し、人が確認した情報であると表示してはならない。を**satisfy**。
+
+根拠: 生成情報の作成主体と限界を正確に伝え、人による確認済み情報との誤認を避けるため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-021-1` 前提: 利用者が検索画面または動画詳細を表示する。条件: タグ、あらすじ、タイムスタンプまたは共通フッターの説明を確認する。期待結果: 3種類の情報がAI生成で誤りを含む場合があることを確認でき、公開画面に「人が確認した」または同義の確認済み表現が表示されない。。
+
+要求源: spec/sources/owner-directive-2026-09-04-ai-generated-fan-site-disclosure.md, user:2026-09-04
+検証証跡: tests/site-disclosure.test.ts, e2e/search.spec.ts, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/App.tsx,src/features/search/SearchPage.tsx,src/features/detail/VideoDetailPage.tsx; テスト=tests/site-disclosure.test.ts,e2e/search.spec.ts,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-09-04-ai-generated-fan-site-disclosure.md,dev-standard assured profile
 
 ## V8-INGEST-001: ローカルingestion要求はvideo_idだけを含む厳格な11文字契約でなければならない
 

@@ -16,14 +16,18 @@ const root = process.cwd();
 const latest = JSON.parse(readFileSync(path.join(root, 'public/data/latest.json'), 'utf8')) as { releaseId: string };
 
 test.describe('動画詳細', () => {
-  test('基本情報、確認済みタグ、未提供のタイムスタンプ、更新日、YouTubeリンクを表示する', async ({ page }) => {
+  test('基本情報、AI生成タグ、未提供のタイムスタンプ、更新日、YouTubeリンクを表示する', async ({ page }) => {
     const requests = await preparePage(page);
     await page.goto('/#/video/7keH8yrqabc');
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Detroit: Become Human');
     await expect(page.getByRole('heading', { name: 'タグ' })).toBeVisible();
+    await expect(page.getByText('AIが生成した検索情報')).toBeVisible();
     await expect(page.getByText('YouTube公式タグではありません')).toBeVisible();
     await expect(page.getByText('主ジャンルゲーム')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'タイムスタンプ' })).toBeVisible();
+    await expect(page.getByText('AIが生成した動画内の目次')).toBeVisible();
+    await expect(page.getByText('diopside — 白雪巴さんの公開アーカイブを探せる非公式ファンサイトです。')).toBeVisible();
+    await expect(page.getByText('タグ・あらすじ・タイムスタンプはAIが生成しており、誤りを含む場合があります。')).toBeVisible();
     await expect(page.locator('.unavailable strong')).toHaveCount(2);
     await expect(page.locator('.unavailable strong').nth(0)).toContainText('未作成 — 全編確認不足');
     await expect(page.locator('.unavailable strong').nth(1)).toContainText('未作成 — 資料不足');
@@ -54,6 +58,7 @@ test.describe('動画詳細', () => {
     const videoId = 'ewtbVStzFUc';
     await page.goto(`/#/video/${videoId}`);
     await expect(page.getByRole('heading', { name: 'あらすじ' })).toBeVisible();
+    await expect(page.getByText('AIが生成した配信のまとめ')).toBeVisible();
     await expect(page.locator('.synopsis-copy')).toContainText('新作グラコロと限定ソース');
     await expect(page.locator('.featured-quote')).toContainText('これ明日も食べたいね。');
     await expect(page.getByRole('link', { name: 'この場面から見る' })).toHaveAttribute(

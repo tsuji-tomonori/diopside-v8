@@ -2015,6 +2015,74 @@ const customEmojiUsageRequirements = [
     last_changed_by: 'CHG-20260903-custom-emoji-images',
   },
 ];
+const siteDisclosureRequirements = [
+  {
+    id: 'V8-DISPLAY-020',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: '公開画面はdiopsideが白雪巴さんの非公式ファンサイトであることを明示しなければならない',
+    subject: 'diopside v8のサイト識別表示',
+    action: 'satisfy',
+    object: '公開画面は、diopsideが白雪巴さんの公開アーカイブを扱う非公式ファンサイトであることを明示しなければならない。',
+    rationale: '公式サイトまたは公式サービスとの誤認を避け、利用者がサイトの立場を把握したうえで利用できるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-09-04-ai-generated-fan-site-disclosure.md', 'user:2026-09-04'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-020-1',
+        given: '利用者または検索サービスが公開画面を表示する',
+        when: '画面本文またはページ説明を確認する',
+        then: '白雪巴さんの公開アーカイブを扱う非公式ファンサイトであることを確認できる。',
+      },
+    ],
+    verification: {
+      method: '公開画面・メタデータ文言試験',
+      evidence: 'tests/site-disclosure.test.ts, e2e/detail.spec.ts, index.html',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/App.tsx', 'index.html'],
+      tests: ['tests/site-disclosure.test.ts', 'e2e/detail.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-09-04-ai-generated-fan-site-disclosure.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260904-ai-generated-fan-site-disclosure',
+  },
+  {
+    id: 'V8-DISPLAY-021',
+    revision: 1,
+    status: 'active',
+    scope: 'product',
+    category: 'functional',
+    type: 'functional',
+    title: '公開画面はタグ・あらすじ・タイムスタンプがAI生成であることを明示しなければならない',
+    subject: 'diopside v8のAI生成情報表示',
+    action: 'satisfy',
+    object: '公開画面は、タグ、あらすじ、タイムスタンプがAIによって生成され、誤りを含む場合があることを明示し、人が確認した情報であると表示してはならない。',
+    rationale: '生成情報の作成主体と限界を正確に伝え、人による確認済み情報との誤認を避けるため。',
+    source_refs: ['spec/sources/owner-directive-2026-09-04-ai-generated-fan-site-disclosure.md', 'user:2026-09-04'],
+    acceptance_criteria: [
+      {
+        id: 'AC-V8-DISPLAY-021-1',
+        given: '利用者が検索画面または動画詳細を表示する',
+        when: 'タグ、あらすじ、タイムスタンプまたは共通フッターの説明を確認する',
+        then: '3種類の情報がAI生成で誤りを含む場合があることを確認でき、公開画面に「人が確認した」または同義の確認済み表現が表示されない。',
+      },
+    ],
+    verification: {
+      method: '検索画面・動画詳細・共通フッター文言試験',
+      evidence: 'tests/site-disclosure.test.ts, e2e/search.spec.ts, e2e/detail.spec.ts',
+    },
+    traces: {
+      design: ['docs/design/generated/system.gen.md'],
+      implementation: ['src/App.tsx', 'src/features/search/SearchPage.tsx', 'src/features/detail/VideoDetailPage.tsx'],
+      tests: ['tests/site-disclosure.test.ts', 'e2e/search.spec.ts', 'e2e/detail.spec.ts'],
+      standards: ['spec/sources/owner-directive-2026-09-04-ai-generated-fan-site-disclosure.md', 'dev-standard assured profile'],
+    },
+    last_changed_by: 'CHG-20260904-ai-generated-fan-site-disclosure',
+  },
+];
 const generatedRequirements = [
   ...requirements,
   ...ownerDirectiveRequirements,
@@ -2029,6 +2097,7 @@ const generatedRequirements = [
   ...gameCatalogRequirements,
   ...semanticEntityRequirements,
   ...customEmojiUsageRequirements,
+  ...siteDisclosureRequirements,
 ];
 const issue465OverrideIds = new Set([
   'V8-COST-001',
@@ -2049,7 +2118,7 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 34),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 35),
   product: 'diopside v8',
   updated_at: existingCatalog?.updated_at && existingCatalog.updated_at > '2026-09-04' ? existingCatalog.updated_at : '2026-09-04',
   requirements: canonicalRequirements,
@@ -2065,4 +2134,4 @@ writeFileSync(mapPath, `${JSON.stringify({
   })),
 }, null, 2)}\n`);
 
-console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + songPerformanceRequirements.length + collaborationPageRequirements.length + seriesPageRequirements.length + searchSuggestionRequirements.length + searchInteractionRequirements.length + gameCatalogRequirements.length + semanticEntityRequirements.length + customEmojiUsageRequirements.length}件の要件正本を生成しました。`);
+console.log(`Issue #1由来${requirements.length}件と所有者指示${ownerDirectiveRequirements.length + timestampHarnessRequirements.length + synopsisHarnessRequirements.length + workPageRequirements.length + songPerformanceRequirements.length + collaborationPageRequirements.length + seriesPageRequirements.length + searchSuggestionRequirements.length + searchInteractionRequirements.length + gameCatalogRequirements.length + semanticEntityRequirements.length + customEmojiUsageRequirements.length + siteDisclosureRequirements.length}件の要件正本を生成しました。`);
