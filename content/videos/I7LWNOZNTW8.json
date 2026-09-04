@@ -38,6 +38,12 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "14d5ec5fb7090f44b3708ff29e6db983da3ef19cf90ec46e94b7f850a77b071e"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "85b4b50dca2f98a78229f44c926577e813a00f9135fc9dc47100a25d6012660f"
     }
   ],
   "tagAssignments": [
@@ -103,10 +109,123 @@
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "かわいい",
+        "weight": 100
+      },
+      {
+        "term": "猫",
+        "weight": 58
+      },
+      {
+        "term": "わくわく",
+        "weight": 43
+      },
+      {
+        "term": "草",
+        "weight": 43
+      },
+      {
+        "term": "さすが",
+        "weight": 24
+      },
+      {
+        "term": "顔",
+        "weight": 15
+      },
+      {
+        "term": "気まま",
+        "weight": 15
+      },
+      {
+        "term": "えらい",
+        "weight": 1
+      },
+      {
+        "term": "ガチ",
+        "weight": 1
+      },
+      {
+        "term": "かわく",
+        "weight": 1
+      },
+      {
+        "term": "クッソ",
+        "weight": 1
+      },
+      {
+        "term": "さす",
+        "weight": 1
+      },
+      {
+        "term": "フライング",
+        "weight": 1
+      },
+      {
+        "term": "ホント",
+        "weight": 1
+      },
+      {
+        "term": "ほんま",
+        "weight": 1
+      },
+      {
+        "term": "マネ",
+        "weight": 1
+      },
+      {
+        "term": "ワクドキ",
+        "weight": 1
+      },
+      {
+        "term": "懐く",
+        "weight": 1
+      },
+      {
+        "term": "割",
+        "weight": 1
+      },
+      {
+        "term": "間違える",
+        "weight": 1
+      },
+      {
+        "term": "行く",
+        "weight": 1
+      },
+      {
+        "term": "似る",
+        "weight": 1
+      },
+      {
+        "term": "時間",
+        "weight": 1
+      },
+      {
+        "term": "寝る",
+        "weight": 1
+      },
+      {
+        "term": "人",
+        "weight": 1
+      },
+      {
+        "term": "早い",
+        "weight": 1
+      },
+      {
+        "term": "野良猫",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "85b4b50dca2f98a78229f44c926577e813a00f9135fc9dc47100a25d6012660f",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "4d969f0b4c91d66971e5c81b606d068032226c760ad690dc5d55a9a849293261",
