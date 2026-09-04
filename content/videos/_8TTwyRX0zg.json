@@ -38,6 +38,12 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "ded8791c3620d3d496761137d350fada40cdb4b14771298a9df1fd52bc4625a5"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "24884bd9beb68a30f3686f868c0ce40a709a03e948821896e92bad3f4974ffe4"
     }
   ],
   "tagAssignments": [
@@ -103,10 +109,215 @@
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "食べる",
+        "weight": 76
+      },
+      {
+        "term": "声",
+        "weight": 49
+      },
+      {
+        "term": "わかる",
+        "weight": 48
+      },
+      {
+        "term": "人",
+        "weight": 44
+      },
+      {
+        "term": "かわいい",
+        "weight": 40
+      },
+      {
+        "term": "料理",
+        "weight": 40
+      },
+      {
+        "term": "作る",
+        "weight": 36
+      },
+      {
+        "term": "気",
+        "weight": 28
+      },
+      {
+        "term": "うん",
+        "weight": 25
+      },
+      {
+        "term": "バイト",
+        "weight": 24
+      },
+      {
+        "term": "無理",
+        "weight": 24
+      },
+      {
+        "term": "美味しい",
+        "weight": 23
+      },
+      {
+        "term": "大丈夫",
+        "weight": 22
+      },
+      {
+        "term": "楽しい",
+        "weight": 20
+      },
+      {
+        "term": "好き",
+        "weight": 20
+      },
+      {
+        "term": "ドッキリ",
+        "weight": 18
+      },
+      {
+        "term": "行く",
+        "weight": 16
+      },
+      {
+        "term": "楽しみ",
+        "weight": 15
+      },
+      {
+        "term": "怖い",
+        "weight": 15
+      },
+      {
+        "term": "かんぱ",
+        "weight": 14
+      },
+      {
+        "term": "すごい",
+        "weight": 14
+      },
+      {
+        "term": "出る",
+        "weight": 14
+      },
+      {
+        "term": "雪",
+        "weight": 14
+      },
+      {
+        "term": "コトカ",
+        "weight": 13
+      },
+      {
+        "term": "大変",
+        "weight": 13
+      },
+      {
+        "term": "面白い",
+        "weight": 13
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 11
+      },
+      {
+        "term": "友達",
+        "weight": 10
+      },
+      {
+        "term": "大事",
+        "weight": 9
+      },
+      {
+        "term": "はい",
+        "weight": 8
+      },
+      {
+        "term": "仕事",
+        "weight": 8
+      },
+      {
+        "term": "あら",
+        "weight": 7
+      },
+      {
+        "term": "ちょっと",
+        "weight": 7
+      },
+      {
+        "term": "使う",
+        "weight": 7
+      },
+      {
+        "term": "配信",
+        "weight": 7
+      },
+      {
+        "term": "飲む",
+        "weight": 6
+      },
+      {
+        "term": "確か",
+        "weight": 6
+      },
+      {
+        "term": "仕掛ける",
+        "weight": 6
+      },
+      {
+        "term": "イメージ",
+        "weight": 4
+      },
+      {
+        "term": "ダメ",
+        "weight": 4
+      },
+      {
+        "term": "残す",
+        "weight": 4
+      },
+      {
+        "term": "全然",
+        "weight": 4
+      },
+      {
+        "term": "ハニトラ",
+        "weight": 3
+      },
+      {
+        "term": "来る",
+        "weight": 3
+      },
+      {
+        "term": "塩分",
+        "weight": 2
+      },
+      {
+        "term": "手袋",
+        "weight": 2
+      },
+      {
+        "term": "出す",
+        "weight": 2
+      },
+      {
+        "term": "前",
+        "weight": 2
+      },
+      {
+        "term": "熱中",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "24884bd9beb68a30f3686f868c0ce40a709a03e948821896e92bad3f4974ffe4",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "4a5f5b5861b26c6f7c1998050f321e604cf5e9deab50289e8858be56dcd8e2fd",
