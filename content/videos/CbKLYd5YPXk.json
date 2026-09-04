@@ -38,6 +38,12 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "105b22399f8dccaa9dbaed2480dcf2339f18acae7731281f6f9d29cae1abeb08"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "50b085c4dc42b992314d35d138dab9c17e56fa4f916dc186dc417ff22f291acf"
     }
   ],
   "tagAssignments": [
@@ -112,10 +118,215 @@
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "かわいい",
+        "weight": 89
+      },
+      {
+        "term": "助かる",
+        "weight": 36
+      },
+      {
+        "term": "あら",
+        "weight": 35
+      },
+      {
+        "term": "ついえる",
+        "weight": 30
+      },
+      {
+        "term": "すごい",
+        "weight": 29
+      },
+      {
+        "term": "土産",
+        "weight": 28
+      },
+      {
+        "term": "しる",
+        "weight": 27
+      },
+      {
+        "term": "すく",
+        "weight": 26
+      },
+      {
+        "term": "バカップル",
+        "weight": 26
+      },
+      {
+        "term": "わかる",
+        "weight": 26
+      },
+      {
+        "term": "つくる",
+        "weight": 25
+      },
+      {
+        "term": "ちる",
+        "weight": 24
+      },
+      {
+        "term": "もろ",
+        "weight": 23
+      },
+      {
+        "term": "幸せ",
+        "weight": 23
+      },
+      {
+        "term": "えっ",
+        "weight": 22
+      },
+      {
+        "term": "サウナ",
+        "weight": 21
+      },
+      {
+        "term": "健",
+        "weight": 21
+      },
+      {
+        "term": "おかえり",
+        "weight": 19
+      },
+      {
+        "term": "やばい",
+        "weight": 18
+      },
+      {
+        "term": "楽しい",
+        "weight": 18
+      },
+      {
+        "term": "雪",
+        "weight": 18
+      },
+      {
+        "term": "天女",
+        "weight": 18
+      },
+      {
+        "term": "温泉",
+        "weight": 15
+      },
+      {
+        "term": "あらあら",
+        "weight": 14
+      },
+      {
+        "term": "うん",
+        "weight": 14
+      },
+      {
+        "term": "行く",
+        "weight": 14
+      },
+      {
+        "term": "虫",
+        "weight": 14
+      },
+      {
+        "term": "配信",
+        "weight": 14
+      },
+      {
+        "term": "コメント",
+        "weight": 13
+      },
+      {
+        "term": "へぇ",
+        "weight": 12
+      },
+      {
+        "term": "旅行",
+        "weight": 12
+      },
+      {
+        "term": "楽しみ",
+        "weight": 11
+      },
+      {
+        "term": "crossick",
+        "weight": 10
+      },
+      {
+        "term": "ほる",
+        "weight": 9
+      },
+      {
+        "term": "婆",
+        "weight": 9
+      },
+      {
+        "term": "スパチャ",
+        "weight": 8
+      },
+      {
+        "term": "obs",
+        "weight": 7
+      },
+      {
+        "term": "花",
+        "weight": 7
+      },
+      {
+        "term": "死ぬ",
+        "weight": 5
+      },
+      {
+        "term": "那",
+        "weight": 5
+      },
+      {
+        "term": "えらい",
+        "weight": 3
+      },
+      {
+        "term": "職業病",
+        "weight": 3
+      },
+      {
+        "term": "ピンク",
+        "weight": 2
+      },
+      {
+        "term": "顔",
+        "weight": 2
+      },
+      {
+        "term": "最高",
+        "weight": 2
+      },
+      {
+        "term": "時計",
+        "weight": 2
+      },
+      {
+        "term": "終わる",
+        "weight": 2
+      },
+      {
+        "term": "夏バテ",
+        "weight": 1
+      },
+      {
+        "term": "湯",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "50b085c4dc42b992314d35d138dab9c17e56fa4f916dc186dc417ff22f291acf",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "f70fe3ce0744559538d90bd911d5a6506d645bf3a9485baa455bb9ce6528b73c",
