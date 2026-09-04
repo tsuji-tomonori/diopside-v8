@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "dbb26db3fe69069153619e2f2b20857a895bc3c602fe03c12cd523ca36cc53d8"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "8644180960bebe9d7ebce5406697f96e8587b97296097bc687e36ad66a921aca"
     }
   ],
   "tagAssignments": [
@@ -333,10 +339,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "キュレネ",
+        "weight": 64
+      },
+      {
+        "term": "かわいい",
+        "weight": 52
+      },
+      {
+        "term": "オンパロス",
+        "weight": 47
+      },
+      {
+        "term": "ファイノン",
+        "weight": 42
+      },
+      {
+        "term": "月",
+        "weight": 37
+      },
+      {
+        "term": "長夜",
+        "weight": 37
+      },
+      {
+        "term": "記憶",
+        "weight": 32
+      },
+      {
+        "term": "強い",
+        "weight": 32
+      },
+      {
+        "term": "明日",
+        "weight": 32
+      },
+      {
+        "term": "キャス",
+        "weight": 30
+      },
+      {
+        "term": "終わる",
+        "weight": 29
+      },
+      {
+        "term": "頑張る",
+        "weight": 26
+      },
+      {
+        "term": "物語",
+        "weight": 26
+      },
+      {
+        "term": "サフェル",
+        "weight": 22
+      },
+      {
+        "term": "ずっと",
+        "weight": 22
+      },
+      {
+        "term": "鉄",
+        "weight": 22
+      },
+      {
+        "term": "ヘルタ",
+        "weight": 21
+      },
+      {
+        "term": "最後",
+        "weight": 19
+      },
+      {
+        "term": "かっこいい",
+        "weight": 18
+      },
+      {
+        "term": "デミウルゴス",
+        "weight": 18
+      },
+      {
+        "term": "パム",
+        "weight": 18
+      },
+      {
+        "term": "列車",
+        "weight": 18
+      },
+      {
+        "term": "長い",
+        "weight": 16
+      },
+      {
+        "term": "愛",
+        "weight": 15
+      },
+      {
+        "term": "ゆっくり",
+        "weight": 14
+      },
+      {
+        "term": "開拓",
+        "weight": 14
+      },
+      {
+        "term": "星",
+        "weight": 14
+      },
+      {
+        "term": "アグライア",
+        "weight": 12
+      },
+      {
+        "term": "攻撃",
+        "weight": 12
+      },
+      {
+        "term": "大丈夫",
+        "weight": 11
+      },
+      {
+        "term": "銀河",
+        "weight": 10
+      },
+      {
+        "term": "恒",
+        "weight": 10
+      },
+      {
+        "term": "丹",
+        "weight": 10
+      },
+      {
+        "term": "ストーリー",
+        "weight": 8
+      },
+      {
+        "term": "ちょっと",
+        "weight": 8
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 8
+      },
+      {
+        "term": "わかる",
+        "weight": 8
+      },
+      {
+        "term": "一緒",
+        "weight": 8
+      },
+      {
+        "term": "ザンダー",
+        "weight": 6
+      },
+      {
+        "term": "まだ",
+        "weight": 6
+      },
+      {
+        "term": "本当に",
+        "weight": 6
+      },
+      {
+        "term": "出来る",
+        "weight": 5
+      },
+      {
+        "term": "声",
+        "weight": 5
+      },
+      {
+        "term": "配信",
+        "weight": 5
+      },
+      {
+        "term": "スタレ",
+        "weight": 3
+      },
+      {
+        "term": "楽しい",
+        "weight": 3
+      },
+      {
+        "term": "行く",
+        "weight": 3
+      },
+      {
+        "term": "話",
+        "weight": 3
+      },
+      {
+        "term": "ついえる",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "8644180960bebe9d7ebce5406697f96e8587b97296097bc687e36ad66a921aca",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "1a8c12139119800db676bffb34537eb42f57320e3e0ae6f8578ce27eaa7b477c",
