@@ -5,7 +5,7 @@ const releaseGeneratedPatterns = [
   /^public\/data\//u,
   /^src\/generated\/release\.ts$/u,
   /^docs\/(?:assets|data)\//u,
-  /^docs\/(?:index\.html|404\.html|\.nojekyll)$/u,
+  /^docs\/(?:index\.html|404\.html|\.nojekyll|third-party-notices\.txt)$/u,
 ];
 
 export function releaseGeneratedFiles(files: string[]): string[] {

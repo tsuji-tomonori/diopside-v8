@@ -97,6 +97,7 @@ describe('手動動画更新運用', () => {
       'docs/index.html',
       'docs/404.html',
       'docs/.nojekyll',
+      'docs/third-party-notices.txt',
     ])).toEqual([
       'public/data/latest.json',
       'src/generated/release.ts',
@@ -105,6 +106,7 @@ describe('手動動画更新運用', () => {
       'docs/index.html',
       'docs/404.html',
       'docs/.nojekyll',
+      'docs/third-party-notices.txt',
     ]);
   });
 
@@ -115,6 +117,7 @@ describe('手動動画更新運用', () => {
       'docs/data/latest.json',
       'docs/assets/index-example.js',
       'docs/index.html',
+      'docs/third-party-notices.txt',
     ], { allowGeneratedOnly: true })).toEqual({ valid: true, errors: [] });
     expect(validateReleasePrScopeFiles([
       'public/data/latest.json',
