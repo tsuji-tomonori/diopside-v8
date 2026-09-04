@@ -44,6 +44,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "08e48b8b914c96ed09ba74c63c258c5700206b5e0cfcd851d22ecac44b1a9bd5"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "bcc54634848ac6fc425084c8892f959a8fb0ddccdaa4ee09980433abeec4491f"
     }
   ],
   "tagAssignments": [
@@ -312,10 +318,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "かわいい",
+        "weight": 65
+      },
+      {
+        "term": "うまい",
+        "weight": 59
+      },
+      {
+        "term": "頑張る",
+        "weight": 53
+      },
+      {
+        "term": "グウェル",
+        "weight": 51
+      },
+      {
+        "term": "すごい",
+        "weight": 51
+      },
+      {
+        "term": "ママ",
+        "weight": 44
+      },
+      {
+        "term": "晴",
+        "weight": 44
+      },
+      {
+        "term": "しば",
+        "weight": 38
+      },
+      {
+        "term": "どうぞ",
+        "weight": 33
+      },
+      {
+        "term": "惜しい",
+        "weight": 31
+      },
+      {
+        "term": "ファイト",
+        "weight": 29
+      },
+      {
+        "term": "了解",
+        "weight": 26
+      },
+      {
+        "term": "フレン",
+        "weight": 23
+      },
+      {
+        "term": "うん",
+        "weight": 22
+      },
+      {
+        "term": "カレー",
+        "weight": 22
+      },
+      {
+        "term": "ナイス",
+        "weight": 22
+      },
+      {
+        "term": "わかる",
+        "weight": 22
+      },
+      {
+        "term": "面白い",
+        "weight": 21
+      },
+      {
+        "term": "壺",
+        "weight": 20
+      },
+      {
+        "term": "ゆっくり",
+        "weight": 19
+      },
+      {
+        "term": "える",
+        "weight": 18
+      },
+      {
+        "term": "食べる",
+        "weight": 17
+      },
+      {
+        "term": "クリア",
+        "weight": 16
+      },
+      {
+        "term": "大丈夫",
+        "weight": 16
+      },
+      {
+        "term": "エリー",
+        "weight": 15
+      },
+      {
+        "term": "ルイス",
+        "weight": 14
+      },
+      {
+        "term": "カメラ",
+        "weight": 13
+      },
+      {
+        "term": "おぉ",
+        "weight": 12
+      },
+      {
+        "term": "攻撃",
+        "weight": 11
+      },
+      {
+        "term": "グループ",
+        "weight": 10
+      },
+      {
+        "term": "楽しい",
+        "weight": 10
+      },
+      {
+        "term": "助かる",
+        "weight": 9
+      },
+      {
+        "term": "精神",
+        "weight": 9
+      },
+      {
+        "term": "早い",
+        "weight": 8
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 7
+      },
+      {
+        "term": "王国",
+        "weight": 7
+      },
+      {
+        "term": "夜",
+        "weight": 7
+      },
+      {
+        "term": "まだ",
+        "weight": 4
+      },
+      {
+        "term": "楽しむ",
+        "weight": 4
+      },
+      {
+        "term": "勝負",
+        "weight": 4
+      },
+      {
+        "term": "爪",
+        "weight": 4
+      },
+      {
+        "term": "クレア",
+        "weight": 3
+      },
+      {
+        "term": "声",
+        "weight": 2
+      },
+      {
+        "term": "怖い",
+        "weight": 2
+      },
+      {
+        "term": "貶める",
+        "weight": 2
+      },
+      {
+        "term": "ショトカ",
+        "weight": 1
+      },
+      {
+        "term": "すげる",
+        "weight": 1
+      },
+      {
+        "term": "メリー",
+        "weight": 1
+      },
+      {
+        "term": "凄い",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "bcc54634848ac6fc425084c8892f959a8fb0ddccdaa4ee09980433abeec4491f",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "443cae359fc578422ce9c690d63da04a8452698f5b781da6d12ac798718cc68f",
