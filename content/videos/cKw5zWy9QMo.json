@@ -50,6 +50,12 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開タイトル・YouTube公開情報・コンビ／ユニット出典の横断照合",
       "inputFingerprint": "a846ccbc1570e13ed3ccf4bc151cb0bb86181ba74b2e7319d222e590f80aa591"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "bd817ad65ef3c97b0587718ed174780ff83e397a848fa0f83bef1ae7130abb8d"
     }
   ],
   "tagAssignments": [
@@ -309,10 +315,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "かわいい",
+        "weight": 71
+      },
+      {
+        "term": "えっ",
+        "weight": 54
+      },
+      {
+        "term": "ちる",
+        "weight": 53
+      },
+      {
+        "term": "健全",
+        "weight": 53
+      },
+      {
+        "term": "うまい",
+        "weight": 49
+      },
+      {
+        "term": "正解",
+        "weight": 44
+      },
+      {
+        "term": "すく",
+        "weight": 38
+      },
+      {
+        "term": "助かる",
+        "weight": 34
+      },
+      {
+        "term": "ポーズ",
+        "weight": 31
+      },
+      {
+        "term": "足",
+        "weight": 29
+      },
+      {
+        "term": "楽しい",
+        "weight": 25
+      },
+      {
+        "term": "難しい",
+        "weight": 25
+      },
+      {
+        "term": "アーカイブ",
+        "weight": 24
+      },
+      {
+        "term": "頑張る",
+        "weight": 24
+      },
+      {
+        "term": "触る",
+        "weight": 23
+      },
+      {
+        "term": "健",
+        "weight": 21
+      },
+      {
+        "term": "大丈夫",
+        "weight": 18
+      },
+      {
+        "term": "おめでとう",
+        "weight": 17
+      },
+      {
+        "term": "すごい",
+        "weight": 16
+      },
+      {
+        "term": "わかる",
+        "weight": 16
+      },
+      {
+        "term": "あら",
+        "weight": 15
+      },
+      {
+        "term": "きつい",
+        "weight": 13
+      },
+      {
+        "term": "楽しみ",
+        "weight": 12
+      },
+      {
+        "term": "手",
+        "weight": 11
+      },
+      {
+        "term": "脚",
+        "weight": 10
+      },
+      {
+        "term": "米",
+        "weight": 10
+      },
+      {
+        "term": "下着",
+        "weight": 9
+      },
+      {
+        "term": "雪",
+        "weight": 9
+      },
+      {
+        "term": "長い",
+        "weight": 9
+      },
+      {
+        "term": "ヨガ",
+        "weight": 8
+      },
+      {
+        "term": "絵",
+        "weight": 8
+      },
+      {
+        "term": "エッッ",
+        "weight": 7
+      },
+      {
+        "term": "おおう",
+        "weight": 7
+      },
+      {
+        "term": "やばい",
+        "weight": 7
+      },
+      {
+        "term": "youtube",
+        "weight": 6
+      },
+      {
+        "term": "いらっしゃい",
+        "weight": 6
+      },
+      {
+        "term": "ついえる",
+        "weight": 6
+      },
+      {
+        "term": "もろ",
+        "weight": 5
+      },
+      {
+        "term": "描く",
+        "weight": 5
+      },
+      {
+        "term": "無理",
+        "weight": 5
+      },
+      {
+        "term": "配信",
+        "weight": 4
+      },
+      {
+        "term": "マッサージ",
+        "weight": 3
+      },
+      {
+        "term": "顔",
+        "weight": 3
+      },
+      {
+        "term": "結婚",
+        "weight": 3
+      },
+      {
+        "term": "死ぬ",
+        "weight": 2
+      },
+      {
+        "term": "えらい",
+        "weight": 1
+      },
+      {
+        "term": "おっぱい",
+        "weight": 1
+      },
+      {
+        "term": "ゲーム",
+        "weight": 1
+      },
+      {
+        "term": "しる",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "bd817ad65ef3c97b0587718ed174780ff83e397a848fa0f83bef1ae7130abb8d",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "6d96da4e4f47bc311664316759af8833243168382a1d824d34cf86e6cc259add",
