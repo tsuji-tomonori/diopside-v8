@@ -38,6 +38,12 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "019a9fadd66f503213b15be9ba0e1efe7148fc804e7d0d284d5072d8e1243caa"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "c2470bf72ce98d096698ab30e5ffa64edc3b7f67c34c5e3c015b169b50b2df6e"
     }
   ],
   "tagAssignments": [
@@ -85,10 +91,215 @@
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "かわいい",
+        "weight": 100
+      },
+      {
+        "term": "幸せ",
+        "weight": 75
+      },
+      {
+        "term": "寝る",
+        "weight": 51
+      },
+      {
+        "term": "草",
+        "weight": 46
+      },
+      {
+        "term": "癒す",
+        "weight": 45
+      },
+      {
+        "term": "はい",
+        "weight": 43
+      },
+      {
+        "term": "ぎゅ",
+        "weight": 42
+      },
+      {
+        "term": "心音",
+        "weight": 36
+      },
+      {
+        "term": "落ち着く",
+        "weight": 36
+      },
+      {
+        "term": "好き",
+        "weight": 35
+      },
+      {
+        "term": "泣く",
+        "weight": 33
+      },
+      {
+        "term": "助かる",
+        "weight": 33
+      },
+      {
+        "term": "声",
+        "weight": 32
+      },
+      {
+        "term": "頑張る",
+        "weight": 28
+      },
+      {
+        "term": "元気",
+        "weight": 27
+      },
+      {
+        "term": "本当に",
+        "weight": 27
+      },
+      {
+        "term": "なでる",
+        "weight": 25
+      },
+      {
+        "term": "大好き",
+        "weight": 25
+      },
+      {
+        "term": "うん",
+        "weight": 23
+      },
+      {
+        "term": "とても",
+        "weight": 22
+      },
+      {
+        "term": "よし",
+        "weight": 22
+      },
+      {
+        "term": "安心",
+        "weight": 22
+      },
+      {
+        "term": "最高",
+        "weight": 22
+      },
+      {
+        "term": "すき",
+        "weight": 20
+      },
+      {
+        "term": "しあわせ",
+        "weight": 19
+      },
+      {
+        "term": "asmr",
+        "weight": 18
+      },
+      {
+        "term": "嬉しい",
+        "weight": 17
+      },
+      {
+        "term": "すごい",
+        "weight": 16
+      },
+      {
+        "term": "ずっと",
+        "weight": 16
+      },
+      {
+        "term": "夢",
+        "weight": 15
+      },
+      {
+        "term": "ひる",
+        "weight": 13
+      },
+      {
+        "term": "耳",
+        "weight": 13
+      },
+      {
+        "term": "大丈夫",
+        "weight": 13
+      },
+      {
+        "term": "ぽん",
+        "weight": 11
+      },
+      {
+        "term": "いつも",
+        "weight": 10
+      },
+      {
+        "term": "おやすみ",
+        "weight": 10
+      },
+      {
+        "term": "音",
+        "weight": 10
+      },
+      {
+        "term": "時間",
+        "weight": 10
+      },
+      {
+        "term": "優しい",
+        "weight": 10
+      },
+      {
+        "term": "ダメ",
+        "weight": 9
+      },
+      {
+        "term": "明日",
+        "weight": 7
+      },
+      {
+        "term": "癒",
+        "weight": 6
+      },
+      {
+        "term": "ミュート",
+        "weight": 4
+      },
+      {
+        "term": "リラックス",
+        "weight": 2
+      },
+      {
+        "term": "一緒",
+        "weight": 2
+      },
+      {
+        "term": "心",
+        "weight": 2
+      },
+      {
+        "term": "吐息",
+        "weight": 2
+      },
+      {
+        "term": "お腹",
+        "weight": 1
+      },
+      {
+        "term": "生きる",
+        "weight": 1
+      },
+      {
+        "term": "聞こえる",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "c2470bf72ce98d096698ab30e5ffa64edc3b7f67c34c5e3c015b169b50b2df6e",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "8cad3789d3ad95a95879ee48566b4656f80cf86e6fc1b17388c9166623c7c037",
