@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "e5a513343b954ef7ae56049dbbb3f7553582c645aaa7f52382bf9eff8ae8743b"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "baf81da5ab892e26c0950645cb5fb2d8a2ed8375b235fa0dab5b4e97ff1f6dcd"
     }
   ],
   "tagAssignments": [
@@ -270,10 +276,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "チル",
+        "weight": 62
+      },
+      {
+        "term": "置く",
+        "weight": 55
+      },
+      {
+        "term": "入る",
+        "weight": 42
+      },
+      {
+        "term": "片付け",
+        "weight": 39
+      },
+      {
+        "term": "わくわく",
+        "weight": 32
+      },
+      {
+        "term": "大事",
+        "weight": 32
+      },
+      {
+        "term": "かわいい",
+        "weight": 30
+      },
+      {
+        "term": "スッキリ",
+        "weight": 30
+      },
+      {
+        "term": "モニター",
+        "weight": 27
+      },
+      {
+        "term": "楽しみ",
+        "weight": 27
+      },
+      {
+        "term": "出る",
+        "weight": 27
+      },
+      {
+        "term": "部屋",
+        "weight": 27
+      },
+      {
+        "term": "大丈夫",
+        "weight": 24
+      },
+      {
+        "term": "増える",
+        "weight": 21
+      },
+      {
+        "term": "物",
+        "weight": 21
+      },
+      {
+        "term": "おぉ",
+        "weight": 17
+      },
+      {
+        "term": "ダサい",
+        "weight": 17
+      },
+      {
+        "term": "温度",
+        "weight": 17
+      },
+      {
+        "term": "配信",
+        "weight": 17
+      },
+      {
+        "term": "えらい",
+        "weight": 14
+      },
+      {
+        "term": "せい",
+        "weight": 14
+      },
+      {
+        "term": "ゲーム",
+        "weight": 10
+      },
+      {
+        "term": "ちょっと",
+        "weight": 10
+      },
+      {
+        "term": "楽しい",
+        "weight": 10
+      },
+      {
+        "term": "香",
+        "weight": 10
+      },
+      {
+        "term": "皿",
+        "weight": 10
+      },
+      {
+        "term": "捨てる",
+        "weight": 10
+      },
+      {
+        "term": "同棲",
+        "weight": 10
+      },
+      {
+        "term": "癒す",
+        "weight": 10
+      },
+      {
+        "term": "あら",
+        "weight": 6
+      },
+      {
+        "term": "キーボード",
+        "weight": 6
+      },
+      {
+        "term": "チーズ",
+        "weight": 6
+      },
+      {
+        "term": "下着",
+        "weight": 6
+      },
+      {
+        "term": "歌",
+        "weight": 6
+      },
+      {
+        "term": "仕事",
+        "weight": 6
+      },
+      {
+        "term": "人",
+        "weight": 6
+      },
+      {
+        "term": "声",
+        "weight": 6
+      },
+      {
+        "term": "同居",
+        "weight": 6
+      },
+      {
+        "term": "綺麗",
+        "weight": 6
+      },
+      {
+        "term": "トランシーバー",
+        "weight": 1
+      },
+      {
+        "term": "ぶれる",
+        "weight": 1
+      },
+      {
+        "term": "ベッド",
+        "weight": 1
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 1
+      },
+      {
+        "term": "わかる",
+        "weight": 1
+      },
+      {
+        "term": "一緒",
+        "weight": 1
+      },
+      {
+        "term": "久しぶり",
+        "weight": 1
+      },
+      {
+        "term": "削る",
+        "weight": 1
+      },
+      {
+        "term": "捨",
+        "weight": 1
+      },
+      {
+        "term": "多い",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "baf81da5ab892e26c0950645cb5fb2d8a2ed8375b235fa0dab5b4e97ff1f6dcd",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "badb014c44901b4dbbbb808b177f01aa85b5c4fccb7d1d154bf2ba18c2df2319",
