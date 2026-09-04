@@ -44,6 +44,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "4ead42243c7c98f5f2eefdecbc6414a81fd7cf12a66089f75c0ea30bc20c7eb2"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "aeb92f232e970efd9e9be0d2110c447e3847735a3a95916dcbd176821e184ed7"
     }
   ],
   "tagAssignments": [
@@ -294,10 +300,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "薔薇",
+        "weight": 69
+      },
+      {
+        "term": "白",
+        "weight": 61
+      },
+      {
+        "term": "ギルド",
+        "weight": 53
+      },
+      {
+        "term": "蝶",
+        "weight": 52
+      },
+      {
+        "term": "了解",
+        "weight": 52
+      },
+      {
+        "term": "頑張る",
+        "weight": 48
+      },
+      {
+        "term": "かわいい",
+        "weight": 47
+      },
+      {
+        "term": "わかる",
+        "weight": 47
+      },
+      {
+        "term": "入る",
+        "weight": 44
+      },
+      {
+        "term": "ban",
+        "weight": 42
+      },
+      {
+        "term": "駄犬",
+        "weight": 41
+      },
+      {
+        "term": "バラ",
+        "weight": 40
+      },
+      {
+        "term": "かっこいい",
+        "weight": 39
+      },
+      {
+        "term": "入れる",
+        "weight": 34
+      },
+      {
+        "term": "レベル",
+        "weight": 32
+      },
+      {
+        "term": "分家",
+        "weight": 31
+      },
+      {
+        "term": "王国",
+        "weight": 27
+      },
+      {
+        "term": "夜",
+        "weight": 23
+      },
+      {
+        "term": "こんばんわ",
+        "weight": 22
+      },
+      {
+        "term": "待機",
+        "weight": 22
+      },
+      {
+        "term": "城",
+        "weight": 19
+      },
+      {
+        "term": "kingdom",
+        "weight": 17
+      },
+      {
+        "term": "すごい",
+        "weight": 17
+      },
+      {
+        "term": "ゲーム",
+        "weight": 16
+      },
+      {
+        "term": "つかれる",
+        "weight": 16
+      },
+      {
+        "term": "バリア",
+        "weight": 16
+      },
+      {
+        "term": "移動",
+        "weight": 16
+      },
+      {
+        "term": "出来る",
+        "weight": 16
+      },
+      {
+        "term": "white",
+        "weight": 14
+      },
+      {
+        "term": "助かる",
+        "weight": 12
+      },
+      {
+        "term": "上げる",
+        "weight": 12
+      },
+      {
+        "term": "くつ",
+        "weight": 10
+      },
+      {
+        "term": "課金",
+        "weight": 10
+      },
+      {
+        "term": "健",
+        "weight": 10
+      },
+      {
+        "term": "女王",
+        "weight": 10
+      },
+      {
+        "term": "カルロス",
+        "weight": 8
+      },
+      {
+        "term": "ジェム",
+        "weight": 8
+      },
+      {
+        "term": "すく",
+        "weight": 8
+      },
+      {
+        "term": "ガチャ",
+        "weight": 6
+      },
+      {
+        "term": "応援",
+        "weight": 6
+      },
+      {
+        "term": "赤",
+        "weight": 6
+      },
+      {
+        "term": "snow",
+        "weight": 3
+      },
+      {
+        "term": "どう",
+        "weight": 3
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 3
+      },
+      {
+        "term": "回復",
+        "weight": 1
+      },
+      {
+        "term": "行く",
+        "weight": 1
+      },
+      {
+        "term": "人",
+        "weight": 1
+      },
+      {
+        "term": "凄い",
+        "weight": 1
+      },
+      {
+        "term": "雪",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "aeb92f232e970efd9e9be0d2110c447e3847735a3a95916dcbd176821e184ed7",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "0b82c0c7b26ada79c8177d4661f9046c04db72b3e202e1ebcfed1bddd0b93a01",
