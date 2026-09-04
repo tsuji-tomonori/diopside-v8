@@ -145,7 +145,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: モバイル共通ヘッダーの省スペース化、直接のcomponent・E2E、必要な生成物と選択check結果だけへ差分を限定した
+    note: モバイル共通ヘッダーの省スペース化、直接のcomponent・E2E、必要な生成設計と選択check結果だけへ差分を限定し、mainマージ後に更新するdocs配信成果物は通常PRから除外した
   - id: REV-002
     class: Invariant
     result: pass
