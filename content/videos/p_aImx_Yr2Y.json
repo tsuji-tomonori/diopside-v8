@@ -38,6 +38,12 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "48e2920ee0a25424cac56f5895be6d04825df861422faa4bd9e3c6ce5b4796cc"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "532e70b0413edc7480317ce648a72b0d0d58a2d2158aee4c7577b1d88d0bc775"
     }
   ],
   "tagAssignments": [
@@ -112,10 +118,215 @@
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "カン",
+        "weight": 100
+      },
+      {
+        "term": "草",
+        "weight": 98
+      },
+      {
+        "term": "牌",
+        "weight": 97
+      },
+      {
+        "term": "鳴く",
+        "weight": 75
+      },
+      {
+        "term": "かわいい",
+        "weight": 70
+      },
+      {
+        "term": "リーチ",
+        "weight": 60
+      },
+      {
+        "term": "ナイス",
+        "weight": 59
+      },
+      {
+        "term": "切る",
+        "weight": 55
+      },
+      {
+        "term": "ドラ",
+        "weight": 51
+      },
+      {
+        "term": "役",
+        "weight": 47
+      },
+      {
+        "term": "頭",
+        "weight": 42
+      },
+      {
+        "term": "チー",
+        "weight": 36
+      },
+      {
+        "term": "手",
+        "weight": 35
+      },
+      {
+        "term": "対",
+        "weight": 35
+      },
+      {
+        "term": "こい",
+        "weight": 31
+      },
+      {
+        "term": "テン",
+        "weight": 31
+      },
+      {
+        "term": "頑張る",
+        "weight": 31
+      },
+      {
+        "term": "子",
+        "weight": 30
+      },
+      {
+        "term": "わかる",
+        "weight": 28
+      },
+      {
+        "term": "捨てる",
+        "weight": 28
+      },
+      {
+        "term": "タンヤオ",
+        "weight": 26
+      },
+      {
+        "term": "降りる",
+        "weight": 26
+      },
+      {
+        "term": "親",
+        "weight": 26
+      },
+      {
+        "term": "トイ",
+        "weight": 21
+      },
+      {
+        "term": "怖い",
+        "weight": 17
+      },
+      {
+        "term": "ツモ",
+        "weight": 16
+      },
+      {
+        "term": "まだ",
+        "weight": 15
+      },
+      {
+        "term": "難しい",
+        "weight": 15
+      },
+      {
+        "term": "パイ",
+        "weight": 14
+      },
+      {
+        "term": "配",
+        "weight": 13
+      },
+      {
+        "term": "暗い",
+        "weight": 12
+      },
+      {
+        "term": "強い",
+        "weight": 11
+      },
+      {
+        "term": "早い",
+        "weight": 11
+      },
+      {
+        "term": "トイトイ",
+        "weight": 10
+      },
+      {
+        "term": "形",
+        "weight": 10
+      },
+      {
+        "term": "麻雀",
+        "weight": 9
+      },
+      {
+        "term": "考える",
+        "weight": 8
+      },
+      {
+        "term": "だめ",
+        "weight": 6
+      },
+      {
+        "term": "白",
+        "weight": 6
+      },
+      {
+        "term": "gg",
+        "weight": 5
+      },
+      {
+        "term": "えらい",
+        "weight": 5
+      },
+      {
+        "term": "刻",
+        "weight": 5
+      },
+      {
+        "term": "どん",
+        "weight": 4
+      },
+      {
+        "term": "ポン",
+        "weight": 4
+      },
+      {
+        "term": "時間",
+        "weight": 4
+      },
+      {
+        "term": "来る",
+        "weight": 4
+      },
+      {
+        "term": "上がる",
+        "weight": 2
+      },
+      {
+        "term": "人",
+        "weight": 2
+      },
+      {
+        "term": "待機",
+        "weight": 2
+      },
+      {
+        "term": "まあ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "532e70b0413edc7480317ce648a72b0d0d58a2d2158aee4c7577b1d88d0bc775",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "64f00f7027fd08b23c7852f30e334be2468a8d6c081c61fb91e56e609dcdd896",
