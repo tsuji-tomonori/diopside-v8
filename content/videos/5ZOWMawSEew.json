@@ -102,6 +102,16 @@
         "evidence-collaboration-horizontal"
       ],
       "reviewedAt": "2026-08-29T21:10:00+09:00"
+    },
+    {
+      "tagId": "tag-people-unit-70e59966e56e",
+      "reason": "公開タイトル・出演者集合・動画全体の内容から、主たるコラボ「フミとも」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title",
+        "evidence-full-transcript"
+      ],
+      "reviewedAt": "2026-09-04T00:00:00Z"
     }
   ],
   "timestamps": {
@@ -255,28 +265,28 @@
         "candidateHash": "9428ae1386431dbd08f7d16b0198f55a3f32e76fd2159508a5a99246e0d0a866",
         "majorIssues": 0,
         "reviewedAt": "2026-08-15T01:27:19.208415+09:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "9428ae1386431dbd08f7d16b0198f55a3f32e76fd2159508a5a99246e0d0a866",
         "majorIssues": 0,
         "reviewedAt": "2026-08-15T01:29:48.869437+09:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "publicationGate": {
         "mode": "pull-request-merge",
@@ -299,8 +309,8 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-29T21:10:00+09:00",
-    "basis": "利用者指示とYouTube公開情報を基に、コラボ相手の付与漏れを横断是正"
+    "approvedAt": "2026-09-04T00:00:00Z",
+    "basis": "所有者指示に基づくユニットタグ全件監査と公開情報・出演者集合の再確認"
   },
   "synopsis": {
     "body": "フミと白雪巴が、ストーリープレイング『そして君とタイトルを』を通じて物語を組み立てるコラボ配信。白雪巴はマリーの視点から選択に向き合い、フミとの演技や会話を重ねていく。二人が役を演じながら受け止めた場面と、終演後に語り合う空気を見守れる。",

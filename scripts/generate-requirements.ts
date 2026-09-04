@@ -670,6 +670,45 @@ const requirements = sourceRequirements.map((item) => {
     requirement.traces.tests.push('src/domain/collaboration.test.ts');
     requirement.last_changed_by = 'CHG-20260815-collaboration-pages';
   }
+  if (id === 'V8-TAG-014') {
+    requirement.revision = 2;
+    requirement.title = 'ユニットタグは構成員だけが動画全体の主たる共演単位である場合に限らなければならない';
+    requirement.object = 'ユニット・チームタグは、その構成員全員だけが動画全体の主たる共演単位であり、実際に出演している場合に限って付与しなければならない。構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分へのゲスト参加、対戦相手としての登場には付与せず、ユニットタグを根拠に欠席した構成員を出演者へ自動追加してはならない。';
+    requirement.source_refs.push(
+      'spec/sources/owner-directive-2026-09-04-collaboration-unit-scope.md',
+      'user:2026-09-04',
+    );
+    requirement.acceptance_criteria = [
+      {
+        id: 'AC-V8-TAG-014-1',
+        given: 'ユニット構成員全員だけが動画全体の主たる共演単位として出演する',
+        when: '公開情報と確認済み出演記録を用いたユニット横断監査',
+        then: 'ユニットタグ、コラボタグ、白雪巴以外の全構成員の人物タグを持つ。',
+      },
+      {
+        id: 'AC-V8-TAG-014-2',
+        given: 'ユニット構成員が多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分、または対戦相手として登場する',
+        when: '動画単位の主たる共演者集合と除外確認を監査する',
+        then: '当該ユニットタグを持たず、実出演者だけを人物タグとして保持する。',
+      },
+      {
+        id: 'AC-V8-TAG-014-3',
+        given: '動画タイトルにユニット名がないが出演者集合が構成員と一致する',
+        when: '確認済み出演または除外確認の判定台帳を監査する',
+        then: '動画全体の主たる共演単位かを明示判定し、出演者集合だけでユニットタグを自動付与しない。',
+      },
+    ];
+    requirement.verification = {
+      method: 'ユニット候補・構成員集合・多人数企画・凸待ち除外の横断監査',
+      evidence: 'src/domain/collaboration-group-audit.test.ts, scripts/audit-collaboration-tags.ts',
+    };
+    requirement.traces.implementation.push(
+      'src/domain/collaboration-group-audit.ts',
+      'spec/sources/collaboration-tag-corrections-v1.json',
+    );
+    requirement.traces.tests.push('src/domain/collaboration-group-audit.test.ts');
+    requirement.last_changed_by = 'CHG-20260904-collaboration-unit-scope';
+  }
   if (id === 'V8-TAG-002') {
     requirement.revision = 2;
     requirement.title = '分類値は大分類・小分類・値で管理し、人物・作品等のエンティティと混在させてはならない';

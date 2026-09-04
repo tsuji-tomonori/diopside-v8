@@ -50,9 +50,11 @@ export type CollaborationAuditSource = {
 export type CollaborationAuditResult = {
   errors: string[];
   appearances: ReadonlyArray<{ videoId: string; groupTagId: string; origin: 'title' | 'confirmed' }>;
+  candidateAppearanceCount: number;
   explicitAppearanceCount: number;
   confirmedAppearanceCount: number;
   auditedAppearanceCount: number;
+  excludedAppearanceCount: number;
   confirmedParticipantVideoCount: number;
   confirmedParticipantCount: number;
   auditedLegacyPerformerCount: number;
@@ -71,6 +73,14 @@ const normalizeForMatch = (value: string): string => value
 const appearanceKey = (videoId: string, groupTagId: string): string => `${videoId}\u0000${groupTagId}`;
 const performerKey = (videoId: string, performerTagId: string): string => `${videoId}\u0000${performerTagId}`;
 const legacyPerformerReasonPrefix = '既存出演者タグ';
+
+type AppearanceCandidate = {
+  videoId: string;
+  groupTagId: string;
+  assigned: boolean;
+  exactPerformerSet: boolean;
+  titleMatched: boolean;
+};
 
 export const auditCollaborationGroupTags = ({
   videos,
@@ -97,21 +107,44 @@ export const auditCollaborationGroupTags = ({
     aliasesByTagId.set(alias.tagId, current);
   }
 
+  const confirmed = new Set(source.confirmedAppearances.map((item) => appearanceKey(item.videoId, item.groupTagId)));
   const excluded = new Set(source.excludedAppearances.map((item) => appearanceKey(item.videoId, item.groupTagId)));
   const expected = new Map<string, { videoId: string; groupTagId: string; origin: 'title' | 'confirmed' }>();
+  const candidates = new Map<string, AppearanceCandidate>();
   let explicitAppearanceCount = 0;
 
   for (const video of videos) {
     const normalizedTitle = normalizeForMatch(video.title);
+    const assignedTagIds = new Set(video.tagAssignments.map((assignment) => assignment.tagId));
+    const assignedPerformerTagIds = [...assignedTagIds].filter((tagId) => (
+      tagId !== source.subjectPerformerTagId && peopleById.has(tagId)
+    ));
     for (const group of groups) {
       const needles = [group.name, ...(aliasesByTagId.get(group.tagId) ?? [])]
         .map(normalizeForMatch)
         .filter(Boolean);
-      if (!needles.some((needle) => normalizedTitle.includes(needle))) continue;
+      const titleMatched = needles.some((needle) => normalizedTitle.includes(needle));
+      const memberTagIds = group.memberTagIds.filter((tagId) => tagId !== source.subjectPerformerTagId);
+      const exactPerformerSet = assignedTagIds.has(source.collaborationTagId)
+        && assignedPerformerTagIds.length === memberTagIds.length
+        && memberTagIds.every((tagId) => assignedTagIds.has(tagId));
       const key = appearanceKey(video.videoId, group.tagId);
+      const assigned = assignedTagIds.has(group.tagId);
+      if (!titleMatched && !exactPerformerSet && !assigned && !confirmed.has(key) && !excluded.has(key)) continue;
+      candidates.set(key, {
+        videoId: video.videoId,
+        groupTagId: group.tagId,
+        assigned,
+        exactPerformerSet,
+        titleMatched,
+      });
       if (excluded.has(key)) continue;
-      explicitAppearanceCount += 1;
-      expected.set(key, { videoId: video.videoId, groupTagId: group.tagId, origin: 'title' });
+      if (confirmed.has(key)) {
+        expected.set(key, { videoId: video.videoId, groupTagId: group.tagId, origin: 'confirmed' });
+      } else if (titleMatched && exactPerformerSet) {
+        explicitAppearanceCount += 1;
+        expected.set(key, { videoId: video.videoId, groupTagId: group.tagId, origin: 'title' });
+      }
     }
   }
 
@@ -125,7 +158,34 @@ export const auditCollaborationGroupTags = ({
       continue;
     }
     const key = appearanceKey(item.videoId, item.groupTagId);
-    if (!expected.has(key)) expected.set(key, { ...item, origin: 'confirmed' });
+    if (excluded.has(key)) {
+      errors.push(`${item.videoId}:ユニット ${item.groupTagId} が確認済み出演と除外確認の両方に登録されています。`);
+      continue;
+    }
+    if (!candidates.has(key)) {
+      candidates.set(key, {
+        videoId: item.videoId,
+        groupTagId: item.groupTagId,
+        assigned: false,
+        exactPerformerSet: false,
+        titleMatched: false,
+      });
+    }
+    expected.set(key, { ...item, origin: 'confirmed' });
+  }
+
+  for (const candidate of candidates.values()) {
+    const key = appearanceKey(candidate.videoId, candidate.groupTagId);
+    if (expected.has(key) || excluded.has(key)) continue;
+    const group = groupsById.get(candidate.groupTagId);
+    if (!group) continue;
+    if (candidate.assigned && !candidate.exactPerformerSet) {
+      errors.push(`${candidate.videoId}:ユニット「${group.name}」は構成員だけを主たる共演者とする動画ではありません。`);
+    } else if (candidate.exactPerformerSet && !candidate.titleMatched) {
+      errors.push(`${candidate.videoId}:出演者集合はユニット「${group.name}」と一致しますが、動画全体の主たる共演単位か確認済み出演または除外確認へ記録されていません。`);
+    } else if (candidate.titleMatched) {
+      errors.push(`${candidate.videoId}:公開タイトルのユニット「${group.name}」は、構成員だけを主たる共演者とする動画か確認できません。`);
+    }
   }
 
   for (const item of expected.values()) {
@@ -144,6 +204,17 @@ export const auditCollaborationGroupTags = ({
       if (!assigned.has(memberTagId)) {
         errors.push(`${video.videoId}:ユニット「${group.name}」の出演者 ${memberTagId} がありません。`);
       }
+    }
+    const unexpectedPerformers = video.tagAssignments
+      .map((assignment) => assignment.tagId)
+      .filter((tagId) => (
+        tagId !== source.subjectPerformerTagId
+        && peopleById.has(tagId)
+        && !group.memberTagIds.includes(tagId)
+      ));
+    if (unexpectedPerformers.length > 0) {
+      const names = unexpectedPerformers.map((tagId) => peopleById.get(tagId)?.name ?? tagId).join('、');
+      errors.push(`${video.videoId}:ユニット「${group.name}」以外の出演者「${names}」を含むため、ユニットタグを付与できません。`);
     }
   }
 
@@ -281,9 +352,11 @@ export const auditCollaborationGroupTags = ({
   return {
     errors,
     appearances: [...expected.values()],
+    candidateAppearanceCount: candidates.size,
     explicitAppearanceCount,
     confirmedAppearanceCount: source.confirmedAppearances.length,
     auditedAppearanceCount: expected.size,
+    excludedAppearanceCount: source.excludedAppearances.length,
     confirmedParticipantVideoCount: source.confirmedParticipants.length,
     confirmedParticipantCount: source.confirmedParticipants.reduce(
       (total, item) => total + item.performerTagIds.length,

@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0.0",
-  "taxonomyVersion": "9.3.0",
+  "taxonomyVersion": "9.4.0",
   "sourceVersion": "2.1.0",
   "aliasVersion": "8.3.0",
-  "rulesVersion": "9.1.0",
+  "rulesVersion": "9.3.0",
   "effectiveDate": "2026-09-04",
   "compatibleCanonicalVideoTaxonomyVersions": [
     "8.6.0",
@@ -11,7 +11,8 @@
     "8.8.0",
     "9.0.0",
     "9.1.0",
-    "9.2.0"
+    "9.2.0",
+    "9.3.0"
   ],
   "categoryCount": 7,
   "subcategoryCount": 28,
@@ -5240,135 +5241,135 @@
           "name": "ユニット・チーム",
           "order": 3,
           "cardinality": "0..n",
-          "requiredWhen": "group_aliases_v2.jsonにあるグループとして活動している",
-          "valueRule": "group_aliases_v2.jsonの正規名を使う。旧名・別名・ハッシュタグは検索別名として統合し、先頭の#は付けない",
+          "requiredWhen": "構成員全員だけが動画全体の主たる共演単位として実出演すると確認済みである",
+          "valueRule": "正規名を使い、旧名・別名・ハッシュタグは検索別名として統合する。出演者集合だけでは自動付与せず、動画全体の主たる共演単位かを確認する",
           "extensible": true,
           "tags": [
             {
               "tagId": "tag-people-unit-01148a0ec454",
               "canonicalName": "Crossick",
               "active": true,
-              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
-              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-17a77babcac5",
               "canonicalName": "W白雪コラボ",
               "active": true,
-              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
-              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-83b83aa4d2b3",
               "canonicalName": "エデン組",
               "active": true,
-              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
-              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-5e1fb31fdec9",
               "canonicalName": "スノーベル",
               "active": true,
-              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
-              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-0afa15239a0a",
               "canonicalName": "セクスィー色に染まらなイカ？",
               "active": true,
-              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
-              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-8888d0ac1b8d",
               "canonicalName": "タリキホンガンジム",
               "active": true,
-              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
-              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-70e59966e56e",
               "canonicalName": "フミとも",
               "active": true,
-              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
-              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-23ef0b95ff38",
               "canonicalName": "フルトイ",
               "active": true,
-              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
-              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-844344849374",
               "canonicalName": "ふるとな",
               "active": true,
-              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
-              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-33516bc0fd2d",
               "canonicalName": "ホラゲV女子会",
               "active": true,
-              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
-              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-9b39bdef3a33",
               "canonicalName": "らぶスノ",
               "active": true,
-              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
-              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-01c720b5d7b5",
               "canonicalName": "極肆姉妹",
               "active": true,
-              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
-              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-d5b1de96b450",
               "canonicalName": "女王と会長",
               "active": true,
-              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
-              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-ddd6b25f595b",
               "canonicalName": "雪月シスターズ",
               "active": true,
-              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
-              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-6e40e2de17b5",
               "canonicalName": "雪晴れに花ふわり",
               "active": true,
-              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
-              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-07232924c510",
               "canonicalName": "巴乃しん",
               "active": true,
-              "inclusionCriteria": "動画固有の公開情報で定着したコンビ・ユニット名として確認できること",
-              "exclusionCriteria": "メンバーが一部いるだけ、名称の言及だけ、根拠のない推測は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-56355048805b",
               "canonicalName": "八月の雪",
               "active": true,
-              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
-              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             },
             {
               "tagId": "tag-people-unit-31175672222e",
               "canonicalName": "夜王国",
               "active": true,
-              "inclusionCriteria": "ユニット・チームとして公開情報から直接確認できること",
-              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+              "inclusionCriteria": "構成員全員だけが動画全体の主たる共演単位として実出演すると公開情報と確認記録から直接確認できること",
+              "exclusionCriteria": "構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分への参加、対戦相手、言及だけの場合は含めない"
             }
           ],
           "valueKind": "entity-reference",
