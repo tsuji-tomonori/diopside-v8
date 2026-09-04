@@ -85,6 +85,7 @@ describe('決定的な公開成果物', () => {
     ];
     expect(allPublicTagIds.every((tagId) => !tagId.startsWith('tag-people-channel-'))).toBe(true);
     expect(search.videos.every((video) => video.normalizedReading.length > 0)).toBe(true);
+    expect(games.games.every((game) => game.videoIds.length > 0)).toBe(true);
     expect(index.videos.every((video) => video.entityRefs.every((reference) => entities.entities.some((entity) => entity.entityId === reference.entityId)))).toBe(true);
     expect(tags.categories.flatMap((category) => category.subcategories).flatMap((subcategory) => subcategory.tags)
       .every((tag) => tag.normalizedReading.length > 0)).toBe(true);

@@ -1,0 +1,71 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260905-biohazard-requiem-taxonomy
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: true
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: true
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - {id: IMP-001, class: Invariant, result: pass, evidence: ["path:spec/requirements/requirements.json", "path:content/taxonomy/tag-taxonomy.json"], note: "既存のゲーム作品名必須・ゲーム単位ジャンル正本要件を満たす追加語彙で、永続要件は変更しない。"}
+  - {id: IMP-002, class: Invariant, result: pass, evidence: ["path:content/taxonomy/tag-taxonomy.json", "path:content/works/game-catalog.json", "path:scripts/build-public-data.ts", "path:docs/design/generated/inventory.gen.json"], note: "既存taxonomyとゲーム正本への追記、動画0件エンティティの既存非公開方針適用で、schema・構成・ADRは変更しない。実装由来checksumは生成設計へ反映した。"}
+  - {id: IMP-003, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260905-biohazard-requiem-taxonomy.yaml"], note: "4動画追加の前提となる共有taxonomy・公開契約変更のためassuredを選択した。"}
+  - {id: IMP-004, class: Invariant, result: pass, evidence: ["commit:self"], note: "外部書込みはユーザーが明示許可したbranch、PR、mergeに限定する。"}
+  - {id: IMP-005, class: Invariant, result: pass, evidence: ["commit:self"], note: "不可逆操作は当該PRのmainへのmergeに限定し、削除、force update、独自deployを行わない。"}
+  - {id: IMP-007, class: Risk-selected, result: pass, evidence: ["path:content/taxonomy/change-record.json", "path:content/works/game-catalog.json"], note: "新規不変tag IDと根拠付きゲーム1件を追記し、既存1705動画への変更は0件である。"}
+  - {id: FAST-001, class: Invariant, result: pass, evidence: ["path:scripts/build-public-data.ts", "workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行"], note: "ゲーム正本を含むproduction buildを既存PR品質ゲートで検証する。"}
+  - {id: FAST-002, class: Invariant, result: pass, evidence: ["path:tsconfig.node.json", "workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行"], note: "公開データ生成scriptのTypeScript strict型検査を既存PR品質ゲートで検証する。"}
+  - {id: FAST-003, class: Invariant, result: pass, evidence: ["path:scripts/build-public-data.ts", "test:tests/generated.test.ts"], note: "変更した生成scriptと回帰testをlint警告0件で検証する。"}
+  - {id: FAST-004, class: Invariant, result: pass, evidence: ["path:scripts/audit-game-tags.ts", "test:tests/content-validation.test.ts"], note: "249作品名・246ゲームの正本完全性と既存全動画のゲームタグ整合を検証する。"}
+  - {id: FAST-005, class: Risk-selected, result: pass, evidence: ["path:content/works/game-catalog.json", "path:scripts/audit-game-tags.ts", "test:tests/generated.test.ts"], note: "作品名をホラー・サバイバル・FPS/TPSへゲーム単位で固定し、後続4動画へ同一分類を適用する。動画0件の間は公開indexから除外する。"}
+  - {id: FAST-006, class: Invariant, result: pass, evidence: ["path:scripts/build-public-data.ts", "path:docs/design/generated/inventory.gen.json", "workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行"], note: "追加型taxonomyとゲーム正本から公開成果物を決定生成し、通常PRへpublic/docsを直接含めず、実装由来の生成設計だけをgeneratorで更新した。"}
+  - {id: FAST-007, class: Invariant, result: pass, evidence: ["commit:self"], note: "公開作品名、公式URL、分類、レビュー日だけを追加し、生チャット・投稿者情報・秘密情報を含めない。"}
+  - {id: REV-001, class: Invariant, result: pass, evidence: ["commit:self"], note: "差分をバイオハザード レクイエムのtaxonomy・ゲーム正本・版管理・review結果に限定する。"}
+  - {id: REV-002, class: Invariant, result: pass, evidence: ["commit:self"], note: "Commit Commentへ目的、変更、要件・設計影響、review path、検証契約、互換性、残存リスクを記録する。"}
+  - {id: REV-003, class: Invariant, result: pass, evidence: ["path:spec/requirements/requirements.json"], note: "既存のゲーム動画分類要件を満たす語彙追加であり、要件正本の更新は不要である。"}
+  - {id: REV-004, class: Invariant, result: pass, evidence: ["path:scripts/build-public-data.ts", "path:docs/design/generated/inventory.gen.json"], note: "公開生成filterの実装由来checksumを既存generatorで生成設計へ反映した。構成判断は変わらないためADRは不要である。"}
+  - {id: REV-005, class: Risk-selected, result: pass, evidence: ["path:content/works/game-catalog.json", "path:content/taxonomy/change-record.json"], note: "ゲーム作品名必須・ゲーム単位分類要件から新規tag ID、公式根拠、ジャンル、版変更へ追跡できる。"}
+  - {id: REV-006, class: Invariant, result: pass, evidence: ["test:tests/content-validation.test.ts", "path:scripts/audit-game-tags.ts", "workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行"], note: "正本schema、taxonomy差分、ゲーム分類、公開決定生成を対象検証とCIで確認する。"}
+  - {id: REV-007, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260905-biohazard-requiem-taxonomy.yaml"], note: "選択したcheckだけを本reviewへ保存する。"}
+  - {id: REV-008, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260905-biohazard-requiem-taxonomy.yaml"], note: "未選択checkをN/Aとして登録しない。"}
+  - {id: REV-011, class: Risk-selected, result: pass, evidence: ["path:content/taxonomy/tag-taxonomy.json", "path:content/works/game-catalog.json"], note: "追加型の新規tag ID・ゲーム1件で旧consumerと既存動画は維持され、revertと再生成でrollbackできる。"}
+  - {id: REV-015, class: Advisory, result: pass, evidence: ["path:content/works/game-catalog.json", "path:spec/requirements/requirements.json"], note: "将来の4動画へ同じ作品・ジャンルを適用する判断は既存のゲーム正本経路へ恒久化した。新しい設計方式ではないため別ADRは不要と判断した。"}
+advisories: []
+residual_risks:
+  - CAPCOM公式作品ページは確認環境からHTTP 403だったため、公開メタデータの正式作品名と同シリーズ既存分類も合わせて採用した。
+  - 新規作品タグを使う4動画は本PRへ混在させず、merge後に1動画1PRで追加する。
