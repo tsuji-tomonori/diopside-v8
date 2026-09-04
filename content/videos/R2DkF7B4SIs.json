@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "b31c67bd13a68bd232cdee02f2304dd8633ca2593792eb27ea97a9678932c3c3"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "6efb1ab53532cff786bf840ab493f7e517cffc0531b9d34d01d69eee9de8906d"
     }
   ],
   "tagAssignments": [
@@ -315,10 +321,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "かわいい",
+        "weight": 57
+      },
+      {
+        "term": "人",
+        "weight": 53
+      },
+      {
+        "term": "話",
+        "weight": 52
+      },
+      {
+        "term": "楽しい",
+        "weight": 51
+      },
+      {
+        "term": "わかる",
+        "weight": 46
+      },
+      {
+        "term": "かんぱ",
+        "weight": 43
+      },
+      {
+        "term": "ai",
+        "weight": 39
+      },
+      {
+        "term": "好き",
+        "weight": 36
+      },
+      {
+        "term": "よし",
+        "weight": 35
+      },
+      {
+        "term": "うん",
+        "weight": 34
+      },
+      {
+        "term": "復讐",
+        "weight": 32
+      },
+      {
+        "term": "面白い",
+        "weight": 31
+      },
+      {
+        "term": "バイオ",
+        "weight": 29
+      },
+      {
+        "term": "配信",
+        "weight": 28
+      },
+      {
+        "term": "嬉しい",
+        "weight": 27
+      },
+      {
+        "term": "飲む",
+        "weight": 25
+      },
+      {
+        "term": "出る",
+        "weight": 23
+      },
+      {
+        "term": "アニメ",
+        "weight": 22
+      },
+      {
+        "term": "はい",
+        "weight": 18
+      },
+      {
+        "term": "考える",
+        "weight": 17
+      },
+      {
+        "term": "怖い",
+        "weight": 16
+      },
+      {
+        "term": "お話",
+        "weight": 15
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 15
+      },
+      {
+        "term": "ゲーム",
+        "weight": 13
+      },
+      {
+        "term": "最近",
+        "weight": 13
+      },
+      {
+        "term": "晩酌",
+        "weight": 11
+      },
+      {
+        "term": "ほる",
+        "weight": 10
+      },
+      {
+        "term": "映画",
+        "weight": 10
+      },
+      {
+        "term": "豆腐",
+        "weight": 10
+      },
+      {
+        "term": "ちょっと",
+        "weight": 9
+      },
+      {
+        "term": "似る",
+        "weight": 9
+      },
+      {
+        "term": "酒",
+        "weight": 9
+      },
+      {
+        "term": "多い",
+        "weight": 9
+      },
+      {
+        "term": "楽しみ",
+        "weight": 7
+      },
+      {
+        "term": "スルー",
+        "weight": 6
+      },
+      {
+        "term": "どう",
+        "weight": 6
+      },
+      {
+        "term": "悪い",
+        "weight": 6
+      },
+      {
+        "term": "聞ける",
+        "weight": 6
+      },
+      {
+        "term": "オススメ",
+        "weight": 3
+      },
+      {
+        "term": "作品",
+        "weight": 3
+      },
+      {
+        "term": "大丈夫",
+        "weight": 3
+      },
+      {
+        "term": "悪役",
+        "weight": 1
+      },
+      {
+        "term": "鬼",
+        "weight": 1
+      },
+      {
+        "term": "終わる",
+        "weight": 1
+      },
+      {
+        "term": "人間",
+        "weight": 1
+      },
+      {
+        "term": "席",
+        "weight": 1
+      },
+      {
+        "term": "難しい",
+        "weight": 1
+      },
+      {
+        "term": "癒す",
+        "weight": 1
+      },
+      {
+        "term": "令嬢",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "6efb1ab53532cff786bf840ab493f7e517cffc0531b9d34d01d69eee9de8906d",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "d09788856297e19aadc04a233df597e4e3ec1258f512952b9827b9daff9a97e4",
