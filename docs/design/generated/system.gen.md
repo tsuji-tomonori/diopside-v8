@@ -275,4 +275,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力80ファイル、公開契約193件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力81ファイル、公開契約193件です。

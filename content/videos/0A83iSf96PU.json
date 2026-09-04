@@ -81,6 +81,15 @@
         "evidence-duration"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-musicType-c959fb47bb30",
+      "reason": "公開タイトル・承認済みタイムスタンプの横断監査から音楽種別「歌枠」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-09-04T20:30:00+09:00"
     }
   ],
   "synopsis": {
@@ -718,8 +727,8 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+    "approvedAt": "2026-09-04T20:30:00+09:00",
+    "basis": "利用者指示と公開タイトル・承認済みタイムスタンプによる歌枠横断監査で、音楽種別「歌枠」を再承認"
   },
   "customEmojiUsage": {
     "status": "集計済み",

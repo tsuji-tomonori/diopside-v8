@@ -35,6 +35,14 @@ const collaborationProfiles = collaborationProfilesSchema.parse(json('content/pe
 const channelPersonMappings = channelPersonMappingsSchema.parse(json('content/people/channel-person-mappings.json'));
 const songPerformancesInput = json('content/songs/song-performances.json');
 const songPerformances = songPerformanceCatalogSchema.parse(songPerformancesInput);
+const songFrameAudit = json('spec/sources/song-frame-performance-audit-v1.json') as {
+  musicTypeExpectations: Array<{ videoId: string; expectedMusicType: '歌枠' | '歌リレー' | null }>;
+  performanceSelections: Array<{
+    videoId: string;
+    items: Array<{ timestampId: string; title: string; matchedText: string }>;
+  }>;
+  knownUnresolved: Array<{ videoId: string; timestampId?: string }>;
+};
 const gameCatalogInput = json('content/works/game-catalog.json');
 const gameCatalog = gameCatalogSchema.parse(gameCatalogInput);
 
@@ -359,6 +367,57 @@ describe('タグ・動画正本と公開境界', () => {
     const appearances = songPerformances.songs.flatMap((song) => song.appearances);
     expect(appearances.some((appearance) => appearance.performanceType === '歌ってみた' && appearance.startSeconds === 0)).toBe(true);
     expect(appearances.some((appearance) => appearance.performanceType === '歌枠' && appearance.startSeconds > 0 && appearance.timestampId)).toBe(true);
+  });
+
+  it('主ジャンル「歌」を横断監査し、歌枠タイムスタンプ92件を楽曲一覧へ一意に解決する', () => {
+    const primarySongTagId = taxonomy.categories
+      .find((category) => category.categoryId === 'content')!
+      .subcategories.find((subcategory) => subcategory.subcategoryId === 'primary')!
+      .tags.find((tag) => tag.canonicalName === '歌')!.tagId;
+    const musicTypeTags = taxonomy.categories
+      .find((category) => category.categoryId === 'content')!
+      .subcategories.find((subcategory) => subcategory.subcategoryId === 'musicType')!.tags;
+    const songFrameTagId = musicTypeTags.find((tag) => tag.canonicalName === '歌枠')!.tagId;
+    const songRelayTagId = musicTypeTags.find((tag) => tag.canonicalName === '歌リレー')!.tagId;
+    const primarySongVideos = videos
+      .filter((video) => video.tagAssignments.some((assignment) => assignment.tagId === primarySongTagId))
+    const expectationIds = new Set(songFrameAudit.musicTypeExpectations.map((item) => item.videoId));
+    const uncoveredAuditCandidates = primarySongVideos
+      .filter((video) => (
+        video.timestamps.status === '作成済み'
+        || video.tagAssignments.some((assignment) => [songFrameTagId, songRelayTagId].includes(assignment.tagId))
+      ))
+      .filter((video) => !expectationIds.has(video.videoId));
+    expect(uncoveredAuditCandidates).toEqual([]);
+
+    for (const expectation of songFrameAudit.musicTypeExpectations) {
+      const video = videos.find((item) => item.videoId === expectation.videoId)!;
+      const actual = video.tagAssignments.flatMap((assignment) => {
+        if (assignment.tagId === songFrameTagId) return ['歌枠' as const];
+        if (assignment.tagId === songRelayTagId) return ['歌リレー' as const];
+        return [];
+      });
+      expect(actual, expectation.videoId).toEqual(expectation.expectedMusicType === null ? [] : [expectation.expectedMusicType]);
+    }
+
+    const expectedItems = songFrameAudit.performanceSelections.flatMap((selection) => (
+      selection.items.map((item) => ({ ...item, videoId: selection.videoId }))
+    ));
+    expect(expectedItems).toHaveLength(92);
+    expect(new Set(expectedItems.map((item) => item.title)).size).toBe(90);
+    expect(expectedItems.filter((item) => item.videoId === 'gY-woCX_SWE')).toHaveLength(28);
+    expect(songFrameAudit.knownUnresolved.filter((item) => item.videoId === 'gY-woCX_SWE' && item.timestampId)).toHaveLength(2);
+
+    for (const expected of expectedItems) {
+      const video = videos.find((item) => item.videoId === expected.videoId)!;
+      if (video.timestamps.status !== '作成済み') throw new Error(`${expected.videoId}のタイムスタンプが未作成です。`);
+      const timestamp = video.timestamps.items.find((item) => item.timestampId === expected.timestampId)!;
+      expect(timestamp.label, `${expected.videoId}/${expected.timestampId}`).toContain(expected.matchedText);
+      const song = songPerformances.songs.find((item) => item.title === expected.title)!;
+      expect(song.appearances.filter((appearance) => (
+        appearance.videoId === expected.videoId && appearance.timestampId === expected.timestampId
+      )), `${expected.videoId}/${expected.timestampId}/${expected.title}`).toHaveLength(1);
+    }
   });
 
   it('主ジャンルが歌でない通常配信でも、範囲と根拠のある鼻歌を楽曲として登録できる', () => {

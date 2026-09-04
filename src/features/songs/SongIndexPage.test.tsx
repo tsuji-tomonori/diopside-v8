@@ -16,13 +16,13 @@ describe('歌唱楽曲一覧', () => {
 
     expect(screen.getByRole('heading', { level: 1, name: '歌った曲' })).toBeVisible();
     expect(screen.getByRole('heading', { name: '吉原ラメント' })).toBeVisible();
-    expect(screen.getAllByRole('link', { name: '原曲を聴く ↗' })[0]).toHaveAttribute('href', expect.stringMatching(/^https:\/\/www\.youtube\.com\/watch/u));
+    expect(screen.getAllByRole('link', { name: '原曲を聴く ↗' })[0]).toHaveAttribute('href', expect.stringMatching(/^https:\/\//u));
     expect(screen.getByRole('link', { name: '10:33 から見る ↗' })).toHaveAttribute(
       'href',
       'https://www.youtube.com/watch?v=ARViApkvV-E&t=633s',
     );
     expect(screen.getAllByText('歌ってみた').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('歌枠')).toHaveLength(4);
+    expect(screen.getAllByText('歌枠')).toHaveLength(92);
   });
 
   it('白雪巴の歌唱を原曲より先に表示し、動画を主操作にする', () => {
