@@ -1,0 +1,189 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260904-comment-word-cloud-density
+profile: regulated
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: true
+  important_ui_change: true
+  long_term_decision: false
+  squash: true
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:spec/sources/owner-directive-2026-09-04-comment-word-cloud.md]
+    note: V8-DISPLAY-005/006をrevision 2へ更新し、コメント優先、由来表示、密集配置、安全境界を正本化した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/aggregate-word-cloud.ts, path:src/features/detail/wordCloudLayout.ts, path:src/features/detail/WordCloud.tsx]
+    note: コメント本文の匿名集約から決定的配置、レスポンシブSVG表示までを既存の静的詳細ページ経路へ接続した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260904-comment-word-cloud-density.yaml]
+    note: 一時入力に投稿者識別子を含み得る公開コメント・チャットを扱うためregulatedを選択した。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:src/domain/content.ts, test:tests/content-validation.test.ts]
+    note: 新しい入力種別は追加型で、既存の字幕・概要欄・運用者本文由来と既存正本を引き続き受理する。
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:src/domain/content.ts, path:src/domain/validation.ts, test:e2e/detail.spec.ts]
+    note: 公開契約はコメント・チャットの入力種別だけを追加し、生本文、投稿者情報、入力指紋を公開詳細へ出さない。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:src/features/detail/WordCloud.tsx]
+    note: production buildを既存PR品質ゲートで検証する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:src/features/detail/wordCloudLayout.ts]
+    note: TypeScript strictのブラウザ・Node両構成を既存PR品質ゲートで検証する。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:scripts/aggregate-word-cloud.ts]
+    note: src、scripts、tests、e2eのlintを既存PR品質ゲートで検証する。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:src/features/detail/wordCloudLayout.test.ts, test:tests/word-cloud-aggregation.test.ts, test:tests/content-validation.test.ts]
+    note: 決定配置、重なり・範囲・密度、形態素集約、匿名化、入力種別と根拠の一致を単体試験で検証する。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/review_contract_test.py, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: review schema、source_ref、impact flag、必須checkの整合をvalidate:reviewで検証する。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/inventory.gen.json, path:scripts/generate-requirements.ts]
+    note: 要件正本、人向け要件、実装inventoryを正本ソースから決定的に再生成した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [test:tests/word-cloud-aggregation.test.ts, path:docs/operations/privacy-and-safety.md]
+    note: 投稿者名、投稿者ID、生本文を候補出力へ保持しない境界を試験と運用文書で固定した。
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/detail.spec.ts, path:src/features/detail/WordCloud.tsx]
+    note: コメント由来表示、20語以上、縦横混在、重要度の視覚差、重大axe違反なしをE2Eで検証する。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:scripts/aggregate-word-cloud.ts, path:docs/operations/manual-content-update.md]
+    note: 有効語20語未満では候補化を停止し、由来を偽らず承認済み代替資料へ切り替えられる。
+  - id: FAST-018
+    class: Risk-selected
+    result: pass
+    evidence: [test:src/features/detail/wordCloudLayout.test.ts, test:e2e/detail.spec.ts]
+    note: 従来の横並び表示への回帰を密度、縦横混在、サイズ比、実ブラウザ表示の別oracleで防ぐ。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をワードクラウドの入力・配置・表示・要件・安全運用・対応試験へ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 目的、変更、要件・設計影響、検証、互換性、残存リスクを構造化commitへ記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: 所有者指示をV8-DISPLAY-005/006 revision 2とcatalog revision 32へ反映した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/system.gen.md, commit:self]
+    note: 既存の静的詳細ページと動画正本の追加型拡張であり、新しい長期基盤選択はない。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:scripts/aggregate-word-cloud.ts, path:src/features/detail/WordCloud.tsx, test:e2e/detail.spec.ts]
+    note: V8-DISPLAY-005/006から集約器、schema、検証、配置、表示、単体・E2E試験へ到達できる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/word-cloud-aggregation.test.ts, test:src/features/detail/wordCloudLayout.test.ts, test:e2e/detail.spec.ts, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: 匿名集約、入力来歴、密集配置、レスポンシブ表示の受入条件を既存CIへ接続した。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260904-comment-word-cloud-density.yaml]
+    note: 選択したcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260904-comment-word-cloud-density.yaml]
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence: [path:src/domain/content.ts, test:tests/content-validation.test.ts, test:e2e/detail.spec.ts]
+    note: 入力種別は追加型で既存データを維持し、rollbackは新入力種別と専用表示・集約器の除去で可能である。
+  - id: REV-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/word-cloud-aggregation.test.ts, path:docs/operations/privacy-and-safety.md]
+    note: 出力非保持試験と構造化本文キーのallowlistという別oracleで投稿者情報・生本文の非保持を確認する。
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/detail.spec.ts, test:src/features/detail/wordCloudLayout.test.ts, path:src/styles.css]
+    note: デスクトップ・モバイルの面充填、文字の重なりなし、縦横混在、重要度差、読み上げ代替一覧を確認する。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:docs/operations/manual-content-update.md, path:docs/operations/privacy-and-safety.md]
+    note: コメント優先、20語未満時の停止、代替資料、全語の人手確認、一時入力破棄を運用正本へ反映した。
+advisories: []
+residual_risks:
+  - 現在作成済みの3動画は承認済み公開字幕由来であり、対応する公開コメントまたはチャットを取得して全語を人が確認するまでは出典を字幕と明示したまま維持する。
+  - YouTube側の公開コメント・チャット提供状況や構造は動画ごとに異なり、取得不能または有効語20語未満では承認済み代替資料へフォールバックする。
+  - SVGの文字境界は決定的な近似値で衝突を避けており、将来フォントを変更する場合は実ブラウザ画面と配置試験を再確認する。

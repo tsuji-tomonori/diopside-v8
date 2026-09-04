@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "catalog_revision": 31,
+  "catalog_revision": 32,
   "product": "diopside v8",
-  "updated_at": "2026-09-03",
+  "updated_at": "2026-09-04",
   "requirements": [
     {
       "acceptance_criteria": [
@@ -975,97 +975,125 @@
     },
     {
       "id": "V8-DISPLAY-005",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "product",
       "category": "functional",
       "type": "functional",
-      "title": "動画詳細は、承認済みのワードクラウドを表示しなければならない",
+      "title": "動画詳細は、承認済み語句の重要度差と対象動画への熱量が伝わる密集ワードクラウドを表示しなければならない",
       "subject": "diopside v8の表示",
       "action": "satisfy",
-      "object": "動画詳細は、承認済みのワードクラウドを表示しなければならない。",
+      "object": "動画詳細は、承認済みの20～50語を、重要度の高い語ほど明確に大きくし、横書きと縦書きを混ぜ、横一列の語句一覧ではなく表示面を広く使う密集ワードクラウドとして表示しなければならない。",
       "rationale": "利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。",
       "source_refs": [
         "Issue #1 V8-表示-005",
-        "user:2026-08-03"
+        "user:2026-08-03",
+        "spec/sources/owner-directive-2026-09-04-comment-word-cloud.md",
+        "user:2026-09-04"
       ],
       "acceptance_criteria": [
         {
           "id": "AC-V8-DISPLAY-005-1",
-          "given": "V8-表示-005の前提を満たす公開データまたは操作がある",
-          "when": "表示試験・再現性試験",
-          "then": "20～50語を重要度に応じた大きさで表示し、同じ入力、画面幅、描画規則から同じ語句、大きさ、位置を再現できる。"
+          "given": "承認済みの20～50語と重要度がある",
+          "when": "デスクトップまたはモバイルの動画詳細でワードクラウドを表示する",
+          "then": "語句を重ねず、重要度差が明確な文字サイズ、横書きと縦書きの混在、および表示面の横・縦それぞれを広く使う密集配置で表示し、横一列の一覧に見えない。"
+        },
+        {
+          "id": "AC-V8-DISPLAY-005-2",
+          "given": "同じ語句、重要度、画面幅、描画規則がある",
+          "when": "ワードクラウドを繰り返し描画する",
+          "then": "語句、大きさ、向き、位置、色を決定的に再現できる。"
         }
       ],
       "verification": {
-        "method": "表示試験・再現性試験",
-        "evidence": "src/domain/validation.test.ts, e2e/detail.spec.ts"
+        "method": "配置単体試験・レスポンシブ表示試験・再現性試験",
+        "evidence": "src/features/detail/wordCloudLayout.test.ts, e2e/detail.spec.ts"
       },
       "traces": {
         "design": [
           "docs/design/generated/system.gen.md"
         ],
         "implementation": [
+          "src/features/detail/WordCloud.tsx",
+          "src/features/detail/wordCloudLayout.ts",
           "src/features/detail/VideoDetailPage.tsx",
           "src/styles.css"
         ],
         "tests": [
-          "src/domain/validation.test.ts",
+          "src/features/detail/wordCloudLayout.test.ts",
           "e2e/detail.spec.ts"
         ],
         "standards": [
           "Issue #1",
-          "dev-standard default profile"
+          "dev-standard default profile",
+          "spec/sources/owner-directive-2026-09-04-comment-word-cloud.md",
+          "dev-standard regulated profile"
         ]
       },
-      "last_changed_by": "ISSUE-1-IMPLEMENTATION"
+      "last_changed_by": "CHG-20260904-COMMENT-WORD-CLOUD-DENSITY"
     },
     {
       "id": "V8-DISPLAY-006",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "product",
       "category": "functional",
       "type": "functional",
-      "title": "ワードクラウドの語句は、公開字幕、公開概要欄、または運用者が明示的に提供した公開本文を一時的に処理して作り、人の承認前に公開してはならない",
+      "title": "ワードクラウドは取得可能な公開コメントまたは公開チャットの反応を優先して安全に生成しなければならない",
       "subject": "diopside v8の表示",
       "action": "satisfy",
-      "object": "ワードクラウドの語句は、公開字幕、公開概要欄、または運用者が明示的に提供した公開本文を一時的に処理して作り、人の承認前に公開してはならない。",
+      "object": "ワードクラウドは、対象動画の公開コメントまたは公開チャットリプレイを一時処理できる場合に視聴者の反応を優先して生成し、取得できない場合だけ公開字幕、公開概要欄、または運用者が明示的に提供した公開本文を代替入力として使用しなければならない。生本文と投稿者情報を公開せず、入力種別を画面に明示し、人の承認前に候補を公開してはならない。",
       "rationale": "利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。",
       "source_refs": [
         "Issue #1 V8-表示-006",
-        "user:2026-08-03"
+        "user:2026-08-03",
+        "spec/sources/owner-directive-2026-09-04-comment-word-cloud.md",
+        "user:2026-09-04"
       ],
       "acceptance_criteria": [
         {
           "id": "AC-V8-DISPLAY-006-1",
-          "given": "V8-表示-006の前提を満たす公開データまたは操作がある",
-          "when": "生成来歴確認・人手確認",
-          "then": "使用した入力種別、除外語規則、生成規則の版と確認結果をプルリクエストから追跡できる。"
+          "given": "対象動画の公開コメントまたは公開チャットリプレイを一時処理できる",
+          "when": "ワードクラウド候補を生成して公開候補を検証する",
+          "then": "コメントまたはチャット本文だけから20～50語と重要度を集約し、生本文、投稿者名、投稿者IDを出力せず、入力指紋、入力種別、除外規則版、生成規則版、人の確認状態を追跡できる。"
+        },
+        {
+          "id": "AC-V8-DISPLAY-006-2",
+          "given": "公開コメントまたは公開チャットリプレイを取得または十分に集約できない",
+          "when": "承認済みの代替公開資料からワードクラウドを表示する",
+          "then": "公開字幕、公開概要欄、または運用者提供の公開本文を使用でき、コメント由来であると偽らず実際の入力種別を画面に明示する。"
         }
       ],
       "verification": {
-        "method": "生成来歴確認・人手確認",
-        "evidence": "src/domain/validation.test.ts, e2e/detail.spec.ts"
+        "method": "匿名集約単体試験・生成来歴検証・入力種別表示試験・人手確認",
+        "evidence": "tests/word-cloud-aggregation.test.ts, tests/content-validation.test.ts, e2e/detail.spec.ts"
       },
       "traces": {
         "design": [
-          "docs/design/generated/system.gen.md"
+          "docs/design/generated/system.gen.md",
+          "docs/operations/manual-content-update.md",
+          "docs/operations/privacy-and-safety.md"
         ],
         "implementation": [
-          "src/features/detail/VideoDetailPage.tsx",
-          "src/styles.css"
+          "scripts/aggregate-word-cloud.ts",
+          "src/domain/content.ts",
+          "src/domain/validation.ts",
+          "src/features/detail/WordCloud.tsx"
         ],
         "tests": [
-          "src/domain/validation.test.ts",
+          "tests/word-cloud-aggregation.test.ts",
+          "tests/content-validation.test.ts",
           "e2e/detail.spec.ts"
         ],
         "standards": [
           "Issue #1",
-          "dev-standard default profile"
+          "dev-standard default profile",
+          "V8-SAFETY-002",
+          "spec/sources/owner-directive-2026-09-04-comment-word-cloud.md",
+          "dev-standard regulated profile"
         ]
       },
-      "last_changed_by": "ISSUE-1-IMPLEMENTATION"
+      "last_changed_by": "CHG-20260904-COMMENT-WORD-CLOUD-DENSITY"
     },
     {
       "id": "V8-DISPLAY-007",

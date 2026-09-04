@@ -7,6 +7,10 @@
       "sha256": "48fc021489a7280388e255c46c6329ff7dbcb69bef8772443f78ce72826a26bf"
     },
     {
+      "path": "scripts/aggregate-word-cloud.ts",
+      "sha256": "248f836e59f0e76daffe494f3e4d8e227b85a9cdc8670f509736c81b28ebb6bc"
+    },
+    {
       "path": "scripts/apply-custom-emoji-usage.ts",
       "sha256": "1ea3487c1bbb5b5071a71628cb2d2edd2636b9a1df394b06cfdc8ff57d94d86e"
     },
@@ -48,7 +52,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "10330ca29f27fbab835d32cd6b49f238320e48a3f8ddde68bf0b4c5ea1e7b930"
+      "sha256": "93b2ea5ae5403d2ac2e1017bff08cbd744c57433e48be35a466cf56f8675642d"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -172,7 +176,7 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "e4ddd2facde2f9020336a0383633c07288ebb555dd8198962ae7ef522c68afb6"
+      "sha256": "60fb5fc95f04620918acf84d6ef95d6ecae1de1383d493ce76c85bfa02841a76"
     },
     {
       "path": "src/domain/entities.ts",
@@ -204,7 +208,7 @@
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "fa6b1406441f419639b3ff0102a482097165424973833fa9dd79624d4cb7e4a1"
+      "sha256": "e47f86e42b81695a7f86edb6afa77e266e16da4f83948d80c152a256eb7d3f33"
     },
     {
       "path": "src/features/collaborations/CollaborationDetailPages.test.tsx",
@@ -220,7 +224,19 @@
     },
     {
       "path": "src/features/detail/VideoDetailPage.tsx",
-      "sha256": "4ea6fa2b5648ff34377aeaf960f5a9b90487e2ffc894e6d22443bfb2f7eab41f"
+      "sha256": "8efcd4efa2e675a18d7f4d585ae35ad41990346dac55a1ad26d11e39e2d4c356"
+    },
+    {
+      "path": "src/features/detail/WordCloud.tsx",
+      "sha256": "4c538e380ea2da3792a79ba8f022c1eba90133e2bce0990a8ef9564a1f9ab3c8"
+    },
+    {
+      "path": "src/features/detail/wordCloudLayout.test.ts",
+      "sha256": "0d2c8c6420cb86d29f4fa8f5f948d2926d45ae46d4e8b899e75c96aaf8c09d55"
+    },
+    {
+      "path": "src/features/detail/wordCloudLayout.ts",
+      "sha256": "19b3d8c20250ab3fb464e1edce5bc723b575f4cb7024dcd38d023ef649575d7e"
     },
     {
       "path": "src/features/entities/EntityIndexPage.test.tsx",
@@ -309,6 +325,21 @@
     {
       "file": "scripts/aggregate-custom-emoji-usage.ts",
       "name": "CustomEmojiUsageItem",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/aggregate-word-cloud.ts",
+      "name": "aggregateWordCloud",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/aggregate-word-cloud.ts",
+      "name": "AudienceWordCloudInputType",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "scripts/aggregate-word-cloud.ts",
+      "name": "WordCloudCandidate",
       "kind": "InterfaceDeclaration"
     },
     {
@@ -893,6 +924,16 @@
     },
     {
       "file": "src/domain/content.ts",
+      "name": "WordCloudInputType",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "wordCloudInputTypeSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
       "name": "wordCloudMissingReasonSchema",
       "kind": "VariableStatement"
     },
@@ -1117,6 +1158,41 @@
       "kind": "FunctionDeclaration"
     },
     {
+      "file": "src/features/detail/WordCloud.tsx",
+      "name": "WordCloud",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/detail/WordCloud.tsx",
+      "name": "wordCloudEyebrow",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/detail/wordCloudLayout.ts",
+      "name": "buildWordCloudLayout",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/detail/wordCloudLayout.ts",
+      "name": "PositionedWord",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/features/detail/wordCloudLayout.ts",
+      "name": "WordCloudInputWord",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/features/detail/wordCloudLayout.ts",
+      "name": "WordCloudLayoutMode",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/features/detail/wordCloudLayout.ts",
+      "name": "wordCloudViewBoxes",
+      "kind": "VariableStatement"
+    },
+    {
       "file": "src/features/entities/EntityIndexPage.tsx",
       "name": "EntityIndexPage",
       "kind": "FunctionDeclaration"
@@ -1207,6 +1283,7 @@
     "src/domain/search.test.ts",
     "src/domain/validation.test.ts",
     "src/features/collaborations/CollaborationDetailPages.test.tsx",
+    "src/features/detail/wordCloudLayout.test.ts",
     "src/features/entities/EntityIndexPage.test.tsx",
     "src/features/games/GameIndexPage.test.tsx",
     "src/features/search/SearchFilterControls.test.tsx",

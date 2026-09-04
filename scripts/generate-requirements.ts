@@ -211,6 +211,77 @@ const requirements = sourceRequirements.map((item) => {
     },
     last_changed_by: 'ISSUE-1-IMPLEMENTATION',
   };
+  if (id === 'V8-DISPLAY-005') {
+    requirement.revision = 2;
+    requirement.title = '動画詳細は、承認済み語句の重要度差と対象動画への熱量が伝わる密集ワードクラウドを表示しなければならない';
+    requirement.object = '動画詳細は、承認済みの20～50語を、重要度の高い語ほど明確に大きくし、横書きと縦書きを混ぜ、横一列の語句一覧ではなく表示面を広く使う密集ワードクラウドとして表示しなければならない。';
+    requirement.source_refs.push('spec/sources/owner-directive-2026-09-04-comment-word-cloud.md', 'user:2026-09-04');
+    requirement.acceptance_criteria = [
+      {
+        id: 'AC-V8-DISPLAY-005-1',
+        given: '承認済みの20～50語と重要度がある',
+        when: 'デスクトップまたはモバイルの動画詳細でワードクラウドを表示する',
+        then: '語句を重ねず、重要度差が明確な文字サイズ、横書きと縦書きの混在、および表示面の横・縦それぞれを広く使う密集配置で表示し、横一列の一覧に見えない。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-005-2',
+        given: '同じ語句、重要度、画面幅、描画規則がある',
+        when: 'ワードクラウドを繰り返し描画する',
+        then: '語句、大きさ、向き、位置、色を決定的に再現できる。',
+      },
+    ];
+    requirement.verification = {
+      method: '配置単体試験・レスポンシブ表示試験・再現性試験',
+      evidence: 'src/features/detail/wordCloudLayout.test.ts, e2e/detail.spec.ts',
+    };
+    requirement.traces.implementation = [
+      'src/features/detail/WordCloud.tsx',
+      'src/features/detail/wordCloudLayout.ts',
+      'src/features/detail/VideoDetailPage.tsx',
+      'src/styles.css',
+    ];
+    requirement.traces.tests = ['src/features/detail/wordCloudLayout.test.ts', 'e2e/detail.spec.ts'];
+    requirement.traces.standards.push('spec/sources/owner-directive-2026-09-04-comment-word-cloud.md', 'dev-standard regulated profile');
+    requirement.last_changed_by = 'CHG-20260904-COMMENT-WORD-CLOUD-DENSITY';
+  }
+  if (id === 'V8-DISPLAY-006') {
+    requirement.revision = 2;
+    requirement.title = 'ワードクラウドは取得可能な公開コメントまたは公開チャットの反応を優先して安全に生成しなければならない';
+    requirement.object = 'ワードクラウドは、対象動画の公開コメントまたは公開チャットリプレイを一時処理できる場合に視聴者の反応を優先して生成し、取得できない場合だけ公開字幕、公開概要欄、または運用者が明示的に提供した公開本文を代替入力として使用しなければならない。生本文と投稿者情報を公開せず、入力種別を画面に明示し、人の承認前に候補を公開してはならない。';
+    requirement.source_refs.push('spec/sources/owner-directive-2026-09-04-comment-word-cloud.md', 'user:2026-09-04');
+    requirement.acceptance_criteria = [
+      {
+        id: 'AC-V8-DISPLAY-006-1',
+        given: '対象動画の公開コメントまたは公開チャットリプレイを一時処理できる',
+        when: 'ワードクラウド候補を生成して公開候補を検証する',
+        then: 'コメントまたはチャット本文だけから20～50語と重要度を集約し、生本文、投稿者名、投稿者IDを出力せず、入力指紋、入力種別、除外規則版、生成規則版、人の確認状態を追跡できる。',
+      },
+      {
+        id: 'AC-V8-DISPLAY-006-2',
+        given: '公開コメントまたは公開チャットリプレイを取得または十分に集約できない',
+        when: '承認済みの代替公開資料からワードクラウドを表示する',
+        then: '公開字幕、公開概要欄、または運用者提供の公開本文を使用でき、コメント由来であると偽らず実際の入力種別を画面に明示する。',
+      },
+    ];
+    requirement.verification = {
+      method: '匿名集約単体試験・生成来歴検証・入力種別表示試験・人手確認',
+      evidence: 'tests/word-cloud-aggregation.test.ts, tests/content-validation.test.ts, e2e/detail.spec.ts',
+    };
+    requirement.traces.design.push('docs/operations/manual-content-update.md', 'docs/operations/privacy-and-safety.md');
+    requirement.traces.implementation = [
+      'scripts/aggregate-word-cloud.ts',
+      'src/domain/content.ts',
+      'src/domain/validation.ts',
+      'src/features/detail/WordCloud.tsx',
+    ];
+    requirement.traces.tests = [
+      'tests/word-cloud-aggregation.test.ts',
+      'tests/content-validation.test.ts',
+      'e2e/detail.spec.ts',
+    ];
+    requirement.traces.standards.push('V8-SAFETY-002', 'spec/sources/owner-directive-2026-09-04-comment-word-cloud.md', 'dev-standard regulated profile');
+    requirement.last_changed_by = 'CHG-20260904-COMMENT-WORD-CLOUD-DENSITY';
+  }
   if (id === 'V8-OPS-001') {
     requirement.revision = 2;
     requirement.title = 'タイムスタンプ一括処理は、人の1回の明示要求で有限の適格対象集合を固定して開始しなければならない';
@@ -1918,9 +1989,9 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 31),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 32),
   product: 'diopside v8',
-  updated_at: existingCatalog?.updated_at && existingCatalog.updated_at > '2026-09-03' ? existingCatalog.updated_at : '2026-09-03',
+  updated_at: existingCatalog?.updated_at && existingCatalog.updated_at > '2026-09-04' ? existingCatalog.updated_at : '2026-09-04',
   requirements: canonicalRequirements,
 }, null, 2)}\n`);
 writeFileSync(mapPath, `${JSON.stringify({

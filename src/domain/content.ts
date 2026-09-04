@@ -15,6 +15,13 @@ export const timestampMissingReasonSchema = z.enum([
   '確認待ち',
 ]);
 export const wordCloudMissingReasonSchema = z.enum(['資料不足', '確認待ち', '対象外']);
+export const wordCloudInputTypeSchema = z.enum([
+  '公開チャット',
+  '公開コメント',
+  '公開字幕',
+  '公開概要欄',
+  '運用者提供の公開本文',
+]);
 export const evidenceTypeSchema = z.enum([
   '動画タイトル',
   '動画固有の説明',
@@ -23,6 +30,8 @@ export const evidenceTypeSchema = z.enum([
   '公開の日本語原文字幕',
   '公開の日本語字幕',
   '全編ローカル音声認識',
+  '公開チャット',
+  '公開コメント',
   '運用者提供の公開本文',
   '既存の承認済みタグ',
   '既存の承認済みタイムスタンプ',
@@ -200,7 +209,7 @@ const wordCloudCreatedSchema = z.object({
     term: z.string().min(1).max(40),
     weight: z.number().int().min(1).max(100),
   }).strict()).min(20).max(50),
-  inputType: z.enum(['公開字幕', '公開概要欄', '運用者提供の公開本文']),
+  inputType: wordCloudInputTypeSchema,
   inputFingerprint: z.string().regex(/^[a-f0-9]{64}$/u),
   exclusionRulesVersion: z.string().min(1),
   rulesVersion: z.string().min(1),
@@ -771,6 +780,7 @@ export type CollaborationProfiles = z.infer<typeof collaborationProfilesSchema>;
 export type ChannelPersonMappings = z.infer<typeof channelPersonMappingsSchema>;
 export type EntityType = z.infer<typeof entityTypeSchema>;
 export type VideoEntityRole = z.infer<typeof videoEntityRoleSchema>;
+export type WordCloudInputType = z.infer<typeof wordCloudInputTypeSchema>;
 
 export interface TaxonomyLookupItem {
   categoryId: string;

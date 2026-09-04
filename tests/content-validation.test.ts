@@ -72,6 +72,27 @@ describe('タグ・動画正本と公開境界', () => {
     expect(validateCanonicalVideo(incompatible, taxonomy, aliases).map((issue) => issue.code)).toContain('TAXONOMY_VERSION_MISMATCH');
   });
 
+  it('ワードクラウドの公開チャット・コメント由来を入力指紋で区別する', () => {
+    const fingerprint = 'a'.repeat(64);
+    const chatBased = structuredClone(videos.find((video) => video.wordCloud.status === '作成済み')!);
+    if (chatBased.wordCloud.status !== '作成済み') throw new Error('作成済みワードクラウドが必要です。');
+    chatBased.evidence.push({
+      evidenceId: 'evidence-public-chat',
+      type: '公開チャット',
+      sourceLabel: '公開チャットリプレイの匿名集約',
+      inputFingerprint: fingerprint,
+    });
+    chatBased.wordCloud.inputType = '公開チャット';
+    chatBased.wordCloud.inputFingerprint = fingerprint;
+
+    expect(validateCanonicalVideo(chatBased, taxonomy, aliases).map((issue) => issue.code))
+      .not.toContain('WORD_CLOUD_INPUT_MISSING');
+
+    chatBased.wordCloud.inputType = '公開コメント';
+    expect(validateCanonicalVideo(chatBased, taxonomy, aliases).map((issue) => issue.code))
+      .toContain('WORD_CLOUD_INPUT_MISSING');
+  });
+
   it('7大分類・28小分類・不変タグID・意味種別・別名を一貫して検証する', () => {
     expect(validateTaxonomy(taxonomyInput, aliasesInput)).toEqual([]);
     const subcategories = taxonomy.categories.flatMap((category) => category.subcategories);
