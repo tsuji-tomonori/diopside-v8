@@ -1,0 +1,31 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260905-word-cloud-e2e-fixture
+profile: direct
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags: {external_write: false, irreversible_operation: false, auth_change: false, data_change: false, public_api_change: false, iac_change: false, dependency_change: false, code_change: true, typed_code_change: true, behavior_change: false, bug_fix: true, generated_change: false, sql_change: false, e2e_change: true, migration: false, ui_change: false, interactive_ui_change: false, operational_impact: false, requirements_impact: false, public_contract_change: false, critical_change: false, important_ui_change: false, long_term_decision: false, squash: false, external_side_effect: false, production_deploy: false, major_incident: false, periodic_cycle: false, monthly_cycle: false, recheck_due: false, as_built_standard_change: false, as_built_adoption: false, quality_threshold_change: false}
+impact_details: {as_built_adoption: {scope: [], exclusions: []}}
+selected_checks:
+  - {id: IMP-001, class: Invariant, result: pass, evidence: ["path:e2e/detail.spec.ts"], note: "ワードクラウド作成後も維持すべき詳細画面契約だけを検査し、要件正本は変更しない"}
+  - {id: IMP-002, class: Invariant, result: pass, evidence: ["commit:self"], note: "E2E fixtureの固定状態仮定だけを外し、設計・ADR・公開契約に影響なし"}
+  - {id: IMP-003, class: Invariant, result: pass, evidence: ["commit:self"], note: "可逆なtest修正のためdirectを選択"}
+  - {id: FAST-001, class: Invariant, result: pass, evidence: ["workflow:要件・品質ゲート"], note: "既存build契約でE2E変更を含む全体生成を確認"}
+  - {id: FAST-002, class: Invariant, result: pass, evidence: ["workflow:要件・品質ゲート"], note: "既存TypeScript strict検査で型整合を確認"}
+  - {id: FAST-003, class: Invariant, result: pass, evidence: ["test:e2e/detail.spec.ts"], note: "TypeScriptのE2E testだけを最小変更"}
+  - {id: FAST-004, class: Invariant, result: pass, evidence: ["test:e2e/detail.spec.ts", "workflow:要件・品質ゲート"], note: "未作成タイムスタンプと既存ワードクラウド表示を独立した契約として検証"}
+  - {id: FAST-005, class: Risk-selected, result: pass, evidence: ["test:e2e/detail.spec.ts", "workflow:要件・品質ゲート"], note: "PR #1514と#1544でワードクラウド作成時だけ失敗した固定状態仮定を再現し、20件の対象E2E合格で修正を確認"}
+  - {id: FAST-007, class: Invariant, result: pass, evidence: ["commit:self"], note: "testと選択checkだけの差分で秘密情報・個人情報を含めない"}
+  - {id: FAST-018, class: Risk-selected, result: na, evidence: ["test:e2e/detail.spec.ts"], note: "E2E変更triggerで選択したがDB・CRUD・外部状態変更はなく、静的公開データの表示assertだけを変更"}
+  - {id: REV-001, class: Invariant, result: pass, evidence: ["commit:self"], note: "動画正本を含まない保守PRへ分離"}
+  - {id: REV-002, class: Invariant, result: pass, evidence: ["commit:self"], note: "Commit Commentへ目的・影響・検証契約・残存リスクを記録"}
+  - {id: REV-003, class: Invariant, result: pass, evidence: ["path:spec/requirements/requirements.json"], note: "既存受入条件を弱めずfixtureの偶発的な未作成状態への依存だけを除去"}
+  - {id: REV-004, class: Invariant, result: pass, evidence: ["commit:self"], note: "実装と公開契約を変更しないため生成設計とADRは不要"}
+  - {id: REV-006, class: Invariant, result: pass, evidence: ["test:e2e/detail.spec.ts", "workflow:要件・品質ゲート"], note: "対象E2Eと全品質ゲートで回帰確認"}
+  - {id: REV-007, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260905-word-cloud-e2e-fixture.yaml"], note: "選択checkだけを保存"}
+  - {id: REV-008, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260905-word-cloud-e2e-fixture.yaml"], note: "未選択checkをN/Aとして保存しない"}
+  - {id: REV-009, class: Risk-selected, result: pass, evidence: ["path:governance/reviews/CHG-20260905-word-cloud-e2e-fixture.yaml", "test:e2e/detail.spec.ts"], note: "FAST-018はE2E変更triggerで選択したが、対象testにDB・CRUD・外部状態変更が存在しない具体的事実を記録"}
+advisories: []
+residual_risks:
+  - 詳細画面の作成済みワードクラウド描画は専用E2Eで別途検証し、このtestでは未作成タイムスタンプに焦点を絞る
