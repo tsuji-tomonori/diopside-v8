@@ -7,6 +7,7 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { BundleContext } from '../../contexts.ts';
 import type { PublicBundle } from '../../data/loadPublicData.ts';
 import { GameIndexPage } from './GameIndexPage.tsx';
+import { GAME_GENRE_ICONS } from './gameGenreIcons.ts';
 
 const root = process.cwd();
 
@@ -24,6 +25,25 @@ describe('ゲームを探す', () => {
       '/games/genres/tag-content-gameGenre-025f45eb0729',
     );
     expect(screen.queryByText('恋愛ゲーム')).not.toBeInTheDocument();
+  });
+
+  it('公開中の全ゲームジャンルを固有の装飾アイコン付きで表示する', () => {
+    const bundle = publicBundle();
+    renderPage('/games', bundle);
+
+    const genreNames = bundle.tagIndex.categories
+      .find((category) => category.categoryId === 'content')
+      ?.subcategories.find((subcategory) => subcategory.subcategoryId === 'gameGenre')
+      ?.tags.map((genre) => genre.canonicalName)
+      .sort() ?? [];
+    expect(Object.keys(GAME_GENRE_ICONS).sort()).toEqual(genreNames);
+    expect(new Set(Object.values(GAME_GENRE_ICONS)).size).toBe(genreNames.length);
+
+    const cards = document.querySelectorAll('.game-genre-card');
+    expect(cards).toHaveLength(genreNames.length);
+    for (const card of cards) {
+      expect(card.querySelector('.game-genre-card-icon')).toHaveAttribute('aria-hidden', 'true');
+    }
   });
 
   it('ジャンルから作品を選び、そのゲームの配信一覧へ進める', () => {
@@ -44,10 +64,10 @@ describe('ゲームを探す', () => {
   });
 });
 
-function renderPage(initialEntry: string): void {
+function renderPage(initialEntry: string, bundle = publicBundle()): void {
   render(
     <MemoryRouter initialEntries={[initialEntry]}>
-      <BundleContext.Provider value={publicBundle()}>
+      <BundleContext.Provider value={bundle}>
         <Routes>
           <Route path="/games" element={<GameIndexPage />} />
           <Route path="/games/genres/:tagId" element={<GameIndexPage />} />

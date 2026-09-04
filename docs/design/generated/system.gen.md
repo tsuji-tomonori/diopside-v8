@@ -236,6 +236,8 @@
 | `src/features/detail/wordCloudLayout.ts` | TypeAliasDeclaration | `WordCloudLayoutMode` |
 | `src/features/detail/wordCloudLayout.ts` | VariableStatement | `wordCloudViewBoxes` |
 | `src/features/entities/EntityIndexPage.tsx` | FunctionDeclaration | `EntityIndexPage` |
+| `src/features/games/gameGenreIcons.ts` | VariableStatement | `GAME_GENRE_ICONS` |
+| `src/features/games/gameGenreIcons.ts` | FunctionDeclaration | `gameGenreIcon` |
 | `src/features/games/GameIndexPage.tsx` | FunctionDeclaration | `GameIndexPage` |
 | `src/features/library/DeviceLibraryPage.tsx` | FunctionDeclaration | `DeviceLibraryPage` |
 | `src/features/search/DateRangePicker.tsx` | FunctionDeclaration | `DateRangePicker` |
@@ -275,4 +277,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力81ファイル、公開契約193件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力82ファイル、公開契約195件です。

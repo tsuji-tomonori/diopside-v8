@@ -1724,7 +1724,7 @@ const gameCatalogRequirements = [
   },
   {
     id: 'V8-DISPLAY-016',
-    revision: 2,
+    revision: 3,
     status: 'active',
     scope: 'product',
     category: 'functional',
@@ -1732,9 +1732,9 @@ const gameCatalogRequirements = [
     title: 'ゲームジャンルからプレイ作品を選び、そのゲームの配信一覧へ移動できなければならない',
     subject: 'diopside v8のゲームジャンル・作品・配信導線',
     action: 'satisfy',
-    object: 'ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示しなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。',
-    rationale: '動画単位のタグ絞り込みだけでなく、遊んだゲームをジャンルから眺め、同じ作品の配信を続けて探せるようにするため。',
-    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28', 'user:2026-08-28-follow-up'],
+    object: 'ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示し、すべてのジャンルカードを意味の異なる統一スタイルのアイコンで視覚的に識別できなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。',
+    rationale: '遊んだゲームをジャンルから素早く見分け、同じ作品の配信を続けて探せるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28', 'user:2026-08-28-follow-up', 'user:2026-09-04-game-genre-icons'],
     acceptance_criteria: [
       {
         id: 'AC-V8-DISPLAY-016-1',
@@ -1760,18 +1760,24 @@ const gameCatalogRequirements = [
         when: 'ゲーム一覧またはいずれかの作品名から作品ページを開く',
         then: 'ゲームを一作品として表示し、すべての表記に属する公開動画を重複なく一覧表示する。',
       },
+      {
+        id: 'AC-V8-DISPLAY-016-5',
+        given: '公開動画があるゲームジャンルを一覧表示する',
+        when: 'デスクトップ、モバイルまたは支援技術でジャンルカードを確認する',
+        then: '表示対象の全ジャンルに意味の異なる小さな単色線画アイコンが付き、アイコンはカード右上で文字と重ならず、装飾として読み上げから除外され、カードのジャンル名と操作名が維持される。',
+      },
     ],
     verification: {
-      method: 'ジャンル件数・作品除外・ジャンル遷移・作品遷移・配信一覧・アクセシビリティE2E',
+      method: '全ジャンルの固有アイコン・配置・装飾属性・ジャンル件数・作品除外・ジャンル遷移・作品遷移・配信一覧・アクセシビリティE2E',
       evidence: 'src/features/games/GameIndexPage.test.tsx, src/features/works/WorkDetailPage.test.tsx, e2e/game-index.spec.ts',
     },
     traces: {
       design: ['docs/design/generated/system.gen.md'],
-      implementation: ['src/App.tsx', 'src/components/Header.tsx', 'src/features/games/GameIndexPage.tsx', 'src/features/works/WorkDetailPage.tsx', 'src/features/detail/VideoDetailPage.tsx', 'src/features/search/SearchPage.tsx'],
+      implementation: ['src/App.tsx', 'src/components/Header.tsx', 'src/features/games/GameIndexPage.tsx', 'src/features/games/gameGenreIcons.ts', 'src/features/works/WorkDetailPage.tsx', 'src/features/detail/VideoDetailPage.tsx', 'src/features/search/SearchPage.tsx', 'src/styles.css'],
       tests: ['src/features/games/GameIndexPage.test.tsx', 'src/features/works/WorkDetailPage.test.tsx', 'e2e/game-index.spec.ts'],
       standards: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'dev-standard assured profile'],
     },
-    last_changed_by: 'CHG-20260828-game-catalog-browser',
+    last_changed_by: 'CHG-20260904-game-genre-icons',
   },
 ];
 const semanticEntityRequirements = [
@@ -2043,7 +2049,7 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 33),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 34),
   product: 'diopside v8',
   updated_at: existingCatalog?.updated_at && existingCatalog.updated_at > '2026-09-04' ? existingCatalog.updated_at : '2026-09-04',
   requirements: canonicalRequirements,

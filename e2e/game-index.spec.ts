@@ -12,6 +12,10 @@ test.describe('ゲームジャンル・作品一覧', () => {
     await page.goto('/#/games');
 
     await expect(page.getByRole('heading', { level: 1, name: 'ゲームを探す' })).toBeVisible();
+    const genreCards = page.locator('.game-genre-card');
+    await expect(genreCards).toHaveCount(26);
+    await expect(genreCards.locator('.game-genre-card-icon')).toHaveCount(26);
+    await expect(genreCards.locator('.game-genre-card-icon[aria-hidden="true"]')).toHaveCount(26);
     const adventure = page.locator('.game-genre-card').filter({ has: page.getByRole('heading', { name: 'アドベンチャー' }) });
     await adventure.click();
     await expect(page).toHaveURL(/#\/games\/genres\/tag-content-gameGenre-2ec4e38c680d$/u);

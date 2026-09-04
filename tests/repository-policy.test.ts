@@ -170,11 +170,17 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
 
   it('実行時依存をブラウザ内UI・検証ライブラリだけに限定する', () => {
     const packageJson = json('package.json') as { dependencies: Record<string, string> };
-    expect(Object.keys(packageJson.dependencies).sort()).toEqual(['react', 'react-dom', 'react-router-dom', 'zod']);
+    expect(Object.keys(packageJson.dependencies).sort()).toEqual(['lucide-react', 'react', 'react-dom', 'react-router-dom', 'zod']);
+    const packageLock = json('package-lock.json') as { packages: Record<string, { license?: string; version?: string }> };
+    expect(packageLock.packages['node_modules/lucide-react']?.license).toBe('ISC');
+    expect(text('public/third-party-notices.txt')).toContain(`Lucide Icons ${packageLock.packages['node_modules/lucide-react']?.version}`);
+    expect(text('public/third-party-notices.txt')).toContain('Copyright (c) 2026 Lucide Icons and Contributors');
+    expect(text('public/third-party-notices.txt')).toContain('Copyright (c) 2013-present Cole Bemis');
     const source = [
       text('src/data/loadPublicData.ts'),
       text('src/data/deviceStore.ts'),
       text('src/App.tsx'),
+      text('src/features/games/gameGenreIcons.ts'),
     ].join('\n');
     expect(source).not.toMatch(/(?:google-analytics|googletagmanager|segment\.com|mixpanel|posthog|amplitude|oauth|auth0)/iu);
     expect(source).not.toMatch(/fetch\s*\(\s*['"]https?:/u);
