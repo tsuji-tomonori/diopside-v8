@@ -44,6 +44,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "aedfc81ab4006d8829133f3234316ddce69c01a6acd20a467fa88d9a3a68d4ec"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "bc67c283dc081f3d69b64a347f823aae49af6b4aacb756cbeb15583153f2963f"
     }
   ],
   "tagAssignments": [
@@ -312,10 +318,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "かわいい",
+        "weight": 60
+      },
+      {
+        "term": "aww",
+        "weight": 57
+      },
+      {
+        "term": "コトカ",
+        "weight": 41
+      },
+      {
+        "term": "生川",
+        "weight": 36
+      },
+      {
+        "term": "you",
+        "weight": 35
+      },
+      {
+        "term": "lol",
+        "weight": 34
+      },
+      {
+        "term": "thank",
+        "weight": 33
+      },
+      {
+        "term": "素敵",
+        "weight": 33
+      },
+      {
+        "term": "lmao",
+        "weight": 31
+      },
+      {
+        "term": "so",
+        "weight": 31
+      },
+      {
+        "term": "本当に",
+        "weight": 31
+      },
+      {
+        "term": "hex",
+        "weight": 30
+      },
+      {
+        "term": "bye",
+        "weight": 28
+      },
+      {
+        "term": "シエン",
+        "weight": 27
+      },
+      {
+        "term": "泣く",
+        "weight": 26
+      },
+      {
+        "term": "hexy",
+        "weight": 25
+      },
+      {
+        "term": "ミサ",
+        "weight": 25
+      },
+      {
+        "term": "教授",
+        "weight": 24
+      },
+      {
+        "term": "tskr",
+        "weight": 23
+      },
+      {
+        "term": "yippee",
+        "weight": 22
+      },
+      {
+        "term": "オリバー",
+        "weight": 20
+      },
+      {
+        "term": "すごい",
+        "weight": 19
+      },
+      {
+        "term": "ギャル",
+        "weight": 18
+      },
+      {
+        "term": "姉",
+        "weight": 18
+      },
+      {
+        "term": "lmaoo",
+        "weight": 16
+      },
+      {
+        "term": "クロ",
+        "weight": 15
+      },
+      {
+        "term": "姉ちゃん",
+        "weight": 15
+      },
+      {
+        "term": "弟",
+        "weight": 14
+      },
+      {
+        "term": "おおう",
+        "weight": 13
+      },
+      {
+        "term": "コラボ",
+        "weight": 12
+      },
+      {
+        "term": "ママ",
+        "weight": 12
+      },
+      {
+        "term": "最高",
+        "weight": 11
+      },
+      {
+        "term": "the",
+        "weight": 10
+      },
+      {
+        "term": "マフィア",
+        "weight": 10
+      },
+      {
+        "term": "for",
+        "weight": 9
+      },
+      {
+        "term": "tomoe",
+        "weight": 8
+      },
+      {
+        "term": "かっこいい",
+        "weight": 8
+      },
+      {
+        "term": "声",
+        "weight": 8
+      },
+      {
+        "term": "時間",
+        "weight": 7
+      },
+      {
+        "term": "is",
+        "weight": 6
+      },
+      {
+        "term": "omg",
+        "weight": 3
+      },
+      {
+        "term": "foo",
+        "weight": 2
+      },
+      {
+        "term": "oh",
+        "weight": 2
+      },
+      {
+        "term": "ohh",
+        "weight": 2
+      },
+      {
+        "term": "ヘックス",
+        "weight": 2
+      },
+      {
+        "term": "翻訳",
+        "weight": 2
+      },
+      {
+        "term": "cute",
+        "weight": 1
+      },
+      {
+        "term": "it",
+        "weight": 1
+      },
+      {
+        "term": "tskrr",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "bc67c283dc081f3d69b64a347f823aae49af6b4aacb756cbeb15583153f2963f",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "b1dbeff1de5917a8a9d27b2ef15a50a8549f18310b82d043573c3336affb144d",
