@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "7b4b5a6cc807a7280e85232a74babcb0ed82d943678968ebdd06d1f5bb555774"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "1292f5bbcb52a4114bc5c45cdb04e7f22b5950f482adc3cc86b34408e767589b"
     }
   ],
   "tagAssignments": [
@@ -261,10 +267,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "かわいい",
+        "weight": 50
+      },
+      {
+        "term": "面白い",
+        "weight": 50
+      },
+      {
+        "term": "映画",
+        "weight": 49
+      },
+      {
+        "term": "アズカバン",
+        "weight": 48
+      },
+      {
+        "term": "怖い",
+        "weight": 45
+      },
+      {
+        "term": "かんぱ",
+        "weight": 38
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 34
+      },
+      {
+        "term": "クマ",
+        "weight": 31
+      },
+      {
+        "term": "レイブンクロー",
+        "weight": 31
+      },
+      {
+        "term": "わかる",
+        "weight": 30
+      },
+      {
+        "term": "グリフィンドール",
+        "weight": 28
+      },
+      {
+        "term": "すごい",
+        "weight": 28
+      },
+      {
+        "term": "楽しい",
+        "weight": 28
+      },
+      {
+        "term": "配信",
+        "weight": 27
+      },
+      {
+        "term": "ホラー",
+        "weight": 26
+      },
+      {
+        "term": "観る",
+        "weight": 26
+      },
+      {
+        "term": "話",
+        "weight": 24
+      },
+      {
+        "term": "スリザリン",
+        "weight": 23
+      },
+      {
+        "term": "楽しみ",
+        "weight": 23
+      },
+      {
+        "term": "好き",
+        "weight": 23
+      },
+      {
+        "term": "飲む",
+        "weight": 22
+      },
+      {
+        "term": "人",
+        "weight": 22
+      },
+      {
+        "term": "ハリポタ",
+        "weight": 19
+      },
+      {
+        "term": "行く",
+        "weight": 19
+      },
+      {
+        "term": "わくわく",
+        "weight": 16
+      },
+      {
+        "term": "おもしろい",
+        "weight": 15
+      },
+      {
+        "term": "おやすみ",
+        "weight": 15
+      },
+      {
+        "term": "はい",
+        "weight": 15
+      },
+      {
+        "term": "自認",
+        "weight": 13
+      },
+      {
+        "term": "前",
+        "weight": 11
+      },
+      {
+        "term": "へぇ",
+        "weight": 10
+      },
+      {
+        "term": "帰る",
+        "weight": 10
+      },
+      {
+        "term": "出る",
+        "weight": 10
+      },
+      {
+        "term": "了解",
+        "weight": 10
+      },
+      {
+        "term": "あら",
+        "weight": 8
+      },
+      {
+        "term": "どうぞ",
+        "weight": 8
+      },
+      {
+        "term": "多い",
+        "weight": 8
+      },
+      {
+        "term": "おもろい",
+        "weight": 6
+      },
+      {
+        "term": "酒",
+        "weight": 6
+      },
+      {
+        "term": "知る",
+        "weight": 6
+      },
+      {
+        "term": "晩酌",
+        "weight": 6
+      },
+      {
+        "term": "ヴォルデモート",
+        "weight": 3
+      },
+      {
+        "term": "まだ",
+        "weight": 3
+      },
+      {
+        "term": "頑張る",
+        "weight": 3
+      },
+      {
+        "term": "嫌",
+        "weight": 3
+      },
+      {
+        "term": "寝る",
+        "weight": 3
+      },
+      {
+        "term": "魔法",
+        "weight": 3
+      },
+      {
+        "term": "夜",
+        "weight": 3
+      },
+      {
+        "term": "イメージ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "1292f5bbcb52a4114bc5c45cdb04e7f22b5950f482adc3cc86b34408e767589b",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "2627c764e065d777b4a8d9dec807ebb3d4da2bb5dd036cf64851ba7296c1035e",
