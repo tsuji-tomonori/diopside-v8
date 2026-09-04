@@ -60,7 +60,7 @@ export function VideoDetailPage(): React.JSX.Element {
         {detail.synopsis ? (
           <section className="detail-section synopsis-section" aria-labelledby="synopsis-heading">
             <div className="section-heading">
-              <div><p className="eyebrow">動画を見る前のひとこと</p><h2 id="synopsis-heading">あらすじ</h2></div>
+              <div><p className="eyebrow">AIが生成した配信のまとめ</p><h2 id="synopsis-heading">あらすじ</h2></div>
               <p>最終更新: {formatDate(detail.synopsis.updatedAt)}</p>
             </div>
             <p className="synopsis-copy">{detail.synopsis.body}</p>
@@ -76,10 +76,10 @@ export function VideoDetailPage(): React.JSX.Element {
 
         <section className="detail-section" aria-labelledby="tags-heading">
           <div className="section-heading">
-            <div><p className="eyebrow">diopsideが整理・確認した情報</p><h2 id="tags-heading">タグ</h2></div>
+            <div><p className="eyebrow">AIが生成した検索情報</p><h2 id="tags-heading">タグ</h2></div>
             <p>最終更新: {formatDate(detail.tagsUpdatedAt)}</p>
           </div>
-          <p className="notice">YouTube公式タグではありません。公開情報を基に、人が確認した検索用の情報です。</p>
+          <p className="notice">YouTube公式タグではありません。AIが公開情報を基に生成した検索用情報で、誤りを含む場合があります。</p>
           {tagGroups.map((group) => (
             <div className="detail-tag-group" key={group.categoryId}>
               <h3>{group.name}</h3>
@@ -140,7 +140,7 @@ export function VideoDetailPage(): React.JSX.Element {
 
         <section className="detail-section" aria-labelledby="timestamps-heading">
           <div className="section-heading">
-            <div><p className="eyebrow">動画内を移動する目次</p><h2 id="timestamps-heading">タイムスタンプ</h2></div>
+            <div><p className="eyebrow">AIが生成した動画内の目次</p><h2 id="timestamps-heading">タイムスタンプ</h2></div>
             <p>最終更新: {formatDate(detail.timestamps.updatedAt)}</p>
           </div>
           {detail.timestamps.status === '未作成' ? (

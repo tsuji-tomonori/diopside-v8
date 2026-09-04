@@ -379,7 +379,7 @@ export function SearchPage(): React.JSX.Element {
     <main>
       <section className="hero">
         <p className="eyebrow">にじさんじアーカイブを、もう一度見つける</p>
-        <p>タイトルの断片と、diopsideが整理・確認したタグから探せます。</p>
+        <p>タイトルの断片と、AIが生成したタグから探せます。</p>
         <p className="updated">公開データ最終更新: {formatDate(bundle.latest.updatedAt)}</p>
       </section>
 
