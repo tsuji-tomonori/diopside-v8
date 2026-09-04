@@ -16,6 +16,7 @@ test.describe('動画検索', () => {
   test('タイトルだけを検索し、0件と条件解除を区別する', async ({ page }, testInfo) => {
     const requests = await preparePage(page);
     await openSearch(page);
+    await expect(page.getByText('タイトルの断片と、AIが生成したタグから探せます。')).toBeVisible();
     await page.getByRole('combobox', { name: '検索', exact: true }).fill('【#白雪巴誕生日2026】ケーキを食べてパーッとお祝いしちゃおうかしら🎉🎉🎉【白雪巴/にじさんじ】');
     await page.getByRole('button', { name: 'この条件で探す' }).click();
     await expect(page.getByRole('heading', { name: '1件の動画' })).toBeVisible();

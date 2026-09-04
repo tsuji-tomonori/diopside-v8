@@ -42,7 +42,11 @@ export function App({ bundle, store }: { bundle: PublicBundle; store: DeviceStor
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
-        <footer><p>diopside — 公開情報を、人が確認した静的アーカイブ検索。</p><p>ログイン・追跡・端末間同期は行いません。</p></footer>
+        <footer>
+          <p>diopside — 白雪巴さんの公開アーカイブを探せる非公式ファンサイトです。</p>
+          <p>タグ・あらすじ・タイムスタンプはAIが生成しており、誤りを含む場合があります。</p>
+          <p>ログイン・追跡・端末間同期は行いません。</p>
+        </footer>
       </BundleContext.Provider>
     </DeviceStoreContext.Provider>
   );
