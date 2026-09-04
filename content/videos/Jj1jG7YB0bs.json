@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "83f5bbc900505cc7e995a6b23b5b74bc2e182319483e665d5bb952c55bc9914a"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "7a4e25f84e4edf2640e6ed5a550cfe6c97d8dabf09912ce5d464da98f5adbd60"
     }
   ],
   "tagAssignments": [
@@ -279,10 +285,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "和也",
+        "weight": 100
+      },
+      {
+        "term": "怖い",
+        "weight": 95
+      },
+      {
+        "term": "大事",
+        "weight": 92
+      },
+      {
+        "term": "草",
+        "weight": 83
+      },
+      {
+        "term": "わぁ",
+        "weight": 66
+      },
+      {
+        "term": "肉",
+        "weight": 58
+      },
+      {
+        "term": "無理",
+        "weight": 53
+      },
+      {
+        "term": "お母さん",
+        "weight": 51
+      },
+      {
+        "term": "かわいい",
+        "weight": 51
+      },
+      {
+        "term": "家",
+        "weight": 44
+      },
+      {
+        "term": "やばい",
+        "weight": 42
+      },
+      {
+        "term": "人",
+        "weight": 42
+      },
+      {
+        "term": "圭",
+        "weight": 40
+      },
+      {
+        "term": "太",
+        "weight": 39
+      },
+      {
+        "term": "足音",
+        "weight": 37
+      },
+      {
+        "term": "カメラ",
+        "weight": 35
+      },
+      {
+        "term": "さる",
+        "weight": 35
+      },
+      {
+        "term": "エンド",
+        "weight": 26
+      },
+      {
+        "term": "包丁",
+        "weight": 26
+      },
+      {
+        "term": "あら",
+        "weight": 24
+      },
+      {
+        "term": "バレる",
+        "weight": 24
+      },
+      {
+        "term": "漂白",
+        "weight": 24
+      },
+      {
+        "term": "ガキ",
+        "weight": 21
+      },
+      {
+        "term": "監視",
+        "weight": 21
+      },
+      {
+        "term": "後ろ",
+        "weight": 21
+      },
+      {
+        "term": "部屋",
+        "weight": 21
+      },
+      {
+        "term": "すぎる",
+        "weight": 18
+      },
+      {
+        "term": "ひる",
+        "weight": 18
+      },
+      {
+        "term": "ゴミ",
+        "weight": 15
+      },
+      {
+        "term": "ついえる",
+        "weight": 12
+      },
+      {
+        "term": "どうぞ",
+        "weight": 12
+      },
+      {
+        "term": "持つ",
+        "weight": 12
+      },
+      {
+        "term": "美和",
+        "weight": 12
+      },
+      {
+        "term": "分岐",
+        "weight": 12
+      },
+      {
+        "term": "こる",
+        "weight": 9
+      },
+      {
+        "term": "逃げる",
+        "weight": 9
+      },
+      {
+        "term": "封印",
+        "weight": 9
+      },
+      {
+        "term": "なさる",
+        "weight": 5
+      },
+      {
+        "term": "わくわく",
+        "weight": 5
+      },
+      {
+        "term": "解体",
+        "weight": 5
+      },
+      {
+        "term": "楽しみ",
+        "weight": 5
+      },
+      {
+        "term": "警察",
+        "weight": 5
+      },
+      {
+        "term": "bad",
+        "weight": 1
+      },
+      {
+        "term": "あぁ",
+        "weight": 1
+      },
+      {
+        "term": "おる",
+        "weight": 1
+      },
+      {
+        "term": "ドン",
+        "weight": 1
+      },
+      {
+        "term": "ひえ",
+        "weight": 1
+      },
+      {
+        "term": "やっぱり",
+        "weight": 1
+      },
+      {
+        "term": "開く",
+        "weight": 1
+      },
+      {
+        "term": "行く",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "7a4e25f84e4edf2640e6ed5a550cfe6c97d8dabf09912ce5d464da98f5adbd60",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "e461378ff1caf4fbf5163f64ed0dd60cc0211f097399b91662bdfca660f8b980",
