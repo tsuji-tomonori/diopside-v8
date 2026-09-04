@@ -1,0 +1,153 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260904-song-frame-performance-audit
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: true
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:spec/sources/song-frame-performance-audit-v1.json]
+    note: 既存のV8-TAG-037/038とV8-DISPLAY-015の受入境界内で、歌枠分類と歌唱実績正本の欠落を是正するため要件変更はない。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:content/songs/song-performances.json, path:content/taxonomy/tag-taxonomy.json, path:scripts/audit-song-frame-performances.ts]
+    note: schemaと公開形式は維持し、既存の楽曲正本・分類体系へデータと横断監査を追加する設計影響として判定した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/sources/song-frame-performance-audit-v1.json]
+    note: 22動画の分類、92歌唱実績、90曲、原曲確認元を横断する保守変更のためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 利用者がGitHubへのPR作成、merge、公開後の動作確認を明示的に許可している。
+  - id: IMP-005
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: mergeと公開反映は利用者の明示依頼内で実施し、異常時はGit revertと通常のrelease経路で復旧できる。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/taxonomy/change-record.json, path:content/songs/song-performances.json, path:content/videos/r0pow1Efqq0.json]
+    note: 追加型の楽曲・タグ登録と、根拠に反する歌枠タグ1件の除去を記録し、schema変更や削除migrationを伴わない。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:scripts/audit-song-frame-performances.ts]
+    note: production buildと監査コマンドを既存PR品質ゲートで検証する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:scripts/audit-song-frame-performances.ts]
+    note: 新しいTypeScript監査スクリプトをNode strict型検査へ接続する。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:scripts/audit-song-frame-performances.ts]
+    note: src、scripts、tests、e2eのlintを警告0件で検証する。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/content-validation.test.ts, path:scripts/audit-song-frame-performances.ts]
+    note: 音楽種別、タイムスタンプ、本人参加、開始秒、曲名、決定的タグID、原曲確認元の一意な対応を回帰試験する。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/content-validation.test.ts, path:spec/sources/song-frame-performance-audit-v1.json]
+    note: 指定動画の28曲、曲名不明2件、全対象92実績を固定し、欠落と推測登録の再発を検知する。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:content/content-manifest.json, path:docs/design/generated/inventory.gen.json, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: manifestと生成設計を正本変更から決定的に再生成し、driftを検査する。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分は公開済み動画メタデータと公式原曲リンクだけで、生字幕、音声、投稿者情報、秘密情報を含めない。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分を歌枠分類と対応する歌唱実績・楽曲タグ・横断監査へ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: commit本文へ目的、変更、要件・設計影響、検証、互換性、残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:spec/sources/song-frame-performance-audit-v1.json]
+    note: 既存要件の対象・根拠・本人参加境界に従うデータ是正であり、新しい利用者要件を追加しない。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/inventory.gen.json, path:scripts/audit-song-frame-performances.ts]
+    note: 既存schemaと静的公開経路を保ち、新監査ソースを生成inventoryへ反映するためADRは不要である。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/content-validation.test.ts, path:scripts/audit-song-frame-performances.ts, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: 22動画の分類、92実績、指定動画28曲、原曲確認元、正本全件を単体試験とCIへ接続した。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260904-song-frame-performance-audit.yaml]
+    note: 選択したcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260904-song-frame-performance-audit.yaml]
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+advisories: []
+residual_risks:
+  - 指定された30曲チャレンジ歌枠の7曲目と30曲目は承認済みタイムスタンプに曲名がなく、推測せず未登録のまま監査対象として保持する。
+  - 複数人カラオケのうちタイムスタンプに白雪巴の参加を明記しない曲は、本人の歌唱実績と断定せず未解決記録へ保持する。
