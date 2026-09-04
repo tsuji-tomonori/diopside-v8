@@ -1858,17 +1858,22 @@ const semanticEntityRequirements = [
   },
   {
     id: 'V8-DISPLAY-019',
-    revision: 1,
+    revision: 2,
     status: 'active',
     scope: 'product',
     category: 'functional',
     type: 'functional',
-    title: '人物・作品・企画一覧は関係種別と関連対象を保った動画探索導線を提供しなければならない',
+    title: '人物・作品・企画一覧は0件の項目を除外し、関係種別を保った動画探索導線を提供しなければならない',
     subject: 'diopside v8のエンティティ探索画面',
     action: 'satisfy',
-    object: '人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。',
-    rationale: '断片的な人物名・作品名・イベント名から、役割の意味を失わず過去配信へ到達できるようにするため。',
-    source_refs: ['spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'user:2026-08-31'],
+    object: '人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならず、公開中の関連動画が1件以上あるエンティティだけを一覧件数とカードへ含めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。',
+    rationale: '断片的な人物名・作品名・イベント名から、役割の意味を失わず過去配信へ到達できるようにし、直接到達できる動画がない項目で一覧を埋めないため。',
+    source_refs: [
+      'spec/sources/owner-directive-2026-08-31-semantic-entity-model.md',
+      'spec/sources/owner-directive-2026-09-04-hide-zero-video-entities.md',
+      'user:2026-08-31',
+      'user:2026-09-04',
+    ],
     acceptance_criteria: [
       {
         id: 'AC-V8-DISPLAY-019-1',
@@ -1876,15 +1881,25 @@ const semanticEntityRequirements = [
         when: '利用者が一覧またはエンティティ詳細を操作する',
         then: '名前・種類で絞り込み、関係種別別件数と関連対象を確認し、関連動画または関連エンティティへ移動できる。',
       },
+      {
+        id: 'AC-V8-DISPLAY-019-2',
+        given: '公開エンティティ索引に関連動画が0件の項目と1件以上の項目がある',
+        when: '利用者が人物・作品・企画一覧を表示または絞り込む',
+        then: '関連動画が1件以上ある項目だけが一覧件数とカードに含まれ、0件の項目は表示されない。',
+      },
     ],
-    verification: { method: '一覧絞り込み・関係表示・検索候補・動画詳細導線試験', evidence: 'src/features/entities/EntityIndexPage.test.tsx, e2e/detail.spec.ts' },
+    verification: { method: '一覧絞り込み・0件除外・関係表示・検索候補・動画詳細導線試験', evidence: 'src/features/entities/EntityIndexPage.test.tsx, e2e/detail.spec.ts' },
     traces: {
       design: ['docs/design/generated/system.gen.md'],
       implementation: ['src/features/entities/EntityIndexPage.tsx', 'src/features/search/SearchPage.tsx', 'src/features/detail/VideoDetailPage.tsx', 'src/App.tsx'],
       tests: ['src/features/entities/EntityIndexPage.test.tsx', 'e2e/detail.spec.ts'],
-      standards: ['spec/sources/owner-directive-2026-08-31-semantic-entity-model.md', 'dev-standard assured profile'],
+      standards: [
+        'spec/sources/owner-directive-2026-08-31-semantic-entity-model.md',
+        'spec/sources/owner-directive-2026-09-04-hide-zero-video-entities.md',
+        'dev-standard assured profile',
+      ],
     },
-    last_changed_by: 'CHG-20260901-semantic-entity-model',
+    last_changed_by: 'CHG-20260904-hide-zero-video-entities',
   },
 ];
 const customEmojiUsageRequirements = [
@@ -1989,7 +2004,7 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 32),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 33),
   product: 'diopside v8',
   updated_at: existingCatalog?.updated_at && existingCatalog.updated_at > '2026-09-04' ? existingCatalog.updated_at : '2026-09-04',
   requirements: canonicalRequirements,

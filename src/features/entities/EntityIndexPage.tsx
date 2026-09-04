@@ -49,7 +49,8 @@ export function EntityIndexPage(): React.JSX.Element {
   const entities = useMemo(() => {
     const normalized = query.normalize('NFKC').trim().toLocaleLowerCase('ja-JP');
     return bundle.entityIndex.entities.filter((entity) => (
-      (entityType === 'all' || entity.entityType === entityType)
+      videoCount(entity) > 0
+      && (entityType === 'all' || entity.entityType === entityType)
       && (!normalized || `${entity.canonicalName} ${entity.normalizedReading}`.normalize('NFKC').toLocaleLowerCase('ja-JP').includes(normalized))
     ));
   }, [bundle.entityIndex.entities, entityType, query]);

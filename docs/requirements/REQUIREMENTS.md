@@ -1,7 +1,7 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 32
+- カタログ版: 33
 - 更新日: 2026-09-04
 - 正本: `spec/requirements/requirements.json`
 
@@ -41,7 +41,7 @@
 | `V8-DISPLAY-016` | 2 | 有効 | 機能 | diopside v8のゲームジャンル・作品・配信導線は、ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示しなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。を**satisfy** | ジャンル件数・作品除外・ジャンル遷移・作品遷移・配信一覧・アクセシビリティE2E |
 | `V8-DISPLAY-017` | 2 | 有効 | データ | diopside v8のカスタム絵文字集計は、公開チャットリプレイを取得できる動画は、通常のUnicode絵文字を除外し、全編に現れるカスタム絵文字の出現回数を種類別に集計し、YouTubeが公開する信頼済み画像URLを取得できる種類へ関連付けなければならない。画像URLを取得できない種類も除外せず、項目別回数の合計は総使用回数と一致しなければならない。を**satisfy** | 全件集計・Unicode除外・画像URL許可ホスト・合計整合試験 |
 | `V8-DISPLAY-018` | 2 | 有効 | 機能 | diopside v8のカスタム絵文字表示は、カスタム絵文字を集計済みの動画詳細は、全種類を省略せず、使用回数の降順でショートコード、正確な回数、総使用回数に占める比率を比較できるチャートとして表示しなければならない。画像を取得できる種類ではショートコードの横に絵文字画像を表示し、取得不能または読込失敗でもショートコード、回数、比率を維持しなければならない。を**satisfy** | 動画詳細画面・画像併記・フォールバック・全項目件数・アクセシビリティ試験 |
-| `V8-DISPLAY-019` | 1 | 有効 | 機能 | diopside v8のエンティティ探索画面は、人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。を**satisfy** | 一覧絞り込み・関係表示・検索候補・動画詳細導線試験 |
+| `V8-DISPLAY-019` | 2 | 有効 | 機能 | diopside v8のエンティティ探索画面は、人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならず、公開中の関連動画が1件以上あるエンティティだけを一覧件数とカードへ含めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。を**satisfy** | 一覧絞り込み・0件除外・関係表示・検索候補・動画詳細導線試験 |
 | `V8-INGEST-001` | 3 | 有効 | インターフェース | diopside v8のローカルprivate ingestion要求は、運用者が指定するingestion要求は11文字のYouTube video_id一項目だけを含み、認証情報または内部状態を含んではならない。を**強制する** | 契約・CLI単体試験 |
 | `V8-INGEST-002` | 4 | 有効 | データ | diopside v8のprivate backfill対象は、複数動画の歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。を**強制する** | manifest生成・改ざん・ローカル実行試験 |
 | `V8-INGEST-003` | 2 | 有効 | データ | diopside v8のprivate ingestion状態は、進捗状態はVideoIngestion単一DynamoDB tableのvideo_id partition keyだけを使う一動画一itemで保持し、sort key、GSI、用途別item typeを追加してはならない。を**強制する** | CDK template・状態repository・ローカル統合試験 |
@@ -723,20 +723,21 @@ diopside v8のカスタム絵文字表示は、カスタム絵文字を集計済
 検証証跡: e2e/detail.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-31-custom-emoji-usage.md,spec/sources/owner-directive-2026-09-03-custom-emoji-images.md,dev-standard regulated profile
 
-## V8-DISPLAY-019: 人物・作品・企画一覧は関係種別と関連対象を保った動画探索導線を提供しなければならない
+## V8-DISPLAY-019: 人物・作品・企画一覧は0件の項目を除外し、関係種別を保った動画探索導線を提供しなければならない
 
-diopside v8のエンティティ探索画面は、人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。を**satisfy**。
+diopside v8のエンティティ探索画面は、人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならず、公開中の関連動画が1件以上あるエンティティだけを一覧件数とカードへ含めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。を**satisfy**。
 
-根拠: 断片的な人物名・作品名・イベント名から、役割の意味を失わず過去配信へ到達できるようにするため。
+根拠: 断片的な人物名・作品名・イベント名から、役割の意味を失わず過去配信へ到達できるようにし、直接到達できる動画がない項目で一覧を埋めないため。
 
 分類: `product` / `functional`
 
 受入条件:
 - `AC-V8-DISPLAY-019-1` 前提: 公開エンティティ索引と動画索引が読み込まれている。条件: 利用者が一覧またはエンティティ詳細を操作する。期待結果: 名前・種類で絞り込み、関係種別別件数と関連対象を確認し、関連動画または関連エンティティへ移動できる。。
+- `AC-V8-DISPLAY-019-2` 前提: 公開エンティティ索引に関連動画が0件の項目と1件以上の項目がある。条件: 利用者が人物・作品・企画一覧を表示または絞り込む。期待結果: 関連動画が1件以上ある項目だけが一覧件数とカードに含まれ、0件の項目は表示されない。。
 
-要求源: spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, user:2026-08-31
+要求源: spec/sources/owner-directive-2026-08-31-semantic-entity-model.md, spec/sources/owner-directive-2026-09-04-hide-zero-video-entities.md, user:2026-08-31, user:2026-09-04
 検証証跡: src/features/entities/EntityIndexPage.test.tsx, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/entities/EntityIndexPage.tsx,src/features/search/SearchPage.tsx,src/features/detail/VideoDetailPage.tsx,src/App.tsx; テスト=src/features/entities/EntityIndexPage.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-31-semantic-entity-model.md,dev-standard assured profile
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/entities/EntityIndexPage.tsx,src/features/search/SearchPage.tsx,src/features/detail/VideoDetailPage.tsx,src/App.tsx; テスト=src/features/entities/EntityIndexPage.test.tsx,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-31-semantic-entity-model.md,spec/sources/owner-directive-2026-09-04-hide-zero-video-entities.md,dev-standard assured profile
 
 ## V8-INGEST-001: ローカルingestion要求はvideo_idだけを含む厳格な11文字契約でなければならない
 
