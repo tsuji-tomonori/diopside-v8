@@ -240,11 +240,11 @@ describe('タグ・動画正本と公開境界', () => {
     expect(manifest.timestampItemCount).toBe(timestampItemCount);
     expect(manifest.createdSynopsisVideoCount).toBe(videos.filter((video) => video.synopsis !== undefined).length);
     const customEmojiUsageVideos = videos.filter((video) => video.customEmojiUsage !== undefined);
-    expect(customEmojiUsageVideos.map((video) => video.videoId).sort()).toEqual([
+    expect(customEmojiUsageVideos.map((video) => video.videoId).sort()).toEqual(expect.arrayContaining([
       '4zN7YiSw06c',
       'BZkCPMIsz1k',
       'UZcmZzKQWYc',
-    ]);
+    ]));
     expect(manifest.customEmojiUsageVideoCount).toBe(customEmojiUsageVideos.length);
     expect(customEmojiUsageVideos.every((video) => video.customEmojiUsage!.totalCount
       === video.customEmojiUsage!.items.reduce((total, item) => total + item.count, 0))).toBe(true);

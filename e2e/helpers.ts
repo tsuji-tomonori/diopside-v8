@@ -23,13 +23,16 @@ const placeholder = `<svg xmlns="http://www.w3.org/2000/svg" width="480" height=
   <rect width="480" height="270" fill="url(#g)"/><path d="M212 70h56l42 65-42 65h-56l-42-65z" fill="none" stroke="#76639a" stroke-width="5"/>
   <text x="240" y="235" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#554273">diopside preview</text>
 </svg>`;
+const trustedImageHosts = ['i.ytimg.com', 'yt3.ggpht.com', 'yt3.googleusercontent.com'] as const;
 
 export async function preparePage(page: Page): Promise<string[]> {
   const requests: string[] = [];
   page.on('request', (request) => requests.push(request.url()));
-  await page.route('https://i.ytimg.com/**', async (route) => {
-    await route.fulfill({ status: 200, contentType: 'image/svg+xml', body: placeholder });
-  });
+  for (const hostname of trustedImageHosts) {
+    await page.route(`https://${hostname}/**`, async (route) => {
+      await route.fulfill({ status: 200, contentType: 'image/svg+xml', body: placeholder });
+    });
+  }
   return requests;
 }
 
@@ -43,7 +46,7 @@ export async function openSearch(page: Page): Promise<void> {
 export function expectOnlyAllowedRequests(requests: string[]): void {
   const invalid = requests.filter((value) => {
     const url = new URL(value);
-    return !['127.0.0.1', 'localhost', 'i.ytimg.com'].includes(url.hostname);
+    return !['127.0.0.1', 'localhost', ...trustedImageHosts].includes(url.hostname);
   });
   expect(invalid).toEqual([]);
 }

@@ -29,7 +29,8 @@ test.describe('動画詳細', () => {
     await expect(page.locator('.unavailable strong').nth(1)).toContainText('未作成 — 資料不足');
     await expect(page.getByRole('link', { name: 'YouTubeで見る' })).toHaveAttribute('href', 'https://www.youtube.com/watch?v=7keH8yrqabc');
     const synopsisCount = await page.getByRole('heading', { name: 'あらすじ' }).count();
-    await expect(page.getByText(/最終更新:/u)).toHaveCount(synopsisCount === 1 ? 4 : 3);
+    const customEmojiCount = await page.getByRole('heading', { name: 'カスタム絵文字' }).count();
+    await expect(page.getByText(/最終更新:/u)).toHaveCount(3 + synopsisCount + customEmojiCount);
     expect(requests.some((url) => url.includes('youtube.com'))).toBe(false);
     expectOnlyAllowedRequests(requests);
     await expectNoSeriousAccessibilityViolations(page);

@@ -1,0 +1,361 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "rSL6hdULr_s",
+  "title": "【隙マ】隙 間 を 許 す な【白雪巴/にじさんじ】",
+  "publishedAt": "2026-06-07T15:25:06Z",
+  "durationSeconds": 6472,
+  "durationIso": "PT1H47M52S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/rSL6hdULr_s/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=rSL6hdULr_s",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "2ede2b72458c25124fb8b3804b60ae1bd9dc4ecbb0c97b8ec763f762b2d6741f"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "1b30c2eeb21154b0062ba13499c93981ce0079e5d533b8fa20b91bb11160b479"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "ff7e5f78e867d4ca193747ad1140b704b1bf0efa4e5ae900c299d3fcadadef88"
+    },
+    {
+      "evidenceId": "evidence-game-classification",
+      "type": "動画タイトル",
+      "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+      "inputFingerprint": "c9c0ba9c3445f247fdc5496dd172da384ff30fb3c87b942b75213c408e533093"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-cae1ecaa4ea2",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「隙マ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-2ec4e38c680d",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「アドベンチャー」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-9709322940c3",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「シミュレーション」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-4bb783d8",
+        "startSeconds": 0,
+        "label": "配信開始まで",
+        "confidence": "高",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-128-50ffa8ec",
+        "startSeconds": 128,
+        "label": "ゲーム紹介・プレイ開始",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-516-26941298",
+        "startSeconds": 516,
+        "label": "基本ルール・最初のステージ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1079-2b9906e6",
+        "startSeconds": 1079,
+        "label": "追加ルールと再挑戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1999-309eaf1b",
+        "startSeconds": 1999,
+        "label": "新たな障害と連続チャレンジ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2839-6cabfc20",
+        "startSeconds": 2839,
+        "label": "最終ステージ・難所の始まり",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3298-a3d5f642",
+        "startSeconds": 3298,
+        "label": "最終ステージの長期戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3892-7d02a01a",
+        "startSeconds": 3892,
+        "label": "終盤・新たな展開",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4179-4b0b044d",
+        "startSeconds": 4179,
+        "label": "最後の探索と手がかり",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4692-46b4b469",
+        "startSeconds": 4692,
+        "label": "クライマックス",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4873-74c96207",
+        "startSeconds": 4873,
+        "label": "プレイ後の感想",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5047-a0f8df29",
+        "startSeconds": 5047,
+        "label": "配信予定・告知とゲーム振り返り",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5589-1d1e4da4",
+        "startSeconds": 5589,
+        "label": "スーパーチャット・視聴者相談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6150-e21fc8d3",
+        "startSeconds": 6150,
+        "label": "体調の振り返り・最後の挨拶",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "3bf3acc5e5c71cecf254787a2e347e1c1bfc83e2536dc46d2c1152c0fca3cda4",
+    "inputFingerprint": "ff7e5f78e867d4ca193747ad1140b704b1bf0efa4e5ae900c299d3fcadadef88",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-14T03:55:08.447Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "3bf3acc5e5c71cecf254787a2e347e1c1bfc83e2536dc46d2c1152c0fca3cda4",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "3bf3acc5e5c71cecf254787a2e347e1c1bfc83e2536dc46d2c1152c0fca3cda4",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "e04864a3741835b1e10f65a3959be6e35dfc8476a2cc9c3ce6ca9151703f9ffa",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-16T12:05:00+09:00",
+    "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  },
+  "customEmojiUsage": {
+    "status": "集計済み",
+    "totalCount": 189,
+    "items": [
+      {
+        "customEmojiId": "custom-emoji-f43337c5aa5d12d6",
+        "label": ":nice:",
+        "imageUrl": "https://yt3.ggpht.com/TDQeDqyImGpFdeFP4JtRLEch56bHod225jTm5Q6iwYp_IfesDk2ZjJ3GHzKprX3tqQvvjtxUvg=w48-h48-c-k-nd",
+        "count": 97
+      },
+      {
+        "customEmojiId": "custom-emoji-14d753b6b17fe87f",
+        "label": ":taiki:",
+        "imageUrl": "https://yt3.ggpht.com/AmJMesRvOQ9hazRwFUqyYpBPbFInvNG6-NVq5nFnd7LxkunkF1ZNCfmPFwz85sjRNRCDs5e0_w=w48-h48-c-k-nd",
+        "count": 28
+      },
+      {
+        "customEmojiId": "custom-emoji-bfc159b91f64052d",
+        "label": ":kusa:",
+        "imageUrl": "https://yt3.ggpht.com/kZShOeXg6MsX8wvxDnks5be-RBBZBbiSTiHaYf_YugiFq2vsob_L1aNikCo8ZWNa-KAZh-We=w48-h48-c-k-nd",
+        "count": 23
+      },
+      {
+        "customEmojiId": "custom-emoji-f511686e2a08a690",
+        "label": ":wan:",
+        "imageUrl": "https://yt3.ggpht.com/1VFD2HS8OwgvS2XCPDW-59iyFTUlw63RAVQcNsaGpQZTtjCXS_q-FUPR86bZVOnDirWTlnjn=w48-h48-c-k-nd",
+        "count": 11
+      },
+      {
+        "customEmojiId": "custom-emoji-d114b08d65064a0d",
+        "label": ":daken:",
+        "imageUrl": "https://yt3.ggpht.com/STxTum1lbYWsJvKvU0TBmTRGS5bB3RP8j00XvlIP-fdwGfk43DxhFQlJHH2ncl1BStmykLoqzQ=w48-h48-c-k-nd",
+        "count": 10
+      },
+      {
+        "customEmojiId": "custom-emoji-dd74b84bb52d73b9",
+        "label": ":dododo:",
+        "imageUrl": "https://yt3.ggpht.com/PqDg9JvpjGSZiYc-nd6009x0j8v50Dn-wWjqPQHP2EuTJN9BYrTlx9EADeZPKLi8OEeDIzkv=w48-h48-c-k-nd",
+        "count": 10
+      },
+      {
+        "customEmojiId": "custom-emoji-9be64bac3f56ea96",
+        "label": ":att:",
+        "imageUrl": "https://yt3.ggpht.com/mcuMXcEnr0vJXPYMXeMiSWic5rQiaDrRsIutnR-yYStMjYGgUAhPQu4KHNlXlPO1ucMJDsu1=w48-h48-c-k-nd",
+        "count": 4
+      },
+      {
+        "customEmojiId": "custom-emoji-6bf2ffc72b0031f1",
+        "label": ":kobito:",
+        "imageUrl": "https://yt3.ggpht.com/2bL4xENwQQcltmFqoJdB8wRRZWrgAWLSRVvk-dZ_dM4ociaEWc-EtBqRlm9qlwlpV3szT6nT=w48-h48-c-k-nd",
+        "count": 2
+      },
+      {
+        "customEmojiId": "custom-emoji-ca4a85ace4faf456",
+        "label": ":tomoe3:",
+        "imageUrl": "https://yt3.ggpht.com/xfD5CwUMwcfIFWvaPA5bt-L_Ys5vCVdJQL2a_5bdEd2AArTNWCMFH1urumOlB9bqPp2Ndio-Sg=w48-h48-c-k-nd",
+        "count": 2
+      },
+      {
+        "customEmojiId": "custom-emoji-d7b55428d8832439",
+        "label": ":son:",
+        "imageUrl": "https://yt3.ggpht.com/MYPPM39-vb-RBhgVS1Fbh3kpaKkGOTzgclWRETiVlMjlAd-m6AxQdqqpBIACpEsYaL-GXNJO_6w=w48-h48-c-k-nd",
+        "count": 1
+      },
+      {
+        "customEmojiId": "custom-emoji-ad7cfe53960275b5",
+        "label": ":tomoe1:",
+        "imageUrl": "https://yt3.ggpht.com/YjMrNKH0NaNlbggXwFtgP-v2Qmkd9Y8-JF_YkoMtX9e2wcU3XMM-3jG_ji8Rk6Ru_-2eqaEv6pc=w48-h48-c-k-nd",
+        "count": 1
+      }
+    ],
+    "inputFingerprint": "e4364a0809bc24b4bc8141c7996d668f961c67fcb21ee7833033aca86c163acb",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-04T20:02:31+09:00"
+  }
+}
