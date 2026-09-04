@@ -1,8 +1,12 @@
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import { gzip } from 'node:zlib';
+import { promisify } from 'node:util';
 
 import { aggregateWordCloud } from '../scripts/aggregate-word-cloud.ts';
+
+const gzipAsync = promisify(gzip);
 
 describe('公開コメント・チャットのワードクラウド候補集計', () => {
   it('本文だけから20〜50語を集約し、投稿者情報と生本文を出力しない', async () => {
@@ -52,7 +56,7 @@ describe('公開コメント・チャットのワードクラウド候補集計'
     const vocabulary = [
       '最高', 'かわいい', '面白い', '神回', '天才', '配信', '実況', 'ゲーム', '爆笑', '感動',
       'コラボ', '歌声', '雑談', '反応', '初見', '驚き', '優しい', '企画', '衣装', '物語',
-      '応援', '待機', '拍手', '解説', '挑戦',
+      '応援', '待機', '拍手', '解説', '挑戦', ':clapping_hands:',
     ];
     await writeFile(inputPath, `${JSON.stringify({
       commentRenderer: {
@@ -68,6 +72,33 @@ describe('公開コメント・チャットのワードクラウド候補集計'
       expect(candidate.words.length).toBeLessThanOrEqual(vocabulary.length);
       expect(JSON.stringify(candidate)).not.toContain('保存してはいけない名前');
       expect(await readFile(inputPath, 'utf8')).toContain('保存してはいけない名前');
+    } finally {
+      await rm(directory, { recursive: true, force: true });
+    }
+  });
+
+  it('正規化済みtext形式のgzipチャットを直接集計する', async () => {
+    const directory = await mkdtemp(path.join(os.tmpdir(), 'diopside-word-cloud-normalized-'));
+    const inputPath = path.join(directory, 'chat.jsonl.gz');
+    const vocabulary = [
+      '最高', 'かわいい', '面白い', '神回', '天才', '配信', '実況', 'ゲーム', '爆笑', '感動',
+      'コラボ', '歌声', '雑談', '反応', '初見', '驚き', '優しい', '企画', '衣装', '物語',
+      '応援', '待機', '拍手', '解説', '挑戦',
+    ];
+    const normalized = `${JSON.stringify({
+      offset_seconds: 12,
+      text: vocabulary.join(' '),
+    })}\n`;
+    await writeFile(inputPath, await gzipAsync(normalized));
+
+    try {
+      const candidate = await aggregateWordCloud(inputPath, '公開チャット', '2026-09-04T00:00:00Z');
+      expect(candidate.inputType).toBe('公開チャット');
+      expect(candidate.words.length).toBeGreaterThanOrEqual(20);
+      expect(candidate.words.map((word) => word.term)).toContain('最高');
+      expect(candidate.words.map((word) => word.term)).not.toContain('clapping');
+      expect(candidate.words.map((word) => word.term)).not.toContain('hands');
+      expect(JSON.stringify(candidate)).not.toContain(normalized);
     } finally {
       await rm(directory, { recursive: true, force: true });
     }
