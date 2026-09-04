@@ -1,8 +1,8 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 31
-- 更新日: 2026-09-03
+- カタログ版: 32
+- 更新日: 2026-09-04
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
@@ -27,8 +27,8 @@
 | `V8-DISPLAY-002` | 1 | 有効 | 機能 | diopside v8の表示は、動画詳細は、動画基本情報とは別に、承認済みタグを「タグ」として表示しなければならない。を**satisfy** | 画面試験・用語確認 |
 | `V8-DISPLAY-003` | 1 | 有効 | 機能 | diopside v8の表示は、動画詳細は、承認済みタイムスタンプを時刻の昇順で表示しなければならない。を**satisfy** | 境界値試験・画面試験 |
 | `V8-DISPLAY-004` | 1 | 有効 | 機能 | diopside v8の表示は、各タイムスタンプは、対象動画の該当時刻をYouTubeで開けなければならない。を**satisfy** | リンク契約試験 |
-| `V8-DISPLAY-005` | 1 | 有効 | 機能 | diopside v8の表示は、動画詳細は、承認済みのワードクラウドを表示しなければならない。を**satisfy** | 表示試験・再現性試験 |
-| `V8-DISPLAY-006` | 1 | 有効 | 機能 | diopside v8の表示は、ワードクラウドの語句は、公開字幕、公開概要欄、または運用者が明示的に提供した公開本文を一時的に処理して作り、人の承認前に公開してはならない。を**satisfy** | 生成来歴確認・人手確認 |
+| `V8-DISPLAY-005` | 2 | 有効 | 機能 | diopside v8の表示は、動画詳細は、承認済みの20～50語を、重要度の高い語ほど明確に大きくし、横書きと縦書きを混ぜ、横一列の語句一覧ではなく表示面を広く使う密集ワードクラウドとして表示しなければならない。を**satisfy** | 配置単体試験・レスポンシブ表示試験・再現性試験 |
+| `V8-DISPLAY-006` | 2 | 有効 | 機能 | diopside v8の表示は、ワードクラウドは、対象動画の公開コメントまたは公開チャットリプレイを一時処理できる場合に視聴者の反応を優先して生成し、取得できない場合だけ公開字幕、公開概要欄、または運用者が明示的に提供した公開本文を代替入力として使用しなければならない。生本文と投稿者情報を公開せず、入力種別を画面に明示し、人の承認前に候補を公開してはならない。を**satisfy** | 匿名集約単体試験・生成来歴検証・入力種別表示試験・人手確認 |
 | `V8-DISPLAY-007` | 1 | 有効 | 機能 | diopside v8の表示は、ワードクラウドの語句には、重要度を比較できる1～100の整数値を持たせなければならない。を**satisfy** | 構造・境界値試験 |
 | `V8-DISPLAY-008` | 1 | 有効 | 機能 | diopside v8の表示は、ワードクラウドの入力資料を利用できない動画は、推測で語句を補わず「未作成」と表示しなければならない。を**satisfy** | 否定試験・画面試験 |
 | `V8-DISPLAY-009` | 1 | 有効 | 機能 | diopside v8の表示は、ワードクラウドの語句をタイトル文字検索の対象へ混入してはならない。を**satisfy** | 検索除外試験 |
@@ -498,35 +498,37 @@ diopside v8の表示は、各タイムスタンプは、対象動画の該当時
 検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-DISPLAY-005: 動画詳細は、承認済みのワードクラウドを表示しなければならない
+## V8-DISPLAY-005: 動画詳細は、承認済み語句の重要度差と対象動画への熱量が伝わる密集ワードクラウドを表示しなければならない
 
-diopside v8の表示は、動画詳細は、承認済みのワードクラウドを表示しなければならない。を**satisfy**。
-
-根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
-
-分類: `product` / `functional`
-
-受入条件:
-- `AC-V8-DISPLAY-005-1` 前提: V8-表示-005の前提を満たす公開データまたは操作がある。条件: 表示試験・再現性試験。期待結果: 20～50語を重要度に応じた大きさで表示し、同じ入力、画面幅、描画規則から同じ語句、大きさ、位置を再現できる。。
-
-要求源: Issue #1 V8-表示-005, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
-
-## V8-DISPLAY-006: ワードクラウドの語句は、公開字幕、公開概要欄、または運用者が明示的に提供した公開本文を一時的に処理して作り、人の承認前に公開してはならない
-
-diopside v8の表示は、ワードクラウドの語句は、公開字幕、公開概要欄、または運用者が明示的に提供した公開本文を一時的に処理して作り、人の承認前に公開してはならない。を**satisfy**。
+diopside v8の表示は、動画詳細は、承認済みの20～50語を、重要度の高い語ほど明確に大きくし、横書きと縦書きを混ぜ、横一列の語句一覧ではなく表示面を広く使う密集ワードクラウドとして表示しなければならない。を**satisfy**。
 
 根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-DISPLAY-006-1` 前提: V8-表示-006の前提を満たす公開データまたは操作がある。条件: 生成来歴確認・人手確認。期待結果: 使用した入力種別、除外語規則、生成規則の版と確認結果をプルリクエストから追跡できる。。
+- `AC-V8-DISPLAY-005-1` 前提: 承認済みの20～50語と重要度がある。条件: デスクトップまたはモバイルの動画詳細でワードクラウドを表示する。期待結果: 語句を重ねず、重要度差が明確な文字サイズ、横書きと縦書きの混在、および表示面の横・縦それぞれを広く使う密集配置で表示し、横一列の一覧に見えない。。
+- `AC-V8-DISPLAY-005-2` 前提: 同じ語句、重要度、画面幅、描画規則がある。条件: ワードクラウドを繰り返し描画する。期待結果: 語句、大きさ、向き、位置、色を決定的に再現できる。。
 
-要求源: Issue #1 V8-表示-006, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, e2e/detail.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/domain/validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-表示-005, user:2026-08-03, spec/sources/owner-directive-2026-09-04-comment-word-cloud.md, user:2026-09-04
+検証証跡: src/features/detail/wordCloudLayout.test.ts, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/WordCloud.tsx,src/features/detail/wordCloudLayout.ts,src/features/detail/VideoDetailPage.tsx,src/styles.css; テスト=src/features/detail/wordCloudLayout.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile,spec/sources/owner-directive-2026-09-04-comment-word-cloud.md,dev-standard regulated profile
+
+## V8-DISPLAY-006: ワードクラウドは取得可能な公開コメントまたは公開チャットの反応を優先して安全に生成しなければならない
+
+diopside v8の表示は、ワードクラウドは、対象動画の公開コメントまたは公開チャットリプレイを一時処理できる場合に視聴者の反応を優先して生成し、取得できない場合だけ公開字幕、公開概要欄、または運用者が明示的に提供した公開本文を代替入力として使用しなければならない。生本文と投稿者情報を公開せず、入力種別を画面に明示し、人の承認前に候補を公開してはならない。を**satisfy**。
+
+根拠: 利用者が動画を開く前に、承認済みの内容と移動先を確認できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-006-1` 前提: 対象動画の公開コメントまたは公開チャットリプレイを一時処理できる。条件: ワードクラウド候補を生成して公開候補を検証する。期待結果: コメントまたはチャット本文だけから20～50語と重要度を集約し、生本文、投稿者名、投稿者IDを出力せず、入力指紋、入力種別、除外規則版、生成規則版、人の確認状態を追跡できる。。
+- `AC-V8-DISPLAY-006-2` 前提: 公開コメントまたは公開チャットリプレイを取得または十分に集約できない。条件: 承認済みの代替公開資料からワードクラウドを表示する。期待結果: 公開字幕、公開概要欄、または運用者提供の公開本文を使用でき、コメント由来であると偽らず実際の入力種別を画面に明示する。。
+
+要求源: Issue #1 V8-表示-006, user:2026-08-03, spec/sources/owner-directive-2026-09-04-comment-word-cloud.md, user:2026-09-04
+検証証跡: tests/word-cloud-aggregation.test.ts, tests/content-validation.test.ts, e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md,docs/operations/privacy-and-safety.md; 実装=scripts/aggregate-word-cloud.ts,src/domain/content.ts,src/domain/validation.ts,src/features/detail/WordCloud.tsx; テスト=tests/word-cloud-aggregation.test.ts,tests/content-validation.test.ts,e2e/detail.spec.ts; 参照資料=Issue #1,dev-standard default profile,V8-SAFETY-002,spec/sources/owner-directive-2026-09-04-comment-word-cloud.md,dev-standard regulated profile
 
 ## V8-DISPLAY-007: ワードクラウドの語句には、重要度を比較できる1～100の整数値を持たせなければならない
 

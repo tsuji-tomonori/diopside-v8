@@ -5,6 +5,7 @@ import { useBundle, useDeviceStore } from '../../contexts.ts';
 import type { PublicVideoDetail } from '../../domain/content.ts';
 import { formatDate, formatDuration, formatTimestamp } from '../../format.ts';
 import { loadVideoDetail, PublicDataError } from '../../data/loadPublicData.ts';
+import { WordCloud, wordCloudEyebrow } from './WordCloud.tsx';
 
 export function VideoDetailPage(): React.JSX.Element {
   const { videoId = '' } = useParams();
@@ -207,17 +208,13 @@ export function VideoDetailPage(): React.JSX.Element {
 
         <section className="detail-section" aria-labelledby="word-cloud-heading">
           <div className="section-heading">
-            <div><p className="eyebrow">動画を表す言葉</p><h2 id="word-cloud-heading">ワードクラウド</h2></div>
+            <div><p className="eyebrow">{detail.wordCloud.status === '作成済み' ? wordCloudEyebrow(detail.wordCloud.inputType) : '動画を表す言葉'}</p><h2 id="word-cloud-heading">ワードクラウド</h2></div>
             <p>最終更新: {formatDate(detail.wordCloud.updatedAt)}</p>
           </div>
           {detail.wordCloud.status === '未作成' ? (
             <div className="unavailable"><strong>未作成 — {detail.wordCloud.reason}</strong><p>{detail.wordCloud.detail}</p></div>
           ) : (
-            <div className="word-cloud" aria-label="ワードクラウド">
-              {[...detail.wordCloud.words].sort((left, right) => right.weight - left.weight || left.term.localeCompare(right.term, 'ja')).map((word) => (
-                <span key={word.term} style={{ fontSize: `${0.85 + word.weight / 65}rem` }}>{word.term}</span>
-              ))}
-            </div>
+            <WordCloud inputType={detail.wordCloud.inputType} words={detail.wordCloud.words} />
           )}
         </section>
       </article>

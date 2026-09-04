@@ -62,7 +62,7 @@ test.describe('動画詳細', () => {
     await expectNoSeriousAccessibilityViolations(page);
   });
 
-  test('承認済みワードクラウドを20語以上で描画する', async ({ page }) => {
+  test('視聴者コメントの熱量を20語以上の密集ワードクラウドで描画する', async ({ page }) => {
     await preparePage(page);
     const videoId = 'c9TnpjK3ZZE';
     const shardId = videoShardId(videoId);
@@ -71,15 +71,32 @@ test.describe('動画詳細', () => {
     const detail = shard.videos[videoId]!;
     detail.wordCloud = {
       status: '作成済み',
-      words: Array.from({ length: 20 }, (_, index) => ({ term: `確認語${String(index + 1).padStart(2, '0')}`, weight: 100 - index })),
-      inputType: '公開字幕',
-      exclusionRulesVersion: '8.0.0',
-      rulesVersion: '8.0.0',
-      updatedAt: '2026-08-03T00:00:00+09:00',
+      words: [
+        '最高', 'かわいい', '白雪巴', '名場面', '爆笑', '天才', 'コラボ', 'ゲーム', '歌声', '雑談',
+        'リアクション', '初見', 'びっくり', '面白い', '優しい', '企画', '配信', '感動', '衣装', '物語',
+        '実況', '応援', '待機', '拍手', '解説', '神回', '笑顔', '挑戦', 'クリア', 'アンコール',
+      ].map((term, index) => ({ term, weight: Math.max(8, 100 - index * 3) })),
+      inputType: '公開チャット',
+      exclusionRulesVersion: '9.0.0',
+      rulesVersion: '9.0.0',
+      updatedAt: '2026-09-04T00:00:00Z',
     };
     await page.route(`**/data/releases/${latest.releaseId}/video-shards/${shardId}.json`, async (route) => route.fulfill({ json: shard }));
     await page.goto(`/#/video/${videoId}`);
-    await expect(page.getByLabel('ワードクラウド').locator('span')).toHaveCount(20);
+    await expect(page.getByText('視聴者の公開チャットから抽出')).toBeVisible();
+    const cloud = page.locator('svg.word-cloud');
+    await expect(cloud).toBeVisible();
+    await expect(cloud.locator('text')).toHaveCount(30);
+    expect(await cloud.locator('[data-rotation="90"]').count()).toBeGreaterThan(0);
+    const sizes = await cloud.locator('text').evaluateAll((nodes) => (
+      nodes.map((node) => Number(node.getAttribute('font-size')))
+    ));
+    expect(Math.max(...sizes) / Math.min(...sizes)).toBeGreaterThan(2.4);
+    await expectNoSeriousAccessibilityViolations(page);
+
+    await page.goto('/#/video/Hg32eUA03Fo');
+    await expect(page.getByText('動画の公開字幕から抽出')).toBeVisible();
+    await expect(page.getByText('視聴者の公開チャットから抽出')).toHaveCount(0);
   });
 
   test('カスタム絵文字を画像、ショートコード、回数、比率付きで表示する', async ({ page }) => {

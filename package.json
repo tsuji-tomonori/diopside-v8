@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "vite",
     "refresh:people-icons": "node --experimental-strip-types scripts/refresh-person-icons.ts",
+    "aggregate:word-cloud": "node --experimental-strip-types scripts/aggregate-word-cloud.ts",
     "generate:requirements": "node --experimental-strip-types scripts/generate-requirements.ts && python .agents/skills/maintain-canonical-requirements/scripts/specflow.py generate",
     "generate:data": "node --experimental-strip-types scripts/build-public-data.ts",
     "generate:design": "node --experimental-strip-types scripts/generate-design.ts",

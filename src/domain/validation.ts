@@ -772,11 +772,14 @@ function validateWordCloud(video: CanonicalVideo, issues: ValidationIssue[]): vo
     if (normalized.has(key)) issues.push(issue('WORD_CLOUD_DUPLICATED', `wordCloud.words.${index}.term`, '正規化後に同じ語句となる重複があります。'));
     normalized.add(key);
   }
-  const expectedType = wordCloud.inputType === '公開字幕'
-    ? new Set(['公開の日本語原文字幕', '公開の日本語字幕'])
-    : wordCloud.inputType === '公開概要欄'
-      ? new Set(['動画固有の説明'])
-      : new Set(['運用者提供の公開本文']);
+  const expectedTypes = {
+    公開チャット: ['公開チャット'],
+    公開コメント: ['公開コメント'],
+    公開字幕: ['公開の日本語原文字幕', '公開の日本語字幕'],
+    公開概要欄: ['動画固有の説明'],
+    運用者提供の公開本文: ['運用者提供の公開本文'],
+  } as const;
+  const expectedType = new Set<string>(expectedTypes[wordCloud.inputType]);
   const inputResolved = video.evidence.some((evidence) => (
     evidence.inputFingerprint === wordCloud.inputFingerprint && expectedType.has(evidence.type)
   ));
