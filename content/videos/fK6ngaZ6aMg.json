@@ -44,6 +44,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "3096eb78bf47dd4076f9da82df3fb802c63fc0454f83741db39064883b76b768"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "4ca678330b25fe0b1bf61e0dd779d55cbe70f569693f43a8662b920a26d12a9e"
     }
   ],
   "tagAssignments": [
@@ -267,10 +273,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "ナイス",
+        "weight": 97
+      },
+      {
+        "term": "gg",
+        "weight": 87
+      },
+      {
+        "term": "ナイスゥ",
+        "weight": 68
+      },
+      {
+        "term": "すい",
+        "weight": 63
+      },
+      {
+        "term": "かわいい",
+        "weight": 55
+      },
+      {
+        "term": "頑張る",
+        "weight": 49
+      },
+      {
+        "term": "惜しい",
+        "weight": 45
+      },
+      {
+        "term": "強い",
+        "weight": 39
+      },
+      {
+        "term": "うまい",
+        "weight": 37
+      },
+      {
+        "term": "晴",
+        "weight": 33
+      },
+      {
+        "term": "ナイ",
+        "weight": 31
+      },
+      {
+        "term": "エリー",
+        "weight": 28
+      },
+      {
+        "term": "すごい",
+        "weight": 28
+      },
+      {
+        "term": "ママ",
+        "weight": 28
+      },
+      {
+        "term": "大丈夫",
+        "weight": 28
+      },
+      {
+        "term": "スー",
+        "weight": 27
+      },
+      {
+        "term": "ふる",
+        "weight": 27
+      },
+      {
+        "term": "ちる",
+        "weight": 26
+      },
+      {
+        "term": "塗り",
+        "weight": 26
+      },
+      {
+        "term": "わっ",
+        "weight": 24
+      },
+      {
+        "term": "ファイト",
+        "weight": 22
+      },
+      {
+        "term": "声",
+        "weight": 22
+      },
+      {
+        "term": "長尾",
+        "weight": 22
+      },
+      {
+        "term": "チーム",
+        "weight": 21
+      },
+      {
+        "term": "ラスト",
+        "weight": 19
+      },
+      {
+        "term": "景",
+        "weight": 19
+      },
+      {
+        "term": "自陣",
+        "weight": 19
+      },
+      {
+        "term": "しば",
+        "weight": 17
+      },
+      {
+        "term": "生存",
+        "weight": 16
+      },
+      {
+        "term": "おぉ",
+        "weight": 12
+      },
+      {
+        "term": "ボム",
+        "weight": 7
+      },
+      {
+        "term": "大事",
+        "weight": 7
+      },
+      {
+        "term": "うん",
+        "weight": 5
+      },
+      {
+        "term": "キル",
+        "weight": 5
+      },
+      {
+        "term": "ゆめ",
+        "weight": 5
+      },
+      {
+        "term": "優しい",
+        "weight": 5
+      },
+      {
+        "term": "おおう",
+        "weight": 4
+      },
+      {
+        "term": "つよい",
+        "weight": 4
+      },
+      {
+        "term": "ナイスー",
+        "weight": 4
+      },
+      {
+        "term": "最後",
+        "weight": 4
+      },
+      {
+        "term": "相手",
+        "weight": 4
+      },
+      {
+        "term": "連携",
+        "weight": 4
+      },
+      {
+        "term": "いける",
+        "weight": 3
+      },
+      {
+        "term": "塗る",
+        "weight": 3
+      },
+      {
+        "term": "同人",
+        "weight": 3
+      },
+      {
+        "term": "壁",
+        "weight": 3
+      },
+      {
+        "term": "いく",
+        "weight": 1
+      },
+      {
+        "term": "けい",
+        "weight": 1
+      },
+      {
+        "term": "どう",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "4ca678330b25fe0b1bf61e0dd779d55cbe70f569693f43a8662b920a26d12a9e",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "8cfa0944bdc233653df97fc40a0017f4505ddcaf8790c4cb68626124f04d9942",
