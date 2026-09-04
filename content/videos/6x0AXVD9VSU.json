@@ -38,6 +38,12 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "9e49ea7b56c5edbc8adb9223ab889454b5882fd7611081c86f2c986a4f349d03"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "e485adea5acd9611b87205cb7482abebb48d15b8f037101447062da04098cb96"
     }
   ],
   "tagAssignments": [
@@ -103,10 +109,215 @@
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "怖い",
+        "weight": 95
+      },
+      {
+        "term": "わかる",
+        "weight": 49
+      },
+      {
+        "term": "エレベーター",
+        "weight": 46
+      },
+      {
+        "term": "トイレ",
+        "weight": 46
+      },
+      {
+        "term": "かわいい",
+        "weight": 34
+      },
+      {
+        "term": "エンド",
+        "weight": 33
+      },
+      {
+        "term": "大丈夫",
+        "weight": 30
+      },
+      {
+        "term": "分岐",
+        "weight": 30
+      },
+      {
+        "term": "幽霊",
+        "weight": 28
+      },
+      {
+        "term": "回収",
+        "weight": 27
+      },
+      {
+        "term": "ゴミ",
+        "weight": 25
+      },
+      {
+        "term": "先輩",
+        "weight": 23
+      },
+      {
+        "term": "どう",
+        "weight": 16
+      },
+      {
+        "term": "落とす",
+        "weight": 16
+      },
+      {
+        "term": "警備",
+        "weight": 15
+      },
+      {
+        "term": "ホラー",
+        "weight": 14
+      },
+      {
+        "term": "入る",
+        "weight": 11
+      },
+      {
+        "term": "あら",
+        "weight": 10
+      },
+      {
+        "term": "キッズ",
+        "weight": 10
+      },
+      {
+        "term": "こい",
+        "weight": 10
+      },
+      {
+        "term": "帰る",
+        "weight": 9
+      },
+      {
+        "term": "人",
+        "weight": 9
+      },
+      {
+        "term": "うわ",
+        "weight": 8
+      },
+      {
+        "term": "音",
+        "weight": 8
+      },
+      {
+        "term": "たしかに",
+        "weight": 7
+      },
+      {
+        "term": "ちょっと",
+        "weight": 7
+      },
+      {
+        "term": "ひる",
+        "weight": 7
+      },
+      {
+        "term": "マック",
+        "weight": 7
+      },
+      {
+        "term": "ゲーム",
+        "weight": 6
+      },
+      {
+        "term": "コピー",
+        "weight": 6
+      },
+      {
+        "term": "ついえる",
+        "weight": 6
+      },
+      {
+        "term": "開く",
+        "weight": 6
+      },
+      {
+        "term": "行く",
+        "weight": 5
+      },
+      {
+        "term": "事故",
+        "weight": 5
+      },
+      {
+        "term": "赤い",
+        "weight": 5
+      },
+      {
+        "term": "ホラホラ",
+        "weight": 3
+      },
+      {
+        "term": "やばい",
+        "weight": 3
+      },
+      {
+        "term": "暗い",
+        "weight": 3
+      },
+      {
+        "term": "血",
+        "weight": 3
+      },
+      {
+        "term": "どす",
+        "weight": 2
+      },
+      {
+        "term": "ホラゲ",
+        "weight": 2
+      },
+      {
+        "term": "わくわく",
+        "weight": 2
+      },
+      {
+        "term": "真面目",
+        "weight": 2
+      },
+      {
+        "term": "来る",
+        "weight": 2
+      },
+      {
+        "term": "こる",
+        "weight": 1
+      },
+      {
+        "term": "どうぞ",
+        "weight": 1
+      },
+      {
+        "term": "ナイス",
+        "weight": 1
+      },
+      {
+        "term": "はい",
+        "weight": 1
+      },
+      {
+        "term": "ヒント",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "e485adea5acd9611b87205cb7482abebb48d15b8f037101447062da04098cb96",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "e7e7955476234a184393f664fda047766443925ac06778656368a48744653b5c",
