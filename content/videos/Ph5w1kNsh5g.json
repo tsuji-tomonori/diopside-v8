@@ -44,6 +44,12 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "YouTube公開タイトル・概要欄の出演者横断照合",
       "inputFingerprint": "a335deb1f7028e8ad473db375feaf04747c30638f936f5be9a5abc56037d6c6f"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "8f285394c1870161814b724c60421443525edbff3cb3c24f76fde971ef892acc"
     }
   ],
   "tagAssignments": [
@@ -322,10 +328,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "かわいい",
+        "weight": 43
+      },
+      {
+        "term": "すごい",
+        "weight": 35
+      },
+      {
+        "term": "わかる",
+        "weight": 35
+      },
+      {
+        "term": "夏",
+        "weight": 31
+      },
+      {
+        "term": "人",
+        "weight": 31
+      },
+      {
+        "term": "芽",
+        "weight": 28
+      },
+      {
+        "term": "トロ",
+        "weight": 27
+      },
+      {
+        "term": "楽しい",
+        "weight": 27
+      },
+      {
+        "term": "気",
+        "weight": 27
+      },
+      {
+        "term": "人間",
+        "weight": 24
+      },
+      {
+        "term": "かんぱ",
+        "weight": 23
+      },
+      {
+        "term": "上位",
+        "weight": 23
+      },
+      {
+        "term": "面白い",
+        "weight": 23
+      },
+      {
+        "term": "楽しみ",
+        "weight": 22
+      },
+      {
+        "term": "話",
+        "weight": 22
+      },
+      {
+        "term": "ちる",
+        "weight": 21
+      },
+      {
+        "term": "美味しい",
+        "weight": 21
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 19
+      },
+      {
+        "term": "存在",
+        "weight": 19
+      },
+      {
+        "term": "見える",
+        "weight": 17
+      },
+      {
+        "term": "えらい",
+        "weight": 15
+      },
+      {
+        "term": "姉さん",
+        "weight": 15
+      },
+      {
+        "term": "あら",
+        "weight": 13
+      },
+      {
+        "term": "たく",
+        "weight": 13
+      },
+      {
+        "term": "ボイス",
+        "weight": 13
+      },
+      {
+        "term": "出る",
+        "weight": 12
+      },
+      {
+        "term": "ネギ",
+        "weight": 8
+      },
+      {
+        "term": "ほる",
+        "weight": 8
+      },
+      {
+        "term": "光",
+        "weight": 8
+      },
+      {
+        "term": "行く",
+        "weight": 8
+      },
+      {
+        "term": "ストレート",
+        "weight": 7
+      },
+      {
+        "term": "飲む",
+        "weight": 7
+      },
+      {
+        "term": "好き",
+        "weight": 7
+      },
+      {
+        "term": "天使",
+        "weight": 7
+      },
+      {
+        "term": "優しい",
+        "weight": 7
+      },
+      {
+        "term": "へぇ",
+        "weight": 6
+      },
+      {
+        "term": "読む",
+        "weight": 6
+      },
+      {
+        "term": "おぉ",
+        "weight": 4
+      },
+      {
+        "term": "食べる",
+        "weight": 4
+      },
+      {
+        "term": "雪",
+        "weight": 4
+      },
+      {
+        "term": "本当に",
+        "weight": 4
+      },
+      {
+        "term": "うん",
+        "weight": 3
+      },
+      {
+        "term": "ちょっと",
+        "weight": 3
+      },
+      {
+        "term": "おいしい",
+        "weight": 2
+      },
+      {
+        "term": "おもろい",
+        "weight": 2
+      },
+      {
+        "term": "さすが",
+        "weight": 2
+      },
+      {
+        "term": "パフェ",
+        "weight": 2
+      },
+      {
+        "term": "漫画",
+        "weight": 2
+      },
+      {
+        "term": "イメージ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "8f285394c1870161814b724c60421443525edbff3cb3c24f76fde971ef892acc",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "ecf22b09dd9a59a7b2d439bcf1c15696d2cdba98a8c6dd5478adea08c77abc54",
