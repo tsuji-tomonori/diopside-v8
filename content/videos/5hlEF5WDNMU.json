@@ -38,6 +38,12 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "3ad795098c6afdfcc9c906a20f1f4dd1766580485c7e2aba59677654248261e9"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "f09662abf4302b3605a11d6faa6c862ca84aaedc7f5722ce27ba9762133be7d1"
     }
   ],
   "tagAssignments": [
@@ -112,10 +118,103 @@
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "わくわく",
+        "weight": 47
+      },
+      {
+        "term": "同期",
+        "weight": 40
+      },
+      {
+        "term": "知る",
+        "weight": 18
+      },
+      {
+        "term": "あかん",
+        "weight": 1
+      },
+      {
+        "term": "きち",
+        "weight": 1
+      },
+      {
+        "term": "きまずい",
+        "weight": 1
+      },
+      {
+        "term": "テンション",
+        "weight": 1
+      },
+      {
+        "term": "とっとと",
+        "weight": 1
+      },
+      {
+        "term": "バレる",
+        "weight": 1
+      },
+      {
+        "term": "ゃぁ",
+        "weight": 1
+      },
+      {
+        "term": "わぁ",
+        "weight": 1
+      },
+      {
+        "term": "ワクドキワクドキ",
+        "weight": 1
+      },
+      {
+        "term": "業者",
+        "weight": 1
+      },
+      {
+        "term": "近い",
+        "weight": 1
+      },
+      {
+        "term": "言える",
+        "weight": 1
+      },
+      {
+        "term": "後輩",
+        "weight": 1
+      },
+      {
+        "term": "死ぬ",
+        "weight": 1
+      },
+      {
+        "term": "初手",
+        "weight": 1
+      },
+      {
+        "term": "寝る",
+        "weight": 1
+      },
+      {
+        "term": "普通",
+        "weight": 1
+      },
+      {
+        "term": "話",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "f09662abf4302b3605a11d6faa6c862ca84aaedc7f5722ce27ba9762133be7d1",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "2b8b8dac8e356038ba78c0f95fd65a7dbd4792b2097ce15cd0f76f95929935bc",
