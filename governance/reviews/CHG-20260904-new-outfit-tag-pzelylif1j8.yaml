@@ -1,0 +1,64 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260904-new-outfit-tag-pzelylif1j8
+profile: direct
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - {id: IMP-001, class: Invariant, result: pass, evidence: ["path:content/videos/PzElYLiF1J8.json", "path:spec/requirements/requirements.json"], note: "V8-TAG-008の既存要件へ戻す不具合修正であり、永続要件は変更しない。"}
+  - {id: IMP-002, class: Invariant, result: pass, evidence: ["path:content/videos/PzElYLiF1J8.json", "path:content/taxonomy/tag-taxonomy.json"], note: "既存の不変タグIDと動画schemaだけを使用し、設計影響はない。"}
+  - {id: IMP-003, class: Invariant, result: pass, evidence: ["path:content/videos/PzElYLiF1J8.json"], note: "正本動画1件へ直接根拠のあるタグ1件を加える可逆修正なのでdirectを選択した。"}
+  - {id: IMP-004, class: Invariant, result: pass, evidence: ["commit:self"], note: "外部書込みはユーザーが明示許可したGitHubのbranch、PR、mergeに限定する。"}
+  - {id: IMP-007, class: Risk-selected, result: pass, evidence: ["path:content/videos/PzElYLiF1J8.json", "path:content/content-manifest.json"], note: "動画を削除せず、タグ1件追加とassignmentCountの1増加だけを行う。"}
+  - {id: FAST-004, class: Invariant, result: pass, evidence: ["test:tests/content-validation.test.ts", "path:scripts/validate-content.ts"], note: "公開タイトルに基づく新衣装タグを全正本検証で確認する。"}
+  - {id: FAST-005, class: Risk-selected, result: pass, evidence: ["path:content/videos/PzElYLiF1J8.json"], note: "3D共通衣装の実披露動画に新衣装タグがない退行を差分で固定する。"}
+  - {id: FAST-006, class: Invariant, result: pass, evidence: ["path:content/content-manifest.json", "path:scripts/verify-generated-source.ts"], note: "1705動画のタグ付与件数とmanifestのassignmentCountが11727で一致することを確認する。"}
+  - {id: FAST-007, class: Invariant, result: pass, evidence: ["commit:self"], note: "既存の公開タイトルだけを使い、生字幕、コメント、秘密情報を追加しない。"}
+  - {id: REV-001, class: Invariant, result: pass, evidence: ["commit:self"], note: "対象動画PzElYLiF1J8の新衣装タグ欠落修正だけに限定する。"}
+  - {id: REV-002, class: Invariant, result: pass, evidence: ["commit:self"], note: "Commit Commentへ目的、変更、影響、検証、互換性、残存リスクを記録する。"}
+  - {id: REV-003, class: Invariant, result: pass, evidence: ["path:spec/requirements/requirements.json", "path:content/videos/PzElYLiF1J8.json"], note: "V8-TAG-008を既存どおり適用し、直接確認できる該当タグを省略しない。"}
+  - {id: REV-004, class: Invariant, result: pass, evidence: ["path:content/taxonomy/tag-taxonomy.json"], note: "既存taxonomyを適用するデータ修正であり、設計変更はない。"}
+  - {id: REV-006, class: Invariant, result: pass, evidence: ["test:tests/content-validation.test.ts", "workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行"], note: "正本検証、件数整合、通常動画PR範囲、最新HEADのCIを確認する。"}
+  - {id: REV-007, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260904-new-outfit-tag-pzelylif1j8.yaml"], note: "選択したcheckだけを本reviewへ保存する。"}
+  - {id: REV-008, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260904-new-outfit-tag-pzelylif1j8.yaml"], note: "未選択checkをN/Aとして登録しない。"}
+advisories: []
+residual_risks:
+  - 公開反映はmainマージ後の既存release workflow完了に依存する。
+  - タグ意味規則と横断監査は後続の保守PRで明文化する。
