@@ -38,6 +38,12 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "c3af284c38d045710f2c698f0789cb2faa8b40405c3e35f61c92d342be8428ce"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "8687ae755d8883bce9adda538730002aa1cd9043808a0b90c8f5ca6806730ce0"
     }
   ],
   "tagAssignments": [
@@ -103,10 +109,215 @@
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "ナイス",
+        "weight": 99
+      },
+      {
+        "term": "どん",
+        "weight": 81
+      },
+      {
+        "term": "かわいい",
+        "weight": 77
+      },
+      {
+        "term": "頑張る",
+        "weight": 66
+      },
+      {
+        "term": "惜しい",
+        "weight": 55
+      },
+      {
+        "term": "ファイト",
+        "weight": 42
+      },
+      {
+        "term": "gg",
+        "weight": 40
+      },
+      {
+        "term": "えらい",
+        "weight": 38
+      },
+      {
+        "term": "おめでとう",
+        "weight": 38
+      },
+      {
+        "term": "強い",
+        "weight": 38
+      },
+      {
+        "term": "ホコ",
+        "weight": 34
+      },
+      {
+        "term": "うまい",
+        "weight": 31
+      },
+      {
+        "term": "大会",
+        "weight": 31
+      },
+      {
+        "term": "味方",
+        "weight": 28
+      },
+      {
+        "term": "マル",
+        "weight": 27
+      },
+      {
+        "term": "ミサ",
+        "weight": 26
+      },
+      {
+        "term": "飴",
+        "weight": 25
+      },
+      {
+        "term": "あら",
+        "weight": 22
+      },
+      {
+        "term": "相手",
+        "weight": 20
+      },
+      {
+        "term": "ボム",
+        "weight": 18
+      },
+      {
+        "term": "助かる",
+        "weight": 17
+      },
+      {
+        "term": "すごい",
+        "weight": 16
+      },
+      {
+        "term": "ナイスゥ",
+        "weight": 16
+      },
+      {
+        "term": "応援",
+        "weight": 16
+      },
+      {
+        "term": "食べる",
+        "weight": 16
+      },
+      {
+        "term": "どうぞ",
+        "weight": 14
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 14
+      },
+      {
+        "term": "敵",
+        "weight": 13
+      },
+      {
+        "term": "わかる",
+        "weight": 12
+      },
+      {
+        "term": "使う",
+        "weight": 12
+      },
+      {
+        "term": "投げる",
+        "weight": 12
+      },
+      {
+        "term": "キル",
+        "weight": 11
+      },
+      {
+        "term": "意識",
+        "weight": 11
+      },
+      {
+        "term": "人",
+        "weight": 11
+      },
+      {
+        "term": "ローラー",
+        "weight": 10
+      },
+      {
+        "term": "大事",
+        "weight": 10
+      },
+      {
+        "term": "ちる",
+        "weight": 9
+      },
+      {
+        "term": "マイ",
+        "weight": 8
+      },
+      {
+        "term": "本番",
+        "weight": 8
+      },
+      {
+        "term": "練習",
+        "weight": 8
+      },
+      {
+        "term": "センサー",
+        "weight": 6
+      },
+      {
+        "term": "持つ",
+        "weight": 6
+      },
+      {
+        "term": "大丈夫",
+        "weight": 6
+      },
+      {
+        "term": "nice",
+        "weight": 4
+      },
+      {
+        "term": "ドン",
+        "weight": 4
+      },
+      {
+        "term": "前",
+        "weight": 4
+      },
+      {
+        "term": "チーム",
+        "weight": 2
+      },
+      {
+        "term": "リード",
+        "weight": 1
+      },
+      {
+        "term": "勝つ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "8687ae755d8883bce9adda538730002aa1cd9043808a0b90c8f5ca6806730ce0",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "ae79b78184676cc396e83aff5f6eed543d38317f38041999fbcafaef1ac89a7c",
