@@ -37,7 +37,15 @@ describe('手動動画更新運用', () => {
     writeJson(exclusions, {
       schemaVersion: '1.0.0',
       updatedAt: '2026-08-03T00:00:00+09:00',
-      records: [{ videoId: 'blocked0001', reason: '対象外', sourceFingerprint: 'a'.repeat(64), confirmedAt: '2026-08-03T00:00:00+09:00' }],
+      records: [{
+        videoId: 'blocked0001',
+        reason: '対象外',
+        detail: '参加者別の同時ゲーム配信',
+        sourceFingerprint: 'a'.repeat(64),
+        confirmedAt: '2026-08-03T00:00:00+09:00',
+        ruleId: 'V8-SAFETY-005',
+        preferredVideoId: canonicalVideos[0]!.videoId,
+      }],
     });
     run('scripts/detect-video-candidates.ts', ['--input', input, '--output', output, '--exclusions', exclusions]);
     const result = JSON.parse(readFileSync(output, 'utf8')) as { candidates: Array<{ kind: string; videoId: string }> };

@@ -26,6 +26,7 @@ import {
 } from '../src/domain/content.ts';
 import { buildEntityProjection } from '../src/domain/entities.ts';
 import { applyGameCatalogGenres } from '../src/domain/game-catalog.ts';
+import { findParallelGamePerspectives } from '../src/domain/parallel-game-perspectives.ts';
 import { normalizeTitleForSearch } from '../src/domain/search.ts';
 import {
   scanPublicBoundary,
@@ -79,6 +80,18 @@ for (const video of videos) {
 const channelPersonMappingIssues = validateChannelPersonMappings(videos, taxonomy, channelPersonMappings, collaborationProfiles.subjectPersonTagId);
 if (channelPersonMappingIssues.length > 0) {
   throw new Error(channelPersonMappingIssues.map((item) => `${item.code}:${item.path}:${item.message}`).join('\n'));
+}
+const parallelGamePerspectives = findParallelGamePerspectives(
+  videos,
+  taxonomy,
+  channelPersonMappings,
+  collaborationProfiles.subjectPersonTagId,
+  gameCatalog,
+);
+if (parallelGamePerspectives.length > 0) {
+  throw new Error(parallelGamePerspectives.map((item) => (
+    `PARALLEL_GAME_PERSPECTIVE:${item.videoId}:${item.preferredVideoId}`
+  )).join('\n'));
 }
 const songPerformanceIssues = validateSongPerformanceCatalog(songPerformancesInput, videos, taxonomy);
 if (songPerformanceIssues.length > 0) {

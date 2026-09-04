@@ -57,11 +57,11 @@ test.describe('ゲームジャンル・作品一覧', () => {
     await expect(page.getByRole('heading', { level: 2, name: '雀魂 -じゃんたま-', exact: true })).toHaveCount(1);
     await expect(page.getByRole('heading', { level: 2, name: '雀魂-じゃんたま-', exact: true })).toHaveCount(0);
     await page.getByRole('link', { name: '雀魂 -じゃんたま-', exact: true }).click();
-    await expect(page.locator('.work-results .video-card')).toHaveCount(29);
+    await expect(page.locator('.work-results .video-card')).toHaveCount(23);
 
     await page.goto('/#/works/tag-works-gameTitle-7533c687b358');
     await expect(page.getByRole('heading', { level: 1, name: '雀魂 -じゃんたま-' })).toBeVisible();
-    await expect(page.locator('.work-results .video-card')).toHaveCount(29);
+    await expect(page.locator('.work-results .video-card')).toHaveCount(23);
     expectOnlyAllowedRequests(requests);
     await expectNoSeriousAccessibilityViolations(page);
   });

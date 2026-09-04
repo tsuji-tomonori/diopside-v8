@@ -94,6 +94,7 @@
 | `V8-SAFETY-002` | 4 | 有効 | 制約 | diopside v8の安全は、生の字幕、文字起こし、コメント、チャット、投稿者識別子をGit履歴、プルリクエスト、review YAML、Pagesへ保存してはならず、有限private backfillでは暗号化された私有S3だけへ保存し、normalized copyから投稿者識別子を除かなければならない。を**satisfy** | 公開境界・private raw・匿名化copy試験 |
 | `V8-SAFETY-003` | 1 | 有効 | 制約 | diopside v8の安全は、秘密情報をリポジトリ、プルリクエスト、確認報告、Pagesへ含めてはならない。を**satisfy** | 秘密情報検査 |
 | `V8-SAFETY-004` | 1 | 有効 | 制約 | diopside v8の安全は、削除、非公開化、対象外化が確認された動画を次の公開版から除外し、再追加を防止しなければならない。を**satisfy** | 削除・再追加試験 |
+| `V8-SAFETY-005` | 1 | 有効 | 制約 | diopside v8の公開対象選定は、白雪巴を含む複数参加者が同じゲームセッションを行い、各参加者が自身の公式チャンネルで個別の配信枠を公開する場合、白雪巴公式チャンネルの配信枠だけを公開対象とし、他参加者の個別枠を対象外として再追加を防止しなければならない。を**satisfy** | 対象動画再現・全件監査・除外再追加防止・適用境界試験 |
 | `V8-SEARCH-001` | 2 | 有効 | 機能 | diopside v8の検索は、文字検索は、承認済み動画の動画タイトルから生成した表示表記と検索専用のひらがな読みだけを検索対象としなければならない。を**satisfy** | 固定検索データによる単体試験・画面試験 |
 | `V8-SEARCH-002` | 2 | 有効 | 機能 | diopside v8の検索は、説明文、タグ、タイムスタンプ、ワードクラウド、字幕、コメント、チャット、チャンネル名、生成来歴を動画の自由文字検索対象にしてはならない。タグ名は種類付き候補として提示できるが、選択時は不変タグIDの絞り込み条件として適用しなければならない。を**satisfy** | 除外対象ごとの否定試験 |
 | `V8-SEARCH-003` | 1 | 有効 | 機能 | diopside v8の検索は、検索時は、表示用タイトルを変えずに、照合専用文字列を定義済みの順序で正規化しなければならない。を**satisfy** | 正規化表の境界値試験 |
@@ -1547,6 +1548,23 @@ diopside v8の安全は、削除、非公開化、対象外化が確認された
 要求源: Issue #1 V8-安全-004, user:2026-08-03
 検証証跡: tests/content-validation.test.ts, tests/repository-policy.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,docs/operations/privacy-and-safety.md; 実装=scripts/validate-content.ts,scripts/verify-repository-policy.ts; テスト=tests/content-validation.test.ts,tests/repository-policy.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-SAFETY-005: 参加者が個別枠を配信する同一ゲームは白雪巴公式枠だけを公開対象にしなければならない
+
+diopside v8の公開対象選定は、白雪巴を含む複数参加者が同じゲームセッションを行い、各参加者が自身の公式チャンネルで個別の配信枠を公開する場合、白雪巴公式チャンネルの配信枠だけを公開対象とし、他参加者の個別枠を対象外として再追加を防止しなければならない。を**satisfy**。
+
+根拠: 同一のコラボや大会セッションを参加者の数だけ重複表示せず、白雪巴のアーカイブとして一貫した視点を提供するため。
+
+分類: `product` / `nonfunctional`
+
+受入条件:
+- `AC-V8-SAFETY-005-1` 前提: 白雪巴と他参加者が同じゲームセッションを各自の公式チャンネルで個別配信している。条件: 公開候補と公開正本の対象範囲を検証する。期待結果: 白雪巴公式枠だけを公開対象とし、他参加者の個別枠は除外台帳に優先する白雪巴公式枠と判定指紋を伴って記録する。。
+- `AC-V8-SAFETY-005-2` 前提: 参加者別の外部配信枠を対象外として確定済みである。条件: 次回以降の候補検出、正本読込み、または公開データ生成を実行する。期待結果: 除外済みの外部枠を候補または公開データへ戻さない。。
+- `AC-V8-SAFETY-005-3` 前提: 白雪巴公式枠がない外部配信、または非個人チャンネルによる共通の運営配信である。条件: 参加者別の同時ゲーム配信規則を評価する。期待結果: この規則だけを理由に自動除外しない。。
+
+要求源: spec/sources/owner-directive-2026-09-04-parallel-game-perspectives.md, user:2026-09-04
+検証証跡: tests/content-validation.test.ts, tests/operations.test.ts, scripts/audit-parallel-game-perspectives.ts
+トレース: 設計=docs/design/generated/system.gen.md,.agents/skills/discover-video-candidates/references/discovery-contract.md; 実装=src/domain/parallel-game-perspectives.ts,scripts/canonical-store.ts,scripts/validate-content.ts,scripts/build-public-data.ts,content/exclusions.json; テスト=tests/content-validation.test.ts,tests/operations.test.ts,scripts/audit-parallel-game-perspectives.ts; 参照資料=V8-SAFETY-004,spec/sources/owner-directive-2026-09-04-parallel-game-perspectives.md,dev-standard assured profile
 
 ## V8-SEARCH-001: 文字検索は、承認済み動画のタイトル表記とその検索専用読みだけを検索対象としなければならない
 

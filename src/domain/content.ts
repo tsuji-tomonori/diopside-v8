@@ -43,6 +43,35 @@ const isoDateTime = z.iso.datetime({ offset: true });
 const isoDate = z.iso.date();
 const videoId = z.string().regex(/^[A-Za-z0-9_-]{11}$/u);
 
+export const videoExclusionsSchema = z.object({
+  schemaVersion: z.literal('1.0.0'),
+  updatedAt: isoDateTime,
+  records: z.array(z.object({
+    videoId,
+    reason: z.enum(['削除', '非公開', '対象外']),
+    detail: z.string().min(1).max(240).optional(),
+    sourceFingerprint: z.string().regex(/^[a-f0-9]{64}$/u),
+    confirmedAt: isoDateTime,
+    ruleId: z.literal('V8-SAFETY-005').optional(),
+    preferredVideoId: videoId.optional(),
+  }).strict().superRefine((record, context) => {
+    if (record.ruleId === 'V8-SAFETY-005' && (record.reason !== '対象外' || !record.preferredVideoId)) {
+      context.addIssue({
+        code: 'custom',
+        path: ['preferredVideoId'],
+        message: 'V8-SAFETY-005の除外には対象外理由と優先する白雪巴公式枠が必要です。',
+      });
+    }
+    if (record.preferredVideoId && record.ruleId !== 'V8-SAFETY-005') {
+      context.addIssue({
+        code: 'custom',
+        path: ['ruleId'],
+        message: '優先動画を指定する除外にはV8-SAFETY-005が必要です。',
+      });
+    }
+  })),
+}).strict();
+
 export const taxonomyValueKindSchema = z.enum(['classification', 'entity-reference']);
 export const entityTypeSchema = z.enum([
   'person',
@@ -778,6 +807,7 @@ export type PublicSongIndex = z.infer<typeof publicSongIndexSchema>;
 export type PublicGameIndex = z.infer<typeof publicGameIndexSchema>;
 export type CollaborationProfiles = z.infer<typeof collaborationProfilesSchema>;
 export type ChannelPersonMappings = z.infer<typeof channelPersonMappingsSchema>;
+export type VideoExclusions = z.infer<typeof videoExclusionsSchema>;
 export type EntityType = z.infer<typeof entityTypeSchema>;
 export type VideoEntityRole = z.infer<typeof videoEntityRoleSchema>;
 export type WordCloudInputType = z.infer<typeof wordCloudInputTypeSchema>;

@@ -11,14 +11,15 @@ Issue #465のprivate material backfillは、この公開内容更新手順とは
 ## 手順
 
 1. 公開動画基本情報だけのスナップショットを作り、ローカルの `npm run candidate:detect -- --input <snapshot.json> --output /tmp/diopside-candidates.json`、または手動Actionsの `detect-candidates` を実行する。Actionsで使う入力は `operations/inbox/*.json` に限定する。
-2. 候補が0件なら終了する。生成物、ブランチ、プルリクエストを作らない。
-3. 通常更新では候補を1動画だけ選ぶ。タグ体系、規則、スキル、構造、検証、画面、依存、Pagesの変更は別の保守変更へ分ける。
-4. タグ、タイムスタンプ、ワードクラウドを `.agents/skills/curate-video-content/SKILL.md` に従って作成する。生の字幕、文字起こし、コメント、チャット、投稿者識別子は一時利用に限り、Git、確認本文、Pagesへ残さない。
-5. `npm run verify` を実行する。一つでも失敗したらプルリクエストを作らない。検証中に作られる `public/data`、`src/generated/release.ts`、`docs` の差分は確認用であり、プルリクエストへ含めない。
-6. 更新時刻一覧は理由JSONとともに `scripts/diff-timestamps.ts` で比較し、追加・削除・移動・改名をすべて説明する。
-7. `npm run candidate:pr-body -- --video content/videos/<videoId>.json --output /tmp/diopside-pr.md` で日本語の確認本文を生成する。
-8. `npm run validate:video-pr-scope -- --base origin/main` で1動画範囲を確認し、モバイル・デスクトップの画面を添付してプルリクエストを作る。
-9. 人がYouTube、タグ根拠、全編の時刻目次、ワードクラウド、差分、画面、CIを確認する。修正、差戻し、承認、マージは人が判断する。
+2. 外部の参加者本人チャンネルによるゲーム候補は、白雪巴公式枠と作品、配信時間、組・卓・チーム、参加者表記を比較する。同一セッションの個別視点であれば白雪巴公式枠だけを残し、外部枠は `content/exclusions.json` へ `V8-SAFETY-005` と優先枠を伴って記録する。白雪巴公式枠がない候補と、大会運営等の非個人チャンネル配信はこの規則だけで除外しない。
+3. 候補が0件なら終了する。生成物、ブランチ、プルリクエストを作らない。
+4. 通常更新では候補を1動画だけ選ぶ。タグ体系、規則、スキル、構造、検証、画面、依存、Pagesの変更は別の保守変更へ分ける。
+5. タグ、タイムスタンプ、ワードクラウドを `.agents/skills/curate-video-content/SKILL.md` に従って作成する。生の字幕、文字起こし、コメント、チャット、投稿者識別子は一時利用に限り、Git、確認本文、Pagesへ残さない。
+6. `npm run verify` を実行する。一つでも失敗したらプルリクエストを作らない。検証中に作られる `public/data`、`src/generated/release.ts`、`docs` の差分は確認用であり、プルリクエストへ含めない。
+7. 更新時刻一覧は理由JSONとともに `scripts/diff-timestamps.ts` で比較し、追加・削除・移動・改名をすべて説明する。
+8. `npm run candidate:pr-body -- --video content/videos/<videoId>.json --output /tmp/diopside-pr.md` で日本語の確認本文を生成する。
+9. `npm run validate:video-pr-scope -- --base origin/main` で1動画範囲を確認し、モバイル・デスクトップの画面を添付してプルリクエストを作る。
+10. 人がYouTube、タグ根拠、全編の時刻目次、ワードクラウド、差分、画面、CIを確認する。修正、差戻し、承認、マージは人が判断する。
 
 ## ワードクラウド集約
 

@@ -4643,6 +4643,71 @@
       "last_changed_by": "ISSUE-1-IMPLEMENTATION"
     },
     {
+      "id": "V8-SAFETY-005",
+      "revision": 1,
+      "status": "active",
+      "scope": "product",
+      "category": "nonfunctional",
+      "type": "constraint",
+      "title": "参加者が個別枠を配信する同一ゲームは白雪巴公式枠だけを公開対象にしなければならない",
+      "subject": "diopside v8の公開対象選定",
+      "action": "satisfy",
+      "object": "白雪巴を含む複数参加者が同じゲームセッションを行い、各参加者が自身の公式チャンネルで個別の配信枠を公開する場合、白雪巴公式チャンネルの配信枠だけを公開対象とし、他参加者の個別枠を対象外として再追加を防止しなければならない。",
+      "rationale": "同一のコラボや大会セッションを参加者の数だけ重複表示せず、白雪巴のアーカイブとして一貫した視点を提供するため。",
+      "source_refs": [
+        "spec/sources/owner-directive-2026-09-04-parallel-game-perspectives.md",
+        "user:2026-09-04"
+      ],
+      "acceptance_criteria": [
+        {
+          "id": "AC-V8-SAFETY-005-1",
+          "given": "白雪巴と他参加者が同じゲームセッションを各自の公式チャンネルで個別配信している",
+          "when": "公開候補と公開正本の対象範囲を検証する",
+          "then": "白雪巴公式枠だけを公開対象とし、他参加者の個別枠は除外台帳に優先する白雪巴公式枠と判定指紋を伴って記録する。"
+        },
+        {
+          "id": "AC-V8-SAFETY-005-2",
+          "given": "参加者別の外部配信枠を対象外として確定済みである",
+          "when": "次回以降の候補検出、正本読込み、または公開データ生成を実行する",
+          "then": "除外済みの外部枠を候補または公開データへ戻さない。"
+        },
+        {
+          "id": "AC-V8-SAFETY-005-3",
+          "given": "白雪巴公式枠がない外部配信、または非個人チャンネルによる共通の運営配信である",
+          "when": "参加者別の同時ゲーム配信規則を評価する",
+          "then": "この規則だけを理由に自動除外しない。"
+        }
+      ],
+      "verification": {
+        "method": "対象動画再現・全件監査・除外再追加防止・適用境界試験",
+        "evidence": "tests/content-validation.test.ts, tests/operations.test.ts, scripts/audit-parallel-game-perspectives.ts"
+      },
+      "traces": {
+        "design": [
+          "docs/design/generated/system.gen.md",
+          ".agents/skills/discover-video-candidates/references/discovery-contract.md"
+        ],
+        "implementation": [
+          "src/domain/parallel-game-perspectives.ts",
+          "scripts/canonical-store.ts",
+          "scripts/validate-content.ts",
+          "scripts/build-public-data.ts",
+          "content/exclusions.json"
+        ],
+        "tests": [
+          "tests/content-validation.test.ts",
+          "tests/operations.test.ts",
+          "scripts/audit-parallel-game-perspectives.ts"
+        ],
+        "standards": [
+          "V8-SAFETY-004",
+          "spec/sources/owner-directive-2026-09-04-parallel-game-perspectives.md",
+          "dev-standard assured profile"
+        ]
+      },
+      "last_changed_by": "CHG-20260904-PARALLEL-GAME-PERSPECTIVES"
+    },
+    {
       "id": "V8-SEARCH-001",
       "revision": 2,
       "status": "active",
