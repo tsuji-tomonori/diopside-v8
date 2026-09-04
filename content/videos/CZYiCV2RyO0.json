@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "7884b738a0465d10cf4866cd560016f60cd895b9eb999afdefaa11a00dcad701"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "3fa838bd4055eaa7c65ebebae85f79a0e3c3d487ed946d9e93bb81129b4ede99"
     }
   ],
   "tagAssignments": [
@@ -315,10 +321,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "掃除",
+        "weight": 39
+      },
+      {
+        "term": "かわいい",
+        "weight": 38
+      },
+      {
+        "term": "死体",
+        "weight": 37
+      },
+      {
+        "term": "スポンジ",
+        "weight": 34
+      },
+      {
+        "term": "楽しみ",
+        "weight": 30
+      },
+      {
+        "term": "清掃",
+        "weight": 29
+      },
+      {
+        "term": "ナイス",
+        "weight": 27
+      },
+      {
+        "term": "仕事",
+        "weight": 27
+      },
+      {
+        "term": "楽しい",
+        "weight": 26
+      },
+      {
+        "term": "戦闘",
+        "weight": 26
+      },
+      {
+        "term": "ゲーム",
+        "weight": 25
+      },
+      {
+        "term": "怖い",
+        "weight": 25
+      },
+      {
+        "term": "ついえる",
+        "weight": 24
+      },
+      {
+        "term": "血",
+        "weight": 24
+      },
+      {
+        "term": "bgm",
+        "weight": 22
+      },
+      {
+        "term": "わぁ",
+        "weight": 22
+      },
+      {
+        "term": "増える",
+        "weight": 22
+      },
+      {
+        "term": "わくわく",
+        "weight": 21
+      },
+      {
+        "term": "モップ",
+        "weight": 19
+      },
+      {
+        "term": "特殊",
+        "weight": 19
+      },
+      {
+        "term": "久しぶり",
+        "weight": 18
+      },
+      {
+        "term": "証拠",
+        "weight": 18
+      },
+      {
+        "term": "写真",
+        "weight": 16
+      },
+      {
+        "term": "鳥",
+        "weight": 16
+      },
+      {
+        "term": "上",
+        "weight": 14
+      },
+      {
+        "term": "あら",
+        "weight": 12
+      },
+      {
+        "term": "ゴミ",
+        "weight": 12
+      },
+      {
+        "term": "ダブル",
+        "weight": 12
+      },
+      {
+        "term": "バケツ",
+        "weight": 12
+      },
+      {
+        "term": "嬉しい",
+        "weight": 12
+      },
+      {
+        "term": "聞こえる",
+        "weight": 12
+      },
+      {
+        "term": "おめでとう",
+        "weight": 10
+      },
+      {
+        "term": "バグ",
+        "weight": 10
+      },
+      {
+        "term": "やばい",
+        "weight": 10
+      },
+      {
+        "term": "ライト",
+        "weight": 10
+      },
+      {
+        "term": "洗剤",
+        "weight": 10
+      },
+      {
+        "term": "誕生",
+        "weight": 10
+      },
+      {
+        "term": "投げる",
+        "weight": 10
+      },
+      {
+        "term": "コミュニティ",
+        "weight": 8
+      },
+      {
+        "term": "懐かしい",
+        "weight": 8
+      },
+      {
+        "term": "コヴァルスキー",
+        "weight": 6
+      },
+      {
+        "term": "ゆっくり",
+        "weight": 6
+      },
+      {
+        "term": "出る",
+        "weight": 6
+      },
+      {
+        "term": "洗浄",
+        "weight": 6
+      },
+      {
+        "term": "トイレ",
+        "weight": 4
+      },
+      {
+        "term": "回収",
+        "weight": 4
+      },
+      {
+        "term": "大丈夫",
+        "weight": 4
+      },
+      {
+        "term": "面白い",
+        "weight": 4
+      },
+      {
+        "term": "おぉ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "3fa838bd4055eaa7c65ebebae85f79a0e3c3d487ed946d9e93bb81129b4ede99",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "a3efb3aa9846b348c90822c3316e832f52c96e2f3afa09fa0264bf9490647276",
