@@ -44,6 +44,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "90bcf2d17ed6e1813b5398130fb8b13cf4eb7ab64a215a0f8fc048e875c332f9"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "d1693ec1c0b7c4ad02fb98da65e37e9add47c5e13bbed30b91b8c5d85bd10c7a"
     }
   ],
   "tagAssignments": [
@@ -303,10 +309,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "かわいい",
+        "weight": 59
+      },
+      {
+        "term": "ついえる",
+        "weight": 30
+      },
+      {
+        "term": "天才",
+        "weight": 29
+      },
+      {
+        "term": "オペレーター",
+        "weight": 27
+      },
+      {
+        "term": "つくる",
+        "weight": 25
+      },
+      {
+        "term": "しる",
+        "weight": 24
+      },
+      {
+        "term": "ちる",
+        "weight": 23
+      },
+      {
+        "term": "患者",
+        "weight": 23
+      },
+      {
+        "term": "助かる",
+        "weight": 23
+      },
+      {
+        "term": "もろ",
+        "weight": 21
+      },
+      {
+        "term": "えっ",
+        "weight": 20
+      },
+      {
+        "term": "ナイス",
+        "weight": 20
+      },
+      {
+        "term": "話",
+        "weight": 20
+      },
+      {
+        "term": "運転",
+        "weight": 18
+      },
+      {
+        "term": "すく",
+        "weight": 17
+      },
+      {
+        "term": "レスキュー",
+        "weight": 17
+      },
+      {
+        "term": "うまい",
+        "weight": 16
+      },
+      {
+        "term": "お宝",
+        "weight": 16
+      },
+      {
+        "term": "やばい",
+        "weight": 13
+      },
+      {
+        "term": "人",
+        "weight": 13
+      },
+      {
+        "term": "怖い",
+        "weight": 13
+      },
+      {
+        "term": "gta",
+        "weight": 12
+      },
+      {
+        "term": "ゲーム",
+        "weight": 11
+      },
+      {
+        "term": "救助",
+        "weight": 11
+      },
+      {
+        "term": "取り込み",
+        "weight": 10
+      },
+      {
+        "term": "楽しい",
+        "weight": 8
+      },
+      {
+        "term": "車",
+        "weight": 8
+      },
+      {
+        "term": "アホ",
+        "weight": 7
+      },
+      {
+        "term": "健",
+        "weight": 7
+      },
+      {
+        "term": "破壊",
+        "weight": 7
+      },
+      {
+        "term": "面白い",
+        "weight": 7
+      },
+      {
+        "term": "毛",
+        "weight": 7
+      },
+      {
+        "term": "すい",
+        "weight": 6
+      },
+      {
+        "term": "担架",
+        "weight": 6
+      },
+      {
+        "term": "投げる",
+        "weight": 6
+      },
+      {
+        "term": "引きずる",
+        "weight": 5
+      },
+      {
+        "term": "死ぬ",
+        "weight": 5
+      },
+      {
+        "term": "ナイスゥ",
+        "weight": 4
+      },
+      {
+        "term": "ポイント",
+        "weight": 4
+      },
+      {
+        "term": "胸毛",
+        "weight": 4
+      },
+      {
+        "term": "木",
+        "weight": 4
+      },
+      {
+        "term": "飲酒",
+        "weight": 3
+      },
+      {
+        "term": "人命",
+        "weight": 3
+      },
+      {
+        "term": "痛い",
+        "weight": 3
+      },
+      {
+        "term": "ひどい",
+        "weight": 2
+      },
+      {
+        "term": "語尾",
+        "weight": 2
+      },
+      {
+        "term": "待機",
+        "weight": 2
+      },
+      {
+        "term": "免許",
+        "weight": 2
+      },
+      {
+        "term": "キッス",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "d1693ec1c0b7c4ad02fb98da65e37e9add47c5e13bbed30b91b8c5d85bd10c7a",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "3183c36b1be5f392462bf662257dd2d75183e4ad178eb309cdc03a50d5127d02",
