@@ -12,6 +12,48 @@ import { EntityIndexPage } from './EntityIndexPage.tsx';
 const root = process.cwd();
 
 describe('人物・作品・企画の探索', () => {
+  it('関連動画が0件のエンティティを一覧件数とカードから除外する', () => {
+    const bundle = publicBundle();
+    const template = bundle.entityIndex.entities[0];
+    if (!template) throw new Error('検証用エンティティのひな形がありません。');
+    const hiddenEntity = {
+      ...template,
+      entityId: 'entity-test-without-videos',
+      canonicalName: '関連動画なしの検証対象',
+      normalizedReading: 'かんれんどうがなしのけんしょうたいしょう',
+      videoRelations: [],
+    };
+    const testBundle = {
+      ...bundle,
+      entityIndex: {
+        ...bundle.entityIndex,
+        entities: [hiddenEntity, ...bundle.entityIndex.entities],
+      },
+    };
+    const visibleCount = testBundle.entityIndex.entities.filter((entity) => (
+      new Set(entity.videoRelations.flatMap((relation) => relation.videoIds)).size > 0
+    )).length;
+
+    render(
+      <MemoryRouter initialEntries={['/entities']}>
+        <DeviceStoreContext.Provider value={new DeviceStore()}>
+          <BundleContext.Provider value={testBundle}>
+            <Routes>
+              <Route path="/entities" element={<EntityIndexPage />} />
+            </Routes>
+          </BundleContext.Provider>
+        </DeviceStoreContext.Provider>
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole('heading', { name: `${visibleCount}件`, level: 2 })).toBeVisible();
+    expect(screen.queryByText(hiddenEntity.canonicalName)).not.toBeInTheDocument();
+
+    fireEvent.change(screen.getByLabelText('名前で検索'), { target: { value: hiddenEntity.canonicalName } });
+    expect(screen.getByRole('heading', { name: '0件', level: 2 })).toBeVisible();
+    expect(screen.getByRole('heading', { name: '一致する項目がありません', level: 3 })).toBeVisible();
+  });
+
   it('名前と種類で絞り込み、イベントから対象ゲームへ移動できる', () => {
     const bundle = publicBundle();
     const event = bundle.entityIndex.entities.find((entity) => entity.canonicalName === 'Niji_AmongUs');
