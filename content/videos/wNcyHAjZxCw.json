@@ -44,6 +44,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "ab3ccea8030cc503004da85ea52725e8f646c112dcf73d5d8aaedb5488965033"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "b67b81fa8d58c8f12873bd7deab36138eed1bec13e00d9f1f592878edfbc939b"
     }
   ],
   "tagAssignments": [
@@ -330,10 +336,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "絃",
+        "weight": 42
+      },
+      {
+        "term": "怖い",
+        "weight": 36
+      },
+      {
+        "term": "楓",
+        "weight": 34
+      },
+      {
+        "term": "パイプ",
+        "weight": 30
+      },
+      {
+        "term": "鉄",
+        "weight": 30
+      },
+      {
+        "term": "かわいい",
+        "weight": 28
+      },
+      {
+        "term": "闇",
+        "weight": 28
+      },
+      {
+        "term": "やばい",
+        "weight": 26
+      },
+      {
+        "term": "カレー",
+        "weight": 25
+      },
+      {
+        "term": "もんもん",
+        "weight": 25
+      },
+      {
+        "term": "バイト",
+        "weight": 18
+      },
+      {
+        "term": "人",
+        "weight": 18
+      },
+      {
+        "term": "わぁ",
+        "weight": 14
+      },
+      {
+        "term": "おぉ",
+        "weight": 13
+      },
+      {
+        "term": "ファン",
+        "weight": 13
+      },
+      {
+        "term": "寿命",
+        "weight": 13
+      },
+      {
+        "term": "おる",
+        "weight": 12
+      },
+      {
+        "term": "死ぬ",
+        "weight": 12
+      },
+      {
+        "term": "知る",
+        "weight": 11
+      },
+      {
+        "term": "アムリタ",
+        "weight": 10
+      },
+      {
+        "term": "兄貴",
+        "weight": 10
+      },
+      {
+        "term": "使う",
+        "weight": 10
+      },
+      {
+        "term": "あら",
+        "weight": 9
+      },
+      {
+        "term": "ええ",
+        "weight": 9
+      },
+      {
+        "term": "すぎる",
+        "weight": 9
+      },
+      {
+        "term": "すごい",
+        "weight": 9
+      },
+      {
+        "term": "沢",
+        "weight": 9
+      },
+      {
+        "term": "おや",
+        "weight": 7
+      },
+      {
+        "term": "まぁ",
+        "weight": 7
+      },
+      {
+        "term": "持つ",
+        "weight": 7
+      },
+      {
+        "term": "ひる",
+        "weight": 6
+      },
+      {
+        "term": "悪魔",
+        "weight": 6
+      },
+      {
+        "term": "マン",
+        "weight": 5
+      },
+      {
+        "term": "ヤバ",
+        "weight": 4
+      },
+      {
+        "term": "楽しい",
+        "weight": 4
+      },
+      {
+        "term": "強い",
+        "weight": 4
+      },
+      {
+        "term": "拷問",
+        "weight": 4
+      },
+      {
+        "term": "面白い",
+        "weight": 4
+      },
+      {
+        "term": "アニキ",
+        "weight": 3
+      },
+      {
+        "term": "結構",
+        "weight": 3
+      },
+      {
+        "term": "黒",
+        "weight": 3
+      },
+      {
+        "term": "休憩",
+        "weight": 2
+      },
+      {
+        "term": "おおう",
+        "weight": 1
+      },
+      {
+        "term": "さすが",
+        "weight": 1
+      },
+      {
+        "term": "つよい",
+        "weight": 1
+      },
+      {
+        "term": "死神",
+        "weight": 1
+      },
+      {
+        "term": "自由",
+        "weight": 1
+      },
+      {
+        "term": "出る",
+        "weight": 1
+      },
+      {
+        "term": "情報",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "b67b81fa8d58c8f12873bd7deab36138eed1bec13e00d9f1f592878edfbc939b",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "db66a90d2ed48d44aea570b81ce0ee3bef2ed64fc3a3590d017a8c849a5b9f3d",
