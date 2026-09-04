@@ -5,6 +5,7 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 import { createInterface } from 'node:readline';
 import { parseArgs } from 'node:util';
+import { createGunzip } from 'node:zlib';
 
 import kuromoji, { type IpadicFeatures, type Tokenizer } from 'kuromoji';
 
@@ -15,22 +16,39 @@ export interface WordCloudCandidate {
   words: Array<{ term: string; weight: number }>;
   inputType: AudienceWordCloudInputType;
   inputFingerprint: string;
-  exclusionRulesVersion: '9.0.0';
-  rulesVersion: '9.0.0';
+  exclusionRulesVersion: '9.1.0';
+  rulesVersion: '9.1.0';
   generatedAt: string;
   humanReview: '確認待ち';
 }
 
 const maximumWords = 50;
 const minimumWords = 20;
-const messageKeys = new Set(['message', 'contentText']);
+const messageKeys = new Set(['message', 'contentText', 'text']);
 const acceptedPartsOfSpeech = new Set(['名詞', '動詞', '形容詞', '副詞', '感動詞']);
 const excludedDetails = new Set(['非自立', '代名詞', '数', '接尾', '助動詞語幹']);
 const stopWords = new Set([
   'これ', 'それ', 'あれ', 'ここ', 'そこ', 'どこ', 'こと', 'もの', 'ところ', 'ため', 'よう',
-  'さん', 'ちゃん', 'くん', '今日', '今', '自分', 'みたい', '感じ', '本当', 'ほんと',
-  'する', 'いる', 'ある', 'なる', 'やる', '言う', '思う', '見る', '聞く', 'ござる',
-  'ます', 'です', 'でした', 'ました', 'お願い', 'ありがとう', 'よろしく', 'http', 'https',
+  'さん', 'ちゃん', 'くん', '今日', '今', '自分', 'みたい', '感じ', '本当', 'ほんと', '巴', '白雪',
+  'する', 'いる', 'ある', 'なる', 'やる', '言う', '思う', '見る', '聞く', 'ござる', 'くる',
+  'ます', 'です', 'でした', 'ました', 'ない', 'そう', 'もう', 'いう', 'できる', 'ほう', 'いい',
+  'お願い', 'ありがとう', 'よろしく', 'こんばんは', 'こんにちは', 'おはよう', 'おかえりなさい',
+  'お疲れ様', 'お疲れさま', 'おやすみなさい', 'はーい', 'おお', 'ああ', 'あっ', 'なるほど', 'http', 'https',
+]);
+const normalizedAliases = new Map([
+  ['ww', '草'],
+  ['www', '草'],
+  ['kusa', '草'],
+  ['笑', '草'],
+  ['可愛い', 'かわいい'],
+  ['良い', 'いい'],
+  ['よい', 'いい'],
+  ['上手い', 'うまい'],
+  ['こわい', '怖い'],
+  ['おしい', '惜しい'],
+  ['たすかる', '助かる'],
+  ['がんばる', '頑張る'],
+  ['がんばれる', '頑張る'],
 ]);
 
 export async function aggregateWordCloud(
@@ -43,7 +61,8 @@ export async function aggregateWordCloud(
   const inputHash = createHash('sha256');
   const source = createReadStream(inputPath);
   source.on('data', (chunk) => inputHash.update(chunk));
-  const lines = createInterface({ input: source, crlfDelay: Infinity });
+  const input = inputPath.endsWith('.gz') ? source.pipe(createGunzip()) : source;
+  const lines = createInterface({ input, crlfDelay: Infinity });
 
   for await (const line of lines) {
     let value: unknown;
@@ -78,8 +97,8 @@ export async function aggregateWordCloud(
     words,
     inputType,
     inputFingerprint: inputHash.digest('hex'),
-    exclusionRulesVersion: '9.0.0',
-    rulesVersion: '9.0.0',
+    exclusionRulesVersion: '9.1.0',
+    rulesVersion: '9.1.0',
     generatedAt,
     humanReview: '確認待ち',
   };
@@ -102,6 +121,7 @@ function* publicMessages(value: unknown): Generator<string> {
 }
 
 function runsText(value: unknown): string | null {
+  if (typeof value === 'string') return value.trim() || null;
   if (!isRecord(value) || !Array.isArray(value.runs)) return null;
   const text = value.runs.map((run) => (
     isRecord(run) && typeof run.text === 'string' ? run.text : ''
@@ -110,10 +130,14 @@ function runsText(value: unknown): string | null {
 }
 
 function extractTerms(message: string, tokenizer: Tokenizer<IpadicFeatures>): string[] {
-  return tokenizer.tokenize(message).flatMap((token) => {
+  const publicText = message
+    .replace(/https?:\/\/\S+/giu, ' ')
+    .replace(/:[a-z0-9_+-]+:/giu, ' ');
+  return tokenizer.tokenize(publicText).flatMap((token) => {
     if (!acceptedPartsOfSpeech.has(token.pos) || excludedDetails.has(token.pos_detail_1)) return [];
     const source = token.basic_form && token.basic_form !== '*' ? token.basic_form : token.surface_form;
-    const term = normalizeTerm(source);
+    const normalized = normalizeTerm(source);
+    const term = normalizedAliases.get(normalized) ?? normalized;
     return isUsefulTerm(term) ? [term] : [];
   });
 }
@@ -129,6 +153,8 @@ function isUsefulTerm(term: string): boolean {
   if (!term || stopWords.has(term) || term.length > 40) return false;
   if (/^(?:https?:\/\/|www\.)/iu.test(term)) return false;
   if (/^[\d._-]+$/u.test(term)) return false;
+  if (/^[\p{Script=Hiragana}\p{Script=Katakana}ー〜～]$/u.test(term)) return false;
+  if (/^[ー〜～]+$/u.test(term)) return false;
   if (/^[a-z]$/u.test(term)) return false;
   if (!/[\p{Letter}\p{Number}]/u.test(term)) return false;
   return true;
@@ -142,6 +168,13 @@ function importanceWeight(count: number, maximum: number, minimum: number): numb
 }
 
 async function buildTokenizer(): Promise<Tokenizer<IpadicFeatures>> {
+  tokenizerPromise ??= createTokenizer();
+  return tokenizerPromise;
+}
+
+let tokenizerPromise: Promise<Tokenizer<IpadicFeatures>> | undefined;
+
+async function createTokenizer(): Promise<Tokenizer<IpadicFeatures>> {
   const require = createRequire(import.meta.url);
   const dictionaryPath = path.resolve(path.dirname(require.resolve('kuromoji')), '../dict');
   return new Promise((resolve, reject) => {
