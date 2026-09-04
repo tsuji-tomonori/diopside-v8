@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "66fa2badefdf8c896e9e99c0d5d511e0e2e1b80d4773be920dab3ce0a066a513"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "9f3d7fa08ac4c4599b4619ec72af9a99a0d658abf18f13aa8b8bca102ded2358"
     }
   ],
   "tagAssignments": [
@@ -324,10 +330,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "里",
+        "weight": 47
+      },
+      {
+        "term": "アザミ",
+        "weight": 37
+      },
+      {
+        "term": "わぁ",
+        "weight": 35
+      },
+      {
+        "term": "顔",
+        "weight": 35
+      },
+      {
+        "term": "人",
+        "weight": 35
+      },
+      {
+        "term": "生駒",
+        "weight": 34
+      },
+      {
+        "term": "すごい",
+        "weight": 29
+      },
+      {
+        "term": "平家",
+        "weight": 29
+      },
+      {
+        "term": "人魚",
+        "weight": 25
+      },
+      {
+        "term": "知る",
+        "weight": 25
+      },
+      {
+        "term": "名刺",
+        "weight": 24
+      },
+      {
+        "term": "こいつ",
+        "weight": 19
+      },
+      {
+        "term": "ソード",
+        "weight": 19
+      },
+      {
+        "term": "つかさ",
+        "weight": 19
+      },
+      {
+        "term": "どう",
+        "weight": 17
+      },
+      {
+        "term": "終わる",
+        "weight": 17
+      },
+      {
+        "term": "時間",
+        "weight": 15
+      },
+      {
+        "term": "来る",
+        "weight": 15
+      },
+      {
+        "term": "まあ",
+        "weight": 13
+      },
+      {
+        "term": "楽しい",
+        "weight": 13
+      },
+      {
+        "term": "楽しみ",
+        "weight": 13
+      },
+      {
+        "term": "死ぬ",
+        "weight": 13
+      },
+      {
+        "term": "出る",
+        "weight": 13
+      },
+      {
+        "term": "前",
+        "weight": 13
+      },
+      {
+        "term": "アヴィ",
+        "weight": 11
+      },
+      {
+        "term": "まだ",
+        "weight": 11
+      },
+      {
+        "term": "頑張る",
+        "weight": 11
+      },
+      {
+        "term": "呪詛",
+        "weight": 11
+      },
+      {
+        "term": "ええ",
+        "weight": 9
+      },
+      {
+        "term": "ジョーク",
+        "weight": 9
+      },
+      {
+        "term": "奴",
+        "weight": 9
+      },
+      {
+        "term": "霊",
+        "weight": 9
+      },
+      {
+        "term": "うわ",
+        "weight": 6
+      },
+      {
+        "term": "さすが",
+        "weight": 6
+      },
+      {
+        "term": "すぎる",
+        "weight": 6
+      },
+      {
+        "term": "ちょっと",
+        "weight": 6
+      },
+      {
+        "term": "次回",
+        "weight": 6
+      },
+      {
+        "term": "正解",
+        "weight": 6
+      },
+      {
+        "term": "男",
+        "weight": 6
+      },
+      {
+        "term": "おっちゃん",
+        "weight": 4
+      },
+      {
+        "term": "時代",
+        "weight": 4
+      },
+      {
+        "term": "呪い",
+        "weight": 4
+      },
+      {
+        "term": "知重",
+        "weight": 4
+      },
+      {
+        "term": "おる",
+        "weight": 1
+      },
+      {
+        "term": "かわいい",
+        "weight": 1
+      },
+      {
+        "term": "クズ",
+        "weight": 1
+      },
+      {
+        "term": "やめる",
+        "weight": 1
+      },
+      {
+        "term": "わかる",
+        "weight": 1
+      },
+      {
+        "term": "わくわく",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "9f3d7fa08ac4c4599b4619ec72af9a99a0d658abf18f13aa8b8bca102ded2358",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "622123e7bdeecaca8cad9f6745c7aafbfdd45ed1598ac15888f94e9e4cdbe7fe",
