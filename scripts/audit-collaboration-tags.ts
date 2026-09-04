@@ -16,7 +16,8 @@ const profiles = readJson(path.join(root, 'content/people/collaboration-profiles
 const aliases = tagAliasesSchema.parse(readJson(path.join(root, 'content/taxonomy/tag-aliases.json')));
 const source = readJson(path.join(root, 'spec/sources/collaboration-tag-corrections-v1.json')) as CollaborationAuditSource;
 const result = auditCollaborationGroupTags({
-  videos: readCanonicalVideos(root),
+  // 除外後も既存の参加者確認根拠は過去の監査記録として検証する。
+  videos: readCanonicalVideos(root, { includeExcluded: true }),
   people: profiles.people,
   groups: profiles.groups,
   aliases: aliases.aliases,

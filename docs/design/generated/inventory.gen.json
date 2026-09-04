@@ -16,11 +16,15 @@
     },
     {
       "path": "scripts/audit-collaboration-tags.ts",
-      "sha256": "0b74d3bed91203ad84e1eb9e99a44d0b08a59b1b8a0beea17760be590c811e71"
+      "sha256": "02bef67fe01960271a661574dce488341699fe26603145ca8db88bf0a4c638f7"
     },
     {
       "path": "scripts/audit-game-tags.ts",
       "sha256": "1a0bb774bfc0528a9996aa54ec7079fe0bbecacde3d6c10579ac767c582079c4"
+    },
+    {
+      "path": "scripts/audit-parallel-game-perspectives.ts",
+      "sha256": "7ba4ae259f9d0db2f75a2bc78302849a29e3dd8c0ce70b292825a0f8c1ab31b4"
     },
     {
       "path": "scripts/audit-requirements.ts",
@@ -40,15 +44,15 @@
     },
     {
       "path": "scripts/build-public-data.ts",
-      "sha256": "74f023b6d98c580aac3f348a44cfa7873ddd2dac03fe24a18045457f996b55eb"
+      "sha256": "738e0cb2b64eeeb19d700bfbe81cd9b12e0af6b7090b140ab37ebb8ce5a1f1a8"
     },
     {
       "path": "scripts/canonical-store.ts",
-      "sha256": "c1e9ca4e2ec1ab164585cb9c20671fcdcbeb1ade90434ac650f45e683eed73ed"
+      "sha256": "8652f211126f4c395bbe818e2769bf686e33f84992f189e18e71d4331723e379"
     },
     {
       "path": "scripts/detect-video-candidates.ts",
-      "sha256": "0451d14521f6a40d26ad7f8f051cdffd5d0abaadaa55688ea597e97c53b7847a"
+      "sha256": "59a6cf1495884efea541c9fc380c6d5d2cb8f4341f59bfaf5ef246e33cabe928"
     },
     {
       "path": "scripts/diff-timestamps.ts",
@@ -60,7 +64,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "2f0174efdece565788ed46f94ce08aa07424887f7f21960b1154d3c8e2fc0722"
+      "sha256": "5a2fb3c8fadbc4f0973d5d26a00824c56b5a18cd534c8d8258a18ae6feeca63d"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -112,7 +116,7 @@
     },
     {
       "path": "scripts/validate-content.ts",
-      "sha256": "f6be8b2c7a7167a9cd7d384a6bd22a89cacae062ee6d82500e16570122d0503e"
+      "sha256": "483fd5ae7ab1a5c9e9e86b0816b83d4a7aea6b40877348b4f5abafe9f2b7f3d2"
     },
     {
       "path": "scripts/validate-release-pr-scope.ts",
@@ -184,7 +188,7 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "60fb5fc95f04620918acf84d6ef95d6ecae1de1383d493ce76c85bfa02841a76"
+      "sha256": "d0a62f05f7085a822ead6c3e2a1b151c28663952241a426e99897daa4af1fb18"
     },
     {
       "path": "src/domain/entities.ts",
@@ -201,6 +205,10 @@
     {
       "path": "src/domain/game-title-detection.ts",
       "sha256": "15f35ce5a5fc43f6e81f06e723ac7b3b27244f600d187e2e601263f253bdba98"
+    },
+    {
+      "path": "src/domain/parallel-game-perspectives.ts",
+      "sha256": "30a9f8198a1f194974d7e34f5758ceca4ca4927525e6fc9446656f309a69c5ea"
     },
     {
       "path": "src/domain/search.test.ts",
@@ -356,6 +364,11 @@
     {
       "file": "scripts/aggregate-word-cloud.ts",
       "name": "WordCloudCandidate",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/canonical-store.ts",
+      "name": "CanonicalStoreOptions",
       "kind": "InterfaceDeclaration"
     },
     {
@@ -935,6 +948,16 @@
     },
     {
       "file": "src/domain/content.ts",
+      "name": "VideoExclusions",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "videoExclusionsSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
       "name": "videoShardId",
       "kind": "FunctionDeclaration"
     },
@@ -992,6 +1015,21 @@
       "file": "src/domain/game-title-detection.ts",
       "name": "detectExplicitGameTitleTagIds",
       "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/parallel-game-perspectives.ts",
+      "name": "findParallelGamePerspectives",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/parallel-game-perspectives.ts",
+      "name": "minimumParallelPerspectiveOverlapSeconds",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/parallel-game-perspectives.ts",
+      "name": "ParallelGamePerspective",
+      "kind": "InterfaceDeclaration"
     },
     {
       "file": "src/domain/search.ts",

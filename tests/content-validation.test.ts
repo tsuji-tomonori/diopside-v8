@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 import {
+  canonicalVideoSchema,
   channelPersonMappingsSchema,
   publicIndexSchema,
   collaborationProfilesSchema,
@@ -9,8 +10,10 @@ import {
   songPerformanceCatalogSchema,
   tagAliasesSchema,
   tagTaxonomySchema,
+  videoExclusionsSchema,
   workIntroductionsSchema,
 } from '../src/domain/content.ts';
+import { findParallelGamePerspectives } from '../src/domain/parallel-game-perspectives.ts';
 import { normalizeTagAlias } from '../src/domain/search.ts';
 import {
   scanPublicBoundary,
@@ -158,6 +161,51 @@ describe('タグ・動画正本と公開境界', () => {
     const adjusted = videos.map((video) => video.videoId === missingPerson.videoId ? missingPerson : video);
     expect(validateChannelPersonMappings(adjusted, taxonomy, channelPersonMappings, collaborationProfiles.subjectPersonTagId).map((issue) => issue.code))
       .toContain('CHANNEL_PERSON_TAG_MISSING');
+  });
+
+  it('同一ゲームの参加者別同時配信は白雪巴公式枠だけを公開対象にする', () => {
+    const externalPerspective = canonicalVideoSchema.parse(json('content/videos/xgp8XQvbDUU.json'));
+    const subjectPerspective = canonicalVideoSchema.parse(json('content/videos/sifFa3aIPko.json'));
+    expect(findParallelGamePerspectives(
+      [externalPerspective, subjectPerspective],
+      taxonomy,
+      channelPersonMappings,
+      collaborationProfiles.subjectPersonTagId,
+      gameCatalog,
+    )).toEqual([expect.objectContaining({
+      videoId: 'xgp8XQvbDUU',
+      preferredVideoId: 'sifFa3aIPko',
+      gameTitleTagId: 'tag-works-gameTitle-ffd8ee56185b',
+      overlapSeconds: 1601,
+    })]);
+    expect(findParallelGamePerspectives(
+      [externalPerspective],
+      taxonomy,
+      channelPersonMappings,
+      collaborationProfiles.subjectPersonTagId,
+      gameCatalog,
+    )).toEqual([]);
+    const organizerBroadcast = structuredClone(externalPerspective);
+    const organizerChannelTagId = channelPersonMappings.unmappedChannels[0]!.channelTagId;
+    organizerBroadcast.tagAssignments = organizerBroadcast.tagAssignments.map((assignment) => (
+      assignment.tagId === 'tag-people-channel-4b08c7701aa5'
+        ? { ...assignment, tagId: organizerChannelTagId }
+        : assignment
+    ));
+    expect(findParallelGamePerspectives(
+      [organizerBroadcast, subjectPerspective],
+      taxonomy,
+      channelPersonMappings,
+      collaborationProfiles.subjectPersonTagId,
+      gameCatalog,
+    )).toEqual([]);
+    expect(findParallelGamePerspectives(
+      videos,
+      taxonomy,
+      channelPersonMappings,
+      collaborationProfiles.subjectPersonTagId,
+      gameCatalog,
+    )).toEqual([]);
   });
 
   it('凸待ちは配信主だけ、相手のいない継続公式ラジオはコラボ扱いにしない', () => {
@@ -315,9 +363,21 @@ describe('タグ・動画正本と公開境界', () => {
   });
 
   it('除外記録の動画を正本へ同時に置かず、再追加防止境界を維持する', () => {
-    const exclusions = json('content/exclusions.json') as { records: Array<{ videoId: string }> };
+    const exclusions = videoExclusionsSchema.parse(json('content/exclusions.json'));
     const canonicalIds = new Set(videos.map((video) => video.videoId));
     expect(exclusions.records.every((record) => !canonicalIds.has(record.videoId))).toBe(true);
+    expect(exclusions.records.filter((record) => record.ruleId === 'V8-SAFETY-005')).toHaveLength(167);
+    expect(exclusions.records).toContainEqual(expect.objectContaining({
+      videoId: 'xgp8XQvbDUU',
+      reason: '対象外',
+      ruleId: 'V8-SAFETY-005',
+      preferredVideoId: 'sifFa3aIPko',
+    }));
+    expect(canonicalIds.has('xgp8XQvbDUU')).toBe(false);
+    expect(canonicalIds.has('sifFa3aIPko')).toBe(true);
+    const invalidTrace = structuredClone(exclusions);
+    delete invalidTrace.records[0]!.preferredVideoId;
+    expect(() => videoExclusionsSchema.parse(invalidTrace)).toThrow(/V8-SAFETY-005/u);
   });
 
   it('公開JSONには不変タグIDだけを持たせ、生資料・付与理由・投稿者を出さない', () => {

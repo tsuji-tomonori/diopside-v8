@@ -197,7 +197,7 @@ test.describe('動画詳細', () => {
 
   test('人物名タグから公式説明と関連ユニットをたどり、その動画一覧へ移動できる', async ({ page }) => {
     const requests = await preparePage(page);
-    await page.goto('/#/video/O6tuTZ_f1vo');
+    await page.goto('/#/video/FG7ED1X6PSM');
 
     const personLink = page.getByRole('link', { name: /ルイス・キャミー/u });
     await expect(personLink).toBeVisible();

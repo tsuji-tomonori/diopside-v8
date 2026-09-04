@@ -2,6 +2,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { z } from 'zod';
 
+import { videoExclusionsSchema } from '../src/domain/content.ts';
 import { readCanonicalVideos } from './canonical-store.ts';
 import { canonicalJson, prettyJson, readJson, sha256 } from './lib.ts';
 
@@ -13,17 +14,6 @@ const snapshotSchema = z.object({
     publishedAt: z.iso.datetime({ offset: true }),
     durationIso: z.string().regex(/^PT/u).nullable(),
     available: z.boolean().default(true),
-  }).strict()),
-}).strict();
-
-const exclusionSchema = z.object({
-  schemaVersion: z.literal('1.0.0'),
-  updatedAt: z.iso.datetime({ offset: true }),
-  records: z.array(z.object({
-    videoId: z.string(),
-    reason: z.enum(['削除', '非公開', '対象外']),
-    sourceFingerprint: z.string().regex(/^[a-f0-9]{64}$/u),
-    confirmedAt: z.iso.datetime({ offset: true }),
   }).strict()),
 }).strict();
 
@@ -41,7 +31,7 @@ if (new Set(snapshot.videos.map((video) => video.videoId)).size !== snapshot.vid
 const exclusionsPath = exclusionsArg
   ? path.resolve(process.cwd(), exclusionsArg)
   : path.join(root, 'content/exclusions.json');
-const exclusions = exclusionSchema.parse(readJson(exclusionsPath));
+const exclusions = videoExclusionsSchema.parse(readJson(exclusionsPath));
 const excludedIds = new Set(exclusions.records.map((record) => record.videoId));
 const canonical = new Map(
   readCanonicalVideos(root).map((video) => [video.videoId, video]),

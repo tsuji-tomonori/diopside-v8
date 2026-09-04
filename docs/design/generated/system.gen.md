@@ -40,11 +40,11 @@
 | INGEST | 17 |
 | OPS | 26 |
 | QUALITY | 5 |
-| SAFETY | 4 |
+| SAFETY | 5 |
 | SEARCH | 22 |
 | TAG | 44 |
 | TIME | 37 |
-| **合計** | **190** |
+| **合計** | **191** |
 
 ## 公開データの流れ
 
@@ -60,6 +60,7 @@
 | `scripts/aggregate-word-cloud.ts` | FunctionDeclaration | `aggregateWordCloud` |
 | `scripts/aggregate-word-cloud.ts` | TypeAliasDeclaration | `AudienceWordCloudInputType` |
 | `scripts/aggregate-word-cloud.ts` | InterfaceDeclaration | `WordCloudCandidate` |
+| `scripts/canonical-store.ts` | InterfaceDeclaration | `CanonicalStoreOptions` |
 | `scripts/canonical-store.ts` | FunctionDeclaration | `readCanonicalVideos` |
 | `scripts/japanese-reading.ts` | FunctionDeclaration | `createJapaneseReadingNormalizer` |
 | `scripts/japanese-reading.ts` | VariableStatement | `japaneseReadingVersion` |
@@ -175,6 +176,8 @@
 | `src/domain/content.ts` | VariableStatement | `timestampOriginSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `VideoEntityRole` |
 | `src/domain/content.ts` | VariableStatement | `videoEntityRoleSchema` |
+| `src/domain/content.ts` | TypeAliasDeclaration | `VideoExclusions` |
+| `src/domain/content.ts` | VariableStatement | `videoExclusionsSchema` |
 | `src/domain/content.ts` | FunctionDeclaration | `videoShardId` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `WordCloudInputType` |
 | `src/domain/content.ts` | VariableStatement | `wordCloudInputTypeSchema` |
@@ -187,6 +190,9 @@
 | `src/domain/game-catalog.ts` | FunctionDeclaration | `applyGameCatalogGenres` |
 | `src/domain/game-catalog.ts` | FunctionDeclaration | `catalogGameGenreTagIds` |
 | `src/domain/game-title-detection.ts` | FunctionDeclaration | `detectExplicitGameTitleTagIds` |
+| `src/domain/parallel-game-perspectives.ts` | FunctionDeclaration | `findParallelGamePerspectives` |
+| `src/domain/parallel-game-perspectives.ts` | VariableStatement | `minimumParallelPerspectiveOverlapSeconds` |
+| `src/domain/parallel-game-perspectives.ts` | InterfaceDeclaration | `ParallelGamePerspective` |
 | `src/domain/search.ts` | FunctionDeclaration | `additionalTagCounts` |
 | `src/domain/search.ts` | FunctionDeclaration | `applySearch` |
 | `src/domain/search.ts` | FunctionDeclaration | `bucketRange` |
@@ -275,4 +281,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力81ファイル、公開契約193件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力83ファイル、公開契約199件です。
