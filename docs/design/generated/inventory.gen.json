@@ -31,6 +31,10 @@
       "sha256": "03027429c71a1935ac21dc9ffe28b1b71174feeb552d96f98894b5bbb784df1c"
     },
     {
+      "path": "scripts/audit-tag-assignments.ts",
+      "sha256": "f8ca886e0804fada824cbe336b11ed96f27922a244627db1c1d87adbae6c702c"
+    },
+    {
       "path": "scripts/build-public-data.ts",
       "sha256": "74f023b6d98c580aac3f348a44cfa7873ddd2dac03fe24a18045457f996b55eb"
     },
@@ -201,6 +205,14 @@
     {
       "path": "src/domain/search.ts",
       "sha256": "9a5ae0fa50152fcb9e36f91cacd4fbec614e24b6cbd0d1f57281da1db449cd19"
+    },
+    {
+      "path": "src/domain/tag-assignment-audit.test.ts",
+      "sha256": "da7d55d69aba5a01d155f1bcb60c0b8c550cc3d462dc7529b19072d054c2f9ac"
+    },
+    {
+      "path": "src/domain/tag-assignment-audit.ts",
+      "sha256": "b6bd8c1820f8b47f3601bacb01b58f696d14e1d48575792cf79ed8fedeefd93c"
     },
     {
       "path": "src/domain/validation.test.ts",
@@ -1108,6 +1120,31 @@
       "kind": "FunctionDeclaration"
     },
     {
+      "file": "src/domain/tag-assignment-audit.ts",
+      "name": "auditTagAssignmentCoverage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/tag-assignment-audit.ts",
+      "name": "TagAssignmentAuditResult",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/domain/tag-assignment-audit.ts",
+      "name": "TagAssignmentAuditRow",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "src/domain/tag-assignment-audit.ts",
+      "name": "TagAssignmentAuditSource",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/tag-assignment-audit.ts",
+      "name": "tagAssignmentAuditSourceSchema",
+      "kind": "VariableStatement"
+    },
+    {
       "file": "src/domain/validation.ts",
       "name": "scanPublicBoundary",
       "kind": "FunctionDeclaration"
@@ -1281,6 +1318,7 @@
     "src/domain/collaboration.test.ts",
     "src/domain/game-title-detection.test.ts",
     "src/domain/search.test.ts",
+    "src/domain/tag-assignment-audit.test.ts",
     "src/domain/validation.test.ts",
     "src/features/collaborations/CollaborationDetailPages.test.tsx",
     "src/features/detail/wordCloudLayout.test.ts",

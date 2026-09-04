@@ -1,15 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "taxonomyVersion": "9.1.0",
+  "taxonomyVersion": "9.2.0",
   "sourceVersion": "2.1.0",
   "aliasVersion": "8.3.0",
-  "rulesVersion": "9.0.0",
-  "effectiveDate": "2026-09-03",
+  "rulesVersion": "9.1.0",
+  "effectiveDate": "2026-09-04",
   "compatibleCanonicalVideoTaxonomyVersions": [
     "8.6.0",
     "8.7.0",
     "8.8.0",
-    "9.0.0"
+    "9.0.0",
+    "9.1.0"
   ],
   "categoryCount": 7,
   "subcategoryCount": 28,
@@ -5268,8 +5269,8 @@
               "tagId": "tag-context-occasion-2c2388f2000e",
               "canonicalName": "新衣装お披露目",
               "active": true,
-              "inclusionCriteria": "記念・お披露目として公開情報から直接確認できること",
-              "exclusionCriteria": "推測、低確度、確認待ち、分類不能な情報は含めない"
+              "inclusionCriteria": "配信者または出演者の新たな衣装を主題として、公開タイトル、動画固有説明、承認済みあらすじ・時刻一覧から実際の披露、撮影会、振り返り、裏話、またはタイトルで新衣装と明示した着用を直接確認できること。水着衣装、部屋着、3D共通衣装、新ビジュアルを含む。",
+              "exclusionCriteria": "ゲーム内キャラクターの水着、既存衣装の通常着用、衣装変更を伴わないLive2D 2.0/3.0・にじ3D・通常3Dモデルの披露、実披露を含まない告知・予告・決定、推測・低確度・確認待ちは含めない。"
             },
             {
               "tagId": "tag-context-occasion-0c807041f530",

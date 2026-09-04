@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "1.0.0",
+  "reviewedAt": "2026-09-04",
+  "rules": [
+    {
+      "ruleId": "occasion-new-outfit-reveal",
+      "tagId": "tag-context-occasion-2c2388f2000e",
+      "canonicalName": "新衣装お披露目",
+      "blockingEvidenceFields": [
+        "title"
+      ],
+      "reviewEvidenceFields": [
+        "title",
+        "synopsis",
+        "timestamps"
+      ],
+      "inclusionCriteriaMustContain": [
+        "新衣装",
+        "水着衣装",
+        "3D共通衣装",
+        "振り返り",
+        "撮影会",
+        "裏話"
+      ],
+      "exclusionCriteriaMustContain": [
+        "ゲーム内キャラクター",
+        "既存衣装",
+        "2.0/3.0",
+        "にじ3D",
+        "告知・予告"
+      ],
+      "includeSignals": [
+        {
+          "signalId": "outfit-before-reveal",
+          "pattern": "(?:新衣装|水着(?:衣装|新衣装)?|部屋着|共通衣装).{0,32}(?:お披露目|披露|大公開|撮影会|振り返り|裏話)",
+          "reason": "衣装種別の後に実披露・撮影・振り返りを示す語がある"
+        },
+        {
+          "signalId": "reveal-before-outfit",
+          "pattern": "(?:お披露目|披露|大公開|撮影会|振り返り|裏話).{0,32}(?:新衣装|水着(?:衣装|新衣装)?|部屋着|共通衣装)",
+          "reason": "実披露・撮影・振り返りを示す語の後に衣装種別がある"
+        },
+        {
+          "signalId": "official-new-outfit-label",
+          "pattern": "(?:#白雪(?:巴)?新衣装|#フルトイ新衣装|新衣装で|新衣装にじ3D|新衣装・ニューヘアー)",
+          "reason": "公開タイトルが新衣装を主題として明示する"
+        }
+      ],
+      "excludeSignals": [
+        {
+          "signalId": "announcement-only",
+          "pattern": "(?:(?:明日|予告|告知|決定|待機所).{0,24}(?:お披露目|披露)|(?:お披露目|披露).{0,24}(?:明日|予告|告知|決定|待機所))",
+          "reason": "実披露ではなく告知・予告だけを示す"
+        }
+      ],
+      "requiredAssignments": [
+        {
+          "videoId": "UZcmZzKQWYc",
+          "reason": "公開タイトルと時刻一覧が水着新衣装の実披露を示す"
+        },
+        {
+          "videoId": "TRwAE0hRoYw",
+          "reason": "公開タイトルが水着お披露目と新衣装を明示するShorts"
+        },
+        {
+          "videoId": "Hg32eUA03Fo",
+          "reason": "公開タイトルと時刻一覧が水着新衣装の裏話・写真公開・再披露を示す"
+        },
+        {
+          "videoId": "PzElYLiF1J8",
+          "reason": "公開タイトルが3D共通衣装の実披露を明示する"
+        }
+      ],
+      "forbiddenAssignments": [
+        {
+          "videoId": "BQY_LRTObfM",
+          "reason": "衣装ではなく通常の3Dモデル初披露"
+        },
+        {
+          "videoId": "P6ZDEVB1twg",
+          "reason": "衣装ではなくLive2D 3.0の表情更新"
+        },
+        {
+          "videoId": "5RevVT_N1fQ",
+          "reason": "翌日の3Dお披露目を案内する前日配信で実披露ではない"
+        },
+        {
+          "videoId": "IunOLWghdC4",
+          "reason": "3Dお披露目決定の告知を伴うゲーム配信で実披露ではない"
+        }
+      ]
+    }
+  ]
+}
