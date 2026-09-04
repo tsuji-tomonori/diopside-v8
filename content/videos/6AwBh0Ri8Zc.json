@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "504b86bf6478c36e0621a1466d1203c0efc09b13c79a3fd275a7d68575890438"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "97921871766293a05f6e5bf5ac637da1303b1c60eb816bf4c6ae2caf3839a6f1"
     }
   ],
   "tagAssignments": [
@@ -225,10 +231,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "風邪",
+        "weight": 47
+      },
+      {
+        "term": "配信",
+        "weight": 45
+      },
+      {
+        "term": "楽しみ",
+        "weight": 42
+      },
+      {
+        "term": "楽しい",
+        "weight": 40
+      },
+      {
+        "term": "うん",
+        "weight": 39
+      },
+      {
+        "term": "嬉しい",
+        "weight": 36
+      },
+      {
+        "term": "わかる",
+        "weight": 35
+      },
+      {
+        "term": "大事",
+        "weight": 35
+      },
+      {
+        "term": "行く",
+        "weight": 31
+      },
+      {
+        "term": "フェス",
+        "weight": 29
+      },
+      {
+        "term": "ラジオ",
+        "weight": 29
+      },
+      {
+        "term": "はい",
+        "weight": 27
+      },
+      {
+        "term": "大丈夫",
+        "weight": 25
+      },
+      {
+        "term": "かわいい",
+        "weight": 24
+      },
+      {
+        "term": "にじる",
+        "weight": 24
+      },
+      {
+        "term": "人",
+        "weight": 23
+      },
+      {
+        "term": "喉",
+        "weight": 22
+      },
+      {
+        "term": "謎",
+        "weight": 21
+      },
+      {
+        "term": "ずっと",
+        "weight": 20
+      },
+      {
+        "term": "姉さん",
+        "weight": 17
+      },
+      {
+        "term": "チャッピー",
+        "weight": 16
+      },
+      {
+        "term": "久しぶり",
+        "weight": 16
+      },
+      {
+        "term": "本当に",
+        "weight": 16
+      },
+      {
+        "term": "たしかに",
+        "weight": 15
+      },
+      {
+        "term": "ホワサバ",
+        "weight": 14
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 12
+      },
+      {
+        "term": "あら",
+        "weight": 11
+      },
+      {
+        "term": "流行る",
+        "weight": 11
+      },
+      {
+        "term": "来る",
+        "weight": 10
+      },
+      {
+        "term": "会える",
+        "weight": 9
+      },
+      {
+        "term": "おじさん",
+        "weight": 8
+      },
+      {
+        "term": "すごい",
+        "weight": 8
+      },
+      {
+        "term": "気",
+        "weight": 6
+      },
+      {
+        "term": "寂しい",
+        "weight": 6
+      },
+      {
+        "term": "声",
+        "weight": 6
+      },
+      {
+        "term": "多い",
+        "weight": 6
+      },
+      {
+        "term": "びっくり",
+        "weight": 5
+      },
+      {
+        "term": "確か",
+        "weight": 5
+      },
+      {
+        "term": "治る",
+        "weight": 5
+      },
+      {
+        "term": "聞ける",
+        "weight": 5
+      },
+      {
+        "term": "怪しい",
+        "weight": 4
+      },
+      {
+        "term": "ゲーム",
+        "weight": 2
+      },
+      {
+        "term": "ついえる",
+        "weight": 2
+      },
+      {
+        "term": "会う",
+        "weight": 2
+      },
+      {
+        "term": "時間",
+        "weight": 2
+      },
+      {
+        "term": "寝る",
+        "weight": 2
+      },
+      {
+        "term": "シエン",
+        "weight": 1
+      },
+      {
+        "term": "わーい",
+        "weight": 1
+      },
+      {
+        "term": "必要",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "97921871766293a05f6e5bf5ac637da1303b1c60eb816bf4c6ae2caf3839a6f1",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "adc707da05ad823712f17944b0098632dc6535bd563ae9196d577ae8111cbba3",
