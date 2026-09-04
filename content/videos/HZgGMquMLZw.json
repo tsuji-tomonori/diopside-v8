@@ -44,6 +44,12 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "2f1ce14de68e7ac135fb87ffbbc656e30aa4532c8d8cf71b5b11129de572cdbe"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "57776d6ed0a32d5db045f23555df20aea56d8079ba2c1bff1a3dbcb2feed32e8"
     }
   ],
   "tagAssignments": [
@@ -348,10 +354,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "ホラー",
+        "weight": 36
+      },
+      {
+        "term": "かわいい",
+        "weight": 33
+      },
+      {
+        "term": "ばあちゃん",
+        "weight": 33
+      },
+      {
+        "term": "おじいちゃん",
+        "weight": 26
+      },
+      {
+        "term": "タチバナ",
+        "weight": 25
+      },
+      {
+        "term": "怖い",
+        "weight": 24
+      },
+      {
+        "term": "じいちゃん",
+        "weight": 23
+      },
+      {
+        "term": "すごい",
+        "weight": 21
+      },
+      {
+        "term": "ティキン",
+        "weight": 18
+      },
+      {
+        "term": "ゲーム",
+        "weight": 17
+      },
+      {
+        "term": "でっかい",
+        "weight": 17
+      },
+      {
+        "term": "少年",
+        "weight": 17
+      },
+      {
+        "term": "ツッコミ",
+        "weight": 15
+      },
+      {
+        "term": "わかる",
+        "weight": 15
+      },
+      {
+        "term": "bgm",
+        "weight": 13
+      },
+      {
+        "term": "顔",
+        "weight": 13
+      },
+      {
+        "term": "フランス",
+        "weight": 12
+      },
+      {
+        "term": "怪異",
+        "weight": 12
+      },
+      {
+        "term": "最後",
+        "weight": 12
+      },
+      {
+        "term": "アキラ",
+        "weight": 11
+      },
+      {
+        "term": "おる",
+        "weight": 10
+      },
+      {
+        "term": "でかい",
+        "weight": 9
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 9
+      },
+      {
+        "term": "モード",
+        "weight": 9
+      },
+      {
+        "term": "作る",
+        "weight": 9
+      },
+      {
+        "term": "美人",
+        "weight": 9
+      },
+      {
+        "term": "ホラゲ",
+        "weight": 8
+      },
+      {
+        "term": "惜しい",
+        "weight": 8
+      },
+      {
+        "term": "ちゃんと",
+        "weight": 7
+      },
+      {
+        "term": "作者",
+        "weight": 7
+      },
+      {
+        "term": "踊る",
+        "weight": 7
+      },
+      {
+        "term": "ギャル",
+        "weight": 6
+      },
+      {
+        "term": "シャク",
+        "weight": 6
+      },
+      {
+        "term": "ずっと",
+        "weight": 6
+      },
+      {
+        "term": "わくわく",
+        "weight": 6
+      },
+      {
+        "term": "ちょっと",
+        "weight": 4
+      },
+      {
+        "term": "人",
+        "weight": 4
+      },
+      {
+        "term": "多い",
+        "weight": 4
+      },
+      {
+        "term": "なんで",
+        "weight": 2
+      },
+      {
+        "term": "楽しい",
+        "weight": 2
+      },
+      {
+        "term": "寿司",
+        "weight": 2
+      },
+      {
+        "term": "入る",
+        "weight": 2
+      },
+      {
+        "term": "娘",
+        "weight": 2
+      },
+      {
+        "term": "ええ",
+        "weight": 1
+      },
+      {
+        "term": "ついえる",
+        "weight": 1
+      },
+      {
+        "term": "フランス語",
+        "weight": 1
+      },
+      {
+        "term": "ミーム",
+        "weight": 1
+      },
+      {
+        "term": "尺",
+        "weight": 1
+      },
+      {
+        "term": "白",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "57776d6ed0a32d5db045f23555df20aea56d8079ba2c1bff1a3dbcb2feed32e8",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "ebc21ec5fd28dbf5333b947557b17c216a6266bee70eb005d6b1ee70baab5a01",
