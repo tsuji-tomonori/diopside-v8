@@ -44,6 +44,12 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "c9c0ba9c3445f247fdc5496dd172da384ff30fb3c87b942b75213c408e533093"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "b7b5fc6e1c8eaa2f4c84d554009f3e0eaf6d71e13f72132d820e2a85e9c68f2b"
     }
   ],
   "tagAssignments": [
@@ -267,10 +273,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "大事",
+        "weight": 71
+      },
+      {
+        "term": "手",
+        "weight": 62
+      },
+      {
+        "term": "カマドウマ",
+        "weight": 55
+      },
+      {
+        "term": "隙間",
+        "weight": 55
+      },
+      {
+        "term": "気",
+        "weight": 54
+      },
+      {
+        "term": "ナイス",
+        "weight": 44
+      },
+      {
+        "term": "あら",
+        "weight": 43
+      },
+      {
+        "term": "楽しみ",
+        "weight": 43
+      },
+      {
+        "term": "かわいい",
+        "weight": 33
+      },
+      {
+        "term": "縄",
+        "weight": 33
+      },
+      {
+        "term": "怖い",
+        "weight": 33
+      },
+      {
+        "term": "大丈夫",
+        "weight": 31
+      },
+      {
+        "term": "ゲーム",
+        "weight": 28
+      },
+      {
+        "term": "開く",
+        "weight": 28
+      },
+      {
+        "term": "わかる",
+        "weight": 27
+      },
+      {
+        "term": "心",
+        "weight": 27
+      },
+      {
+        "term": "回避",
+        "weight": 25
+      },
+      {
+        "term": "話",
+        "weight": 25
+      },
+      {
+        "term": "足",
+        "weight": 23
+      },
+      {
+        "term": "忙しい",
+        "weight": 23
+      },
+      {
+        "term": "わくわく",
+        "weight": 21
+      },
+      {
+        "term": "面",
+        "weight": 21
+      },
+      {
+        "term": "かくれんぼ",
+        "weight": 19
+      },
+      {
+        "term": "ひとり",
+        "weight": 17
+      },
+      {
+        "term": "開ける",
+        "weight": 17
+      },
+      {
+        "term": "キービジュ",
+        "weight": 15
+      },
+      {
+        "term": "ついえる",
+        "weight": 15
+      },
+      {
+        "term": "ノシ",
+        "weight": 15
+      },
+      {
+        "term": "ちょっと",
+        "weight": 12
+      },
+      {
+        "term": "閉める",
+        "weight": 12
+      },
+      {
+        "term": "最後",
+        "weight": 10
+      },
+      {
+        "term": "ぶる",
+        "weight": 7
+      },
+      {
+        "term": "わぁ",
+        "weight": 7
+      },
+      {
+        "term": "人形",
+        "weight": 7
+      },
+      {
+        "term": "虫",
+        "weight": 7
+      },
+      {
+        "term": "逃げる",
+        "weight": 7
+      },
+      {
+        "term": "忘れる",
+        "weight": 7
+      },
+      {
+        "term": "カーテン",
+        "weight": 4
+      },
+      {
+        "term": "なさる",
+        "weight": 4
+      },
+      {
+        "term": "確か",
+        "weight": 4
+      },
+      {
+        "term": "人間",
+        "weight": 4
+      },
+      {
+        "term": "追加",
+        "weight": 4
+      },
+      {
+        "term": "配信",
+        "weight": 4
+      },
+      {
+        "term": "余裕",
+        "weight": 4
+      },
+      {
+        "term": "綺麗",
+        "weight": 4
+      },
+      {
+        "term": "ストレス",
+        "weight": 1
+      },
+      {
+        "term": "セーフ",
+        "weight": 1
+      },
+      {
+        "term": "許す",
+        "weight": 1
+      },
+      {
+        "term": "出る",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "b7b5fc6e1c8eaa2f4c84d554009f3e0eaf6d71e13f72132d820e2a85e9c68f2b",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "e04864a3741835b1e10f65a3959be6e35dfc8476a2cc9c3ce6ca9151703f9ffa",
