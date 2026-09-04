@@ -51,7 +51,7 @@ const gameCatalog = gameCatalogSchema.parse(gameCatalogInput);
 
 describe('タグ・動画正本と公開境界', () => {
   it('特定ゲーム作品をゲーム単位の確認元・1〜3ジャンルで全件管理する', () => {
-    expect(gameCatalog.games).toHaveLength(245);
+    expect(gameCatalog.games).toHaveLength(246);
     expect(validateGameCatalog(gameCatalogInput, taxonomy, workIntroductions, videos)).toEqual([]);
     expect(gameCatalog.games.every((game) => game.sources.every((source) => source.url.startsWith('https://')))).toBe(true);
     expect(gameCatalog.games.find((game) => game.title === 'ワガママハイスペック')?.gameGenreTagIds).toEqual([

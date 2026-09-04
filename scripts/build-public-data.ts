@@ -390,7 +390,8 @@ const gameIndex = publicGameIndexSchema.parse({
       [game.gameTitleTagId, ...(game.equivalentGameTitleTagIds ?? [])]
         .flatMap((tagId) => [...(tagToVideoIds.get(tagId) ?? [])]),
     )].sort(),
-  })).sort((left, right) => left.title.localeCompare(right.title, 'ja')),
+  })).filter((game) => game.videoIds.length > 0)
+    .sort((left, right) => left.title.localeCompare(right.title, 'ja')),
 });
 
 const outputFiles = new Map<string, unknown>([
