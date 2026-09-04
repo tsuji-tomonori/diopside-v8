@@ -129,7 +129,7 @@
 | `V8-TAG-011` | 1 | 有効 | データ | diopside v8のタグは、同時視聴を主ジャンルに持つ動画は、同時視聴メディアを1件持ち、動画タイトル、動画固有の説明、公式作品表記のいずれかが一つの作品を示す場合は同時視聴作品名を1件以上持たなければならない。を**satisfy** | 条件付き必須・否定試験 |
 | `V8-TAG-012` | 1 | 有効 | データ | diopside v8のタグは、朗読・声劇を主ジャンルに持つ動画は、朗読・声劇種別を1件持たなければならない。を**satisfy** | 条件付き必須試験 |
 | `V8-TAG-013` | 2 | 有効 | データ | diopside v8のタグは、コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸は配信主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。を**satisfy** | 人物タグ正本・表示名・役割別コラボ相手選別試験 |
-| `V8-TAG-014` | 1 | 有効 | データ | diopside v8のタグは、ユニット・チームタグを持つ動画は「コラボ」と実際に出演した構成員を持ち、欠席者や対戦相手を自動追加してはならない。を**satisfy** | 固定例試験・人手確認 |
+| `V8-TAG-014` | 2 | 有効 | データ | diopside v8のタグは、ユニット・チームタグは、その構成員全員だけが動画全体の主たる共演単位であり、実際に出演している場合に限って付与しなければならない。構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分へのゲスト参加、対戦相手としての登場には付与せず、ユニットタグを根拠に欠席した構成員を出演者へ自動追加してはならない。を**satisfy** | ユニット候補・構成員集合・多人数企画・凸待ち除外の横断監査 |
 | `V8-TAG-015` | 2 | 有効 | データ | diopside v8のタグは、実出演者と配信中に名前を話題にした人物は、それぞれfeaturesとmentionsの動画関係として分離しなければならない。同じ人物が両方の役割へ現れても人物マスターを複製せず、同じ人物エンティティIDへ解決しなければならない。言及だけでコラボを付与してはならない。を**satisfy** | 人物同一性・役割分離・コラボ非導出試験 |
 | `V8-TAG-016` | 1 | 有効 | データ | diopside v8のタグは、一つのタグには一つの検索対象または一つの分類事実だけを保存し、複数人物や独立概念を連結したタグは分解しなければならない。を**satisfy** | 分解規則試験 |
 | `V8-TAG-017` | 1 | 有効 | データ | diopside v8のタグは、タグ照合はUnicode互換正規化、前後空白除去、連続空白の統合、英字大小の同一視、先頭ハッシュ記号の同一視を定義順で行わなければならない。を**satisfy** | 正規化境界値試験 |
@@ -2078,20 +2078,22 @@ diopside v8のタグは、コラボ動画には白雪巴以外の実出演者を
 検証証跡: src/domain/collaboration.test.ts, tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/collaboration.ts,content/people/collaboration-profiles.json; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,src/domain/collaboration.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-TAG-014: ユニット・チームタグを持つ動画は「コラボ」と実際に出演した構成員を持ち、欠席者や対戦相手を自動追加してはならない
+## V8-TAG-014: ユニットタグは構成員だけが動画全体の主たる共演単位である場合に限らなければならない
 
-diopside v8のタグは、ユニット・チームタグを持つ動画は「コラボ」と実際に出演した構成員を持ち、欠席者や対戦相手を自動追加してはならない。を**satisfy**。
+diopside v8のタグは、ユニット・チームタグは、その構成員全員だけが動画全体の主たる共演単位であり、実際に出演している場合に限って付与しなければならない。構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分へのゲスト参加、対戦相手としての登場には付与せず、ユニットタグを根拠に欠席した構成員を出演者へ自動追加してはならない。を**satisfy**。
 
 根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-TAG-014-1` 前提: V8-タグ-014の前提を満たす公開データまたは操作がある。条件: 固定例試験・人手確認。期待結果: 正規グループ名だけから全構成員を無条件展開しない。。
+- `AC-V8-TAG-014-1` 前提: ユニット構成員全員だけが動画全体の主たる共演単位として出演する。条件: 公開情報と確認済み出演記録を用いたユニット横断監査。期待結果: ユニットタグ、コラボタグ、白雪巴以外の全構成員の人物タグを持つ。。
+- `AC-V8-TAG-014-2` 前提: ユニット構成員が多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分、または対戦相手として登場する。条件: 動画単位の主たる共演者集合と除外確認を監査する。期待結果: 当該ユニットタグを持たず、実出演者だけを人物タグとして保持する。。
+- `AC-V8-TAG-014-3` 前提: 動画タイトルにユニット名がないが出演者集合が構成員と一致する。条件: 確認済み出演または除外確認の判定台帳を監査する。期待結果: 動画全体の主たる共演単位かを明示判定し、出演者集合だけでユニットタグを自動付与しない。。
 
-要求源: Issue #1 V8-タグ-014, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-タグ-014, user:2026-08-03, spec/sources/owner-directive-2026-09-04-collaboration-unit-scope.md, user:2026-09-04
+検証証跡: src/domain/collaboration-group-audit.test.ts, scripts/audit-collaboration-tags.ts
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/collaboration-group-audit.ts,spec/sources/collaboration-tag-corrections-v1.json; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,src/domain/collaboration-group-audit.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TAG-015: 実出演と人物言及は関係種別で分離し、同一人物は同じ人物IDへ解決しなければならない
 

@@ -1,0 +1,165 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260904-collaboration-unit-scope
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: true
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:spec/sources/owner-directive-2026-09-04-collaboration-unit-scope.md]
+    note: 所有者指示をV8-TAG-014 revision 2へ反映し、直接コラボだけをユニットタグ対象とする業務ルールと受入条件を正本化した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/collaboration-group-audit.ts, path:docs/design/generated/inventory.gen.json]
+    note: 候補分類と排他的出演者集合の監査を既存構成へ追加し、生成設計の入力指紋へ同期した。新規ADRを要する技術選択はない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260904-collaboration-unit-scope.yaml]
+    note: 永続要件、taxonomy規則、全18ユニット・1705動画、共有監査ロジックへ及ぶためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 利用者のGitHub変更指示に基づきbranch pushとPR作成だけを行い、merge、release、deployは行わない。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/content-manifest.json, path:content/taxonomy/change-record.json]
+    note: 1705動画を維持し、87動画でユニットタグ52件追加・35件除外と誤派生人物2件の除外を行う。schema migrationや動画削除はない。
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/taxonomy/tag-taxonomy.json, path:content/taxonomy/change-record.json]
+    note: taxonomy 9.4.0・規則9.3.0へ意味境界を更新し、既存タグID、alias、動画ファイル形式と旧動画taxonomy版の互換を維持した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:package.json, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: 正本生成を含むproduction buildを既存PR品質ゲートで検証する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/collaboration-group-audit.ts, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: 候補状態と排他的出演者集合のTypeScriptをアプリ・Node両方のstrict型検査対象に含めた。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/collaboration-group-audit.ts, path:scripts/audit-collaboration-tags.ts]
+    note: 変更した監査ロジック、CLI、単体テストをrepository標準のESLint対象に含めた。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:src/domain/collaboration-group-audit.test.ts, path:scripts/audit-collaboration-tags.ts]
+    note: 多人数企画拒否、未判定一致集合拒否、明示除外の正常系と1705動画・284候補の横断監査を検証する。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:src/domain/collaboration-group-audit.test.ts, path:spec/sources/collaboration-tag-corrections-v1.json]
+    note: 1u_-FRccfCw型の多人数企画へユニットタグが残る回帰と、出演者集合だけで自動付与する回帰を失敗条件として固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/inventory.gen.json]
+    note: 要件正本、人向け要件、生成設計inventoryを既存generatorで同期し、公開生成物はrelease PR経路へ委ねる。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 公開YouTube URL、公開タイトル、公開タイムスタンプ由来の判定だけを追加し、credential、非公開本文、個人情報を含めない。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をユニットタグの全件再判定、八月の雪の固定例、再発防止監査、対応する要件・taxonomyへ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更内容、要件・設計影響、review path、検証契約、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: V8-TAG-014 revision 2、3件の受入条件、所有者指示参照を正本と生成文書で一致させた。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/collaboration-group-audit.ts, path:docs/design/generated/inventory.gen.json]
+    note: 既存タグ正本と監査への意味条件追加であり、構成変更やコードから自明でない長期技術判断がないためADRは不要と判断した。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:src/domain/collaboration-group-audit.ts, test:src/domain/collaboration-group-audit.test.ts]
+    note: V8-TAG-014の直接コラボ、多人数等除外、未判定集合の各受入条件から監査ロジック、判定台帳、単体試験へ到達できる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:src/domain/collaboration-group-audit.test.ts, path:.github/workflows/verify.yml, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: build、strict型検査、lint、単体・E2E、生成差分、正本・taxonomy・コラボ監査を現在HEADで実行する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260904-collaboration-unit-scope.yaml]
+    note: 選択したcheckと証拠だけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260904-collaboration-unit-scope.yaml]
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/taxonomy/tag-taxonomy.json, path:scripts/validate-taxonomy-change.ts, path:scripts/validate-content.ts]
+    note: 既存タグID・schemaを維持し、旧動画taxonomy版を互換一覧に残した。rollbackは87動画のタグ差分とtaxonomy規則版を戻すことで可能である。
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence: [commit:self, path:spec/sources/owner-directive-2026-09-04-collaboration-unit-scope.md]
+    note: 将来のユニットタグ判定を制約する理由はV8-TAG-014と所有者指示へ恒久化した。既存のtaxonomy・監査経路内の業務ルール具体化であり、別ADRは不要と判断した。
+advisories: []
+residual_risks:
+  - 公開情報だけで動画全体の主たる共演単位を自動確定できない71件は確認済み出演、53件は除外確認として判定台帳へ固定した。
+  - 公開反映は本PRの人手merge後に生成されるrelease PRとGitHub Pages反映に依存し、本変更ではmerge、release、deployを行わない。
