@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "5f882b055de987b57240f1affedf5af16a3e144da1d449723b800fda3a55d102"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "889c44a9a4a490188f8438513cd844b0e39fa66c04086dc5e72f7a8a03fde09d"
     }
   ],
   "tagAssignments": [
@@ -315,10 +321,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "生川",
+        "weight": 64
+      },
+      {
+        "term": "最高",
+        "weight": 47
+      },
+      {
+        "term": "かわいい",
+        "weight": 46
+      },
+      {
+        "term": "かっこいい",
+        "weight": 45
+      },
+      {
+        "term": "ボス",
+        "weight": 40
+      },
+      {
+        "term": "本当に",
+        "weight": 37
+      },
+      {
+        "term": "すごい",
+        "weight": 36
+      },
+      {
+        "term": "素敵",
+        "weight": 32
+      },
+      {
+        "term": "国宝",
+        "weight": 31
+      },
+      {
+        "term": "おおう",
+        "weight": 30
+      },
+      {
+        "term": "マム",
+        "weight": 30
+      },
+      {
+        "term": "嬉しい",
+        "weight": 30
+      },
+      {
+        "term": "楽しみ",
+        "weight": 27
+      },
+      {
+        "term": "forever",
+        "weight": 26
+      },
+      {
+        "term": "姉",
+        "weight": 26
+      },
+      {
+        "term": "弟",
+        "weight": 26
+      },
+      {
+        "term": "顔",
+        "weight": 24
+      },
+      {
+        "term": "うん",
+        "weight": 23
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 23
+      },
+      {
+        "term": "衣装",
+        "weight": 20
+      },
+      {
+        "term": "好き",
+        "weight": 20
+      },
+      {
+        "term": "顔面",
+        "weight": 19
+      },
+      {
+        "term": "フォーエバー",
+        "weight": 17
+      },
+      {
+        "term": "泣く",
+        "weight": 17
+      },
+      {
+        "term": "カタシロ",
+        "weight": 16
+      },
+      {
+        "term": "シエン",
+        "weight": 16
+      },
+      {
+        "term": "さすが",
+        "weight": 15
+      },
+      {
+        "term": "ええ",
+        "weight": 13
+      },
+      {
+        "term": "すぎる",
+        "weight": 13
+      },
+      {
+        "term": "美しい",
+        "weight": 13
+      },
+      {
+        "term": "大好き",
+        "weight": 12
+      },
+      {
+        "term": "お母様",
+        "weight": 11
+      },
+      {
+        "term": "やめる",
+        "weight": 10
+      },
+      {
+        "term": "かっこよい",
+        "weight": 7
+      },
+      {
+        "term": "あら",
+        "weight": 6
+      },
+      {
+        "term": "ホロスタ",
+        "weight": 6
+      },
+      {
+        "term": "姐さん",
+        "weight": 5
+      },
+      {
+        "term": "ママ",
+        "weight": 4
+      },
+      {
+        "term": "コラボ",
+        "weight": 3
+      },
+      {
+        "term": "じす",
+        "weight": 3
+      },
+      {
+        "term": "しれる",
+        "weight": 3
+      },
+      {
+        "term": "わかる",
+        "weight": 3
+      },
+      {
+        "term": "すき",
+        "weight": 2
+      },
+      {
+        "term": "やばい",
+        "weight": 2
+      },
+      {
+        "term": "軍服",
+        "weight": 2
+      },
+      {
+        "term": "最強",
+        "weight": 2
+      },
+      {
+        "term": "声",
+        "weight": 2
+      },
+      {
+        "term": "配信",
+        "weight": 2
+      },
+      {
+        "term": "ジャージメイド",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "889c44a9a4a490188f8438513cd844b0e39fa66c04086dc5e72f7a8a03fde09d",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "d883b4f7772ea5c7703eeb73030a30d945afd4a9946642b9b77f00dd48a48b9a",
