@@ -44,6 +44,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "ed407e32c7352e60a7aa045e2453131b324f2e57253c0ce002f9adea2d63e15a"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "6a1c97795d79227e369f1c55aa86d72093624114c694861e1e39faff22620b57"
     }
   ],
   "tagAssignments": [
@@ -330,10 +336,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "かわいい",
+        "weight": 87
+      },
+      {
+        "term": "うまい",
+        "weight": 52
+      },
+      {
+        "term": "すごい",
+        "weight": 39
+      },
+      {
+        "term": "フライ",
+        "weight": 30
+      },
+      {
+        "term": "わかる",
+        "weight": 28
+      },
+      {
+        "term": "題",
+        "weight": 24
+      },
+      {
+        "term": "ちる",
+        "weight": 22
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 21
+      },
+      {
+        "term": "絵",
+        "weight": 20
+      },
+      {
+        "term": "ゴリラ",
+        "weight": 19
+      },
+      {
+        "term": "カキ",
+        "weight": 17
+      },
+      {
+        "term": "文豪",
+        "weight": 17
+      },
+      {
+        "term": "あら",
+        "weight": 16
+      },
+      {
+        "term": "楽しい",
+        "weight": 16
+      },
+      {
+        "term": "時間",
+        "weight": 16
+      },
+      {
+        "term": "人",
+        "weight": 14
+      },
+      {
+        "term": "描く",
+        "weight": 14
+      },
+      {
+        "term": "面白い",
+        "weight": 14
+      },
+      {
+        "term": "パン",
+        "weight": 13
+      },
+      {
+        "term": "コーヒー",
+        "weight": 11
+      },
+      {
+        "term": "夏",
+        "weight": 11
+      },
+      {
+        "term": "芽",
+        "weight": 11
+      },
+      {
+        "term": "エビ",
+        "weight": 10
+      },
+      {
+        "term": "音量",
+        "weight": 9
+      },
+      {
+        "term": "うる",
+        "weight": 8
+      },
+      {
+        "term": "おもろい",
+        "weight": 8
+      },
+      {
+        "term": "顔",
+        "weight": 8
+      },
+      {
+        "term": "上手",
+        "weight": 8
+      },
+      {
+        "term": "大丈夫",
+        "weight": 8
+      },
+      {
+        "term": "出る",
+        "weight": 7
+      },
+      {
+        "term": "おぉ",
+        "weight": 6
+      },
+      {
+        "term": "小僧",
+        "weight": 6
+      },
+      {
+        "term": "長い",
+        "weight": 6
+      },
+      {
+        "term": "人間",
+        "weight": 5
+      },
+      {
+        "term": "駄犬",
+        "weight": 5
+      },
+      {
+        "term": "入れ替わる",
+        "weight": 5
+      },
+      {
+        "term": "ng",
+        "weight": 4
+      },
+      {
+        "term": "おおう",
+        "weight": 4
+      },
+      {
+        "term": "さすが",
+        "weight": 4
+      },
+      {
+        "term": "つめ",
+        "weight": 4
+      },
+      {
+        "term": "鎖骨",
+        "weight": 3
+      },
+      {
+        "term": "目",
+        "weight": 3
+      },
+      {
+        "term": "おる",
+        "weight": 2
+      },
+      {
+        "term": "痛い",
+        "weight": 2
+      },
+      {
+        "term": "分かる",
+        "weight": 2
+      },
+      {
+        "term": "アニメーション",
+        "weight": 1
+      },
+      {
+        "term": "お腹",
+        "weight": 1
+      },
+      {
+        "term": "すげる",
+        "weight": 1
+      },
+      {
+        "term": "食べる",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "6a1c97795d79227e369f1c55aa86d72093624114c694861e1e39faff22620b57",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "9c3e7ea870c48cb97354dfdcbf02cc78419d4cd3e5e745663e78d52a4353a068",
