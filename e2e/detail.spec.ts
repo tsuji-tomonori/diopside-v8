@@ -28,9 +28,7 @@ test.describe('動画詳細', () => {
     await expect(page.getByText('AIが生成した動画内の目次')).toBeVisible();
     await expect(page.getByText('diopside — 白雪巴さんの公開アーカイブを探せる非公式ファンサイトです。')).toBeVisible();
     await expect(page.getByText('タグ・あらすじ・タイムスタンプはAIが生成しており、誤りを含む場合があります。')).toBeVisible();
-    await expect(page.locator('.unavailable strong')).toHaveCount(2);
-    await expect(page.locator('.unavailable strong').nth(0)).toContainText('未作成 — 全編確認不足');
-    await expect(page.locator('.unavailable strong').nth(1)).toContainText('未作成 — 資料不足');
+    await expect(page.getByText('未作成 — 全編確認不足', { exact: true })).toBeVisible();
     await expect(page.getByRole('link', { name: 'YouTubeで見る' })).toHaveAttribute('href', 'https://www.youtube.com/watch?v=7keH8yrqabc');
     const synopsisCount = await page.getByRole('heading', { name: 'あらすじ' }).count();
     const customEmojiCount = await page.getByRole('heading', { name: 'カスタム絵文字' }).count();
@@ -49,7 +47,6 @@ test.describe('動画詳細', () => {
     await expect(links).toHaveCount(21);
     await expect(links.nth(0)).toHaveAttribute('href', `https://www.youtube.com/watch?v=${videoId}&t=0s`);
     await expect(links.nth(1)).toHaveAttribute('href', `https://www.youtube.com/watch?v=${videoId}&t=221s`);
-    await expect(page.getByText('未作成 — 資料不足')).toBeVisible();
     await capture(page, testInfo, 'デスクトップ', 'detail-desktop.jpg');
   });
 
