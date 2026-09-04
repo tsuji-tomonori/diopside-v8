@@ -44,6 +44,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "791fc3ed710593dde93ed67ba983858c4b1305dd3105155428c1c7077ba5f7ba"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "e801e7127658101b31ff2010ca718ff9b0f70c9ce7bbba09aa68e3a12bb374e7"
     }
   ],
   "tagAssignments": [
@@ -303,10 +309,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "頑張る",
+        "weight": 90
+      },
+      {
+        "term": "ファイト",
+        "weight": 82
+      },
+      {
+        "term": "ナイス",
+        "weight": 74
+      },
+      {
+        "term": "リリ",
+        "weight": 71
+      },
+      {
+        "term": "gg",
+        "weight": 59
+      },
+      {
+        "term": "かわいい",
+        "weight": 51
+      },
+      {
+        "term": "惜しい",
+        "weight": 49
+      },
+      {
+        "term": "すごい",
+        "weight": 42
+      },
+      {
+        "term": "大丈夫",
+        "weight": 33
+      },
+      {
+        "term": "キラー",
+        "weight": 30
+      },
+      {
+        "term": "うまい",
+        "weight": 28
+      },
+      {
+        "term": "あら",
+        "weight": 26
+      },
+      {
+        "term": "ファイトー",
+        "weight": 26
+      },
+      {
+        "term": "試合",
+        "weight": 24
+      },
+      {
+        "term": "ナイスゥ",
+        "weight": 22
+      },
+      {
+        "term": "ふる",
+        "weight": 21
+      },
+      {
+        "term": "強い",
+        "weight": 21
+      },
+      {
+        "term": "すい",
+        "weight": 19
+      },
+      {
+        "term": "神田",
+        "weight": 18
+      },
+      {
+        "term": "再戦",
+        "weight": 17
+      },
+      {
+        "term": "どん",
+        "weight": 16
+      },
+      {
+        "term": "ポイント",
+        "weight": 13
+      },
+      {
+        "term": "アプデ",
+        "weight": 12
+      },
+      {
+        "term": "かっこよい",
+        "weight": 12
+      },
+      {
+        "term": "りさ",
+        "weight": 12
+      },
+      {
+        "term": "オファリング",
+        "weight": 11
+      },
+      {
+        "term": "かっこいい",
+        "weight": 11
+      },
+      {
+        "term": "がん",
+        "weight": 11
+      },
+      {
+        "term": "フレディ",
+        "weight": 11
+      },
+      {
+        "term": "ぁいと",
+        "weight": 10
+      },
+      {
+        "term": "ええ",
+        "weight": 9
+      },
+      {
+        "term": "つよい",
+        "weight": 9
+      },
+      {
+        "term": "指示",
+        "weight": 8
+      },
+      {
+        "term": "マイケル",
+        "weight": 6
+      },
+      {
+        "term": "凄い",
+        "weight": 6
+      },
+      {
+        "term": "怖い",
+        "weight": 6
+      },
+      {
+        "term": "ドン",
+        "weight": 4
+      },
+      {
+        "term": "ハッチ",
+        "weight": 4
+      },
+      {
+        "term": "マイ",
+        "weight": 4
+      },
+      {
+        "term": "見える",
+        "weight": 4
+      },
+      {
+        "term": "未来",
+        "weight": 4
+      },
+      {
+        "term": "きつい",
+        "weight": 3
+      },
+      {
+        "term": "楽しむ",
+        "weight": 2
+      },
+      {
+        "term": "来る",
+        "weight": 2
+      },
+      {
+        "term": "つかれる",
+        "weight": 1
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 1
+      },
+      {
+        "term": "よく",
+        "weight": 1
+      },
+      {
+        "term": "音量",
+        "weight": 1
+      },
+      {
+        "term": "仕方",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "e801e7127658101b31ff2010ca718ff9b0f70c9ce7bbba09aa68e3a12bb374e7",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "aa75a579b9333135435437c008fc110f9dea10d6ef27ed31bb62ccc00e53be7d",
