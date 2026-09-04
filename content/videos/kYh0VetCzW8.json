@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "f90f34d6fabbdf6f2dfe18ff91296c371de1508d0be839f63826fda26a008297"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "12ce91a37f93512f26ec999f904374e3c5a346daad6c6e2dc42a01db63e39c78"
     }
   ],
   "tagAssignments": [
@@ -279,10 +285,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "マリア",
+        "weight": 43
+      },
+      {
+        "term": "ナイス",
+        "weight": 37
+      },
+      {
+        "term": "ジェイムス",
+        "weight": 35
+      },
+      {
+        "term": "怖い",
+        "weight": 32
+      },
+      {
+        "term": "病院",
+        "weight": 31
+      },
+      {
+        "term": "わかる",
+        "weight": 23
+      },
+      {
+        "term": "頑張る",
+        "weight": 23
+      },
+      {
+        "term": "かわいい",
+        "weight": 21
+      },
+      {
+        "term": "どうぞ",
+        "weight": 21
+      },
+      {
+        "term": "三角",
+        "weight": 21
+      },
+      {
+        "term": "声",
+        "weight": 21
+      },
+      {
+        "term": "ついえる",
+        "weight": 18
+      },
+      {
+        "term": "とこ",
+        "weight": 17
+      },
+      {
+        "term": "わぁ",
+        "weight": 17
+      },
+      {
+        "term": "顔",
+        "weight": 17
+      },
+      {
+        "term": "知る",
+        "weight": 15
+      },
+      {
+        "term": "あら",
+        "weight": 13
+      },
+      {
+        "term": "パイプ",
+        "weight": 13
+      },
+      {
+        "term": "わくわく",
+        "weight": 13
+      },
+      {
+        "term": "行く",
+        "weight": 13
+      },
+      {
+        "term": "手",
+        "weight": 13
+      },
+      {
+        "term": "部屋",
+        "weight": 13
+      },
+      {
+        "term": "やばい",
+        "weight": 11
+      },
+      {
+        "term": "鉄",
+        "weight": 11
+      },
+      {
+        "term": "無い",
+        "weight": 11
+      },
+      {
+        "term": "ガン",
+        "weight": 9
+      },
+      {
+        "term": "ちょっと",
+        "weight": 9
+      },
+      {
+        "term": "ナース",
+        "weight": 9
+      },
+      {
+        "term": "楽しむ",
+        "weight": 9
+      },
+      {
+        "term": "強い",
+        "weight": 9
+      },
+      {
+        "term": "嫌",
+        "weight": 9
+      },
+      {
+        "term": "鍵",
+        "weight": 9
+      },
+      {
+        "term": "出る",
+        "weight": 9
+      },
+      {
+        "term": "前",
+        "weight": 9
+      },
+      {
+        "term": "頭",
+        "weight": 9
+      },
+      {
+        "term": "入る",
+        "weight": 9
+      },
+      {
+        "term": "配信",
+        "weight": 9
+      },
+      {
+        "term": "来る",
+        "weight": 9
+      },
+      {
+        "term": "おや",
+        "weight": 6
+      },
+      {
+        "term": "確か",
+        "weight": 6
+      },
+      {
+        "term": "敵",
+        "weight": 6
+      },
+      {
+        "term": "スト",
+        "weight": 4
+      },
+      {
+        "term": "ふむ",
+        "weight": 4
+      },
+      {
+        "term": "音",
+        "weight": 4
+      },
+      {
+        "term": "開く",
+        "weight": 4
+      },
+      {
+        "term": "角材",
+        "weight": 4
+      },
+      {
+        "term": "弾",
+        "weight": 4
+      },
+      {
+        "term": "武器",
+        "weight": 4
+      },
+      {
+        "term": "アーカイブ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "12ce91a37f93512f26ec999f904374e3c5a346daad6c6e2dc42a01db63e39c78",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "21ee8dcce1935316f04878f0945f6d4ab862d3763a9b1ec54a36bca603c327b5",
