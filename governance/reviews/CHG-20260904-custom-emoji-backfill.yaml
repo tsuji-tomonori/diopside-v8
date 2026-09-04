@@ -1,0 +1,165 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260904-custom-emoji-backfill
+profile: regulated
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: true
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: true
+  important_ui_change: false
+  long_term_decision: false
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:content/videos/0A83iSf96PU.json]
+    note: V8-DISPLAY-017/018の既存受入条件をローカル取得済み動画へ適用するデータ投入であり、永続要件は変更しない。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/content.ts, path:scripts/build-public-data.ts]
+    note: 既存customEmojiUsage契約へ正本値を追加するだけで、schema、公開形式、UI構造、ADRを変更しない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260904-custom-emoji-backfill.yaml]
+    note: 一時入力の公開チャットに投稿者名・IDが含まれるためregulatedを選択し、生入力をGit・PR・Pagesへ保持しない。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 外部書込みは作業branchのpush、draftでないPR作成、当該PRのmergeに限定し、利用者が本依頼で明示承認した。
+  - id: IMP-005
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 不可逆操作は当該PRのmainへのmergeであり、production deploy、削除、force updateは行わない。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/content-manifest.json, test:tests/content-validation.test.ts]
+    note: optionalな既存fieldを305動画へ追加し、集計済み総数308件と正本の項目別合計を検証した。schema migrationは不要である。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:tests/content-validation.test.ts]
+    note: 正本からのproduction buildを既存PR品質ゲートで検証する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:tests/content-validation.test.ts]
+    note: TypeScript strictのブラウザ・Node両構成を既存PR品質ゲートで検証する。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:tests/content-validation.test.ts]
+    note: 変更したtestを含む既存lint経路をPR品質ゲートで検証する。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/custom-emoji-usage.test.ts, test:tests/content-validation.test.ts, test:src/domain/validation.test.ts]
+    note: 集計器、正本schema、合計・重複・決定順、全正本検証の対象29件が合格した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/detail.spec.ts, path:e2e/helpers.ts, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: 実データ追加で再現したoptional更新日件数と信頼済み画像CDN通信のE2E失敗を修正し、desktop・mobileの詳細画面20件で回帰を固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:content/content-manifest.json, path:scripts/build-public-data.ts, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: customEmojiUsage正本308件から公開releaseを決定生成し、生成物driftをCIで検査する。publicとdocsはPRへ直接含めない。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [test:tests/custom-emoji-usage.test.ts, commit:self]
+    note: 305動画の出力をallowlist検査し、生本文、投稿者名・ID、元絵文字IDを含まず、匿名ID・公開label・信頼済み画像URL・回数・入力指紋だけであることを確認した。
+  - id: FAST-018
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/detail.spec.ts, path:e2e/helpers.ts]
+    note: optionalな絵文字集計セクションを含む更新日表示を検証し、信頼済みYouTube画像CDNだけを決定的なローカル画像へ差し替えて通信許可対象として監査した。CRUD、DB、外部状態変更は含まない。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分を固定snapshotに含まれる305動画の匿名集計、manifest件数、先行3件固定testの拡張許容、信頼済み画像CDNのE2E通信契約、review結果に限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, commit:self]
+    note: 新規挙動を導入せずV8-DISPLAY-017/018を既存の集計器と表示へ適用するため要件影響なしとした。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/content.ts, path:src/features/detail/VideoDetailPage.tsx, commit:self]
+    note: 既存optional fieldのデータ投入で設計・公開契約を変えず、生成設計とADRの更新は不要である。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/content-validation.test.ts, test:e2e/detail.spec.ts, path:reports/screenshots/custom-emoji-backfill-desktop.png, path:reports/screenshots/custom-emoji-backfill-mobile.png, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: 全正本schema、集計数、項目別合計、決定生成、信頼済み画像CDNの通信監査と代表動画のdesktop・374px mobile表示を既存CI経路と確認画像で検証できる。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260904-custom-emoji-backfill.yaml]
+    note: 変更に選択したcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260904-custom-emoji-backfill.yaml]
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+  - id: REV-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/custom-emoji-usage.test.ts, commit:self]
+    note: 集計器とは別のread-only検証で305入力のSHA-256、正本の完全一致、合計、field allowlist、匿名ID、画像host、manifest件数を再確認した。
+advisories: []
+residual_risks:
+  - snapshot 46cda7140910860aeb89d26ccbcf5cbec709d73770469abf4f1c967ee8f4921e は1705正本動画を固定し、ローカル生チャット348件のうち既存3件を保持、305件を追加、カスタム絵文字0件の40動画はPR本文へ明示する。
+  - ローカル生チャットがない1357動画には集計を追加できず、公開チャットリプレイの取得可否や内容が後日変われば別snapshotで再集計が必要になる。
+  - ITOREIMheG0は現process manifestのactive成果物ではなく唯一残るローカルraw chatを使用したが、入力SHA-256と匿名出力の一致を確認した。
+  - 明示された全件backfillを一つの有限snapshotとしてレビュー可能にする横断投入であり、通常の動画追加や動画別タグ・時刻・あらすじ更新ではない。
