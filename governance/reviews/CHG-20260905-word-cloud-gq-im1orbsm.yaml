@@ -1,0 +1,26 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260905-word-cloud-gq-im1orbsm
+profile: direct
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags: {external_write: false, irreversible_operation: false, auth_change: false, data_change: true, public_api_change: false, iac_change: false, dependency_change: false, code_change: false, typed_code_change: false, behavior_change: true, bug_fix: false, generated_change: false, sql_change: false, e2e_change: false, migration: false, ui_change: false, interactive_ui_change: false, operational_impact: false, requirements_impact: false, public_contract_change: false, critical_change: false, important_ui_change: false, long_term_decision: false, squash: false, external_side_effect: false, production_deploy: false, major_incident: false, periodic_cycle: false, monthly_cycle: false, recheck_due: false, as_built_standard_change: false, as_built_adoption: false, quality_threshold_change: false}
+impact_details: {as_built_adoption: {scope: [], exclusions: []}}
+selected_checks:
+  - {id: IMP-001, class: Invariant, result: pass, evidence: ["path:content/videos/gQ-im1oRbsM.json"], note: "既存V8-DISPLAY-005〜008に従う1動画のワードクラウド追加で要件正本は変更しない"}
+  - {id: IMP-002, class: Invariant, result: pass, evidence: ["commit:self"], note: "既存schemaを使う正本データ更新で生成設計・ADR・公開契約に影響なし"}
+  - {id: IMP-003, class: Invariant, result: pass, evidence: ["commit:self"], note: "1動画へ限定された可逆なデータ追加のためdirectを選択"}
+  - {id: IMP-007, class: Risk-selected, result: pass, evidence: ["path:content/videos/gQ-im1oRbsM.json"], note: "動画単位でrevertでき、migration・削除・schema変更はない"}
+  - {id: FAST-004, class: Invariant, result: pass, evidence: ["test:tests/content-validation.test.ts", "workflow:要件・品質ゲート"], note: "20〜50語、重み、順序、公開チャット指紋を既存validatorで検証"}
+  - {id: FAST-007, class: Invariant, result: pass, evidence: ["commit:self"], note: "生チャット・コメント・投稿者識別子・秘密情報を差分へ含めない"}
+  - {id: REV-001, class: Invariant, result: pass, evidence: ["commit:self"], note: "正本動画はgQ-im1oRbsMの1件だけでUI・要件・Skill変更を含めない"}
+  - {id: REV-002, class: Invariant, result: pass, evidence: ["commit:self"], note: "Commit Commentへ目的・影響・検証契約・残存リスクを記録"}
+  - {id: REV-003, class: Invariant, result: pass, evidence: ["path:spec/requirements/requirements.json", "path:content/videos/gQ-im1oRbsM.json"], note: "V8-DISPLAY-005〜008の受入条件を弱めず、公開チャットの集計と依頼者の一括承認に基づく"}
+  - {id: REV-004, class: Invariant, result: pass, evidence: ["commit:self"], note: "schemaと画面構造を変更しないため生成設計とADRは不要"}
+  - {id: REV-006, class: Invariant, result: pass, evidence: ["test:tests/content-validation.test.ts", "workflow:要件・品質ゲート"], note: "正本schema・公開変換・表示契約を既存CIで検証"}
+  - {id: REV-007, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260905-word-cloud-gq-im1orbsm.yaml"], note: "選択checkだけを保存"}
+  - {id: REV-008, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260905-word-cloud-gq-im1orbsm.yaml"], note: "未選択checkをN/Aとして保存しない"}
+advisories: []
+residual_risks:
+  - 公開チャットの短文・表記揺れを正規化して集計したが、語句頻度はチャット参加者の反応分布に依存する
