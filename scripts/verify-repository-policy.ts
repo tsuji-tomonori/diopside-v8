@@ -53,9 +53,25 @@ if (pagesPolicy.customDomain === null) {
   errors.push('docs/CNAME: Pages方針のcustomDomainと完全一致しなければなりません。');
 }
 const packageJson = readJson(path.join(root, 'package.json')) as { dependencies?: Record<string, string> };
-const allowedRuntime = new Set(['react', 'react-dom', 'react-router-dom', 'zod']);
+const allowedRuntime = new Set(['lucide-react', 'react', 'react-dom', 'react-router-dom', 'zod']);
 for (const dependency of Object.keys(packageJson.dependencies ?? {})) {
   if (!allowedRuntime.has(dependency)) errors.push(`実行時依存 ${dependency} は0円静的構成の許可一覧にありません。`);
+}
+const packageLock = readJson(path.join(root, 'package-lock.json')) as {
+  packages?: Record<string, { license?: string; version?: string }>;
+};
+const lucidePackage = packageLock.packages?.['node_modules/lucide-react'];
+if (lucidePackage?.license !== 'ISC') {
+  errors.push('lucide-react は確認済みのISCライセンスでなければなりません。');
+}
+const thirdPartyNotices = path.join(root, 'public/third-party-notices.txt');
+if (!existsSync(thirdPartyNotices)) {
+  errors.push('LucideとFeatherの著作権・許諾表示をpublic/third-party-notices.txtへ含めてください。');
+} else {
+  const notices = readFileSync(thirdPartyNotices, 'utf8');
+  if (!notices.includes(`Lucide Icons ${lucidePackage?.version ?? ''}`) || !notices.includes('Copyright (c) 2026 Lucide Icons and Contributors') || !notices.includes('Copyright (c) 2013-present Cole Bemis')) {
+    errors.push('public/third-party-notices.txt にLucideとFeatherの著作権表示がありません。');
+  }
 }
 for (const file of walk(path.join(root, 'src'))) {
   if (!/\.[jt]sx?$/u.test(file)) continue;

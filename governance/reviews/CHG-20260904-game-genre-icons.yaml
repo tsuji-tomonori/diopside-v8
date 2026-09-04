@@ -1,0 +1,181 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260904-game-genre-icons
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: true
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: false
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:scripts/generate-requirements.ts]
+    note: 全ジャンルカードを固有アイコンで識別できる利用者向け挙動をV8-DISPLAY-016 revision 3へ更新した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/system.gen.md, path:docs/design/generated/inventory.gen.json]
+    note: アイコン対応表と取得関数を新しい実装モジュールとして生成設計へ反映した。可逆なUI実装選択のためADRは不要である。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260904-game-genre-icons.yaml]
+    note: 実行時依存、lockfile、重要UI、永続要件、生成設計、E2Eへ影響するためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 外部書込みは利用者が指定したGitHubへのfeature branchとPR作成に限定し、mergeやproduction公開は行わない。
+  - id: IMP-010
+    class: Risk-selected
+    result: pass
+    evidence: [path:package.json, path:package-lock.json, path:public/third-party-notices.txt, test:tests/repository-policy.test.ts]
+    note: lucide-react 1.41.0を固定し、ISCライセンス、React 19 peer互換、transitive runtime dependencyなし、脆弱性0件、約5.0KB gzip増分を確認した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:src/features/games/GameIndexPage.tsx]
+    note: 要件・公開データ・生成設計を含むproduction buildをローカルで完了し、同じ契約をCIで再実行する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:tsconfig.json]
+    note: ブラウザ用とNode用のTypeScript strict型検査を完了した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:src/features/games/gameGenreIcons.ts, path:scripts/verify-repository-policy.ts, test:e2e/game-index.spec.ts]
+    note: 変更したReact、TypeScript、テストを対象にeslintを警告0件で完了した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:src/features/games/GameIndexPage.test.tsx, test:tests/repository-policy.test.ts, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: 公開26ジャンルと26個の固有アイコンの完全一致、装飾属性、既存遷移、依存方針を含む全138単体テストを完了した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/system.gen.md, path:docs/design/generated/inventory.gen.json]
+    note: 要件表示とas-built設計を正本・generator・実装から決定的に再生成し、CIのclean checkoutでdriftを再検査する。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をゲームジャンルUI、依存・ライセンス方針、要件・生成設計、テストへ限定し、credential、個人情報、生素材を追加しない。
+  - id: FAST-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:package.json, path:package-lock.json, test:tests/repository-policy.test.ts]
+    note: manifestとlockfileはlucide-react 1.41.0で一致し、npm lsとnpm audit --omit=devを完了した。
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence: [test:src/features/games/GameIndexPage.test.tsx, test:e2e/game-index.spec.ts]
+    note: 既存の未知ジャンル状態とジャンル選択を維持し、一覧success状態で全カードへアイコンを表示する。
+  - id: FAST-014
+    class: Risk-selected
+    result: pass
+    evidence: [test:src/features/games/GameIndexPage.test.tsx, test:e2e/game-index.spec.ts]
+    note: 通常linkと見出しを維持し、装飾SVGをaria-hiddenにしてaccessible name、focus、keyboard操作を変えない。
+  - id: FAST-018
+    class: Risk-selected
+    result: na
+    evidence: [test:e2e/game-index.spec.ts]
+    note: E2E変更で選択後、対象が読取り専用の静的ジャンル一覧でありC/U/D API、DB、外部状態変更を含まないと確認した。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分を全ゲームジャンルの視覚識別と、その依存・ライセンス・要件・検証へ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更内容、要件・設計影響、review path、検証契約、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:scripts/generate-requirements.ts]
+    note: V8-DISPLAY-016へ全ジャンルの固有アイコン、右上配置、文字非干渉、装飾属性を受入条件として接続した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/system.gen.md, path:docs/design/generated/inventory.gen.json]
+    note: 新しい対応表・取得関数と変更指紋をas-built設計へ反映し、長期判断ではないためADRを追加しない。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:src/features/games/gameGenreIcons.ts, test:src/features/games/GameIndexPage.test.tsx, test:e2e/game-index.spec.ts]
+    note: V8-DISPLAY-016から26ジャンル対応表、画面実装、component test、E2Eへtraceできる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:src/features/games/GameIndexPage.test.tsx, test:tests/repository-policy.test.ts, test:e2e/game-index.spec.ts, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: 全種類網羅、意味の異なる対応、装飾属性、既存導線、依存方針、responsive・accessibility E2EをCIへ接続した。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260904-game-genre-icons.yaml]
+    note: 変更flagsから選択されたcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260904-game-genre-icons.yaml]
+    note: selectorで選択されなかったcheckを形式的なN/Aとして登録していない。
+  - id: REV-009
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/game-index.spec.ts]
+    note: FAST-018はE2E変更で選択後、CRUD・DB・外部状態を持たない静的UI試験と判明したためN/A根拠を記録した。
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence: [test:src/features/games/GameIndexPage.test.tsx, test:e2e/game-index.spec.ts, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: 全26ジャンル、ジャンル選択、accessible name、keyboard、375px幅をcomponentとCI E2Eへ接続した。
+
+advisories: []
+residual_risks:
+  - ローカル環境ではPlaywright用Chromium取得がtimeoutしたため、画像を含む実ブラウザE2E合格をmerge前の必須証拠とする。
+  - 新しいジャンルを追加した際は汎用アイコンへfallbackするが、公開ジャンルと対応表の完全一致テストがPR段階で専用アイコン漏れを検出する。

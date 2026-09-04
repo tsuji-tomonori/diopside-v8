@@ -256,9 +256,10 @@ legend { font-weight: 800; margin-bottom: .4rem; }
 .game-page { padding: 2rem 0 5rem; }
 .game-intro { margin-bottom: clamp(2rem, 5vw, 3.5rem); }
 .game-genre-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
-.game-genre-card { display: grid; min-height: 170px; align-content: space-between; gap: .75rem; padding: 1.4rem; color: inherit; text-decoration: none; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); box-shadow: var(--shadow); transition: transform .15s ease, border-color .15s ease; }
+.game-genre-card { position: relative; display: grid; min-height: 170px; align-content: space-between; gap: .75rem; padding: 1.4rem; color: inherit; text-decoration: none; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); box-shadow: var(--shadow); transition: transform .15s ease, border-color .15s ease; }
 .game-genre-card:hover, .game-genre-card:focus-visible { transform: translateY(-2px); border-color: var(--lavender); }
-.game-genre-card h3 { margin: 0; font: 600 clamp(1.35rem, 3vw, 1.8rem) Georgia, "Yu Mincho", serif; }
+.game-genre-card-icon { position: absolute; top: 18px; right: 20px; color: var(--lavender-dark); opacity: .72; pointer-events: none; }
+.game-genre-card h3 { margin: 0; padding-right: 2.25rem; font: 600 clamp(1.35rem, 3vw, 1.8rem) Georgia, "Yu Mincho", serif; }
 .game-genre-card p { margin: 0; color: var(--muted); }
 .game-genre-card span { color: var(--lavender-dark); font-weight: 800; }
 .game-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
