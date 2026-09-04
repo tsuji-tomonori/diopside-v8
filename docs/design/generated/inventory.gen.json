@@ -16,7 +16,7 @@
     },
     {
       "path": "scripts/audit-collaboration-tags.ts",
-      "sha256": "02bef67fe01960271a661574dce488341699fe26603145ca8db88bf0a4c638f7"
+      "sha256": "a0b5777a697301f6530e01b9f7fe4bdfbe5cdc710524fa6931801c1a5c4fac0b"
     },
     {
       "path": "scripts/audit-game-tags.ts",
@@ -64,7 +64,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "5a2fb3c8fadbc4f0973d5d26a00824c56b5a18cd534c8d8258a18ae6feeca63d"
+      "sha256": "989d8c8ea0c8cbde99d0daa3b2ec357753e7f3cec91af504e55ec1e329963c5f"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -120,7 +120,7 @@
     },
     {
       "path": "scripts/validate-release-pr-scope.ts",
-      "sha256": "e2b57762030d2a17f3f9c4ce031198b48f1948324a25043f8d1c25fe621675f3"
+      "sha256": "c18ba9601bcf74b6a8ec776dd438aa56db9ddb954678109d809788c102a7e9b4"
     },
     {
       "path": "scripts/validate-taxonomy-change.ts",
@@ -136,7 +136,7 @@
     },
     {
       "path": "scripts/verify-repository-policy.ts",
-      "sha256": "58978c25a4938b8da13c4b127f4cee23bdb397e558583d34d53acbe22af689b7"
+      "sha256": "27fe1534e6b90d5da95393ac6ee9310ee696336d96c4115f145e50634d494d50"
     },
     {
       "path": "src/App.tsx",
@@ -172,11 +172,11 @@
     },
     {
       "path": "src/domain/collaboration-group-audit.test.ts",
-      "sha256": "c61e6c0e8580eb868720475f7b32e95a1137e6aaeb1266830816d7c4e460495f"
+      "sha256": "14b648cd9396498e6d7c4f37d91e9c00f0a7f0fb8f3d28b19e90f9f61d3a82e1"
     },
     {
       "path": "src/domain/collaboration-group-audit.ts",
-      "sha256": "6b9863fc83aefed7d012813d44245e5799d8c9d91703a46d1beaa009cf5b71ce"
+      "sha256": "45d238876fca7813e5fdf85665d12aca3c9f5ec8192ffd00e8f73cc1e9a326a9"
     },
     {
       "path": "src/domain/collaboration.test.ts",
@@ -272,11 +272,15 @@
     },
     {
       "path": "src/features/games/GameIndexPage.test.tsx",
-      "sha256": "674245bbb18a2140f5e21b83a81d64c05e51188cedeef19e12ffb29b1f7045af"
+      "sha256": "1c260bd339e0a1ad9501686db3fb0f9f77de7f21139b1d5578f0cae3cfaca823"
     },
     {
       "path": "src/features/games/GameIndexPage.tsx",
-      "sha256": "afa680f7a92d97b7a57a66806382e5588279838571821dab5a8af1390230db79"
+      "sha256": "e1283cdfebd97786888878d503160e3bcd6ab6e28486cf816286c556939ccd90"
+    },
+    {
+      "path": "src/features/games/gameGenreIcons.ts",
+      "sha256": "7d19d66a8e37791a503b3690ae05f806212fe82233fd2330d208944a50b6fdd7"
     },
     {
       "path": "src/features/library/DeviceLibraryPage.tsx",
@@ -1274,6 +1278,16 @@
     {
       "file": "src/features/entities/EntityIndexPage.tsx",
       "name": "EntityIndexPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/games/gameGenreIcons.ts",
+      "name": "GAME_GENRE_ICONS",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/features/games/gameGenreIcons.ts",
+      "name": "gameGenreIcon",
       "kind": "FunctionDeclaration"
     },
     {

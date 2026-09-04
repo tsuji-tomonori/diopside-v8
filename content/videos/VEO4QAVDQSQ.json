@@ -126,6 +126,16 @@
         "evidence-approved-tags"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-unit-07232924c510",
+      "reason": "公開タイトル・出演者集合・動画全体の内容から、主たるコラボ「巴乃しん」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title",
+        "evidence-approved-timestamps"
+      ],
+      "reviewedAt": "2026-09-04T00:00:00Z"
     }
   ],
   "timestamps": {
@@ -306,11 +316,14 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+    "approvedAt": "2026-09-04T00:00:00Z",
+    "basis": "所有者指示に基づくユニットタグ全件監査と公開情報・出演者集合の再確認"
   },
   "synopsis": {
     "body": "オンラインのつもりがオフコラボになった猫瀬乃しんと白雪巴が、「Good Job!」で新入社員に。壊れたプロジェクターの運搬やWi-Fi接続、サボる社員の回収、コンテナ整理など、次々届く社内業務へ挑む。備品を豪快に使いながら、二人ならではの連携で定時退社を目指す。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
     "featuredQuote": {
       "text": "今日はもう寝かせないよ来たからには",
       "atSeconds": 227,
@@ -320,9 +333,6 @@
     },
     "inputFingerprint": "497208fde565adf0cda34cfe1d84c78fc5b3ed2daed870a094852a268187bfcb",
     "rulesVersion": "1.0.0",
-    "bodyEvidenceRefs": [
-      "evidence-synopsis-transcript"
-    ],
     "updatedAt": "2026-08-09T12:00:00+09:00"
   }
 }

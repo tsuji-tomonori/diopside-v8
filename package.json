@@ -61,6 +61,7 @@
     "migrate:legacy": "node --experimental-strip-types scripts/import-reference-taxonomy.ts && node --experimental-strip-types scripts/import-reference-videos.ts && node --experimental-strip-types scripts/import-legacy-content.ts"
   },
   "dependencies": {
+    "lucide-react": "1.41.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-router-dom": "7.18.2",

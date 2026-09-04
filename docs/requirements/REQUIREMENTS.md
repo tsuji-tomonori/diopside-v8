@@ -1,7 +1,7 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 33
+- カタログ版: 34
 - 更新日: 2026-09-04
 - 正本: `spec/requirements/requirements.json`
 
@@ -38,7 +38,7 @@
 | `V8-DISPLAY-013` | 2 | 有効 | 機能 | diopside v8のコラボ相手タグとコンビ・ユニットページは、動画詳細のコラボ相手タグとコンビ・ユニットタグは押下可能でなければならない。人物ページは確かな一次情報に基づく出典・確認日付きの説明、YouTubeチャンネルアイコン、人物名、YouTubeチャンネルリンク、その人物との公開動画、その人物と白雪巴の確認済みコンビ・ユニットへのリンクを表示する。コンビ・ユニットページは運営または構成員の公式情報を出典とする説明、全メンバーのアイコン・人物名・YouTubeチャンネルリンク、その名称を持つ公開動画を表示する。ページ表示だけで外部サイトへ通信してはならない。を**satisfy** | 一次情報出典・人物説明・関連ユニット導線・コンビ説明・メンバーリンク・ローカルアイコン・外部自動通信禁止試験 |
 | `V8-DISPLAY-014` | 1 | 有効 | 機能 | diopside v8の定期・連続企画名タグとシリーズページは、動画詳細の定期・連続企画名タグは押下可能でなければならず、不変タグIDをURLに持つ一覧ページへ移動して、そのタグを持つ公開動画だけを公開日の新しい順で表示しなければならない。を**satisfy** | 正本タグ網羅試験、定期・連続企画名タグ遷移単体・E2E、一覧内容・順序・アクセシビリティ試験 |
 | `V8-DISPLAY-015` | 1 | 有効 | 機能 | diopside v8の歌唱楽曲一覧と導線は、主または副ジャンル「歌」を押すと歌唱楽曲一覧へ移動しなければならない。一覧は楽曲名、原曲アーティスト、確認済みの原曲リンク、歌唱種別、対象動画、公開日を表示する。配信内歌唱と鼻歌は対象開始秒、単曲動画は動画先頭を開き、楽曲タグのURLで曲別表示できなければならない。を**satisfy** | 楽曲一覧表示、ジャンル・楽曲タグ遷移、原曲リンク、YouTube開始秒、外部自動通信禁止試験 |
-| `V8-DISPLAY-016` | 2 | 有効 | 機能 | diopside v8のゲームジャンル・作品・配信導線は、ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示しなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。を**satisfy** | ジャンル件数・作品除外・ジャンル遷移・作品遷移・配信一覧・アクセシビリティE2E |
+| `V8-DISPLAY-016` | 3 | 有効 | 機能 | diopside v8のゲームジャンル・作品・配信導線は、ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示し、すべてのジャンルカードを意味の異なる統一スタイルのアイコンで視覚的に識別できなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。を**satisfy** | 全ジャンルの固有アイコン・配置・装飾属性・ジャンル件数・作品除外・ジャンル遷移・作品遷移・配信一覧・アクセシビリティE2E |
 | `V8-DISPLAY-017` | 2 | 有効 | データ | diopside v8のカスタム絵文字集計は、公開チャットリプレイを取得できる動画は、通常のUnicode絵文字を除外し、全編に現れるカスタム絵文字の出現回数を種類別に集計し、YouTubeが公開する信頼済み画像URLを取得できる種類へ関連付けなければならない。画像URLを取得できない種類も除外せず、項目別回数の合計は総使用回数と一致しなければならない。を**satisfy** | 全件集計・Unicode除外・画像URL許可ホスト・合計整合試験 |
 | `V8-DISPLAY-018` | 2 | 有効 | 機能 | diopside v8のカスタム絵文字表示は、カスタム絵文字を集計済みの動画詳細は、全種類を省略せず、使用回数の降順でショートコード、正確な回数、総使用回数に占める比率を比較できるチャートとして表示しなければならない。画像を取得できる種類ではショートコードの横に絵文字画像を表示し、取得不能または読込失敗でもショートコード、回数、比率を維持しなければならない。を**satisfy** | 動画詳細画面・画像併記・フォールバック・全項目件数・アクセシビリティ試験 |
 | `V8-DISPLAY-019` | 2 | 有効 | 機能 | diopside v8のエンティティ探索画面は、人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならず、公開中の関連動画が1件以上あるエンティティだけを一覧件数とカードへ含めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。を**satisfy** | 一覧絞り込み・0件除外・関係表示・検索候補・動画詳細導線試験 |
@@ -130,7 +130,7 @@
 | `V8-TAG-011` | 1 | 有効 | データ | diopside v8のタグは、同時視聴を主ジャンルに持つ動画は、同時視聴メディアを1件持ち、動画タイトル、動画固有の説明、公式作品表記のいずれかが一つの作品を示す場合は同時視聴作品名を1件以上持たなければならない。を**satisfy** | 条件付き必須・否定試験 |
 | `V8-TAG-012` | 1 | 有効 | データ | diopside v8のタグは、朗読・声劇を主ジャンルに持つ動画は、朗読・声劇種別を1件持たなければならない。を**satisfy** | 条件付き必須試験 |
 | `V8-TAG-013` | 2 | 有効 | データ | diopside v8のタグは、コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸は配信主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。を**satisfy** | 人物タグ正本・表示名・役割別コラボ相手選別試験 |
-| `V8-TAG-014` | 1 | 有効 | データ | diopside v8のタグは、ユニット・チームタグを持つ動画は「コラボ」と実際に出演した構成員を持ち、欠席者や対戦相手を自動追加してはならない。を**satisfy** | 固定例試験・人手確認 |
+| `V8-TAG-014` | 2 | 有効 | データ | diopside v8のタグは、ユニット・チームタグは、その構成員全員だけが動画全体の主たる共演単位であり、実際に出演している場合に限って付与しなければならない。構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分へのゲスト参加、対戦相手としての登場には付与せず、ユニットタグを根拠に欠席した構成員を出演者へ自動追加してはならない。を**satisfy** | ユニット候補・構成員集合・多人数企画・凸待ち除外の横断監査 |
 | `V8-TAG-015` | 2 | 有効 | データ | diopside v8のタグは、実出演者と配信中に名前を話題にした人物は、それぞれfeaturesとmentionsの動画関係として分離しなければならない。同じ人物が両方の役割へ現れても人物マスターを複製せず、同じ人物エンティティIDへ解決しなければならない。言及だけでコラボを付与してはならない。を**satisfy** | 人物同一性・役割分離・コラボ非導出試験 |
 | `V8-TAG-016` | 1 | 有効 | データ | diopside v8のタグは、一つのタグには一つの検索対象または一つの分類事実だけを保存し、複数人物や独立概念を連結したタグは分解しなければならない。を**satisfy** | 分解規則試験 |
 | `V8-TAG-017` | 1 | 有効 | データ | diopside v8のタグは、タグ照合はUnicode互換正規化、前後空白除去、連続空白の統合、英字大小の同一視、先頭ハッシュ記号の同一視を定義順で行わなければならない。を**satisfy** | 正規化境界値試験 |
@@ -678,9 +678,9 @@ diopside v8の歌唱楽曲一覧と導線は、主または副ジャンル「歌
 
 ## V8-DISPLAY-016: ゲームジャンルからプレイ作品を選び、そのゲームの配信一覧へ移動できなければならない
 
-diopside v8のゲームジャンル・作品・配信導線は、ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示しなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。を**satisfy**。
+diopside v8のゲームジャンル・作品・配信導線は、ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示し、すべてのジャンルカードを意味の異なる統一スタイルのアイコンで視覚的に識別できなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。を**satisfy**。
 
-根拠: 動画単位のタグ絞り込みだけでなく、遊んだゲームをジャンルから眺め、同じ作品の配信を続けて探せるようにするため。
+根拠: 遊んだゲームをジャンルから素早く見分け、同じ作品の配信を続けて探せるようにするため。
 
 分類: `product` / `functional`
 
@@ -689,10 +689,11 @@ diopside v8のゲームジャンル・作品・配信導線は、ゲーム探索
 - `AC-V8-DISPLAY-016-2` 前提: 利用者がジャンル別一覧でゲーム作品を選ぶ。条件: 作品リンクを押す。期待結果: ゲーム単位のジャンルと確認元を表示し、そのゲーム作品を持つ公開配信だけを新しい順で一覧表示する。。
 - `AC-V8-DISPLAY-016-3` 前提: 検索画面または動画詳細にゲーム、ゲームジャンル、ゲーム作品のタグがある。条件: 利用者が該当タグを選ぶ。期待結果: ゲームはジャンル一覧へ、ゲームジャンルは該当作品一覧へ、ゲーム作品は該当配信一覧へ移動する。。
 - `AC-V8-DISPLAY-016-4` 前提: 同じゲームを指す複数の作品名タグに公開動画がある。条件: ゲーム一覧またはいずれかの作品名から作品ページを開く。期待結果: ゲームを一作品として表示し、すべての表記に属する公開動画を重複なく一覧表示する。。
+- `AC-V8-DISPLAY-016-5` 前提: 公開動画があるゲームジャンルを一覧表示する。条件: デスクトップ、モバイルまたは支援技術でジャンルカードを確認する。期待結果: 表示対象の全ジャンルに意味の異なる小さな単色線画アイコンが付き、アイコンはカード右上で文字と重ならず、装飾として読み上げから除外され、カードのジャンル名と操作名が維持される。。
 
-要求源: spec/sources/owner-directive-2026-08-28-game-catalog.md, user:2026-08-28, user:2026-08-28-follow-up
+要求源: spec/sources/owner-directive-2026-08-28-game-catalog.md, user:2026-08-28, user:2026-08-28-follow-up, user:2026-09-04-game-genre-icons
 検証証跡: src/features/games/GameIndexPage.test.tsx, src/features/works/WorkDetailPage.test.tsx, e2e/game-index.spec.ts
-トレース: 設計=docs/design/generated/system.gen.md; 実装=src/App.tsx,src/components/Header.tsx,src/features/games/GameIndexPage.tsx,src/features/works/WorkDetailPage.tsx,src/features/detail/VideoDetailPage.tsx,src/features/search/SearchPage.tsx; テスト=src/features/games/GameIndexPage.test.tsx,src/features/works/WorkDetailPage.test.tsx,e2e/game-index.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-28-game-catalog.md,dev-standard assured profile
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/App.tsx,src/components/Header.tsx,src/features/games/GameIndexPage.tsx,src/features/games/gameGenreIcons.ts,src/features/works/WorkDetailPage.tsx,src/features/detail/VideoDetailPage.tsx,src/features/search/SearchPage.tsx,src/styles.css; テスト=src/features/games/GameIndexPage.test.tsx,src/features/works/WorkDetailPage.test.tsx,e2e/game-index.spec.ts; 参照資料=spec/sources/owner-directive-2026-08-28-game-catalog.md,dev-standard assured profile
 
 ## V8-DISPLAY-017: 公開チャットを取得できる動画はカスタム絵文字の回数と信頼済み画像を種類別に集計できなければならない
 
@@ -2096,20 +2097,22 @@ diopside v8のタグは、コラボ動画には白雪巴以外の実出演者を
 検証証跡: src/domain/collaboration.test.ts, tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/collaboration.ts,content/people/collaboration-profiles.json; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,src/domain/collaboration.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-TAG-014: ユニット・チームタグを持つ動画は「コラボ」と実際に出演した構成員を持ち、欠席者や対戦相手を自動追加してはならない
+## V8-TAG-014: ユニットタグは構成員だけが動画全体の主たる共演単位である場合に限らなければならない
 
-diopside v8のタグは、ユニット・チームタグを持つ動画は「コラボ」と実際に出演した構成員を持ち、欠席者や対戦相手を自動追加してはならない。を**satisfy**。
+diopside v8のタグは、ユニット・チームタグは、その構成員全員だけが動画全体の主たる共演単位であり、実際に出演している場合に限って付与しなければならない。構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分へのゲスト参加、対戦相手としての登場には付与せず、ユニットタグを根拠に欠席した構成員を出演者へ自動追加してはならない。を**satisfy**。
 
 根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
 
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-TAG-014-1` 前提: V8-タグ-014の前提を満たす公開データまたは操作がある。条件: 固定例試験・人手確認。期待結果: 正規グループ名だけから全構成員を無条件展開しない。。
+- `AC-V8-TAG-014-1` 前提: ユニット構成員全員だけが動画全体の主たる共演単位として出演する。条件: 公開情報と確認済み出演記録を用いたユニット横断監査。期待結果: ユニットタグ、コラボタグ、白雪巴以外の全構成員の人物タグを持つ。。
+- `AC-V8-TAG-014-2` 前提: ユニット構成員が多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分、または対戦相手として登場する。条件: 動画単位の主たる共演者集合と除外確認を監査する。期待結果: 当該ユニットタグを持たず、実出演者だけを人物タグとして保持する。。
+- `AC-V8-TAG-014-3` 前提: 動画タイトルにユニット名がないが出演者集合が構成員と一致する。条件: 確認済み出演または除外確認の判定台帳を監査する。期待結果: 動画全体の主たる共演単位かを明示判定し、出演者集合だけでユニットタグを自動付与しない。。
 
-要求源: Issue #1 V8-タグ-014, user:2026-08-03
-検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
+要求源: Issue #1 V8-タグ-014, user:2026-08-03, spec/sources/owner-directive-2026-09-04-collaboration-unit-scope.md, user:2026-09-04
+検証証跡: src/domain/collaboration-group-audit.test.ts, scripts/audit-collaboration-tags.ts
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/collaboration-group-audit.ts,spec/sources/collaboration-tag-corrections-v1.json; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,src/domain/collaboration-group-audit.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TAG-015: 実出演と人物言及は関係種別で分離し、同一人物は同じ人物IDへ解決しなければならない
 

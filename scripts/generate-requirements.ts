@@ -670,6 +670,45 @@ const requirements = sourceRequirements.map((item) => {
     requirement.traces.tests.push('src/domain/collaboration.test.ts');
     requirement.last_changed_by = 'CHG-20260815-collaboration-pages';
   }
+  if (id === 'V8-TAG-014') {
+    requirement.revision = 2;
+    requirement.title = 'ユニットタグは構成員だけが動画全体の主たる共演単位である場合に限らなければならない';
+    requirement.object = 'ユニット・チームタグは、その構成員全員だけが動画全体の主たる共演単位であり、実際に出演している場合に限って付与しなければならない。構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分へのゲスト参加、対戦相手としての登場には付与せず、ユニットタグを根拠に欠席した構成員を出演者へ自動追加してはならない。';
+    requirement.source_refs.push(
+      'spec/sources/owner-directive-2026-09-04-collaboration-unit-scope.md',
+      'user:2026-09-04',
+    );
+    requirement.acceptance_criteria = [
+      {
+        id: 'AC-V8-TAG-014-1',
+        given: 'ユニット構成員全員だけが動画全体の主たる共演単位として出演する',
+        when: '公開情報と確認済み出演記録を用いたユニット横断監査',
+        then: 'ユニットタグ、コラボタグ、白雪巴以外の全構成員の人物タグを持つ。',
+      },
+      {
+        id: 'AC-V8-TAG-014-2',
+        given: 'ユニット構成員が多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分、または対戦相手として登場する',
+        when: '動画単位の主たる共演者集合と除外確認を監査する',
+        then: '当該ユニットタグを持たず、実出演者だけを人物タグとして保持する。',
+      },
+      {
+        id: 'AC-V8-TAG-014-3',
+        given: '動画タイトルにユニット名がないが出演者集合が構成員と一致する',
+        when: '確認済み出演または除外確認の判定台帳を監査する',
+        then: '動画全体の主たる共演単位かを明示判定し、出演者集合だけでユニットタグを自動付与しない。',
+      },
+    ];
+    requirement.verification = {
+      method: 'ユニット候補・構成員集合・多人数企画・凸待ち除外の横断監査',
+      evidence: 'src/domain/collaboration-group-audit.test.ts, scripts/audit-collaboration-tags.ts',
+    };
+    requirement.traces.implementation.push(
+      'src/domain/collaboration-group-audit.ts',
+      'spec/sources/collaboration-tag-corrections-v1.json',
+    );
+    requirement.traces.tests.push('src/domain/collaboration-group-audit.test.ts');
+    requirement.last_changed_by = 'CHG-20260904-collaboration-unit-scope';
+  }
   if (id === 'V8-TAG-002') {
     requirement.revision = 2;
     requirement.title = '分類値は大分類・小分類・値で管理し、人物・作品等のエンティティと混在させてはならない';
@@ -1685,7 +1724,7 @@ const gameCatalogRequirements = [
   },
   {
     id: 'V8-DISPLAY-016',
-    revision: 2,
+    revision: 3,
     status: 'active',
     scope: 'product',
     category: 'functional',
@@ -1693,9 +1732,9 @@ const gameCatalogRequirements = [
     title: 'ゲームジャンルからプレイ作品を選び、そのゲームの配信一覧へ移動できなければならない',
     subject: 'diopside v8のゲームジャンル・作品・配信導線',
     action: 'satisfy',
-    object: 'ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示しなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。',
-    rationale: '動画単位のタグ絞り込みだけでなく、遊んだゲームをジャンルから眺め、同じ作品の配信を続けて探せるようにするため。',
-    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28', 'user:2026-08-28-follow-up'],
+    object: 'ゲーム探索画面は、公開中のゲームジャンルごとにプレイした特定ゲーム作品と配信件数を表示し、すべてのジャンルカードを意味の異なる統一スタイルのアイコンで視覚的に識別できなければならない。表記違いが同じゲームを指す場合は一つの作品として表示し、利用者が押すと全表記に属する公開配信を一覧表示しなければならない。検索画面と動画詳細のゲームおよびゲームジャンルのタグからも対応する探索画面へ移動できなければならない。',
+    rationale: '遊んだゲームをジャンルから素早く見分け、同じ作品の配信を続けて探せるようにするため。',
+    source_refs: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'user:2026-08-28', 'user:2026-08-28-follow-up', 'user:2026-09-04-game-genre-icons'],
     acceptance_criteria: [
       {
         id: 'AC-V8-DISPLAY-016-1',
@@ -1721,18 +1760,24 @@ const gameCatalogRequirements = [
         when: 'ゲーム一覧またはいずれかの作品名から作品ページを開く',
         then: 'ゲームを一作品として表示し、すべての表記に属する公開動画を重複なく一覧表示する。',
       },
+      {
+        id: 'AC-V8-DISPLAY-016-5',
+        given: '公開動画があるゲームジャンルを一覧表示する',
+        when: 'デスクトップ、モバイルまたは支援技術でジャンルカードを確認する',
+        then: '表示対象の全ジャンルに意味の異なる小さな単色線画アイコンが付き、アイコンはカード右上で文字と重ならず、装飾として読み上げから除外され、カードのジャンル名と操作名が維持される。',
+      },
     ],
     verification: {
-      method: 'ジャンル件数・作品除外・ジャンル遷移・作品遷移・配信一覧・アクセシビリティE2E',
+      method: '全ジャンルの固有アイコン・配置・装飾属性・ジャンル件数・作品除外・ジャンル遷移・作品遷移・配信一覧・アクセシビリティE2E',
       evidence: 'src/features/games/GameIndexPage.test.tsx, src/features/works/WorkDetailPage.test.tsx, e2e/game-index.spec.ts',
     },
     traces: {
       design: ['docs/design/generated/system.gen.md'],
-      implementation: ['src/App.tsx', 'src/components/Header.tsx', 'src/features/games/GameIndexPage.tsx', 'src/features/works/WorkDetailPage.tsx', 'src/features/detail/VideoDetailPage.tsx', 'src/features/search/SearchPage.tsx'],
+      implementation: ['src/App.tsx', 'src/components/Header.tsx', 'src/features/games/GameIndexPage.tsx', 'src/features/games/gameGenreIcons.ts', 'src/features/works/WorkDetailPage.tsx', 'src/features/detail/VideoDetailPage.tsx', 'src/features/search/SearchPage.tsx', 'src/styles.css'],
       tests: ['src/features/games/GameIndexPage.test.tsx', 'src/features/works/WorkDetailPage.test.tsx', 'e2e/game-index.spec.ts'],
       standards: ['spec/sources/owner-directive-2026-08-28-game-catalog.md', 'dev-standard assured profile'],
     },
-    last_changed_by: 'CHG-20260828-game-catalog-browser',
+    last_changed_by: 'CHG-20260904-game-genre-icons',
   },
 ];
 const semanticEntityRequirements = [
@@ -2058,7 +2103,7 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 33),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 34),
   product: 'diopside v8',
   updated_at: existingCatalog?.updated_at && existingCatalog.updated_at > '2026-09-04' ? existingCatalog.updated_at : '2026-09-04',
   requirements: canonicalRequirements,

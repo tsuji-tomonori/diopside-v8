@@ -62,6 +62,84 @@ describe('auditCollaborationGroupTags', () => {
     expect(result.auditedAppearanceCount).toBe(2);
   });
 
+  it('ユニット構成員以外を含む多人数企画へのユニットタグを拒否する', () => {
+    const result = auditCollaborationGroupTags({
+      videos: [{
+        videoId: 'party',
+        title: '忘年会の大型コラボ企画',
+        tagAssignments: [
+          { tagId: group.tagId },
+          { tagId: 'performer-fuwa' },
+          { tagId: 'performer-gwel' },
+          { tagId: 'performer-guest' },
+          { tagId: 'context-collaboration' },
+        ],
+      }],
+      people: [...people, { tagId: 'performer-guest', name: '企画ゲスト' }],
+      groups: [group],
+      aliases: [],
+      source: {
+        ...source,
+        confirmedAppearances: [],
+        excludedAppearances: [],
+      },
+    });
+
+    expect(result.errors).toEqual(expect.arrayContaining([
+      'party:ユニット「夜王国」は構成員だけを主たる共演者とする動画ではありません。',
+    ]));
+  });
+
+  it('同じ出演者集合でも凸待ちや企画参加か未判定ならユニットタグを要求しない', () => {
+    const completeTags = ['performer-fuwa', 'performer-gwel', 'context-collaboration']
+      .map((tagId) => ({ tagId }));
+    const result = auditCollaborationGroupTags({
+      videos: [{ videoId: 'call-in', title: '誕生日の逆凸企画', tagAssignments: completeTags }],
+      people,
+      groups: [group],
+      aliases: [],
+      source: {
+        ...source,
+        confirmedAppearances: [],
+        excludedAppearances: [],
+      },
+    });
+
+    expect(result.errors).toContain(
+      'call-in:出演者集合はユニット「夜王国」と一致しますが、動画全体の主たる共演単位か確認済み出演または除外確認へ記録されていません。',
+    );
+  });
+
+  it('動画全体の主たる共演単位ではないと確認した候補を除外したままにする', () => {
+    const result = auditCollaborationGroupTags({
+      videos: [{
+        videoId: 'party',
+        title: '夜王国も参加する大型企画',
+        tagAssignments: [
+          { tagId: 'performer-fuwa' },
+          { tagId: 'performer-gwel' },
+          { tagId: 'performer-guest' },
+          { tagId: 'context-collaboration' },
+        ],
+      }],
+      people: [...people, { tagId: 'performer-guest', name: '企画ゲスト' }],
+      groups: [group],
+      aliases: [],
+      source: {
+        ...source,
+        confirmedAppearances: [],
+        excludedAppearances: [{
+          videoId: 'party',
+          groupTagId: group.tagId,
+          reason: '第三者を含む大型企画への参加',
+        }],
+      },
+    });
+
+    expect(result.errors).toEqual([]);
+    expect(result.excludedAppearanceCount).toBe(1);
+  });
+
   it('公開情報にも付与済みユニットにも根拠がない旧出演者タグを拒否する', () => {
     const snowbell = {
       tagId: 'unit-snowbell',

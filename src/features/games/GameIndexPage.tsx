@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import { useBundle } from '../../contexts.ts';
 import { formatDate } from '../../format.ts';
+import { gameGenreIcon } from './gameGenreIcons.ts';
 
 export function GameIndexPage(): React.JSX.Element {
   const { tagId } = useParams();
@@ -51,13 +52,22 @@ export function GameIndexPage(): React.JSX.Element {
             <div><p className="eyebrow">ゲームジャンル</p><h2 id="game-genres-heading">{genreCards.length}ジャンル</h2></div>
           </div>
           <div className="game-genre-grid">
-            {genreCards.map(({ genre, gameCount, videoCount }) => (
-              <Link className="game-genre-card" key={genre.tagId} to={`/games/genres/${genre.tagId}`}>
-                <h3>{genre.canonicalName}</h3>
-                <p>{gameCount}作品 · {videoCount}配信</p>
-                <span>作品を見る →</span>
-              </Link>
-            ))}
+            {genreCards.map(({ genre, gameCount, videoCount }) => {
+              const GenreIcon = gameGenreIcon(genre.canonicalName);
+              return (
+                <Link className="game-genre-card" key={genre.tagId} to={`/games/genres/${genre.tagId}`}>
+                  <GenreIcon
+                    aria-hidden="true"
+                    className="game-genre-card-icon"
+                    size={22}
+                    strokeWidth={1.7}
+                  />
+                  <h3>{genre.canonicalName}</h3>
+                  <p>{gameCount}作品 · {videoCount}配信</p>
+                  <span>作品を見る →</span>
+                </Link>
+              );
+            })}
           </div>
         </section>
       </main>

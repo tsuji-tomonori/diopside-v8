@@ -74,7 +74,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: 所有者がGitHubでの対応を明示した範囲でfeature branch、commit、PRだけを作成し、merge、release、Pages公開は行わない。
+    note: 所有者がGitHubでの対応とPRのマージまでを明示したため、feature branch、commit、PR更新、品質ゲート成功後のmergeを対象とし、releaseとPages公開は行わない。
   - id: IMP-007
     class: Risk-selected
     result: pass
@@ -128,7 +128,7 @@ selected_checks:
       - path:docs/requirements/REQUIREMENTS.md
       - path:docs/design/generated/inventory.gen.json
       - path:scripts/generate-requirements.ts
-    note: catalog revision 33の要件正本、人向け要件、実装inventoryを決定的に再生成した。公開release差分はmainマージ後の既存工程へ分離する。
+    note: catalog revision 34の要件正本、人向け要件、実装inventoryを決定的に再生成した。公開release差分はmainマージ後の既存工程へ分離する。
   - id: FAST-007
     class: Invariant
     result: pass
@@ -168,7 +168,7 @@ selected_checks:
     evidence:
       - path:spec/requirements/requirements.json
       - path:docs/requirements/REQUIREMENTS.md
-    note: 所有者指示をV8-SAFETY-005とcatalog revision 33に反映し、除外条件、再追加防止、非対象境界を分けて定義した。
+    note: 所有者指示をV8-SAFETY-005とcatalog revision 34に反映し、除外条件、再追加防止、非対象境界を分けて定義した。
   - id: REV-004
     class: Invariant
     result: pass
@@ -225,4 +225,4 @@ selected_checks:
 advisories: []
 residual_risks:
   - 同一ゲームと5分以上の時間重複は監査候補の機械信号であり、将来の除外確定では公式タイトル、組・卓・チーム、参加者表記による同一セッション確認が引き続き必要である。
-  - PRを人がマージし、mainマージ後のrelease PRとPages公開が完了するまで、現在の公開サイトには旧対象動画が残る。この変更でmerge、release、deployは行わない。
+  - PRを品質ゲート成功後にマージしても、mainマージ後のrelease PRとPages公開が完了するまで、現在の公開サイトには旧対象動画が残る。この変更ではreleaseとdeployを行わない。
