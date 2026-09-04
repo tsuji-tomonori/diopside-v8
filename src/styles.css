@@ -28,6 +28,7 @@ a { color: inherit; }
 .site-header { min-height: 72px; padding: 0 clamp(1rem, 4vw, 4rem); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); background: rgb(255 255 255 / 90%); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(16px); }
 .brand { display: flex; min-height: 44px; align-items: center; gap: .55rem; text-decoration: none; font: 600 1.45rem Georgia, "Yu Mincho", serif; letter-spacing: .03em; }
 .brand-mark { color: var(--gold); font-size: 1.2rem; }
+.nav-toggle { display: none; }
 .site-header nav { display: flex; gap: .25rem; }
 .site-header nav a { display: grid; min-height: 44px; place-items: center; padding: 0 .85rem; color: var(--muted); text-decoration: none; border-radius: 999px; }
 .site-header nav a.active { color: var(--lavender-dark); background: var(--lavender-pale); }
@@ -369,14 +370,19 @@ footer { padding: 2.5rem 1rem; text-align: center; color: var(--muted); border-t
 }
 
 @media (max-width: 620px) {
-  .site-header { min-height: 64px; gap: .5rem; padding-inline: .75rem; }
+  .site-header { min-height: 56px; height: 56px; gap: .5rem; padding-inline: .75rem; position: relative; }
   .site-header > *, .site-header nav { min-width: 0; }
-  .site-header nav { flex: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; }
-  .site-header nav a { min-width: 0; min-height: 44px; padding-inline: .25rem; font-size: .68rem; white-space: nowrap; }
+  .nav-toggle { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; gap: .35rem; padding: .35rem .65rem; border: 1px solid var(--line); border-radius: 999px; color: var(--lavender-dark); background: white; cursor: pointer; }
+  .nav-toggle svg { width: 1.1rem; height: 1.1rem; }
+  .nav-toggle span { font-size: .78rem; font-weight: 700; }
+  .site-header nav { position: absolute; top: calc(100% + 1px); right: .5rem; left: .5rem; display: none; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .25rem; padding: .5rem; border: 1px solid var(--line); border-radius: 14px; background: rgb(255 255 255 / 98%); box-shadow: var(--shadow); }
+  .site-header nav[data-open="true"] { display: grid; }
+  .site-header nav a { min-width: 0; min-height: 44px; justify-content: start; padding-inline: .75rem; font-size: .8rem; white-space: nowrap; }
+  .site-header nav a:last-child { grid-column: 1 / -1; }
   .brand { gap: .35rem; font-size: 1.05rem; }
   main { width: min(100% - 1rem, 1180px); }
   .hero { padding-top: 3rem; }
-  .tag-filter-toolbar { top: 88px; align-items: stretch; flex-direction: column; }
+  .tag-filter-toolbar { top: 0; align-items: stretch; flex-direction: column; }
   .tag-filter-toolbar .button, .filter-actions .button { width: 100%; }
   .search-row { grid-template-columns: 1fr; }
   .search-suggestions { position: static; max-height: min(50vh, 360px); margin-top: .4rem; }
