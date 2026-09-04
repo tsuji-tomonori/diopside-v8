@@ -44,6 +44,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "afcc0650f76f3ad208a1f472eaea2c83029a449ea92fc00d42f5f464e2693b83"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "ec819aa1e4b409fb5dcbb6e7f0a6285deb16bd67a31c1a6332871426d75fbd02"
     }
   ],
   "tagAssignments": [
@@ -285,10 +291,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "頑張る",
+        "weight": 58
+      },
+      {
+        "term": "かわいい",
+        "weight": 55
+      },
+      {
+        "term": "パッション",
+        "weight": 52
+      },
+      {
+        "term": "gg",
+        "weight": 46
+      },
+      {
+        "term": "ナイス",
+        "weight": 46
+      },
+      {
+        "term": "アッキーナ",
+        "weight": 37
+      },
+      {
+        "term": "うまい",
+        "weight": 32
+      },
+      {
+        "term": "神田",
+        "weight": 32
+      },
+      {
+        "term": "面白い",
+        "weight": 25
+      },
+      {
+        "term": "あら",
+        "weight": 24
+      },
+      {
+        "term": "まゆ",
+        "weight": 24
+      },
+      {
+        "term": "イン",
+        "weight": 22
+      },
+      {
+        "term": "死ぬ",
+        "weight": 22
+      },
+      {
+        "term": "いける",
+        "weight": 21
+      },
+      {
+        "term": "ポスター",
+        "weight": 21
+      },
+      {
+        "term": "lol",
+        "weight": 20
+      },
+      {
+        "term": "おる",
+        "weight": 20
+      },
+      {
+        "term": "タスク",
+        "weight": 19
+      },
+      {
+        "term": "楽しい",
+        "weight": 19
+      },
+      {
+        "term": "ファイト",
+        "weight": 18
+      },
+      {
+        "term": "やばい",
+        "weight": 17
+      },
+      {
+        "term": "らん",
+        "weight": 15
+      },
+      {
+        "term": "おおう",
+        "weight": 13
+      },
+      {
+        "term": "シェリン",
+        "weight": 13
+      },
+      {
+        "term": "ナイスゥ",
+        "weight": 13
+      },
+      {
+        "term": "is",
+        "weight": 11
+      },
+      {
+        "term": "怖い",
+        "weight": 11
+      },
+      {
+        "term": "すい",
+        "weight": 10
+      },
+      {
+        "term": "the",
+        "weight": 9
+      },
+      {
+        "term": "tomoe",
+        "weight": 7
+      },
+      {
+        "term": "うん",
+        "weight": 7
+      },
+      {
+        "term": "すごい",
+        "weight": 7
+      },
+      {
+        "term": "ついえる",
+        "weight": 7
+      },
+      {
+        "term": "流れ",
+        "weight": 7
+      },
+      {
+        "term": "おぉ",
+        "weight": 5
+      },
+      {
+        "term": "人",
+        "weight": 5
+      },
+      {
+        "term": "she",
+        "weight": 4
+      },
+      {
+        "term": "おや",
+        "weight": 4
+      },
+      {
+        "term": "強い",
+        "weight": 4
+      },
+      {
+        "term": "最後",
+        "weight": 4
+      },
+      {
+        "term": "勝つ",
+        "weight": 4
+      },
+      {
+        "term": "投票",
+        "weight": 4
+      },
+      {
+        "term": "初心者",
+        "weight": 3
+      },
+      {
+        "term": "crossick",
+        "weight": 2
+      },
+      {
+        "term": "ええ",
+        "weight": 2
+      },
+      {
+        "term": "おっ",
+        "weight": 2
+      },
+      {
+        "term": "they",
+        "weight": 1
+      },
+      {
+        "term": "殺す",
+        "weight": 1
+      },
+      {
+        "term": "白",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "ec819aa1e4b409fb5dcbb6e7f0a6285deb16bd67a31c1a6332871426d75fbd02",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "c3c22cbb58a94faba3279b2c69c94da3f19951e219c8f08bf02fc7afb6b04810",
