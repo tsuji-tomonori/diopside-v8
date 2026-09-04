@@ -1,0 +1,32 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260905-word-cloud-normalized-input
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags: {external_write: false, irreversible_operation: false, auth_change: false, data_change: false, public_api_change: false, iac_change: false, dependency_change: false, code_change: true, typed_code_change: true, behavior_change: true, bug_fix: true, generated_change: true, sql_change: false, e2e_change: false, migration: false, ui_change: false, interactive_ui_change: false, operational_impact: false, requirements_impact: false, public_contract_change: false, critical_change: false, important_ui_change: false, long_term_decision: false, squash: false, external_side_effect: false, production_deploy: false, major_incident: false, periodic_cycle: false, monthly_cycle: false, recheck_due: false, as_built_standard_change: false, as_built_adoption: false, quality_threshold_change: false}
+impact_details: {as_built_adoption: {scope: [], exclusions: []}}
+selected_checks:
+  - {id: IMP-001, class: Invariant, result: pass, evidence: [path:spec/requirements/requirements.json], note: "V8-DISPLAY-005〜008の既存受入条件を実データ形式で満たす互換修正で、要件正本は変更しない"}
+  - {id: IMP-002, class: Invariant, result: pass, evidence: [path:scripts/aggregate-word-cloud.ts, path:docs/design/generated/inventory.gen.json], note: "候補生成器の入力互換性と除外規則を修正し、生成inventoryを更新する。ADR・公開契約に影響しない"}
+  - {id: IMP-003, class: Invariant, result: pass, evidence: [commit:self], note: "全動画候補の生成器と匿名化境界へ影響するためassuredを選択"}
+  - {id: FAST-001, class: Invariant, result: pass, evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行], note: "既存PR品質ゲートでproduction buildを検証する"}
+  - {id: FAST-002, class: Invariant, result: pass, evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行], note: "TypeScript strictのNode構成を既存PR品質ゲートで検証する"}
+  - {id: FAST-003, class: Invariant, result: pass, evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行], note: "scriptsとtestsのlintを既存PR品質ゲートで検証する"}
+  - {id: FAST-004, class: Invariant, result: pass, evidence: [test:tests/word-cloud-aggregation.test.ts], note: "正規化text、gzip、20〜50語、表記統合、絵文字shortcode除外を直接検証"}
+  - {id: FAST-005, class: Risk-selected, result: pass, evidence: [test:tests/word-cloud-aggregation.test.ts], note: "実ローカル素材で0語となる再現条件を正規化gzip fixtureで固定"}
+  - {id: FAST-006, class: Invariant, result: pass, evidence: [path:docs/design/generated/inventory.gen.json], note: "実装から生成したinventoryへ集計器の現行fingerprintを反映"}
+  - {id: FAST-007, class: Invariant, result: pass, evidence: [test:tests/word-cloud-aggregation.test.ts], note: "生本文・投稿者名・投稿者IDを候補へ保持しない既存境界を維持"}
+  - {id: REV-001, class: Invariant, result: pass, evidence: [commit:self], note: "差分をワードクラウド候補生成器と対象単体試験へ限定"}
+  - {id: REV-002, class: Invariant, result: pass, evidence: [commit:self], note: "Commit Commentへ目的・影響・検証契約・残存リスクを記録"}
+  - {id: REV-003, class: Invariant, result: pass, evidence: [path:spec/requirements/requirements.json, test:tests/word-cloud-aggregation.test.ts], note: "V8-DISPLAY-005〜008の受入条件を弱めず実入力への適合を追加"}
+  - {id: REV-004, class: Invariant, result: pass, evidence: [path:docs/design/generated/inventory.gen.json, commit:self], note: "実装fingerprintの生成inventoryだけを更新し、公開schema・UI・永続構成は変えない。ADRは不要"}
+  - {id: REV-006, class: Invariant, result: pass, evidence: [test:tests/word-cloud-aggregation.test.ts, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行], note: "入力互換性と匿名集約の回帰を単体試験とCIで検証"}
+  - {id: REV-007, class: Invariant, result: pass, evidence: [path:governance/reviews/CHG-20260905-word-cloud-normalized-input.yaml], note: "選択checkだけを保存"}
+  - {id: REV-008, class: Invariant, result: pass, evidence: [path:governance/reviews/CHG-20260905-word-cloud-normalized-input.yaml], note: "未選択checkをN/Aとして保存しない"}
+  - {id: REV-012, class: Risk-selected, result: pass, evidence: [test:tests/word-cloud-aggregation.test.ts], note: "入力allowlistと出力非保持assertという別観点で公開禁止情報の非混入を確認"}
+advisories: []
+residual_risks:
+  - 公開チャットの語句品質は形態素解析と除外規則に依存するため、各動画の候補語を人が確認してから公開する。
+  - gzip判定は正規化素材の拡張子に依存し、拡張子と実体が不一致の場合は候補生成を失敗させる。
