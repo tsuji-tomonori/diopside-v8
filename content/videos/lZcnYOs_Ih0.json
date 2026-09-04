@@ -38,6 +38,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "512277aca4fb7add9028a2cc7b3711c05ee27d30768d64df8238ace0225ded44"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "c504f07dc070b128b466ea2cecbda257c4ecb216e340d7153ae0b3b90a44b282"
     }
   ],
   "tagAssignments": [
@@ -261,10 +267,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "かわいい",
+        "weight": 89
+      },
+      {
+        "term": "綺麗",
+        "weight": 56
+      },
+      {
+        "term": "すごい",
+        "weight": 54
+      },
+      {
+        "term": "美味しい",
+        "weight": 45
+      },
+      {
+        "term": "海",
+        "weight": 41
+      },
+      {
+        "term": "楽しい",
+        "weight": 41
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 35
+      },
+      {
+        "term": "へぇ",
+        "weight": 31
+      },
+      {
+        "term": "沖縄",
+        "weight": 31
+      },
+      {
+        "term": "おぉ",
+        "weight": 30
+      },
+      {
+        "term": "行く",
+        "weight": 28
+      },
+      {
+        "term": "写真",
+        "weight": 28
+      },
+      {
+        "term": "旅行",
+        "weight": 28
+      },
+      {
+        "term": "雪",
+        "weight": 27
+      },
+      {
+        "term": "土産",
+        "weight": 26
+      },
+      {
+        "term": "食べる",
+        "weight": 25
+      },
+      {
+        "term": "カニ",
+        "weight": 24
+      },
+      {
+        "term": "優しい",
+        "weight": 24
+      },
+      {
+        "term": "宮古島",
+        "weight": 23
+      },
+      {
+        "term": "透明",
+        "weight": 21
+      },
+      {
+        "term": "楽しみ",
+        "weight": 17
+      },
+      {
+        "term": "あら",
+        "weight": 16
+      },
+      {
+        "term": "塩",
+        "weight": 16
+      },
+      {
+        "term": "きれい",
+        "weight": 15
+      },
+      {
+        "term": "わくわく",
+        "weight": 15
+      },
+      {
+        "term": "最高",
+        "weight": 15
+      },
+      {
+        "term": "ヤドカリ",
+        "weight": 14
+      },
+      {
+        "term": "凄い",
+        "weight": 12
+      },
+      {
+        "term": "動画",
+        "weight": 12
+      },
+      {
+        "term": "ヤギ",
+        "weight": 11
+      },
+      {
+        "term": "ハブ",
+        "weight": 10
+      },
+      {
+        "term": "怖い",
+        "weight": 8
+      },
+      {
+        "term": "ついえる",
+        "weight": 7
+      },
+      {
+        "term": "ぬう",
+        "weight": 7
+      },
+      {
+        "term": "はい",
+        "weight": 7
+      },
+      {
+        "term": "人",
+        "weight": 7
+      },
+      {
+        "term": "素敵",
+        "weight": 7
+      },
+      {
+        "term": "おいしい",
+        "weight": 5
+      },
+      {
+        "term": "うまい",
+        "weight": 4
+      },
+      {
+        "term": "おかえり",
+        "weight": 4
+      },
+      {
+        "term": "わかる",
+        "weight": 4
+      },
+      {
+        "term": "確か",
+        "weight": 4
+      },
+      {
+        "term": "景色",
+        "weight": 4
+      },
+      {
+        "term": "アメリカン",
+        "weight": 3
+      },
+      {
+        "term": "うわ",
+        "weight": 3
+      },
+      {
+        "term": "めちゃくちゃ",
+        "weight": 3
+      },
+      {
+        "term": "気",
+        "weight": 3
+      },
+      {
+        "term": "見える",
+        "weight": 3
+      },
+      {
+        "term": "ニモ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "c504f07dc070b128b466ea2cecbda257c4ecb216e340d7153ae0b3b90a44b282",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "142cc2d180f4ae47d2a5822c1b287a672fc528e03a81c94f4961964235a0b9b9",
