@@ -44,6 +44,12 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "b47f336a2cd738174ac9fc68cabb55c79094527d9fd22c4009c2a0215c83f433"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "6d5f40e6d22a9d9c6ae710b2d636275619130901a68fe0f820ee66532bed51a5"
     }
   ],
   "tagAssignments": [
@@ -294,10 +300,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "gg",
+        "weight": 66
+      },
+      {
+        "term": "かわいい",
+        "weight": 58
+      },
+      {
+        "term": "惜しい",
+        "weight": 52
+      },
+      {
+        "term": "頑張る",
+        "weight": 49
+      },
+      {
+        "term": "キル",
+        "weight": 48
+      },
+      {
+        "term": "ナイス",
+        "weight": 43
+      },
+      {
+        "term": "トイ",
+        "weight": 30
+      },
+      {
+        "term": "楽しい",
+        "weight": 29
+      },
+      {
+        "term": "フミ",
+        "weight": 28
+      },
+      {
+        "term": "ちる",
+        "weight": 27
+      },
+      {
+        "term": "ファイト",
+        "weight": 27
+      },
+      {
+        "term": "武器",
+        "weight": 24
+      },
+      {
+        "term": "ボクシング",
+        "weight": 22
+      },
+      {
+        "term": "大丈夫",
+        "weight": 21
+      },
+      {
+        "term": "楽しむ",
+        "weight": 19
+      },
+      {
+        "term": "雪",
+        "weight": 16
+      },
+      {
+        "term": "敵",
+        "weight": 16
+      },
+      {
+        "term": "弾",
+        "weight": 15
+      },
+      {
+        "term": "すい",
+        "weight": 14
+      },
+      {
+        "term": "殴る",
+        "weight": 13
+      },
+      {
+        "term": "撃つ",
+        "weight": 13
+      },
+      {
+        "term": "行く",
+        "weight": 12
+      },
+      {
+        "term": "初心者",
+        "weight": 11
+      },
+      {
+        "term": "うまい",
+        "weight": 10
+      },
+      {
+        "term": "いける",
+        "weight": 9
+      },
+      {
+        "term": "ナイ",
+        "weight": 9
+      },
+      {
+        "term": "ナイスゥ",
+        "weight": 9
+      },
+      {
+        "term": "スキル",
+        "weight": 8
+      },
+      {
+        "term": "とる",
+        "weight": 8
+      },
+      {
+        "term": "ガン",
+        "weight": 7
+      },
+      {
+        "term": "どん",
+        "weight": 6
+      },
+      {
+        "term": "フルトイ",
+        "weight": 6
+      },
+      {
+        "term": "もろ",
+        "weight": 6
+      },
+      {
+        "term": "強い",
+        "weight": 6
+      },
+      {
+        "term": "殺意",
+        "weight": 6
+      },
+      {
+        "term": "拳",
+        "weight": 5
+      },
+      {
+        "term": "エイム",
+        "weight": 3
+      },
+      {
+        "term": "すごい",
+        "weight": 3
+      },
+      {
+        "term": "ルイス",
+        "weight": 3
+      },
+      {
+        "term": "人",
+        "weight": 3
+      },
+      {
+        "term": "先生",
+        "weight": 3
+      },
+      {
+        "term": "apex",
+        "weight": 2
+      },
+      {
+        "term": "いく",
+        "weight": 2
+      },
+      {
+        "term": "おる",
+        "weight": 2
+      },
+      {
+        "term": "こもる",
+        "weight": 2
+      },
+      {
+        "term": "バレる",
+        "weight": 2
+      },
+      {
+        "term": "マスティフ",
+        "weight": 2
+      },
+      {
+        "term": "音量",
+        "weight": 2
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "6d5f40e6d22a9d9c6ae710b2d636275619130901a68fe0f820ee66532bed51a5",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "3d886593d252db03c0e5031f65fcdf1503bff3042c5405de3dde4ceb275472ed",
