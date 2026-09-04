@@ -44,6 +44,12 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "81ac4a653507f3e74eeb07dd09fc1d3ece705525a48eac139e1f0c6d56ce6f3c"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "c529e9dfd1465a83af54f57634e8bdd3e7fc724001934eab9bfd20fb6247ac41"
     }
   ],
   "tagAssignments": [
@@ -429,10 +435,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "魚",
+        "weight": 74
+      },
+      {
+        "term": "ナイス",
+        "weight": 58
+      },
+      {
+        "term": "マグロ",
+        "weight": 46
+      },
+      {
+        "term": "エサ",
+        "weight": 43
+      },
+      {
+        "term": "船",
+        "weight": 43
+      },
+      {
+        "term": "サメ",
+        "weight": 34
+      },
+      {
+        "term": "ウミガー",
+        "weight": 32
+      },
+      {
+        "term": "人",
+        "weight": 32
+      },
+      {
+        "term": "ソナー",
+        "weight": 31
+      },
+      {
+        "term": "タコ",
+        "weight": 30
+      },
+      {
+        "term": "フグ",
+        "weight": 30
+      },
+      {
+        "term": "かわいい",
+        "weight": 29
+      },
+      {
+        "term": "怖い",
+        "weight": 29
+      },
+      {
+        "term": "燃料",
+        "weight": 26
+      },
+      {
+        "term": "落ちる",
+        "weight": 26
+      },
+      {
+        "term": "うまい",
+        "weight": 25
+      },
+      {
+        "term": "トビウオ",
+        "weight": 25
+      },
+      {
+        "term": "モリ",
+        "weight": 24
+      },
+      {
+        "term": "ナマズ",
+        "weight": 19
+      },
+      {
+        "term": "餌",
+        "weight": 17
+      },
+      {
+        "term": "学校",
+        "weight": 14
+      },
+      {
+        "term": "食べる",
+        "weight": 13
+      },
+      {
+        "term": "漁師",
+        "weight": 12
+      },
+      {
+        "term": "田中",
+        "weight": 12
+      },
+      {
+        "term": "売る",
+        "weight": 12
+      },
+      {
+        "term": "海",
+        "weight": 11
+      },
+      {
+        "term": "食う",
+        "weight": 11
+      },
+      {
+        "term": "釣り",
+        "weight": 10
+      },
+      {
+        "term": "とる",
+        "weight": 9
+      },
+      {
+        "term": "高い",
+        "weight": 9
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 8
+      },
+      {
+        "term": "おじさん",
+        "weight": 7
+      },
+      {
+        "term": "見える",
+        "weight": 7
+      },
+      {
+        "term": "声",
+        "weight": 7
+      },
+      {
+        "term": "大漁",
+        "weight": 7
+      },
+      {
+        "term": "白",
+        "weight": 7
+      },
+      {
+        "term": "ゲーム",
+        "weight": 6
+      },
+      {
+        "term": "行く",
+        "weight": 6
+      },
+      {
+        "term": "惜しい",
+        "weight": 6
+      },
+      {
+        "term": "乱獲",
+        "weight": 6
+      },
+      {
+        "term": "あと",
+        "weight": 5
+      },
+      {
+        "term": "ええ",
+        "weight": 5
+      },
+      {
+        "term": "わかる",
+        "weight": 5
+      },
+      {
+        "term": "音",
+        "weight": 5
+      },
+      {
+        "term": "人間",
+        "weight": 4
+      },
+      {
+        "term": "マップ",
+        "weight": 3
+      },
+      {
+        "term": "伴侶",
+        "weight": 3
+      },
+      {
+        "term": "石板",
+        "weight": 2
+      },
+      {
+        "term": "出る",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "c529e9dfd1465a83af54f57634e8bdd3e7fc724001934eab9bfd20fb6247ac41",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "0f1c25153655a60e54c7310c6a3d839dcf95935409ef70cc3c6b99174d166fdc",
