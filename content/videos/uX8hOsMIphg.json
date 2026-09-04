@@ -38,6 +38,12 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "6b37345170b9a9e1a5cff02b788c8b92bd19fa9b300e56d9e84fe5cfc95a5be0"
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "99f6c5ad5724a821aac83906ee124a3ca4400ba39a17c6c2772e5993235f823e"
     }
   ],
   "tagAssignments": [
@@ -85,10 +91,215 @@
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "あら",
+        "weight": 48
+      },
+      {
+        "term": "かわいい",
+        "weight": 46
+      },
+      {
+        "term": "退院",
+        "weight": 44
+      },
+      {
+        "term": "大丈夫",
+        "weight": 44
+      },
+      {
+        "term": "怖い",
+        "weight": 43
+      },
+      {
+        "term": "おめでとう",
+        "weight": 39
+      },
+      {
+        "term": "痛い",
+        "weight": 31
+      },
+      {
+        "term": "日記",
+        "weight": 31
+      },
+      {
+        "term": "バイオ",
+        "weight": 29
+      },
+      {
+        "term": "うん",
+        "weight": 28
+      },
+      {
+        "term": "熊",
+        "weight": 26
+      },
+      {
+        "term": "説明",
+        "weight": 26
+      },
+      {
+        "term": "大事",
+        "weight": 26
+      },
+      {
+        "term": "大変",
+        "weight": 26
+      },
+      {
+        "term": "つらい",
+        "weight": 25
+      },
+      {
+        "term": "レポ",
+        "weight": 24
+      },
+      {
+        "term": "手術",
+        "weight": 24
+      },
+      {
+        "term": "入院",
+        "weight": 24
+      },
+      {
+        "term": "すごい",
+        "weight": 23
+      },
+      {
+        "term": "気",
+        "weight": 23
+      },
+      {
+        "term": "なさる",
+        "weight": 22
+      },
+      {
+        "term": "優しい",
+        "weight": 22
+      },
+      {
+        "term": "ひる",
+        "weight": 19
+      },
+      {
+        "term": "本当に",
+        "weight": 19
+      },
+      {
+        "term": "わかる",
+        "weight": 17
+      },
+      {
+        "term": "麻酔",
+        "weight": 17
+      },
+      {
+        "term": "配信",
+        "weight": 16
+      },
+      {
+        "term": "リハビリ",
+        "weight": 15
+      },
+      {
+        "term": "わぁ",
+        "weight": 14
+      },
+      {
+        "term": "シエン",
+        "weight": 12
+      },
+      {
+        "term": "了解",
+        "weight": 12
+      },
+      {
+        "term": "頑張る",
+        "weight": 11
+      },
+      {
+        "term": "無理",
+        "weight": 11
+      },
+      {
+        "term": "しんどい",
+        "weight": 10
+      },
+      {
+        "term": "はい",
+        "weight": 10
+      },
+      {
+        "term": "痛み",
+        "weight": 8
+      },
+      {
+        "term": "嬉しい",
+        "weight": 7
+      },
+      {
+        "term": "天使",
+        "weight": 7
+      },
+      {
+        "term": "病院",
+        "weight": 7
+      },
+      {
+        "term": "骨折",
+        "weight": 6
+      },
+      {
+        "term": "人",
+        "weight": 6
+      },
+      {
+        "term": "よく",
+        "weight": 3
+      },
+      {
+        "term": "看護",
+        "weight": 3
+      },
+      {
+        "term": "先生",
+        "weight": 3
+      },
+      {
+        "term": "出る",
+        "weight": 2
+      },
+      {
+        "term": "多い",
+        "weight": 2
+      },
+      {
+        "term": "地獄",
+        "weight": 2
+      },
+      {
+        "term": "読む",
+        "weight": 2
+      },
+      {
+        "term": "へぇ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "99f6c5ad5724a821aac83906ee124a3ca4400ba39a17c6c2772e5993235f823e",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-05T00:20:00+09:00"
   },
   "provenance": {
     "inputFingerprint": "221da5c94702d0e0cf79e90ff87a021e053a617f8f19994498f8aff00ef86822",
