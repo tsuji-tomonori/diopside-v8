@@ -16,11 +16,15 @@
     },
     {
       "path": "scripts/audit-collaboration-tags.ts",
-      "sha256": "22dfb7f8f5d20c7ee72b27eedc753c8a72fff5a7283926d948818d35132f23d5"
+      "sha256": "89821f305ada29c1c0c38d60ef6021df310ab60ee623303706273eaaefc4e602"
     },
     {
       "path": "scripts/audit-game-tags.ts",
       "sha256": "1a0bb774bfc0528a9996aa54ec7079fe0bbecacde3d6c10579ac767c582079c4"
+    },
+    {
+      "path": "scripts/audit-guest-song-performances.ts",
+      "sha256": "d7788c6c80f4ae216acb92117cc371a32f4ea60f1d69fbb52fa6dcd056d7168c"
     },
     {
       "path": "scripts/audit-parallel-game-perspectives.ts",
@@ -64,7 +68,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "1812df736c03ab608c9d62ef06fbbd003176177233af339eb39a476cee7a8bce"
+      "sha256": "f05ca24f2596c42e9cfb6a2eb002774356ea8ff6fdf5defb4cbbb5ba4194f242"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -188,7 +192,7 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "d0a62f05f7085a822ead6c3e2a1b151c28663952241a426e99897daa4af1fb18"
+      "sha256": "2b7f3633b68bb5906925f9af2ab68559b3d594f132b9b48c2388f919bcbd7448"
     },
     {
       "path": "src/domain/entities.ts",
@@ -220,11 +224,11 @@
     },
     {
       "path": "src/domain/sequential-guest-audit.test.ts",
-      "sha256": "5395cedd16a3a87a289ba39e124a70b7a568b55c5bdf958a0b3345fb2f924616"
+      "sha256": "ef674fc5e653fa653ae97b31d9059ce7adcc69d6ffcc9cac0e681234897de6dd"
     },
     {
       "path": "src/domain/sequential-guest-audit.ts",
-      "sha256": "098fc185de6849f18a9b6cabcc8ad2d17ce8db86c9a1788b4c96afcc5cb94d39"
+      "sha256": "f7bf32ae412bd8622c8ddcb0bf5537e2f4ecfc672aaf72638b12856199f17a02"
     },
     {
       "path": "src/domain/tag-assignment-audit.test.ts",
@@ -236,11 +240,11 @@
     },
     {
       "path": "src/domain/validation.test.ts",
-      "sha256": "2a00f4dc81e5101f74eddba4db97283c21967fded239659c002eaea46b30c8b5"
+      "sha256": "77f66c00368f38c39844473118c252add061430c1c8601f462fbc003f532b291"
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "e47f86e42b81695a7f86edb6afa77e266e16da4f83948d80c152a256eb7d3f33"
+      "sha256": "698e93554c81b0adc774724057edf69e1c134336eed440f2f302ea23c452bcc1"
     },
     {
       "path": "src/features/collaborations/CollaborationDetailPages.test.tsx",
@@ -377,6 +381,21 @@
       "file": "scripts/aggregate-word-cloud.ts",
       "name": "WordCloudCandidate",
       "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/audit-guest-song-performances.ts",
+      "name": "auditGuestSongPerformances",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/audit-guest-song-performances.ts",
+      "name": "guestSongAuditCandidates",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/audit-guest-song-performances.ts",
+      "name": "guestSongAuditSchema",
+      "kind": "VariableStatement"
     },
     {
       "file": "scripts/canonical-store.ts",

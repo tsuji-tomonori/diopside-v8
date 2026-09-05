@@ -44,6 +44,12 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "323445be5ac3f4bf5603713a68653029c96f8aefaaa358bf942d7cbe14ab2a2f"
+    },
+    {
+      "evidenceId": "evidence-sequential-guest-host",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "公式チャンネル・概要欄と確認済み時刻一覧による団体主催のゲスト交代形式の確認",
+      "inputFingerprint": "e40e7015439f20c040e01932b45ba613d0bee042b0e044b7a65c07ab0e4d4e58"
     }
   ],
   "tagAssignments": [
@@ -76,48 +82,12 @@
     },
     {
       "tagId": "tag-people-channel-fb74058dcff3",
-      "reason": "公開台帳のチャンネル「あおぎり高校 - Aogiri Vtuber High School」を確認",
+      "reason": "団体主催の順次ゲスト企画のため、主催の「あおぎり高校 - Aogiri Vtuber High School」だけを人物/グループに残す。個人やコンビへ置き換えない。",
       "confidence": "高",
       "evidenceRefs": [
-        "evidence-channel"
+        "evidence-sequential-guest-host"
       ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-68f9334e991a",
-      "reason": "人物名「花京院ちえり」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-a322f3f70971",
-      "reason": "人物名「神楽すず」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-ae5fcfb1bfdc",
-      "reason": "人物名「月ノ美兎」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-b0469a7d02e8",
-      "reason": "人物名「フミ」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
+      "reviewedAt": "2026-09-05T02:36:02.205045+00:00"
     }
   ],
   "timestamps": {
@@ -388,7 +358,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-15T21:05:00+09:00",
-    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+    "approvedAt": "2026-09-05T02:36:02.205045+00:00",
+    "basis": "2026-09-05所有者指示に基づく順次ゲスト企画のチャンネル主限定。団体公式は既存のチャンネルタグで表す。時刻公開承認は既存レビューに従う。"
   }
 }

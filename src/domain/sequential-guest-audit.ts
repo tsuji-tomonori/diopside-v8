@@ -4,6 +4,7 @@ export interface SequentialGuestRecord {
   videoId: string;
   channelTagId: string;
   hostPerformerTagIds: string[];
+  hostKind?: 'individual' | 'group-channel';
   reason: string;
   evidenceUrls: string[];
 }
@@ -13,10 +14,12 @@ export function auditSequentialGuestTags(
   videos: readonly CollaborationAuditVideo[],
   records: readonly SequentialGuestRecord[],
   channelMappings: ReadonlyArray<{ channelTagId: string; personTagId: string }>,
+  groupChannelOwners: ReadonlyArray<{ channelTagId: string; evidenceUrls: string[] }> = [],
 ): string[] {
   const errors: string[] = [];
   const byId = new Map(videos.map((video) => [video.videoId, video]));
   const hostsByChannel = new Map(channelMappings.map((mapping) => [mapping.channelTagId, mapping.personTagId]));
+  const groupChannels = new Set(groupChannelOwners.filter((owner) => owner.evidenceUrls.length > 0).map((owner) => owner.channelTagId));
   const seen = new Set<string>();
   for (const record of records) {
     const video = byId.get(record.videoId);
@@ -28,8 +31,10 @@ export function auditSequentialGuestTags(
     }
     const assigned = new Set(video.tagAssignments.map((tag) => tag.tagId));
     const host = hostsByChannel.get(record.channelTagId);
-    if (!assigned.has(record.channelTagId) || !host
-      || record.hostPerformerTagIds.length !== 1 || record.hostPerformerTagIds[0] !== host) {
+    const ownerMatches = record.hostKind === 'group-channel'
+      ? groupChannels.has(record.channelTagId) && !host && record.hostPerformerTagIds.length === 0
+      : !!host && record.hostPerformerTagIds.length === 1 && record.hostPerformerTagIds[0] === host;
+    if (!assigned.has(record.channelTagId) || !ownerMatches) {
       errors.push(`${record.videoId}:チャンネル主の対応が正本と一致しません。`);
     }
     if (!record.reason.trim() || record.evidenceUrls.length === 0) {

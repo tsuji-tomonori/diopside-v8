@@ -323,6 +323,7 @@ const taxonomyTagSchema = z.object({
   tagId: z.string().regex(/^tag-[a-zA-Z0-9-]+$/u),
   canonicalName: z.string().min(1),
   active: z.boolean(),
+  channelOwnerKind: z.enum(['individual', 'group']).optional(),
   inclusionCriteria: z.string().min(1),
   exclusionCriteria: z.string().min(1),
 }).strict();
@@ -819,6 +820,7 @@ export interface TaxonomyLookupItem {
   subcategoryName: string;
   tagId: string;
   canonicalName: string;
+  channelOwnerKind?: 'individual' | 'group';
 }
 
 export function buildTaxonomyLookup(taxonomy: TagTaxonomy): Map<string, TaxonomyLookupItem> {
@@ -833,6 +835,7 @@ export function buildTaxonomyLookup(taxonomy: TagTaxonomy): Map<string, Taxonomy
           subcategoryName: subcategory.name,
           tagId: tag.tagId,
           canonicalName: tag.canonicalName,
+          ...(tag.channelOwnerKind ? { channelOwnerKind: tag.channelOwnerKind } : {}),
         });
       }
     }

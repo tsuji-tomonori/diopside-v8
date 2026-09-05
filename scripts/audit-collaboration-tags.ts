@@ -4,7 +4,7 @@ import {
   auditCollaborationGroupTags,
   type CollaborationAuditSource,
 } from '../src/domain/collaboration-group-audit.ts';
-import { tagAliasesSchema } from '../src/domain/content.ts';
+import { tagAliasesSchema, tagTaxonomySchema } from '../src/domain/content.ts';
 import { auditSequentialGuestTags, type SequentialGuestRecord } from '../src/domain/sequential-guest-audit.ts';
 import { readCanonicalVideos } from './canonical-store.ts';
 import { readJson } from './lib.ts';
@@ -26,12 +26,20 @@ const result = auditCollaborationGroupTags({
 });
 const sequential = readJson(path.join(root, 'spec/sources/sequential-guest-appearances-v1.json')) as {
   records: SequentialGuestRecord[];
+  groupChannelOwners: Array<{ channelTagId: string; evidenceUrls: string[] }>;
 };
 const channelMappings = readJson(path.join(root, 'content/people/channel-person-mappings.json')) as {
   mappings: Array<{ channelTagId: string; personTagId: string }>;
 };
+const taxonomy = tagTaxonomySchema.parse(readJson(path.join(root, 'content/taxonomy/tag-taxonomy.json')));
+const groupChannelIds = new Set(taxonomy.categories.filter((category) => category.categoryId === 'people')
+  .flatMap((category) => category.subcategories.filter((subcategory) => subcategory.subcategoryId === 'channel'))
+  .flatMap((subcategory) => subcategory.tags.filter((tag) => tag.channelOwnerKind === 'group').map((tag) => tag.tagId)));
+for (const owner of sequential.groupChannelOwners) {
+  if (!groupChannelIds.has(owner.channelTagId)) result.errors.push(`公式グループ所有者がタグ体系と一致しません: ${owner.channelTagId}`);
+}
 result.errors.push(...auditSequentialGuestTags(
-  readCanonicalVideos(root, { includeExcluded: true }), sequential.records, channelMappings.mappings,
+  readCanonicalVideos(root, { includeExcluded: true }), sequential.records, channelMappings.mappings, sequential.groupChannelOwners,
 ));
 
 if (result.errors.length > 0) {

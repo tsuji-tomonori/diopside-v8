@@ -8,3 +8,5 @@
 - 同形式の既存動画へ横展開し、今後の分類・生成・確認手順にも反映する。
 
 永続要件は `spec/requirements/requirements.json`、意味はtaxonomy、動画別の役割判定は `spec/sources/sequential-guest-appearances-v1.json` から参照する。
+
+再開対応: 団体公式チャンネルの場合も主催者限定を適用し、既存の公式チャンネルタグで団体を表す。別ゲストの人物タグや、推測した代表者・ユニットは付けない。

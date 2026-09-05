@@ -60,6 +60,9 @@
 | `scripts/aggregate-word-cloud.ts` | FunctionDeclaration | `aggregateWordCloud` |
 | `scripts/aggregate-word-cloud.ts` | TypeAliasDeclaration | `AudienceWordCloudInputType` |
 | `scripts/aggregate-word-cloud.ts` | InterfaceDeclaration | `WordCloudCandidate` |
+| `scripts/audit-guest-song-performances.ts` | FunctionDeclaration | `auditGuestSongPerformances` |
+| `scripts/audit-guest-song-performances.ts` | FunctionDeclaration | `guestSongAuditCandidates` |
+| `scripts/audit-guest-song-performances.ts` | VariableStatement | `guestSongAuditSchema` |
 | `scripts/canonical-store.ts` | InterfaceDeclaration | `CanonicalStoreOptions` |
 | `scripts/canonical-store.ts` | FunctionDeclaration | `readCanonicalVideos` |
 | `scripts/japanese-reading.ts` | FunctionDeclaration | `createJapaneseReadingNormalizer` |
@@ -286,4 +289,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力86ファイル、公開契約203件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力87ファイル、公開契約206件です。

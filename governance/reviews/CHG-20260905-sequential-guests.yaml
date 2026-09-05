@@ -66,7 +66,7 @@ selected_checks:
   result: pass
   evidence:
   - path:governance/reviews/CHG-20260905-sequential-guests.yaml
-  note: 共有タグ意味、正本要件、40動画の役割監査と8動画の既存分類へ影響するためassuredを選択した。
+  note: 共有タグ意味、正本要件、41動画の役割監査と9動画の既存分類へ影響するためassuredを選択した。
 - id: IMP-004
   class: Invariant
   result: pass
@@ -79,14 +79,14 @@ selected_checks:
   evidence:
   - path:content/content-manifest.json
   - path:content/taxonomy/change-record.json
-  note: 1548公開対象動画を維持し、8動画から別ゲスト等65件の人物タグを除外する。動画削除やschema migrationはない。
+  note: 1548公開対象動画を維持し、9動画から別ゲスト等69件の人物タグを除外する。動画削除やschema migrationはない。
 - id: IMP-008
   class: Risk-selected
   result: pass
   evidence:
   - path:content/taxonomy/tag-taxonomy.json
   - path:content/taxonomy/change-record.json
-  note: taxonomy 9.6.0・規則9.4.0へ意味を更新し、既存Tag IDと旧動画版の互換性を維持する。
+  note: taxonomy 9.7.0・規則9.4.0へ意味を更新し、既存Tag IDと旧動画版の互換性を維持する。
 - id: FAST-001
   class: Invariant
   result: pass
@@ -169,7 +169,7 @@ selected_checks:
   - path:spec/requirements/requirements.json
   - path:src/domain/sequential-guest-audit.ts
   - test:src/domain/sequential-guest-audit.test.ts
-  note: 主催者限定の受入条件から40動画の判定記録、監査と回帰試験へ到達できる。時刻更新は全編根拠と独立確認を経た別動画PRに従う。
+  note: 主催者限定の受入条件から41動画の判定記録、監査と回帰試験へ到達できる。時刻更新は全編根拠と独立確認を経た別動画PRに従う。
 - id: REV-006
   class: Invariant
   result: pass
@@ -197,7 +197,7 @@ selected_checks:
   - path:content/taxonomy/tag-taxonomy.json
   - path:scripts/validate-taxonomy-change.ts
   - path:scripts/validate-content.ts
-  note: 既存Tag ID・JSON schemaを維持し、8動画のタグ差分と規則版をrevertすれば戻せる。
+  note: 既存Tag IDを維持し、任意のチャンネル所有者種別を後方互換で追加する。9動画のタグ差分・グループ種別・規則版をrevertすれば戻せる。
 - id: REV-015
   class: Advisory
   result: pass
@@ -208,5 +208,5 @@ selected_checks:
 advisories: []
 residual_risks:
 - 既存時刻一覧の人物名不足は全編根拠と独立確認で別途更新する。未確認の人物と時刻をこのタグ保守PRで推測補完しない。
-- チャンネル主が複数人からなる公式団体チャンネル等は既存の人物対応へ一律変換せず個別確認を要する。
+- あおぎり高校は既存の公式グループチャンネルを主として確認済み。新たな団体へ適用する際も公式所有者の根拠が必要。
 - PRのmerge・公開は未実施。

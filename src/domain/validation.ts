@@ -109,6 +109,9 @@ export function validateTaxonomy(input: unknown, aliasesInput: unknown): Validat
     if (tagIds.has(tag.tagId)) issues.push(issue('TAG_ID_DUPLICATED', tag.tagId, '不変タグ識別子が重複しています。'));
     tagIds.add(tag.tagId);
     if (tag.active) activeTagIds.add(tag.tagId);
+    if (tag.channelOwnerKind && (tag.categoryId !== 'people' || tag.subcategoryId !== 'channel')) {
+      issues.push(issue('CHANNEL_OWNER_KIND_INVALID', tag.tagId, 'チャンネル所有者の種別は人物・グループのチャンネルタグだけに指定できます。'));
+    }
     if (taxonomy.prohibitedCanonicalNames.includes(tag.canonicalName) || /レビュー/u.test(tag.canonicalName)) {
       issues.push(issue('TAG_PROHIBITED_NAME', tag.tagId, '禁止された確定タグ名です。'));
     }
@@ -602,7 +605,8 @@ function validateConditionalTags(
   const isCollaboration = tags.some((tag) => tag.categoryId === 'context' && tag.subcategoryId === 'participation' && tag.canonicalName === 'コラボ');
   const units = tags.filter((tag) => tag.categoryId === 'people' && tag.subcategoryId === 'unit');
   const collaboratorNames = new Set([...performerNames].filter((name) => name !== '白雪巴'));
-  if (isCollaboration && collaboratorNames.size === 0) {
+  const hasGroupChannelHost = tags.some((tag) => tag.categoryId === 'people' && tag.subcategoryId === 'channel' && tag.channelOwnerKind === 'group');
+  if (isCollaboration && collaboratorNames.size === 0 && !hasGroupChannelHost) {
     issues.push(issue('COLLABORATION_WITHOUT_PERFORMER', 'tagAssignments', 'コラボには白雪巴以外のコラボ相手が必要です。'));
   }
   if (units.length > 0 && (!isCollaboration || performerNames.size === 0)) {
