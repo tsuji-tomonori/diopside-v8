@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "0c1a27a02e07d87056f877f016f8ac26830a1a0f5fdedf4a725dbf061c1b6f39"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "5637f058cd1dd7131c3c538a2fe6f71505d31ee8432c81dc3718873a7f3b547d",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6187
     }
   ],
   "tagAssignments": [
@@ -546,5 +554,21 @@
     "inputFingerprint": "146c0ddc48d54212245b75a0516308fd28653be41b77004145dbabb8173589a6",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-03T00:00:00Z"
+  },
+  "synopsis": {
+    "body": "白雪巴が七夕に寄せられたさまざまな願い事を読み上げ、恋愛や進路、仕事、日々の幸せをめぐる言葉に耳を傾ける。短冊の表現に驚いたり、願いを応援したりしながら、叶えるための一歩や人を思う気持ちについて語る、穏やかで時にユーモラスな雑談。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "願い事見るのが好きなのよね",
+      "atSeconds": 218,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "5637f058cd1dd7131c3c538a2fe6f71505d31ee8432c81dc3718873a7f3b547d",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T01:49:32.571457Z"
   }
 }
