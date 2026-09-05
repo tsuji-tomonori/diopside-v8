@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "57776d6ed0a32d5db045f23555df20aea56d8079ba2c1bff1a3dbcb2feed32e8"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "4565bb02cf17a049ad02ce6ab3edc9dd13d5d9f755f3c6347b513ca97b6d61d4",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6735
     }
   ],
   "tagAssignments": [
@@ -673,5 +681,21 @@
     "inputFingerprint": "f00144df704123fa33a9fc0a4660488a5c816ccac2f8255770df73b98f9a50f9",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴がホラーコメディゲーム『百尺様』に挑戦。田舎の祖父母宅を訪れた主人公の物語を追い、探索と会話を進めながら、不意の演出に驚いたり登場人物へツッコんだりする。都市伝説の不気味さと笑いが交差する実況。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "今宵も会いに来てくれてありがとう",
+      "atSeconds": 197,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "4565bb02cf17a049ad02ce6ab3edc9dd13d5d9f755f3c6347b513ca97b6d61d4",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:45:44.696701Z"
   }
 }
