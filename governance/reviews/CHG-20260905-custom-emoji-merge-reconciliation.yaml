@@ -1,0 +1,113 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260905-custom-emoji-merge-reconciliation
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: false
+  bug_fix: true
+  generated_change: false
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: V8-OPS-007・V8-OPS-008・V8-SAFETY-002の受入条件は変えず、既にmainへ統合された絵文字集計の変更証跡だけを補完する。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 動画正本、schema、生成設計、ADR、公開契約、検証ロジックを変更しないため設計影響はない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260905-custom-emoji-merge-reconciliation.yaml]
+    note: main品質ゲートと公開経路の回復を確認してから公開する必要があるためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 外部書込みは依頼者が明示承認した修復branch、PR、squash merge、既存の静的公開経路に限定する。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/review_contract_test.py, workflow:要件・品質ゲート]
+    note: main HEADが二親merge commitの場合にfallback検証が停止する条件は既存review contract testと失敗したmain品質ゲートで再現済みである。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分を非識別の統合確認用review YAMLだけに限定し、生チャット、投稿者識別子、secret、CI生ログを含めない。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分は絵文字集計PR群のmain統合確認と品質ゲート回復を記録するreview YAML 1件だけである。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ原因、変更内容、要件・設計影響、検証契約、互換性、残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+    note: 要件正本と外部挙動は変更せず、既存受入条件に基づく公開前検証だけを回復する。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 実装、データモデル、構成、長期判断を変更しないため生成設計更新とADRは不要である。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/review_contract_test.py, workflow:要件・品質ゲート]
+    note: review schema・選択check・squash fallback・main全体品質を既存CIで検証する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260905-custom-emoji-merge-reconciliation.yaml]
+    note: impact flagsから選択されたcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260905-custom-emoji-merge-reconciliation.yaml]
+    note: selectorで選択されなかったcheckを形式的なN/Aとして登録していない。
+advisories: []
+residual_risks:
+  - 絵文字集計の動画commitは既にmainへ統合済みであり、本修復はその正本データを変更せず、main HEADへ有効な単一親squash traceを追加する。
+  - 静的公開は修復後のmain品質ゲートとrelease PRの成功確認後に限る。
