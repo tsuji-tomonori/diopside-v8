@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "b7b5fc6e1c8eaa2f4c84d554009f3e0eaf6d71e13f72132d820e2a85e9c68f2b"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "fc4d3775355eac4a0989034c134fcac59a510d1704b4b4cefb30495323637b78",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6472
     }
   ],
   "tagAssignments": [
@@ -568,5 +576,21 @@
     "inputFingerprint": "e4364a0809bc24b4bc8141c7996d668f961c67fcb21ee7833033aca86c163acb",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が、隙間を見つけて閉じるシンプルなゲームに挑戦。部屋を巡回し、音や気配に怯えながら新たなルールや背景を読み解き、隙間警察として慎重かつ大胆に探索を進めます。後半は体調や海外生活の雑談も交え、ゲームの余韻まで楽しめる配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "隙間警察です。どけ。",
+      "atSeconds": 1421,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "fc4d3775355eac4a0989034c134fcac59a510d1704b4b4cefb30495323637b78",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T02:40:38.866599Z"
   }
 }
