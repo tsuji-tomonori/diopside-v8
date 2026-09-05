@@ -52,6 +52,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "3c726e29b1ea00761cf8ff2b19a45e0a206c2ac25ef119d1f7791bc191f706c8"
+    },
+    {
+      "evidenceId": "evidence-timestamp-full-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "63e06863e61c16ac8b1b84836d0b336a529188490a58e46eddf687faac0123bc",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 1014
     }
   ],
   "tagAssignments": [
@@ -93,10 +101,95 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-73e3b21b",
+        "startSeconds": 0,
+        "label": "寝ぼけたまま甘えるやり取り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-576-d73a658b",
+        "startSeconds": 576,
+        "label": "朝を迎えて起きる二人のやり取り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-631-998290be",
+        "startSeconds": 631,
+        "label": "夜にまた甘えるためのおねだり",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-736-708cfe77",
+        "startSeconds": 736,
+        "label": "触れ方をめぐるからかいと甘え合い",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-817-ce7f8032",
+        "startSeconds": 817,
+        "label": "初めて一緒に過ごす朝",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "612ea5574d250e37ef75d532b05a027f93fd77da64b28f840a75debb3fe071eb",
+    "inputFingerprint": "63e06863e61c16ac8b1b84836d0b336a529188490a58e46eddf687faac0123bc",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T08:07:44.197555+00:00",
+    "updatedAt": "2026-09-05T08:09:52.823462+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "612ea5574d250e37ef75d532b05a027f93fd77da64b28f840a75debb3fe071eb",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T08:08:42.161902+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "612ea5574d250e37ef75d532b05a027f93fd77da64b28f840a75debb3fe071eb",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T08:09:52.823462+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "612ea5574d250e37ef75d532b05a027f93fd77da64b28f840a75debb3fe071eb",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -311,9 +404,9 @@
   },
   "provenance": {
     "inputFingerprint": "a8c2b543f454b958d2cc9496973c2bfb11760cf81786dd6ee66a0ceb83786c72",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",
