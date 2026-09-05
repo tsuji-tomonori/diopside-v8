@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "959164332e699ff23b9633fb4de3905d010d9e05e13b9e3a19837a66577a7ced"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "1ffa38c9058629f8ba34e8b134da81b490220140ef807b5b72bfe9bfa14f4bf9",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 17331
     }
   ],
   "tagAssignments": [
@@ -676,5 +684,21 @@
     "inputFingerprint": "e62f89607565ccccc9feb158daa7924ee491c89a10255f3398fff3e4f013fec8",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴がサイレントヒル2リメイク版の刑務所から迷宮へ進み、暗闇と不穏な物音に怯えつつ探索。手がかりを読み解く謎解きや敵との追いかけっこ、登場人物の心に触れる場面を、軽妙な反応とともに楽しむ第4回です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "三角様も大変ですよね",
+      "atSeconds": 14570,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "1ffa38c9058629f8ba34e8b134da81b490220140ef807b5b72bfe9bfa14f4bf9",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:54:04.504717Z"
   }
 }
