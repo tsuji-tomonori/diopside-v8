@@ -16,7 +16,7 @@ impact_flags:
   code_change: true
   typed_code_change: true
   behavior_change: true
-  bug_fix: false
+  bug_fix: true
   generated_change: true
   sql_change: false
   e2e_change: true
@@ -85,6 +85,11 @@ selected_checks:
     result: pass
     evidence: [path:scripts/build-public-data.ts, path:docs/design/generated/system.gen.md, path:docs/requirements/REQUIREMENTS.md]
     note: 正本から静的データと要件・実装由来設計を生成し、check modeで確認した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/detail.spec.ts]
+    note: モバイル実データでスクロール領域のキーボードアクセス違反を再現し、内訳欄のfocus対応後に詳細E2E全22件が合格した。
   - id: FAST-007
     class: Invariant
     result: pass
@@ -99,7 +104,7 @@ selected_checks:
     class: Risk-selected
     result: pass
     evidence: [test:e2e/detail.spec.ts, path:src/features/detail/EmojiDensity.tsx]
-    note: button・select・live regionによる操作とキーボード、重大axe違反なしを確認した。
+    note: button・select・live regionによる操作に加え、多種類の絵文字内訳をTabでフォーカスしてスクロールできる。詳細E2E全22件で重大axe違反なしを確認した。
   - id: FAST-015
     class: Advisory
     result: pass
