@@ -204,7 +204,7 @@ selected_checks:
   evidence:
   - commit:self
   - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
-  note: 将来の業務ルールはV8-TAG-013とV8-TIME-038へ接続し、可逆な実装選択を独立ADRへ固定しない。
+  note: 将来の業務ルールはV8-TAG-013とV8-TIME-038へ接続する。再開調査で判明した通話の連続性、第三者言及、前後編共通名簿、公開匿名参加の判定を3スキルへ補足した。可逆な実装選択を独立ADRへ固定しない。
 advisories: []
 residual_risks:
 - 既存時刻一覧の人物名不足は全編根拠と独立確認で別途更新する。未確認の人物と時刻をこのタグ保守PRで推測補完しない。
