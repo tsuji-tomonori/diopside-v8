@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "ee1f83552d57c2ebf7e421d96f1cb6a29b55c2cc9fc48b8414e1b18387504c7b"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "283b12a31bb63921e2b3e37af85d06d2809a8648621878a875d453b475f51a9e",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7784
     }
   ],
   "tagAssignments": [
@@ -562,5 +570,21 @@
     "inputFingerprint": "4f0112479ff468c000f73727bf6063e1b7a0aa95752da6a63ad1bc43161a54c5",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴がVAPEを片手に作業を進めながら、仕事や配信、香りの好み、靴や肌のケアについて語る雑談。視聴者の質問や相談にも答え、手を動かす時間に日常の話題がゆるやかに広がります。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "作業も終わったし最高だ",
+      "atSeconds": 5718,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "283b12a31bb63921e2b3e37af85d06d2809a8648621878a875d453b475f51a9e",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T04:04:47.696687Z"
   }
 }
