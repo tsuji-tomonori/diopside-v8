@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "4UdmpoaRcHE",
+  "title": "タクシーで不健全な仕事をしていると勘違いされる白雪【白雪 巴/にじさんじ】",
+  "publishedAt": "2024-04-21T01:05:45Z",
+  "durationSeconds": 95,
+  "durationIso": "PT1M35S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/4UdmpoaRcHE/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=4UdmpoaRcHE",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "50b80a43b12a3b545ea89f81ec8b8aa2fbf802500926d1f5bdcdfeec228d97b4"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "b47554f8e16cec2a6410a2847efd7191df411a20974f7925226c8b63ee9e5edf"
+    },
+    {
+      "evidenceId": "evidence-approved-tags",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "旧diopsideの承認済みタグ正本",
+      "inputFingerprint": "af483e6ce76ead7fe949f9ff51f0433569ab066cd2a80c18ad56e5895b1d79b7"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "366edf3cb4ffdd3959ca3c62dc8b3d7a92a9947ebe19efb285eee53eae75194d",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 95
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-af7be42add09",
+      "reason": "公開タイトルと既存分類から主ジャンル「雑談」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-talkStyle-c07399132e89",
+      "reason": "既存タグ「体験談」から雑談種別「体験談」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "未作成",
+    "reason": "全編確認不足",
+    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "8cb9c1929c8812dcbf0e57e21e60bf460c405eb68b49e58ddc18f4d9a6105ed0",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、遠征先へ向かうタクシーで行き先について尋ねられ、仕事だと答えたことから生まれた気まずいやり取りを振り返る。さらに、知らない人から職業を聞かれるときの戸惑いにも話を広げ、軽妙な語り口で語る。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "健全な仕事です",
+      "atSeconds": 49,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "366edf3cb4ffdd3959ca3c62dc8b3d7a92a9947ebe19efb285eee53eae75194d",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T08:50:11.061070Z"
+  }
+}
