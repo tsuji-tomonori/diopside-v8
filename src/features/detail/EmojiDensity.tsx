@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
+import type { KeyboardEvent, PointerEvent } from 'react';
 import type { PublicVideoDetail } from '../../domain/content.ts';
 import { formatTimestamp } from '../../format.ts';
 
@@ -9,11 +10,12 @@ export function EmojiDensity({ usage, timeline, videoId, timestamps }: {
   usage: Usage; timeline: Timeline; videoId: string; timestamps: PublicVideoDetail['timestamps'];
 }): React.JSX.Element {
   const n = timeline.bins.length;
-  const [range, setRange] = useState<[number, number]>([0, Math.min(14, n - 1)]);
-  const [pending, setPending] = useState<number | null>(null);
-  const [lo, hi] = range;
-  const start = lo * 60;
-  const end = Math.min(timeline.durationSeconds, (hi + 1) * 60);
+  const [range, setRange] = useState<[number, number]>([0, timeline.durationSeconds]);
+  const dragging = useRef<'start' | 'end' | null>(null);
+  const [start, end] = range;
+  const lo = Math.floor(start / 60);
+  const hi = Math.ceil(end / 60) - 1;
+  const countedSeconds = Math.min(timeline.durationSeconds, (hi + 1) * 60) - lo * 60;
   const minuteCounts = useMemo(() => timeline.bins.map((bin) => bin.reduce((sum, pair) => sum + pair[1], 0)), [timeline]);
   const bars = useMemo(() => Array.from({ length: Math.ceil(n / 3) }, (_, i) => {
     const start = i * 180;
@@ -36,25 +38,52 @@ export function EmojiDensity({ usage, timeline, videoId, timestamps }: {
   const chapters = timestamps.status === '作成済み' ? timestamps.items : [];
   const inChapters = chapters.filter((item) => item.startSeconds < end && item.endSeconds > start);
   const url = (seconds: number): string => `https://www.youtube.com/watch?v=${videoId}&t=${seconds}s`;
-  function chooseCell(index: number): void {
-    const first = index * 15;
-    if (pending === null) {
-      setRange([first, Math.min(first + 14, n - 1)]);
-      setPending(index);
-    } else {
-      setRange([Math.min(pending, index) * 15, Math.min((Math.max(pending, index) + 1) * 15 - 1, n - 1)]);
-      setPending(null);
-    }
+  function moveBoundary(boundary: 'start' | 'end', seconds: number): void {
+    setRange(([from, to]) => boundary === 'start'
+      ? [Math.max(0, Math.min(to - 1, Math.round(seconds))), to]
+      : [from, Math.min(timeline.durationSeconds, Math.max(from + 1, Math.round(seconds)))]);
   }
-  function updateRange(next: [number, number]): void { setRange(next); setPending(null); }
+  function pointerSeconds(event: PointerEvent<HTMLDivElement>): number {
+    const rect = event.currentTarget.getBoundingClientRect();
+    return (event.clientX - rect.left) / rect.width * timeline.durationSeconds;
+  }
+  function beginDrag(event: PointerEvent<HTMLDivElement>): void {
+    if (!event.isPrimary || event.button !== 0) return;
+    const handle = (event.target as Element).closest<HTMLElement>('[data-boundary]');
+    const seconds = pointerSeconds(event);
+    const boundary = handle?.dataset.boundary === 'start' || handle?.dataset.boundary === 'end'
+      ? handle.dataset.boundary : Math.abs(seconds - start) <= Math.abs(seconds - end) ? 'start' : 'end';
+    dragging.current = boundary;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    event.currentTarget.querySelector<HTMLElement>(`[data-boundary="${boundary}"]`)?.focus({ preventScroll: true });
+    if (!handle) moveBoundary(boundary, seconds);
+    event.preventDefault();
+  }
+  function keyboardMove(event: KeyboardEvent<HTMLDivElement>, boundary: 'start' | 'end'): void {
+    const current = boundary === 'start' ? start : end;
+    const changes: Record<string, number> = { ArrowLeft: -1, ArrowDown: -1, ArrowRight: 1, ArrowUp: 1, PageDown: -60, PageUp: 60 };
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? timeline.durationSeconds
+      : changes[event.key] !== undefined ? current + changes[event.key]! : undefined;
+    if (next === undefined) return;
+    event.preventDefault();
+    moveBoundary(boundary, next);
+  }
 
   return (
     <div className="emoji-density">
       <h3>絵文字の波</h3>
       <p className="notice">棒の高さは1分あたりの使用回数（3分ごとに表示）。縦線は章の境目です。</p>
-      <p className="emoji-range-hint" role="status">{pending === null ? '15分マスを2回選んで、気になる区間を囲めます。' : '終わりのマスを選んでください。逆順でも選べます。'}</p>
-      <div className="emoji-wave-scroll" role="region" aria-label="絵文字の密度グラフ" tabIndex={0}>
-        <div className="emoji-wave" style={{ minWidth: Math.ceil(n / 15) * 28 }}>
+      <p className="emoji-range-hint" id={`emoji-range-help-${videoId}`}>左右のつまみをドラッグして範囲を選択。矢印キーで1秒、Page Up / Downで1分調整できます。</p>
+      <div className="emoji-wave-scroll" role="group" aria-label="絵文字の範囲選択">
+        <div className="emoji-wave" onPointerDown={beginDrag}
+          onPointerMove={(event) => { if (dragging.current) moveBoundary(dragging.current, pointerSeconds(event)); }}
+          onPointerUp={(event) => {
+            if (dragging.current) moveBoundary(dragging.current, pointerSeconds(event));
+            dragging.current = null;
+            if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+          }}
+          onPointerCancel={() => { dragging.current = null; }}
+          onLostPointerCapture={() => { dragging.current = null; }}>
           <div className="emoji-wave-bars" role="img" aria-label={`全編の絵文字密度。再生時間内 ${allPositioned.toLocaleString('ja-JP')}回。最大 ${maxDensity.toFixed(1)}回/分。下の区間選択で詳しい数値を確認できます。`}>
             {bars.map((bar) => (
               <span key={bar.start} className={bar.start < end && bar.start + bar.seconds > start ? 'selected' : ''}
@@ -62,34 +91,35 @@ export function EmojiDensity({ usage, timeline, videoId, timestamps }: {
             ))}
           </div>
           <div className="emoji-chapter-markers" aria-hidden="true">
-            {chapters.map((chapter) => <span key={chapter.timestampId} title={chapter.label} style={{ left: `${chapter.startSeconds / timeline.durationSeconds * 100}%` }} />)}
+            {chapters.filter((chapter) => chapter.startSeconds < timeline.durationSeconds).map((chapter) => <span key={chapter.timestampId} title={chapter.label} style={{ left: `${chapter.startSeconds / timeline.durationSeconds * 100}%` }} />)}
           </div>
-          <div className="emoji-wave-cells">
-            {Array.from({ length: Math.ceil(n / 15) }, (_, index) => {
-              const from = index * 900, to = Math.min(timeline.durationSeconds, from + 900);
-              return <button type="button" key={from} onClick={() => chooseCell(index)}
-                aria-label={`区間 ${formatTimestamp(from)}–${formatTimestamp(to)}`}
-                aria-pressed={from < end && to > start}
-                style={{ width: `${(to - from) / timeline.durationSeconds * 100}%` }} />;
-            })}
-          </div>
+          <div className="emoji-wave-selection" aria-hidden="true" style={{ left: `${start / timeline.durationSeconds * 100}%`, width: `${(end - start) / timeline.durationSeconds * 100}%` }} />
+          {(['start', 'end'] as const).map((boundary) => {
+            const value = boundary === 'start' ? start : end;
+            return <div key={boundary} className="emoji-range-handle" data-boundary={boundary}
+              role="slider" tabIndex={0} aria-label={boundary === 'start' ? '区間の開始' : '区間の終了'}
+              aria-valuemin={boundary === 'start' ? 0 : start + 1}
+              aria-valuemax={boundary === 'start' ? end - 1 : timeline.durationSeconds}
+              aria-valuenow={value} aria-valuetext={formatTimestamp(value)}
+              aria-describedby={`emoji-range-help-${videoId}`}
+              onKeyDown={(event) => keyboardMove(event, boundary)}
+              style={{ left: `${value / timeline.durationSeconds * 100}%` }}><span aria-hidden="true">Ⅱ</span></div>;
+          })}
         </div>
         <div className="emoji-wave-axis"><span>0:00</span><span>{formatTimestamp(timeline.durationSeconds)}</span></div>
       </div>
       <div className="emoji-range-card">
         <div className="emoji-range-inputs">
-          <label>開始<select aria-label="区間の開始" value={lo} onChange={(event) => {
-            const next = Number(event.target.value); updateRange([next, Math.max(next, hi)]);
-          }}>{timeline.bins.map((_, index) => <option key={index} value={index}>{formatTimestamp(index * 60)}</option>)}</select></label>
-          <label>終了<select aria-label="区間の終了" value={hi} onChange={(event) => {
-            const next = Number(event.target.value); updateRange([Math.min(lo, next), next]);
-          }}>{timeline.bins.map((_, index) => <option key={index} value={index}>{formatTimestamp(Math.min((index + 1) * 60, timeline.durationSeconds))}</option>)}</select></label>
+          <label>開始（秒）<input type="number" min={0} max={end - 1} step={1} aria-label="区間の開始（秒）" value={start}
+            onChange={(event) => { if (Number.isFinite(event.target.valueAsNumber)) moveBoundary('start', event.target.valueAsNumber); }} /></label>
+          <label>終了（秒）<input type="number" min={start + 1} max={timeline.durationSeconds} step={1} aria-label="区間の終了（秒）" value={end}
+            onChange={(event) => { if (Number.isFinite(event.target.valueAsNumber)) moveBoundary('end', event.target.valueAsNumber); }} /></label>
         </div>
         <div aria-live="polite" aria-atomic="true">
           <h4>{formatTimestamp(start)}–{formatTimestamp(end)}</h4>
           {inChapters.length ? <p className="emoji-range-chapters">{inChapters.slice(0, 2).map((item) => item.label).join(' / ')}{inChapters.length > 2 ? ` 他${inChapters.length - 2}章` : ''}</p> : null}
-          <p className="emoji-range-count">この区間で {count.toLocaleString('ja-JP')}回 ・ 再生時間内の{(allPositioned ? count / allPositioned * 100 : 0).toFixed(1)}%</p>
-          <p className="notice">平均 {(count * 60 / (end - start)).toFixed(1)}回/分</p>
+          <p className="emoji-range-count">集計範囲で {count.toLocaleString('ja-JP')}回 ・ 再生時間内の{(allPositioned ? count / allPositioned * 100 : 0).toFixed(1)}%</p>
+          <p className="notice">回数・内訳は重なる1分区間の集計です（{formatTimestamp(lo * 60)}–{formatTimestamp(Math.min(timeline.durationSeconds, (hi + 1) * 60))}）。平均 {(count * 60 / countedSeconds).toFixed(1)}回/分</p>
           {count === 0 ? <p>この区間はカスタム絵文字が0回です。</p> : null}
         </div>
         <ul className="emoji-range-pills" aria-label="選択区間の絵文字別使用回数" tabIndex={0}>
@@ -98,11 +128,11 @@ export function EmojiDensity({ usage, timeline, videoId, timestamps }: {
           </li>)}
         </ul>
         <a className="button primary" href={url(start)} target="_blank" rel="noreferrer">区間の頭 {formatTimestamp(start)} から見る</a>
-        {count > 0 ? <a className="button secondary" href={url(peak * 60)} target="_blank" rel="noreferrer">一番濃い {formatTimestamp(peak * 60)} へ</a> : null}
+        {count > 0 ? <a className="button secondary" href={url(Math.max(start, peak * 60))} target="_blank" rel="noreferrer">一番濃い {formatTimestamp(Math.max(start, peak * 60))} へ</a> : null}
         <div className="emoji-range-actions">
-          <button type="button" disabled={lo === 0 && hi === n - 1} onClick={() => updateRange([Math.max(0, lo - 15), Math.min(n - 1, hi + 15)])}>前後に広げる</button>
-          <button type="button" disabled={count === 0} onClick={() => updateRange([peak, peak])}>ピークの1分に絞る</button>
-          <button type="button" onClick={() => updateRange([0, n - 1])}>全体を選択</button>
+          <button type="button" disabled={start === 0 && end === timeline.durationSeconds} onClick={() => setRange([Math.max(0, start - 60), Math.min(timeline.durationSeconds, end + 60)])}>前後1分に広げる</button>
+          <button type="button" disabled={count === 0} onClick={() => setRange([Math.max(start, peak * 60), Math.min(end, (peak + 1) * 60)])}>ピークの1分に絞る</button>
+          <button type="button" onClick={() => setRange([0, timeline.durationSeconds])}>全体を選択</button>
         </div>
       </div>
       <p className="notice">保存済みチャットの集計です。開始前 {timeline.beforeStartCount.toLocaleString('ja-JP')}回・終了後 {timeline.afterEndCount.toLocaleString('ja-JP')}回・時刻不明 {timeline.unpositionedCount.toLocaleString('ja-JP')}回は波に含めず、総使用回数に含めています。</p>

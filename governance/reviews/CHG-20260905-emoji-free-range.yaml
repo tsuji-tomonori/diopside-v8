@@ -1,0 +1,215 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260905-emoji-free-range
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: false
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: V8-DISPLAY-023をrevision 2へ更新し、自由な範囲選択と初期全選択を追加する。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: 秒単位のUI選択状態と1分単位の集計範囲を分離し、実装由来設計を生成する。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: 公開契約・依存を維持したUIと永続要件の変更としてassuredを選択する。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: 既存buildとGitHub Actionsで静的画面を検証する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: strict型検査を実行する。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: 変更したcomponent・E2E・generatorを既存lintで検証する。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: 既存詳細E2Eと要件監査試験に接続する。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - path:docs/requirements/REQUIREMENTS.md
+    note: 要件・設計を決定生成し、check modeでdriftを確認する。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: 追加の素材取得・データ保存を行わず既存の匿名公開集計だけを使う。
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: 初期全選択、ドラッグ、秒単位の入力、ピーク、ゼロ、短い末尾と全体復帰を検証する。
+  - id: FAST-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: マウス・タッチのpointer capture、sliderの矢印・Home/End操作、交差防止とaxeを確認する。
+  - id: FAST-018
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: 開始・終了の実操作に対し範囲内のYouTube開始秒と集計値を照合する。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: 固定マスを廃止し、既存絵文字密度componentと対応要件・E2Eだけを変更する。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: 構造化Commit Commentに要件・設計影響、review pathと検証契約を残す。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: 既存受入条件を維持し、初期全選択と秒単位の自由な操作を追加する。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - path:docs/requirements/REQUIREMENTS.md
+    note: 実装由来設計を再生成する。新しい長期技術選択がなくADRは不要。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: 実際のマウス・タッチ操作とキーボード操作で利用者の受入条件を検証する。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: 既存のGitHub Actionsで型・lint・要件監査・全E2Eを実行する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: 公開素材の保存や追加のデータ収集はない。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: 秒単位の選択と1分単位の内訳の差を画面と残存リスクへ明示する。
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/features/detail/EmojiDensity.tsx
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート
+    note: モバイルとデスクトップで自由ドラッグ、境界、全体復帰、overflowを確認する。
+advisories: []
+residual_risks:
+  - 既存の1分集計を利用するため、内訳は選択範囲に重なる区間の合計となる。平均密度は集計区間の尺で計算し、選択秒数による過大表示を避ける。
+  - 秒単位の再生位置は選べるが、長時間動画のポインタ操作精度は画面幅に依存する。矢印キーと秒数入力で微調整できる。

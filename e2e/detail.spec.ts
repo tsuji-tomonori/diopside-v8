@@ -157,7 +157,8 @@ test.describe('動画詳細', () => {
     await expectNoSeriousAccessibilityViolations(page);
   });
 
-  test('絵文字の波で逆順の区間選択、1分微調整、ピーク再生とゼロ区間を確認する', async ({ page }, testInfo) => {
+  test('絵文字の波を全選択で開き、マウス・タッチと秒単位の操作で自由に範囲選択する', async ({ page }, testInfo) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
     await preparePage(page);
     await page.route('https://yt3.ggpht.com/**', (route) => route.abort());
     const videoId = 'c9TnpjK3ZZE';
@@ -179,24 +180,72 @@ test.describe('動画詳細', () => {
     await page.route(`**/data/releases/${latest.releaseId}/video-shards/${shardId}.json`, (route) => route.fulfill({ json: shard }));
     await page.goto(`/#/video/${videoId}`);
     const wave = page.locator('.emoji-density');
-    await expect(wave.getByText('この区間で 5回 ・ 再生時間内の29.4%')).toBeVisible();
-    await wave.getByRole('button', { name: '区間 30:00–31:05', exact: true }).click();
-    await wave.getByRole('button', { name: '区間 0:00–15:00', exact: true }).click();
-    await expect(wave.getByText('この区間で 17回 ・ 再生時間内の100.0%')).toBeVisible();
+    const startHandle = wave.getByRole('slider', { name: '区間の開始', exact: true });
+    const endHandle = wave.getByRole('slider', { name: '区間の終了', exact: true });
+    await expect(startHandle).toHaveAttribute('aria-valuenow', '0');
+    await expect(endHandle).toHaveAttribute('aria-valuenow', '1865');
+    await expect(wave.getByText('集計範囲で 17回 ・ 再生時間内の100.0%')).toBeVisible();
+    await expect(wave.locator('.emoji-wave-cells')).toHaveCount(0);
+    await startHandle.focus();
+    await page.keyboard.press('ArrowRight');
+    await expect(startHandle).toHaveAttribute('aria-valuenow', '1');
+    await expect(wave.getByRole('link', { name: '区間の頭 0:01 から見る' })).toHaveAttribute('href', `https://www.youtube.com/watch?v=${videoId}&t=1s`);
+    await page.keyboard.press('Home');
+    await endHandle.focus();
+    await page.keyboard.press('ArrowLeft');
+    await expect(endHandle).toHaveAttribute('aria-valuenow', '1864');
+    await page.keyboard.press('End');
+
+    // Real pointer input verifies capture and movement on desktop and touchscreens.
+    const drag = async (boundary: 'start' | 'end', seconds: number): Promise<void> => {
+      const handle = boundary === 'start' ? startHandle : endHandle;
+      await wave.locator('.emoji-wave').evaluate((element) => element.scrollIntoView({ block: 'center', behavior: 'instant' }));
+      const track = (await wave.locator('.emoji-wave').boundingBox())!;
+      const box = (await handle.boundingBox())!;
+      const from = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+      const to = { x: track.x + track.width * seconds / 1865, y: from.y };
+      if (testInfo.project.name === 'モバイル') {
+        const cdp = await page.context().newCDPSession(page);
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ ...from, id: 1 }] });
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ ...to, id: 1 }] });
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+        await cdp.detach();
+      } else {
+        await page.mouse.move(from.x, from.y);
+        await page.mouse.down();
+        await page.mouse.move(to.x, to.y, { steps: 8 });
+        await page.mouse.up();
+      }
+    };
+    await drag('start', 317);
+    expect(Math.abs(Number(await startHandle.getAttribute('aria-valuenow')) - 317)).toBeLessThanOrEqual(1);
+    await drag('end', 1459);
+    expect(Math.abs(Number(await endHandle.getAttribute('aria-valuenow')) - 1459)).toBeLessThanOrEqual(1);
+    await expect(wave.getByText('集計範囲で 8回 ・ 再生時間内の47.1%')).toBeVisible();
+    await expect(wave.getByText(/回数・内訳は重なる1分区間の集計です/)).toBeVisible();
+    await startHandle.focus();
+    await page.keyboard.press('End');
+    expect(Number(await endHandle.getAttribute('aria-valuenow')) - Number(await startHandle.getAttribute('aria-valuenow'))).toBe(1);
+    await page.keyboard.press('ArrowRight');
+    expect(Number(await endHandle.getAttribute('aria-valuenow')) - Number(await startHandle.getAttribute('aria-valuenow'))).toBe(1);
+    await wave.getByRole('button', { name: '全体を選択' }).click();
     await expect(wave.getByRole('link', { name: '区間の頭 0:00 から見る' })).toHaveAttribute('href', `https://www.youtube.com/watch?v=${videoId}&t=0s`);
     await expect(wave.getByRole('link', { name: '一番濃い 31:00 へ' })).toHaveAttribute('href', `https://www.youtube.com/watch?v=${videoId}&t=1860s`);
     await wave.getByRole('button', { name: 'ピークの1分に絞る' }).click();
-    await expect(wave.getByText('平均 84.0回/分')).toBeVisible();
+    await expect(wave.getByText(/平均 84.0回\/分/)).toBeVisible();
     await expect(wave.getByLabel('選択区間の絵文字別使用回数')).toContainText(':kusa:3回');
     await expect(wave.getByLabel('選択区間の絵文字別使用回数')).toContainText(':wan:4回');
-    await wave.getByLabel('区間の開始').selectOption('16');
-    await wave.getByLabel('区間の終了').selectOption('16');
+    await wave.getByLabel('区間の開始（秒）').fill('1864');
+    await expect(wave.getByText(/平均 84.0回\/分/)).toBeVisible();
+    await expect(wave.getByRole('link', { name: '一番濃い 31:04 へ' })).toHaveAttribute('href', `https://www.youtube.com/watch?v=${videoId}&t=1864s`);
+    await wave.getByLabel('区間の開始（秒）').fill('960');
+    await wave.getByLabel('区間の終了（秒）').fill('1020');
     await expect(wave.getByText('この区間はカスタム絵文字が0回です。')).toBeVisible();
     await expect(wave.getByRole('button', { name: 'ピークの1分に絞る' })).toBeDisabled();
     await expect(wave.getByRole('link', { name: /一番濃い/u })).toHaveCount(0);
     await wave.getByRole('button', { name: '全体を選択' }).focus();
     await page.keyboard.press('Enter');
-    await expect(wave.getByText('この区間で 17回 ・ 再生時間内の100.0%')).toBeVisible();
+    await expect(wave.getByText('集計範囲で 17回 ・ 再生時間内の100.0%')).toBeVisible();
     await expectNoSeriousAccessibilityViolations(page);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     await wave.screenshot({ path: testInfo.outputPath('emoji-density.png') });

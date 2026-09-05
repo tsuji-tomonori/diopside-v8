@@ -2208,7 +2208,7 @@ const emojiDensityRequirements = [
   },
   {
     "id": "V8-DISPLAY-023",
-    "revision": 1,
+    "revision": 2,
     "status": "active",
     "scope": "product",
     "category": "functional",
@@ -2216,7 +2216,7 @@ const emojiDensityRequirements = [
     "title": "動画詳細で絵文字の密度から区間を選び内訳と再生位置を確認できなければならない",
     "subject": "diopside v8の動画詳細",
     "action": "satisfy",
-    "object": "時間帯別集計のある動画詳細は、絵文字密度の波から区間を選択し、絵文字別画像・表示名・回数、区間の総数・割合・密度を確認して、区間開始または区間内ピークからYouTubeで再生できなければならない。",
+    "object": "時間帯別集計のある動画詳細は、初期状態で全区間を選択し、絵文字密度の波の開始・終了位置をシークバーのようにドラッグして自由に調整できなければならない。絵文字別画像・表示名・回数、集計範囲の総数・割合・密度を確認し、選択した区間開始または区間内ピークからYouTubeで再生できなければならない。",
     "rationale": "参考HTMLの区間選択と画像付き内訳を、静的なブラウザ内処理とモバイル・キーボード操作で利用できるようにするため。",
     "source_refs": [
       "spec/sources/owner-directive-2026-09-05-emoji-density.md",
@@ -2228,6 +2228,12 @@ const emojiDensityRequirements = [
         "given": "時間帯別集計を持つ動画詳細",
         "when": "モバイルまたはデスクトップで区間を選択・微調整する",
         "then": "正逆両順の区間選択で回数と割合が一致し、ゼロ区間と短い末尾区間を正しく表示する。画像取得失敗時も表示名が残り、区間開始・ピークへのリンクが選択時刻と一致する。"
+      },
+      {
+        "id": "AC-V8-DISPLAY-023-2",
+        "given": "時間帯別集計を持つ動画詳細を初めて開く",
+        "when": "マウス・タッチで開始と終了をドラッグし、キーボードで微調整する",
+        "then": "最初は全区間を選択し、固定マスへ吸着せず秒単位で開始・終了を選べる。範囲は交差せず動画尺内に保つ。1分集計の内訳と秒単位の再生位置を区別し、部分区間の密度を過大表示しない。全体選択で初期範囲へ戻せる。"
       }
     ],
     "verification": {
@@ -2251,7 +2257,7 @@ const emojiDensityRequirements = [
         "V8-DISPLAY-018"
       ]
     },
-    "last_changed_by": "CHG-20260905-emoji-density"
+    "last_changed_by": "CHG-20260905-emoji-free-range"
   }
 ];
 const generatedRequirements = [
@@ -2292,7 +2298,7 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 36),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 38),
   product: 'diopside v8',
   updated_at: existingCatalog?.updated_at && existingCatalog.updated_at > '2026-09-05' ? existingCatalog.updated_at : '2026-09-05',
   requirements: canonicalRequirements,
