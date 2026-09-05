@@ -28,7 +28,7 @@ export const guestSongAuditSchema = z.object({
 export function guestSongAuditCandidates(videos: CanonicalVideo[], taxonomy: TagTaxonomy): CanonicalVideo[] {
   const subjectChannels = new Set(taxonomy.categories.flatMap((category) => category.subcategories
     .filter((subcategory) => subcategory.subcategoryId === 'channel')
-    .flatMap((subcategory) => subcategory.tags.filter((tag) => tag.canonicalName.includes('白雪')).map((tag) => tag.tagId))));
+    .flatMap((subcategory) => subcategory.tags.filter((tag) => /^白雪\s*巴(?:\/|$)/u.test(tag.canonicalName)).map((tag) => tag.tagId))));
   // This only discovers review candidates. A title or guest credit never authorizes a song.
   return videos.filter((video) => !video.tagAssignments.some((assignment) => subjectChannels.has(assignment.tagId))
     && /お披露目|3D.*(?:LIVE|Live)|誕生日.*Polaris|生誕祭.*[3３]D|歌謡祭|夜王国二周年/iu.test(video.title));

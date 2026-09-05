@@ -43,5 +43,10 @@ describe('他チャンネルの本人歌唱だけを掲載する', () => {
     expect(auditGuestSongPerformances(changed, catalog, videos, taxonomy).join('\n')).toContain('白雪巴の歌唱参加が必要');
     const unseen = { ...videos.find((video) => video.videoId === 'hXH4vIDnHNM')!, videoId: 'newLive1234' };
     expect(auditGuestSongPerformances(fixture, catalog, [...videos, unseen], taxonomy).join('\n')).toContain('新規監査候補: newLive1234');
+    const otherShirayuki = { ...unseen, tagAssignments: unseen.tagAssignments.map((assignment) => (
+      assignment.tagId === 'tag-people-channel-a782d9cc8bec'
+        ? { ...assignment, tagId: 'tag-people-channel-35e7a6408355' } : assignment
+    )) };
+    expect(auditGuestSongPerformances(fixture, catalog, [...videos, otherShirayuki], taxonomy).join('\n')).toContain('新規監査候補: newLive1234');
   });
 });
