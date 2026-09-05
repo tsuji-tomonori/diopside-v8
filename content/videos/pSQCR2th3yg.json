@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "efc6f98f308fafa61b2ae4b4dad67e78f284b7ab1815ee93cf7c545d3129346b"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "8a2d615ff4718be23ba549b4a02bcd82f72666c9ab143134124ce7be5aad4ad6",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 4517
     }
   ],
   "tagAssignments": [
@@ -85,10 +93,176 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-e8ecd124",
+        "startSeconds": 0,
+        "label": "引っ越し後の再会とゆっくり癒やす時間",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-286-642dbb45",
+        "startSeconds": 286,
+        "label": "右耳の耳かきを始める",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-812-3c6af1e3",
+        "startSeconds": 812,
+        "label": "右耳の耳かき後半とオイルマッサージの準備",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1176-2d081296",
+        "startSeconds": 1176,
+        "label": "綿棒で耳掃除をしながら眠る相手を見守る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1345-09a908fa",
+        "startSeconds": 1345,
+        "label": "耳掃除の仕上げから耳のマッサージへ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1546-5ac42a7f",
+        "startSeconds": 1546,
+        "label": "耳を圧迫する施術と太い耳かき",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1762-adcb1261",
+        "startSeconds": 1762,
+        "label": "細い耳かきに替えて施術を続ける",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2140-827c233b",
+        "startSeconds": 2140,
+        "label": "オイルを温めて耳のマッサージを始める",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2726-fbaab288",
+        "startSeconds": 2726,
+        "label": "冷やしたスライムを紹介する",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2786-2f3b73fe",
+        "startSeconds": 2786,
+        "label": "冷やしたスライムを使い始める",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3675-99346453",
+        "startSeconds": 3675,
+        "label": "冷たいスライムで耳をクールダウンする",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4010-4fc74a8c",
+        "startSeconds": 4010,
+        "label": "スライムに包まれながら眠りへ誘う",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4325-dc3cc175",
+        "startSeconds": 4325,
+        "label": "スライム施術を終えて感想を聞く",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4380-f7df0745",
+        "startSeconds": 4380,
+        "label": "耳掃除とマッサージを振り返り、おやすみを伝える",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "8abbf616b842d2ca2785deeb38a800968325390703f3f4a2b739231335dae5ca",
+    "inputFingerprint": "8a2d615ff4718be23ba549b4a02bcd82f72666c9ab143134124ce7be5aad4ad6",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T08:36:59.281065+00:00",
+    "updatedAt": "2026-09-05T08:38:44.009960+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "8abbf616b842d2ca2785deeb38a800968325390703f3f4a2b739231335dae5ca",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T08:37:56.491679+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "8abbf616b842d2ca2785deeb38a800968325390703f3f4a2b739231335dae5ca",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T08:38:44.009960+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "8abbf616b842d2ca2785deeb38a800968325390703f3f4a2b739231335dae5ca",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -303,9 +477,9 @@
   },
   "provenance": {
     "inputFingerprint": "ac020b083715d060dbd21723a51aaad51a0a2295b926c7cfa4e55adc91781020",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",
