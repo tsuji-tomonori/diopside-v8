@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "白雪巴公式YouTube「白衣性恋愛症候群RE:Therapy」再生リスト",
       "inputFingerprint": "bd5f2db835c15b59d99c936c5efcb0dbc7d5259215f2414f4e0012d7dcebb65b"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "05461078229b5b1f348cc130f1ebf2404b0937eba69924ead6fda4839863cd32",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 638
     }
   ],
   "tagAssignments": [
@@ -103,10 +111,95 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-3fac670d",
+        "startSeconds": 0,
+        "label": "夢と看護師への戸惑い、登場人物への期待",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-151-bc21e8d6",
+        "startSeconds": 151,
+        "label": "病院を舞台にお姉さんたちとの百合展開を楽しむ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-509-0e0c530a",
+        "startSeconds": 509,
+        "label": "戴帽式とナースキャップをめぐる病院談義",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-545-942568c9",
+        "startSeconds": 545,
+        "label": "給与振込の印鑑をめぐる職場の行き違い",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-592-3db14490",
+        "startSeconds": 592,
+        "label": "ゲーム初日の進行と終盤への不安",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "3ab0b0bf3282396ac8ec446b9812ef2d2a590f6846e28a7fe1dff4be8f3cda91",
+    "inputFingerprint": "05461078229b5b1f348cc130f1ebf2404b0937eba69924ead6fda4839863cd32",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T06:26:52.304292+00:00",
+    "updatedAt": "2026-09-05T06:30:28.570662+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "3ab0b0bf3282396ac8ec446b9812ef2d2a590f6846e28a7fe1dff4be8f3cda91",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T06:27:36.743131+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "3ab0b0bf3282396ac8ec446b9812ef2d2a590f6846e28a7fe1dff4be8f3cda91",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T06:30:28.570662+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "3ab0b0bf3282396ac8ec446b9812ef2d2a590f6846e28a7fe1dff4be8f3cda91",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "未作成",
@@ -116,9 +209,9 @@
   },
   "provenance": {
     "inputFingerprint": "e7233787448ab0e9df1d4a28fd92ddd93fab8a072e08d6a4c99098a8cc6efbfc",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",
