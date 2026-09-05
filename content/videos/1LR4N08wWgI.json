@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "f7022accf72af70d49c1bacc145fe8dee8c40fa864800f3d4c3e881e1b2b4861"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "745d929f69862e726b279effe3ad31fec0fa47ce3a8f329bcbcbfdabf1b31b9c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 117
     }
   ],
   "tagAssignments": [
@@ -350,5 +358,21 @@
     "inputFingerprint": "6f9e9f21c4211bce7860bbaf685dde8b69f62c02658c8e2172ec36ebc570cb1f",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が「ジムに行きたい」と言うだけで満足してしまう心当たりを、厳しい掛け合いと自虐で掘り下げる。入会だけで達成感を得る感覚や、運動への腰の重さを笑いに変えつつ、最後は食生活を見直す案にも触れる、テンポのよいショートトーク。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "口にするのはマジで簡単なの",
+      "atSeconds": 72,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "745d929f69862e726b279effe3ad31fec0fa47ce3a8f329bcbcbfdabf1b31b9c",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T04:38:03.067384Z"
   }
 }
