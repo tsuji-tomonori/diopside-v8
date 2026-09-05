@@ -18,24 +18,25 @@
 .emoji-density h3 { margin-bottom: .35rem; font: 600 1.5rem Georgia, "Yu Mincho", serif; }
 .emoji-density .notice { margin: .5rem 0; padding: 0; border: 0; background: transparent; font-size: .75rem; }
 .emoji-range-hint { color: var(--lavender-dark); font-size: .8rem; font-weight: 700; }
-.emoji-wave-scroll { overflow-x: auto; padding: .5rem 2px; }
-.emoji-wave { position: relative; height: 112px; border-bottom: 1px solid #ded5ea; }
-.emoji-wave-bars, .emoji-wave-cells, .emoji-chapter-markers { position: absolute; inset: 0; display: flex; }
+.emoji-wave-scroll { padding: .5rem 22px; }
+.emoji-wave { position: relative; height: 112px; margin-bottom: 24px; border-bottom: 3px solid #ded5ea; touch-action: none; cursor: crosshair; user-select: none; }
+.emoji-wave-bars, .emoji-chapter-markers { position: absolute; inset: 0; display: flex; }
 .emoji-wave-bars { align-items: end; pointer-events: none; }
 .emoji-wave-bars > span { flex: none; min-height: 0; border-right: 1px solid white; border-radius: 2px 2px 0 0; background: #b6a3c9; }
 .emoji-wave-bars > .selected { background: var(--lavender-dark); }
 .emoji-chapter-markers { pointer-events: none; }
 .emoji-chapter-markers > span { position: absolute; height: 100%; border-left: 1px dashed #85738f; }
-.emoji-wave-cells button { flex: none; min-width: 0; padding: 0; border: 1px solid transparent; border-radius: 3px; background: transparent; cursor: pointer; }
-.emoji-wave-cells button[aria-pressed="true"] { border-color: #76639a; background: rgb(118 99 154 / 8%); }
-.emoji-wave-cells button:focus-visible { outline: 3px solid #282239; outline-offset: -3px; }
+.emoji-wave-selection { position: absolute; inset-block: 0 -3px; border-inline: 2px solid var(--lavender-dark); border-bottom: 3px solid var(--lavender-dark); background: rgb(118 99 154 / 10%); pointer-events: none; }
+.emoji-range-handle { position: absolute; bottom: -24px; display: grid; place-items: center; width: 44px; height: 44px; transform: translateX(-50%); cursor: ew-resize; touch-action: none; z-index: 1; border-radius: 8px; }
+.emoji-range-handle span { display: grid; place-items: center; width: 20px; height: 32px; border: 2px solid white; border-radius: 7px; background: var(--lavender-dark); color: white; box-shadow: 0 1px 5px #55427366; font-size: 13px; }
+.emoji-range-handle:focus-visible { outline: 3px solid #282239; outline-offset: -2px; z-index: 2; }
 .emoji-wave-axis { display: flex; justify-content: space-between; color: var(--muted); font-size: .75rem; font-variant-numeric: tabular-nums; }
 .emoji-range-card { margin: 1rem 0; padding: 1rem; border: 1px solid #d5cce7; border-radius: 18px; background: linear-gradient(135deg, #f8f4fc, #f1ebf8); }
 .emoji-range-card h4 { margin: .8rem 0 .3rem; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
 .emoji-range-chapters, .emoji-range-count { margin: .4rem 0; color: var(--lavender-dark); font-size: .85rem; font-weight: 700; }
 .emoji-range-inputs { display: flex; flex-wrap: wrap; gap: .75rem; }
 .emoji-range-inputs label { display: grid; flex: 1; gap: .25rem; color: var(--muted); font-size: .75rem; }
-.emoji-range-inputs select { min-height: 44px; width: 100%; padding: .5rem; border: 1px solid #d5cce7; border-radius: 8px; background: white; color: var(--ink); }
+.emoji-range-inputs input { min-height: 44px; width: 100%; padding: .5rem; border: 1px solid #d5cce7; border-radius: 8px; background: white; color: var(--ink); }
 .emoji-range-pills { display: flex; flex-wrap: wrap; gap: .5rem; max-height: 220px; overflow: auto; margin: 1rem 0; padding: 0; list-style: none; }
 .emoji-range-pills li { display: flex; align-items: center; gap: .4rem; max-width: 100%; padding: .3rem .6rem; border-radius: 999px; background: white; font-size: .75rem; }
 .emoji-range-pills code { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
