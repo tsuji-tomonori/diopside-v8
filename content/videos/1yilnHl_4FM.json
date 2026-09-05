@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "6a1c97795d79227e369f1c55aa86d72093624114c694861e1e39faff22620b57"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "5827d852a32f117c05017d7e07ed357f6011d6c311ee2b313c2ec20a10718f1e",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8067
     }
   ],
   "tagAssignments": [
@@ -673,5 +681,21 @@
     "inputFingerprint": "2b7e463ae35683503adfd2a8843fc62456991bf502e34791f061270ec2bb28fd",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴と夏芽が、視聴者参加型の『Gartic Phone』でお絵描き伝言に挑戦。絵心の違いを笑いに変えながら、制限時間の中でお題を描き、参加者の絵を読み取り、コピーやアニメーションにも挑む。予想外に姿を変える絵と、二人の軽妙な掛け合いを味わえる配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "カオスになるんじゃないかと思って",
+      "atSeconds": 323,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "5827d852a32f117c05017d7e07ed357f6011d6c311ee2b313c2ec20a10718f1e",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T04:28:19.219306Z"
   }
 }
