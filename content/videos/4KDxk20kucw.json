@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "ba578740968b8f13c19b5ef7ac21d9bf9c9ccd4355c9788f5ec17ac4c4797838"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "17f05efdfdb1e332be509fa26e312f885de7a61d04865289b4faa7b045602409",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 118
     }
   ],
   "tagAssignments": [
@@ -387,5 +395,21 @@
     "inputFingerprint": "6e2bb3ec06873c98d49f2b82437f600547cad8adeb49b9211d45ae988fe18222",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が、友達同士の実体験とされる百合エピソードを読み上げる。運転中の問いかけやドーナツのお土産をめぐるやり取りを追いながら、思いがけない距離感の変化に驚きと照れを交え、「リアル」ならではの細部を味わう反応も見どころです。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "めちゃくちゃ大人なゆりだ",
+      "atSeconds": 36,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "17f05efdfdb1e332be509fa26e312f885de7a61d04865289b4faa7b045602409",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T08:17:15.468610Z"
   }
 }
