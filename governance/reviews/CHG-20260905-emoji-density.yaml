@@ -1,0 +1,169 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260905-emoji-density
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+    note: 最新mainの017/018の集計・画像要件を維持し、時間帯集計と区間操作をV8-DISPLAY-022/023として追加した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/content.ts, path:docs/design/generated/system.gen.md]
+    note: timeline公開契約と詳細componentを拡張し、as-built設計を生成した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260905-emoji-density.yaml]
+    note: 既存の匿名集計境界を維持した複数module・永続要件変更としてassuredを選択した。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [test:src/domain/validation.test.ts, path:scripts/reanalyze-emoji-density.ts]
+    note: optional timeline、全件合計・区間・参照整合と既存正本の他field保存を確認した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート, path:src/features/detail/EmojiDensity.tsx]
+    note: 静的production buildと既存のGitHub Actionsで表示経路を検証する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート, path:tsconfig.json, path:tsconfig.node.json]
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート, path:scripts/aggregate-custom-emoji-usage.ts]
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/custom-emoji-usage.test.ts, test:src/domain/validation.test.ts, test:tests/content-validation.test.ts]
+    note: 時刻境界、重複、gzip、ゼロ、入力破損、合計、旧形式互換と公開境界を検証する。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/build-public-data.ts, path:docs/design/generated/system.gen.md, path:docs/requirements/REQUIREMENTS.md]
+    note: 正本から静的データと要件・実装由来設計を生成し、check modeで確認した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [test:tests/custom-emoji-usage.test.ts, test:tests/content-validation.test.ts]
+    note: 元チャットは読取だけで、匿名集計以外の本文・投稿者・元絵文字IDを追加保存しない。
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/detail.spec.ts]
+    note: 旧集計、時間帯集計、ゼロ区間、画像失敗時の表示名を確認した。
+  - id: FAST-014
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/detail.spec.ts, path:src/features/detail/EmojiDensity.tsx]
+    note: button・select・live regionによる操作とキーボード、重大axe違反なしを確認した。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:scripts/reanalyze-emoji-density.ts]
+    note: 動画単位の失敗を分離し、匿名reportと固定snapshotから未完了を再試行できる。
+  - id: FAST-018
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/detail.spec.ts]
+    note: 選択区間の状態変化とYouTube開始秒を実際のUI操作から照合する。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/reanalyze-emoji-density.ts, path:src/features/detail/EmojiDensity.tsx]
+    note: 既存作業を保持し、今回の変更を絵文字密度と所有者指定データの再解析に限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260905-emoji-density.yaml]
+    note: 対象差分を最新mainの専用branchへ統合し、構造化Commit Commentへ必須節を記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/system.gen.md]
+    note: 実装由来設計を生成し、新たな長期技術選択がないためADRは不要とした。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:e2e/detail.spec.ts, test:tests/custom-emoji-usage.test.ts]
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート, test:e2e/detail.spec.ts, test:tests/custom-emoji-usage.test.ts]
+    note: 対象試験は既存の単体・E2E CI経路へ接続した。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260905-emoji-density.yaml]
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260905-emoji-density.yaml]
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/detail.spec.ts, test:src/domain/validation.test.ts]
+    note: 旧1.0.0/1.1.0の表示と信頼済み画像の選択を維持し、2.0.0の再集計にはtimelineを必須とする。
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/detail.spec.ts]
+    note: モバイル・デスクトップで区間の正逆選択、短い末尾、空区間、ピーク、キーボード、overflowを確認した。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:operations/emoji-density.md]
+    note: 集計規則、snapshot、再開、失敗分類、正本反映と公開境界を記録した。
+advisories: []
+residual_risks:
+  - 保存素材のない1452動画は解析できない。取得元に欠落したチャットは復元しない。
+  - 未登録43動画は匿名集計だけを保存し、公開対象に追加していない。
+  - 画像は公開YouTube CDNに依存し、取得できない場合も表示名と回数を残す。
+  - 再集計は保存時点のsnapshotに基づく。最新mainの他fieldを保持して345動画の絵文字集計だけを更新する。

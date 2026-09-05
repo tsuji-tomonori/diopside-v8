@@ -139,9 +139,9 @@ test.describe('動画詳細', () => {
   test('先行3動画で実集計した全種類と総使用回数を表示する', async ({ page }) => {
     await preparePage(page);
     const pilots = [
-      { videoId: 'UZcmZzKQWYc', totalCount: '2,335', uniqueCount: 37 },
-      { videoId: '4zN7YiSw06c', totalCount: '401', uniqueCount: 15 },
-      { videoId: 'BZkCPMIsz1k', totalCount: '1,015', uniqueCount: 16 },
+      { videoId: 'UZcmZzKQWYc', totalCount: '2,314', uniqueCount: 37 },
+      { videoId: '4zN7YiSw06c', totalCount: '400', uniqueCount: 15 },
+      { videoId: 'BZkCPMIsz1k', totalCount: '1,012', uniqueCount: 16 },
     ];
     for (const pilot of pilots) {
       await page.goto(`/#/video/${pilot.videoId}`);
@@ -155,6 +155,51 @@ test.describe('動画詳細', () => {
       );
     }
     await expectNoSeriousAccessibilityViolations(page);
+  });
+
+  test('絵文字の波で逆順の区間選択、1分微調整、ピーク再生とゼロ区間を確認する', async ({ page }, testInfo) => {
+    await preparePage(page);
+    await page.route('https://yt3.ggpht.com/**', (route) => route.abort());
+    const videoId = 'c9TnpjK3ZZE';
+    const shardId = videoShardId(videoId);
+    const shard = JSON.parse(readFileSync(path.join(root, `public/data/releases/${latest.releaseId}/video-shards/${shardId}.json`), 'utf8')) as { videos: Record<string, Record<string, unknown>> };
+    const detail = shard.videos[videoId]!;
+    const bins: Array<Array<[number, number]>> = Array.from({ length: 32 }, () => []);
+    bins[0] = [[0, 2]]; bins[14] = [[1, 3]]; bins[15] = [[0, 5]]; bins[31] = [[0, 3], [1, 4]];
+    detail.durationSeconds = 1865;
+    detail.customEmojiUsage = {
+      status: '集計済み', totalCount: 20,
+      items: [
+        { customEmojiId: 'custom-emoji-1111111111111111', label: ':kusa:', count: 12, imageUrl: 'https://yt3.ggpht.com/test=s48' },
+        { customEmojiId: 'custom-emoji-2222222222222222', label: ':wan:', count: 8 },
+      ],
+      timeline: { bucketSeconds: 60, durationSeconds: 1865, bins, beforeStartCount: 1, afterEndCount: 1, unpositionedCount: 1 },
+      rulesVersion: '2.0.0', updatedAt: '2026-09-05T00:00:00Z',
+    };
+    await page.route(`**/data/releases/${latest.releaseId}/video-shards/${shardId}.json`, (route) => route.fulfill({ json: shard }));
+    await page.goto(`/#/video/${videoId}`);
+    const wave = page.locator('.emoji-density');
+    await expect(wave.getByText('この区間で 5回 ・ 再生時間内の29.4%')).toBeVisible();
+    await wave.getByRole('button', { name: '区間 30:00–31:05', exact: true }).click();
+    await wave.getByRole('button', { name: '区間 0:00–15:00', exact: true }).click();
+    await expect(wave.getByText('この区間で 17回 ・ 再生時間内の100.0%')).toBeVisible();
+    await expect(wave.getByRole('link', { name: '区間の頭 0:00 から見る' })).toHaveAttribute('href', `https://www.youtube.com/watch?v=${videoId}&t=0s`);
+    await expect(wave.getByRole('link', { name: '一番濃い 31:00 へ' })).toHaveAttribute('href', `https://www.youtube.com/watch?v=${videoId}&t=1860s`);
+    await wave.getByRole('button', { name: 'ピークの1分に絞る' }).click();
+    await expect(wave.getByText('平均 84.0回/分')).toBeVisible();
+    await expect(wave.getByLabel('選択区間の絵文字別使用回数')).toContainText(':kusa:3回');
+    await expect(wave.getByLabel('選択区間の絵文字別使用回数')).toContainText(':wan:4回');
+    await wave.getByLabel('区間の開始').selectOption('16');
+    await wave.getByLabel('区間の終了').selectOption('16');
+    await expect(wave.getByText('この区間はカスタム絵文字が0回です。')).toBeVisible();
+    await expect(wave.getByRole('button', { name: 'ピークの1分に絞る' })).toBeDisabled();
+    await expect(wave.getByRole('link', { name: /一番濃い/u })).toHaveCount(0);
+    await wave.getByRole('button', { name: '全体を選択' }).focus();
+    await page.keyboard.press('Enter');
+    await expect(wave.getByText('この区間で 17回 ・ 再生時間内の100.0%')).toBeVisible();
+    await expectNoSeriousAccessibilityViolations(page);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    await wave.screenshot({ path: testInfo.outputPath('emoji-density.png') });
   });
 
   test('詳細JSONの構造不適合を日本語で停止表示する', async ({ page }) => {

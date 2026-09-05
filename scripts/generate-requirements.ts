@@ -2156,7 +2156,104 @@ const sequentialGuestRequirements = [{
   traces: { design: ['docs/design/generated/system.gen.md'], implementation: ['.agents/skills/compose-stream-chapters', '.agents/skills/curate-video-content'], tests: ['tests/timestamp_tools_test.py'], standards: ['spec/sources/owner-directive-2026-09-05-sequential-guests.md'] },
   last_changed_by: 'CHG-20260905-sequential-guests',
 }];
+const emojiDensityRequirements = [
+  {
+    "id": "V8-DISPLAY-022",
+    "revision": 1,
+    "status": "active",
+    "scope": "product",
+    "category": "functional",
+    "type": "data",
+    "title": "保存済みチャットからカスタム絵文字の時間帯別密度を再集計できなければならない",
+    "subject": "diopside v8のカスタム絵文字集計",
+    "action": "satisfy",
+    "object": "時刻とカスタム絵文字を識別できる保存済み元チャットから、絵文字別の時間帯集計を再生成できなければならない。同じ投稿の再出現や本文外の表示を重複加算せず、開始前・終了後・時刻不明を再生時間内の密度から分離し、ゼロ件の区間も表現しなければならない。",
+    "rationale": "投稿の集中する区間を正しい再生時刻で比較し、再解析可能な保存素材を活用するため。時間粒度と保存形式は可逆な実装判断に委ねる。",
+    "source_refs": [
+      "user:2026-09-05"
+    ],
+    "acceptance_criteria": [
+      {
+        "id": "AC-V8-DISPLAY-022-1",
+        "given": "時刻付きカスタム絵文字、重複投稿、区間境界、時刻不明を含む保存済み元チャット",
+        "when": "再集計する",
+        "then": "時間帯内訳と開始前・終了後・時刻不明の合計が総使用回数と一致し、全種類の回数を再現する。破損した入力を正常な部分集計として反映せず、素材なしと集計ゼロを区別する。"
+      }
+    ],
+    "verification": {
+      "method": "境界・重複・合計整合・入力形式試験",
+      "evidence": "tests/custom-emoji-usage.test.ts, src/domain/validation.test.ts"
+    },
+    "traces": {
+      "design": [
+        "docs/design/generated/system.gen.md"
+      ],
+      "implementation": [
+        "scripts/aggregate-custom-emoji-usage.ts",
+        "scripts/reanalyze-emoji-density.ts",
+        "src/domain/content.ts",
+        "src/domain/validation.ts"
+      ],
+      "tests": [
+        "tests/custom-emoji-usage.test.ts",
+        "src/domain/validation.test.ts",
+        "tests/content-validation.test.ts"
+      ],
+      "standards": [
+        "V8-DISPLAY-017"
+      ]
+    },
+    "last_changed_by": "CHG-20260905-emoji-density"
+  },
+  {
+    "id": "V8-DISPLAY-023",
+    "revision": 1,
+    "status": "active",
+    "scope": "product",
+    "category": "functional",
+    "type": "functional",
+    "title": "動画詳細で絵文字の密度から区間を選び内訳と再生位置を確認できなければならない",
+    "subject": "diopside v8の動画詳細",
+    "action": "satisfy",
+    "object": "時間帯別集計のある動画詳細は、絵文字密度の波から区間を選択し、絵文字別画像・表示名・回数、区間の総数・割合・密度を確認して、区間開始または区間内ピークからYouTubeで再生できなければならない。",
+    "rationale": "参考HTMLの区間選択と画像付き内訳を、静的なブラウザ内処理とモバイル・キーボード操作で利用できるようにするため。",
+    "source_refs": [
+      "user:2026-09-05"
+    ],
+    "acceptance_criteria": [
+      {
+        "id": "AC-V8-DISPLAY-023-1",
+        "given": "時間帯別集計を持つ動画詳細",
+        "when": "モバイルまたはデスクトップで区間を選択・微調整する",
+        "then": "正逆両順の区間選択で回数と割合が一致し、ゼロ区間と短い末尾区間を正しく表示する。画像取得失敗時も表示名が残り、区間開始・ピークへのリンクが選択時刻と一致する。"
+      }
+    ],
+    "verification": {
+      "method": "区間操作・再生リンク・アクセシビリティ試験",
+      "evidence": "e2e/detail.spec.ts"
+    },
+    "traces": {
+      "design": [
+        "docs/design/generated/system.gen.md"
+      ],
+      "implementation": [
+        "src/features/detail/EmojiDensity.tsx",
+        "src/features/detail/VideoDetailPage.tsx",
+        "src/styles.css",
+        "scripts/build-public-data.ts"
+      ],
+      "tests": [
+        "e2e/detail.spec.ts"
+      ],
+      "standards": [
+        "V8-DISPLAY-018"
+      ]
+    },
+    "last_changed_by": "CHG-20260905-emoji-density"
+  }
+];
 const generatedRequirements = [
+  ...emojiDensityRequirements,
   ...requirements,
   ...ownerDirectiveRequirements,
   ...timestampHarnessRequirements,

@@ -219,5 +219,18 @@ describe('正本検証', () => {
       'CUSTOM_EMOJI_TOTAL_MISMATCH',
       'CUSTOM_EMOJI_ORDER',
     ]));
+    video.customEmojiUsage.rulesVersion = '2.0.0';
+    expect(validateCanonicalVideo(video, taxonomy, aliases).map((item) => item.code)).toContain('CUSTOM_EMOJI_TIMELINE_REQUIRED');
+    const duration = video.durationSeconds!;
+    video.customEmojiUsage.timeline = {
+      bucketSeconds: 60, durationSeconds: duration,
+      bins: Array.from({ length: Math.ceil(duration / 60) }, (_, index) => index === 0 ? [[0, 2], [1, 2]] : []),
+      beforeStartCount: 1, afterEndCount: 0, unpositionedCount: 0,
+    };
+    expect(validateCanonicalVideo(video, taxonomy, aliases)).toEqual([]);
+    video.customEmojiUsage.timeline.bins[0] = [[0, 2], [0, 2]];
+    expect(validateCanonicalVideo(video, taxonomy, aliases).map((item) => item.code)).toContain('CUSTOM_EMOJI_TIMELINE_MISMATCH');
+    video.customEmojiUsage.timeline.bins[0] = [[9, 4]];
+    expect(validateCanonicalVideo(video, taxonomy, aliases).map((item) => item.code)).toContain('CUSTOM_EMOJI_TIMELINE_MISMATCH');
   });
 });

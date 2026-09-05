@@ -797,6 +797,27 @@ function validateWordCloud(video: CanonicalVideo, issues: ValidationIssue[]): vo
 function validateCustomEmojiUsage(video: CanonicalVideo, issues: ValidationIssue[]): void {
   const usage = video.customEmojiUsage;
   if (!usage) return;
+  if (usage.rulesVersion === '2.0.0' && !usage.timeline) {
+    issues.push(issue('CUSTOM_EMOJI_TIMELINE_REQUIRED', 'customEmojiUsage.timeline', '新規則の集計には時間帯別データが必要です。'));
+  }
+  if (usage.timeline) {
+    const timeline = usage.timeline;
+    const totals = usage.items.map(() => 0);
+    let invalid = timeline.durationSeconds !== video.durationSeconds
+      || timeline.bins.length !== Math.ceil(timeline.durationSeconds / timeline.bucketSeconds);
+    for (const bin of timeline.bins) {
+      let previous = -1;
+      for (const [index, count] of bin) {
+        if (index <= previous || index >= totals.length) invalid = true;
+        else totals[index] = totals[index]! + count;
+        previous = index;
+      }
+    }
+    const positioned = totals.reduce((sum, count) => sum + count, 0);
+    if (positioned + timeline.beforeStartCount + timeline.afterEndCount + timeline.unpositionedCount !== usage.totalCount
+      || totals.some((count, index) => count > usage.items[index]!.count)) invalid = true;
+    if (invalid) issues.push(issue('CUSTOM_EMOJI_TIMELINE_MISMATCH', 'customEmojiUsage.timeline', '動画尺、時間帯別回数、除外回数、項目参照が一致しません。'));
+  }
   const ids = new Set<string>();
   let actualTotal = 0;
   for (const [index, item] of usage.items.entries()) {

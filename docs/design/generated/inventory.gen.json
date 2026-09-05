@@ -4,7 +4,7 @@
   "sourceDigests": [
     {
       "path": "scripts/aggregate-custom-emoji-usage.ts",
-      "sha256": "48fc021489a7280388e255c46c6329ff7dbcb69bef8772443f78ce72826a26bf"
+      "sha256": "8d5f704d5e1dd77e5c475717ed6adab1d3cba29da78e433c16346f91aa6ac067"
     },
     {
       "path": "scripts/aggregate-word-cloud.ts",
@@ -48,7 +48,7 @@
     },
     {
       "path": "scripts/build-public-data.ts",
-      "sha256": "d700d0811e7c59e4e3b041353712228a93a041b19789d65f979213d3fec6c53d"
+      "sha256": "767730b73a076dd99c427d84b66197512a75a9cc87135d9b08a3210a472629c2"
     },
     {
       "path": "scripts/canonical-store.ts",
@@ -68,7 +68,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "f05ca24f2596c42e9cfb6a2eb002774356ea8ff6fdf5defb4cbbb5ba4194f242"
+      "sha256": "eb965642c7d2df11d70e4d3182e14f3a885bec35f2c1eb2846e0d4a042e75fab"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -109,6 +109,10 @@
     {
       "path": "scripts/prepare-site.ts",
       "sha256": "49346a97de9a3fb8623c2d389b0854f7df39899fe558c8ebb9147f23094c33f0"
+    },
+    {
+      "path": "scripts/reanalyze-emoji-density.ts",
+      "sha256": "c254d3fdaab24ffbd1df140bd8f48dcca7d2f30510ab9629e92cf092e0b3a681"
     },
     {
       "path": "scripts/refresh-person-icons.ts",
@@ -192,7 +196,7 @@
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "2b7f3633b68bb5906925f9af2ab68559b3d594f132b9b48c2388f919bcbd7448"
+      "sha256": "43df401af50e0e06285326dfef57d6aa70dd7490632e8bbb0ac90307a9a9e06e"
     },
     {
       "path": "src/domain/entities.ts",
@@ -240,11 +244,11 @@
     },
     {
       "path": "src/domain/validation.test.ts",
-      "sha256": "77f66c00368f38c39844473118c252add061430c1c8601f462fbc003f532b291"
+      "sha256": "fc50dde8eab597d5a3cb902b88d6ffaaa9232b909cf223c352152682fd5bef1d"
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "698e93554c81b0adc774724057edf69e1c134336eed440f2f302ea23c452bcc1"
+      "sha256": "d39c3fcfb6fd374067a47b3526f8cdcb018f538e6a2e80330002c3cf9e6b365b"
     },
     {
       "path": "src/features/collaborations/CollaborationDetailPages.test.tsx",
@@ -259,8 +263,12 @@
       "sha256": "ee1885f3813ed18d7b063ef98c36ace7974c1545b3c8b25fbbef5dd961167159"
     },
     {
+      "path": "src/features/detail/EmojiDensity.tsx",
+      "sha256": "3b0a5359c66aacf9d667b0b61ab6e27f3abad4cbba4c08477501fe45a5a22b33"
+    },
+    {
       "path": "src/features/detail/VideoDetailPage.tsx",
-      "sha256": "7dfeed8d516b2123ba41000787e52c6cfac90a1fefcaa929589999117d4b677e"
+      "sha256": "e39973d305d7888735fbfe8808c90fc9e9fb2b86af58be718c40055a38804d6b"
     },
     {
       "path": "src/features/detail/WordCloud.tsx",
@@ -360,7 +368,7 @@
     {
       "file": "scripts/aggregate-custom-emoji-usage.ts",
       "name": "CustomEmojiUsageAggregate",
-      "kind": "InterfaceDeclaration"
+      "kind": "TypeAliasDeclaration"
     },
     {
       "file": "scripts/aggregate-custom-emoji-usage.ts",
@@ -725,6 +733,11 @@
     {
       "file": "src/domain/content.ts",
       "name": "confidenceSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "customEmojiTimelineSchema",
       "kind": "VariableStatement"
     },
     {
@@ -1270,6 +1283,16 @@
     {
       "file": "src/features/collaborations/GroupDetailPage.tsx",
       "name": "GroupDetailPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/detail/EmojiDensity.tsx",
+      "name": "EmojiDensity",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/detail/EmojiDensity.tsx",
+      "name": "EmojiIcon",
       "kind": "FunctionDeclaration"
     },
     {

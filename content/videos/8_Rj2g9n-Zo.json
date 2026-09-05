@@ -89,6 +89,22 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "白雪巴がNNOP2022のポーカー本戦を観戦し、オールインやレイズの判断、手札の見せ方を学びながら勝負の流れを読み解く配信。出場者の戦略やプレーを応援し、自身の練習に生かせそうな気づきも語ります。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "準決勝も楽しみにしてます",
+      "atSeconds": 5420,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "0804197108c0d47ae16acf6e2f38bce055ad9bd572e3f823df79c2909c34f3e1",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T07:24:25.239115Z"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -434,8 +450,812 @@
     "inputFingerprint": "2255e675da1d570e97bbb059ed39c8cae1c3009740d5c60b311eeb6a2196fb7a",
     "exclusionRulesVersion": "9.1.0",
     "rulesVersion": "9.1.0",
-    "humanReview": "承認済み",
-    "updatedAt": "2026-09-05T00:20:00+09:00"
+    "updatedAt": "2026-09-05T00:20:00+09:00",
+    "humanReview": "承認済み"
+  },
+  "customEmojiUsage": {
+    "status": "集計済み",
+    "totalCount": 1172,
+    "items": [
+      {
+        "customEmojiId": "custom-emoji-bfc159b91f64052d",
+        "label": ":kusa:",
+        "imageUrl": "https://yt3.ggpht.com/kZShOeXg6MsX8wvxDnks5be-RBBZBbiSTiHaYf_YugiFq2vsob_L1aNikCo8ZWNa-KAZh-We=w24-h24-c-k-nd",
+        "count": 522
+      },
+      {
+        "customEmojiId": "custom-emoji-f43337c5aa5d12d6",
+        "label": ":nice:",
+        "imageUrl": "https://yt3.ggpht.com/TDQeDqyImGpFdeFP4JtRLEch56bHod225jTm5Q6iwYp_IfesDk2ZjJ3GHzKprX3tqQvvjtxUvg=w24-h24-c-k-nd",
+        "count": 336
+      },
+      {
+        "customEmojiId": "custom-emoji-1a6cf6e9ac76c1db",
+        "label": ":ggg:",
+        "imageUrl": "https://yt3.ggpht.com/efThVn3pJdFmi_6C-JAUI80EKrJ4LC7M_hGMdD9LQV5AaIqeggMJYDYvDZXXI77yZ_0pCoETNA=w24-h24-c-k-nd",
+        "count": 161
+      },
+      {
+        "customEmojiId": "custom-emoji-4de9a870929838ab",
+        "label": ":pennraito:",
+        "imageUrl": "https://yt3.ggpht.com/MzkOVgh-zHRQoZup0xGcg4pX-J8j7oyhlMxGL6vkhmOFCQdjoX0wKrAamBvs5NnDgWPnYGh_=w24-h24-c-k-nd",
+        "count": 88
+      },
+      {
+        "customEmojiId": "custom-emoji-9be64bac3f56ea96",
+        "label": ":att:",
+        "imageUrl": "https://yt3.ggpht.com/mcuMXcEnr0vJXPYMXeMiSWic5rQiaDrRsIutnR-yYStMjYGgUAhPQu4KHNlXlPO1ucMJDsu1=w24-h24-c-k-nd",
+        "count": 21
+      },
+      {
+        "customEmojiId": "custom-emoji-ca4a85ace4faf456",
+        "label": ":tomoe3:",
+        "imageUrl": "https://yt3.ggpht.com/xfD5CwUMwcfIFWvaPA5bt-L_Ys5vCVdJQL2a_5bdEd2AArTNWCMFH1urumOlB9bqPp2Ndio-Sg=w24-h24-c-k-nd",
+        "count": 9
+      },
+      {
+        "customEmojiId": "custom-emoji-f809789a6d65e0b5",
+        "label": ":pon:",
+        "imageUrl": "https://yt3.ggpht.com/HV0jFSWNPCRJr2WX3Mg9shFA3qzyUbmxG388zNW_hNgMnPKFyrsFMW4qXDdZmDqcoGD8c2ouNuE=w24-h24-c-k-nd",
+        "count": 5
+      },
+      {
+        "customEmojiId": "custom-emoji-f3d8f08b88bfe1b0",
+        "label": ":sss:",
+        "imageUrl": "https://yt3.ggpht.com/13_6JGpKepCyTjhSB66ZW1CVHaqiR5gbwHEhKI_UnzRtPlW7fNkbtqc42oRIA5p87hhBSgbZ=w24-h24-c-k-nd",
+        "count": 3
+      },
+      {
+        "customEmojiId": "custom-emoji-b289c7893d1ae9b2",
+        "label": ":syouten:",
+        "imageUrl": "https://yt3.ggpht.com/rm9dWo9XKhiimC3r79cppvHB9tryXP7OAcf6I364R7qqIxk-r5YTdUCF7Q5giI-X4uD45xvh=w24-h24-c-k-nd",
+        "count": 3
+      },
+      {
+        "customEmojiId": "custom-emoji-14d753b6b17fe87f",
+        "label": ":taiki:",
+        "imageUrl": "https://yt3.ggpht.com/AmJMesRvOQ9hazRwFUqyYpBPbFInvNG6-NVq5nFnd7LxkunkF1ZNCfmPFwz85sjRNRCDs5e0_w=w24-h24-c-k-nd",
+        "count": 3
+      },
+      {
+        "customEmojiId": "custom-emoji-ad7cfe53960275b5",
+        "label": ":tomoe1:",
+        "imageUrl": "https://yt3.ggpht.com/YjMrNKH0NaNlbggXwFtgP-v2Qmkd9Y8-JF_YkoMtX9e2wcU3XMM-3jG_ji8Rk6Ru_-2eqaEv6pc=w24-h24-c-k-nd",
+        "count": 3
+      },
+      {
+        "customEmojiId": "custom-emoji-86154ddc6404c4c5",
+        "label": ":virtualhug:",
+        "imageUrl": "https://yt3.ggpht.com/U1TjOZlqtS58NGqQhE8VWDptPSrmJNkrbVRp_8jI4f84QqIGflq2Ibu7YmuOg5MmVYnpevc=w24-h24-c-k-nd",
+        "count": 3
+      },
+      {
+        "customEmojiId": "custom-emoji-f511686e2a08a690",
+        "label": ":wan:",
+        "imageUrl": "https://yt3.ggpht.com/1VFD2HS8OwgvS2XCPDW-59iyFTUlw63RAVQcNsaGpQZTtjCXS_q-FUPR86bZVOnDirWTlnjn=w24-h24-c-k-nd",
+        "count": 3
+      },
+      {
+        "customEmojiId": "custom-emoji-089ea8e178cb4765",
+        "label": ":yuki:",
+        "imageUrl": "https://yt3.ggpht.com/Dql0JmqtsueXUMxlW157j6Xj2FnrKnI_nFBHIQ2k9qirFCY3SKYfQZ_5AkA1jASdEf9kqhK1WA=w24-h24-c-k-nd",
+        "count": 3
+      },
+      {
+        "customEmojiId": "custom-emoji-d114b08d65064a0d",
+        "label": ":daken:",
+        "imageUrl": "https://yt3.ggpht.com/STxTum1lbYWsJvKvU0TBmTRGS5bB3RP8j00XvlIP-fdwGfk43DxhFQlJHH2ncl1BStmykLoqzQ=w24-h24-c-k-nd",
+        "count": 2
+      },
+      {
+        "customEmojiId": "custom-emoji-732787206315f8fd",
+        "label": ":tomoe4:",
+        "imageUrl": "https://yt3.ggpht.com/oUw6eI1tIG2sqv0oBVvHbNDdoRxpD3tIT_O5TQk7t3t_JbTgh88kKhvzr8VNX0VVFaGeQWl3_Q=w24-h24-c-k-nd",
+        "count": 2
+      },
+      {
+        "customEmojiId": "custom-emoji-e1bde84cd376d2b3",
+        "label": ":chillwcat:",
+        "imageUrl": "https://yt3.ggpht.com/y03dFcPc1B7CO20zgQYzhcRPka5Bhs6iSg57MaxJdhaLidFvvXBLf_i4_SHG7zJ_2VpBMNs=w24-h24-c-k-nd",
+        "count": 1
+      },
+      {
+        "customEmojiId": "custom-emoji-7d33ccb4a3a8d5b3",
+        "label": ":kou:",
+        "imageUrl": "https://yt3.ggpht.com/E8MlJZsRHqoMCDR0VKdGPLs_l1Yv_92mDx6PBGSukplOtWr1ZF0B_GGJfKrj0sIWCsU7sb3Odw=w24-h24-c-k-nd",
+        "count": 1
+      },
+      {
+        "customEmojiId": "custom-emoji-517fcfec67900891",
+        "label": ":mmm:",
+        "imageUrl": "https://yt3.ggpht.com/rAfNb4rPENMYc5W-Sgs5ISi9fzKvbYdUbXuBAfILWp-bM0cVe_Iruit4N28K8-XIYJtXtxoKyw=w24-h24-c-k-nd",
+        "count": 1
+      },
+      {
+        "customEmojiId": "custom-emoji-bec40e538024a3b4",
+        "label": ":sai:",
+        "imageUrl": "https://yt3.ggpht.com/weQc5yLO5YVezF--d-xwnrPc4mtdWFBoV_y9xmVIEtGowjy5ZB2ZjQ2RYeThPou-uNsuMiIdQQ=w24-h24-c-k-nd",
+        "count": 1
+      },
+      {
+        "customEmojiId": "custom-emoji-9d9887babface0c5",
+        "label": ":shelterin:",
+        "imageUrl": "https://yt3.ggpht.com/gjC5x98J4BoVSEPfFJaoLtc4tSBGSEdIlfL2FV4iJG9uGNykDP9oJC_QxAuBTJy6dakPxVeC=w24-h24-c-k-nd",
+        "count": 1
+      }
+    ],
+    "timeline": {
+      "bucketSeconds": 60,
+      "durationSeconds": 5456,
+      "bins": [
+        [
+          [
+            14,
+            1
+          ]
+        ],
+        [
+          [
+            3,
+            12
+          ],
+          [
+            16,
+            1
+          ]
+        ],
+        [
+          [
+            10,
+            1
+          ]
+        ],
+        [
+          [
+            20,
+            1
+          ]
+        ],
+        [
+          [
+            12,
+            1
+          ],
+          [
+            14,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            19
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            13,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            6,
+            1
+          ]
+        ],
+        [],
+        [],
+        [],
+        [
+          [
+            1,
+            3
+          ]
+        ],
+        [
+          [
+            0,
+            2
+          ]
+        ],
+        [
+          [
+            11,
+            3
+          ]
+        ],
+        [],
+        [
+          [
+            0,
+            2
+          ],
+          [
+            17,
+            1
+          ],
+          [
+            19,
+            1
+          ]
+        ],
+        [
+          [
+            4,
+            3
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            10,
+            1
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            2,
+            1
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        [],
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            46
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            18
+          ]
+        ],
+        [
+          [
+            1,
+            24
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        [
+          [
+            3,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            12,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            15
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        [
+          [
+            1,
+            29
+          ]
+        ],
+        [
+          [
+            4,
+            2
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            13,
+            1
+          ]
+        ],
+        [],
+        [
+          [
+            1,
+            20
+          ]
+        ],
+        [],
+        [
+          [
+            1,
+            34
+          ]
+        ],
+        [
+          [
+            1,
+            4
+          ],
+          [
+            13,
+            1
+          ]
+        ],
+        [
+          [
+            1,
+            12
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            4,
+            1
+          ],
+          [
+            8,
+            3
+          ]
+        ],
+        [],
+        [
+          [
+            0,
+            22
+          ],
+          [
+            2,
+            15
+          ]
+        ],
+        [
+          [
+            2,
+            10
+          ],
+          [
+            3,
+            21
+          ],
+          [
+            10,
+            1
+          ]
+        ],
+        [
+          [
+            3,
+            9
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            15,
+            2
+          ]
+        ],
+        [
+          [
+            5,
+            1
+          ]
+        ],
+        [],
+        [
+          [
+            3,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            3
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            3,
+            3
+          ]
+        ],
+        [
+          [
+            0,
+            2
+          ],
+          [
+            3,
+            21
+          ]
+        ],
+        [
+          [
+            0,
+            20
+          ],
+          [
+            3,
+            6
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            2
+          ]
+        ],
+        [],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            41
+          ]
+        ],
+        [
+          [
+            0,
+            16
+          ]
+        ],
+        [
+          [
+            0,
+            6
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        [
+          [
+            0,
+            14
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            5,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            13
+          ]
+        ],
+        [
+          [
+            0,
+            39
+          ],
+          [
+            1,
+            52
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        [
+          [
+            0,
+            14
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            27
+          ]
+        ],
+        [
+          [
+            0,
+            11
+          ]
+        ],
+        [
+          [
+            0,
+            33
+          ],
+          [
+            7,
+            2
+          ]
+        ],
+        [
+          [
+            0,
+            22
+          ]
+        ],
+        [
+          [
+            0,
+            21
+          ]
+        ],
+        [
+          [
+            0,
+            25
+          ],
+          [
+            1,
+            49
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            7,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            19
+          ]
+        ],
+        [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            18,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            8
+          ],
+          [
+            5,
+            1
+          ]
+        ],
+        [
+          [
+            4,
+            1
+          ]
+        ],
+        [
+          [
+            4,
+            1
+          ]
+        ],
+        [
+          [
+            1,
+            2
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            18
+          ]
+        ],
+        [
+          [
+            0,
+            5
+          ]
+        ],
+        [
+          [
+            0,
+            39
+          ]
+        ],
+        [
+          [
+            0,
+            7
+          ]
+        ],
+        [
+          [
+            0,
+            5
+          ],
+          [
+            2,
+            25
+          ],
+          [
+            4,
+            4
+          ]
+        ],
+        [
+          [
+            2,
+            89
+          ],
+          [
+            5,
+            1
+          ]
+        ],
+        [
+          [
+            2,
+            6
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            14
+          ]
+        ],
+        [
+          [
+            0,
+            15
+          ]
+        ],
+        [
+          [
+            0,
+            6
+          ]
+        ],
+        [
+          [
+            0,
+            7
+          ]
+        ],
+        [
+          [
+            0,
+            8
+          ],
+          [
+            12,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            6
+          ]
+        ],
+        [
+          [
+            0,
+            22
+          ],
+          [
+            5,
+            1
+          ]
+        ]
+      ],
+      "beforeStartCount": 6,
+      "afterEndCount": 0,
+      "unpositionedCount": 0
+    },
+    "inputFingerprint": "e3eb00d040a6c8cea681afcd271f6f1966c3114d5fe5bb86b0392babd95e5c7a",
+    "rulesVersion": "2.0.0",
+    "updatedAt": "2026-09-05T00:00:00Z"
   },
   "provenance": {
     "inputFingerprint": "c51604986e3e005b81de33089d5d2687620b1feebf45604996477985795d5d05",
@@ -447,156 +1267,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
-  "synopsis": {
-    "body": "白雪巴がNNOP2022のポーカー本戦を観戦し、オールインやレイズの判断、手札の見せ方を学びながら勝負の流れを読み解く配信。出場者の戦略やプレーを応援し、自身の練習に生かせそうな気づきも語ります。",
-    "bodyEvidenceRefs": [
-      "evidence-full-transcript"
-    ],
-    "featuredQuote": {
-      "text": "準決勝も楽しみにしてます",
-      "atSeconds": 5420,
-      "evidenceRefs": [
-        "evidence-full-transcript"
-      ]
-    },
-    "inputFingerprint": "0804197108c0d47ae16acf6e2f38bce055ad9bd572e3f823df79c2909c34f3e1",
-    "rulesVersion": "1.1.0",
-    "updatedAt": "2026-08-23T07:24:25.239115Z"
-  },
-  "customEmojiUsage": {
-    "status": "集計済み",
-    "totalCount": 1174,
-    "items": [
-      {
-        "customEmojiId": "custom-emoji-bfc159b91f64052d",
-        "label": ":kusa:",
-        "imageUrl": "https://yt3.ggpht.com/kZShOeXg6MsX8wvxDnks5be-RBBZBbiSTiHaYf_YugiFq2vsob_L1aNikCo8ZWNa-KAZh-We=w48-h48-c-k-nd",
-        "count": 522
-      },
-      {
-        "customEmojiId": "custom-emoji-f43337c5aa5d12d6",
-        "label": ":nice:",
-        "imageUrl": "https://yt3.ggpht.com/TDQeDqyImGpFdeFP4JtRLEch56bHod225jTm5Q6iwYp_IfesDk2ZjJ3GHzKprX3tqQvvjtxUvg=w48-h48-c-k-nd",
-        "count": 336
-      },
-      {
-        "customEmojiId": "custom-emoji-1a6cf6e9ac76c1db",
-        "label": ":ggg:",
-        "imageUrl": "https://yt3.ggpht.com/efThVn3pJdFmi_6C-JAUI80EKrJ4LC7M_hGMdD9LQV5AaIqeggMJYDYvDZXXI77yZ_0pCoETNA=w48-h48-c-k-nd",
-        "count": 161
-      },
-      {
-        "customEmojiId": "custom-emoji-4de9a870929838ab",
-        "label": ":pennraito:",
-        "imageUrl": "https://yt3.ggpht.com/MzkOVgh-zHRQoZup0xGcg4pX-J8j7oyhlMxGL6vkhmOFCQdjoX0wKrAamBvs5NnDgWPnYGh_=w48-h48-c-k-nd",
-        "count": 88
-      },
-      {
-        "customEmojiId": "custom-emoji-9be64bac3f56ea96",
-        "label": ":att:",
-        "imageUrl": "https://yt3.ggpht.com/mcuMXcEnr0vJXPYMXeMiSWic5rQiaDrRsIutnR-yYStMjYGgUAhPQu4KHNlXlPO1ucMJDsu1=w48-h48-c-k-nd",
-        "count": 21
-      },
-      {
-        "customEmojiId": "custom-emoji-ca4a85ace4faf456",
-        "label": ":tomoe3:",
-        "imageUrl": "https://yt3.ggpht.com/xfD5CwUMwcfIFWvaPA5bt-L_Ys5vCVdJQL2a_5bdEd2AArTNWCMFH1urumOlB9bqPp2Ndio-Sg=w48-h48-c-k-nd",
-        "count": 10
-      },
-      {
-        "customEmojiId": "custom-emoji-f809789a6d65e0b5",
-        "label": ":pon:",
-        "imageUrl": "https://yt3.ggpht.com/HV0jFSWNPCRJr2WX3Mg9shFA3qzyUbmxG388zNW_hNgMnPKFyrsFMW4qXDdZmDqcoGD8c2ouNuE=w48-h48-c-k-nd",
-        "count": 5
-      },
-      {
-        "customEmojiId": "custom-emoji-d114b08d65064a0d",
-        "label": ":daken:",
-        "imageUrl": "https://yt3.ggpht.com/STxTum1lbYWsJvKvU0TBmTRGS5bB3RP8j00XvlIP-fdwGfk43DxhFQlJHH2ncl1BStmykLoqzQ=w48-h48-c-k-nd",
-        "count": 3
-      },
-      {
-        "customEmojiId": "custom-emoji-f3d8f08b88bfe1b0",
-        "label": ":sss:",
-        "imageUrl": "https://yt3.ggpht.com/13_6JGpKepCyTjhSB66ZW1CVHaqiR5gbwHEhKI_UnzRtPlW7fNkbtqc42oRIA5p87hhBSgbZ=w48-h48-c-k-nd",
-        "count": 3
-      },
-      {
-        "customEmojiId": "custom-emoji-b289c7893d1ae9b2",
-        "label": ":syouten:",
-        "imageUrl": "https://yt3.ggpht.com/rm9dWo9XKhiimC3r79cppvHB9tryXP7OAcf6I364R7qqIxk-r5YTdUCF7Q5giI-X4uD45xvh=w48-h48-c-k-nd",
-        "count": 3
-      },
-      {
-        "customEmojiId": "custom-emoji-14d753b6b17fe87f",
-        "label": ":taiki:",
-        "imageUrl": "https://yt3.ggpht.com/AmJMesRvOQ9hazRwFUqyYpBPbFInvNG6-NVq5nFnd7LxkunkF1ZNCfmPFwz85sjRNRCDs5e0_w=w48-h48-c-k-nd",
-        "count": 3
-      },
-      {
-        "customEmojiId": "custom-emoji-ad7cfe53960275b5",
-        "label": ":tomoe1:",
-        "imageUrl": "https://yt3.ggpht.com/YjMrNKH0NaNlbggXwFtgP-v2Qmkd9Y8-JF_YkoMtX9e2wcU3XMM-3jG_ji8Rk6Ru_-2eqaEv6pc=w48-h48-c-k-nd",
-        "count": 3
-      },
-      {
-        "customEmojiId": "custom-emoji-86154ddc6404c4c5",
-        "label": ":virtualhug:",
-        "imageUrl": "https://yt3.ggpht.com/U1TjOZlqtS58NGqQhE8VWDptPSrmJNkrbVRp_8jI4f84QqIGflq2Ibu7YmuOg5MmVYnpevc=w48-h48-c-k-nd",
-        "count": 3
-      },
-      {
-        "customEmojiId": "custom-emoji-f511686e2a08a690",
-        "label": ":wan:",
-        "imageUrl": "https://yt3.ggpht.com/1VFD2HS8OwgvS2XCPDW-59iyFTUlw63RAVQcNsaGpQZTtjCXS_q-FUPR86bZVOnDirWTlnjn=w48-h48-c-k-nd",
-        "count": 3
-      },
-      {
-        "customEmojiId": "custom-emoji-089ea8e178cb4765",
-        "label": ":yuki:",
-        "imageUrl": "https://yt3.ggpht.com/Dql0JmqtsueXUMxlW157j6Xj2FnrKnI_nFBHIQ2k9qirFCY3SKYfQZ_5AkA1jASdEf9kqhK1WA=w48-h48-c-k-nd",
-        "count": 3
-      },
-      {
-        "customEmojiId": "custom-emoji-732787206315f8fd",
-        "label": ":tomoe4:",
-        "imageUrl": "https://yt3.ggpht.com/oUw6eI1tIG2sqv0oBVvHbNDdoRxpD3tIT_O5TQk7t3t_JbTgh88kKhvzr8VNX0VVFaGeQWl3_Q=w48-h48-c-k-nd",
-        "count": 2
-      },
-      {
-        "customEmojiId": "custom-emoji-e1bde84cd376d2b3",
-        "label": ":chillwcat:",
-        "imageUrl": "https://yt3.ggpht.com/y03dFcPc1B7CO20zgQYzhcRPka5Bhs6iSg57MaxJdhaLidFvvXBLf_i4_SHG7zJ_2VpBMNs=w48-h48-c-k-nd",
-        "count": 1
-      },
-      {
-        "customEmojiId": "custom-emoji-7d33ccb4a3a8d5b3",
-        "label": ":kou:",
-        "imageUrl": "https://yt3.ggpht.com/E8MlJZsRHqoMCDR0VKdGPLs_l1Yv_92mDx6PBGSukplOtWr1ZF0B_GGJfKrj0sIWCsU7sb3Odw=w48-h48-c-k-nd",
-        "count": 1
-      },
-      {
-        "customEmojiId": "custom-emoji-517fcfec67900891",
-        "label": ":mmm:",
-        "imageUrl": "https://yt3.ggpht.com/rAfNb4rPENMYc5W-Sgs5ISi9fzKvbYdUbXuBAfILWp-bM0cVe_Iruit4N28K8-XIYJtXtxoKyw=w48-h48-c-k-nd",
-        "count": 1
-      },
-      {
-        "customEmojiId": "custom-emoji-bec40e538024a3b4",
-        "label": ":sai:",
-        "imageUrl": "https://yt3.ggpht.com/weQc5yLO5YVezF--d-xwnrPc4mtdWFBoV_y9xmVIEtGowjy5ZB2ZjQ2RYeThPou-uNsuMiIdQQ=w48-h48-c-k-nd",
-        "count": 1
-      },
-      {
-        "customEmojiId": "custom-emoji-9d9887babface0c5",
-        "label": ":shelterin:",
-        "imageUrl": "https://yt3.ggpht.com/gjC5x98J4BoVSEPfFJaoLtc4tSBGSEdIlfL2FV4iJG9uGNykDP9oJC_QxAuBTJy6dakPxVeC=w48-h48-c-k-nd",
-        "count": 1
-      }
-    ],
-    "inputFingerprint": "e3eb00d040a6c8cea681afcd271f6f1966c3114d5fe5bb86b0392babd95e5c7a",
-    "rulesVersion": "1.1.0",
-    "updatedAt": "2026-09-04T20:02:31+09:00"
   }
 }
