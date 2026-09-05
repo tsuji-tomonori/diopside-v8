@@ -46,6 +46,14 @@
       "inputFingerprint": "dbdfbeaa391f6ef6dacf060f67f60e4791cffa17f7f4dde95cde3efcdc4a9628",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 5682
+    },
+    {
+      "evidenceId": "evidence-timestamp-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "12398f9feb8ece72cb20d50bfc01fb6754319d71a50cb6bf7698e05442d0cddf",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5682
     }
   ],
   "tagAssignments": [
@@ -87,10 +95,131 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-de92d853",
+        "startSeconds": 0,
+        "label": "配信開始と新ビジュアル企画の紹介",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-572-fe3dd36a",
+        "startSeconds": 572,
+        "label": "新ビジュアルパズルを組み立て開始",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1223-f206be0a",
+        "startSeconds": 1223,
+        "label": "本番パズルで衣装の細部を組み立てる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3270-767511da",
+        "startSeconds": 3270,
+        "label": "学生時代の思い出話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3516-5862ca7e",
+        "startSeconds": 3516,
+        "label": "パズルの全体配置を進める",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5033-6fc322a7",
+        "startSeconds": 5033,
+        "label": "パズル企画の振り返り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5144-c986c609",
+        "startSeconds": 5144,
+        "label": "新ビジュアルのお披露目",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5372-d56b8747",
+        "startSeconds": 5372,
+        "label": "お披露目企画の総括と感謝",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5457-fc62bfc8",
+        "startSeconds": 5457,
+        "label": "今後の配信とコラボ予定を告知",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "b10c2c4aa8da7e9ebef9a86013f03e82045ec23e753c7aac432a6291f4d336ca",
+    "inputFingerprint": "12398f9feb8ece72cb20d50bfc01fb6754319d71a50cb6bf7698e05442d0cddf",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T06:34:15.843621+00:00",
+    "updatedAt": "2026-09-05T06:35:08.623297+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "b10c2c4aa8da7e9ebef9a86013f03e82045ec23e753c7aac432a6291f4d336ca",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T06:34:40.536212+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "b10c2c4aa8da7e9ebef9a86013f03e82045ec23e753c7aac432a6291f4d336ca",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T06:35:08.623297+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "b10c2c4aa8da7e9ebef9a86013f03e82045ec23e753c7aac432a6291f4d336ca",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "未作成",
@@ -100,9 +229,9 @@
   },
   "provenance": {
     "inputFingerprint": "cfc7cb59544c11b30d59e1a036392bad249ee0a4b8b0a03846a0a66d1fbe7135",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",
