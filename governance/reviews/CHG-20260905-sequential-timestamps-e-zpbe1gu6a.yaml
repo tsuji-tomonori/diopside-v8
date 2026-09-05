@@ -1,0 +1,149 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260905-sequential-timestamps-e-zpbe1gu6a
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/E_zPBE1gu6A.json
+  note: 全編根拠と独立fact・editorial reviewで合格した15章へ更新する。既存の受入条件を維持し要件正本は変更しない。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 1動画正本、件数manifest、本review YAMLだけを更新する。生成物は含めない。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/E_zPBE1gu6A.json
+  note: 公開ナビゲーション用の時刻更新のためassuredを選び、全編根拠と独立二重確認を実施した。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 利用者の修正指示に基づきbranch・draft PRを作成する。merge・公開は行わない。
+- id: IMP-007
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/videos/E_zPBE1gu6A.json
+  note: 既存1動画の時刻メタデータ更新であり可逆。動画削除やmigrationはない。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:scripts/validate-content.ts
+  note: 正本schema、境界、公開根拠参照、独立review hashの決定的検証に合格した。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/content-manifest.json
+  note: 動画数・タグ数を維持し、タイムスタンプ数を15件から15件へ反映した。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 字幕・音声・コメント・内部map・review原本・秘密情報はGit差分に含めない。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: E_zPBE1gu6Aの1動画正本、件数manifest、本review YAMLだけに差分を限定する。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: Commit Commentへ目的・変更・要件設計影響・review path・検証契約・残存リスクを記載する。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/E_zPBE1gu6A.json
+  note: 全編根拠・独立二重reviewと1動画1PR境界を満たし、受入条件を維持する。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 既存schema内のメタデータ更新のため生成設計とADRの変更は不要。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:scripts/validate-content.ts
+  note: 全件content検証、1動画PR範囲検証、レビュー契約検証を行う。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260905-sequential-timestamps-e-zpbe1gu6a.yaml
+  note: 選択チェックのみを本review YAMLへ保存した。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260905-sequential-timestamps-e-zpbe1gu6a.yaml
+  note: 未選択チェックをN/Aとして登録していない。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/videos/E_zPBE1gu6A.json
+  - path:.agents/skills/audit-stream-chapters/scripts/validate_candidate.py
+  note: ゲスト名と通話境界のずれを全編根拠へ照合し、修正候補を独立二重確認と同一hash検証で再確認した。
+advisories: []
+residual_risks:
+- 人による確認・マージまで公開しない。字幕由来の時刻は発話開始の小数秒を切り下げたナビゲーション位置。
