@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "bf80d045197f58d76b90edaa057901f0c795efed8e73dbea5d56b0e0924d5562"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "b49ec86dceed5c1630f6acbafd663b580d8297a91b9f094f1f9e4d5ddc4fafc0",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5006
     }
   ],
   "tagAssignments": [
@@ -131,180 +139,188 @@
     "origin": "diopsideで作成した時刻一覧",
     "items": [
       {
-        "timestampId": "timestamp-0-fe69f107",
+        "timestampId": "timestamp-0-b2be7885",
         "startSeconds": 0,
         "label": "配信開始・誕生日の挨拶",
-        "confidence": "高",
-        "evidenceRefs": []
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
       },
       {
-        "timestampId": "timestamp-197-95799cbd",
+        "timestampId": "timestamp-197-16ae48b9",
         "startSeconds": 197,
         "label": "スマブラ凸待ちの企画説明",
-        "confidence": "高",
+        "confidence": "中",
         "evidenceRefs": [
-          "evidence-approved-timestamps"
+          "evidence-full-transcript"
         ]
       },
       {
-        "timestampId": "timestamp-273-d24d4578",
-        "startSeconds": 273,
-        "label": "参加者を待ちながら雑談",
-        "confidence": "高",
-        "evidenceRefs": [
-          "evidence-approved-timestamps"
-        ]
-      },
-      {
-        "timestampId": "timestamp-498-95ab9768",
+        "timestampId": "timestamp-498-87a93dfb",
         "startSeconds": 498,
-        "label": "手作りケーキと駄菓子を味わう",
-        "confidence": "高",
+        "label": "文野環の手作りケーキを味わう",
+        "confidence": "中",
         "evidenceRefs": [
-          "evidence-approved-timestamps"
+          "evidence-full-transcript"
         ]
       },
       {
-        "timestampId": "timestamp-1076-23e8b103",
-        "startSeconds": 1076,
-        "label": "参加者待ち・最初の対戦準備",
-        "confidence": "高",
+        "timestampId": "timestamp-1108-9c5d8b5f",
+        "startSeconds": 1108,
+        "label": "参加者待ち・対戦準備",
+        "confidence": "中",
         "evidenceRefs": [
-          "evidence-approved-timestamps"
+          "evidence-full-transcript"
         ]
       },
       {
-        "timestampId": "timestamp-1520-2a80d971",
-        "startSeconds": 1520,
-        "label": "最初のスマブラ対戦",
-        "confidence": "高",
+        "timestampId": "timestamp-1307-ce203fc9",
+        "startSeconds": 1307,
+        "label": "リスナーとスマブラ対戦",
+        "confidence": "中",
         "evidenceRefs": [
-          "evidence-approved-timestamps"
+          "evidence-full-transcript"
         ]
       },
       {
-        "timestampId": "timestamp-2065-e6587972",
-        "startSeconds": 2065,
-        "label": "対戦後の感想と次の準備",
-        "confidence": "高",
+        "timestampId": "timestamp-2064-8afd8f9c",
+        "startSeconds": 2064,
+        "label": "神田笑一が通話に登場・対戦準備",
+        "confidence": "中",
         "evidenceRefs": [
-          "evidence-approved-timestamps"
+          "evidence-full-transcript"
         ]
       },
       {
-        "timestampId": "timestamp-2397-e505df46",
-        "startSeconds": 2397,
-        "label": "次のスマブラ対戦",
-        "confidence": "高",
+        "timestampId": "timestamp-2383-65758e00",
+        "startSeconds": 2383,
+        "label": "神田笑一とのスマブラ対戦開始",
+        "confidence": "中",
         "evidenceRefs": [
-          "evidence-approved-timestamps"
+          "evidence-full-transcript"
         ]
       },
       {
-        "timestampId": "timestamp-2650-a1b03ca1",
-        "startSeconds": 2650,
-        "label": "対戦後の会話と配信告知",
-        "confidence": "高",
+        "timestampId": "timestamp-2678-bc090d1a",
+        "startSeconds": 2678,
+        "label": "神田笑一とハサウェイ同時視聴の告知",
+        "confidence": "中",
         "evidenceRefs": [
-          "evidence-approved-timestamps"
+          "evidence-full-transcript"
         ]
       },
       {
-        "timestampId": "timestamp-3024-d4a4cc1a",
-        "startSeconds": 3024,
-        "label": "誕生日やケーキの雑談",
-        "confidence": "高",
+        "timestampId": "timestamp-2850-72cecaa6",
+        "startSeconds": 2850,
+        "label": "神田笑一との交流を振り返る・参加者待ち",
+        "confidence": "中",
         "evidenceRefs": [
-          "evidence-approved-timestamps"
+          "evidence-full-transcript"
         ]
       },
       {
-        "timestampId": "timestamp-3436-45e59387",
-        "startSeconds": 3436,
-        "label": "新しい参加者とスマブラ対戦",
-        "confidence": "高",
+        "timestampId": "timestamp-3111-f3140ac7",
+        "startSeconds": 3111,
+        "label": "文野環が通話に登場",
+        "confidence": "中",
         "evidenceRefs": [
-          "evidence-approved-timestamps"
+          "evidence-full-transcript"
         ]
       },
       {
-        "timestampId": "timestamp-3835-425de489",
-        "startSeconds": 3835,
-        "label": "対戦後のケーキ・デート雑談",
-        "confidence": "高",
+        "timestampId": "timestamp-3379-8950db53",
+        "startSeconds": 3379,
+        "label": "北小路ヒスイが参加・スマブラ対戦",
+        "confidence": "中",
         "evidenceRefs": [
-          "evidence-approved-timestamps"
+          "evidence-full-transcript"
         ]
       },
       {
-        "timestampId": "timestamp-4251-37731434",
-        "startSeconds": 4251,
-        "label": "スマブラから雑談へ切り替え",
-        "confidence": "高",
+        "timestampId": "timestamp-3791-b6619328",
+        "startSeconds": 3791,
+        "label": "北小路ヒスイと対戦後のデート相談",
+        "confidence": "中",
         "evidenceRefs": [
-          "evidence-approved-timestamps"
+          "evidence-full-transcript"
         ]
       },
       {
-        "timestampId": "timestamp-4430-071a3643",
-        "startSeconds": 4430,
-        "label": "子どもの頃や学年差の雑談",
-        "confidence": "高",
+        "timestampId": "timestamp-4067-5d0782cd",
+        "startSeconds": 4067,
+        "label": "北小路ヒスイとの交流を振り返る・参加者待ち",
+        "confidence": "中",
         "evidenceRefs": [
-          "evidence-approved-timestamps"
+          "evidence-full-transcript"
         ]
       },
       {
-        "timestampId": "timestamp-4720-0cb81a38",
+        "timestampId": "timestamp-4470-e8109ce0",
+        "startSeconds": 4470,
+        "label": "小学生の学年差について雑談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4720-df7d46a7",
         "startSeconds": 4720,
         "label": "ゲーム部屋を再準備して参加者を待つ",
-        "confidence": "高",
+        "confidence": "中",
         "evidenceRefs": [
-          "evidence-approved-timestamps"
+          "evidence-full-transcript"
         ]
       },
       {
-        "timestampId": "timestamp-4927-83cc35f7",
+        "timestampId": "timestamp-4927-02119971",
         "startSeconds": 4927,
         "label": "別のおしゃべり枠へ移動・終了",
-        "confidence": "高",
+        "confidence": "中",
         "evidenceRefs": [
-          "evidence-approved-timestamps"
+          "evidence-full-transcript"
         ]
       }
     ],
-    "candidateHash": "018d6b0f58140410a91ce995472f2717c17cd32774c3e0cf60db691384740ea7",
-    "inputFingerprint": "21cbaa2eb36348d1c588867f1da7ce45680eef8eab1f132953cc8283a65c44d1",
+    "candidateHash": "2fb20f10f3c58a2d2378535b5198cb63cc0f0a31bc422040c8114a2da2c44071",
+    "inputFingerprint": "b49ec86dceed5c1630f6acbafd663b580d8297a91b9f094f1f9e4d5ddc4fafc0",
     "rulesVersion": "8.1.0",
-    "generatedAt": "2026-07-19T01:15:01Z",
-    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "generatedAt": "2026-09-05T03:02:22.663933+00:00",
+    "updatedAt": "2026-09-05T03:06:21.175395+00:00",
     "review": {
-      "mode": "既存承認済みデータ移行",
-      "candidateHash": "018d6b0f58140410a91ce995472f2717c17cd32774c3e0cf60db691384740ea7",
-      "source": {
-        "status": "approved",
-        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
-        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
-        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
-        "releaseId": "20260804-001",
-        "sourceKind": "get_archives_info_v1"
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "2fb20f10f3c58a2d2378535b5198cb63cc0f0a31bc422040c8114a2da2c44071",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T03:06:21.175395+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
       },
-      "checks": {
-        "sourceApproval": true,
-        "minimumItems": true,
-        "startsAtZero": true,
-        "ascendingOrder": true,
-        "minimumInterval": true,
-        "inDurationRange": true,
-        "allowedConfidence": true,
-        "publicLabels": true
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "2fb20f10f3c58a2d2378535b5198cb63cc0f0a31bc422040c8114a2da2c44071",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T03:05:01.523814+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
       },
-      "validatedAt": "2026-08-04T15:00:00+09:00",
-      "finalHumanCheck": {
-        "status": "承認済み",
-        "candidateHash": "018d6b0f58140410a91ce995472f2717c17cd32774c3e0cf60db691384740ea7",
-        "reviewedAt": "2026-08-04T15:00:00+09:00",
-        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "2fb20f10f3c58a2d2378535b5198cb63cc0f0a31bc422040c8114a2da2c44071",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1827"
       }
     }
   },
@@ -316,9 +332,9 @@
   },
   "provenance": {
     "inputFingerprint": "1515e548ad2508b123c6ff944860ac27d4d92203c68ee6d441b6c599c0f0f987",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1827"
   },
   "approval": {
     "status": "承認済み",
