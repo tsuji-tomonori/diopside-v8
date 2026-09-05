@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "d1b12618d6afb4251438532128310edd7271ccf5549acd8cf3e476e5cda5ea50"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "af6ada8244ef78503c5bb1a1d16ab9704beac48bc3b28c9f70cb63cfe93b6d2b",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 17705
     }
   ],
   "tagAssignments": [
@@ -706,5 +714,21 @@
     "inputFingerprint": "3ce058a87576bb5eff8a0a6b8ffd02b21a632e1ac806c2f0b96dce3ae76fea7c",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴がリメイク版『SILENT HILL 2』の最終回に挑み、霧に包まれた街を探索しながら謎解きと戦闘を進める。緊張感のある場面では反応を交え、登場人物や作品のモチーフについて言葉を重ねていく。締めくくる実況と、視聴後に解説を探したくなる余韻を味わえる。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "解説を楽しむまでが私ゲームだと思ってて",
+      "atSeconds": 15666,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "af6ada8244ef78503c5bb1a1d16ab9704beac48bc3b28c9f70cb63cfe93b6d2b",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T01:49:36.967819Z"
   }
 }
