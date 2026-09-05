@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "e485adea5acd9611b87205cb7482abebb48d15b8f037101447062da04098cb96"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "b0ae593e1f7a51983400b4e3e0837a4c022cb0d747bd818e5e1e008f7f85af5b",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 12819
     }
   ],
   "tagAssignments": [
@@ -464,5 +472,21 @@
     "inputFingerprint": "987f06b3652933a18dfaabfe8d6243bfef275fd7cf02a19f7e871ed3e4a91747",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が久しぶりのホラーゲーム「動作不良」を初見でプレイ。警備員としてビルを巡回し、監視カメラや室内の気になる痕跡を調べながら、じわじわ迫る異変に向き合う。操作の戸惑いや鋭いツッコミ、怖さをこらえる反応も交え、手がかりを探して進む探索の緊張感を味わえる一枠。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "久しぶりのホラーゲームだと思います",
+      "atSeconds": 116,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "b0ae593e1f7a51983400b4e3e0837a4c022cb0d747bd818e5e1e008f7f85af5b",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T06:43:48.104575Z"
   }
 }
