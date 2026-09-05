@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "4c9775b2f7abff9416bacdd4b471d13e8e40d40b950b52f2e4bcd707615424bc"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "9db7e7d25b16b113ddd19d7932ad4edbf17ac30eaff8006c70e3cb2885fcc44e",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 4432
     }
   ],
   "tagAssignments": [
@@ -85,10 +93,239 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-025dda76",
+        "startSeconds": 0,
+        "label": "入浴後の身支度と寄り添い",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-141-b639b9ee",
+        "startSeconds": 141,
+        "label": "膝枕で気持ちを受け止める",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-473-c5497bfb",
+        "startSeconds": 473,
+        "label": "耳かきの提案とつらさへの寄り添い",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-773-27fe2d0d",
+        "startSeconds": 773,
+        "label": "耳かきを始める",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1014-8b04ebf7",
+        "startSeconds": 1014,
+        "label": "耳かきから綿棒へ切り替え",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1340-a8a57adc",
+        "startSeconds": 1340,
+        "label": "耳かきを終えてマッサージへ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1551-b8416fd7",
+        "startSeconds": 1551,
+        "label": "我慢せず頼ってほしいと寄り添う",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1675-aa50027a",
+        "startSeconds": 1675,
+        "label": "歌を選び、香りと手で癒やす",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1906-5be73b4a",
+        "startSeconds": 1906,
+        "label": "耳かきを振り返り思いを伝える",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2083-76cd7485",
+        "startSeconds": 2083,
+        "label": "香りを調整して耳まわりをマッサージ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2266-29e51e6c",
+        "startSeconds": 2266,
+        "label": "独特な刺激で反応を確かめる",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2388-c528eade",
+        "startSeconds": 2388,
+        "label": "好みを探りながら眠りへ誘う",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2657-1ee60353",
+        "startSeconds": 2657,
+        "label": "甘えて頼ってよいと受け止める",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3051-49e29e44",
+        "startSeconds": 3051,
+        "label": "つらい時の支え方を語る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3343-61cc1b8e",
+        "startSeconds": 3343,
+        "label": "施術を振り返りながら語る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3527-1dd728fb",
+        "startSeconds": 3527,
+        "label": "安心して眠り明日に備える",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3741-4fec6d12",
+        "startSeconds": 3741,
+        "label": "無心で耳をマッサージ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3819-a4bf16cd",
+        "startSeconds": 3819,
+        "label": "耳をぎゅっと包む施術へ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3989-a158a1cf",
+        "startSeconds": 3989,
+        "label": "頑張りをねぎらい心身をほぐす",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4259-09654d6c",
+        "startSeconds": 4259,
+        "label": "楽しかった時間を振り返る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4374-e7755efb",
+        "startSeconds": 4374,
+        "label": "眠りを促して締めくくる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "fae6b12275d4fdc1538f75dab36a92791ffbdef9909008dac82ced443c433e61",
+    "inputFingerprint": "9db7e7d25b16b113ddd19d7932ad4edbf17ac30eaff8006c70e3cb2885fcc44e",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T08:43:45.664825+00:00",
+    "updatedAt": "2026-09-05T08:45:00.384851+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "fae6b12275d4fdc1538f75dab36a92791ffbdef9909008dac82ced443c433e61",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T08:44:25.845967+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "fae6b12275d4fdc1538f75dab36a92791ffbdef9909008dac82ced443c433e61",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T08:45:00.384851+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "fae6b12275d4fdc1538f75dab36a92791ffbdef9909008dac82ced443c433e61",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -303,9 +540,9 @@
   },
   "provenance": {
     "inputFingerprint": "b0e93be2b2341bd6484a5dc23731c9811b99cda755a7a9709830b035de15eefd",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",
