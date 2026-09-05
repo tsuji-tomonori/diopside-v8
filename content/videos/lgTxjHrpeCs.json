@@ -46,6 +46,14 @@
       "inputFingerprint": "4575d4d634a4d386d17ce5e18941f01a8d2773ee8048df3add023a8e863330b0",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 760
+    },
+    {
+      "evidenceId": "evidence-timestamp-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "8831f11cef14fe618c5f1f57fa54db9748dd8116140203d7a94dccdbaab9a7f5",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 760
     }
   ],
   "tagAssignments": [
@@ -105,10 +113,131 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-4e8a0571",
+        "startSeconds": 0,
+        "label": "配信開始の挨拶とゲーム操作",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-135-9e320cdd",
+        "startSeconds": 135,
+        "label": "パルの仲間と強さを確認する",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-189-db258d08",
+        "startSeconds": 189,
+        "label": "素材集めとパルの世話・住居作り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-292-e13e0004",
+        "startSeconds": 292,
+        "label": "鳥のようなパルを見つけて捕獲を試す",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-376-673f13e5",
+        "startSeconds": 376,
+        "label": "パチンコ作りを試す",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-490-4e630a0a",
+        "startSeconds": 490,
+        "label": "持ち物・仲間の状態を確認する",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-575-48e0ae24",
+        "startSeconds": 575,
+        "label": "食料・栽培と食事改善を確認する",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-606-b89ebf68",
+        "startSeconds": 606,
+        "label": "装備とパルの性能を確認する",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-721-b273e526",
+        "startSeconds": 721,
+        "label": "レベルアップを確認して配信を締める",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "12fdae005e5bfb751e34cd4281f1b87f076370a05ad9ed899b09a5db73939605",
+    "inputFingerprint": "8831f11cef14fe618c5f1f57fa54db9748dd8116140203d7a94dccdbaab9a7f5",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T05:34:06.845961+00:00",
+    "updatedAt": "2026-09-05T05:35:13.916508+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "12fdae005e5bfb751e34cd4281f1b87f076370a05ad9ed899b09a5db73939605",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T05:34:36.727462+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "12fdae005e5bfb751e34cd4281f1b87f076370a05ad9ed899b09a5db73939605",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T05:35:13.916508+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "12fdae005e5bfb751e34cd4281f1b87f076370a05ad9ed899b09a5db73939605",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "未作成",
@@ -118,9 +247,9 @@
   },
   "provenance": {
     "inputFingerprint": "b030af7390a1afcc87a655588cab2aed3af13274c25be31fa70a0a1d326b0c9e",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",
