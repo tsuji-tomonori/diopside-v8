@@ -1,0 +1,67 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260905-custom-emoji-video-gl5ukws-jmm
+profile: regulated
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: true
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: true
+  important_ui_change: false
+  long_term_decision: false
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - {id: IMP-001, class: Invariant, result: pass, evidence: ["path:spec/requirements/requirements.json", "path:content/videos/gl5UkwS_jmM.json"], note: "既存の動画公開・タグ・絵文字集計要件を新規動画1件へ適用し、永続要件は変更しない。"}
+  - {id: IMP-002, class: Invariant, result: pass, evidence: ["path:content/videos/gl5UkwS_jmM.json", "path:src/domain/content.ts"], note: "既存canonical video schemaとcustomEmojiUsage契約へのデータ追加だけで設計影響はない。"}
+  - {id: IMP-003, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260905-custom-emoji-video-gl5ukws-jmm.yaml"], note: "一時入力の公開チャットに投稿者情報が含まれるためregulatedを選択し、生入力をGit・PR・Pagesへ保持しない。"}
+  - {id: IMP-004, class: Invariant, result: pass, evidence: ["commit:self"], note: "外部書込みはユーザーが明示許可した1動画branch、PR、mergeに限定する。"}
+  - {id: IMP-005, class: Invariant, result: pass, evidence: ["commit:self"], note: "不可逆操作は当該1動画PRのmainへのmergeに限定し、削除、force update、独自deployを行わない。"}
+  - {id: IMP-007, class: Risk-selected, result: pass, evidence: ["path:content/videos/gl5UkwS_jmM.json", "path:content/content-manifest.json"], note: "公開動画1件、タグ8件、匿名絵文字768回・20項目を追記し、既存動画を上書きしない。"}
+  - {id: FAST-004, class: Invariant, result: pass, evidence: ["test:tests/content-validation.test.ts", "test:tests/custom-emoji-usage.test.ts"], note: "正本schema、タグ基数、絵文字合計・匿名ID・決定順を対象検証で確認する。"}
+  - {id: FAST-005, class: Risk-selected, result: pass, evidence: ["test:e2e/detail.spec.ts", "path:content/videos/gl5UkwS_jmM.json"], note: "既存詳細画面E2Eで動画基本情報と絵文字集計セクションのdesktop・mobile表示を確認する。"}
+  - {id: FAST-006, class: Invariant, result: pass, evidence: ["path:scripts/build-public-data.ts", "workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行"], note: "追加動画を含む公開releaseを正本から決定生成し、publicとdocsは通常PRへ直接含めない。"}
+  - {id: FAST-007, class: Invariant, result: pass, evidence: ["commit:self"], note: "公開メタデータ・匿名集計だけを保存し、生チャット、投稿者名・ID、元絵文字ID、説明全文を含めない。"}
+  - {id: REV-001, class: Invariant, result: pass, evidence: ["commit:self"], note: "通常動画追加をgl5UkwS_jmMの正本・manifest件数・review結果だけに限定する。"}
+  - {id: REV-002, class: Invariant, result: pass, evidence: ["commit:self"], note: "Commit Commentへ目的、変更、要件・設計影響、review path、検証契約、互換性、残存リスクを記録する。"}
+  - {id: REV-003, class: Invariant, result: pass, evidence: ["path:spec/requirements/requirements.json"], note: "既存受入条件を新規動画へ適用するため要件正本の更新は不要である。"}
+  - {id: REV-004, class: Invariant, result: pass, evidence: ["path:src/domain/content.ts", "path:scripts/build-public-data.ts"], note: "既存データ構造と生成経路を使うため生成設計・ADRの更新は不要である。"}
+  - {id: REV-006, class: Invariant, result: pass, evidence: ["test:tests/content-validation.test.ts", "test:e2e/detail.spec.ts", "workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行"], note: "正本・タグ・絵文字・決定生成・詳細表示を対象検証とCIで確認する。"}
+  - {id: REV-007, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260905-custom-emoji-video-gl5ukws-jmm.yaml"], note: "選択したcheckだけを本reviewへ保存する。"}
+  - {id: REV-008, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260905-custom-emoji-video-gl5ukws-jmm.yaml"], note: "未選択checkをN/Aとして登録しない。"}
+  - {id: REV-012, class: Risk-selected, result: pass, evidence: ["path:content/videos/gl5UkwS_jmM.json", "commit:self"], note: "archive入力SHA-256、正本集計完全一致、field allowlist、匿名ID、画像host、合計を独立確認する。"}
+advisories: []
+residual_risks:
+  - archive入力指紋 96a7f80613b7479c6c14baeccf52bdd235f881a5bc168364342f934c2210136b から匿名絵文字768回・20項目を生成し、生入力は保持しない。
+  - 時刻一覧とワードクラウドは今回の絵文字集計範囲外として未作成状態を明示する。
+  - 公開反映はmainマージ後の既存release workflow完了に依存する。
