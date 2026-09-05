@@ -1,7 +1,7 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 36
+- カタログ版: 37
 - 更新日: 2026-09-05
 - 正本: `spec/requirements/requirements.json`
 
@@ -44,6 +44,8 @@
 | `V8-DISPLAY-019` | 2 | 有効 | 機能 | diopside v8のエンティティ探索画面は、人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならず、公開中の関連動画が1件以上あるエンティティだけを一覧件数とカードへ含めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。を**satisfy** | 一覧絞り込み・0件除外・関係表示・検索候補・動画詳細導線試験 |
 | `V8-DISPLAY-020` | 1 | 有効 | 機能 | diopside v8のサイト識別表示は、公開画面は、diopsideが白雪巴さんの公開アーカイブを扱う非公式ファンサイトであることを明示しなければならない。を**satisfy** | 公開画面・メタデータ文言試験 |
 | `V8-DISPLAY-021` | 1 | 有効 | 機能 | diopside v8のAI生成情報表示は、公開画面は、タグ、あらすじ、タイムスタンプがAIによって生成され、誤りを含む場合があることを明示し、人が確認した情報であると表示してはならない。を**satisfy** | 検索画面・動画詳細・共通フッター文言試験 |
+| `V8-DISPLAY-022` | 1 | 有効 | データ | diopside v8のカスタム絵文字集計は、時刻とカスタム絵文字を識別できる保存済み元チャットから、絵文字別の時間帯集計を再生成できなければならない。同じ投稿の再出現や本文外の表示を重複加算せず、開始前・終了後・時刻不明を再生時間内の密度から分離し、ゼロ件の区間も表現しなければならない。を**satisfy** | 境界・重複・合計整合・入力形式試験 |
+| `V8-DISPLAY-023` | 1 | 有効 | 機能 | diopside v8の動画詳細は、時間帯別集計のある動画詳細は、絵文字密度の波から区間を選択し、絵文字別画像・表示名・回数、区間の総数・割合・密度を確認して、区間開始または区間内ピークからYouTubeで再生できなければならない。を**satisfy** | 区間操作・再生リンク・アクセシビリティ試験 |
 | `V8-INGEST-001` | 3 | 有効 | インターフェース | diopside v8のローカルprivate ingestion要求は、運用者が指定するingestion要求は11文字のYouTube video_id一項目だけを含み、認証情報または内部状態を含んではならない。を**強制する** | 契約・CLI単体試験 |
 | `V8-INGEST-002` | 4 | 有効 | データ | diopside v8のprivate backfill対象は、複数動画の歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。を**強制する** | manifest生成・改ざん・ローカル実行試験 |
 | `V8-INGEST-003` | 2 | 有効 | データ | diopside v8のprivate ingestion状態は、進捗状態はVideoIngestion単一DynamoDB tableのvideo_id partition keyだけを使う一動画一itemで保持し、sort key、GSI、用途別item typeを追加してはならない。を**強制する** | CDK template・状態repository・ローカル統合試験 |
@@ -773,6 +775,36 @@ diopside v8のAI生成情報表示は、公開画面は、タグ、あらすじ�
 要求源: spec/sources/owner-directive-2026-09-04-ai-generated-fan-site-disclosure.md, user:2026-09-04
 検証証跡: tests/site-disclosure.test.ts, e2e/search.spec.ts, e2e/detail.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/App.tsx,src/features/search/SearchPage.tsx,src/features/detail/VideoDetailPage.tsx; テスト=tests/site-disclosure.test.ts,e2e/search.spec.ts,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-09-04-ai-generated-fan-site-disclosure.md,dev-standard assured profile
+
+## V8-DISPLAY-022: 保存済みチャットからカスタム絵文字の時間帯別密度を再集計できなければならない
+
+diopside v8のカスタム絵文字集計は、時刻とカスタム絵文字を識別できる保存済み元チャットから、絵文字別の時間帯集計を再生成できなければならない。同じ投稿の再出現や本文外の表示を重複加算せず、開始前・終了後・時刻不明を再生時間内の密度から分離し、ゼロ件の区間も表現しなければならない。を**satisfy**。
+
+根拠: 投稿の集中する区間を正しい再生時刻で比較し、再解析可能な保存素材を活用するため。時間粒度と保存形式は可逆な実装判断に委ねる。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-022-1` 前提: 時刻付きカスタム絵文字、重複投稿、区間境界、時刻不明を含む保存済み元チャット。条件: 再集計する。期待結果: 時間帯内訳と開始前・終了後・時刻不明の合計が総使用回数と一致し、全種類の回数を再現する。破損した入力を正常な部分集計として反映せず、素材なしと集計ゼロを区別する。。
+
+要求源: spec/sources/owner-directive-2026-09-05-emoji-density.md, user:2026-09-05
+検証証跡: tests/custom-emoji-usage.test.ts, src/domain/validation.test.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=scripts/aggregate-custom-emoji-usage.ts,scripts/reanalyze-emoji-density.ts,src/domain/content.ts,src/domain/validation.ts; テスト=tests/custom-emoji-usage.test.ts,src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=V8-DISPLAY-017
+
+## V8-DISPLAY-023: 動画詳細で絵文字の密度から区間を選び内訳と再生位置を確認できなければならない
+
+diopside v8の動画詳細は、時間帯別集計のある動画詳細は、絵文字密度の波から区間を選択し、絵文字別画像・表示名・回数、区間の総数・割合・密度を確認して、区間開始または区間内ピークからYouTubeで再生できなければならない。を**satisfy**。
+
+根拠: 参考HTMLの区間選択と画像付き内訳を、静的なブラウザ内処理とモバイル・キーボード操作で利用できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-023-1` 前提: 時間帯別集計を持つ動画詳細。条件: モバイルまたはデスクトップで区間を選択・微調整する。期待結果: 正逆両順の区間選択で回数と割合が一致し、ゼロ区間と短い末尾区間を正しく表示する。画像取得失敗時も表示名が残り、区間開始・ピークへのリンクが選択時刻と一致する。。
+
+要求源: spec/sources/owner-directive-2026-09-05-emoji-density.md, user:2026-09-05
+検証証跡: e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/EmojiDensity.tsx,src/features/detail/VideoDetailPage.tsx,src/styles.css,scripts/build-public-data.ts; テスト=e2e/detail.spec.ts; 参照資料=V8-DISPLAY-018
 
 ## V8-INGEST-001: ローカルingestion要求はvideo_idだけを含む厳格な11文字契約でなければならない
 

@@ -36,7 +36,7 @@
 |---|---:|
 | COST | 5 |
 | DEVICE | 11 |
-| DISPLAY | 21 |
+| DISPLAY | 23 |
 | INGEST | 17 |
 | OPS | 26 |
 | QUALITY | 5 |
@@ -44,7 +44,7 @@
 | SEARCH | 22 |
 | TAG | 44 |
 | TIME | 38 |
-| **合計** | **194** |
+| **合計** | **196** |
 
 ## 公開データの流れ
 
@@ -55,7 +55,7 @@
 | ファイル | 種別 | 名前 |
 |---|---|---|
 | `scripts/aggregate-custom-emoji-usage.ts` | FunctionDeclaration | `aggregateCustomEmojiUsage` |
-| `scripts/aggregate-custom-emoji-usage.ts` | InterfaceDeclaration | `CustomEmojiUsageAggregate` |
+| `scripts/aggregate-custom-emoji-usage.ts` | TypeAliasDeclaration | `CustomEmojiUsageAggregate` |
 | `scripts/aggregate-custom-emoji-usage.ts` | InterfaceDeclaration | `CustomEmojiUsageItem` |
 | `scripts/aggregate-word-cloud.ts` | FunctionDeclaration | `aggregateWordCloud` |
 | `scripts/aggregate-word-cloud.ts` | TypeAliasDeclaration | `AudienceWordCloudInputType` |
@@ -129,6 +129,7 @@
 | `src/domain/content.ts` | TypeAliasDeclaration | `CollaborationProfiles` |
 | `src/domain/content.ts` | VariableStatement | `collaborationProfilesSchema` |
 | `src/domain/content.ts` | VariableStatement | `confidenceSchema` |
+| `src/domain/content.ts` | VariableStatement | `customEmojiTimelineSchema` |
 | `src/domain/content.ts` | VariableStatement | `customEmojiUsageSchema` |
 | `src/domain/content.ts` | VariableStatement | `entityRelationTypeSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `EntityType` |
@@ -238,6 +239,8 @@
 | `src/domain/validation.ts` | InterfaceDeclaration | `ValidationIssue` |
 | `src/features/collaborations/CollaboratorDetailPage.tsx` | FunctionDeclaration | `CollaboratorDetailPage` |
 | `src/features/collaborations/GroupDetailPage.tsx` | FunctionDeclaration | `GroupDetailPage` |
+| `src/features/detail/EmojiDensity.tsx` | FunctionDeclaration | `EmojiDensity` |
+| `src/features/detail/EmojiDensity.tsx` | FunctionDeclaration | `EmojiIcon` |
 | `src/features/detail/VideoDetailPage.tsx` | FunctionDeclaration | `VideoDetailPage` |
 | `src/features/detail/WordCloud.tsx` | FunctionDeclaration | `WordCloud` |
 | `src/features/detail/WordCloud.tsx` | FunctionDeclaration | `wordCloudEyebrow` |
@@ -289,4 +292,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力87ファイル、公開契約206件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力89ファイル、公開契約209件です。

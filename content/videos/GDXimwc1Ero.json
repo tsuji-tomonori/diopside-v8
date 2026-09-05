@@ -96,6 +96,80 @@
     "detail": "正規化済み公開チャットを集計したが、有効な固有語句が19語で、V8-DISPLAY-005の20〜50語を満たさないため作成しない。",
     "updatedAt": "2026-09-05T00:20:00+09:00"
   },
+  "customEmojiUsage": {
+    "status": "集計済み",
+    "totalCount": 15,
+    "items": [
+      {
+        "customEmojiId": "custom-emoji-14d753b6b17fe87f",
+        "label": ":taiki:",
+        "imageUrl": "https://yt3.ggpht.com/AmJMesRvOQ9hazRwFUqyYpBPbFInvNG6-NVq5nFnd7LxkunkF1ZNCfmPFwz85sjRNRCDs5e0_w=w24-h24-c-k-nd",
+        "count": 5
+      },
+      {
+        "customEmojiId": "custom-emoji-d114b08d65064a0d",
+        "label": ":daken:",
+        "imageUrl": "https://yt3.ggpht.com/STxTum1lbYWsJvKvU0TBmTRGS5bB3RP8j00XvlIP-fdwGfk43DxhFQlJHH2ncl1BStmykLoqzQ=w24-h24-c-k-nd",
+        "count": 4
+      },
+      {
+        "customEmojiId": "custom-emoji-f511686e2a08a690",
+        "label": ":wan:",
+        "imageUrl": "https://yt3.ggpht.com/1VFD2HS8OwgvS2XCPDW-59iyFTUlw63RAVQcNsaGpQZTtjCXS_q-FUPR86bZVOnDirWTlnjn=w24-h24-c-k-nd",
+        "count": 3
+      },
+      {
+        "customEmojiId": "custom-emoji-6bf2ffc72b0031f1",
+        "label": ":kobito:",
+        "imageUrl": "https://yt3.ggpht.com/2bL4xENwQQcltmFqoJdB8wRRZWrgAWLSRVvk-dZ_dM4ociaEWc-EtBqRlm9qlwlpV3szT6nT=w24-h24-c-k-nd",
+        "count": 1
+      },
+      {
+        "customEmojiId": "custom-emoji-bfc159b91f64052d",
+        "label": ":kusa:",
+        "imageUrl": "https://yt3.ggpht.com/kZShOeXg6MsX8wvxDnks5be-RBBZBbiSTiHaYf_YugiFq2vsob_L1aNikCo8ZWNa-KAZh-We=w24-h24-c-k-nd",
+        "count": 1
+      },
+      {
+        "customEmojiId": "custom-emoji-089ea8e178cb4765",
+        "label": ":yuki:",
+        "imageUrl": "https://yt3.ggpht.com/Dql0JmqtsueXUMxlW157j6Xj2FnrKnI_nFBHIQ2k9qirFCY3SKYfQZ_5AkA1jASdEf9kqhK1WA=w24-h24-c-k-nd",
+        "count": 1
+      }
+    ],
+    "timeline": {
+      "bucketSeconds": 60,
+      "durationSeconds": 105,
+      "bins": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            5,
+            1
+          ]
+        ],
+        [
+          [
+            4,
+            1
+          ]
+        ]
+      ],
+      "beforeStartCount": 11,
+      "afterEndCount": 0,
+      "unpositionedCount": 0
+    },
+    "inputFingerprint": "c04f02b8ed6086d63d87bd4d402eb995e853feed6078f6a96b91b3bf421ed81d",
+    "rulesVersion": "2.0.0",
+    "updatedAt": "2026-09-05T00:00:00Z"
+  },
   "provenance": {
     "inputFingerprint": "431acce783ae165055f906439ee84ea4ee452e233576219100642acd2fb9b2f3",
     "generatorVersion": "v8-legacy-migration-1.0.0",
@@ -106,50 +180,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
-  "customEmojiUsage": {
-    "status": "集計済み",
-    "totalCount": 15,
-    "items": [
-      {
-        "customEmojiId": "custom-emoji-14d753b6b17fe87f",
-        "label": ":taiki:",
-        "imageUrl": "https://yt3.ggpht.com/AmJMesRvOQ9hazRwFUqyYpBPbFInvNG6-NVq5nFnd7LxkunkF1ZNCfmPFwz85sjRNRCDs5e0_w=w48-h48-c-k-nd",
-        "count": 5
-      },
-      {
-        "customEmojiId": "custom-emoji-d114b08d65064a0d",
-        "label": ":daken:",
-        "imageUrl": "https://yt3.ggpht.com/STxTum1lbYWsJvKvU0TBmTRGS5bB3RP8j00XvlIP-fdwGfk43DxhFQlJHH2ncl1BStmykLoqzQ=w48-h48-c-k-nd",
-        "count": 4
-      },
-      {
-        "customEmojiId": "custom-emoji-f511686e2a08a690",
-        "label": ":wan:",
-        "imageUrl": "https://yt3.ggpht.com/1VFD2HS8OwgvS2XCPDW-59iyFTUlw63RAVQcNsaGpQZTtjCXS_q-FUPR86bZVOnDirWTlnjn=w48-h48-c-k-nd",
-        "count": 3
-      },
-      {
-        "customEmojiId": "custom-emoji-6bf2ffc72b0031f1",
-        "label": ":kobito:",
-        "imageUrl": "https://yt3.ggpht.com/2bL4xENwQQcltmFqoJdB8wRRZWrgAWLSRVvk-dZ_dM4ociaEWc-EtBqRlm9qlwlpV3szT6nT=w48-h48-c-k-nd",
-        "count": 1
-      },
-      {
-        "customEmojiId": "custom-emoji-bfc159b91f64052d",
-        "label": ":kusa:",
-        "imageUrl": "https://yt3.ggpht.com/kZShOeXg6MsX8wvxDnks5be-RBBZBbiSTiHaYf_YugiFq2vsob_L1aNikCo8ZWNa-KAZh-We=w48-h48-c-k-nd",
-        "count": 1
-      },
-      {
-        "customEmojiId": "custom-emoji-089ea8e178cb4765",
-        "label": ":yuki:",
-        "imageUrl": "https://yt3.ggpht.com/Dql0JmqtsueXUMxlW157j6Xj2FnrKnI_nFBHIQ2k9qirFCY3SKYfQZ_5AkA1jASdEf9kqhK1WA=w48-h48-c-k-nd",
-        "count": 1
-      }
-    ],
-    "inputFingerprint": "c04f02b8ed6086d63d87bd4d402eb995e853feed6078f6a96b91b3bf421ed81d",
-    "rulesVersion": "1.1.0",
-    "updatedAt": "2026-09-04T20:02:31+09:00"
   }
 }

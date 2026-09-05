@@ -118,6 +118,22 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "にじさんじマリカ杯Aリーグ予選に臨む白雪巴。開幕を待ちながらタイムアタックで手を動かし、接続の戸惑いも乗り越えてレースへ飛び込みます。普段の語りを抑えて走りに集中し、コースやアイテムの展開に一喜一憂。終了後も一戦を楽しみ、応援への感謝を伝える大会配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "正直不安しかない",
+      "atSeconds": 594,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "dd095bd46512097309cceec8b40b12ab332b3d02ce486cd281568e3c634b1a1f",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T06:50:50.372720Z"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -305,28 +321,28 @@
         "candidateHash": "d21a494957f2244f6e8ed7ea7729c02a93e29d75e208192d6c29eb1a69285e6f",
         "majorIssues": 0,
         "reviewedAt": "2026-08-30T13:16:00+09:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "d21a494957f2244f6e8ed7ea7729c02a93e29d75e208192d6c29eb1a69285e6f",
         "majorIssues": 0,
         "reviewedAt": "2026-08-30T13:30:00+09:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "publicationGate": {
         "mode": "pull-request-merge",
@@ -543,8 +559,8 @@
     "inputFingerprint": "8200e2c10176fdabf49d531697092e872e2da8801fc6b98d3cb4f69850c9e66e",
     "exclusionRulesVersion": "9.1.0",
     "rulesVersion": "9.1.0",
-    "humanReview": "承認済み",
-    "updatedAt": "2026-09-05T00:20:00+09:00"
+    "updatedAt": "2026-09-05T00:20:00+09:00",
+    "humanReview": "承認済み"
   },
   "provenance": {
     "inputFingerprint": "b3b6f30ddf37f572206dce8473738f5368ac4680c806706cc1319c2e175acb9f",
@@ -557,20 +573,90 @@
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
   },
-  "synopsis": {
-    "body": "にじさんじマリカ杯Aリーグ予選に臨む白雪巴。開幕を待ちながらタイムアタックで手を動かし、接続の戸惑いも乗り越えてレースへ飛び込みます。普段の語りを抑えて走りに集中し、コースやアイテムの展開に一喜一憂。終了後も一戦を楽しみ、応援への感謝を伝える大会配信です。",
-    "bodyEvidenceRefs": [
-      "evidence-synopsis-transcript"
-    ],
-    "featuredQuote": {
-      "text": "正直不安しかない",
-      "atSeconds": 594,
-      "evidenceRefs": [
-        "evidence-synopsis-transcript"
-      ]
+  "customEmojiUsage": {
+    "status": "集計済み",
+    "totalCount": 0,
+    "items": [],
+    "timeline": {
+      "bucketSeconds": 60,
+      "durationSeconds": 4101,
+      "bins": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "beforeStartCount": 0,
+      "afterEndCount": 0,
+      "unpositionedCount": 0
     },
-    "inputFingerprint": "dd095bd46512097309cceec8b40b12ab332b3d02ce486cd281568e3c634b1a1f",
-    "rulesVersion": "1.1.0",
-    "updatedAt": "2026-08-22T06:50:50.372720Z"
+    "inputFingerprint": "fa3722883326e3b0d3fe9342ea7008ada5482170c60b8dbfad507d54fc199dc0",
+    "rulesVersion": "2.0.0",
+    "updatedAt": "2026-09-05T00:00:00Z"
   }
 }
