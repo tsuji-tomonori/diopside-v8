@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "aeb92f232e970efd9e9be0d2110c447e3847735a3a95916dcbd176821e184ed7"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "230105c53bc4faf9d0cfb919eaaad8a25bfc9701b0665fbcc864371535729192",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3583
     }
   ],
   "tagAssignments": [
@@ -541,5 +549,21 @@
     "inputFingerprint": "51c45ff63a5a571daa6150e7768f29895c36101c8ed543d2d0f09719e223b2a1",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が視聴者参加型で『ロードモバイル』を始め、領地づくりや軍隊編成の基本を紹介。参加者を集めてギルドを立ち上げ、名前やエンブレムを相談しながら、資源集めと施設強化、ストーリーモードの攻略を進める。仲間との助け合いを楽しみつつ、次の対決へ向けて戦力を整えていく配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "壁よ壁みんな好きでしょ",
+      "atSeconds": 1065,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "230105c53bc4faf9d0cfb919eaaad8a25bfc9701b0665fbcc864371535729192",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T04:00:31.058625Z"
   }
 }
