@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "3fa838bd4055eaa7c65ebebae85f79a0e3c3d487ed946d9e93bb81129b4ede99"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "2801f1af0b94c6cd172f08de8eb525296c43df436c2e693e759469e91f3b52f2",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8282
     }
   ],
   "tagAssignments": [
@@ -622,5 +630,21 @@
     "inputFingerprint": "026dfcf8e4fbeba70f1bd8e7d6671ab224a176788e0842a6c1c927b41a846422",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が大型アップデートで追加された犯罪現場へ戻り、証拠やゴミ、死体を片付ける清掃人の仕事に挑む。高圧洗浄機やモップを使い分け、広い現場を探索しながら新たな仕掛けにも向き合う。物騒な題材を軽快な反応で味わう実況。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "掃除したくてうずうずしてきた",
+      "atSeconds": 1505,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "2801f1af0b94c6cd172f08de8eb525296c43df436c2e693e759469e91f3b52f2",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:44:53.782823Z"
   }
 }
