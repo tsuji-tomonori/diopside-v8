@@ -787,7 +787,7 @@ diopside v8のカスタム絵文字集計は、時刻とカスタム絵文字を
 受入条件:
 - `AC-V8-DISPLAY-022-1` 前提: 時刻付きカスタム絵文字、重複投稿、区間境界、時刻不明を含む保存済み元チャット。条件: 再集計する。期待結果: 時間帯内訳と開始前・終了後・時刻不明の合計が総使用回数と一致し、全種類の回数を再現する。破損した入力を正常な部分集計として反映せず、素材なしと集計ゼロを区別する。。
 
-要求源: user:2026-09-05
+要求源: spec/sources/owner-directive-2026-09-05-emoji-density.md, user:2026-09-05
 検証証跡: tests/custom-emoji-usage.test.ts, src/domain/validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=scripts/aggregate-custom-emoji-usage.ts,scripts/reanalyze-emoji-density.ts,src/domain/content.ts,src/domain/validation.ts; テスト=tests/custom-emoji-usage.test.ts,src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=V8-DISPLAY-017
 
@@ -802,7 +802,7 @@ diopside v8の動画詳細は、時間帯別集計のある動画詳細は、絵
 受入条件:
 - `AC-V8-DISPLAY-023-1` 前提: 時間帯別集計を持つ動画詳細。条件: モバイルまたはデスクトップで区間を選択・微調整する。期待結果: 正逆両順の区間選択で回数と割合が一致し、ゼロ区間と短い末尾区間を正しく表示する。画像取得失敗時も表示名が残り、区間開始・ピークへのリンクが選択時刻と一致する。。
 
-要求源: user:2026-09-05
+要求源: spec/sources/owner-directive-2026-09-05-emoji-density.md, user:2026-09-05
 検証証跡: e2e/detail.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/EmojiDensity.tsx,src/features/detail/VideoDetailPage.tsx,src/styles.css,scripts/build-public-data.ts; テスト=e2e/detail.spec.ts; 参照資料=V8-DISPLAY-018
 

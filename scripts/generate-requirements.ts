@@ -2170,6 +2170,7 @@ const emojiDensityRequirements = [
     "object": "時刻とカスタム絵文字を識別できる保存済み元チャットから、絵文字別の時間帯集計を再生成できなければならない。同じ投稿の再出現や本文外の表示を重複加算せず、開始前・終了後・時刻不明を再生時間内の密度から分離し、ゼロ件の区間も表現しなければならない。",
     "rationale": "投稿の集中する区間を正しい再生時刻で比較し、再解析可能な保存素材を活用するため。時間粒度と保存形式は可逆な実装判断に委ねる。",
     "source_refs": [
+      "spec/sources/owner-directive-2026-09-05-emoji-density.md",
       "user:2026-09-05"
     ],
     "acceptance_criteria": [
@@ -2218,6 +2219,7 @@ const emojiDensityRequirements = [
     "object": "時間帯別集計のある動画詳細は、絵文字密度の波から区間を選択し、絵文字別画像・表示名・回数、区間の総数・割合・密度を確認して、区間開始または区間内ピークからYouTubeで再生できなければならない。",
     "rationale": "参考HTMLの区間選択と画像付き内訳を、静的なブラウザ内処理とモバイル・キーボード操作で利用できるようにするため。",
     "source_refs": [
+      "spec/sources/owner-directive-2026-09-05-emoji-density.md",
       "user:2026-09-05"
     ],
     "acceptance_criteria": [
