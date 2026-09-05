@@ -46,6 +46,14 @@
       "inputFingerprint": "5b0ea8ffdbff16fe866ad8199dc3ba80a670fb452675afbeb166dbb606d8d5b9",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 689
+    },
+    {
+      "evidenceId": "evidence-timestamp-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "06a38aef256b408e288279dc5869df29655c92c8d399c16dfcccd3bdddbaed66",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 689
     }
   ],
   "tagAssignments": [
@@ -87,10 +95,104 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-16cae438",
+        "startSeconds": 0,
+        "label": "配信変更への謝罪と注意喚起に至った経緯",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-203-ed877e20",
+        "startSeconds": 203,
+        "label": "コラボ相手への発言とこれまでの対応",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-328-05caf09b",
+        "startSeconds": 328,
+        "label": "相手への敬意と自衛についての考え",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-395-85d7fbd3",
+        "startSeconds": 395,
+        "label": "大切な人を傷つける言動を見過ごせない理由",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-508-e72eef01",
+        "startSeconds": 508,
+        "label": "関係者への謝罪と傷つけず自衛するよう求める呼びかけ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-650-490bea7d",
+        "startSeconds": 650,
+        "label": "通常配信へ戻る意向と締めくくり",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "ac2a0d704609b5290c0fb0a325069aaffe425020cbd9fb22ec2feb1d00d9284e",
+    "inputFingerprint": "06a38aef256b408e288279dc5869df29655c92c8d399c16dfcccd3bdddbaed66",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T04:43:05.491221+00:00",
+    "updatedAt": "2026-09-05T04:44:11.211727+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "ac2a0d704609b5290c0fb0a325069aaffe425020cbd9fb22ec2feb1d00d9284e",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T04:43:33.815725+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "ac2a0d704609b5290c0fb0a325069aaffe425020cbd9fb22ec2feb1d00d9284e",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T04:44:11.211727+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "ac2a0d704609b5290c0fb0a325069aaffe425020cbd9fb22ec2feb1d00d9284e",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "未作成",
@@ -100,9 +202,9 @@
   },
   "provenance": {
     "inputFingerprint": "b438c01c085b87c869b2d93a5e5b2effc61499443a3fb11a3b5bf67f6fda0014",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",
