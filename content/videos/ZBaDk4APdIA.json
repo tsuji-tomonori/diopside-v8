@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "baf81da5ab892e26c0950645cb5fb2d8a2ed8375b235fa0dab5b4e97ff1f6dcd"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "0e5c962ef211765a08ce40c614714873eeec1664954de10a3065480c7c54dee8",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8776
     }
   ],
   "tagAssignments": [
@@ -571,5 +579,21 @@
     "inputFingerprint": "0c9d310a6757c6704d253a12398d4927961487ab13c2627fae7fc920e4cfeb57",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が『Unpacking』で箱の中身を取り出し、部屋ごとに荷物を配置していきます。家具や収納との相性を考え、残す物と手放す物に迷いながら、ゲームや小物にまつわる思い出もぽつぽつ紹介。片付けの気持ちよさと、置き場所を探る試行錯誤を味わう夜の実況です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "今やれそってスイッチが入った",
+      "atSeconds": 8397,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "0e5c962ef211765a08ce40c614714873eeec1664954de10a3065480c7c54dee8",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T04:00:22.124250Z"
   }
 }

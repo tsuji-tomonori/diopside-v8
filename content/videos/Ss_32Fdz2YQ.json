@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "2affb343ccc45184222ec232a9227e986b47560804f07527bad8aae6fee91f3a"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "c983a18d254b51868ba2d11c2948d4f445d2d47baf6a184696fd2783dce7bf4a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3643
     }
   ],
   "tagAssignments": [
@@ -112,10 +120,221 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-8a0400cb",
+        "startSeconds": 0,
+        "label": "冒頭挨拶と作品紹介",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-208-d42b69db",
+        "startSeconds": 208,
+        "label": "世界観と用語を確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-287-f5910511",
+        "startSeconds": 287,
+        "label": "学院と登場キャラクターをチェック",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-394-2e610a5e",
+        "startSeconds": 394,
+        "label": "関係性とカップリングに注目",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-455-837ea9c0",
+        "startSeconds": 455,
+        "label": "アニメ第1話の同時視聴",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1941-6f3b24a5",
+        "startSeconds": 1941,
+        "label": "第1話を振り返る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2028-8bcc0730",
+        "startSeconds": 2028,
+        "label": "ゲーム版アサルトリリィを開始",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2255-852ebc5e",
+        "startSeconds": 2255,
+        "label": "ゲーム内の案内とガチャ準備",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2478-7cbd0780",
+        "startSeconds": 2478,
+        "label": "ガチャの種類と衣装を確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2578-61766c0a",
+        "startSeconds": 2578,
+        "label": "ゴールデンウィークガチャを引く",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2801-dfe19d4b",
+        "startSeconds": 2801,
+        "label": "星5カードと多彩なカードを確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3179-12ce7903",
+        "startSeconds": 3179,
+        "label": "ガチャを切り上げる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3231-ea445fe1",
+        "startSeconds": 3231,
+        "label": "追加チケットを確認して再びガチャ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3331-7e4473d6",
+        "startSeconds": 3331,
+        "label": "2.5次元舞台版にも触れる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3373-eae44a14",
+        "startSeconds": 3373,
+        "label": "メインストーリー序盤を体験",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3479-28a7e61c",
+        "startSeconds": 3479,
+        "label": "ゲーム体験を振り返る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3509-cce4c398",
+        "startSeconds": 3509,
+        "label": "作品の魅力と今後の視聴を語る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3555-ea68cb25",
+        "startSeconds": 3555,
+        "label": "今後のラスバレ配信予定を案内",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3598-cc130a46",
+        "startSeconds": 3598,
+        "label": "感謝を伝えて配信終了",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "9040a542254e3e4d10d652baa7e1632a073e4badc2cc7349a29058659cfe6bde",
+    "inputFingerprint": "c983a18d254b51868ba2d11c2948d4f445d2d47baf6a184696fd2783dce7bf4a",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T05:30:21.079159+00:00",
+    "updatedAt": "2026-09-05T05:31:21.146675+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "9040a542254e3e4d10d652baa7e1632a073e4badc2cc7349a29058659cfe6bde",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T05:30:56.368093+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "9040a542254e3e4d10d652baa7e1632a073e4badc2cc7349a29058659cfe6bde",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T05:31:21.146675+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "9040a542254e3e4d10d652baa7e1632a073e4badc2cc7349a29058659cfe6bde",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -330,9 +549,9 @@
   },
   "provenance": {
     "inputFingerprint": "a00804a3119944b6f05bcde42eaf04a337c393b04e5bba816eb171b0089a723b",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",

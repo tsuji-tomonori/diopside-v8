@@ -32,6 +32,14 @@
       "type": "動画長",
       "sourceLabel": "YouTube公開動画長",
       "inputFingerprint": "eae92ceeb978c87e5ce793ed38781f874ac4de6926c96929280423a66dd47f6d"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "0d43dceaf8f0b4944972801edff7742e2c0d95498fa102b56547de8f7a558c34",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 17751
     }
   ],
   "tagAssignments": [
@@ -217,5 +225,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T15:51:00Z",
     "basis": "ユーザーの追加対応指示に基づく公開メタデータ・既存taxonomy・匿名絵文字集計の確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が人魚伝説と島の怪異を追う物語の続きを実況。人物の会話や古い記録を手掛かりに、複数の視点を行き来しながら呪いの背景を考察していきます。驚きや軽妙なツッコミを交え、謎めいた出来事のつながりを丁寧に味わう一回です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "歴史覚えた",
+      "atSeconds": 156,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "0d43dceaf8f0b4944972801edff7742e2c0d95498fa102b56547de8f7a558c34",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T04:17:51.865402Z"
   }
 }

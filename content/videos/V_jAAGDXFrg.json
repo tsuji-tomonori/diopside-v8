@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "40254160a9b4b685db50d3eb703e2adedfba74a53d83948a708204eb036c102c"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "6b57f32e06a8954f8a1cb34f39b6631ac527af403b1ace9d7acc0f5815ddfea8",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 16958
     }
   ],
   "tagAssignments": [
@@ -658,5 +666,21 @@
     "inputFingerprint": "974e703354d2ca33566c977c64c811e27474aca36eb836b07081f3c2ea91a8f9",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が『SILENT HILL 2』リメイク版の続きを実況。病院を起点に記録や仕掛けを手がかりに鍵を探し、武器を使い分けながら探索を進める。マリアやローラを追う道中では、不穏な演出と敵の気配に驚き、残る謎を考察。読み解きと反応が交差する長時間実況。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "一周回って好きなのかもしれねえ。",
+      "atSeconds": 12078,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "6b57f32e06a8954f8a1cb34f39b6631ac527af403b1ace9d7acc0f5815ddfea8",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T02:08:36.364251Z"
   }
 }

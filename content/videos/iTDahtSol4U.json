@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "8644180960bebe9d7ebce5406697f96e8587b97296097bc687e36ad66a921aca"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "8f5a67c2d4959f5c0f67c58905477066a627339ce309adafce0d247418243641",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 23551
     }
   ],
   "tagAssignments": [
@@ -676,5 +684,21 @@
     "inputFingerprint": "eac0110d3b6eaff9a16493561bccd7cb09306e585123e4341be035cfc2fe6a5c",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が『崩壊：スターレイル』オンパロス編の最終回を実況。開拓者として仲間と記憶をたどり、神々と人々の運命が交差する物語を読み進める。激しい戦闘や選択に反応しながら、長い旅の意味を考察し、章の余韻を振り返る一回。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "最終回と言っても全然過言じゃなかったですね",
+      "atSeconds": 21618,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "8f5a67c2d4959f5c0f67c58905477066a627339ce309adafce0d247418243641",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T04:04:16.869233Z"
   }
 }

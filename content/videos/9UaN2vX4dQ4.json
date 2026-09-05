@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "44d0aa92f30fccb0c23f5582dd72cfb9424b1a015bde47092e0ce4bd7ca98744"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "f0580e63cc1b564a8bd4e394c7c43fc15737110e4234ec7402ef03f47cf729d8",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 19203
     }
   ],
   "tagAssignments": [
@@ -721,5 +729,21 @@
     "inputFingerprint": "b0fdc591c076b52e05f72593a0f4dab4d1eecf55bb724cad252d02efda693260",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が、霧に包まれたサイレントヒルを訪れ、亡き妻からの手紙を手掛かりにリメイク版を初見実況。地図やメモを頼りにアパートを探索し、謎解きと物資のやりくり、ラジオ越しの気配や敵との遭遇に揺れながら、視聴者と道を探していきます。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "白雪を1人にしちゃだめだよ、今日。",
+      "atSeconds": 3783,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "f0580e63cc1b564a8bd4e394c7c43fc15737110e4234ec7402ef03f47cf729d8",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T02:25:20.760493Z"
   }
 }

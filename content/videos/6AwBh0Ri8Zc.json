@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "97921871766293a05f6e5bf5ac637da1303b1c60eb816bf4c6ae2caf3839a6f1"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "58018a40df31aef0c62b1b28f73f420c9803a84bab67f38ad99e4744e2eab95e",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8071
     }
   ],
   "tagAssignments": [
@@ -568,5 +576,21 @@
     "inputFingerprint": "eb5268896c449440992d85b0e1ee0ee129d02a152c0dd8d82f54372fc1e14ca1",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が、2週間ぶりの配信で長引く風邪のような体調不良と休養中の過ごし方を振り返り、にじフェスのラジオ出演と会場で感じたファンの熱気を語る。ゲーム談義、仲間への思い、今後の配信予定まで、寄り道を交えた率直な雑談が続く。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "名前のない怪物やん",
+      "atSeconds": 1248,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "58018a40df31aef0c62b1b28f73f420c9803a84bab67f38ad99e4744e2eab95e",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:02:42.400435Z"
   }
 }

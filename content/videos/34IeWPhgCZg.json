@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "4ea6b333eba0569b089a983687b8e41ae3968db448bfaf02aa441357e96332a6"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "1bc1299e8cf9e4e164f5c92177e2caaa1f45a06d0bead0c37f6f27fa55728303",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2296
     }
   ],
   "tagAssignments": [
@@ -85,10 +93,167 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-f7466135",
+        "startSeconds": 0,
+        "label": "配信開始とじゃんけん大会を見守る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-560-39a215bf",
+        "startSeconds": 560,
+        "label": "新衣装お披露目スタート",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-701-2a609c9b",
+        "startSeconds": 701,
+        "label": "レーススカートや髪型・メイクのデザイン紹介",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1049-44bd6d2f",
+        "startSeconds": 1049,
+        "label": "パンプスやヒール、脚の見え方を紹介",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1165-89d72d10",
+        "startSeconds": 1165,
+        "label": "ショートカット版と衣装・髪型のバリエーション",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1500-13272400",
+        "startSeconds": 1500,
+        "label": "メガネやアクセサリー、衣装の細部を紹介",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1606-99df184e",
+        "startSeconds": 1606,
+        "label": "ラメメイクと着替えによるスタイル変化",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1730-5045b947",
+        "startSeconds": 1730,
+        "label": "髪型の掛け算とメガネの使い分け",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1806-e4b140f7",
+        "startSeconds": 1806,
+        "label": "衣装と髪型の組み合わせを見比べる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1907-e6207944",
+        "startSeconds": 1907,
+        "label": "別衣装と髪型の組み合わせを紹介",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2040-c377325c",
+        "startSeconds": 2040,
+        "label": "身長やヒールの高さと今後の使用予定",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2118-c17e4924",
+        "startSeconds": 2118,
+        "label": "翌日の新曲カバー配信を告知",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2195-46072a37",
+        "startSeconds": 2195,
+        "label": "配信の締めと次回配信の案内",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "fa6c24952537fad08b10af63ce49a360a85f24760bfe887954bd627271319e72",
+    "inputFingerprint": "1bc1299e8cf9e4e164f5c92177e2caaa1f45a06d0bead0c37f6f27fa55728303",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T04:21:00+00:00",
+    "updatedAt": "2026-09-05T04:34:12+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "fa6c24952537fad08b10af63ce49a360a85f24760bfe887954bd627271319e72",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T04:34:12+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "fa6c24952537fad08b10af63ce49a360a85f24760bfe887954bd627271319e72",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T04:28:04.379748+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "fa6c24952537fad08b10af63ce49a360a85f24760bfe887954bd627271319e72",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -303,9 +468,9 @@
   },
   "provenance": {
     "inputFingerprint": "030ff29887201047807995cd80387ed0e2124e3a019941000832e7f7642b538f",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",

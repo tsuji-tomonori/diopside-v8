@@ -38,6 +38,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "e2211871b61be4b64f91d6cbd8ff3ac6cbd853ee0a5bdd46108bd94d18d233b6"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "47b189dd133a9ddc0551e5404e45013dcfab61e478923b803ad836242db56895",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 1352
     }
   ],
   "tagAssignments": [
@@ -267,5 +275,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T17:50:00+09:00",
     "basis": "運用者のゲーム配信タグ横断是正要求に基づき、公開タイトル・説明と既存作品タグを再確認"
+  },
+  "synopsis": {
+    "body": "白雪巴がマリオカートにじさんじ杯の予選へ挑み、直前までの緊張を落ち着かせながらコース選びと走りを進める配信。アイテムや展開への素早い反応、練習を重ねた手応え、コメントとの軽妙なやり取りがレースの熱気を伝えます。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "心を鬼にしました",
+      "atSeconds": 791,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "47b189dd133a9ddc0551e5404e45013dcfab61e478923b803ad836242db56895",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T04:38:12.467552Z"
   }
 }

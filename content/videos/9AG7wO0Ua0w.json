@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "1292f5bbcb52a4114bc5c45cdb04e7f22b5950f482adc3cc86b34408e767589b"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "941b21e71279a2917e165ef9b0d289a81c7f16b49a9e10bc90cb5d2e1bdb6440",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5528
     }
   ],
   "tagAssignments": [
@@ -550,5 +558,21 @@
     "inputFingerprint": "1e1ae7344dcbe490250ab454faf1c84b7f5d0d760feb06d178e6a0d1ffcca5fb",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が一杯の梅酒を片手に、年度替わりの忙しさや恒例の神社巡りを振り返る晩酌雑談。心霊体験や不思議な話、映画・ハリー・ポッターの話題まで、視聴者の便りにも応じながら軽やかに語ります。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ドシリアスなのにめっちゃおもろいの",
+      "atSeconds": 5207,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "941b21e71279a2917e165ef9b0d289a81c7f16b49a9e10bc90cb5d2e1bdb6440",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:44:31.711306Z"
   }
 }

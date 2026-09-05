@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "13c5fd6ef284e94c2eb44893c6818d2beb84218e4a2d827cd4af2ddc3db1bef7"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "c26bc733a1fcf41fd4ca07c5aaa99e8a9e086c1577613ffd906d00ccc695dbd2",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7456
     }
   ],
   "tagAssignments": [
@@ -628,5 +636,21 @@
     "inputFingerprint": "f0e82e6bdccdc6600d71622fd62d3bd3b44b2e0cf6e30d119b4f4153c169dc7f",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が夜勤の清掃員として不気味な施設を巡るホラーゲーム実況。汚れを落として仕事を進める一方、違和感のある部屋や気配に驚き、怖さをごまかす軽妙なトークを交えながら、夜の現場を最後まで見届けます。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "今宵も会いに来てくれてありがとう",
+      "atSeconds": 304,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "c26bc733a1fcf41fd4ca07c5aaa99e8a9e086c1577613ffd906d00ccc695dbd2",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T04:04:37.589516Z"
   }
 }

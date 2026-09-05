@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "f9309052323ca7cdd3f899bf099594ea80e477d7b447f65373747056f1433470"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "d7d96c0b45c601c0632d50e4eaecab8ced8dcdc9915a051874e4388f67fe7d4d",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 13892
     }
   ],
   "tagAssignments": [
@@ -571,5 +579,21 @@
     "inputFingerprint": "3c53ccef019b4351c71307fa88be0aead2b1ac9a2b8d1f35f5380199af8cfa5c",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が『パラノマサイト』第8回で、亀島に残る人魚伝説と呪いをめぐる調査を進めます。登場人物の会話や選択肢を追い、手がかりをつなぎながら複数の視点を行き来。玉手箱や島の伝承にまつわる不穏な情報に驚き、推理とツッコミを交えて物語を読み解いていく実況です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "このシリーズ好きなんだよね",
+      "atSeconds": 13527,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "d7d96c0b45c601c0632d50e4eaecab8ced8dcdc9915a051874e4388f67fe7d4d",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T04:10:03.352817Z"
   }
 }

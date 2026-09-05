@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "d1693ec1c0b7c4ad02fb98da65e37e9add47c5e13bbed30b91b8c5d85bd10c7a"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "77f3f8855f14d8be9b7a5fc53662cae3b52fba1accaf298c9e042cba1289913e",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 4760
     }
   ],
   "tagAssignments": [
@@ -622,5 +630,21 @@
     "inputFingerprint": "99158c02c74d20ea0d95a8b5b2bcb253b591560ae46998f319ba20e7f43f8604",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴と健屋花那が、救急搬送を題材にした『ストレッチャーズ』で人を運ぶ協力プレイに挑戦。車の操作や地形の仕掛けに苦戦しつつ、声を掛け合い、時に大胆な破壊も交えてレスキューミッションを進める、笑いの絶えないゲーム配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "一緒にやろうよ",
+      "atSeconds": 349,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "77f3f8855f14d8be9b7a5fc53662cae3b52fba1accaf298c9e042cba1289913e",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:20:55.066322Z"
   }
 }

@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "37746e4cb2f5d5abe49efd1eb907cf5c372b7b4b12bf4af8d3d83bd12bf48625"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "754a3b3a588344fdd511ce94efa90f1a47dc85c8777dcd4673fcc0b9bdbc57b7",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 13486
     }
   ],
   "tagAssignments": [
@@ -673,5 +681,21 @@
     "inputFingerprint": "e907dd65b25ef17692df2ff7b60d6d4d2b8e40588f04fdb26069f5ac4c36026e",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が『Crime Scene Cleaner』の大型アップデートで、洞窟や研究施設など新たな現場へ。血痕やゴミを片づけ、家具と証拠を整えながら、クローンやコミュニティをめぐる記録を読み解く。隠し通路の探索に苦戦しつつ、雑談とツッコミを交えて清掃を進めるゲームシリーズ回。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "睡眠がいっちゃん大事",
+      "atSeconds": 13414,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "754a3b3a588344fdd511ce94efa90f1a47dc85c8777dcd4673fcc0b9bdbc57b7",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T02:28:24.014462Z"
   }
 }

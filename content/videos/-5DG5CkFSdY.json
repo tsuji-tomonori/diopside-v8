@@ -32,6 +32,14 @@
       "type": "動画長",
       "sourceLabel": "YouTube公開動画長",
       "inputFingerprint": "a6bfc600a031783aafb5e992345e1f9ee9b4b8abe124f019252d7acd492c6053"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "5cfc9e351bc9bb78dcb07463813b315dda53b1b3006859707fc0a67dd98c14d7",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 20050
     }
   ],
   "tagAssignments": [
@@ -118,10 +126,419 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "今回の絵文字集計では全編根拠に基づく時刻一覧を作成していません。",
-    "updatedAt": "2026-09-04T15:38:33Z"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-ab109161",
+        "startSeconds": 0,
+        "label": "配信開始と最終話への導入",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-280-33a39389",
+        "startSeconds": 280,
+        "label": "最終話スタートと長時間配信の見通し",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-920-993b4afe",
+        "startSeconds": 920,
+        "label": "電波ジャックと緊迫するセンター周辺",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1367-42c00281",
+        "startSeconds": 1367,
+        "label": "黒沢家の事件報道とセンターへの疑惑",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1839-efe1072f",
+        "startSeconds": 1839,
+        "label": "掲示板で777億円流出事件を調査",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2473-d4313d25",
+        "startSeconds": 2473,
+        "label": "ゼロ枚目と過去案件の手がかりを整理",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3142-18bf2fa5",
+        "startSeconds": 3142,
+        "label": "アザミが調査を引き継ぐ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3799-04ffb860",
+        "startSeconds": 3799,
+        "label": "管理人の謎かけとゼロ枚目を推理",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4068-9318fef8",
+        "startSeconds": 4068,
+        "label": "富入と合流し次の調査へ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4848-32cb0ecd",
+        "startSeconds": 4848,
+        "label": "管理人とグレートリセットの計画を考察",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5761-85c21f62",
+        "startSeconds": 5761,
+        "label": "秘密資料保管庫でジャスミンの痕跡を追う",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6379-42e0966b",
+        "startSeconds": 6379,
+        "label": "777億円流出事件の資料を確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7120-de4994e2",
+        "startSeconds": 7120,
+        "label": "ゼロ枚目の謎かけを解読",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7498-e37ac0f8",
+        "startSeconds": 7498,
+        "label": "キサラギ関連資料を再探索",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8238-16b8ca3d",
+        "startSeconds": 8238,
+        "label": "犬神大学の研究室へ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8911-3a31cfa8",
+        "startSeconds": 8911,
+        "label": "研究室でキサラギの資料を探索",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-10392-6294c552",
+        "startSeconds": 10392,
+        "label": "日記と管理人の意図を推理",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-11233-f83d0081",
+        "startSeconds": 11233,
+        "label": "配信と投稿から協力者を追う",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-11878-0be824cb",
+        "startSeconds": 11878,
+        "label": "センターをめぐるSNS反応",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-12365-6a214465",
+        "startSeconds": 12365,
+        "label": "現場調査を開始、公園で聞き込み",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-12743-7f9baad6",
+        "startSeconds": 12743,
+        "label": "西谷の家で訪問記録を探す",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-12966-0cc60ba3",
+        "startSeconds": 12966,
+        "label": "上野公園・ツアー跡地を調査",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13282-92280270",
+        "startSeconds": 13282,
+        "label": "黒沢の家で過去の関係を調査",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13619-604a3e0c",
+        "startSeconds": 13619,
+        "label": "ミオの部屋で手がかりを探す",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13916-4de0e38f",
+        "startSeconds": 13916,
+        "label": "教会へ向かい内部を調査",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-14203-27bd078e",
+        "startSeconds": 14203,
+        "label": "管理人との対峙と解体の試練",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-14845-77883070",
+        "startSeconds": 14845,
+        "label": "教会での対峙が進展",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-15156-98327704",
+        "startSeconds": 15156,
+        "label": "止まらないカウントダウンと次の解体",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-15347-1b36f75b",
+        "startSeconds": 15347,
+        "label": "777億円流出事件から管理人を追う",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-15815-2010614e",
+        "startSeconds": 15815,
+        "label": "記録から事件の背景をたどる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-16127-c81a64e8",
+        "startSeconds": 16127,
+        "label": "サイバーテロと情報流出",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-16400-11bdd7dd",
+        "startSeconds": 16400,
+        "label": "病院で関係者の証言を確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-16542-3865c1e5",
+        "startSeconds": 16542,
+        "label": "記録映像が示す新たな局面",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-17360-7e7b6b1d",
+        "startSeconds": 17360,
+        "label": "楽曲と作品演出への感想",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-18015-bb1a60bd",
+        "startSeconds": 18015,
+        "label": "関連イベントから配信とSNSを振り返る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-18526-69714b6a",
+        "startSeconds": 18526,
+        "label": "作品全体の感想と今後の配信予定",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-18811-61947817",
+        "startSeconds": 18811,
+        "label": "視聴者と展開・伏線を振り返る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-19432-50852b96",
+        "startSeconds": 19432,
+        "label": "ミステリー作品と初見プレイの楽しさ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-19658-34d09caf",
+        "startSeconds": 19658,
+        "label": "模擬試験と配信コメントの雰囲気",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-19824-1ad59366",
+        "startSeconds": 19824,
+        "label": "誹謗中傷と悪意への思い",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-19994-d81841fe",
+        "startSeconds": 19994,
+        "label": "配信終了の挨拶と次回予告",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "2f459a910862f1373b4a99b1c49baaa34a34e04c102166aa8df2bb7c2be92a78",
+    "inputFingerprint": "5cfc9e351bc9bb78dcb07463813b315dda53b1b3006859707fc0a67dd98c14d7",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T03:07:08.443394+00:00",
+    "updatedAt": "2026-09-05T03:08:18.509317+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "2f459a910862f1373b4a99b1c49baaa34a34e04c102166aa8df2bb7c2be92a78",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T03:07:46.009145+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "2f459a910862f1373b4a99b1c49baaa34a34e04c102166aa8df2bb7c2be92a78",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T03:08:18.509317+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "2f459a910862f1373b4a99b1c49baaa34a34e04c102166aa8df2bb7c2be92a78",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "未作成",
@@ -212,9 +629,9 @@
   },
   "provenance": {
     "inputFingerprint": "a5c6a3111548157fb59dd82a85b5593391e4f5b9e29befba2a201b335eeb1c2d",
-    "generatorVersion": "archive-metadata-curation-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-09-04T15:38:33Z",
-    "reviewPullRequest": "self: human-triggered one-video PR"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",

@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "4f5d3f83886e0a787067f600d2677b61d333f2b6475db3b2238d692a02c3c14f"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "42dcacec29f1a856c75fb656e59fcda4ee458e67f9ab7643917c4e1ad633410d",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10722
     }
   ],
   "tagAssignments": [
@@ -658,5 +666,21 @@
     "inputFingerprint": "075bd027d1cfb39e60ed26f926a82468ba69148c95585f55e88c4479830872a7",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が前回から続く人魚伝説と呪いの物語を初見実況。複数の視点や会話を手掛かりに人物たちの事情を整理し、分岐する選択と推理を重ねながら謎を追います。驚きや軽妙なツッコミを交え、緊張感ある展開を丁寧に味わう一回です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "もうちょい行こうか",
+      "atSeconds": 584,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "42dcacec29f1a856c75fb656e59fcda4ee458e67f9ab7643917c4e1ad633410d",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T04:10:14.169693Z"
   }
 }

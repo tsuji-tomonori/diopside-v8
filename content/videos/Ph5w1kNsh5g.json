@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "8f285394c1870161814b724c60421443525edbff3cb3c24f76fde971ef892acc"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "9d0d1715a9af1d358aff8fefbdda39da085f63fd7856362661f9cd669e718af3",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10511
     }
   ],
   "tagAssignments": [
@@ -659,5 +667,21 @@
     "inputFingerprint": "562d46d2b368b70f5cdea671b825b8414001d399ecdf7bc2c26f956bfbaf24b0",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "来栖夏芽と白雪巴が杯を重ねながら、互いの創作や人との距離感、作品づくりの発想を語り合う晩酌雑談。軽妙な掛け合いから活動への本音まで、ほろ酔いの空気と二人の個性を味わえる。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "なつめちゃんとまた歌って踊りたいし",
+      "atSeconds": 6262,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "9d0d1715a9af1d358aff8fefbdda39da085f63fd7856362661f9cd669e718af3",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:06:09.226493Z"
   }
 }

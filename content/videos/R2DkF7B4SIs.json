@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "6efb1ab53532cff786bf840ab493f7e517cffc0531b9d34d01d69eee9de8906d"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "ca766a094034007130f92f670bd8da0b33ddf2fa27a5237f1e3d029bfc72b480",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9222
     }
   ],
   "tagAssignments": [
@@ -622,5 +630,21 @@
     "inputFingerprint": "7902d4433169b43033e570b5eb585131d417bce7c3eee85a25f3708dd385341e",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が一杯飲みながら、仕事の疲れや人との距離感、季節と言葉へのこだわりを語る晩酌雑談。視聴者の話題に耳を傾け、ゲームやアニメ、漫画の好みから日常の気づきまで、寄り道たっぷりに会話を広げます。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "めっちゃリアルだったな、今日の酒場は",
+      "atSeconds": 7785,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "ca766a094034007130f92f670bd8da0b33ddf2fa27a5237f1e3d029bfc72b480",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:50:01.696304Z"
   }
 }

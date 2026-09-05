@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "6e211fc5aec3a486202c2d16b181180f4d05a3ce4e5a9a6fdd981e020618758f"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "d966d1468fdb5123d494275319489aadbc8ec38392f778cb4e6021aa5af5fbd3",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 17895
     }
   ],
   "tagAssignments": [
@@ -676,5 +684,21 @@
     "inputFingerprint": "666bce50541699161b5d06e76d483fbc9ad1640269225e59e2c8f194467c6b9b",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が、最終回を迎えた『パラノマサイト FILE38 伊勢人魚物語』を完全初見で実況。登場人物たちの不老不死や人魚をめぐる思惑を読み解きながら、会話を遡る仕掛けや選択に挑み、驚きと考察、時折こぼれる笑いを交えて物語を進めていく。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "謎解きだ。謎解き。頑張ろう。",
+      "atSeconds": 9900,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "d966d1468fdb5123d494275319489aadbc8ec38392f778cb4e6021aa5af5fbd3",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T02:47:21.630356Z"
   }
 }

@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "1c2a1d7d4ac234b1b27ae7057631cc2c1c7f02873246792e636b89f571919bf0"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "2be5adfb70cb7be817592e20ba8ffa8f7c18dafb0cef80d2f03d32606193a902",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6527
     }
   ],
   "tagAssignments": [
@@ -631,5 +639,21 @@
     "inputFingerprint": "224374a8a84f39fcfbaa6314fcc9732b2b7eb25707e05c738196789437cb5a20",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が豆腐そのものになって進むアクションゲームに挑戦。崩れやすさや風、敵、仕掛けに翻弄されながら、木綿・高野・絹の違いを語り、実写の製造工程や豆腐料理にも興味津々。緊張感ある操作と食べ物談義を行き来する一枠です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "この命大事にしていこう",
+      "atSeconds": 1267,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "2be5adfb70cb7be817592e20ba8ffa8f7c18dafb0cef80d2f03d32606193a902",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:03:35.189062Z"
   }
 }
