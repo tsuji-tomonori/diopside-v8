@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "3d10084c921c475b66b08fdba353d4fb20bbd3534012438516cd9c220d9b49fe"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "959612ec310c477799506cd99922aa0bd59f4b0fa4e9726ecac2f03ee5df473c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7187
     }
   ],
   "tagAssignments": [
@@ -595,5 +603,21 @@
     "inputFingerprint": "d5dce045b2292b2b38148f17bfa945b28b812db0a1d81a971bfa84319bbd1828",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-03T00:00:00Z"
+  },
+  "synopsis": {
+    "body": "白雪巴が、女性限定の仮面舞踏会へ友人たちと出かけた体験を振り返る雑談。ドレスや仮面、ダンスと華やかな空間での交流、友人を見守る保護者目線、思いがけない出会いをめぐる熱量高めの語りが広がります。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "マスカレード会はめっちゃ楽しかった",
+      "atSeconds": 3148,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "959612ec310c477799506cd99922aa0bd59f4b0fa4e9726ecac2f03ee5df473c",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T01:49:33.957792Z"
   }
 }
