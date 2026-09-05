@@ -49,7 +49,7 @@
     "validate:review": "python governance/reviews/validate.py --root . --commit HEAD",
     "validate:review:main-release": "python governance/reviews/validate.py --root . --commit HEAD --allow-github-merge-fallback",
     "verify:generated": "node --experimental-strip-types scripts/verify-generated-source.ts",
-    "verify:local:base": "npm run verify:generated && npm run build && npm run typecheck && npm run lint && npm run lint:timestamp-tools && npm run test && npm run test:timestamp-tools && npm run test:review-contract && npm run validate:requirements && npm run validate:content && npm run audit:collaboration-tags && npm run audit:tag-assignments && npm run audit:parallel-game-perspectives && npm run audit:semantic-entities && npm run audit:song-frame-performances && npm run validate:taxonomy-change && npm run validate:policy",
+    "verify:local:base": "npm run verify:generated && npm run build && npm run typecheck && npm run lint && npm run lint:timestamp-tools && npm run test && npm run test:timestamp-tools && npm run test:review-contract && npm run validate:requirements && npm run validate:content && npm run audit:collaboration-tags && npm run audit:tag-assignments && npm run audit:parallel-game-perspectives && npm run audit:semantic-entities && npm run audit:song-frame-performances && npm run audit:guest-song-performances && npm run validate:taxonomy-change && npm run validate:policy",
     "verify:local": "npm run verify:local:base && npm run validate:review",
     "verify:quality": "npm run verify:local && npm run verify:generated && npm run test:e2e:run",
     "verify:main-release": "npm run verify:local:base && npm run validate:review:main-release && npm run verify:generated && npm run test:e2e:run",
@@ -58,7 +58,8 @@
     "candidate:detect": "node --experimental-strip-types scripts/detect-video-candidates.ts",
     "candidate:pr-body": "node --experimental-strip-types scripts/generate-video-pr-body.ts",
     "validate:video-pr-scope": "node --experimental-strip-types scripts/validate-video-pr-scope.ts",
-    "migrate:legacy": "node --experimental-strip-types scripts/import-reference-taxonomy.ts && node --experimental-strip-types scripts/import-reference-videos.ts && node --experimental-strip-types scripts/import-legacy-content.ts"
+    "migrate:legacy": "node --experimental-strip-types scripts/import-reference-taxonomy.ts && node --experimental-strip-types scripts/import-reference-videos.ts && node --experimental-strip-types scripts/import-legacy-content.ts",
+    "audit:guest-song-performances": "node --experimental-strip-types scripts/audit-guest-song-performances.ts"
   },
   "dependencies": {
     "lucide-react": "1.41.0",

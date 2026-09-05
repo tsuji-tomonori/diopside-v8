@@ -23,6 +23,10 @@
       "sha256": "1a0bb774bfc0528a9996aa54ec7079fe0bbecacde3d6c10579ac767c582079c4"
     },
     {
+      "path": "scripts/audit-guest-song-performances.ts",
+      "sha256": "76e0f989f15e358795e4bd4067c9b3b4a7dba5e9d9a182d74e25a4ff1c7a6c7d"
+    },
+    {
       "path": "scripts/audit-parallel-game-perspectives.ts",
       "sha256": "7ba4ae259f9d0db2f75a2bc78302849a29e3dd8c0ce70b292825a0f8c1ab31b4"
     },
@@ -369,6 +373,21 @@
       "file": "scripts/aggregate-word-cloud.ts",
       "name": "WordCloudCandidate",
       "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/audit-guest-song-performances.ts",
+      "name": "auditGuestSongPerformances",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/audit-guest-song-performances.ts",
+      "name": "guestSongAuditCandidates",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/audit-guest-song-performances.ts",
+      "name": "guestSongAuditSchema",
+      "kind": "VariableStatement"
     },
     {
       "file": "scripts/canonical-store.ts",

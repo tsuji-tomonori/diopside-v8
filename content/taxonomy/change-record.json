@@ -1,15 +1,20 @@
 {
   "schemaVersion": "1.0.0",
   "changeType": "保守変更",
-  "previousTaxonomyVersion": "9.4.0",
+  "previousTaxonomyVersion": "9.5.0",
   "previousAliasVersion": "8.3.0",
-  "taxonomyVersion": "9.5.0",
+  "taxonomyVersion": "9.6.0",
   "aliasVersion": "8.3.0",
   "rulesVersion": "9.3.0",
   "affectedTagIds": [
-    "tag-works-gameTitle-88e20cb54786"
+    "tag-works-songTitle-2d1730c5c72a",
+    "tag-works-songTitle-bb7682a6ea76",
+    "tag-works-songTitle-7193555612fa",
+    "tag-works-songTitle-8d3035859926",
+    "tag-works-songTitle-7ad5101fd49c",
+    "tag-works-songTitle-53f682a224fe"
   ],
   "affectedVideoCount": 0,
-  "migration": "正本外で検出した4動画を個別追加する前提として、新規作品名を追記する。既存1705動画のタグは変更せず、動画追加は通常の1動画1PRへ分離する。",
-  "reviewedAt": "2026-09-05T00:20:00+09:00"
+  "migration": "歌唱楽曲の横断保守として、本人参加が確認できた他チャンネル5動画の6曲を楽曲正本に追加する。動画正本と時刻一覧は変更せず、歌唱実績から楽曲参照を決定生成する。",
+  "reviewedAt": "2026-09-05T19:00:00+09:00"
 }

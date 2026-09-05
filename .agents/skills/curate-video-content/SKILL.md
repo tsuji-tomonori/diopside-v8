@@ -57,6 +57,10 @@ For created timestamps, require 0-second start, at least three entries, integer 
 
 Prepare a reason file matching `references/timestamp-change-reasons.schema.json`, then run `node --experimental-strip-types scripts/diff-timestamps.ts --before <old.json> --after <new.json> --reasons <reasons.json>` for updates. Explain every addition, deletion, move, and rename; a missing or extra reason stops the update.
 
+## Song catalog maintenance
+
+When maintaining the song catalog, read `references/song-performance-selection.md` to distinguish song-level vocal participation from video-level guest appearance. A cross-video catalog/rule audit belongs in a maintenance PR, separately from normal video/timestamp updates.
+
 ## 6. Prepare the word cloud
 
 Use only public subtitles, the public video-specific description, or operator-provided public text. Temporarily process the input; retain only input type and fingerprint. Produce 20–50 normalized-unique terms with integer weights 1–100, deterministic ordering/layout rules, rule versions, and human approval. Without eligible input, publish `未作成` and a Japanese reason.
