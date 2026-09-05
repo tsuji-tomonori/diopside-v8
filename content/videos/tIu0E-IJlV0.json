@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "9f3d7fa08ac4c4599b4619ec72af9a99a0d658abf18f13aa8b8bca102ded2358"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "5a0b2c842e9fb4d0690d46992462dea1828e05b259539634f264b2ae4dfe61d6",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 13819
     }
   ],
   "tagAssignments": [
@@ -631,5 +639,21 @@
     "inputFingerprint": "1bb934500392e323c7125a6ba659389d6ddfb4f9f0c6aae5ba8bf398abf2a001",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "『パラノマサイト』伊勢人魚物語の続きに、白雪巴が初見実況で挑みます。伊勢島に残る伝承や歴史資料、人物たちの会話を読み解きながら、散らばった手がかりを結び、驚きと考察を交えて物語の奥へ進みます。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "人間って辛いや",
+      "atSeconds": 9033,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "5a0b2c842e9fb4d0690d46992462dea1828e05b259539634f264b2ae4dfe61d6",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T04:04:57.585885Z"
   }
 }
