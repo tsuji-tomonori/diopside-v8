@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "53a0be213c372e8e39cddb7b3c9848a7b277efa0eb9de465188cf35119ef944f"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "95436eab940429b3324e8a8aefc084c025532d15f9d2bb8f8f041a31457c6206",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9299
     }
   ],
   "tagAssignments": [
@@ -607,5 +615,21 @@
     "inputFingerprint": "d776f24668660d006bd4c19fe94478d1abb241634dbc22893f0e3103a33a4e0a",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が人魚伝説をめぐる物語を完全初見で読み進め、土地の由来や登場人物の言葉を手掛かりに謎を追う。調査や会話の選択を重ね、怪異の気配に驚きながらも、伝承の不思議さと人々の思いを丁寧に味わう実況です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "人魚の衣装を出したいと思ってるぐらい好きなんですよね",
+      "atSeconds": 646,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "95436eab940429b3324e8a8aefc084c025532d15f9d2bb8f8f041a31457c6206",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:50:12.175112Z"
   }
 }
