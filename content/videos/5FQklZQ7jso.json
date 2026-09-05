@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "8e28a02177613424f1fec50a10826cacea88f9ee1c1e1a35f228f0d6a6690b7c"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "99ddf1e2f6a21318802bbbbc0e0bdcb26fd1dc936d2d6e10a5b4b73f8a68309d",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6287
     }
   ],
   "tagAssignments": [
@@ -327,5 +335,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T21:05:00+09:00",
     "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  },
+  "synopsis": {
+    "body": "綺沙良と白雪巴が初めてのコラボで乾杯し、お酒の楽しみ方や失敗談、好きな作品、ホラーゲームの話を行き来するほろ酔い雑談。リスナーからの質問にセクシー談義や口説き文句、今後のコラボ案まで本音と笑いで答え、二人の距離が近づく空気を味わえます。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "言って欲しい部分はやっぱり言葉にしてもらうと嬉しいですね",
+      "atSeconds": 4742,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "99ddf1e2f6a21318802bbbbc0e0bdcb26fd1dc936d2d6e10a5b4b73f8a68309d",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T06:32:53.472234Z"
   }
 }
