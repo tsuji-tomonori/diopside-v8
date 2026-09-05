@@ -16,6 +16,10 @@ describe('コラボ相手の選別', () => {
     expect(selectCollaboratorNames(candidates, 'call-in-host-only')).toEqual(['配信主']);
   });
 
+  it('ゲスト交代・順次紹介企画は他の紹介対象を除いてチャンネル主だけを採る', () => {
+    expect(selectCollaboratorNames(candidates, 'sequential-guest-host-only')).toEqual(['配信主']);
+  });
+
   it('継続ラジオは固定の相手だけを採り単発ゲストを除く', () => {
     expect(selectCollaboratorNames(candidates, 'regular-radio-fixed-partners-only')).toEqual(['固定共演者', '配信主']);
   });

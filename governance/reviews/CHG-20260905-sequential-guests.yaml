@@ -1,0 +1,212 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260905-sequential-guests
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: true
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/requirements/requirements.json
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  note: 所有者指示に基づきV8-TAG-013 revision 3とV8-TIME-038へゲスト交代形式の主催者限定と人物名付き時刻案内を反映した。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/domain/sequential-guest-audit.ts
+  - path:docs/design/generated/inventory.gen.json
+  note: 既存の人物・チャンネル対応と動画単位の役割判定を監査CLIへ接続し、生成設計を同期した。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260905-sequential-guests.yaml
+  note: 共有タグ意味、正本要件、41動画の役割監査と9動画の既存分類へ影響するためassuredを選択した。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 利用者の修正指示を根拠にbranch pushとレビュー用PRを作成する。mergeと公開は今回の権限に含めない。
+- id: IMP-007
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/content-manifest.json
+  - path:content/taxonomy/change-record.json
+  note: 1548公開対象動画を維持し、9動画から別ゲスト等69件の人物タグを除外する。動画削除やschema migrationはない。
+- id: IMP-008
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/taxonomy/tag-taxonomy.json
+  - path:content/taxonomy/change-record.json
+  note: taxonomy 9.7.0・規則9.4.0へ意味を更新し、既存Tag IDと旧動画版の互換性を維持する。
+- id: FAST-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:package.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 既存PR品質ゲートで正本生成を含むproduction buildを実行する。
+- id: FAST-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/domain/sequential-guest-audit.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 新規役割監査とCLIを既存のTypeScript strict検査へ含める。
+- id: FAST-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/domain/sequential-guest-audit.ts
+  - path:scripts/audit-collaboration-tags.ts
+  note: 変更したTypeScript監査・CLI・試験を既存ESLintで検査する。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence:
+  - test:src/domain/sequential-guest-audit.test.ts
+  - path:scripts/audit-collaboration-tags.ts
+  note: 主催者限定、他ゲスト・ユニット混入、チャンネル不一致、通常ゲームコラボ保持の10試験と正本横断監査を検証する。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - test:src/domain/sequential-guest-audit.test.ts
+  - path:spec/sources/sequential-guest-appearances-v1.json
+  note: 主催者以外の人物・ユニットが順次紹介企画へ再混入する回帰を固定した。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/requirements/requirements.json
+  - path:docs/requirements/REQUIREMENTS.md
+  - path:docs/design/generated/inventory.gen.json
+  note: 要件正本、人向け要件と生成設計を決定的generatorで同期し、公開成果物は既存release経路へ委ねる。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 生字幕・コメント・音声・メタデータ本文をGitへ保存せず、公開URL・安全な根拠ラベルと指紋だけを保存する。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 差分をゲスト交代・順次紹介企画のタグ修正、役割判定・回帰監査と対応する要件・スキルへ限定した。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: Commit Commentへ目的・変更・要件・設計・review path・検証契約・残存リスクを記載した。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/requirements/requirements.json
+  - path:docs/requirements/REQUIREMENTS.md
+  note: V8-TAG-013 revision 3とV8-TIME-038を正本と生成表示へ同期した。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/domain/sequential-guest-audit.ts
+  - path:docs/design/generated/inventory.gen.json
+  note: 人物タグ意味の具体化であり、新たな技術構成や長期技術選択がないためADRは不要。
+- id: REV-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:spec/requirements/requirements.json
+  - path:src/domain/sequential-guest-audit.ts
+  - test:src/domain/sequential-guest-audit.test.ts
+  note: 主催者限定の受入条件から41動画の判定記録、監査と回帰試験へ到達できる。時刻更新は全編根拠と独立確認を経た別動画PRに従う。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence:
+  - test:src/domain/sequential-guest-audit.test.ts
+  - path:.github/workflows/verify.yml
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 既存PR品質ゲートで現在HEADのbuild、型、lint、試験、生成差分、taxonomyと内容監査を実行する。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260905-sequential-guests.yaml
+  note: 選択されたcheckと証拠だけを保存した。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260905-sequential-guests.yaml
+  note: 非該当checkを形式的N/Aとして追加していない。
+- id: REV-011
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/taxonomy/tag-taxonomy.json
+  - path:scripts/validate-taxonomy-change.ts
+  - path:scripts/validate-content.ts
+  note: 既存Tag IDを維持し、任意のチャンネル所有者種別を後方互換で追加する。9動画のタグ差分・グループ種別・規則版をrevertすれば戻せる。
+- id: REV-015
+  class: Advisory
+  result: pass
+  evidence:
+  - commit:self
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  note: 将来の業務ルールはV8-TAG-013とV8-TIME-038へ接続する。再開調査で判明した通話の連続性、第三者言及、前後編共通名簿、公開匿名参加の判定を3スキルへ補足した。可逆な実装選択を独立ADRへ固定しない。
+advisories: []
+residual_risks:
+- 既存時刻一覧の人物名不足は全編根拠と独立確認で別途更新する。未確認の人物と時刻をこのタグ保守PRで推測補完しない。
+- あおぎり高校は既存の公式グループチャンネルを主として確認済み。新たな団体へ適用する際も公式所有者の根拠が必要。
+- PRのmerge・公開は未実施。

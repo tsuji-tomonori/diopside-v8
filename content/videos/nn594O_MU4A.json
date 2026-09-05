@@ -44,6 +44,12 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "059657ffbd95850bd47ec99f2b9c0b03f129cd83afa5a4ca8852eda4a463b05a"
+    },
+    {
+      "evidenceId": "evidence-sequential-guest-host",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "公開動画の概要欄・既存時刻一覧とゲスト交代企画の役割確認",
+      "inputFingerprint": "8b530097f7180d4f66c57d8d4316141b3f472ec7ba9cb1bece21d0a0685630d0"
     }
   ],
   "tagAssignments": [
@@ -84,85 +90,14 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     },
     {
-      "tagId": "tag-people-performer-1c07cf564bc6",
-      "reason": "人物名「小野町春香」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-540180f79a49",
-      "reason": "人物名「ベルモンド・バンデラス」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
       "tagId": "tag-people-performer-584f6b5f5e50",
-      "reason": "人物名「える」をコラボ相手として確認（all-partners）",
+      "reason": "ゲスト交代・順次紹介企画のチャンネル主「える」だけをコラボ相手として登録",
       "confidence": "高",
       "evidenceRefs": [
-        "evidence-collaboration-v2"
+        "evidence-sequential-guest-host",
+        "evidence-channel"
       ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-ae5fcfb1bfdc",
-      "reason": "人物名「月ノ美兎」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-b0469a7d02e8",
-      "reason": "人物名「フミ」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-c57eeb79e4c5",
-      "reason": "人物名「竜胆尊」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-d713eb6bf949",
-      "reason": "人物名「レヴィ・エリファ」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-fd206156bc36",
-      "reason": "人物名「樋口楓」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-ff73184f923e",
-      "reason": "人物名「四季凪アキラ」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
+      "reviewedAt": "2026-09-05T09:00:00+09:00"
     }
   ],
   "timestamps": {
@@ -343,7 +278,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-15T21:05:00+09:00",
-    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+    "approvedAt": "2026-09-05T09:00:00+09:00",
+    "basis": "2026-09-05所有者指示に基づくゲスト交代・順次紹介企画のチャンネル主限定。タイムスタンプの公開承認は対応するレビュー・PRに従う"
   }
 }

@@ -16,7 +16,7 @@
     },
     {
       "path": "scripts/audit-collaboration-tags.ts",
-      "sha256": "a0b5777a697301f6530e01b9f7fe4bdfbe5cdc710524fa6931801c1a5c4fac0b"
+      "sha256": "89821f305ada29c1c0c38d60ef6021df310ab60ee623303706273eaaefc4e602"
     },
     {
       "path": "scripts/audit-game-tags.ts",
@@ -68,7 +68,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "0d12f98010d4eda215a78c62f92b3b710db45cacb85d179f19c2f666e228553d"
+      "sha256": "f05ca24f2596c42e9cfb6a2eb002774356ea8ff6fdf5defb4cbbb5ba4194f242"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -184,15 +184,15 @@
     },
     {
       "path": "src/domain/collaboration.test.ts",
-      "sha256": "7efcbef74ddb293a140dec7edfb1bb78e60f8f92ffe1331634d0fde03ca807d8"
+      "sha256": "28cc61a1579dc62f0f18d8d23222e79a0a8ca8995f0fad8bd7121dc54275bebb"
     },
     {
       "path": "src/domain/collaboration.ts",
-      "sha256": "e1facb1ea9b32d46fc6e75e5f273cebb0170239f38ea5386a603994da748c766"
+      "sha256": "340875a8479ff21b846d228718c0f556f6a42588332a9176bc4244b2e5fe9ab5"
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "d0a62f05f7085a822ead6c3e2a1b151c28663952241a426e99897daa4af1fb18"
+      "sha256": "2b7f3633b68bb5906925f9af2ab68559b3d594f132b9b48c2388f919bcbd7448"
     },
     {
       "path": "src/domain/entities.ts",
@@ -223,6 +223,14 @@
       "sha256": "9a5ae0fa50152fcb9e36f91cacd4fbec614e24b6cbd0d1f57281da1db449cd19"
     },
     {
+      "path": "src/domain/sequential-guest-audit.test.ts",
+      "sha256": "ef674fc5e653fa653ae97b31d9059ce7adcc69d6ffcc9cac0e681234897de6dd"
+    },
+    {
+      "path": "src/domain/sequential-guest-audit.ts",
+      "sha256": "f7bf32ae412bd8622c8ddcb0bf5537e2f4ecfc672aaf72638b12856199f17a02"
+    },
+    {
       "path": "src/domain/tag-assignment-audit.test.ts",
       "sha256": "da7d55d69aba5a01d155f1bcb60c0b8c550cc3d462dc7529b19072d054c2f9ac"
     },
@@ -232,11 +240,11 @@
     },
     {
       "path": "src/domain/validation.test.ts",
-      "sha256": "2a00f4dc81e5101f74eddba4db97283c21967fded239659c002eaea46b30c8b5"
+      "sha256": "77f66c00368f38c39844473118c252add061430c1c8601f462fbc003f532b291"
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "e47f86e42b81695a7f86edb6afa77e266e16da4f83948d80c152a256eb7d3f33"
+      "sha256": "698e93554c81b0adc774724057edf69e1c134336eed440f2f302ea23c452bcc1"
     },
     {
       "path": "src/features/collaborations/CollaborationDetailPages.test.tsx",
@@ -1185,6 +1193,16 @@
       "kind": "FunctionDeclaration"
     },
     {
+      "file": "src/domain/sequential-guest-audit.ts",
+      "name": "auditSequentialGuestTags",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/sequential-guest-audit.ts",
+      "name": "SequentialGuestRecord",
+      "kind": "InterfaceDeclaration"
+    },
+    {
       "file": "src/domain/tag-assignment-audit.ts",
       "name": "auditTagAssignmentCoverage",
       "kind": "FunctionDeclaration"
@@ -1393,6 +1411,7 @@
     "src/domain/collaboration.test.ts",
     "src/domain/game-title-detection.test.ts",
     "src/domain/search.test.ts",
+    "src/domain/sequential-guest-audit.test.ts",
     "src/domain/tag-assignment-audit.test.ts",
     "src/domain/validation.test.ts",
     "src/features/collaborations/CollaborationDetailPages.test.tsx",

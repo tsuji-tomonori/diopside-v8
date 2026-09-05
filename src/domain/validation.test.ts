@@ -4,6 +4,7 @@ import aliasesInput from '../../content/taxonomy/tag-aliases.json';
 import taxonomyInput from '../../content/taxonomy/tag-taxonomy.json';
 import canonicalInput from '../../content/videos/7keH8yrqabc.json';
 import migratedTimestampInput from '../../content/videos/c9TnpjK3ZZE.json';
+import groupHostInput from '../../content/videos/A3kbfkQ1yIY.json';
 import { canonicalVideoSchema, tagAliasesSchema, tagTaxonomySchema } from './content.ts';
 import { scanPublicBoundary, validateCanonicalVideo, validateTaxonomy } from './validation.ts';
 
@@ -13,6 +14,25 @@ const factChecks = { evidenceRoute: true, evidenceReferences: true, boundaryCont
 const editorialChecks = { navigationValue: true, overSegmentation: true, underSegmentation: true, labelConsistency: true, spoilerSafety: true } as const;
 
 describe('正本検証', () => {
+  it('公式グループチャンネル主だけの順次ゲスト企画を許可し、一般チャンネルには適用しない', () => {
+    expect(validateCanonicalVideo(groupHostInput, taxonomy, aliases)).toEqual([]);
+    const withoutGroupOwner = structuredClone(taxonomy);
+    for (const category of withoutGroupOwner.categories) {
+      for (const subcategory of category.subcategories) {
+        for (const tag of subcategory.tags) delete tag.channelOwnerKind;
+      }
+    }
+    expect(validateCanonicalVideo(groupHostInput, withoutGroupOwner, aliases).map((item) => item.code)).toContain('COLLABORATION_WITHOUT_PERFORMER');
+  });
+
+  it('チャンネル以外のタグでグループ所有者を宣言できない', () => {
+    const invalid = structuredClone(taxonomy);
+    const tag = invalid.categories.find((category) => category.categoryId === 'people')?.subcategories.find((subcategory) => subcategory.subcategoryId === 'performer')?.tags[0];
+    if (!tag) throw new Error('出演者タグがありません。');
+    tag.channelOwnerKind = 'group';
+    expect(validateTaxonomy(invalid, aliases).map((item) => item.code)).toContain('CHANNEL_OWNER_KIND_INVALID');
+  });
+
   it('7大分類・30小分類と別名を検証する', () => {
     expect(validateTaxonomy(taxonomyInput, aliasesInput)).toEqual([]);
   });
