@@ -40,6 +40,12 @@
       "inputFingerprint": "bd9bb85c1824f208a29d13e2860470b4b68b709985db13c32413fe284aa3f9e6"
     },
     {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "566e7279272ec1aeb77dd3dcdd7d0901ff7d84debb549db7feafddca950fcc85"
+    },
+    {
       "evidenceId": "evidence-full-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
@@ -48,10 +54,12 @@
       "coverageEndSeconds": 1152
     },
     {
-      "evidenceId": "evidence-word-cloud-chat",
-      "type": "公開チャット",
-      "sourceLabel": "YouTube公開チャット（正規化済み）",
-      "inputFingerprint": "566e7279272ec1aeb77dd3dcdd7d0901ff7d84debb549db7feafddca950fcc85"
+      "evidenceId": "evidence-timestamp-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "4c686b15255117582ddb5124e95f474ad0cbf328dff5a57fcf608408fde9b49a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 1152
     }
   ],
   "tagAssignments": [
@@ -120,10 +128,113 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-c5170eef",
+        "startSeconds": 0,
+        "label": "配信準備とぷよテト対戦の導入",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-193-38f5335f",
+        "startSeconds": 193,
+        "label": "ぷよテト対戦開始",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-710-2c00af45",
+        "startSeconds": 710,
+        "label": "対戦後の報告と相手への感謝",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-768-0455608e",
+        "startSeconds": 768,
+        "label": "対戦の振り返りと音声トラブルへの謝罪",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-860-2e31f23f",
+        "startSeconds": 860,
+        "label": "コラボ相手への称賛と応援への反応",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1067-c97ace2f",
+        "startSeconds": 1067,
+        "label": "日本語と英語での交流と次戦への応援",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1117-b5e533b1",
+        "startSeconds": 1117,
+        "label": "配信終了の挨拶と翌日の大会告知",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "d73f4a94e5d98c5010db2fe4ca970b7e5c976d1a6626fb46a432f406ba563a04",
+    "inputFingerprint": "4c686b15255117582ddb5124e95f474ad0cbf328dff5a57fcf608408fde9b49a",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T03:51:17.275565+00:00",
+    "updatedAt": "2026-09-05T03:52:50.416921+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "d73f4a94e5d98c5010db2fe4ca970b7e5c976d1a6626fb46a432f406ba563a04",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T03:52:31.844701+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "d73f4a94e5d98c5010db2fe4ca970b7e5c976d1a6626fb46a432f406ba563a04",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T03:52:50.416921+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "d73f4a94e5d98c5010db2fe4ca970b7e5c976d1a6626fb46a432f406ba563a04",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -338,9 +449,9 @@
   },
   "provenance": {
     "inputFingerprint": "b3d5b2c9245bb721baf07c9f6ea27e01f880222634800844f003bb8fd3a329d6",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",
