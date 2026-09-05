@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "5b78b379d8b8865a845cfd024a0f71365e034e2de40376a03f38e0f620a0aaa4"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "9edf0e00b022110ac18b56b120e5b25df1b3e9d7f3ab47ca53af5be10c4bbfbd",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7011
     }
   ],
   "tagAssignments": [
@@ -574,5 +582,21 @@
     "inputFingerprint": "a7180cd07d0cb83ddcb1046497ad52940ad3a434cd479508aff2bce17be16112",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が「パラノマサイト」を初見実況。七不思議めいた事件を追い、町の人物や手掛かりを読み解きながら、怪異の気配に驚きつつ自分なりの仮説を組み立てていく。軽妙な反応と考察を楽しめる一回。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "その方がおもろいやん",
+      "atSeconds": 1383,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "9edf0e00b022110ac18b56b120e5b25df1b3e9d7f3ab47ca53af5be10c4bbfbd",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:54:15.266538Z"
   }
 }
