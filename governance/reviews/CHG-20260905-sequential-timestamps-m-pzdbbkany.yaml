@@ -106,7 +106,7 @@ selected_checks:
   result: pass
   evidence:
   - commit:self
-  note: Commit Commentへ目的・変更・要件設計影響・review path・検証契約・残存リスクを記載する。
+  note: Commit Commentへ目的・変更・要件設計影響・review path・検証契約・残存リスクを記載する。PRの積み直し後も最新commit自身で本reviewを更新し契約を維持する。
 - id: REV-003
   class: Invariant
   result: pass
