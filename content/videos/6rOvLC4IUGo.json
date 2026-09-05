@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "ec819aa1e4b409fb5dcbb6e7f0a6285deb16bd67a31c1a6332871426d75fbd02"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "ffefbf5d4ea495078873e6b2d7ae6161b1f5cbe894a2eda15a18c771a7e0a92d",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8891
     }
   ],
   "tagAssignments": [
@@ -616,5 +624,21 @@
     "inputFingerprint": "db086e23400f7a5548d95c9d9e5bdf62054db582d3b5eee7fbc15ca38f5e9184",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "初プレイの白雪巴が、宇宙船を舞台にした人狼系ゲームへ挑戦。タスクをこなしながら仲間と行動を合わせ、緊張感ある議論と大胆な推理、パッションあふれるリアクションで何度も局面を動かしていきます。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "初めてのアモンガスだったんですけどすごい面白かった",
+      "atSeconds": 8818,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "ffefbf5d4ea495078873e6b2d7ae6161b1f5cbe894a2eda15a18c771a7e0a92d",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T08:25:14.958292Z"
   }
 }
