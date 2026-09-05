@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "8d140766cc3fd040855187e5c653a78d3f951fcd0c8334dcbfcd50bd116c49cb"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "08b644e14a638c42d6562202cc159691c5e9b2578ac922eb403196cd1fb97b7d",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 11329
     }
   ],
   "tagAssignments": [
@@ -562,5 +570,21 @@
     "inputFingerprint": "9b1a59f97fce2099e1e4fd5cffe031e0d76b02cacef5504c5a6239a178f7c9ce",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が大型アップデートの新エリアで特殊清掃に挑戦。散乱する死体や血痕を片づけ、道具を使い分けながら依頼現場を探索する。手がかりから事情を想像し、作業の合間に驚きや軽妙なツッコミを挟む、緊張感とチルさが同居する実況。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "今日も頑張った。明日も頑張ろう",
+      "atSeconds": 11278,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "08b644e14a638c42d6562202cc159691c5e9b2578ac922eb403196cd1fb97b7d",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:49:51.511784Z"
   }
 }
