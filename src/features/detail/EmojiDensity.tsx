@@ -92,7 +92,7 @@ export function EmojiDensity({ usage, timeline, videoId, timestamps }: {
           <p className="notice">平均 {(count * 60 / (end - start)).toFixed(1)}回/分</p>
           {count === 0 ? <p>この区間はカスタム絵文字が0回です。</p> : null}
         </div>
-        <ul className="emoji-range-pills" aria-label="選択区間の絵文字別使用回数">
+        <ul className="emoji-range-pills" aria-label="選択区間の絵文字別使用回数" tabIndex={0}>
           {top.map((item) => <li key={item.customEmojiId}>
             <EmojiIcon item={item} /><code>{item.label}</code><strong>{item.count.toLocaleString('ja-JP')}回</strong>
           </li>)}
