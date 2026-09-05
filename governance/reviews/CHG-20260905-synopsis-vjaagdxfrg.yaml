@@ -19,7 +19,7 @@ impact_flags:
   code_change: false
   typed_code_change: false
   behavior_change: true
-  bug_fix: false
+  bug_fix: true
   generated_change: true
   sql_change: false
   e2e_change: false
@@ -71,13 +71,25 @@ selected_checks:
   evidence:
   - commit:self
   note: 人のcampaign要求が一括branch、動画別commit、draft PRを許可している。
+- id: IMP-007
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/videos/V_jAAGDXFrg.json
+  note: 可逆な1動画あらすじ追加でありmigrationや削除はない。
 - id: FAST-004
   class: Invariant
   result: pass
   evidence:
   - path:content/videos/V_jAAGDXFrg.json
-  - workflow:要件・品質ゲート#通常変更の品質ゲートを実行
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 候補hash、全編根拠、独立reviewを検証する。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260905-synopsis-vjaagdxfrg.yaml
+  note: 廃止済みworkflow step名を参照する回帰がvalidate:reviewで失敗することを確認した。
 - id: FAST-006
   class: Invariant
   result: pass
