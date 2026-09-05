@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "12ce91a37f93512f26ec999f904374e3c5a346daad6c6e2dc42a01db63e39c78"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "9ebf81c8747ff097d599ca432ce7bd0c63a075f4af5eb5cb4a73927f4a6335ee",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 14398
     }
   ],
   "tagAssignments": [
@@ -586,5 +594,21 @@
     "inputFingerprint": "1ee690a9f006c40357b85f391dda06fef57d5977888693c14f6fc01a9d69a35f",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "前回から続く『サイレントヒル2』の霧深い街を、白雪巴が地図と周囲の手がかりを照らし合わせながら探索。鍵や仕掛けを試し、敵の気配におびえつつ、寄り道も楽しみながら施設の奥へ進みます。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "それはそれでおもろい",
+      "atSeconds": 459,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "9ebf81c8747ff097d599ca432ce7bd0c63a075f4af5eb5cb4a73927f4a6335ee",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T02:26:02.768331Z"
   }
 }
