@@ -46,6 +46,14 @@
       "inputFingerprint": "928dca1c38e769f865e8a40b69f0836016e67888947204723a6a4e4b8bd79d81",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 2903
+    },
+    {
+      "evidenceId": "evidence-synopsis-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "c7716c34541da528e419601464e43858645b4ae12264884321e6ec72115909c5",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2903
     }
   ],
   "tagAssignments": [
@@ -292,5 +300,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "前編から続くホラーゲームの探索を再開。手掛かりを探して屋敷や周辺を歩き、アイテム交換や住人との会話に悩みながら、白雪巴が驚きと推理を交えて先へ進みます。緊張感と軽快な反応が交差する一編です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "いやーでもほんといろいろあったけど",
+      "atSeconds": 2759,
+      "evidenceRefs": [
+        "evidence-synopsis-full-transcript"
+      ]
+    },
+    "inputFingerprint": "c7716c34541da528e419601464e43858645b4ae12264884321e6ec72115909c5",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T09:03:51.836767Z"
   }
 }
