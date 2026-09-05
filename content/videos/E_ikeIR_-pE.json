@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "8e7094762ae4dd412420e61c888d5154d56c16dedfd6bc41a233f6e3f2c17d0a"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "f92fb4cfb144bb41fceeb3d8a527645aca7f29ad2003107b92580c4ddf452f6c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 702
     }
   ],
   "tagAssignments": [
@@ -94,10 +102,95 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-a9a323b9",
+        "startSeconds": 0,
+        "label": "浴衣姿で到着し、身支度について話す",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-160-027cc9bb",
+        "startSeconds": 160,
+        "label": "人混みを手をつないで進む",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-456-d852bf21",
+        "startSeconds": 456,
+        "label": "連れ出してくれたことへの感謝と別れ際の約束",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-562-9c5f9ada",
+        "startSeconds": 562,
+        "label": "浴衣を整えたことを伝え、詫びる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-588-fb8e4d03",
+        "startSeconds": 588,
+        "label": "近くで見られる場所について話す",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "dde1df9b0586374f89af9d95a28384e9de170281cbfb0762d29444119475e497",
+    "inputFingerprint": "f92fb4cfb144bb41fceeb3d8a527645aca7f29ad2003107b92580c4ddf452f6c",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T05:06:12.770251+00:00",
+    "updatedAt": "2026-09-05T05:07:07.982212+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "dde1df9b0586374f89af9d95a28384e9de170281cbfb0762d29444119475e497",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T05:06:40.888036+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "dde1df9b0586374f89af9d95a28384e9de170281cbfb0762d29444119475e497",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T05:07:07.982212+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "dde1df9b0586374f89af9d95a28384e9de170281cbfb0762d29444119475e497",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -312,9 +405,9 @@
   },
   "provenance": {
     "inputFingerprint": "b01a89922a25c4dd0efb0741073aefeaca0d3191ffc779999a568d4c59493344",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",
