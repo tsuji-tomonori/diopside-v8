@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "1fd9dcf50ed79e121487855be44a922be2c4e660e3d75489aa6cbe2f47d62ced"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "4470c3a793be596d9f5f30d495bf080dc77fc27543d5e7247312f76c65bde230",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9547
     }
   ],
   "tagAssignments": [
@@ -532,5 +540,21 @@
     "inputFingerprint": "3726b7c042479232bee2123c8d1f7749bb5279258d6d788c2d41bf3eda0b4002",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が『パラノマサイト』第4回を完全初見で実況。前回の急展開を受け、アビとキルケの伊勢巡りに同行し、人魚伝説や平家、海女の歴史をたどる。資料の読み上げにツッコミを入れ、地図とダウジングを手がかりに新たな謎を追う推理と掛け合いを味わえる。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ここから入れる保険はあるんですか?",
+      "atSeconds": 159,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "4470c3a793be596d9f5f30d495bf080dc77fc27543d5e7247312f76c65bde230",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T02:59:45.168836Z"
   }
 }
