@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "af48fb8f568ad27abe55ab19132a5c4ae00473ab06fbbe92d1361f1415228ab6"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "a955e97c2f359f9def2d2f96e97941bee0628c61d44f801a75a00563118692f4",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5857
     }
   ],
   "tagAssignments": [
@@ -757,5 +765,21 @@
     "inputFingerprint": "67c9d9e1f44a796a4895eb58f40d78dbad3f445f5185729a0a8947c14f778f20",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴と健屋花那が贈る初めてのデュエット歌枠。クリスマスらしい選曲から幅広い曲を重ね、歌の合間には息の合った掛け合いや曲への思い、軽やかなトークも楽しめます。二人の声色が交わるステージを味わう配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私も好きな曲を詰め合わせてきてるからね",
+      "atSeconds": 2843,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "a955e97c2f359f9def2d2f96e97941bee0628c61d44f801a75a00563118692f4",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:49:01.677213Z"
   }
 }
