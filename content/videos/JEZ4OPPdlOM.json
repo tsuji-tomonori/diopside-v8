@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "43d0c447756c17c6ba11846d751008762984848ecc24a29ccdaa9fdaec49b52d"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "9e803ea84ab3861e9b1961ed7870e665bbc063e1958d2c4cb86cb0a0e1058096",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 620
     }
   ],
   "tagAssignments": [
@@ -85,10 +93,95 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-01ffba3f",
+        "startSeconds": 0,
+        "label": "ご挨拶と企画の説明",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-65-c592a8ba",
+        "startSeconds": 65,
+        "label": "1から100までゆっくりカウント",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-312-07d47f2f",
+        "startSeconds": 312,
+        "label": "カウントダウンへの切り替え案内",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-322-a83c890f",
+        "startSeconds": 322,
+        "label": "99から逆にカウント",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-549-28a8c18c",
+        "startSeconds": 549,
+        "label": "数え上げの締め",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "f0f8a69658e57608fb58603150304095016451bc17b40b3f703d5233ccf04021",
+    "inputFingerprint": "9e803ea84ab3861e9b1961ed7870e665bbc063e1958d2c4cb86cb0a0e1058096",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T04:39:31.631737+00:00",
+    "updatedAt": "2026-09-05T04:41:43.242549+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "f0f8a69658e57608fb58603150304095016451bc17b40b3f703d5233ccf04021",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T04:40:50.515097+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "f0f8a69658e57608fb58603150304095016451bc17b40b3f703d5233ccf04021",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T04:41:43.242549+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "f0f8a69658e57608fb58603150304095016451bc17b40b3f703d5233ccf04021",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -303,9 +396,9 @@
   },
   "provenance": {
     "inputFingerprint": "a82b4a73635dc2235e1c79bc87709dcba233b178c8dea2107a7b83a16bd93849",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",
