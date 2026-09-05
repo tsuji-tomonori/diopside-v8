@@ -99,7 +99,8 @@ selected_checks:
     evidence:
       - test:src/components/Header.test.tsx
       - test:e2e/search.spec.ts
-    note: 初期閉状態、開閉、外側タップ、Escape後のfocus復帰、リンク選択後の閉状態をcomponent testで確認し、375画素幅の配置をE2Eへ固定した
+      - test:e2e/library.spec.ts
+    note: 初期閉状態、開閉、外側タップ、Escape後のfocus復帰、リンク選択後の閉状態をcomponent testで確認し、375画素幅の配置と既存の端末内リスト導線をE2Eへ固定した
   - id: FAST-005
     class: Risk-selected
     result: pass
@@ -171,8 +172,9 @@ selected_checks:
     evidence:
       - test:src/components/Header.test.tsx
       - test:e2e/search.spec.ts
+      - test:e2e/library.spec.ts
       - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
-    note: component testをVitest、375画素幅のresponsive・keyboard・tap target試験をPlaywrightで実行するCI経路がある
+    note: component testをVitest、375画素幅のresponsive・keyboard・tap targetと既存navigation利用経路をPlaywrightで実行するCI経路がある
   - id: REV-007
     class: Invariant
     result: pass
