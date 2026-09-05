@@ -44,6 +44,12 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "2d1c5681565b6aa6f7a2b8f1b4f93d934bf8960921796381f7af88f8f9c0bdb4"
+    },
+    {
+      "evidenceId": "evidence-sequential-guest-host",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "公開動画の概要欄・既存時刻一覧とゲスト交代企画の役割確認",
+      "inputFingerprint": "5f6062ae1523b4d468b3a2c2711fb9d5b9d553aa1d69f3450c7962c6c964d20a"
     }
   ],
   "tagAssignments": [
@@ -84,67 +90,14 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     },
     {
-      "tagId": "tag-people-performer-51769a00e92b",
-      "reason": "人物名「先斗寧」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-7931dd3537fc",
-      "reason": "人物名「シスター・クレア」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
       "tagId": "tag-people-performer-ae5fcfb1bfdc",
-      "reason": "人物名「月ノ美兎」をコラボ相手として確認（all-partners）",
+      "reason": "ゲスト交代・順次紹介企画のチャンネル主「月ノ美兎」だけをコラボ相手として登録",
       "confidence": "高",
       "evidenceRefs": [
-        "evidence-collaboration-v2"
+        "evidence-sequential-guest-host",
+        "evidence-channel"
       ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-b0469a7d02e8",
-      "reason": "人物名「フミ」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-c6b8ade39e95",
-      "reason": "人物名「愛園愛美」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-d3bc8bd6f4be",
-      "reason": "人物名「叢雲カゲツ」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-fd206156bc36",
-      "reason": "人物名「樋口楓」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
+      "reviewedAt": "2026-09-05T09:00:00+09:00"
     }
   ],
   "timestamps": {
@@ -316,7 +269,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-15T21:05:00+09:00",
-    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+    "approvedAt": "2026-09-05T09:00:00+09:00",
+    "basis": "2026-09-05所有者指示に基づくゲスト交代・順次紹介企画のチャンネル主限定。タイムスタンプの公開承認は対応するレビュー・PRに従う"
   }
 }

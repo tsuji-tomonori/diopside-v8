@@ -17,3 +17,9 @@
 水着衣装や3D共通衣装も、配信者・出演者の新たな衣装を実際に見せるなら新衣装に含める。ゲーム内キャラクターの水着、通常の3Dモデル初披露、Live2D 2.0/3.0やにじ3Dの機能更新、実披露を含まない告知・予告は含めない。
 
 監査結果は `npm run audit:tag-assignments -- --output <一時JSON>` で生成し、各行の `expected`、`actual`、`candidate`、`reason` を日次シートへ対応させる。
+
+## ゲスト交代・順次紹介企画
+
+別チャンネルでゲスト・人物・投稿を順番に紹介する形式は、taxonomyの出演者規則に従いチャンネル主だけを人物／グループへ登録する。通常の同時参加コラボと区別し、タイトルの「企画」や「紹介」だけで決めない。チャンネル主は `content/people/channel-person-mappings.json` と公開メタデータで照合する。紹介対象・投稿者・別時間のゲストを、タイムスタンプに名前があることだけでコラボ相手へ戻さない。
+
+動画別の確認結果と公開根拠は `spec/sources/sequential-guest-appearances-v1.json` に記録し、`npm run audit:collaboration-tags` で主催者欠落・他人物／ユニット再混入を検査する。登場時刻は人物タグとは独立に維持する。

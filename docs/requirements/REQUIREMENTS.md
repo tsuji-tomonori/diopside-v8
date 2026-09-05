@@ -1,8 +1,8 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 35
-- 更新日: 2026-09-04
+- カタログ版: 36
+- 更新日: 2026-09-05
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
@@ -131,7 +131,7 @@
 | `V8-TAG-010` | 1 | 有効 | データ | diopside v8のタグは、雑談を主または副ジャンルに持つ動画は、雑談種別を1件以上3件以下持たなければならない。を**satisfy** | 条件付き必須試験 |
 | `V8-TAG-011` | 1 | 有効 | データ | diopside v8のタグは、同時視聴を主ジャンルに持つ動画は、同時視聴メディアを1件持ち、動画タイトル、動画固有の説明、公式作品表記のいずれかが一つの作品を示す場合は同時視聴作品名を1件以上持たなければならない。を**satisfy** | 条件付き必須・否定試験 |
 | `V8-TAG-012` | 1 | 有効 | データ | diopside v8のタグは、朗読・声劇を主ジャンルに持つ動画は、朗読・声劇種別を1件持たなければならない。を**satisfy** | 条件付き必須試験 |
-| `V8-TAG-013` | 2 | 有効 | データ | diopside v8のタグは、コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸は配信主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。を**satisfy** | 人物タグ正本・表示名・役割別コラボ相手選別試験 |
+| `V8-TAG-013` | 3 | 有効 | データ | diopside v8のタグは、コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸および別チャンネルのゲスト交代・順次紹介企画はチャンネル主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。を**satisfy** | 人物タグ正本・表示名・役割別コラボ相手選別試験 |
 | `V8-TAG-014` | 2 | 有効 | データ | diopside v8のタグは、ユニット・チームタグは、その構成員全員だけが動画全体の主たる共演単位であり、実際に出演している場合に限って付与しなければならない。構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分へのゲスト参加、対戦相手としての登場には付与せず、ユニットタグを根拠に欠席した構成員を出演者へ自動追加してはならない。を**satisfy** | ユニット候補・構成員集合・多人数企画・凸待ち除外の横断監査 |
 | `V8-TAG-015` | 2 | 有効 | データ | diopside v8のタグは、実出演者と配信中に名前を話題にした人物は、それぞれfeaturesとmentionsの動画関係として分離しなければならない。同じ人物が両方の役割へ現れても人物マスターを複製せず、同じ人物エンティティIDへ解決しなければならない。言及だけでコラボを付与してはならない。を**satisfy** | 人物同一性・役割分離・コラボ非導出試験 |
 | `V8-TAG-016` | 1 | 有効 | データ | diopside v8のタグは、一つのタグには一つの検索対象または一つの分類事実だけを保存し、複数人物や独立概念を連結したタグは分解しなければならない。を**satisfy** | 分解規則試験 |
@@ -200,6 +200,7 @@
 | `V8-TIME-035` | 1 | 有効 | データ | diopside v8の時刻は、タイムスタンプ生成来歴から、動画、入力指紋、根拠の種類と範囲、生成規則版、生成日時、確認結果、確認プルリクエストを追跡できなければならない。を**satisfy** | 追跡性・冪等性試験 |
 | `V8-TIME-036` | 2 | 有効 | データ | diopside v8の時刻は、初回公開前に、ゲーム8件、企画6件、雑談5件、ASMR3件、歌2件、朗読・声劇2件、同時視聴2件、TRPG2件の固定30動画で品質を確認しなければならない。承認済み旧データを使う場合は、旧パイロットの不合格を合格へ読み替えず、別の承認済み固定30件を選び、承認元とv8決定的検証を確認する。を**satisfy** | 固定評価データによる受入試験 |
 | `V8-TIME-037` | 1 | 有効 | データ | diopside v8の時刻は、公開画面は各タイムスタンプの由来を「作成者による時刻一覧」「作成者一覧を基にdiopsideで調整」「diopsideで作成した時刻一覧」のいずれかとして区別し、YouTube公式情報と誤認させてはならない。を**satisfy** | 文言・画面試験 |
+| `V8-TIME-038` | 1 | 有効 | データ | タイムスタンプ生成・更新処理は、別チャンネルのゲスト交代・順次紹介企画では各区間の対象人物を章名へ記載し、白雪巴の紹介開始と本人の通話・出演開始を区別する。人物名や時刻を順番やコメントだけから推測してはならない。を**satisfy** | 人物名付き章候補の事実・編集確認と決定的検証 |
 
 ## V8-COST-001: 公開面のサービス運用に起因する請求額は既存のChatGPT／Codex契約を除いて毎月0円でなければならない
 
@@ -2112,9 +2113,9 @@ diopside v8のタグは、朗読・声劇を主ジャンルに持つ動画は、
 検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-TAG-013: コラボ相手は人物名で登録し、多人数の凸待ち・継続ラジオでは役割で限定しなければならない
+## V8-TAG-013: コラボ相手は人物名で登録し、凸待ち・順次紹介企画・継続ラジオでは役割で限定しなければならない
 
-diopside v8のタグは、コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸は配信主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。を**satisfy**。
+diopside v8のタグは、コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸および別チャンネルのゲスト交代・順次紹介企画はチャンネル主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。を**satisfy**。
 
 根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
 
@@ -2122,12 +2123,12 @@ diopside v8のタグは、コラボ動画には白雪巴以外の実出演者を
 
 受入条件:
 - `AC-V8-TAG-013-1` 前提: 通常のコラボ動画に白雪巴以外の実出演者がいる。条件: 人物タグの正本・表示名検査。期待結果: 実出演者を人物名の出演者タグとして登録し、チャンネル表示名を人物タグへ保存しない。。
-- `AC-V8-TAG-013-2` 前提: 白雪巴が凸待ちまたは逆凸の一部へ参加する。条件: 役割別コラボ相手選別試験。期待結果: 配信主だけをコラボ相手とし、同じ配信の他の凸参加者を登録しない。。
+- `AC-V8-TAG-013-2` 前提: 白雪巴が凸待ち・逆凸または別チャンネルのゲスト交代・人物や投稿の順次紹介企画の一部へ参加する。条件: 役割別コラボ相手選別試験。期待結果: 配信主だけをコラボ相手とし、同じ配信の別枠のゲスト・紹介対象・ゲスト由来のグループを登録しない。同時参加の通常ゲームコラボは実出演者を維持する。。
 - `AC-V8-TAG-013-3` 前提: 白雪巴が継続する公式ラジオ等へ固定出演し、その回に単発ゲストもいる。条件: 役割別コラボ相手選別試験。期待結果: 固定の相手だけをコラボ相手とし、単発ゲストとスタッフを登録しない。。
 
-要求源: Issue #1 V8-タグ-013, user:2026-08-03, spec/sources/owner-directive-2026-08-15-collaboration-pages.md, user:2026-08-15
+要求源: Issue #1 V8-タグ-013, user:2026-08-03, spec/sources/owner-directive-2026-08-15-collaboration-pages.md, user:2026-08-15, spec/sources/owner-directive-2026-09-05-sequential-guests.md
 検証証跡: src/domain/collaboration.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/collaboration.ts,content/people/collaboration-profiles.json; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,src/domain/collaboration.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/collaboration.ts,content/people/collaboration-profiles.json,src/domain/sequential-guest-audit.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,src/domain/collaboration.test.ts,src/domain/sequential-guest-audit.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TAG-014: ユニットタグは構成員だけが動画全体の主たる共演単位である場合に限らなければならない
 
@@ -3160,3 +3161,18 @@ diopside v8の時刻は、公開画面は各タイムスタンプの由来を「
 要求源: Issue #1 V8-時刻-037, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-TIME-038: ゲスト交代企画の時刻一覧は紹介対象と白雪巴の登場位置を示さなければならない
+
+タイムスタンプ生成・更新処理は、別チャンネルのゲスト交代・順次紹介企画では各区間の対象人物を章名へ記載し、白雪巴の紹介開始と本人の通話・出演開始を区別する。人物名や時刻を順番やコメントだけから推測してはならない。を**satisfy**。
+
+根拠: 他のゲストとのコラボ分類を増やさずに、白雪巴の区間へ直接移動できるようにする。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-TIME-038-1` 前提: ゲスト交代・順次紹介企画の時刻一覧を作成または更新する。条件: 全編根拠または作成者一覧による章名・登場境界の独立確認。期待結果: 紹介区間に対象人物名があり、白雪巴の紹介・登場位置が分かる。投稿読上げだけの区間を本人登場と表示せず、未確認の人物・秒数は確定せず再確認対象として記録する。。
+
+要求源: spec/sources/owner-directive-2026-09-05-sequential-guests.md
+検証証跡: tests/timestamp_tools_test.py, .agents/skills/audit-stream-chapters/references/review-rubric.md
+トレース: 設計=docs/design/generated/system.gen.md; 実装=.agents/skills/compose-stream-chapters,.agents/skills/curate-video-content; テスト=tests/timestamp_tools_test.py; 参照資料=spec/sources/owner-directive-2026-09-05-sequential-guests.md

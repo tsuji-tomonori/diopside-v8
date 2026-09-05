@@ -43,8 +43,8 @@
 | SAFETY | 5 |
 | SEARCH | 22 |
 | TAG | 44 |
-| TIME | 37 |
-| **合計** | **193** |
+| TIME | 38 |
+| **合計** | **194** |
 
 ## 公開データの流れ
 
@@ -219,6 +219,8 @@
 | `src/domain/search.ts` | FunctionDeclaration | `tagCountsForResults` |
 | `src/domain/search.ts` | FunctionDeclaration | `tokenizeQuery` |
 | `src/domain/search.ts` | FunctionDeclaration | `validateCondition` |
+| `src/domain/sequential-guest-audit.ts` | FunctionDeclaration | `auditSequentialGuestTags` |
+| `src/domain/sequential-guest-audit.ts` | InterfaceDeclaration | `SequentialGuestRecord` |
 | `src/domain/tag-assignment-audit.ts` | FunctionDeclaration | `auditTagAssignmentCoverage` |
 | `src/domain/tag-assignment-audit.ts` | InterfaceDeclaration | `TagAssignmentAuditResult` |
 | `src/domain/tag-assignment-audit.ts` | InterfaceDeclaration | `TagAssignmentAuditRow` |
@@ -269,6 +271,7 @@
 - `src/domain/collaboration.test.ts`
 - `src/domain/game-title-detection.test.ts`
 - `src/domain/search.test.ts`
+- `src/domain/sequential-guest-audit.test.ts`
 - `src/domain/tag-assignment-audit.test.ts`
 - `src/domain/validation.test.ts`
 - `src/features/collaborations/CollaborationDetailPages.test.tsx`
@@ -283,4 +286,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力84ファイル、公開契約201件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力86ファイル、公開契約203件です。

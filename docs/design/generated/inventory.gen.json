@@ -16,7 +16,7 @@
     },
     {
       "path": "scripts/audit-collaboration-tags.ts",
-      "sha256": "a0b5777a697301f6530e01b9f7fe4bdfbe5cdc710524fa6931801c1a5c4fac0b"
+      "sha256": "22dfb7f8f5d20c7ee72b27eedc753c8a72fff5a7283926d948818d35132f23d5"
     },
     {
       "path": "scripts/audit-game-tags.ts",
@@ -64,7 +64,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "0d12f98010d4eda215a78c62f92b3b710db45cacb85d179f19c2f666e228553d"
+      "sha256": "1812df736c03ab608c9d62ef06fbbd003176177233af339eb39a476cee7a8bce"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -180,11 +180,11 @@
     },
     {
       "path": "src/domain/collaboration.test.ts",
-      "sha256": "7efcbef74ddb293a140dec7edfb1bb78e60f8f92ffe1331634d0fde03ca807d8"
+      "sha256": "28cc61a1579dc62f0f18d8d23222e79a0a8ca8995f0fad8bd7121dc54275bebb"
     },
     {
       "path": "src/domain/collaboration.ts",
-      "sha256": "e1facb1ea9b32d46fc6e75e5f273cebb0170239f38ea5386a603994da748c766"
+      "sha256": "340875a8479ff21b846d228718c0f556f6a42588332a9176bc4244b2e5fe9ab5"
     },
     {
       "path": "src/domain/content.ts",
@@ -217,6 +217,14 @@
     {
       "path": "src/domain/search.ts",
       "sha256": "9a5ae0fa50152fcb9e36f91cacd4fbec614e24b6cbd0d1f57281da1db449cd19"
+    },
+    {
+      "path": "src/domain/sequential-guest-audit.test.ts",
+      "sha256": "5395cedd16a3a87a289ba39e124a70b7a568b55c5bdf958a0b3345fb2f924616"
+    },
+    {
+      "path": "src/domain/sequential-guest-audit.ts",
+      "sha256": "098fc185de6849f18a9b6cabcc8ad2d17ce8db86c9a1788b4c96afcc5cb94d39"
     },
     {
       "path": "src/domain/tag-assignment-audit.test.ts",
@@ -1166,6 +1174,16 @@
       "kind": "FunctionDeclaration"
     },
     {
+      "file": "src/domain/sequential-guest-audit.ts",
+      "name": "auditSequentialGuestTags",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/sequential-guest-audit.ts",
+      "name": "SequentialGuestRecord",
+      "kind": "InterfaceDeclaration"
+    },
+    {
       "file": "src/domain/tag-assignment-audit.ts",
       "name": "auditTagAssignmentCoverage",
       "kind": "FunctionDeclaration"
@@ -1374,6 +1392,7 @@
     "src/domain/collaboration.test.ts",
     "src/domain/game-title-detection.test.ts",
     "src/domain/search.test.ts",
+    "src/domain/sequential-guest-audit.test.ts",
     "src/domain/tag-assignment-audit.test.ts",
     "src/domain/validation.test.ts",
     "src/features/collaborations/CollaborationDetailPages.test.tsx",

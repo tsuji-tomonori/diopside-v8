@@ -14,3 +14,8 @@ Reject when any condition holds:
 - The list fails 0-second start, at least three items, integer unique ascending starts, 10-second spacing, duration bounds, Japanese label, allowed confidence, or unresolved-major-issue gates.
 
 Findings use `code`, `severity`, `timestampId` or `startSeconds`, `message`, `evidenceRefs`, and `resolution`. Reviewers report; they do not repair.
+
+## ゲスト交代・順次紹介企画
+
+- 事実確認: 各紹介名を該当区間の根拠へ解決し、紹介・投稿読上げと本人の通話登場を混同していないか確認する。匿名投稿の人物を推定しない。
+- 編集確認: 各ゲスト名で移動先が分かり、白雪巴の紹介と本人登場の開始が分かるか確認する。対象人物を確認できない一般的な「次のゲスト」への置換を合格にしない。根拠不足は具体的な再確認理由を残す。

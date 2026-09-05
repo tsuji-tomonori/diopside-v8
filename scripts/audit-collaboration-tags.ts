@@ -5,6 +5,7 @@ import {
   type CollaborationAuditSource,
 } from '../src/domain/collaboration-group-audit.ts';
 import { tagAliasesSchema } from '../src/domain/content.ts';
+import { auditSequentialGuestTags, type SequentialGuestRecord } from '../src/domain/sequential-guest-audit.ts';
 import { readCanonicalVideos } from './canonical-store.ts';
 import { readJson } from './lib.ts';
 
@@ -23,6 +24,15 @@ const result = auditCollaborationGroupTags({
   aliases: aliases.aliases,
   source,
 });
+const sequential = readJson(path.join(root, 'spec/sources/sequential-guest-appearances-v1.json')) as {
+  records: SequentialGuestRecord[];
+};
+const channelMappings = readJson(path.join(root, 'content/people/channel-person-mappings.json')) as {
+  mappings: Array<{ channelTagId: string; personTagId: string }>;
+};
+result.errors.push(...auditSequentialGuestTags(
+  readCanonicalVideos(root, { includeExcluded: true }), sequential.records, channelMappings.mappings,
+));
 
 if (result.errors.length > 0) {
   console.error(result.errors.join('\n'));
