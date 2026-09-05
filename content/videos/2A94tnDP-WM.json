@@ -58,6 +58,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "8db6bcf2b5280eb7457aaa64a7d992c80b51d8f35205b604e2352a5fa1681b0d"
+    },
+    {
+      "evidenceId": "evidence-timestamp-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "f83483bff3ef03f527cad99c7aba878c1f4edf9dd2b280127af3f2f3d56d4c30",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 770
     }
   ],
   "tagAssignments": [
@@ -135,10 +143,158 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-c7a4edc5",
+        "startSeconds": 0,
+        "label": "フルトイのコラボ配信が始まる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-118-1894648f",
+        "startSeconds": 118,
+        "label": "罰ゲーム企画とモッツァレラチーズゲーム",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-199-45c2bbb4",
+        "startSeconds": 199,
+        "label": "合流した参加者を紹介",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-229-1f459d54",
+        "startSeconds": 229,
+        "label": "スーパーチャットの使い道を相談",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-251-fe5cbec1",
+        "startSeconds": 251,
+        "label": "フルトイ誕生の演出",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-309-5d72e652",
+        "startSeconds": 309,
+        "label": "フルトイの衣装と身体を紹介",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-403-d493f537",
+        "startSeconds": 403,
+        "label": "新しい呼び名を告知",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-428-dd457d8e",
+        "startSeconds": 428,
+        "label": "ボードゲームと罰ゲームのルール",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-470-5f48d881",
+        "startSeconds": 470,
+        "label": "白雪の紹介と目隠しゲーム",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-580-f46372ec",
+        "startSeconds": 580,
+        "label": "1周年と3人の関係性を語る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-656-7f0e9bf2",
+        "startSeconds": 656,
+        "label": "互いの印象と人柄を語る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-747-d1cd5a4c",
+        "startSeconds": 747,
+        "label": "3人で音楽を交えて締める",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "bfb3b92f8db215bb8188234874076317c25c7df3d1b4686edf259e2553bd522d",
+    "inputFingerprint": "f83483bff3ef03f527cad99c7aba878c1f4edf9dd2b280127af3f2f3d56d4c30",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T04:16:07.218537+00:00",
+    "updatedAt": "2026-09-05T04:17:28.739431+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "bfb3b92f8db215bb8188234874076317c25c7df3d1b4686edf259e2553bd522d",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T04:16:33.684836+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "bfb3b92f8db215bb8188234874076317c25c7df3d1b4686edf259e2553bd522d",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T04:17:28.739431+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "bfb3b92f8db215bb8188234874076317c25c7df3d1b4686edf259e2553bd522d",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -353,9 +509,9 @@
   },
   "provenance": {
     "inputFingerprint": "8f0adb5243db9ff050dc5d54ad0016765a3728d077f3775966423e35d08b3ce1",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",
