@@ -5,6 +5,7 @@ import {
   capture,
   expectNoSeriousAccessibilityViolations,
   expectOnlyAllowedRequests,
+  openHeaderLink,
   openSearch,
   preparePage,
 } from './helpers.ts';
@@ -19,10 +20,10 @@ test.describe('端末内リスト', () => {
     await card.getByRole('button', { name: 'お気に入りに追加' }).click();
     await card.getByRole('link', { name: '詳細を見る', exact: true }).click();
     await expect(page.getByRole('heading', { level: 1 })).toContainText(title!);
-    await page.getByRole('link', { name: '動画を探す' }).click();
+    await openHeaderLink(page, '動画を探す');
     await page.getByRole('combobox', { name: '検索', exact: true }).fill('新年');
     await page.getByRole('button', { name: 'この条件で探す' }).click();
-    await page.getByRole('link', { name: '端末内リスト' }).click();
+    await openHeaderLink(page, '端末内リスト');
     await expect(page.getByRole('heading', { name: /お気に入り/u })).toContainText('1件');
     await expect(page.getByRole('heading', { name: /閲覧履歴/u })).toContainText('1件');
     await expect(page.getByRole('heading', { name: /最近の検索条件/u })).toContainText('1件');
@@ -45,7 +46,7 @@ test.describe('端末内リスト', () => {
     const card = page.locator('.video-card').first();
     await card.getByRole('button', { name: 'お気に入りに追加' }).click();
     await card.getByRole('link', { name: '詳細を見る', exact: true }).click();
-    await page.getByRole('link', { name: '端末内リスト' }).click();
+    await openHeaderLink(page, '端末内リスト');
     page.once('dialog', async (dialog) => {
       expect(dialog.message()).toContain('端末内データをすべて削除');
       await dialog.accept();

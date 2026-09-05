@@ -13,6 +13,37 @@ import {
 } from './helpers.ts';
 
 test.describe('動画検索', () => {
+  test('モバイルの共通ヘッダーを省スペースで開閉し、スクロール中に本文を覆わない', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'モバイル', 'モバイル固有のヘッダー動作を検証します。');
+    await preparePage(page);
+    await openSearch(page);
+
+    const header = page.locator('.site-header');
+    const navigation = page.getByRole('navigation', { name: '主要メニュー' });
+    const openButton = page.getByRole('button', { name: 'メニューを開く' });
+    await expect(header).toHaveCSS('position', 'relative');
+    expect(await header.evaluate((element) => element.getBoundingClientRect().height)).toBeLessThanOrEqual(56);
+    await expect(navigation).toBeHidden();
+
+    await openButton.click();
+    await expect(page.getByRole('button', { name: 'メニューを閉じる' })).toHaveAttribute('aria-expanded', 'true');
+    await expect(navigation).toBeVisible();
+    await expect(navigation.getByRole('link')).toHaveCount(5);
+    await expectMinimumTargets(page);
+
+    await page.keyboard.press('Escape');
+    await expect(navigation).toBeHidden();
+    await expect(openButton).toBeFocused();
+
+    await page.evaluate(() => window.scrollTo(0, 600));
+    await expect.poll(async () => header.evaluate((element) => element.getBoundingClientRect().bottom)).toBeLessThanOrEqual(0);
+    const widths = await page.evaluate(() => ({
+      viewport: document.documentElement.clientWidth,
+      document: document.documentElement.scrollWidth,
+    }));
+    expect(widths.document).toBeLessThanOrEqual(widths.viewport);
+  });
+
   test('タイトルだけを検索し、0件と条件解除を区別する', async ({ page }, testInfo) => {
     const requests = await preparePage(page);
     await openSearch(page);

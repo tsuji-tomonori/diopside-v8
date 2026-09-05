@@ -43,6 +43,15 @@ export async function openSearch(page: Page): Promise<void> {
   await expect(page.getByRole('heading', { name: allVideosHeading })).toBeVisible();
 }
 
+export async function openHeaderLink(page: Page, name: string): Promise<void> {
+  const link = page.getByRole('link', { name, exact: true });
+  if (!(await link.isVisible())) {
+    await page.getByRole('button', { name: 'メニューを開く' }).click();
+    await expect(link).toBeVisible();
+  }
+  await link.click();
+}
+
 export function expectOnlyAllowedRequests(requests: string[]): void {
   const invalid = requests.filter((value) => {
     const url = new URL(value);

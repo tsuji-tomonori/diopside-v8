@@ -263,6 +263,7 @@
 - `e2e/library.spec.ts`
 - `e2e/search.spec.ts`
 - `e2e/song-index.spec.ts`
+- `src/components/Header.test.tsx`
 - `src/data/deviceStore.test.ts`
 - `src/data/loadPublicData.test.ts`
 - `src/domain/collaboration-group-audit.test.ts`
@@ -283,4 +284,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力84ファイル、公開契約201件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力85ファイル、公開契約201件です。
