@@ -38,6 +38,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "b9b2fbe1075dfe92a2f94449fefb7a9191306b4b45caadc045e7d7faecfe4e23"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "295bb9925436cd731a1b735314bb5979917b6b6eb5c0f4d7e53b10fc8b89c5e5",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 31635
     }
   ],
   "tagAssignments": [
@@ -402,5 +410,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T17:50:00+09:00",
     "basis": "運用者のゲーム配信タグ横断是正要求に基づき、公開タイトル・説明と既存作品タグを再確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が前回から続く「SILENT HILL f」を、クリアを目指して長時間実況。雛子の行く先を見守りながら、裏山や家を探索し、武器の持ち替えやお守りの組み合わせを試行錯誤。手紙や場面の意味を考察し、驚きとツッコミを交えつつ不穏な物語に向き合います。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "まずは皆さんと私に拍手です。長時間。",
+      "atSeconds": 30826,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "295bb9925436cd731a1b735314bb5979917b6b6eb5c0f4d7e53b10fc8b89c5e5",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T06:14:48.019404Z"
   }
 }
