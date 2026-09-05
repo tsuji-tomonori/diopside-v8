@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "889c44a9a4a490188f8438513cd844b0e39fa66c04086dc5e72f7a8a03fde09d"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "936efc0073613f91011a33e7b648795cc803bcbd4d7c375d58acd13c5b1d2ae4",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10001
     }
   ],
   "tagAssignments": [
@@ -700,5 +708,21 @@
     "inputFingerprint": "40bde9a9175863a6067d5d23624b9019ac74b03d78f65e7b862d2147d7ee40d4",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴と影山シエンが、生川家として重ねてきた時間を振り返り、活動への思いやこれからの夢を語り合うコラボ雑談。衣装談義や釣り、作品の話、仕事の相談、兄弟らしい妄想まで、笑いと寂しさが交差するひとときを味わえる。終盤には告知も。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "それでもあなたがいてくれるだけで一番幸せなんだよ",
+      "atSeconds": 391,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "936efc0073613f91011a33e7b648795cc803bcbd4d7c375d58acd13c5b1d2ae4",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:45:16.645551Z"
   }
 }
