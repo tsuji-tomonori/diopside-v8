@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "f09662abf4302b3605a11d6faa6c862ca84aaedc7f5722ce27ba9762133be7d1"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "276c4dfe1e8113cbefbf1a5184ed8e33515d85218280b08e3e74600e24805fe6",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 112
     }
   ],
   "tagAssignments": [
@@ -265,5 +273,21 @@
     "inputFingerprint": "c8cf246e8f6a62ffe8546a12637011f995fd334cec8e4f4b96106f5e29c0bec6",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が、女友達とのホテル女子会で葛葉や不破湊の配信をめぐって起きた出来事を振り返ります。思いがけず始まった視聴への驚きや、好きな配信者を語る温度差を、会話の再現とツッコミを交えて軽やかに紹介。身近な場で広がるにじさんじ談義を楽しめます。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私はさとっとと一緒に寝たいわけ普通に",
+      "atSeconds": 32,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "276c4dfe1e8113cbefbf1a5184ed8e33515d85218280b08e3e74600e24805fe6",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T06:27:14.544220Z"
   }
 }
