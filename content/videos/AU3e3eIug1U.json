@@ -52,6 +52,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "077ce3f74ff91a990e9835a8564d75c3f9f103d7a5bc857a45e5ace80d2a4e8e"
+    },
+    {
+      "evidenceId": "evidence-timestamp-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "e612ac3a456009986ed04721ff5c28bd720ceb070cd0d6247bcf45864cbf86f7",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 4049
     }
   ],
   "tagAssignments": [
@@ -111,10 +119,185 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-7f7a2298",
+        "startSeconds": 0,
+        "label": "配信開始の挨拶と近況トーク",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-566-9a58faff",
+        "startSeconds": 566,
+        "label": "ペットとの時間と噛み切られたコードの話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-721-705ff1c1",
+        "startSeconds": 721,
+        "label": "コラボ企画「ウソウソホント」を振り返る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1218-450188b2",
+        "startSeconds": 1218,
+        "label": "コラボ相手へのお祝いとポケモン談義",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1397-d5c5ddf9",
+        "startSeconds": 1397,
+        "label": "3月の予定と仕事の話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1455-1143e554",
+        "startSeconds": 1455,
+        "label": "ソロプレイに戻りキルクススタジアムを探索",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1683-eedc35d5",
+        "startSeconds": 1683,
+        "label": "7番道路でホップと対戦",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2445-439d414d",
+        "startSeconds": 2445,
+        "label": "対戦後のホップとの会話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2514-e5af7d2c",
+        "startSeconds": 2514,
+        "label": "岩場を進み野生ポケモンと戦う",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3366-1894ed54",
+        "startSeconds": 3366,
+        "label": "地下を探索する",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3419-ac196ddd",
+        "startSeconds": 3419,
+        "label": "キャンプでポケモンの可愛さと組み合わせを楽しむ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3659-399711c7",
+        "startSeconds": 3659,
+        "label": "ポケモンの姿や動きを撮影する",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3719-6250f788",
+        "startSeconds": 3719,
+        "label": "キャンプでポケモンを連れて出発を試みる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3900-067e2e3a",
+        "startSeconds": 3900,
+        "label": "画面停止から配信の再開を試みる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3988-5875a362",
+        "startSeconds": 3988,
+        "label": "画質とコメントを確認し配信をやり直す",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "6e26a968bb55a2f94f569301804b2ba76a6b43f6c804329eb1a65e7a43e45dba",
+    "inputFingerprint": "e612ac3a456009986ed04721ff5c28bd720ceb070cd0d6247bcf45864cbf86f7",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T09:08:22.900396+00:00",
+    "updatedAt": "2026-09-05T09:09:24.351688+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "6e26a968bb55a2f94f569301804b2ba76a6b43f6c804329eb1a65e7a43e45dba",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T09:08:52.961447+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "6e26a968bb55a2f94f569301804b2ba76a6b43f6c804329eb1a65e7a43e45dba",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T09:09:24.351688+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "6e26a968bb55a2f94f569301804b2ba76a6b43f6c804329eb1a65e7a43e45dba",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -329,9 +512,9 @@
   },
   "provenance": {
     "inputFingerprint": "a12fe0f9afa51365a0f22c6e51d2c693a056d0c67c64e18c9e08b1e1e2b56ae3",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",
