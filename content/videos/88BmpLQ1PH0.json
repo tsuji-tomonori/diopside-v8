@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "9aa4c7f983c3f802a04872364b92e2d1a1bf9f79a442e490b2a119b14ef5a6aa"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "8e06e28d9dc86d0a48c498ba1eba2d10661cc944afd42a9e3b72bd59c363d26f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5897
     }
   ],
   "tagAssignments": [
@@ -112,10 +120,167 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-847ca4b1",
+        "startSeconds": 0,
+        "label": "配信開始と企画の導入",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-252-7b2f3626",
+        "startSeconds": 252,
+        "label": "ゲームルールと役職の説明",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-507-3387540b",
+        "startSeconds": 507,
+        "label": "参加者紹介と開始前の会話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-738-45c2b49d",
+        "startSeconds": 738,
+        "label": "ゲーム開始前の最終確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-796-217f014c",
+        "startSeconds": 796,
+        "label": "第1試合の開始",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2457-e191be3b",
+        "startSeconds": 2457,
+        "label": "第1試合の振り返り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2584-d0a5ef59",
+        "startSeconds": 2584,
+        "label": "第2試合の開始",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2647-7a673d88",
+        "startSeconds": 2647,
+        "label": "休憩と前試合の立ち回り講評",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2809-687b863f",
+        "startSeconds": 2809,
+        "label": "第2試合の再開と攻防",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4054-15681d69",
+        "startSeconds": 4054,
+        "label": "第2試合の振り返り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4187-25ca148c",
+        "startSeconds": 4187,
+        "label": "第3試合の開始",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5611-3ea78f33",
+        "startSeconds": 5611,
+        "label": "ゲーム後の振り返り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5815-137971d3",
+        "startSeconds": 5815,
+        "label": "配信終了の挨拶と案内",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "dd050b1340bd21fec75bb4d06d5d24a5cd94f4f94a0a1fc2d96ea047f93c5068",
+    "inputFingerprint": "8e06e28d9dc86d0a48c498ba1eba2d10661cc944afd42a9e3b72bd59c363d26f",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T06:02:28.322673+00:00",
+    "updatedAt": "2026-09-05T06:03:25.422834+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "dd050b1340bd21fec75bb4d06d5d24a5cd94f4f94a0a1fc2d96ea047f93c5068",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T06:02:59.746912+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "dd050b1340bd21fec75bb4d06d5d24a5cd94f4f94a0a1fc2d96ea047f93c5068",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T06:03:25.422834+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "dd050b1340bd21fec75bb4d06d5d24a5cd94f4f94a0a1fc2d96ea047f93c5068",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -330,9 +495,9 @@
   },
   "provenance": {
     "inputFingerprint": "a7d0cc7fefd90617f79b863086d40756141536f1f0ba91dc27131f39ca1c3a7e",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",
