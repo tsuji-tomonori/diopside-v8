@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "777fb8d91ab6fc5c434c3924307502e449568703a960dfb2ce1c74b6fff8192e"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "ce07a8f55535e72ad48f786ccfeb00b409993a2707583061f8e17ee9236942ab",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8181
     }
   ],
   "tagAssignments": [
@@ -577,5 +585,21 @@
     "inputFingerprint": "6487c3821e3c4a7a075533bebeccdacffa100581066b46781d1672bdafbf2799",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴が梅酒を片手に、配信トラブルを乗り越えて乾杯。仕事の疲れや体のケア、満員電車での出来事から、人に振り回されない考え方を語る。大学選びや住まい、虫、漫画の話題にも寄り道し、視聴者の相談へ自分の経験を交えながら向き合う晩酌雑談。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "忘れて欲しい話しかしてない",
+      "atSeconds": 7689,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "ce07a8f55535e72ad48f786ccfeb00b409993a2707583061f8e17ee9236942ab",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:02:19.951629Z"
   }
 }
