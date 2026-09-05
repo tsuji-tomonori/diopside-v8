@@ -1,0 +1,236 @@
+{
+  "additionalClassificationReview": [
+    {
+      "reasonCode": "GROUP_CHANNEL_HOST_MAPPING_REQUIRED",
+      "restartAction": "Confirm the group channel owner and introduce a supported group-channel mapping before changing guest tags.",
+      "sourceUrl": "https://www.youtube.com/watch?v=A3kbfkQ1yIY",
+      "videoId": "A3kbfkQ1yIY"
+    }
+  ],
+  "baseCommit": "dc11c60a09b31941ff1d82da03f9f00d749a7a12",
+  "classificationPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1820",
+  "createdAt": "2026-09-05T01:29:17.883967+00:00",
+  "externalBlocker": {
+    "detail": "Primary video public metadata and full captions were obtained, but browser video rendering remained unavailable and later native media extraction required sign-in/bot confirmation. No bypass or credential access attempted.",
+    "reasonCode": "YOUTUBE_MEDIA_AUTH_REQUIRED",
+    "safeNextAction": "Resume media verification when ordinary authorized public playback is available. Reuse completed PRs and keep uncertain candidates unpublished."
+  },
+  "fixedTimestampTargetIds": [
+    "wkk_u_OrxJA",
+    "DSEbZbjwZNI",
+    "E_zPBE1gu6A",
+    "LiA_Ou5o_z0",
+    "M-PZDbBKaNY",
+    "Sbui_9j3TgU",
+    "_HPez9Rp90w",
+    "auvxKvXd6SI",
+    "hkzSZdJ4dGI",
+    "wqz1FfSbRAo",
+    "9CqaQMSNQng"
+  ],
+  "id": "sequential-guests-20260905",
+  "items": [
+    {
+      "candidateHash": "64bef234645254ab7360abee2b97c58b100527da3cac77ffa3d013f890d2bbdb",
+      "confirmedTomoeNavigation": {
+        "callStartSeconds": 1124,
+        "introductionStartSeconds": 1046,
+        "wholeCandidateApproved": false
+      },
+      "durationSeconds": 3882,
+      "evidenceId": "evidence-full-transcript",
+      "inputFingerprint": "3efaaa198ae4a9235d2ecf8751fb68c03f98e3316ebffb57d91d57694e21c464",
+      "rawEvidencePersisted": false,
+      "reasonCode": "LOCAL_GUEST_IDENTITY_UNRESOLVED",
+      "restartAction": "Reacquire full public captions into ignored dossier; verify unresolved identities and transitions using creator audio or video; recompose and independently rerun fact and blind editorial reviews on the same candidate hash before materialization. Do not adopt unverified draft guest names.",
+      "reviewIntervalsSeconds": [
+        [
+          775,
+          850
+        ],
+        [
+          2025,
+          2065
+        ]
+      ],
+      "sourceUrl": "https://www.youtube.com/watch?v=wkk_u_OrxJA",
+      "stage": "deferred_recovery",
+      "videoId": "wkk_u_OrxJA"
+    },
+    {
+      "candidateHash": "ff4d22ae7326d756f6d1d95239f9ab3e83250804648c873f3d06ae97161645d4",
+      "durationSeconds": 13498,
+      "evidenceId": "evidence-full-transcript",
+      "inputFingerprint": "dad51f30753983c226631937605ea79ca70de79be08ed4d21c1fc0f9a1a53415",
+      "rawEvidencePersisted": false,
+      "reasonCode": "GUEST_SEQUENCE_RECONSTRUCTION_REQUIRED",
+      "restartAction": "Reacquire full public captions into ignored dossier; verify unresolved identities and transitions using creator audio or video; recompose and independently rerun fact and blind editorial reviews on the same candidate hash before materialization. Do not adopt unverified draft guest names.",
+      "reviewIntervalsSeconds": [
+        [
+          6128,
+          6160
+        ],
+        [
+          6465,
+          6488
+        ],
+        [
+          2810,
+          2850
+        ],
+        [
+          4780,
+          4840
+        ],
+        [
+          7630,
+          7650
+        ],
+        [
+          8370,
+          8475
+        ],
+        [
+          9455,
+          9500
+        ]
+      ],
+      "sourceUrl": "https://www.youtube.com/watch?v=DSEbZbjwZNI",
+      "stage": "deferred_recovery",
+      "videoId": "DSEbZbjwZNI"
+    },
+    {
+      "candidateHash": "cffdf893c6536bcca54669fa9b6c5eeeaccc3ccde94549f147ff9f2ec8736dd2",
+      "durationSeconds": 4151,
+      "evidenceId": "evidence-full-transcript",
+      "inputFingerprint": "b8a4748a7d99ca85a418e59f79ac64299354b25e91930432a03eb9153b5d2019",
+      "rawEvidencePersisted": false,
+      "reasonCode": "ASR_GUEST_NAMES_UNRESOLVED",
+      "restartAction": "Reacquire full public captions into ignored dossier; verify unresolved identities and transitions using creator audio or video; recompose and independently rerun fact and blind editorial reviews on the same candidate hash before materialization. Do not adopt unverified draft guest names.",
+      "reviewIntervalsSeconds": [],
+      "sourceUrl": "https://www.youtube.com/watch?v=E_zPBE1gu6A",
+      "stage": "deferred_recovery",
+      "videoId": "E_zPBE1gu6A"
+    },
+    {
+      "candidateHash": "6c945dfbe43c302c540f2c9eeba13260e02efb4404b16ae1f8d4e711af13fc67",
+      "durationSeconds": 4501,
+      "evidenceId": "evidence-full-transcript",
+      "inputFingerprint": "6354356b87f163922e077fb1414f2dc221a5c67dcbad6d28966f0b8356308767",
+      "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1821",
+      "rawEvidencePersisted": false,
+      "restartAction": "Preserve completed candidate; inspect CI and await human review and merge.",
+      "sourceUrl": "https://www.youtube.com/watch?v=LiA_Ou5o_z0",
+      "stage": "draft_pr_ready",
+      "videoId": "LiA_Ou5o_z0"
+    },
+    {
+      "candidateHash": "ba7d0fee2619dc882ef8920553c103702af1d7019def303a813901a571dceaac",
+      "durationSeconds": 12363,
+      "evidenceId": "evidence-full-transcript",
+      "inputFingerprint": "e3ed979f2b29e2afb934f47bf7a45fd9f6a0702030661a2f33d40dae60365910",
+      "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1822",
+      "rawEvidencePersisted": false,
+      "restartAction": "Preserve completed candidate; inspect CI and await human review and merge.",
+      "sourceUrl": "https://www.youtube.com/watch?v=M-PZDbBKaNY",
+      "stage": "draft_pr_ready",
+      "videoId": "M-PZDbBKaNY"
+    },
+    {
+      "candidateHash": "0f3f97d390734ce1d6f943af92d4fbf0cb9679f58c51819f139cabc09bd9195b",
+      "durationSeconds": 5006,
+      "evidenceId": "evidence-full-transcript",
+      "inputFingerprint": "b49ec86dceed5c1630f6acbafd663b580d8297a91b9f094f1f9e4d5ddc4fafc0",
+      "rawEvidencePersisted": false,
+      "reasonCode": "ASR_GUEST_NAMES_AND_ENTRANCES_UNRESOLVED",
+      "restartAction": "Reacquire full public captions into ignored dossier; verify unresolved identities and transitions using creator audio or video; recompose and independently rerun fact and blind editorial reviews on the same candidate hash before materialization. Do not adopt unverified draft guest names.",
+      "reviewIntervalsSeconds": [],
+      "sourceUrl": "https://www.youtube.com/watch?v=Sbui_9j3TgU",
+      "stage": "deferred_recovery",
+      "videoId": "Sbui_9j3TgU"
+    },
+    {
+      "candidateHash": "0c565114c9e515d139da0c029cc1d71aea39f00e7865d612333b22dd6992e487",
+      "durationSeconds": 15563,
+      "evidenceId": "evidence-full-transcript",
+      "inputFingerprint": "2869fe47e3fbe075b6628bdec7f610a8a34dcfc52ab1e726adc1b6998a7574f0",
+      "rawEvidencePersisted": false,
+      "reasonCode": "GUEST_IDENTITY_AND_TOMOE_ENTRANCE_UNRESOLVED",
+      "restartAction": "Reacquire full public captions into ignored dossier; verify unresolved identities and transitions using creator audio or video; recompose and independently rerun fact and blind editorial reviews on the same candidate hash before materialization. Do not adopt unverified draft guest names.",
+      "reviewIntervalsSeconds": [],
+      "sourceUrl": "https://www.youtube.com/watch?v=_HPez9Rp90w",
+      "stage": "deferred_recovery",
+      "videoId": "_HPez9Rp90w"
+    },
+    {
+      "candidateHash": "20e9595897b3f0ed5d8e8da6f9b1132ecb356f55b1f24e577bc81fb1ee136a5c",
+      "durationSeconds": 11231,
+      "evidenceId": "evidence-full-transcript",
+      "inputFingerprint": "2d8207e65c75ce2801523c788080c748dda25cfaecb7b278644b81fc04687e67",
+      "rawEvidencePersisted": false,
+      "reasonCode": "TOMOE_ENTRANCE_UNSUPPORTED",
+      "restartAction": "Reacquire full public captions into ignored dossier; verify unresolved identities and transitions using creator audio or video; recompose and independently rerun fact and blind editorial reviews on the same candidate hash before materialization. Do not adopt unverified draft guest names.",
+      "reviewIntervalsSeconds": [
+        [
+          9420,
+          9470
+        ]
+      ],
+      "sourceUrl": "https://www.youtube.com/watch?v=auvxKvXd6SI",
+      "stage": "deferred_recovery",
+      "videoId": "auvxKvXd6SI"
+    },
+    {
+      "candidateHash": "6075a5ce4403629c919b516ffacded0ac107b1e7f7fa0fb6ce095d8297d00ea4",
+      "durationSeconds": 20274,
+      "evidenceId": "evidence-full-transcript",
+      "inputFingerprint": "ee5274cad71267f20d112568264e5061aa3518133871ab6e08896ee52b16b375",
+      "rawEvidencePersisted": false,
+      "reasonCode": "GUEST_IDENTITIES_AND_TOMOE_BOUNDARY_UNRESOLVED",
+      "restartAction": "Reacquire full public captions into ignored dossier; verify unresolved identities and transitions using creator audio or video; recompose and independently rerun fact and blind editorial reviews on the same candidate hash before materialization. Do not adopt unverified draft guest names.",
+      "reviewIntervalsSeconds": [
+        [
+          12080,
+          12510
+        ]
+      ],
+      "sourceUrl": "https://www.youtube.com/watch?v=hkzSZdJ4dGI",
+      "stage": "deferred_recovery",
+      "videoId": "hkzSZdJ4dGI"
+    },
+    {
+      "durationSeconds": 1093,
+      "evidenceId": null,
+      "inputFingerprint": null,
+      "rawEvidencePersisted": false,
+      "reasonCode": "ON_SCREEN_CONTRIBUTOR_NAMES_REQUIRED",
+      "restartAction": "Reacquire full public captions into ignored dossier; verify unresolved identities and transitions using creator audio or video; recompose and independently rerun fact and blind editorial reviews on the same candidate hash before materialization. Do not adopt unverified draft guest names.",
+      "reviewIntervalsSeconds": [],
+      "sourceUrl": "https://www.youtube.com/watch?v=wqz1FfSbRAo",
+      "stage": "deferred_recovery",
+      "videoId": "wqz1FfSbRAo"
+    },
+    {
+      "candidateHash": "bd57192aed9b17fed68bf035528a3379616a1a336dd89dd453a922f93560afc5",
+      "durationSeconds": 34304,
+      "evidenceId": "evidence-full-transcript",
+      "inputFingerprint": "43fd8d0ccee0b301e5008b38f4c49450f257d9b9a2b87245d05bf5dda1d60657",
+      "rawEvidencePersisted": false,
+      "reasonCode": "RECORDED_STORY_VERSUS_CALL_UNRESOLVED",
+      "restartAction": "Reacquire full public captions into ignored dossier; verify unresolved identities and transitions using creator audio or video; recompose and independently rerun fact and blind editorial reviews on the same candidate hash before materialization. Do not adopt unverified draft guest names.",
+      "reviewIntervalsSeconds": [
+        [
+          2900,
+          2990
+        ]
+      ],
+      "sourceUrl": "https://www.youtube.com/watch?v=9CqaQMSNQng",
+      "stage": "deferred_recovery",
+      "videoId": "9CqaQMSNQng"
+    }
+  ],
+  "kind": "targeted-content-repair-checkpoint",
+  "publication": "Human review and merge required. No merge or publication performed.",
+  "rawMaterialPolicy": "No captions, transcripts, audio, comments, usernames, raw review findings or candidate labels are stored in this checkpoint. Reacquire temporary evidence on resume.",
+  "schemaVersion": "1.0.0"
+}
