@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "be286a40fb5b7801553ba59bcb72c25037e0f4e23a29cfcd950eff82fba6169f"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "96c4820d0078654921d474a275c1b1b00d5666a1911ac3a839468a9b39fb6f4c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7714
     }
   ],
   "tagAssignments": [
@@ -643,5 +651,21 @@
     "inputFingerprint": "fd6b88e634d4c04932f2622e43765180d9575b23bf17bb4ad10fcc6724659856",
     "rulesVersion": "1.1.0",
     "updatedAt": "2026-09-04T20:02:31+09:00"
+  },
+  "synopsis": {
+    "body": "白雪巴がスプラトゥーン2のチーム練習2日目に挑み、前日の反省を踏まえて武器や立ち位置を調整。味方との声かけやカバー、塗りと前線の判断を重ね、練習試合で連携を深めながら本番へ向けた課題を探る配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ついてきてくれたら嬉しいです",
+      "atSeconds": 7668,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "96c4820d0078654921d474a275c1b1b00d5666a1911ac3a839468a9b39fb6f4c",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T05:16:44.861243Z"
   }
 }
