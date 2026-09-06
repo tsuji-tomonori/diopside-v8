@@ -38,6 +38,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "cdd89c25d97e6c1d27a9371447cbccbad553aec3bd188523ffc385240edccfef"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "41dca1a78e537fd44965f087f36061c9210da4891a2eef8733a6600d8364d95c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 24664
     }
   ],
   "tagAssignments": [
@@ -384,5 +392,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T17:50:00+09:00",
     "basis": "運用者のゲーム配信タグ横断是正要求に基づき、公開タイトル・説明と既存作品タグを再確認"
+  },
+  "synopsis": {
+    "body": "白雪巴がSILENT HILL fの3周目・前半を実況。凛子と咲子をめぐる物語を振り返り、探索や謎解き、怪異との遭遇に挑みます。断片的な手がかりから登場人物の関係を考察し、恐怖と余韻を味わいながら物語の行方を見届ける長時間配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "アクションも全然楽しいし。",
+      "atSeconds": 24301,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "41dca1a78e537fd44965f087f36061c9210da4891a2eef8733a6600d8364d95c",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:45:42.597087Z"
   }
 }
