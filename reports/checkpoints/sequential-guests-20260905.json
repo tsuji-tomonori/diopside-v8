@@ -2,21 +2,25 @@
   "additionalClassificationReview": [
     {
       "headCommit": "9b1286ee5b0f384446ab126f14aa11666e90b643",
+      "mergeCommit": "819eabeeecad846d120dbde57e7fa00943e4e9f3",
       "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1820",
       "resolution": "Confirmed official Aogiri group channel. Retain existing channel tag only and remove four other guest performer assignments. Positive group-owner evidence plus taxonomy flag and regression validation added.",
-      "stage": "draft_pr_ready",
+      "stage": "merged",
       "videoId": "A3kbfkQ1yIY"
     }
   ],
   "baseCommit": "ee12dde6bdd707b8ed24d31d964069f83fd5bb51",
   "classificationHead": "9b1286ee5b0f384446ab126f14aa11666e90b643",
+  "classificationMergeCommit": "819eabeeecad846d120dbde57e7fa00943e4e9f3",
   "classificationPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1820",
+  "classificationStage": "merged",
   "createdAt": "2026-09-05T01:29:17.883967+00:00",
   "decisionReport": "reports/checkpoints/sequential-guests-20260905-decisions.md",
+  "doubtsComment": "https://github.com/tsuji-tomonori/diopside-v8/pull/1820#issuecomment-5557469080",
   "externalBlocker": {
-    "detail": "All nine pending videos re-read in full. Stored native audio recovered for four related videos with object checksum verification; no listening or ASR completion claimed. Additional model download cancelled; ordinary video/storyboard retrieval remained unavailable. No authentication or bot challenge bypass attempted.",
-    "reasonCode": "PRIMARY_MEDIA_CONFIRMATION_UNAVAILABLE",
-    "safeNextAction": "User verifies finite linked questions. Completed PRs preserved."
+    "detail": "Prior temporary full transcripts and drafts were lost after workspace pruning. On 2026-09-06 scoped AWS reads did not return; ordinary public YouTube watch pages loaded, but supplied caption URLs returned empty bodies. Standard transcript retrieval failed and ordinary yt-dlp requested bot sign-in. No challenge bypass, cookies, or identity spoofing attempted. No fresh full evidence or approvals claimed.",
+    "reasonCode": "FULL_PRIMARY_EVIDENCE_REACQUISITION_UNAVAILABLE",
+    "safeNextAction": "Resume six only after ordinary evidence access recovers; apply already authorized omission policy. No further owner name decision needed."
   },
   "fixedTimestampTargetIds": [
     "wkk_u_OrxJA",
@@ -44,23 +48,28 @@
       "inputFingerprint": "3efaaa198ae4a9235d2ecf8751fb68c03f98e3316ebffb57d91d57694e21c464",
       "questions": [
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 803,
+          "ownerDecisionRequired": false,
           "question": "ニュイのフジキセキ紹介へ画面が切り替わる最初の秒。13:18付近が候補。人物と馬の対応は冒頭と結果で確認済み、局所の切替秒が字幕欠損。",
           "startSeconds": 778,
           "videoId": "wkk_u_OrxJA"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 2059,
+          "ownerDecisionRequired": false,
           "question": "夕刻ロベルのミホノブルボン紹介へ切り替わる最初の秒。34:03付近が候補。ロベルは開幕から解説側におり、新規通話登場とはしない。",
           "startSeconds": 2041,
           "videoId": "wkk_u_OrxJA"
         }
       ],
       "rawEvidencePersisted": false,
-      "reasonCode": "PRIMARY_IDENTITY_OR_BOUNDARY_UNRESOLVED",
-      "restartAction": "Confirm linked identities/boundaries using ordinary creator audio/video. Preserve explicitly anonymous guests. Reacquire full primary evidence, compose, independently review fact and blind editorial on identical hash, then finalize a one-video draft PR. Draft hashes are not approval.",
+      "reasonCode": "FULL_PRIMARY_EVIDENCE_REACQUISITION_UNAVAILABLE",
+      "requiresUserNameDecision": false,
+      "restartAction": "Reacquire full primary evidence through ordinary authorized routes. Omit unsupported names; preserve public anonymity. Merge/delete unsupported boundaries. Recompose and independently fact/editorial-review identical candidate hash before one-video PR. Do not reuse old migration approval for edits. User already authorized merge and name omission.",
       "sourceUrl": "https://www.youtube.com/watch?v=wkk_u_OrxJA",
-      "stage": "needs_user_source_confirmation",
+      "stage": "awaiting_source_reacquisition",
       "videoId": "wkk_u_OrxJA"
     },
     {
@@ -72,12 +81,13 @@
       "evidenceId": "evidence-full-transcript",
       "headCommit": "7cb35e97a0794a988804c655923ccaef813ba994",
       "inputFingerprint": "dad51f30753983c226631937605ea79ca70de79be08ed4d21c1fc0f9a1a53415",
+      "mergeCommit": "9e8a434e836be20df4cd4eee439f874f87893f30",
       "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1826",
       "rawEvidencePersisted": false,
       "recoveryDraftSha256": "13b3141617b819074f7e517363337f11851244525111a06ee37bb36c644cfcb4",
-      "restartAction": "Preserve reviewed candidate. Human review and merge remain required.",
+      "restartAction": "Completed. Preserve merged content; do not regenerate.",
       "sourceUrl": "https://www.youtube.com/watch?v=DSEbZbjwZNI",
-      "stage": "draft_pr_ready",
+      "stage": "merged",
       "videoId": "DSEbZbjwZNI"
     },
     {
@@ -89,11 +99,12 @@
       "evidenceId": "evidence-full-transcript",
       "headCommit": "8498f22ef60f94bb27b97f771e538386495d9bca",
       "inputFingerprint": "b8a4748a7d99ca85a418e59f79ac64299354b25e91930432a03eb9153b5d2019",
+      "mergeCommit": "a68fcf83c656364041bed631532f57d07561f148",
       "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1825",
       "rawEvidencePersisted": false,
-      "restartAction": "Preserve reviewed candidate. Human review and merge remain required.",
+      "restartAction": "Completed. Preserve merged content; do not regenerate.",
       "sourceUrl": "https://www.youtube.com/watch?v=E_zPBE1gu6A",
-      "stage": "draft_pr_ready",
+      "stage": "merged",
       "videoId": "E_zPBE1gu6A"
     },
     {
@@ -102,11 +113,12 @@
       "evidenceId": "evidence-full-transcript",
       "headCommit": "c3bb6296ad66ee9ecd118f792ec8079ae7eb8721",
       "inputFingerprint": "6354356b87f163922e077fb1414f2dc221a5c67dcbad6d28966f0b8356308767",
+      "mergeCommit": "68c9e1d0d27e6c9a7d9e973d40aba37224adcae0",
       "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1821",
       "rawEvidencePersisted": false,
-      "restartAction": "Preserve reviewed candidate. Human review and merge remain required.",
+      "restartAction": "Completed. Preserve merged content; do not regenerate.",
       "sourceUrl": "https://www.youtube.com/watch?v=LiA_Ou5o_z0",
-      "stage": "draft_pr_ready",
+      "stage": "merged",
       "videoId": "LiA_Ou5o_z0"
     },
     {
@@ -115,27 +127,29 @@
       "evidenceId": "evidence-full-transcript",
       "headCommit": "360f0760666e5ce0a9611bd1e9baf2dcfd320da9",
       "inputFingerprint": "e3ed979f2b29e2afb934f47bf7a45fd9f6a0702030661a2f33d40dae60365910",
+      "mergeCommit": "80a007f985949d34fa91e8b7a689b84a21859b2b",
       "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1822",
       "rawEvidencePersisted": false,
-      "restartAction": "Preserve reviewed candidate. Human review and merge remain required.",
+      "restartAction": "Completed. Preserve merged content; do not regenerate.",
       "sourceUrl": "https://www.youtube.com/watch?v=M-PZDbBKaNY",
-      "stage": "draft_pr_ready",
+      "stage": "merged",
       "videoId": "M-PZDbBKaNY"
     },
     {
       "candidateHash": "2fb20f10f3c58a2d2378535b5198cb63cc0f0a31bc422040c8114a2da2c44071",
       "durationSeconds": 5006,
       "evidenceId": "evidence-full-transcript",
+      "headCommit": "cc69341ff0e1bab0aec12fd395dc015a23e09a42",
       "inputFingerprint": "b49ec86dceed5c1630f6acbafd663b580d8297a91b9f094f1f9e4d5ddc4fafc0",
+      "mergeCommit": "61fcc83dd57b183456d395eb8fb1e24119c73a7e",
       "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1827",
       "rawEvidencePersisted": false,
       "recoveryDraftSha256": "2a09f3ce99b6a824289be248050d04dbca3d4d0d1303a5363d28cda6a00f8e00",
-      "restartAction": "Preserve reviewed candidate. Human review and merge remain required.",
+      "restartAction": "Completed. Preserve merged content; do not regenerate.",
       "sourceUrl": "https://www.youtube.com/watch?v=Sbui_9j3TgU",
-      "stage": "draft_pr_ready",
+      "stage": "merged",
       "tomoeDisposition": "No distinct Tomoe appearance supported in this first part; shared two-part description must not be treated as this video's full cast.",
-      "videoId": "Sbui_9j3TgU",
-      "headCommit": "cc69341ff0e1bab0aec12fd395dc015a23e09a42"
+      "videoId": "Sbui_9j3TgU"
     },
     {
       "confirmedTomoeNavigation": {
@@ -146,19 +160,22 @@
       "inputFingerprint": "2869fe47e3fbe075b6628bdec7f610a8a34dcfc52ab1e726adc1b6998a7574f0",
       "questions": [
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 5665,
+          "ownerDecisionRequired": false,
           "question": "この通話相手がガオンか、公開の名乗り・画面表示で確認したい。韓国語・食事・Splatoonの会話だけでは氏名を確定できない。",
           "startSeconds": 5494,
           "videoId": "_HPez9Rp90w"
         }
       ],
       "rawEvidencePersisted": false,
-      "reasonCode": "PRIMARY_IDENTITY_OR_BOUNDARY_UNRESOLVED",
-      "restartAction": "Confirm linked identities/boundaries using ordinary creator audio/video. Preserve explicitly anonymous guests. Reacquire full primary evidence, compose, independently review fact and blind editorial on identical hash, then finalize a one-video draft PR. Draft hashes are not approval.",
+      "reasonCode": "FULL_PRIMARY_EVIDENCE_REACQUISITION_UNAVAILABLE",
+      "requiresUserNameDecision": false,
+      "restartAction": "Reacquire full primary evidence through ordinary authorized routes. Omit unsupported names; preserve public anonymity. Merge/delete unsupported boundaries. Recompose and independently fact/editorial-review identical candidate hash before one-video PR. Do not reuse old migration approval for edits. User already authorized merge and name omission.",
       "sourceUrl": "https://www.youtube.com/watch?v=_HPez9Rp90w",
-      "stage": "needs_user_source_confirmation",
-      "videoId": "_HPez9Rp90w",
-      "supersededCandidateHash": "0c565114c9e515d139da0c029cc1d71aea39f00e7865d612333b22dd6992e487"
+      "stage": "awaiting_source_reacquisition",
+      "supersededCandidateHash": "0c565114c9e515d139da0c029cc1d71aea39f00e7865d612333b22dd6992e487",
+      "videoId": "_HPez9Rp90w"
     },
     {
       "durationSeconds": 11231,
@@ -166,97 +183,126 @@
       "inputFingerprint": "2d8207e65c75ce2801523c788080c748dda25cfaecb7b278644b81fc04687e67",
       "questions": [
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 806.43,
+          "ownerDecisionRequired": false,
           "question": "最初の白井黒子凸で、本人名が名乗られるか、ホストが本人名を公開しているか。字幕には明確な氏名がない。公開名のない参加者をコメントだけで同定しない。",
           "startSeconds": 735.96,
           "videoId": "auvxKvXd6SI"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 1146.74,
+          "ownerDecisionRequired": false,
           "question": "のぶ代版ドラえもん凸の本人名が公開されているか。1131付近は名前を記入してよいか尋ねる箇所で、字幕欠損を確認する。",
           "startSeconds": 1008.59,
           "videoId": "auvxKvXd6SI"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 2829.18,
+          "ownerDecisionRequired": false,
           "question": "ハルヒからターニャ、トゲピーへ続く同じ通話の本人名。3098.82–3105.57には直前のハルヒ担当者への呼称らしい崩れた字幕があるため、その短区間も確認できる。",
           "startSeconds": 2742.55,
           "videoId": "auvxKvXd6SI"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 4263.76,
+          "ownerDecisionRequired": false,
           "question": "ボーちゃん・北条沙都子を披露した同じ参加者の名乗り／ホストの呼称が字幕で欠けているか確認する。",
           "startSeconds": 4171.64,
           "videoId": "auvxKvXd6SI"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 4544.74,
+          "ownerDecisionRequired": false,
           "question": "ポケモン連続凸の各通話開始・退出・同時参加を音声または通話表示で確定する。字幕は非言語音が落ちており、ドガース／フシギダネ／トサキント／博士系／トランセル／バタフリー／イーブイのキャラ記入時刻を通話開始に転用できない。名乗らない参加者の匿名を尊重する。",
           "startSeconds": 4263.76,
           "videoId": "auvxKvXd6SI"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 5013.99,
+          "ownerDecisionRequired": false,
           "question": "スネークからヒロアカ二役への区間に名前の直接確認があるか。後の7612–7803秒ではベルモンド名が明確だが、それだけで先行通話全てを同じ人と断定しない。",
           "startSeconds": 4863.89,
           "videoId": "auvxKvXd6SI"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 5170.25,
+          "ownerDecisionRequired": false,
           "question": "カービィ凸は主催者が初絡みと言い、声真似のまま退出する。本人名の公開根拠を確認する。字幕に健屋の明瞭な氏名なし。",
           "startSeconds": 5104.46,
           "videoId": "auvxKvXd6SI"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 5675.4,
+          "ownerDecisionRequired": false,
           "question": "リロ＆力一という駄洒落とキャラ名の混同を避け、短い追加凸の本人名／通話表示を確認する。",
           "startSeconds": 5618.57,
           "videoId": "auvxKvXd6SI"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 6900.84,
+          "ownerDecisionRequired": false,
           "question": "言峰綺礼の短い凸の本人名。ホストの『ベル』と思われる字幕はあるが氏名が明瞭でない。",
           "startSeconds": 6860.27,
           "videoId": "auvxKvXd6SI"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 7418.47,
+          "ownerDecisionRequired": false,
           "question": "ウボォーギン凸の本人名か通話表示を確認。後続のベルモンド連続凸とは別の通話開始なので、順番だけで結び付けない。",
           "startSeconds": 7353.4,
           "videoId": "auvxKvXd6SI"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 10076.01,
+          "ownerDecisionRequired": false,
           "question": "イリヤ凸の人物名。本人が直前に文野環と話していたことは字幕で確認できるが、名乗りは字幕で確認できない。",
           "startSeconds": 9946.61,
           "videoId": "auvxKvXd6SI"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 10144.83,
+          "ownerDecisionRequired": false,
           "question": "枯れたマサオくんの短い凸。氏名の一次根拠と通話表示を確認する。コメントの人物推定だけは採用しない。",
           "startSeconds": 10106.08,
           "videoId": "auvxKvXd6SI"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 10374.69,
+          "ownerDecisionRequired": false,
           "question": "大蛇丸凸で「また来た」の相手名が画面／音声で確定できるか。再訪というだけで冨岡義勇の参加者と同一視しない。",
           "startSeconds": 10317.39,
           "videoId": "auvxKvXd6SI"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 11050.04,
+          "ownerDecisionRequired": false,
           "question": "10944.63に始まる「めい」凸の人物名を音声の名乗り／ホスト呼称／通話表示で確認する。旅行先トイレ・母親との滞在という一次字幕は補助資料の時刻と局所一致するが、氏名字幕は崩れている。11023.92のホスト呼称と10955.74の冒頭発話を優先すれば全125秒を聴く必要はない。",
           "startSeconds": 10955.74,
           "videoId": "auvxKvXd6SI"
         }
       ],
       "rawEvidencePersisted": false,
-      "reasonCode": "PRIMARY_IDENTITY_OR_BOUNDARY_UNRESOLVED",
-      "restartAction": "Confirm linked identities/boundaries using ordinary creator audio/video. Preserve explicitly anonymous guests. Reacquire full primary evidence, compose, independently review fact and blind editorial on identical hash, then finalize a one-video draft PR. Draft hashes are not approval.",
+      "reasonCode": "FULL_PRIMARY_EVIDENCE_REACQUISITION_UNAVAILABLE",
+      "requiresUserNameDecision": false,
+      "restartAction": "Reacquire full primary evidence through ordinary authorized routes. Omit unsupported names; preserve public anonymity. Merge/delete unsupported boundaries. Recompose and independently fact/editorial-review identical candidate hash before one-video PR. Do not reuse old migration approval for edits. User already authorized merge and name omission.",
       "sourceUrl": "https://www.youtube.com/watch?v=auvxKvXd6SI",
-      "stage": "needs_user_source_confirmation",
-      "videoId": "auvxKvXd6SI",
-      "supersededCandidateHash": "20e9595897b3f0ed5d8e8da6f9b1132ecb356f55b1f24e577bc81fb1ee136a5c"
+      "stage": "awaiting_source_reacquisition",
+      "supersededCandidateHash": "20e9595897b3f0ed5d8e8da6f9b1132ecb356f55b1f24e577bc81fb1ee136a5c",
+      "videoId": "auvxKvXd6SI"
     },
     {
       "candidateHash": "8ae4c5a061155da92b5ea61058c24a2e410367eb079bfd76a3f99db3605fd495",
@@ -268,18 +314,21 @@
       "inputFingerprint": "ee5274cad71267f20d112568264e5061aa3518133871ab6e08896ee52b16b375",
       "questions": [
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 19838,
+          "ownerDecisionRequired": false,
           "question": "再合流する2名は誰か。樋口楓・モイラという候補は前半の呼称を誤って転用したため撤回。挨拶と再招集の説明だけでは終盤の2名を確定できない。画面表示・名乗りを確認したい。",
           "startSeconds": 19596,
           "videoId": "hkzSZdJ4dGI"
         }
       ],
       "rawEvidencePersisted": false,
-      "reasonCode": "PRIMARY_IDENTITY_OR_BOUNDARY_UNRESOLVED",
+      "reasonCode": "FULL_PRIMARY_EVIDENCE_REACQUISITION_UNAVAILABLE",
       "recoveryDraftSha256": "4f787d3c6e59b9b6a67236c57a72eb0cb4ecfec474e2206714e605cc52e88187",
-      "restartAction": "Confirm linked identities/boundaries using ordinary creator audio/video. Preserve explicitly anonymous guests. Reacquire full primary evidence, compose, independently review fact and blind editorial on identical hash, then finalize a one-video draft PR. Draft hashes are not approval.",
+      "requiresUserNameDecision": false,
+      "restartAction": "Reacquire full primary evidence through ordinary authorized routes. Omit unsupported names; preserve public anonymity. Merge/delete unsupported boundaries. Recompose and independently fact/editorial-review identical candidate hash before one-video PR. Do not reuse old migration approval for edits. User already authorized merge and name omission.",
       "sourceUrl": "https://www.youtube.com/watch?v=hkzSZdJ4dGI",
-      "stage": "needs_user_source_confirmation",
+      "stage": "awaiting_source_reacquisition",
       "videoId": "hkzSZdJ4dGI"
     },
     {
@@ -288,35 +337,44 @@
       "inputFingerprint": "beb8a24922c31704f056c056b0705120e87ebd511a9cbcab8b7cdab94b672c86",
       "questions": [
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 67,
+          "ownerDecisionRequired": false,
           "question": "グッズの投稿者名テロップとその初出秒を確認したい。先斗寧・叢雲カゲツ・白雪巴・愛園愛美の4名と投稿区間の対応が未確定。概要欄の順番で割り当てない。",
           "startSeconds": 51,
           "videoId": "wqz1FfSbRAo"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 202,
+          "ownerDecisionRequired": false,
           "question": "へその緒の投稿者名テロップとその初出秒を確認したい。先斗寧・叢雲カゲツ・白雪巴・愛園愛美の4名と投稿区間の対応が未確定。概要欄の順番で割り当てない。",
           "startSeconds": 186,
           "videoId": "wqz1FfSbRAo"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 214,
+          "ownerDecisionRequired": false,
           "question": "どんぐりの投稿者名テロップとその初出秒を確認したい。先斗寧・叢雲カゲツ・白雪巴・愛園愛美の4名と投稿区間の対応が未確定。概要欄の順番で割り当てない。",
           "startSeconds": 199,
           "videoId": "wqz1FfSbRAo"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 231,
+          "ownerDecisionRequired": false,
           "question": "爪の投稿者名テロップとその初出秒を確認したい。先斗寧・叢雲カゲツ・白雪巴・愛園愛美の4名と投稿区間の対応が未確定。概要欄の順番で割り当てない。",
           "startSeconds": 210,
           "videoId": "wqz1FfSbRAo"
         }
       ],
       "rawEvidencePersisted": false,
-      "reasonCode": "PRIMARY_IDENTITY_OR_BOUNDARY_UNRESOLVED",
-      "restartAction": "Confirm linked identities/boundaries using ordinary creator audio/video. Preserve explicitly anonymous guests. Reacquire full primary evidence, compose, independently review fact and blind editorial on identical hash, then finalize a one-video draft PR. Draft hashes are not approval.",
+      "reasonCode": "FULL_PRIMARY_EVIDENCE_REACQUISITION_UNAVAILABLE",
+      "requiresUserNameDecision": false,
+      "restartAction": "Reacquire full primary evidence through ordinary authorized routes. Omit unsupported names; preserve public anonymity. Merge/delete unsupported boundaries. Recompose and independently fact/editorial-review identical candidate hash before one-video PR. Do not reuse old migration approval for edits. User already authorized merge and name omission.",
       "sourceUrl": "https://www.youtube.com/watch?v=wqz1FfSbRAo",
-      "stage": "needs_user_source_confirmation",
+      "stage": "awaiting_source_reacquisition",
       "videoId": "wqz1FfSbRAo"
     },
     {
@@ -329,41 +387,73 @@
       "inputFingerprint": "43fd8d0ccee0b301e5008b38f4c49450f257d9b9a2b87245d05bf5dda1d60657",
       "questions": [
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 5666,
+          "ownerDecisionRequired": false,
           "question": "狛犬ポメの投稿動画で自己紹介する他2名の公開名。自動字幕で固有名詞が崩れている。",
           "startSeconds": 5655,
           "videoId": "9CqaQMSNQng"
         },
         {
+          "disposition": "Unknown names may be omitted. Unsupported boundaries may be merged/deleted after supported reconstruction. Not yet applied to canonical data.",
           "endSeconds": 21449,
+          "ownerDecisionRequired": false,
           "question": "旅行動画の2名がもちはむ・おじはむか、動画内クレジットで確認したい。字幕に氏名がない。",
           "startSeconds": 21299,
           "videoId": "9CqaQMSNQng"
         }
       ],
       "rawEvidencePersisted": false,
-      "reasonCode": "PRIMARY_IDENTITY_OR_BOUNDARY_UNRESOLVED",
+      "reasonCode": "FULL_PRIMARY_EVIDENCE_REACQUISITION_UNAVAILABLE",
       "recoveryDraftSha256": "0cd7a67e6c8f1305d5045c37b07313e4f3840767b99734d763672c9c1aa4c5c9",
-      "restartAction": "Confirm linked identities/boundaries using ordinary creator audio/video. Preserve explicitly anonymous guests. Reacquire full primary evidence, compose, independently review fact and blind editorial on identical hash, then finalize a one-video draft PR. Draft hashes are not approval.",
+      "requiresUserNameDecision": false,
+      "restartAction": "Reacquire full primary evidence through ordinary authorized routes. Omit unsupported names; preserve public anonymity. Merge/delete unsupported boundaries. Recompose and independently fact/editorial-review identical candidate hash before one-video PR. Do not reuse old migration approval for edits. User already authorized merge and name omission.",
       "sourceUrl": "https://www.youtube.com/watch?v=9CqaQMSNQng",
-      "stage": "needs_user_source_confirmation",
-      "videoId": "9CqaQMSNQng",
-      "supersededCandidateHash": "bd57192aed9b17fed68bf035528a3379616a1a336dd89dd453a922f93560afc5"
+      "stage": "awaiting_source_reacquisition",
+      "supersededCandidateHash": "bd57192aed9b17fed68bf035528a3379616a1a336dd89dd453a922f93560afc5",
+      "videoId": "9CqaQMSNQng"
     }
   ],
   "kind": "targeted-content-repair-checkpoint",
-  "publication": "Human review and merge required. No merge or publication performed.",
+  "ownerDirective": {
+    "date": "2026-09-06",
+    "mergeAuthorized": true,
+    "noAdditionalNameDecisionRequired": true,
+    "omitUnknownNames": true,
+    "recordDoubtsInPRComment": true
+  },
+  "policyPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1937",
+  "policyStage": "merged",
+  "publicSiteVerification": {
+    "date": "2026-09-06",
+    "matchedMergedPublicDataVideoIds": [
+      "DSEbZbjwZNI",
+      "E_zPBE1gu6A",
+      "LiA_Ou5o_z0",
+      "M-PZDbBKaNY",
+      "Sbui_9j3TgU",
+      "wkk_u_OrxJA"
+    ],
+    "note": "Five repaired timestamp videos and selected classification video fetched over HTTP and equal to merged release artifacts. wkk timestamps remain unchanged.",
+    "releaseId": "release-81d62a6b86c6d26b"
+  },
+  "publication": "Classification, five timestamp PRs, and unknown-name policy PR #1937 merged under explicit owner authorization. Published release HTTP readback confirmed five repaired timestamp videos and selected classification video. Six timestamp repairs remain unapplied pending primary evidence reacquisition.",
   "rawMaterialPolicy": "No captions, transcripts, audio, comments, usernames, raw review findings or candidate labels are stored in this checkpoint. Reacquire temporary evidence on resume.",
   "recoverySummary": {
     "additionalDraftPRs": 3,
     "classificationVideosCorrected": 9,
     "classifiedRegistryRecords": 41,
+    "mergedTimestampPRs": 5,
     "oneCandidateInFinalReview": false,
     "originalPendingTimestampVideos": 9,
-    "pendingSourceConfirmationVideos": 6,
+    "pendingSourceConfirmationVideos": 0,
+    "pendingSourceReacquisitionVideos": 6,
     "performerAssignmentsRemoved": 69,
-    "totalReadyTimestampPRs": 5
+    "recordedDoubtIntervals": 24,
+    "totalReadyTimestampPRs": 0
   },
   "schemaVersion": "1.0.0",
-  "updatedAt": "2026-09-05T03:07:12.654Z"
+  "updatedAt": "2026-09-06T06:43:11.101Z",
+  "policyMergeCommit": "2b97c97dc6b0a45e49e3b1a1bf8411416f876261",
+  "policyHeadCommit": "a592ce3bf45064859542cd536e23422700b03d50"
 }
