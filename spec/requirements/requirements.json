@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "catalog_revision": 38,
+  "catalog_revision": 39,
   "product": "diopside v8",
-  "updated_at": "2026-09-05",
+  "updated_at": "2026-09-06",
   "requirements": [
     {
       "acceptance_criteria": [
@@ -10018,7 +10018,7 @@
     },
     {
       "id": "V8-TIME-038",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "product",
       "category": "functional",
@@ -10026,7 +10026,7 @@
       "title": "ゲスト交代企画の時刻一覧は紹介対象と白雪巴の登場位置を示さなければならない",
       "subject": "タイムスタンプ生成・更新処理",
       "action": "satisfy",
-      "object": "別チャンネルのゲスト交代・順次紹介企画では各区間の対象人物を章名へ記載し、白雪巴の紹介開始と本人の通話・出演開始を区別する。人物名や時刻を順番やコメントだけから推測してはならない。",
+      "object": "別チャンネルのゲスト交代・順次紹介企画では確認できる対象人物を章名へ記載し、白雪巴の紹介開始と本人の通話・出演開始を区別する。未確認の名前は省略し、根拠のある投稿内容・役割・声真似対象などで移動先を示す。公開匿名を維持し、人物名や時刻を順番やコメントだけから推測してはならない。",
       "rationale": "他のゲストとのコラボ分類を増やさずに、白雪巴の区間へ直接移動できるようにする。",
       "source_refs": [
         "spec/sources/owner-directive-2026-09-05-sequential-guests.md"
@@ -10036,7 +10036,7 @@
           "id": "AC-V8-TIME-038-1",
           "given": "ゲスト交代・順次紹介企画の時刻一覧を作成または更新する",
           "when": "全編根拠または作成者一覧による章名・登場境界の独立確認",
-          "then": "紹介区間に対象人物名があり、白雪巴の紹介・登場位置が分かる。投稿読上げだけの区間を本人登場と表示せず、未確認の人物・秒数は確定せず再確認対象として記録する。"
+          "then": "確認できる紹介対象・白雪巴の紹介と本人登場を明記し、投稿読上げを本人登場と表示しない。未確認名は書かず根拠のある内容や役割で区別する。時刻も未支持なら根拠のある隣接区間へ統合するか境界を削除し、疑義・対象区間・採用した対応をPRコメントまたはCommit Commentへ記録する。名前の未確認だけを理由に動画全体を止めず、全編根拠と各境界の支持、同一candidate hashへの独立した事実・編集確認を維持する。"
         }
       ],
       "verification": {
@@ -10058,7 +10058,7 @@
           "spec/sources/owner-directive-2026-09-05-sequential-guests.md"
         ]
       },
-      "last_changed_by": "CHG-20260905-sequential-guests"
+      "last_changed_by": "CHG-20260906-sequential-guests-unknown-names"
     }
   ]
 }
