@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "e5f93856b9c114af8dc68e8de901e8c5f3712792980d43681e525e0eb1f19c09"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "97bf9764009fbf983250696a98580d7a58b27cad4ee2fb86e17835c6c42375a0",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8928
     }
   ],
   "tagAssignments": [
@@ -336,5 +344,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が届いた罵倒マシュマロを読み上げ、言葉の強さや好みの違いを受け止めながら、投稿ごとに声色と演技を変えて応答。重めの内容にも軽妙な雑談を交え、視聴者との距離感や自身の企画について語る、刺激的な読み上げ配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "大嫌いだし大好き",
+      "atSeconds": 2356,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "97bf9764009fbf983250696a98580d7a58b27cad4ee2fb86e17835c6c42375a0",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:00:42.216471Z"
   }
 }
