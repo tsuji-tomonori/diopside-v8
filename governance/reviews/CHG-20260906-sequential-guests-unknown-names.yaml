@@ -199,6 +199,14 @@ selected_checks:
   - path:scripts/generate-requirements.ts
   - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
   note: 未選択checkをN/Aで追加しない。
+- id: REV-011
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:scripts/generate-requirements.ts
+  - path:src/domain/content.ts
+  - path:.agents/skills/compose-stream-chapters/references/genre-rules.md
+  note: 公開consumerのschema・URL・既存動画は変更しない。編集規則をV8-TIME-038 rev2として管理し、移行と非推奨化は不要。規則・generatorの差分をrevertして生成要件と設計を再生成すれば戻せる。全編根拠・独立確認の契約は維持する。
 advisories: []
 residual_risks:
 - 不明名を省く許可は、時刻の推測や未実施レビューの合格記録を許可しない。
