@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "YouTube公開タイトル・概要欄の出演者横断照合",
       "inputFingerprint": "425736acea28e5dc15f60ee67956e6bf9886d08ff3634ed7af457d79ad17bc7e"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "3a33d87eff9009d1ff613000e8781173f5c13064406e9930a154a49352a533b3",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8643
     }
   ],
   "tagAssignments": [
@@ -342,5 +350,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-29T21:10:00+09:00",
     "basis": "利用者指示とYouTube公開情報を基に、コラボ相手の付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴がイブラヒム、メリッサ・キンレンカ、えま★おうがすと、夕陽リリらとスプラトゥーン2の大会練習に挑むコラボ。試合中の声かけや立ち回りの相談、武器とギアの試行錯誤を重ねながら、にぎやかに連戦を進めていきます。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "この武器じゃないわ、私、多分これじゃないわ",
+      "atSeconds": 6560,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "3a33d87eff9009d1ff613000e8781173f5c13064406e9930a154a49352a533b3",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T04:00:39.396596Z"
   }
 }

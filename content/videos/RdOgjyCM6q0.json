@@ -56,6 +56,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "e97c6a68455978749ba17797534032e55c1ec6934ec5dc4f747cb26bdb2bec78"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "3fc9a5c9e87b462cb4f42bbe3588b3d39e8f9ab05a3958f4ae5f54ed72b28c2c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6056
     }
   ],
   "tagAssignments": [
@@ -638,5 +646,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴がフミ、ルイス・キャミーと晩酌しながらお便りを読み、誕生日や贈り物、人との距離感を語り合う。後半はモッツァレラチーズを用いた声・感情ゲームに挑戦し、声色を変えながら三人で盛り上がる、軽妙な雑談コラボ。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私のためにしてくれたことが全部嬉しくなっちゃう人だから",
+      "atSeconds": 2387,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "3fc9a5c9e87b462cb4f42bbe3588b3d39e8f9ab05a3958f4ae5f54ed72b28c2c",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:18:05.079813Z"
   }
 }

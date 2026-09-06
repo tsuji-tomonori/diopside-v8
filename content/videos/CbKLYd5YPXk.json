@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "50b085c4dc42b992314d35d138dab9c17e56fa4f916dc186dc417ff22f291acf"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "9a6708acbac179feccbc257003c8b4c2ef5ffc7bdbe00118774751147931553b",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5739
     }
   ],
   "tagAssignments": [
@@ -1433,5 +1441,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴と健屋花那のCrossickが温泉旅行を振り返り、食事や温泉、サウナの感想を語る。お土産や道中の出来事、互いの服や写真にも話題を広げ、旅先で深まった絆と軽快な掛け合いを楽しめる、旅の余韻たっぷりな雑談コラボ。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "はいみなさんただいま",
+      "atSeconds": 270,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "9a6708acbac179feccbc257003c8b4c2ef5ffc7bdbe00118774751147931553b",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:42:15.292130Z"
   }
 }

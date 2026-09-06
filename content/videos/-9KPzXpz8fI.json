@@ -44,6 +44,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "ac08750564baa1433e3010f4d6acc160a52126e639370817a15b2f1d3a1c757b"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "40fac176c1eac97091607f6dfe34e3035ec9bd9560ad786fd81a092f0a0f235a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6287
     }
   ],
   "tagAssignments": [
@@ -318,5 +326,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-23T16:00:00+09:00",
     "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  },
+  "synopsis": {
+    "body": "白雪巴が、操作設定を整えながら「Identity V」を一から遊び直す。サバイバーの解読・チェイス・救助を学び、視聴者の助言でマップや人格、キャラクターの特徴を確かめていく。初見の仕組みに戸惑いながらも、ときに大胆な判断を見せる手探りのゲーム配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私も早くプレイしたいから",
+      "atSeconds": 599,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "40fac176c1eac97091607f6dfe34e3035ec9bd9560ad786fd81a092f0a0f235a",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:37:47.064464Z"
   }
 }

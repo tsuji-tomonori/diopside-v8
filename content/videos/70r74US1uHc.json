@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "afd3d92aa2ec83671c90cf5e6c5089b97d4a8fc1b09aa02a5ed9eadef65c78b0"
+    },
+    {
+      "evidenceId": "evidence-synopsis-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "7263b33f7837d818847400d76073099e3f4cc444b2868f9e74315ac7b7f34e3a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8652
     }
   ],
   "tagAssignments": [
@@ -480,5 +488,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T20:30:00+09:00",
     "basis": "利用者指示と公開タイトル・承認済みタイムスタンプによる歌枠横断監査で、音楽種別「歌枠」を再承認"
+  },
+  "synopsis": {
+    "body": "白雪巴と健屋花那が、壁になって二人のカラオケデートをのぞくコラボ。久しぶりに会えた喜びや近況、香りや思い出の雑談を交わしながら、さまざまな曲を歌い、互いの歌声に笑ったり励ましたりする時間を届ける。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "心が充電されるんだ",
+      "atSeconds": 8488,
+      "evidenceRefs": [
+        "evidence-synopsis-full-transcript"
+      ]
+    },
+    "inputFingerprint": "7263b33f7837d818847400d76073099e3f4cc444b2868f9e74315ac7b7f34e3a",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T08:42:20.404854Z"
   }
 }

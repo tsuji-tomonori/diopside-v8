@@ -38,6 +38,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "2a08f746cddbced900246ffc0eb9d9ef908ef576a18fd850ab6b68ac22cd3b62"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "ee7336f29c0380a7328d2afc7cf36b6d34ee21929978fe36c6e9699663a86a2c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3750
     }
   ],
   "tagAssignments": [
@@ -276,5 +284,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-20T01:20:00+09:00",
     "basis": "利用者指示に基づき、人物名タグの補完と公開チャンネルタグの公開境界を再確認"
+  },
+  "synopsis": {
+    "body": "ゲストを迎える企画で、白雪巴がこれまでの活動や好み、配信で大切にしていることを語る。質問をきっかけに好きなものや理想の過ごし方、今後やってみたいことまで話題を広げ、相手との軽快な掛け合いを楽しめる一時間です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私も支えられたいっていうのがあるなぁ",
+      "atSeconds": 3035,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "ee7336f29c0380a7328d2afc7cf36b6d34ee21929978fe36c6e9699663a86a2c",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T06:11:24.114384Z"
   }
 }

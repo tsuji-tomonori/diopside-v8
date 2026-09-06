@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "e3a08beead791f6ac5e6ce70bcc0c69be93fcedaa5392a7ff41efd89c38fe8f7"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "2d975e90f307a12f08d12f8109ae3fe2f2f6cd32e85e5110b78fd52e68cf0a2d",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 14383
     }
   ],
   "tagAssignments": [
@@ -1315,5 +1323,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が新チームで『スプラトゥーン2』の大会練習に挑み、武器の役割や塗り方、味方との連携を実戦で確かめる。試合ごとに立ち回りと作戦を話し合い、うまくいかない場面も笑いに変えながら、チームで動く手応えを探る練習配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "作戦練らないとですね",
+      "atSeconds": 7844,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "2d975e90f307a12f08d12f8109ae3fe2f2f6cd32e85e5110b78fd52e68cf0a2d",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:06:18.927454Z"
   }
 }

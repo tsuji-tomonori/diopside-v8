@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "76c2021257befc30dd0afad0eff638d6d42cded1433e73d31900ecb1dcf2ac8a"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "f760bbe4508dabeecb6db51464b443b927a0a02d75ce735be95fe04e1b636092",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6376
     }
   ],
   "tagAssignments": [
@@ -709,5 +717,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T00:00:00Z",
     "basis": "所有者指示に基づくユニットタグ全件監査と公開情報・出演者集合の再確認"
+  },
+  "synopsis": {
+    "body": "視聴者から寄せられた脚本をもとに、フミと白雪巴が全6幕の短編声劇を演じる企画。宇宙の戦場や神様と人、王女と騎士など多彩な関係性へ声で入り込み、演技後の感想や役柄の解釈も語り合う、遊び心あふれる一回。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "めっちゃ解釈一致",
+      "atSeconds": 1731,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "f760bbe4508dabeecb6db51464b443b927a0a02d75ce735be95fe04e1b636092",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:32:30.080586Z"
   }
 }

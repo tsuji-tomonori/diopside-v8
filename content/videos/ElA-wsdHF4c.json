@@ -38,6 +38,14 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "d801b73fc16862130d6ae3e6734ce3f8d3a94bddf7b5c3e864734dbc1515c2ec"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "3b21ca8926c56dd0da80b919418c5c2b369d73143b65bfd0e9948a636b88adf6",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10672
     }
   ],
   "tagAssignments": [
@@ -109,5 +117,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "半年記念に寄せられたマシュマロを読み、初配信や見た目、声、コラボなど、視聴者が白雪巴を知ったきっかけをたどる雑談。届いた言葉を受け止め、自身の活動やこれからの配信についても語りながら、出会いへの感謝を伝えます。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "好きになってくれてありがとう",
+      "atSeconds": 1540,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "3b21ca8926c56dd0da80b919418c5c2b369d73143b65bfd0e9948a636b88adf6",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:44:38.247800Z"
   }
 }

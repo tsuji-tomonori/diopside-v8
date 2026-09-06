@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "75a3861deab38900ba6931b99b84e595a4923e130289130be2df941ce6384d03"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "eef84d624ec3893ee38a56181ffb8f85045c52c409665f4aadbd745fbe79d9ea",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3997
     }
   ],
   "tagAssignments": [
@@ -254,17 +262,6 @@
     "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
-  "provenance": {
-    "inputFingerprint": "6975ce6e8711ff8b262b838d19152c34bab782063cf8319cbbeb26e44d6737fa",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
-    "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
-  },
-  "approval": {
-    "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
   "customEmojiUsage": {
     "status": "集計済み",
     "totalCount": 0,
@@ -348,5 +345,32 @@
     "inputFingerprint": "c6615ca6f5188b77633404b0a276a47ab06bc75c3f2bc2e7cd32617ced780f54",
     "rulesVersion": "2.0.0",
     "updatedAt": "2026-09-05T00:00:00Z"
+  },
+  "provenance": {
+    "inputFingerprint": "6975ce6e8711ff8b262b838d19152c34bab782063cf8319cbbeb26e44d6737fa",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が4人チームでスプラトゥーン2のフェスに挑み、久しぶりの顔ぶれと軽快なやり取りを重ねながら、武器や塗り方を相談して試合を進める配信。連携の手応えや苦戦に揺れる実況と、ケチャップ・マヨネーズ談義まで楽しめる。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "いてくれて嬉しかったよありがとうね",
+      "atSeconds": 3960,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "eef84d624ec3893ee38a56181ffb8f85045c52c409665f4aadbd745fbe79d9ea",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:03:11.566970Z"
   }
 }

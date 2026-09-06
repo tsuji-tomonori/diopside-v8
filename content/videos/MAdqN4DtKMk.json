@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "0a672215339eb50d40deb978aa97d0d544cd2209f37fecdb8ed49f8a68a0f8ff"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "d32a2ad702b9bb5975c32c86062296031628da45d0bf70183aa5003aa0a9f816",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5483
     }
   ],
   "tagAssignments": [
@@ -85,10 +93,230 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-d664f41b",
+        "startSeconds": 0,
+        "label": "配信開始・『ドーナツの穴』を紹介",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-203-c1598b34",
+        "startSeconds": 203,
+        "label": "フリーゲーム『ドーナツの穴』開始",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-309-819a5d45",
+        "startSeconds": 309,
+        "label": "ドーナツの穴と最初の質問群",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1150-fb385e13",
+        "startSeconds": 1150,
+        "label": "ワープ装置と生命の連続性",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1304-e22aa1bc",
+        "startSeconds": 1304,
+        "label": "臓器くじへの賛否を考える",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1438-f173d5bf",
+        "startSeconds": 1438,
+        "label": "スワンプマンは人間と言えるのか",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1642-f7604503",
+        "startSeconds": 1642,
+        "label": "リラックス誘導から不穏な演出へ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1804-435fb93a",
+        "startSeconds": 1804,
+        "label": "ゲーム後半・重要な選択",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1960-d19c646c",
+        "startSeconds": 1960,
+        "label": "選択への問いと最初のプレイの感想",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2114-89413c58",
+        "startSeconds": 2114,
+        "label": "分岐をやり直し、主要な問いを再考",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2810-4f444d40",
+        "startSeconds": 2810,
+        "label": "二周目・終盤の対話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3098-a5ae3c38",
+        "startSeconds": 3098,
+        "label": "プレイ後の考察",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4030-6284040e",
+        "startSeconds": 4030,
+        "label": "臓器くじの倫理と提供者の同意",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4344-3f070c93",
+        "startSeconds": 4344,
+        "label": "今を生きることと視聴者への感謝",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4585-ba4c01bf",
+        "startSeconds": 4585,
+        "label": "スワンプマン原典から本人性を再考",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4683-e64e3e24",
+        "startSeconds": 4683,
+        "label": "宇宙・人間の起源へ思索を広げる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4755-38f36a87",
+        "startSeconds": 4755,
+        "label": "スーパーチャット読み・食の好みとゲームの振り返り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5014-1957ddea",
+        "startSeconds": 5014,
+        "label": "動物実験と治療の倫理的な葛藤",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5168-11fc23e8",
+        "startSeconds": 5168,
+        "label": "スーパーチャット読み・たこ焼きと終盤の雑談",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5422-a682302e",
+        "startSeconds": 5422,
+        "label": "配信終了・次回告知と再会の挨拶",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "ba497088fcee132877767deb240bb031dc4a39bf97e10beb65277a1f42ee5826",
+    "inputFingerprint": "d32a2ad702b9bb5975c32c86062296031628da45d0bf70183aa5003aa0a9f816",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-06T06:49:55.742709+00:00",
+    "updatedAt": "2026-09-06T07:11:59.094366+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "ba497088fcee132877767deb240bb031dc4a39bf97e10beb65277a1f42ee5826",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-06T07:10:58.311901+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "ba497088fcee132877767deb240bb031dc4a39bf97e10beb65277a1f42ee5826",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-06T07:11:59.094366+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "ba497088fcee132877767deb240bb031dc4a39bf97e10beb65277a1f42ee5826",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -780,9 +1008,9 @@
   },
   "provenance": {
     "inputFingerprint": "96e84ccc081e0966150d8042ce182229e9e1e110f99370eeb80ea62d0fb2bff3",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",

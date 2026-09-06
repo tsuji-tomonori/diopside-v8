@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "ff6aede4919bfe04cba2ad8e914a21013f976aab6f2914bb9ec37b7b6a4fde76"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "109aa74523d78d2b797dea2932be5b4a6b8a67b00a7c3820724deb5cc5027db1",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5424
     }
   ],
   "tagAssignments": [
@@ -306,5 +314,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴がマリオカート8 デラックスのにじさんじ杯予選Hリーグに挑戦。仮免許持ちを自称しつつ、コースの難所やアイテムに翻弄されながら順位を競います。接戦の展開を振り返り、ライバルの走りや本戦への思いも語るレース実況。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "そこが面白いんだよなマリカって",
+      "atSeconds": 4910,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "109aa74523d78d2b797dea2932be5b4a6b8a67b00a7c3820724deb5cc5027db1",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:35:55.114058Z"
   }
 }

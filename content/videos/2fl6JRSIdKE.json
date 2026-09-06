@@ -38,6 +38,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "525df0a77e19a19ead246e40c814d20a045f28fca376216e9aa2814b04c45b33"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "57a57c8cd6f4a692b3eb11ecb7eb361a1079b8abf3e7b12bfc784af690ef687c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9175
     }
   ],
   "tagAssignments": [
@@ -303,5 +311,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:25:51+09:00",
     "basis": "運用者の是正要求に基づき、公開タイトルと承認済みタイムスタンプを再確認し、企画の直接根拠がない通常のシリーズゲーム実況として副ジャンル「企画」を除外"
+  },
+  "synopsis": {
+    "body": "前回の苦戦を受け、白雪巴がパタポンたちの装備と編成を整え、ジゴトン軍の待つ砂漠やバチコイ山の攻略に挑む。リズムに合わせた指示、フィーバー維持、部隊の育成と素材集めを試しながら、強敵や仕掛けに翻弄されつつ戦況を実況。試行錯誤の悔しさや仲間への声かけも見どころです。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "攻めは最大の防御ってことで",
+      "atSeconds": 1161,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "57a57c8cd6f4a692b3eb11ecb7eb361a1079b8abf3e7b12bfc784af690ef687c",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T05:16:36.679329Z"
   }
 }

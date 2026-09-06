@@ -38,6 +38,14 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "2a1bdc22b46a3371afe405b6376ebdd4dddb1e39b5af8f3d9186304f1f3abf17"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "16b747b09cbd824165902c4128de7433af1edc03efb93fb3830090436ae661ca",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3794
     }
   ],
   "tagAssignments": [
@@ -89,17 +97,6 @@
     "reason": "資料不足",
     "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
     "updatedAt": "2026-08-04T15:00:00+09:00"
-  },
-  "provenance": {
-    "inputFingerprint": "beb4b68485767e4cce891578f8fd4b46bfcdd884808275bb6535a1df4c6da527",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
-    "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
-  },
-  "approval": {
-    "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
   },
   "customEmojiUsage": {
     "status": "集計済み",
@@ -181,5 +178,32 @@
     "inputFingerprint": "ba35cf84eebaccc0be53871f5bb5600c3115a4aaa5c5e52a44719e5feb8fc3f2",
     "rulesVersion": "2.0.0",
     "updatedAt": "2026-09-05T00:00:00Z"
+  },
+  "provenance": {
+    "inputFingerprint": "beb4b68485767e4cce891578f8fd4b46bfcdd884808275bb6535a1df4c6da527",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、250点満点の学力テストに挑戦。漢字や四字熟語から算数の図形・分数、英単語、理科まで、記憶をたどりながら一問ずつ回答していく。得意分野で手応えを見せる一方、曖昧な知識には迷い、勘や勢いも交えて珍回答を重ねる、笑いの絶えない配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "小学生が偉いわ",
+      "atSeconds": 321,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "16b747b09cbd824165902c4128de7433af1edc03efb93fb3830090436ae661ca",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:33:33.241560Z"
   }
 }

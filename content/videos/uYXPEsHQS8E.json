@@ -32,6 +32,14 @@
       "type": "動画長",
       "sourceLabel": "YouTube公開動画長",
       "inputFingerprint": "6ed3d614b48d0601c3e9bfa6dede2fb03f86a6106541d474996c337fab9b952b"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "8bcff36b464da1c58e27aa1c24b41cac55c9d8e44e26c08b2d87da19f6a22b0d",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 14599
     }
   ],
   "tagAssignments": [
@@ -202,5 +210,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T15:55:00Z",
     "basis": "ユーザーの追加対応指示に基づく公開メタデータ・既存taxonomy・匿名絵文字集計の確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が『崩壊：スターレイル』オンパロス編Ver.3.7を進行。キュレネの記憶をめぐる物語を読み解き、仲間との会話や新たな舞台を味わいながら、探索と戦闘、道中の選択に挑みます。物語への驚きや考察を交えた長時間実況。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "長かったよね",
+      "atSeconds": 422,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "8bcff36b464da1c58e27aa1c24b41cac55c9d8e44e26c08b2d87da19f6a22b0d",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T04:09:52.945829Z"
   }
 }
