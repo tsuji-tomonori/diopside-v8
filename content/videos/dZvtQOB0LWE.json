@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "239ca31bb2c6f387590a3ecc3b61ae7ec1c4c431c25cc8ff43a4edf436868798"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "51a1e9cdc8577358cb2b6977e0590333897e732243ce8661a655b7bfa2a6df98",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 4437
     }
   ],
   "tagAssignments": [
@@ -291,5 +299,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が女性限定のお悩み相談マシュマロを読み、メイクや身だしなみ、恋愛、人との距離感など幅広い相談に寄り添う雑談。投稿者の気持ちを受け止めながら、自身の経験や率直な考えを交えて一緒に答えを探します。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "第2回も第3回もずっとずっとやっていけたらなって思います",
+      "atSeconds": 4320,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "51a1e9cdc8577358cb2b6977e0590333897e732243ce8661a655b7bfa2a6df98",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:15:56.931333Z"
   }
 }
