@@ -38,6 +38,14 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "08ca27b3c456cc4ab1e7e71c771bf75be089951722f7643e191c2b0747df6835"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "89e758918c633931502b8bb915a5402f378ee22f02b5b674f8a969601bf05f02",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 13998
     }
   ],
   "tagAssignments": [
@@ -1418,5 +1426,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が毎年恒例のアイコン書初めに挑戦。2025年の抱負を語り、筆や色を試しながら干支の蛇をモチーフにした絵を描きます。視聴者の反応を受けてデザインを調整し、配布用アイコンを完成させる創作配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "今年はレインボー",
+      "atSeconds": 7705,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "89e758918c633931502b8bb915a5402f378ee22f02b5b674f8a969601bf05f02",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:12:45.239565Z"
   }
 }
