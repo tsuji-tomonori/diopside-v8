@@ -121,6 +121,22 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "『ウマ娘』でマルゼンスキーを初めて育成する白雪巴が、新人トレーナーとして奮闘。会話イベントの独特な言い回しやスーパーカー談義に戸惑い、練習とレースの展開を追いながら、予想外の加速に大きく反応します。ゲーム内の台詞と率直なツッコミが交差する、勢いのある初育成です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "あっはい本当に私でよかったのかな",
+      "atSeconds": 30,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "2402c970fb6f22e7b4ed073b663f2e9aedf200a5e855038e7c4643993a571c78",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T00:37:26.083579Z"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -272,28 +288,28 @@
         "candidateHash": "78ffc787cba47250f87ee56b598506acee632d6a30b9df9d846dd4296de107ba",
         "majorIssues": 0,
         "reviewedAt": "2026-09-05T05:15:39.174365+00:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "78ffc787cba47250f87ee56b598506acee632d6a30b9df9d846dd4296de107ba",
         "majorIssues": 0,
         "reviewedAt": "2026-09-05T05:16:18.403705+00:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "publicationGate": {
         "mode": "pull-request-merge",
@@ -318,21 +334,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
-  "synopsis": {
-    "body": "『ウマ娘』でマルゼンスキーを初めて育成する白雪巴が、新人トレーナーとして奮闘。会話イベントの独特な言い回しやスーパーカー談義に戸惑い、練習とレースの展開を追いながら、予想外の加速に大きく反応します。ゲーム内の台詞と率直なツッコミが交差する、勢いのある初育成です。",
-    "bodyEvidenceRefs": [
-      "evidence-full-transcript"
-    ],
-    "featuredQuote": {
-      "text": "あっはい本当に私でよかったのかな",
-      "atSeconds": 30,
-      "evidenceRefs": [
-        "evidence-full-transcript"
-      ]
-    },
-    "inputFingerprint": "2402c970fb6f22e7b4ed073b663f2e9aedf200a5e855038e7c4643993a571c78",
-    "rulesVersion": "1.1.0",
-    "updatedAt": "2026-08-23T00:37:26.083579Z"
   }
 }

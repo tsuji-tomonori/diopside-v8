@@ -253,9 +253,19 @@ const wordCloudMissingSchema = z.object({
   updatedAt: isoDateTime,
 }).strict();
 
+export const customEmojiTimelineSchema = z.object({
+  bucketSeconds: z.literal(60),
+  durationSeconds: z.number().int().positive().max(604800),
+  // Each sparse pair is [index in usage.items, occurrence count]. Empty bins are retained.
+  bins: z.array(z.array(z.tuple([z.number().int().nonnegative(), z.number().int().positive()]))).min(1).max(10080),
+  beforeStartCount: z.number().int().nonnegative(),
+  afterEndCount: z.number().int().nonnegative(),
+  unpositionedCount: z.number().int().nonnegative(),
+}).strict();
+
 export const customEmojiUsageSchema = z.object({
   status: z.literal('集計済み'),
-  totalCount: z.number().int().positive(),
+  totalCount: z.number().int().nonnegative(),
   items: z.array(z.object({
     customEmojiId: z.string().regex(/^custom-emoji-[a-f0-9]{16}$/u),
     label: z.string().regex(/^:[^:\r\n]{1,38}:$/u),
@@ -264,9 +274,10 @@ export const customEmojiUsageSchema = z.object({
       .regex(/^https:\/\/yt3\.(?:ggpht\.com|googleusercontent\.com)\//u)
       .optional(),
     count: z.number().int().positive(),
-  }).strict()).min(1),
+  }).strict()),
+  timeline: customEmojiTimelineSchema.optional(),
   inputFingerprint: z.string().regex(/^[a-f0-9]{64}$/u),
-  rulesVersion: z.enum(['1.0.0', '1.1.0']),
+  rulesVersion: z.enum(['1.0.0', '1.1.0', '2.0.0']),
   updatedAt: isoDateTime,
 }).strict();
 
@@ -323,6 +334,7 @@ const taxonomyTagSchema = z.object({
   tagId: z.string().regex(/^tag-[a-zA-Z0-9-]+$/u),
   canonicalName: z.string().min(1),
   active: z.boolean(),
+  channelOwnerKind: z.enum(['individual', 'group']).optional(),
   inclusionCriteria: z.string().min(1),
   exclusionCriteria: z.string().min(1),
 }).strict();
@@ -819,6 +831,7 @@ export interface TaxonomyLookupItem {
   subcategoryName: string;
   tagId: string;
   canonicalName: string;
+  channelOwnerKind?: 'individual' | 'group';
 }
 
 export function buildTaxonomyLookup(taxonomy: TagTaxonomy): Map<string, TaxonomyLookupItem> {
@@ -833,6 +846,7 @@ export function buildTaxonomyLookup(taxonomy: TagTaxonomy): Map<string, Taxonomy
           subcategoryName: subcategory.name,
           tagId: tag.tagId,
           canonicalName: tag.canonicalName,
+          ...(tag.channelOwnerKind ? { channelOwnerKind: tag.channelOwnerKind } : {}),
         });
       }
     }

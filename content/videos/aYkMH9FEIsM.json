@@ -94,6 +94,22 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "白雪巴が、予定を変更して急きょ届ける大切な話。配信者同士の関わりや応援のあり方を振り返り、誰もが楽しく過ごすために、距離の近さから生まれる言葉の影響と自衛について静かに、しかしはっきり語ります。最後まで誠実に向き合う姿勢が伝わる一枠です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "自衛してねってずっと伝えてきてます",
+      "atSeconds": 386,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "5b0ea8ffdbff16fe866ad8199dc3ba80a670fb452675afbeb166dbb606d8d5b9",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T16:36:18.144359Z"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -164,28 +180,28 @@
         "candidateHash": "ac2a0d704609b5290c0fb0a325069aaffe425020cbd9fb22ec2feb1d00d9284e",
         "majorIssues": 0,
         "reviewedAt": "2026-09-05T04:43:33.815725+00:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "ac2a0d704609b5290c0fb0a325069aaffe425020cbd9fb22ec2feb1d00d9284e",
         "majorIssues": 0,
         "reviewedAt": "2026-09-05T04:44:11.211727+00:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "publicationGate": {
         "mode": "pull-request-merge",
@@ -210,21 +226,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
-  "synopsis": {
-    "body": "白雪巴が、予定を変更して急きょ届ける大切な話。配信者同士の関わりや応援のあり方を振り返り、誰もが楽しく過ごすために、距離の近さから生まれる言葉の影響と自衛について静かに、しかしはっきり語ります。最後まで誠実に向き合う姿勢が伝わる一枠です。",
-    "bodyEvidenceRefs": [
-      "evidence-full-transcript"
-    ],
-    "featuredQuote": {
-      "text": "自衛してねってずっと伝えてきてます",
-      "atSeconds": 386,
-      "evidenceRefs": [
-        "evidence-full-transcript"
-      ]
-    },
-    "inputFingerprint": "5b0ea8ffdbff16fe866ad8199dc3ba80a670fb452675afbeb166dbb606d8d5b9",
-    "rulesVersion": "1.1.0",
-    "updatedAt": "2026-08-23T16:36:18.144359Z"
   }
 }

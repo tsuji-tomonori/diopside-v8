@@ -14,3 +14,10 @@ Reject when any condition holds:
 - The list fails 0-second start, at least three items, integer unique ascending starts, 10-second spacing, duration bounds, Japanese label, allowed confidence, or unresolved-major-issue gates.
 
 Findings use `code`, `severity`, `timestampId` or `startSeconds`, `message`, `evidenceRefs`, and `resolution`. Reviewers report; they do not repair.
+
+## ゲスト交代・順次紹介企画
+
+- 事実確認: 各紹介名を該当区間の根拠へ解決し、紹介・投稿読上げと本人の通話登場を混同していないか確認する。匿名投稿の人物を推定しない。
+- 編集確認: 各ゲスト名で移動先が分かり、白雪巴の紹介と本人登場の開始が分かるか確認する。対象人物を確認できない一般的な「次のゲスト」への置換を合格にしない。根拠不足は具体的な再確認理由を残す。
+- 氏名確認を入口数秒だけで打ち切らず、同じ通話の後続発話と退出までの連続性を確認する。局所の発話者・相手・第三者を区別し、後からの呼称を一律に無効としない。前後編共通の名簿、過去の出演への回想、別枠への誘導を実際の入室へ変換しない。
+- 配信者が認めた匿名参加は公開名の欠落とみなさない。匿名方針とキャラクター等の公開識別情報を根拠へ解決し、未確認の人物名を隠すための一般ラベルへの置換とは区別する。

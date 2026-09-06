@@ -36,15 +36,15 @@
 |---|---:|
 | COST | 5 |
 | DEVICE | 11 |
-| DISPLAY | 21 |
+| DISPLAY | 23 |
 | INGEST | 17 |
 | OPS | 26 |
 | QUALITY | 5 |
 | SAFETY | 5 |
 | SEARCH | 22 |
 | TAG | 44 |
-| TIME | 37 |
-| **合計** | **193** |
+| TIME | 38 |
+| **合計** | **196** |
 
 ## 公開データの流れ
 
@@ -55,7 +55,7 @@
 | ファイル | 種別 | 名前 |
 |---|---|---|
 | `scripts/aggregate-custom-emoji-usage.ts` | FunctionDeclaration | `aggregateCustomEmojiUsage` |
-| `scripts/aggregate-custom-emoji-usage.ts` | InterfaceDeclaration | `CustomEmojiUsageAggregate` |
+| `scripts/aggregate-custom-emoji-usage.ts` | TypeAliasDeclaration | `CustomEmojiUsageAggregate` |
 | `scripts/aggregate-custom-emoji-usage.ts` | InterfaceDeclaration | `CustomEmojiUsageItem` |
 | `scripts/aggregate-word-cloud.ts` | FunctionDeclaration | `aggregateWordCloud` |
 | `scripts/aggregate-word-cloud.ts` | TypeAliasDeclaration | `AudienceWordCloudInputType` |
@@ -129,6 +129,7 @@
 | `src/domain/content.ts` | TypeAliasDeclaration | `CollaborationProfiles` |
 | `src/domain/content.ts` | VariableStatement | `collaborationProfilesSchema` |
 | `src/domain/content.ts` | VariableStatement | `confidenceSchema` |
+| `src/domain/content.ts` | VariableStatement | `customEmojiTimelineSchema` |
 | `src/domain/content.ts` | VariableStatement | `customEmojiUsageSchema` |
 | `src/domain/content.ts` | VariableStatement | `entityRelationTypeSchema` |
 | `src/domain/content.ts` | TypeAliasDeclaration | `EntityType` |
@@ -222,6 +223,8 @@
 | `src/domain/search.ts` | FunctionDeclaration | `tagCountsForResults` |
 | `src/domain/search.ts` | FunctionDeclaration | `tokenizeQuery` |
 | `src/domain/search.ts` | FunctionDeclaration | `validateCondition` |
+| `src/domain/sequential-guest-audit.ts` | FunctionDeclaration | `auditSequentialGuestTags` |
+| `src/domain/sequential-guest-audit.ts` | InterfaceDeclaration | `SequentialGuestRecord` |
 | `src/domain/tag-assignment-audit.ts` | FunctionDeclaration | `auditTagAssignmentCoverage` |
 | `src/domain/tag-assignment-audit.ts` | InterfaceDeclaration | `TagAssignmentAuditResult` |
 | `src/domain/tag-assignment-audit.ts` | InterfaceDeclaration | `TagAssignmentAuditRow` |
@@ -236,6 +239,8 @@
 | `src/domain/validation.ts` | InterfaceDeclaration | `ValidationIssue` |
 | `src/features/collaborations/CollaboratorDetailPage.tsx` | FunctionDeclaration | `CollaboratorDetailPage` |
 | `src/features/collaborations/GroupDetailPage.tsx` | FunctionDeclaration | `GroupDetailPage` |
+| `src/features/detail/EmojiDensity.tsx` | FunctionDeclaration | `EmojiDensity` |
+| `src/features/detail/EmojiDensity.tsx` | FunctionDeclaration | `EmojiIcon` |
 | `src/features/detail/VideoDetailPage.tsx` | FunctionDeclaration | `VideoDetailPage` |
 | `src/features/detail/WordCloud.tsx` | FunctionDeclaration | `WordCloud` |
 | `src/features/detail/WordCloud.tsx` | FunctionDeclaration | `wordCloudEyebrow` |
@@ -272,6 +277,7 @@
 - `src/domain/collaboration.test.ts`
 - `src/domain/game-title-detection.test.ts`
 - `src/domain/search.test.ts`
+- `src/domain/sequential-guest-audit.test.ts`
 - `src/domain/tag-assignment-audit.test.ts`
 - `src/domain/validation.test.ts`
 - `src/features/collaborations/CollaborationDetailPages.test.tsx`
@@ -286,4 +292,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力85ファイル、公開契約204件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力89ファイル、公開契約209件です。

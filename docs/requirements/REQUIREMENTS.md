@@ -1,8 +1,8 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 35
-- 更新日: 2026-09-04
+- カタログ版: 38
+- 更新日: 2026-09-05
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
@@ -44,6 +44,8 @@
 | `V8-DISPLAY-019` | 2 | 有効 | 機能 | diopside v8のエンティティ探索画面は、人物・作品・企画一覧はエンティティ名と種類で絞り込めなければならず、公開中の関連動画が1件以上あるエンティティだけを一覧件数とカードへ含めなければならない。詳細は動画との関係種別別件数、関連エンティティ、分類値、関連動画を表示し、検索候補および動画詳細のエンティティ参照から同じエンティティIDのURLへ移動できなければならない。を**satisfy** | 一覧絞り込み・0件除外・関係表示・検索候補・動画詳細導線試験 |
 | `V8-DISPLAY-020` | 1 | 有効 | 機能 | diopside v8のサイト識別表示は、公開画面は、diopsideが白雪巴さんの公開アーカイブを扱う非公式ファンサイトであることを明示しなければならない。を**satisfy** | 公開画面・メタデータ文言試験 |
 | `V8-DISPLAY-021` | 1 | 有効 | 機能 | diopside v8のAI生成情報表示は、公開画面は、タグ、あらすじ、タイムスタンプがAIによって生成され、誤りを含む場合があることを明示し、人が確認した情報であると表示してはならない。を**satisfy** | 検索画面・動画詳細・共通フッター文言試験 |
+| `V8-DISPLAY-022` | 1 | 有効 | データ | diopside v8のカスタム絵文字集計は、時刻とカスタム絵文字を識別できる保存済み元チャットから、絵文字別の時間帯集計を再生成できなければならない。同じ投稿の再出現や本文外の表示を重複加算せず、開始前・終了後・時刻不明を再生時間内の密度から分離し、ゼロ件の区間も表現しなければならない。を**satisfy** | 境界・重複・合計整合・入力形式試験 |
+| `V8-DISPLAY-023` | 2 | 有効 | 機能 | diopside v8の動画詳細は、時間帯別集計のある動画詳細は、初期状態で全区間を選択し、絵文字密度の波の開始・終了位置をシークバーのようにドラッグして自由に調整できなければならない。絵文字別画像・表示名・回数、集計範囲の総数・割合・密度を確認し、選択した区間開始または区間内ピークからYouTubeで再生できなければならない。を**satisfy** | 区間操作・再生リンク・アクセシビリティ試験 |
 | `V8-INGEST-001` | 3 | 有効 | インターフェース | diopside v8のローカルprivate ingestion要求は、運用者が指定するingestion要求は11文字のYouTube video_id一項目だけを含み、認証情報または内部状態を含んではならない。を**強制する** | 契約・CLI単体試験 |
 | `V8-INGEST-002` | 4 | 有効 | データ | diopside v8のprivate backfill対象は、複数動画の歴史素材backfillはcontent catalogとtimestamp ledgerの既知video_idからrevision付きの不変target manifestを生成し、完了まで将来動画を追加してはならない。対象を変更する場合は新しいrevisionとSHA-256を作成し、実行中manifestを黙って変更してはならない。を**強制する** | manifest生成・改ざん・ローカル実行試験 |
 | `V8-INGEST-003` | 2 | 有効 | データ | diopside v8のprivate ingestion状態は、進捗状態はVideoIngestion単一DynamoDB tableのvideo_id partition keyだけを使う一動画一itemで保持し、sort key、GSI、用途別item typeを追加してはならない。を**強制する** | CDK template・状態repository・ローカル統合試験 |
@@ -131,7 +133,7 @@
 | `V8-TAG-010` | 1 | 有効 | データ | diopside v8のタグは、雑談を主または副ジャンルに持つ動画は、雑談種別を1件以上3件以下持たなければならない。を**satisfy** | 条件付き必須試験 |
 | `V8-TAG-011` | 1 | 有効 | データ | diopside v8のタグは、同時視聴を主ジャンルに持つ動画は、同時視聴メディアを1件持ち、動画タイトル、動画固有の説明、公式作品表記のいずれかが一つの作品を示す場合は同時視聴作品名を1件以上持たなければならない。を**satisfy** | 条件付き必須・否定試験 |
 | `V8-TAG-012` | 1 | 有効 | データ | diopside v8のタグは、朗読・声劇を主ジャンルに持つ動画は、朗読・声劇種別を1件持たなければならない。を**satisfy** | 条件付き必須試験 |
-| `V8-TAG-013` | 2 | 有効 | データ | diopside v8のタグは、コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸は配信主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。を**satisfy** | 人物タグ正本・表示名・役割別コラボ相手選別試験 |
+| `V8-TAG-013` | 3 | 有効 | データ | diopside v8のタグは、コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸および別チャンネルのゲスト交代・順次紹介企画はチャンネル主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。を**satisfy** | 人物タグ正本・表示名・役割別コラボ相手選別試験 |
 | `V8-TAG-014` | 2 | 有効 | データ | diopside v8のタグは、ユニット・チームタグは、その構成員全員だけが動画全体の主たる共演単位であり、実際に出演している場合に限って付与しなければならない。構成員以外を含む多人数コラボ、凸待ち・逆凸、番組・大会・企画の一部分へのゲスト参加、対戦相手としての登場には付与せず、ユニットタグを根拠に欠席した構成員を出演者へ自動追加してはならない。を**satisfy** | ユニット候補・構成員集合・多人数企画・凸待ち除外の横断監査 |
 | `V8-TAG-015` | 2 | 有効 | データ | diopside v8のタグは、実出演者と配信中に名前を話題にした人物は、それぞれfeaturesとmentionsの動画関係として分離しなければならない。同じ人物が両方の役割へ現れても人物マスターを複製せず、同じ人物エンティティIDへ解決しなければならない。言及だけでコラボを付与してはならない。を**satisfy** | 人物同一性・役割分離・コラボ非導出試験 |
 | `V8-TAG-016` | 1 | 有効 | データ | diopside v8のタグは、一つのタグには一つの検索対象または一つの分類事実だけを保存し、複数人物や独立概念を連結したタグは分解しなければならない。を**satisfy** | 分解規則試験 |
@@ -200,6 +202,7 @@
 | `V8-TIME-035` | 1 | 有効 | データ | diopside v8の時刻は、タイムスタンプ生成来歴から、動画、入力指紋、根拠の種類と範囲、生成規則版、生成日時、確認結果、確認プルリクエストを追跡できなければならない。を**satisfy** | 追跡性・冪等性試験 |
 | `V8-TIME-036` | 2 | 有効 | データ | diopside v8の時刻は、初回公開前に、ゲーム8件、企画6件、雑談5件、ASMR3件、歌2件、朗読・声劇2件、同時視聴2件、TRPG2件の固定30動画で品質を確認しなければならない。承認済み旧データを使う場合は、旧パイロットの不合格を合格へ読み替えず、別の承認済み固定30件を選び、承認元とv8決定的検証を確認する。を**satisfy** | 固定評価データによる受入試験 |
 | `V8-TIME-037` | 1 | 有効 | データ | diopside v8の時刻は、公開画面は各タイムスタンプの由来を「作成者による時刻一覧」「作成者一覧を基にdiopsideで調整」「diopsideで作成した時刻一覧」のいずれかとして区別し、YouTube公式情報と誤認させてはならない。を**satisfy** | 文言・画面試験 |
+| `V8-TIME-038` | 1 | 有効 | データ | タイムスタンプ生成・更新処理は、別チャンネルのゲスト交代・順次紹介企画では各区間の対象人物を章名へ記載し、白雪巴の紹介開始と本人の通話・出演開始を区別する。人物名や時刻を順番やコメントだけから推測してはならない。を**satisfy** | 人物名付き章候補の事実・編集確認と決定的検証 |
 
 ## V8-COST-001: 公開面のサービス運用に起因する請求額は既存のChatGPT／Codex契約を除いて毎月0円でなければならない
 
@@ -772,6 +775,37 @@ diopside v8のAI生成情報表示は、公開画面は、タグ、あらすじ�
 要求源: spec/sources/owner-directive-2026-09-04-ai-generated-fan-site-disclosure.md, user:2026-09-04
 検証証跡: tests/site-disclosure.test.ts, e2e/search.spec.ts, e2e/detail.spec.ts
 トレース: 設計=docs/design/generated/system.gen.md; 実装=src/App.tsx,src/features/search/SearchPage.tsx,src/features/detail/VideoDetailPage.tsx; テスト=tests/site-disclosure.test.ts,e2e/search.spec.ts,e2e/detail.spec.ts; 参照資料=spec/sources/owner-directive-2026-09-04-ai-generated-fan-site-disclosure.md,dev-standard assured profile
+
+## V8-DISPLAY-022: 保存済みチャットからカスタム絵文字の時間帯別密度を再集計できなければならない
+
+diopside v8のカスタム絵文字集計は、時刻とカスタム絵文字を識別できる保存済み元チャットから、絵文字別の時間帯集計を再生成できなければならない。同じ投稿の再出現や本文外の表示を重複加算せず、開始前・終了後・時刻不明を再生時間内の密度から分離し、ゼロ件の区間も表現しなければならない。を**satisfy**。
+
+根拠: 投稿の集中する区間を正しい再生時刻で比較し、再解析可能な保存素材を活用するため。時間粒度と保存形式は可逆な実装判断に委ねる。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-022-1` 前提: 時刻付きカスタム絵文字、重複投稿、区間境界、時刻不明を含む保存済み元チャット。条件: 再集計する。期待結果: 時間帯内訳と開始前・終了後・時刻不明の合計が総使用回数と一致し、全種類の回数を再現する。破損した入力を正常な部分集計として反映せず、素材なしと集計ゼロを区別する。。
+
+要求源: spec/sources/owner-directive-2026-09-05-emoji-density.md, user:2026-09-05
+検証証跡: tests/custom-emoji-usage.test.ts, src/domain/validation.test.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=scripts/aggregate-custom-emoji-usage.ts,scripts/reanalyze-emoji-density.ts,src/domain/content.ts,src/domain/validation.ts; テスト=tests/custom-emoji-usage.test.ts,src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=V8-DISPLAY-017
+
+## V8-DISPLAY-023: 動画詳細で絵文字の密度から区間を選び内訳と再生位置を確認できなければならない
+
+diopside v8の動画詳細は、時間帯別集計のある動画詳細は、初期状態で全区間を選択し、絵文字密度の波の開始・終了位置をシークバーのようにドラッグして自由に調整できなければならない。絵文字別画像・表示名・回数、集計範囲の総数・割合・密度を確認し、選択した区間開始または区間内ピークからYouTubeで再生できなければならない。を**satisfy**。
+
+根拠: 参考HTMLの区間選択と画像付き内訳を、静的なブラウザ内処理とモバイル・キーボード操作で利用できるようにするため。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-DISPLAY-023-1` 前提: 時間帯別集計を持つ動画詳細。条件: モバイルまたはデスクトップで区間を選択・微調整する。期待結果: 正逆両順の区間選択で回数と割合が一致し、ゼロ区間と短い末尾区間を正しく表示する。画像取得失敗時も表示名が残り、区間開始・ピークへのリンクが選択時刻と一致する。。
+- `AC-V8-DISPLAY-023-2` 前提: 時間帯別集計を持つ動画詳細を初めて開く。条件: マウス・タッチで開始と終了をドラッグし、キーボードで微調整する。期待結果: 最初は全区間を選択し、固定マスへ吸着せず秒単位で開始・終了を選べる。範囲は交差せず動画尺内に保つ。1分集計の内訳と秒単位の再生位置を区別し、部分区間の密度を過大表示しない。全体選択で初期範囲へ戻せる。。
+
+要求源: spec/sources/owner-directive-2026-09-05-emoji-density.md, user:2026-09-05
+検証証跡: e2e/detail.spec.ts
+トレース: 設計=docs/design/generated/system.gen.md; 実装=src/features/detail/EmojiDensity.tsx,src/features/detail/VideoDetailPage.tsx,src/styles.css,scripts/build-public-data.ts; テスト=e2e/detail.spec.ts; 参照資料=V8-DISPLAY-018
 
 ## V8-INGEST-001: ローカルingestion要求はvideo_idだけを含む厳格な11文字契約でなければならない
 
@@ -2112,9 +2146,9 @@ diopside v8のタグは、朗読・声劇を主ジャンルに持つ動画は、
 検証証跡: src/domain/validation.test.ts, tests/content-validation.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-TAG-013: コラボ相手は人物名で登録し、多人数の凸待ち・継続ラジオでは役割で限定しなければならない
+## V8-TAG-013: コラボ相手は人物名で登録し、凸待ち・順次紹介企画・継続ラジオでは役割で限定しなければならない
 
-diopside v8のタグは、コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸は配信主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。を**satisfy**。
+diopside v8のタグは、コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸および別チャンネルのゲスト交代・順次紹介企画はチャンネル主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。を**satisfy**。
 
 根拠: 表示名の変更や同名異義に耐える、根拠付きの分類を維持するため。
 
@@ -2122,12 +2156,12 @@ diopside v8のタグは、コラボ動画には白雪巴以外の実出演者を
 
 受入条件:
 - `AC-V8-TAG-013-1` 前提: 通常のコラボ動画に白雪巴以外の実出演者がいる。条件: 人物タグの正本・表示名検査。期待結果: 実出演者を人物名の出演者タグとして登録し、チャンネル表示名を人物タグへ保存しない。。
-- `AC-V8-TAG-013-2` 前提: 白雪巴が凸待ちまたは逆凸の一部へ参加する。条件: 役割別コラボ相手選別試験。期待結果: 配信主だけをコラボ相手とし、同じ配信の他の凸参加者を登録しない。。
+- `AC-V8-TAG-013-2` 前提: 白雪巴が凸待ち・逆凸または別チャンネルのゲスト交代・人物や投稿の順次紹介企画の一部へ参加する。条件: 役割別コラボ相手選別試験。期待結果: 配信主だけをコラボ相手とし、同じ配信の別枠のゲスト・紹介対象・ゲスト由来のグループを登録しない。団体公式チャンネルは既存のチャンネルタグで主催団体を表し、代表個人やコラボユニットを推測しない。同時参加の通常ゲームコラボは実出演者を維持する。。
 - `AC-V8-TAG-013-3` 前提: 白雪巴が継続する公式ラジオ等へ固定出演し、その回に単発ゲストもいる。条件: 役割別コラボ相手選別試験。期待結果: 固定の相手だけをコラボ相手とし、単発ゲストとスタッフを登録しない。。
 
-要求源: Issue #1 V8-タグ-013, user:2026-08-03, spec/sources/owner-directive-2026-08-15-collaboration-pages.md, user:2026-08-15
+要求源: Issue #1 V8-タグ-013, user:2026-08-03, spec/sources/owner-directive-2026-08-15-collaboration-pages.md, user:2026-08-15, spec/sources/owner-directive-2026-09-05-sequential-guests.md
 検証証跡: src/domain/collaboration.test.ts, tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/collaboration.ts,content/people/collaboration-profiles.json; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,src/domain/collaboration.test.ts; 参照資料=Issue #1,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=src/domain/content.ts,scripts/validate-content.ts,src/domain/collaboration.ts,content/people/collaboration-profiles.json,src/domain/sequential-guest-audit.ts; テスト=src/domain/validation.test.ts,tests/content-validation.test.ts,src/domain/collaboration.test.ts,src/domain/sequential-guest-audit.test.ts; 参照資料=Issue #1,dev-standard default profile
 
 ## V8-TAG-014: ユニットタグは構成員だけが動画全体の主たる共演単位である場合に限らなければならない
 
@@ -3160,3 +3194,18 @@ diopside v8の時刻は、公開画面は各タイムスタンプの由来を「
 要求源: Issue #1 V8-時刻-037, user:2026-08-03
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
+
+## V8-TIME-038: ゲスト交代企画の時刻一覧は紹介対象と白雪巴の登場位置を示さなければならない
+
+タイムスタンプ生成・更新処理は、別チャンネルのゲスト交代・順次紹介企画では各区間の対象人物を章名へ記載し、白雪巴の紹介開始と本人の通話・出演開始を区別する。人物名や時刻を順番やコメントだけから推測してはならない。を**satisfy**。
+
+根拠: 他のゲストとのコラボ分類を増やさずに、白雪巴の区間へ直接移動できるようにする。
+
+分類: `product` / `functional`
+
+受入条件:
+- `AC-V8-TIME-038-1` 前提: ゲスト交代・順次紹介企画の時刻一覧を作成または更新する。条件: 全編根拠または作成者一覧による章名・登場境界の独立確認。期待結果: 紹介区間に対象人物名があり、白雪巴の紹介・登場位置が分かる。投稿読上げだけの区間を本人登場と表示せず、未確認の人物・秒数は確定せず再確認対象として記録する。。
+
+要求源: spec/sources/owner-directive-2026-09-05-sequential-guests.md
+検証証跡: tests/timestamp_tools_test.py, .agents/skills/audit-stream-chapters/references/review-rubric.md
+トレース: 設計=docs/design/generated/system.gen.md; 実装=.agents/skills/compose-stream-chapters,.agents/skills/curate-video-content; テスト=tests/timestamp_tools_test.py; 参照資料=spec/sources/owner-directive-2026-09-05-sequential-guests.md

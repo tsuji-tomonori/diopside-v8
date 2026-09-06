@@ -5,7 +5,7 @@ export interface CollaborationCandidate {
   isFixedRadioPartner: boolean;
 }
 
-export type CollaborationSelectionPolicy = 'all-partners' | 'call-in-host-only' | 'regular-radio-fixed-partners-only';
+export type CollaborationSelectionPolicy = 'all-partners' | 'call-in-host-only' | 'sequential-guest-host-only' | 'regular-radio-fixed-partners-only';
 
 export function selectCollaboratorNames(
   candidates: CollaborationCandidate[],
@@ -14,7 +14,7 @@ export function selectCollaboratorNames(
   return [...new Set(candidates
     .filter((candidate) => !candidate.isSubject)
     .filter((candidate) => {
-      if (policy === 'call-in-host-only') return candidate.isHost;
+      if (policy === 'call-in-host-only' || policy === 'sequential-guest-host-only') return candidate.isHost;
       if (policy === 'regular-radio-fixed-partners-only') return candidate.isFixedRadioPartner;
       return true;
     })

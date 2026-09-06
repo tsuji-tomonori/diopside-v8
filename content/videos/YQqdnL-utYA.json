@@ -94,6 +94,22 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "白雪巴が、リスナーの考えた「IF世界の自分」10案を紹介し、イラストや設定、セリフを手がかりに声色や演じ方を試していく。カラスの女王、軍人、メイドなど多彩な役柄を行き来し、収録の振り返りや応募方法の案内も交えながら、創作を受け取る喜びを語る配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "楽しいなやっぱりね",
+      "atSeconds": 4705,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "85d227e37dd64bb6d8e53990d51294e5f819cadf15f1c2d39e201553e2ac01c4",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T15:39:55.468272Z"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -299,28 +315,28 @@
         "candidateHash": "f196de8ab8b657cb334f9572b42a81c889335704841249b3d04ab0ec664f65e0",
         "majorIssues": 0,
         "reviewedAt": "2026-09-05T06:19:29.945545+00:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "f196de8ab8b657cb334f9572b42a81c889335704841249b3d04ab0ec664f65e0",
         "majorIssues": 0,
         "reviewedAt": "2026-09-05T06:20:03.858008+00:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "publicationGate": {
         "mode": "pull-request-merge",
@@ -345,21 +361,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
-  "synopsis": {
-    "body": "白雪巴が、リスナーの考えた「IF世界の自分」10案を紹介し、イラストや設定、セリフを手がかりに声色や演じ方を試していく。カラスの女王、軍人、メイドなど多彩な役柄を行き来し、収録の振り返りや応募方法の案内も交えながら、創作を受け取る喜びを語る配信。",
-    "bodyEvidenceRefs": [
-      "evidence-full-transcript"
-    ],
-    "featuredQuote": {
-      "text": "楽しいなやっぱりね",
-      "atSeconds": 4705,
-      "evidenceRefs": [
-        "evidence-full-transcript"
-      ]
-    },
-    "inputFingerprint": "85d227e37dd64bb6d8e53990d51294e5f819cadf15f1c2d39e201553e2ac01c4",
-    "rulesVersion": "1.1.0",
-    "updatedAt": "2026-08-22T15:39:55.468272Z"
   }
 }

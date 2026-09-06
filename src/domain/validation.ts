@@ -109,6 +109,9 @@ export function validateTaxonomy(input: unknown, aliasesInput: unknown): Validat
     if (tagIds.has(tag.tagId)) issues.push(issue('TAG_ID_DUPLICATED', tag.tagId, '不変タグ識別子が重複しています。'));
     tagIds.add(tag.tagId);
     if (tag.active) activeTagIds.add(tag.tagId);
+    if (tag.channelOwnerKind && (tag.categoryId !== 'people' || tag.subcategoryId !== 'channel')) {
+      issues.push(issue('CHANNEL_OWNER_KIND_INVALID', tag.tagId, 'チャンネル所有者の種別は人物・グループのチャンネルタグだけに指定できます。'));
+    }
     if (taxonomy.prohibitedCanonicalNames.includes(tag.canonicalName) || /レビュー/u.test(tag.canonicalName)) {
       issues.push(issue('TAG_PROHIBITED_NAME', tag.tagId, '禁止された確定タグ名です。'));
     }
@@ -602,7 +605,8 @@ function validateConditionalTags(
   const isCollaboration = tags.some((tag) => tag.categoryId === 'context' && tag.subcategoryId === 'participation' && tag.canonicalName === 'コラボ');
   const units = tags.filter((tag) => tag.categoryId === 'people' && tag.subcategoryId === 'unit');
   const collaboratorNames = new Set([...performerNames].filter((name) => name !== '白雪巴'));
-  if (isCollaboration && collaboratorNames.size === 0) {
+  const hasGroupChannelHost = tags.some((tag) => tag.categoryId === 'people' && tag.subcategoryId === 'channel' && tag.channelOwnerKind === 'group');
+  if (isCollaboration && collaboratorNames.size === 0 && !hasGroupChannelHost) {
     issues.push(issue('COLLABORATION_WITHOUT_PERFORMER', 'tagAssignments', 'コラボには白雪巴以外のコラボ相手が必要です。'));
   }
   if (units.length > 0 && (!isCollaboration || performerNames.size === 0)) {
@@ -793,6 +797,27 @@ function validateWordCloud(video: CanonicalVideo, issues: ValidationIssue[]): vo
 function validateCustomEmojiUsage(video: CanonicalVideo, issues: ValidationIssue[]): void {
   const usage = video.customEmojiUsage;
   if (!usage) return;
+  if (usage.rulesVersion === '2.0.0' && !usage.timeline) {
+    issues.push(issue('CUSTOM_EMOJI_TIMELINE_REQUIRED', 'customEmojiUsage.timeline', '新規則の集計には時間帯別データが必要です。'));
+  }
+  if (usage.timeline) {
+    const timeline = usage.timeline;
+    const totals = usage.items.map(() => 0);
+    let invalid = timeline.durationSeconds !== video.durationSeconds
+      || timeline.bins.length !== Math.ceil(timeline.durationSeconds / timeline.bucketSeconds);
+    for (const bin of timeline.bins) {
+      let previous = -1;
+      for (const [index, count] of bin) {
+        if (index <= previous || index >= totals.length) invalid = true;
+        else totals[index] = totals[index]! + count;
+        previous = index;
+      }
+    }
+    const positioned = totals.reduce((sum, count) => sum + count, 0);
+    if (positioned + timeline.beforeStartCount + timeline.afterEndCount + timeline.unpositionedCount !== usage.totalCount
+      || totals.some((count, index) => count > usage.items[index]!.count)) invalid = true;
+    if (invalid) issues.push(issue('CUSTOM_EMOJI_TIMELINE_MISMATCH', 'customEmojiUsage.timeline', '動画尺、時間帯別回数、除外回数、項目参照が一致しません。'));
+  }
   const ids = new Set<string>();
   let actualTotal = 0;
   for (const [index, item] of usage.items.entries()) {

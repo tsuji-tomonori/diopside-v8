@@ -539,6 +539,7 @@ function toDetail(video: CanonicalVideo, currentReleaseId: string): PublicVideoD
         status: video.customEmojiUsage.status,
         totalCount: video.customEmojiUsage.totalCount,
         items: video.customEmojiUsage.items,
+        ...(video.customEmojiUsage.timeline ? { timeline: video.customEmojiUsage.timeline } : {}),
         rulesVersion: video.customEmojiUsage.rulesVersion,
         updatedAt: video.customEmojiUsage.updatedAt,
       }

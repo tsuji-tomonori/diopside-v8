@@ -5,6 +5,7 @@ import { useBundle, useDeviceStore } from '../../contexts.ts';
 import type { PublicVideoDetail } from '../../domain/content.ts';
 import { formatDate, formatDuration, formatTimestamp } from '../../format.ts';
 import { loadVideoDetail, PublicDataError } from '../../data/loadPublicData.ts';
+import { EmojiDensity } from './EmojiDensity.tsx';
 import { WordCloud, wordCloudEyebrow } from './WordCloud.tsx';
 
 export function VideoDetailPage(): React.JSX.Element {
@@ -173,7 +174,8 @@ export function VideoDetailPage(): React.JSX.Element {
               <p><strong>{detail.customEmojiUsage.totalCount.toLocaleString('ja-JP')}</strong><span>総使用回数</span></p>
               <p><strong>{detail.customEmojiUsage.items.length.toLocaleString('ja-JP')}</strong><span>絵文字の種類</span></p>
             </div>
-            <p className="notice">公開チャットリプレイ内のカスタム絵文字だけを全件集計しています。比率は総使用回数に占める割合です。</p>
+            {detail.customEmojiUsage.timeline ? <EmojiDensity key={detail.videoId} usage={detail.customEmojiUsage} timeline={detail.customEmojiUsage.timeline} videoId={detail.videoId} timestamps={detail.timestamps} /> : <p className="notice">時間帯別データは未集計です。</p>}
+            <p className="notice">保存済みの公開チャットリプレイ内のカスタム絵文字を集計しています。比率は総使用回数に占める割合です。</p>
             <ol className="custom-emoji-chart" aria-label="カスタム絵文字の使用比率">
               {detail.customEmojiUsage.items.map((item) => {
                 const ratio = item.count / detail.customEmojiUsage!.totalCount;

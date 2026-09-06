@@ -94,6 +94,22 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "白雪巴が新ビジュアルを自ら切り出したパズルでお披露目。視聴者とピースの形や絵柄を考えながら組み上げ、完成に近づくたびに盛り上がります。パズル談義や新衣装への思い、準備の裏話も交えた手作り感あふれる企画です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "こういう作業大好き",
+      "atSeconds": 4683,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "dbdfbeaa391f6ef6dacf060f67f60e4791cffa17f7f4dde95cde3efcdc4a9628",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T23:50:26.543718Z"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -191,28 +207,28 @@
         "candidateHash": "b10c2c4aa8da7e9ebef9a86013f03e82045ec23e753c7aac432a6291f4d336ca",
         "majorIssues": 0,
         "reviewedAt": "2026-09-05T06:34:40.536212+00:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "b10c2c4aa8da7e9ebef9a86013f03e82045ec23e753c7aac432a6291f4d336ca",
         "majorIssues": 0,
         "reviewedAt": "2026-09-05T06:35:08.623297+00:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "publicationGate": {
         "mode": "pull-request-merge",
@@ -237,21 +253,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
-  "synopsis": {
-    "body": "白雪巴が新ビジュアルを自ら切り出したパズルでお披露目。視聴者とピースの形や絵柄を考えながら組み上げ、完成に近づくたびに盛り上がります。パズル談義や新衣装への思い、準備の裏話も交えた手作り感あふれる企画です。",
-    "bodyEvidenceRefs": [
-      "evidence-full-transcript"
-    ],
-    "featuredQuote": {
-      "text": "こういう作業大好き",
-      "atSeconds": 4683,
-      "evidenceRefs": [
-        "evidence-full-transcript"
-      ]
-    },
-    "inputFingerprint": "dbdfbeaa391f6ef6dacf060f67f60e4791cffa17f7f4dde95cde3efcdc4a9628",
-    "rulesVersion": "1.1.0",
-    "updatedAt": "2026-08-22T23:50:26.543718Z"
   }
 }

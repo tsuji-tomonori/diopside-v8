@@ -638,10 +638,10 @@ const requirements = sourceRequirements.map((item) => {
     requirement.last_changed_by = 'OWNER-DIRECTIVE-2026-08-04';
   }
   if (id === 'V8-TAG-013') {
-    requirement.revision = 2;
-    requirement.title = 'コラボ相手は人物名で登録し、多人数の凸待ち・継続ラジオでは役割で限定しなければならない';
-    requirement.object = 'コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸は配信主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。';
-    requirement.source_refs.push('spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'user:2026-08-15');
+    requirement.revision = 3;
+    requirement.title = 'コラボ相手は人物名で登録し、凸待ち・順次紹介企画・継続ラジオでは役割で限定しなければならない';
+    requirement.object = 'コラボ動画には白雪巴以外の実出演者をチャンネル表示名ではなく人物名で登録しなければならない。ただし、凸待ち・逆凸および別チャンネルのゲスト交代・順次紹介企画はチャンネル主だけ、継続する公式ラジオ等は固定の相手だけをコラボ相手とし、他の凸参加者、単発ゲスト、スタッフ、言及人物、クレジット制作者を含めてはならない。';
+    requirement.source_refs.push('spec/sources/owner-directive-2026-08-15-collaboration-pages.md', 'user:2026-08-15', 'spec/sources/owner-directive-2026-09-05-sequential-guests.md');
     requirement.acceptance_criteria = [
       {
         id: 'AC-V8-TAG-013-1',
@@ -651,9 +651,9 @@ const requirements = sourceRequirements.map((item) => {
       },
       {
         id: 'AC-V8-TAG-013-2',
-        given: '白雪巴が凸待ちまたは逆凸の一部へ参加する',
+        given: '白雪巴が凸待ち・逆凸または別チャンネルのゲスト交代・人物や投稿の順次紹介企画の一部へ参加する',
         when: '役割別コラボ相手選別試験',
-        then: '配信主だけをコラボ相手とし、同じ配信の他の凸参加者を登録しない。',
+        then: '配信主だけをコラボ相手とし、同じ配信の別枠のゲスト・紹介対象・ゲスト由来のグループを登録しない。団体公式チャンネルは既存のチャンネルタグで主催団体を表し、代表個人やコラボユニットを推測しない。同時参加の通常ゲームコラボは実出演者を維持する。',
       },
       {
         id: 'AC-V8-TAG-013-3',
@@ -668,7 +668,11 @@ const requirements = sourceRequirements.map((item) => {
     };
     requirement.traces.implementation.push('src/domain/collaboration.ts', 'content/people/collaboration-profiles.json');
     requirement.traces.tests.push('src/domain/collaboration.test.ts');
-    requirement.last_changed_by = 'CHG-20260815-collaboration-pages';
+    requirement.scope = 'product';
+    requirement.category = 'functional';
+    requirement.traces.implementation.push('src/domain/sequential-guest-audit.ts');
+    requirement.traces.tests.push('src/domain/sequential-guest-audit.test.ts');
+    requirement.last_changed_by = 'CHG-20260905-sequential-guests';
   }
   if (id === 'V8-TAG-014') {
     requirement.revision = 2;
@@ -2136,7 +2140,128 @@ const siteDisclosureRequirements = [
     last_changed_by: 'CHG-20260904-ai-generated-fan-site-disclosure',
   },
 ];
+const sequentialGuestRequirements = [{
+  id: 'V8-TIME-038', revision: 1, status: 'active', scope: 'product', category: 'functional',
+  type: 'data', title: 'ゲスト交代企画の時刻一覧は紹介対象と白雪巴の登場位置を示さなければならない',
+  subject: 'タイムスタンプ生成・更新処理', action: 'satisfy',
+  object: '別チャンネルのゲスト交代・順次紹介企画では各区間の対象人物を章名へ記載し、白雪巴の紹介開始と本人の通話・出演開始を区別する。人物名や時刻を順番やコメントだけから推測してはならない。',
+  rationale: '他のゲストとのコラボ分類を増やさずに、白雪巴の区間へ直接移動できるようにする。',
+  source_refs: ['spec/sources/owner-directive-2026-09-05-sequential-guests.md'],
+  acceptance_criteria: [{ id: 'AC-V8-TIME-038-1',
+    given: 'ゲスト交代・順次紹介企画の時刻一覧を作成または更新する',
+    when: '全編根拠または作成者一覧による章名・登場境界の独立確認',
+    then: '紹介区間に対象人物名があり、白雪巴の紹介・登場位置が分かる。投稿読上げだけの区間を本人登場と表示せず、未確認の人物・秒数は確定せず再確認対象として記録する。',
+  }],
+  verification: { method: '人物名付き章候補の事実・編集確認と決定的検証', evidence: 'tests/timestamp_tools_test.py, .agents/skills/audit-stream-chapters/references/review-rubric.md' },
+  traces: { design: ['docs/design/generated/system.gen.md'], implementation: ['.agents/skills/compose-stream-chapters', '.agents/skills/curate-video-content'], tests: ['tests/timestamp_tools_test.py'], standards: ['spec/sources/owner-directive-2026-09-05-sequential-guests.md'] },
+  last_changed_by: 'CHG-20260905-sequential-guests',
+}];
+const emojiDensityRequirements = [
+  {
+    "id": "V8-DISPLAY-022",
+    "revision": 1,
+    "status": "active",
+    "scope": "product",
+    "category": "functional",
+    "type": "data",
+    "title": "保存済みチャットからカスタム絵文字の時間帯別密度を再集計できなければならない",
+    "subject": "diopside v8のカスタム絵文字集計",
+    "action": "satisfy",
+    "object": "時刻とカスタム絵文字を識別できる保存済み元チャットから、絵文字別の時間帯集計を再生成できなければならない。同じ投稿の再出現や本文外の表示を重複加算せず、開始前・終了後・時刻不明を再生時間内の密度から分離し、ゼロ件の区間も表現しなければならない。",
+    "rationale": "投稿の集中する区間を正しい再生時刻で比較し、再解析可能な保存素材を活用するため。時間粒度と保存形式は可逆な実装判断に委ねる。",
+    "source_refs": [
+      "spec/sources/owner-directive-2026-09-05-emoji-density.md",
+      "user:2026-09-05"
+    ],
+    "acceptance_criteria": [
+      {
+        "id": "AC-V8-DISPLAY-022-1",
+        "given": "時刻付きカスタム絵文字、重複投稿、区間境界、時刻不明を含む保存済み元チャット",
+        "when": "再集計する",
+        "then": "時間帯内訳と開始前・終了後・時刻不明の合計が総使用回数と一致し、全種類の回数を再現する。破損した入力を正常な部分集計として反映せず、素材なしと集計ゼロを区別する。"
+      }
+    ],
+    "verification": {
+      "method": "境界・重複・合計整合・入力形式試験",
+      "evidence": "tests/custom-emoji-usage.test.ts, src/domain/validation.test.ts"
+    },
+    "traces": {
+      "design": [
+        "docs/design/generated/system.gen.md"
+      ],
+      "implementation": [
+        "scripts/aggregate-custom-emoji-usage.ts",
+        "scripts/reanalyze-emoji-density.ts",
+        "src/domain/content.ts",
+        "src/domain/validation.ts"
+      ],
+      "tests": [
+        "tests/custom-emoji-usage.test.ts",
+        "src/domain/validation.test.ts",
+        "tests/content-validation.test.ts"
+      ],
+      "standards": [
+        "V8-DISPLAY-017"
+      ]
+    },
+    "last_changed_by": "CHG-20260905-emoji-density"
+  },
+  {
+    "id": "V8-DISPLAY-023",
+    "revision": 2,
+    "status": "active",
+    "scope": "product",
+    "category": "functional",
+    "type": "functional",
+    "title": "動画詳細で絵文字の密度から区間を選び内訳と再生位置を確認できなければならない",
+    "subject": "diopside v8の動画詳細",
+    "action": "satisfy",
+    "object": "時間帯別集計のある動画詳細は、初期状態で全区間を選択し、絵文字密度の波の開始・終了位置をシークバーのようにドラッグして自由に調整できなければならない。絵文字別画像・表示名・回数、集計範囲の総数・割合・密度を確認し、選択した区間開始または区間内ピークからYouTubeで再生できなければならない。",
+    "rationale": "参考HTMLの区間選択と画像付き内訳を、静的なブラウザ内処理とモバイル・キーボード操作で利用できるようにするため。",
+    "source_refs": [
+      "spec/sources/owner-directive-2026-09-05-emoji-density.md",
+      "user:2026-09-05"
+    ],
+    "acceptance_criteria": [
+      {
+        "id": "AC-V8-DISPLAY-023-1",
+        "given": "時間帯別集計を持つ動画詳細",
+        "when": "モバイルまたはデスクトップで区間を選択・微調整する",
+        "then": "正逆両順の区間選択で回数と割合が一致し、ゼロ区間と短い末尾区間を正しく表示する。画像取得失敗時も表示名が残り、区間開始・ピークへのリンクが選択時刻と一致する。"
+      },
+      {
+        "id": "AC-V8-DISPLAY-023-2",
+        "given": "時間帯別集計を持つ動画詳細を初めて開く",
+        "when": "マウス・タッチで開始と終了をドラッグし、キーボードで微調整する",
+        "then": "最初は全区間を選択し、固定マスへ吸着せず秒単位で開始・終了を選べる。範囲は交差せず動画尺内に保つ。1分集計の内訳と秒単位の再生位置を区別し、部分区間の密度を過大表示しない。全体選択で初期範囲へ戻せる。"
+      }
+    ],
+    "verification": {
+      "method": "区間操作・再生リンク・アクセシビリティ試験",
+      "evidence": "e2e/detail.spec.ts"
+    },
+    "traces": {
+      "design": [
+        "docs/design/generated/system.gen.md"
+      ],
+      "implementation": [
+        "src/features/detail/EmojiDensity.tsx",
+        "src/features/detail/VideoDetailPage.tsx",
+        "src/styles.css",
+        "scripts/build-public-data.ts"
+      ],
+      "tests": [
+        "e2e/detail.spec.ts"
+      ],
+      "standards": [
+        "V8-DISPLAY-018"
+      ]
+    },
+    "last_changed_by": "CHG-20260905-emoji-free-range"
+  }
+];
 const generatedRequirements = [
+  ...emojiDensityRequirements,
   ...requirements,
   ...ownerDirectiveRequirements,
   ...timestampHarnessRequirements,
@@ -2152,6 +2277,7 @@ const generatedRequirements = [
   ...customEmojiUsageRequirements,
   ...parallelGamePerspectiveRequirements,
   ...siteDisclosureRequirements,
+  ...sequentialGuestRequirements,
 ];
 const issue465OverrideIds = new Set([
   'V8-COST-001',
@@ -2172,9 +2298,9 @@ const canonicalRequirements = [
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({
   schema_version: 1,
-  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 35),
+  catalog_revision: Math.max(existingCatalog?.catalog_revision ?? 19, 38),
   product: 'diopside v8',
-  updated_at: existingCatalog?.updated_at && existingCatalog.updated_at > '2026-09-04' ? existingCatalog.updated_at : '2026-09-04',
+  updated_at: existingCatalog?.updated_at && existingCatalog.updated_at > '2026-09-05' ? existingCatalog.updated_at : '2026-09-05',
   requirements: canonicalRequirements,
 }, null, 2)}\n`);
 writeFileSync(mapPath, `${JSON.stringify({

@@ -44,6 +44,12 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "d93a840b6ac93298f08ee3a557e6d2ef866c2ec4d3645caa36437ccb782efdfb"
+    },
+    {
+      "evidenceId": "evidence-sequential-guest-host",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "公開動画の概要欄・既存時刻一覧とゲスト交代企画の役割確認",
+      "inputFingerprint": "5d99975d5641495919980ed41cbf2009539494329eed3c5e519460986eb2547b"
     }
   ],
   "tagAssignments": [
@@ -84,85 +90,14 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     },
     {
-      "tagId": "tag-people-performer-008503c209f4",
-      "reason": "人物名「ドーラ」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-0b93a4dd3fbf",
-      "reason": "人物名「舞元啓介」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-1b0863765578",
-      "reason": "人物名「夕刻ロベル」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-2477c304f1d5",
-      "reason": "人物名「西園チグサ」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-482d2ce7d54a",
-      "reason": "人物名「天宮こころ」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
       "tagId": "tag-people-performer-4f9d14266a5a",
-      "reason": "人物名「天開司」をコラボ相手として確認（all-partners）",
+      "reason": "ゲスト交代・順次紹介企画のチャンネル主「天開司」だけをコラボ相手として登録",
       "confidence": "高",
       "evidenceRefs": [
-        "evidence-collaboration-v2"
+        "evidence-sequential-guest-host",
+        "evidence-channel"
       ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-577b1eabbfce",
-      "reason": "人物名「成瀬鳴」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-645d829c903b",
-      "reason": "人物名「ニュイ・ソシエール」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-d0bd4fb58bfe",
-      "reason": "人物名「鷹宮リオン」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
+      "reviewedAt": "2026-09-05T09:00:00+09:00"
     }
   ],
   "timestamps": {
@@ -361,7 +296,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-15T21:05:00+09:00",
-    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+    "approvedAt": "2026-09-05T09:00:00+09:00",
+    "basis": "2026-09-05所有者指示に基づくゲスト交代・順次紹介企画のチャンネル主限定。タイムスタンプの公開承認は対応するレビュー・PRに従う"
   }
 }

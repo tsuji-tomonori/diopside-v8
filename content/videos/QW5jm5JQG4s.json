@@ -130,6 +130,22 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "白雪巴が『ピクミン3』を初見で進め、眠気をこぼしながら果物を集め、敵や水辺の仕掛けを探索。青ピクミンを頼りに部隊を整え、食料や仲間の状態を気にかけつつ、コメントの助言も取り入れて目の前の道を切り開いていきます。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "曖昧で怖いねぇ",
+      "atSeconds": 3518,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "e7c6c9077954fa8619e0d799b83881854c474370641fa902d98d554f23bbe6f3",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T02:13:21.142530Z"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -389,28 +405,28 @@
         "candidateHash": "52d085f229d53f81b8afe95d66ba1aa638bee223b45ec1cd9f29837c220ca954",
         "majorIssues": 0,
         "reviewedAt": "2026-09-05T08:17:17.768008+00:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "52d085f229d53f81b8afe95d66ba1aa638bee223b45ec1cd9f29837c220ca954",
         "majorIssues": 0,
         "reviewedAt": "2026-09-05T08:18:37.625992+00:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "publicationGate": {
         "mode": "pull-request-merge",
@@ -435,21 +451,5 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
-  "synopsis": {
-    "body": "白雪巴が『ピクミン3』を初見で進め、眠気をこぼしながら果物を集め、敵や水辺の仕掛けを探索。青ピクミンを頼りに部隊を整え、食料や仲間の状態を気にかけつつ、コメントの助言も取り入れて目の前の道を切り開いていきます。",
-    "bodyEvidenceRefs": [
-      "evidence-full-transcript"
-    ],
-    "featuredQuote": {
-      "text": "曖昧で怖いねぇ",
-      "atSeconds": 3518,
-      "evidenceRefs": [
-        "evidence-full-transcript"
-      ]
-    },
-    "inputFingerprint": "e7c6c9077954fa8619e0d799b83881854c474370641fa902d98d554f23bbe6f3",
-    "rulesVersion": "1.1.0",
-    "updatedAt": "2026-08-23T02:13:21.142530Z"
   }
 }

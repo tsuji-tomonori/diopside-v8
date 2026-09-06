@@ -171,28 +171,28 @@
         "candidateHash": "3ab0b0bf3282396ac8ec446b9812ef2d2a590f6846e28a7fe1dff4be8f3cda91",
         "majorIssues": 0,
         "reviewedAt": "2026-09-05T06:27:36.743131+00:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "3ab0b0bf3282396ac8ec446b9812ef2d2a590f6846e28a7fe1dff4be8f3cda91",
         "majorIssues": 0,
         "reviewedAt": "2026-09-05T06:30:28.570662+00:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "publicationGate": {
         "mode": "pull-request-merge",

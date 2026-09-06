@@ -44,6 +44,12 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "3553bc8a73bf58b5774f7edc7962bdc3b584fca1e361e34af2977bbf458f5ad0"
+    },
+    {
+      "evidenceId": "evidence-sequential-guest-host",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "公開動画の概要欄・既存時刻一覧とゲスト交代企画の役割確認",
+      "inputFingerprint": "6ad431129aee954cd721214fd55c93bff3ef6242c0cc8ff9547a8d2e363d2ea8"
     }
   ],
   "tagAssignments": [
@@ -84,103 +90,14 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     },
     {
-      "tagId": "tag-people-performer-008503c209f4",
-      "reason": "人物名「ドーラ」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-1d96d68475a8",
-      "reason": "人物名「加賀美ハヤト」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-328275186806",
-      "reason": "人物名「綺沙良」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-7931dd3537fc",
-      "reason": "人物名「シスター・クレア」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-97dcda1925ac",
-      "reason": "人物名「奈羅花」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-a7e976de3a7f",
-      "reason": "人物名「Kotoka Torahime」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-b1f239b005c7",
-      "reason": "人物名「ルイス・キャミー」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-b3a697b2d354",
-      "reason": "人物名「七瀬すず菜」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-db11f0265d92",
-      "reason": "人物名「早乙女ベリー」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
-      "tagId": "tag-people-performer-f4e2e8ed3654",
-      "reason": "人物名「小清水透」をコラボ相手として確認（all-partners）",
-      "confidence": "高",
-      "evidenceRefs": [
-        "evidence-collaboration-v2"
-      ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
-    },
-    {
       "tagId": "tag-people-performer-fc81d6355a3a",
-      "reason": "人物名「レイン・パターソン」をコラボ相手として確認（all-partners）",
+      "reason": "ゲスト交代・順次紹介企画のチャンネル主「レイン・パターソン」だけをコラボ相手として登録",
       "confidence": "高",
       "evidenceRefs": [
-        "evidence-collaboration-v2"
+        "evidence-sequential-guest-host",
+        "evidence-channel"
       ],
-      "reviewedAt": "2026-08-15T21:00:00+09:00"
+      "reviewedAt": "2026-09-05T09:00:00+09:00"
     }
   ],
   "timestamps": {
@@ -406,7 +323,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-15T21:05:00+09:00",
-    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+    "approvedAt": "2026-09-05T09:00:00+09:00",
+    "basis": "2026-09-05所有者指示に基づくゲスト交代・順次紹介企画のチャンネル主限定。タイムスタンプの公開承認は対応するレビュー・PRに従う"
   }
 }

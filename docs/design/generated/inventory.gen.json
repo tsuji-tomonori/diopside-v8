@@ -4,7 +4,7 @@
   "sourceDigests": [
     {
       "path": "scripts/aggregate-custom-emoji-usage.ts",
-      "sha256": "48fc021489a7280388e255c46c6329ff7dbcb69bef8772443f78ce72826a26bf"
+      "sha256": "8d5f704d5e1dd77e5c475717ed6adab1d3cba29da78e433c16346f91aa6ac067"
     },
     {
       "path": "scripts/aggregate-word-cloud.ts",
@@ -16,7 +16,7 @@
     },
     {
       "path": "scripts/audit-collaboration-tags.ts",
-      "sha256": "a0b5777a697301f6530e01b9f7fe4bdfbe5cdc710524fa6931801c1a5c4fac0b"
+      "sha256": "89821f305ada29c1c0c38d60ef6021df310ab60ee623303706273eaaefc4e602"
     },
     {
       "path": "scripts/audit-game-tags.ts",
@@ -48,7 +48,7 @@
     },
     {
       "path": "scripts/build-public-data.ts",
-      "sha256": "d700d0811e7c59e4e3b041353712228a93a041b19789d65f979213d3fec6c53d"
+      "sha256": "767730b73a076dd99c427d84b66197512a75a9cc87135d9b08a3210a472629c2"
     },
     {
       "path": "scripts/canonical-store.ts",
@@ -68,7 +68,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "0d12f98010d4eda215a78c62f92b3b710db45cacb85d179f19c2f666e228553d"
+      "sha256": "f512798e38087a94efc15e674447cb906188b00a5b42dd20ab92a7da94a8fcd5"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -109,6 +109,10 @@
     {
       "path": "scripts/prepare-site.ts",
       "sha256": "49346a97de9a3fb8623c2d389b0854f7df39899fe558c8ebb9147f23094c33f0"
+    },
+    {
+      "path": "scripts/reanalyze-emoji-density.ts",
+      "sha256": "c254d3fdaab24ffbd1df140bd8f48dcca7d2f30510ab9629e92cf092e0b3a681"
     },
     {
       "path": "scripts/refresh-person-icons.ts",
@@ -184,15 +188,15 @@
     },
     {
       "path": "src/domain/collaboration.test.ts",
-      "sha256": "7efcbef74ddb293a140dec7edfb1bb78e60f8f92ffe1331634d0fde03ca807d8"
+      "sha256": "28cc61a1579dc62f0f18d8d23222e79a0a8ca8995f0fad8bd7121dc54275bebb"
     },
     {
       "path": "src/domain/collaboration.ts",
-      "sha256": "e1facb1ea9b32d46fc6e75e5f273cebb0170239f38ea5386a603994da748c766"
+      "sha256": "340875a8479ff21b846d228718c0f556f6a42588332a9176bc4244b2e5fe9ab5"
     },
     {
       "path": "src/domain/content.ts",
-      "sha256": "d0a62f05f7085a822ead6c3e2a1b151c28663952241a426e99897daa4af1fb18"
+      "sha256": "43df401af50e0e06285326dfef57d6aa70dd7490632e8bbb0ac90307a9a9e06e"
     },
     {
       "path": "src/domain/entities.ts",
@@ -223,6 +227,14 @@
       "sha256": "9a5ae0fa50152fcb9e36f91cacd4fbec614e24b6cbd0d1f57281da1db449cd19"
     },
     {
+      "path": "src/domain/sequential-guest-audit.test.ts",
+      "sha256": "ef674fc5e653fa653ae97b31d9059ce7adcc69d6ffcc9cac0e681234897de6dd"
+    },
+    {
+      "path": "src/domain/sequential-guest-audit.ts",
+      "sha256": "f7bf32ae412bd8622c8ddcb0bf5537e2f4ecfc672aaf72638b12856199f17a02"
+    },
+    {
       "path": "src/domain/tag-assignment-audit.test.ts",
       "sha256": "da7d55d69aba5a01d155f1bcb60c0b8c550cc3d462dc7529b19072d054c2f9ac"
     },
@@ -232,11 +244,11 @@
     },
     {
       "path": "src/domain/validation.test.ts",
-      "sha256": "2a00f4dc81e5101f74eddba4db97283c21967fded239659c002eaea46b30c8b5"
+      "sha256": "fc50dde8eab597d5a3cb902b88d6ffaaa9232b909cf223c352152682fd5bef1d"
     },
     {
       "path": "src/domain/validation.ts",
-      "sha256": "e47f86e42b81695a7f86edb6afa77e266e16da4f83948d80c152a256eb7d3f33"
+      "sha256": "d39c3fcfb6fd374067a47b3526f8cdcb018f538e6a2e80330002c3cf9e6b365b"
     },
     {
       "path": "src/features/collaborations/CollaborationDetailPages.test.tsx",
@@ -251,8 +263,12 @@
       "sha256": "ee1885f3813ed18d7b063ef98c36ace7974c1545b3c8b25fbbef5dd961167159"
     },
     {
+      "path": "src/features/detail/EmojiDensity.tsx",
+      "sha256": "bf30ea9fad3810b2823e88e91ad2e055530c34bb69c526b3ec8cf988d64ea018"
+    },
+    {
       "path": "src/features/detail/VideoDetailPage.tsx",
-      "sha256": "7dfeed8d516b2123ba41000787e52c6cfac90a1fefcaa929589999117d4b677e"
+      "sha256": "e39973d305d7888735fbfe8808c90fc9e9fb2b86af58be718c40055a38804d6b"
     },
     {
       "path": "src/features/detail/WordCloud.tsx",
@@ -352,7 +368,7 @@
     {
       "file": "scripts/aggregate-custom-emoji-usage.ts",
       "name": "CustomEmojiUsageAggregate",
-      "kind": "InterfaceDeclaration"
+      "kind": "TypeAliasDeclaration"
     },
     {
       "file": "scripts/aggregate-custom-emoji-usage.ts",
@@ -717,6 +733,11 @@
     {
       "file": "src/domain/content.ts",
       "name": "confidenceSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/content.ts",
+      "name": "customEmojiTimelineSchema",
       "kind": "VariableStatement"
     },
     {
@@ -1185,6 +1206,16 @@
       "kind": "FunctionDeclaration"
     },
     {
+      "file": "src/domain/sequential-guest-audit.ts",
+      "name": "auditSequentialGuestTags",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/sequential-guest-audit.ts",
+      "name": "SequentialGuestRecord",
+      "kind": "InterfaceDeclaration"
+    },
+    {
       "file": "src/domain/tag-assignment-audit.ts",
       "name": "auditTagAssignmentCoverage",
       "kind": "FunctionDeclaration"
@@ -1252,6 +1283,16 @@
     {
       "file": "src/features/collaborations/GroupDetailPage.tsx",
       "name": "GroupDetailPage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/detail/EmojiDensity.tsx",
+      "name": "EmojiDensity",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/features/detail/EmojiDensity.tsx",
+      "name": "EmojiIcon",
       "kind": "FunctionDeclaration"
     },
     {
@@ -1393,6 +1434,7 @@
     "src/domain/collaboration.test.ts",
     "src/domain/game-title-detection.test.ts",
     "src/domain/search.test.ts",
+    "src/domain/sequential-guest-audit.test.ts",
     "src/domain/tag-assignment-audit.test.ts",
     "src/domain/validation.test.ts",
     "src/features/collaborations/CollaborationDetailPages.test.tsx",
