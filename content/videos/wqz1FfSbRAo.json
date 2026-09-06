@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開動画の概要欄・既存時刻一覧とゲスト交代企画の役割確認",
       "inputFingerprint": "5f6062ae1523b4d468b3a2c2711fb9d5b9d553aa1d69f3450c7962c6c964d20a"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "3cff10e60c52f3e0812f4ffbc57ba0331746cfd71c1f5b3572c17d4b5d2ebaa5",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 1093
     }
   ],
   "tagAssignments": [
@@ -271,5 +279,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-05T09:00:00+09:00",
     "basis": "2026-09-05所有者指示に基づくゲスト交代・順次紹介企画のチャンネル主限定。タイムスタンプの公開承認は対応するレビュー・PRに従う"
+  },
+  "synopsis": {
+    "body": "白雪巴が募集した学習机の鍵付き引き出しの思い出を、匿名のお便りから紹介。日記や手紙、ゲーム機、創作ノートなど多彩な中身をランキング形式で読み上げ、秘密と青春のきらめきをユーモアたっぷりに振り返ります。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "キラキラした青春みたいなものを特別に見せてくれてるみたい",
+      "atSeconds": 1045,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "3cff10e60c52f3e0812f4ffbc57ba0331746cfd71c1f5b3572c17d4b5d2ebaa5",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T09:21:03.101597Z"
   }
 }
