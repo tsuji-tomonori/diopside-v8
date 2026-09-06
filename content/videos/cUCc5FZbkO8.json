@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "8f21272185deb79317f752a85160d21b707e34486b2940bf665b7b37e77bfad8"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "ffbfc67dfce99312a87e5bb913bd666af3f538dd2a34db2b330ef64e9a1d44ac",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6220
     }
   ],
   "tagAssignments": [
@@ -630,5 +638,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T00:00:00Z",
     "basis": "所有者指示に基づくユニットタグ全件監査と公開情報・出演者集合の再確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が猛者たちを集めた『スプラトゥーン2』プライベートマッチ。指示を交わしながらルールや編成を変えて対戦し、勝負の駆け引きと仲間へのツッコミが飛び交う練習配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "今日はね私がねちょっと練習したいっ",
+      "atSeconds": 264,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "ffbfc67dfce99312a87e5bb913bd666af3f538dd2a34db2b330ef64e9a1d44ac",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:01:57.272143Z"
   }
 }
