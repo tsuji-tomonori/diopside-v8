@@ -14,52 +14,435 @@
   "taxonomyVersion": "9.7.0",
   "aliasVersion": "8.3.0",
   "tagRulesVersion": "9.4.0",
-  "evidence": [],
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "YouTube公開動画タイトル",
+      "inputFingerprint": "0a9dab825c76d59f94b52e94b10993efcb4610e106412a6f2c120a5426786e4f"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "YouTube公開チャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "YouTube公開動画長",
+      "inputFingerprint": "f33dae743bbd83140cdf5263449e97ed170181c1cdfc3b3049a6a3bfd3f8a3d2"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "88e5de198d14c2557389840cd97f78d7ad3e9505af64511c975310a078164a9f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 27534
+    }
+  ],
   "tagAssignments": [
     {
       "tagId": "tag-content-primary-0dbfa3115896",
       "reason": "公開タイトルから主ジャンル「ゲーム」を確認",
       "confidence": "高",
-      "evidenceRefs": ["evidence-title"],
+      "evidenceRefs": [
+        "evidence-title"
+      ],
       "reviewedAt": "2026-09-08T08:19:21+09:00"
     },
     {
       "tagId": "tag-content-gameGenre-9709322940c3",
       "reason": "同一シリーズの承認済み分類からゲームジャンル「シミュレーション」を確認",
       "confidence": "中",
-      "evidenceRefs": ["evidence-title"],
+      "evidenceRefs": [
+        "evidence-title"
+      ],
       "reviewedAt": "2026-09-08T08:19:21+09:00"
     },
     {
       "tagId": "tag-works-gameTitle-ca95a9d665bf",
       "reason": "公開タイトルからゲーム作品名「ほの暮しの庭」を確認",
       "confidence": "高",
-      "evidenceRefs": ["evidence-title"],
+      "evidenceRefs": [
+        "evidence-title"
+      ],
       "reviewedAt": "2026-09-08T08:19:21+09:00"
     },
     {
       "tagId": "tag-people-channel-e0fc18a727d8",
       "reason": "公開チャンネル「白雪 巴/Shirayuki Tomoe」を確認",
       "confidence": "高",
-      "evidenceRefs": ["evidence-channel"],
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
       "reviewedAt": "2026-09-08T08:19:21+09:00"
     },
     {
       "tagId": "tag-format-media-45323ed44f37",
       "reason": "公開済みライブアーカイブと動画長から公開形式「配信」を確認",
       "confidence": "高",
-      "evidenceRefs": ["evidence-duration"],
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
       "reviewedAt": "2026-09-08T08:19:21+09:00"
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "確認待ち"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-03923592",
+        "startSeconds": 0,
+        "label": "配信開始と近況トーク",
+        "confidence": "高",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-443-435db098",
+        "startSeconds": 443,
+        "label": "三つ目の人具探しを再開",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1515-e79dc342",
+        "startSeconds": 1515,
+        "label": "こまこと山の異変を調べる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2014-a57cdc03",
+        "startSeconds": 2014,
+        "label": "村で十年前の出来事を聞く",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3220-8d124f36",
+        "startSeconds": 3220,
+        "label": "雪の夜の妖怪依頼に挑戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4042-c2bc26fc",
+        "startSeconds": 4042,
+        "label": "白菜の収穫と冬の畑整備",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4690-2124dc01",
+        "startSeconds": 4690,
+        "label": "失くした物を探す昔話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5035-f8377cea",
+        "startSeconds": 5035,
+        "label": "こまことさざかの対話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6000-241e8bff",
+        "startSeconds": 6000,
+        "label": "狩猟と雪女に挑む冬仕事",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7387-51c6fb7f",
+        "startSeconds": 7387,
+        "label": "三人で山の奥へ出発",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7683-61e52831",
+        "startSeconds": 7683,
+        "label": "幻影を退けながら奥へ進む",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8840-39eabf12",
+        "startSeconds": 8840,
+        "label": "巨大な影との戦い",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9004-7ba531f6",
+        "startSeconds": 9004,
+        "label": "よみがえる記憶と人具の由来",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9600-2199739e",
+        "startSeconds": 9600,
+        "label": "探索を終えて採掘と冬仕事へ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-10800-881c14c2",
+        "startSeconds": 10800,
+        "label": "村で明かされる不思議な縁",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-12000-988f272c",
+        "startSeconds": 12000,
+        "label": "冬の終わりを見据えた暮らし",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13682-775a2b87",
+        "startSeconds": 13682,
+        "label": "三つの人具を村人と確かめる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-14682-ecd36a44",
+        "startSeconds": 14682,
+        "label": "作業の合間に長時間配信の雑談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-15600-9271bca5",
+        "startSeconds": 15600,
+        "label": "春を前に畑と道具を準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-18171-fe43c97e",
+        "startSeconds": 18171,
+        "label": "大晦日の祭りへ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-19048-b3843928",
+        "startSeconds": 19048,
+        "label": "二年目の春を迎える",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-19849-0294fdf1",
+        "startSeconds": 19849,
+        "label": "水田を作り米作りを始める",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-21094-f7ff5796",
+        "startSeconds": 21094,
+        "label": "夜の山でこだまと向き合う",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-21600-63887e29",
+        "startSeconds": 21600,
+        "label": "大穴で起きる思わぬ異変",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-22510-f79e6b8c",
+        "startSeconds": 22510,
+        "label": "荒れた庭を立て直す",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-22930-e70285d3",
+        "startSeconds": 22930,
+        "label": "村人たちが異変に気づく",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-23816-0a894fbf",
+        "startSeconds": 23816,
+        "label": "過去の記憶をたどる",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-24428-47da760c",
+        "startSeconds": 24428,
+        "label": "呼び声を追い仲間のもとへ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-25040-5b772cf9",
+        "startSeconds": 25040,
+        "label": "騒動のあとで今後を考える",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-25800-8aaa7494",
+        "startSeconds": 25800,
+        "label": "春の畑を作り直す",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-27037-3e8766c1",
+        "startSeconds": 27037,
+        "label": "最後の寄り道と配信の振り返り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "561153471fbe2ce00ff0b3fa1cc77f62f0600f126751aed9f8e43fa4c2370ce3",
+    "inputFingerprint": "88e5de198d14c2557389840cd97f78d7ad3e9505af64511c975310a078164a9f",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-08T08:45:00+09:00",
+    "updatedAt": "2026-09-08T09:00:00+09:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "561153471fbe2ce00ff0b3fa1cc77f62f0600f126751aed9f8e43fa4c2370ce3",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-08T08:55:00+09:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "561153471fbe2ce00ff0b3fa1cc77f62f0600f126751aed9f8e43fa4c2370ce3",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-08T09:00:00+09:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "561153471fbe2ce00ff0b3fa1cc77f62f0600f126751aed9f8e43fa4c2370ce3",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1981"
+      }
+    }
   },
   "wordCloud": {
     "status": "未作成",
     "reason": "確認待ち",
     "detail": "本PRでは動画情報・タイムスタンプ・あらすじの確認を優先します。",
-    "updatedAt": "2026-09-08T08:19:21+09:00"
+    "updatedAt": "2026-09-08T09:00:00+09:00"
+  },
+  "synopsis": {
+    "body": "「ほの暮しの庭」1年目の冬後半。白雪巴はこまこたちと山の怪異を追い、三つの人具を携えて村の秘密に迫る。穏やかな畑仕事と緊張感のある探索を行き来しながら、二年目の春へ歩みを進める。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "今日これを見るためにここまでやってきたと言っても過言じゃない",
+      "atSeconds": 27169,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "88e5de198d14c2557389840cd97f78d7ad3e9505af64511c975310a078164a9f",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-08T09:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "88e5de198d14c2557389840cd97f78d7ad3e9505af64511c975310a078164a9f",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
+    "generatedAt": "2026-09-08T09:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1981"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-09-08T09:00:00+09:00",
+    "basis": "運用者の新着配信を台帳登録から直接処理する明示要求に基づく。公開はDraft PRの人手mergeを条件とする"
   }
 }
