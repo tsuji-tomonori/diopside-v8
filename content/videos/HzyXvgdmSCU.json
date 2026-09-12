@@ -52,6 +52,14 @@
       "inputFingerprint": "9d87fbc822a5f33e51af64f2f2b43e215bed305d3b8838438eecae904b7df0c9",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 10426
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "b50a42c8a798299294f795c4cde8576fcdeecaa4307b5419d63e58cf6f1385b1",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10426
     }
   ],
   "tagAssignments": [
@@ -540,5 +548,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が喉の調子を気にかけつつ近況を語り、『崩壊：スターレイル』のイベントへ。折紙大学を舞台に、個性豊かな人物との会話やバナーネモンキーをめぐる騒がしくコミカルな展開を読み進め、編成談義や視聴者との交流も楽しむ配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "今日はもう女子パで行こうかな",
+      "atSeconds": 2560,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "b50a42c8a798299294f795c4cde8576fcdeecaa4307b5419d63e58cf6f1385b1",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:19:33.604242+00:00"
   }
 }
