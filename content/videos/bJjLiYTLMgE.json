@@ -44,6 +44,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "bc91f63ebaa315a9e38543ce04e92a68bd0fc916df61261e5ee544090e876599"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "03384cc6b6fbb1525f0683c04acd71cfd0860a94ec3fb291b785b9328a544cfc",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 14812
     }
   ],
   "tagAssignments": [
@@ -303,10 +311,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "娘",
+        "weight": 100
+      },
+      {
+        "term": "太",
+        "weight": 88
+      },
+      {
+        "term": "恵",
+        "weight": 83
+      },
+      {
+        "term": "人",
+        "weight": 81
+      },
+      {
+        "term": "待つ",
+        "weight": 68
+      },
+      {
+        "term": "お母さん",
+        "weight": 66
+      },
+      {
+        "term": "子",
+        "weight": 66
+      },
+      {
+        "term": "分かる",
+        "weight": 65
+      },
+      {
+        "term": "繋がる",
+        "weight": 64
+      },
+      {
+        "term": "公園",
+        "weight": 64
+      },
+      {
+        "term": "違う",
+        "weight": 57
+      },
+      {
+        "term": "ママ",
+        "weight": 53
+      },
+      {
+        "term": "お父さん",
+        "weight": 51
+      },
+      {
+        "term": "一緒",
+        "weight": 50
+      },
+      {
+        "term": "前",
+        "weight": 46
+      },
+      {
+        "term": "電話",
+        "weight": 46
+      },
+      {
+        "term": "母",
+        "weight": 46
+      },
+      {
+        "term": "ばあちゃん",
+        "weight": 44
+      },
+      {
+        "term": "わかる",
+        "weight": 42
+      },
+      {
+        "term": "嘘",
+        "weight": 36
+      },
+      {
+        "term": "事件",
+        "weight": 36
+      },
+      {
+        "term": "月",
+        "weight": 35
+      },
+      {
+        "term": "せい",
+        "weight": 33
+      },
+      {
+        "term": "子供",
+        "weight": 32
+      },
+      {
+        "term": "成",
+        "weight": 32
+      },
+      {
+        "term": "一旦",
+        "weight": 30
+      },
+      {
+        "term": "話",
+        "weight": 30
+      },
+      {
+        "term": "解決",
+        "weight": 27
+      },
+      {
+        "term": "最後",
+        "weight": 27
+      },
+      {
+        "term": "成果",
+        "weight": 22
+      },
+      {
+        "term": "名前",
+        "weight": 20
+      },
+      {
+        "term": "連れる",
+        "weight": 20
+      },
+      {
+        "term": "家族",
+        "weight": 18
+      },
+      {
+        "term": "あと",
+        "weight": 13
+      },
+      {
+        "term": "ヘルパー",
+        "weight": 13
+      },
+      {
+        "term": "死ぬ",
+        "weight": 13
+      },
+      {
+        "term": "探す",
+        "weight": 10
+      },
+      {
+        "term": "うち",
+        "weight": 8
+      },
+      {
+        "term": "おばさん",
+        "weight": 8
+      },
+      {
+        "term": "上",
+        "weight": 8
+      },
+      {
+        "term": "警察",
+        "weight": 6
+      },
+      {
+        "term": "時間",
+        "weight": 6
+      },
+      {
+        "term": "すぐ",
+        "weight": 3
+      },
+      {
+        "term": "ふん",
+        "weight": 3
+      },
+      {
+        "term": "ほる",
+        "weight": 3
+      },
+      {
+        "term": "よく",
+        "weight": 3
+      },
+      {
+        "term": "記憶",
+        "weight": 3
+      },
+      {
+        "term": "鍵",
+        "weight": 3
+      },
+      {
+        "term": "知る",
+        "weight": 3
+      },
+      {
+        "term": "関係",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "03384cc6b6fbb1525f0683c04acd71cfd0860a94ec3fb291b785b9328a544cfc",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "24580b67a101db486f8e9f82a885cbc09a1ee8dd978b8381d74e0abd226220ac",
