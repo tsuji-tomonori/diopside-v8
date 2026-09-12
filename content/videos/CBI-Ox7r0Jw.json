@@ -60,6 +60,14 @@
       "inputFingerprint": "3ecdd6dcdb771876c04284143d80fcb08ba79cbb4c8df3924e65336627031149",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 5039
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "a6786bebc462405da318be24af3df6d90663226033bea9cfbdd2e3b281f76973",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5039
     }
   ],
   "tagAssignments": [
@@ -573,5 +581,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T21:05:00+09:00",
     "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  },
+  "synopsis": {
+    "body": "森中花咲が「シック」をテーマに、ウィスパーボイスを生かしたソロ曲やゲストとの歌を披露。曲ごとの思いと舞台演出を語りながら、ゲストと息を合わせ、後半はコーヒーや醤油の味比べでにぎやかに交流する誕生日ライブ。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "これ私がコーヒー苦手なだけで",
+      "atSeconds": 3559,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "a6786bebc462405da318be24af3df6d90663226033bea9cfbdd2e3b281f76973",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:15:10.884798+00:00"
   }
 }
