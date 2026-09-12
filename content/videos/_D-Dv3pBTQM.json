@@ -52,6 +52,14 @@
       "inputFingerprint": "54e53c42778cac9f40bef19ca95a6d064371570759191857c76f3a86774222aa",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 8526
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "e4b9ad376cc71135c64f536395261a9d97c160f9c299dba814524f7b1c7d9a5a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8526
     }
   ],
   "tagAssignments": [
@@ -459,5 +467,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "病み上がりの白雪巴が、声をいたわりながら参加型の麻雀に挑戦。視聴者の助言を受けて役や鳴き方を学び、牌の行方に一喜一憂しながら対局を重ねていく。初心者らしい戸惑いと大胆な勝負勘、軽妙な掛け合いが楽しめる配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "やるぞやるぞやるぞ",
+      "atSeconds": 345,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "e4b9ad376cc71135c64f536395261a9d97c160f9c299dba814524f7b1c7d9a5a",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T21:53:01.573673+00:00"
   }
 }
