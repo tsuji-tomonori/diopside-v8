@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "aa2ca750e0df426168a499cf79776c95c5cab9511b828e8ac5e0458afe137f94"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "31ccefac5aecd81c0cfc9ac3d4e0fb5e515869a9e12e977580fa203cfe44b2b2",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6108
     }
   ],
   "tagAssignments": [
@@ -784,5 +792,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T00:00:00Z",
     "basis": "所有者指示に基づくユニットタグ全件監査と公開情報・出演者集合の再確認"
+  },
+  "synopsis": {
+    "body": "白雪巴と来栖夏芽が「WE WERE HERE Too」に挑み、別々の場所から伝える手掛かりを頼りに、図形や装置の謎を協力して解いていく。声を掛け合いながら探索を進め、行き違いに笑ったり焦ったりする二人の掛け合いと、先輩後輩らしい会話も楽しめる配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "なんか頼りない先輩でごめんね",
+      "atSeconds": 5118,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "31ccefac5aecd81c0cfc9ac3d4e0fb5e515869a9e12e977580fa203cfe44b2b2",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T15:38:29.157045+00:00"
   }
 }
