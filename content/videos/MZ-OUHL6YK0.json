@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "35fdb8ab658c52120975272a8c15b547000b0851a0ddfee21cc7fc54df1a125e"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "14871af617b86d768214684857a813479bd4d3188b23d7743d580aea0d203df6",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6132
     }
   ],
   "tagAssignments": [
@@ -267,10 +275,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "猫",
+        "weight": 100
+      },
+      {
+        "term": "痛い",
+        "weight": 85
+      },
+      {
+        "term": "人",
+        "weight": 83
+      },
+      {
+        "term": "抜く",
+        "weight": 78
+      },
+      {
+        "term": "すごい",
+        "weight": 76
+      },
+      {
+        "term": "ごめん",
+        "weight": 75
+      },
+      {
+        "term": "食べる",
+        "weight": 75
+      },
+      {
+        "term": "頑張る",
+        "weight": 71
+      },
+      {
+        "term": "耳",
+        "weight": 70
+      },
+      {
+        "term": "分かる",
+        "weight": 66
+      },
+      {
+        "term": "明日",
+        "weight": 62
+      },
+      {
+        "term": "絶対",
+        "weight": 60
+      },
+      {
+        "term": "男性",
+        "weight": 60
+      },
+      {
+        "term": "マジ",
+        "weight": 58
+      },
+      {
+        "term": "女性",
+        "weight": 58
+      },
+      {
+        "term": "配信",
+        "weight": 49
+      },
+      {
+        "term": "大丈夫",
+        "weight": 46
+      },
+      {
+        "term": "雑談",
+        "weight": 44
+      },
+      {
+        "term": "待つ",
+        "weight": 44
+      },
+      {
+        "term": "かわいい",
+        "weight": 41
+      },
+      {
+        "term": "あと",
+        "weight": 38
+      },
+      {
+        "term": "恥ずかしい",
+        "weight": 38
+      },
+      {
+        "term": "狼",
+        "weight": 38
+      },
+      {
+        "term": "確か",
+        "weight": 35
+      },
+      {
+        "term": "好き",
+        "weight": 35
+      },
+      {
+        "term": "歯",
+        "weight": 31
+      },
+      {
+        "term": "別に",
+        "weight": 31
+      },
+      {
+        "term": "ありがと",
+        "weight": 28
+      },
+      {
+        "term": "はねる",
+        "weight": 28
+      },
+      {
+        "term": "脂肪",
+        "weight": 24
+      },
+      {
+        "term": "終わる",
+        "weight": 24
+      },
+      {
+        "term": "痛み",
+        "weight": 24
+      },
+      {
+        "term": "悪い",
+        "weight": 20
+      },
+      {
+        "term": "皆さん",
+        "weight": 20
+      },
+      {
+        "term": "筋肉",
+        "weight": 20
+      },
+      {
+        "term": "最後",
+        "weight": 20
+      },
+      {
+        "term": "前",
+        "weight": 20
+      },
+      {
+        "term": "ゆり",
+        "weight": 16
+      },
+      {
+        "term": "嬉しい",
+        "weight": 16
+      },
+      {
+        "term": "大変",
+        "weight": 16
+      },
+      {
+        "term": "怖い",
+        "weight": 16
+      },
+      {
+        "term": "飲む",
+        "weight": 6
+      },
+      {
+        "term": "気",
+        "weight": 6
+      },
+      {
+        "term": "口",
+        "weight": 6
+      },
+      {
+        "term": "太る",
+        "weight": 6
+      },
+      {
+        "term": "無理",
+        "weight": 6
+      },
+      {
+        "term": "友達",
+        "weight": 6
+      },
+      {
+        "term": "話",
+        "weight": 6
+      },
+      {
+        "term": "ねる",
+        "weight": 1
+      },
+      {
+        "term": "やばい",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "14871af617b86d768214684857a813479bd4d3188b23d7743d580aea0d203df6",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "06f6a8c72ad90587c6db2ca91122e0b8b17d0ae0b1afc37b9df4ef224b86875e",
