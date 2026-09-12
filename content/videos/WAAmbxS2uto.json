@@ -52,6 +52,14 @@
       "inputFingerprint": "77e38c9324a85fa4f3533ff7a6a6c20c84179b86fcb14a0d77aab99f52056525",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 7281
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "6542e7055a2c8de63759a6b3efc6547dddbf4288554f7ae203f9cdfb47f58509",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7281
     }
   ],
   "tagAssignments": [
@@ -495,5 +503,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『世界のアソビ大全51』でコネクトフォーやカード、神経衰弱、麻雀、テニスなどに挑戦。王冠を目指してルールを確かめ、CPUの意外な動きに戸惑いながら、勝負の熱さと軽妙なリアクションを味わえる長時間ゲーム実況。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "これ攻略できたぞ",
+      "atSeconds": 6682,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "6542e7055a2c8de63759a6b3efc6547dddbf4288554f7ae203f9cdfb47f58509",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T20:51:09.891659+00:00"
   }
 }
