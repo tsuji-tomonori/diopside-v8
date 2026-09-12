@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "73ea9437c79170b0cf3219252e97dfbf4f984c7cdfe71a68513e10f93c86f52a"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "0a1d8723067e8b3eb15ba535acd2e9322fb364e9f996f3a4478b760531c16e48",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 12347
     }
   ],
   "tagAssignments": [
@@ -3402,5 +3410,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T20:30:00+09:00",
     "basis": "利用者指示と公開タイトル・承認済みタイムスタンプによる歌枠横断監査で、音楽種別「歌枠」を再承認"
+  },
+  "synopsis": {
+    "body": "白雪巴が主催する「今時流行アニメ曲縛り」のカラオケに、初参加の仲間も交えて挑戦。選曲への迷い、緊張と高揚、合いの手や感想を交わす楽しさが、歌とトークを通して広がっていく配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "カラオケ行こう全然誰の枠でもいいので",
+      "atSeconds": 11966,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "0a1d8723067e8b3eb15ba535acd2e9322fb364e9f996f3a4478b760531c16e48",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T13:55:00.183694+00:00"
   }
 }
