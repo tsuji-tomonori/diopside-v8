@@ -52,6 +52,14 @@
       "inputFingerprint": "e501f50a7a8c50ab53b91da0e942d9e0fd168e00a28331b74e0b1abf8cc56869",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 3901
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "cf1c5ce3982951c90b5a138bff304066fbcb99b32feb982189a02ef0ba6d454b",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3901
     }
   ],
   "tagAssignments": [
@@ -468,5 +476,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、追跡者の気配を警戒しながら不穏な舞台を探索するホラーゲームに挑戦。日本語化された説明を読み、マップや足音を頼りに進路を考え、突然の演出には思わず声を上げる。逃走と再挑戦を重ねながら、安全な道を探っていく配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "このゲームで死ぬ前に死んだと思った",
+      "atSeconds": 181,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "cf1c5ce3982951c90b5a138bff304066fbcb99b32feb982189a02ef0ba6d454b",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T20:04:58.654550+00:00"
   }
 }
