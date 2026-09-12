@@ -52,6 +52,14 @@
       "inputFingerprint": "5ea7afadb4d4207784a3166ad5635cd7b29d246ead1a092511ecbc2ffdda99b9",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 16882
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "f89ac45333044730861bf5c3f108749919a3ec66e86a241a7f8be4f7091dfb09",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 16882
     }
   ],
   "tagAssignments": [
@@ -630,5 +638,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『NieR:Automata』2周目の世界を進み、砂漠の遺物や機械生命体の依頼を寄り道しながら探索。サブクエストの物語に驚き、装備やハッキングを試しつつ、2B・9Sを取り巻く戦いの意味を考えていく長時間配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "白雪殲滅派だからね",
+      "atSeconds": 12600,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "f89ac45333044730861bf5c3f108749919a3ec66e86a241a7f8be4f7091dfb09",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:19:55.164374+00:00"
   }
 }
