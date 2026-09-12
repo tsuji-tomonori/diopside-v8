@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "fcd03826af04bbbfc92904b131e074c3ffa55b7c1f0a9cb8e0bc7feb8009f1fb"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "保存済み全編字幕（0秒〜106秒）",
+      "inputFingerprint": "921d418292fffd7f179a6b8a44853195c6cb95abe7a4261ce2061e505bc0c58d",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 106
     }
   ],
   "tagAssignments": [
@@ -366,5 +374,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、体形に合う下着の選び方や身につけたときの見え方について率直に語る短編。これまでの思い込みを振り返りながら、自分に合う形を探す大切さや、身につけるものへのこだわりを軽やかな会話で伝えます。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "やっぱり一番いいものを着ていたいよ",
+      "atSeconds": 90,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "921d418292fffd7f179a6b8a44853195c6cb95abe7a4261ce2061e505bc0c58d",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T08:59:27.577674+00:00"
   }
 }
