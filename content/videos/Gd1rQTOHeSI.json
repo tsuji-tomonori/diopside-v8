@@ -52,6 +52,14 @@
       "inputFingerprint": "0556835ead165df20980d7df4adfbc654663096523fb74124882eab04bf491b9",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 15737
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "7bc10137862c76073299427ba7429dc74035a859a2c7dc3f5e0dbf962fb3f1d5",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 15737
     }
   ],
   "tagAssignments": [
@@ -612,5 +620,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "音や光に敏感な恐竜が徘徊する施設で、白雪巴がしゃがみ歩きと隠密を駆使して探索。金庫やカードを手掛かりに地下を進み、鳴き声と突然の追跡に怯えながら、恐竜の生態と謎めいた実験の痕跡を追い、逃げ道を探し続ける。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "でもちょっと恐竜に会いたさあるよね。",
+      "atSeconds": 4461,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "7bc10137862c76073299427ba7429dc74035a859a2c7dc3f5e0dbf962fb3f1d5",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T14:18:08.913047+00:00"
   }
 }
