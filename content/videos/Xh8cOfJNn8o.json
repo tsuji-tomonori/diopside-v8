@@ -52,6 +52,14 @@
       "inputFingerprint": "8befc16c99f839b665477402241fab798a25ef84ff021012c7d765be38b0d6e6",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 4568
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "8dffeb197acab9b6a1d3c9697a8e3da1aa3bc221d93db9df0ab0843123ab0e77",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 4568
     }
   ],
   "tagAssignments": [
@@ -477,5 +485,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、視聴者から届いたリアルな百合体験談を読み上げ、友達同士の胸の高鳴りや恋の嫉妬、恋人たちの距離感に寄り添いながら、驚きと妄想を交えて語る。皆で物語を味わう、記念回のトーク配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "白雪はもう応援したい本当に",
+      "atSeconds": 3899,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "8dffeb197acab9b6a1d3c9697a8e3da1aa3bc221d93db9df0ab0843123ab0e77",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T19:11:06.889371+00:00"
   }
 }
