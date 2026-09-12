@@ -52,6 +52,14 @@
       "inputFingerprint": "792b884ceb6ecf7e7f5b6b4ca3ab982abe700a802ea8942ac5cec8a5227039b4",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 6878
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "ae5d3c7a232b82ff198814eac2304dad1b3f351d63743608fe33580941394683",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6878
     }
   ],
   "tagAssignments": [
@@ -513,5 +521,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、誕生日を迎えた2月を振り返りながら、3Dライブ出演の舞台裏やスタジオでの出来事を語る定期雑談。3月の配信予定、遊びたいゲーム、作品の感想まで、チャットとの軽快なやり取りとともに話題が広がっていく。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "本当にジェットコースターのような月でしたね",
+      "atSeconds": 660,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "ae5d3c7a232b82ff198814eac2304dad1b3f351d63743608fe33580941394683",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:57:31.606581+00:00"
   }
 }
