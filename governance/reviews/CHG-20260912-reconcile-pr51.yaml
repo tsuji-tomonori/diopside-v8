@@ -145,3 +145,4 @@ selected_checks:
 advisories: []
 residual_risks:
 - '既存PR #51の独立確認済み候補をそのまま保持した競合解消。字幕の再取得・再生成は行わない。'
+- 競合解消は候補統合の保守作業としてchoreで記録し、bug_fixフラグとコミット種別を一致させる。
