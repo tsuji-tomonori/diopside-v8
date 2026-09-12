@@ -46,6 +46,14 @@
       "inputFingerprint": "b41a712e7eda2c8911d45b27dac301b359012ded87ded8b6fcc557c253be3583",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 8551
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "6196166eaa4fbceab5a0c45cec4d9a54f671f8e6e20f36d07334c8b57911c364",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8551
     }
   ],
   "tagAssignments": [
@@ -313,5 +321,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、グラスを冷やして始めた自由な雑談で、家族の近況やデビュー前の思い出、機材の話を語る。ファンの記録や仲間との交流、好きなものまでコメントと行き来しながら、肩の力を抜いて幅広い話題を楽しめる。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "お姉さん月間します",
+      "atSeconds": 6193,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "6196166eaa4fbceab5a0c45cec4d9a54f671f8e6e20f36d07334c8b57911c364",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T13:32:01.924944+00:00"
   }
 }
