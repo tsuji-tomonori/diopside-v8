@@ -52,6 +52,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "b40b1fe0fa3dc393ed98d32631e5aa785a4789e6fb8ee7a835db11c4b15449cf"
+    },
+    {
+      "evidenceId": "evidence-timestamp-full-transcript-hq-20260912",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "6c8bd93924cf4155ced575579e32ba52e03a1e4c5aa9d48ba016f106d122f71a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 77
     }
   ],
   "tagAssignments": [
@@ -109,10 +117,77 @@
     "updatedAt": "2026-08-23T02:09:35.979775Z"
   },
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-ab933297",
+        "startSeconds": 0,
+        "label": "アイスを味わうひととき",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript-hq-20260912"
+        ]
+      },
+      {
+        "timestampId": "timestamp-19-c0c0b5e7",
+        "startSeconds": 19,
+        "label": "アイスをねだるやりとり",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript-hq-20260912"
+        ]
+      },
+      {
+        "timestampId": "timestamp-54-49d55992",
+        "startSeconds": 54,
+        "label": "アイスを味わう場面",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript-hq-20260912"
+        ]
+      }
+    ],
+    "candidateHash": "e9e137c66c7ed681468af82b25397114d1330901d8c9a69b4816ac6b02203abe",
+    "inputFingerprint": "6c8bd93924cf4155ced575579e32ba52e03a1e4c5aa9d48ba016f106d122f71a",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-12T09:00:00+09:00",
+    "updatedAt": "2026-09-12T12:06:00+09:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "e9e137c66c7ed681468af82b25397114d1330901d8c9a69b4816ac6b02203abe",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T12:05:00+09:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "e9e137c66c7ed681468af82b25397114d1330901d8c9a69b4816ac6b02203abe",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T12:06:00+09:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "e9e137c66c7ed681468af82b25397114d1330901d8c9a69b4816ac6b02203abe",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2568"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -455,7 +530,7 @@
     "inputFingerprint": "fcec81e07c7a2fab1b6cec33d6605499b30d1a9e1f30fa56bd2252436cef309f",
     "generatorVersion": "v8-legacy-migration-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2568"
   },
   "approval": {
     "status": "承認済み",
