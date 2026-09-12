@@ -44,6 +44,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "5ab0a32f88bca054352edb09ff7c107fbaa1be0f3851cc8bb46a6e1a09c38693"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "a59baee4031e33c3b8be80bbce732c667819391bb71a49086abd728bd42ffd9f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6261
     }
   ],
   "tagAssignments": [
@@ -613,5 +621,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-23T16:00:00+09:00",
     "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  },
+  "synopsis": {
+    "body": "白雪巴がホラーゲーム『失踪』で、親友ヒカルを探して廃村へ向かう。手掛かりを求めて家や森を探索し、鍵を探しながら怪異から逃走。突然の声や追跡に怯えつつ、タケシを操作して村に残る事件の謎を追う長時間の恐怖実況配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私この声怖い",
+      "atSeconds": 3163,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "a59baee4031e33c3b8be80bbce732c667819391bb71a49086abd728bd42ffd9f",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:15:49.437622Z"
   }
 }
