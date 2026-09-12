@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "ba578740968b8f13c19b5ef7ac21d9bf9c9ccd4355c9788f5ec17ac4c4797838"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "27081d9e4a7ed3ba1ff8e1773a41145422547a53b4feb2f88ebee57b34ca27b5",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 118
     }
   ],
   "tagAssignments": [
@@ -428,5 +436,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が友達同士の実体験として語られる百合エピソードを読み上げ、距離感や言葉選びに驚きながら、大人っぽさと可愛らしさを感じる関係性へ率直な反応を返していく。照れとツッコミが入り混じる空気を味わえる。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "本当に中学生でごめん",
+      "atSeconds": 65,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "27081d9e4a7ed3ba1ff8e1773a41145422547a53b4feb2f88ebee57b34ca27b5",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T20:22:08.768977+00:00"
   }
 }
