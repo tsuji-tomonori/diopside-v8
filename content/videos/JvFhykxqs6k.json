@@ -52,6 +52,14 @@
       "inputFingerprint": "6f5c97ecee05f186379261bdcafecc4f49d17ce5b5455b19102cd8868126cd4f",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 8460
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "642325c0f4bacf7c4736663c59c892e3a792e5ee2a8ccef81ba28c764167d0df",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8460
     }
   ],
   "tagAssignments": [
@@ -549,5 +557,22 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『バイオハザード RE:2』のクレア編を進め、限られた弾薬や回復アイテムを見比べながら探索。ゾンビへの反応や驚きの声を交え、仕掛けを読み解きつつ道を切り開くプレイと、合間の雑談を楽しめる長時間配信。",
+    "bodyEvidenceRefs": [
+      "evidence-title",
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "今日私は何かが違うんだ",
+      "atSeconds": 323,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "642325c0f4bacf7c4736663c59c892e3a792e5ee2a8ccef81ba28c764167d0df",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:29:36.221523+00:00"
   }
 }
