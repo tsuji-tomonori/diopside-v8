@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "cf587e8dccaa10b489851d228bfcbb05102903ed0b9295fb8552fd46520ca506"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "0c7ac23b22d780b3c6f204e0a2301e03f867bab4023ed0a1ef0e6e8a728482f2",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5936
     }
   ],
   "tagAssignments": [
@@ -2953,5 +2961,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T00:00:00Z",
     "basis": "所有者指示に基づくユニットタグ全件監査と公開情報・出演者集合の再確認"
+  },
+  "synopsis": {
+    "body": "視聴者から寄せられた脚本をもとに、白雪みしろと白雪巴が六つの短編声劇を演じます。メイドや神様、取調室など多彩な設定に声で入り込み、幕間の感想や役柄の解釈も語り合う、遊び心あふれる朗読企画です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "お集まりいただきありがとうございます",
+      "atSeconds": 766,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "0c7ac23b22d780b3c6f204e0a2301e03f867bab4023ed0a1ef0e6e8a728482f2",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:36:05.473548Z"
   }
 }
