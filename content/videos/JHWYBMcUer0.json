@@ -46,6 +46,14 @@
       "inputFingerprint": "356d69db139c89f101f2d5643b8aef595daf6a8df9e911ff354739dfd9a56e2b",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 16373
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "1c4e035928ae726651fa42ebe04398a92a393a329fecd909e6ba493492208347",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 16373
     }
   ],
   "tagAssignments": [
@@ -340,5 +348,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、片手で遊べるVampire Survivorsを初見プレイ。自動で放たれる武器を頼りに敵の群れを避け、経験値や宝箱を集めながら強化を選び、視聴者の助言も取り入れて進めていく。武器の相性や操作の難しさに一喜一憂する、長時間の試行錯誤を味わえる。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "バンパイアハンターに経験値などいらぬ",
+      "atSeconds": 815,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "1c4e035928ae726651fa42ebe04398a92a393a329fecd909e6ba493492208347",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:30:14.831965+00:00"
   }
 }
