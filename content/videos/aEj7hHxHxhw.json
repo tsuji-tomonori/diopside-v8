@@ -38,6 +38,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "6e4e45fa4865b3036f46a09c1242f3e7807ecb0a2f8f9759750e7af5a63c5fab"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "c4ac644d011aa99d8c56bcfd05b8aaf186736ea873555f2dd26524e78f871276",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9243
     }
   ],
   "tagAssignments": [
@@ -357,5 +365,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T17:50:00+09:00",
     "basis": "運用者のゲーム配信タグ横断是正要求に基づき、公開タイトル・説明と既存作品タグを再確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が思い出の名作『パタポン』をリプレイ。太鼓のリズムで軍団を導き、懐かしい記憶を振り返りながら、拠点を整え、仲間を増やして出撃します。音ズレにも奮闘し、独特の歌と戦略を楽しむ、懐かしさと新鮮さが交差する一作です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "めちゃくちゃ奪ってやってた",
+      "atSeconds": 243,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "c4ac644d011aa99d8c56bcfd05b8aaf186736ea873555f2dd26524e78f871276",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:16:57.748074Z"
   }
 }
