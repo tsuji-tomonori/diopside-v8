@@ -52,6 +52,14 @@
       "inputFingerprint": "2a0dc18695d3d059a02e6466ced0cfff1ee600be5714931b393342664abb038a",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 6031
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "1a9c2a7a9a7a5d9af2424007741245cb333c39737d2a3749793c806ca92bf3c3",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6031
     }
   ],
   "tagAssignments": [
@@ -540,5 +548,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、視聴者投稿の「リアル百合エピソード」第6回として、#51〜#60の10本を紹介。遠距離の再会や友人同士の片思い、先輩との初キスなど、恋の距離が近づく瞬間に驚きや共感を交え、自身の感想も語ります。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ときめきときめき多かったね",
+      "atSeconds": 5390,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "1a9c2a7a9a7a5d9af2424007741245cb333c39737d2a3749793c806ca92bf3c3",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T19:58:31.583115+00:00"
   }
 }
