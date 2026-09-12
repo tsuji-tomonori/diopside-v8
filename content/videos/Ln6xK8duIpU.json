@@ -52,6 +52,14 @@
       "inputFingerprint": "e77f4e3441d5c6358b6620746d4dfe728ae9619e7387f04528084061a4f773b6",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 15649
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "501fe2001430b0f4603623a0c0413e3772ad0f4829e207af643ebace65aed32a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 15649
     }
   ],
   "tagAssignments": [
@@ -594,5 +602,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が「ブルーアーカイブ」の物語を実況。ゲーム開発部が新作のアイデアを練り、アリスと先生が冒険する展開を、仲間たちの掛け合いや緊張感とともに読み進めます。後半は新たな生徒を迎えるガチャにも挑戦します。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "水着パーティー作りたい",
+      "atSeconds": 10383,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "501fe2001430b0f4603623a0c0413e3772ad0f4829e207af643ebace65aed32a",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:55:29.329529+00:00"
   }
 }
