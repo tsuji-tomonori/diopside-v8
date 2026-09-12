@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "f09662abf4302b3605a11d6faa6c862ca84aaedc7f5722ce27ba9762133be7d1"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "b7014c084439e8c9493effc858027fd720d588a13daa232ef406c09e728494e4",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 112
     }
   ],
   "tagAssignments": [
@@ -112,10 +120,77 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-2b62355d",
+        "startSeconds": 0,
+        "label": "お泊まり女子会でYouTubeの話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-47-8d9a0339",
+        "startSeconds": 47,
+        "label": "配信者の話題に反応する場面",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-86-f767f36b",
+        "startSeconds": 86,
+        "label": "女子会のエピソードを振り返る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "839a5c06b17ce04ccd97c4a6d9dfd26054ea7e26f485bd33ae50a119354cdb34",
+    "inputFingerprint": "b7014c084439e8c9493effc858027fd720d588a13daa232ef406c09e728494e4",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-12T09:06:59.463643+00:00",
+    "updatedAt": "2026-09-12T10:01:31.875000+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "839a5c06b17ce04ccd97c4a6d9dfd26054ea7e26f485bd33ae50a119354cdb34",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T10:01:30.875000+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "839a5c06b17ce04ccd97c4a6d9dfd26054ea7e26f485bd33ae50a119354cdb34",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T10:01:31.875000+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "839a5c06b17ce04ccd97c4a6d9dfd26054ea7e26f485bd33ae50a119354cdb34",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2566"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -280,7 +355,7 @@
     "inputFingerprint": "2b8b8dac8e356038ba78c0f95fd65a7dbd4792b2097ce15cd0f76f95929935bc",
     "generatorVersion": "v8-legacy-migration-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2566"
   },
   "approval": {
     "status": "承認済み",
