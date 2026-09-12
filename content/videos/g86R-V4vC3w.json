@@ -52,6 +52,14 @@
       "inputFingerprint": "4f27953d3e579951ceef8e5bbae5394aa55cbdb9dd92ca92225a73bcc6d519a2",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 5382
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "9a2bcb13e9e7435eeb6999e672db3528b7a1d0dd0d5b47b0e4444bb503e9dd8d",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5382
     }
   ],
   "tagAssignments": [
@@ -486,5 +494,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、暑さにまつわる近況や前夜祭の夕食から語り始め、にじさんじスクラッチ、出演番組、3分劇場、ハッピーアワーを振り返る。歌ってみたやApex企画への思い、今後の配信予定、応援への感謝まで、9月の活動を軽やかにたどる雑談。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "どの曲も愛してくれたらうれしい",
+      "atSeconds": 3057,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "9a2bcb13e9e7435eeb6999e672db3528b7a1d0dd0d5b47b0e4444bb503e9dd8d",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T21:22:17.203063+00:00"
   }
 }
