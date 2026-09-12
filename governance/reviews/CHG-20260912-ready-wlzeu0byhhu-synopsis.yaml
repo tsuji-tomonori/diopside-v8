@@ -158,6 +158,7 @@ selected_checks:
     note: 未選択checkをN/Aとして記録しない。
 advisories: []
 residual_risks:
+  - 修正済み親 87bc56f06d5d0163a839d783d0e03500842e9904 を取り込み、親の既存項目と同一hashの候補を保持して1動画差分を再構成した。
   - 保存済みの独立確認済み候補を採用し、現在mainの既存コンテンツを保持する。
   - "候補hash: 1fce8b8b157e286bfd07bbb49726ea98db1edf6c6a46b7923da9fc9aa77ff0ac"
   - 現在HEADのCI成功後に所有者の明示依頼に基づきマージする。

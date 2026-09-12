@@ -158,6 +158,7 @@ selected_checks:
     note: 未選択checkをN/Aとして記録しない。
 advisories: []
 residual_risks:
+  - main 4bb844b17517da40161ff2aceac727aae37fab81 のワードクラウドと全既存項目を保持して競合を解消し、同一hashの確認済みあらすじだけを追加した。
   - 保存済みの独立確認済み候補を採用し、現在mainの既存コンテンツを保持する。
   - "候補hash: 59db0192abd646a9c7f5ab65878533c673ebf4ee7b63fbe416ad77b066d95ecc"
   - 現在HEADのCI成功後に所有者の明示依頼に基づきマージする。
