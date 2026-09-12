@@ -19,7 +19,7 @@ impact_flags:
   code_change: false
   typed_code_change: false
   behavior_change: true
-  bug_fix: false
+  bug_fix: true
   generated_change: true
   sql_change: false
   e2e_change: false
@@ -47,6 +47,13 @@ impact_details:
     scope: []
     exclusions: []
 selected_checks:
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/videos/UJEbskShP-Y.json
+      - commit:self
+    note: 修正前の50語に不確かな5語が含まれる条件を再現し、修正後は当該語なし・残る45語と重みが修正前の部分集合・他フィールド同一を検証する。現在HEADの既存CIを必須とする。
   - id: IMP-001
     class: Invariant
     result: pass
@@ -81,7 +88,7 @@ selected_checks:
     evidence:
       - path:content/videos/UJEbskShP-Y.json
       - commit:self
-    note: 既存動画の他フィールドを保持し、確認済みの未作成項目だけを追加する。
+    note: 既存動画の他フィールドを保持し、根拠が不確かな抽出語だけを除外する。
   - id: FAST-004
     class: Invariant
     result: pass
