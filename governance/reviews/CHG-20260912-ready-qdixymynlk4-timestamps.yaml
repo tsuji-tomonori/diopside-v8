@@ -158,6 +158,7 @@ selected_checks:
     note: 未選択checkをN/Aとして記録しない。
 advisories: []
 residual_risks:
+  - 修正済み親 2590f5a0c38afb2d282c8794f6d35ea6af9a4a37 を取り込み、親の既存項目と同一hashの候補を保持して1動画差分を再構成した。
   - 実PR番号をpublicationGateとprovenanceへ一致させ、同一hashの確認済み時刻一覧を反映した。
   - 保存済みの独立確認済み候補を採用し、現在mainの既存コンテンツを保持する。
   - "候補hash: d0a6c5040d4daf1b82c529f3ebbfa6a3b4c3e571c98cf86007719cfc4b9c6f92"

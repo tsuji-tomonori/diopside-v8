@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "b477f488d26eef5024e7e5d09286c4ca2f046999ee5b8d5b9cb82edb7238e48e"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "754e725ebda90cdc30e7c7b56b3f06cce7e8fef55b650a3bdf33952983cc2a23",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3453
     }
   ],
   "tagAssignments": [
@@ -285,10 +293,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "キノコ",
+        "weight": 100
+      },
+      {
+        "term": "人",
+        "weight": 78
+      },
+      {
+        "term": "アイテム",
+        "weight": 67
+      },
+      {
+        "term": "練習",
+        "weight": 64
+      },
+      {
+        "term": "普通",
+        "weight": 53
+      },
+      {
+        "term": "ファン",
+        "weight": 49
+      },
+      {
+        "term": "ミーティング",
+        "weight": 45
+      },
+      {
+        "term": "予選",
+        "weight": 45
+      },
+      {
+        "term": "ふみ",
+        "weight": 41
+      },
+      {
+        "term": "やばい",
+        "weight": 41
+      },
+      {
+        "term": "確か",
+        "weight": 41
+      },
+      {
+        "term": "突破",
+        "weight": 41
+      },
+      {
+        "term": "頑張る",
+        "weight": 36
+      },
+      {
+        "term": "すごい",
+        "weight": 30
+      },
+      {
+        "term": "白",
+        "weight": 30
+      },
+      {
+        "term": "うまい",
+        "weight": 24
+      },
+      {
+        "term": "コース",
+        "weight": 24
+      },
+      {
+        "term": "じゃあ",
+        "weight": 24
+      },
+      {
+        "term": "なんで",
+        "weight": 24
+      },
+      {
+        "term": "モテ",
+        "weight": 24
+      },
+      {
+        "term": "配信",
+        "weight": 24
+      },
+      {
+        "term": "ピン",
+        "weight": 17
+      },
+      {
+        "term": "ボール",
+        "weight": 17
+      },
+      {
+        "term": "マリカ",
+        "weight": 17
+      },
+      {
+        "term": "悔しい",
+        "weight": 17
+      },
+      {
+        "term": "雪",
+        "weight": 17
+      },
+      {
+        "term": "選ぶ",
+        "weight": 17
+      },
+      {
+        "term": "走る",
+        "weight": 17
+      },
+      {
+        "term": "大会",
+        "weight": 17
+      },
+      {
+        "term": "あと",
+        "weight": 10
+      },
+      {
+        "term": "うわ",
+        "weight": 10
+      },
+      {
+        "term": "かわいい",
+        "weight": 10
+      },
+      {
+        "term": "キラー",
+        "weight": 10
+      },
+      {
+        "term": "セリフ",
+        "weight": 10
+      },
+      {
+        "term": "めちゃくちゃ",
+        "weight": 10
+      },
+      {
+        "term": "嬉しい",
+        "weight": 10
+      },
+      {
+        "term": "取る",
+        "weight": 10
+      },
+      {
+        "term": "書く",
+        "weight": 10
+      },
+      {
+        "term": "酔う",
+        "weight": 10
+      },
+      {
+        "term": "前回",
+        "weight": 10
+      },
+      {
+        "term": "優勝",
+        "weight": 10
+      },
+      {
+        "term": "いつも",
+        "weight": 1
+      },
+      {
+        "term": "ゲーム",
+        "weight": 1
+      },
+      {
+        "term": "ごめん",
+        "weight": 1
+      },
+      {
+        "term": "しょうが",
+        "weight": 1
+      },
+      {
+        "term": "たい",
+        "weight": 1
+      },
+      {
+        "term": "とこ",
+        "weight": 1
+      },
+      {
+        "term": "ファイト",
+        "weight": 1
+      },
+      {
+        "term": "ベビパ",
+        "weight": 1
+      },
+      {
+        "term": "ほら",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "754e725ebda90cdc30e7c7b56b3f06cce7e8fef55b650a3bdf33952983cc2a23",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "c03db9f84c94919ce28519e726eb2ad4303879d19afb2adf36e6824cc983dad8",

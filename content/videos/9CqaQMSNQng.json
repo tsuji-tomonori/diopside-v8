@@ -50,6 +50,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "公開動画の概要欄・既存時刻一覧とゲスト交代企画の役割確認",
       "inputFingerprint": "28b54be0563e1e93498595aad4ff1395511ba0a9c9cf51951633c89ffede0429"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "17f6439c2802325280f72aee965200e7e9d2fc4ead2180d35cb5cb013f75a0d2",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 34304
     }
   ],
   "tagAssignments": [
@@ -472,10 +480,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "怖い",
+        "weight": 100
+      },
+      {
+        "term": "話",
+        "weight": 93
+      },
+      {
+        "term": "人",
+        "weight": 64
+      },
+      {
+        "term": "すごい",
+        "weight": 53
+      },
+      {
+        "term": "動画",
+        "weight": 53
+      },
+      {
+        "term": "声",
+        "weight": 39
+      },
+      {
+        "term": "目",
+        "weight": 39
+      },
+      {
+        "term": "音",
+        "weight": 37
+      },
+      {
+        "term": "前",
+        "weight": 36
+      },
+      {
+        "term": "部屋",
+        "weight": 33
+      },
+      {
+        "term": "家",
+        "weight": 31
+      },
+      {
+        "term": "帰る",
+        "weight": 29
+      },
+      {
+        "term": "聞こえる",
+        "weight": 28
+      },
+      {
+        "term": "消す",
+        "weight": 27
+      },
+      {
+        "term": "分かる",
+        "weight": 25
+      },
+      {
+        "term": "話す",
+        "weight": 25
+      },
+      {
+        "term": "気",
+        "weight": 22
+      },
+      {
+        "term": "読む",
+        "weight": 21
+      },
+      {
+        "term": "次",
+        "weight": 20
+      },
+      {
+        "term": "待つ",
+        "weight": 19
+      },
+      {
+        "term": "よく",
+        "weight": 18
+      },
+      {
+        "term": "お話",
+        "weight": 17
+      },
+      {
+        "term": "めちゃめちゃ",
+        "weight": 17
+      },
+      {
+        "term": "確か",
+        "weight": 16
+      },
+      {
+        "term": "配信",
+        "weight": 14
+      },
+      {
+        "term": "友人",
+        "weight": 14
+      },
+      {
+        "term": "顔",
+        "weight": 13
+      },
+      {
+        "term": "母",
+        "weight": 13
+      },
+      {
+        "term": "覚える",
+        "weight": 12
+      },
+      {
+        "term": "場所",
+        "weight": 12
+      },
+      {
+        "term": "消える",
+        "weight": 11
+      },
+      {
+        "term": "知る",
+        "weight": 11
+      },
+      {
+        "term": "犬",
+        "weight": 9
+      },
+      {
+        "term": "ずっと",
+        "weight": 7
+      },
+      {
+        "term": "手",
+        "weight": 7
+      },
+      {
+        "term": "少し",
+        "weight": 7
+      },
+      {
+        "term": "リスナー",
+        "weight": 5
+      },
+      {
+        "term": "わかる",
+        "weight": 5
+      },
+      {
+        "term": "皆さん",
+        "weight": 5
+      },
+      {
+        "term": "死ぬ",
+        "weight": 5
+      },
+      {
+        "term": "住む",
+        "weight": 5
+      },
+      {
+        "term": "体験",
+        "weight": 5
+      },
+      {
+        "term": "物語",
+        "weight": 5
+      },
+      {
+        "term": "終わる",
+        "weight": 4
+      },
+      {
+        "term": "友達",
+        "weight": 4
+      },
+      {
+        "term": "名前",
+        "weight": 3
+      },
+      {
+        "term": "くださる",
+        "weight": 2
+      },
+      {
+        "term": "開ける",
+        "weight": 2
+      },
+      {
+        "term": "大丈夫",
+        "weight": 2
+      },
+      {
+        "term": "ふる",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "17f6439c2802325280f72aee965200e7e9d2fc4ead2180d35cb5cb013f75a0d2",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "1407706f09c7d6da797d5f1fa948648dff28d8f529cb0c6e78b3e3cd8dc7827d",
