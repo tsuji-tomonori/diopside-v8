@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "44d96faa11fa39ee5003969c51201ca01b142fc3ee8dd4d66427b7993a72a304"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "47264c74fdb4707231804c77d6d8b0030bae1ea7eff1c911a206b9522b7b9e44",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3459
     }
   ],
   "tagAssignments": [
@@ -321,10 +329,187 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "好き",
+        "weight": 100
+      },
+      {
+        "term": "配信",
+        "weight": 85
+      },
+      {
+        "term": "大丈夫",
+        "weight": 67
+      },
+      {
+        "term": "ゲーム",
+        "weight": 61
+      },
+      {
+        "term": "前",
+        "weight": 61
+      },
+      {
+        "term": "ノーマル",
+        "weight": 55
+      },
+      {
+        "term": "使う",
+        "weight": 55
+      },
+      {
+        "term": "人",
+        "weight": 55
+      },
+      {
+        "term": "わかる",
+        "weight": 49
+      },
+      {
+        "term": "皆さん",
+        "weight": 49
+      },
+      {
+        "term": "嬉しい",
+        "weight": 49
+      },
+      {
+        "term": "はねる",
+        "weight": 42
+      },
+      {
+        "term": "ゾンビ",
+        "weight": 33
+      },
+      {
+        "term": "音",
+        "weight": 33
+      },
+      {
+        "term": "月",
+        "weight": 33
+      },
+      {
+        "term": "雑談",
+        "weight": 33
+      },
+      {
+        "term": "女性",
+        "weight": 33
+      },
+      {
+        "term": "雪",
+        "weight": 33
+      },
+      {
+        "term": "多い",
+        "weight": 33
+      },
+      {
+        "term": "知る",
+        "weight": 33
+      },
+      {
+        "term": "イメージ",
+        "weight": 24
+      },
+      {
+        "term": "コメント",
+        "weight": 24
+      },
+      {
+        "term": "コラボ",
+        "weight": 24
+      },
+      {
+        "term": "違う",
+        "weight": 24
+      },
+      {
+        "term": "確か",
+        "weight": 24
+      },
+      {
+        "term": "最後",
+        "weight": 24
+      },
+      {
+        "term": "子",
+        "weight": 24
+      },
+      {
+        "term": "時間",
+        "weight": 24
+      },
+      {
+        "term": "白",
+        "weight": 24
+      },
+      {
+        "term": "分かる",
+        "weight": 24
+      },
+      {
+        "term": "twitter",
+        "weight": 14
+      },
+      {
+        "term": "ごめん",
+        "weight": 14
+      },
+      {
+        "term": "ヒール",
+        "weight": 14
+      },
+      {
+        "term": "マシュマロ",
+        "weight": 14
+      },
+      {
+        "term": "もちろん",
+        "weight": 14
+      },
+      {
+        "term": "悪い",
+        "weight": 14
+      },
+      {
+        "term": "夏",
+        "weight": 14
+      },
+      {
+        "term": "噛む",
+        "weight": 14
+      },
+      {
+        "term": "呼ぶ",
+        "weight": 14
+      },
+      {
+        "term": "本",
+        "weight": 14
+      },
+      {
+        "term": "力",
+        "weight": 14
+      },
+      {
+        "term": "うまい",
+        "weight": 1
+      },
+      {
+        "term": "かわいい",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "47264c74fdb4707231804c77d6d8b0030bae1ea7eff1c911a206b9522b7b9e44",
+    "exclusionRulesVersion": "9.2.0+editorial.1",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "56fc5f3ea530ada5d6ba9a9e1c14b6933991bc5f7cdc1d94f6673967b97dd2b6",
