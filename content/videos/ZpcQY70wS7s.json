@@ -46,6 +46,14 @@
       "inputFingerprint": "a14fea3e2ddcf13381c851a88fd66e25c100f9b10c69757b75608b6bca938240",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 13080
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "1d02f9e98f641f0c992592fa7468e4fdabf8cdf4a03b811176422a685677dafb",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 13080
     }
   ],
   "tagAssignments": [
@@ -552,5 +560,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が爽やかな朝に『アウトラスト』へ挑戦。精神病院を舞台に、戦う術なく逃げ隠れしながら施設を探索し、手がかりやアイテムを探す中で、驚きと緊張の声が続くソロ実況です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "爽やかな朝にアウトラストやっちゃうぞ",
+      "atSeconds": 449,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "1d02f9e98f641f0c992592fa7468e4fdabf8cdf4a03b811176422a685677dafb",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T21:45:05.141516+00:00"
   }
 }
