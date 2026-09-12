@@ -158,6 +158,9 @@ selected_checks:
     note: 未選択checkをN/Aとして記録しない。
 advisories: []
 residual_risks:
+  - 親2件のmainマージ後に最新mainを取り込み、複数merge baseによる差分の曖昧さを解消した。
+  - 修正済み親commitをmerge履歴へ含め、親PRのマージ後に1動画差分でCIを再実行する。
+  - 先行ワードクラウドを保持し、親PRの修正済み引用と同じ根拠を統合する。
   - 保存済みの独立確認済み候補を採用し、現在mainの既存コンテンツを保持する。
   - "候補hash: 868373a5d9818599b648f2c45b4d7f1c1360f65a9ac5d2b444d0024ac75b435c"
   - 現在HEADのCI成功後に所有者の明示依頼に基づきマージする。
