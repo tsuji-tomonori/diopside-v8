@@ -52,6 +52,14 @@
       "inputFingerprint": "81385a3f90de56c5065d7f9d510697653cc3dd876bf8d86e0486a646af0ac67a",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 5898
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "85eb64ced74919755d70f76f207e0a78e84f807255d459b0772218126f226b85",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5898
     }
   ],
   "tagAssignments": [
@@ -549,5 +557,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、かつてのコンビニバイト経験を思い出しながら、様子のおかしい客が訪れる店で勤務するゲームに挑戦。スキャンで客を見分け、鉄パイプも手にしつつ、普通の客まで疑ってしまう状況に揺れ動きます。忙しさと困惑が入り混じる接客の行方を見守る一編です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "このゲームまったりできない",
+      "atSeconds": 5432,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "85eb64ced74919755d70f76f207e0a78e84f807255d459b0772218126f226b85",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T14:10:09.818402+00:00"
   }
 }
