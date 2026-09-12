@@ -58,6 +58,14 @@
       "inputFingerprint": "75ffc16fa44e7f86f6f49ec9db252e65c51607417e9a2161c98225c0259ffa42",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 6269
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "b72d0dddb1ae836b17a6ee2448f11137aeb042ab75192d87122d42cff687e83a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6269
     }
   ],
   "tagAssignments": [
@@ -281,10 +289,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "すごい",
+        "weight": 100
+      },
+      {
+        "term": "おじさん",
+        "weight": 88
+      },
+      {
+        "term": "待つ",
+        "weight": 85
+      },
+      {
+        "term": "怖い",
+        "weight": 83
+      },
+      {
+        "term": "異変",
+        "weight": 78
+      },
+      {
+        "term": "確か",
+        "weight": 58
+      },
+      {
+        "term": "開ける",
+        "weight": 52
+      },
+      {
+        "term": "ゲーム",
+        "weight": 49
+      },
+      {
+        "term": "見つける",
+        "weight": 47
+      },
+      {
+        "term": "広告",
+        "weight": 47
+      },
+      {
+        "term": "人",
+        "weight": 47
+      },
+      {
+        "term": "次",
+        "weight": 45
+      },
+      {
+        "term": "分かる",
+        "weight": 45
+      },
+      {
+        "term": "びっくり",
+        "weight": 42
+      },
+      {
+        "term": "気",
+        "weight": 42
+      },
+      {
+        "term": "大丈夫",
+        "weight": 39
+      },
+      {
+        "term": "うわ",
+        "weight": 36
+      },
+      {
+        "term": "掲示板",
+        "weight": 36
+      },
+      {
+        "term": "楽しい",
+        "weight": 33
+      },
+      {
+        "term": "手",
+        "weight": 33
+      },
+      {
+        "term": "電光",
+        "weight": 33
+      },
+      {
+        "term": "突破",
+        "weight": 33
+      },
+      {
+        "term": "電車",
+        "weight": 27
+      },
+      {
+        "term": "目",
+        "weight": 27
+      },
+      {
+        "term": "やばい",
+        "weight": 23
+      },
+      {
+        "term": "回収",
+        "weight": 23
+      },
+      {
+        "term": "書く",
+        "weight": 23
+      },
+      {
+        "term": "スルー",
+        "weight": 20
+      },
+      {
+        "term": "開く",
+        "weight": 20
+      },
+      {
+        "term": "気づく",
+        "weight": 20
+      },
+      {
+        "term": "座る",
+        "weight": 20
+      },
+      {
+        "term": "女の子",
+        "weight": 20
+      },
+      {
+        "term": "くださる",
+        "weight": 15
+      },
+      {
+        "term": "ダメ",
+        "weight": 15
+      },
+      {
+        "term": "わかる",
+        "weight": 15
+      },
+      {
+        "term": "出口",
+        "weight": 15
+      },
+      {
+        "term": "かわいい",
+        "weight": 11
+      },
+      {
+        "term": "ホラー",
+        "weight": 11
+      },
+      {
+        "term": "皆さん",
+        "weight": 11
+      },
+      {
+        "term": "行う",
+        "weight": 11
+      },
+      {
+        "term": "降りる",
+        "weight": 11
+      },
+      {
+        "term": "死ぬ",
+        "weight": 11
+      },
+      {
+        "term": "終わる",
+        "weight": 11
+      },
+      {
+        "term": "声",
+        "weight": 11
+      },
+      {
+        "term": "おじ",
+        "weight": 6
+      },
+      {
+        "term": "横",
+        "weight": 6
+      },
+      {
+        "term": "だるま",
+        "weight": 1
+      },
+      {
+        "term": "とこ",
+        "weight": 1
+      },
+      {
+        "term": "ほら",
+        "weight": 1
+      },
+      {
+        "term": "首",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "b72d0dddb1ae836b17a6ee2448f11137aeb042ab75192d87122d42cff687e83a",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "05f1052ac8c25fc53995e8d1d6108623901abea89191b9fcbcf73239df42d32e",
