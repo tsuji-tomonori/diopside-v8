@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "1a55fa6b0e6c2a0ceba75f8406f4eefa90161abc06547a91234d64aeffb08760"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "dbff44af9047ce35f29eb954ee9f71e222fc48206f2a990eee0623f3bfb5d34c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6443
     }
   ],
   "tagAssignments": [
@@ -304,10 +312,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "ベル",
+        "weight": 100
+      },
+      {
+        "term": "魔法",
+        "weight": 95
+      },
+      {
+        "term": "わかる",
+        "weight": 68
+      },
+      {
+        "term": "少女",
+        "weight": 68
+      },
+      {
+        "term": "世界",
+        "weight": 60
+      },
+      {
+        "term": "夢",
+        "weight": 60
+      },
+      {
+        "term": "お嬢様",
+        "weight": 47
+      },
+      {
+        "term": "ねる",
+        "weight": 47
+      },
+      {
+        "term": "人",
+        "weight": 47
+      },
+      {
+        "term": "大丈夫",
+        "weight": 42
+      },
+      {
+        "term": "終わる",
+        "weight": 36
+      },
+      {
+        "term": "人間",
+        "weight": 36
+      },
+      {
+        "term": "先",
+        "weight": 36
+      },
+      {
+        "term": "前",
+        "weight": 36
+      },
+      {
+        "term": "あと",
+        "weight": 31
+      },
+      {
+        "term": "すごい",
+        "weight": 31
+      },
+      {
+        "term": "楽しい",
+        "weight": 31
+      },
+      {
+        "term": "好き",
+        "weight": 31
+      },
+      {
+        "term": "最後",
+        "weight": 31
+      },
+      {
+        "term": "皆さん",
+        "weight": 24
+      },
+      {
+        "term": "借りる",
+        "weight": 24
+      },
+      {
+        "term": "早い",
+        "weight": 24
+      },
+      {
+        "term": "イラスト",
+        "weight": 17
+      },
+      {
+        "term": "多い",
+        "weight": 17
+      },
+      {
+        "term": "気",
+        "weight": 10
+      },
+      {
+        "term": "呼ぶ",
+        "weight": 10
+      },
+      {
+        "term": "時間",
+        "weight": 10
+      },
+      {
+        "term": "分かる",
+        "weight": 10
+      },
+      {
+        "term": "力",
+        "weight": 10
+      },
+      {
+        "term": "話",
+        "weight": 10
+      },
+      {
+        "term": "ex",
+        "weight": 1
+      },
+      {
+        "term": "いつも",
+        "weight": 1
+      },
+      {
+        "term": "タイトル",
+        "weight": 1
+      },
+      {
+        "term": "たくさん",
+        "weight": 1
+      },
+      {
+        "term": "ダメ",
+        "weight": 1
+      },
+      {
+        "term": "悪い",
+        "weight": 1
+      },
+      {
+        "term": "一番",
+        "weight": 1
+      },
+      {
+        "term": "音",
+        "weight": 1
+      },
+      {
+        "term": "楽しみ",
+        "weight": 1
+      },
+      {
+        "term": "刑事",
+        "weight": 1
+      },
+      {
+        "term": "行う",
+        "weight": 1
+      },
+      {
+        "term": "使う",
+        "weight": 1
+      },
+      {
+        "term": "出す",
+        "weight": 1
+      },
+      {
+        "term": "状況",
+        "weight": 1
+      },
+      {
+        "term": "寝る",
+        "weight": 1
+      },
+      {
+        "term": "生きる",
+        "weight": 1
+      },
+      {
+        "term": "声",
+        "weight": 1
+      },
+      {
+        "term": "待つ",
+        "weight": 1
+      },
+      {
+        "term": "知る",
+        "weight": 1
+      },
+      {
+        "term": "普通",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "dbff44af9047ce35f29eb954ee9f71e222fc48206f2a990eee0623f3bfb5d34c",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "a173a0de5f62edc3684c4b7eac25259363f9cb5a9bf1bae20cd4ad05fc8b85be",
