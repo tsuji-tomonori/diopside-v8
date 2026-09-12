@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "12347ac844a7f5dd4b58b40c542f3f6c288560da242f6bd403e8d65810abe9b6"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "81ed0e22ba5a0d42070ad2650a2c81943fbfb73a7f6811d4eee804bb675f5da4",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7546
     }
   ],
   "tagAssignments": [
@@ -968,5 +976,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴視点で、マインクラフトの人狼RPG第弐夜に参加。昼は会話と推理で怪しい人物を探り、夜は役職ごとの行動と緊張感が交錯します。ハロウィン仕様の街を駆け回り、仲間との駆け引きや軽妙な反応を楽しむ視点配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私は実はあるお城に行きたいと思ってる",
+      "atSeconds": 233,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "81ed0e22ba5a0d42070ad2650a2c81943fbfb73a7f6811d4eee804bb675f5da4",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:01:37.698892Z"
   }
 }
