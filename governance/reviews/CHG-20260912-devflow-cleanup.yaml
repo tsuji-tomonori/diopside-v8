@@ -1,0 +1,182 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260912-devflow-cleanup
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: true
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: true
+  generated_change: false
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: FAST-001
+  class: Invariant
+  result: pass
+  evidence:
+  - test:tests/devflow_cleanup_test.py
+  - test:tests/synopsis_harness_test.py
+  - workflow:.github/workflows/verify.yml
+  note: 構文・ビルドを確認する。対象限定の回収・保持条件と既存CI入口を確認。
+- id: FAST-003
+  class: Invariant
+  result: pass
+  evidence:
+  - test:tests/devflow_cleanup_test.py
+  - test:tests/synopsis_harness_test.py
+  - workflow:.github/workflows/verify.yml
+  note: 対象lintを実行する。対象限定の回収・保持条件と既存CI入口を確認。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence:
+  - test:tests/devflow_cleanup_test.py
+  - test:tests/synopsis_harness_test.py
+  - workflow:.github/workflows/verify.yml
+  note: 対象単体テストを実行する。対象限定の回収・保持条件と既存CI入口を確認。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - test:tests/devflow_cleanup_test.py
+  - test:tests/synopsis_harness_test.py
+  - workflow:.github/workflows/verify.yml
+  note: 再現テストを確認する。対象限定の回収・保持条件と既存CI入口を確認。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence:
+  - test:tests/devflow_cleanup_test.py
+  - test:tests/synopsis_harness_test.py
+  - workflow:.github/workflows/verify.yml
+  note: 秘密情報混入を検査する。対象限定の回収・保持条件と既存CI入口を確認。
+- id: FAST-015
+  class: Advisory
+  result: pass
+  evidence:
+  - test:tests/devflow_cleanup_test.py
+  - test:tests/synopsis_harness_test.py
+  - workflow:.github/workflows/verify.yml
+  note: 観測可能性を確認する。対象限定の回収・保持条件と既存CI入口を確認。
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 要件影響を判定する。対象限定の回収・保持条件と既存CI入口を確認。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 設計影響を判定する。対象限定の回収・保持条件と既存CI入口を確認。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 実行プロファイルを選択する。対象限定の回収・保持条件と既存CI入口を確認。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 外部書込みを識別する。対象限定の回収・保持条件と既存CI入口を確認。
+- id: IMP-005
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 不可逆操作を識別する。対象限定の回収・保持条件と既存CI入口を確認。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 差分の目的を一つに保つ。対象限定の回収・保持条件と既存CI入口を確認。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: Commit Commentを完成させる。対象限定の回収・保持条件と既存CI入口を確認。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 要件影響の理由を確認する。対象限定の回収・保持条件と既存CI入口を確認。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 設計影響の理由を確認する。対象限定の回収・保持条件と既存CI入口を確認。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence:
+  - test:tests/devflow_cleanup_test.py
+  - test:tests/synopsis_harness_test.py
+  - workflow:.github/workflows/verify.yml
+  note: 受入条件に対応する証拠を確認する。対象限定の回収・保持条件と既存CI入口を確認。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260912-devflow-cleanup.yaml
+  note: 選択チェック結果を保存する。対象限定の回収・保持条件と既存CI入口を確認。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260912-devflow-cleanup.yaml
+  note: 未選択をN/Aにしない。対象限定の回収・保持条件と既存CI入口を確認。
+- id: REV-014
+  class: Risk-selected
+  result: pass
+  evidence:
+  - commit:self
+  note: 運用正本を更新する。対象限定の回収・保持条件と既存CI入口を確認。
+advisories: []
+residual_risks:
+- 所有マーカーなし・未完了・稼働中・未保存変更・remote確認不能は保持する。既存データは一覧化のみ。
+- 完了記録だけを.devflow/completedに保持し、元素材を変更しない。
+- 一覧はローカル観測に基づく。実削除前に現在のPR・台帳・稼働状況を再確認する。

@@ -10,6 +10,9 @@ import tempfile
 import tomllib
 import unittest
 from pathlib import Path
+
+# Included by the existing test:timestamp-tools CI entrypoint.
+from tests.devflow_cleanup_test import DevflowCleanupTest  # noqa: F401
 from types import SimpleNamespace
 from unittest.mock import patch
 
