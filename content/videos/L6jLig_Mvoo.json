@@ -52,6 +52,14 @@
       "inputFingerprint": "c43649cb26200d8d47f2f616e513ed2cb073793af8a82fde0ee272aefbec7b3a",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 10036
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "35113556b5fe415e0ff64a50dd253da5c039a6091626043028ad20bd53443721",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10036
     }
   ],
   "tagAssignments": [
@@ -540,5 +548,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "4月の活動を振り返る雑談。ゲームや麻雀コラボ、ASMR企画、家族の話から、視聴者参加型の「3分劇場」まで、当時の思い出とこれからの配信を、晩酌やスーパーチャット読みを交えて語ります。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "たぶんこれは相手によって全然違うシーンが生まれることだと思う",
+      "atSeconds": 4434,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "35113556b5fe415e0ff64a50dd253da5c039a6091626043028ad20bd53443721",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T19:09:33.488506+00:00"
   }
 }
