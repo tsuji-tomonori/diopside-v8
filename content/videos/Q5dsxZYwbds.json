@@ -52,6 +52,14 @@
       "inputFingerprint": "33206e7d9559ea0e5084122525004c82dfa921bccb681ecf68eed56768d21011",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 6513
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "保存済み公開の全編字幕",
+      "inputFingerprint": "e34d58b7c582211d56d86fb2d811c7b918ce67040df23bcd2d222c6a05bc55cf",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6513
     }
   ],
   "tagAssignments": [
@@ -549,5 +557,22 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が「あつまれ どうぶつの森」で、島づくりを進めながら借金返済と博物館の準備に挑む。魚や虫、化石を集め、道具を整え、季節の卵にも翻弄される忙しさを、軽妙な雑談と反応とともに味わえる配信。",
+    "bodyEvidenceRefs": [
+      "evidence-title",
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "こんなピリピリしてやるゲームにするつもりはなかった",
+      "atSeconds": 5601,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "e34d58b7c582211d56d86fb2d811c7b918ce67040df23bcd2d222c6a05bc55cf",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T20:10:19.201408+00:00"
   }
 }
