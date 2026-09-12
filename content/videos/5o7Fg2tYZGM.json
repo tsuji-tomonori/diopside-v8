@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "ff9d24935ff1705a05732ad5463dc5eb23e4179bc35136e9e8a54fdc69dac6a3"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "dc3b16bd1307731af61eeae019a206a35541fd01852c31f777c54077e75276a9",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 971
     }
   ],
   "tagAssignments": [
@@ -273,10 +281,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "確か",
+        "weight": 100
+      },
+      {
+        "term": "始まる",
+        "weight": 100
+      },
+      {
+        "term": "親",
+        "weight": 75
+      },
+      {
+        "term": "大丈夫",
+        "weight": 75
+      },
+      {
+        "term": "怖い",
+        "weight": 75
+      },
+      {
+        "term": "終わる",
+        "weight": 69
+      },
+      {
+        "term": "待つ",
+        "weight": 61
+      },
+      {
+        "term": "うわ",
+        "weight": 53
+      },
+      {
+        "term": "早い",
+        "weight": 53
+      },
+      {
+        "term": "分かる",
+        "weight": 53
+      },
+      {
+        "term": "マジ",
+        "weight": 44
+      },
+      {
+        "term": "わかる",
+        "weight": 44
+      },
+      {
+        "term": "頑張る",
+        "weight": 44
+      },
+      {
+        "term": "形",
+        "weight": 44
+      },
+      {
+        "term": "配信",
+        "weight": 44
+      },
+      {
+        "term": "すごい",
+        "weight": 32
+      },
+      {
+        "term": "ふる",
+        "weight": 32
+      },
+      {
+        "term": "リーチ",
+        "weight": 32
+      },
+      {
+        "term": "木",
+        "weight": 32
+      },
+      {
+        "term": "シェリン",
+        "weight": 19
+      },
+      {
+        "term": "タヤ",
+        "weight": 19
+      },
+      {
+        "term": "とりあえず",
+        "weight": 19
+      },
+      {
+        "term": "悪口",
+        "weight": 19
+      },
+      {
+        "term": "運",
+        "weight": 19
+      },
+      {
+        "term": "皆さん",
+        "weight": 19
+      },
+      {
+        "term": "韓国",
+        "weight": 19
+      },
+      {
+        "term": "逆",
+        "weight": 19
+      },
+      {
+        "term": "急",
+        "weight": 19
+      },
+      {
+        "term": "泣く",
+        "weight": 19
+      },
+      {
+        "term": "手",
+        "weight": 19
+      },
+      {
+        "term": "上がる",
+        "weight": 19
+      },
+      {
+        "term": "前",
+        "weight": 19
+      },
+      {
+        "term": "白",
+        "weight": 19
+      },
+      {
+        "term": "普通",
+        "weight": 19
+      },
+      {
+        "term": "麻雀",
+        "weight": 19
+      },
+      {
+        "term": "インタビュー",
+        "weight": 1
+      },
+      {
+        "term": "コスモ",
+        "weight": 1
+      },
+      {
+        "term": "コメント",
+        "weight": 1
+      },
+      {
+        "term": "すいません",
+        "weight": 1
+      },
+      {
+        "term": "すねる",
+        "weight": 1
+      },
+      {
+        "term": "チーミング",
+        "weight": 1
+      },
+      {
+        "term": "ドラドラ",
+        "weight": 1
+      },
+      {
+        "term": "なける",
+        "weight": 1
+      },
+      {
+        "term": "なんとか",
+        "weight": 1
+      },
+      {
+        "term": "ねる",
+        "weight": 1
+      },
+      {
+        "term": "ふん",
+        "weight": 1
+      },
+      {
+        "term": "マシ",
+        "weight": 1
+      },
+      {
+        "term": "やばい",
+        "weight": 1
+      },
+      {
+        "term": "やめる",
+        "weight": 1
+      },
+      {
+        "term": "やり直す",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "dc3b16bd1307731af61eeae019a206a35541fd01852c31f777c54077e75276a9",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "b80c1d0a01a8cc736fe028598708d893dd6479bfa96a9c64cf6b11f5588473cf",
