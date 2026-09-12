@@ -32,6 +32,14 @@
       "type": "動画長",
       "sourceLabel": "YouTube公開動画長",
       "inputFingerprint": "a6bfc600a031783aafb5e992345e1f9ee9b4b8abe124f019252d7acd492c6053"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "公開動画の全編を処理した一時文字起こしの語頻度集計入力",
+      "inputFingerprint": "df35debc35239e77bee097165333c6123641f6a1575fb5fe74b1653ccb945118",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 20050
     }
   ],
   "tagAssignments": [
@@ -124,10 +132,215 @@
     "updatedAt": "2026-09-04T15:38:33Z"
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "確認待ち",
-    "detail": "今回の絵文字集計範囲では公開本文からの語句候補をレビューしていません。",
-    "updatedAt": "2026-09-04T15:38:33Z"
+    "words": [
+      {
+        "term": "人",
+        "weight": 100
+      },
+      {
+        "term": "事件",
+        "weight": 93
+      },
+      {
+        "term": "管理",
+        "weight": 85
+      },
+      {
+        "term": "木",
+        "weight": 67
+      },
+      {
+        "term": "センター",
+        "weight": 63
+      },
+      {
+        "term": "分かる",
+        "weight": 57
+      },
+      {
+        "term": "情報",
+        "weight": 52
+      },
+      {
+        "term": "配信",
+        "weight": 44
+      },
+      {
+        "term": "ジャスミン",
+        "weight": 43
+      },
+      {
+        "term": "確か",
+        "weight": 39
+      },
+      {
+        "term": "黒沢",
+        "weight": 38
+      },
+      {
+        "term": "警察",
+        "weight": 37
+      },
+      {
+        "term": "白",
+        "weight": 36
+      },
+      {
+        "term": "カード",
+        "weight": 35
+      },
+      {
+        "term": "知る",
+        "weight": 35
+      },
+      {
+        "term": "資料",
+        "weight": 32
+      },
+      {
+        "term": "都市",
+        "weight": 31
+      },
+      {
+        "term": "伝説",
+        "weight": 30
+      },
+      {
+        "term": "調べる",
+        "weight": 29
+      },
+      {
+        "term": "調査",
+        "weight": 29
+      },
+      {
+        "term": "解体",
+        "weight": 27
+      },
+      {
+        "term": "雪",
+        "weight": 27
+      },
+      {
+        "term": "存在",
+        "weight": 27
+      },
+      {
+        "term": "マジ",
+        "weight": 26
+      },
+      {
+        "term": "噂",
+        "weight": 25
+      },
+      {
+        "term": "わかる",
+        "weight": 23
+      },
+      {
+        "term": "全部",
+        "weight": 23
+      },
+      {
+        "term": "予言",
+        "weight": 23
+      },
+      {
+        "term": "サメ",
+        "weight": 22
+      },
+      {
+        "term": "やばい",
+        "weight": 22
+      },
+      {
+        "term": "話",
+        "weight": 20
+      },
+      {
+        "term": "すごい",
+        "weight": 18
+      },
+      {
+        "term": "待つ",
+        "weight": 18
+      },
+      {
+        "term": "犯人",
+        "weight": 17
+      },
+      {
+        "term": "あみ",
+        "weight": 14
+      },
+      {
+        "term": "めぐる",
+        "weight": 14
+      },
+      {
+        "term": "怖い",
+        "weight": 13
+      },
+      {
+        "term": "違う",
+        "weight": 11
+      },
+      {
+        "term": "sns",
+        "weight": 10
+      },
+      {
+        "term": "消す",
+        "weight": 10
+      },
+      {
+        "term": "痕跡",
+        "weight": 9
+      },
+      {
+        "term": "書く",
+        "weight": 9
+      },
+      {
+        "term": "謎",
+        "weight": 8
+      },
+      {
+        "term": "前",
+        "weight": 6
+      },
+      {
+        "term": "野村",
+        "weight": 5
+      },
+      {
+        "term": "関係",
+        "weight": 2
+      },
+      {
+        "term": "口",
+        "weight": 2
+      },
+      {
+        "term": "大丈夫",
+        "weight": 2
+      },
+      {
+        "term": "答え",
+        "weight": 2
+      },
+      {
+        "term": "考える",
+        "weight": 1
+      }
+    ],
+    "inputType": "運用者提供の公開本文",
+    "inputFingerprint": "df35debc35239e77bee097165333c6123641f6a1575fb5fe74b1653ccb945118",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T09:21:23.454Z"
   },
   "customEmojiUsage": {
     "status": "集計済み",

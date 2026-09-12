@@ -40,6 +40,14 @@
       "inputFingerprint": "9483f0ee6c0bbdd68fff29c607bdb02720b3f7ce8131b43b3b0a294e958d569c"
     },
     {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "d436b0ff0c6b7a5f13404170ffc84bff8889c27f849690fbbedf4e650b647e56",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7320
+    },
+    {
       "evidenceId": "evidence-caption-word-cloud-9-2",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
@@ -349,5 +357,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が晩酌しながら「雀魂」で視聴者参加型の麻雀に挑戦します。冷凍餃子を味わい、焦がし味噌だれの話や休日の近況を語り、対局では打牌を考えながらコメントと交流する、気軽なおしゃべり配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "麻雀楽しい麻雀好き",
+      "atSeconds": 6707,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "d436b0ff0c6b7a5f13404170ffc84bff8889c27f849690fbbedf4e650b647e56",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T13:05:20.171282+00:00"
   }
 }

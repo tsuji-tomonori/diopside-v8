@@ -52,6 +52,14 @@
       "inputFingerprint": "921d418292fffd7f179a6b8a44853195c6cb95abe7a4261ce2061e505bc0c58d",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 106
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "921d418292fffd7f179a6b8a44853195c6cb95abe7a4261ce2061e505bc0c58d",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 106
     }
   ],
   "tagAssignments": [
@@ -93,10 +101,77 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-bdd60611",
+        "startSeconds": 0,
+        "label": "体に合う下着の選び方",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-39-30751055",
+        "startSeconds": 39,
+        "label": "合う形で見え方が変わる例",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-57-125a80ce",
+        "startSeconds": 57,
+        "label": "自分に合う形を選んだ経験",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "d0a6c5040d4daf1b82c529f3ebbfa6a3b4c3e571c98cf86007719cfc4b9c6f92",
+    "inputFingerprint": "921d418292fffd7f179a6b8a44853195c6cb95abe7a4261ce2061e505bc0c58d",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-12T09:20:00+09:00",
+    "updatedAt": "2026-09-12T09:15:12.002000+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "d0a6c5040d4daf1b82c529f3ebbfa6a3b4c3e571c98cf86007719cfc4b9c6f92",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T09:15:11.002000+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "d0a6c5040d4daf1b82c529f3ebbfa6a3b4c3e571c98cf86007719cfc4b9c6f92",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T09:15:12.002000+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "d0a6c5040d4daf1b82c529f3ebbfa6a3b4c3e571c98cf86007719cfc4b9c6f92",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2570"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -368,7 +443,7 @@
     "inputFingerprint": "e2ce1251e8519749b4ef3bfdbefa5d98da74e0a5284dd262ed58bbe66a0d3af0",
     "generatorVersion": "v8-legacy-migration-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2570"
   },
   "approval": {
     "status": "承認済み",

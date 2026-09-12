@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "a40697e64993e178a602d5d2d96460d320c5b632b5bfd1f55002642492d8a72b"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "980b2e51f74ee76deafd32b267751c461817620e0907f1f0fa37ccca21861ce5",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 682
     }
   ],
   "tagAssignments": [
@@ -506,5 +514,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴がホラーゲーム『PIEN』に挑戦。ビビったら即終了という条件のもと、恐怖を感じても感情を抑える作戦で暗い部屋を探索します。電池を温存しながらライトで仕掛けを探り、驚かせる演出に反応しつつも苦手なホラーを自分なりに攻略していく実況です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "感情をぶち殺す",
+      "atSeconds": 181,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "980b2e51f74ee76deafd32b267751c461817620e0907f1f0fa37ccca21861ce5",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T13:10:33.099447+00:00"
   }
 }
