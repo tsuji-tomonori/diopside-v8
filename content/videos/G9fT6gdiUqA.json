@@ -46,6 +46,14 @@
       "inputFingerprint": "a52992b5f1eae50b9c68bf7e15252333fe837517084c97a02c3a91dd0c236232",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 9455
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "ad145a603ced428cada3f8949298b9eba0f0bba05f3b9409a38dfc9e2736f61f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9455
     }
   ],
   "tagAssignments": [
@@ -525,5 +533,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "リスナーから寄せられた実体験を白雪巴が一篇ずつ紹介する「ガチ百合」第8回。職場や学校、友人との距離が揺れる甘く切ない話から、思わず笑う急展開まで、投稿者の関係性を想像しながら丁寧に語り、最後はリアルな恋と友情について振り返る。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "人と人とのエピソードですよね",
+      "atSeconds": 8739,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "ad145a603ced428cada3f8949298b9eba0f0bba05f3b9409a38dfc9e2736f61f",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T14:09:19.420418+00:00"
   }
 }
