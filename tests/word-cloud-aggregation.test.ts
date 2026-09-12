@@ -9,6 +9,33 @@ import { aggregateWordCloud } from '../scripts/aggregate-word-cloud.ts';
 const gzipAsync = promisify(gzip);
 
 describe('公開コメント・チャットのワードクラウド候補集計', () => {
+  it('字幕では非発話マーカーと頻出のつなぎ言葉を除き、実際の入力種別を保持する', async () => {
+    const directory = await mkdtemp(path.join(os.tmpdir(), 'diopside-word-cloud-captions-'));
+    const inputPath = path.join(directory, 'captions.jsonl');
+    const text = '最高 かわいい 面白い 神回 天才 配信 実況 ゲーム 爆笑 感動 コラボ 歌声 雑談 反応 初見 驚き 優しい 企画 衣装 物語 応援 待機 解説 挑戦';
+    await writeFile(inputPath, [
+      JSON.stringify({ text: '[音楽] [拍手] ちょっと うん はい '.repeat(100) }),
+      JSON.stringify({ text: text.repeat(3) }),
+      JSON.stringify({ text: '音楽' }),
+    ].join('\n'), 'utf8');
+    try {
+      const candidate = await aggregateWordCloud(inputPath, '公開字幕', '2026-09-12T00:00:00Z');
+      const repeated = await aggregateWordCloud(inputPath, '公開字幕', '2026-09-12T00:00:00Z');
+      const words = candidate.words.map((word) => word.term);
+      expect(candidate.inputType).toBe('公開字幕');
+      expect(candidate.rulesVersion).toBe('9.2.0');
+      expect(candidate.humanReview).toBe('確認待ち');
+      expect(candidate.words.length).toBeGreaterThanOrEqual(20);
+      for (const excluded of ['ちょっと', 'うん', 'はい', '拍手']) expect(words).not.toContain(excluded);
+      expect(words).toContain('音楽');
+      expect(candidate.words.find((word) => word.term === '音楽')!.weight).toBeLessThan(candidate.words[0]!.weight);
+      expect(repeated).toEqual(candidate);
+      expect(JSON.stringify(candidate)).not.toContain(text);
+    } finally {
+      await rm(directory, { recursive: true, force: true });
+    }
+  });
+
   it('本文だけから20〜50語を集約し、投稿者情報と生本文を出力しない', async () => {
     const directory = await mkdtemp(path.join(os.tmpdir(), 'diopside-word-cloud-'));
     const inputPath = path.join(directory, 'chat.jsonl');

@@ -10,14 +10,15 @@ import { createGunzip } from 'node:zlib';
 import kuromoji, { type IpadicFeatures, type Tokenizer } from 'kuromoji';
 
 export type AudienceWordCloudInputType = '公開チャット' | '公開コメント';
+export type WordCloudSourceInputType = AudienceWordCloudInputType | '公開字幕';
 
 export interface WordCloudCandidate {
   status: '候補';
   words: Array<{ term: string; weight: number }>;
-  inputType: AudienceWordCloudInputType;
+  inputType: WordCloudSourceInputType;
   inputFingerprint: string;
-  exclusionRulesVersion: '9.1.0';
-  rulesVersion: '9.1.0';
+  exclusionRulesVersion: '9.1.0' | '9.2.0';
+  rulesVersion: '9.1.0' | '9.2.0';
   generatedAt: string;
   humanReview: '確認待ち';
 }
@@ -51,9 +52,18 @@ const normalizedAliases = new Map([
   ['がんばれる', '頑張る'],
 ]);
 
+// Spoken fillers recur much more often in captions than in audience reactions.
+const captionStopWords = new Set([
+  'ちょっと', 'ちょ', 'うん', 'うーん', 'えっ', 'ええ', 'はい', 'いや', 'いやー', 'まあ',
+  'ねえ', 'さあ', 'はっ', 'あの', 'なんか', 'こう', 'どう', 'よし', 'よいしょ', 'オッケー',
+  'ちゃう', 'てる', 'しれる', 'ちる', 'やっぱ', 'やっぱり', '本当に', '多分', 'たぶん',
+  '結構', 'めっちゃ', '全然', 'ちゃんと', 'もっと', 'ぜひ', 'さっき', 'まだ', '今回',
+  '一応', 'いろいろ', '行く', '来る', '入る', '出る', '持つ', 'つく', 'とる',
+]);
+
 export async function aggregateWordCloud(
   inputPath: string,
-  inputType: AudienceWordCloudInputType,
+  inputType: WordCloudSourceInputType,
   generatedAt: string,
 ): Promise<WordCloudCandidate> {
   const tokenizer = await buildTokenizer();
@@ -72,7 +82,11 @@ export async function aggregateWordCloud(
       continue;
     }
     for (const message of publicMessages(value)) {
-      for (const term of extractTerms(message, tokenizer)) {
+      const text = inputType === '公開字幕'
+        ? message.replace(/\[(?:音楽|拍手|笑い|笑い声|Music|Applause|Laughter)\]/giu, ' ')
+        : message;
+      for (const term of extractTerms(text, tokenizer)) {
+        if (inputType === '公開字幕' && captionStopWords.has(term)) continue;
         counts.set(term, (counts.get(term) ?? 0) + 1);
       }
     }
@@ -97,8 +111,8 @@ export async function aggregateWordCloud(
     words,
     inputType,
     inputFingerprint: inputHash.digest('hex'),
-    exclusionRulesVersion: '9.1.0',
-    rulesVersion: '9.1.0',
+    exclusionRulesVersion: inputType === '公開字幕' ? '9.2.0' : '9.1.0',
+    rulesVersion: inputType === '公開字幕' ? '9.2.0' : '9.1.0',
     generatedAt,
     humanReview: '確認待ち',
   };
@@ -202,8 +216,8 @@ async function main(): Promise<void> {
   if (!values.input || !values.output || !values['input-type'] || !values['generated-at']) {
     throw new Error('--input、--output、--input-type、--generated-atを指定してください。');
   }
-  if (values['input-type'] !== '公開チャット' && values['input-type'] !== '公開コメント') {
-    throw new Error('--input-typeは「公開チャット」または「公開コメント」を指定してください。');
+  if (values['input-type'] !== '公開チャット' && values['input-type'] !== '公開コメント' && values['input-type'] !== '公開字幕') {
+    throw new Error('--input-typeは「公開チャット」「公開コメント」「公開字幕」のいずれかを指定してください。');
   }
   if (Number.isNaN(Date.parse(values['generated-at']))) {
     throw new Error('--generated-atはISO 8601日時で指定してください。');
