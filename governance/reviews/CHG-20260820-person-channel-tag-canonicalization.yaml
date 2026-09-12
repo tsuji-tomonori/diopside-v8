@@ -1,0 +1,157 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260820-person-channel-tag-canonicalization
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+    note: 既存のV8-TAG-013に従い、公開チャンネル名ではなく人物名をコラボ相手の正規タグにする不具合を是正する。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/inventory.gen.json]
+    note: チャンネルから人物名への対応表と公開用タグ投影を追加し、as-built生成設計を更新した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:content/people/channel-person-mappings.json]
+    note: 既存の動画正本、公開検索契約、人物一覧にまたがるためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: GitHubへのbranch pushとDraft PR作成だけを行い、merge・公開・削除は行わない。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/content-manifest.json, path:content/videos/548vdE7GQVI.json]
+    note: 3本の人物名付与と1本の正本override追加は可逆で、manifest件数と全件検証で確認する。
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:scripts/build-public-data.ts, test:tests/generated.test.ts]
+    note: 公開index、検索index、タグindex、別名index、詳細から公開チャンネルタグを除外する契約を検証する。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/build-public-data.ts]
+    note: 公開データ生成とVite本番buildを実行し、静的成果物を決定的に再生成した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/content.ts]
+    note: TypeScript browser・Node両projectのstrict型検査に合格した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/validation.ts]
+    note: src、scripts、tests、e2eを対象にblocking lintなしで確認した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/content-validation.test.ts, test:tests/generated.test.ts]
+    note: 人物名の補完、対応漏れの拒否、公開データからのチャンネルタグ除外を回帰試験で確認した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/content-validation.test.ts]
+    note: 月ノ美兎の人物名タグを意図的に外すとCHANNEL_PERSON_TAG_MISSINGになる再現条件を固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/inventory.gen.json, test:tests/generated.test.ts]
+    note: 要件・公開データ・as-built設計を再生成し、公開版IDとタグ境界を決定的に確認した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 生字幕、コメント、投稿者識別子、秘密情報を差分へ含めない。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 対応表、3本の人物名補完、公開投影、検証、生成設計だけに変更を限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更内容、要件・設計影響、review path、検証契約、残存リスクを記載する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+    note: 既存のV8-TAG-013とV8-DISPLAY-013を満たす修正であり、要件の意味は変更しない。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/system.gen.md]
+    note: 公開投影と対応表の実装をas-built設計へ反映し、長期判断を要するADRは不要である。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/content-validation.test.ts, test:tests/generated.test.ts, workflow:要件・品質ゲート#通常変更の品質ゲートを実行]
+    note: 正本全件、公開境界、決定的生成の受入条件をテストとPR品質ゲートで確認する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260820-person-channel-tag-canonicalization.yaml]
+    note: 選択したcheckだけを今回のreview YAMLへ保存する。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260820-person-channel-tag-canonicalization.yaml]
+    note: selectorで選ばれなかったcheckをN/Aとして登録していない。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/generated.test.ts, path:scripts/build-public-data.ts]
+    note: 公開チャンネルtag IDを公開索引から除外し、人物名tag IDで同じ動画へ到達できることを検証した。
+advisories: []
+residual_risks:
+  - PR #483のsquash題名からGitHub既定の番号接尾辞が外れて公開版生成が停止しており、本follow-upのmainマージ後workflowが成功するまでは公開版が旧世代のままである。
+  - 4件の団体または人物プロフィール未整備チャンネルは自動で人物名を推測せず、内部のチャンネル情報だけを保持する。
+  - 公開版・Pages成果物は通常PRへ含めず、mainマージ後の既存release workflowが検証済み正本から生成する。
+  - ローカル環境ではChromium取得の権限待ちによりPlaywright E2Eを完走できなかったため、PR HEADのGitHub Actionsで確認する。

@@ -1,0 +1,337 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "gZvkPMmcZ3c",
+  "title": "【PAON】ぱおんって何ですか【白雪 巴/にじさんじ】",
+  "publishedAt": "2021-07-03T15:00:29Z",
+  "durationSeconds": 3177,
+  "durationIso": "PT52M57S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/gZvkPMmcZ3c/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=gZvkPMmcZ3c",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "495c5987def941662f7d0e98e7f9eb51faadabcd2a7236735f514136b176e6d8"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "8af0fd3df57460b8ddb3bc6dec2cf6db39d9272396fd452326bd6987f7684c9e"
+    },
+    {
+      "evidenceId": "evidence-approved-tags",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "旧diopsideの承認済みタグ正本",
+      "inputFingerprint": "99defd1a182163622513fc8af2d63c35785a34ded251a4085e9067179fe8e6ec"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "031c4d47918c6f1f37eca75f3ee112a7b0fdbd9864d538812d4cce5afe84e424"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "5cc04b9de295a77250ec2ead8605a4d9a0e8d5c0d69d9a22e76e727a169b2999",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3177
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-f770f0c9a3e5",
+      "reason": "公開タイトルまたは既存タグからゲーム作品「PAON」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-62278ec71bd0",
+      "reason": "既存分類と作品名からゲームジャンル「アクション」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-context-feature-22cf1eb5df88",
+      "reason": "既存タグ「単発ゲーム」から企画特性「単発」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-249cd609",
+        "startSeconds": 0,
+        "label": "配信開始・ゲーム紹介",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-198-719ea995",
+        "startSeconds": 198,
+        "label": "ゲームスタート・操作説明",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-329-f95fdd36",
+        "startSeconds": 329,
+        "label": "序盤の探索・最初の遭遇",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-584-d49543b9",
+        "startSeconds": 584,
+        "label": "ステージ探索・キャラクター観察",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-802-88a476aa",
+        "startSeconds": 802,
+        "label": "新たな遭遇・追跡",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-999-09f77036",
+        "startSeconds": 999,
+        "label": "電池探しとルート探索",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1199-1001de2e",
+        "startSeconds": 1199,
+        "label": "次の遭遇・ルート探し",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1533-ae947976",
+        "startSeconds": 1533,
+        "label": "追跡からの逃走",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1689-ed867798",
+        "startSeconds": 1689,
+        "label": "エリア探索・次の準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1807-85560bfd",
+        "startSeconds": 1807,
+        "label": "敵との遭遇・アイテム活用",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2040-15968adb",
+        "startSeconds": 2040,
+        "label": "終盤のゲーム進行・本編の締め",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2324-1c66e058",
+        "startSeconds": 2324,
+        "label": "ゲーム後の感想・告知",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2409-0e573c3c",
+        "startSeconds": 2409,
+        "label": "スーパーチャット読み・次回の話",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2557-482f3e1a",
+        "startSeconds": 2557,
+        "label": "タイトル画面でキャラクター談義",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2793-000c64c2",
+        "startSeconds": 2793,
+        "label": "スーパーチャット読み再開",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2870-d52bd955",
+        "startSeconds": 2870,
+        "label": "追加要素で遊ぶ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3006-d83a1cc8",
+        "startSeconds": 3006,
+        "label": "おまけ後の雑談・締め",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "5cd054f4c8d8e21884c389b5c88c484796f2966223a818c18915a80112a19ee0",
+    "inputFingerprint": "031c4d47918c6f1f37eca75f3ee112a7b0fdbd9864d538812d4cce5afe84e424",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-26T18:00:14Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "5cd054f4c8d8e21884c389b5c88c484796f2966223a818c18915a80112a19ee0",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "5cd054f4c8d8e21884c389b5c88c484796f2966223a818c18915a80112a19ee0",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "a4aeb320f978d1cf99ff4503f061c584fd70d8b317404cb78a29cf8cea2f93e5",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が短編ホラーゲーム『PAON』に挑戦。タイトルの意味を探りながら仕掛けや不意の演出に驚き、怖がりつつも操作を試して先へ進む。独特な世界観とギミックを味わい、場面の背景を考察しながら最後までプレイする実況。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "お試し版みたいなホラーゲームね",
+      "atSeconds": 584,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "5cc04b9de295a77250ec2ead8605a4d9a0e8d5c0d69d9a22e76e727a169b2999",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-23T00:27:31.066610Z"
+  }
+}

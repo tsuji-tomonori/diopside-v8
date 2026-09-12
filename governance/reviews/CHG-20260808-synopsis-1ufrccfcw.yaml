@@ -1,0 +1,27 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260808-synopsis-1ufrccfcw
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags: {external_write: false, irreversible_operation: false, auth_change: false, data_change: true, public_api_change: false, iac_change: false, dependency_change: false, code_change: false, typed_code_change: false, behavior_change: true, bug_fix: false, generated_change: true, sql_change: false, e2e_change: false, migration: false, ui_change: false, interactive_ui_change: false, operational_impact: false, requirements_impact: false, public_contract_change: false, critical_change: false, important_ui_change: false, long_term_decision: false, squash: false, external_side_effect: false, production_deploy: false, major_incident: false, periodic_cycle: false, monthly_cycle: false, recheck_due: false, as_built_standard_change: false, as_built_adoption: false, quality_threshold_change: false}
+impact_details: {as_built_adoption: {scope: [], exclusions: []}}
+selected_checks:
+  - {id: IMP-001, class: Invariant, result: pass, evidence: ["path:content/videos/1u_-FRccfCw.json"], note: "V8-DISPLAY-011に従う1動画の追加"}
+  - {id: IMP-002, class: Invariant, result: pass, evidence: ["commit:self"], note: "正本と決定的成果物のみ更新"}
+  - {id: IMP-003, class: Invariant, result: pass, evidence: ["commit:self"], note: "全尺根拠を用いるたassuredを選択"}
+  - {id: IMP-007, class: Risk-selected, result: pass, evidence: ["path:content/videos/1u_-FRccfCw.json"], note: "動画単位でrevert可能"}
+  - {id: FAST-004, class: Invariant, result: pass, evidence: ["test:scripts/validate-content.ts"], note: "正本schema・件数を検証"}
+  - {id: FAST-006, class: Invariant, result: pass, evidence: ["path:public/data/latest.json", "path:docs/data/latest.json"], note: "公開成果物を決定的に再生成"}
+  - {id: FAST-007, class: Invariant, result: pass, evidence: ["commit:self"], note: "生字幕・transcript・音声・comments/chatを含めない"}
+  - {id: REV-001, class: Invariant, result: pass, evidence: ["commit:self"], note: "正本動画は1u_-FRccfCwの1件のみ"}
+  - {id: REV-002, class: Invariant, result: pass, evidence: ["commit:self"], note: "Commit Commentに契約を記録"}
+  - {id: REV-003, class: Invariant, result: pass, evidence: ["path:content/videos/1u_-FRccfCw.json"], note: "V8-DISPLAY-011の受入条件を満たす"}
+  - {id: REV-004, class: Invariant, result: pass, evidence: ["commit:self"], note: "schemaとUIに影響なし"}
+  - {id: REV-006, class: Invariant, result: pass, evidence: ["test:tests/content-validation.test.ts"], note: "既存CI契約で検証"}
+  - {id: REV-007, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260808-synopsis-1ufrccfcw.yaml"], note: "選択checkのみ保存"}
+  - {id: REV-008, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260808-synopsis-1ufrccfcw.yaml"], note: "未選択checkのN/Aなし"}
+advisories: []
+residual_risks:
+  - 公開字幕の冒頭・末尾は無音等を含む小幅区間で、引用原文と時刻はPRで最終照合する

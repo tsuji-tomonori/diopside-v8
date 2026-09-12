@@ -20,6 +20,17 @@ const recordSchema = z.object({
   reviewedAt: z.iso.datetime({ offset: true }),
 }).strict();
 
+// 比較元は現行schemaより前の版であるため、版間比較に必要な項目だけを読む。
+// 現行schemaでparseすると、今回のような意図したschema変更そのものを比較できない。
+const comparableTaxonomySchema = z.object({
+  taxonomyVersion: z.string(),
+  categories: z.array(z.object({
+    subcategories: z.array(z.object({
+      tags: z.array(z.object({ tagId: z.string() }).passthrough()),
+    }).passthrough()),
+  }).passthrough()),
+}).passthrough();
+
 const root = path.resolve(import.meta.dirname, '..');
 const taxonomy = tagTaxonomySchema.parse(readJson(path.join(root, 'content/taxonomy/tag-taxonomy.json')));
 const aliases = tagAliasesSchema.parse(readJson(path.join(root, 'content/taxonomy/tag-aliases.json')));
@@ -54,7 +65,7 @@ function compareWithBase(baseRef: string): void {
     if (record.changeType !== '初期導入') errors.push('比較元にタグ体系がない変更は初期導入として記録してください。');
     return;
   }
-  const priorTaxonomy = tagTaxonomySchema.parse(JSON.parse(priorTaxonomyText));
+  const priorTaxonomy = comparableTaxonomySchema.parse(JSON.parse(priorTaxonomyText));
   const priorAliases = tagAliasesSchema.parse(JSON.parse(priorAliasesText));
   const taxonomyChanged = canonicalJson(priorTaxonomy) !== canonicalJson(taxonomy);
   const aliasesChanged = canonicalJson(priorAliases) !== canonicalJson(aliases);

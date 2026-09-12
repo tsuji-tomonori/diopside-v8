@@ -6,7 +6,8 @@ import { prettyJson, readJson } from './lib.ts';
 
 const requirementSchema = z.object({
   id: z.string().regex(/^V8-[A-Z]+-\d{3}$/u),
-  status: z.literal('active'),
+  status: z.enum(['active', 'retired']),
+  retirement_reason: z.string().min(1).optional(),
   title: z.string().min(1),
   source_refs: z.array(z.string()).min(1),
   acceptance_criteria: z.array(z.object({
@@ -27,7 +28,7 @@ const requirementSchema = z.object({
 const catalogSchema = z.object({
   schema_version: z.literal(1),
   catalog_revision: z.number().int().positive(),
-  requirements: z.array(requirementSchema).length(142),
+  requirements: z.array(requirementSchema).min(142),
 }).passthrough();
 
 const resultStatusSchema = z.enum(['未実施', '不合格', '合格']);
@@ -123,10 +124,13 @@ const acceptedIncompleteById = new Map<string, (typeof acceptanceEvidence.accept
   acceptanceEvidence.acceptedIncompleteRequirements.map((item) => [item.requirementId, item]),
 );
 const ids = new Set<string>();
-const rows = catalog.requirements.map((requirement) => {
+const activeRequirements = catalog.requirements.filter((requirement) => requirement.status === 'active');
+const rows = activeRequirements.map((requirement) => {
   const findings: string[] = [];
   const source = sourceByCanonicalId.get(requirement.id);
-  if (!source) findings.push('Issue要件ID対応なし');
+  const ownerDirective = requirement.source_refs.find((reference) => reference.startsWith('spec/sources/owner-directive-'));
+  const issue465 = requirement.source_refs.find((reference) => reference === 'Issue #465');
+  if (!source && !ownerDirective && !issue465) findings.push('Issue要件IDまたは所有者指示対応なし');
   if (ids.has(requirement.id)) findings.push('要件ID重複');
   ids.add(requirement.id);
   const tracePaths = [...requirement.traces.design, ...requirement.traces.implementation, ...requirement.traces.tests];
@@ -146,8 +150,8 @@ const rows = catalog.requirements.map((requirement) => {
     : undefined;
   return {
     id: requirement.id,
-    sourceId: source?.sourceId ?? '',
-    priority: source?.priority ?? '',
+    sourceId: source?.sourceId ?? ownerDirective ?? issue465 ?? '',
+    priority: source?.priority ?? (ownerDirective ? '所有者指示' : issue465 ? 'Issue' : ''),
     title: requirement.title,
     acceptanceCriteria: requirement.acceptance_criteria.map((criterion) => criterion.then).join(' / '),
     verification: requirement.verification.method,
@@ -170,6 +174,8 @@ const output = {
   schemaVersion: '1.1.0',
   acceptancePassed: incomplete.length === 0 && externalGateFindings.length === 0,
   authorizationPassed: blockingIncomplete.length === 0 && externalGateFindings.length === 0,
+  catalogRequirementCount: catalog.requirements.length,
+  retiredRequirementCount: catalog.requirements.length - activeRequirements.length,
   requirementCount: rows.length,
   completedCount: rows.length - incomplete.length,
   incompleteCount: incomplete.length,

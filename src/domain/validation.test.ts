@@ -4,6 +4,7 @@ import aliasesInput from '../../content/taxonomy/tag-aliases.json';
 import taxonomyInput from '../../content/taxonomy/tag-taxonomy.json';
 import canonicalInput from '../../content/videos/7keH8yrqabc.json';
 import migratedTimestampInput from '../../content/videos/c9TnpjK3ZZE.json';
+import groupHostInput from '../../content/videos/A3kbfkQ1yIY.json';
 import { canonicalVideoSchema, tagAliasesSchema, tagTaxonomySchema } from './content.ts';
 import { scanPublicBoundary, validateCanonicalVideo, validateTaxonomy } from './validation.ts';
 
@@ -13,6 +14,25 @@ const factChecks = { evidenceRoute: true, evidenceReferences: true, boundaryCont
 const editorialChecks = { navigationValue: true, overSegmentation: true, underSegmentation: true, labelConsistency: true, spoilerSafety: true } as const;
 
 describe('正本検証', () => {
+  it('公式グループチャンネル主だけの順次ゲスト企画を許可し、一般チャンネルには適用しない', () => {
+    expect(validateCanonicalVideo(groupHostInput, taxonomy, aliases)).toEqual([]);
+    const withoutGroupOwner = structuredClone(taxonomy);
+    for (const category of withoutGroupOwner.categories) {
+      for (const subcategory of category.subcategories) {
+        for (const tag of subcategory.tags) delete tag.channelOwnerKind;
+      }
+    }
+    expect(validateCanonicalVideo(groupHostInput, withoutGroupOwner, aliases).map((item) => item.code)).toContain('COLLABORATION_WITHOUT_PERFORMER');
+  });
+
+  it('チャンネル以外のタグでグループ所有者を宣言できない', () => {
+    const invalid = structuredClone(taxonomy);
+    const tag = invalid.categories.find((category) => category.categoryId === 'people')?.subcategories.find((subcategory) => subcategory.subcategoryId === 'performer')?.tags[0];
+    if (!tag) throw new Error('出演者タグがありません。');
+    tag.channelOwnerKind = 'group';
+    expect(validateTaxonomy(invalid, aliases).map((item) => item.code)).toContain('CHANNEL_OWNER_KIND_INVALID');
+  });
+
   it('7大分類・30小分類と別名を検証する', () => {
     expect(validateTaxonomy(taxonomyInput, aliasesInput)).toEqual([]);
   });
@@ -127,6 +147,26 @@ describe('正本検証', () => {
     expect(validateCanonicalVideo(broken, taxonomy, aliases).map((item) => item.code)).toContain('TIMESTAMP_MIGRATION_EVIDENCE_MISSING');
   });
 
+  it('あらすじの文字数、全編根拠、引用時刻を検証する', () => {
+    const video = structuredClone(canonicalVideoSchema.parse(migratedTimestampInput));
+    expect(video.synopsis).toBeDefined();
+    expect(validateCanonicalVideo(video, taxonomy, aliases)).toEqual([]);
+
+    const broken = structuredClone(video);
+    if (!broken.synopsis) throw new Error('あらすじ付き固定動画ではありません。');
+    broken.synopsis.body = '短い本文';
+    broken.synopsis.inputFingerprint = 'f'.repeat(64);
+    broken.synopsis.featuredQuote.atSeconds = broken.durationSeconds ?? 0;
+    broken.synopsis.bodyEvidenceRefs = ['evidence-missing'];
+    const codes = validateCanonicalVideo(broken, taxonomy, aliases).map((item) => item.code);
+    expect(codes).toEqual(expect.arrayContaining([
+      'SYNOPSIS_LENGTH',
+      'SYNOPSIS_EVIDENCE_MISSING',
+      'SYNOPSIS_QUOTE_OUT_OF_RANGE',
+      'SYNOPSIS_FULL_EVIDENCE_MISSING',
+    ]));
+  });
+
   it('境界間隔、ネタバレ名、根拠なし、候補版ずれを拒否する', () => {
     const candidateHash = 'a'.repeat(64);
     const video = structuredClone(canonicalVideoSchema.parse(canonicalInput));
@@ -152,5 +192,45 @@ describe('正本検証', () => {
   it('公開データの生資料・投稿者・秘密情報を拒否する', () => {
     const issues = scanPublicBoundary({ transcript: '全文', nested: { authorId: 'person', token: `sk-${'x'.repeat(24)}` } });
     expect(issues.map((item) => item.code)).toEqual(['PUBLIC_FORBIDDEN_FIELD', 'PUBLIC_FORBIDDEN_FIELD', 'PUBLIC_SECRET']);
+  });
+
+  it('カスタム絵文字の全件合計、重複、決定順を検証する', () => {
+    const video = structuredClone(canonicalVideoSchema.parse(canonicalInput));
+    video.customEmojiUsage = {
+      status: '集計済み',
+      totalCount: 5,
+      items: [
+        { customEmojiId: 'custom-emoji-1111111111111111', label: ':kusa:', count: 3 },
+        { customEmojiId: 'custom-emoji-2222222222222222', label: ':wan:', count: 2 },
+      ],
+      inputFingerprint: 'a'.repeat(64),
+      rulesVersion: '1.0.0',
+      updatedAt: '2026-08-31T21:34:00+09:00',
+    };
+    expect(validateCanonicalVideo(video, taxonomy, aliases)).toEqual([]);
+
+    const broken = structuredClone(video);
+    broken.customEmojiUsage!.totalCount = 99;
+    broken.customEmojiUsage!.items.reverse();
+    broken.customEmojiUsage!.items[1]!.customEmojiId = broken.customEmojiUsage!.items[0]!.customEmojiId;
+    const codes = validateCanonicalVideo(broken, taxonomy, aliases).map((item) => item.code);
+    expect(codes).toEqual(expect.arrayContaining([
+      'CUSTOM_EMOJI_DUPLICATED',
+      'CUSTOM_EMOJI_TOTAL_MISMATCH',
+      'CUSTOM_EMOJI_ORDER',
+    ]));
+    video.customEmojiUsage.rulesVersion = '2.0.0';
+    expect(validateCanonicalVideo(video, taxonomy, aliases).map((item) => item.code)).toContain('CUSTOM_EMOJI_TIMELINE_REQUIRED');
+    const duration = video.durationSeconds!;
+    video.customEmojiUsage.timeline = {
+      bucketSeconds: 60, durationSeconds: duration,
+      bins: Array.from({ length: Math.ceil(duration / 60) }, (_, index) => index === 0 ? [[0, 2], [1, 2]] : []),
+      beforeStartCount: 1, afterEndCount: 0, unpositionedCount: 0,
+    };
+    expect(validateCanonicalVideo(video, taxonomy, aliases)).toEqual([]);
+    video.customEmojiUsage.timeline.bins[0] = [[0, 2], [0, 2]];
+    expect(validateCanonicalVideo(video, taxonomy, aliases).map((item) => item.code)).toContain('CUSTOM_EMOJI_TIMELINE_MISMATCH');
+    video.customEmojiUsage.timeline.bins[0] = [[9, 4]];
+    expect(validateCanonicalVideo(video, taxonomy, aliases).map((item) => item.code)).toContain('CUSTOM_EMOJI_TIMELINE_MISMATCH');
   });
 });

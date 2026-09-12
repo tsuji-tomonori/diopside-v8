@@ -1,0 +1,148 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260809-pr-release-gate
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: true
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 品質ゲートの順序と生成設計入力の分類だけを変更し、利用者向け要件の意味を変更しない
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/inventory.gen.json]
+    note: main後に更新されるrelease.tsを実装由来設計の入力から除外し、生成設計を決定的に再生成した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: CI、生成器、生成設計、release workflowへ跨るためassuredを選択した
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#要件の品質ゲートを実行]
+    note: build先行後に全checkを実行する品質ゲートを構成した
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#要件の品質ゲートを実行]
+    note: generate-design.tsを含むTypeScript全体をstrict typecheckする
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#要件の品質ゲートを実行]
+    note: TypeScript・script・test・E2E設定を警告0件でlintする
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/generated.test.ts]
+    note: build先行後のgenerated testとE2Eを含む全checkでstale release回帰を検出する
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:.github/workflows/verify.yml]
+    note: stale releaseを原因とするPR品質ゲート不具合を修正した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/inventory.gen.json]
+    note: release.ts除外後の生成設計を同一generatorで再生成し、40入力へ決定的に収束した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: secret、token、個人情報、production dumpを追加していない
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:.github/workflows/update-generated-release.yml]
+    note: PR・main・release workflowの失敗は既存Actions logで観測できる
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 品質ゲート順序、生成設計入力、生成成果物、release依存導入、review記録に限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentに要件・設計影響、検証契約、残存リスクを記載した
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:package.json]
+    note: 追跡済み生成設計の事前検査後、generated testより前にbuildし、最後に再度driftを検査する
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/system.gen.md]
+    note: 生成設計を更新済みで、局所的かつ可逆な入力除外のためADRは不要
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/generated.test.ts]
+    note: stale releaseをbuild後のgenerated testで検証し、生成設計driftは終端checkで検証する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: secret、個人情報、production dumpを追加していない
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260809-pr-release-gate.yaml]
+    note: 選択checkと証跡をschema準拠で記録した
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:.github/workflows/update-generated-release.yml]
+    note: release workflowへ既存requirements.txt由来のruffを導入し、main後生成を復旧する
+advisories: []
+residual_risks:
+  - CI workspaceのrelease生成物はPRへcommitせず、main後release workflowだけが公開成果物をcommitする
+  - src/generated/release.tsは実装由来設計の入力指紋から除外するが、release ID整合はgenerated testとrelease scope validatorで継続検証する

@@ -16,9 +16,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=cwbv6P5kFOY",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -374,9 +374,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=JVLF2x28Ehs",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -690,9 +690,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=Kf-dqSKoL3w",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -985,9 +985,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=omvx1oTzCQg",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -1229,9 +1229,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=PBm5owSirQY",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -1446,9 +1446,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=q1Z6c1SfagU",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -1708,9 +1708,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=rW-Lh6FKVRM",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -1812,9 +1812,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=w92SarPWFD8",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -1839,18 +1839,15 @@
           "type": "既存の承認済みタイムスタンプ",
           "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
           "inputFingerprint": "86375cafdf9b18b5e684fdec232573011eced5c4ad1595fbd590e283c45b8eab"
+        },
+        {
+          "evidenceId": "evidence-game-classification",
+          "type": "動画タイトル",
+          "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+          "inputFingerprint": "8e52a4deec3816269f84e634ee1f50ad2345561c6dc2f8b2f9e04562d33a1445"
         }
       ],
       "tagAssignments": [
-        {
-          "tagId": "tag-content-primary-9eedbc0013d1",
-          "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
-          "confidence": "高",
-          "evidenceRefs": [
-            "evidence-title"
-          ],
-          "reviewedAt": "2026-08-04T15:00:00+09:00"
-        },
         {
           "tagId": "tag-people-channel-b4a761859187",
           "reason": "公開台帳のチャンネル「シスター・クレア -SisterClaire-」を確認",
@@ -1868,6 +1865,33 @@
             "evidence-duration"
           ],
           "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-primary-0dbfa3115896",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-works-gameTitle-1d9e914abb4c",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「Getting Over It with Bennett Foddy」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-62278ec71bd0",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「アクション」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
         }
       ],
       "timestamps": {
@@ -2039,8 +2063,8 @@
       },
       "approval": {
         "status": "承認済み",
-        "approvedAt": "2026-08-04T15:00:00+09:00",
-        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+        "approvedAt": "2026-08-16T12:05:00+09:00",
+        "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
       }
     },
     {
@@ -2056,9 +2080,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=Z4iKcYX6jZc",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",

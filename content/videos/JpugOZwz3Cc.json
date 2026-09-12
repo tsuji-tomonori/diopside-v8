@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "JpugOZwz3Cc",
+  "title": "【マイクラ】夢と希望がいっぱいの立派な館をつくりたいの【白雪 巴/にじさんじ】",
+  "publishedAt": "2020-02-08T16:29:56Z",
+  "durationSeconds": 23021,
+  "durationIso": "PT6H23M41S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/JpugOZwz3Cc/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=JpugOZwz3Cc",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "ecd73970a3b19df8aae2440eba304630d87004f026ee4be1c6ed2d46aa05bead"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "cc5dbf06eeb39cbc7c79234c3e4dddc550ba4ab0787a573d62043b60d5d3f7e3"
+    },
+    {
+      "evidenceId": "evidence-approved-tags",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "旧diopsideの承認済みタグ正本",
+      "inputFingerprint": "ade81bbcaade27923fea6e43247cdf4ce0b26f1e7c26cc4af57a4179117f9ade"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "98cbcaa4a7363a339563b9eabd5a840bc496f69cfca75867042876331a04f006",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 23021
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-5168a0f83814",
+      "reason": "公開タイトルまたは既存タグからゲーム作品「Minecraft」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-9796af29a119",
+      "reason": "既存分類と作品名からゲームジャンル「サンドボックス」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-1cc53dc4a37d",
+      "reason": "既存分類と作品名からゲームジャンル「ホラー」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "未作成",
+    "reason": "全編確認不足",
+    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "d2e33520e12f434e1b78044b48778dab704f61a6c5cc7902911695da5e4846be",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "誕生日を迎える夜、白雪巴はマインクラフトで館まわりの整地と建築を進める。視聴者に教わりながら釣り場やトラップを試し、猫や馬を迎えて寄り道を重ね、細部へのこだわりで夜明け後も作業が止まらない。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私ね、やり出すと止まらないたち。本当に。",
+      "atSeconds": 2605,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "98cbcaa4a7363a339563b9eabd5a840bc496f69cfca75867042876331a04f006",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T08:27:05.177756Z"
+  }
+}

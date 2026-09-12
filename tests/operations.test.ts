@@ -6,6 +6,7 @@ import path from 'node:path';
 
 import { canonicalVideoSchema, type CanonicalVideo } from '../src/domain/content.ts';
 import { readCanonicalVideos } from '../scripts/canonical-store.ts';
+import { releaseGeneratedFiles, validateReleasePrScopeFiles } from '../scripts/validate-release-pr-scope.ts';
 import { validateVideoPrScopeFiles } from '../scripts/validate-video-pr-scope.ts';
 
 const root = process.cwd();
@@ -36,7 +37,15 @@ describe('手動動画更新運用', () => {
     writeJson(exclusions, {
       schemaVersion: '1.0.0',
       updatedAt: '2026-08-03T00:00:00+09:00',
-      records: [{ videoId: 'blocked0001', reason: '対象外', sourceFingerprint: 'a'.repeat(64), confirmedAt: '2026-08-03T00:00:00+09:00' }],
+      records: [{
+        videoId: 'blocked0001',
+        reason: '対象外',
+        detail: '参加者別の同時ゲーム配信',
+        sourceFingerprint: 'a'.repeat(64),
+        confirmedAt: '2026-08-03T00:00:00+09:00',
+        ruleId: 'V8-SAFETY-005',
+        preferredVideoId: canonicalVideos[0]!.videoId,
+      }],
     });
     run('scripts/detect-video-candidates.ts', ['--input', input, '--output', output, '--exclusions', exclusions]);
     const result = JSON.parse(readFileSync(output, 'utf8')) as { candidates: Array<{ kind: string; videoId: string }> };
@@ -52,17 +61,25 @@ describe('手動動画更新運用', () => {
     expect(() => run('scripts/detect-video-candidates.ts', ['--input', input])).toThrow(/重複/u);
   });
 
-  it('通常の動画PRは正本1動画と生成物だけを許可する', () => {
+  it('通常の動画PRは正本1動画だけを許可し、公開生成物をmainマージ後へ分離する', () => {
     const allowed = validateVideoPrScopeFiles([
+      'content/videos/c9TnpjK3ZZE.json',
+      'content/content-manifest.json',
+      'reports/screenshots/detail-desktop.png',
+      'governance/reviews/CHG-20260808-video-c9TnpjK3ZZE.yaml',
+    ]);
+    expect(allowed.valid).toBe(true);
+    expect(validateVideoPrScopeFiles([
       'content/videos/c9TnpjK3ZZE.json',
       'content/content-manifest.json',
       'public/data/latest.json',
       'src/generated/release.ts',
       'docs/index.html',
-      'reports/screenshots/detail-desktop.png',
-      'governance/reviews/CHG-20260808-video-c9TnpjK3ZZE.yaml',
-    ]);
-    expect(allowed.valid).toBe(true);
+    ]).errors).toEqual(expect.arrayContaining([
+      '生成物はmainマージ後に自動更新します: public/data/latest.json',
+      '生成物はmainマージ後に自動更新します: src/generated/release.ts',
+      '生成物はmainマージ後に自動更新します: docs/index.html',
+    ]));
     expect(validateVideoPrScopeFiles(['content/videos/c9TnpjK3ZZE.json', 'content/videos/GoWhHtJmIbk.json']).valid).toBe(false);
     expect(validateVideoPrScopeFiles(['content/videos/c9TnpjK3ZZE.json', 'scripts/build-public-data.ts']).errors).toContain('保守PRへ分離してください: scripts/build-public-data.ts');
     expect(validateVideoPrScopeFiles([
@@ -74,6 +91,51 @@ describe('手動動画更新運用', () => {
       'content/videos/c9TnpjK3ZZE.json',
       'governance/checks/catalog.yaml',
     ]).errors).toContain('保守PRへ分離してください: governance/checks/catalog.yaml');
+  });
+
+  it('すべてのPRからrelease IDを含む配信用生成物だけを除外する', () => {
+    expect(releaseGeneratedFiles([
+      'content/videos/c9TnpjK3ZZE.json',
+      'docs/requirements/REQUIREMENTS.md',
+      'docs/design/generated/system.gen.md',
+      'public/data/latest.json',
+      'src/generated/release.ts',
+      'docs/data/latest.json',
+      'docs/assets/index-example.js',
+      'docs/index.html',
+      'docs/404.html',
+      'docs/.nojekyll',
+      'docs/third-party-notices.txt',
+    ])).toEqual([
+      'public/data/latest.json',
+      'src/generated/release.ts',
+      'docs/data/latest.json',
+      'docs/assets/index-example.js',
+      'docs/index.html',
+      'docs/404.html',
+      'docs/.nojekyll',
+      'docs/third-party-notices.txt',
+    ]);
+  });
+
+  it('保護されたmain向けrelease PRは配信用生成物だけを許可する', () => {
+    expect(validateReleasePrScopeFiles([
+      'public/data/latest.json',
+      'src/generated/release.ts',
+      'docs/data/latest.json',
+      'docs/assets/index-example.js',
+      'docs/index.html',
+      'docs/third-party-notices.txt',
+    ], { allowGeneratedOnly: true })).toEqual({ valid: true, errors: [] });
+    expect(validateReleasePrScopeFiles([
+      'public/data/latest.json',
+      'content/videos/c9TnpjK3ZZE.json',
+    ], { allowGeneratedOnly: true }).errors).toContain(
+      'release PRには配信用生成物だけを含めてください: content/videos/c9TnpjK3ZZE.json',
+    );
+    expect(validateReleasePrScopeFiles([
+      'content/videos/c9TnpjK3ZZE.json',
+    ], { allowGeneratedOnly: true }).errors).toContain('release PRに配信用生成物がありません。');
   });
 
   it('PR本文へ外部入力を命令として展開せずMarkdownとHTMLを無害化する', () => {

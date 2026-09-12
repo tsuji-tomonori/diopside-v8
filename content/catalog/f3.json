@@ -16,9 +16,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=0waEhN3Qz_k",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -284,9 +284,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=9MvgDp99I30",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -597,9 +597,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=bds15QkOIjI",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -910,9 +910,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=cnX_CEyqu5k",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -1223,9 +1223,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=DymTQwvaM_M",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -1557,9 +1557,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=jNBX-hFVXQ8",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -1670,9 +1670,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=knLYMB1d9dg",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -1703,18 +1703,15 @@
           "type": "既存の承認済みタイムスタンプ",
           "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
           "inputFingerprint": "7b97540d0dee5d201e506068d35172ef88e1ee3c30958a131d5791acd328f708"
+        },
+        {
+          "evidenceId": "evidence-game-classification",
+          "type": "動画タイトル",
+          "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+          "inputFingerprint": "65151ceefc0b9d3222662d62f467d0da2e1fe93f7740179cfe42e550f31899b9"
         }
       ],
       "tagAssignments": [
-        {
-          "tagId": "tag-content-primary-9eedbc0013d1",
-          "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
-          "confidence": "高",
-          "evidenceRefs": [
-            "evidence-approved-tags"
-          ],
-          "reviewedAt": "2026-08-04T15:00:00+09:00"
-        },
         {
           "tagId": "tag-people-channel-e0fc18a727d8",
           "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
@@ -1732,6 +1729,33 @@
             "evidence-duration"
           ],
           "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-primary-0dbfa3115896",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-works-gameTitle-6f49059e303b",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「スーパーボンバーマンRオンライン」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-62278ec71bd0",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「アクション」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
         }
       ],
       "timestamps": {
@@ -1912,8 +1936,8 @@
       },
       "approval": {
         "status": "承認済み",
-        "approvedAt": "2026-08-04T15:00:00+09:00",
-        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+        "approvedAt": "2026-08-16T12:05:00+09:00",
+        "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
       }
     },
     {
@@ -1929,9 +1953,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=L7FunwJJ6Y8",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -2260,9 +2284,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=ow8Qqx1l00Y",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -2373,9 +2397,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=PnI-AApR_RQ",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -2486,9 +2510,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=YSDp56rYPJI",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",

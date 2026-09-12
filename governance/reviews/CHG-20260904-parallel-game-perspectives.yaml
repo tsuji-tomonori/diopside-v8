@@ -1,0 +1,228 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260904-parallel-game-perspectives
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:spec/sources/owner-directive-2026-09-04-parallel-game-perspectives.md
+    note: 参加者別の同時ゲーム配信は白雪巴公式枠だけを公開する指示を、V8-SAFETY-005と受入条件3件に正本化した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/domain/parallel-game-perspectives.ts
+      - path:docs/design/generated/inventory.gen.json
+    note: 既存の静的正本読込みと生成前検証へ対象範囲ルールを追加し、公開schemaやアーキテクチャ選択は変更しないためADRは不要である。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260904-parallel-game-perspectives.yaml
+    note: 1705動画の横断監査、167件の永続データ変更、共有検証器、要件・運用正本の変更を含むためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 所有者がGitHubでの対応とPRのマージまでを明示したため、feature branch、commit、PR更新、品質ゲート成功後のmergeを対象とし、releaseとPages公開は行わない。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/exclusions.json
+      - path:scripts/canonical-store.ts
+      - test:tests/content-validation.test.ts
+    note: 既存原始レコードを削除せず、167件を理由・優先枠・指紋付き除外overlayとして追加した。記録を取り消せば元の正本候補を再評価できるmigration不要の可逆変更である。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/build-public-data.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 1538件の正本からproduction bundleと公開releaseを一時生成し、PR CIで同じbuildを再実行する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/domain/parallel-game-perspectives.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: TypeScriptのブラウザ・Node両projectのstrict typecheckに合格した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/domain/parallel-game-perspectives.ts
+      - test:tests/content-validation.test.ts
+    note: 新規ドメイン検証器、スクリプト、対応テストを含む全lintを警告0件で完了した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - test:tests/operations.test.ts
+      - test:e2e/detail.spec.ts
+      - test:e2e/game-index.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 起点動画の同一セッション検出、白雪巴枠不在と非個人チャンネルの非除外、167件の再追加防止に加え、公開画面が優先する白雪巴枠と除外後の作品件数を表示することを直接検証した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - path:content/videos/xgp8XQvbDUU.json
+    note: xgp8XQvbDUUと白雪巴公式枠sifFa3aIPkoを併置すると外部枠を重複視点として検出する再現テストを固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/requirements/REQUIREMENTS.md
+      - path:docs/design/generated/inventory.gen.json
+      - path:scripts/generate-requirements.ts
+    note: 最新main（0213395d5）上でcatalog revision 34の要件正本、人向け要件、実装inventoryを決定的に再生成した。公開release差分はmainマージ後の既存工程へ分離する。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/exclusions.json
+      - commit:self
+    note: 公開済みの動画ID、判定理由、時刻、SHA-256指紋だけを追加し、credential、個人情報、生字幕、コメント、チャット、投稿者識別子を含めていない。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:scripts/audit-parallel-game-perspectives.ts
+      - path:scripts/validate-content.ts
+    note: 未除外の重複視点は外部枠と優先する白雪巴枠をエラー出力し、単独監査コマンドと公開生成gateの両方で検知できる。
+  - id: FAST-018
+    class: Risk-selected
+    result: na
+    evidence:
+      - test:e2e/detail.spec.ts
+      - test:e2e/game-index.spec.ts
+    note: E2E変更triggerで選択後、対象は静的公開データの読取り専用の詳細・作品一覧であり、C/U/D API、DB、外部状態変更を含まないと確認した。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 差分を参加者別の同時ゲーム配信の全件是正、再混入防止、要件・運用正本、対応試験に限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更内容、要件・設計影響、チェックリスト、検証契約、互換性・残存リスクを構造化commitに記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:docs/requirements/REQUIREMENTS.md
+    note: 所有者指示をV8-SAFETY-005とcatalog revision 34に反映し、除外条件、再追加防止、非対象境界を分けて定義した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+      - path:src/domain/parallel-game-perspectives.ts
+    note: 既存の動画正本、人物・チャンネル対応、ゲーム同値タグの上に共有機械検証を追加しただけで、新規の長期技術選択はない。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:src/domain/parallel-game-perspectives.ts
+      - test:tests/content-validation.test.ts
+    note: V8-SAFETY-005から除外schema、重複視点検出、正本フィルタ、生成gate、再現・境界テストへ到達できる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - test:tests/operations.test.ts
+      - test:e2e/detail.spec.ts
+      - test:e2e/game-index.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 対象動画の再現、適用外境界、除外overlay、候補再追加防止、全正本検証、公開詳細・作品一覧の整合を自動化しPR CIで再実行する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260904-parallel-game-perspectives.yaml
+    note: 変更flagsとtimingから選択されたcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260904-parallel-game-perspectives.yaml
+    note: selectorに該当しないcheckを形式的なN/Aとして登録していない。
+  - id: REV-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260904-parallel-game-perspectives.yaml
+      - test:e2e/detail.spec.ts
+      - test:e2e/game-index.spec.ts
+    note: FAST-018はE2E変更で選択後、CRUD・DB・外部状態を持たない静的公開画面の期待値追随と判明したため、具体的なN/A根拠を記録した。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:docs/operations/manual-content-update.md
+      - path:.agents/skills/discover-video-candidates/references/discovery-contract.md
+    note: 今後の候補探索で同一セッションを照合する手順、除外記録、白雪巴枠不在・共通運営枠の適用外を運用正本と探索契約に反映した。
+
+advisories: []
+residual_risks:
+  - 同一ゲームと5分以上の時間重複は監査候補の機械信号であり、将来の除外確定では公式タイトル、組・卓・チーム、参加者表記による同一セッション確認が引き続き必要である。
+  - PRを品質ゲート成功後にマージしても、mainマージ後のrelease PRとPages公開が完了するまで、現在の公開サイトには旧対象動画が残る。この変更ではreleaseとdeployを行わない。

@@ -1,0 +1,183 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260904-new-outfit-tag-audit
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: true
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: true
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: ["path:spec/requirements/requirements.json", "path:spec/sources/tag-assignment-audit-v1.json"]
+    note: V8-TAG-008の非省略要件を変更せず、新衣装お披露目の意味基準と再発防止を具体化する不具合修正である。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: ["path:content/taxonomy/tag-taxonomy.json", "path:docs/design/generated/system.gen.md"]
+    note: taxonomy、機械監査source、domain監査、skillの責務を分離し、生成設計へ反映した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: ["test:src/domain/tag-assignment-audit.test.ts", "path:scripts/audit-tag-assignments.ts"]
+    note: taxonomy版更新、型付き監査、固定例、運用手順を横断するためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: ["commit:self"]
+    note: 外部書込みはユーザーが明示許可したGitHubのbranch、PR、mergeと既存の日次automation更新に限定する。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: ["path:content/taxonomy/tag-taxonomy.json", "path:content/content-manifest.json"]
+    note: タグIDや動画を削除せず、既存動画版の互換性を保持した追加的な意味基準・監査変更である。
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence: ["path:content/taxonomy/change-record.json", "path:spec/sources/tag-assignment-audit-v1.json"]
+    note: 公開taxonomy 9.2.0・規則9.1.0と、新衣装お披露目の包含・除外境界を明示した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: ["path:package.json", "workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行"]
+    note: 要件・公開データ・生成設計・Vite buildを実行し成功した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: ["path:tsconfig.json", "path:tsconfig.node.json"]
+    note: appとnodeのTypeScript設定でstrict型検査に合格した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: ["path:src/domain/tag-assignment-audit.ts", "path:scripts/audit-tag-assignments.ts"]
+    note: 変更したdomain、試験、CLIを含むESLintに警告0件で合格した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: ["test:src/domain/tag-assignment-audit.test.ts"]
+    note: 必須4件、除外4件、タグ除去時の退行検出を単体試験で確認した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: ["path:spec/sources/tag-assignment-audit-v1.json", "test:src/domain/tag-assignment-audit.test.ts"]
+    note: 水着本編・Shorts・振り返り・3D共通衣装を必須例、通常3D・3.0・告知のみを除外例として固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: ["path:docs/design/generated/system.gen.md", "path:docs/design/generated/inventory.gen.json", "path:content/content-manifest.json"]
+    note: 80設計入力・193公開契約、taxonomy版、規則版、入力sourceを決定的に同期した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: ["commit:self"]
+    note: 公開タイトル由来の判定語と既存video IDだけを保存し、生字幕、コメント、秘密情報を追加しない。
+  - id: FAST-009
+    class: Risk-selected
+    result: pass
+    evidence: ["path:content/taxonomy/tag-taxonomy.json", "path:content/taxonomy/change-record.json"]
+    note: Tag IDを維持してtaxonomy 9.2.0・規則9.1.0へ更新し、旧動画版を互換一覧に保持した。
+  - id: FAST-011
+    class: Risk-selected
+    result: pass
+    evidence: ["path:content/taxonomy/change-record.json", "path:scripts/validate-taxonomy-change.ts"]
+    note: 変更タグ1件・影響28動画を記録し、比較元9.1.0に対するtaxonomy変更検証に合格した。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: ["path:scripts/audit-tag-assignments.ts", "path:.agents/skills/curate-video-content/references/tag-assignment-authority.md"]
+    note: 期待・実績・候補・理由をJSON出力でき、日次監査シートで差分を観測できる。
+  - id: FAST-016
+    class: Risk-selected
+    result: pass
+    evidence: ["path:content/taxonomy/tag-taxonomy.json", "path:spec/sources/tag-assignment-audit-v1.json", "path:.agents/skills/curate-video-content/SKILL.md"]
+    note: 公開意味基準、機械候補、作業手順を相互参照し、同じ境界を維持した。
+  - id: FAST-017
+    class: Risk-selected
+    result: pass
+    evidence: ["path:spec/sources/tag-assignment-audit-v1.json", "test:src/domain/tag-assignment-audit.test.ts"]
+    note: machine-readableな候補信号・固定例と単体試験の期待を一致させた。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: ["commit:self"]
+    note: 新衣装お披露目タグの意味明確化と横断監査による再発防止だけに限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: ["commit:self"]
+    note: Commit Commentへ目的、変更、要件・設計影響、検証契約、互換性、残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: ["path:spec/requirements/requirements.json", "path:content/taxonomy/tag-taxonomy.json"]
+    note: V8-TAG-008の意味を変えず、既存の非省略条件を具体化・機械検証する。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: ["path:docs/design/generated/system.gen.md", "path:docs/design/generated/inventory.gen.json"]
+    note: 型付き監査とCLIを生成設計へ反映し、手書きの重複設計は作らない。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: ["test:src/domain/tag-assignment-audit.test.ts", "workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行"]
+    note: build、typecheck、lint、全単体試験、全正本監査、taxonomy差分、review contractを確認する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: ["path:governance/reviews/CHG-20260904-new-outfit-tag-audit.yaml"]
+    note: 選択したcheckだけを本reviewへ保存する。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: ["path:governance/reviews/CHG-20260904-new-outfit-tag-audit.yaml"]
+    note: 未選択checkをN/Aとして登録しない。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence: ["path:content/taxonomy/change-record.json", "path:content/content-manifest.json"]
+    note: 既存Tag ID・別名版と動画版互換を保持し、公開検索は同じIDへ4動画を追加する。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: ["path:.agents/skills/curate-video-content/references/tag-assignment-authority.md", "path:scripts/audit-tag-assignments.ts"]
+    note: タグ正本・機械候補・skill・日次結果の責務と、JSON監査出力を運用正本へ記録した。
+advisories: []
+residual_risks:
+  - タイトルだけのblocking候補は機械的に停止するが、あらすじ・時刻一覧だけの一致は誤陽性を避けて日次の要確認候補とする。
+  - 公開反映はmainマージ後の生成release workflow完了に依存する。

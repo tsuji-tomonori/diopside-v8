@@ -1,0 +1,158 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260823-log-ytdlp-failures
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: true
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+    note: V8-INGEST-004/005/007の再試行、安全分類、取得元本文・diagnostic非保存を維持し、失敗を安全な定型signalで観測可能にする。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, path:infra/src/diopside_ingestion/dispatcher.py, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: Lambdaの運用logとcode asset digestだけが変わり、公開契約、resource inventory、IAM、table schema、ADR判断は変わらない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260823-log-ytdlp-failures.yaml]
+    note: 稼働中Lambdaの外部command診断と生成CDK設計へ影響するためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 所有者が依頼したbranch pushとPR作成だけを外部書込みとし、AWS deploy、SQS再投入、DynamoDB更新、mergeは行わない。
+  - id: IMP-009
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: Lambda code asset hash以外のCloudFormation resource、IAM、network、暗号化構成に差分がないことをsynthと生成設計で確認した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Python実装の構文、全infra test suite、CDK synthを変更後に確認した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Pyrightとmypy strictが変更対象を含むPython sourceとtestを通過した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Ruff format checkとlintが変更対象を含むinfra全体で成功した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_worker.py, test:infra/tests/test_dispatcher.py]
+    note: metadata取得失敗の定型signal、再試行logのvideo_id・reason code、retryable checkpointを直接検証した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_worker.py]
+    note: 現行のgeneric extractor_errorだけでは原因を判別できない条件をfixture化し、本文・URL・Cookie・stdoutをlogへ出さずに安全なsignalだけが残ることを固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-ingestion/manifest.json, workflow:要件・品質ゲート#as-built CDK設計差分を検査]
+    note: synth templateから生成設計を二回生成してSHA-256一致を確認し、check modeも成功した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, test:infra/tests/test_worker.py, test:tests/repository-policy.test.ts]
+    note: log値を固定語彙、数値、hashへ限定し、取得元diagnostic、URL、Cookie、token、stdout、生素材、資格情報を差分またはlogへ含めない。
+  - id: FAST-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: CDK synthとcdk-nagが成功し、resource inventory、permission、networkに追加、削除、置換がない。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, path:infra/src/diopside_ingestion/dispatcher.py, test:infra/tests/test_worker.py]
+    note: 外部command失敗をoperation、returncode、reason code、stderr hash・byte数、件数、allow-list runtime・signalで相関でき、診断性低下を改善した。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をingestion診断log、回帰test、対応するLambda asset digestとreview結果へ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、review path、検証、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:infra/tests/test_worker.py]
+    note: V8-INGEST-004/005/007の受入条件を変更せず、取得元diagnostic非保存を維持するためrequirements.jsonの改訂は不要と判定した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: Lambda assetを含む合成template digestを生成設計へ反映し、resource inventoryとADRは不変である。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_worker.py, test:infra/tests/test_dispatcher.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: 診断log回帰testと既存infra全検証がGitHub Actionsの有限private backfill jobで実行される。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260823-log-ytdlp-failures.yaml]
+    note: 選択checkだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260823-log-ytdlp-failures.yaml]
+    note: trigger非該当checkをN/Aとして追加していない。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, path:infra/src/diopside_ingestion/dispatcher.py, test:infra/tests/test_worker.py]
+    note: queue、table、再試行条件、resource構成を変えず、既存deployとCloudWatch Logs確認手順で修正版Lambdaをsmoke確認できる。
+advisories: []
+residual_risks:
+  - 本変更は原因修正ではなく安全な観測性追加であり、merge後にLambdaをdeployして一動画を再試行し、signalからbot challenge、JS runtime、API transport、HTTP、DNS、TLS等を切り分ける必要がある。
+  - 実AWS deploy、SQS再投入、CloudWatch Logs確認は未実行であり、現在失敗中のmessageとDynamoDB状態を本PRでは変更しない。

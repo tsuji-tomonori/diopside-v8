@@ -1,0 +1,96 @@
+name: 有限private backfill基盤デプロイ
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: mainの検証済み基盤をデプロイする場合は DEPLOY と入力
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-ingestion-infra
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: main・確認入力・CDK品質ゲート
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: mainの明示デプロイだけを許可
+        env:
+          CONFIRMATION: ${{ inputs.confirmation }}
+        run: |
+          test "$GITHUB_REF" = 'refs/heads/main'
+          test "$CONFIRMATION" = 'DEPLOY'
+      - name: 対象commitを取得
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - name: Node.jsを準備
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.0
+      - name: uvを準備
+        uses: astral-sh/setup-uv@v5
+      - name: Python依存をlockどおり導入
+        run: uv sync --directory infra --locked --all-groups
+      - name: CDK CLIをlockどおり導入
+        run: npm ci --prefix infra
+      - name: Ruff・strict型検査・pytest・CDK synth・生成設計差分を検証
+        run: npm run verify:ingestion
+
+  deploy:
+    name: protected environmentからCDK deploy
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: private-backfill-infra
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      AWS_DEPLOY_ROLE_ARN: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+    steps:
+      - name: protected environment変数を検証
+        run: |
+          test -n "$AWS_ACCOUNT_ID"
+          test "$AWS_REGION" = 'ap-northeast-1'
+          test -n "$AWS_DEPLOY_ROLE_ARN"
+          test "$AWS_DEPLOY_ROLE_ARN" = "arn:aws:iam::$AWS_ACCOUNT_ID:role/diopside-github-actions-deploy"
+      - name: 対象commitを取得
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - name: Node.jsを準備
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.0
+      - name: uvを準備
+        uses: astral-sh/setup-uv@v5
+      - name: Python依存をlockどおり導入
+        run: uv sync --directory infra --locked --all-groups
+      - name: CDK CLIをlockどおり導入
+        run: npm ci --prefix infra
+      - name: GitHub OIDCで短期AWS資格情報を取得
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
+        with:
+          role-to-assume: ${{ env.AWS_DEPLOY_ROLE_ARN }}
+          role-session-name: diopside-${{ github.run_id }}-${{ github.run_attempt }}
+          aws-region: ${{ env.AWS_REGION }}
+          allowed-account-ids: ${{ env.AWS_ACCOUNT_ID }}
+          inline-session-policy: >-
+            {"Version":"2012-10-17","Statement":[{"Sid":"AssumeRequiredCdkBootstrapRoles","Effect":"Allow","Action":"sts:AssumeRole","Resource":["arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/cdk-hnb659fds-deploy-role-${{ env.AWS_ACCOUNT_ID }}-${{ env.AWS_REGION }}","arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/cdk-hnb659fds-file-publishing-role-${{ env.AWS_ACCOUNT_ID }}-${{ env.AWS_REGION }}","arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/cdk-hnb659fds-lookup-role-${{ env.AWS_ACCOUNT_ID }}-${{ env.AWS_REGION }}"]}]}
+      - name: 検証済みcommitのprivate backfill基盤だけをデプロイ
+        env:
+          CDK_DEFAULT_ACCOUNT: ${{ env.AWS_ACCOUNT_ID }}
+          CDK_DEFAULT_REGION: ${{ env.AWS_REGION }}
+        run: >-
+          cd infra && npm exec -- cdk deploy DiopsideIngestionStack
+          --exclusively --ci --require-approval never

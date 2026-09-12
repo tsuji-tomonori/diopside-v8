@@ -1,0 +1,367 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "api5ATBW7qQ",
+  "title": "【重大発表】逆凸10人できないと、重大発表できません❣【にじさんじ/シスター・クレア】",
+  "publishedAt": "2023-02-28T15:13:18Z",
+  "durationSeconds": 11360,
+  "durationIso": "PT3H9M20S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/api5ATBW7qQ/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=api5ATBW7qQ",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "76bd7391514c468da0f385cd0683086c18e03d356b1014448b854cb753014c41"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "ea64cebf864ef9c7a589b3e8d11311c7452df26b3aa0840984fb3c1b635fdb3b"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "2c5a3342c5366b676796276ad0efb2efa13ad7103c98023f10ad90b133d6fd3d"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "c1e69fd86bdd34f1a6a91c5713081629d82599e2dce0b27e34d5846121ca1578"
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "344b2a1bdc9d175881ab8b7f9e976808794a4c9aa6c2765fb6b015c9d70b9c76"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-9eedbc0013d1",
+      "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-context-feature-d4f76aec0d7a",
+      "reason": "公開タイトルから企画特性「逆凸」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（call-in-host-only）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-b4a761859187",
+      "reason": "公開台帳のチャンネル「シスター・クレア -SisterClaire-」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-7931dd3537fc",
+      "reason": "人物名「シスター・クレア」をコラボ相手として確認（call-in-host-only）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-5cbaf799",
+        "startSeconds": 0,
+        "label": "企画説明・電話準備",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-244-40524d68",
+        "startSeconds": 244,
+        "label": "空星きらめさんと通話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-691-cf755633",
+        "startSeconds": 691,
+        "label": "次の相手探し・接続準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1743-f38f33f9",
+        "startSeconds": 1743,
+        "label": "ドーラさんと通話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2761-e162510c",
+        "startSeconds": 2761,
+        "label": "3人目への接続準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3302-ae5cc202",
+        "startSeconds": 3302,
+        "label": "神田笑一さんと通話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4261-712ce054",
+        "startSeconds": 4261,
+        "label": "4人目への接続準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4381-76ca403f",
+        "startSeconds": 4381,
+        "label": "轟京子さんと通話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5162-82d4cb47",
+        "startSeconds": 5162,
+        "label": "折り返し地点・次の電話準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5402-e8833cb9",
+        "startSeconds": 5402,
+        "label": "海妹四葉さんと通話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5823-a4c25c71",
+        "startSeconds": 5823,
+        "label": "次の相手探し・折り返し準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6302-4c2f13d5",
+        "startSeconds": 6302,
+        "label": "社築さんと通話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7621-680e3cf1",
+        "startSeconds": 7621,
+        "label": "7人目への接続準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7802-0b4a7c1a",
+        "startSeconds": 7802,
+        "label": "白雪巴さんと通話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8402-5a5be85e",
+        "startSeconds": 8402,
+        "label": "残り3人・次の電話準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8697-13bb0a96",
+        "startSeconds": 8697,
+        "label": "弦月藤士郎さんと通話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9484-305911e6",
+        "startSeconds": 9484,
+        "label": "残り2人・次の電話準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9667-4cdc1116",
+        "startSeconds": 9667,
+        "label": "セラフ・ダズルガーデンさんと通話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9907-b539140a",
+        "startSeconds": 9907,
+        "label": "10人目への接続準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-10022-2dc51a91",
+        "startSeconds": 10022,
+        "label": "夜見れなさんと通話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-10802-21008280",
+        "startSeconds": 10802,
+        "label": "10人目終了後・追加電話",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-10982-a7814687",
+        "startSeconds": 10982,
+        "label": "重大発表・3D衣装お披露目ライブ告知",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-11224-2b935c38",
+        "startSeconds": 11224,
+        "label": "エンディング・感謝と締め",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "c155b212947d08d4c68bcee3108518795a54e85f6f7e16bd8583ae32ca42e5f2",
+    "inputFingerprint": "c1e69fd86bdd34f1a6a91c5713081629d82599e2dce0b27e34d5846121ca1578",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-18T15:25:31Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "c155b212947d08d4c68bcee3108518795a54e85f6f7e16bd8583ae32ca42e5f2",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "c155b212947d08d4c68bcee3108518795a54e85f6f7e16bd8583ae32ca42e5f2",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "7beaaca1c4888c50f6a5560d61df993ba3d5043d5e12e59dfcc999f8f68fc286",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-15T21:05:00+09:00",
+    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  }
+}

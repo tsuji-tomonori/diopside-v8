@@ -9,21 +9,30 @@
   "allowedRuntimeServices": [
     {
       "service": "GitHub Pages",
-      "condition": "公開リポジトリの標準github.io URL、branch方式 main/docs、追加請求0円"
+      "condition": "公開リポジトリのGitHub Pages、branch方式 main/docs、許可済みの tme.page.diopside.net、追加請求0円"
     },
     {
       "service": "GitHub Actions",
-      "condition": "公開リポジトリの標準ubuntu-latestによるCIと人が開始する手動操作だけ、成果物保存なし、追加請求0円"
+      "condition": "公開リポジトリの標準ubuntu-latestによるCI、人が開始する手動操作、protected environmentで承認する有限private backfill保存基盤deploy、検証済みmainの静的成果物生成だけ、成果物保存なし、追加請求0円"
     }
   ],
+  "historicalPrivateBackfill": {
+    "scope": "既知動画IDだけを対象にした、運用者が明示開始する有限回の非公開素材取得。公開閲覧、検索、生成、配信の実行時基盤ではない。",
+    "permittedServices": [
+      "AWS S3",
+      "AWS DynamoDB"
+    ],
+    "costPolicy": "月額0円の公開運用要件から分離し、private S3・DynamoDBの実費は観測するが自動停止条件にはしない。保存基盤のデプロイと削除は別途の明示承認を必要とし、素材取得と投入は運用者がローカルPCから明示的に実行する。",
+    "publicBoundary": "infra/ 配下だけに隔離し、Pages、src、public、公開データ、Git、PR本文、review YAMLへ生素材またはAWS認証情報を渡さない。",
+    "schedule": "予定実行と将来動画の自動発見は禁止し、固定manifestの完了で終了する。"
+  },
   "forbidden": [
-    "独自ドメイン",
-    "有料クラウド",
-    "従量課金API",
-    "外部検索・データベース",
-    "アクセス解析・広告・監視",
-    "外部生成・配信サービス"
+    "公開面の有料クラウド",
+    "公開面の従量課金API",
+    "公開面の外部検索・データベース",
+    "公開面のアクセス解析・広告・監視",
+    "公開面の外部生成・配信サービス"
   ],
-  "stopCondition": "追加請求が0円と確認できない場合は公開更新を停止し、人へ判断を求める",
-  "reviewedAt": "2026-08-03"
+  "stopCondition": "公開面の追加請求が0円と確認できない場合は公開更新を停止し、人へ判断を求める",
+  "reviewedAt": "2026-08-29"
 }

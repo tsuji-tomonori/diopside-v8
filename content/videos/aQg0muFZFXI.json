@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=aQg0muFZFXI",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-approved-tags",
@@ -26,6 +26,20 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "f7e99992ef99156aed057ccc849e79cbc439e1fcaf710be9ef9fe33c352785f0"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "公開日本語原文字幕を主体に不足区間を全編ローカルASRで補完（あらすじ確認用）",
+      "inputFingerprint": "4ba283861b0f41b7dd72832690c49356ec8e3fd805498f3dd80d2edefd4914fa",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7228
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "45f323ca5756ff75eeadee2c6642c48d6528a461e1ccd1cea5ba83aa91c263c7"
     }
   ],
   "tagAssignments": [
@@ -93,15 +107,6 @@
       "reviewedAt": "2026-08-04T12:00:00+09:00"
     },
     {
-      "tagId": "tag-reference-relation-dad95e963d98",
-      "reason": "本文言及の関係を「感想・振り返り」と判定（判定タグ: 感想・振り返り）",
-      "confidence": "中",
-      "evidenceRefs": [
-        "evidence-approved-tags"
-      ],
-      "reviewedAt": "2026-08-04T12:00:00+09:00"
-    },
-    {
       "tagId": "tag-format-media-45323ed44f37",
       "reason": "公開インデックスの動画形式を採用（判定タグ: 配信）",
       "confidence": "高",
@@ -111,6 +116,22 @@
       "reviewedAt": "2026-08-04T12:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "白雪巴が初めて参加したTRPG『カタシロ』を、プレイから一週間考えたことも交えて振り返る。共演者の役作りや進行の巧みさ、舞台で感じた没入と緊張、自分の演技や言葉選びを丁寧に整理。別配役で見直す面白さや、物語を通して価値観と向き合う時間を語る。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "マジがちすごかった。え、またやりたい。",
+      "atSeconds": 6552,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "4ba283861b0f41b7dd72832690c49356ec8e3fd805498f3dd80d2edefd4914fa",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T16:31:00+09:00"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -267,10 +288,615 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T12:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "うん",
+        "weight": 95
+      },
+      {
+        "term": "大事",
+        "weight": 84
+      },
+      {
+        "term": "カタシロ",
+        "weight": 73
+      },
+      {
+        "term": "面白い",
+        "weight": 58
+      },
+      {
+        "term": "ママ",
+        "weight": 56
+      },
+      {
+        "term": "人",
+        "weight": 54
+      },
+      {
+        "term": "すごい",
+        "weight": 48
+      },
+      {
+        "term": "雪",
+        "weight": 48
+      },
+      {
+        "term": "本当に",
+        "weight": 48
+      },
+      {
+        "term": "あら",
+        "weight": 46
+      },
+      {
+        "term": "医者",
+        "weight": 45
+      },
+      {
+        "term": "違う",
+        "weight": 38
+      },
+      {
+        "term": "無理",
+        "weight": 36
+      },
+      {
+        "term": "はい",
+        "weight": 33
+      },
+      {
+        "term": "わかる",
+        "weight": 32
+      },
+      {
+        "term": "どうぞ",
+        "weight": 31
+      },
+      {
+        "term": "嬉しい",
+        "weight": 31
+      },
+      {
+        "term": "考える",
+        "weight": 31
+      },
+      {
+        "term": "シロ",
+        "weight": 29
+      },
+      {
+        "term": "アキラ",
+        "weight": 26
+      },
+      {
+        "term": "たしかに",
+        "weight": 23
+      },
+      {
+        "term": "凄い",
+        "weight": 23
+      },
+      {
+        "term": "ついえる",
+        "weight": 20
+      },
+      {
+        "term": "マダミス",
+        "weight": 20
+      },
+      {
+        "term": "誕生",
+        "weight": 20
+      },
+      {
+        "term": "おめでとう",
+        "weight": 18
+      },
+      {
+        "term": "リアル",
+        "weight": 18
+      },
+      {
+        "term": "楽しい",
+        "weight": 18
+      },
+      {
+        "term": "話",
+        "weight": 18
+      },
+      {
+        "term": "ディズム",
+        "weight": 16
+      },
+      {
+        "term": "トモエ",
+        "weight": 16
+      },
+      {
+        "term": "振り返る",
+        "weight": 16
+      },
+      {
+        "term": "わくわく",
+        "weight": 14
+      },
+      {
+        "term": "配信",
+        "weight": 14
+      },
+      {
+        "term": "なさる",
+        "weight": 9
+      },
+      {
+        "term": "確か",
+        "weight": 9
+      },
+      {
+        "term": "身体",
+        "weight": 9
+      },
+      {
+        "term": "風邪",
+        "weight": 9
+      },
+      {
+        "term": "気",
+        "weight": 7
+      },
+      {
+        "term": "難しい",
+        "weight": 7
+      },
+      {
+        "term": "変わる",
+        "weight": 7
+      },
+      {
+        "term": "ゆっくり",
+        "weight": 4
+      },
+      {
+        "term": "妖精",
+        "weight": 4
+      },
+      {
+        "term": "さる",
+        "weight": 1
+      },
+      {
+        "term": "シナリオ",
+        "weight": 1
+      },
+      {
+        "term": "ボス",
+        "weight": 1
+      },
+      {
+        "term": "最高",
+        "weight": 1
+      },
+      {
+        "term": "親",
+        "weight": 1
+      },
+      {
+        "term": "舞台",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "45f323ca5756ff75eeadee2c6642c48d6528a461e1ccd1cea5ba83aa91c263c7",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "updatedAt": "2026-09-05T00:20:00+09:00",
+    "humanReview": "承認済み"
+  },
+  "customEmojiUsage": {
+    "status": "集計済み",
+    "totalCount": 124,
+    "items": [
+      {
+        "customEmojiId": "custom-emoji-bfc159b91f64052d",
+        "label": ":kusa:",
+        "imageUrl": "https://yt3.ggpht.com/kZShOeXg6MsX8wvxDnks5be-RBBZBbiSTiHaYf_YugiFq2vsob_L1aNikCo8ZWNa-KAZh-We=w24-h24-c-k-nd",
+        "count": 37
+      },
+      {
+        "customEmojiId": "custom-emoji-14d753b6b17fe87f",
+        "label": ":taiki:",
+        "imageUrl": "https://yt3.ggpht.com/AmJMesRvOQ9hazRwFUqyYpBPbFInvNG6-NVq5nFnd7LxkunkF1ZNCfmPFwz85sjRNRCDs5e0_w=w24-h24-c-k-nd",
+        "count": 29
+      },
+      {
+        "customEmojiId": "custom-emoji-d114b08d65064a0d",
+        "label": ":daken:",
+        "imageUrl": "https://yt3.ggpht.com/STxTum1lbYWsJvKvU0TBmTRGS5bB3RP8j00XvlIP-fdwGfk43DxhFQlJHH2ncl1BStmykLoqzQ=w24-h24-c-k-nd",
+        "count": 18
+      },
+      {
+        "customEmojiId": "custom-emoji-f511686e2a08a690",
+        "label": ":wan:",
+        "imageUrl": "https://yt3.ggpht.com/1VFD2HS8OwgvS2XCPDW-59iyFTUlw63RAVQcNsaGpQZTtjCXS_q-FUPR86bZVOnDirWTlnjn=w24-h24-c-k-nd",
+        "count": 13
+      },
+      {
+        "customEmojiId": "custom-emoji-99d872abdf660b1b",
+        "label": ":tomoe2:",
+        "imageUrl": "https://yt3.ggpht.com/PWlFOxtJ5yAeKG-ak1OuOFbeIAc8LdmHp4Vema-L2CWtFsAk6C07uVB3ym3dybY3tpmA9CoRtWI=w24-h24-c-k-nd",
+        "count": 10
+      },
+      {
+        "customEmojiId": "custom-emoji-6bf2ffc72b0031f1",
+        "label": ":kobito:",
+        "imageUrl": "https://yt3.ggpht.com/2bL4xENwQQcltmFqoJdB8wRRZWrgAWLSRVvk-dZ_dM4ociaEWc-EtBqRlm9qlwlpV3szT6nT=w24-h24-c-k-nd",
+        "count": 4
+      },
+      {
+        "customEmojiId": "custom-emoji-c8b162f765b222c0",
+        "label": ":eyes-purple-crying:",
+        "imageUrl": "https://yt3.ggpht.com/FrYgdeZPpvXs-6Mp305ZiimWJ0wV5bcVZctaUy80mnIdwe-P8HRGYAm0OyBtVx8EB9_Dxkc=w24-h24-c-k-nd",
+        "count": 3
+      },
+      {
+        "customEmojiId": "custom-emoji-ad7cfe53960275b5",
+        "label": ":tomoe1:",
+        "imageUrl": "https://yt3.ggpht.com/YjMrNKH0NaNlbggXwFtgP-v2Qmkd9Y8-JF_YkoMtX9e2wcU3XMM-3jG_ji8Rk6Ru_-2eqaEv6pc=w24-h24-c-k-nd",
+        "count": 3
+      },
+      {
+        "customEmojiId": "custom-emoji-ca4a85ace4faf456",
+        "label": ":tomoe3:",
+        "imageUrl": "https://yt3.ggpht.com/xfD5CwUMwcfIFWvaPA5bt-L_Ys5vCVdJQL2a_5bdEd2AArTNWCMFH1urumOlB9bqPp2Ndio-Sg=w24-h24-c-k-nd",
+        "count": 3
+      },
+      {
+        "customEmojiId": "custom-emoji-e9a989ca52e54347",
+        "label": ":face-red-heart-shape:",
+        "imageUrl": "https://yt3.ggpht.com/I0Mem9dU_IZ4a9cQPzR0pUJ8bH-882Eg0sDQjBmPcHA6Oq0uXOZcsjPvPbtormx91Ha2eRA=w24-h24-c-k-nd",
+        "count": 1
+      },
+      {
+        "customEmojiId": "custom-emoji-7d33ccb4a3a8d5b3",
+        "label": ":kou:",
+        "imageUrl": "https://yt3.ggpht.com/E8MlJZsRHqoMCDR0VKdGPLs_l1Yv_92mDx6PBGSukplOtWr1ZF0B_GGJfKrj0sIWCsU7sb3Odw=w24-h24-c-k-nd",
+        "count": 1
+      },
+      {
+        "customEmojiId": "custom-emoji-c552300db42d8e8c",
+        "label": ":kyun:",
+        "imageUrl": "https://yt3.ggpht.com/rA-THKTJiogvHdl4ecRQpjqA63XmGrPC9EfHtt2hp8QWj3R9_zb9_oMXw5hH6ofEUMTN-h-fnW0=w24-h24-c-k-nd",
+        "count": 1
+      },
+      {
+        "customEmojiId": "custom-emoji-bec40e538024a3b4",
+        "label": ":sai:",
+        "imageUrl": "https://yt3.ggpht.com/weQc5yLO5YVezF--d-xwnrPc4mtdWFBoV_y9xmVIEtGowjy5ZB2ZjQ2RYeThPou-uNsuMiIdQQ=w24-h24-c-k-nd",
+        "count": 1
+      }
+    ],
+    "timeline": {
+      "bucketSeconds": 60,
+      "durationSeconds": 7228,
+      "bins": [
+        [],
+        [],
+        [
+          [
+            2,
+            1
+          ]
+        ],
+        [
+          [
+            7,
+            1
+          ]
+        ],
+        [
+          [
+            10,
+            1
+          ],
+          [
+            12,
+            1
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            6
+          ]
+        ],
+        [],
+        [
+          [
+            0,
+            3
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            2
+          ]
+        ],
+        [
+          [
+            0,
+            3
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            0,
+            4
+          ]
+        ],
+        [],
+        [
+          [
+            0,
+            3
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            2
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [],
+        [
+          [
+            0,
+            2
+          ]
+        ],
+        [
+          [
+            0,
+            4
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            6,
+            1
+          ]
+        ],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            2
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            4,
+            9
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            6,
+            1
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            11,
+            1
+          ]
+        ],
+        [],
+        [
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            9,
+            1
+          ]
+        ],
+        [],
+        [
+          [
+            6,
+            1
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            2,
+            1
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            8,
+            1
+          ]
+        ],
+        [],
+        [],
+        [],
+        [
+          [
+            8,
+            1
+          ]
+        ],
+        [],
+        [
+          [
+            2,
+            1
+          ]
+        ],
+        [
+          [
+            2,
+            1
+          ]
+        ],
+        []
+      ],
+      "beforeStartCount": 57,
+      "afterEndCount": 0,
+      "unpositionedCount": 0
+    },
+    "inputFingerprint": "545aa4a92a8a10619b25ddb8fea3610a4259067b3d3f4aa37d1bc6b3115cceeb",
+    "rulesVersion": "2.0.0",
+    "updatedAt": "2026-09-05T00:00:00Z"
   },
   "provenance": {
     "inputFingerprint": "b3ee8ca73b7951d37515f95e3772721622a66a74272ae5d9347837e27cc865c1",
@@ -280,7 +906,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-04T12:00:00+09:00",
-    "basis": "提供データの明示30件を全件移行し、時刻は既存承認済み23件だけを収録"
+    "approvedAt": "2026-09-01T12:00:00+09:00",
+    "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
   }
 }

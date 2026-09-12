@@ -43,7 +43,9 @@ Record only evidence type, a safe source label, input fingerprint, and coverage 
 
 ## 4. Assign tags
 
-Resolve tags to immutable IDs in the current taxonomy. Preserve official display names. Every assignment needs a tag-specific reason containing the canonical name or explicit deciding fact, confidence `高` or `中`, resolvable evidence references, and review time.
+Read `references/tag-assignment-authority.md` before assigning or reviewing tags. Resolve IDs, display names, and the final inclusion/exclusion decision from the current taxonomy; use `spec/sources/tag-assignment-audit-v1.json` only for deterministic candidates and regression examples. Do not treat legacy aliases, the daily audit sheet, or a title keyword by itself as a competing semantic authority.
+
+Preserve official display names. Every assignment needs a tag-specific reason containing the canonical name or explicit deciding fact, confidence `高` or `中`, resolvable evidence references, and review time. Run `npm run audit:tag-assignments` after a tag change. A blocking candidate without its tag or an explicit fixed exclusion stops approval; review-only candidates require video-specific evidence and a recorded reason.
 
 Enforce all cardinality and conditional rules in Issue #1. Do not publish `低`, pending, prohibited placeholders, duplicate IDs, unknown IDs, or 13+ non-person/group tags without an explicit over-tag human review reason.
 
@@ -54,6 +56,10 @@ Prefer a valid creator-authored list. Otherwise generate only after evidence cov
 For created timestamps, require 0-second start, at least three entries, integer unique ascending starts, 10-second spacing, start below duration, meaningful Japanese labels, evidence for every nonzero boundary, spoiler-safe public labels, and full derived coverage. Run fact and editorial reviews independently against the same candidate hash; hide the fact result from the editorial review. Any edit invalidates both earlier results. Human final approval follows two zero-major-issue passes.
 
 Prepare a reason file matching `references/timestamp-change-reasons.schema.json`, then run `node --experimental-strip-types scripts/diff-timestamps.ts --before <old.json> --after <new.json> --reasons <reasons.json>` for updates. Explain every addition, deletion, move, and rename; a missing or extra reason stops the update.
+
+## Song catalog maintenance
+
+When maintaining the song catalog, read `references/song-performance-selection.md` to distinguish song-level vocal participation from video-level guest appearance. A cross-video catalog/rule audit belongs in a maintenance PR, separately from normal video/timestamp updates.
 
 ## 6. Prepare the word cloud
 

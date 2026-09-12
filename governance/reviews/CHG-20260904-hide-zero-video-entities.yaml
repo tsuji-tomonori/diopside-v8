@@ -1,0 +1,187 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260904-hide-zero-video-entities
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: true
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:spec/sources/owner-directive-2026-09-04-hide-zero-video-entities.md
+    note: V8-DISPLAY-019をrevision 2へ更新し、関連動画0件を一覧件数とカードから除外する受入条件を正本化した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/entities/EntityIndexPage.tsx
+      - path:docs/design/generated/inventory.gen.json
+    note: 既存のエンティティ一覧フィルターへ局所条件を追加し、生成inventoryへ差分を反映した。公開契約、データモデル、ADRを変更しない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260904-hide-zero-video-entities.yaml
+    note: 局所UI修正だが永続要件と要件generatorへ影響するためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 利用者がGitHub pluginを指定しており、feature branchへのcommitとPR作成だけを行う。merge、公開、削除、課金操作は行わない。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/entities/EntityIndexPage.tsx
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 要件・公開データ・生成設計を含むproduction buildを完了し、同じ契約をCIで再実行する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:tsconfig.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: ブラウザ用とNode用のTypeScript strict型検査を完了した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/entities/EntityIndexPage.tsx
+      - path:scripts/generate-requirements.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: src、scripts、testsを含むrepository lintを警告0件で完了した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/features/entities/EntityIndexPage.test.tsx
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 全131単体・component試験に加え、一覧件数、カード除外、検索後empty状態を対象試験で確認した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/entities/EntityIndexPage.test.tsx
+    note: 関連動画0件の合成エンティティを混在させ、旧実装なら件数が増えて失敗する回帰条件を固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:docs/requirements/REQUIREMENTS.md
+      - path:docs/design/generated/inventory.gen.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 要件表示、公開データ、as-built inventory、Pages成果物を正本と実装から決定的に再生成した。commit後のdrift checkをCIで再確認する。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 差分をUI、対象試験、要件正本・generator・生成物、review記録へ限定し、credential、個人情報、生素材を含めない。
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/entities/EntityIndexPage.test.tsx
+      - path:src/features/entities/EntityIndexPage.tsx
+    note: 関連動画ありのsuccess一覧、0件項目の除外、0件項目だけを検索したempty状態をcomponent試験で確認した。共通bundleのloading・error境界は変更しない。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 差分を関連動画0件のエンティティを一覧件数とカードから除外する一つの目的に限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更内容、要件・設計影響、review path、検証契約、互換性・残存リスクを構造化Commit Commentへ記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:spec/sources/owner-directive-2026-09-04-hide-zero-video-entities.md
+    note: 所有者指示をV8-DISPLAY-019 revision 2、catalog revision 33、AC-V8-DISPLAY-019-2へ反映した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - commit:self
+    note: 既存一覧の局所フィルターであり、生成inventory以外の設計、ADR、公開データ形式を変更しない。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:src/features/entities/EntityIndexPage.tsx
+      - test:src/features/entities/EntityIndexPage.test.tsx
+    note: V8-DISPLAY-019から一覧フィルターと件数・カード・empty状態の回帰試験へ到達できる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/features/entities/EntityIndexPage.test.tsx
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: AC-V8-DISPLAY-019-2を直接検証するcomponent試験は通常PRのCIに含まれる。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260904-hide-zero-video-entities.yaml
+    note: 選択したcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260904-hide-zero-video-entities.yaml
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+advisories: []
+residual_risks: []

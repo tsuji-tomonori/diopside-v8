@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 import {
+  allVideosHeading,
   capture,
   expectNoSeriousAccessibilityViolations,
   expectOnlyAllowedRequests,
@@ -19,7 +20,7 @@ test.describe('端末内リスト', () => {
     await card.getByRole('link', { name: '詳細を見る', exact: true }).click();
     await expect(page.getByRole('heading', { level: 1 })).toContainText(title!);
     await page.getByRole('link', { name: '動画を探す' }).click();
-    await page.getByLabel('動画タイトル').fill('新年');
+    await page.getByRole('combobox', { name: '検索', exact: true }).fill('新年');
     await page.getByRole('button', { name: 'この条件で探す' }).click();
     await page.getByRole('link', { name: '端末内リスト' }).click();
     await expect(page.getByRole('heading', { name: /お気に入り/u })).toContainText('1件');
@@ -62,7 +63,7 @@ test.describe('端末内リスト', () => {
     await openSearch(page);
     await page.locator('.video-card').first().getByRole('button', { name: 'お気に入りに追加' }).click();
     await expect(page.locator('.storage-notice')).toContainText('端末内への保存を利用できません');
-    await expect(page.getByRole('heading', { name: '1681件の動画' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: allVideosHeading })).toBeVisible();
     await page.locator('.video-card').first().getByRole('link', { name: '詳細を見る', exact: true }).click();
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expectNoSeriousAccessibilityViolations(page);

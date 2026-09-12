@@ -1,0 +1,155 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260905-guest-song-performances
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence: &id001
+  - path:spec/sources/guest-song-performance-audit-v1.json
+  - path:scripts/audit-guest-song-performances.ts
+  - test:tests/guest-song-performances.test.ts
+  note: V8-TAG-037/038、V8-DISPLAY-015にある本人歌唱・曲名・開始秒の既存掲載条件を満たすデータ是正で要件変更はない。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 既存の配信内歌唱schemaを維持し、横断監査と楽曲参照を追加する。生成inventoryへ反映する。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 他チャンネル13動画の監査、6曲の追加、分類体系と検証・作業手順を横断する保守変更のためassuredを選択。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 利用者のGitHub修正依頼に基づきbranchへのpushとレビュー用PR作成まで行う。merge・公開は別の明示指示を待つ。
+- id: IMP-007
+  class: Risk-selected
+  result: pass
+  evidence: *id001
+  note: 6曲の追加のみ。既存動画とタイムスタンプを変更しない。誤登録は対象appearanceを削除して戻せる。
+- id: FAST-001
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 既存PR品質ゲートでproduction buildとゲスト歌唱監査を実行する。
+- id: FAST-002
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 追加した監査スクリプトをTypeScript strictで型検査する。
+- id: FAST-003
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 監査スクリプト・回帰試験を既存lintの対象とする。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 本人参加の6曲、他歌唱者の混入、要確認・対象外への追加、時刻ずれ、掲載漏れ、新規監査候補を試験する。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence: *id001
+  note: スイートマジックの327秒リンク、同じ動画への別出演者曲の混入、白雪みしろのチャンネルとの誤同定を回帰試験で固定する。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: content manifestと設計inventoryを正本から生成。配信用成果物は通常PRへ含めない。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 差分は公開作品名、確認理由、出典URL、既存タイムスタンプ参照だけ。生字幕・コメント・音声・秘密情報を保存しない。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 差分は歌一覧の横断保守に限定。通常動画更新、人物タグ、時刻一覧の再生成と混在させない。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 構造化commitに目的、変更、要件・設計影響、検証、互換性・残存リスクを記載する。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 既存の本人参加限定要件を根拠に修正し、歌枠タグのない企画中の本人歌唱も掲載する。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 既存公開schemaを維持し、検証スクリプトを生成inventoryへ反映。新規ADRは不要。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 13動画の横断監査と否定例を既存の単体試験・PR品質ゲートへ接続する。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 選択したチェックだけをreview YAMLへ保存する。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 未選択のチェックを形式的N/Aで追加しない。
+advisories: []
+residual_risks:
+- 歌唱参加または曲名・開始秒の根拠が不足する7動画は要確認として未登録。未登録は本人歌唱なしを意味しない。
+- 候補検出はタイトルに基づく探索補助で、全ての配信内歌唱の網羅を保証しない。追加候補は曲単位の根拠を確認して監査表を更新する。
+- merge・公開は未実施。

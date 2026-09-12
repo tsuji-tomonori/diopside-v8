@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=Efsv8z2wpWs",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -46,6 +46,12 @@
       "inputFingerprint": "1e79c059eff16a03212e90bdceeb171eb4878a71d5f8f1e88369ad55030aee3b",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 3303
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "20b88f82c638a1abfbbab641806e63d5d7d3143e733773b6ab8c10c87f00c3b8"
     }
   ],
   "tagAssignments": [
@@ -113,6 +119,22 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "「ぴえん」と言わない宣言でホラーゲーム『PIEN』へ。白雪巴は暗い迷路で印とバッテリーを探し、迫る顔へ悲鳴を上げつつ、逆に追いかけたり距離感を恋愛になぞらえたり。短時間攻略のはずが、気になる挙動の検証へ何度も踏み込んでいく。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "リスポン地点は平和だってバイオハザートから学ばなかったの",
+      "atSeconds": 550,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "1e79c059eff16a03212e90bdceeb171eb4878a71d5f8f1e88369ad55030aee3b",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-08-22T03:07:59.892646Z"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -201,28 +223,28 @@
         "candidateHash": "5adc6af2ff79601910e1458cc958d0d08d18a5601ad00661251e3ef5f03b79cc",
         "majorIssues": 0,
         "reviewedAt": "2026-08-08T17:49:04+09:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "5adc6af2ff79601910e1458cc958d0d08d18a5601ad00661251e3ef5f03b79cc",
         "majorIssues": 0,
         "reviewedAt": "2026-08-08T17:51:30+09:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "finalHumanCheck": {
         "status": "承認済み",
@@ -233,10 +255,416 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "ナイス",
+        "weight": 48
+      },
+      {
+        "term": "おめでとう",
+        "weight": 42
+      },
+      {
+        "term": "かわいい",
+        "weight": 42
+      },
+      {
+        "term": "ぴえん",
+        "weight": 41
+      },
+      {
+        "term": "クリア",
+        "weight": 38
+      },
+      {
+        "term": "助かる",
+        "weight": 37
+      },
+      {
+        "term": "すい",
+        "weight": 29
+      },
+      {
+        "term": "ナイスゥ",
+        "weight": 28
+      },
+      {
+        "term": "うまい",
+        "weight": 25
+      },
+      {
+        "term": "ビビる",
+        "weight": 24
+      },
+      {
+        "term": "終わる",
+        "weight": 24
+      },
+      {
+        "term": "逃げる",
+        "weight": 24
+      },
+      {
+        "term": "早い",
+        "weight": 22
+      },
+      {
+        "term": "ついえる",
+        "weight": 21
+      },
+      {
+        "term": "声",
+        "weight": 20
+      },
+      {
+        "term": "待機",
+        "weight": 18
+      },
+      {
+        "term": "投げる",
+        "weight": 18
+      },
+      {
+        "term": "終了",
+        "weight": 17
+      },
+      {
+        "term": "追いかける",
+        "weight": 17
+      },
+      {
+        "term": "フラグ",
+        "weight": 15
+      },
+      {
+        "term": "頑張る",
+        "weight": 15
+      },
+      {
+        "term": "キッス",
+        "weight": 14
+      },
+      {
+        "term": "つかれる",
+        "weight": 13
+      },
+      {
+        "term": "作者",
+        "weight": 11
+      },
+      {
+        "term": "悲鳴",
+        "weight": 11
+      },
+      {
+        "term": "rta",
+        "weight": 10
+      },
+      {
+        "term": "ランダム",
+        "weight": 9
+      },
+      {
+        "term": "キレ",
+        "weight": 8
+      },
+      {
+        "term": "ステージ",
+        "weight": 8
+      },
+      {
+        "term": "姉さん",
+        "weight": 8
+      },
+      {
+        "term": "怖い",
+        "weight": 8
+      },
+      {
+        "term": "お歌",
+        "weight": 7
+      },
+      {
+        "term": "ナイト",
+        "weight": 7
+      },
+      {
+        "term": "バタフライ",
+        "weight": 7
+      },
+      {
+        "term": "消す",
+        "weight": 7
+      },
+      {
+        "term": "最速",
+        "weight": 6
+      },
+      {
+        "term": "あと",
+        "weight": 5
+      },
+      {
+        "term": "回収",
+        "weight": 5
+      },
+      {
+        "term": "好き",
+        "weight": 5
+      },
+      {
+        "term": "もろ",
+        "weight": 4
+      },
+      {
+        "term": "変わる",
+        "weight": 4
+      },
+      {
+        "term": "リスキル",
+        "weight": 3
+      },
+      {
+        "term": "週間",
+        "weight": 3
+      },
+      {
+        "term": "フミ",
+        "weight": 2
+      },
+      {
+        "term": "雪",
+        "weight": 2
+      },
+      {
+        "term": "pien",
+        "weight": 1
+      },
+      {
+        "term": "さっき",
+        "weight": 1
+      },
+      {
+        "term": "チェイス",
+        "weight": 1
+      },
+      {
+        "term": "はやい",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "20b88f82c638a1abfbbab641806e63d5d7d3143e733773b6ab8c10c87f00c3b8",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "updatedAt": "2026-09-05T00:20:00+09:00",
+    "humanReview": "承認済み"
+  },
+  "customEmojiUsage": {
+    "status": "集計済み",
+    "totalCount": 33,
+    "items": [
+      {
+        "customEmojiId": "custom-emoji-089ea8e178cb4765",
+        "label": ":yuki:",
+        "imageUrl": "https://yt3.ggpht.com/Dql0JmqtsueXUMxlW157j6Xj2FnrKnI_nFBHIQ2k9qirFCY3SKYfQZ_5AkA1jASdEf9kqhK1WA=w24-h24-c-k-nd",
+        "count": 12
+      },
+      {
+        "customEmojiId": "custom-emoji-f511686e2a08a690",
+        "label": ":wan:",
+        "imageUrl": "https://yt3.ggpht.com/1VFD2HS8OwgvS2XCPDW-59iyFTUlw63RAVQcNsaGpQZTtjCXS_q-FUPR86bZVOnDirWTlnjn=w24-h24-c-k-nd",
+        "count": 9
+      },
+      {
+        "customEmojiId": "custom-emoji-d114b08d65064a0d",
+        "label": ":daken:",
+        "imageUrl": "https://yt3.ggpht.com/STxTum1lbYWsJvKvU0TBmTRGS5bB3RP8j00XvlIP-fdwGfk43DxhFQlJHH2ncl1BStmykLoqzQ=w24-h24-c-k-nd",
+        "count": 5
+      },
+      {
+        "customEmojiId": "custom-emoji-ad7cfe53960275b5",
+        "label": ":tomoe1:",
+        "imageUrl": "https://yt3.ggpht.com/YjMrNKH0NaNlbggXwFtgP-v2Qmkd9Y8-JF_YkoMtX9e2wcU3XMM-3jG_ji8Rk6Ru_-2eqaEv6pc=w24-h24-c-k-nd",
+        "count": 5
+      },
+      {
+        "customEmojiId": "custom-emoji-99d872abdf660b1b",
+        "label": ":tomoe2:",
+        "imageUrl": "https://yt3.ggpht.com/PWlFOxtJ5yAeKG-ak1OuOFbeIAc8LdmHp4Vema-L2CWtFsAk6C07uVB3ym3dybY3tpmA9CoRtWI=w24-h24-c-k-nd",
+        "count": 1
+      },
+      {
+        "customEmojiId": "custom-emoji-ca4a85ace4faf456",
+        "label": ":tomoe3:",
+        "imageUrl": "https://yt3.ggpht.com/xfD5CwUMwcfIFWvaPA5bt-L_Ys5vCVdJQL2a_5bdEd2AArTNWCMFH1urumOlB9bqPp2Ndio-Sg=w24-h24-c-k-nd",
+        "count": 1
+      }
+    ],
+    "timeline": {
+      "bucketSeconds": 60,
+      "durationSeconds": 3303,
+      "bins": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        [],
+        [
+          [
+            1,
+            5
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        [
+          [
+            3,
+            2
+          ]
+        ],
+        [
+          [
+            3,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            2
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            2
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            3,
+            2
+          ],
+          [
+            5,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      "beforeStartCount": 4,
+      "afterEndCount": 0,
+      "unpositionedCount": 0
+    },
+    "inputFingerprint": "186fbd43fff52025d21edef7236f4da2612d66f318aa4f95ce5ba2cbceafe35a",
+    "rulesVersion": "2.0.0",
+    "updatedAt": "2026-09-05T00:00:00Z"
   },
   "provenance": {
     "inputFingerprint": "ff3313d57a7685f6324c66839adc8f8c49adee4753d465fa266cda31fa850f6e",

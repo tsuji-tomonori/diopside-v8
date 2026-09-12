@@ -1,11 +1,26 @@
 import { existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 
-import { canonicalVideoSchema, type CanonicalVideo } from '../src/domain/content.ts';
+import {
+  canonicalVideoSchema,
+  videoExclusionsSchema,
+  type CanonicalVideo,
+} from '../src/domain/content.ts';
 import { readJson } from './lib.ts';
 import { readSourceShards } from './source-shards.ts';
 
-export function readCanonicalVideos(repositoryRoot: string): CanonicalVideo[] {
+export interface CanonicalStoreOptions {
+  includeExcluded?: boolean;
+}
+
+export function readCanonicalVideos(
+  repositoryRoot: string,
+  options: CanonicalStoreOptions = {},
+): CanonicalVideo[] {
+  const exclusionsPath = path.join(repositoryRoot, 'content/exclusions.json');
+  const excludedVideoIds = !options.includeExcluded && existsSync(exclusionsPath)
+    ? new Set(videoExclusionsSchema.parse(readJson(exclusionsPath)).records.map((record) => record.videoId))
+    : new Set<string>();
   const catalogPath = 'content/catalog/manifest.json';
   const catalog = existsSync(path.join(repositoryRoot, catalogPath))
     ? readSourceShards<unknown>(repositoryRoot, catalogPath, 'videos').items.map((video) => canonicalVideoSchema.parse(video))
@@ -25,5 +40,7 @@ export function readCanonicalVideos(repositoryRoot: string): CanonicalVideo[] {
       videos.set(video.videoId, video);
     }
   }
-  return [...videos.values()].sort((left, right) => left.videoId.localeCompare(right.videoId));
+  return [...videos.values()]
+    .filter((video) => !excludedVideoIds.has(video.videoId))
+    .sort((left, right) => left.videoId.localeCompare(right.videoId));
 }

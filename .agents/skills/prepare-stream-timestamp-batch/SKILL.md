@@ -27,12 +27,12 @@ Coordinate a fixed set of videos. Read `references/workflow.md` before initializ
 
    `python3 scripts/finish_batch_item.py <batch-id> <video-id> --status blocked --reason-code <code>`
 
-8. Stop only when `batch_status.py` reports every manifest item terminal. Return the `ready_for_pr` and `blocked` video IDs together for human action.
+8. Stop only when `batch_status.py` reports every manifest item terminal. Return the `ready_for_pr` and `blocked` video IDs to the caller. When the caller is `$run-timestamp-work-harness`, it continues through the separately authorized one-video draft-PR and ledger lifecycle without per-video chat approval.
 
 ## Boundaries
 
 - Run only after a human explicitly requests this finite batch. Never schedule it or invoke it from Actions.
 - Allow concurrency only between different video IDs in the immutable manifest. Run one role at a time inside each video dossier.
-- Never use paid APIs, continuously refill a queue, rescan for candidates, finalize content, commit, push, open a PR, merge, publish, deploy, or edit YouTube.
+- Never use paid APIs, continuously refill a queue, rescan for candidates, merge, publish, deploy, or edit YouTube. This batch worker does not itself finalize, commit, push, or open a PR; the human-triggered finite Work harness may own those separate steps.
 - Store only batch IDs, video IDs, counts, hashes, state names, and controlled reason codes in batch metadata. Never copy titles, transcript text, audience signals, comments, chat, or identifiers into the batch directory.
 - Treat `ready_for_human_review` only as a legacy one-video stage. `finish_batch_item.py` may upgrade it to `ready_for_pr` without changing evidence or review artifacts.

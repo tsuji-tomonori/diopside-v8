@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import subprocess
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
@@ -22,19 +23,45 @@ def main() -> int:
     parser.add_argument("--model", default="large-v3-turbo")
     parser.add_argument("--compute-type", default="int8")
     parser.add_argument("--threads", type=int, default=8)
+    parser.add_argument("--bootstrap-local", action="store_true")
     args = parser.parse_args()
     try:
         load_state(args.video_id)
         directory = work_dir(args.video_id)
         inputs = read_json(directory / "inputs.json")
         provenance_path = directory / "audio" / "provenance.json"
+        dependency_root = directory.parent / "_deps" / "faster-whisper"
+        if dependency_root.exists():
+            sys.path.insert(0, str(dependency_root))
         available = importlib.util.find_spec("faster_whisper") is not None
-        preflight = {"videoId": args.video_id, "audioProvenanceAvailable": provenance_path.exists(), "fasterWhisperAvailable": available, "model": args.model, "computeType": args.compute_type, "paidApi": False}
+        preflight = {"videoId": args.video_id, "audioProvenanceAvailable": provenance_path.exists(), "fasterWhisperAvailable": available, "bootstrapLocal": args.bootstrap_local, "model": args.model, "computeType": args.compute_type, "paidApi": False}
         if not args.execute:
             print(json.dumps(preflight, ensure_ascii=False, indent=2))
             return 0
+        if not available and args.bootstrap_local:
+            dependency_root.mkdir(parents=True, exist_ok=True)
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "pip",
+                    "install",
+                    "--disable-pip-version-check",
+                    "--no-input",
+                    "--target",
+                    str(dependency_root),
+                    "faster-whisper",
+                ],
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            if completed.returncode:
+                raise TimestampToolError("batch-local faster-whisperの準備に失敗しました。")
+            sys.path.insert(0, str(dependency_root))
+            available = importlib.util.find_spec("faster_whisper") is not None
         if not available:
-            raise TimestampToolError("faster-whisperがローカル環境にありません。")
+            raise TimestampToolError("faster-whisperがローカル環境にありません。親Solのrecoveryでbatch-local準備が必要です。")
         if not provenance_path.exists():
             raise TimestampToolError("音声provenanceがありません。先にdownload_audio.pyを実行してください。")
         provenance = read_json(provenance_path)
@@ -43,7 +70,13 @@ def main() -> int:
             raise TimestampToolError("音声ファイルとprovenanceが一致しません。")
         from faster_whisper import WhisperModel  # type: ignore
 
-        model = WhisperModel(args.model, device="cpu", compute_type=args.compute_type, cpu_threads=args.threads)
+        model = WhisperModel(
+            args.model,
+            device="cpu",
+            compute_type=args.compute_type,
+            cpu_threads=args.threads,
+            download_root=str(directory.parent / "_models" / args.model),
+        )
         segments, info = model.transcribe(str(audio), language="ja", beam_size=5, vad_filter=True, condition_on_previous_text=False)
         cues = []
         duration = inputs["durationSeconds"]

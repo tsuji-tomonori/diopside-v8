@@ -214,7 +214,7 @@ class TimestampToolsTest(unittest.TestCase):
         self.assertIn('"stage": "ready_for_pr"', source)
         self.assertNotIn('state.update({"stage": "ready_for_human_review"', source)
 
-    def test_five_skills_and_eight_agents_have_safe_executable_contracts(self) -> None:
+    def test_five_skills_and_nine_agents_have_safe_executable_contracts(self) -> None:
         skill_names = {
             "generate-stream-timestamps",
             "prepare-stream-evidence",
@@ -228,7 +228,7 @@ class TimestampToolsTest(unittest.TestCase):
             self.assertTrue((skill / "agents" / "openai.yaml").is_file())
 
         agents = sorted((ROOT / ".codex" / "agents").glob("timestamp-*.toml"))
-        self.assertEqual(len(agents), 8)
+        self.assertEqual(len(agents), 9)
         for agent in agents:
             parsed = tomllib.loads(agent.read_text(encoding="utf-8"))
             self.assertEqual(parsed["sandbox_mode"], "workspace-write")

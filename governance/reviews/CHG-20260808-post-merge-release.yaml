@@ -1,0 +1,208 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260808-post-merge-release
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: true
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: true
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:spec/sources/owner-directive-2026-08-08-post-merge-release.md
+    note: V8-OPS-003とV8-OPS-007を更新し、検証済みmainからのrelease生成をV8-OPS-017として追加した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/decisions/ADR-0001-zero-cost-static-pages.md
+      - path:scripts/generate-design.ts
+    note: post-merge生成、内容ハッシュrelease ID、branch方式Pages build要求を恒久運用構成へ反映した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-post-merge-release.yaml
+    note: generator、要件、GitHub書込workflow、Pages公開経路へ跨るためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.github/workflows/update-generated-release.yml
+    note: 外部書込みは検証済みmainへのrelease commitと既存branch方式Pages build要求だけで、workflowへcontents/pages writeだけを付与した
+  - id: IMP-005
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/sources/owner-directive-2026-08-08-post-merge-release.md
+      - path:.github/workflows/update-generated-release.yml
+    note: 人による正本PRのmainマージを公開承認とし、品質ゲート合格後だけ公開成果物をcommitする所有者指示に限定した
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/repository-policy.test.ts
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: workflow契約、PR範囲、release生成境界の関連試験に合格した
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/generate-requirements.ts
+      - path:scripts/validate-video-pr-scope.ts
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: TypeScript strictの全typecheckに合格した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/verify-repository-policy.ts
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: 変更したTypeScriptと関連テストのESLintに警告0件で合格した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/operations.test.ts
+      - test:tests/repository-policy.test.ts
+      - test:tests/generated.test.ts
+    note: PR生成物拒否、検証済みmain限定、権限、競合回避、Pages build経路、release整合性を関連試験で確認した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/requirements/REQUIREMENTS.md
+      - path:docs/design/generated/system.gen.md
+      - path:scripts/verify-generated-source.ts
+    note: 要件143件とas-built設計を正本から再生成し、未追跡物も含むsource生成物検査をCIへ接続した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/repository-policy.test.ts
+      - path:scripts/verify-repository-policy.ts
+    note: workflowはGITHUB_TOKENだけを使い、秘密情報、外部生成API、従量課金APIを追加していない
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:.github/workflows/update-generated-release.yml
+      - test:tests/repository-policy.test.ts
+    note: blocking品質ゲート不合格、後続main更新、予期しない生成差分、push失敗、Pages build失敗をworkflow結果から識別できる
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.github/workflows/update-generated-release.yml
+      - path:spec/sources/owner-directive-2026-08-08-post-merge-release.md
+    note: 今回のreview対象をpost-merge release境界と直接の要件・テスト・運用文書へ限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクを含むCommit Comment候補を準備した
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:spec/sources/owner-directive-2026-08-08-post-merge-release.md
+    note: PRからrelease生成物を除外し、検証済みmainマージ後に生成commitする所有者指示と要件差分が一致する
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/decisions/ADR-0001-zero-cost-static-pages.md
+      - path:docs/design/generated/system.gen.md
+    note: 内容ハッシュIDを残す理由とpost-merge release判断をADRへ、実装由来の流れを生成設計へ分離した
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - test:tests/repository-policy.test.ts
+      - test:tests/operations.test.ts
+    note: V8-OPS-003、V8-OPS-007、V8-OPS-017からworkflow、PR範囲検証、契約テストへ到達できる
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/repository-policy.test.ts
+      - test:tests/operations.test.ts
+      - test:tests/generated.test.ts
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: 変更した運用受入条件を関連試験が直接検証し、PRとmainの品質ゲートから実行される
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-post-merge-release.yaml
+    note: 選択checkだけを本review YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-post-merge-release.yaml
+    note: 未選択checkをN/Aとして登録していない
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:docs/operations/manual-content-update.md
+      - path:operations/pages-policy.json
+      - path:operations/cost-policy.json
+    note: PR、release、競合時停止、Pages、0円運用の恒久手順と機械可読policyを更新した
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:docs/decisions/ADR-0001-zero-cost-static-pages.md
+    note: release ID維持とpost-merge生成の長期判断、却下案、再検討条件を既存ADRへ記録した
+advisories: []
+residual_risks:
+  - repositoryまたはorganizationのActions token上限や将来のbranch protectionでgithub-actions botのmain書込みが禁止された場合、release commitは失敗するため設定変更時に権限を再確認する
+  - GITHUB_TOKENによるcommitは別workflowとPages buildを自動起動しないため、同じrelease workflow内の全検証と明示的なbranch方式Pages build要求を成功条件とする

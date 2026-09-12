@@ -5,6 +5,8 @@ import { useBundle, useDeviceStore } from '../../contexts.ts';
 import type { PublicVideoDetail } from '../../domain/content.ts';
 import { formatDate, formatDuration, formatTimestamp } from '../../format.ts';
 import { loadVideoDetail, PublicDataError } from '../../data/loadPublicData.ts';
+import { EmojiDensity } from './EmojiDensity.tsx';
+import { WordCloud, wordCloudEyebrow } from './WordCloud.tsx';
 
 export function VideoDetailPage(): React.JSX.Element {
   const { videoId = '' } = useParams();
@@ -29,7 +31,7 @@ export function VideoDetailPage(): React.JSX.Element {
     return bundle.tagIndex.categories.flatMap((category) => {
       const tags = category.subcategories.flatMap((subcategory) => subcategory.tags
         .filter((tag) => selected.has(tag.tagId))
-        .map((tag) => ({ ...tag, subcategoryName: subcategory.name })));
+        .map((tag) => ({ ...tag, subcategoryId: subcategory.subcategoryId, subcategoryName: subcategory.name })));
       return tags.length > 0 ? [{ ...category, tags }] : [];
     });
   }, [bundle.tagIndex.categories, detail]);
@@ -56,17 +58,82 @@ export function VideoDetailPage(): React.JSX.Element {
           </div>
         </div>
 
+        {detail.synopsis ? (
+          <section className="detail-section synopsis-section" aria-labelledby="synopsis-heading">
+            <div className="section-heading">
+              <div><p className="eyebrow">AIが生成した配信のまとめ</p><h2 id="synopsis-heading">あらすじ</h2></div>
+              <p>最終更新: {formatDate(detail.synopsis.updatedAt)}</p>
+            </div>
+            <p className="synopsis-copy">{detail.synopsis.body}</p>
+            <blockquote className="featured-quote">
+              <p>「{detail.synopsis.featuredQuote.text}」</p>
+              <footer>
+                <span>巴さん、この配信のひとこと</span>
+                <a href={detail.synopsis.featuredQuote.youtubeUrl} target="_blank" rel="noreferrer">この場面から見る</a>
+              </footer>
+            </blockquote>
+          </section>
+        ) : null}
+
         <section className="detail-section" aria-labelledby="tags-heading">
           <div className="section-heading">
-            <div><p className="eyebrow">diopsideが整理・確認した情報</p><h2 id="tags-heading">タグ</h2></div>
+            <div><p className="eyebrow">AIが生成した検索情報</p><h2 id="tags-heading">タグ</h2></div>
             <p>最終更新: {formatDate(detail.tagsUpdatedAt)}</p>
           </div>
-          <p className="notice">YouTube公式タグではありません。公開情報を基に、人が確認した検索用の情報です。</p>
+          <p className="notice">YouTube公式タグではありません。AIが公開情報を基に生成した検索用情報で、誤りを含む場合があります。</p>
           {tagGroups.map((group) => (
             <div className="detail-tag-group" key={group.categoryId}>
               <h3>{group.name}</h3>
               <div className="detail-tags">
-                {group.tags.map((tag) => <span key={tag.tagId}><small>{tag.subcategoryName}</small>{tag.canonicalName}</span>)}
+                {group.tags.map((tag) => {
+                  if (group.categoryId === 'program' && tag.subcategoryId === 'recurringSeries') return (
+                    <Link className="detail-tag-link" key={tag.tagId} to={`/series/${tag.tagId}`}>
+                      <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>シリーズ一覧を見る →</span>
+                    </Link>
+                  );
+                  if (group.categoryId === 'content' && ['primary', 'secondary'].includes(tag.subcategoryId) && tag.canonicalName === 'ゲーム') return (
+                    <Link className="detail-tag-link" key={tag.tagId} to="/games">
+                      <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>プレイしたゲームを見る →</span>
+                    </Link>
+                  );
+                  if (group.categoryId === 'content' && tag.subcategoryId === 'gameGenre') return (
+                    <Link className="detail-tag-link" key={tag.tagId} to={`/games/genres/${tag.tagId}`}>
+                      <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>このジャンルのゲームを見る →</span>
+                    </Link>
+                  );
+                  if (group.categoryId === 'content' && ['primary', 'secondary'].includes(tag.subcategoryId) && tag.canonicalName === '歌') return (
+                    <Link className="detail-tag-link" key={tag.tagId} to="/songs">
+                      <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>歌った曲を見る →</span>
+                    </Link>
+                  );
+                  if (group.categoryId === 'works' && tag.subcategoryId === 'songTitle') return (
+                    <Link className="detail-tag-link" key={tag.tagId} to={`/songs/${tag.tagId}`}>
+                      <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>歌唱実績を見る →</span>
+                    </Link>
+                  );
+                  if (group.categoryId === 'works') return (
+                    <Link className="detail-tag-link" key={tag.tagId} to={`/works/${tag.tagId}`}>
+                      <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>作品ページを見る →</span>
+                    </Link>
+                  );
+                  if (group.categoryId === 'people' && tag.subcategoryId === 'performer' && tag.personProfile) return (
+                    <Link className="detail-tag-link person-tag-link" key={tag.tagId} to={`/collaborators/${tag.tagId}`}>
+                      <img src={`${import.meta.env.BASE_URL}${tag.personProfile.iconPath}`} width="38" height="38" alt="" />
+                      <span><small>{tag.subcategoryName}</small>{tag.canonicalName}<b>コラボ動画を見る →</b></span>
+                    </Link>
+                  );
+                  if (group.categoryId === 'people' && tag.subcategoryId === 'unit' && tag.groupProfile) return (
+                    <Link className="detail-tag-link" key={tag.tagId} to={`/groups/${tag.tagId}`}>
+                      <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>コンビ・ユニットを見る →</span>
+                    </Link>
+                  );
+                  if (tag.entityId) return (
+                    <Link className="detail-tag-link" key={tag.tagId} to={`/entities/${tag.entityId}`}>
+                      <small>{tag.subcategoryName}</small>{tag.canonicalName}<span>関連情報を見る →</span>
+                    </Link>
+                  );
+                  return <span key={tag.tagId}><small>{tag.subcategoryName}</small>{tag.canonicalName}</span>;
+                })}
               </div>
             </div>
           ))}
@@ -74,7 +141,7 @@ export function VideoDetailPage(): React.JSX.Element {
 
         <section className="detail-section" aria-labelledby="timestamps-heading">
           <div className="section-heading">
-            <div><p className="eyebrow">動画内を移動する目次</p><h2 id="timestamps-heading">タイムスタンプ</h2></div>
+            <div><p className="eyebrow">AIが生成した動画内の目次</p><h2 id="timestamps-heading">タイムスタンプ</h2></div>
             <p>最終更新: {formatDate(detail.timestamps.updatedAt)}</p>
           </div>
           {detail.timestamps.status === '未作成' ? (
@@ -97,19 +164,59 @@ export function VideoDetailPage(): React.JSX.Element {
           )}
         </section>
 
+        {detail.customEmojiUsage ? (
+          <section className="detail-section custom-emoji-section" aria-labelledby="custom-emoji-heading">
+            <div className="section-heading">
+              <div><p className="eyebrow">チャットで使われたリアクション</p><h2 id="custom-emoji-heading">カスタム絵文字</h2></div>
+              <p>最終更新: {formatDate(detail.customEmojiUsage.updatedAt)}</p>
+            </div>
+            <div className="custom-emoji-overview" aria-label="カスタム絵文字の集計概要">
+              <p><strong>{detail.customEmojiUsage.totalCount.toLocaleString('ja-JP')}</strong><span>総使用回数</span></p>
+              <p><strong>{detail.customEmojiUsage.items.length.toLocaleString('ja-JP')}</strong><span>絵文字の種類</span></p>
+            </div>
+            {detail.customEmojiUsage.timeline ? <EmojiDensity key={detail.videoId} usage={detail.customEmojiUsage} timeline={detail.customEmojiUsage.timeline} videoId={detail.videoId} timestamps={detail.timestamps} /> : <p className="notice">時間帯別データは未集計です。</p>}
+            <p className="notice">保存済みの公開チャットリプレイ内のカスタム絵文字を集計しています。比率は総使用回数に占める割合です。</p>
+            <ol className="custom-emoji-chart" aria-label="カスタム絵文字の使用比率">
+              {detail.customEmojiUsage.items.map((item) => {
+                const ratio = item.count / detail.customEmojiUsage!.totalCount;
+                return (
+                  <li key={item.customEmojiId}>
+                    <div>
+                      <span className="custom-emoji-label">
+                        {item.imageUrl ? (
+                          <img
+                            className="custom-emoji-image"
+                            src={item.imageUrl}
+                            alt=""
+                            width="40"
+                            height="40"
+                            loading="lazy"
+                            decoding="async"
+                            referrerPolicy="no-referrer"
+                            onError={(event) => { event.currentTarget.hidden = true; }}
+                          />
+                        ) : null}
+                        <code>{item.label}</code>
+                      </span>
+                      <span className="custom-emoji-count">{item.count.toLocaleString('ja-JP')}回 <small>{formatRatio(ratio)}</small></span>
+                    </div>
+                    <progress value={item.count} max={detail.customEmojiUsage!.totalCount} aria-label={`${item.label} ${formatRatio(ratio)}`} />
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+        ) : null}
+
         <section className="detail-section" aria-labelledby="word-cloud-heading">
           <div className="section-heading">
-            <div><p className="eyebrow">動画を表す言葉</p><h2 id="word-cloud-heading">ワードクラウド</h2></div>
+            <div><p className="eyebrow">{detail.wordCloud.status === '作成済み' ? wordCloudEyebrow(detail.wordCloud.inputType) : '動画を表す言葉'}</p><h2 id="word-cloud-heading">ワードクラウド</h2></div>
             <p>最終更新: {formatDate(detail.wordCloud.updatedAt)}</p>
           </div>
           {detail.wordCloud.status === '未作成' ? (
             <div className="unavailable"><strong>未作成 — {detail.wordCloud.reason}</strong><p>{detail.wordCloud.detail}</p></div>
           ) : (
-            <div className="word-cloud" aria-label="ワードクラウド">
-              {[...detail.wordCloud.words].sort((left, right) => right.weight - left.weight || left.term.localeCompare(right.term, 'ja')).map((word) => (
-                <span key={word.term} style={{ fontSize: `${0.85 + word.weight / 65}rem` }}>{word.term}</span>
-              ))}
-            </div>
+            <WordCloud inputType={detail.wordCloud.inputType} words={detail.wordCloud.words} />
           )}
         </section>
       </article>
@@ -119,4 +226,13 @@ export function VideoDetailPage(): React.JSX.Element {
 
 function StatePanel({ title, message }: { title: string; message: string }): React.JSX.Element {
   return <main className="state-panel" role="status"><h1>{title}</h1><p>{message}</p><Link className="button secondary" to="/">動画検索へ戻る</Link></main>;
+}
+
+function formatRatio(ratio: number): string {
+  const maximumFractionDigits = ratio < 0.01 ? 2 : 1;
+  return new Intl.NumberFormat('ja-JP', {
+    style: 'percent',
+    minimumFractionDigits: 1,
+    maximumFractionDigits,
+  }).format(ratio);
 }

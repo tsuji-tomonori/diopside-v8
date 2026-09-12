@@ -1,0 +1,337 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "CfivddncYCg",
+  "title": "【#異色あもあす】ふええインポスターとかできないですう【健屋花那/にじさんじ】",
+  "publishedAt": "2021-03-02T13:50:02Z",
+  "durationSeconds": 5905,
+  "durationIso": "PT1H38M25S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/CfivddncYCg/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=CfivddncYCg",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "0ca366aaac3ea0a5746a92885724b49d661bad3093beecf296683f3e3b8eb4fe"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "7dbcb767ddef43d3933ac7c6ef10acb8ceaa7657d2053ea19bbb8e40d8a47488"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "6852352596a9b7a8337aca73f9e56178c79ad243f5aecc14c6af49c085947640"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "f6d784e298c01089185a962292aa23504f1da8d33158a38418c9486eb36bd6c7"
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "59ff46a4650302338f05750a701d26202652c87c2be19d04a13d0398c247aa98"
+    },
+    {
+      "evidenceId": "evidence-game-classification",
+      "type": "動画タイトル",
+      "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+      "inputFingerprint": "7e042d279f21742016c3f1100851861ddd4e67cb8fcbfec1c4ab4a294bf6d628"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-7cc7affe2c5e",
+      "reason": "公開台帳のチャンネル「健屋花那【にじさんじ】KanaSukoya」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-0d5a94165597",
+      "reason": "人物名「健屋花那」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-14a91f9986dd",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「Among Us」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-62278ec71bd0",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「アクション」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-1cff1b833661",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「人狼・正体隠匿」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-fa1e5b8b",
+        "startSeconds": 0,
+        "label": "企画説明・参加者紹介",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-530-7a793ae4",
+        "startSeconds": 530,
+        "label": "1戦目開始",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-745-cb048d0c",
+        "startSeconds": 745,
+        "label": "1戦目：会議とアリバイ整理",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1227-faeec2dc",
+        "startSeconds": 1227,
+        "label": "1戦目：続く会議と投票",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1780-056b84df",
+        "startSeconds": 1780,
+        "label": "1戦目：停電後の会議",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2006-74bf072a",
+        "startSeconds": 2006,
+        "label": "1戦目：終盤の議論",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2136-09cadd33",
+        "startSeconds": 2136,
+        "label": "1戦目後の振り返り・2戦目準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2432-a64b4428",
+        "startSeconds": 2432,
+        "label": "2戦目開始",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2631-13d2aeed",
+        "startSeconds": 2631,
+        "label": "2戦目：最初の会議",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3243-10caede5",
+        "startSeconds": 3243,
+        "label": "2戦目：プレイ再開",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3360-0dcb4d7e",
+        "startSeconds": 3360,
+        "label": "2戦目：追加の会議",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3905-198c9e23",
+        "startSeconds": 3905,
+        "label": "2戦目：投票後のプレイ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4205-d26d4c25",
+        "startSeconds": 4205,
+        "label": "2戦目：停電と扉の検証",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4730-2c137a5f",
+        "startSeconds": 4730,
+        "label": "2戦目：移動経路の検証",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4972-617d45f1",
+        "startSeconds": 4972,
+        "label": "2戦目：終盤のタイムライン整理",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5401-512a4d71",
+        "startSeconds": 5401,
+        "label": "ゲーム後の振り返り",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5684-4b67281c",
+        "startSeconds": 5684,
+        "label": "告知・締めのトーク",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "48a54e8ffafbc58b8b361b7c2b01a9c092e469133988ca18a1c3c7636908ed40",
+    "inputFingerprint": "f6d784e298c01089185a962292aa23504f1da8d33158a38418c9486eb36bd6c7",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-19T09:16:43Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "48a54e8ffafbc58b8b361b7c2b01a9c092e469133988ca18a1c3c7636908ed40",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "48a54e8ffafbc58b8b361b7c2b01a9c092e469133988ca18a1c3c7636908ed40",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "c680cc85f5fe5731bd491fe40f89c0b4cdfd272156f85e8a74babfb73ff7e8aa",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-16T12:05:00+09:00",
+    "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  }
+}

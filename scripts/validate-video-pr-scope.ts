@@ -14,13 +14,15 @@ export function validateVideoPrScopeFiles(files: string[]): VideoPrScopeResult {
     /^(?:\.agents|\.github|scripts|src\/(?!generated\/)|content\/taxonomy|governance|operations|package(?:-lock)?\.json|vite\.config|playwright\.config)/u.test(file)
     && !reviewFiles.includes(file)
   ));
+  const generated = files.filter((file) => (
+    /^public\/data\//u.test(file)
+    || file === 'src/generated/release.ts'
+    || /^docs\//u.test(file)
+  ));
   const allowed = files.filter((file) => (
     /^content\/videos\//u.test(file)
     || file === 'content/content-manifest.json'
     || file === 'content/exclusions.json'
-    || /^public\/data\//u.test(file)
-    || file === 'src/generated/release.ts'
-    || /^docs\//u.test(file)
     || /^reports\/screenshots\//u.test(file)
     || reviewFiles.includes(file)
   ));
@@ -28,7 +30,8 @@ export function validateVideoPrScopeFiles(files: string[]): VideoPrScopeResult {
     ...(canonicalVideos.length === 1 ? [] : [`通常動画PRは正本動画1件だけが必要です（現在${canonicalVideos.length}件）。`]),
     ...(reviewFiles.length === 1 ? [] : [`通常動画PRは選択チェック結果1件だけが必要です（現在${reviewFiles.length}件）。`]),
     ...forbidden.map((file) => `保守PRへ分離してください: ${file}`),
-    ...files.filter((file) => !allowed.includes(file)).map((file) => `許可範囲外です: ${file}`),
+    ...generated.map((file) => `生成物はmainマージ後に自動更新します: ${file}`),
+    ...files.filter((file) => !allowed.includes(file) && !generated.includes(file)).map((file) => `許可範囲外です: ${file}`),
   ];
   return { valid: errors.length === 0, canonicalVideos, errors };
 }

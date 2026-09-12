@@ -1,0 +1,30 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260816-pages-release-publication
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags: {external_write: true, irreversible_operation: false, auth_change: false, data_change: false, public_api_change: false, iac_change: false, dependency_change: false, code_change: true, typed_code_change: true, behavior_change: true, bug_fix: true, generated_change: false, sql_change: false, e2e_change: false, migration: false, ui_change: false, interactive_ui_change: false, operational_impact: false, requirements_impact: false, public_contract_change: false, critical_change: false, important_ui_change: false, long_term_decision: false, squash: false, external_side_effect: true, production_deploy: false, major_incident: false, periodic_cycle: false, monthly_cycle: false, recheck_due: false, as_built_standard_change: false, as_built_adoption: false, quality_threshold_change: false}
+impact_details: {as_built_adoption: {scope: [], exclusions: []}}
+selected_checks:
+  - {id: IMP-001, class: Invariant, result: pass, evidence: [commit:self], note: '公開済み動画詳細の取得可否を検査する運用挙動を追加するが、要件の意味は変更しない'}
+  - {id: IMP-002, class: Invariant, result: pass, evidence: [commit:self], note: 'main/docsの既存公開経路を維持し、ADR・公開schema・データモデルを変更しない'}
+  - {id: IMP-003, class: Invariant, result: pass, evidence: [commit:self], note: 'GitHub Actionsの生成・公開・HTTP検査をまたぐためassuredを選択した'}
+  - {id: IMP-004, class: Invariant, result: pass, evidence: [commit:self], note: 'GitHub branchへのcommitとPR更新は利用者のGitHub権限で実行し、merge・公開は実行しない'}
+  - {id: FAST-001, class: Invariant, result: pass, evidence: [workflow:要件・品質ゲート#要件の品質ゲートを実行], note: '既存品質ゲートでNode buildを実行し、workflowとsmoke scriptはYAML・Node構文としてローカル確認した'}
+  - {id: FAST-002, class: Invariant, result: pass, evidence: [workflow:要件・品質ゲート#要件の品質ゲートを実行], note: '追加したVitestのTypeScript試験を既存typecheckとCIで実行する'}
+  - {id: FAST-003, class: Invariant, result: pass, evidence: [workflow:要件・品質ゲート#要件の品質ゲートを実行], note: '追加試験を既存lint対象としてCIで実行する'}
+  - {id: FAST-004, class: Invariant, result: pass, evidence: [test:tests/pages-publication-smoke.test.ts], note: 'latest、index、oY8Bex-CK9Iの85.jsonを同じreleaseとして検査するHTTP fixture試験を追加した'}
+  - {id: FAST-005, class: Risk-selected, result: pass, evidence: [test:tests/pages-publication-smoke.test.ts], note: 'Pages revision不整合で動画shard取得に失敗する回帰を、公開版HTTP検査の失敗として再現・検出できる'}
+  - {id: FAST-007, class: Invariant, result: pass, evidence: [commit:self], note: '秘密情報、生字幕、音声、文字起こし、コメント、投稿者識別子を追加しない'}
+  - {id: REV-001, class: Invariant, result: pass, evidence: [commit:self], note: 'release commitのCI起動、無限循環防止、HTTP smoke testと回帰試験・review記録に差分を限定した'}
+  - {id: REV-002, class: Invariant, result: pass, evidence: [commit:self], note: '目的、変更内容、影響、チェックリスト、検証、残存リスクをCommit Commentへ記録した'}
+  - {id: REV-003, class: Invariant, result: pass, evidence: [commit:self], note: '要件は変更せず、公開版を要件どおり提供できることを検査する'}
+  - {id: REV-004, class: Invariant, result: pass, evidence: [commit:self], note: '公開schema・データモデル・ADRを変えないため、設計影響なしと判定した'}
+  - {id: REV-006, class: Invariant, result: pass, evidence: [test:tests/pages-publication-smoke.test.ts, workflow:要件・品質ゲート#要件の品質ゲートを実行], note: 'HTTP fixture回帰試験を既存Vitest CIへ含め、mainではPages実機のHTTP smoke testも実行する'}
+  - {id: REV-007, class: Invariant, result: pass, evidence: [path:governance/reviews/CHG-20260816-pages-release-publication.yaml], note: '選択したcheckのみを今回のreview YAMLへ保存した'}
+  - {id: REV-008, class: Invariant, result: pass, evidence: [path:governance/reviews/CHG-20260816-pages-release-publication.yaml], note: '未選択checkを形式的なN/Aとして記録していない'}
+advisories: []
+residual_risks:
+  - GitHub Pagesの反映が5分を超える場合はmain上のHTTP smoke testが失敗して検知する。失敗時は配信基盤の状態を確認して再実行する。

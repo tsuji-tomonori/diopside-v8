@@ -1,0 +1,137 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260809-release-playwright-install
+profile: direct
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: true
+  generated_change: false
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: true
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: E2E実行環境だけを修正し、要件意味を変更しない
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:.github/workflows/update-generated-release.yml]
+    note: workflow step追加のみで生成設計・公開契約を変更しない
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 局所的で可逆な既存依存導入のためdirectを選択した
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [workflow:mainマージ後の静的成果物更新#Chromiumを導入]
+    note: release workflowがE2E実行前に固定Playwrightブラウザを導入する
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#要件の品質ゲートを実行]
+    note: workflowを含むrepository policyと既存lintをCIで実行する
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:e2e/search.spec.ts]
+    note: 既存28件のE2Eをrelease workflowでも実行可能にする
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:.github/workflows/update-generated-release.yml]
+    note: merge SHA 051431e の全28件browser launch失敗条件へ直接対応した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: secret、token、個人情報、production dumpを追加していない
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:.github/workflows/update-generated-release.yml]
+    note: ブラウザ導入とE2E失敗は既存Actions logで観測できる
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: release workflowと当該review記録の2ファイルだけを変更する
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ要件・設計・検証・リスクを記録する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 利用者向け挙動と要件受入条件を変更しない
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:.github/workflows/update-generated-release.yml]
+    note: 既存Playwright依存の導入stepだけで設計更新やADRは不要
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:e2e/search.spec.ts]
+    note: release workflowが既存E2Eを実行する前提を復旧する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260809-release-playwright-install.yaml]
+    note: 選択checkだけを保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260809-release-playwright-install.yaml]
+    note: 未選択項目をN/Aとして登録していない
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:.github/workflows/update-generated-release.yml]
+    note: 恒久運用workflow自体へブラウザ導入を反映した
+advisories: []
+residual_risks:
+  - Playwright browser downloadはGitHub runnerの外部配布可用性に依存する
