@@ -46,6 +46,14 @@
       "inputFingerprint": "747cb31e3fb514ccf26d5fd337becbf193d5dbe789e9cc5b6f486ec1bb6f116b",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 9954
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "5e772ff90abe75c19105a0ad98be7b0c212d64e55d8f06ee2c0f67cfc12d85e9",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9954
     }
   ],
   "tagAssignments": [
@@ -340,5 +348,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『Detroit: Become Human』を完全初見でプレイ。捜査や対話の場面で選択肢を慎重に考え、登場人物の反応を見ながら物語を進めます。緊張する展開に驚きや迷いをこぼしつつ、自分の判断で物語を追体験していく実況です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ここにピアノってすごい偶然じゃない",
+      "atSeconds": 1411,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "5e772ff90abe75c19105a0ad98be7b0c212d64e55d8f06ee2c0f67cfc12d85e9",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T10:04:20.312577+00:00"
   }
 }
