@@ -52,6 +52,14 @@
       "inputFingerprint": "2cc1da5c7999bc4bf1f01a8110eff129c626a21767580d2a536d514aa5681c89",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 7578
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "87f5a453f422916b89fd050f3f5430620527b486f2aedfb12ea76579ce3b4004",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7578
     }
   ],
   "tagAssignments": [
@@ -522,5 +530,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "3月3日を「ゆりの日」として、白雪がリスナーから届いた10本の百合エピソードを紹介。幼なじみや友人、恋人など関係性の違いを味わいながら、距離感や告白のタイミングをめぐって笑いと共感を交わし、同性カップルの歩みやパートナーシップにも思いを巡らせる配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ただのゆり好きおじさんだから",
+      "atSeconds": 6159,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "87f5a453f422916b89fd050f3f5430620527b486f2aedfb12ea76579ce3b4004",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:14:13.791357+00:00"
   }
 }
