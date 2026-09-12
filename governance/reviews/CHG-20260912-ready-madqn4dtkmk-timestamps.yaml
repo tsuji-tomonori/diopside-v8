@@ -158,6 +158,7 @@ selected_checks:
     note: 未選択checkをN/Aとして記録しない。
 advisories: []
 residual_risks:
+  - 公開ゲートとprovenanceを実PR https://github.com/tsuji-tomonori/diopside-v8/pull/2088 に揃え、同じ候補hashを反映する。
   - 保存済みの独立確認済み候補を採用し、現在mainの既存コンテンツを保持する。
   - "候補hash: ba497088fcee132877767deb240bb031dc4a39bf97e10beb65277a1f42ee5826"
   - 現在HEADのCI成功後に所有者の明示依頼に基づきマージする。
