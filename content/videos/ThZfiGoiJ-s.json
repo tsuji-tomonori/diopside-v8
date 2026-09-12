@@ -52,6 +52,14 @@
       "inputFingerprint": "d7f7a6550c77512a921489797a8d43e09bb97631a9afd9a9d1a7a7496a1e5406",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 11386
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "10f0ee0cc93a96454f9131f62ec7f7d1dd18d8aa463006aea2b87273a896d6ca",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 11386
     }
   ],
   "tagAssignments": [
@@ -522,5 +530,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が一人でファストフード店を切り盛りする接客シミュレーター。焦げる肉や注文に試行錯誤しながら、仕込みと提供の手際を磨き、ケチャップやドリンク、アルバイトも加わる店の変化を楽しむ配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "実験は続くよ。どこまでも。",
+      "atSeconds": 4549,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "10f0ee0cc93a96454f9131f62ec7f7d1dd18d8aa463006aea2b87273a896d6ca",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T18:04:05.246736+00:00"
   }
 }
