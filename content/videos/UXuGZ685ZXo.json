@@ -58,6 +58,14 @@
       "inputFingerprint": "84fabca563e07a1c1960b58376e3b6a80a1cb1b5290108d80c8b3bdae3021bd4",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 7403
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "2da4246ef5dbbe9ebd3813d5deccf4aa9ff3c88631ea198ebcd11807efaadeb2",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7403
     }
   ],
   "tagAssignments": [
@@ -528,5 +536,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-23T16:00:00+09:00",
     "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  },
+  "synopsis": {
+    "body": "白雪巴が、森の帰り道を舞台にしたホラーアドベンチャー『ムベンベラジオ』を遊ぶ。ラジオから届く奇妙なお題を試しながら、学校やお化け屋敷、迷路のような夜道を探索し、分岐や不気味な謎に振り回されていく配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "怖いの好きなんだよね",
+      "atSeconds": 917,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "2da4246ef5dbbe9ebd3813d5deccf4aa9ff3c88631ea198ebcd11807efaadeb2",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T19:29:58.757028+00:00"
   }
 }
