@@ -52,6 +52,14 @@
       "inputFingerprint": "e3e2b0ebbd218e1a6fffae5905c6912434bab82e162efc84178f9fa40753b459",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 11249
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "8d729a7ed88c6a173f517520e4375b662af11f55770532d552e166dccd2f2015",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 11249
     }
   ],
   "tagAssignments": [
@@ -558,5 +566,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『ブルーアーカイブ』エデン条約編1章を読み進める。トリニティとゲヘナの関係や生徒たちの抱える事情を追い、選択や会話の一つひとつに悩みながら、物語の背景を考察していく長時間配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私はこういうちょっと不穏なこと言われても信じたい",
+      "atSeconds": 810,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "8d729a7ed88c6a173f517520e4375b662af11f55770532d552e166dccd2f2015",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T20:31:27.800763+00:00"
   }
 }
