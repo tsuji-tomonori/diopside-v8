@@ -1,7 +1,7 @@
 schema_version: 2
 catalog_version: 3
 catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
-change_id: CHG-20260912-ready-0gamk8zr9jc-timestamps
+change_id: CHG-20260912-cloud-ytdfk5few64
 profile: assured
 source_ref: self
 completed_timings:
@@ -51,42 +51,42 @@ selected_checks:
     class: Invariant
     result: pass
     evidence:
-      - path:content/videos/0gaMK8zr9jc.json
+      - path:content/videos/yTdFk5Few64.json
       - commit:self
     note: 既存の受入条件を維持し、永続要件は変更しない。
   - id: IMP-002
     class: Invariant
     result: pass
     evidence:
-      - path:content/videos/0gaMK8zr9jc.json
+      - path:content/videos/yTdFk5Few64.json
       - commit:self
     note: 既存schemaと公開契約を維持するため設計変更はない。
   - id: IMP-003
     class: Invariant
     result: pass
     evidence:
-      - path:content/videos/0gaMK8zr9jc.json
+      - path:content/videos/yTdFk5Few64.json
       - commit:self
     note: 保存済み成果の検証と公開に必要な範囲をassuredで確認する。
   - id: IMP-004
     class: Invariant
     result: pass
     evidence:
-      - path:content/videos/0gaMK8zr9jc.json
+      - path:content/videos/yTdFk5Few64.json
       - commit:self
     note: 所有者が2026-09-12のチャットでcommit・push・PR作成・マージ・デプロイを明示依頼。
   - id: IMP-007
     class: Risk-selected
     result: pass
     evidence:
-      - path:content/videos/0gaMK8zr9jc.json
+      - path:content/videos/yTdFk5Few64.json
       - commit:self
     note: 既存動画の他フィールドを保持し、確認済みの未作成項目だけを追加する。
   - id: FAST-004
     class: Invariant
     result: pass
     evidence:
-      - path:content/videos/0gaMK8zr9jc.json
+      - path:content/videos/yTdFk5Few64.json
       - commit:self
       - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
     note: 正本schema・根拠参照・表示を既存の単体テストとE2Eで検証する。
@@ -94,15 +94,15 @@ selected_checks:
     class: Invariant
     result: pass
     evidence:
-      - path:content/videos/0gaMK8zr9jc.json
+      - path:content/videos/yTdFk5Few64.json
       - commit:self
       - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
-    note: manifestを正本件数へ一致させ、公開生成物はmain統合後に決定生成する。
+    note: 正本のみを更新し、静的公開物はmain統合後の既存release経路で決定生成する。
   - id: FAST-007
     class: Invariant
     result: pass
     evidence:
-      - path:content/videos/0gaMK8zr9jc.json
+      - path:content/videos/yTdFk5Few64.json
       - commit:self
       - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
     note: 差分に生字幕・文字起こし・チャット・投稿者識別子・秘密情報を含めない。
@@ -110,35 +110,35 @@ selected_checks:
     class: Invariant
     result: pass
     evidence:
-      - path:content/videos/0gaMK8zr9jc.json
+      - path:content/videos/yTdFk5Few64.json
       - commit:self
-    note: 1動画の正本、manifest、選択checkだけを含める。
+    note: 1動画のワードクラウドと必要な入力根拠、選択checkだけを含める。
   - id: REV-002
     class: Invariant
     result: pass
     evidence:
-      - path:content/videos/0gaMK8zr9jc.json
+      - path:content/videos/yTdFk5Few64.json
       - commit:self
     note: Commit Commentへ目的・変更・影響・検証・残存リスクを記録する。
   - id: REV-003
     class: Invariant
     result: pass
     evidence:
-      - path:content/videos/0gaMK8zr9jc.json
+      - path:content/videos/yTdFk5Few64.json
       - commit:self
     note: 受入条件と品質判定を弱めない。
   - id: REV-004
     class: Invariant
     result: pass
     evidence:
-      - path:content/videos/0gaMK8zr9jc.json
+      - path:content/videos/yTdFk5Few64.json
       - commit:self
     note: 既存schemaと実装構造内の変更のため生成設計・ADRは不要。
   - id: REV-006
     class: Invariant
     result: pass
     evidence:
-      - path:content/videos/0gaMK8zr9jc.json
+      - path:content/videos/yTdFk5Few64.json
       - commit:self
       - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
     note: 既存workflowの対象検証と現在HEADのCI成功をマージ条件とする。
@@ -146,20 +146,18 @@ selected_checks:
     class: Invariant
     result: pass
     evidence:
-      - path:content/videos/0gaMK8zr9jc.json
+      - path:content/videos/yTdFk5Few64.json
       - commit:self
     note: 選択checkだけをこのreview YAMLへ記録する。
   - id: REV-008
     class: Invariant
     result: pass
     evidence:
-      - path:content/videos/0gaMK8zr9jc.json
+      - path:content/videos/yTdFk5Few64.json
       - commit:self
     note: 未選択checkをN/Aとして記録しない。
 advisories: []
 residual_risks:
-  - 最新mainのあらすじ712件を保持し、今回のタイムスタンプ1件・16項目を加算して集計競合を解消する。
-  - 公開ゲートとprovenanceを実在する1動画PR #2063に揃え、正本検証に合格した候補を反映する。
-  - 保存済みの独立確認済み候補を採用し、現在mainの既存コンテンツを保持する。
-  - "候補hash: 8382e06dc0ac1cbbd49e14054075f3f562c6d661edf5a1d36338bf2616857f32"
-  - 現在HEADのCI成功後に所有者の明示依頼に基づきマージする。
+  - 全語句を確認済みの公開字幕由来候補を追加する。字幕頻度を視聴者反応と混同しない。
+  - "候補hash: 3173a49386500562e8c910c58a528fd74cf88b31986597e00416edc8747055e6"
+  - 所有者の明示依頼に基づき現在HEADのCI成功後にマージする。
