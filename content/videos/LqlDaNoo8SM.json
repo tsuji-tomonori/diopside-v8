@@ -52,6 +52,14 @@
       "inputFingerprint": "27855cffb6be0fd3b92203047e50d8d4c3366c300cd679d942461b72a8e09645",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 17877
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "89df89c1a252dd0c21c64dbb0963a0bbab5c4477e113e5a0eac6f61c0d6ff7e1",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 17877
     }
   ],
   "tagAssignments": [
@@ -567,5 +575,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "年末の雑談配信で、白雪巴が牛や女の子などのイラストを描きながら、色や小物を試してアイコン・ヘッダーを仕上げていく。視聴者と相談しつつ、日常の話題や一年の振り返りも交わす制作時間を味わえる。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "多分これ最初で最後ねこのアイコン企画",
+      "atSeconds": 5390,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "89df89c1a252dd0c21c64dbb0963a0bbab5c4477e113e5a0eac6f61c0d6ff7e1",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:40:49.932816+00:00"
   }
 }
