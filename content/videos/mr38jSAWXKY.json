@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "23ab663abb8d290c3a51d4b9df29af496339b16959b4baa7ccbe89e91f180b58"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "6e29dfef0689e7c3e3ba229185bbdf1712ba10c307ca0b619f0eefcb42f69ce6",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6180
     }
   ],
   "tagAssignments": [
@@ -309,10 +317,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "カード",
+        "weight": 100
+      },
+      {
+        "term": "佐久間",
+        "weight": 88
+      },
+      {
+        "term": "使う",
+        "weight": 78
+      },
+      {
+        "term": "確か",
+        "weight": 69
+      },
+      {
+        "term": "ゴール",
+        "weight": 55
+      },
+      {
+        "term": "買う",
+        "weight": 52
+      },
+      {
+        "term": "すごい",
+        "weight": 46
+      },
+      {
+        "term": "一番",
+        "weight": 38
+      },
+      {
+        "term": "近い",
+        "weight": 38
+      },
+      {
+        "term": "大丈夫",
+        "weight": 36
+      },
+      {
+        "term": "止まる",
+        "weight": 33
+      },
+      {
+        "term": "終わる",
+        "weight": 33
+      },
+      {
+        "term": "ねる",
+        "weight": 31
+      },
+      {
+        "term": "人",
+        "weight": 25
+      },
+      {
+        "term": "赤",
+        "weight": 25
+      },
+      {
+        "term": "買える",
+        "weight": 25
+      },
+      {
+        "term": "あと",
+        "weight": 22
+      },
+      {
+        "term": "キング",
+        "weight": 22
+      },
+      {
+        "term": "やばい",
+        "weight": 22
+      },
+      {
+        "term": "わかる",
+        "weight": 22
+      },
+      {
+        "term": "強い",
+        "weight": 22
+      },
+      {
+        "term": "借金",
+        "weight": 22
+      },
+      {
+        "term": "爆弾",
+        "weight": 22
+      },
+      {
+        "term": "いく",
+        "weight": 18
+      },
+      {
+        "term": "マジ",
+        "weight": 18
+      },
+      {
+        "term": "時限",
+        "weight": 18
+      },
+      {
+        "term": "物件",
+        "weight": 18
+      },
+      {
+        "term": "いやいや",
+        "weight": 15
+      },
+      {
+        "term": "よる",
+        "weight": 15
+      },
+      {
+        "term": "遠い",
+        "weight": 15
+      },
+      {
+        "term": "目的",
+        "weight": 15
+      },
+      {
+        "term": "つける",
+        "weight": 11
+      },
+      {
+        "term": "子",
+        "weight": 11
+      },
+      {
+        "term": "多い",
+        "weight": 11
+      },
+      {
+        "term": "飛ぶ",
+        "weight": 11
+      },
+      {
+        "term": "いける",
+        "weight": 6
+      },
+      {
+        "term": "くれる",
+        "weight": 6
+      },
+      {
+        "term": "すぐ",
+        "weight": 6
+      },
+      {
+        "term": "家",
+        "weight": 6
+      },
+      {
+        "term": "行う",
+        "weight": 6
+      },
+      {
+        "term": "最後",
+        "weight": 6
+      },
+      {
+        "term": "始まる",
+        "weight": 6
+      },
+      {
+        "term": "社長",
+        "weight": 6
+      },
+      {
+        "term": "取る",
+        "weight": 6
+      },
+      {
+        "term": "勝つ",
+        "weight": 6
+      },
+      {
+        "term": "緑",
+        "weight": 6
+      },
+      {
+        "term": "キングボンビー",
+        "weight": 1
+      },
+      {
+        "term": "さぁ",
+        "weight": 1
+      },
+      {
+        "term": "ダメ",
+        "weight": 1
+      },
+      {
+        "term": "たん",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "6e29dfef0689e7c3e3ba229185bbdf1712ba10c307ca0b619f0eefcb42f69ce6",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "3150692c584579c1774d8978093434fb66a0940f9fbc92ef00259c189fe08f07",
