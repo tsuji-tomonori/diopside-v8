@@ -52,6 +52,14 @@
       "inputFingerprint": "6930765f8ff9e7e4b4a21cf70b850444a6bf778427400e1e29081f95ce1e5d40",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 23375
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "316d6bff8c06cc0b1fdbaa71cd85150f5ff015dd36c017d302b53e4294d60785",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 23375
     }
   ],
   "tagAssignments": [
@@ -639,5 +647,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『崩壊：スターレイル』でオンパロスの物語を進め、仲間たちとの会話や新たな局面を読み解きながら戦闘に挑む。育成や編成を考え、印象的な場面に声を上げつつ、最後は気になるキャラクターの召喚にも臨む、ストーリー重視のゲーム配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私のやり方でやりますよ",
+      "atSeconds": 418,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "316d6bff8c06cc0b1fdbaa71cd85150f5ff015dd36c017d302b53e4294d60785",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T21:02:31.357158+00:00"
   }
 }
