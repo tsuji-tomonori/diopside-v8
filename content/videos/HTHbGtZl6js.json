@@ -52,6 +52,14 @@
       "inputFingerprint": "d5912edecbf7a62df811a7abd01515100fee459cb239feedf6793433d7ab5b9c",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 16043
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "ac07a6f53b0e34aa5e7c9e914d68ede0d9a03da50c2cc0840477eccff65c76ce",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 16043
     }
   ],
   "tagAssignments": [
@@ -576,5 +584,22 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴がMinecraftで、寝起きの雑談を交えながら街づくりを続ける。ホテルや庭園、動物のいる施設を見学し、参加者と相談しながら花や池、休憩所を整えていく。建築の工夫や猫との交流に一喜一憂する、長時間のまったり配信。",
+    "bodyEvidenceRefs": [
+      "evidence-title",
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "お花添えちゃう",
+      "atSeconds": 2464,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "ac07a6f53b0e34aa5e7c9e914d68ede0d9a03da50c2cc0840477eccff65c76ce",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T15:34:51.466422+00:00"
   }
 }
