@@ -52,6 +52,14 @@
       "inputFingerprint": "4bf4b3c5bc14fd82cb58f721efb12234f89ba270794439d371591e30cfa92139",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 10947
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "84f727abec3019fc04b0d2016d40abf521cdcd33b9502888f1c110c9f9d7533f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10947
     }
   ],
   "tagAssignments": [
@@ -567,5 +575,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T21:05:00+09:00",
     "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  },
+  "synopsis": {
+    "body": "綺沙良の誕生日逆凸配信で、乾杯やお酒の話をしながら、さまざまな配信者へ電話します。ゲストとの近況トークやおすすめのワイン、ものまね、寿司ネタまで、祝福と笑いが続くにぎやかな時間です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ワインはね、主役を譲り合うからね",
+      "atSeconds": 7754,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "84f727abec3019fc04b0d2016d40abf521cdcd33b9502888f1c110c9f9d7533f",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T10:05:46.217328+00:00"
   }
 }
