@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "a88feac63379acddc6a1463673da6c978147f6b62045db8fb76eaa3f92e6554b"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "d98807dbd9cc4310f51c965476b6be87d0e7c476849e647711235ef5a80fa152",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7399
     }
   ],
   "tagAssignments": [
@@ -1025,5 +1033,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『崩壊：スターレイル』オンパロス編の物語を進行。荒笛との対峙を軸に、仲間たちの記憶や過去に触れる会話を読み、揺れ動く関係と世界の行方を考察する。選択肢や演出に驚きながら、物語の続きを追う実況配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "いや、こんなに泣くかいと思わなかった",
+      "atSeconds": 6605,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "d98807dbd9cc4310f51c965476b6be87d0e7c476849e647711235ef5a80fa152",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:28:32.778230Z"
   }
 }
