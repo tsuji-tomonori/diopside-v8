@@ -52,6 +52,14 @@
       "inputFingerprint": "b30ffa4ca08f3cb59dc7dc22ad65872d6591160c2ec5b0b92dd43f6a5784b6d7",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 7519
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "96ad5bc014d47e131383396a3f2f3809909251119657636a565b03bed60679d4",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7519
     }
   ],
   "tagAssignments": [
@@ -486,5 +494,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、ファンミーティングや今後の配信予定を知らせつつ、花粉症や体調、バレンタインの過ごし方を語る雑談。ペットを守護神のように頼る怖がりエピソードから、全国の旅行先まで、近況と日常の話題が次々に広がります。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "白雪は花粉との戦いです",
+      "atSeconds": 816,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "96ad5bc014d47e131383396a3f2f3809909251119657636a565b03bed60679d4",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T13:48:37.268657+00:00"
   }
 }
