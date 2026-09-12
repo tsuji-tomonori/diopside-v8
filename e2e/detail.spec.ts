@@ -16,6 +16,37 @@ const root = process.cwd();
 const latest = JSON.parse(readFileSync(path.join(root, 'public/data/latest.json'), 'utf8')) as { releaseId: string };
 
 test.describe('動画詳細', () => {
+  test('日本語の長い動画タイトルを狭い画面でも欠けずに表示する', async ({ page }) => {
+    await preparePage(page);
+    const videoId = 'd3CTjju7Uds';
+    const title = '【#101 前半】にじさんじアワー だいたいにじさんじのらじお【文化放送超!A&G＋】';
+    const shardId = videoShardId(videoId);
+    const relative = `public/data/releases/${latest.releaseId}/video-shards/${shardId}.json`;
+    const shard = JSON.parse(readFileSync(path.join(root, relative), 'utf8')) as { videos: Record<string, Record<string, unknown>> };
+    shard.videos[videoId]!.title = title;
+    await page.route(`**/data/releases/${latest.releaseId}/video-shards/${shardId}.json`, (route) => route.fulfill({ json: shard }));
+    await page.goto(`/#/video/${videoId}`);
+    const heading = page.getByRole('heading', { level: 1 });
+
+    for (const width of [320, 375, 390]) {
+      await page.setViewportSize({ width, height: 812 });
+      await expect(heading).toHaveText(title);
+      await expect(heading).toBeVisible();
+      await page.evaluate(async () => document.fonts.ready);
+      const geometry = await heading.evaluate((element) => ({
+        titleScroll: element.scrollWidth,
+        titleClient: element.clientWidth,
+        pageScroll: document.documentElement.scrollWidth,
+        viewport: window.innerWidth,
+        overflow: getComputedStyle(element).overflow,
+      }));
+      expect(geometry.titleScroll, `${width}pxのタイトルが親幅内に収まる`).toBeLessThanOrEqual(geometry.titleClient + 1);
+      expect(geometry.pageScroll, `${width}pxのページに横スクロールを作らない`).toBeLessThanOrEqual(geometry.viewport + 1);
+      expect(geometry.overflow).toBe('visible');
+      await expect(page.getByRole('link', { name: 'YouTubeで見る' })).toHaveAttribute('href', `https://www.youtube.com/watch?v=${videoId}`);
+    }
+  });
+
   test('基本情報、AI生成タグ、未提供のタイムスタンプ、更新日、YouTubeリンクを表示する', async ({ page }) => {
     const requests = await preparePage(page);
     await page.goto('/#/video/7keH8yrqabc');
