@@ -40,10 +40,18 @@
       "inputFingerprint": "9164d87c75ca87810215c27a177005495d03743820efc36f9de394ba689b2ff7"
     },
     {
-      "evidenceId": "evidence-full-transcript",
+      "evidenceId": "evidence-synopsis-transcript",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
       "inputFingerprint": "9c948f5092021c87f07ecc7d1c7db20d93f3a2cf41dbc7d8a675632037da0967",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7193
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "7aff994acb31daa4f1c48f6eb679b2e54dc6936f904bca39f510657dc01c1d21",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 7193
     }
@@ -114,10 +122,176 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-01b3211f",
+        "startSeconds": 0,
+        "label": "ライブ振り返りとゲーム導入",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-482-a8c87181",
+        "startSeconds": 482,
+        "label": "第5章スタート・前回の振り返り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-659-a33399f3",
+        "startSeconds": 659,
+        "label": "桜公園で果物探し",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1495-f5b8216f",
+        "startSeconds": 1495,
+        "label": "干し柿と柿の葉茶作り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2133-6b946165",
+        "startSeconds": 2133,
+        "label": "竹のベッド作り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3412-b909eb52",
+        "startSeconds": 3412,
+        "label": "ドラム缶風呂の計画",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3774-904e73c1",
+        "startSeconds": 3774,
+        "label": "街でドラム缶探し",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5116-1664f440",
+        "startSeconds": 5116,
+        "label": "ドラム缶風呂づくり",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5637-09c86ccd",
+        "startSeconds": 5637,
+        "label": "釣具店で道具集め",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6219-8d60bba8",
+        "startSeconds": 6219,
+        "label": "水辺から池袋を観察",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6362-dba66be6",
+        "startSeconds": 6362,
+        "label": "資材コンテナの探索",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6742-84f39c07",
+        "startSeconds": 6742,
+        "label": "竹の水筒作り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6865-0f9e358a",
+        "startSeconds": 6865,
+        "label": "次回と配信予定のお知らせ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6967-552719a9",
+        "startSeconds": 6967,
+        "label": "スーパーチャットお礼",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "6d043325bfe56f87b2913c7a01e50f3fe3f18ab5d103fd7aad54bad40c73267a",
+    "inputFingerprint": "7aff994acb31daa4f1c48f6eb679b2e54dc6936f904bca39f510657dc01c1d21",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-08-08T20:42:49+09:00",
+    "updatedAt": "2026-08-08T20:50:17+09:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "6d043325bfe56f87b2913c7a01e50f3fe3f18ab5d103fd7aad54bad40c73267a",
+        "majorIssues": 0,
+        "reviewedAt": "2026-08-08T20:49:08+09:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "6d043325bfe56f87b2913c7a01e50f3fe3f18ab5d103fd7aad54bad40c73267a",
+        "majorIssues": 0,
+        "reviewedAt": "2026-08-08T20:50:17+09:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "6d043325bfe56f87b2913c7a01e50f3fe3f18ab5d103fd7aad54bad40c73267a",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/53"
+      }
+    }
   },
   "wordCloud": {
     "status": "未作成",
@@ -129,7 +303,7 @@
     "inputFingerprint": "9f7511480b40e93de8698cd115c007729be2a2f1813beac64c0b37e5b7b46b7d",
     "generatorVersion": "v8-legacy-migration-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/53"
   },
   "approval": {
     "status": "承認済み",
@@ -139,13 +313,13 @@
   "synopsis": {
     "body": "白雪巴が「こちら、母なる星より」で荒廃した池袋を舞台に、仲間たちのサバイバル生活を見守ります。探索や物資の確保、拠点づくりを進め、登場人物の関係や日々の出来事について考察。協力しながら物語を楽しむ配信です。",
     "bodyEvidenceRefs": [
-      "evidence-full-transcript"
+      "evidence-synopsis-transcript"
     ],
     "featuredQuote": {
       "text": "一緒に見ましょう",
       "atSeconds": 5055,
       "evidenceRefs": [
-        "evidence-full-transcript"
+        "evidence-synopsis-transcript"
       ]
     },
     "inputFingerprint": "9c948f5092021c87f07ecc7d1c7db20d93f3a2cf41dbc7d8a675632037da0967",
