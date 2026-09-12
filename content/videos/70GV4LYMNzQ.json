@@ -52,6 +52,14 @@
       "inputFingerprint": "1c1707453ffffc875605e6a0453fb9e022feabb9e5c814a9d865aa8856ceae3d",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 25858
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "6b0627995bc3ae113237f3563ae306c9b5d19b6ed05d7bdab7b3b4ccfae4d9c2",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 25858
     }
   ],
   "tagAssignments": [
@@ -801,5 +809,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『崩壊：スターレイル』の物語を進める実況。登場人物や舞台を確かめながら探索と戦闘に取り組み、台詞や出来事への反応を交えて世界を読み解きます。後半は記録したガチャ映像も振り返り、長時間の冒険を自分なりの判断で味わうシリーズ回です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "止まらない暴走列車これのことを言うんですが",
+      "atSeconds": 24568,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "6b0627995bc3ae113237f3563ae306c9b5d19b6ed05d7bdab7b3b4ccfae4d9c2",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T13:01:03.591459+00:00"
   }
 }
