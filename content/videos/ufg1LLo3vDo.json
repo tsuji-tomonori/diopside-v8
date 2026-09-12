@@ -52,6 +52,14 @@
       "inputFingerprint": "e401757e8add9c470f27bad187db7efdace374f9cdc609bec78f504171ef28c5",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 496
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "7735bfba5ed750dab1d28c2715436fa2c9ddfd4523cb72744ad57de3c350d71c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 496
     }
   ],
   "tagAssignments": [
@@ -231,10 +239,107 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "次",
+        "weight": 100
+      },
+      {
+        "term": "左",
+        "weight": 83
+      },
+      {
+        "term": "一緒",
+        "weight": 73
+      },
+      {
+        "term": "右手",
+        "weight": 61
+      },
+      {
+        "term": "いち",
+        "weight": 47
+      },
+      {
+        "term": "夜",
+        "weight": 47
+      },
+      {
+        "term": "ok",
+        "weight": 28
+      },
+      {
+        "term": "カウント",
+        "weight": 28
+      },
+      {
+        "term": "プレゼント",
+        "weight": 28
+      },
+      {
+        "term": "わかる",
+        "weight": 28
+      },
+      {
+        "term": "違う",
+        "weight": 28
+      },
+      {
+        "term": "運",
+        "weight": 28
+      },
+      {
+        "term": "遠く",
+        "weight": 28
+      },
+      {
+        "term": "横",
+        "weight": 28
+      },
+      {
+        "term": "覚える",
+        "weight": 28
+      },
+      {
+        "term": "筋肉",
+        "weight": 28
+      },
+      {
+        "term": "左手",
+        "weight": 28
+      },
+      {
+        "term": "指",
+        "weight": 28
+      },
+      {
+        "term": "上",
+        "weight": 28
+      },
+      {
+        "term": "得る",
+        "weight": 28
+      },
+      {
+        "term": "配信",
+        "weight": 28
+      },
+      {
+        "term": "予定",
+        "weight": 28
+      },
+      {
+        "term": "いつも",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "7735bfba5ed750dab1d28c2715436fa2c9ddfd4523cb72744ad57de3c350d71c",
+    "exclusionRulesVersion": "9.2.0+editorial.1",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "7ecc4a1967be6a07629a6819ea7a5bb5dc2e7a79aabc7ae555b7cdea311b3f20",
