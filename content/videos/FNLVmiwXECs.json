@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "6e127c5f88a1c0d36fd3a4ce1e727ad5ce11308ab17d22795b51c9f0c30e1632"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "792597b1a690ab8569a89fa8722fe6860ea9dd7e6e4813ea730e2c23473a3ca0",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 1003
     }
   ],
   "tagAssignments": [
@@ -264,10 +272,143 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "もちろん",
+        "weight": 61
+      },
+      {
+        "term": "泉",
+        "weight": 61
+      },
+      {
+        "term": "前",
+        "weight": 61
+      },
+      {
+        "term": "悪い",
+        "weight": 47
+      },
+      {
+        "term": "夏",
+        "weight": 47
+      },
+      {
+        "term": "困る",
+        "weight": 47
+      },
+      {
+        "term": "最高",
+        "weight": 47
+      },
+      {
+        "term": "書く",
+        "weight": 47
+      },
+      {
+        "term": "成績",
+        "weight": 47
+      },
+      {
+        "term": "早い",
+        "weight": 47
+      },
+      {
+        "term": "美術",
+        "weight": 47
+      },
+      {
+        "term": "いやぁ",
+        "weight": 28
+      },
+      {
+        "term": "わかる",
+        "weight": 28
+      },
+      {
+        "term": "下",
+        "weight": 28
+      },
+      {
+        "term": "画伯",
+        "weight": 28
+      },
+      {
+        "term": "雅",
+        "weight": 28
+      },
+      {
+        "term": "皆様",
+        "weight": 28
+      },
+      {
+        "term": "頑張る",
+        "weight": 28
+      },
+      {
+        "term": "宮城",
+        "weight": 28
+      },
+      {
+        "term": "最後",
+        "weight": 28
+      },
+      {
+        "term": "最終",
+        "weight": 28
+      },
+      {
+        "term": "出す",
+        "weight": 28
+      },
+      {
+        "term": "人",
+        "weight": 28
+      },
+      {
+        "term": "全員",
+        "weight": 28
+      },
+      {
+        "term": "炭",
+        "weight": 28
+      },
+      {
+        "term": "知る",
+        "weight": 28
+      },
+      {
+        "term": "買う",
+        "weight": 28
+      },
+      {
+        "term": "普段",
+        "weight": 28
+      },
+      {
+        "term": "分かる",
+        "weight": 28
+      },
+      {
+        "term": "米",
+        "weight": 28
+      },
+      {
+        "term": "本",
+        "weight": 28
+      },
+      {
+        "term": "優しい",
+        "weight": 28
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "792597b1a690ab8569a89fa8722fe6860ea9dd7e6e4813ea730e2c23473a3ca0",
+    "exclusionRulesVersion": "9.2.0+editorial.1",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "99b141f76501f1bd5987d3b51d0ebbd2b61c15f6ec3dd68510730b844b1d8015",
