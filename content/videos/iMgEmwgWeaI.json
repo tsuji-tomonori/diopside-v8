@@ -52,6 +52,14 @@
       "inputFingerprint": "3cd0bab5c75669852a9a959b9b48705422cb825023e81ff88499318ac7ecf599",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 3551
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "e21db0bd3e1df497620fe5b80b081d8f6300602d15dbef04ae0921f5b454c8c6",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3551
     }
   ],
   "tagAssignments": [
@@ -486,5 +494,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴がマシュマロで届いた視聴者のゾッとする体験談を紹介します。心霊現象や不思議な出来事、怖さの中に笑いや涙のある話まで、背景を語りながらじっくり読み解いていくホラー雑談配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "本当にあった2ちゃんねるの怖い話見るの大好き",
+      "atSeconds": 2866,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "e21db0bd3e1df497620fe5b80b081d8f6300602d15dbef04ae0921f5b454c8c6",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T10:38:39.091469+00:00"
   }
 }
