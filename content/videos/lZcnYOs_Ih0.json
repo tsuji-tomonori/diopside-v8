@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "c504f07dc070b128b466ea2cecbda257c4ecb216e340d7153ae0b3b90a44b282"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "8449597dfc25262203d13a819cfbfac13fed9df71168e4827ec9c4bb679e7af7",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10105
     }
   ],
   "tagAssignments": [
@@ -1155,5 +1163,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が初めて訪れた宮古島の旅を、写真と動画を見せながら振り返る。透明な海でのシュノーケリングやクリアカヤック、島の景色、食事や宿の思い出まで、現地で感じた驚きと楽しさを細やかに語る旅行雑談。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "わしの旅行レポはうまいということでいいのかな?",
+      "atSeconds": 9956,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "8449597dfc25262203d13a819cfbfac13fed9df71168e4827ec9c4bb679e7af7",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T04:04:28.260829Z"
   }
 }
