@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "72dcdd94b79bcf892ced295de94d8d5d8b610470b2acdf92a54901653a272d85"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "927bfcde3e8233730d2bb26aaadf1f8ec1dcc36ad3d90ca05b0d51af0187b81a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2410
     }
   ],
   "tagAssignments": [
@@ -273,10 +281,191 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "食べる",
+        "weight": 100
+      },
+      {
+        "term": "待つ",
+        "weight": 59
+      },
+      {
+        "term": "皆さん",
+        "weight": 47
+      },
+      {
+        "term": "子",
+        "weight": 40
+      },
+      {
+        "term": "人",
+        "weight": 40
+      },
+      {
+        "term": "やばい",
+        "weight": 32
+      },
+      {
+        "term": "顔",
+        "weight": 32
+      },
+      {
+        "term": "辛い",
+        "weight": 32
+      },
+      {
+        "term": "電車",
+        "weight": 32
+      },
+      {
+        "term": "普通",
+        "weight": 32
+      },
+      {
+        "term": "お腹",
+        "weight": 23
+      },
+      {
+        "term": "ゲーム",
+        "weight": 23
+      },
+      {
+        "term": "違う",
+        "weight": 23
+      },
+      {
+        "term": "気",
+        "weight": 23
+      },
+      {
+        "term": "強い",
+        "weight": 23
+      },
+      {
+        "term": "見える",
+        "weight": 23
+      },
+      {
+        "term": "次",
+        "weight": 23
+      },
+      {
+        "term": "前",
+        "weight": 23
+      },
+      {
+        "term": "わかる",
+        "weight": 13
+      },
+      {
+        "term": "全部",
+        "weight": 13
+      },
+      {
+        "term": "多い",
+        "weight": 13
+      },
+      {
+        "term": "買う",
+        "weight": 13
+      },
+      {
+        "term": "うわ",
+        "weight": 1
+      },
+      {
+        "term": "おい",
+        "weight": 1
+      },
+      {
+        "term": "かわいい",
+        "weight": 1
+      },
+      {
+        "term": "びっくり",
+        "weight": 1
+      },
+      {
+        "term": "ビビる",
+        "weight": 1
+      },
+      {
+        "term": "ブリーフ",
+        "weight": 1
+      },
+      {
+        "term": "ポイント",
+        "weight": 1
+      },
+      {
+        "term": "ヤバ",
+        "weight": 1
+      },
+      {
+        "term": "ルイス",
+        "weight": 1
+      },
+      {
+        "term": "位",
+        "weight": 1
+      },
+      {
+        "term": "月",
+        "weight": 1
+      },
+      {
+        "term": "向こう",
+        "weight": 1
+      },
+      {
+        "term": "行う",
+        "weight": 1
+      },
+      {
+        "term": "行ける",
+        "weight": 1
+      },
+      {
+        "term": "左",
+        "weight": 1
+      },
+      {
+        "term": "始まる",
+        "weight": 1
+      },
+      {
+        "term": "時間",
+        "weight": 1
+      },
+      {
+        "term": "女",
+        "weight": 1
+      },
+      {
+        "term": "乗る",
+        "weight": 1
+      },
+      {
+        "term": "大丈夫",
+        "weight": 1
+      },
+      {
+        "term": "注意",
+        "weight": 1
+      },
+      {
+        "term": "読む",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "927bfcde3e8233730d2bb26aaadf1f8ec1dcc36ad3d90ca05b0d51af0187b81a",
+    "exclusionRulesVersion": "9.2.0+editorial.1",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "c9ac83a32f477bfe463e4918da18f57a49446998ee9acad2fe43518cfb6eb03b",

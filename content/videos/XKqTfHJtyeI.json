@@ -44,6 +44,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "cd0da2d55a75e3ba19cf781d5fbec68fd54420d5a9a590aad53edae38be4ec99"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "d2e530361c352fd31c44abe7a63c4ee79f231e01467b52e9c558c07cee362f9f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 12431
     }
   ],
   "tagAssignments": [
@@ -384,10 +392,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "ラーメン",
+        "weight": 100
+      },
+      {
+        "term": "伝説",
+        "weight": 62
+      },
+      {
+        "term": "待つ",
+        "weight": 58
+      },
+      {
+        "term": "味噌",
+        "weight": 56
+      },
+      {
+        "term": "醤油",
+        "weight": 49
+      },
+      {
+        "term": "作る",
+        "weight": 35
+      },
+      {
+        "term": "食べる",
+        "weight": 34
+      },
+      {
+        "term": "みこ",
+        "weight": 28
+      },
+      {
+        "term": "ふん",
+        "weight": 27
+      },
+      {
+        "term": "人",
+        "weight": 27
+      },
+      {
+        "term": "大丈夫",
+        "weight": 27
+      },
+      {
+        "term": "欲しい",
+        "weight": 27
+      },
+      {
+        "term": "頑張る",
+        "weight": 26
+      },
+      {
+        "term": "お客",
+        "weight": 25
+      },
+      {
+        "term": "すごい",
+        "weight": 25
+      },
+      {
+        "term": "麺",
+        "weight": 25
+      },
+      {
+        "term": "トッピング",
+        "weight": 24
+      },
+      {
+        "term": "魚介",
+        "weight": 24
+      },
+      {
+        "term": "買う",
+        "weight": 24
+      },
+      {
+        "term": "美味しい",
+        "weight": 24
+      },
+      {
+        "term": "豚",
+        "weight": 23
+      },
+      {
+        "term": "アイテム",
+        "weight": 22
+      },
+      {
+        "term": "売れる",
+        "weight": 22
+      },
+      {
+        "term": "うち",
+        "weight": 21
+      },
+      {
+        "term": "スープ",
+        "weight": 21
+      },
+      {
+        "term": "春",
+        "weight": 20
+      },
+      {
+        "term": "店",
+        "weight": 17
+      },
+      {
+        "term": "投資",
+        "weight": 17
+      },
+      {
+        "term": "大会",
+        "weight": 13
+      },
+      {
+        "term": "使う",
+        "weight": 12
+      },
+      {
+        "term": "人気",
+        "weight": 12
+      },
+      {
+        "term": "変える",
+        "weight": 12
+      },
+      {
+        "term": "好き",
+        "weight": 10
+      },
+      {
+        "term": "魂",
+        "weight": 10
+      },
+      {
+        "term": "絶対",
+        "weight": 10
+      },
+      {
+        "term": "風味",
+        "weight": 10
+      },
+      {
+        "term": "カリスマ",
+        "weight": 9
+      },
+      {
+        "term": "さすが",
+        "weight": 9
+      },
+      {
+        "term": "太",
+        "weight": 9
+      },
+      {
+        "term": "卵",
+        "weight": 9
+      },
+      {
+        "term": "分かる",
+        "weight": 8
+      },
+      {
+        "term": "確か",
+        "weight": 6
+      },
+      {
+        "term": "勝負",
+        "weight": 6
+      },
+      {
+        "term": "上がる",
+        "weight": 6
+      },
+      {
+        "term": "白",
+        "weight": 6
+      },
+      {
+        "term": "骨",
+        "weight": 4
+      },
+      {
+        "term": "大事",
+        "weight": 4
+      },
+      {
+        "term": "やばい",
+        "weight": 3
+      },
+      {
+        "term": "入れる",
+        "weight": 3
+      },
+      {
+        "term": "ネギ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "d2e530361c352fd31c44abe7a63c4ee79f231e01467b52e9c558c07cee362f9f",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "f5f519356a4b5447bba90424be68d669690ca698877c00c64bb4699a432d207e",
