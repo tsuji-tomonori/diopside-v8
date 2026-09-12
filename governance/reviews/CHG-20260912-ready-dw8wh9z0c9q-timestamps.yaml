@@ -158,6 +158,7 @@ selected_checks:
     note: 未選択checkをN/Aとして記録しない。
 advisories: []
 residual_risks:
+  - 実PR番号をpublicationGateとprovenanceへ一致させ、同一hashの確認済み時刻一覧を反映した。
   - 保存済みの独立確認済み候補を採用し、現在mainの既存コンテンツを保持する。
   - "候補hash: f15acd160f86f4005363a63aeac8ebf1634c14d56b6c5801f4f998d3672f5ec4"
   - 現在HEADのCI成功後に所有者の明示依頼に基づきマージする。
