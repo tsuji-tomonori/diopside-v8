@@ -52,6 +52,14 @@
       "inputFingerprint": "0c1088116bd46044b861caff87d11628a44a3ecbd536b4cdd17ee60ff6585a78",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 13349
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "c88d9208eca20a9cbba4e137cfa60ccabae9cad320b3d83287d8bad20a6dc069",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 13349
     }
   ],
   "tagAssignments": [
@@ -529,5 +537,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T21:05:00+09:00",
     "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  },
+  "synopsis": {
+    "body": "ベルモンド・バンデラスの誕生日を祝う、初めての凸待ち。白雪巴をはじめとする多彩なゲストと、第一印象やこれまでの活動、これからのコラボについて語り合い、声色を変えたセリフ実演やお酒の話まで、相手ごとに表情を変える会話を楽しめる配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "まぁ実際お姉さんだと思いますよ",
+      "atSeconds": 4344,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "c88d9208eca20a9cbba4e137cfa60ccabae9cad320b3d83287d8bad20a6dc069",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:44:38.670312+00:00"
   }
 }
