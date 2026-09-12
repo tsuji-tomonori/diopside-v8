@@ -158,6 +158,7 @@ selected_checks:
     note: 未選択checkをN/Aとして記録しない。
 advisories: []
 residual_risks:
+  - main b1f69da95da5932abc68876319591c7e724622c8 のあらすじと全既存項目を保持してadd/add競合を解消し、同じ確認済みワードクラウドだけを追加した。
   - 全語句を確認済みの公開本文由来候補を追加し、実際の入力種別を保持する。本文の語頻度を視聴者反応と混同しない。
   - "候補hash: 13b626deaf3f4a0260d7c0a4c355f3904ecb7315bfc3a2250cefb5fc6239e909"
   - 所有者の明示依頼に基づき現在HEADのCI成功後にマージする。

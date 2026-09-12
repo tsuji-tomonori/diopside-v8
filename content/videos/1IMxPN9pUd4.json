@@ -52,6 +52,14 @@
       "inputFingerprint": "b907f3d5fbc1187b836819ee74558141d3988487440dbff660af0de7796ea157",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 9089
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "25a4cdb42b8344b559aa2ca6c48e859536a5df4feb8f36390025058ea4fa721b",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9089
     }
   ],
   "tagAssignments": [
@@ -540,5 +548,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T21:05:00+09:00",
     "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  },
+  "synopsis": {
+    "body": "西園寺メアリの16万人記念枠で、メアリタクシーがゲストを迎えに走る。緊張をほぐそうとほろ酔いを口にしながら、近況や活動の魅力を伝え合い、普段と少し違う二人きりの会話や記念イベントへの思いを味わうコラボ配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "本当に仲良くしていただけているのがもう幸せ",
+      "atSeconds": 1523,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "25a4cdb42b8344b559aa2ca6c48e859536a5df4feb8f36390025058ea4fa721b",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:59:47.873438+00:00"
   }
 }
