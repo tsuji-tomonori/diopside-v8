@@ -158,6 +158,7 @@ selected_checks:
     note: 未選択checkをN/Aとして記録しない。
 advisories: []
 residual_risks:
+  - CI実行記録がないためmain e718d3cffc060ecb85cc5de10dce2aa49678704d と統合して再検証した。既存項目と確認済み語句・重み・指紋を保持し、更新HEADのCI成功を再度必須にする。
   - 全語句を確認済みの公開本文由来候補を追加し、実際の入力種別を保持する。本文の語頻度を視聴者反応と混同しない。
   - "候補hash: 1ca1596f4e619727eb09edcb9116ed844010244e3bb53297ddf127c5790a6780"
   - 所有者の明示依頼に基づき現在HEADのCI成功後にマージする。
