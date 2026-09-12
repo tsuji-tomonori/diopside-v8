@@ -52,6 +52,14 @@
       "inputFingerprint": "3343169510d7aba20527205d1daa77cfbcb7f55af61aab0e591271490038f571",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 8865
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "0ec9eb6865259a7b5253cd871bb9798607cc611eb521bc87707bd84727bd91cf",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8865
     }
   ],
   "tagAssignments": [
@@ -567,5 +575,22 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴がホラーゲーム「新幹線0号」に挑み、車内を進みながらさまざまな異変を探します。見慣れた新幹線の風景に戸惑い、恐怖と笑いを交えた反応を見せつつ、ループする車内の手がかりを確かめて脱出を目指す長時間実況です。",
+    "bodyEvidenceRefs": [
+      "evidence-title",
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "異変を見つけられないことが怖い",
+      "atSeconds": 5968,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "0ec9eb6865259a7b5253cd871bb9798607cc611eb521bc87707bd84727bd91cf",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T18:37:05.616973+00:00"
   }
 }
