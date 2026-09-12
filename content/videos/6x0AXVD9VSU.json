@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "e485adea5acd9611b87205cb7482abebb48d15b8f037101447062da04098cb96"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "7156c0d37d144f08fbb02181db442939e443d91032beba3328e91ff2874d80df",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 12819
     }
   ],
   "tagAssignments": [
@@ -1060,5 +1068,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が初見のホラーゲーム『動作不良』に挑戦し、警備員として不思議なビルを巡ります。書類や設備を調べ、停電の予告や突然の異変に驚きながら、手がかりを探して探索を進行。操作への反応と軽妙な独り言が、緊張感のある仕事風景を楽しく見せる配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私ただ時間通りに警備やってただけなの",
+      "atSeconds": 5067,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "7156c0d37d144f08fbb02181db442939e443d91032beba3328e91ff2874d80df",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T12:54:50.599821+00:00"
   }
 }
