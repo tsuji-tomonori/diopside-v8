@@ -52,6 +52,14 @@
       "inputFingerprint": "f435514b0fc7ff7db6e4e478cb3cf84d5447cf508a26c74bda953ec3bada2fb1",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 2448
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "cb508f98ab16cf7b5f02ff0d2006833d4bd3002afbe62ad871808af49aa3e93e",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2448
     }
   ],
   "tagAssignments": [
@@ -477,5 +485,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が「にじさんじアイラブ歌リレー」で、異次元フェスの余韻を胸にμ'sやAqoursの楽曲を歌います。曲紹介や感想を挟み、歌詞を間違えた場面も正直に申告。最後は視聴者と一緒に歌い、熱気と感謝を分かち合う歌枠です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "歌詞を間違えたらちゃんと申告しようと思って",
+      "atSeconds": 1357,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "cb508f98ab16cf7b5f02ff0d2006833d4bd3002afbe62ad871808af49aa3e93e",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:09:32.621274+00:00"
   }
 }
