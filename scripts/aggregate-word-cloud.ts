@@ -10,7 +10,7 @@ import { createGunzip } from 'node:zlib';
 import kuromoji, { type IpadicFeatures, type Tokenizer } from 'kuromoji';
 
 export type AudienceWordCloudInputType = '公開チャット' | '公開コメント';
-export type WordCloudSourceInputType = AudienceWordCloudInputType | '公開字幕';
+export type WordCloudSourceInputType = AudienceWordCloudInputType | '公開字幕' | '運用者提供の公開本文';
 
 export interface WordCloudCandidate {
   status: '候補';
@@ -66,6 +66,7 @@ export async function aggregateWordCloud(
   inputType: WordCloudSourceInputType,
   generatedAt: string,
 ): Promise<WordCloudCandidate> {
+  const spokenText = inputType === '公開字幕' || inputType === '運用者提供の公開本文';
   const tokenizer = await buildTokenizer();
   const counts = new Map<string, number>();
   const inputHash = createHash('sha256');
@@ -82,11 +83,11 @@ export async function aggregateWordCloud(
       continue;
     }
     for (const message of publicMessages(value)) {
-      const text = inputType === '公開字幕'
+      const text = spokenText
         ? message.replace(/\[(?:音楽|拍手|笑い|笑い声|Music|Applause|Laughter)\]/giu, ' ')
         : message;
       for (const term of extractTerms(text, tokenizer)) {
-        if (inputType === '公開字幕' && captionStopWords.has(term)) continue;
+        if (spokenText && captionStopWords.has(term)) continue;
         counts.set(term, (counts.get(term) ?? 0) + 1);
       }
     }
@@ -111,8 +112,8 @@ export async function aggregateWordCloud(
     words,
     inputType,
     inputFingerprint: inputHash.digest('hex'),
-    exclusionRulesVersion: inputType === '公開字幕' ? '9.2.0' : '9.1.0',
-    rulesVersion: inputType === '公開字幕' ? '9.2.0' : '9.1.0',
+    exclusionRulesVersion: spokenText ? '9.2.0' : '9.1.0',
+    rulesVersion: spokenText ? '9.2.0' : '9.1.0',
     generatedAt,
     humanReview: '確認待ち',
   };
@@ -216,8 +217,8 @@ async function main(): Promise<void> {
   if (!values.input || !values.output || !values['input-type'] || !values['generated-at']) {
     throw new Error('--input、--output、--input-type、--generated-atを指定してください。');
   }
-  if (values['input-type'] !== '公開チャット' && values['input-type'] !== '公開コメント' && values['input-type'] !== '公開字幕') {
-    throw new Error('--input-typeは「公開チャット」「公開コメント」「公開字幕」のいずれかを指定してください。');
+  if (values['input-type'] !== '公開チャット' && values['input-type'] !== '公開コメント' && values['input-type'] !== '公開字幕' && values['input-type'] !== '運用者提供の公開本文') {
+    throw new Error('--input-typeは「公開チャット」「公開コメント」「公開字幕」「運用者提供の公開本文」のいずれかを指定してください。');
   }
   if (Number.isNaN(Date.parse(values['generated-at']))) {
     throw new Error('--generated-atはISO 8601日時で指定してください。');
