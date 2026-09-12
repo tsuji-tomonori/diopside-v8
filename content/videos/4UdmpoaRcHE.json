@@ -38,6 +38,14 @@
       "type": "既存の承認済みタグ",
       "sourceLabel": "旧diopsideの承認済みタグ正本",
       "inputFingerprint": "af483e6ce76ead7fe949f9ff51f0433569ab066cd2a80c18ad56e5895b1d79b7"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "a6b6457b75d7474eeaf1f8037ca62a2e6dd5c14b7a1ecd81800641a69e1c9957",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 95
     }
   ],
   "tagAssignments": [
@@ -119,5 +127,21 @@
     "inputFingerprint": "1e5c33d83277ae7d3707fc1a197488634f654f74e22560d6e32bbf50cc3b5357",
     "rulesVersion": "2.0.0",
     "updatedAt": "2026-09-05T00:00:00Z"
+  },
+  "synopsis": {
+    "body": "白雪巴が、タクシーで行き先のホテルについて何かあるのか尋ねられた際の気まずい勘違いを振り返る。仕事の説明がかえって空気を変えてしまうやり取りを、戸惑いとユーモアを交えて語り、聞かれがちな質問への本音もこぼしていく。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "健全な仕事です",
+      "atSeconds": 49,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "a6b6457b75d7474eeaf1f8037ca62a2e6dd5c14b7a1ecd81800641a69e1c9957",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T08:54:13.036513+00:00"
   }
 }
