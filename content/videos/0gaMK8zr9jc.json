@@ -46,6 +46,14 @@
       "inputFingerprint": "d03d00e964ccab16328256cee63e1bc55e90a06a327701b69fdb4ff35770713a",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 4325
+    },
+    {
+      "evidenceId": "evidence-timestamp-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "c48c9dc48d0c2a5cd6186edf9b441a0e47ecf07b5855387d1994b9a460a73ba7",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 4325
     }
   ],
   "tagAssignments": [
@@ -114,10 +122,194 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-be313d99",
+        "startSeconds": 0,
+        "label": "待機明けの挨拶、配信遅延の説明とガチャ方針",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-485-a8779829",
+        "startSeconds": 485,
+        "label": "ガチャ開始とサポートカードの確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-767-e5d5ff00",
+        "startSeconds": 767,
+        "label": "無料ガチャから10連へ、カード評価を交えて進行",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1699-b0c781fc",
+        "startSeconds": 1699,
+        "label": "カード評価と育成方針を交えながら天井へ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2347-135cb618",
+        "startSeconds": 2347,
+        "label": "金運アップ画像で環境を変えて再挑戦",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2546-e524abcc",
+        "startSeconds": 2546,
+        "label": "仕事モードへの切り替え・ウマ娘談義と休憩",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2873-5848768c",
+        "startSeconds": 2873,
+        "label": "休憩後のガチャ再開と終盤の進捗確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3087-1719859f",
+        "startSeconds": 3087,
+        "label": "ピックアップガチャ終盤の結果確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3175-ebe2844d",
+        "startSeconds": 3175,
+        "label": "カード整理・フレンド機能とカード談義",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3482-1c373a90",
+        "startSeconds": 3482,
+        "label": "追加ガチャを続けて400連へ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3633-ec39b737",
+        "startSeconds": 3633,
+        "label": "400連後のクールタイムとガチャの心得",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3761-27be3a04",
+        "startSeconds": 3761,
+        "label": "終盤のガチャ進行と購入ポイント確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3978-00f05a8f",
+        "startSeconds": 3978,
+        "label": "最終連数とガチャ全体の振り返り",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4056-175874f9",
+        "startSeconds": 4056,
+        "label": "結果確認後の育成方針",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4122-f981e02f",
+        "startSeconds": 4122,
+        "label": "今後の配信・切り抜き告知とエンディング",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4222-8d49f1ae",
+        "startSeconds": 4222,
+        "label": "おまけ：課金の振り返りと金運アップ画像の案内",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "8382e06dc0ac1cbbd49e14054075f3f562c6d661edf5a1d36338bf2616857f32",
+    "inputFingerprint": "c48c9dc48d0c2a5cd6186edf9b441a0e47ecf07b5855387d1994b9a460a73ba7",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-06T06:50:00.377740+00:00",
+    "updatedAt": "2026-09-06T06:54:43.671718+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "8382e06dc0ac1cbbd49e14054075f3f562c6d661edf5a1d36338bf2616857f32",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-06T06:53:54.054585+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "8382e06dc0ac1cbbd49e14054075f3f562c6d661edf5a1d36338bf2616857f32",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-06T06:54:43.671718+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "8382e06dc0ac1cbbd49e14054075f3f562c6d661edf5a1d36338bf2616857f32",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2063"
+      }
+    }
   },
   "wordCloud": {
     "status": "未作成",
@@ -129,7 +321,7 @@
     "inputFingerprint": "3f1d33a5e563d222e4ccc354aecb465f53295a6eb4682f52cb11838f9c378a9a",
     "generatorVersion": "v8-legacy-migration-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2063"
   },
   "approval": {
     "status": "承認済み",
