@@ -46,6 +46,14 @@
       "inputFingerprint": "eae5b9dd474ad64a3b77137e3cd5cc6c6efab3f25bedc567f86ac91fbb497583",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 867
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "8f02e311398ff3c2faea56c2d194eb03e5916dfa5679ec4688feb8367311cc31",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 867
     }
   ],
   "tagAssignments": [
@@ -408,5 +416,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴がパーソナリティを務めるラジオで、近況や登録者数の節目、ポケモンユナイトへの挑戦を振り返る。リスナーのお便りを紹介しながら、番組への感謝や配信での思い出、心を許せる仲間との距離感を自然体で語るトーク回です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "尊敬できる先輩であり心を許せる友でありって感じです",
+      "atSeconds": 853,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "8f02e311398ff3c2faea56c2d194eb03e5916dfa5679ec4688feb8367311cc31",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:56:09.458698+00:00"
   }
 }
