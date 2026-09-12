@@ -52,6 +52,14 @@
       "inputFingerprint": "588b5031e9d72a8cef4a9bce6363d9caab032bbda518bb914a04c6c487e95a1e",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 6521
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "766216ffe72d0af8f9f6a03c302d9087a0a529f08a24f45f50520f1cb9d68b70",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6521
     }
   ],
   "tagAssignments": [
@@ -504,5 +512,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "大会を控えた白雪巴が、マリオカートで視聴者参加型の対戦に挑戦。事前練習で磨いた加速重視のマシンを駆り、コイン集めやアイテム交換を試しながら、コースごとの走り方をコメントと相談して詰めていく。悔しさも笑いに変える試行錯誤の一枠。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "しくじりボーイしました",
+      "atSeconds": 1564,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "766216ffe72d0af8f9f6a03c302d9087a0a529f08a24f45f50520f1cb9d68b70",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T13:49:01.706546+00:00"
   }
 }
