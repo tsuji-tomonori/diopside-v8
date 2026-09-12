@@ -52,6 +52,14 @@
       "inputFingerprint": "d66444026b52f215ccfd4a208ac22a162f293c173bf3ffce6942c763a412992a",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 6589
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "0907239557d1447ccb2ffd1b7c90db30ea4bca406687e162132bd49ee9d110c7",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6589
     }
   ],
   "tagAssignments": [
@@ -486,5 +494,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、異変を探して脱出を目指すホラーゲーム「エスカレーター」に挑戦。視聴者と担当を分け、手すりや照明、展示物の細かな違いを記憶と画面から見つけ出し、驚きや冗談を交えながら何度も周回します。視聴者と一緒に進める推理と軽快な反応が楽しめる配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "お前が大異変だよお前だよ",
+      "atSeconds": 520,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "0907239557d1447ccb2ffd1b7c90db30ea4bca406687e162132bd49ee9d110c7",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T20:26:02.821639+00:00"
   }
 }
