@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "bcc54634848ac6fc425084c8892f959a8fb0ddccdaa4ee09980433abeec4491f"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "19035493485c1bedab53dc5a3c45d880c4d265b39cc0c87b02de2ff9a248fb87",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7087
     }
   ],
   "tagAssignments": [
@@ -873,5 +881,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "にじさんじ壺カップで、白雪巴が参加者たちのGetting Over It攻略を実況。壺を操って難所を越える挑戦を見守り、進展や落下に一喜一憂しながら、選手への声掛けと軽快なトークで大会の緊張感を届ける。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "面白いんだよなゲームって",
+      "atSeconds": 6488,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "19035493485c1bedab53dc5a3c45d880c4d265b39cc0c87b02de2ff9a248fb87",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:36:14.188305Z"
   }
 }
