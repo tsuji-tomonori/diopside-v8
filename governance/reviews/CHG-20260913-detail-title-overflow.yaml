@@ -1,0 +1,194 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260913-detail-title-overflow
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: true
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: false
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: true
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: 375pxを主要環境とする既存V8-QUALITY-002へ戻す表示修正であり、永続要件を変更しない
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: CSS宣言と既存E2Eファイル内の回帰例のみ。生成設計、route、契約、データモデルの変更はない
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260913-detail-title-overflow.yaml
+    note: 公開動画詳細の共通タイトル表示に影響するためassured
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 所有者の明示依頼に基づきGitHubへcommit・push・PR作成を行う
+  - id: IMP-005
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 所有者がmerge・deploy・実機確認まで明示依頼。今回の公開検査で検出したタイトル表示不具合を別PRで修正し、既存main/docs経路で公開する
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+      - path:src/styles.css
+    note: 変更後CSSを含む本番buildを検査する
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 回帰E2Eを含むTypeScriptの型検査を実行する
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 変更ファイルを含む既存ESLint経路を実行する
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:e2e/detail.spec.ts
+      - test:src/data/loadPublicData.test.ts
+      - test:src/features/detail/wordCloudLayout.test.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 動画詳細全E2Eと公開データ読込・word cloud配置の関連単体試験で既存表示を確認する
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/detail.spec.ts
+    note: 日本語長文タイトルの375px幅で修正前に失敗する回帰例を固定し、320・375・390pxで全文・要素幅・document幅・YouTubeリンクを確認する
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 差分はCSS、公開タイトルを用いたE2E、選択チェックのみ。生字幕・個人情報・秘密情報を含まない
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/styles.css
+      - test:e2e/detail.spec.ts
+    note: 文字をoverflow:hidden等で隠さずタイトル全文を表示し、動画詳細のsuccess・不正データ状態など既存E2Eを確認する
+  - id: FAST-018
+    class: Risk-selected
+    result: na
+    evidence:
+      - test:e2e/detail.spec.ts
+    note: E2E変更triggerで選択後、読み取り専用の静的動画詳細表示でC/U/D API・DB・外部状態変更がないと確認した
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: タイトル字間、直接の回帰E2E、選択チェックだけを同梱し、動画正本と公開生成物を別PRへ分離する
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的・変更・要件/設計影響・review path・検証契約・リスクを構造化Commit Commentへ記載する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: 既存のスマートフォン主要環境制約への回帰修正。受入条件や人による利用者試験の閾値を変更・代替しない
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/styles.css
+      - path:docs/design/generated/inventory.gen.json
+    note: route・component構造・データモデルは不変。既存as-built generatorのcheckで差分なしを確認する
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:e2e/detail.spec.ts
+      - path:playwright.config.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 追加回帰例を既存動画詳細E2Eへ置き、PRのChromium2 projectで実行される
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260913-detail-title-overflow.yaml
+    note: 選択されたチェックだけを本YAMLへ記録する
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260913-detail-title-overflow.yaml
+    note: 未選択項目を形式的N/Aとして記録しない
+  - id: REV-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/detail.spec.ts
+    note: FAST-018だけはE2E trigger選択後にCRUD対象外と確認した具体的根拠を記載する
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 狭い3幅で全文・タイトル内のはみ出し・ページ幅・リンクを確認し、PCとmobile contextで詳細ページ全E2Eを検証する
+advisories: []
+residual_risks:
+  - タイトルの字間を通常へ戻すため、既存タイトルの折り返し行数が変わる場合がある。原文、文字サイズ、見出し構造は維持する
+  - 実Chromeとmobile viewportで確認する。物理スマートフォンおよび人による代表5課題の利用者試験は今回の検証で代替しない

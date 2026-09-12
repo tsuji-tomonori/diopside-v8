@@ -158,6 +158,7 @@ selected_checks:
     note: 未選択checkをN/Aとして記録しない。
 advisories: []
 residual_risks:
+  - 前提PR2669の確認済みタイムスタンプ追加を継承し、既存本文・候補hashを保持して集計競合を解消した。差分は前提branchに対し本動画の3ファイルだけとし新HEADのCIを再実行する。
   - 保存済みの独立確認済み候補を採用し、現在mainの既存コンテンツを保持する。
   - "候補hash: 40ce2cf825967627edde92ebcc4af44d4c05152f01b0dc1cac12703bb01a93f0"
   - 現在HEADのCI成功後に所有者の明示依頼に基づきマージする。
