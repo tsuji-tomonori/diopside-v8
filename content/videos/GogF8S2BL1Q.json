@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "6d5f40e6d22a9d9c6ae710b2d636275619130901a68fe0f820ee66532bed51a5"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "b9423a5bc8af322e51f44be1a8176b58449a69d8a9304bdbf3b4a74bc230b52c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10357
     }
   ],
   "tagAssignments": [
@@ -786,5 +794,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴がフルトイの仲間とApex Legendsの「APEX部2434キルリレー」に挑戦。初心者として教わった立ち回りを試し、敵を探して戦いながら、長時間のリレーをつなぐチームワークと率直な反応を見せます。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "今じゃもうなんか私らしくやるか",
+      "atSeconds": 9174,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "b9423a5bc8af322e51f44be1a8176b58449a69d8a9304bdbf3b4a74bc230b52c",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T15:21:27.514990+00:00"
   }
 }
