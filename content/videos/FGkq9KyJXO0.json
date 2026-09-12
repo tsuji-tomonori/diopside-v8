@@ -52,6 +52,14 @@
       "inputFingerprint": "1834e3912282db2f4aa119978d2ba7d7d91eed95a743bb9cb96d734a078b1225",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 7669
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "a35e560a366958dbdeec35cebfde686610ebb9466e35069a0e06d579bb9923bc",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7669
     }
   ],
   "tagAssignments": [
@@ -495,5 +503,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、目前に迫るファンミーティングへ向けた歌やダンスの練習、喉のケア、準備の進み具合を語る作業配信。こける不安や意外な発見、思い出をめぐる話まで、そわそわと笑いが交差する時間を味わえます。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "本当に全員が全員に楽しんでもらいたい",
+      "atSeconds": 4448,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "a35e560a366958dbdeec35cebfde686610ebb9466e35069a0e06d579bb9923bc",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T14:17:45.433822+00:00"
   }
 }
