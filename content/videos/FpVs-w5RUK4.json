@@ -44,6 +44,22 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "46f4ecad3a7359b34697f4c2302be0f2769a836725e4a325973fab6e859bae16"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "cba577e7abfa7953fc8cb5f1d4df2ccec47d77567b321490515e057b0522abf9",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7113
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "公開動画の全編を処理した一時文字起こしの語頻度集計入力",
+      "inputFingerprint": "3611d22f4eaa66c278f2b19cdcb88e39b4a04bad7775cbe78bcc3b12d460b850",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7113
     }
   ],
   "tagAssignments": [
@@ -420,10 +436,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "歌う",
+        "weight": 100
+      },
+      {
+        "term": "すごい",
+        "weight": 66
+      },
+      {
+        "term": "ママ",
+        "weight": 66
+      },
+      {
+        "term": "曲",
+        "weight": 66
+      },
+      {
+        "term": "確か",
+        "weight": 59
+      },
+      {
+        "term": "人",
+        "weight": 57
+      },
+      {
+        "term": "歌",
+        "weight": 56
+      },
+      {
+        "term": "スナック",
+        "weight": 50
+      },
+      {
+        "term": "女",
+        "weight": 48
+      },
+      {
+        "term": "飲む",
+        "weight": 39
+      },
+      {
+        "term": "待つ",
+        "weight": 39
+      },
+      {
+        "term": "分かる",
+        "weight": 38
+      },
+      {
+        "term": "皆さん",
+        "weight": 36
+      },
+      {
+        "term": "次",
+        "weight": 36
+      },
+      {
+        "term": "プレイバック",
+        "weight": 32
+      },
+      {
+        "term": "酒",
+        "weight": 31
+      },
+      {
+        "term": "西",
+        "weight": 29
+      },
+      {
+        "term": "好き",
+        "weight": 27
+      },
+      {
+        "term": "食べる",
+        "weight": 27
+      },
+      {
+        "term": "ソロ",
+        "weight": 24
+      },
+      {
+        "term": "わかる",
+        "weight": 24
+      },
+      {
+        "term": "楽しい",
+        "weight": 22
+      },
+      {
+        "term": "最後",
+        "weight": 20
+      },
+      {
+        "term": "始まる",
+        "weight": 17
+      },
+      {
+        "term": "美味しい",
+        "weight": 17
+      },
+      {
+        "term": "あと",
+        "weight": 14
+      },
+      {
+        "term": "入れる",
+        "weight": 14
+      },
+      {
+        "term": "平成",
+        "weight": 14
+      },
+      {
+        "term": "嬉しい",
+        "weight": 11
+      },
+      {
+        "term": "ゲーム",
+        "weight": 8
+      },
+      {
+        "term": "ずっと",
+        "weight": 8
+      },
+      {
+        "term": "トイレ",
+        "weight": 8
+      },
+      {
+        "term": "はねる",
+        "weight": 8
+      },
+      {
+        "term": "マイク",
+        "weight": 8
+      },
+      {
+        "term": "ラブ",
+        "weight": 8
+      },
+      {
+        "term": "笑う",
+        "weight": 8
+      },
+      {
+        "term": "大好き",
+        "weight": 8
+      },
+      {
+        "term": "大丈夫",
+        "weight": 8
+      },
+      {
+        "term": "北",
+        "weight": 8
+      },
+      {
+        "term": "目",
+        "weight": 8
+      },
+      {
+        "term": "紫",
+        "weight": 5
+      },
+      {
+        "term": "心",
+        "weight": 5
+      },
+      {
+        "term": "前",
+        "weight": 5
+      },
+      {
+        "term": "男",
+        "weight": 5
+      },
+      {
+        "term": "デュエット",
+        "weight": 1
+      },
+      {
+        "term": "パート",
+        "weight": 1
+      },
+      {
+        "term": "会う",
+        "weight": 1
+      },
+      {
+        "term": "楽しみ",
+        "weight": 1
+      },
+      {
+        "term": "乾杯",
+        "weight": 1
+      },
+      {
+        "term": "帰る",
+        "weight": 1
+      }
+    ],
+    "inputType": "運用者提供の公開本文",
+    "inputFingerprint": "3611d22f4eaa66c278f2b19cdcb88e39b4a04bad7775cbe78bcc3b12d460b850",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T09:21:23.454Z"
   },
   "provenance": {
     "inputFingerprint": "1b879f9090d2432e48a5e28efd655ca710a9a1087daea560b76de98554b5bb67",
@@ -435,5 +656,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T20:30:00+09:00",
     "basis": "利用者指示と公開タイトル・承認済みタイムスタンプによる歌枠横断監査で、音楽種別「歌枠」を再承認"
+  },
+  "synopsis": {
+    "body": "綺沙良、白雪巴、竜胆尊、ジョー・力一がスナック気分で集まり、懐かしい歌を次々と披露。曲間には選曲や歌い方、先輩後輩らしい掛け合いも交え、乾杯しながら大人っぽく和やかな時間を楽しむ歌枠です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "できたらまた歌いましょう。",
+      "atSeconds": 6546,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "cba577e7abfa7953fc8cb5f1d4df2ccec47d77567b321490515e057b0522abf9",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T09:20:34.683136+00:00"
   }
 }

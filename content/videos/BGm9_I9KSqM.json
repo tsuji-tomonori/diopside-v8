@@ -44,6 +44,22 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "0f89162eb97c3e2f6d4e5e410cb8585a971b3838303358d87657970a50a37d61"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "8121d278f847cd246951a0a49d6f4881a9c154983ce912020d882a9f7ead4e96",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8045
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "dabeea6b430285229e3786229cef9e42438e986eca9a429cd94da053ecccf830",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8045
     }
   ],
   "tagAssignments": [
@@ -294,10 +310,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "確か",
+        "weight": 100
+      },
+      {
+        "term": "かわいい",
+        "weight": 86
+      },
+      {
+        "term": "すごい",
+        "weight": 80
+      },
+      {
+        "term": "わかる",
+        "weight": 57
+      },
+      {
+        "term": "衣装",
+        "weight": 54
+      },
+      {
+        "term": "実装",
+        "weight": 46
+      },
+      {
+        "term": "みなと",
+        "weight": 41
+      },
+      {
+        "term": "似合う",
+        "weight": 41
+      },
+      {
+        "term": "髪型",
+        "weight": 41
+      },
+      {
+        "term": "かっこいい",
+        "weight": 39
+      },
+      {
+        "term": "絶対",
+        "weight": 39
+      },
+      {
+        "term": "一番",
+        "weight": 37
+      },
+      {
+        "term": "ほら",
+        "weight": 34
+      },
+      {
+        "term": "紫",
+        "weight": 31
+      },
+      {
+        "term": "緑",
+        "weight": 31
+      },
+      {
+        "term": "だいぶ",
+        "weight": 28
+      },
+      {
+        "term": "書く",
+        "weight": 28
+      },
+      {
+        "term": "違う",
+        "weight": 25
+      },
+      {
+        "term": "見える",
+        "weight": 25
+      },
+      {
+        "term": "後ろ",
+        "weight": 22
+      },
+      {
+        "term": "面白い",
+        "weight": 22
+      },
+      {
+        "term": "イメージ",
+        "weight": 18
+      },
+      {
+        "term": "悪い",
+        "weight": 18
+      },
+      {
+        "term": "色",
+        "weight": 18
+      },
+      {
+        "term": "長い",
+        "weight": 18
+      },
+      {
+        "term": "湊",
+        "weight": 18
+      },
+      {
+        "term": "それぞれ",
+        "weight": 14
+      },
+      {
+        "term": "おしゃれ",
+        "weight": 10
+      },
+      {
+        "term": "つける",
+        "weight": 10
+      },
+      {
+        "term": "皆さん",
+        "weight": 10
+      },
+      {
+        "term": "好き",
+        "weight": 10
+      },
+      {
+        "term": "出す",
+        "weight": 10
+      },
+      {
+        "term": "デザイン",
+        "weight": 6
+      },
+      {
+        "term": "パターン",
+        "weight": 6
+      },
+      {
+        "term": "王国",
+        "weight": 6
+      },
+      {
+        "term": "逆",
+        "weight": 6
+      },
+      {
+        "term": "共通",
+        "weight": 6
+      },
+      {
+        "term": "世界",
+        "weight": 6
+      },
+      {
+        "term": "全部",
+        "weight": 6
+      },
+      {
+        "term": "待つ",
+        "weight": 6
+      },
+      {
+        "term": "白",
+        "weight": 6
+      },
+      {
+        "term": "髪",
+        "weight": 6
+      },
+      {
+        "term": "分かる",
+        "weight": 6
+      },
+      {
+        "term": "イラスト",
+        "weight": 1
+      },
+      {
+        "term": "ピエロ",
+        "weight": 1
+      },
+      {
+        "term": "顔",
+        "weight": 1
+      },
+      {
+        "term": "決まる",
+        "weight": 1
+      },
+      {
+        "term": "着る",
+        "weight": 1
+      },
+      {
+        "term": "普通",
+        "weight": 1
+      },
+      {
+        "term": "並ぶ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "8121d278f847cd246951a0a49d6f4881a9c154983ce912020d882a9f7ead4e96",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "423e0369cb456a3604ea935ae0b0c39746a46661e4f83ecd0858c48f8035e511",
@@ -309,5 +530,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T21:05:00+09:00",
     "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  },
+  "synopsis": {
+    "body": "3.5周年を記念して寄せられた共通衣装案を、三人が一枚ずつ鑑賞。季節や世界観、細かな意匠を語り合いながら、それぞれの好みと三人ならではの笑いを交えてグランプリを選ぶ過程を楽しめるコラボ配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "似合いすぎてイラついてきたちょっと",
+      "atSeconds": 5856,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "dabeea6b430285229e3786229cef9e42438e986eca9a429cd94da053ecccf830",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T13:24:53.110757+00:00"
   }
 }

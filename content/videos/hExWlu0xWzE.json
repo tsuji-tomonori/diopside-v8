@@ -44,6 +44,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "55cf6364b4be4cd6e6db78d3baad9dae45c6ba1ac988342c7c49b1ae5fca129c"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "c9a6f2168511276a289bd93442514e1496ecbc21f9df892e4149c325d07d7df4",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 18963
     }
   ],
   "tagAssignments": [
@@ -393,10 +401,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "ラーメン",
+        "weight": 100
+      },
+      {
+        "term": "入れる",
+        "weight": 63
+      },
+      {
+        "term": "行ける",
+        "weight": 59
+      },
+      {
+        "term": "ふん",
+        "weight": 55
+      },
+      {
+        "term": "作る",
+        "weight": 55
+      },
+      {
+        "term": "醤油",
+        "weight": 54
+      },
+      {
+        "term": "頑張る",
+        "weight": 50
+      },
+      {
+        "term": "豚",
+        "weight": 50
+      },
+      {
+        "term": "待つ",
+        "weight": 43
+      },
+      {
+        "term": "スープ",
+        "weight": 38
+      },
+      {
+        "term": "骨",
+        "weight": 33
+      },
+      {
+        "term": "味噌",
+        "weight": 33
+      },
+      {
+        "term": "すごい",
+        "weight": 29
+      },
+      {
+        "term": "直家",
+        "weight": 28
+      },
+      {
+        "term": "魚介",
+        "weight": 26
+      },
+      {
+        "term": "確か",
+        "weight": 25
+      },
+      {
+        "term": "よる",
+        "weight": 24
+      },
+      {
+        "term": "一旦",
+        "weight": 23
+      },
+      {
+        "term": "塩",
+        "weight": 23
+      },
+      {
+        "term": "売れる",
+        "weight": 23
+      },
+      {
+        "term": "さすが",
+        "weight": 19
+      },
+      {
+        "term": "懐かしい",
+        "weight": 19
+      },
+      {
+        "term": "昆布",
+        "weight": 19
+      },
+      {
+        "term": "麺",
+        "weight": 19
+      },
+      {
+        "term": "あと",
+        "weight": 16
+      },
+      {
+        "term": "うわ",
+        "weight": 16
+      },
+      {
+        "term": "人",
+        "weight": 16
+      },
+      {
+        "term": "美味しい",
+        "weight": 16
+      },
+      {
+        "term": "やばい",
+        "weight": 15
+      },
+      {
+        "term": "食べる",
+        "weight": 14
+      },
+      {
+        "term": "トッピング",
+        "weight": 9
+      },
+      {
+        "term": "ほる",
+        "weight": 9
+      },
+      {
+        "term": "伝説",
+        "weight": 9
+      },
+      {
+        "term": "買う",
+        "weight": 9
+      },
+      {
+        "term": "欲しい",
+        "weight": 9
+      },
+      {
+        "term": "卵",
+        "weight": 9
+      },
+      {
+        "term": "違う",
+        "weight": 8
+      },
+      {
+        "term": "魂",
+        "weight": 8
+      },
+      {
+        "term": "博多",
+        "weight": 8
+      },
+      {
+        "term": "お子様",
+        "weight": 7
+      },
+      {
+        "term": "高い",
+        "weight": 7
+      },
+      {
+        "term": "人気",
+        "weight": 7
+      },
+      {
+        "term": "辺",
+        "weight": 7
+      },
+      {
+        "term": "野菜",
+        "weight": 7
+      },
+      {
+        "term": "置く",
+        "weight": 5
+      },
+      {
+        "term": "水",
+        "weight": 4
+      },
+      {
+        "term": "うち",
+        "weight": 2
+      },
+      {
+        "term": "使う",
+        "weight": 2
+      },
+      {
+        "term": "大会",
+        "weight": 2
+      },
+      {
+        "term": "マジ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "c9a6f2168511276a289bd93442514e1496ecbc21f9df892e4149c325d07d7df4",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "5f54eb4604c4010d45d1574dd5546f5e5fcf621bc1387e968f8cc53f10ce312d",
