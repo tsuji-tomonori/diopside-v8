@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "19d65fb9346407b6722253f619934daeaea9e078a220273d37368dce94a044d8"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "75ffc16fa44e7f86f6f49ec9db252e65c51607417e9a2161c98225c0259ffa42",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6269
     }
   ],
   "tagAssignments": [
@@ -288,5 +296,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-23T16:00:00+09:00",
     "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  },
+  "synopsis": {
+    "body": "白雪巴が『8番のりば』で電車内の異変探しに挑戦。乗客や車内の細かな変化を見比べ、違和感を見つけて次の駅へ進みます。怖い演出に驚き、ときに笑いながら観察を重ね、異変の見抜き方を学んでいくホラー実況。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "確かにいいなこのゲーム",
+      "atSeconds": 4562,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "75ffc16fa44e7f86f6f49ec9db252e65c51607417e9a2161c98225c0259ffa42",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:54:37.881733Z"
   }
 }
