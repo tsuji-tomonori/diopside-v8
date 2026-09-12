@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "55069455117a86bc4290ce886958f66aa9263fa1129aad17166a3579842939f4"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "f5c0cb30132f476422d085168b730615941c192d2a11c5080eb5cfe8a3f547c3",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 996
     }
   ],
   "tagAssignments": [
@@ -219,5 +227,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T21:05:00+09:00",
     "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  },
+  "synopsis": {
+    "body": "西園チグサがパーソナリティを務めるラジオに白雪巴を迎え、次のパーソナリティ就任を発表。声を生かした新コーナーや飴と鞭の企画を相談し、リスナーのお便りではゲームで感情的になった時の向き合い方や、色気を感じる仕草を語り合います。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "あんまりまだ実感はわかないなぁ",
+      "atSeconds": 249,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "f5c0cb30132f476422d085168b730615941c192d2a11c5080eb5cfe8a3f547c3",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:39:47.178225+00:00"
   }
 }
