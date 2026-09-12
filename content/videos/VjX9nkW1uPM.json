@@ -52,6 +52,14 @@
       "inputFingerprint": "2679c404ac45f08acec0afb341a413351363ebc91191af23567ee69220bc8f12",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 20574
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "cd5e76028bd29239fe4ff36ff4f1a7fe47c338f5250897d7ec5b1f2082cffa68",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 20574
     }
   ],
   "tagAssignments": [
@@ -657,5 +665,22 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T21:05:00+09:00",
     "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  },
+  "synopsis": {
+    "body": "誕生日を迎えたリゼ・ヘルエスタが、25人への逆凸を目指して深夜まで電話をつなぐ記念配信。先輩後輩や初対面の相手とも、歌、食べ物、趣味、近況などのお題を手がかりに会話を広げ、思いがけない反応に笑い声を重ねていく。にぎやかな祝福と自然体の交流を味わえる。",
+    "bodyEvidenceRefs": [
+      "evidence-title",
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "メイクしたまま寝てたので助かりました",
+      "atSeconds": 19032,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "cd5e76028bd29239fe4ff36ff4f1a7fe47c338f5250897d7ec5b1f2082cffa68",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T21:06:42.485136+00:00"
   }
 }
