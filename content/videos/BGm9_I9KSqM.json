@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "0f89162eb97c3e2f6d4e5e410cb8585a971b3838303358d87657970a50a37d61"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "dabeea6b430285229e3786229cef9e42438e986eca9a429cd94da053ecccf830",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8045
     }
   ],
   "tagAssignments": [
@@ -309,5 +317,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T21:05:00+09:00",
     "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  },
+  "synopsis": {
+    "body": "3.5周年を記念して寄せられた共通衣装案を、三人が一枚ずつ鑑賞。季節や世界観、細かな意匠を語り合いながら、それぞれの好みと三人ならではの笑いを交えてグランプリを選ぶ過程を楽しめるコラボ配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "似合いすぎてイラついてきたちょっと",
+      "atSeconds": 5856,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "dabeea6b430285229e3786229cef9e42438e986eca9a429cd94da053ecccf830",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T13:24:53.110757+00:00"
   }
 }
