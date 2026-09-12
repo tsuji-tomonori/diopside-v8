@@ -52,6 +52,14 @@
       "inputFingerprint": "951871b26417b17ee5aa174248b3eca24661b834ae82a30fa5b1af385fcf5640",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 12415
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "0ce0e52090f7c57ebfe4b847710ee388e13302c6e502c655a4d4e7e0d629d565",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 12415
     }
   ],
   "tagAssignments": [
@@ -675,5 +683,23 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "「ブルーアーカイブ」で初めてメインストーリーを読み進める白雪巴。アビドスの生徒たちをめぐる会話と戦闘に向き合い、セリカの救出や借金問題、便利屋68との騒動を追いながら、キャラクターへの驚きや愛着を深めていく配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-title",
+      "evidence-approved-timestamps",
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ありがとう大人の力ってすごい",
+      "atSeconds": 1535,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "0ce0e52090f7c57ebfe4b847710ee388e13302c6e502c655a4d4e7e0d629d565",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T19:52:09.350609+00:00"
   }
 }
