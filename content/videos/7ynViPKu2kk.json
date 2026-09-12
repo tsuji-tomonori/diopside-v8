@@ -52,6 +52,14 @@
       "inputFingerprint": "09c66255fc602699fec380957ccb8d742ef8fb2d1f6efebda130a08d600f945e",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 9726
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "3af02a8f703ffeaee584e672c67e7a1f1d86c6a22f1570bf43424c278c0fb8ae",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9726
     }
   ],
   "tagAssignments": [
@@ -522,5 +530,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が雑談を交えながら、新衣装や衣装差分、撮影会の話を振り返る。公開したオリジナル曲への反響や制作の思い、今後の企画を語り、後半はスーパーチャットを読みながら視聴者とゆっくり交流する配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "どれも本当に大切な服だから",
+      "atSeconds": 2817,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "3af02a8f703ffeaee584e672c67e7a1f1d86c6a22f1570bf43424c278c0fb8ae",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T12:55:58.043828+00:00"
   }
 }
