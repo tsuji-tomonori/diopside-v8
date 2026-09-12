@@ -47,6 +47,7 @@ AUDIT_SCRIPTS = ROOT / ".agents/skills/audit-stream-chapters/scripts"
 HARNESS_SCRIPTS = ROOT / ".agents/skills/run-timestamp-work-harness/scripts"
 sys.path.insert(0, str(TIMESTAMP_SCRIPTS))
 from timestamp_common import eligibility, load_canonical_videos  # noqa: E402
+from devflow_cleanup import cleanup_completed_batch, completed_root  # noqa: E402
 
 TERMINAL = {"complete", "blocked"}
 WAVE_TERMINAL = TERMINAL | {"deferred_recovery"}
@@ -236,6 +237,7 @@ def initialize_manifest(
     destination.mkdir(parents=True)
     (destination / "items").mkdir()
     atomic_json(destination / "manifest.json", manifest)
+    atomic_json(destination / "cleanup-owner.json", {"batchId": batch_id, "manifestHash": manifest["manifestHash"], "version": 1})
     now = datetime.now().astimezone().isoformat()
     for selected_item in selected:
         item = {
@@ -407,7 +409,9 @@ def command_checkpoint_campaign(args: argparse.Namespace) -> dict[str, Any]:
     manifest = load_campaign_manifest(args.campaign_id)
     batches: list[dict[str, Any]] = []
     prefix = f"{args.campaign_id}-w"
-    for destination in sorted(RUN_ROOT.glob(f"{prefix}*-l*")):
+    destinations = {p.name for base in (RUN_ROOT, completed_root(RUN_ROOT)) for p in base.glob(f"{prefix}*-l*")}
+    for name in sorted(destinations):
+        destination = batch_dir(name)
         if not destination.is_dir() or not (destination / "manifest.json").exists():
             continue
         batch_manifest = load_manifest(destination.name)
@@ -2387,6 +2391,7 @@ def command_record_push(args: argparse.Namespace) -> dict[str, Any]:
         raise HarnessError("正本化と検証後のpushだけを記録できます。")
     item["stage"] = "sheet_pending"
     item["commit"] = args.commit
+    item["remoteBranch"] = (item.get("claim") or {}).get("branch") or f"agent/timestamps-{args.video_id}"
     write_item(args.batch_id, item)
     return {"videoId": args.video_id, "stage": "sheet_pending", "commit": args.commit}
 
@@ -2470,6 +2475,8 @@ def command_plan_sheet_update(args: argparse.Namespace) -> dict[str, Any]:
 def command_verify_sheet_update(args: argparse.Namespace) -> dict[str, Any]:
     snapshot = read_json(args.snapshot)
     manifest = load_manifest(args.batch_id)
+    if snapshot.get("spreadsheetId") != manifest["spreadsheetId"] or snapshot.get("sheetName") != manifest["sheetName"]:
+        raise HarnessError("再読したspreadsheetまたはsheetがmanifestと一致しません。")
     verified = []
     for video_id in manifest["videoIds"]:
         item = load_item(args.batch_id, video_id)
@@ -2484,7 +2491,7 @@ def command_verify_sheet_update(args: argparse.Namespace) -> dict[str, Any]:
             continue
         _, row, current_hash = snapshot_row(snapshot, item["rowNumber"])
         desired = desired_sheet_values(item, args.date)
-        if any(str(row.get(header) or "") != str(value) for header, value in desired.items()):
+        if row.get("動画ID") != video_id or any(str(row.get(header) or "") != str(value) for header, value in desired.items()):
             continue
         item["rowHash"] = current_hash
         if item["stage"] == "deferred_recovery":
@@ -2495,7 +2502,8 @@ def command_verify_sheet_update(args: argparse.Namespace) -> dict[str, Any]:
             item["stage"] = "complete"
         write_item(args.batch_id, item)
         verified.append(video_id)
-    return {"batchId": args.batch_id, "verified": verified, "status": command_status(args)}
+    cleanup = cleanup_completed_batch(ROOT, RUN_ROOT, args.batch_id)
+    return {"batchId": args.batch_id, "verified": verified, "cleanup": cleanup, "status": command_status(args)}
 
 
 def parser() -> argparse.ArgumentParser:
