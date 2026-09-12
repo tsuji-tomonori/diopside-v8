@@ -52,6 +52,14 @@
       "inputFingerprint": "f0394cee2a50a52263ba09eef64feb0b4513317cefe279ae00a923a90a66bc52",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 6992
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "1d8a4fe8231a797109334f857bd0b8b8f03e4f32946eef750de18c87b20b8071",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6992
     }
   ],
   "tagAssignments": [
@@ -495,5 +503,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が初めての縦型配信に挑み、近距離のお姉さんトークで視聴者と会話。携帯電話の思い出や国内の店で海外客と英語でやり取りした体験、手術や薬の話を振り返り、後半はワインやビールなど好きなお酒を語ります。コメントを拾いながら距離感と雑談を楽しむ一編です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "逆にドキドキしてもらえなかったらちょっと寂しい",
+      "atSeconds": 5389,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "1d8a4fe8231a797109334f857bd0b8b8f03e4f32946eef750de18c87b20b8071",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T14:17:57.586807+00:00"
   }
 }
