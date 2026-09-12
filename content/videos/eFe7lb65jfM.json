@@ -46,6 +46,14 @@
       "inputFingerprint": "b7cf4caeb6054fa671a07f716b6adc6c39a4a66d33c45929af8a10beb62f791e",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 598
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "f99de2a01cecb92e39a3fcd3125790db46cc916535931e66785ddabcc6247314",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 598
     }
   ],
   "tagAssignments": [
@@ -408,5 +416,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴がパーソナリティを務めるラジオで、夏の過ごし方や家庭菜園の話からスタート。ゲストを迎え、衣装のこだわりやファンからのお便りを通じて、二人の共通点と微笑ましいエピソードを語り合います。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "一張羅なんですよ",
+      "atSeconds": 188,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "f99de2a01cecb92e39a3fcd3125790db46cc916535931e66785ddabcc6247314",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:51:41.175410+00:00"
   }
 }
