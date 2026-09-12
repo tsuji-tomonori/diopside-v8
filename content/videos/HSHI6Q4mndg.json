@@ -52,6 +52,14 @@
       "inputFingerprint": "fa3917d4815afb7f0971a3778aac29365a06cad4418ecc9e9afe92d423915268",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 20393
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "5bca44f2451567f31b75ca9519285ac672d0490583164cacc5130247294b61cb",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 20393
     }
   ],
   "tagAssignments": [
@@ -576,5 +584,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴がホラーゲーム『Shadow Corridor 2』を中級難度でプレイするシリーズ最終回。雨の降る異界を探索し、限られたアイテムをやりくりしながら、迫る影を避けて隠れ、逃げる。道に迷い、驚き、物語へ感情移入しながら、しぐれをめぐる謎の先へ進むゲーム実況。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "実はお化けに会いたかったりします",
+      "atSeconds": 541,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "5bca44f2451567f31b75ca9519285ac672d0490583164cacc5130247294b61cb",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T20:06:29.532570+00:00"
   }
 }
