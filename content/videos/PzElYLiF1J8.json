@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "94af372f948a46a3f38c4c252d3ea1f71a2ec31f5732dfc2dd9bc16c318a4c14"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "保存済み全編字幕（0秒〜732秒）",
+      "inputFingerprint": "ff5dda652374887b0380ed086aedf8213d1ec325b1a8b38c456bac26630dc10f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 732
     }
   ],
   "tagAssignments": [
@@ -273,5 +281,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T11:35:43Z",
     "basis": "公開タイトルの3D共通衣装お披露目を再確認し、ユーザー指示に基づく新衣装お披露目タグの欠落修正を承認。"
+  },
+  "synopsis": {
+    "body": "夜王国のグウェル・オス・ガール、白雪巴、不破湊が、待望の共通3D衣装をお披露目。モデルの動きや見た目を眺めて喜びを語った後、ティラノサウルス姿でシャトルランに挑みます。4周年や過去の企画を振り返る雑談と、速度に翻弄される三人の掛け合いを楽しめる配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ティラノサウルスでも優雅だと思わない",
+      "atSeconds": 504,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "ff5dda652374887b0380ed086aedf8213d1ec325b1a8b38c456bac26630dc10f",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:25:51.840002+00:00"
   }
 }
