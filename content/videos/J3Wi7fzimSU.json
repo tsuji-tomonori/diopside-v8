@@ -52,6 +52,14 @@
       "inputFingerprint": "41782f0958d2aa646759ad7218852c4d052d8350d9c5e2ce524b40f271e79a53",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 8458
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "ed182edf78f6bbcd4fc07218aefd894fb4e9ad7312f6ed07e9011ae863f4b97c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8458
     }
   ],
   "tagAssignments": [
@@ -531,5 +539,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴がゆあま先生を迎えた百合漫画家対談コラボで、作品との出会いや創作の原点、キャラクターの作り方、感情表現と演出を語り合います。質問を通じて好みや制作の工夫を掘り下げ、紙と電子の読み方やイメージソング、セリフ読みまで広がる濃密な交流です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "今回もどの質問にしようかめちゃくちゃ悩みました",
+      "atSeconds": 159,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "ed182edf78f6bbcd4fc07218aefd894fb4e9ad7312f6ed07e9011ae863f4b97c",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:23:28.894536+00:00"
   }
 }
