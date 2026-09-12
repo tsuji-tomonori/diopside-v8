@@ -52,6 +52,14 @@
       "inputFingerprint": "985c464a741b1a64bc50d4e348e637998d116cee35afd1e23f0d4c915194a9f6",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 14222
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "3cc5d900c257c2038d7efaca581ed234f3bb5e3d254e4f7e043199fdbd6f8127",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 14222
     }
   ],
   "tagAssignments": [
@@ -540,5 +548,22 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴がDead by Daylightで、仲間の位置を把握できるドワイトを軸に、パークの効果や連携を確かめながら複数の試合へ挑む。発電機の修理や救助、チェイスの判断をめぐって、状況に応じた立ち回りを考え、視聴者との会話と軽快な反応を交えつつ深夜まで配信を進めていく。",
+    "bodyEvidenceRefs": [
+      "evidence-title",
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "仲間の位置が分かるらしい",
+      "atSeconds": 104,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "3cc5d900c257c2038d7efaca581ed234f3bb5e3d254e4f7e043199fdbd6f8127",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T20:26:48.980517+00:00"
   }
 }
