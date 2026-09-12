@@ -52,6 +52,14 @@
       "inputFingerprint": "08aedb805539f2b9b6bafc22aa34454266e488341f937b080a66c32275eafe9d",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 6384
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "0c81bc18df871cea7cccb3e356e661ca0a9ca336097993f59c09eb4887acdbcb",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6384
     }
   ],
   "tagAssignments": [
@@ -486,5 +494,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "大会を翌日に控えた白雪巴が、SUPER BOMBERMAN R2のバトル64を中心に、操作やアイテムの扱いを確かめながら実戦練習。爆風に慌て、時に大胆に仕掛けつつ、得意の「逃げる」作戦で生き残る道を探り、明日の本番へ備えていく配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私はネズミじゃない",
+      "atSeconds": 1121,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "0c81bc18df871cea7cccb3e356e661ca0a9ca336097993f59c09eb4887acdbcb",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T14:01:30.383912+00:00"
   }
 }
