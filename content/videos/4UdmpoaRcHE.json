@@ -87,10 +87,77 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-4629b7fd",
+        "startSeconds": 0,
+        "label": "タクシー運転手に仕事を誤解された話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-18-882c5591",
+        "startSeconds": 18,
+        "label": "行き先を聞かれ仕事を言えず気まずくなる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-63-2e0fea56",
+        "startSeconds": 63,
+        "label": "タクシーでの気まずい体験を振り返る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "78d4540b73dbeb3a4a29cdbc65cb9a55e5fb8b8599efa18a9111d22a7afac34a",
+    "inputFingerprint": "a6b6457b75d7474eeaf1f8037ca62a2e6dd5c14b7a1ecd81800641a69e1c9957",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-12T08:55:14.267000+00:00",
+    "updatedAt": "2026-09-12T09:13:59.043000+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "78d4540b73dbeb3a4a29cdbc65cb9a55e5fb8b8599efa18a9111d22a7afac34a",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T09:13:58.043000+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "78d4540b73dbeb3a4a29cdbc65cb9a55e5fb8b8599efa18a9111d22a7afac34a",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T09:13:59.043000+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "78d4540b73dbeb3a4a29cdbc65cb9a55e5fb8b8599efa18a9111d22a7afac34a",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2565"
+      }
+    }
   },
   "wordCloud": {
     "status": "未作成",
@@ -102,7 +169,7 @@
     "inputFingerprint": "8cb9c1929c8812dcbf0e57e21e60bf460c405eb68b49e58ddc18f4d9a6105ed0",
     "generatorVersion": "v8-legacy-migration-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2565"
   },
   "approval": {
     "status": "承認済み",
