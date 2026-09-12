@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "85b4b50dca2f98a78229f44c926577e813a00f9135fc9dc47100a25d6012660f"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "dbca55b792b5bff997ec2ae9a560e5025f184d987955bd86f1c8aaa2bfc6b82f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 103
     }
   ],
   "tagAssignments": [
@@ -319,5 +327,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "控え室で文野環と合流した白雪巴が、眠そうに現れた相手との距離を少しずつ縮めていく様子を振り返る。気遣いから始まる会話が、思いがけない甘え方への驚きと愛らしさの実感へ変わっていく、短いエピソードです。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "めっちゃ可愛いけどめっちゃふてぶてしくないこの猫って思って",
+      "atSeconds": 69,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "dbca55b792b5bff997ec2ae9a560e5025f184d987955bd86f1c8aaa2bfc6b82f",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T08:59:50.179149+00:00"
   }
 }
