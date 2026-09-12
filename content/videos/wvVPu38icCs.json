@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "4458ddebabcdc24f705f34767460c30d12794d0cbd99e13d691e618da104f4ea"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "8a41a16939ef48d3740f3c90c171820b318c1451d30a8f237d7f230664a8510d",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3495
     }
   ],
   "tagAssignments": [
@@ -276,10 +284,191 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "確か",
+        "weight": 100
+      },
+      {
+        "term": "月",
+        "weight": 86
+      },
+      {
+        "term": "ゲーム",
+        "weight": 78
+      },
+      {
+        "term": "半年",
+        "weight": 73
+      },
+      {
+        "term": "人",
+        "weight": 69
+      },
+      {
+        "term": "すごい",
+        "weight": 63
+      },
+      {
+        "term": "企画",
+        "weight": 52
+      },
+      {
+        "term": "大会",
+        "weight": 52
+      },
+      {
+        "term": "違う",
+        "weight": 46
+      },
+      {
+        "term": "前",
+        "weight": 46
+      },
+      {
+        "term": "コラボ",
+        "weight": 39
+      },
+      {
+        "term": "デビュー",
+        "weight": 39
+      },
+      {
+        "term": "頑張る",
+        "weight": 39
+      },
+      {
+        "term": "使う",
+        "weight": 39
+      },
+      {
+        "term": "視聴",
+        "weight": 39
+      },
+      {
+        "term": "時間",
+        "weight": 39
+      },
+      {
+        "term": "配信",
+        "weight": 39
+      },
+      {
+        "term": "やばい",
+        "weight": 31
+      },
+      {
+        "term": "悪い",
+        "weight": 31
+      },
+      {
+        "term": "王国",
+        "weight": 31
+      },
+      {
+        "term": "変わる",
+        "weight": 31
+      },
+      {
+        "term": "練習",
+        "weight": 31
+      },
+      {
+        "term": "わかる",
+        "weight": 22
+      },
+      {
+        "term": "皆さん",
+        "weight": 22
+      },
+      {
+        "term": "記念",
+        "weight": 22
+      },
+      {
+        "term": "集まる",
+        "weight": 22
+      },
+      {
+        "term": "切り抜き",
+        "weight": 22
+      },
+      {
+        "term": "絶対",
+        "weight": 22
+      },
+      {
+        "term": "話",
+        "weight": 22
+      },
+      {
+        "term": "どうぞ",
+        "weight": 12
+      },
+      {
+        "term": "夏",
+        "weight": 12
+      },
+      {
+        "term": "気づく",
+        "weight": 12
+      },
+      {
+        "term": "逆",
+        "weight": 12
+      },
+      {
+        "term": "最後",
+        "weight": 12
+      },
+      {
+        "term": "次",
+        "weight": 12
+      },
+      {
+        "term": "先",
+        "weight": 12
+      },
+      {
+        "term": "喋る",
+        "weight": 12
+      },
+      {
+        "term": "目",
+        "weight": 12
+      },
+      {
+        "term": "お披露目",
+        "weight": 1
+      },
+      {
+        "term": "マジ",
+        "weight": 1
+      },
+      {
+        "term": "家",
+        "weight": 1
+      },
+      {
+        "term": "気",
+        "weight": 1
+      },
+      {
+        "term": "最初",
+        "weight": 1
+      },
+      {
+        "term": "作る",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "8a41a16939ef48d3740f3c90c171820b318c1451d30a8f237d7f230664a8510d",
+    "exclusionRulesVersion": "9.2.0+editorial.1",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "07e5f0ed2f9c81d39e1a2bcefb80e4e35799df28d21cde6a375f9e9717cbfa6c",
