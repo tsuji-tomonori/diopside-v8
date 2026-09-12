@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "077421c54caeff678c7482f29f9fcb6d58275eddd92ce7dabd7a334a112803ad"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "017d1a3ffa56cd097ee1a63802b9a994860d1db33d0fbc4d7e98e248b25d0dfb",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 13800
     }
   ],
   "tagAssignments": [
@@ -847,5 +855,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:20:56+09:00",
     "basis": "利用者指示と公開タイトル・YouTube公開情報・コンビ出典を基に、人物名・ユニットタグの付与漏れを横断是正"
+  },
+  "synopsis": {
+    "body": "白雪巴はコラボ相手と、翌日のフェスに備えてスプラトゥーンに挑戦。試合の勝敗やキル数に応じて筋トレを課すルールのもと、久々の操作に苦戦しながらも、作戦を相談し、声を掛け合い、勝負のたびに一喜一憂します。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私はスプラ上手くなりたいんだ",
+      "atSeconds": 6045,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "017d1a3ffa56cd097ee1a63802b9a994860d1db33d0fbc4d7e98e248b25d0dfb",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T13:45:15.535794+00:00"
   }
 }
