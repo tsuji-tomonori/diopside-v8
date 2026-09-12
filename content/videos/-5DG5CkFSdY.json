@@ -40,6 +40,14 @@
       "inputFingerprint": "df35debc35239e77bee097165333c6123641f6a1575fb5fe74b1653ccb945118",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 20050
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "2e3d5249daa9ed423c9c5f56617285bea6dd122920f8bbb3cb53e438ea884af7",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 20050
     }
   ],
   "tagAssignments": [
@@ -433,5 +441,22 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T15:38:33Z",
     "basis": "ユーザーの追加対応指示に基づく公開メタデータ・既存taxonomy・匿名絵文字集計の確認"
+  },
+  "synopsis": {
+    "body": "最終話では、都市伝説解体センターに持ち込まれた謎を追い、散らばった資料や証言を手がかりに、ジャスミンとイルミナカードをめぐる出来事へ踏み込む。白雪巴が推理を重ね、予想を揺さぶられながら物語の核心へ近づいていく長時間の初見プレイを味わえる。",
+    "bodyEvidenceRefs": [
+      "evidence-title",
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ソワソワ感結構好きなんだけど",
+      "atSeconds": 2163,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "2e3d5249daa9ed423c9c5f56617285bea6dd122920f8bbb3cb53e438ea884af7",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T20:51:02.521057+00:00"
   }
 }
