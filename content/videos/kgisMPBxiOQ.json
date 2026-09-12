@@ -1,0 +1,571 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "kgisMPBxiOQ",
+  "title": "【新幹線0号】ん？この新幹線、何かがおかしい‥んなことないか！！！！【白雪 巴/にじさんじ】",
+  "publishedAt": "2024-03-29T15:37:16Z",
+  "durationSeconds": 8865,
+  "durationIso": "PT2H27M45S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/kgisMPBxiOQ/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=kgisMPBxiOQ",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "baf8eb95804894e44be00dea4c9d82a03228f7377b190643322a481f6be06ab1"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "3da6b92b81c077e01785d31b3b70145ae1c4e9ddc23db872949be427834b8bf5"
+    },
+    {
+      "evidenceId": "evidence-approved-tags",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "旧diopsideの承認済みタグ正本",
+      "inputFingerprint": "2cd9d0e7b468ca151593ca66dbb28e6a74791ca61ffaecb7e93ba3ad38b9d460"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "e50fd0febd895e350767256953b6a20b391727a8d743c843e705e38fc20bd877"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "3343169510d7aba20527205d1daa77cfbcb7f55af61aab0e591271490038f571",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8865
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-4b0450cf1d84",
+      "reason": "公開タイトルまたは既存タグからゲーム作品「新幹線0号」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-1cc53dc4a37d",
+      "reason": "既存分類と作品名からゲームジャンル「ホラー」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-62278ec71bd0",
+      "reason": "既存分類と作品名からゲームジャンル「アクション」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-dfae2572",
+        "startSeconds": 0,
+        "label": "配信導入・プレイ準備",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-245-b8202b85",
+        "startSeconds": 245,
+        "label": "新幹線車内のチュートリアル",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-565-afa7ea39",
+        "startSeconds": 565,
+        "label": "普通車で異変探し",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1491-01cfd022",
+        "startSeconds": 1491,
+        "label": "0号車を目指す初回プレイ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1930-eac2390a",
+        "startSeconds": 1930,
+        "label": "セカンドステージのルール",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2147-d0b85f55",
+        "startSeconds": 2147,
+        "label": "セカンドステージの車内探索",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3470-81e1675b",
+        "startSeconds": 3470,
+        "label": "重力の異変とリセット",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3597-491b71ce",
+        "startSeconds": 3597,
+        "label": "リセット後の異変探し",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4093-0e7986fd",
+        "startSeconds": 4093,
+        "label": "赤青ルールに挑戦",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4222-32462a04",
+        "startSeconds": 4222,
+        "label": "再挑戦で車内を再確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5354-abaa7b4b",
+        "startSeconds": 5354,
+        "label": "高速探索への切り替え",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5638-29e02d4f",
+        "startSeconds": 5638,
+        "label": "最終車両への進行",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6071-855bd1c1",
+        "startSeconds": 6071,
+        "label": "0号車での最終確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6300-70a815d2",
+        "startSeconds": 6300,
+        "label": "停止後の車内探索",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6511-38a48f07",
+        "startSeconds": 6511,
+        "label": "列車の事情を聞く",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7063-7982e4f7",
+        "startSeconds": 7063,
+        "label": "エンディング・クレジット",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7444-74c79d8a",
+        "startSeconds": 7444,
+        "label": "本編後の感想と追加確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7682-5591f3b6",
+        "startSeconds": 7682,
+        "label": "追加ルートを試す",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8008-e5d5efdd",
+        "startSeconds": 8008,
+        "label": "ゲームの感想と考察",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8369-4adce814",
+        "startSeconds": 8369,
+        "label": "次回配信の告知",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8386-92e05bf7",
+        "startSeconds": 8386,
+        "label": "スーパーチャット読み",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8831-7652505b",
+        "startSeconds": 8831,
+        "label": "締めの挨拶",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "faef702a264d49f620e55e27f08a251c559ba492b7f223fe9351ed40cc18b076",
+    "inputFingerprint": "e50fd0febd895e350767256953b6a20b391727a8d743c843e705e38fc20bd877",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-17T17:07:21Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "faef702a264d49f620e55e27f08a251c559ba492b7f223fe9351ed40cc18b076",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "faef702a264d49f620e55e27f08a251c559ba492b7f223fe9351ed40cc18b076",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "words": [
+      {
+        "term": "大丈夫",
+        "weight": 100
+      },
+      {
+        "term": "異変",
+        "weight": 88
+      },
+      {
+        "term": "人",
+        "weight": 85
+      },
+      {
+        "term": "姉さん",
+        "weight": 79
+      },
+      {
+        "term": "怖い",
+        "weight": 71
+      },
+      {
+        "term": "やばい",
+        "weight": 63
+      },
+      {
+        "term": "新幹線",
+        "weight": 56
+      },
+      {
+        "term": "すごい",
+        "weight": 54
+      },
+      {
+        "term": "待つ",
+        "weight": 53
+      },
+      {
+        "term": "グリーン",
+        "weight": 44
+      },
+      {
+        "term": "号車",
+        "weight": 43
+      },
+      {
+        "term": "終わる",
+        "weight": 36
+      },
+      {
+        "term": "戻る",
+        "weight": 34
+      },
+      {
+        "term": "進む",
+        "weight": 32
+      },
+      {
+        "term": "男の子",
+        "weight": 28
+      },
+      {
+        "term": "椅子",
+        "weight": 24
+      },
+      {
+        "term": "確か",
+        "weight": 24
+      },
+      {
+        "term": "無理",
+        "weight": 24
+      },
+      {
+        "term": "ゲーム",
+        "weight": 22
+      },
+      {
+        "term": "トイレ",
+        "weight": 22
+      },
+      {
+        "term": "気",
+        "weight": 22
+      },
+      {
+        "term": "弟",
+        "weight": 22
+      },
+      {
+        "term": "変わる",
+        "weight": 22
+      },
+      {
+        "term": "スネイプ",
+        "weight": 19
+      },
+      {
+        "term": "わかる",
+        "weight": 19
+      },
+      {
+        "term": "一緒",
+        "weight": 19
+      },
+      {
+        "term": "びっくり",
+        "weight": 17
+      },
+      {
+        "term": "先生",
+        "weight": 17
+      },
+      {
+        "term": "分かる",
+        "weight": 17
+      },
+      {
+        "term": "ほら",
+        "weight": 14
+      },
+      {
+        "term": "座る",
+        "weight": 14
+      },
+      {
+        "term": "最後",
+        "weight": 14
+      },
+      {
+        "term": "うわ",
+        "weight": 11
+      },
+      {
+        "term": "とこ",
+        "weight": 11
+      },
+      {
+        "term": "兄さん",
+        "weight": 11
+      },
+      {
+        "term": "届く",
+        "weight": 11
+      },
+      {
+        "term": "お化け",
+        "weight": 8
+      },
+      {
+        "term": "ずっと",
+        "weight": 8
+      },
+      {
+        "term": "ループ",
+        "weight": 8
+      },
+      {
+        "term": "間違える",
+        "weight": 8
+      },
+      {
+        "term": "普通",
+        "weight": 8
+      },
+      {
+        "term": "変",
+        "weight": 8
+      },
+      {
+        "term": "いつも",
+        "weight": 5
+      },
+      {
+        "term": "気づく",
+        "weight": 5
+      },
+      {
+        "term": "窓",
+        "weight": 5
+      },
+      {
+        "term": "ごめん",
+        "weight": 1
+      },
+      {
+        "term": "たつ",
+        "weight": 1
+      },
+      {
+        "term": "残り",
+        "weight": 1
+      },
+      {
+        "term": "天井",
+        "weight": 1
+      },
+      {
+        "term": "列車",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "3343169510d7aba20527205d1daa77cfbcb7f55af61aab0e591271490038f571",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
+  },
+  "provenance": {
+    "inputFingerprint": "39f93120727b27f51d57e5c405b15727bcae6518de9a7352935e472bc2607192",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  }
+}
