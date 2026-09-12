@@ -9,7 +9,7 @@ import { aggregateWordCloud } from '../scripts/aggregate-word-cloud.ts';
 const gzipAsync = promisify(gzip);
 
 describe('公開コメント・チャットのワードクラウド候補集計', () => {
-  it('字幕では非発話マーカーと頻出のつなぎ言葉を除き、実際の入力種別を保持する', async () => {
+  it.each(['公開字幕', '運用者提供の公開本文'] as const)('%sでは非発話マーカーと頻出のつなぎ言葉を除き、実際の入力種別を保持する', async (inputType) => {
     const directory = await mkdtemp(path.join(os.tmpdir(), 'diopside-word-cloud-captions-'));
     const inputPath = path.join(directory, 'captions.jsonl');
     const text = '最高 かわいい 面白い 神回 天才 配信 実況 ゲーム 爆笑 感動 コラボ 歌声 雑談 反応 初見 驚き 優しい 企画 衣装 物語 応援 待機 解説 挑戦';
@@ -19,10 +19,10 @@ describe('公開コメント・チャットのワードクラウド候補集計'
       JSON.stringify({ text: '音楽' }),
     ].join('\n'), 'utf8');
     try {
-      const candidate = await aggregateWordCloud(inputPath, '公開字幕', '2026-09-12T00:00:00Z');
-      const repeated = await aggregateWordCloud(inputPath, '公開字幕', '2026-09-12T00:00:00Z');
+      const candidate = await aggregateWordCloud(inputPath, inputType, '2026-09-12T00:00:00Z');
+      const repeated = await aggregateWordCloud(inputPath, inputType, '2026-09-12T00:00:00Z');
       const words = candidate.words.map((word) => word.term);
-      expect(candidate.inputType).toBe('公開字幕');
+      expect(candidate.inputType).toBe(inputType);
       expect(candidate.rulesVersion).toBe('9.2.0');
       expect(candidate.humanReview).toBe('確認待ち');
       expect(candidate.words.length).toBeGreaterThanOrEqual(20);
