@@ -52,6 +52,14 @@
       "inputFingerprint": "881c7c39c04c962e1045591d849a08279e651b0f94086c76693bb83b8f5fc073",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 12759
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "848e3471e85652b3166a1c27a58244045d8f59a63624a258e56f7b5a38f51b6b",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 12759
     }
   ],
   "tagAssignments": [
@@ -468,5 +476,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が朝から「早押し！3ヒントクイズ」に挑戦。120問の常識問題を、時間経過で増えるヒントから推理し、視聴者と一緒に答えを考えます。漢字ドリルに続く脳トレとして、動物やスポーツなど幅広い話題を楽しく学ぶ配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "すごいみんな物知りだな本当に",
+      "atSeconds": 7331,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "848e3471e85652b3166a1c27a58244045d8f59a63624a258e56f7b5a38f51b6b",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T10:21:36.997108+00:00"
   }
 }
