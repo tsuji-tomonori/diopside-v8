@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "b20e78afbed5f1c3895e75313d0b6ebcb204f57a0c9224e1e419c242a634083f"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "d8880c6ef740760a58051db229f8aa6178209926299102b7eda8278038a29439",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8109
     }
   ],
   "tagAssignments": [
@@ -273,5 +281,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-25T23:00:00+09:00",
     "basis": "ユーザー指示に基づく「いっ杯晩酌」の定期・連続企画への分類補正と公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が晩酌しながら、過去の恋愛や日々の出来事をゆっくり語る雑談配信。視聴者から寄せられた話題にも耳を傾け、経験や考えを率直に言葉にしながら、笑いを交えてお姉さんらしいトークを届けます。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "1人だって生きてけるもん楽しいもん",
+      "atSeconds": 8044,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "d8880c6ef740760a58051db229f8aa6178209926299102b7eda8278038a29439",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:53:39.149829Z"
   }
 }
