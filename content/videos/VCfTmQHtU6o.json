@@ -1,0 +1,517 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "VCfTmQHtU6o",
+  "title": "【Dark Deception】だ～る～ま～さんがこ～ろ～ん～だ【白雪 巴/にじさんじ】",
+  "publishedAt": "2020-10-11T17:11:11Z",
+  "durationSeconds": 11470,
+  "durationIso": "PT3H11M10S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/VCfTmQHtU6o/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=VCfTmQHtU6o",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "4612a07bb17c4e655eee69defadf04b86eae22b3bad0a7c34bf9b6c973b0ea48"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "20eea6b7779118931bb9c98e44aac6819c4d560e80cf84d66609389870e64622"
+    },
+    {
+      "evidenceId": "evidence-approved-tags",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "旧diopsideの承認済みタグ正本",
+      "inputFingerprint": "be8b165be8354995b6cdf406708e163d45bb4a65e98ce517b976f1bbb4370f7c"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "5b580f94224468cb762df69105e9b5c2c3d7cb8b4a9b3e9e799b4264c61f3a17"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "b86a8e4548bbe3bc4203ab48e5a8688d1e1f5af6268737abb5b78440c98eaa3f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 11470
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトルと既存分類から主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-64d688b5640c",
+      "reason": "公開タイトルまたは既存タグからゲーム作品「Dark Deception」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-1cc53dc4a37d",
+      "reason": "既存分類と作品名からゲームジャンル「ホラー」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-9796af29a119",
+      "reason": "既存分類と作品名からゲームジャンル「サンドボックス」を確認",
+      "confidence": "中",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-d9488e5a",
+        "startSeconds": 0,
+        "label": "配信開始・ゲーム準備",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-171-fb9ef216",
+        "startSeconds": 171,
+        "label": "ステージ3のクリスタル集め",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3026-d5a5fe77",
+        "startSeconds": 3026,
+        "label": "クリスタル回収ルートを見直す",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4431-3f766c6b",
+        "startSeconds": 4431,
+        "label": "新エリアの敵と仕掛けを確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4816-585c1ea5",
+        "startSeconds": 4816,
+        "label": "敵をロビーへ誘導する作戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5102-29db5f36",
+        "startSeconds": 5102,
+        "label": "だるまさんがころんだで敵集め",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5627-c006cfa3",
+        "startSeconds": 5627,
+        "label": "次のエリアへのルートを探す",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6158-1d1b9352",
+        "startSeconds": 6158,
+        "label": "マップでルートを確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6680-d603372e",
+        "startSeconds": 6680,
+        "label": "攻略情報とマップを照らし合わせる",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7505-db4ca227",
+        "startSeconds": 7505,
+        "label": "敵を集める方法を再確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7754-a932de15",
+        "startSeconds": 7754,
+        "label": "決まった手順で敵集めを続ける",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8422-250fd49f",
+        "startSeconds": 8422,
+        "label": "いったん休憩・次回の話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8775-0c01bbd7",
+        "startSeconds": 8775,
+        "label": "ステージ3攻略を再開",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-10943-80c2ea74",
+        "startSeconds": 10943,
+        "label": "配信予定・イベントのお知らせ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-11146-bbae7c95",
+        "startSeconds": 11146,
+        "label": "ステージ3に再挑戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-11436-a28829b2",
+        "startSeconds": 11436,
+        "label": "配信終了",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "6db4ea654a3ed0813b573774e5c28bb74f36f9bd19215442f2997635349fdeac",
+    "inputFingerprint": "5b580f94224468cb762df69105e9b5c2c3d7cb8b4a9b3e9e799b4264c61f3a17",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-27T06:16:38.985Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "6db4ea654a3ed0813b573774e5c28bb74f36f9bd19215442f2997635349fdeac",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "6db4ea654a3ed0813b573774e5c28bb74f36f9bd19215442f2997635349fdeac",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "words": [
+      {
+        "term": "やばい",
+        "weight": 100
+      },
+      {
+        "term": "ok",
+        "weight": 73
+      },
+      {
+        "term": "わかる",
+        "weight": 64
+      },
+      {
+        "term": "まずい",
+        "weight": 63
+      },
+      {
+        "term": "使う",
+        "weight": 54
+      },
+      {
+        "term": "待つ",
+        "weight": 42
+      },
+      {
+        "term": "大丈夫",
+        "weight": 40
+      },
+      {
+        "term": "集合",
+        "weight": 38
+      },
+      {
+        "term": "走る",
+        "weight": 38
+      },
+      {
+        "term": "レバー",
+        "weight": 36
+      },
+      {
+        "term": "秘密",
+        "weight": 36
+      },
+      {
+        "term": "部屋",
+        "weight": 36
+      },
+      {
+        "term": "me",
+        "weight": 33
+      },
+      {
+        "term": "いく",
+        "weight": 33
+      },
+      {
+        "term": "かける",
+        "weight": 31
+      },
+      {
+        "term": "すごい",
+        "weight": 28
+      },
+      {
+        "term": "ころぶ",
+        "weight": 26
+      },
+      {
+        "term": "右",
+        "weight": 26
+      },
+      {
+        "term": "最初",
+        "weight": 26
+      },
+      {
+        "term": "人",
+        "weight": 26
+      },
+      {
+        "term": "まず",
+        "weight": 23
+      },
+      {
+        "term": "右側",
+        "weight": 23
+      },
+      {
+        "term": "分かる",
+        "weight": 23
+      },
+      {
+        "term": "あと",
+        "weight": 20
+      },
+      {
+        "term": "だるま",
+        "weight": 20
+      },
+      {
+        "term": "アップ",
+        "weight": 17
+      },
+      {
+        "term": "おっ",
+        "weight": 17
+      },
+      {
+        "term": "とこ",
+        "weight": 13
+      },
+      {
+        "term": "ねる",
+        "weight": 13
+      },
+      {
+        "term": "生きる",
+        "weight": 13
+      },
+      {
+        "term": "槍",
+        "weight": 13
+      },
+      {
+        "term": "転ぶ",
+        "weight": 13
+      },
+      {
+        "term": "買う",
+        "weight": 13
+      },
+      {
+        "term": "あぶる",
+        "weight": 9
+      },
+      {
+        "term": "スポーツ",
+        "weight": 9
+      },
+      {
+        "term": "ダッシュ",
+        "weight": 9
+      },
+      {
+        "term": "違う",
+        "weight": 9
+      },
+      {
+        "term": "頑張る",
+        "weight": 9
+      },
+      {
+        "term": "集める",
+        "weight": 9
+      },
+      {
+        "term": "閉じ込める",
+        "weight": 9
+      },
+      {
+        "term": "tan",
+        "weight": 5
+      },
+      {
+        "term": "いける",
+        "weight": 5
+      },
+      {
+        "term": "まっすぐ",
+        "weight": 5
+      },
+      {
+        "term": "教える",
+        "weight": 5
+      },
+      {
+        "term": "近い",
+        "weight": 5
+      },
+      {
+        "term": "子",
+        "weight": 5
+      },
+      {
+        "term": "早い",
+        "weight": 5
+      },
+      {
+        "term": "ゲーム",
+        "weight": 1
+      },
+      {
+        "term": "ロビー",
+        "weight": 1
+      },
+      {
+        "term": "ワープ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "b86a8e4548bbe3bc4203ab48e5a8688d1e1f5af6268737abb5b78440c98eaa3f",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
+  },
+  "provenance": {
+    "inputFingerprint": "e918db80386fcc2a64ec9dda89805629fad233dc35690f1447168de10fad2f94",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  }
+}
