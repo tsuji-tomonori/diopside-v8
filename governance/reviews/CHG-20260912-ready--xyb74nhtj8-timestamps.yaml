@@ -158,6 +158,8 @@ selected_checks:
     note: 未選択checkをN/Aとして記録しない。
 advisories: []
 residual_risks:
+  - 実PR https://github.com/tsuji-tomonori/diopside-v8/pull/2669 を公開ゲートとprovenanceへ設定し、同一hashの確認済み時刻一覧を反映した。
+  - 既存あらすじと根拠記録を保持し、新タイムスタンプ根拠IDを分離した。
   - 保存済みの独立確認済み候補を採用し、現在mainの既存コンテンツを保持する。
-  - "候補hash: 11ab3a78dbb550da85cfa57264fcc3530df5dcb2574e7c4e23fc8d97fea90020"
+  - "候補hash: c3db06cd42a5aac0a2d86c9d91654b3169ac0cb584dcf77ed0710df171244351"
   - 現在HEADのCI成功後に所有者の明示依頼に基づきマージする。
