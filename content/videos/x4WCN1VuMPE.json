@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "f9cf16a9e6a55f544e508ff1a09e779328257b243c86556c10fda50e48c0982d"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "6672dd87696fe24813bcb78c7c2e09fb0653c28d160989a8bf9d7c963d4cca34",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 737
     }
   ],
   "tagAssignments": [
@@ -220,5 +228,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T00:00:00Z",
     "basis": "所有者指示に基づくユニットタグ全件監査と公開情報・出演者集合の再確認"
+  },
+  "synopsis": {
+    "body": "白雪巴がパーソナリティを務めるラジオ番組で、前半は季節の暮らしや過ごし方を語り、愛園愛美をゲストに迎えてから夏らしい装いの話へ。リスナーのお便りをきっかけに、センシティブな話題や恋愛の距離感、最近の胸キュンまで、二人の軽快な掛け合いで語り合います。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "汗かくの好きなんですよね",
+      "atSeconds": 55,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "6672dd87696fe24813bcb78c7c2e09fb0653c28d160989a8bf9d7c963d4cca34",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:42:53.748445+00:00"
   }
 }
