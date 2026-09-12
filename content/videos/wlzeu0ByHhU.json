@@ -52,6 +52,14 @@
       "inputFingerprint": "7b5129745200dbd45563e7bdeea227585c43ed5079161c1ff788b1f946f69ed8",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 2576
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "4ea05b37b96927cd217e6cb1e015ad6639d0a464ca1afde4289e25193b8c95fe",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2576
     }
   ],
   "tagAssignments": [
@@ -513,5 +521,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が縦型ホラーゲーム「暗示」を初見プレイします。建物内や階段を進む不穏な探索で手がかりを探し、画面の向きも生かしながら、驚きや恐怖の反応とともにじっくり物語を追う配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "今までのホラーにはない怖さ",
+      "atSeconds": 1365,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "4ea05b37b96927cd217e6cb1e015ad6639d0a464ca1afde4289e25193b8c95fe",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T10:43:55.048506+00:00"
   }
 }

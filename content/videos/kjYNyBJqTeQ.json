@@ -44,6 +44,22 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "4d5773dd7743981e8b1245defd1026a36414e9229a3b58d6a900c7cc9f9b0ed8"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "f435514b0fc7ff7db6e4e478cb3cf84d5447cf508a26c74bda953ec3bada2fb1",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2448
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "cb508f98ab16cf7b5f02ff0d2006833d4bd3002afbe62ad871808af49aa3e93e",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2448
     }
   ],
   "tagAssignments": [
@@ -249,10 +265,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "歌う",
+        "weight": 100
+      },
+      {
+        "term": "曲",
+        "weight": 65
+      },
+      {
+        "term": "ミューズ",
+        "weight": 59
+      },
+      {
+        "term": "歌",
+        "weight": 46
+      },
+      {
+        "term": "最後",
+        "weight": 43
+      },
+      {
+        "term": "アクア",
+        "weight": 39
+      },
+      {
+        "term": "楽しい",
+        "weight": 39
+      },
+      {
+        "term": "間違える",
+        "weight": 34
+      },
+      {
+        "term": "知る",
+        "weight": 34
+      },
+      {
+        "term": "夢",
+        "weight": 34
+      },
+      {
+        "term": "好き",
+        "weight": 29
+      },
+      {
+        "term": "次",
+        "weight": 29
+      },
+      {
+        "term": "人",
+        "weight": 29
+      },
+      {
+        "term": "クレア",
+        "weight": 23
+      },
+      {
+        "term": "めちゃくちゃ",
+        "weight": 23
+      },
+      {
+        "term": "最高",
+        "weight": 23
+      },
+      {
+        "term": "素敵",
+        "weight": 23
+      },
+      {
+        "term": "白",
+        "weight": 23
+      },
+      {
+        "term": "ずっと",
+        "weight": 17
+      },
+      {
+        "term": "フェス",
+        "weight": 17
+      },
+      {
+        "term": "ライブ",
+        "weight": 17
+      },
+      {
+        "term": "ラブ",
+        "weight": 17
+      },
+      {
+        "term": "愛",
+        "weight": 17
+      },
+      {
+        "term": "海",
+        "weight": 17
+      },
+      {
+        "term": "皆さん",
+        "weight": 17
+      },
+      {
+        "term": "嬉しい",
+        "weight": 17
+      },
+      {
+        "term": "見える",
+        "weight": 17
+      },
+      {
+        "term": "光",
+        "weight": 17
+      },
+      {
+        "term": "時",
+        "weight": 17
+      },
+      {
+        "term": "次元",
+        "weight": 17
+      },
+      {
+        "term": "未来",
+        "weight": 17
+      },
+      {
+        "term": "明日",
+        "weight": 17
+      },
+      {
+        "term": "踊る",
+        "weight": 17
+      },
+      {
+        "term": "いっぱい",
+        "weight": 10
+      },
+      {
+        "term": "カナン",
+        "weight": 10
+      },
+      {
+        "term": "きっと",
+        "weight": 10
+      },
+      {
+        "term": "ギルティキス",
+        "weight": 10
+      },
+      {
+        "term": "たい",
+        "weight": 10
+      },
+      {
+        "term": "はねる",
+        "weight": 10
+      },
+      {
+        "term": "ユニット",
+        "weight": 10
+      },
+      {
+        "term": "一緒",
+        "weight": 10
+      },
+      {
+        "term": "言葉",
+        "weight": 10
+      },
+      {
+        "term": "全て",
+        "weight": 10
+      },
+      {
+        "term": "明かす",
+        "weight": 10
+      },
+      {
+        "term": "アイマス",
+        "weight": 1
+      },
+      {
+        "term": "いただく",
+        "weight": 1
+      },
+      {
+        "term": "いつも",
+        "weight": 1
+      },
+      {
+        "term": "えり",
+        "weight": 1
+      },
+      {
+        "term": "える",
+        "weight": 1
+      },
+      {
+        "term": "キス",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "f435514b0fc7ff7db6e4e478cb3cf84d5447cf508a26c74bda953ec3bada2fb1",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "7dca91997f44e06ebc88ed881bb359997b1a63f9129f49ca8390a8674ad650e9",
@@ -264,5 +485,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が「にじさんじアイラブ歌リレー」で、異次元フェスの余韻を胸にμ'sやAqoursの楽曲を歌います。曲紹介や感想を挟み、歌詞を間違えた場面も正直に申告。最後は視聴者と一緒に歌い、熱気と感謝を分かち合う歌枠です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "歌詞を間違えたらちゃんと申告しようと思って",
+      "atSeconds": 1357,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "cb508f98ab16cf7b5f02ff0d2006833d4bd3002afbe62ad871808af49aa3e93e",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:09:32.621274+00:00"
   }
 }

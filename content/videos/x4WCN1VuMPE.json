@@ -44,6 +44,22 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "f9cf16a9e6a55f544e508ff1a09e779328257b243c86556c10fda50e48c0982d"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "e776b00693c31f7b7e1b3f076852e9b8402a4283c505fa17cc1b414648d6c0e4",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 737
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "6672dd87696fe24813bcb78c7c2e09fb0653c28d160989a8bf9d7c963d4cca34",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 737
     }
   ],
   "tagAssignments": [
@@ -205,10 +221,203 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "好き",
+        "weight": 100
+      },
+      {
+        "term": "すごい",
+        "weight": 71
+      },
+      {
+        "term": "汗",
+        "weight": 71
+      },
+      {
+        "term": "夏",
+        "weight": 53
+      },
+      {
+        "term": "月",
+        "weight": 53
+      },
+      {
+        "term": "子",
+        "weight": 53
+      },
+      {
+        "term": "前",
+        "weight": 53
+      },
+      {
+        "term": "他",
+        "weight": 53
+      },
+      {
+        "term": "話す",
+        "weight": 53
+      },
+      {
+        "term": "つける",
+        "weight": 30
+      },
+      {
+        "term": "やめる",
+        "weight": 30
+      },
+      {
+        "term": "甥",
+        "weight": 30
+      },
+      {
+        "term": "下",
+        "weight": 30
+      },
+      {
+        "term": "気",
+        "weight": 30
+      },
+      {
+        "term": "最近",
+        "weight": 30
+      },
+      {
+        "term": "手",
+        "weight": 30
+      },
+      {
+        "term": "雪",
+        "weight": 30
+      },
+      {
+        "term": "相園",
+        "weight": 30
+      },
+      {
+        "term": "白",
+        "weight": 30
+      },
+      {
+        "term": "付き合い",
+        "weight": 30
+      },
+      {
+        "term": "話",
+        "weight": 30
+      },
+      {
+        "term": "youtube",
+        "weight": 1
+      },
+      {
+        "term": "お互い",
+        "weight": 1
+      },
+      {
+        "term": "お便り",
+        "weight": 1
+      },
+      {
+        "term": "かわいい",
+        "weight": 1
+      },
+      {
+        "term": "キュッ",
+        "weight": 1
+      },
+      {
+        "term": "キュン",
+        "weight": 1
+      },
+      {
+        "term": "キュンキュン",
+        "weight": 1
+      },
+      {
+        "term": "くい",
+        "weight": 1
+      },
+      {
+        "term": "クラシック",
+        "weight": 1
+      },
+      {
+        "term": "ゲスト",
+        "weight": 1
+      },
+      {
+        "term": "スタッフ",
+        "weight": 1
+      },
+      {
+        "term": "センシティブ",
+        "weight": 1
+      },
+      {
+        "term": "ダメ",
+        "weight": 1
+      },
+      {
+        "term": "ネーム",
+        "weight": 1
+      },
+      {
+        "term": "ノースリーブ",
+        "weight": 1
+      },
+      {
+        "term": "パパ",
+        "weight": 1
+      },
+      {
+        "term": "まさに",
+        "weight": 1
+      },
+      {
+        "term": "メッセージ",
+        "weight": 1
+      },
+      {
+        "term": "ラジオ",
+        "weight": 1
+      },
+      {
+        "term": "握る",
+        "weight": 1
+      },
+      {
+        "term": "映像",
+        "weight": 1
+      },
+      {
+        "term": "花",
+        "weight": 1
+      },
+      {
+        "term": "花畑",
+        "weight": 1
+      },
+      {
+        "term": "確か",
+        "weight": 1
+      },
+      {
+        "term": "楽しむ",
+        "weight": 1
+      },
+      {
+        "term": "感じる",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "e776b00693c31f7b7e1b3f076852e9b8402a4283c505fa17cc1b414648d6c0e4",
+    "exclusionRulesVersion": "9.2.0+editorial.1",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "07e84e76b832ce413b56aaedd943212a545a697285fd3db5216f0c7ba3436ed1",
@@ -220,5 +429,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T00:00:00Z",
     "basis": "所有者指示に基づくユニットタグ全件監査と公開情報・出演者集合の再確認"
+  },
+  "synopsis": {
+    "body": "白雪巴がパーソナリティを務めるラジオ番組で、前半は季節の暮らしや過ごし方を語り、愛園愛美をゲストに迎えてから夏らしい装いの話へ。リスナーのお便りをきっかけに、センシティブな話題や恋愛の距離感、最近の胸キュンまで、二人の軽快な掛け合いで語り合います。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "汗かくの好きなんですよね",
+      "atSeconds": 55,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "6672dd87696fe24813bcb78c7c2e09fb0653c28d160989a8bf9d7c963d4cca34",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:42:53.748445+00:00"
   }
 }
