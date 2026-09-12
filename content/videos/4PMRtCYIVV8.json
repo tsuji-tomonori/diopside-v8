@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "f8fa09d38dd9d15a0ca597c26b8945e26a47510ba2178e70fef0edf0081b6094"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "dce67e88b5df497335c0d9d29a90dbdc835841abac146d1bc366dad4b006ccda",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6146
     }
   ],
   "tagAssignments": [
@@ -330,10 +338,155 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "やばい",
+        "weight": 100
+      },
+      {
+        "term": "すごい",
+        "weight": 65
+      },
+      {
+        "term": "大丈夫",
+        "weight": 54
+      },
+      {
+        "term": "頑張る",
+        "weight": 50
+      },
+      {
+        "term": "最後",
+        "weight": 41
+      },
+      {
+        "term": "人",
+        "weight": 41
+      },
+      {
+        "term": "楽しい",
+        "weight": 35
+      },
+      {
+        "term": "塗る",
+        "weight": 35
+      },
+      {
+        "term": "家",
+        "weight": 30
+      },
+      {
+        "term": "入れる",
+        "weight": 30
+      },
+      {
+        "term": "チーム",
+        "weight": 24
+      },
+      {
+        "term": "使う",
+        "weight": 24
+      },
+      {
+        "term": "武器",
+        "weight": 24
+      },
+      {
+        "term": "うわ",
+        "weight": 17
+      },
+      {
+        "term": "おい",
+        "weight": 17
+      },
+      {
+        "term": "じゃあ",
+        "weight": 17
+      },
+      {
+        "term": "ダメ",
+        "weight": 17
+      },
+      {
+        "term": "わかる",
+        "weight": 17
+      },
+      {
+        "term": "強い",
+        "weight": 17
+      },
+      {
+        "term": "後ろ",
+        "weight": 17
+      },
+      {
+        "term": "前",
+        "weight": 17
+      },
+      {
+        "term": "知る",
+        "weight": 17
+      },
+      {
+        "term": "買う",
+        "weight": 17
+      },
+      {
+        "term": "売る",
+        "weight": 17
+      },
+      {
+        "term": "米",
+        "weight": 17
+      },
+      {
+        "term": "どうぞ",
+        "weight": 10
+      },
+      {
+        "term": "なんで",
+        "weight": 10
+      },
+      {
+        "term": "皆さん",
+        "weight": 10
+      },
+      {
+        "term": "選ぶ",
+        "weight": 10
+      },
+      {
+        "term": "早い",
+        "weight": 10
+      },
+      {
+        "term": "なぜ",
+        "weight": 1
+      },
+      {
+        "term": "ローラー",
+        "weight": 1
+      },
+      {
+        "term": "音",
+        "weight": 1
+      },
+      {
+        "term": "嫌",
+        "weight": 1
+      },
+      {
+        "term": "使える",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "dce67e88b5df497335c0d9d29a90dbdc835841abac146d1bc366dad4b006ccda",
+    "exclusionRulesVersion": "9.2.0+editorial.1",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "d427e790534b04bf0894b940c5469447fbda6250403db7fda3a1f147db2d2c84",
