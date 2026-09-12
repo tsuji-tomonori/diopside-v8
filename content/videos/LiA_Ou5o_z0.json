@@ -52,6 +52,14 @@
       "inputFingerprint": "6354356b87f163922e077fb1414f2dc221a5c67dcbad6d28966f0b8356308767",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 4501
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "161f37f884d2e7f529e8a546a3b32342227f490714a0c91899dcc0c86baf937e",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 4501
     }
   ],
   "tagAssignments": [
@@ -299,10 +307,167 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "姉ちゃん",
+        "weight": 100
+      },
+      {
+        "term": "チョコ",
+        "weight": 98
+      },
+      {
+        "term": "かわいい",
+        "weight": 58
+      },
+      {
+        "term": "すごい",
+        "weight": 58
+      },
+      {
+        "term": "一緒",
+        "weight": 54
+      },
+      {
+        "term": "大丈夫",
+        "weight": 51
+      },
+      {
+        "term": "ねだる",
+        "weight": 49
+      },
+      {
+        "term": "くれる",
+        "weight": 31
+      },
+      {
+        "term": "じゃあ",
+        "weight": 31
+      },
+      {
+        "term": "ちょこ",
+        "weight": 31
+      },
+      {
+        "term": "買う",
+        "weight": 31
+      },
+      {
+        "term": "謙",
+        "weight": 27
+      },
+      {
+        "term": "後ろ",
+        "weight": 27
+      },
+      {
+        "term": "女",
+        "weight": 27
+      },
+      {
+        "term": "姉",
+        "weight": 23
+      },
+      {
+        "term": "いっぱい",
+        "weight": 19
+      },
+      {
+        "term": "音",
+        "weight": 19
+      },
+      {
+        "term": "譲る",
+        "weight": 19
+      },
+      {
+        "term": "寝る",
+        "weight": 19
+      },
+      {
+        "term": "大人",
+        "weight": 19
+      },
+      {
+        "term": "知る",
+        "weight": 19
+      },
+      {
+        "term": "読む",
+        "weight": 19
+      },
+      {
+        "term": "風呂",
+        "weight": 19
+      },
+      {
+        "term": "なぜ",
+        "weight": 14
+      },
+      {
+        "term": "家",
+        "weight": 14
+      },
+      {
+        "term": "好き",
+        "weight": 14
+      },
+      {
+        "term": "子",
+        "weight": 14
+      },
+      {
+        "term": "譲",
+        "weight": 14
+      },
+      {
+        "term": "選ぶ",
+        "weight": 14
+      },
+      {
+        "term": "遊び",
+        "weight": 14
+      },
+      {
+        "term": "ほら",
+        "weight": 8
+      },
+      {
+        "term": "先生",
+        "weight": 8
+      },
+      {
+        "term": "前",
+        "weight": 8
+      },
+      {
+        "term": "洋服",
+        "weight": 8
+      },
+      {
+        "term": "欲しい",
+        "weight": 8
+      },
+      {
+        "term": "ずっと",
+        "weight": 1
+      },
+      {
+        "term": "でる",
+        "weight": 1
+      },
+      {
+        "term": "もらえる",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "161f37f884d2e7f529e8a546a3b32342227f490714a0c91899dcc0c86baf937e",
+    "exclusionRulesVersion": "9.2.0+editorial.1",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "ab22b3c64c08c6b25cfdf6e6f94bc394efb005e9b4eeb0b8ee10af8e43f74560",
