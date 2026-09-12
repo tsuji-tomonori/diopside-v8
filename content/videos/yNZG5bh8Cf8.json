@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "0c9c08985a1442ee671d0b54fbb18240fddefba61698c1bb1c2d86d11cb59480"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "9eecbe66507144b5054ef38723941b8737089952afe2c1d9333776832956266a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 265
     }
   ],
   "tagAssignments": [
@@ -372,5 +380,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T21:05:00+09:00",
     "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が理想の相手を探す旅に臨む、にじさんじ版バチェラー予告編。サメ好きのボディーガードやパンを焼くわらわ、小説家など個性豊かな候補者が次々登場し、手紙や会話を通してそれぞれの魅力をのぞかせます。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "一番星って感じですね",
+      "atSeconds": 235,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "9eecbe66507144b5054ef38723941b8737089952afe2c1d9333776832956266a",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:16:10.666556+00:00"
   }
 }
