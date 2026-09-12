@@ -52,6 +52,14 @@
       "inputFingerprint": "33a7cce26ca589b9128f56df229b23c5f1bfc793bcb54e85c5b102eaa6f73134",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 5921
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "107be226fc4200e7bd1f8747494dde71dcb7d0e88e08a8ab80c61873a99dd816",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5921
     }
   ],
   "tagAssignments": [
@@ -495,5 +503,22 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、発売された罵倒ASMRボイスの制作秘話や収録の工夫を語り、リスナーの感想にも耳を傾ける。近況や1月の活動を振り返り、好きな食べ物やこれからの配信予定まで、幅広い雑談をゆったり楽しめる配信。",
+    "bodyEvidenceRefs": [
+      "evidence-title",
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私がこれやりたいですって言ってこういう感じの台本ください",
+      "atSeconds": 1348,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "107be226fc4200e7bd1f8747494dde71dcb7d0e88e08a8ab80c61873a99dd816",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:23:20.751565+00:00"
   }
 }
