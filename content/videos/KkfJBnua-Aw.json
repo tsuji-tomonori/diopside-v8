@@ -58,6 +58,14 @@
       "inputFingerprint": "2dc288ff2f197652556e88bbd76dda55d393c4e3beae4af875513d1259eee594",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 7670
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "dc3a5aeaeb5352bac6253d23330362e27f94e8c1ea17673a2c1e262b7f815c35",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7670
     }
   ],
   "tagAssignments": [
@@ -537,5 +545,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-16T12:05:00+09:00",
     "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  },
+  "synopsis": {
+    "body": "グウェル・オス・ガール、愛園愛美、瀬戸美夜子、白雪巴、オリバー・エバンスが集まり、AIに描かせた画像を手がかりにお題を推理。順番や表現の違いに翻弄されながら、互いの発想とAIの気まぐれを笑い合う、会話型の人狼ゲームです。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "今日は命がけで来ております",
+      "atSeconds": 70,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "dc3a5aeaeb5352bac6253d23330362e27f94e8c1ea17673a2c1e262b7f815c35",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:34:12.880190+00:00"
   }
 }
