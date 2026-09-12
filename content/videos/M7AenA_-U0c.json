@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "d5d6b2114c18dedde13038b3253335f186a17dd005f0343072e70b470a3d2a17"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "28d2a8f02a3e797ed39f0eb35f619f0d1d8706d587e341e9b90bbc86a7bb8aed",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 22306
     }
   ],
   "tagAssignments": [
@@ -1274,5 +1282,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T00:00:00Z",
     "basis": "所有者指示に基づくユニットタグ全件監査と公開情報・出演者集合の再確認"
+  },
+  "synopsis": {
+    "body": "白雪巴と愛園愛美が晩酌しながらマシュマロを読み、近況や活動、人との距離感について語り合う。質問から好きな作品や日常の悩みへ話題を広げ、互いの考えや個性がにじむ軽妙な掛け合いを楽しめるコラボ雑談。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "まなみさんしっかりして",
+      "atSeconds": 1166,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "28d2a8f02a3e797ed39f0eb35f619f0d1d8706d587e341e9b90bbc86a7bb8aed",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:16:52.446325Z"
   }
 }
