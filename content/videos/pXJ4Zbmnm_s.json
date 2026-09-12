@@ -46,6 +46,14 @@
       "inputFingerprint": "8c6af027e35e44bab6dbcb3deffbe6e32d7b2411d206b9f13e20809d2129efc1",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 905
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "4cbf2bef44c2fc3696819f236954d3ff495445469decbf94150ec9f30e98bcf2",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 905
     }
   ],
   "tagAssignments": [
@@ -408,5 +416,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴がパーソナリティを務めるラジオ番組で、近況や活動、共演の思い出をゆったり語る回。節目を迎えた番組への感謝やこれからの企画にも触れ、リスナーとの距離が近い雑談と軽快な掛け合いを味わえます。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "本当に素で話せたし緊張が飛んだんだよね",
+      "atSeconds": 186,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "4cbf2bef44c2fc3696819f236954d3ff495445469decbf94150ec9f30e98bcf2",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T10:09:33.353751+00:00"
   }
 }
