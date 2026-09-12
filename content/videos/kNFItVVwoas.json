@@ -52,6 +52,14 @@
       "inputFingerprint": "32001f84509c53ae974b58e5191c400a0ab97263177a62032229e8ebd0707dac",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 11151
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "63fab461b1645aa3b7108f42a7f6dfc8c0e0ad5797e29dae22ce08de07318183",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 11151
     }
   ],
   "tagAssignments": [
@@ -486,5 +494,22 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、リスナーに勧められたゲーム『死刑囚の既読』をプレイ。死刑囚をめぐる物語を読み進め、意味が分かると怖い展開に考察を重ねながら、登場人物のやり取りと謎を追います。文章を朗読し、驚きや疑問を交えたリアクションとともに作品を味わう配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-title",
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "結構意味が分かると怖い話のタイプのゲームになります",
+      "atSeconds": 284,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "63fab461b1645aa3b7108f42a7f6dfc8c0e0ad5797e29dae22ce08de07318183",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T18:32:38.847824+00:00"
   }
 }
