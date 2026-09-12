@@ -46,6 +46,14 @@
       "inputFingerprint": "c7fa02c0d0c60a7e19d971b2b6f014e401625dcb39dbf70240b05397fc200efc",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 865
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "4fb24ee5d083223d3757d084e3a690810e25787749bac7b8bb256364ee697eef",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 865
     }
   ],
   "tagAssignments": [
@@ -408,5 +416,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が新パーソナリティとして届けるラジオ第92回。前任者からの引き継ぎや付き添いの後輩とのやり取りを交えつつ、自己紹介、近況、ゲームの思い出を振り返ります。リスナーのお便りでは3Dお披露目への緊張やラジオの魅力を率直に語り、声で広がる交流を味わえる一回です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ラジオは初めての経験なので",
+      "atSeconds": 497,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "4fb24ee5d083223d3757d084e3a690810e25787749bac7b8bb256364ee697eef",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:23:29.154607+00:00"
   }
 }
