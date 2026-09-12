@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "b6144de93c3bcb58aa168e507e7c12464e753e23b82b6b5e68269fee3c8310d1"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "0fbd5358c196d2cf8dfc7ad94894fc6636c145ddd52e20b9b8291ebc832fdcc6",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2400
     }
   ],
   "tagAssignments": [
@@ -291,5 +299,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T21:05:00+09:00",
     "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  },
+  "synopsis": {
+    "body": "3周年の夜王国が3Dを生かした『リズム天国』企画に挑戦。プレイヤーには音も映像も見せず、前に立つ仲間の身振りだけを頼りに操作する特殊ルールで、三人がタイミングを合わせながら難しい課題に挑む記念配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "結局私のボタンにかかってますから",
+      "atSeconds": 1185,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "0fbd5358c196d2cf8dfc7ad94894fc6636c145ddd52e20b9b8291ebc832fdcc6",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T10:35:44.677455+00:00"
   }
 }
