@@ -52,6 +52,14 @@
       "inputFingerprint": "e6369f52a776af9eedfc29b7bfd057206533466f7c076ee281f541acabe3a9b8",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 6191
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "5a9dfcd903b76a14eb281bfdb64c75c336950053576c115a2be8fde7e19623fa",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6191
     }
   ],
   "tagAssignments": [
@@ -482,5 +490,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T21:05:00+09:00",
     "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  },
+  "synopsis": {
+    "body": "癒月ちょこが深夜の逆凸で、ハロウィンのイラストを紹介しながら、通話相手に自分のお願いをかなえてもらう企画。相手の反応を楽しみつつ、白雪巴との会話ではロリとお姉さんの雰囲気を行き来するやり取りも味わえます。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "どっちも切り替えられたら最高なんですよね",
+      "atSeconds": 2326,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "5a9dfcd903b76a14eb281bfdb64c75c336950053576c115a2be8fde7e19623fa",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T13:12:49.246237+00:00"
   }
 }
