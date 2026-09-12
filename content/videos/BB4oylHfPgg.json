@@ -44,6 +44,22 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "55069455117a86bc4290ce886958f66aa9263fa1129aad17166a3579842939f4"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "61d534fca83f79108387755e63c4cd511abe17a498cfddc5691f3d592965e62f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 996
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "f5c0cb30132f476422d085168b730615941c192d2a11c5080eb5cfe8a3f547c3",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 996
     }
   ],
   "tagAssignments": [
@@ -204,10 +220,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "ぐち",
+        "weight": 100
+      },
+      {
+        "term": "ゲーム",
+        "weight": 100
+      },
+      {
+        "term": "すごい",
+        "weight": 100
+      },
+      {
+        "term": "皆さん",
+        "weight": 100
+      },
+      {
+        "term": "確か",
+        "weight": 100
+      },
+      {
+        "term": "色気",
+        "weight": 100
+      },
+      {
+        "term": "先輩",
+        "weight": 100
+      },
+      {
+        "term": "抑える",
+        "weight": 100
+      },
+      {
+        "term": "ラジオ",
+        "weight": 82
+      },
+      {
+        "term": "食べる",
+        "weight": 82
+      },
+      {
+        "term": "あと",
+        "weight": 61
+      },
+      {
+        "term": "ゲスト",
+        "weight": 61
+      },
+      {
+        "term": "しゃべる",
+        "weight": 61
+      },
+      {
+        "term": "まぁ",
+        "weight": 61
+      },
+      {
+        "term": "ムチ",
+        "weight": 61
+      },
+      {
+        "term": "わかる",
+        "weight": 61
+      },
+      {
+        "term": "月",
+        "weight": 61
+      },
+      {
+        "term": "子",
+        "weight": 61
+      },
+      {
+        "term": "女",
+        "weight": 61
+      },
+      {
+        "term": "人",
+        "weight": 61
+      },
+      {
+        "term": "切る",
+        "weight": 61
+      },
+      {
+        "term": "怒る",
+        "weight": 61
+      },
+      {
+        "term": "欲しい",
+        "weight": 61
+      },
+      {
+        "term": "アメ",
+        "weight": 35
+      },
+      {
+        "term": "きっと",
+        "weight": 35
+      },
+      {
+        "term": "ごめん",
+        "weight": 35
+      },
+      {
+        "term": "ショート",
+        "weight": 35
+      },
+      {
+        "term": "ねる",
+        "weight": 35
+      },
+      {
+        "term": "まず",
+        "weight": 35
+      },
+      {
+        "term": "リスナー",
+        "weight": 35
+      },
+      {
+        "term": "悪影響",
+        "weight": 35
+      },
+      {
+        "term": "雨",
+        "weight": 35
+      },
+      {
+        "term": "楽しむ",
+        "weight": 35
+      },
+      {
+        "term": "逆",
+        "weight": 35
+      },
+      {
+        "term": "嫌",
+        "weight": 35
+      },
+      {
+        "term": "好き",
+        "weight": 35
+      },
+      {
+        "term": "作る",
+        "weight": 35
+      },
+      {
+        "term": "散らかす",
+        "weight": 35
+      },
+      {
+        "term": "色っぽい",
+        "weight": 35
+      },
+      {
+        "term": "切れる",
+        "weight": 35
+      },
+      {
+        "term": "雪",
+        "weight": 35
+      },
+      {
+        "term": "大丈夫",
+        "weight": 35
+      },
+      {
+        "term": "入れる",
+        "weight": 35
+      },
+      {
+        "term": "買う",
+        "weight": 35
+      },
+      {
+        "term": "白",
+        "weight": 35
+      },
+      {
+        "term": "務める",
+        "weight": 35
+      },
+      {
+        "term": "落ち着く",
+        "weight": 35
+      },
+      {
+        "term": "fps",
+        "weight": 1
+      },
+      {
+        "term": "あんまり",
+        "weight": 1
+      },
+      {
+        "term": "いく",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "61d534fca83f79108387755e63c4cd511abe17a498cfddc5691f3d592965e62f",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "4a302b0ca2f6c891a70c2b3b47b4aef870370148c6c5d8583e56c620bfba2efd",
@@ -219,5 +440,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T21:05:00+09:00",
     "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  },
+  "synopsis": {
+    "body": "西園チグサがパーソナリティを務めるラジオに白雪巴を迎え、次のパーソナリティ就任を発表。声を生かした新コーナーや飴と鞭の企画を相談し、リスナーのお便りではゲームで感情的になった時の向き合い方や、色気を感じる仕草を語り合います。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "あんまりまだ実感はわかないなぁ",
+      "atSeconds": 249,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "f5c0cb30132f476422d085168b730615941c192d2a11c5080eb5cfe8a3f547c3",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:39:47.178225+00:00"
   }
 }

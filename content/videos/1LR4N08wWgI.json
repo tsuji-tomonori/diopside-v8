@@ -44,6 +44,22 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "f7022accf72af70d49c1bacc145fe8dee8c40fa864800f3d4c3e881e1b2b4861"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "43d64f31284c0cd61f39bf804f2d500bd64f1a91ba2e098355c42fbb8ea58b43",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 117
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "43d64f31284c0cd61f39bf804f2d500bd64f1a91ba2e098355c42fbb8ea58b43",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 117
     }
   ],
   "tagAssignments": [
@@ -85,10 +101,77 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-ecc11af6",
+        "startSeconds": 0,
+        "label": "ジムへ行きたい気持ちを語る",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-23-482c1810",
+        "startSeconds": 23,
+        "label": "ジム通いへの厳しい意見",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-70-9464c52d",
+        "startSeconds": 70,
+        "label": "ジム通いの難しさと生活改善を考える",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "63f1d2cf5c90bf52349a46febf2d3a4f8c1a7ac521479470f2a7f99703b9c5f6",
+    "inputFingerprint": "43d64f31284c0cd61f39bf804f2d500bd64f1a91ba2e098355c42fbb8ea58b43",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-12T09:20:00+09:00",
+    "updatedAt": "2026-09-12T09:40:37.555000+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "63f1d2cf5c90bf52349a46febf2d3a4f8c1a7ac521479470f2a7f99703b9c5f6",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T09:40:36.555000+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "63f1d2cf5c90bf52349a46febf2d3a4f8c1a7ac521479470f2a7f99703b9c5f6",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T09:40:37.555000+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "63f1d2cf5c90bf52349a46febf2d3a4f8c1a7ac521479470f2a7f99703b9c5f6",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2563"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -360,11 +443,27 @@
     "inputFingerprint": "419e08076eb7379b6ba3ce56b01106a8c3f251a6cd1f58d1314577223c9e416b",
     "generatorVersion": "v8-legacy-migration-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2563"
   },
   "approval": {
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が「ジムに行きたい」と言いながら動けない人のありがちな心理を題材に、入会するだけで満足してしまう落とし穴を辛口に語ります。悔しさを行動のきっかけに変える考え方や、日々の習慣を見直す視点まで、テンポよく語ります。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "口にするだけで満足するとこあるんだよジムって",
+      "atSeconds": 73,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "43d64f31284c0cd61f39bf804f2d500bd64f1a91ba2e098355c42fbb8ea58b43",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:39:57.191656+00:00"
   }
 }

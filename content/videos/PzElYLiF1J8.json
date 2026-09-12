@@ -44,6 +44,22 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "94af372f948a46a3f38c4c252d3ea1f71a2ec31f5732dfc2dd9bc16c318a4c14"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "保存済み全編字幕（0秒〜732秒）",
+      "inputFingerprint": "ff5dda652374887b0380ed086aedf8213d1ec325b1a8b38c456bac26630dc10f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 732
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "a648c383477da0410a906c93727903aa09e71a038a1c971f1d8108b8c52d21db",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 732
     }
   ],
   "tagAssignments": [
@@ -258,10 +274,183 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "すごい",
+        "weight": 100
+      },
+      {
+        "term": "確か",
+        "weight": 86
+      },
+      {
+        "term": "早い",
+        "weight": 86
+      },
+      {
+        "term": "走る",
+        "weight": 55
+      },
+      {
+        "term": "運動",
+        "weight": 48
+      },
+      {
+        "term": "尻尾",
+        "weight": 48
+      },
+      {
+        "term": "絶対",
+        "weight": 48
+      },
+      {
+        "term": "半年",
+        "weight": 48
+      },
+      {
+        "term": "意外と",
+        "weight": 39
+      },
+      {
+        "term": "気持ち",
+        "weight": 39
+      },
+      {
+        "term": "共通",
+        "weight": 39
+      },
+      {
+        "term": "前",
+        "weight": 39
+      },
+      {
+        "term": "きつい",
+        "weight": 29
+      },
+      {
+        "term": "グランプリ",
+        "weight": 29
+      },
+      {
+        "term": "スピード",
+        "weight": 29
+      },
+      {
+        "term": "企画",
+        "weight": 29
+      },
+      {
+        "term": "時間",
+        "weight": 29
+      },
+      {
+        "term": "人",
+        "weight": 29
+      },
+      {
+        "term": "通常",
+        "weight": 29
+      },
+      {
+        "term": "あんま",
+        "weight": 17
+      },
+      {
+        "term": "コンテンツ",
+        "weight": 17
+      },
+      {
+        "term": "ティラノサウルス",
+        "weight": 17
+      },
+      {
+        "term": "めちゃくちゃ",
+        "weight": 17
+      },
+      {
+        "term": "レース",
+        "weight": 17
+      },
+      {
+        "term": "衣装",
+        "weight": 17
+      },
+      {
+        "term": "一緒",
+        "weight": 17
+      },
+      {
+        "term": "王国",
+        "weight": 17
+      },
+      {
+        "term": "今年",
+        "weight": 17
+      },
+      {
+        "term": "大丈夫",
+        "weight": 17
+      },
+      {
+        "term": "美しい",
+        "weight": 17
+      },
+      {
+        "term": "普段",
+        "weight": 17
+      },
+      {
+        "term": "普通",
+        "weight": 17
+      },
+      {
+        "term": "歩く",
+        "weight": 17
+      },
+      {
+        "term": "夢",
+        "weight": 17
+      },
+      {
+        "term": "余裕",
+        "weight": 17
+      },
+      {
+        "term": "アウト",
+        "weight": 1
+      },
+      {
+        "term": "あげる",
+        "weight": 1
+      },
+      {
+        "term": "いま",
+        "weight": 1
+      },
+      {
+        "term": "おかしい",
+        "weight": 1
+      },
+      {
+        "term": "おめでとう",
+        "weight": 1
+      },
+      {
+        "term": "ジム",
+        "weight": 1
+      },
+      {
+        "term": "シャトル",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "a648c383477da0410a906c93727903aa09e71a038a1c971f1d8108b8c52d21db",
+    "exclusionRulesVersion": "9.2.0+editorial.1",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "27a701487b24f7a812b931f72cb499df816925254387762628422abe7bb5605c",
@@ -273,5 +462,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T11:35:43Z",
     "basis": "公開タイトルの3D共通衣装お披露目を再確認し、ユーザー指示に基づく新衣装お披露目タグの欠落修正を承認。"
+  },
+  "synopsis": {
+    "body": "夜王国のグウェル・オス・ガール、白雪巴、不破湊が、待望の共通3D衣装をお披露目。モデルの動きや見た目を眺めて喜びを語った後、ティラノサウルス姿でシャトルランに挑みます。4周年や過去の企画を振り返る雑談と、速度に翻弄される三人の掛け合いを楽しめる配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ティラノサウルスでも優雅だと思わない",
+      "atSeconds": 504,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "ff5dda652374887b0380ed086aedf8213d1ec325b1a8b38c456bac26630dc10f",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:25:51.840002+00:00"
   }
 }
