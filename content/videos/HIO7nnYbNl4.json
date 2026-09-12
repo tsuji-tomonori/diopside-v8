@@ -46,6 +46,14 @@
       "inputFingerprint": "f7a0c3f238fad0d43b6d475b3a29525ebc35da04cdbeb949a00b3673fccbc9d5",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 21154
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "3ab4c58398b8c8e18a46abfe88a0397165e06279e5106fd6c3aec320cd34ffcf",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 21154
     }
   ],
   "tagAssignments": [
@@ -331,5 +339,22 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『スプラトゥーン2』で、落ち着いてガチマッチを長時間プレイ。勝敗を見つめてブキを選び直し、アサリやガチエリアで立ち回りを試しつつ、ランク30を目指して連戦します。試合中の迷いと率直な反応に加え、次のフェスへの期待も語られる配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-title",
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "もう戦争みたい",
+      "atSeconds": 20995,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "3ab4c58398b8c8e18a46abfe88a0397165e06279e5106fd6c3aec320cd34ffcf",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T15:29:31.620513+00:00"
   }
 }
