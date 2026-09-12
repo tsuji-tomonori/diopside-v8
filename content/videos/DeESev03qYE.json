@@ -32,6 +32,14 @@
       "type": "動画長",
       "sourceLabel": "YouTube公開動画長",
       "inputFingerprint": "5e19613e5be1c2a07c93797604f138f3a266b18f0c4068d0196fb59290ac080c"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "28cb4b2c91feeb573d42cb64521099f32237119b2ea9943f200b6ce6a937ce5c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 15057
     }
   ],
   "tagAssignments": [
@@ -184,5 +192,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T15:46:00Z",
     "basis": "ユーザーの追加対応指示に基づく公開メタデータ・既存taxonomy・匿名絵文字集計の確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が『都市伝説解体センター』第五話「罪人の影」を初見調査。相談者の話や現場の手がかりを追い、都市伝説の裏に潜む人間関係と不可解な出来事を推理します。聞き込みと資料の整理を重ね、謎の核心へ迫るサスペンス実況です。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "メガネの出番ですかね",
+      "atSeconds": 1872,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "28cb4b2c91feeb573d42cb64521099f32237119b2ea9943f200b6ce6a937ce5c",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T06:59:11.104600+00:00"
   }
 }
