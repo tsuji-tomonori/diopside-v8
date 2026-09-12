@@ -1,7 +1,7 @@
 schema_version: 2
 catalog_version: 3
 catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
-change_id: CHG-20260912-reconcile-pr53
+change_id: CHG-20260912-reconcile-pr50
 profile: assured
 source_ref: self
 completed_timings:
@@ -51,7 +51,7 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/rw05gN_dm0k.json
+  - path:content/videos/Wyow5Pr00JY.json
   note: 既存の有限batch・1動画1PR要件に従う正本追加である。
 - id: IMP-002
   class: Invariant
@@ -63,7 +63,7 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/rw05gN_dm0k.json
+  - path:content/videos/Wyow5Pr00JY.json
   note: 既存の独立確認済み候補と最新mainの保持を確認するためassuredを選択。
 - id: IMP-004
   class: Invariant
@@ -75,13 +75,13 @@ selected_checks:
   class: Risk-selected
   result: pass
   evidence:
-  - path:content/videos/rw05gN_dm0k.json
+  - path:content/videos/Wyow5Pr00JY.json
   note: 可逆な1動画overrideでありmigrationや削除はない。
 - id: FAST-004
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/rw05gN_dm0k.json
+  - path:content/videos/Wyow5Pr00JY.json
   - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 正本schema、全編根拠、review hash、PR gateを検証する。
 - id: FAST-006
@@ -101,8 +101,8 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/rw05gN_dm0k.json
-  - path:governance/reviews/CHG-20260912-reconcile-pr53.yaml
+  - path:content/videos/Wyow5Pr00JY.json
+  - path:governance/reviews/CHG-20260912-reconcile-pr50.yaml
   note: 差分を1動画正本、manifest、review YAMLへ限定する。
 - id: REV-002
   class: Invariant
@@ -115,7 +115,7 @@ selected_checks:
   result: pass
   evidence:
   - path:spec/requirements/requirements.json
-  - path:content/videos/rw05gN_dm0k.json
+  - path:content/videos/Wyow5Pr00JY.json
   note: 有限batchと独立reviewの受入条件を満たす。
 - id: REV-004
   class: Invariant
@@ -134,14 +134,15 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:governance/reviews/CHG-20260912-reconcile-pr53.yaml
+  - path:governance/reviews/CHG-20260912-reconcile-pr50.yaml
   note: 選択checkだけをreview YAMLへ保存する。
 - id: REV-008
   class: Invariant
   result: pass
   evidence:
-  - path:governance/reviews/CHG-20260912-reconcile-pr53.yaml
+  - path:governance/reviews/CHG-20260912-reconcile-pr50.yaml
   note: 未選択checkをN/Aとして登録しない。
 advisories: []
 residual_risks:
-- '既存PR #53の独立確認済み候補をそのまま保持した競合解消。字幕の再取得・再生成は行わない。'
+- '既存PR #50の独立確認済み候補をそのまま保持した競合解消。字幕の再取得・再生成は行わない。'
+- 競合解消は候補統合の保守作業としてchoreで記録し、bug_fixフラグとコミット種別を一致させる。
