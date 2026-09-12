@@ -52,6 +52,14 @@
       "inputFingerprint": "8de4aeb822cc15984820944becc7a7b38e818739c548f4fdc98bbb3552b4b1d3",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 8697
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "28b879abc568e12ee58a115c02bcc889ab1ebe1ae3a6020b5550923587dc4167",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8697
     }
   ],
   "tagAssignments": [
@@ -576,5 +584,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、6月の挑戦を振り返る定期雑談。新エフェクトやショート動画制作の裏話、コラボ撮影・ゲーム・歌枠での準備と交流を、失敗談や笑いを交えて語ります。美容やお気に入りの動画、7月の予定まで、リスナーとの会話で広がる近況を味わえます。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "機械音痴なりに新しいエフェクトをちょっと搭載しました",
+      "atSeconds": 4059,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "28b879abc568e12ee58a115c02bcc889ab1ebe1ae3a6020b5550923587dc4167",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:58:56.778775+00:00"
   }
 }
