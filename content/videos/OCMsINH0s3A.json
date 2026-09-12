@@ -52,6 +52,14 @@
       "inputFingerprint": "cb98726a4dda53222d2e24c441411bb4ac8f608bf747f7df307ec582eabe56c3",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 9685
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "2395b6f9f57ca75522de38f519a0568fbf56a6121662b6101416090d14aeb761",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9685
     }
   ],
   "tagAssignments": [
@@ -576,5 +584,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、開催を控えたマリオカート大会に向けて、視聴者参加型のレースで練習。コース選びやマシン変更に迷いながら、アイテムやドリフトを教わり、順位に一喜一憂し、失敗を笑いに変えながら少しずつ走りを磨いていく、にぎやかな参加型配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "構わんよ屁でもないわよ",
+      "atSeconds": 8446,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "2395b6f9f57ca75522de38f519a0568fbf56a6121662b6101416090d14aeb761",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T18:46:45.725419+00:00"
   }
 }
