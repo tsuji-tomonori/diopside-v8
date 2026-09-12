@@ -52,6 +52,14 @@
       "inputFingerprint": "c0281933dfb6af7854706f81b2ab11e42b1b22f4b53e3215b70a218ecf7f8522",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 20129
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の日本語原文字幕",
+      "inputFingerprint": "8a3f4ae8225aa542eb3b58242aaf84b18e8a262e57ef2b0608aff9b99db2f38d",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 20129
     }
   ],
   "tagAssignments": [
@@ -639,5 +647,22 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『NieR:Automata』を9S視点で進め、前周では見えなかった機械生命体の事情を探る。パスカルの村を起点に、ハッキングを使う依頼をこなし、迷いやすい廃墟にも寄り道しながら、2Bとの会話と考察を重ねて物語を見つめ直す長時間配信。",
+    "bodyEvidenceRefs": [
+      "evidence-title",
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "みんな一緒にバグ見つけよう",
+      "atSeconds": 14206,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "8a3f4ae8225aa542eb3b58242aaf84b18e8a262e57ef2b0608aff9b99db2f38d",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T19:42:44.101449+00:00"
   }
 }
