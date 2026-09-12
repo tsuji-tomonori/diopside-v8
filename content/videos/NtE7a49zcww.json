@@ -52,6 +52,14 @@
       "inputFingerprint": "ab1000eeb8f8ab0ad8297cf5fd60d1a8689e9b154a3aa8ce894215fe2997ca52",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 14832
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "6d28bd07f896330be003960cab9f1be2ac6bbc9b820c66843948164ee0f9dab5",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 14832
     }
   ],
   "tagAssignments": [
@@ -657,5 +665,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『崩壊：スターレイル』のヤリーロⅥ編を進め、雪に閉ざされたベロブルグで個性的な住民と出会い、戦闘や探索、寄り道のミニゲームを楽しむ。仲間を育てながら、軽快なツッコミと視聴者との相談で未知の惑星を開拓していく一編。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "宝箱を目の前にした白雪は人格が変わる",
+      "atSeconds": 13199,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "6d28bd07f896330be003960cab9f1be2ac6bbc9b820c66843948164ee0f9dab5",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T16:20:26.593150+00:00"
   }
 }
