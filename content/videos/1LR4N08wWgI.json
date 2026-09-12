@@ -52,6 +52,14 @@
       "inputFingerprint": "43d64f31284c0cd61f39bf804f2d500bd64f1a91ba2e098355c42fbb8ea58b43",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 117
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "43d64f31284c0cd61f39bf804f2d500bd64f1a91ba2e098355c42fbb8ea58b43",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 117
     }
   ],
   "tagAssignments": [
@@ -441,5 +449,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が「ジムに行きたい」と言いながら動けない人のありがちな心理を題材に、入会するだけで満足してしまう落とし穴を辛口に語ります。悔しさを行動のきっかけに変える考え方や、日々の習慣を見直す視点まで、テンポよく語ります。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "口にするだけで満足するとこあるんだよジムって",
+      "atSeconds": 73,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "43d64f31284c0cd61f39bf804f2d500bd64f1a91ba2e098355c42fbb8ea58b43",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:39:57.191656+00:00"
   }
 }
