@@ -52,6 +52,14 @@
       "inputFingerprint": "cfd4d0b9f4c8e2af27fcb9292d48dab1ddb18e1bbb049ae9376a4f849599727d",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 5544
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "e85e4ff7307cd7f3b909ec078b9b9e660e240f667a7761100b8de18bd378f093",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5544
     }
   ],
   "tagAssignments": [
@@ -441,5 +449,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、友人関係や進路、学校生活、体調との付き合い方など、学生から寄せられた悩みに自身の経験も交えて向き合う相談配信。考え込んだ心をほぐすヒントや、日々を前向きに過ごす工夫を一緒に探ります。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "必要な人だけに届けばいいなっていうか",
+      "atSeconds": 436,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "e85e4ff7307cd7f3b909ec078b9b9e660e240f667a7761100b8de18bd378f093",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:55:29.260642+00:00"
   }
 }
