@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "f95e61fa192013e2e70ab05b1f31151c0dbcfcbd5caa290106bffbe5041afcbc"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "84fabca563e07a1c1960b58376e3b6a80a1cb1b5290108d80c8b3bdae3021bd4",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7403
     }
   ],
   "tagAssignments": [
@@ -300,10 +308,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "怖い",
+        "weight": 100
+      },
+      {
+        "term": "ラジオ",
+        "weight": 92
+      },
+      {
+        "term": "無視",
+        "weight": 66
+      },
+      {
+        "term": "確か",
+        "weight": 62
+      },
+      {
+        "term": "題",
+        "weight": 60
+      },
+      {
+        "term": "帰り道",
+        "weight": 55
+      },
+      {
+        "term": "待つ",
+        "weight": 52
+      },
+      {
+        "term": "べべ",
+        "weight": 50
+      },
+      {
+        "term": "屋敷",
+        "weight": 44
+      },
+      {
+        "term": "楽しい",
+        "weight": 44
+      },
+      {
+        "term": "かかし",
+        "weight": 40
+      },
+      {
+        "term": "終わる",
+        "weight": 40
+      },
+      {
+        "term": "チャレンジ",
+        "weight": 38
+      },
+      {
+        "term": "やばい",
+        "weight": 38
+      },
+      {
+        "term": "白",
+        "weight": 35
+      },
+      {
+        "term": "帰る",
+        "weight": 33
+      },
+      {
+        "term": "ゆき",
+        "weight": 31
+      },
+      {
+        "term": "子",
+        "weight": 31
+      },
+      {
+        "term": "目",
+        "weight": 28
+      },
+      {
+        "term": "ゲーム",
+        "weight": 25
+      },
+      {
+        "term": "一緒",
+        "weight": 25
+      },
+      {
+        "term": "カラス",
+        "weight": 22
+      },
+      {
+        "term": "すごい",
+        "weight": 22
+      },
+      {
+        "term": "よく",
+        "weight": 22
+      },
+      {
+        "term": "違う",
+        "weight": 22
+      },
+      {
+        "term": "明日",
+        "weight": 22
+      },
+      {
+        "term": "黄色",
+        "weight": 19
+      },
+      {
+        "term": "人",
+        "weight": 19
+      },
+      {
+        "term": "赤",
+        "weight": 19
+      },
+      {
+        "term": "道",
+        "weight": 19
+      },
+      {
+        "term": "お化け",
+        "weight": 16
+      },
+      {
+        "term": "包帯",
+        "weight": 16
+      },
+      {
+        "term": "でん",
+        "weight": 13
+      },
+      {
+        "term": "太郎",
+        "weight": 13
+      },
+      {
+        "term": "変わる",
+        "weight": 13
+      },
+      {
+        "term": "ホラー",
+        "weight": 9
+      },
+      {
+        "term": "人間",
+        "weight": 9
+      },
+      {
+        "term": "はがき",
+        "weight": 5
+      },
+      {
+        "term": "声",
+        "weight": 5
+      },
+      {
+        "term": "かわいい",
+        "weight": 1
+      },
+      {
+        "term": "ゴリラ",
+        "weight": 1
+      },
+      {
+        "term": "ミイラ",
+        "weight": 1
+      },
+      {
+        "term": "開く",
+        "weight": 1
+      },
+      {
+        "term": "逆",
+        "weight": 1
+      },
+      {
+        "term": "元気",
+        "weight": 1
+      },
+      {
+        "term": "昨日",
+        "weight": 1
+      },
+      {
+        "term": "秘密",
+        "weight": 1
+      },
+      {
+        "term": "分かる",
+        "weight": 1
+      },
+      {
+        "term": "戻る",
+        "weight": 1
+      },
+      {
+        "term": "遊ぶ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "84fabca563e07a1c1960b58376e3b6a80a1cb1b5290108d80c8b3bdae3021bd4",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "75f206c2fc1e2eabbeeba7a10b49b9a39dfab202317521b73d86f909b35b1a49",

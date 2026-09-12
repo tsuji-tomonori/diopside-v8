@@ -40,6 +40,14 @@
       "inputFingerprint": "0d43dceaf8f0b4944972801edff7742e2c0d95498fa102b56547de8f7a558c34",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 17751
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "公開動画の全編を処理した一時文字起こしの語頻度集計入力",
+      "inputFingerprint": "2865a05e345e4fba9ca2094787ae29ef7dff107f45672fba15e189e5d1d186a1",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 17751
     }
   ],
   "tagAssignments": [
@@ -123,10 +131,195 @@
     "updatedAt": "2026-09-04T15:51:00Z"
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "確認待ち",
-    "detail": "今回の絵文字集計範囲では公開本文からの語句候補をレビューしていません。",
-    "updatedAt": "2026-09-04T15:51:00Z"
+    "words": [
+      {
+        "term": "人魚",
+        "weight": 100
+      },
+      {
+        "term": "人",
+        "weight": 99
+      },
+      {
+        "term": "話",
+        "weight": 89
+      },
+      {
+        "term": "知る",
+        "weight": 80
+      },
+      {
+        "term": "呪い",
+        "weight": 76
+      },
+      {
+        "term": "確か",
+        "weight": 70
+      },
+      {
+        "term": "気",
+        "weight": 66
+      },
+      {
+        "term": "島",
+        "weight": 64
+      },
+      {
+        "term": "前",
+        "weight": 63
+      },
+      {
+        "term": "すごい",
+        "weight": 62
+      },
+      {
+        "term": "ユーザー",
+        "weight": 58
+      },
+      {
+        "term": "分かる",
+        "weight": 49
+      },
+      {
+        "term": "亀島",
+        "weight": 47
+      },
+      {
+        "term": "海",
+        "weight": 39
+      },
+      {
+        "term": "若村",
+        "weight": 38
+      },
+      {
+        "term": "あみ",
+        "weight": 34
+      },
+      {
+        "term": "太郎",
+        "weight": 33
+      },
+      {
+        "term": "わかる",
+        "weight": 31
+      },
+      {
+        "term": "子",
+        "weight": 31
+      },
+      {
+        "term": "天",
+        "weight": 30
+      },
+      {
+        "term": "大丈夫",
+        "weight": 27
+      },
+      {
+        "term": "待つ",
+        "weight": 26
+      },
+      {
+        "term": "かわいい",
+        "weight": 24
+      },
+      {
+        "term": "ばあちゃん",
+        "weight": 24
+      },
+      {
+        "term": "情報",
+        "weight": 24
+      },
+      {
+        "term": "悪い",
+        "weight": 19
+      },
+      {
+        "term": "おる",
+        "weight": 15
+      },
+      {
+        "term": "違う",
+        "weight": 15
+      },
+      {
+        "term": "人形",
+        "weight": 14
+      },
+      {
+        "term": "お母さん",
+        "weight": 12
+      },
+      {
+        "term": "強い",
+        "weight": 12
+      },
+      {
+        "term": "山",
+        "weight": 12
+      },
+      {
+        "term": "伊勢",
+        "weight": 10
+      },
+      {
+        "term": "司",
+        "weight": 9
+      },
+      {
+        "term": "さすが",
+        "weight": 7
+      },
+      {
+        "term": "じいちゃん",
+        "weight": 7
+      },
+      {
+        "term": "竜宮",
+        "weight": 7
+      },
+      {
+        "term": "とこ",
+        "weight": 5
+      },
+      {
+        "term": "亀",
+        "weight": 3
+      },
+      {
+        "term": "教える",
+        "weight": 3
+      },
+      {
+        "term": "終わる",
+        "weight": 3
+      },
+      {
+        "term": "食べる",
+        "weight": 3
+      },
+      {
+        "term": "大島",
+        "weight": 3
+      },
+      {
+        "term": "戻る",
+        "weight": 3
+      },
+      {
+        "term": "へえ",
+        "weight": 1
+      }
+    ],
+    "inputType": "運用者提供の公開本文",
+    "inputFingerprint": "2865a05e345e4fba9ca2094787ae29ef7dff107f45672fba15e189e5d1d186a1",
+    "exclusionRulesVersion": "9.2.0+editorial.1",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T09:21:23.454Z"
   },
   "customEmojiUsage": {
     "status": "集計済み",
