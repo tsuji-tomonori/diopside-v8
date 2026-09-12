@@ -52,6 +52,14 @@
       "inputFingerprint": "5146415786a450a72d6f7c018959cccad13cdfabc89e4c0de62f77de09bfd1ca",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 5950
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "8fc155c5fb4cca06e780e7c98a09c69068a93034c3e87b7d57e63ba3a51554c5",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5950
     }
   ],
   "tagAssignments": [
@@ -543,5 +551,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T21:05:00+09:00",
     "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  },
+  "synopsis": {
+    "body": "西園寺メアリが白雪巴を迎える「スナックメアリ」。久しぶりの二人きりトークで、朝の配信や飲み物、健康の話から、サービス精神や叱り方、アルバイトの思い出へ広がります。自分に合う仕事を選ぶ大切さも語る、率直で軽妙な夜の雑談です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "敗北宣言だけどね",
+      "atSeconds": 229,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "8fc155c5fb4cca06e780e7c98a09c69068a93034c3e87b7d57e63ba3a51554c5",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T10:21:53.092531+00:00"
   }
 }
