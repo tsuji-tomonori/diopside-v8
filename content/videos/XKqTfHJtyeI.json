@@ -52,6 +52,14 @@
       "inputFingerprint": "d2e530361c352fd31c44abe7a63c4ee79f231e01467b52e9c558c07cee362f9f",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 12431
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "6db3624bd042d8da2386b36c2eeea29384456f04c27084d2c9306b87c4d02d87",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 12431
     }
   ],
   "tagAssignments": [
@@ -612,5 +620,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-23T16:00:00+09:00",
     "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  },
+  "synopsis": {
+    "body": "白雪巴が『こだわりラーメン館』で店主となり、店名決めや開店準備からラーメン作り、営業と店舗づくりを進める初回配信。メニューや投資を考えながら試行錯誤を重ね、ラーメンへの熱い思いと軽妙な語りを楽しめます。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ラーメンに救われてきましたよこの人生",
+      "atSeconds": 318,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "6db3624bd042d8da2386b36c2eeea29384456f04c27084d2c9306b87c4d02d87",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T20:47:28.429615+00:00"
   }
 }
