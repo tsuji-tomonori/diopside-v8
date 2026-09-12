@@ -52,6 +52,14 @@
       "inputFingerprint": "e8bc5788d21b7d9c864f4b7fc88ae44908d81764ab115f9863982f78beeb24d1",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 3483
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "251098d748a7b6679c3e385e2cb4c76cbec2577d21f208462df1d2e7da4e9a0d",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3483
     }
   ],
   "tagAssignments": [
@@ -446,5 +454,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が小学6年生の漢字ドリルに挑戦します。間違えたら即終了のルールで、120問クリアを目指し、朝の脳トレとして読み方や熟語を思い出しながら一問ずつ真剣にじっくり答える朝配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "脳が働いてきたよ",
+      "atSeconds": 2810,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "251098d748a7b6679c3e385e2cb4c76cbec2577d21f208462df1d2e7da4e9a0d",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T19:36:00.963098+00:00"
   }
 }
