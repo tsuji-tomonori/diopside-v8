@@ -46,6 +46,14 @@
       "inputFingerprint": "2bdd18645be31af38775eb6d9350cf0c7005a5821494e0f671a2d3d4833af892"
     },
     {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "凍結inventoryの全編字幕（0秒〜496秒）",
+      "inputFingerprint": "e401757e8add9c470f27bad187db7efdace374f9cdc609bec78f504171ef28c5",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 496
+    },
+    {
       "evidenceId": "evidence-caption-word-cloud-9-2",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
@@ -343,5 +351,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-04T00:00:00Z",
     "basis": "所有者指示に基づくユニットタグ全件監査と公開情報・出演者集合の再確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が、教わったばかりのダンスの動きに挑戦する短編。手順やカウントを確かめながら何度も身体を動かし、うまく合わせようと試行錯誤。軽快な掛け声と率直な感想を交え、視聴者も一緒に楽しめる運動の時間です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "よかったら一緒に体を動かして遊ぶわねぇ",
+      "atSeconds": 483,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "e401757e8add9c470f27bad187db7efdace374f9cdc609bec78f504171ef28c5",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:15:13.618654+00:00"
   }
 }
