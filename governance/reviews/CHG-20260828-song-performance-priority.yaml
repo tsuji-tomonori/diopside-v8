@@ -1,0 +1,209 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260828-song-performance-priority
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+      - path:spec/requirements/requirements.json
+    note: 既存のV8-DISPLAY-015が求める白雪巴の歌唱実績から対象動画へ移動する利用者結果へ表示優先度を戻す不具合修正であり、永続要件の意味は変更しない。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+    note: SongCardと対象testの入力指紋を生成設計へ反映した。既存route、state、公開データ契約は変えず、長期判断ではないためADRは不要である。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260828-song-performance-priority.yaml
+    note: 主要リンクの優先順位とresponsive表示を変える重要UI修正のためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: "@GitHubの当初指示に基づきbranch、commit、Draft PRを作成し、2026-08-29の明示指示に基づきmain同期、merge、公開反映後の動作確認を外部書込み・確認対象とする。"
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/songs/SongIndexPage.tsx
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: Vite production buildをPRの通常品質ゲートで実行する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/songs/SongIndexPage.tsx
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: ReactとE2Eを含むTypeScript strict型検査をPRの通常品質ゲートで実行する。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/songs/SongIndexPage.tsx
+      - test:src/features/songs/SongIndexPage.test.tsx
+      - test:e2e/song-index.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 変更したTSX、test、E2E、CSSを通常lintとbuildで検査する。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/features/songs/SongIndexPage.test.tsx
+      - test:e2e/song-index.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 歌唱が原曲より先に現れ、歌唱動画がprimary、原曲がsecondaryであることをcomponentとE2Eで直接検証する。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/songs/SongIndexPage.test.tsx
+      - test:e2e/song-index.spec.ts
+    note: 修正前の原曲先行かつ原曲ボタン強調を失敗条件としてDOM順序とbutton classの回帰testに固定し、初回CIで実データの開始位置10:33へ期待値を合わせて再検証した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: scripts/generate-design.tsが算出したSongIndexPageと対象testの入力指紋をinventoryへ反映し、check modeでdriftを検査する。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 差分を楽曲カード、responsive CSS、対象test、review記録へ限定し、credential、個人情報、公開成果物を含めない。
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/songs/SongIndexPage.test.tsx
+      - test:e2e/song-index.spec.ts
+    note: 既存のsuccess、empty、未知楽曲状態を維持し、success時の主要操作だけを歌唱優先へ修正する。
+  - id: FAST-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/features/songs/SongIndexPage.tsx
+      - test:e2e/song-index.spec.ts
+    note: 白雪巴の歌唱と原曲情報をsemantic sectionと見出しで区別し、通常linkのaccessible nameとkeyboard操作を維持する。
+  - id: FAST-018
+    class: Risk-selected
+    result: na
+    evidence:
+      - test:e2e/song-index.spec.ts
+    note: E2E変更triggerで選択後、対象が読取り専用の静的楽曲ページでありC/U/D API、DB、外部状態変更を含まないと確認した。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 一つの利用者目的である楽曲カードの情報優先度修正だけに差分を限定する。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+      - path:spec/requirements/requirements.json
+    note: V8-DISPLAY-015の歌唱実績探索を実現する既存UIの不具合修正であり、正本要件を追加または更新しない理由を記録した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+    note: 変更したSongCardと対象testの入力指紋を生成設計へ反映した。component境界、route、state、公開契約、長期判断は変えずADRは不要である。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/features/songs/SongIndexPage.test.tsx
+      - test:e2e/song-index.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 表示順、強調、既存YouTubeリンクをcomponent testとPlaywright E2Eで通常CIから確認できる。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260828-song-performance-priority.yaml
+    note: 変更flagsから選択したcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260828-song-performance-priority.yaml
+    note: selectorで選択されなかったcheckをN/Aとして登録していない。
+  - id: REV-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/song-index.spec.ts
+    note: FAST-018はE2E変更で選択後、CRUD・DB・外部状態を持たない静的UI試験と判明したためN/A根拠を記録した。
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/songs/SongIndexPage.test.tsx
+      - test:e2e/song-index.spec.ts
+    note: 主要タスクの動画視聴、semantic構造、responsive時の全幅主ボタン、原曲の副導線をcomponentとE2Eで検証する。
+
+advisories: []
+residual_risks:
+  - main同期後の品質ゲート、merge後のrelease・deploy workflow、公開HTTP smokeが成功するまで公開完了とはしない。

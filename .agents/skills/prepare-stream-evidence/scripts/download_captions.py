@@ -9,6 +9,7 @@ import re
 import shutil
 import subprocess
 import sys
+import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -23,6 +24,7 @@ def main() -> int:
     parser.add_argument("video_id")
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--caption-json3", type=Path, help="試験・既取得用の一時json3")
+    parser.add_argument("--retries", type=int, default=3)
     args = parser.parse_args()
     try:
         load_state(args.video_id)
@@ -43,7 +45,7 @@ def main() -> int:
         caption_path, language = (
             (args.caption_json3.resolve(), "ja-orig")
             if args.caption_json3 is not None
-            else download_caption(executable, directory, inputs["youtubeUrl"])
+            else download_caption(executable, directory, inputs["youtubeUrl"], args.retries)
         )
         cues = parse_json3(caption_path, inputs["durationSeconds"])
         if not cues:
@@ -73,22 +75,36 @@ def main() -> int:
         parser.error(str(error))
 
 
-def download_caption(executable: str | None, directory: Path, url: str) -> tuple[Path, str]:
+def download_caption(
+    executable: str | None,
+    directory: Path,
+    url: str,
+    retries: int,
+) -> tuple[Path, str]:
     if not executable:
         raise TimestampToolError("yt-dlpがありません。公開字幕を取得できません。")
     caption_dir = directory / "captions" / "raw"
     caption_dir.mkdir(parents=True, exist_ok=True)
     template = str(caption_dir / "source.%(ext)s")
-    for language in ("ja-orig", "ja"):
-        command = [
-            executable, "--ignore-config", "--no-playlist", "--skip-download",
-            "--write-auto-subs", "--sub-langs", language, "--sub-format", "json3",
-            "--output", template, "--quiet", url,
-        ]
-        completed = subprocess.run(command, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        matches = sorted(caption_dir.glob(f"source.{language}.json3"))
-        if completed.returncode == 0 and len(matches) == 1:
-            return matches[0], language
+    bounded_retries = max(1, min(retries, 5))
+    for attempt in range(1, bounded_retries + 1):
+        for language in ("ja-orig", "ja"):
+            command = [
+                executable, "--ignore-config", "--no-playlist", "--no-cookies", "--skip-download",
+                "--write-auto-subs", "--sub-langs", language, "--sub-format", "json3",
+                "--retries", "3", "--fragment-retries", "3", "--output", template, "--quiet", url,
+            ]
+            completed = subprocess.run(
+                command,
+                check=False,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+            matches = sorted(caption_dir.glob(f"source.{language}.json3"))
+            if completed.returncode == 0 and len(matches) == 1:
+                return matches[0], language
+        if attempt < bounded_retries:
+            time.sleep(min(2 ** (attempt - 1), 8))
     raise TimestampToolError("公開の日本語原文字幕または日本語字幕を取得できませんでした。")
 
 

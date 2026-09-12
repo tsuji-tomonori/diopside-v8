@@ -1,0 +1,328 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "mr38jSAWXKY",
+  "title": "【 #夜王国桃鉄 】夜王国VS最強CPUさくま【にじさんじ】",
+  "publishedAt": "2021-01-27T14:05:25Z",
+  "durationSeconds": 6180,
+  "durationIso": "PT1H43M",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/mr38jSAWXKY/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=mr38jSAWXKY",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "ec2a07148e3d4c345e5fa0e1336edb68be00cab84ae915c132186e4e112c4e73"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "b525615b606707900366c216ad93b1e3f8dc84ca256fcff8fc57e47a4e87a28b"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "436cfbfee7dec46ebacb859f1a8a25ca470649dfd12280a459062983a4d96feb"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "0707bb86493f1d779891e511414be4908b7bc4adbbe70284837c86c40cac78f5"
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "5d85adbd681f2a667b457e7d19843459725e18afa4d444acb0d2e74e6e1ec12b"
+    },
+    {
+      "evidenceId": "evidence-game-classification",
+      "type": "動画タイトル",
+      "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+      "inputFingerprint": "23ab663abb8d290c3a51d4b9df29af496339b16959b4baa7ccbe89e91f180b58"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-7aa1717d3587",
+      "reason": "公開台帳のチャンネル「グウェル・オス・ガール / Gwelu Os Gar 【にじさんじ】」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-3c46214bce41",
+      "reason": "人物名「不破湊」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-628c281ac2b2",
+      "reason": "人物名「グウェル・オス・ガール」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-unit-31175672222e",
+      "reason": "コンビ・ユニット名「夜王国」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-23T16:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-7de4793e61b9",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「桃太郎電鉄」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-23T16:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-e39b9f75edc2",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「パーティーゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-23T16:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-62278ec71bd0",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「アクション」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-23T16:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-3f52e563",
+        "startSeconds": 0,
+        "label": "企画紹介・桃鉄のルール",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-221-0de6bb58",
+        "startSeconds": 221,
+        "label": "ゲーム開始・序盤の進路",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-588-ce5edc3c",
+        "startSeconds": 588,
+        "label": "協力プレイと佐久間対策",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1238-4c9a301c",
+        "startSeconds": 1238,
+        "label": "リベンジをかけたカード運用",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1807-82619346",
+        "startSeconds": 1807,
+        "label": "最初の目的地を目指す展開",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2363-6e4410ea",
+        "startSeconds": 2363,
+        "label": "1年目の盤面と次の目的地",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2709-28deec69",
+        "startSeconds": 2709,
+        "label": "時限爆弾カードで対抗策",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3292-396abb18",
+        "startSeconds": 3292,
+        "label": "年進行後のカード戦略",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3925-bb0bc090",
+        "startSeconds": 3925,
+        "label": "目的地への進行と資金管理",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4533-bb5865a7",
+        "startSeconds": 4533,
+        "label": "終盤のカード・借金対策",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5122-9477b812",
+        "startSeconds": 5122,
+        "label": "ヘリポートを使った終盤の移動",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5576-d83e5a70",
+        "startSeconds": 5576,
+        "label": "最後のターンに向けた準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5853-e2f64616",
+        "startSeconds": 5853,
+        "label": "最終ターン・結果確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6006-82c2b6f3",
+        "startSeconds": 6006,
+        "label": "振り返り・配信終了",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "077b9f148179324bc1a7b3e7056c10a72f3617d5a1776f8a914011d680e370a4",
+    "inputFingerprint": "0707bb86493f1d779891e511414be4908b7bc4adbbe70284837c86c40cac78f5",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-19T09:40:00Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "077b9f148179324bc1a7b3e7056c10a72f3617d5a1776f8a914011d680e370a4",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "077b9f148179324bc1a7b3e7056c10a72f3617d5a1776f8a914011d680e370a4",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "3150692c584579c1774d8978093434fb66a0940f9fbc92ef00259c189fe08f07",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-23T16:00:00+09:00",
+    "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  }
+}

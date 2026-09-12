@@ -7,7 +7,14 @@ import type { DeviceStore } from './data/deviceStore.ts';
 import type { PublicBundle } from './data/loadPublicData.ts';
 import { DeviceLibraryPage } from './features/library/DeviceLibraryPage.tsx';
 import { SearchPage } from './features/search/SearchPage.tsx';
+import { SongIndexPage } from './features/songs/SongIndexPage.tsx';
 import { VideoDetailPage } from './features/detail/VideoDetailPage.tsx';
+import { WorkDetailPage } from './features/works/WorkDetailPage.tsx';
+import { CollaboratorDetailPage } from './features/collaborations/CollaboratorDetailPage.tsx';
+import { GroupDetailPage } from './features/collaborations/GroupDetailPage.tsx';
+import { SeriesDetailPage } from './features/series/SeriesDetailPage.tsx';
+import { GameIndexPage } from './features/games/GameIndexPage.tsx';
+import { EntityIndexPage } from './features/entities/EntityIndexPage.tsx';
 
 export function App({ bundle, store }: { bundle: PublicBundle; store: DeviceStore }): React.JSX.Element {
   const [notice, setNotice] = useState('');
@@ -21,11 +28,25 @@ export function App({ bundle, store }: { bundle: PublicBundle; store: DeviceStor
           <Routes>
             <Route path="/" element={<SearchPage />} />
             <Route path="/video/:videoId" element={<VideoDetailPage />} />
+            <Route path="/works/:tagId" element={<WorkDetailPage />} />
+            <Route path="/games" element={<GameIndexPage />} />
+            <Route path="/games/genres/:tagId" element={<GameIndexPage />} />
+            <Route path="/songs" element={<SongIndexPage />} />
+            <Route path="/songs/:tagId" element={<SongIndexPage />} />
+            <Route path="/entities" element={<EntityIndexPage />} />
+            <Route path="/entities/:entityId" element={<EntityIndexPage />} />
+            <Route path="/collaborators/:tagId" element={<CollaboratorDetailPage />} />
+            <Route path="/groups/:tagId" element={<GroupDetailPage />} />
+            <Route path="/series/:tagId" element={<SeriesDetailPage />} />
             <Route path="/library" element={<DeviceLibraryPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
-        <footer><p>diopside — 公開情報を、人が確認した静的アーカイブ検索。</p><p>ログイン・追跡・端末間同期は行いません。</p></footer>
+        <footer>
+          <p>diopside — 白雪巴さんの公開アーカイブを探せる非公式ファンサイトです。</p>
+          <p>タグ・あらすじ・タイムスタンプはAIが生成しており、誤りを含む場合があります。</p>
+          <p>ログイン・追跡・端末間同期は行いません。</p>
+        </footer>
       </BundleContext.Provider>
     </DeviceStoreContext.Provider>
   );

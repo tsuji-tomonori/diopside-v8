@@ -1,0 +1,216 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260904-ai-generated-fan-site-disclosure
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: true
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: true
+  external_side_effect: true
+  production_deploy: true
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:spec/sources/owner-directive-2026-09-04-ai-generated-fan-site-disclosure.md
+    note: V8-DISPLAY-020とV8-DISPLAY-021を追加し、サイトの立場とAI生成情報の表示を永続要件として正本化した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - path:docs/design/generated/system.gen.md
+    note: 共通フッター、検索説明、動画詳細の表示文言変更を生成設計へ反映し、公開API、データ形式、ADRを変更しない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260904-ai-generated-fan-site-disclosure.yaml
+    note: 共通UI、永続要件、要件generator、mainマージ後のPages生成へ影響するためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 利用者がGitHub pluginを指定し、feature branch、PR、merge、Pages公開の外部書込みを明示的に依頼している。
+  - id: IMP-005
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: mergeとPages公開を不可逆操作として識別し、2026-09-04の利用者指示を操作権限の根拠とした。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/App.tsx
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 要件正本と生成設計を含むproduction buildを完了し、通常PRではrelease生成物を含めない契約をCIで再実行する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:tsconfig.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: ブラウザ用とNode用のTypeScript strict型検査を完了した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/App.tsx
+      - path:tests/site-disclosure.test.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: src、scripts、tests、e2eを含むrepository lintを警告0件で完了した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/site-disclosure.test.ts
+      - test:e2e/detail.spec.ts
+      - test:e2e/search.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 対象文言試験2件と関連component試験を完了した。全体では今回差分と独立したmain既存の公開版ID不一致1件を確認し、E2EはCIの導入済みChromiumで再実行する。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:docs/requirements/REQUIREMENTS.md
+      - path:docs/design/generated/inventory.gen.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 要件表示とas-built設計を正本と実装から決定的に再生成した。Pages成果物は通常PRへ含めず、mainマージ後のrelease生成フローへ委ねる。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 差分をサイト識別、AI生成表示、対象試験、要件正本・生成物・review記録へ限定し、秘密情報、個人情報、生素材を含めない。
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/site-disclosure.test.ts
+      - test:e2e/detail.spec.ts
+      - test:e2e/search.spec.ts
+    note: 共通フッター、検索画面、あらすじ・タグ・タイムスタンプのsuccess表示を検証対象に固定した。状態遷移と操作は変更しない。
+  - id: FAST-018
+    class: Risk-selected
+    result: na
+    evidence:
+      - test:e2e/detail.spec.ts
+      - test:e2e/search.spec.ts
+    note: E2E変更triggerで選択後、対象が読取り専用の静的表示でありC/U/D API、DB、外部状態変更を含まないと確認した。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 差分を非公式ファンサイトとAI生成情報の表示という一つの透明性目的に限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更内容、要件・設計影響、review path、検証契約、互換性・残存リスクを構造化Commit Commentへ記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:spec/sources/owner-directive-2026-09-04-ai-generated-fan-site-disclosure.md
+    note: 所有者指示をV8-DISPLAY-020、V8-DISPLAY-021、catalog revision 35へ反映した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - path:docs/design/generated/system.gen.md
+      - commit:self
+    note: 生成inventoryと要件件数を更新し、公開契約、データモデル、構成、ADRを変更しない。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:src/App.tsx
+      - path:src/features/detail/VideoDetailPage.tsx
+      - test:tests/site-disclosure.test.ts
+    note: V8-DISPLAY-020とV8-DISPLAY-021から共通表示・近接表示・公開UIソースの回帰試験へ到達できる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/site-disclosure.test.ts
+      - test:e2e/detail.spec.ts
+      - test:e2e/search.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 新しい受入条件を直接検証する公開UIソース試験とE2Eが通常PRのCIに含まれる。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260904-ai-generated-fan-site-disclosure.yaml
+    note: 選択したcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260904-ai-generated-fan-site-disclosure.yaml
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+  - id: REV-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/detail.spec.ts
+      - test:e2e/search.spec.ts
+    note: FAST-018はE2E変更で選択後、CRUD・DB・外部状態を持たない表示回帰試験と判明したためN/A根拠を記録した。
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/site-disclosure.test.ts
+      - test:e2e/detail.spec.ts
+      - test:e2e/search.spec.ts
+    note: 検索と動画詳細の主要表示をデスクトップ・モバイルのE2Eで確認する契約を維持した。
+advisories: []
+residual_risks: []

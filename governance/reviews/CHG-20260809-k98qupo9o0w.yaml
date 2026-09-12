@@ -1,0 +1,127 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260809-k98qupo9o0w
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:content/videos/K98qupo9O0w.json]
+    note: 全編字幕と独立fact・editorial reviewに合格した18章を1動画1PR要件へ適合させ、要件正本は変更しない
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 既存schemaの1動画正本と件数manifest、決定的生成物だけを更新し、公開契約を変更しない
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:content/videos/K98qupo9O0w.json]
+    note: 全編根拠と独立二重reviewを伴う公開候補のためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 利用者が完成済みのあらすじ・タイムスタンプPRを順次mergeする公開承認を2026-08-15に再度明示した。最新main統合後の品質ゲート合格をmerge条件とする
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/videos/K98qupo9O0w.json]
+    note: 可逆なtimestamp override追加でmigrationや削除はなく、本PRをrevert可能である
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/validate-content.ts, workflow:要件・品質ゲート]
+    note: 正本schema、境界、公開根拠参照、独立review hash、PR公開gateを検証する
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/videos/K98qupo9O0w.json, path:content/content-manifest.json]
+    note: review三項目の欠落とmanifest件数不一致の再現条件を対象正本と全件content validationで固定した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:content/content-manifest.json]
+    note: manifestの動画総数・作成済み動画数・区間数を正本全件と再照合し、18区間を決定的に生成できることを確認した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 生字幕・transcript・内部map・review原本・秘密情報を差分へ含めない
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: K98qupo9O0wの1動画正本、件数manifest、生成物、本review YAMLだけに差分を限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記載する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:content/videos/K98qupo9O0w.json]
+    note: 全編根拠・独立二重reviewと1動画1PR境界を満たし、受入条件を変更しない
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: schema・画面・生成logicを変えない局所的追加で、生成設計・ADRは不要と判定した
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/validate-content.ts]
+    note: 正本全件検証、1動画PR範囲検証、生成差分検証を実行する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260809-k98qupo9o0w.yaml]
+    note: 選択したcheckだけを本review YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260809-k98qupo9o0w.yaml]
+    note: 未選択checkをN/Aとして登録していない
+advisories: []
+residual_risks:
+  - 最新main統合後のGitHub Actions合格確認まではpublicationGateが未充足である

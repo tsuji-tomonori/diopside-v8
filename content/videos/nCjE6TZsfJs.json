@@ -1,0 +1,472 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "nCjE6TZsfJs",
+  "title": "【スプラ２】明日の大会に向けて【にじさんじ/ 魔界ノりりむ 】",
+  "publishedAt": "2020-06-19T17:40:12Z",
+  "durationSeconds": 8328,
+  "durationIso": "PT2H18M48S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/nCjE6TZsfJs/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=nCjE6TZsfJs",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "7a986b8388b3324adda86e4fd9c26d10861e97b8acf1775a2bca7be52c34c99f"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "bcfe486606e568d82d2f4ca8c550da0ea20aa0991eb115df8ae86cea9a0e55e4"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "e7f74327c8007aaad134134d1d1620d3568566103c24a5ff7193a6a5f028653d"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "34acc497b2a537a66c05ba3611e8c0d0e88485df2670ae6347ed179d2d578c26"
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "2ff052e752bbb3ca9b07b8781b003cd87b864e8ada70d57a2ac632b4f64a6e61"
+    },
+    {
+      "evidenceId": "evidence-game-classification",
+      "type": "動画タイトル",
+      "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+      "inputFingerprint": "13434a3743da9860bc60ed70137c309172b3b9632485f32b9fb275147d33327f"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-context-feature-500a8919343a",
+      "reason": "公開タイトルまたは既存タグから企画特性「大会」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-6829ef1953a3",
+      "reason": "公開台帳のチャンネル「魔界ノりりむ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-8a6d75b73d9e",
+      "reason": "人物名「魔界ノりりむ」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-fdbee30f2eef",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「スプラトゥーン2」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-f021e7c4e2e7",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「FPS/TPS」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-62278ec71bd0",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「アクション」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-44546445",
+        "startSeconds": 0,
+        "label": "配信開始・メンバー紹介",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-516-a62626a9",
+        "startSeconds": 516,
+        "label": "最初の縄張りバトル",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-925-70d57858",
+        "startSeconds": 925,
+        "label": "試合映像の復旧作業",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1396-f00fc884",
+        "startSeconds": 1396,
+        "label": "練習試合を再開",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1553-824d15e2",
+        "startSeconds": 1553,
+        "label": "配信枠と音声の復旧",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1763-fd5ad8f9",
+        "startSeconds": 1763,
+        "label": "チームの強みと役割を振り返る",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2028-19246be5",
+        "startSeconds": 2028,
+        "label": "中央の取り合いとカバー練習",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2400-b8d297b1",
+        "startSeconds": 2400,
+        "label": "前線・中央・塗りの練習",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2634-a9dcf19f",
+        "startSeconds": 2634,
+        "label": "初連携の振り返り",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2778-986f6ffb",
+        "startSeconds": 2778,
+        "label": "中央への攻めと改善点",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3035-99a83d3f",
+        "startSeconds": 3035,
+        "label": "潜伏・中央制圧と塗り相談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3337-8511c663",
+        "startSeconds": 3337,
+        "label": "長めの練習試合と戦い方の振り返り",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3715-bfdb3d26",
+        "startSeconds": 3715,
+        "label": "前線・塗りの練習試合",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3903-dd37b89a",
+        "startSeconds": 3903,
+        "label": "武器選択と塗り方を相談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4205-7c5e4152",
+        "startSeconds": 4205,
+        "label": "中央・左右の攻防と次戦準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4539-0a67d306",
+        "startSeconds": 4539,
+        "label": "ローラー対策と武器・ステージ相談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4845-7138c56c",
+        "startSeconds": 4845,
+        "label": "中央の攻防と自陣塗り相談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5191-2abdec67",
+        "startSeconds": 5191,
+        "label": "アーマー・装備を試す練習",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5522-77ff4685",
+        "startSeconds": 5522,
+        "label": "前後左右の連携とギア確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5778-9c1d2d6d",
+        "startSeconds": 5778,
+        "label": "塗りと相手の動きを確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5948-2bb8f27e",
+        "startSeconds": 5948,
+        "label": "音ズレ確認と配信更新",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6065-447d1595",
+        "startSeconds": 6065,
+        "label": "左右の敵位置と前線を連絡",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6301-94d63b66",
+        "startSeconds": 6301,
+        "label": "残り周回とギア構成を相談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6462-1bedcbc2",
+        "startSeconds": 6462,
+        "label": "中央の取り方を試す",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6635-47c431a4",
+        "startSeconds": 6635,
+        "label": "苦手ステージと本番候補を相談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6784-6172bfbb",
+        "startSeconds": 6784,
+        "label": "中央・左右の攻防を続ける",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6963-594c2c90",
+        "startSeconds": 6963,
+        "label": "ステージと役割を振り返る",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7107-7736590e",
+        "startSeconds": 7107,
+        "label": "終盤の練習試合を続ける",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7593-6a23bd15",
+        "startSeconds": 7593,
+        "label": "連携と試合内容を振り返る",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7667-ef92e674",
+        "startSeconds": 7667,
+        "label": "最後の練習試合",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8177-80c3efce",
+        "startSeconds": 8177,
+        "label": "練習の締め・挨拶",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "2b3d4a47dd77f503a286c8345f20dfaddf144d40b1ad5ca2ce4b42423c935bfc",
+    "inputFingerprint": "34acc497b2a537a66c05ba3611e8c0d0e88485df2670ae6347ed179d2d578c26",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-28T14:45:00Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "2b3d4a47dd77f503a286c8345f20dfaddf144d40b1ad5ca2ce4b42423c935bfc",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "2b3d4a47dd77f503a286c8345f20dfaddf144d40b1ad5ca2ce4b42423c935bfc",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "7f16e28801afcb1edda559a3da8aa228f91612502efaae09d59caf7f16bcc66e",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-16T12:05:00+09:00",
+    "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  }
+}

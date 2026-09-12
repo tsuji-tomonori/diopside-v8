@@ -1,0 +1,157 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260829-collaboration-participant-gaps
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 既存要件V8-TAG-013とV8-DISPLAY-013が求める確認済み出演者タグへ正本を戻す修正で、要件や受入条件は変更しない。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/collaboration-group-audit.ts, path:docs/design/generated/system.gen.md, path:docs/design/generated/inventory.gen.json]
+    note: 動画単位の出演者集合監査を追加し、実装由来の生成設計へ同期した。公開schemaやroute構成は変更しない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-collaboration-participant-gaps.yaml]
+    note: taxonomy、人物プロフィール、複数動画、共有監査logicへ及ぶためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 利用者がPR #1379のmergeを明示したため、feature branch更新と人手squash mergeを行う。release、deployは既存workflowへ委ねる。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/content-manifest.json, path:content/taxonomy/change-record.json]
+    note: 最新mainの1705動画を維持し、5動画へ12タグを追加した11723タグ付与とtaxonomy 9.1.0の影響1動画を再計数した。
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/taxonomy/tag-taxonomy.json, path:content/taxonomy/change-record.json]
+    note: 出演者タグ3件を加算的に追加し、8.6.0・8.7.0・8.8.0・9.0.0動画正本との互換を明示した。既存ID、alias、tag rule、ファイルschemaは維持する。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:package.json, path:scripts/audit-collaboration-tags.ts]
+    note: 既存production buildと正本監査を変更範囲の構文・生成検査として実行する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/collaboration-group-audit.ts]
+    note: 出演者集合の型と監査logicをTypeScript strict型検査対象に含めた。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/collaboration-group-audit.ts, path:scripts/audit-collaboration-tags.ts]
+    note: 変更したTypeScriptと単体テストをrepository標準のESLint対象に含めた。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:src/domain/collaboration-group-audit.test.ts]
+    note: 出演者集合の不足、コラボタグ不足、未登録人物IDを単体テストで検証した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:src/domain/collaboration-group-audit.test.ts, path:spec/sources/collaboration-tag-corrections-v1.json]
+    note: 修正前に出演者集合の不足を検出できない2テストが失敗することを再現し、修正後に合格させた。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:content/content-manifest.json, path:docs/design/generated/system.gen.md, path:docs/design/generated/inventory.gen.json]
+    note: 正本件数と監査の型一覧を既存generatorで更新し、generate/checkの決定性を検査する。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 公式公開URL、公開人物プロフィール、公開チャンネル画像だけを追加し、字幕、生ログ、識別子、credentialを追加していない。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をコラボ相手の付与漏れ是正、必要な人物登録、回帰監査に限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更内容、要件・設計影響、検証契約、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 既存の全出演者タグ表示要件への適合修正であり、要件正本に差分がないことを確認した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/collaboration-group-audit.ts, path:docs/design/generated/system.gen.md, path:docs/design/generated/inventory.gen.json]
+    note: 動画単位監査の構造を生成設計へ同期した。実装から自明で長期判断を新設しないためADRは不要と判断した。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:src/domain/collaboration-group-audit.test.ts, path:.github/workflows/verify.yml, path:package.json]
+    note: GitHub ActionsのTypeScript・単体・E2E・生成差分jobがbuild、typecheck、lint、正本・taxonomy・コラボ監査を現在HEADで実行する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-collaboration-participant-gaps.yaml]
+    note: 選択したcheckと証拠を本reviewへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-collaboration-participant-gaps.yaml]
+    note: 未選択checkを形式的なN/Aとして記録していない。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/taxonomy/tag-taxonomy.json, path:scripts/validate-taxonomy-change.ts, path:scripts/validate-content.ts]
+    note: taxonomyを9.1.0へ更新し、旧動画版との互換、影響タグと動画件数、人物プロフィール・画像の完全性を検証した。
+advisories: []
+residual_risks:
+  - tF3D9Nyg-zEの剣持刀也は多数ゲスト面接企画の既存call-in-host-only判定、LiA_Ou5o_z0の癒月ちょこは逆凸の配信主限定規則に従い追加していない。
+  - Ph5w1kNsh5g.jsonを今後変更する既存Draft PR #240は、本変更のmerge後にrebaseしてコラボ是正を保持する必要がある。
+  - 公開反映は本PRの人手squash merge後に生成されるrelease workflowへ依存し、本変更ではrelease、deployを直接行わない。
+# conflict-resolution: 最新main 1aab026782ae8a0c20386e0642381b8fef98fee4 を履歴へ保持し、1705動画・11723タグ、taxonomy 9.1.0、監査7テストを現在HEADで再検証する。

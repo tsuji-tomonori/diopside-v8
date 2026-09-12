@@ -29,14 +29,31 @@ describe('要件受入監査', () => {
     const audit = JSON.parse(readFileSync(outputPath, 'utf8')) as {
       acceptancePassed: boolean;
       authorizationPassed: boolean;
+      catalogRequirementCount: number;
+      retiredRequirementCount: number;
+      requirementCount: number;
       blockingIncompleteCount: number;
       acceptedIncompleteCount: number;
       rows: Array<{ id: string; status: string }>;
     };
+    const catalog = JSON.parse(
+      readFileSync(path.join(root, 'spec/requirements/requirements.json'), 'utf8'),
+    ) as {
+      requirements: Array<{ id: string; status: 'active' | 'retired' }>;
+    };
+    const activeRequirementIds = catalog.requirements
+      .filter((requirement) => requirement.status === 'active')
+      .map((requirement) => requirement.id)
+      .sort();
+    const retiredRequirementCount = catalog.requirements.length - activeRequirementIds.length;
     const acceptedRows = audit.rows.filter((row) => row.status === '許可済み未完了');
 
     expect(audit.acceptancePassed).toBe(false);
     expect(audit.authorizationPassed).toBe(true);
+    expect(audit.catalogRequirementCount).toBe(catalog.requirements.length);
+    expect(audit.requirementCount).toBe(activeRequirementIds.length);
+    expect(audit.retiredRequirementCount).toBe(retiredRequirementCount);
+    expect(audit.rows.map((row) => row.id).sort()).toEqual(activeRequirementIds);
     expect(audit.blockingIncompleteCount).toBe(0);
     expect(audit.acceptedIncompleteCount).toBe(2);
     expect(acceptedRows.map((row) => row.id).sort()).toEqual(['V8-COST-001', 'V8-QUALITY-002']);

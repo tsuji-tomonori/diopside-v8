@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "2.0.0",
+  "schemaVersion": "2.1.0",
   "name": "diopside tag taxonomy",
   "basis": {
     "metadataRecords": 1378,
@@ -24,10 +24,6 @@
     "multipleTagRule": "主ジャンルと動画形式は各1個。それ以外は該当するタグを複数付与できる",
     "conditionallyRequired": [
       {
-        "field": "works.gameTitle",
-        "when": "動画内でゲームをプレイしている"
-      },
-      {
         "field": "content.gameGenre",
         "when": "動画内でゲームをプレイしている"
       },
@@ -49,14 +45,21 @@
       }
     ],
     "derivedMetadata": [
-      "people.channel"
+      "people.channel",
+      "entity relationships"
     ],
     "primaryContentCardinality": 1,
     "secondaryContentMaximum": 2,
     "recommendedMaximumExcludingPeople": 12,
     "unknownValue": null,
     "unclassifiedWorkflowState": "未分類・要レビュー",
-    "unclassifiedRule": "判定不能な動画へ「その他」タグを保存せず、レビュー完了まで未分類状態にする"
+    "unclassifiedRule": "判定不能な動画へ「その他」タグを保存せず、レビュー完了まで未分類状態にする",
+    "entityModel": {
+      "identityRule": "人物・グループ・チャンネル・ゲーム・イベント・シリーズ・楽曲・作品をIDで識別する",
+      "roleRule": "動画との出演・言及・プレイ・視聴・歌唱・参加等の違いは関係種別として保持する",
+      "compatibilityRule": "既存タグIDは検索URL互換のためlegacyTagIdsとして解決する",
+      "listRule": "一覧は選択後に有用な動画集合へ到達できる分類値またはエンティティだけを公開する"
+    }
   },
   "categories": [
     {
@@ -77,13 +80,15 @@
             "TRPG",
             "朗読・声劇",
             "ダンス"
-          ]
+          ],
+          "valueKind": "classification"
         },
         {
           "id": "secondary",
           "name": "副ジャンル",
           "cardinality": "0..2",
-          "valuesFrom": "content.primary"
+          "valuesFrom": "content.primary",
+          "valueKind": "classification"
         },
         {
           "id": "gameGenre",
@@ -95,6 +100,12 @@
             "RPG",
             "アクション",
             "アドベンチャー",
+            "カジュアル",
+            "プラットフォーマー",
+            "サバイバル",
+            "ステルス",
+            "ローグライク",
+            "ウォーキングシミュレーター",
             "ホラー",
             "FPS/TPS",
             "MOBA",
@@ -112,7 +123,8 @@
             "格闘",
             "教育・学習",
             "フィットネス"
-          ]
+          ],
+          "valueKind": "classification"
         },
         {
           "id": "talkStyle",
@@ -130,7 +142,8 @@
             "作業",
             "報告・告知",
             "スパチャ読み"
-          ]
+          ],
+          "valueKind": "classification"
         },
         {
           "id": "musicType",
@@ -143,7 +156,8 @@
             "オリジナル曲",
             "歌リレー",
             "ライブ"
-          ]
+          ],
+          "valueKind": "classification"
         },
         {
           "id": "asmrType",
@@ -157,7 +171,8 @@
             "甘やかし",
             "ロールプレイ",
             "看病"
-          ]
+          ],
+          "valueKind": "classification"
         },
         {
           "id": "watchMedia",
@@ -170,7 +185,8 @@
             "ライブ",
             "イベント",
             "番組"
-          ]
+          ],
+          "valueKind": "classification"
         },
         {
           "id": "readingType",
@@ -181,7 +197,8 @@
             "朗読",
             "声劇",
             "参加型声劇"
-          ]
+          ],
+          "valueKind": "classification"
         }
       ]
     },
@@ -192,33 +209,47 @@
         {
           "id": "gameTitle",
           "name": "ゲーム作品名",
-          "cardinality": "1..n when applicable",
-          "requiredWhen": "動画内でゲームをプレイしている",
-          "valueRule": "公式の日本語タイトルを優先し、存在しなければ公式原題を使う。版・DLCが内容を区別する場合だけ残す"
+          "cardinality": "0..n",
+          "valueRule": "実在するゲーム作品の公式な日本語タイトルを優先し、イベント・大会・企画・ジャンル・ハッシュタグは含めない",
+          "valueKind": "entity-reference",
+          "entityType": "game",
+          "videoRelation": "plays"
         },
         {
           "id": "gameSeries",
           "name": "ゲームシリーズ名",
           "cardinality": "0..n",
-          "valueRule": "シリーズを横断して探す需要があり、同一シリーズが2作品以上ある場合に付ける"
+          "valueRule": "シリーズを横断して探す需要があり、同一シリーズが2作品以上ある場合に付ける",
+          "valueKind": "entity-reference",
+          "entityType": "series",
+          "videoRelation": "partOfSeries"
         },
         {
           "id": "watchedTitle",
           "name": "同時視聴作品名",
           "cardinality": "0..n",
-          "valueRule": "映画・アニメ・ライブ等の公式作品名。話数はタグに含めない"
+          "valueRule": "映画・アニメ・ライブ等の公式作品名。話数はタグに含めない",
+          "valueKind": "entity-reference",
+          "entityType": "work",
+          "videoRelation": "watches"
         },
         {
           "id": "trpgTitle",
           "name": "TRPGシステム・シナリオ名",
           "cardinality": "0..2",
-          "valueRule": "システム名とシナリオ名を別タグとして保持する"
+          "valueRule": "システム名とシナリオ名を別タグとして保持する",
+          "valueKind": "entity-reference",
+          "entityType": "work",
+          "videoRelation": "plays"
         },
         {
           "id": "songTitle",
           "name": "楽曲名",
           "cardinality": "0..n",
-          "valueRule": "単曲動画または検索価値の高い代表曲だけ。通常の歌枠の全セットリストには付けない"
+          "valueRule": "確認済みの楽曲正式名を格納し、原アーティスト・原作品は楽曲エンティティとの関係で保持する",
+          "valueKind": "entity-reference",
+          "entityType": "song",
+          "videoRelation": "featuresMusic"
         }
       ]
     },
@@ -231,21 +262,30 @@
           "name": "公開チャンネル",
           "cardinality": "1",
           "source": "metadata.channel_title",
-          "valueRule": "YouTubeチャンネル名をメタデータから保持し、手入力しない"
+          "valueRule": "YouTubeチャンネル名をメタデータから保持し、手入力しない",
+          "valueKind": "entity-reference",
+          "entityType": "channel",
+          "videoRelation": "publishedBy"
         },
         {
           "id": "performer",
           "name": "出演者",
           "cardinality": "0..n",
           "requiredWhen": "チャンネル主以外の出演者がいる",
-          "valueRule": "実際に出演・通話参加した人物だけ。チャンネル主、言及のみの人物、クレジット制作者は含めない"
+          "valueRule": "実際に出演・通話参加した人物だけ。チャンネル主、言及のみの人物、クレジット制作者は含めない",
+          "valueKind": "entity-reference",
+          "entityType": "person",
+          "videoRelation": "features"
         },
         {
           "id": "unit",
           "name": "ユニット・チーム",
           "cardinality": "0..n",
           "requiredWhen": "group_aliases_v2.jsonにあるグループとして活動している",
-          "valueRule": "group_aliases_v2.jsonの正規名を使う。旧名・別名・ハッシュタグは検索別名として統合し、先頭の#は付けない"
+          "valueRule": "group_aliases_v2.jsonの正規名を使う。旧名・別名・ハッシュタグは検索別名として統合し、先頭の#は付けない",
+          "valueKind": "entity-reference",
+          "entityType": "group",
+          "videoRelation": "features"
         }
       ]
     },
@@ -263,13 +303,19 @@
             "リアル百合エピソード",
             "百合漫画家対談",
             "ガチレポ！"
-          ]
+          ],
+          "valueKind": "entity-reference",
+          "entityType": "series",
+          "videoRelation": "partOfSeries"
         },
         {
           "id": "event",
           "name": "イベント・大会名",
           "cardinality": "0..n",
-          "valueRule": "公式名称を使い、年ごとに内容が分かれるイベントは西暦4桁を末尾に付ける。先頭の#は付けない"
+          "valueRule": "特定可能な公式イベント・大会・配信企画名を格納し、「大会」「祭り」等の一般語は含めない",
+          "valueKind": "entity-reference",
+          "entityType": "event",
+          "videoRelation": "participatesIn"
         }
       ]
     },
@@ -288,7 +334,8 @@
             "コラボ",
             "オフコラボ",
             "視聴者参加型"
-          ]
+          ],
+          "valueKind": "classification"
         },
         {
           "id": "occasion",
@@ -301,7 +348,8 @@
             "デビュー",
             "新衣装お披露目",
             "3Dお披露目"
-          ]
+          ],
+          "valueKind": "classification"
         },
         {
           "id": "feature",
@@ -315,7 +363,8 @@
             "大会",
             "検証・チャレンジ",
             "単発"
-          ]
+          ],
+          "valueKind": "classification"
         },
         {
           "id": "theme",
@@ -328,7 +377,8 @@
             "飲酒",
             "罵倒・SM"
           ],
-          "extensible": true
+          "extensible": true,
+          "valueKind": "classification"
         },
         {
           "id": "warning",
@@ -336,16 +386,18 @@
           "cardinality": "0..n",
           "values": [
             "ネタバレあり"
-          ]
+          ],
+          "valueKind": "classification"
         },
         {
-          "id": "submissionSource",
-          "name": "投稿媒体",
+          "id": "submissionMethod",
+          "name": "投稿受付手段",
           "cardinality": "0..n",
           "values": [
             "マシュマロ"
           ],
-          "valueRule": "視聴者投稿を受け取った媒体。話の内容を表す雑談種別とは分離する"
+          "valueRule": "投稿を受け付けた手段を格納し、配信元や投稿媒体とは分離する",
+          "valueKind": "classification"
         }
       ]
     },
@@ -357,38 +409,19 @@
           "id": "mentionedPerson",
           "name": "言及人物",
           "cardinality": "0..n",
-          "valueRule": "配信中に話題として触れた人物の正規名。実出演者、チャンネル主、タイトル・概要欄だけに記載された人物は含めない"
+          "valueRule": "配信中に話題として触れた人物の正規名。実出演者、チャンネル主、タイトル・概要欄だけに記載された人物は含めない",
+          "valueKind": "entity-reference",
+          "entityType": "person",
+          "videoRelation": "mentions"
         },
         {
           "id": "mentionedContent",
           "name": "言及配信・動画名",
           "cardinality": "0..n",
-          "valueRule": "配信中に感想・紹介・告知等で触れた別配信、動画、イベント、大会、楽曲の正規名。現在の動画そのものは含めない"
-        },
-        {
-          "id": "contentType",
-          "name": "言及対象種別",
-          "cardinality": "0..n",
-          "values": [
-            "配信",
-            "大会",
-            "歌ってみた",
-            "ライブ",
-            "動画",
-            "イベント",
-            "企画"
-          ]
-        },
-        {
-          "id": "relation",
-          "name": "言及関係",
-          "cardinality": "0..n",
-          "values": [
-            "感想・振り返り",
-            "紹介・おすすめ",
-            "告知・予定",
-            "一般言及"
-          ]
+          "valueRule": "配信中に感想・紹介・告知等で触れた別配信、動画、イベント、大会、楽曲の正規名。現在の動画そのものは含めない",
+          "valueKind": "entity-reference",
+          "entityType": "work",
+          "videoRelation": "mentions"
         }
       ]
     },
@@ -405,7 +438,8 @@
             "動画",
             "Shorts"
           ],
-          "valueRule": "YouTubeメタデータを優先する。Shortsは内容ジャンルにしない"
+          "valueRule": "YouTubeメタデータを優先する。Shortsは内容ジャンルにしない",
+          "valueKind": "classification"
         },
         {
           "id": "production",
@@ -416,10 +450,10 @@
             "縦型",
             "公式切り抜き",
             "MV"
-          ]
+          ],
+          "valueKind": "classification"
         }
       ]
     }
   ]
 }
-

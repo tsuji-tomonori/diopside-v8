@@ -400,7 +400,7 @@ function addContextTags(tags: LogicalTag[], video: ClassifiableVideo): void {
   for (const series of video.legacyTags.filter((legacy) => recurringSeries.has(legacy))) {
     add(tags, 'program', 'recurringSeries', series, `既存タグ「${series}」から定期・連続企画「${series}」を確認`, 'legacy');
   }
-  for (const event of video.legacyTags.filter((legacy) => isEventName(legacy))) {
+  for (const event of video.legacyTags.filter((legacy) => !recurringSeries.has(legacy) && isEventName(legacy))) {
     add(tags, 'program', 'event', event.replace(/^#/u, ''), `既存タグ「${event}」からイベント・大会名「${event.replace(/^#/u, '')}」を確認`, 'legacy');
   }
 }

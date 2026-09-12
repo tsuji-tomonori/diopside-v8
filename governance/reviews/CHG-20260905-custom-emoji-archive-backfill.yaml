@@ -1,0 +1,67 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260905-custom-emoji-archive-backfill
+profile: regulated
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: true
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: true
+  important_ui_change: false
+  long_term_decision: false
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - {id: IMP-001, class: Invariant, result: pass, evidence: ["path:spec/requirements/requirements.json", "path:content/videos/-7zU0xXSavg.json"], note: "V8-DISPLAY-017/018の既存受入条件を追加ローカル素材3動画へ適用し、永続要件は変更しない。"}
+  - {id: IMP-002, class: Invariant, result: pass, evidence: ["path:src/domain/content.ts", "path:scripts/build-public-data.ts"], note: "既存customEmojiUsage契約への正本値追加だけで、schema、公開形式、UI構造、ADRを変更しない。"}
+  - {id: IMP-003, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260905-custom-emoji-archive-backfill.yaml"], note: "一時入力の公開チャットに投稿者情報が含まれるためregulatedを選択し、生入力をGit・PR・Pagesへ保持しない。"}
+  - {id: IMP-004, class: Invariant, result: pass, evidence: ["commit:self"], note: "外部書込みはユーザーが明示許可した作業branch、PR、mergeに限定する。"}
+  - {id: IMP-005, class: Invariant, result: pass, evidence: ["commit:self"], note: "不可逆操作は当該PRのmainへのmergeに限定し、削除、force update、独自deployを行わない。"}
+  - {id: IMP-007, class: Risk-selected, result: pass, evidence: ["path:content/content-manifest.json", "test:tests/content-validation.test.ts"], note: "optionalな既存fieldを3動画へ追加し、集計済み総数311件との整合を検証する。"}
+  - {id: FAST-004, class: Invariant, result: pass, evidence: ["test:tests/custom-emoji-usage.test.ts", "test:tests/content-validation.test.ts", "test:src/domain/validation.test.ts"], note: "集計器、正本schema、合計、重複、決定順を対象検証で確認する。"}
+  - {id: FAST-005, class: Risk-selected, result: pass, evidence: ["test:e2e/detail.spec.ts", "workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行"], note: "既存の詳細画面E2Eで絵文字集計セクションの表示と信頼済み画像CDN契約を確認する。"}
+  - {id: FAST-006, class: Invariant, result: pass, evidence: ["path:content/content-manifest.json", "path:scripts/build-public-data.ts"], note: "customEmojiUsage正本311件から公開releaseを決定生成し、publicとdocsは本PRへ直接含めない。"}
+  - {id: FAST-007, class: Invariant, result: pass, evidence: ["commit:self"], note: "出力をallowlist検査し、生本文、投稿者名・ID、元絵文字IDを含めず、匿名ID・公開label・信頼済み画像URL・回数・入力指紋だけを保持する。"}
+  - {id: REV-001, class: Invariant, result: pass, evidence: ["commit:self"], note: "差分を固定snapshotの既存正本3動画とmanifest件数、review結果に限定する。"}
+  - {id: REV-002, class: Invariant, result: pass, evidence: ["commit:self"], note: "Commit Commentへ目的、変更、要件・設計影響、review path、検証契約、互換性、残存リスクを記録する。"}
+  - {id: REV-003, class: Invariant, result: pass, evidence: ["path:spec/requirements/requirements.json"], note: "新規挙動を導入せずV8-DISPLAY-017/018を既存集計器と表示へ適用するため要件影響なしとする。"}
+  - {id: REV-004, class: Invariant, result: pass, evidence: ["path:src/domain/content.ts", "path:src/features/detail/VideoDetailPage.tsx"], note: "既存optional fieldのデータ投入で設計・公開契約を変えず、生成設計とADRの更新は不要である。"}
+  - {id: REV-006, class: Invariant, result: pass, evidence: ["test:tests/content-validation.test.ts", "workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行"], note: "全正本schema、集計数、項目別合計、決定生成を対象検証とCIで確認する。"}
+  - {id: REV-007, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260905-custom-emoji-archive-backfill.yaml"], note: "選択したcheckだけを本reviewへ保存する。"}
+  - {id: REV-008, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260905-custom-emoji-archive-backfill.yaml"], note: "未選択checkをN/Aとして登録しない。"}
+  - {id: REV-012, class: Risk-selected, result: pass, evidence: ["test:tests/custom-emoji-usage.test.ts", "commit:self"], note: "集計器とは別のread-only検証で入力指紋、正本一致、合計、field allowlist、匿名ID、画像host、manifest件数を確認する。"}
+advisories: []
+residual_risks:
+  - snapshot 5ba2624f807d1ef6b48e2650f4667f1ae3ef08887fb9dcafb48dba9b052ffe44 は1705正本動画を固定し、archiveの追加チャットから3動画、28030件、68項目を追加する。
+  - archive側で正本に存在しない10動画は本backfillへ混在させず、通常の1動画1PRで個別に追加・検証する。
+  - 公開反映はmainマージ後の既存release workflow完了に依存する。

@@ -4,7 +4,12 @@
   "buildType": "legacy",
   "sourceBranch": "main",
   "sourcePath": "/docs",
-  "customDomain": null,
+  "customDomain": "tme.page.diopside.net",
   "httpsEnforced": true,
-  "repositoryDeploymentWorkflow": false
+  "repositoryDeploymentWorkflow": false,
+  "postMergeGenerationWorkflow": true,
+  "generatedReleasePullRequest": true,
+  "releasePullRequestAutoMerge": false,
+  "pagesBuildTriggeredByGeneratedCommit": true,
+  "explicitPagesBuildRequest": false
 }

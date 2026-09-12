@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=dkHRrJGC5is",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -46,6 +46,12 @@
       "inputFingerprint": "43e7d623f82b092beba4bfd238292c79c42465c6e8bd403c49e6a5de02f596f8",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 9811
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "4cefe3f289c859f95af9e0a19ad208d79e9608b36abb96aced071159ec6515ca"
     }
   ],
   "tagAssignments": [
@@ -59,13 +65,13 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     },
     {
-      "tagId": "tag-people-channel-c3a581638fed",
-      "reason": "公開台帳のチャンネル「緑仙 / Ryushen」を確認",
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
       "confidence": "高",
       "evidenceRefs": [
-        "evidence-channel"
+        "evidence-collaboration-v2"
       ],
-      "reviewedAt": "2026-08-04T15:00:00+09:00"
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
     },
     {
       "tagId": "tag-format-media-45323ed44f37",
@@ -75,6 +81,249 @@
         "evidence-duration"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-c3a581638fed",
+      "reason": "公開台帳のチャンネル「緑仙 / Ryushen」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-069e7901a09f",
+      "reason": "人物名「エリー・コニファー」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-0d5a94165597",
+      "reason": "人物名「健屋花那」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-12eb09b58bad",
+      "reason": "人物名「空星きらめ」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-21c8e575140d",
+      "reason": "人物名「アンジュ・カトリーナ」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-328275186806",
+      "reason": "人物名「綺沙良」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-482d2ce7d54a",
+      "reason": "人物名「天宮こころ」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-515e76757b75",
+      "reason": "人物名「雪城眞尋」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-584f6b5f5e50",
+      "reason": "人物名「える」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-5ae24f2f030c",
+      "reason": "人物名「周央サンゴ」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-625e24ca07bf",
+      "reason": "人物名「ソフィア・ヴァレンタイン」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-65c1454d01ec",
+      "reason": "人物名「鏑木ろこ」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-781ed25ff854",
+      "reason": "人物名「五十嵐梨花」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-7931dd3537fc",
+      "reason": "人物名「シスター・クレア」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-aa27676ee287",
+      "reason": "人物名「桜凛月」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-b0469a7d02e8",
+      "reason": "人物名「フミ」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-b2d66d295542",
+      "reason": "人物名「えま★おうがすと」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-c57eeb79e4c5",
+      "reason": "人物名「竜胆尊」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-c6b8ade39e95",
+      "reason": "人物名「愛園愛美」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-d0bd4fb58bfe",
+      "reason": "人物名「鷹宮リオン」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-db11f0265d92",
+      "reason": "人物名「早乙女ベリー」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-dc2c32f4f411",
+      "reason": "人物名「立伝都々」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-df844103ce1a",
+      "reason": "人物名「緑仙」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-e877def1ca57",
+      "reason": "人物名「夕陽リリ」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-f1576533a080",
+      "reason": "人物名「来栖夏芽」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-f524fb1d984f",
+      "reason": "人物名「北小路ヒスイ」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-fc81d6355a3a",
+      "reason": "人物名「レイン・パターソン」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
     }
   ],
   "timestamps": {
@@ -343,28 +592,28 @@
         "candidateHash": "e1db0db500d43a2ad8e60769ed59705ad8f03187a6b484e85ee8fa8f43af39f9",
         "majorIssues": 0,
         "reviewedAt": "2026-08-08T11:13:02+09:00",
+        "route": "全編根拠による生成",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "全編根拠による生成"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "e1db0db500d43a2ad8e60769ed59705ad8f03187a6b484e85ee8fa8f43af39f9",
         "majorIssues": 0,
         "reviewedAt": "2026-08-08T02:16:21+00:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "finalHumanCheck": {
         "status": "承認済み",
@@ -388,7 +637,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-08T12:23:24+09:00",
-    "basis": "全編根拠、独立した事実・編集確認、決定的検証、人の最終確認"
+    "approvedAt": "2026-08-15T21:05:00+09:00",
+    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
   }
 }

@@ -1,0 +1,158 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260822-fix-dynamodb-number-read
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: true
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+    note: V8-INGEST-003/004の既存claim・再試行要件を変更せず、DynamoDB Number読取不具合を要件どおりに修復する。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/state.py, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: adapter内部の型変換とLambda asset hashだけが変わり、公開契約、table schema、resource inventory、ADR判断は変わらない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-fix-dynamodb-number-read.yaml]
+    note: 稼働中のDynamoDB claim境界とLambda assetへ影響する不具合修正のためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 所有者が明示したbranch pushとPR作成だけを外部書込みとし、AWS deploy、SQS再投入、DynamoDB更新、mergeは行わない。
+  - id: IMP-009
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: Lambda code asset hash以外のCloudFormation resource構成が変わらず、synthと生成設計checkが成功した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/state.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Python実装の構文、全infra test suite、CDK synthを変更後に確認した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Pyrightとmypy strictが変更後の23 Python sourceを通過した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Ruff format checkとlintが変更対象を含むinfra全体で成功した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_state.py]
+    note: claimのNumber読取、nested artifactの整数復元、非整数のfail-closedを単体テストで確認した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_state.py]
+    note: TypeDeserializerが返すDecimalを旧実装がintとして受理できない本番エラー条件を低レベルDynamoDBレスポンス形式で固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-ingestion/manifest.json, workflow:要件・品質ゲート#as-built CDK設計差分を検査]
+    note: synth済みtemplateから生成設計を再生成し、二回目のcheck modeでbyte-identicalな状態を確認した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self, test:tests/repository-policy.test.ts]
+    note: production log、DynamoDB item、資格情報、生素材を追加せず、実装・合成digest・review結果だけを差分に含めた。
+  - id: FAST-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行, workflow:要件・品質ゲート#as-built CDK設計差分を検査]
+    note: CDK synthとcdk-nagが成功し、resource inventoryに追加・削除・権限変更がないことを確認した。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/state.py, test:infra/tests/test_state.py]
+    note: 不正な非整数Numberは明示的な安全エラーにし、整数Numberは再試行処理が継続できる型へ復元する。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をDynamoDB Number正規化、回帰テスト、対応する生成design digestへ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、review path、検証、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:infra/tests/test_state.py]
+    note: 既存V8-INGEST-003/004の受入条件を弱めず実装を適合させるため、requirements.jsonの改訂は不要と判定した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: Lambda assetを含む合成template digestを生成設計へ反映し、resource inventoryとADRは不変である。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_state.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: 回帰testと既存infra全検証がGitHub Actionsの有限private backfill jobで実行される。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-fix-dynamodb-number-read.yaml]
+    note: 選択checkを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-fix-dynamodb-number-read.yaml]
+    note: trigger非該当checkをN/Aとして追加していない。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/state.py, test:infra/tests/test_state.py]
+    note: queue、table、再試行条件、runbookは変更せず、既存のdeploy・smoke手順で修正版Lambdaを確認できる。
+advisories: []
+residual_risks:
+  - 実AWS deployと既存SQSメッセージの再試行確認は未実行であり、PR merge後に修正版Lambdaをdeployして別の一動画でsmoke testする必要がある。
+  - 失敗済みメッセージは90分のvisibility timeoutと既存FIFO順序に従って再試行されるため、このPRではqueueまたはDynamoDB状態を手動変更しない。

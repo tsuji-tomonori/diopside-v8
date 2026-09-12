@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=WtASoXA8lbM",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-title",
@@ -46,6 +46,12 @@
       "inputFingerprint": "028deec39a362a30a1c0946f4fe00604f78c57d4b03924bd6bc115817a53b636",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 24861
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "f1b254a7e294709590f95aefdaeac52eea2369a4fe9bd1bb3da339e10bfc1c9e"
     }
   ],
   "tagAssignments": [
@@ -59,13 +65,22 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     },
     {
-      "tagId": "tag-people-channel-bf6ea22c6db9",
-      "reason": "公開台帳のチャンネル「にじさんじ」を確認",
-      "confidence": "高",
+      "tagId": "tag-content-talkStyle-4691146b71bb",
+      "reason": "公開タイトルから雑談種別「フリートーク」を確認",
+      "confidence": "中",
       "evidenceRefs": [
-        "evidence-channel"
+        "evidence-title"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
     },
     {
       "tagId": "tag-format-media-45323ed44f37",
@@ -77,13 +92,112 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     },
     {
-      "tagId": "tag-content-talkStyle-4691146b71bb",
-      "reason": "公開タイトルから雑談種別「フリートーク」を確認",
-      "confidence": "中",
+      "tagId": "tag-people-channel-bf6ea22c6db9",
+      "reason": "公開台帳のチャンネル「にじさんじ」を確認",
+      "confidence": "高",
       "evidenceRefs": [
-        "evidence-title"
+        "evidence-channel"
       ],
       "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-4f307c093359",
+      "reason": "人物名「十河ののは」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-5ae24f2f030c",
+      "reason": "人物名「周央サンゴ」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-839dc0e4b3b4",
+      "reason": "人物名「栞葉るり」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-ac1b4b510dc9",
+      "reason": "人物名「蝸堂みかる」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-afc4e5a1237d",
+      "reason": "人物名「山神カルタ」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-c6236058cef3",
+      "reason": "人物名「葉山舞鈴」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-c682711bf44b",
+      "reason": "人物名「アルス・アルマル」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-c6b8ade39e95",
+      "reason": "人物名「愛園愛美」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-cbcfd69fb357",
+      "reason": "人物名「赤羽葉子」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-dd19ef49d74b",
+      "reason": "人物名「ギルザレンⅢ世」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-f1576533a080",
+      "reason": "人物名「来栖夏芽」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
     }
   ],
   "timestamps": {
@@ -226,28 +340,28 @@
         "candidateHash": "69b4fad4303c6a11f3ddbcf5a90261b2df3eccaf2347327d5abf3681f0a24e12",
         "majorIssues": 0,
         "reviewedAt": "2026-08-08T11:04:10+09:00",
+        "route": "作成者一覧の採用",
         "checks": {
           "evidenceRoute": true,
           "evidenceReferences": true,
           "boundaryContext": true,
           "labelSupport": true,
           "evidenceConflicts": true
-        },
-        "route": "作成者一覧の採用"
+        }
       },
       "editorialCheck": {
         "status": "合格",
         "candidateHash": "69b4fad4303c6a11f3ddbcf5a90261b2df3eccaf2347327d5abf3681f0a24e12",
         "majorIssues": 0,
         "reviewedAt": "2026-08-08T12:15:00+09:00",
+        "factCheckResultWasHidden": true,
         "checks": {
           "navigationValue": true,
           "overSegmentation": true,
           "underSegmentation": true,
           "labelConsistency": true,
           "spoilerSafety": true
-        },
-        "factCheckResultWasHidden": true
+        }
       },
       "finalHumanCheck": {
         "status": "承認済み",
@@ -271,7 +385,7 @@
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-08-08T12:23:24+09:00",
-    "basis": "全編根拠、独立した事実・編集確認、決定的検証、人の最終確認"
+    "approvedAt": "2026-08-15T21:05:00+09:00",
+    "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
   }
 }

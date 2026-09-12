@@ -1,0 +1,168 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260829-staged-local-ingestion
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: true
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:spec/sources/owner-directive-2026-08-29-local-private-ingestion.md]
+    note: 取得・加工・uploadの段階分離とwork root・stage選択をV8-INGEST-015/016へ原子的に追加した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/staging.py, path:infra/src/diopside_ingestion/worker.py, path:infra/README.md]
+    note: ローカルworkspace manifestとCLI契約に設計影響がある。CDK resource・S3 key・DynamoDB item・既存ADR判断は不変で、明示要件と実装から自明なため新ADRは不要と判定した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-staged-local-ingestion.yaml]
+    note: Python 3 module、CLI契約、ローカルfile integrity、S3/DynamoDB upload再利用、要件・運用文書を横断するためassuredを選択した。
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/cli.py, test:infra/tests/test_cli.py, path:infra/README.md]
+    note: ingestとingest-manifestへrepeat可能な--stageと--work-rootを追加し、upload選択時だけAWS destinationを必須にするCLI差分をparser・main試験で固定した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/staging.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: staging、CLI、workerを含むinfra packageのimport、全test、CDK synthを検証契約へ含めた。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Pyright strictとmypy strictを新規stage manifest parser、CLI orchestration、upload workerへ適用した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Ruff format checkとlintをinfra全体へ適用した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_staging.py, test:infra/tests/test_worker.py, test:infra/tests/test_cli.py]
+    note: 3段階選択、AWS client非生成、manifest checksum、改竄拒否、前段必須、S3 upload時の再download禁止を直接検証した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/requirements/REQUIREMENTS.md, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: requirements.jsonから人向け要件表示を再生成し、要件validatorとgenerator checkで一致を確認する。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/staging.py, test:infra/tests/test_staging.py, commit:self]
+    note: provider stderr本文、生字幕、comment、chatをGitへ追加せず、実動画確認では安全なreasonとchecksum manifestだけをrepository外の/tmpへ保存した。
+  - id: FAST-009
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/cli.py, test:infra/tests/test_cli.py]
+    note: CLI parserとmain試験でstage、work root、AWS destination、retry上限、既存top-level結果fieldの契約差分を検査した。
+  - id: FAST-016
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/cli.py, path:infra/README.md, test:infra/tests/test_cli.py]
+    note: command登録、引数metadata、前提error、安全な結果形式を実装・運用仕様・testの三点で照合した。
+  - id: FAST-017
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/README.md, test:infra/tests/test_cli.py, test:infra/tests/test_staging.py]
+    note: READMEのacquire/process/upload sampleと保存先・部分実行前提をparser・stage実行testで確認した。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, path:infra/src/diopside_ingestion/staging.py, test:infra/tests/test_worker.py]
+    note: stage名、allow-list signal、reason code、manifest SHA-256を本文なしで相関でき、取得失敗と前提不整合を区別できる。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をローカルingestionの3段階化、workspace契約、対応要件・運用手順・試験・review結果へ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: 利用者の段階分離・保存先・実行段階選択をV8-INGEST-015/016と生成表示へ反映した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/staging.py, path:infra/README.md, path:docs/decisions/ADR-0006-local-private-material-ingestion.md]
+    note: 新しいlocal manifest・CLI構造は実装と運用正本へ反映し、ローカル取得・AWS保存分離というADR-0006の判断を変更しない。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:infra/tests/test_staging.py, test:infra/tests/test_worker.py, test:infra/tests/test_cli.py]
+    note: V8-INGEST-015/016からstaging・CLI・worker実装と段階・integrity・AWS境界試験へtraceできる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_staging.py, test:infra/tests/test_worker.py, test:infra/tests/test_cli.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: 受入条件を直接検証する新規・更新testがinfra全pytestと既存CI対象に含まれる。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-staged-local-ingestion.yaml]
+    note: 選択したcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-staged-local-ingestion.yaml]
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_cli.py, path:infra/README.md]
+    note: stage未指定の従来commandは全3段階を一時workdirで実行し、upload結果の既存top-level JSON fieldを保持する。新しいstage fieldは追加互換とした。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/README.md]
+    note: 3段階の責務、保持path、再開方法、AWS引数境界、一時workdirの削除、raw素材をGitへ入れない注意を運用手順へ反映した。
+advisories: []
+residual_risks:
+  - gl5UkwS_jmMはNode runtimeとyt-dlp-ejsが有効でもYouTubeがLOGIN_REQUIREDを返すため、認証情報を使わないV8-INGEST-008の境界では一次情報を取得できない。repository外の/tmp workspaceには本文を含まないunavailable manifestだけを保持した。
+  - 実AWSへのupload stageは実行していない。Motoを含むinfra全66 testでchecksum再検証、S3再読、DynamoDB終端を確認し、実bucket/tableへの書込みは運用者が対象account・region・料金を確認した別の明示操作とする。

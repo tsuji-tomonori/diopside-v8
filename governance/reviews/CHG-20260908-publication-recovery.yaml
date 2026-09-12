@@ -1,0 +1,183 @@
+{
+  "schema_version": 2,
+  "catalog_version": 3,
+  "catalog_digest": "sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28",
+  "change_id": "CHG-20260908-publication-recovery",
+  "profile": "assured",
+  "source_ref": "self",
+  "completed_timings": [
+    "impact",
+    "implementation",
+    "pre-pr"
+  ],
+  "impact_flags": {
+    "external_write": true,
+    "irreversible_operation": false,
+    "auth_change": false,
+    "data_change": false,
+    "public_api_change": false,
+    "iac_change": false,
+    "dependency_change": false,
+    "code_change": false,
+    "typed_code_change": false,
+    "behavior_change": false,
+    "bug_fix": true,
+    "generated_change": false,
+    "sql_change": false,
+    "e2e_change": false,
+    "migration": false,
+    "ui_change": false,
+    "interactive_ui_change": false,
+    "operational_impact": false,
+    "requirements_impact": false,
+    "public_contract_change": false,
+    "critical_change": false,
+    "important_ui_change": false,
+    "long_term_decision": false,
+    "squash": false,
+    "external_side_effect": true,
+    "production_deploy": false,
+    "major_incident": false,
+    "periodic_cycle": false,
+    "monthly_cycle": false,
+    "recheck_due": false,
+    "as_built_standard_change": false,
+    "as_built_adoption": false,
+    "quality_threshold_change": false
+  },
+  "impact_details": {
+    "as_built_adoption": {
+      "scope": [],
+      "exclusions": []
+    }
+  },
+  "selected_checks": [
+    {
+      "id": "IMP-001",
+      "class": "Invariant",
+      "result": "pass",
+      "evidence": [
+        "commit:self"
+      ],
+      "note": "既に承認された#1981の公開を復旧する。要件の意味は変更しない。"
+    },
+    {
+      "id": "IMP-002",
+      "class": "Invariant",
+      "result": "pass",
+      "evidence": [
+        "commit:self"
+      ],
+      "note": "レビュー証跡だけを追加し、設計・検証規則・正本データを変更しない。"
+    },
+    {
+      "id": "IMP-003",
+      "class": "Invariant",
+      "result": "pass",
+      "evidence": [
+        "commit:self"
+      ],
+      "note": "公開復旧の証拠補完としてassuredを選択する。"
+    },
+    {
+      "id": "IMP-004",
+      "class": "Invariant",
+      "result": "pass",
+      "evidence": [
+        "commit:self"
+      ],
+      "note": "2026-09-08の所有者要求がCI修復、未公開データ公開、mergeとdeploy確認を明示許可している。"
+    },
+    {
+      "id": "FAST-005",
+      "class": "Risk-selected",
+      "result": "pass",
+      "evidence": [
+        "path:tests/review_contract_test.py",
+        "path:governance/reviews/validate.py",
+        "workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行"
+      ],
+      "note": "旧main 0382d5fにvalidate.py --commit HEAD --allow-github-merge-fallbackを実行するとfa09ca0の目的節欠落で失敗する。新しい準拠commitとレビューを全品質ゲートで再検証する。過去履歴を修正済みとは扱わない。"
+    },
+    {
+      "id": "FAST-007",
+      "class": "Invariant",
+      "result": "pass",
+      "evidence": [
+        "commit:self"
+      ],
+      "note": "新規review YAMLだけの差分に秘密情報や生素材を含めない。"
+    },
+    {
+      "id": "REV-001",
+      "class": "Invariant",
+      "result": "pass",
+      "evidence": [
+        "commit:self"
+      ],
+      "note": "既存承認済みデータを公開するためのレビュー補完1件だけを追加する。"
+    },
+    {
+      "id": "REV-002",
+      "class": "Invariant",
+      "result": "pass",
+      "evidence": [
+        "commit:self"
+      ],
+      "note": "新commitに日本語の必須7節と3つのtrailerを記載する。"
+    },
+    {
+      "id": "REV-003",
+      "class": "Invariant",
+      "result": "pass",
+      "evidence": [
+        "commit:self"
+      ],
+      "note": "公開schema、候補、受入条件を維持するため要件影響なし。"
+    },
+    {
+      "id": "REV-004",
+      "class": "Invariant",
+      "result": "pass",
+      "evidence": [
+        "commit:self"
+      ],
+      "note": "実装・構成・生成設計に変更なし。"
+    },
+    {
+      "id": "REV-006",
+      "class": "Invariant",
+      "result": "pass",
+      "evidence": [
+        "path:tests/review_contract_test.py",
+        "path:governance/reviews/validate.py",
+        "workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行"
+      ],
+      "note": "既存のreview contractテストと要件・品質ゲートで現HEADを検証し、mainではverify:main-releaseで再検証する。"
+    },
+    {
+      "id": "REV-007",
+      "class": "Invariant",
+      "result": "pass",
+      "evidence": [
+        "commit:self"
+      ],
+      "note": "選択checkと復旧根拠をこのYAMLに保持する。"
+    },
+    {
+      "id": "REV-008",
+      "class": "Invariant",
+      "result": "pass",
+      "evidence": [
+        "commit:self"
+      ],
+      "note": "未選択項目をN/Aとして列挙しない。"
+    }
+  ],
+  "advisories": [],
+  "residual_risks": [
+    "旧コミットfa09ca0の契約違反は履歴に残る。履歴変更や検査緩和をせず、現mainの全品質検証を伴う新しい公開基準commitで復旧する。",
+    "PEExY7s1FsUのタイムスタンプ候補hash 561153471fbe2ce00ff0b3fa1cc77f62f0600f126751aed9f8e43fa4c2370ce3 と既存独立review記録を維持する。",
+    "マージ後に静的成果物release PRの現HEAD CI成功、merge、Pages成功、公開HTTP照合を確認するまで公開完了としない。"
+  ]
+}

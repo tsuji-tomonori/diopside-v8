@@ -1,0 +1,156 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260825-collaboration-group-tag-gaps
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 既存要件V8-TAG-013とV8-DISPLAY-013の付与漏れ是正であり、要件追加・受入条件変更はない。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/collaboration-group-audit.ts, path:docs/design/generated/system.gen.md, path:docs/design/generated/inventory.gen.json]
+    note: 監査logic追加と公開タグ内容の是正を生成設計へ同期した。公開schemaや構成は変更しない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260825-collaboration-group-tag-gaps.yaml]
+    note: 複数ユニット・82動画の正本変更と回帰監査追加のためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 利用者がmerge・release・deployを明示承認した。先行PR #1327とrelease #1331の完了を待ち、最新main統合と品質ゲート合格後だけ本PRと生成release PRを順次mergeする。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/content-manifest.json]
+    note: 1696動画を維持し、main側のタグ1件減少と82動画への不足274件追加を合成した11726タグ付与を再検証した。
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/sources/collaboration-tag-corrections-v1.json, path:scripts/audit-collaboration-tags.ts]
+    note: 公開タグ内容だけを既存IDで是正し、ファイル形式・taxonomy・alias・tag ruleのversionは変更しない。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/audit-collaboration-tags.ts]
+    note: 正本監査、生成build、TypeScript構文検査をCI対象へ追加した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/collaboration-group-audit.ts]
+    note: 新規監査logicをTypeScript strictの型検査対象に含めた。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/collaboration-group-audit.ts, path:scripts/audit-collaboration-tags.ts]
+    note: 新規TypeScriptとtestをrepository標準のESLint対象に含めた。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:src/domain/collaboration-group-audit.test.ts]
+    note: タイトル別名、タイトル非明示の確認済み出演、単独配信除外を単体テストで検証した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:src/domain/collaboration-group-audit.test.ts, path:spec/sources/collaboration-tag-corrections-v1.json]
+    note: pPuuXBQmTCkのようにタイトルへユニット名がない出演でも、不足タグを検出する再現条件を固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:content/content-manifest.json, path:scripts/build-public-data.ts]
+    note: 正本変更を既存generatorで決定的に公開データへ反映し、feature PRへrelease生成物を含めない契約を維持する。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 公開URLと公開タイトル由来のタグ根拠だけを追加し、字幕・credential・個人情報を追加していない。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をコンビ・ユニットタグ付与漏れの横断是正と再発防止に限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更内容、要件・設計影響、検証契約、互換性・リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 既存要件V8-TAG-013とV8-DISPLAY-013への適合修正であり、要件正本に差分がないことを確認した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/collaboration-group-audit.ts, path:docs/design/generated/system.gen.md, path:docs/design/generated/inventory.gen.json]
+    note: 既存プロフィール正本へ監査を接続した構造を生成設計へ同期した。コードから自明なため新規ADRは不要と判断した。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:src/domain/collaboration-group-audit.test.ts, path:.github/workflows/verify.yml, path:package.json]
+    note: 最新main統合後のGitHub Actionsで単体100件、Python51件、全正本監査、build、typecheck、lint、E2E、有限private backfillを再実行する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260825-collaboration-group-tag-gaps.yaml]
+    note: 選択したcheckと証拠を本reviewへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260825-collaboration-group-tag-gaps.yaml]
+    note: 未選択checkを形式的なN/Aとして記録していない。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence: [path:scripts/validate-content.ts, path:scripts/audit-collaboration-tags.ts]
+    note: 既存タグIDとschemaを維持し、consumerの移行なしで公開タグ内容だけを修正できることを検証した。
+advisories: []
+residual_risks:
+  - 公開タイトルの「夜王国語」と凸待ち・逆凸3件は誤検出防止の明示除外として回帰監査へ固定した。
+  - pPuuXBQmTCk.jsonを変更する既存Draft PR #584は、本変更のmerge後にrebaseしてタグ是正を保持する必要がある。
+  - 公開反映は本PRのmainマージ後に生成されるrelease PRの品質ゲート、merge、GitHub Pages反映の順で完了確認する。

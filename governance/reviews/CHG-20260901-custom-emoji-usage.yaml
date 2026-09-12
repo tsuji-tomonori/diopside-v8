@@ -1,0 +1,184 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260901-custom-emoji-usage
+profile: regulated
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: true
+  important_ui_change: true
+  long_term_decision: false
+  squash: true
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, commit:self]
+    note: 動画別の全カスタム絵文字集計をV8-DISPLAY-017、回数・比率チャートをV8-DISPLAY-018として正本へ追加した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/system.gen.md, path:src/domain/content.ts, path:scripts/build-public-data.ts]
+    note: optional公開契約、正本データモデル、決定的生成処理、詳細画面への設計影響を確認した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260901-custom-emoji-usage.yaml]
+    note: 一時入力に投稿者識別子を含む公開チャットを扱うためregulatedとし、公開・push・mergeは実行していない。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:src/domain/content.ts, test:src/domain/validation.test.ts, test:tests/content-validation.test.ts]
+    note: customEmojiUsageはoptional追加でmigration不要とし、未集計動画の既存表示と正本互換性を保った。
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:scripts/build-public-data.ts, test:tests/content-validation.test.ts, test:e2e/detail.spec.ts]
+    note: 公開動画detailへ匿名集計だけをoptional追加し、入力指紋と生チャット項目を公開契約から除外した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:src/features/detail/VideoDetailPage.tsx]
+    note: 隔離コピーで正本生成とVite production buildが合格した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:src/domain/content.ts]
+    note: TypeScript strictのブラウザ・Node両構成で型検査が合格した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行, path:scripts/aggregate-custom-emoji-usage.ts]
+    note: src、scripts、tests、e2eを対象にESLintが警告なしで合格した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/custom-emoji-usage.test.ts, test:src/domain/validation.test.ts, test:tests/content-validation.test.ts]
+    note: 全出現集計、Unicode除外、匿名化、生本文非保持、合計・重複・決定順、3動画正本を含む全118 unit testが合格した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/system.gen.md, path:scripts/build-public-data.ts]
+    note: 要件、生成設計、公開データを正本から再生成し、release-07d4f81a775f3369と1704動画を確認した。公開サイト生成物はcommit対象へ含めない。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [test:tests/custom-emoji-usage.test.ts, path:docs/operations/privacy-and-safety.md]
+    note: 生本文、投稿者名・ID、元の絵文字ID、入力指紋が公開データへ出ないことをtestと対象path検索で確認した。
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/detail.spec.ts, path:src/features/detail/VideoDetailPage.tsx]
+    note: 集計ありは全種類・回数・比率を表示し、集計なしはセクションを出さないsuccess・empty状態を確認した。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:scripts/aggregate-custom-emoji-usage.ts, path:scripts/apply-custom-emoji-usage.ts, path:docs/operations/manual-content-update.md]
+    note: JSONL解析・正本適用・検証は失敗時に非ゼロ終了し、動画IDと工程を保ったまま再実行できる。公開値の更新時点と入力指紋は正本に記録し、生入力は保存しない。
+  - id: FAST-018
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/detail.spec.ts]
+    note: desktopとmobileでmock集計および先行3動画の全件数・比率・アクセシビリティ状態を対象E2E 4件で検証した。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分を匿名集計、optional公開契約、詳細比率チャート、先行3動画、対応要件・運用手順に限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: 所有者指示をV8-DISPLAY-017とV8-DISPLAY-018へ原子化し、revision 29の正本と人向け表示へ反映した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/system.gen.md, commit:self]
+    note: as-built設計を生成物へ反映した。既存の静的詳細ページと動画正本の拡張であり、新しい長期技術選択を固定しないためADRは追加しない。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:src/features/detail/VideoDetailPage.tsx, test:tests/custom-emoji-usage.test.ts, test:e2e/detail.spec.ts]
+    note: V8-DISPLAY-017/018から集計器、schema、公開生成、UI、単体・E2E testへ到達できる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/custom-emoji-usage.test.ts, test:tests/content-validation.test.ts, test:e2e/detail.spec.ts, workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行]
+    note: 新しい受入条件を直接検証するtestを既存CIの単体・E2E経路へ接続した。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260901-custom-emoji-usage.yaml]
+    note: 選択したcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260901-custom-emoji-usage.yaml]
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence: [path:src/domain/content.ts, test:tests/content-validation.test.ts, test:e2e/detail.spec.ts]
+    note: optional fieldのため既存consumerと未集計1701動画は互換で、rollbackは3動画overrideとUI分岐の除去で可能である。
+  - id: REV-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:tests/custom-emoji-usage.test.ts, path:docs/operations/privacy-and-safety.md]
+    note: 集計器の出力testと公開正本pathの禁止項目検索という別oracleで識別子・本文の非保持を確認した。
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence: [test:e2e/detail.spec.ts, path:src/styles.css]
+    note: 全種類閲覧、正確な回数・比率、progressのaccessible name、desktop/mobile responsive、重大axe違反なしを確認した。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:docs/operations/manual-content-update.md, path:docs/operations/privacy-and-safety.md]
+    note: 1動画PR、Git管理外の一時取得、匿名化、検証、集計後破棄、再取得による更新手順を運用正本へ追加した。
+advisories: []
+residual_risks:
+  - 公開チャットリプレイはYouTube側で取得不能または後日変更される可能性があり、表示値はupdatedAt時点のsnapshotである。
+  - 先行対象は3動画だけで、残る1701動画は人が明示した有限更新で匿名集計を追加するまでチャートを表示しない。
+  - production deploy、公開、push、mergeは実行しておらず、最終結果の正本は現在HEADに対するGitHub Actionsと人のPR確認で確定する。

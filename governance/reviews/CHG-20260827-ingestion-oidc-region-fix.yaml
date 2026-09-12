@@ -1,0 +1,169 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260827-ingestion-oidc-region-fix
+profile: regulated
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: true
+  data_change: false
+  public_api_change: false
+  iac_change: true
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: true
+  important_ui_change: false
+  long_term_decision: false
+  squash: true
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: 要件影響はない。既存V8-INGEST-013の完全一致OIDC subjectと同一対象regionのCDK role委譲へ実装を適合させる不具合修正である。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-github-deployment-access/PARAMETERS.gen.md, path:infra/README.md]
+    note: access stack配置regionと対象bootstrap regionを分離し、追加parameterを生成CDK設計と運用手順へ反映した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260827-ingestion-oidc-region-fix.yaml]
+    note: OIDC trustとIAM委譲先を変更するcriticalな認可・IaC変更のためregulatedを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 外部書込みはGitHub branch、commit、Draft PR作成だけに限定し、AWS stack更新、workflow deploy、mergeは実行しない。
+  - id: IMP-006
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_deployment/access_stack.py, test:infra/tests/test_deployment_access.py]
+    note: 信頼subjectを対象repositoryとprotected environmentへ固定し、委譲先を対象accountのap-northeast-1にある3 bootstrap roleへ限定した。
+  - id: IMP-009
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_deployment/access_stack.py, test:infra/tests/test_deployment_access.py, path:docs/design/generated/cdk/diopside-github-deployment-access/RESOURCES.gen.md]
+    note: IAM Roleとinline policyの更新だけでresource追加・削除・置換がなく、OIDC provider、access key、network、ECR resourceを作成しない。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_deployment_access.py, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: 変更したPythonの構文と、us-east-1配置を明示した2 stackのCDK synthを確認した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: 既存のPyright strictとmypy strictを変更後のdeployment packageへ適用する。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Ruff format checkとlint、およびrepository policy testを既存品質ゲートで実行する。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_deployment_access.py, test:tests/repository-policy.test.ts]
+    note: 完全一致subject、対象region parameter、stack配置regionからの独立性、workflow region検証を直接確認する回帰testを追加した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_deployment_access.py, test:tests/repository-policy.test.ts]
+    note: us-east-1配置時にbootstrap role ARNが誤ってus-east-1へ向く条件と、workflowが任意regionを許す条件を回帰testで固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-github-deployment-access/manifest.json, path:docs/design/generated/cdk/diopside-github-deployment-access/PARAMETERS.gen.md]
+    note: synth templateからCDK as-built設計を再生成し、同一generatorのcheck modeで一致を確認した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [test:tests/repository-policy.test.ts, commit:self]
+    note: AWS資格情報、OIDC token、secretを追加せず、公開済みaccount IDをコードへ新規固定していない。
+  - id: FAST-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_deployment_access.py, path:docs/design/generated/cdk/diopside-github-deployment-access/manifest.json, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: CDK synth、cdk-nag、template assertionでIAM trust、委譲先、resource不変を独立確認する。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:.github/workflows/deploy-ingestion-infra.yml, path:infra/README.md]
+    note: workflowは誤regionを資格情報取得前に失敗させ、CloudFormation outputとREADMEから期待regionを確認できる。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をprivate backfillのOIDC trustと対象CDK regionの整合修正、回帰test、生成設計、更新手順へ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: 新しい利用者要件はなく、V8-INGEST-013が既に要求する完全一致subjectと同一対象regionへの適合回復であるため要件正本を変更しない。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-github-deployment-access/PARAMETERS.gen.md, path:infra/README.md]
+    note: 合成parameter差分を生成CDK設計へ、既存us-east-1 stackの安全な更新方法をREADMEへ反映し、新しい長期判断がないためADRは追加しない。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_deployment_access.py, test:tests/repository-policy.test.ts, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: 認可とregionの受入条件をtemplate assertionとworkflow静的testで検証し、既存CIでlint、strict型検査、pytest、synth、cdk-nagを実行する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260827-ingestion-oidc-region-fix.yaml]
+    note: 選択checkだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260827-ingestion-oidc-region-fix.yaml]
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+  - id: REV-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_deployment_access.py, path:docs/design/generated/cdk/diopside-github-deployment-access/manifest.json]
+    note: Python assertionと生成CloudFormation templateを別oracleとして、信頼条件、対象region、許可role集合を確認した。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/README.md, path:.github/workflows/deploy-ingestion-infra.yml]
+    note: 既存stackを削除・再作成せず更新する手順、固定subject、対象region、environment変数を運用文書へ反映した。
+advisories: []
+residual_risks:
+  - 実AWS stack更新とGitHub Actions deployは未実行であり、Draft PRをmergeした後に既存us-east-1 stackのchange setを確認して更新する必要がある。
+  - GitHub environmentのrequired reviewer、main限定、bypass禁止はrepository外設定であり、添付画面では未設定のためdeploy前に管理者が設定する必要がある。
+  - AWS accountのOIDC providerとap-northeast-1のmodern CDK bootstrap roleの実在・trust thumbprintはrepositoryから検証できない。

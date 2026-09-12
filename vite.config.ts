@@ -4,7 +4,8 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/diopside-v8/',
+  // GitHub Pagesはtme.page.diopside.netのルートで配信する。
+  base: '/',
   plugins: [react()],
   resolve: {
     alias: {

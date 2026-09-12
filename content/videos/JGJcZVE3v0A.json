@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=JGJcZVE3v0A",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-approved-tags",
@@ -26,6 +26,20 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "2484e8aaa7f051c775660c94daba3cb2d7eb665d62ad1b9ed898bb11fffc18de"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "公開日本語原文字幕を主体に不足区間を全編ローカルASRで補完（あらすじ確認用）",
+      "inputFingerprint": "4b6a16d44c9cd0eab91b11b03659591f16cb849156742eb00558e028c00a372f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3720
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "96e25dbb5376914cc77db0f4342da0c62d09838dd0de884917543cbb261f25de"
     }
   ],
   "tagAssignments": [
@@ -93,6 +107,22 @@
       "reviewedAt": "2026-08-04T12:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "『にじさんじ麻雀杯2026』H卓の東風戦に、予選突破を目指して白雪巴が出場。練習で身につけた知識を頼りに、牌の選択へじっくり悩みながら対局を進める。卓を囲む三人との軽快な掛け合いや、緊張を笑いに変える言葉も交える大会配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "全然頑張らないでください。",
+      "atSeconds": 638,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "4b6a16d44c9cd0eab91b11b03659591f16cb849156742eb00558e028c00a372f",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T17:37:03+09:00"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -213,10 +243,589 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T12:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "草",
+        "weight": 100
+      },
+      {
+        "term": "頑張る",
+        "weight": 66
+      },
+      {
+        "term": "ファイト",
+        "weight": 64
+      },
+      {
+        "term": "ナイス",
+        "weight": 58
+      },
+      {
+        "term": "こい",
+        "weight": 56
+      },
+      {
+        "term": "フミ",
+        "weight": 55
+      },
+      {
+        "term": "来年",
+        "weight": 53
+      },
+      {
+        "term": "ハナ",
+        "weight": 42
+      },
+      {
+        "term": "かわいい",
+        "weight": 39
+      },
+      {
+        "term": "怖い",
+        "weight": 36
+      },
+      {
+        "term": "カン",
+        "weight": 35
+      },
+      {
+        "term": "残像",
+        "weight": 32
+      },
+      {
+        "term": "あら",
+        "weight": 27
+      },
+      {
+        "term": "運",
+        "weight": 27
+      },
+      {
+        "term": "応援",
+        "weight": 25
+      },
+      {
+        "term": "手",
+        "weight": 25
+      },
+      {
+        "term": "ツモ",
+        "weight": 24
+      },
+      {
+        "term": "牌",
+        "weight": 24
+      },
+      {
+        "term": "ナイファイ",
+        "weight": 22
+      },
+      {
+        "term": "強い",
+        "weight": 20
+      },
+      {
+        "term": "終わる",
+        "weight": 20
+      },
+      {
+        "term": "声",
+        "weight": 20
+      },
+      {
+        "term": "配",
+        "weight": 18
+      },
+      {
+        "term": "うわ",
+        "weight": 16
+      },
+      {
+        "term": "ええ",
+        "weight": 16
+      },
+      {
+        "term": "楽しい",
+        "weight": 16
+      },
+      {
+        "term": "まだ",
+        "weight": 13
+      },
+      {
+        "term": "わぁ",
+        "weight": 13
+      },
+      {
+        "term": "麻雀",
+        "weight": 13
+      },
+      {
+        "term": "つる",
+        "weight": 11
+      },
+      {
+        "term": "ドキドキ",
+        "weight": 11
+      },
+      {
+        "term": "臭い",
+        "weight": 11
+      },
+      {
+        "term": "おおう",
+        "weight": 8
+      },
+      {
+        "term": "ファイトー",
+        "weight": 8
+      },
+      {
+        "term": "皆様",
+        "weight": 8
+      },
+      {
+        "term": "うい",
+        "weight": 5
+      },
+      {
+        "term": "つよい",
+        "weight": 5
+      },
+      {
+        "term": "リベンジ",
+        "weight": 5
+      },
+      {
+        "term": "ロン",
+        "weight": 5
+      },
+      {
+        "term": "暗殺",
+        "weight": 5
+      },
+      {
+        "term": "数える",
+        "weight": 5
+      },
+      {
+        "term": "早い",
+        "weight": 5
+      },
+      {
+        "term": "本当に",
+        "weight": 5
+      },
+      {
+        "term": "インタビュー",
+        "weight": 1
+      },
+      {
+        "term": "こる",
+        "weight": 1
+      },
+      {
+        "term": "すごい",
+        "weight": 1
+      },
+      {
+        "term": "ふる",
+        "weight": 1
+      },
+      {
+        "term": "リーチ",
+        "weight": 1
+      },
+      {
+        "term": "神",
+        "weight": 1
+      },
+      {
+        "term": "反逆",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "96e25dbb5376914cc77db0f4342da0c62d09838dd0de884917543cbb261f25de",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "updatedAt": "2026-09-05T00:20:00+09:00",
+    "humanReview": "承認済み"
+  },
+  "customEmojiUsage": {
+    "status": "集計済み",
+    "totalCount": 305,
+    "items": [
+      {
+        "customEmojiId": "custom-emoji-4de9a870929838ab",
+        "label": ":pennraito:",
+        "imageUrl": "https://yt3.ggpht.com/MzkOVgh-zHRQoZup0xGcg4pX-J8j7oyhlMxGL6vkhmOFCQdjoX0wKrAamBvs5NnDgWPnYGh_=w24-h24-c-k-nd",
+        "count": 144
+      },
+      {
+        "customEmojiId": "custom-emoji-bfc159b91f64052d",
+        "label": ":kusa:",
+        "imageUrl": "https://yt3.ggpht.com/kZShOeXg6MsX8wvxDnks5be-RBBZBbiSTiHaYf_YugiFq2vsob_L1aNikCo8ZWNa-KAZh-We=w24-h24-c-k-nd",
+        "count": 72
+      },
+      {
+        "customEmojiId": "custom-emoji-f43337c5aa5d12d6",
+        "label": ":nice:",
+        "imageUrl": "https://yt3.ggpht.com/TDQeDqyImGpFdeFP4JtRLEch56bHod225jTm5Q6iwYp_IfesDk2ZjJ3GHzKprX3tqQvvjtxUvg=w24-h24-c-k-nd",
+        "count": 57
+      },
+      {
+        "customEmojiId": "custom-emoji-d114b08d65064a0d",
+        "label": ":daken:",
+        "imageUrl": "https://yt3.ggpht.com/STxTum1lbYWsJvKvU0TBmTRGS5bB3RP8j00XvlIP-fdwGfk43DxhFQlJHH2ncl1BStmykLoqzQ=w24-h24-c-k-nd",
+        "count": 10
+      },
+      {
+        "customEmojiId": "custom-emoji-f511686e2a08a690",
+        "label": ":wan:",
+        "imageUrl": "https://yt3.ggpht.com/1VFD2HS8OwgvS2XCPDW-59iyFTUlw63RAVQcNsaGpQZTtjCXS_q-FUPR86bZVOnDirWTlnjn=w24-h24-c-k-nd",
+        "count": 7
+      },
+      {
+        "customEmojiId": "custom-emoji-14d753b6b17fe87f",
+        "label": ":taiki:",
+        "imageUrl": "https://yt3.ggpht.com/AmJMesRvOQ9hazRwFUqyYpBPbFInvNG6-NVq5nFnd7LxkunkF1ZNCfmPFwz85sjRNRCDs5e0_w=w24-h24-c-k-nd",
+        "count": 5
+      },
+      {
+        "customEmojiId": "custom-emoji-dd74b84bb52d73b9",
+        "label": ":dododo:",
+        "imageUrl": "https://yt3.ggpht.com/PqDg9JvpjGSZiYc-nd6009x0j8v50Dn-wWjqPQHP2EuTJN9BYrTlx9EADeZPKLi8OEeDIzkv=w24-h24-c-k-nd",
+        "count": 3
+      },
+      {
+        "customEmojiId": "custom-emoji-99d872abdf660b1b",
+        "label": ":tomoe2:",
+        "imageUrl": "https://yt3.ggpht.com/PWlFOxtJ5yAeKG-ak1OuOFbeIAc8LdmHp4Vema-L2CWtFsAk6C07uVB3ym3dybY3tpmA9CoRtWI=w24-h24-c-k-nd",
+        "count": 3
+      },
+      {
+        "customEmojiId": "custom-emoji-ca4a85ace4faf456",
+        "label": ":tomoe3:",
+        "imageUrl": "https://yt3.ggpht.com/xfD5CwUMwcfIFWvaPA5bt-L_Ys5vCVdJQL2a_5bdEd2AArTNWCMFH1urumOlB9bqPp2Ndio-Sg=w24-h24-c-k-nd",
+        "count": 3
+      },
+      {
+        "customEmojiId": "custom-emoji-f809789a6d65e0b5",
+        "label": ":pon:",
+        "imageUrl": "https://yt3.ggpht.com/HV0jFSWNPCRJr2WX3Mg9shFA3qzyUbmxG388zNW_hNgMnPKFyrsFMW4qXDdZmDqcoGD8c2ouNuE=w24-h24-c-k-nd",
+        "count": 1
+      }
+    ],
+    "timeline": {
+      "bucketSeconds": 60,
+      "durationSeconds": 3720,
+      "bins": [
+        [
+          [
+            0,
+            21
+          ]
+        ],
+        [
+          [
+            6,
+            3
+          ]
+        ],
+        [],
+        [
+          [
+            0,
+            5
+          ],
+          [
+            3,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            3
+          ]
+        ],
+        [],
+        [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            4
+          ]
+        ],
+        [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            10
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            2,
+            1
+          ]
+        ],
+        [
+          [
+            1,
+            2
+          ]
+        ],
+        [
+          [
+            1,
+            1
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            1,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            7
+          ]
+        ],
+        [
+          [
+            0,
+            2
+          ]
+        ],
+        [
+          [
+            1,
+            1
+          ]
+        ],
+        [
+          [
+            1,
+            2
+          ]
+        ],
+        [
+          [
+            1,
+            2
+          ]
+        ],
+        [],
+        [
+          [
+            1,
+            2
+          ]
+        ],
+        [
+          [
+            1,
+            3
+          ]
+        ],
+        [],
+        [
+          [
+            0,
+            11
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            9,
+            1
+          ]
+        ],
+        [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            56
+          ]
+        ],
+        [],
+        [
+          [
+            1,
+            2
+          ]
+        ],
+        [
+          [
+            1,
+            1
+          ]
+        ],
+        [
+          [
+            1,
+            1
+          ]
+        ],
+        [
+          [
+            1,
+            2
+          ]
+        ],
+        [
+          [
+            1,
+            8
+          ]
+        ],
+        [
+          [
+            1,
+            2
+          ]
+        ],
+        [
+          [
+            1,
+            5
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            3,
+            1
+          ]
+        ],
+        [
+          [
+            1,
+            10
+          ]
+        ],
+        [
+          [
+            1,
+            1
+          ]
+        ],
+        [
+          [
+            1,
+            4
+          ]
+        ],
+        [],
+        [
+          [
+            1,
+            2
+          ],
+          [
+            8,
+            1
+          ]
+        ],
+        [
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        [],
+        [
+          [
+            7,
+            3
+          ]
+        ],
+        [],
+        [
+          [
+            1,
+            3
+          ]
+        ],
+        [],
+        [
+          [
+            3,
+            1
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "beforeStartCount": 97,
+      "afterEndCount": 0,
+      "unpositionedCount": 0
+    },
+    "inputFingerprint": "cbd91ba70365038505de9a2ad3bf1ad400c1fa9bf72331104411e91e3a194889",
+    "rulesVersion": "2.0.0",
+    "updatedAt": "2026-09-05T00:00:00Z"
   },
   "provenance": {
     "inputFingerprint": "7d20e2e7c53258b1281e223f2942ecd6a7e14ab9580ea1b4c34561d857293241",

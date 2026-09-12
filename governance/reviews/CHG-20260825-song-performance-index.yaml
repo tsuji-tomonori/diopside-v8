@@ -1,0 +1,237 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260825-song-performance-index
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: false
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: 歌唱楽曲の一覧、動画内の開始位置、原曲導線、楽曲タグからの遷移をV8-DISPLAY-015、V8-TAG-037、V8-TAG-038として追加した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+      - path:docs/design/generated/inventory.gen.json
+    note: 楽曲正本、公開song-index生成、同一release読込み、楽曲ページと既存画面の導線を生成設計へ反映した。追加ファイル形式はschemaと生成器から追跡できるためADRは不要である。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 永続正本、公開ファイル契約、重要UI、要件・生成設計、E2Eへ横断的に影響するためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 利用者がmerge・release・deployを明示承認した。先行PR #1327・#1328・#1329とrelease PR #1331・#1332・#1333の完了を待ち、全変更を含む最新main統合と品質ゲート合格後だけ#1330と生成release PRを順次mergeする。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/songs/song-performances.json
+      - path:src/domain/validation.ts
+    note: 追記型JSON正本として楽曲と出演位置を保持し、動画参照、範囲、根拠、重複を検証する。migrationや削除はなく、commitのrevertと再生成で復旧できる。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/songs/SongIndexPage.tsx
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 楽曲正本を含む公開データ生成とVite production buildをローカルで完了し、同じ契約をCIで再実行する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:tsconfig.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: ブラウザ用とNode用のTypeScript strict型検査を完了した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/features/songs/SongIndexPage.tsx
+      - test:e2e/song-index.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 変更したReact、生成script、domain、unit test、E2Eを含むESLintを警告0件で完了した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/features/songs/SongIndexPage.test.tsx
+      - test:src/data/loadPublicData.test.ts
+      - test:tests/content-validation.test.ts
+      - test:tests/generated.test.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 楽曲一覧の表示・絞込み・未該当、同一release読込み、正本検証、公開bundle生成と既存画面の回帰を対象テストで確認した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:docs/requirements/REQUIREMENTS.md
+      - path:docs/design/generated/system.gen.md
+      - path:docs/design/generated/inventory.gen.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 要件表示とas-built設計を正本と実装から決定的に再生成し、要件validate、drift check、設計生成を完了した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: staged対象を楽曲正本、生成・検証logic、UI、test、要件・生成設計、review記録へ限定し、credential、個人情報、生成release成果物を含めない。
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/songs/SongIndexPage.test.tsx
+      - test:e2e/song-index.spec.ts
+    note: loadingと構造エラーは共通公開bundle境界、success・empty・未知楽曲は楽曲ページのcomponentとE2Eで確認し、再検索によるrecoveryを維持する。
+  - id: FAST-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/songs/SongIndexPage.test.tsx
+      - test:e2e/song-index.spec.ts
+    note: semanticな見出し、label付き検索input、通常linkによる楽曲・動画・原曲導線を使い、keyboard操作とaccessible nameをcomponent・E2E契約へ含めた。
+  - id: FAST-018
+    class: Risk-selected
+    result: na
+    evidence:
+      - test:e2e/song-index.spec.ts
+    note: E2E変更triggerで選択後、対象が読取り専用の静的楽曲ページでありC/U/D API、DB、外部状態変更を含まないと確認した。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 楽曲正本、一覧・タグ導線、公開生成、検証、要件・設計、テストという一つの利用者目的に差分を限定し、静的release成果物はPRへ含めない。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更内容、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:spec/sources/owner-directive-2026-08-25-song-performance-index.md
+    note: repository ownerの指示を3要件へ分解し、歌枠外と鼻歌を含む種別、正確な開始位置、原曲・根拠・確認日の保持を受入条件へ固定した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+      - path:docs/design/generated/inventory.gen.json
+    note: 正本schema、生成経路、公開bundle、route、利用画面をas-built設計へ反映した。将来を拘束する非自明な別判断はなくADRは不要である。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:src/features/songs/SongIndexPage.tsx
+      - test:src/features/songs/SongIndexPage.test.tsx
+      - test:e2e/song-index.spec.ts
+    note: V8-DISPLAY-015、V8-TAG-037、V8-TAG-038から楽曲正本、公開生成、画面実装、component・E2Eへtraceできる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/features/songs/SongIndexPage.test.tsx
+      - test:src/data/loadPublicData.test.ts
+      - test:tests/content-validation.test.ts
+      - test:tests/generated.test.ts
+      - test:e2e/song-index.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 楽曲データ完全性、公開生成、同一release読込み、主要画面状態、動画時刻・原曲への移動を通常PRのCIで実行する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260825-song-performance-index.yaml
+    note: 変更flagsから選択されたcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260825-song-performance-index.yaml
+    note: selectorで選択されなかったcheckを形式的なN/Aとして登録していない。
+  - id: REV-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/song-index.spec.ts
+    note: FAST-018はE2E変更で選択後、CRUD・DB・外部状態を持たない静的UI試験と判明したためN/A根拠を記録した。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/domain/content.ts
+      - path:scripts/build-public-data.ts
+      - test:tests/generated.test.ts
+    note: 新しいsong-index.jsonはrelease配下への追加契約であり、latest.jsonの既存fieldと既存bundleを変更しない。新consumerはreleaseIdから導出し、rollbackはrelease世代切替またはrevertで行える。
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/features/songs/SongIndexPage.test.tsx
+      - test:e2e/song-index.spec.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 歌ジャンル・楽曲タグから一覧へ移動し、原曲と正確な動画位置へ到達する主要タスク、empty・未知楽曲、keyboard、responsiveをcomponentとCI E2Eで確認する。
+
+advisories: []
+residual_risks:
+  - 初期正本は根拠と原曲を確認できた16楽曲・16出演位置に限定している。未調査配信は推測で追加せず、同じ正本形式で後続backfillする。
+  - ローカル環境ではChromiumを起動できないため、追加E2Eの実行結果はPlaywright同梱containerを使うGitHub Actionsをmerge前の必須証拠とする。
+  - 公開反映は#1330のmainマージ後に生成されるrelease PRの品質ゲート、merge、GitHub Pages反映の順で完了確認する。
