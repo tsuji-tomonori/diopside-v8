@@ -46,6 +46,14 @@
       "inputFingerprint": "6e4bb4abb4029b14802b23341bf57306f301b1888319774753edede8fb5d0c03",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 28625
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "90889fb623abb16e492d2d18f06a901ca7423ac0af645ceae8d1f2d93dcf2e5d",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 28625
     }
   ],
   "tagAssignments": [
@@ -331,5 +339,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴がポケモンの旅を再開し、手持ちの仲間と寄り道やキャンプを楽しみながらジム攻略へ進む。技の相性を考えた戦いと、登場人物への率直なツッコミ、仲間への愛情が長時間の挑戦を彩る。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "文字通りカレーで優勝していこうか",
+      "atSeconds": 25433,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "90889fb623abb16e492d2d18f06a901ca7423ac0af645ceae8d1f2d93dcf2e5d",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:20:46.710849+00:00"
   }
 }
