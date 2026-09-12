@@ -46,6 +46,14 @@
       "inputFingerprint": "0811ffb9bbf6b6bd980c7d1395dfe7652cd25e7681e9635175555e18c67c4baa",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 11460
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "5219f3a874372125a868b274a137bca94b3674885c27fee5d6f917c47ad1d9e3",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 11460
     }
   ],
   "tagAssignments": [
@@ -507,5 +515,22 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が初めて訪れた北海道の2泊3日を、30枚以上の写真とともに振り返る。寿司やジンギスカン、スープカレーなどの食、展望台や小樽の景色、バギーや乗馬の体験まで、旅先で出会った味と自然の魅力を軽やかに語る旅行レポート。",
+    "bodyEvidenceRefs": [
+      "evidence-title",
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "北海道最高でした",
+      "atSeconds": 301,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "5219f3a874372125a868b274a137bca94b3674885c27fee5d6f917c47ad1d9e3",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T21:39:22.077439+00:00"
   }
 }
