@@ -46,6 +46,14 @@
       "inputFingerprint": "a82452401e600a15ee8c5ab9efcdd9d947d8cf23f48c8bd267c1bee34b96a7db"
     },
     {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "b6472bc0a4e13c42a8675af7a5829e5efeec54c736f5252b7464e9ace8108c41",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8778
+    },
+    {
       "evidenceId": "evidence-caption-word-cloud-9-2",
       "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
@@ -531,5 +539,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『バイオハザード RE:2』の続きを実況。暗い施設を探索し、仕掛けを解きながら武器とアイテムを使い分けてゾンビに立ち向かいます。突然の演出に悲鳴を上げつつも、マップを確認して進路を切り開き、強気とビビりが交錯する長時間プレイです。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私の人生こんなもんですね",
+      "atSeconds": 7935,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "b6472bc0a4e13c42a8675af7a5829e5efeec54c736f5252b7464e9ace8108c41",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T12:36:04.331718+00:00"
   }
 }
