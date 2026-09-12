@@ -52,6 +52,14 @@
       "inputFingerprint": "06dc2c39ccf9e350aa429db71cedc68bc31a7b182d64129453e054ad516fed8b",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 18331
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "f3c211600f5a489009b3ad00cd4077c0f4690d78f1e05219b5d88c11d5a38653",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 18331
     }
   ],
   "tagAssignments": [
@@ -567,5 +575,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "『都市伝説解体センター』を初見で遊び、研修中のあざみとともに依頼人への聞き込みや写真・現場の観察を進める。眼鏡で見える痕跡や部屋に残る不穏な違和感を手掛かりに、怪異の噂と人々の証言を照合していく調査型ミステリー。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "なんだかすごく匂ってきました便座だけに",
+      "atSeconds": 5843,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "f3c211600f5a489009b3ad00cd4077c0f4690d78f1e05219b5d88c11d5a38653",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:35:18.310479+00:00"
   }
 }
