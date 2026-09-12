@@ -52,6 +52,14 @@
       "inputFingerprint": "1ec178601c87fbbbdc4beef294bbfd9250c6347222220bed5789163025ec1099",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 9836
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "a3c7e17424a4e02967df38dab5911b8f861f9b6e3c2172d29e4971a36f3fdfac",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9836
     }
   ],
   "tagAssignments": [
@@ -495,5 +503,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴がアニメ「ダンダダン」第8話から第12話を同時視聴。怪異と宇宙人が交錯する怒涛の展開に驚き、登場人物の関係や戦いを楽しく語りながら、最終話後は作品の魅力と次期への期待を振り返る。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "何のアニメ見てるんだ私たち",
+      "atSeconds": 3073,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "a3c7e17424a4e02967df38dab5911b8f861f9b6e3c2172d29e4971a36f3fdfac",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T15:34:58.368858+00:00"
   }
 }
