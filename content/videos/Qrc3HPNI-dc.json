@@ -52,6 +52,14 @@
       "inputFingerprint": "67910f42a4ef9d644d985d988e1b36b9e0a8facadefbb505040ea330810ae85c",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 13177
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "298bf01660d0c3509b99f786530d9f057c342d78ec360044a1a3a1b0217526e1",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 13177
     }
   ],
   "tagAssignments": [
@@ -504,5 +512,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "新年の挨拶から始まり、白雪巴が視聴者と雑談を交えながら麻雀に挑戦。手牌や役に悩み、初心者らしい迷いと独特のテンションで長時間の対局を楽しみ、年末年始や体調、歌ってみたの話題も飛び出す笑いの絶えない配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "もうこの初心者マーク取っ払っちゃうねー",
+      "atSeconds": 13082,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "298bf01660d0c3509b99f786530d9f057c342d78ec360044a1a3a1b0217526e1",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:52:08.094816+00:00"
   }
 }
