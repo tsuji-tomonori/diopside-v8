@@ -52,6 +52,14 @@
       "inputFingerprint": "7156c0d37d144f08fbb02181db442939e443d91032beba3328e91ff2874d80df",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 12819
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "7156c0d37d144f08fbb02181db442939e443d91032beba3328e91ff2874d80df",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 12819
     }
   ],
   "tagAssignments": [
@@ -111,10 +119,185 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-bf811edd",
+        "startSeconds": 0,
+        "label": "ホラーゲーム「動作不良」をプレイ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-257-f530deff",
+        "startSeconds": 257,
+        "label": "警備員として巡回を開始",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-787-37ccbd60",
+        "startSeconds": 787,
+        "label": "ビルの異変を調査",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1796-3e5c3911",
+        "startSeconds": 1796,
+        "label": "別の階を探索",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2482-a54d8610",
+        "startSeconds": 2482,
+        "label": "フロアを進めて調査",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3665-fbb7483d",
+        "startSeconds": 3665,
+        "label": "パスワードを解く",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4032-6817085e",
+        "startSeconds": 4032,
+        "label": "終盤の探索",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4354-d2a315b8",
+        "startSeconds": 4354,
+        "label": "別の行動を考える",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5094-e20b102f",
+        "startSeconds": 5094,
+        "label": "選択を変えて再調査",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6810-49471c4f",
+        "startSeconds": 6810,
+        "label": "分岐を検証する",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8073-31f8a7ce",
+        "startSeconds": 8073,
+        "label": "別ルートに再挑戦",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8694-73470c42",
+        "startSeconds": 8694,
+        "label": "手掛かりを集め直す",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-11648-1ba4c80b",
+        "startSeconds": 11648,
+        "label": "ホラーゲームを振り返る",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-12090-554ef260",
+        "startSeconds": 12090,
+        "label": "今後の配信案内",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-12257-42d4d069",
+        "startSeconds": 12257,
+        "label": "支援へのお礼・エンディング",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "35719fd0ff8de450c2ce15aab08170d289ea82386d61eceb25d013ce8613c4b0",
+    "inputFingerprint": "7156c0d37d144f08fbb02181db442939e443d91032beba3328e91ff2874d80df",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-08-09T11:43:12+09:00",
+    "updatedAt": "2026-08-09T11:48:13+09:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "35719fd0ff8de450c2ce15aab08170d289ea82386d61eceb25d013ce8613c4b0",
+        "majorIssues": 0,
+        "reviewedAt": "2026-08-09T11:46:16+09:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "35719fd0ff8de450c2ce15aab08170d289ea82386d61eceb25d013ce8613c4b0",
+        "majorIssues": 0,
+        "reviewedAt": "2026-08-09T11:48:13+09:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "35719fd0ff8de450c2ce15aab08170d289ea82386d61eceb25d013ce8613c4b0",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2594"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -1062,7 +1245,7 @@
     "inputFingerprint": "e7e7955476234a184393f664fda047766443925ac06778656368a48744653b5c",
     "generatorVersion": "v8-legacy-migration-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2594"
   },
   "approval": {
     "status": "承認済み",
