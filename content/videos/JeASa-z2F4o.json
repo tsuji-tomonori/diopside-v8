@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "ad99f06fe5189bd6c50c46d55701a4e66e1646fa25ca39d093b33a77a6ba16f1"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "78d4b2ce021305e436f620f4582406178de471a0166d178db7d683f34b47a81b",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 1789
     }
   ],
   "tagAssignments": [
@@ -318,10 +326,155 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "強い",
+        "weight": 100
+      },
+      {
+        "term": "乗る",
+        "weight": 93
+      },
+      {
+        "term": "最初",
+        "weight": 76
+      },
+      {
+        "term": "わかる",
+        "weight": 66
+      },
+      {
+        "term": "圭",
+        "weight": 54
+      },
+      {
+        "term": "取る",
+        "weight": 54
+      },
+      {
+        "term": "買う",
+        "weight": 54
+      },
+      {
+        "term": "ok",
+        "weight": 40
+      },
+      {
+        "term": "じゃあ",
+        "weight": 40
+      },
+      {
+        "term": "すごい",
+        "weight": 40
+      },
+      {
+        "term": "完全",
+        "weight": 40
+      },
+      {
+        "term": "上げる",
+        "weight": 40
+      },
+      {
+        "term": "分かる",
+        "weight": 40
+      },
+      {
+        "term": "恋",
+        "weight": 40
+      },
+      {
+        "term": "うわ",
+        "weight": 23
+      },
+      {
+        "term": "おり",
+        "weight": 23
+      },
+      {
+        "term": "おりる",
+        "weight": 23
+      },
+      {
+        "term": "そうね",
+        "weight": 23
+      },
+      {
+        "term": "チェック",
+        "weight": 23
+      },
+      {
+        "term": "ランダム",
+        "weight": 23
+      },
+      {
+        "term": "夏",
+        "weight": 23
+      },
+      {
+        "term": "確か",
+        "weight": 23
+      },
+      {
+        "term": "覚える",
+        "weight": 23
+      },
+      {
+        "term": "金持ち",
+        "weight": 23
+      },
+      {
+        "term": "空",
+        "weight": 23
+      },
+      {
+        "term": "参加",
+        "weight": 23
+      },
+      {
+        "term": "手",
+        "weight": 23
+      },
+      {
+        "term": "人",
+        "weight": 23
+      },
+      {
+        "term": "水",
+        "weight": 23
+      },
+      {
+        "term": "知る",
+        "weight": 23
+      },
+      {
+        "term": "通り",
+        "weight": 23
+      },
+      {
+        "term": "要するに",
+        "weight": 23
+      },
+      {
+        "term": "話",
+        "weight": 23
+      },
+      {
+        "term": "アーサー",
+        "weight": 1
+      },
+      {
+        "term": "あげる",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "78d4b2ce021305e436f620f4582406178de471a0166d178db7d683f34b47a81b",
+    "exclusionRulesVersion": "9.2.0+editorial.1",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "3b7f8689811cd0f3205d13c8aff17ac02aa156670aeacb1245d16ec9a5648b4c",

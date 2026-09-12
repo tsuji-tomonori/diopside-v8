@@ -52,6 +52,14 @@
       "inputFingerprint": "97702714e8a7653bba53b14982fe49c8f15e701a72c259a0e1ea156b00bcc09c",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 105
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "fa27283eb6ea35c8f02ad3aa0f9cd7a0127a67c667e4222357ac5af476738fca",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 105
     }
   ],
   "tagAssignments": [
@@ -99,10 +107,163 @@
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "正規化済み公開チャットを集計したが、有効な固有語句が19語で、V8-DISPLAY-005の20〜50語を満たさないため作成しない。",
-    "updatedAt": "2026-09-05T00:20:00+09:00"
+    "words": [
+      {
+        "term": "声",
+        "weight": 100
+      },
+      {
+        "term": "アンケート",
+        "weight": 45
+      },
+      {
+        "term": "かわいい",
+        "weight": 45
+      },
+      {
+        "term": "皆さん",
+        "weight": 45
+      },
+      {
+        "term": "苦しい",
+        "weight": 45
+      },
+      {
+        "term": "見える",
+        "weight": 45
+      },
+      {
+        "term": "終わる",
+        "weight": 45
+      },
+      {
+        "term": "初日",
+        "weight": 45
+      },
+      {
+        "term": "人",
+        "weight": 45
+      },
+      {
+        "term": "youtube",
+        "weight": 1
+      },
+      {
+        "term": "あら",
+        "weight": 1
+      },
+      {
+        "term": "お隣",
+        "weight": 1
+      },
+      {
+        "term": "コメント",
+        "weight": 1
+      },
+      {
+        "term": "じゃあ",
+        "weight": 1
+      },
+      {
+        "term": "ただいま",
+        "weight": 1
+      },
+      {
+        "term": "チャット",
+        "weight": 1
+      },
+      {
+        "term": "やばい",
+        "weight": 1
+      },
+      {
+        "term": "わあ",
+        "weight": 1
+      },
+      {
+        "term": "意外と",
+        "weight": 1
+      },
+      {
+        "term": "押せる",
+        "weight": 1
+      },
+      {
+        "term": "過ごす",
+        "weight": 1
+      },
+      {
+        "term": "開く",
+        "weight": 1
+      },
+      {
+        "term": "機能",
+        "weight": 1
+      },
+      {
+        "term": "見れる",
+        "weight": 1
+      },
+      {
+        "term": "三角",
+        "weight": 1
+      },
+      {
+        "term": "参る",
+        "weight": 1
+      },
+      {
+        "term": "残る",
+        "weight": 1
+      },
+      {
+        "term": "姉さん",
+        "weight": 1
+      },
+      {
+        "term": "子",
+        "weight": 1
+      },
+      {
+        "term": "初めて",
+        "weight": 1
+      },
+      {
+        "term": "雪",
+        "weight": 1
+      },
+      {
+        "term": "朝",
+        "weight": 1
+      },
+      {
+        "term": "白",
+        "weight": 1
+      },
+      {
+        "term": "変わる",
+        "weight": 1
+      },
+      {
+        "term": "目",
+        "weight": 1
+      },
+      {
+        "term": "欄",
+        "weight": 1
+      },
+      {
+        "term": "留守",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "fa27283eb6ea35c8f02ad3aa0f9cd7a0127a67c667e4222357ac5af476738fca",
+    "exclusionRulesVersion": "9.2.0+editorial.1",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "customEmojiUsage": {
     "status": "集計済み",
