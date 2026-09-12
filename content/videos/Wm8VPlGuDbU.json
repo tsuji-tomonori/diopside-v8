@@ -52,6 +52,14 @@
       "inputFingerprint": "ff1756724b3ad4042b4564e9580b415d608905857fef7abcae85fa4994e4f7cc",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 13229
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "1d6d8d4f4faae503363add2ee14a05da2231da6f8493b7d48820e6046e214bcf",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 13229
     }
   ],
   "tagAssignments": [
@@ -594,5 +602,23 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "ブルーアーカイブのアビドス編を進め、ゲヘナ風紀委員会との対面から土地台帳や借金、砂漠の手がかりを追う白雪巴。戦闘と会話を行き来しながら、登場人物への驚きや愛着、物語の不穏さに揺れる反応を楽しめる配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-title",
+      "evidence-approved-timestamps",
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ゲームだって分かってても腹が立ってしょうがない",
+      "atSeconds": 6821,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "1d6d8d4f4faae503363add2ee14a05da2231da6f8493b7d48820e6046e214bcf",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T19:51:13.507365+00:00"
   }
 }
