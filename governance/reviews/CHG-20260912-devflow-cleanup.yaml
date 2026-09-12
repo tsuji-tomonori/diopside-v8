@@ -54,7 +54,7 @@ selected_checks:
   - test:tests/devflow_cleanup_test.py
   - test:tests/synopsis_harness_test.py
   - workflow:要件・品質ゲート
-  note: 構文・ビルドを確認する。対象限定の回収・保持条件と既存CI入口を確認。
+  note: 構文・ビルドを確認する。Ruff・Pythonの再生成可能キャッシュを含む回収・保持条件と既存CI入口を確認。
 - id: FAST-003
   class: Invariant
   result: pass

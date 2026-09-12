@@ -174,6 +174,14 @@ class DevflowCleanupTest(unittest.TestCase):
         self.assertTrue((self.repo / "source.txt").exists())
         self.assertTrue(self.worktree.exists())
 
+    def test_rebuildable_tool_caches_do_not_block_cleanup(self):
+        for name in (".ruff_cache", "__pycache__"):
+            cache = self.worktree / name
+            cache.mkdir()
+            (cache / ".gitignore").write_text("*\n")
+            (cache / "generated").write_text("rebuildable fixture")
+        self.assertEqual(self.cleanup()["status"], "cleaned")
+
     def test_missing_remote_identity_preserves_shared_batch(self):
         self.item.pop("claim")
         self.write(self.batch / "items/abcdefghijk.json", self.item)

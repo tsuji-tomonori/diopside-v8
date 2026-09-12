@@ -68,7 +68,11 @@ def worktree_guard(path: Path, item: dict) -> None:
     ignored = git(
         path, "ls-files", "--others", "--ignored", "--exclude-standard", "--directory"
     )
-    if any(line != "node_modules/" for line in ignored.splitlines()):
+    if any(
+        not line.startswith(("node_modules/", ".ruff_cache/"))
+        and "__pycache__" not in Path(line).parts
+        for line in ignored.splitlines()
+    ):
         raise ValueError("worktree_has_unknown_ignored_files")
     commit = item.get("commit", "")
     if not re.fullmatch(r"[0-9a-f]{40}", commit):
