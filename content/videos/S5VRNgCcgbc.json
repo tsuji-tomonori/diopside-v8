@@ -58,6 +58,14 @@
       "inputFingerprint": "f9fefa01d086365024870dbce5b646223fbf0daaab37e75bace3ae9e5bd179bf",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 7053
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "f453798ba33fc384cad76b91c8d09e1e35b3fba23fd7c9b6d01d4998e2c1b9a7",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7053
     }
   ],
   "tagAssignments": [
@@ -510,5 +518,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-23T16:00:00+09:00",
     "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  },
+  "synopsis": {
+    "body": "コンビニ店員として働き始めた佐野まなみをめぐり、常連客との距離感や店長とのやり取りが少しずつ不穏に変わる。白雪が選択肢を追いながら、日常の違和感と人の怖さに反応していく単発ゲーム実況。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "このゲーム全然なんかホラゲーより怖いこういう方が",
+      "atSeconds": 4542,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "f453798ba33fc384cad76b91c8d09e1e35b3fba23fd7c9b6d01d4998e2c1b9a7",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T19:59:22.332459+00:00"
   }
 }
