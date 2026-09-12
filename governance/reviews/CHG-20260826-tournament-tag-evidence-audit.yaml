@@ -1,0 +1,182 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260826-tournament-tag-evidence-audit
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:content/videos/37R4N3H1Ji4.json
+    note: V8-TAG-021とV8-TAG-022の既存要件へ戻す不具合修正であり、永続要件や受入条件は変更しない。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - path:src/domain/validation.ts
+    note: 正本検証器の入力指紋を生成設計へ反映する。schema、公開契約、データモデル、architecture判断は変更せずADRは不要である。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260826-tournament-tag-evidence-audit.yaml
+    note: 1696動画を横断監査し、共有validatorと正本データを変更するためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 外部書込みはGitHubへのfeature branch、commit、Draft PR作成に限定し、merge、release、production公開は行わない。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/videos/37R4N3H1Ji4.json
+      - path:content/content-manifest.json
+    note: 動画や根拠を削除せず、直接根拠のない大会タグ1件だけを除外してassignmentCountを1減らす可逆な変更でありmigrationはない。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/domain/validation.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 正本からreleaseとVite production bundleを一時生成し、1696動画のbuildを完了した。公開生成物はmainマージ後の既存release工程へ分離する。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:tsconfig.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: TypeScriptのブラウザ・Node両projectのtypecheckを完了した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:src/domain/validation.ts
+      - test:tests/content-validation.test.ts
+    note: 変更したvalidatorと回帰テストを含む既存lintを警告0件で完了した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 対象テスト16件と正本検証に合格し、進行・企画特性のタイトル根拠不一致を直接検証した。全テストはPR CIで再実行する。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - path:content/videos/37R4N3H1Ji4.json
+    note: 37R4N3H1Ji4へタイトル根拠だけで大会タグを再追加するとTAG_TITLE_EVIDENCE_MISMATCHになる回帰条件を固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - path:content/content-manifest.json
+      - path:spec/sources/video-tags-available-30.json
+    note: 生成設計のvalidator指紋と正本件数を再生成し、公開releaseも一時生成して対象動画に大会タグがないことを確認した。公開生成物はPR差分へ含めない。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 公開タイトルと既存正本だけを扱い、credential、個人情報、生字幕、コメント、チャット、投稿者識別子を追加していない。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 進行・企画特性103件の横断監査、誤付与1件の是正、同種の再発防止validatorと試験という一つの目的に差分を限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更内容、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:src/domain/validation.ts
+    note: V8-TAG-021とV8-TAG-022の根拠固有性・根拠優先順位を強化し、要件の意味は変更しない。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+    note: 実装由来のvalidator指紋だけを生成設計へ反映し、公開schema、route、component、ADRへ影響しない。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/content-validation.test.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 誤付与の再現試験、全正本検証、build、typecheck、lintを既存PR品質ゲートで再実行する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260826-tournament-tag-evidence-audit.yaml
+    note: 変更flagsから選択されたcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260826-tournament-tag-evidence-audit.yaml
+    note: selectorで選択されなかったcheckを形式的なN/Aとして登録していない。
+
+advisories: []
+residual_risks:
+  - タイトル以外の一次根拠を理由に含む既存タグは、このタイトル専用validatorの対象外であり、個別の根拠監査を継続する必要がある。
+  - Draft PRを人がマージし、既存のmain release工程が完了するまで公開サイトへは反映されない。この変更ではmerge、release、deployを行わない。

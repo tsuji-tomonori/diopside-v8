@@ -9,8 +9,8 @@ import rejectedPilotInput from './fixtures/pilot-timestamps-v1.json';
 
 const root = process.cwd();
 const expectedGenreCounts = {
-  ゲーム: 8,
-  企画: 6,
+  ゲーム: 10,
+  企画: 4,
   雑談: 5,
   ASMR: 3,
   歌: 2,
@@ -62,7 +62,7 @@ describe('固定30動画のタイムスタンプ品質確認', () => {
   const acceptance = acceptanceSchema.parse(legacyAcceptanceInput);
   const taxonomy = tagTaxonomySchema.parse(readJson(`${root}/content/taxonomy/tag-taxonomy.json`));
   const aliases = tagAliasesSchema.parse(readJson(`${root}/content/taxonomy/tag-aliases.json`));
-  const videos = new Map(readCanonicalVideos(root).map((video) => [video.videoId, video]));
+  const videos = new Map(readCanonicalVideos(root, { includeExcluded: true }).map((video) => [video.videoId, video]));
   const lookup = buildTaxonomyLookup(taxonomy);
 
   it('旧パイロットの不合格25件を合格へ読み替えず証跡として保持する', () => {

@@ -1,0 +1,154 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260829-pot-provider
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: true
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: false
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: true
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/decisions/ADR-0006-local-private-material-ingestion.md]
+    note: V8-INGEST-007とV8-OPS-023の認証・cookieを使わない公開素材取得をPO Token attestationで安定化し、受入条件は変更しない。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, path:docs/decisions/ADR-0006-local-private-material-ingestion.md]
+    note: yt-dlpのlocal runtime構成へmwebとloopback PO Token providerを追加する長期判断を既存ADRへ反映し、CDK・manifest・S3/DynamoDB契約は変えない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-pot-provider.yaml]
+    note: Python dependency、lockfile、共通yt-dlp runner、運用手順へ影響するためassuredを選択した。
+  - id: IMP-010
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/pyproject.toml, path:infra/uv.lock, commit:self]
+    note: bgutil-ytdlp-pot-provider 1.3.2をhash付きで固定し、Python/Node runtime auditは既知脆弱性0件、provider sourceはtag 1.3.2のcommit 7511309aへ固定した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: infra package、全pytest、CDK synthを既存検証契約で確認した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Pyright strictとmypy strictを変更後のworkerへ適用した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Ruff format checkとlintをinfra全体へ適用した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_worker.py]
+    note: mweb runtime option、provider allow-list診断、provider未設定signalを単体testへ追加し、全68 testで回帰を確認した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_worker.py, path:infra/README.md, commit:self]
+    note: 既定android_vrではPO Token生成後もnative audioがHTTP 403となることを再現し、mweb指定後に同じ動画のstep 1・2がcompletedとなった。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, test:infra/tests/test_worker.py, commit:self]
+    note: PO Token値、media URL、provider応答、CookieをGitまたは安全診断へ含めず、provider種別だけをallow-listした。
+  - id: FAST-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/pyproject.toml, path:infra/uv.lock, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: uv locked実行、hash固定、dependency tree、pip-audit、providerのnpm auditを確認し、不要なtransitive Python依存は追加されていない。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, test:infra/tests/test_worker.py]
+    note: 失敗logへbgutil provider検出状態とprovider未設定signalを値のallow-listで追加し、Tokenやprovider本文を出力しない。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をPO Token provider依存、mweb選択、安全診断、運用手順、既存ADR更新へ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、review path、検証、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: 認証情報なしの公開素材取得というV8-INGEST-007/V8-OPS-023を実現する実装選択で、requirements.json改訂は不要と判定した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/decisions/ADR-0006-local-private-material-ingestion.md, path:infra/src/diopside_ingestion/worker.py]
+    note: local providerとmwebの恒久構成をADR-0006へ追記し、生成CDK設計にdriftがないことを確認した。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_worker.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: runtime optionと安全診断の回帰testは既存infra pytest workflowで実行される。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-pot-provider.yaml]
+    note: 選択したcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-pot-provider.yaml]
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/README.md, path:docs/decisions/ADR-0006-local-private-material-ingestion.md]
+    note: plugin/provider同version、loopback health check、起動方法、mweb、認証非使用、失敗時境界を運用正本へ反映した。
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence: [path:docs/decisions/ADR-0006-local-private-material-ingestion.md]
+    note: PO Tokenを認証回避に使わずlocal public-material attestationに限定する長期判断を既存ADR-0006へ追記した。
+advisories: []
+residual_risks:
+  - PO Token providerはYouTubeの継続的なenforcement変更へ依存し、403解消を保証しない。失敗時は認証・Cookieへ自動切替せずretryable artifactとして残す。
+  - bgutil-ytdlp-pot-providerとnative providerはGPL-3.0である。sourceをrepositoryへvendorせずlocal runtime toolとして分離したが、配布形態を変更する場合はlicense条件を再確認する。
+  - native providerはlocal processでありOS再起動後に自動起動しない。運用者は取得前にloopback health checkを行う。

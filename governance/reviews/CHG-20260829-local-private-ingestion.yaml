@@ -1,0 +1,219 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260829-local-private-ingestion
+profile: regulated
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: true
+  auth_change: true
+  data_change: false
+  public_api_change: true
+  iac_change: true
+  dependency_change: true
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: true
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: true
+  important_ui_change: false
+  long_term_decision: true
+  squash: true
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:spec/sources/owner-directive-2026-08-29-local-private-ingestion.md]
+    note: SQS・Lambda起動からローカル直接投入への永続的な振る舞い変更をV8-INGEST-001/002/003/004/007/008/009/011/013とV8-COST-001/003/004/005へ反映し、V8-INGEST-014を廃止した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:docs/decisions/ADR-0006-local-private-material-ingestion.md, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
+    note: 長期構成変更をADR-0006へ、synth結果のS3・DynamoDB限定構成を生成CDK設計へ記録した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-local-private-ingestion.yaml]
+    note: IAM権限削除、IaC resource削除、旧queue未処理message喪失可能性を含むためregulatedを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 外部書込みは利用者が指定したGitHub repositoryへのbranch、commit、Draft PRの作成だけとし、AWS deploy、実素材取得、mergeは実行しない。
+  - id: IMP-005
+    class: Invariant
+    result: pass
+    evidence: [path:infra/README.md, path:docs/decisions/ADR-0006-local-private-material-ingestion.md]
+    note: 将来のstack更新はSQS、Lambda、event source、worker IAMを削除するためchange set確認を必須化した。この変更作業でproduction更新または削除は行わない。
+  - id: IMP-006
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_deployment/access_stack.py, test:infra/tests/test_deployment_access.py]
+    note: GitHub OIDC deploy roleからSQS data-plane権限を除き、対象regionのCDK bootstrap role引受けだけに限定した。
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/cli.py, test:infra/tests/test_cli.py, path:infra/README.md]
+    note: enqueue契約を廃止し、明示video IDのingestと不変manifestのingest-manifest、bucket・table・profile・region・attempt契約を検証した。
+  - id: IMP-009
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/stack.py, test:infra/tests/test_stack.py, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
+    note: S3 bucket、bucket policy、DynamoDB tableの3資源だけを残し、既存bucket/tableの論理IDとRetainを維持し、削除対象を明示した。
+  - id: IMP-010
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/pyproject.toml, path:infra/uv.lock]
+    note: SQS廃止に伴いmypy-boto3-sqsだけをdev dependencyとuv lockから除いた。yt-dlpとffmpegの取得実行依存は固定のまま維持した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: Python packageのimport・test、root build、2 stackのCDK synthを検証契約に含めた。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: 新規runner、CLI、repository変更にPyright strictとmypy strictを適用した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, path:scripts/audit-requirements.ts, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: PythonへRuff format・lint、root TypeScriptへESLintとformat checkを適用する。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_local_runner.py, test:infra/tests/test_aws_integration.py, test:infra/tests/test_stack.py, test:infra/tests/test_cli.py]
+    note: 条件付きclaim、retry、重複防止、安全な失敗分類、S3/DynamoDB checkpoint再開、ローカルCLI出力、保存限定templateを直接試験した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/cdk/diopside-ingestion/manifest.json, path:docs/design/generated/cdk/diopside-github-deployment-access/manifest.json]
+    note: 要件表示と両CDK stackの生成設計を正本・合成templateから再生成し、2回目のbyte一致とcheck modeを確認した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [test:tests/repository-policy.test.ts, commit:self]
+    note: credential、token、生字幕、コメント、チャット、provider応答本文をGitへ追加せず、CLIも安全な状態とreason codeだけを出力する。
+  - id: FAST-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/pyproject.toml, path:infra/uv.lock, workflow:要件・品質ゲート#Python依存をlockどおり導入]
+    note: uv lock後のuv sync --locked --all-groupsが成立し、SQS stub以外の解決契約を維持した。
+  - id: FAST-009
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_cli.py, path:spec/requirements/requirements.json]
+    note: CLIのbreaking変更をV8-INGEST-001/002/009へ明示し、parserとmain実行試験で新契約とattempt上限を検査した。
+  - id: FAST-011
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, path:infra/README.md, path:docs/decisions/ADR-0006-local-private-material-ingestion.md]
+    note: 既存S3・DynamoDBの論理ID・Retain・データ契約を保ち、SQS・Lambda削除とretained Log Groupをdeploy前change setと別承認cleanupで回復判断できる手順にした。
+  - id: FAST-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, test:infra/tests/test_deployment_access.py, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: synth、cdk-nag、template assertion、生成resource inventoryで資源削除、論理ID維持、IAM削減、network不在を照合した。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/local_runner.py, test:infra/tests/test_local_runner.py, path:infra/README.md]
+    note: CloudWatch worker logの代わりにローカルstderrと安全なCLI JSON、DynamoDBのstatus・stage・reason codeを残し、provider本文を保存せず失敗と再開条件を識別できる。
+  - id: FAST-016
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:infra/src/diopside_ingestion/cli.py, test:infra/tests/test_cli.py]
+    note: video ID・manifest・storage destination・attempt契約を要件、CLI登録、異常系を含むtestの三点で照合した。
+  - id: FAST-017
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/README.md, test:infra/tests/test_cli.py]
+    note: READMEのingest実行例と同じ必須引数・既定region・attemptをparser・main試験が参照する。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をprivate ingestionのローカル化、AWS保存限定化、対応する要件・ADR・運用・生成設計・試験へ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更内容、要件・設計影響、review path、検証契約、互換性と残存リスクを統合する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: 取得実行場所、開始契約、retry、AWS資源、権限、費用境界の意味変更をrevision 27の正本と生成表示へ反映した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/decisions/ADR-0006-local-private-material-ingestion.md, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
+    note: 将来を制約する実行場所とresource判断をADRに、実装済みCloudFormation構造を生成設計に分離した。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:infra/tests/test_local_runner.py, test:infra/tests/test_aws_integration.py, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
+    note: 更新したV8-INGEST・V8-COST要件からローカルrunner、storage stack、単体・AWS protocol統合test、生成resource inventoryへ到達できる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_local_runner.py, test:infra/tests/test_aws_integration.py, test:infra/tests/test_stack.py, workflow:要件・品質ゲート#Flociでローカルrunner・DynamoDB・S3統合経路を実行]
+    note: claim/retry/checkpoint、不変S3 object、DynamoDB終端、保存限定templateの試験をpytestとloopback AWS emulatorでCIが実行する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-local-private-ingestion.yaml]
+    note: 選択したcheckだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-local-private-ingestion.yaml]
+    note: trigger非該当checkを形式的N/Aとして追加していない。
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/README.md, test:infra/tests/test_stack.py, path:spec/requirements/requirements.json]
+    note: enqueue廃止は所有者指示による意図的breaking changeとして廃止要件とADRへ残し、S3・DynamoDBの論理ID・Retain・key/item契約は後方互換にした。
+  - id: REV-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, test:infra/tests/test_deployment_access.py, test:tests/repository-policy.test.ts, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: 資源・権限削減をCDK template assertion、root repository policy、synth template由来の生成設計という独立oracleで照合した。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/README.md, path:docs/operations/manual-content-update.md, path:docs/operations/privacy-and-safety.md, path:docs/operations/cost-check.md]
+    note: ローカル準備・実行・retry・IAM、stack migration、queue喪失、retained Log Group、費用・privacy・未実施操作の恒久的手順を更新した。
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence: [path:docs/decisions/ADR-0006-local-private-material-ingestion.md]
+    note: 取得実行場所、AWS resource境界、移行・承認境界は将来を制約しコードだけで理由が分からないためADR-0006を作成した。
+advisories: []
+residual_risks:
+  - 実AWS stack更新は未実行である。更新時はSQS request/DLQの未処理messageが失われ、Lambda、event source、worker IAM roleが削除されるため、運用者がCloudFormation change setとqueue不要性を確認してから別途deployする必要がある。
+  - 旧worker CloudWatch Log GroupはDeletionPolicy Retainによりstack管理外へ残り、費用を継続する可能性がある。保存要否を確認した後の別の明示承認操作でのみ削除する。
+  - 実YouTubeおよび実AWSでのローカルingestは、対象video ID・account・region・bucket・table・料金の明示判断が必要なため本変更では実行していない。Motoのloopback AWS protocol試験でclaimからS3 manifest・DynamoDB終端までを検証し、初回は運用者PCで既知1動画をpilotする。

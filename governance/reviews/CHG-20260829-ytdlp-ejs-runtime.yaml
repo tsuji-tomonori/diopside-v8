@@ -1,0 +1,148 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260829-ytdlp-ejs-runtime
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: true
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: false
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+    note: V8-INGEST-007/008のlock済みローカル取得と認証回避禁止を維持し、既存受入条件を満たすruntime修復なので要件改訂は不要と判定した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, path:infra/src/diopside_ingestion/worker.py, path:infra/README.md]
+    note: ローカルworkerの実行依存と安全な診断fieldへ影響するが、CDK resource、保存形式、公開契約、ADR判断、生成設計は変えない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-ytdlp-ejs-runtime.yaml]
+    note: lockfileとローカルworker・運用手順を横断するdependency変更のためassuredを選択した。
+  - id: IMP-010
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/pyproject.toml, path:infra/uv.lock]
+    note: yt-dlp 2026.7.4に対応するyt-dlp-ejs 0.8.0だけをuv.lockへ追加固定し、公式READMEの推奨構成、解決差分、licenseを確認した。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Python workerのimport・実行経路とinfra unit/integration testを確認した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Pyright strictとmypy strictをinfra全体へ実行した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Ruff format checkとlintをinfra全体へ実行した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_worker.py, test:infra/tests/test_aws_integration.py]
+    note: Node runtime option、安全なplayability status、年齢認証分類、既存worker保存経路を直接検証した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_worker.py]
+    note: Nodeが利用可能でもyt-dlpがjs_runtimes=noneとなる条件と、JS不足・年齢認証要求を区別できない条件を回帰testへ固定した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, test:infra/tests/test_worker.py, commit:self]
+    note: provider stderr本文、URL、Cookie、token、metadataをlogまたはGitへ保存せず、allow-list済みstatusとsignalだけを追加した。
+  - id: FAST-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/pyproject.toml, path:infra/uv.lock]
+    note: uv lockとlocked syncが成功し、yt-dlp-ejs 0.8.0を含むmanifest・lock整合を確認した。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, test:infra/tests/test_worker.py]
+    note: js_runtimes、LOGIN_REQUIRED・UNPLAYABLE、age_restricted・authentication_requiredを本文なしで相関できるようにした。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をyt-dlp EJS/runtime修復、安全な診断log、回帰test、lock、対応する運用説明とreview結果へ限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、review path、検証、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:infra/tests/test_worker.py]
+    note: V8-INGEST-007/008の受入条件を変更せず既存仕様へ適合させる修正なのでrequirements.jsonは改訂しない。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, path:infra/src/diopside_ingestion/worker.py, path:docs/decisions/ADR-0006-local-private-material-ingestion.md]
+    note: ローカルruntime構成へ影響するが、既存ADRのローカル取得判断、AWS resource、生成設計、公開契約は不変で新ADRは不要と判定した。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_worker.py, test:infra/tests/test_aws_integration.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行, workflow:要件・品質ゲート#Flociでローカルrunner・DynamoDB・S3統合経路を実行]
+    note: 追加回帰test、infra unit test、Moto統合test、CDK構成testが既存workflowの検証対象に含まれる。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-ytdlp-ejs-runtime.yaml]
+    note: 選択checkだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260829-ytdlp-ejs-runtime.yaml]
+    note: trigger非該当checkをN/Aとして追加していない。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/README.md, path:infra/src/diopside_ingestion/worker.py]
+    note: Node.js準備、JS runtime確認方法、年齢認証要求を回避しない制約をローカル取得の運用正本へ反映した。
+advisories: []
+residual_risks:
+  - gl5UkwS_jmMはNode 22.16.0とyt-dlp-ejs 0.8.0を有効化してもYouTubeがLOGIN_REQUIREDを返すため、認証情報を使わない現行要件では取得不能である。
+  - 実AWSのS3・DynamoDBへ書き込むingest commandは実行しておらず、既存のunavailable終端状態も変更していない。

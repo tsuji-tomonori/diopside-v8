@@ -1,0 +1,125 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260809-pni-aapr-rq-timestamps
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:content/videos/PnI-AApR_RQ.json]
+    note: 全編根拠と独立fact・editorial reviewに合格した18章を1動画1PRへ反映し、要件正本は変更しない
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 既存schemaの1動画正本と件数manifestだけを更新し、公開release・Pages生成物は既存workflowどおりmain merge後に生成する
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:content/videos/PnI-AApR_RQ.json]
+    note: 全編根拠と同一候補hashの独立二重reviewを伴うためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: commit、push、Draft PR作成を利用者が明示承認しており、merge・公開は実行しない
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/videos/PnI-AApR_RQ.json]
+    note: 既存catalogを上書きする可逆なtimestamp override追加であり、migrationや削除はない
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/validate-content.ts, workflow:要件・品質ゲート#要件の品質ゲートを実行]
+    note: 正本schema、境界、公開根拠参照、独立review hash、PR公開gateを検証する
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:content/content-manifest.json, workflow:要件・品質ゲート#要件の品質ゲートを実行]
+    note: 生成logicで正本、manifest、公開索引、shard、release識別子を再生成し、生成物driftを確認する
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 生字幕・transcript・内部map・review原本・秘密情報を差分へ含めない
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: PnI-AApR_RQの1動画正本、manifest、本review YAMLに差分を限定し、release・Pages生成物はPRから除外する
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクをCommit Commentへ記載する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:content/videos/PnI-AApR_RQ.json]
+    note: 全編根拠・独立二重review・1動画1PR境界を満たし、受入条件を変更しない
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: schema、画面、生成logicを変えない局所的正本追加で、生成設計・ADRは不要と判定した
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/validate-content.ts, path:scripts/validate-video-pr-scope.ts]
+    note: 正本全件検証、1動画PR範囲検証、生成差分検証を実行する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260809-pni-aapr-rq-timestamps.yaml]
+    note: 選択したcheckだけを本review YAMLへ保存する
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260809-pni-aapr-rq-timestamps.yaml]
+    note: 未選択checkをN/Aとして登録していない
+
+advisories: []
+residual_risks:
+  - 人によるPRレビューとmerge完了まではpublicationGateが未充足である

@@ -1,0 +1,169 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260816-game-tag-audit
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: true
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 指定動画と横断監査対象を同じ正本分類契約で扱った
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:content/taxonomy/tag-taxonomy.json, path:content/taxonomy/change-record.json]
+    note: 既存の7大分類30小分類を維持し、ゲーム作品名小分類を拡張した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/audit-game-tags.ts]
+    note: 公式作品情報と公開動画根拠を使うassuredの横断監査として実施した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 外部サービスへのデータ書込みや公開処理は行わず、Draft PRでレビュー待ちにした
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/content-manifest.json, path:content/catalog/manifest.json]
+    note: 1689動画の版参照、付与件数、256シャード指紋を再計算した
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/taxonomy/tag-aliases.json, path:content/works/work-introductions.json]
+    note: 公開タグ、別名、作品紹介を追加し、公開データ生成契約を維持した
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/audit-game-tags.ts]
+    note: 公開タイトルに明示された作品名と回帰対象の必要タグを機械監査するコードを追加した
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [test:tests/content-validation.test.ts]
+    note: TypeScript strictの型検査と正本schema検証を通した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/audit-game-tags.ts]
+    note: 監査ロジックを既存のゲーム作品名検出と同じtaxonomy lookupへ接続した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:tests/content-validation.test.ts]
+    note: ゲーム主ジャンル、作品名、1から3件のゲームジャンル、条件付きタグを全件検証した
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/sources/game-tag-corrections-v1.json]
+    note: ゲームでない候補を含めず、抽選・同時視聴・音声収録・クイズを除外基準へ固定した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:content/catalog/manifest.json, path:docs/design/generated/inventory.gen.json]
+    note: 正本カタログの版更新、シャード・snapshot指紋、実装由来の生成設計インベントリを決定的に更新した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [path:content/content-manifest.json]
+    note: 生字幕、音声、コメント、チャット、投稿者識別子を追加していない
+  - id: FAST-009
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/taxonomy/tag-taxonomy.json, path:content/taxonomy/tag-aliases.json]
+    note: 公開タグ参照は不変IDで維持し、版同期と公式作品紹介を検証した
+  - id: FAST-016
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/taxonomy/change-record.json]
+    note: taxonomy 8.5.0、alias 8.3.0、影響作品タグ10件、影響動画11件を記録した
+  - id: FAST-017
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/sources/game-tag-corrections-v1.json, path:content/taxonomy/change-record.json]
+    note: 58件の修正対象と、新規作品タグを実際に使用する11動画を区別して記録した
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 目的をゲーム分類漏れの横断是正へ限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更内容、要件・設計影響、検証契約、互換性を記録する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:scripts/validate-taxonomy-change.ts]
+    note: mainとの差分に対して版、変更タグ、影響動画数を検証した
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:content/taxonomy/tag-taxonomy.json]
+    note: 新たな設計文書を作らず既存のタグ正本と公開境界を設計根拠とした
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:tests/content-validation.test.ts]
+    note: 正本全件検証、タグ条件検証、公開境界検証をPR前に実行した
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260816-game-tag-audit.yaml]
+    note: 選択したcheckと生成物同期の証拠を今回のreview YAMLへ保存し、HEADで再読検証する
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260816-game-tag-audit.yaml]
+    note: 未選択checkを形式的なN/Aとして記録していない
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence: [path:content/content-manifest.json, path:content/works/work-introductions.json]
+    note: 公開タグと作品紹介の追加を正本由来の公開契約変更として検証した
+advisories: []
+residual_risks:
+  - 公開Pages反映はmainマージ後の既存release workflowに委ねる。Draft PR段階では公開版を生成・配信していない。

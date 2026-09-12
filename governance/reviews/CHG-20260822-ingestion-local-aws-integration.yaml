@@ -1,0 +1,173 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260822-ingestion-local-aws-integration
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: true
+  dependency_change: true
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+    note: V8-INGEST-003/004の既存claim・再試行・checkpoint要件を変更せず、DynamoDB Number読取と依存artifact再開を受入条件どおりにする。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: worker再開処理、ローカル検証構成、Lambda asset digestへ設計影響があり、table schema・resource inventory・公開契約・ADR判断は変わらない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-ingestion-local-aws-integration.yaml]
+    note: Lambda worker、SQS・DynamoDB・S3統合経路、依存lock、CI、生成設計にまたがるためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 所有者の修正要求に伴うbranch pushとdraft PRだけを外部書込みとし、AWS deploy、queue再投入、DynamoDB更新、merge、公開は行わない。
+  - id: IMP-009
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: Lambda code asset hash以外のCloudFormation resource、IAM、network、暗号化構成に差分がないことをsynthと生成設計で確認した。
+  - id: IMP-010
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/pyproject.toml, path:infra/uv.lock]
+    note: Motoをdev groupだけへ追加し、pytestを既知脆弱性修正版9.1.1へ更新した。lock済み96 packageの公開脆弱性監査は0件だった。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Python実装の構文、全infra test suite、CDK synthが変更後に成功した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Pyrightとmypy strictが変更後の24 Python sourceを通過した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Ruff format checkとlintが変更対象を含むinfra全体で成功した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_worker.py, test:infra/tests/test_aws_integration.py]
+    note: 再試行可能なnative audio失敗、checkpoint後停止、S3復元、ASR変換、最終succeededを直接検証した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_aws_integration.py, test:infra/tests/test_worker.py]
+    note: Moto HTTP統合試験で修正前に再試行後partialを再現し、DynamoDB Number読取例外条件と合わせて回帰試験へ固定した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-ingestion/manifest.json, workflow:要件・品質ゲート#as-built CDK設計差分を検査]
+    note: synth templateから生成設計を二回生成してbyte一致を確認し、check modeも成功した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_aws_integration.py, path:infra/compose.floci.yaml]
+    note: endpointをloopback HTTPへ限定し、資格情報は試験ごとに動的生成する。production log、secret、生素材を差分へ含めない。
+  - id: FAST-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/pyproject.toml, path:infra/uv.lock]
+    note: uv lock checkとsyncが成功し、Moto 5.2.2とpytest 9.1.1を含む解決結果をhash付きlockへ固定した。
+  - id: FAST-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: CDK synthとcdk-nagが成功し、resource inventory・permission・networkに追加、削除、置換がない。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/worker.py, test:infra/tests/test_aws_integration.py]
+    note: checkpoint欠落または再読失敗は生本文なしの安全なreason codeでretryableにし、SQS partial failureとして検知できる。
+  - id: FAST-018
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_aws_integration.py]
+    note: 未失効claimでは状態を取得せず、retryable失敗後はattempt_count 2、succeeded、attempt別S3 objectとcurrent manifestを外部状態でassertする。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をingestion再開修正、ローカルAWS統合試験、その依存・CI・文書・生成designへ限定し、別作業の未commit差分を含めない。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、review path、検証、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:infra/tests/test_aws_integration.py]
+    note: 既存V8-INGEST-003/004の受入条件を弱めず実装を適合させるためrequirements.json改訂は不要と判定した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: Lambda assetを含むtemplate digestを生成設計へ反映し、resource inventoryとADRは不変である。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_worker.py, test:infra/tests/test_aws_integration.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行, workflow:要件・品質ゲート#FlociでSQS・DynamoDB・S3統合経路を実行]
+    note: Moto統合試験を通常pytestで常時実行し、同一試験をFlociへ向ける独立CI stepも追加した。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-ingestion-local-aws-integration.yaml]
+    note: 選択checkだけを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-ingestion-local-aws-integration.yaml]
+    note: trigger非該当checkをN/Aとして追加していない。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/README.md, path:infra/scripts/verify-floci.sh, path:.github/workflows/verify.yml]
+    note: Moto自動起動、既存endpoint差替え、Floci起動・cleanup、CI実行入口を運用文書とtask runnerへ反映した。
+advisories: []
+residual_risks:
+  - 現在の実行環境にはDocker daemonがないためFloci container自体の実行結果は未取得であり、現在HEADのGitHub Actions Floci stepを外部正本として確認する必要がある。Moto HTTP serverによる同一試験はローカルで成功した。
+  - emulatorとin-process Lambda handlerはAWS Lambda runtime・event source mappingの完全な同等性を保証しないため、main merge後のdeployで別の一動画を投入し、SQS再試行とDynamoDB終端状態をsmoke確認する。production AWSへの書込みはこの変更では行わない。

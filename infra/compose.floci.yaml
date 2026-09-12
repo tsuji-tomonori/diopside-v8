@@ -1,0 +1,8 @@
+services:
+  floci:
+    image: floci/floci:1.6.0
+    ports:
+      - "127.0.0.1:4566:4566"
+    environment:
+      FLOCI_DEFAULT_REGION: ap-northeast-1
+      FLOCI_STORAGE_MODE: memory

@@ -1,0 +1,188 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260820-search-suggestions
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: true
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: false
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:spec/sources/owner-directive-2026-08-20-search-suggestions.md]
+    note: 検索欄と候補表示の利用者向け挙動をV8-SEARCH-001・002・008・020・021へ反映した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/system.gen.md, path:src/domain/content.ts]
+    note: 検索索引とタグ索引の読み正規化契約を2.0.0へ更新し生成設計へ反映した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260820-search-suggestions.yaml]
+    note: 重要な対話UI、公開ファイル契約、依存、要件を変更するためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 利用者の明示承認に基づき、機能branchのpush、PR作成、blocking check成功後のmerge、公開後確認までを対象とする
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:scripts/build-public-data.ts, path:src/domain/content.ts]
+    note: 永続DBやmigrationはなく、静的索引をrelease単位で再生成する可逆な変更である
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:src/domain/content.ts, path:tests/generated.test.ts]
+    note: 公開検索索引のschema versionを2.0.0へ上げ、旧形式を混在させないrelease契約を検証する
+  - id: IMP-010
+    class: Risk-selected
+    result: pass
+    evidence: [path:package.json, path:package-lock.json]
+    note: 読み生成専用dev依存としてkuromoji 0.1.2と型定義0.1.3をlockし、実行時依存へ持ち込まない
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#通常変更の品質ゲートを実行]
+    note: npm run buildが検索データ生成、設計生成、Vite buildまで成功した
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#通常変更の品質ゲートを実行]
+    note: npm run typecheckがアプリとNode scriptの両方で成功した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [workflow:要件・品質ゲート#通常変更の品質ゲートを実行]
+    note: npm run lintが警告なしで成功した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/search.test.ts, path:tests/japanese-reading.test.ts, workflow:要件・品質ゲート#通常変更の品質ゲートを実行]
+    note: 平仮名の各接頭辞、カタカナ、漢字、別名、動画・タグ候補、読み生成を含む90 testが成功した
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:src/styles.css, path:src/features/search/SearchPage.tsx, path:e2e/search.spec.ts, path:e2e/library.spec.ts]
+    note: モバイルで候補リストが検索ボタンを覆い、閉じる際の位置変更で送信を失う再現条件を既存検索・端末内リストE2Eで固定し、候補を文書フロー内へ配置して送信処理側で閉じる
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/system.gen.md, path:docs/design/generated/inventory.gen.json, workflow:要件・品質ゲート#通常変更の品質ゲートを実行]
+    note: 正本から要件・設計を再生成し、検索送信処理の最新hashをinventoryへ反映してvalidate:requirementsと生成drift検査を通す
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分を読み辞書、検索実装、要件、生成文書、test、review証跡に限定した
+  - id: FAST-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:package.json, path:package-lock.json, workflow:要件・品質ゲート#固定依存を導入]
+    note: package manifestとlockfileを同時更新し、固定依存導入と本番buildで解決整合性を確認した
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence: [path:src/features/search/SearchPage.tsx, path:e2e/search.spec.ts]
+    note: 候補あり・候補なし、動画遷移、タグ適用、入力変更時の回復に加え、モバイルで候補が検索ボタンを覆わないことを受入E2Eへ固定した
+  - id: FAST-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:src/features/search/SearchPage.tsx, path:e2e/search.spec.ts]
+    note: combobox・listbox・option・live statusと上下キー、Enter、Escape、IME確定保護を実装し、E2Eはroleと完全一致名で検索欄を特定し、モバイル候補を文書フロー内に配置する
+  - id: FAST-018
+    class: Risk-selected
+    result: pass
+    evidence: [path:e2e/search.spec.ts, workflow:要件・品質ゲート#通常変更の品質ゲートを実行]
+    note: 読取り専用UIのE2Eでタグ選択後のURL条件と動画候補選択後の遷移先をassertする
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 動画・タグの日本語サジェストに必要な実装、契約、依存、test、生成文書だけに差分を限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、要件・設計影響、検証契約、互換性、残存リスクを記載する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json]
+    note: 変更した外部挙動を既存3要件のrevision更新と新規2要件へ接続した
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/design/generated/system.gen.md, path:docs/design/generated/inventory.gen.json]
+    note: 公開索引契約と主要実装pathを生成設計へ反映し、既存静的生成方式内の変更なのでADRは不要と判定した
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:src/domain/search.test.ts, path:e2e/search.spec.ts]
+    note: V8-SEARCH-001・002・008・020・021から実装、unit、E2E、生成設計まで追跡可能にした
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [path:src/domain/search.test.ts, path:tests/japanese-reading.test.ts, path:e2e/search.spec.ts, workflow:要件・品質ゲート]
+    note: 読み検索、毎文字候補、タグ適用、動画遷移、keyboard、IME保護をCI対象testへ追加した
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260820-search-suggestions.yaml]
+    note: assured profileで選択したcheck結果を本review YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260820-search-suggestions.yaml]
+    note: selectorで選択されなかったcheckを形式的なN/Aとして登録していない
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence: [path:src/domain/content.ts, path:scripts/build-public-data.ts, path:tests/generated.test.ts]
+    note: 索引schemaとnormalizationを2.0.0へ同時versioningし、manifest・release IDで新旧成果物を混在させない
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence: [path:e2e/search.spec.ts, workflow:要件・品質ゲート#通常変更の品質ゲートを実行]
+    note: 平仮名1文字ごとの候補、タグ適用、動画遷移、keyboard操作、候補表示中の検索ボタン操作、通常indexと読みindexを厳格schemaどおり分離した2,500件fixtureでのCPU4倍検索性能を主要タスクとして検証する
+advisories: []
+residual_risks:
+  - 固有名詞の形態素解析に誤読余地があるため重要名はcontent/search/reading-overrides.jsonで補正し、未知語は同ファイルへ追加する
+  - ブラウザE2Eの実行結果はPRのblocking GitHub Actionsを正本とし、merge後は公開URLで主要検索経路を再確認する

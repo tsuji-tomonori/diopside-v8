@@ -1,0 +1,196 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260811-timestamp-work-harness
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: true
+  squash: true
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md
+    note: Workの一回の要求で固定した有限集合をdraft PRと台帳確認まで進める要件影響をV8-OPS-005、018、019、020へ反映した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+      - path:.agents/skills/run-timestamp-work-harness/references/workflow.md
+    note: 既存の1動画PR境界を維持しつつ、WorkとPythonの外部操作handshakeを生成設計と運用契約へ追加した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260811-timestamp-work-harness.yaml
+    note: 要件、generator、Python実装、外部書込み運用へ跨る可逆な保守変更のためassuredを選択した
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/run-timestamp-work-harness/SKILL.md
+      - path:.agents/skills/run-timestamp-work-harness/references/workflow.md
+    note: 将来の外部書込みを1動画branch、commit、push、draft PR、対象台帳の該当セルに限定し、mergeと公開を除外した
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/timestamp_harness_test.py
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: Python対象テスト、要件生成、Vite production buildに合格し、同じ検査をCIへ接続した
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/generate-requirements.ts
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: npm run typecheckに合格した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/run-timestamp-work-harness/scripts/harness.py
+      - test:tests/timestamp_harness_test.py
+    note: RuffとESLintを変更対象へ実行し警告0件で合格した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/timestamp_harness_test.py
+      - test:tests/timestamp_tools_test.py
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: immutable batch、0件、row競合、更新後確認、Codex分離、chat匿名化を含むPython 23件とVitest 62件に合格した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+      - path:docs/requirements/REQUIREMENTS.md
+      - path:scripts/generate-design.ts
+    note: 要件正本revision 6と生成設計を再生成し、147件とgenerator SHAの差分を反映した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 差分を確認し、credential、生字幕、音声、文字起こし、chat本文、個人識別子を追加していない
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:.agents/skills/run-timestamp-work-harness/references/workflow.md
+      - path:docs/operations/manual-content-update.md
+    note: 動画ごとの永続state、controlled blocker、再開条件、外部操作の確認応答により失敗段階を診断できる
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:.agents/skills/run-timestamp-work-harness/SKILL.md
+      - path:spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md
+    note: 差分をWork用タイムスタンプハーネス、その要件、テスト、生成設計、運用文書へ限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件と設計影響、checklist、検証契約、互換性と残存リスクをCommit Commentへ記録する
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:docs/requirements/REQUIREMENTS.md
+    note: V8-OPS-005を改訂し、Work再開、独立codex exec、PRと台帳同期をV8-OPS-018から020として追加した
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+      - path:docs/design/generated/inventory.gen.json
+    note: 要件件数とgenerator SHAを生成設計へ反映し、公開構成を変えないため新規ADRは不要と判定した
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - test:tests/timestamp_harness_test.py
+    note: V8-OPS-005、018、019、020から実装、運用契約、Pythonテスト、生成設計へtraceを接続した
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:tests/timestamp_harness_test.py
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: 受入条件を対象Pythonテストへ固定しpackage scriptと既存品質workflowから実行する
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260811-timestamp-work-harness.yaml
+    note: 選択したcheckだけをreview YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260811-timestamp-work-harness.yaml
+    note: 未選択checkをN/Aとして登録していない
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:docs/operations/manual-content-update.md
+      - path:.agents/skills/run-timestamp-work-harness/SKILL.md
+    note: Workからの開始、再開、失敗分離、draft PR、台帳再読確認、merge禁止を運用正本へ反映した
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:spec/sources/owner-directive-2026-08-11-timestamp-work-harness.md
+      - path:.agents/skills/run-timestamp-work-harness/references/workflow.md
+    note: 将来を制約する理由と権限境界は所有者指示と専用workflow契約で保持でき、公開アーキテクチャを変えないため新規ADRは不要と判定した
+advisories: []
+residual_risks:
+  - 実環境のcodex CLI、Google Sheets connector、GitHub connectorを連結した初回の動画処理は次回の人起動有限batchで確認する

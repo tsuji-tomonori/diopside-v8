@@ -16,9 +16,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=29yscbXUFsI",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -138,9 +138,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=31K7DBoZ0oA",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -505,9 +505,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=4Gv3RF0Z_V4",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -532,18 +532,15 @@
           "type": "既存の承認済みタイムスタンプ",
           "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
           "inputFingerprint": "445e2a8e449025ce5896fff6ef39dfa6c8f1454de7f331e120c3b58ecb6d0dfd"
+        },
+        {
+          "evidenceId": "evidence-game-classification",
+          "type": "動画タイトル",
+          "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+          "inputFingerprint": "ee4422820c1fb20fdf87fd1f5913be5f4d101604b3d6519c7f62026464829da6"
         }
       ],
       "tagAssignments": [
-        {
-          "tagId": "tag-content-primary-9eedbc0013d1",
-          "reason": "公開タイトルと既存分類から主ジャンル「企画」を確認",
-          "confidence": "高",
-          "evidenceRefs": [
-            "evidence-title"
-          ],
-          "reviewedAt": "2026-08-04T15:00:00+09:00"
-        },
         {
           "tagId": "tag-people-channel-6829ef1953a3",
           "reason": "公開台帳のチャンネル「魔界ノりりむ」を確認",
@@ -561,6 +558,33 @@
             "evidence-duration"
           ],
           "reviewedAt": "2026-08-04T15:00:00+09:00"
+        },
+        {
+          "tagId": "tag-content-primary-0dbfa3115896",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-works-gameTitle-300f40e5e0db",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「マリオカート8 デラックス」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
+        },
+        {
+          "tagId": "tag-content-gameGenre-7a9a6ca1057e",
+          "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「レーシング」を確認",
+          "confidence": "高",
+          "evidenceRefs": [
+            "evidence-game-classification"
+          ],
+          "reviewedAt": "2026-08-16T12:05:00+09:00"
         }
       ],
       "timestamps": {
@@ -768,8 +792,8 @@
       },
       "approval": {
         "status": "承認済み",
-        "approvedAt": "2026-08-04T15:00:00+09:00",
-        "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+        "approvedAt": "2026-08-16T12:05:00+09:00",
+        "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
       }
     },
     {
@@ -785,9 +809,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=AQL1Ivfk58Y",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",
@@ -1116,9 +1140,9 @@
         "height": 360
       },
       "youtubeUrl": "https://www.youtube.com/watch?v=U03aAQjW8H4",
-      "taxonomyVersion": "8.1.0",
-      "aliasVersion": "8.1.0",
-      "tagRulesVersion": "8.1.0",
+      "taxonomyVersion": "8.6.0",
+      "aliasVersion": "8.3.0",
+      "tagRulesVersion": "8.4.0",
       "evidence": [
         {
           "evidenceId": "evidence-title",

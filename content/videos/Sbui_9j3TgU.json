@@ -1,0 +1,344 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "Sbui_9j3TgU",
+  "title": "【スマブラ凸待ち】お誕生日なのでかかってこいよ【にじさんじフミ】",
+  "publishedAt": "2021-10-10T12:35:24Z",
+  "durationSeconds": 5006,
+  "durationIso": "PT1H23M26S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/Sbui_9j3TgU/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=Sbui_9j3TgU",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "120a36325eb779c29e4020854f21f6b4b96e91aa66710cc7ca91645296793955"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "acfaa207e97c69eb98a4be30810dcf4259d66957c9f0c09ebe39ba677912334d"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "a393bff074381dcb71da37959bb89ab3a957ca27954ba341d90a334d9a5bc3a4"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "21cbaa2eb36348d1c588867f1da7ce45680eef8eab1f132953cc8283a65c44d1"
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "ddf692e7a5d9e4db32f6cb414dca7fd8b49257962541a55874d00771486f8703"
+    },
+    {
+      "evidenceId": "evidence-game-classification",
+      "type": "動画タイトル",
+      "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+      "inputFingerprint": "bf80d045197f58d76b90edaa057901f0c795efed8e73dbea5d56b0e0924d5562"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "b49ec86dceed5c1630f6acbafd663b580d8297a91b9f094f1f9e4d5ddc4fafc0",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5006
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-context-occasion-0c807041f530",
+      "reason": "公開タイトルまたは既存タグから記念区分「誕生日記念」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（call-in-host-only）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-2ce43a2a7504",
+      "reason": "公開台帳のチャンネル「フミ/にじさんじ」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-b0469a7d02e8",
+      "reason": "人物名「フミ」をコラボ相手として確認（call-in-host-only）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-d6130127c781",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「大乱闘スマッシュブラザーズ SPECIAL」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-62278ec71bd0",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「アクション」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-16T12:05:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-b2be7885",
+        "startSeconds": 0,
+        "label": "配信開始・誕生日の挨拶",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-197-16ae48b9",
+        "startSeconds": 197,
+        "label": "スマブラ凸待ちの企画説明",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-498-87a93dfb",
+        "startSeconds": 498,
+        "label": "文野環の手作りケーキを味わう",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1108-9c5d8b5f",
+        "startSeconds": 1108,
+        "label": "参加者待ち・対戦準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1307-ce203fc9",
+        "startSeconds": 1307,
+        "label": "リスナーとスマブラ対戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2064-8afd8f9c",
+        "startSeconds": 2064,
+        "label": "神田笑一が通話に登場・対戦準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2383-65758e00",
+        "startSeconds": 2383,
+        "label": "神田笑一とのスマブラ対戦開始",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2678-bc090d1a",
+        "startSeconds": 2678,
+        "label": "神田笑一とハサウェイ同時視聴の告知",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2850-72cecaa6",
+        "startSeconds": 2850,
+        "label": "神田笑一との交流を振り返る・参加者待ち",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3111-f3140ac7",
+        "startSeconds": 3111,
+        "label": "文野環が通話に登場",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3379-8950db53",
+        "startSeconds": 3379,
+        "label": "北小路ヒスイが参加・スマブラ対戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3791-b6619328",
+        "startSeconds": 3791,
+        "label": "北小路ヒスイと対戦後のデート相談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4067-5d0782cd",
+        "startSeconds": 4067,
+        "label": "北小路ヒスイとの交流を振り返る・参加者待ち",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4470-e8109ce0",
+        "startSeconds": 4470,
+        "label": "小学生の学年差について雑談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4720-df7d46a7",
+        "startSeconds": 4720,
+        "label": "ゲーム部屋を再準備して参加者を待つ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4927-02119971",
+        "startSeconds": 4927,
+        "label": "別のおしゃべり枠へ移動・終了",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "2fb20f10f3c58a2d2378535b5198cb63cc0f0a31bc422040c8114a2da2c44071",
+    "inputFingerprint": "b49ec86dceed5c1630f6acbafd663b580d8297a91b9f094f1f9e4d5ddc4fafc0",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T03:02:22.663933+00:00",
+    "updatedAt": "2026-09-05T03:06:21.175395+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "2fb20f10f3c58a2d2378535b5198cb63cc0f0a31bc422040c8114a2da2c44071",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T03:06:21.175395+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "2fb20f10f3c58a2d2378535b5198cb63cc0f0a31bc422040c8114a2da2c44071",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T03:05:01.523814+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "2fb20f10f3c58a2d2378535b5198cb63cc0f0a31bc422040c8114a2da2c44071",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1827"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "1515e548ad2508b123c6ff944860ac27d4d92203c68ee6d441b6c599c0f0f987",
+    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1827"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-16T12:05:00+09:00",
+    "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  }
+}

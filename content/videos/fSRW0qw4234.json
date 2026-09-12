@@ -11,9 +11,9 @@
     "height": 360
   },
   "youtubeUrl": "https://www.youtube.com/watch?v=fSRW0qw4234",
-  "taxonomyVersion": "8.1.0",
-  "aliasVersion": "8.1.0",
-  "tagRulesVersion": "8.1.0",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
   "evidence": [
     {
       "evidenceId": "evidence-approved-tags",
@@ -26,6 +26,20 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ（PR #3）",
       "inputFingerprint": "223f9b0d5a0ae84da79db7a3c1449d2b81f67e4e7f894fb9750c4dac32d98871"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "公開日本語原文字幕を主体に不足区間を全編ローカルASRで補完（あらすじ確認用）",
+      "inputFingerprint": "b277ccee6fe4276536fda1954f2ac2d3295caea029ddaceee9f82d12db517f75",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 4865
+    },
+    {
+      "evidenceId": "evidence-word-cloud-chat",
+      "type": "公開チャット",
+      "sourceLabel": "YouTube公開チャット（正規化済み）",
+      "inputFingerprint": "40f0a4a5fa6fa4aa2fc762bcdf71300fb835b05728755cc5f96e1ad4f01db607"
     }
   ],
   "tagAssignments": [
@@ -138,6 +152,22 @@
       "reviewedAt": "2026-08-04T12:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "4人がそろうまでウォームアップを重ね、合同練習試合へ。白雪巴は仲間と前後の役割や武器の持ち替えを相談し、声を掛け合って孤立や突っ込みすぎを修正する。試合後も生存意識を課題に挙げ、次の練習へ意欲をつなぐ。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "できることをやるのみです。",
+      "atSeconds": 4814,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "b277ccee6fe4276536fda1954f2ac2d3295caea029ddaceee9f82d12db517f75",
+    "rulesVersion": "1.0.0",
+    "updatedAt": "2026-08-08T19:11:00+09:00"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -267,10 +297,587 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T12:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "ナイス",
+        "weight": 100
+      },
+      {
+        "term": "草",
+        "weight": 87
+      },
+      {
+        "term": "うまい",
+        "weight": 58
+      },
+      {
+        "term": "頑張る",
+        "weight": 58
+      },
+      {
+        "term": "ナイ",
+        "weight": 57
+      },
+      {
+        "term": "スー",
+        "weight": 56
+      },
+      {
+        "term": "あら",
+        "weight": 42
+      },
+      {
+        "term": "ついえる",
+        "weight": 41
+      },
+      {
+        "term": "大事",
+        "weight": 37
+      },
+      {
+        "term": "かわいい",
+        "weight": 34
+      },
+      {
+        "term": "教授",
+        "weight": 34
+      },
+      {
+        "term": "すい",
+        "weight": 32
+      },
+      {
+        "term": "強い",
+        "weight": 30
+      },
+      {
+        "term": "相手",
+        "weight": 27
+      },
+      {
+        "term": "どう",
+        "weight": 24
+      },
+      {
+        "term": "どん",
+        "weight": 21
+      },
+      {
+        "term": "ファイトー",
+        "weight": 21
+      },
+      {
+        "term": "生存",
+        "weight": 21
+      },
+      {
+        "term": "突然",
+        "weight": 21
+      },
+      {
+        "term": "連携",
+        "weight": 21
+      },
+      {
+        "term": "ナイスゥ",
+        "weight": 18
+      },
+      {
+        "term": "プラベ",
+        "weight": 18
+      },
+      {
+        "term": "めっちゃ",
+        "weight": 18
+      },
+      {
+        "term": "声",
+        "weight": 18
+      },
+      {
+        "term": "惜しい",
+        "weight": 18
+      },
+      {
+        "term": "風呂",
+        "weight": 18
+      },
+      {
+        "term": "gg",
+        "weight": 14
+      },
+      {
+        "term": "せみ",
+        "weight": 14
+      },
+      {
+        "term": "ファイト",
+        "weight": 14
+      },
+      {
+        "term": "音量",
+        "weight": 14
+      },
+      {
+        "term": "かっこいい",
+        "weight": 10
+      },
+      {
+        "term": "すごい",
+        "weight": 10
+      },
+      {
+        "term": "覚醒",
+        "weight": 10
+      },
+      {
+        "term": "相打ち",
+        "weight": 10
+      },
+      {
+        "term": "落ちる",
+        "weight": 10
+      },
+      {
+        "term": "いく",
+        "weight": 6
+      },
+      {
+        "term": "つかれる",
+        "weight": 6
+      },
+      {
+        "term": "ふる",
+        "weight": 6
+      },
+      {
+        "term": "わくわく",
+        "weight": 6
+      },
+      {
+        "term": "意識",
+        "weight": 6
+      },
+      {
+        "term": "自陣",
+        "weight": 6
+      },
+      {
+        "term": "いける",
+        "weight": 1
+      },
+      {
+        "term": "お披露目",
+        "weight": 1
+      },
+      {
+        "term": "キル",
+        "weight": 1
+      },
+      {
+        "term": "セクスィー",
+        "weight": 1
+      },
+      {
+        "term": "つよい",
+        "weight": 1
+      },
+      {
+        "term": "偉い",
+        "weight": 1
+      },
+      {
+        "term": "高台",
+        "weight": 1
+      },
+      {
+        "term": "大丈夫",
+        "weight": 1
+      },
+      {
+        "term": "塗り",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開チャット",
+    "inputFingerprint": "40f0a4a5fa6fa4aa2fc762bcdf71300fb835b05728755cc5f96e1ad4f01db607",
+    "exclusionRulesVersion": "9.1.0",
+    "rulesVersion": "9.1.0",
+    "updatedAt": "2026-09-05T00:20:00+09:00",
+    "humanReview": "承認済み"
+  },
+  "customEmojiUsage": {
+    "status": "集計済み",
+    "totalCount": 612,
+    "items": [
+      {
+        "customEmojiId": "custom-emoji-f43337c5aa5d12d6",
+        "label": ":nice:",
+        "imageUrl": "https://yt3.ggpht.com/TDQeDqyImGpFdeFP4JtRLEch56bHod225jTm5Q6iwYp_IfesDk2ZjJ3GHzKprX3tqQvvjtxUvg=w24-h24-c-k-nd",
+        "count": 513
+      },
+      {
+        "customEmojiId": "custom-emoji-1a6cf6e9ac76c1db",
+        "label": ":ggg:",
+        "imageUrl": "https://yt3.ggpht.com/efThVn3pJdFmi_6C-JAUI80EKrJ4LC7M_hGMdD9LQV5AaIqeggMJYDYvDZXXI77yZ_0pCoETNA=w24-h24-c-k-nd",
+        "count": 89
+      },
+      {
+        "customEmojiId": "custom-emoji-1b5f85516c8c5a1d",
+        "label": ":hai:",
+        "imageUrl": "https://yt3.ggpht.com/aCYsHZQ1rg4ux2xqomKwKEJMVOQ4w4dbAjksXnPwaLC0kY37ZhlC78yn0bLokPiu6qKhRdOF=w24-h24-c-k-nd",
+        "count": 3
+      },
+      {
+        "customEmojiId": "custom-emoji-9be64bac3f56ea96",
+        "label": ":att:",
+        "imageUrl": "https://yt3.ggpht.com/mcuMXcEnr0vJXPYMXeMiSWic5rQiaDrRsIutnR-yYStMjYGgUAhPQu4KHNlXlPO1ucMJDsu1=w24-h24-c-k-nd",
+        "count": 2
+      },
+      {
+        "customEmojiId": "custom-emoji-bfc159b91f64052d",
+        "label": ":kusa:",
+        "imageUrl": "https://yt3.ggpht.com/kZShOeXg6MsX8wvxDnks5be-RBBZBbiSTiHaYf_YugiFq2vsob_L1aNikCo8ZWNa-KAZh-We=w24-h24-c-k-nd",
+        "count": 2
+      },
+      {
+        "customEmojiId": "custom-emoji-f511686e2a08a690",
+        "label": ":wan:",
+        "imageUrl": "https://yt3.ggpht.com/1VFD2HS8OwgvS2XCPDW-59iyFTUlw63RAVQcNsaGpQZTtjCXS_q-FUPR86bZVOnDirWTlnjn=w24-h24-c-k-nd",
+        "count": 2
+      },
+      {
+        "customEmojiId": "custom-emoji-d114b08d65064a0d",
+        "label": ":daken:",
+        "imageUrl": "https://yt3.ggpht.com/STxTum1lbYWsJvKvU0TBmTRGS5bB3RP8j00XvlIP-fdwGfk43DxhFQlJHH2ncl1BStmykLoqzQ=w24-h24-c-k-nd",
+        "count": 1
+      }
+    ],
+    "timeline": {
+      "bucketSeconds": 60,
+      "durationSeconds": 4865,
+      "bins": [
+        [],
+        [],
+        [
+          [
+            6,
+            1
+          ]
+        ],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            6
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            10
+          ]
+        ],
+        [
+          [
+            1,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            5
+          ]
+        ],
+        [
+          [
+            3,
+            2
+          ]
+        ],
+        [],
+        [
+          [
+            1,
+            11
+          ]
+        ],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            7
+          ]
+        ],
+        [
+          [
+            0,
+            2
+          ]
+        ],
+        [
+          [
+            1,
+            11
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            5
+          ]
+        ],
+        [],
+        [
+          [
+            1,
+            12
+          ]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [
+          [
+            1,
+            12
+          ]
+        ],
+        [],
+        [
+          [
+            0,
+            5
+          ]
+        ],
+        [
+          [
+            0,
+            5
+          ]
+        ],
+        [
+          [
+            0,
+            3
+          ]
+        ],
+        [
+          [
+            1,
+            15
+          ]
+        ],
+        [
+          [
+            4,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            2
+          ]
+        ],
+        [
+          [
+            0,
+            7
+          ]
+        ],
+        [
+          [
+            0,
+            53
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            3
+          ]
+        ],
+        [
+          [
+            0,
+            57
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            0,
+            10
+          ]
+        ],
+        [],
+        [
+          [
+            0,
+            54
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            4
+          ]
+        ],
+        [
+          [
+            0,
+            56
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            65
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            3
+          ]
+        ],
+        [
+          [
+            0,
+            45
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        [],
+        [],
+        [],
+        [
+          [
+            0,
+            3
+          ]
+        ],
+        [
+          [
+            0,
+            52
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        [],
+        [
+          [
+            0,
+            4
+          ]
+        ],
+        [],
+        [
+          [
+            0,
+            54
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            2,
+            1
+          ]
+        ],
+        [],
+        [
+          [
+            2,
+            1
+          ]
+        ],
+        []
+      ],
+      "beforeStartCount": 3,
+      "afterEndCount": 0,
+      "unpositionedCount": 0
+    },
+    "inputFingerprint": "bf910772e404ca91db6464d24dee7c5430fd71fc105262df6756117aff6e29a5",
+    "rulesVersion": "2.0.0",
+    "updatedAt": "2026-09-05T00:00:00Z"
   },
   "provenance": {
     "inputFingerprint": "a1a015ba3748eb8aa4cfd2495b709bcae00ebf0206e241c8d1ef42b7cde0b6a6",

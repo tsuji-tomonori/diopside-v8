@@ -1,0 +1,67 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260820-playwright-container
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: true
+  code_change: true
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: true
+  generated_change: false
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - {id: IMP-001, class: Invariant, result: pass, evidence: ["commit:self"], note: "利用者向け挙動・公開契約・受入条件は変更せず、既存品質ゲートを完走可能にするCI不具合修正と判定した"}
+  - {id: IMP-002, class: Invariant, result: pass, evidence: ["path:.github/workflows/verify.yml"], note: "データモデル・生成設計・ADRの対象は変えず、既存の検証workflow実装だけを置換する"}
+  - {id: IMP-003, class: Invariant, result: pass, evidence: ["commit:self"], note: "外部コンテナ依存、CI実行環境、既存全品質ゲートへ影響するためassuredを選択した"}
+  - {id: IMP-010, class: Risk-selected, result: pass, evidence: ["path:.github/workflows/verify.yml"], note: "@playwright/test 1.62.1と同じ固定タグの公式Playwrightイメージを使い、package lockや実行時依存は変更しない"}
+  - {id: FAST-001, class: Invariant, result: pass, evidence: ["path:.github/workflows/verify.yml", "workflow:要件・品質ゲート#通常変更の品質ゲートを実行"], note: "workflow YAMLを更新し、GitHub Actionsで既存の品質ゲートを実行する"}
+  - {id: FAST-003, class: Invariant, result: pass, evidence: ["test:tests/repository-policy.test.ts"], note: "workflow固定構成をrepository policyのVitestで検査する"}
+  - {id: FAST-004, class: Invariant, result: pass, evidence: ["test:tests/repository-policy.test.ts", "workflow:要件・品質ゲート#通常変更の品質ゲートを実行"], note: "ブラウザ取得を省略せず同梱browserを使用する品質ゲート経路を回帰試験とCIで確認する"}
+  - {id: FAST-005, class: Risk-selected, result: pass, evidence: ["test:tests/repository-policy.test.ts", "workflow:要件・品質ゲート#通常変更の品質ゲートを実行"], note: "runner上のChromium導入停止を固定コンテナ利用で再発検出できるようにする"}
+  - {id: FAST-007, class: Invariant, result: pass, evidence: ["commit:self"], note: "秘密情報・トークン・個人情報を追加せず、read-onlyの既存GITHUB_TOKEN権限を維持する"}
+  - {id: FAST-008, class: Risk-selected, result: pass, evidence: ["path:.github/workflows/verify.yml", "test:tests/repository-policy.test.ts"], note: "コンテナイメージをPlaywright依存と同じ1.62.1へ固定し、lockfileは変更しない"}
+  - {id: FAST-015, class: Advisory, result: pass, evidence: ["workflow:要件・品質ゲート#通常変更の品質ゲートを実行"], note: "既存のGitHub Actions step出力でcontainer初期化・setup・品質ゲート失敗を個別に診断できる"}
+  - {id: REV-001, class: Invariant, result: pass, evidence: ["commit:self"], note: "差分を品質ゲートのbrowser実行環境、回帰試験、選択check記録に限定する"}
+  - {id: REV-002, class: Invariant, result: pass, evidence: ["commit:self"], note: "Commit Commentへ目的、変更内容、要件・設計影響、チェックリスト、検証契約、残存リスクを記録する"}
+  - {id: REV-003, class: Invariant, result: pass, evidence: ["path:spec/requirements/requirements.json"], note: "既存要件の品質ゲートを実行可能にするだけで、要件本文・利用者向け受入条件は変更しない"}
+  - {id: REV-004, class: Invariant, result: pass, evidence: ["path:.github/workflows/verify.yml"], note: "データ・公開契約・as-built設計・ADRを変えず、workflow内の固定実行環境へ局所化する"}
+  - {id: REV-006, class: Invariant, result: pass, evidence: ["test:tests/repository-policy.test.ts", "workflow:要件・品質ゲート#通常変更の品質ゲートを実行"], note: "回帰試験と既存のTypeScript・単体・E2E・生成差分品質ゲートがPRで実行される"}
+  - {id: REV-007, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260820-playwright-container.yaml"], note: "今回選択したcheckだけをレビュー記録に保存する"}
+  - {id: REV-008, class: Invariant, result: pass, evidence: ["path:governance/reviews/CHG-20260820-playwright-container.yaml"], note: "未選択checkを形式的なN/Aとして記録していない"}
+  - {id: REV-014, class: Risk-selected, result: pass, evidence: ["path:.github/workflows/verify.yml"], note: "運用の正本である品質ゲートworkflowに、固定コンテナ、Git安全設定、Python準備を明示し手動手順は追加しない"}
+advisories: []
+residual_risks:
+  - Microsoft Container RegistryまたはGitHub-hosted runnerが一時的に利用不能な場合は、品質ゲートが停止する。固定タグの取得と各stepの出力で検知する。
+  - "@playwright/testを将来更新する場合は、対応する公式Playwrightイメージのタグも同時に更新し、同じ品質ゲートで確認する。"

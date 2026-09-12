@@ -1,4 +1,11 @@
 node_modules/
+infra/.venv/
+infra/node_modules/
+infra/cdk.out/
+infra/.pytest_cache/
+infra/.mypy_cache/
+infra/.ruff_cache/
+infra/.coverage
 .devflow/run/
 .tmp/
 reports/playwright/
@@ -7,3 +14,4 @@ test-results/
 playwright-report/
 npm-debug.log*
 *.tsbuildinfo
+__pycache__/

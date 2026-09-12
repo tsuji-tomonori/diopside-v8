@@ -1,0 +1,184 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260822-lambda-ingestion
+profile: assured
+source_ref: self
+completed_timings: [impact, implementation, pre-pr]
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: true
+  data_change: true
+  public_api_change: false
+  iac_change: true
+  dependency_change: true
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: true
+  important_ui_change: false
+  long_term_decision: true
+  squash: false
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption: {scope: [], exclusions: []}
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: 15分を超える取得はエラーとし、Batch・ECR・専用VPCを持たない受入条件へ更新した。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence: [path:docs/decisions/ADR-0003-lambda-private-material-backfill.md, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
+    note: Lambda直接実行への置換をADRへ、16資源の実装結果を生成CDK設計へ反映した。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-lambda-ingestion.yaml]
+    note: 永続要件、IAM、IaC削除、依存、再試行経路を変更するためassuredを選択した。
+  - id: IMP-006
+    class: Invariant
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/stack.py, test:infra/tests/test_stack.py]
+    note: Batch関連roleを廃止し、単一Lambda roleをprivate S3、DynamoDB、request SQS、KMS、専用log groupへ限定した。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/state.py, test:infra/tests/test_worker.py]
+    note: Batch submission項目を使用せず、既存itemの安全なcheckpointと期限切れclaimをLambda再試行で再利用する。
+  - id: IMP-009
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/stack.py, test:infra/tests/test_stack.py, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
+    note: synthでBatch・ECR・VPC・EventBridgeが0件、Lambda timeout 900秒、計16資源であることを確認した。
+  - id: IMP-010
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/pyproject.toml, path:infra/uv.lock, test:infra/tests/test_lambda_asset.py]
+    note: container依存を削除し、lock済みyt-dlpとimageio-ffmpegをLambda zipへ同梱する構成にした。
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: Python実装の構文・型検査とCDK synthを実行した。
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: Pyrightとmypy strictが変更後の20 Python sourceを通過した。
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence: [path:infra/pyproject.toml, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行]
+    note: RuffとrepositoryのTypeScript lintを通過した。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_dispatcher.py, test:infra/tests/test_stack.py, test:infra/tests/test_worker.py, test:infra/tests/test_lambda_asset.py]
+    note: 15分timeout、SQS部分失敗、期限切れclaim、direct worker、asset容量、対象資源不在をunit testで確認した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence: [path:docs/requirements/REQUIREMENTS.md, path:docs/design/generated/inventory.gen.json, path:docs/design/generated/cdk/diopside-ingestion/manifest.json]
+    note: 要件human view、設計inventory、CDK as-built設計を正本から再生成し、生成物driftを解消した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence: [test:tests/repository-policy.test.ts, commit:self]
+    note: 生素材・資格情報を追加せず、repository policyの秘密情報検査を通過した。
+  - id: FAST-008
+    class: Risk-selected
+    result: pass
+    evidence: [path:infra/pyproject.toml, path:infra/uv.lock, workflow:要件・品質ゲート#Python依存をlockどおり導入]
+    note: uv sync --lockedでmanifestとlockfileの整合を確認した。
+  - id: FAST-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: CDK synth、cdk-nag、template assertionで資源・権限・network不在を検査した。
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence: [path:infra/src/diopside_ingestion/dispatcher.py, path:docs/operations/manual-content-update.md]
+    note: timeoutと分類済み失敗はDynamoDBへ記録し、3回失敗後はrequest DLQで検知できる。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: 差分をBatch・network削除と15分Lambdaへの置換だけに限定した。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence: [commit:self]
+    note: Commit Commentへ目的、変更、影響、review path、検証、互換性・残存リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, path:docs/requirements/REQUIREMENTS.md]
+    note: V8-COST-003、V8-INGEST-004/007/009/011を更新し、受入条件とtraceを接続した。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence: [path:docs/decisions/ADR-0003-lambda-private-material-backfill.md, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
+    note: 長期判断はADR-0003、実装資源は生成CDK設計へ記録した。
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence: [path:spec/requirements/requirements.json, test:infra/tests/test_stack.py, test:infra/tests/test_dispatcher.py]
+    note: 更新した要件IDからLambda実装、template、timeout・retry testまでtraceできる。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, test:infra/tests/test_dispatcher.py, test:infra/tests/test_worker.py, workflow:要件・品質ゲート#Ruff・strict型検査・pytestを実行, workflow:要件・品質ゲート#CDK synthとcdk-nagを実行]
+    note: 変更対象のunit・static・synth検証が既存CIで実行される。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-lambda-ingestion.yaml]
+    note: 選択checkを本review YAMLへ保存した。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence: [path:governance/reviews/CHG-20260822-lambda-ingestion.yaml]
+    note: trigger非該当checkをN/Aとして追加していない。
+  - id: REV-012
+    class: Risk-selected
+    result: pass
+    evidence: [test:infra/tests/test_stack.py, path:docs/design/generated/cdk/diopside-ingestion/RESOURCES.gen.md]
+    note: cdk-nagとtemplate assertionをIAM・暗号化・削除資源の独立oracleとして適用した。
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence: [path:docs/operations/cost-check.md, path:docs/operations/manual-content-update.md, path:docs/operations/privacy-and-safety.md]
+    note: 15分上限、SQS retry/DLQ、残存AWSサービス、deploy前change set確認を運用正本へ反映した。
+  - id: REV-015
+    class: Advisory
+    result: pass
+    evidence: [path:docs/decisions/ADR-0003-lambda-private-material-backfill.md]
+    note: BatchからLambdaへ戻す条件を含む採用理由と結果をADRへ記録した。
+advisories: []
+residual_risks:
+  - 15分以内に完了しない動画はretry後にDLQへ入り、素材取得を完了しない。
+  - 実AWS deployでは既存Batch、ECR、VPC、EventBridgeと関連資源が削除対象になるため、明示承認後にCloudFormation change set確認が必要である。
+  - 実AWSでのLambda zip起動、外部取得、KMS暗号化uploadは未実行であり、認証済み隔離環境でpilot確認が必要である。

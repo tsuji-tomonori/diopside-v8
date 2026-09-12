@@ -1,0 +1,238 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260808-add-video-synopses
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: false
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: true
+  external_side_effect: false
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: true
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: あらすじ表示と100〜150字・末尾引用の利用者向け契約をV8-DISPLAY-011へ追加した
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/inventory.gen.json
+    note: 正本schema、公開データ変換、詳細画面、Skillを変更し、as-built生成設計を更新した
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 永続要件、公開JSON契約、重要UI、generator、Skillにまたがるためassuredを選択した
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:src/domain/validation.test.ts
+      - test:tests/content-validation.test.ts
+    note: synopsisを任意項目として追加し、既存1681動画の互換性と6件の新規データを検証した
+  - id: IMP-008
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/domain/content.ts
+      - test:e2e/detail.spec.ts
+    note: 公開動画詳細JSONへ任意synopsis契約を追加し、既存データを破壊しないことをschemaと画面で確認した
+  - id: FAST-001
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+      - path:package.json
+    note: 正本再生成とVite本番buildを完了し、配信用生成物はmainマージ後の自動更新へ分離した
+  - id: FAST-002
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: TypeScriptのブラウザ・Node両projectの型検査に合格した
+  - id: FAST-003
+    class: Invariant
+    result: pass
+    evidence:
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: src、scripts、tests、e2eのlintに合格した
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/domain/validation.test.ts
+      - test:tests/content-validation.test.ts
+      - test:e2e/detail.spec.ts
+    note: 文字数、全編根拠、引用時刻、6件集計、144要件、詳細表示を直接検証した
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:docs/requirements/REQUIREMENTS.md
+      - path:docs/design/generated/inventory.gen.json
+      - path:content/content-manifest.json
+    note: 要件、as-built設計、正本manifestを再生成・照合し、配信用生成物はmainマージ後の自動更新対象としてPRから除外した
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 生字幕と文字起こしは一時領域だけで扱い、差分には安全な指紋・範囲・短い公開文だけを含めた
+  - id: FAST-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/detail.spec.ts
+    note: あらすじありの成功状態と、あらすじなしの既存詳細状態をモバイル・デスクトップで確認した
+  - id: FAST-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/detail.spec.ts
+    note: section、heading、blockquote、通常リンクの意味構造と重大なaxe違反0件を確認した
+  - id: FAST-015
+    class: Advisory
+    result: pass
+    evidence:
+      - path:scripts/validate-content.ts
+    note: 不正な文字数、根拠、引用時刻、manifest集計はbuild前検証で日本語エラーとして検知できる
+  - id: FAST-018
+    class: Risk-selected
+    result: na
+    evidence:
+      - test:e2e/detail.spec.ts
+    note: 選択後に、対象E2Eは読取専用の静的画面であり、C/U/D API、DB、外部状態変更を含まないと確認した
+  - id: FAST-022
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:.agents/skills/generate-video-synopses/scripts/validate_candidate.py
+      - path:src/domain/validation.ts
+      - test:src/domain/validation.test.ts
+    note: 100〜150字の閾値をSkill候補検証、正本検証、回帰テストで同じ値へ揃えた
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 本変更はあらすじ生成・表示・6件の試作とその正本・生成契約に限定した
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 目的、変更、要件・設計影響、review path、検証契約、互換性・残存リスクを含むCommit Commentを準備した
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+    note: 利用者向けあらすじ契約とV8-DISPLAY-011の追加が一致する
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:docs/design/generated/system.gen.md
+      - path:docs/design/generated/inventory.gen.json
+    note: 実装由来設計を再生成し、コードと要件から理由を追跡できるためADRは不要と判定した
+  - id: REV-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - test:src/domain/validation.test.ts
+      - test:e2e/detail.spec.ts
+    note: V8-DISPLAY-011から正本schema・候補検証・詳細画面・E2Eへtraceできる
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - test:src/domain/validation.test.ts
+      - test:tests/content-validation.test.ts
+      - test:e2e/detail.spec.ts
+      - workflow:要件・品質ゲート#要件の品質ゲートを実行
+    note: 文字数、ネタバレ高リスク語、全編根拠、公開境界、末尾引用リンクの受入条件をCI対象へ接続した
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-add-video-synopses.yaml
+    note: 選択checkだけをreview YAMLへ保存した
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20260808-add-video-synopses.yaml
+    note: 未選択checkをN/Aとして登録していない
+  - id: REV-009
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/detail.spec.ts
+    note: FAST-018のN/Aが静的読取UIであるという具体的事実に基づくことを確認した
+  - id: REV-011
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:src/domain/content.ts
+      - test:tests/content-validation.test.ts
+    note: synopsisは公開詳細の任意項目で、正本件数を固定せずmanifestとの一致を検証し、詳細画面の更新日表示追加をE2Eへ反映して後方互換性を維持する
+  - id: REV-013
+    class: Risk-selected
+    result: pass
+    evidence:
+      - test:e2e/detail.spec.ts
+      - path:reports/screenshots/detail-desktop.jpg
+    note: 詳細閲覧から引用位置を開く主要タスクをmobile・desktop・responsive・アクセシビリティ込みで確認した
+  - id: REV-014
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:.agents/skills/generate-video-synopses/SKILL.md
+    note: 全編根拠、一時資料の非保持、ジャンル別執筆、検証、PRマージ承認の恒久運用をSkillへ反映した
+advisories: []
+residual_risks:
+  - 自動字幕由来の引用は人がPRで動画音声と最終照合してから公開する

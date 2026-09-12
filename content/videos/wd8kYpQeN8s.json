@@ -1,0 +1,400 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "wd8kYpQeN8s",
+  "title": "夜王国でドッジボール",
+  "publishedAt": "2021-06-20T13:28:24Z",
+  "durationSeconds": 6877,
+  "durationIso": "PT1H54M37S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/wd8kYpQeN8s/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=wd8kYpQeN8s",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "32715438b34b10127da0e1d4a530dfb5247ae6b773029a971f63a4a94c28e31d"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "b525615b606707900366c216ad93b1e3f8dc84ca256fcff8fc57e47a4e87a28b"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "83bd21a38c722e9bf0e3c8bdbec08dac86e114bc775b40cfbb0e610c31b02cff"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "8d667f000899460094e11401a459498db99e7ed5bfc99fe885b5dd07182e8f48"
+    },
+    {
+      "evidenceId": "evidence-collaboration-v2",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
+      "inputFingerprint": "b46cb31a54f90079ed8d607b357251deae3328f441384134c45b7a221515eee4"
+    },
+    {
+      "evidenceId": "evidence-game-classification",
+      "type": "動画タイトル",
+      "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
+      "inputFingerprint": "49cc1a087b294f18af9625424bcb39f7ed3b27c2ecdb0f4402a341b28d793a82"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "コラボ正本v2で共同出演を確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-7aa1717d3587",
+      "reason": "公開台帳のチャンネル「グウェル・オス・ガール / Gwelu Os Gar 【にじさんじ】」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-3c46214bce41",
+      "reason": "人物名「不破湊」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-performer-628c281ac2b2",
+      "reason": "人物名「グウェル・オス・ガール」をコラボ相手として確認（all-partners）",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-unit-31175672222e",
+      "reason": "コンビ・ユニット名「夜王国」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-collaboration-v2"
+      ],
+      "reviewedAt": "2026-08-15T21:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-primary-0dbfa3115896",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、主ジャンル「ゲーム」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-23T16:00:00+09:00"
+    },
+    {
+      "tagId": "tag-works-gameTitle-c043b6f0e559",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲーム作品「Knockout City」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-23T16:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-gameGenre-62278ec71bd0",
+      "reason": "公開タイトル・承認済みタイムスタンプ・公式作品情報を横断確認し、ゲームジャンル「アクション」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-game-classification"
+      ],
+      "reviewedAt": "2026-08-23T16:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-3edc45ff",
+        "startSeconds": 0,
+        "label": "冒頭の挨拶・ゲーム紹介",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-264-2307c3a0",
+        "startSeconds": 264,
+        "label": "モード選択・対戦準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-620-3e6dfbcc",
+        "startSeconds": 620,
+        "label": "初回対戦・特殊ボール",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1111-daade062",
+        "startSeconds": 1111,
+        "label": "試合後の振り返り・再戦準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1199-fd9b19cf",
+        "startSeconds": 1199,
+        "label": "カスタマイズ後の再戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1709-a1397aa5",
+        "startSeconds": 1709,
+        "label": "試合後の探索・操作練習",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1933-d3612d4d",
+        "startSeconds": 1933,
+        "label": "視聴者参加型の設定",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2321-c797bb5e",
+        "startSeconds": 2321,
+        "label": "ストリートプレイ初戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2829-0c81273d",
+        "startSeconds": 2829,
+        "label": "ストリートプレイ次ラウンド",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3011-19f5aa8b",
+        "startSeconds": 3011,
+        "label": "次のマッチ設定・マルチボール",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3126-0c703a12",
+        "startSeconds": 3126,
+        "label": "ストリートプレイで連携を試す",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3890-e7ec5ab8",
+        "startSeconds": 3890,
+        "label": "報酬確認・キャラクター変更",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4016-3e79a523",
+        "startSeconds": 4016,
+        "label": "新モード対戦・再接続",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4420-536f51f7",
+        "startSeconds": 4420,
+        "label": "連携を活かす対戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4952-040bd077",
+        "startSeconds": 4952,
+        "label": "カーブボール講座",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5100-245a0a18",
+        "startSeconds": 5100,
+        "label": "クレバーボール対戦・次戦準備",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5669-e6b81b3a",
+        "startSeconds": 5669,
+        "label": "ゲージボールで対戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6049-1b366609",
+        "startSeconds": 6049,
+        "label": "試合後の振り返り",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6102-42ed31c0",
+        "startSeconds": 6102,
+        "label": "3Dお披露目の話",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6164-0aa90431",
+        "startSeconds": 6164,
+        "label": "ムーンボールで対戦",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6613-df99a7c2",
+        "startSeconds": 6613,
+        "label": "対戦後の感想・ボイス確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6696-1de15acf",
+        "startSeconds": 6696,
+        "label": "3Dお披露目・配信告知",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6805-11ece3bc",
+        "startSeconds": 6805,
+        "label": "今後の企画・エンディング",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "e42ff4392e071099191d40d2e5ee4c045d09ef4cc3953c82ec4679150da60fff",
+    "inputFingerprint": "8d667f000899460094e11401a459498db99e7ed5bfc99fe885b5dd07182e8f48",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-19T06:10:00Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "e42ff4392e071099191d40d2e5ee4c045d09ef4cc3953c82ec4679150da60fff",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "e42ff4392e071099191d40d2e5ee4c045d09ef4cc3953c82ec4679150da60fff",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
+    "updatedAt": "2026-08-04T15:00:00+09:00"
+  },
+  "provenance": {
+    "inputFingerprint": "d588188656359d83c79dc0f0b9197b1d9d0f94c5b3df9c751de4a03dd9f35bc7",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-23T16:00:00+09:00",
+    "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  }
+}
