@@ -6,6 +6,8 @@ profile: assured
 source_ref: self
 completed_timings:
 - impact
+- implementation
+- pre-pr
 impact_flags:
   external_write: true
   irreversible_operation: true
@@ -87,6 +89,87 @@ selected_checks:
   - commit:self
   - path:content/videos/EUDcrrBwoTQ.json
   note: 単一動画の名詞訂正。取り消しは当該正本変更のrevertと再生成で可能。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/EUDcrrBwoTQ.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 候補hashの決定的検証、内容schema、各開始秒の全編字幕対応を検証。モバイル・デスクトップE2Eを要件・品質ゲートで実行する。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/videos/EUDcrrBwoTQ.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 旧「ほぐらし」3箇所と作品名2箇所を公式資料で訂正。元19項目の名詞を全編字幕で確認し、独立編集指摘により入口5件を追加。最終24項目は別contextの事実・編集レビューとも重大0件。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/EUDcrrBwoTQ.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: manifestの時刻数を5件増加。公開生成物は既存workflowで正本から生成し、source PRへ混在させない。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/EUDcrrBwoTQ.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 差分を正本1動画、manifest、review YAMLに限定。全編字幕・レビューの生資料は無視対象の一時領域のみ。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/EUDcrrBwoTQ.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 全タイムスタンプの名詞・内容を再点検する依頼に対応。固有名詞5改名と持続話題への入口5件追加を1動画に限定。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/EUDcrrBwoTQ.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 最終Commit Commentに目的、変更、要件・設計影響、レビュー、検証契約、残存リスクを記録。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/EUDcrrBwoTQ.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 既存の正確な表示と独立レビュー要件を満たす修正。要件正本の意味は変更しない。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/EUDcrrBwoTQ.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: データ構造、公開schema、画面実装を変えないため設計変更・ADRは不要。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/EUDcrrBwoTQ.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 候補hash、内容・時刻形式、差分理由、scope検証と既存CIの全品質ゲートが受入条件に対応する。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/EUDcrrBwoTQ.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 当変更で選択したcheckだけをこのreview YAMLへ保存。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/EUDcrrBwoTQ.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 未選択checkを形式的なN/Aとして登録していない。
 advisories: []
 residual_risks:
-- 公開自動字幕には固有名詞の誤認識があるため、正式な作品名は公式一次資料で照合する。現在は監査準備段階。
+- 全2442 cueの日本語自動字幕を再取得・通読し、全24項目を同じ候補hash ed7adbf72fa54354fb8e0f0edddd46a9d33463481b1969c3aa5be141838608fa
+  で独立二重レビューした。字幕に誤認識があるため作品名は公式一次資料を併用。
+- '正式表記: ほの暮しの庭（日本一ソフトウェア公式サイト）、Anglerfish（Professional Villains公式サイト）、ミッドナイトカクテル（にじさんじ公式番組
+  ARnESiXjMIs）。URLと全変更理由はPR #2707へ記録。'
+- ローカルのChromium取得が通信タイムアウトしたため、モバイル・デスクトップE2EはGitHub Actionsで確認する。マージ後は公開ページの表示・時刻リンクを実操作で確認する。
