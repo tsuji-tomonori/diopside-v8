@@ -19,7 +19,7 @@ impact_flags:
   code_change: false
   typed_code_change: false
   behavior_change: true
-  bug_fix: false
+  bug_fix: true
   generated_change: true
   sql_change: false
   e2e_change: false
@@ -84,6 +84,13 @@ selected_checks:
       - path:content/videos/EUDcrrBwoTQ.json
       - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
     note: 正本schema、全編根拠、review hash、PR gateを検証する。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/videos/EUDcrrBwoTQ.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 旧14章が0秒から600秒固定である再現条件を確認。全編字幕と開始秒を照合し、2529秒の作品紹介・4180秒の家族話・7056秒の秋の話等へ修正。最終19章を独立レビューし間隔・根拠・候補hashを検証した。
   - id: FAST-006
     class: Invariant
     result: pass
