@@ -83,7 +83,7 @@ selected_checks:
     evidence:
       - path:content/videos/sW8tg0gIKlw.json
       - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
-    note: 正本schema、全編根拠、review hash、PR gateを検証する。
+    note: 2026-09-18 CIで正本schema・build・型検査・単体検査・監査に合格。あらすじ根拠参照を全編字幕へ統一し、当該HEADのreview記録を更新する。
   - id: FAST-006
     class: Invariant
     result: pass
