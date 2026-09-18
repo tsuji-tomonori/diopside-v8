@@ -1,0 +1,92 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260918-timestamp-nouns-eudcrrbwotq
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+impact_flags:
+  external_write: true
+  irreversible_operation: true
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: true
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  - path:content/videos/EUDcrrBwoTQ.json
+  note: 全19ラベルの名詞を字幕と公式表記で再確認する。既存要件に従う誤表記修正で要件変更なし。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  - path:content/videos/EUDcrrBwoTQ.json
+  note: 1動画の正本ラベルと監査根拠だけを更新し、schema・画面・公開契約は変更しない。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  - path:content/videos/EUDcrrBwoTQ.json
+  note: 公開データの更新と独立二重レビュー、PRマージと公開確認を伴うためassuredを選択。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  - path:content/videos/EUDcrrBwoTQ.json
+  note: 利用者がGitHubへのPR作成、マージ、動作確認を明示依頼。ソースPRと公開生成物PRへの書込みが対象。
+- id: IMP-005
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  - path:content/videos/EUDcrrBwoTQ.json
+  note: 利用者の「PRを作成してマージ動作確認して」がマージ・公開確認を許可。削除・課金・認証変更なし。
+- id: IMP-007
+  class: Risk-selected
+  result: pass
+  evidence:
+  - commit:self
+  - path:content/videos/EUDcrrBwoTQ.json
+  note: 単一動画の名詞訂正。取り消しは当該正本変更のrevertと再生成で可能。
+advisories: []
+residual_risks:
+- 公開自動字幕には固有名詞の誤認識があるため、正式な作品名は公式一次資料で照合する。現在は監査準備段階。
