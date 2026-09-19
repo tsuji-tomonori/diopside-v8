@@ -20,6 +20,7 @@ import {
   workIntroductionsSchema,
   type CanonicalVideo,
 } from '../src/domain/content.ts';
+import { timestampNameCorrectionsSchema } from '../src/domain/timestamp-name-corrections.ts';
 import { scanPublicBoundary } from '../src/domain/validation.ts';
 import { embeddedReleaseId } from '../src/generated/release.ts';
 import { canonicalJson, sha256 } from '../scripts/lib.ts';
@@ -48,6 +49,7 @@ describe('決定的な公開成果物', () => {
     const readingOverrides = json('content/search/reading-overrides.json') as ReadingOverrides;
     const videos = readCanonicalVideos(root).map(normalizeCanonicalVideo);
     const expected = `release-${sha256(canonicalJson({
+      timestampNameCorrections: timestampNameCorrectionsSchema.parse(json('content/timestamps/name-corrections.json')),
       taxonomy,
       aliases,
       workIntroductions,
