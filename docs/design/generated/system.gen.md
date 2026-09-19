@@ -231,6 +231,10 @@
 | `src/domain/tag-assignment-audit.ts` | InterfaceDeclaration | `TagAssignmentAuditRow` |
 | `src/domain/tag-assignment-audit.ts` | TypeAliasDeclaration | `TagAssignmentAuditSource` |
 | `src/domain/tag-assignment-audit.ts` | VariableStatement | `tagAssignmentAuditSourceSchema` |
+| `src/domain/timestamp-name-corrections.ts` | FunctionDeclaration | `buildTimestampNameCorrections` |
+| `src/domain/timestamp-name-corrections.ts` | TypeAliasDeclaration | `TimestampNameCorrections` |
+| `src/domain/timestamp-name-corrections.ts` | VariableStatement | `timestampNameCorrectionsSchema` |
+| `src/domain/timestamp-name-corrections.ts` | FunctionDeclaration | `timestampNameKey` |
 | `src/domain/validation.ts` | FunctionDeclaration | `scanPublicBoundary` |
 | `src/domain/validation.ts` | FunctionDeclaration | `validateCanonicalVideo` |
 | `src/domain/validation.ts` | FunctionDeclaration | `validateChannelPersonMappings` |
@@ -280,6 +284,7 @@
 - `src/domain/search.test.ts`
 - `src/domain/sequential-guest-audit.test.ts`
 - `src/domain/tag-assignment-audit.test.ts`
+- `src/domain/timestamp-name-corrections.test.ts`
 - `src/domain/validation.test.ts`
 - `src/features/collaborations/CollaborationDetailPages.test.tsx`
 - `src/features/detail/wordCloudLayout.test.ts`
@@ -293,4 +298,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力89ファイル、公開契約210件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力91ファイル、公開契約214件です。

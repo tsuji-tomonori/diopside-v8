@@ -48,7 +48,7 @@
     },
     {
       "path": "scripts/build-public-data.ts",
-      "sha256": "767730b73a076dd99c427d84b66197512a75a9cc87135d9b08a3210a472629c2"
+      "sha256": "3df094dc3589d8a2caa35530fb2f75df98b2cd066a926c3880b0ef5e38743e68"
     },
     {
       "path": "scripts/canonical-store.ts",
@@ -241,6 +241,14 @@
     {
       "path": "src/domain/tag-assignment-audit.ts",
       "sha256": "b6bd8c1820f8b47f3601bacb01b58f696d14e1d48575792cf79ed8fedeefd93c"
+    },
+    {
+      "path": "src/domain/timestamp-name-corrections.test.ts",
+      "sha256": "b7721816536ecb1a2d6cf905d5161f7ad6cf236c13a5c5cfe086a0b643c3271d"
+    },
+    {
+      "path": "src/domain/timestamp-name-corrections.ts",
+      "sha256": "3d84b421f9f53e6eb570d09a57f45cde402741577b5c10ea665a09aea342d29f"
     },
     {
       "path": "src/domain/validation.test.ts",
@@ -1246,6 +1254,26 @@
       "kind": "VariableStatement"
     },
     {
+      "file": "src/domain/timestamp-name-corrections.ts",
+      "name": "buildTimestampNameCorrections",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/timestamp-name-corrections.ts",
+      "name": "TimestampNameCorrections",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/timestamp-name-corrections.ts",
+      "name": "timestampNameCorrectionsSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "src/domain/timestamp-name-corrections.ts",
+      "name": "timestampNameKey",
+      "kind": "FunctionDeclaration"
+    },
+    {
       "file": "src/domain/validation.ts",
       "name": "scanPublicBoundary",
       "kind": "FunctionDeclaration"
@@ -1441,6 +1469,7 @@
     "src/domain/search.test.ts",
     "src/domain/sequential-guest-audit.test.ts",
     "src/domain/tag-assignment-audit.test.ts",
+    "src/domain/timestamp-name-corrections.test.ts",
     "src/domain/validation.test.ts",
     "src/features/collaborations/CollaborationDetailPages.test.tsx",
     "src/features/detail/wordCloudLayout.test.ts",

@@ -1,0 +1,216 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260919-timestamp-name-audit
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: true
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: true
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 既存タイムスタンプ全22322件の名詞候補を抽出し、既存ゲーム・人物名と外部資料を照合。既存の正確な表示の修正であり要件意味の変更なし。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 正本の旧候補とレビューは不変。根拠付きの名詞訂正catalogを公開生成時に適用し、生成設計を更新する。公開schemaは不変。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 公開生成器と永続データ、公開反映に影響するためassured。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 利用者がPR更新、マージ、動作確認を明示依頼。GitHubのsource/release PRと公開データが対象。
+- id: IMP-005
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 利用者の明示依頼によりマージ・公開を実施。削除、課金、認証変更なし。
+- id: IMP-007
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 旧候補hash・videoId・timestampId・開始秒・旧ラベル完全一致でのみ訂正。revertと再生成で復元できる。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 実データ16件の置換と旧正本の不変性を検査。既存E2Eで時刻リンクと詳細画面を確認する。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 七瀬すず菜、ワルイージピンボールの具体的回帰例と、古い候補hash・旧ラベル・時刻・ID、重複、誤った置換を拒否するテストを追加。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 訂正catalogをrelease seedへ含め、公開データを決定生成。公開成果物は既存main release workflowで別PR化。生成設計のみsource
+    PRへ含める。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 生字幕等を保存せず、公開済みラベル、根拠URL、訂正理由のみ保存。動画数・タイムスタンプ数・時刻・リンクの変更なし。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 'PR #2707の後続として全既存見出しを横断点検。11動画16見出しの確定した名詞だけを訂正する。'
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: Commit Commentに目的、変更、要件・設計影響、review path、検証契約、残存リスクを記録。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 今回の依頼は既存名詞表記の照合・訂正。全編内容の再生成や旧候補への再承認とは扱わず、履歴の候補hashと独立レビューを改変しない。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 公開生成器へ厳密照合の名詞訂正を追加。as-built生成設計を更新し、公開JSON構造・画面は維持する。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 単体テストで不適合訂正の拒否と元データ不変を確認。型・lint・生成・内容検証を実行し、Actions品質ゲート後にmergeする。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 当変更でtriggerに該当するcheckだけを選択した。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/timestamps/name-corrections.json
+  - path:src/domain/timestamp-name-corrections.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 未選択checkのN/A登録なし。
+- id: FAST-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/domain/timestamp-name-corrections.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: npm run lintでコード規約を検証する。
+- id: FAST-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/domain/timestamp-name-corrections.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: npm run typecheckで両TypeScript設定のstrict検査を実施。
+- id: FAST-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/domain/timestamp-name-corrections.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: npm run buildで公開生成と静的buildを検証する。
+advisories: []
+residual_risks:
+- 形態素解析で固有名詞または未知名詞2223語を抽出。既存taxonomyと部分一致しない1665語は一般名詞・略称・分割断片を含み、1665件の誤記を意味しない。ラベル全文と既存同作品・人物表記で点検し、確定した16見出しのみ訂正。
+- カンカンノン（階段怪談）、トリスビアス、エディオンパーク、オムナオト（本人チャンネル）、SUQQUアクフォンス、司賀りこ、シラクル（Ciracle公式ショップ）は実在名称を確認し維持。
+- '保留: 6442jhr8ozs 9360秒「ヘクションムーン」、rl-mVayJlzM 16379秒「セルヴァ」、i-Y80gDU7i4
+  2441秒「ブルースイートワイン」。既存見出しだけでは対象を一意に特定できず、推測で別名に置換しない。Issue #2709で追跡する。'
+- '一般名詞: iEDBT_MhKbg 2074秒「原老院」は固有名詞訂正とは分けてIssue #2709へ残す。'
+- 訂正catalogは表記確認の根拠であり全編を再視聴した証拠ではない。事実・編集の過去レビューと候補hashはそのまま保存し、再審査済みと偽らない。
+- 原本の新規レビュー、開始秒変更、ラベル更新があれば適用を失敗させるため、catalogの再確認・削除が必要。公開後は対象11動画の全16訂正と時刻URLを確認する。
