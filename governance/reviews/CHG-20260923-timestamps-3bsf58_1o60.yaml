@@ -116,7 +116,7 @@ selected_checks:
     result: pass
     evidence:
       - commit:self
-    note: 最終Commit Commentへ必須の影響・検証・リスクを記録する。
+    note: change_idを規定形式に揃え、最終Commit Commentへ必須の影響・検証・リスクを記録する。
   - id: REV-003
     class: Invariant
     result: pass
