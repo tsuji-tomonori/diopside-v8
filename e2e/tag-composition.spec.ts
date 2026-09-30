@@ -74,6 +74,7 @@ test('人物タグをキーボードで絞り込み、同名分類を区別し�
   await input.fill('しらゆきともえ');
   await input.press('Escape');
   await expect(input).toHaveAttribute('aria-expanded', 'false');
+  await expect(input).toHaveValue('しらゆきともえ');
   await input.press('ArrowDown');
   await expect(input).toHaveAttribute('aria-activedescendant', 'tag-composer-option-0');
   await input.press('Enter');

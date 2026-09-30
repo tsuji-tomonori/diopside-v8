@@ -1,0 +1,225 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260930-tag-escape-key
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: FAST-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: 既存buildを使って静的生成とbundleを検証する。
+- id: FAST-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: strict型検査を維持する。
+- id: FAST-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: 既存lint契約を弱めず対象を検証する。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: EscapeのdefaultPrevented、入力値維持、候補閉鎖・再開をReact単体試験で検証する。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: Chromiumのsearch入力がEscapeで値を消す既定挙動を防ぎ、defaultPreventedと再開時の入力値を検証する。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: 正本から要件表示とas-built設計を生成し、公開releaseは別工程とする。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: 生素材・投稿者情報・秘密情報を追加せず、キーイベントとテストだけを変更する。
+- id: FAST-013
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: 候補の開閉、入力維持、ArrowDown再開、Enter選択の状態を保持する。
+- id: FAST-014
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: Escapeで候補だけを閉じ、ArrowDownで同じ候補へ戻りEnterで選択できる操作を維持する。
+- id: FAST-018
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: CIで実行済みのキーボードE2Eは入力消去を検出した。入力値維持を明示assertし、期待値を弱めず同じブラウザ経路を再実行する。
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: 既存の候補閉鎖・再開契約へ戻す不具合修正であり要件の意味は変更しない。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: 既存キー処理のdefault抑止のみ。as-builtの入力hashを再生成する。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: 重要なキーボード操作とE2E回帰の修正のためassuredとする。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: 所有者が下書きPRとしての公開を明示承認した範囲でbranch、push、draft PRを作成する。merge・deployは行わない。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: 検索入力のEscape既定挙動の修正だけに限定し、新規機能や要件変更を加えない。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260930-tag-escape-key.yaml
+  note: この修正に選択されたcheckと構造化Commit Commentを保存し、未選択項目を記録しない。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: 検索入力のEscape既定挙動の修正だけに限定し、新規機能や要件変更を加えない。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: 公開契約と保存形式を変更せず、コード由来の設計hashだけを再生成する。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: 既存のキーボード操作契約へ対応する入力値維持と再開のassertを追加する。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260930-tag-escape-key.yaml
+  note: この修正に選択されたcheckと構造化Commit Commentを保存し、未選択項目を記録しない。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260930-tag-escape-key.yaml
+  note: この修正に選択されたcheckと構造化Commit Commentを保存し、未選択項目を記録しない。
+- id: REV-013
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - path:src/features/search/TagSearchControls.test.tsx
+  - path:e2e/tag-composition.spec.ts
+  note: 別ページへ遷移せずタグを組み合わせる利用課題を検証する。初見利用者実測の代替とはしない。
+advisories: []
+residual_risks:
+- 先行head5309e7cdのCIはブラウザ62件成功、2件失敗、2件platform-specific skip。失敗したEscape操作を修正し、次のexact-head
+  CIで再確認する。
+- ローカルChromiumの起動はsocket制限で不可。React操作試験とstrict型・lint・buildを実行し、ブラウザ判定は公式CIに委ねる。
+- 本変更はmerge・deployを含まず、PRはDraftのまま維持する。

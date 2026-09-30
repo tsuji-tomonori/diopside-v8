@@ -111,7 +111,12 @@ export function TagSearchControls({ condition, countCondition, videos, tags, onC
             onChange={(event) => { setQuery(event.target.value); setOpen(true); setActiveIndex(-1); }}
             onKeyDown={(event) => {
               if (event.nativeEvent.isComposing || event.keyCode === 229) return;
-              if (event.key === 'Escape') { setOpen(false); setActiveIndex(-1); return; }
+              if (event.key === 'Escape') {
+                event.preventDefault();
+                setOpen(false);
+                setActiveIndex(-1);
+                return;
+              }
               if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
                 event.preventDefault();
                 setOpen(true);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { createEvent, fireEvent, render, screen, within } from '@testing-library/react';
 
 import { normalizeTitleForSearch, type SearchCondition, type SearchVideo, type SuggestionTag } from '../../domain/search.ts';
 import { TagSearchControls } from './TagSearchControls.tsx';
@@ -81,8 +81,12 @@ describe('タグ組み合わせ検索', () => {
     expect(input).toHaveAttribute('aria-activedescendant', 'tag-composer-option-0');
     fireEvent.keyDown(input, { key: 'Enter', isComposing: true });
     expect(condition().tagIds).toEqual([]);
-    fireEvent.keyDown(input, { key: 'Escape' });
+    const escape = createEvent.keyDown(input, { key: 'Escape', cancelable: true });
+    fireEvent(input, escape);
+    expect(escape.defaultPrevented).toBe(true);
+    expect(input).toHaveValue('ざつ');
     expect(input).toHaveAttribute('aria-expanded', 'false');
+    expect(input).not.toHaveAttribute('aria-activedescendant');
     expect(condition().tagIds).toEqual([]);
     fireEvent.keyDown(input, { key: 'ArrowDown' });
     fireEvent.keyDown(input, { key: 'Enter' });
