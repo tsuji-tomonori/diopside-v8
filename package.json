@@ -46,13 +46,11 @@
     "validate:policy": "node --experimental-strip-types scripts/verify-repository-policy.ts",
     "validate:release-pr-scope": "node --experimental-strip-types scripts/validate-release-pr-scope.ts",
     "validate:requirements": "python .agents/skills/maintain-canonical-requirements/scripts/specflow.py validate && python .agents/skills/maintain-canonical-requirements/scripts/specflow.py check",
-    "validate:review": "python governance/reviews/validate.py --root . --commit HEAD",
-    "validate:review:main-release": "python governance/reviews/validate.py --root . --commit HEAD --allow-github-merge-fallback",
     "verify:generated": "node --experimental-strip-types scripts/verify-generated-source.ts",
-    "verify:local:base": "npm run verify:generated && npm run build && npm run typecheck && npm run lint && npm run lint:timestamp-tools && npm run test && npm run test:timestamp-tools && npm run test:review-contract && npm run validate:requirements && npm run validate:content && npm run audit:collaboration-tags && npm run audit:tag-assignments && npm run audit:parallel-game-perspectives && npm run audit:semantic-entities && npm run audit:song-frame-performances && npm run audit:guest-song-performances && npm run validate:taxonomy-change && npm run validate:policy",
-    "verify:local": "npm run verify:local:base && npm run validate:review",
+    "verify:local:base": "npm run verify:generated && npm run build && npm run typecheck && npm run lint && npm run lint:timestamp-tools && npm run test && npm run test:timestamp-tools && npm run validate:requirements && npm run validate:content && npm run audit:collaboration-tags && npm run audit:tag-assignments && npm run audit:parallel-game-perspectives && npm run audit:semantic-entities && npm run audit:song-frame-performances && npm run audit:guest-song-performances && npm run validate:taxonomy-change && npm run validate:policy",
+    "verify:local": "npm run verify:local:base",
     "verify:quality": "npm run verify:local && npm run verify:generated && npm run test:e2e:run",
-    "verify:main-release": "npm run verify:local:base && npm run validate:review:main-release && npm run verify:generated && npm run test:e2e:run",
+    "verify:main-release": "npm run verify:local:base && npm run verify:generated && npm run test:e2e:run",
     "verify": "npm run verify:quality && npm run audit:requirements",
     "audit:requirements": "node --experimental-strip-types scripts/audit-requirements.ts",
     "candidate:detect": "node --experimental-strip-types scripts/detect-video-candidates.ts",
@@ -60,7 +58,8 @@
     "validate:video-pr-scope": "node --experimental-strip-types scripts/validate-video-pr-scope.ts",
     "migrate:legacy": "node --experimental-strip-types scripts/import-reference-taxonomy.ts && node --experimental-strip-types scripts/import-reference-videos.ts && node --experimental-strip-types scripts/import-legacy-content.ts",
     "audit:guest-song-performances": "node --experimental-strip-types scripts/audit-guest-song-performances.ts",
-    "audit:content-coverage": "node --experimental-strip-types scripts/audit-content-coverage.ts"
+    "audit:content-coverage": "node --experimental-strip-types scripts/audit-content-coverage.ts",
+    "audit:legacy-review": "python governance/reviews/validate.py --root . --commit HEAD"
   },
   "dependencies": {
     "lucide-react": "1.41.0",

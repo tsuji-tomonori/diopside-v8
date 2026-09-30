@@ -37,10 +37,29 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).toMatch(/Git worktreeを信頼済みに設定[\s\S]*git config --global --add safe\.directory "\$GITHUB_WORKSPACE"/u);
     expect(workflow).toMatch(/actions\/setup-python@v5/u);
     expect(workflow).not.toMatch(/ref: \$\{\{ github\.event\.pull_request\.head\.sha \|\| github\.sha \}\}/u);
-    expect(workflow).toMatch(/(?:^|\n)\s+- name: PR・非main通常変更の品質ゲートを実行[\s\S]*github\.ref != 'refs\/heads\/main'[\s\S]*PR_HEAD_SHA: \$\{\{ github\.event\.pull_request\.head\.sha \}\}[\s\S]*verify:local:base[\s\S]*--commit "\$PR_HEAD_SHA"[\s\S]*test:e2e:run/u);
+    expect(workflow).toMatch(/(?:^|\n)\s+- name: PR・非main通常変更の品質ゲートを実行[\s\S]*github\.ref != 'refs\/heads\/main'[\s\S]*verify:local:base[\s\S]*test:e2e:run/u);
     expect(workflow).toMatch(/(?:^|\n)\s+- name: main通常変更の品質ゲートを実行[\s\S]*github\.ref == 'refs\/heads\/main'[\s\S]*run: npm run verify:main-release/u);
-    expect(workflow).toMatch(/release変更の品質ゲートを実行[\s\S]*--commit "\$review_source_commit" --allow-github-merge-fallback/u);
+    expect(workflow).toMatch(/release変更の品質ゲートを実行[\s\S]*verify:local:base[\s\S]*verify:generated[\s\S]*test:e2e:run/u);
+    expect(workflow).not.toMatch(/governance\/reviews\/validate\.py|Review-Checklist/u);
     expect(workflow).not.toMatch(/npx playwright install --with-deps chromium/u);
+  });
+
+  it('通常検証は形式証跡に依存せず実機能・内容・生成整合性の検査を維持する', () => {
+    const scripts = (JSON.parse(text('package.json')) as { scripts: Record<string, string> }).scripts;
+    expect(scripts['verify:local']).toBe('npm run verify:local:base');
+    expect(scripts['verify:main-release']).toBe('npm run verify:local:base && npm run verify:generated && npm run test:e2e:run');
+    for (const check of [
+      'verify:generated', 'build', 'typecheck', 'lint', 'lint:timestamp-tools', 'test',
+      'test:timestamp-tools', 'validate:requirements', 'validate:content',
+      'validate:taxonomy-change', 'validate:policy',
+    ]) expect(scripts['verify:local:base']!.split(' && ')).toContain(`npm run ${check}`);
+    expect(scripts['verify:local:base']).not.toMatch(/validate:review|test:review-contract/u);
+    expect(scripts['audit:legacy-review']).toContain('governance/reviews/validate.py');
+    expect(existsSync(path.join(root, 'governance/reviews/validate.py'))).toBe(true);
+    const dependencies = text('governance/reviews/requirements.txt');
+    expect(dependencies).toMatch(/PyYAML==/u);
+    expect(dependencies).toMatch(/jsonschema==/u);
+    expect(dependencies).toMatch(/ruff==\d+\.\d+\.\d+/u);
   });
 
   it('検証済みmainだけが公開版をrelease PR化し、branch方式Pagesを更新する', () => {
@@ -50,9 +69,10 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).toMatch(/ref: \$\{\{ github\.sha \}\}/u);
     expect(workflow).toMatch(/run: npm run verify:main-release/u);
     expect(workflow).toMatch(/git restore -- reports\/screenshots[\s\S]*git clean -fd -- reports\/screenshots/u);
-    expect(workflow).toMatch(/--allow-github-merge-fallback/u);
-    expect(workflow).toMatch(/--print-review-path/u);
-    expect(workflow).not.toMatch(/sed -n 's\/\^Review-Checklist:/u);
+    expect(workflow).not.toMatch(/review_path|Review-Checklist|governance\/reviews\/validate\.py/u);
+    expect(workflow.match(/git rev-parse origin\/main/gu)).toHaveLength(2);
+    expect(workflow.match(/!= "\$VERIFIED_SHA"/gu)).toHaveLength(2);
+    expect(workflow).toMatch(/git status --porcelain --untracked-files=normal/u);
     expect(workflow).toMatch(/git status --porcelain -- spec\/requirements docs\/requirements docs\/design\/generated/u);
     expect(workflow).toMatch(/git add -- docs public\/data src\/generated\/release\.ts/u);
     expect(workflow).toMatch(/automation\/generated-release-/u);
@@ -70,9 +90,8 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(verifyWorkflow).toMatch(/IS_GENERATED_RELEASE_MAIN:[\s\S]*contains\(github\.event\.head_commit\.message, '🚀 release\(data\):'\)/u);
     expect(workflow).toMatch(/!contains\(github\.event\.head_commit\.message, '🚀 release\(data\):'\)/u);
     expect(workflow).toMatch(/always\(\)[\s\S]*contains\(github\.event\.head_commit\.message, '🚀 release\(data\):'\)/u);
-    expect(verifyWorkflow.match(/git merge-base "origin\/\$BASE_BRANCH" HEAD/gu)).toHaveLength(2);
+    expect(verifyWorkflow.match(/git merge-base "origin\/\$BASE_BRANCH" HEAD/gu)).toHaveLength(1);
     expect(verifyWorkflow).toMatch(/release_source_commit[\s\S]*--allow-generated-only/u);
-    expect(verifyWorkflow).toMatch(/review_source_commit="\$\(git merge-base[\s\S]*review_source_commit="\$\(git rev-parse HEAD\^\)"[\s\S]*verify:local:base[\s\S]*validate\.py --root \. --commit "\$review_source_commit"[\s\S]*test:e2e:run/u);
   });
 
   it('手動運用は明示起動・読取専用・候補0件時無出力で、予定実行や公開処理を持たない', () => {

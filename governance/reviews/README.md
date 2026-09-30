@@ -1,4 +1,11 @@
-# レビュー結果
+# 過去のレビュー記録と任意監査
+
+2026-09-30以降、変更ごとのreview YAMLと固定commit本文は通常開発・CI・releaseの必須条件ではありません。PRで目的、重要な影響、検証と残存リスクを確認します。
+
+過去の`CHG-*.yaml`、schema、template、validatorは履歴の検証用に保持します。過去の記録を現在のtreeへ合わせて書き換えたり、新しい通常変更へ旧形式を強制したりしません。
+
+必要な場合だけ`npm run audit:legacy-review`で旧契約を検査できます。次の記述はその任意監査の形式です。動画の事実・話者・時刻・privacy・同一候補hashの確認は別の内容検証で維持します。
+
 
 このディレクトリには、変更ごとに選択されたcheck結果だけを保存します。check ID、class、timing、trigger、合格条件の正本は`governance/checks/catalog.yaml`です。
 
