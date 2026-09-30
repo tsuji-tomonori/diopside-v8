@@ -245,6 +245,8 @@
 | `src/domain/search.ts` | FunctionDeclaration | `withTagSelection` |
 | `src/domain/sequential-guest-audit.ts` | FunctionDeclaration | `auditSequentialGuestTags` |
 | `src/domain/sequential-guest-audit.ts` | InterfaceDeclaration | `SequentialGuestRecord` |
+| `src/domain/tag-alias-compatibility.ts` | FunctionDeclaration | `aliasCompatibilityErrors` |
+| `src/domain/tag-alias-compatibility.ts` | FunctionDeclaration | `aliasHistorySnapshot` |
 | `src/domain/tag-assignment-audit.ts` | FunctionDeclaration | `auditTagAssignmentCoverage` |
 | `src/domain/tag-assignment-audit.ts` | InterfaceDeclaration | `TagAssignmentAuditResult` |
 | `src/domain/tag-assignment-audit.ts` | InterfaceDeclaration | `TagAssignmentAuditRow` |
@@ -321,4 +323,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力98ファイル、公開契約233件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力99ファイル、公開契約235件です。

@@ -16,6 +16,7 @@ import {
   type TaxonomyLookupItem,
   type WorkIntroductions,
 } from './content.ts';
+import { aliasCompatibilityErrors, aliasHistorySnapshot } from './tag-alias-compatibility.ts';
 import { applyGameCatalogGenres, catalogGameGenreTagIds } from './game-catalog.ts';
 import { normalizeTagAlias } from './search.ts';
 import { detectExplicitGameTitleTagIds } from './game-title-detection.ts';
@@ -127,6 +128,25 @@ export function validateTaxonomy(input: unknown, aliasesInput: unknown): Validat
     semanticKeys.set(key, tag.tagId);
   }
 
+  const compatibleAliasVersions = taxonomy.compatibleCanonicalVideoAliasVersions;
+  if (new Set(compatibleAliasVersions).size !== compatibleAliasVersions.length) {
+    issues.push(issue('ALIAS_COMPATIBILITY_INVALID', 'compatibleCanonicalVideoAliasVersions', '互換別名版が重複しています。'));
+  }
+  for (const version of compatibleAliasVersions) {
+    for (const message of aliasCompatibilityErrors(aliases, version)) {
+      issues.push(issue('ALIAS_COMPATIBILITY_INVALID', version, message));
+    }
+  }
+  for (const version of compatibleAliasVersions) {
+    const snapshot = aliasHistorySnapshot(version);
+    if (!snapshot) continue;
+    const priorNames = new Set(snapshot.aliases.map((entry) => entry.normalizedAlias));
+    for (const addition of aliases.aliases.filter((entry) => !priorNames.has(entry.normalizedAlias))) {
+      if (allTags.some((tag) => tag.active && tag.tagId !== addition.tagId && normalizeTagAlias(tag.canonicalName) === addition.normalizedAlias)) {
+        issues.push(issue('ALIAS_CANONICAL_COLLISION', addition.alias, '追加別名が別の正規タグ名と衝突しています。'));
+      }
+    }
+  }
   const normalizedAliases = new Set<string>();
   for (const alias of aliases.aliases) {
     if (!tagIds.has(alias.tagId)) issues.push(issue('ALIAS_UNKNOWN_TAG', alias.alias, '別名の解決先タグが存在しません。'));
@@ -222,7 +242,11 @@ export function validateCanonicalVideo(
   ) {
     issues.push(issue('TAXONOMY_VERSION_MISMATCH', 'taxonomyVersion', '動画とタグ体系の版が一致しません。'));
   }
-  if (video.aliasVersion !== aliases.aliasVersion || video.aliasVersion !== taxonomy.aliasVersion) {
+  const supportedAliasVersion = video.aliasVersion === aliases.aliasVersion || (
+    taxonomy.compatibleCanonicalVideoAliasVersions.includes(video.aliasVersion)
+    && aliasCompatibilityErrors(aliases, video.aliasVersion).length === 0
+  );
+  if (aliases.aliasVersion !== taxonomy.aliasVersion || !supportedAliasVersion) {
     issues.push(issue('ALIAS_VERSION_MISMATCH', 'aliasVersion', '動画、別名、タグ体系の版が一致しません。'));
   }
   const tags = [...assigned.values()];

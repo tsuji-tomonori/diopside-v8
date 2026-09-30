@@ -364,6 +364,7 @@ export const tagTaxonomySchema = z.object({
   rulesVersion: z.string(),
   effectiveDate: isoDate,
   compatibleCanonicalVideoTaxonomyVersions: z.array(z.string().min(1)).default([]),
+  compatibleCanonicalVideoAliasVersions: z.array(z.string().min(1)).default([]),
   categoryCount: z.literal(7),
   subcategoryCount: z.literal(28),
   prohibitedCanonicalNames: z.array(z.string()),
