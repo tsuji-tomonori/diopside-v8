@@ -444,3 +444,33 @@ footer { padding: 2.5rem 1rem; text-align: center; color: var(--muted); border-t
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
 }
+
+/* Tag composition stays available without expanding the advanced filter drawer. */
+.tag-composer { min-width: 0; margin-top: 1.5rem; padding-top: 1.15rem; border-top: 1px solid var(--line); }
+.tag-composer-heading h2 { margin: 0; font-size: 1rem; }
+.tag-composer-heading .hint, .tag-composer > .hint { margin: .45rem 0; font-size: .8rem; }
+.tag-composer-controls { display: grid; grid-template-columns: auto auto minmax(0, 1fr); gap: .65rem; align-items: end; margin: .8rem 0; }
+.tag-composer-controls label, .tag-composer-search { min-width: 0; display: grid; gap: .35rem; font-size: .8rem; font-weight: 700; }
+.tag-composer-controls input, .tag-composer-controls select { min-width: 0; width: 100%; max-width: 100%; font: inherit; }
+.tag-composer-search { position: relative; }
+.tag-composer-popover { position: absolute; z-index: 21; top: calc(100% + .4rem); right: 0; left: 0; max-height: min(65vh, 460px); overflow: auto; padding: .5rem; border: 1px solid #cfc5dd; border-radius: 14px; background: white; box-shadow: 0 18px 45px rgb(42 30 58 / 18%); }
+.tag-composer-popover > .hint { margin: .3rem; font-size: .75rem; font-weight: 400; }
+.tag-composer-option { display: flex; align-items: center; justify-content: space-between; gap: .6rem; width: 100%; min-height: 48px; padding: .55rem; border: 0; border-radius: 9px; color: var(--ink); background: white; font: inherit; text-align: left; cursor: pointer; }
+.tag-composer-option > span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.tag-composer-option > span:last-child { flex: 0 0 auto; font-size: .75rem; }
+.tag-composer-option small { display: block; color: var(--muted); font-size: .7rem; font-weight: 400; }
+.tag-composer-option:hover, .tag-composer-option[aria-selected="true"] { background: var(--lavender-pale); }
+.tag-composer-option:disabled { color: var(--muted); cursor: default; }
+.tag-composer-active { display: grid; gap: .6rem; margin-top: .85rem; }
+.tag-composer-group { padding: .7rem; border: 1px solid #d5cce7; border-radius: 12px; background: var(--lavender-pale); }
+.tag-composer-group > strong { display: block; margin-bottom: .4rem; color: var(--lavender-dark); font-size: .75rem; }
+.tag-composer-group.is-exclude { background: #fff4ef; border-color: #e5c9b9; }
+.tag-composer-group.is-exclude > strong { color: #804d35; }
+.tag-composer-chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+.tag-composer-chips button { display: inline-flex; align-items: center; gap: .7rem; min-height: 44px; max-width: 100%; padding: .4rem .7rem; border: 1px solid #cfc3df; border-radius: 999px; color: var(--ink); background: white; overflow-wrap: anywhere; font: inherit; font-size: .8rem; text-align: left; cursor: pointer; }
+.tag-composer-chips button span { font-size: 1.2rem; }
+.tag-composer-active > .button { justify-self: start; }
+@media (max-width: 700px) {
+  .tag-composer-controls { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .tag-composer-search { grid-column: 1 / -1; }
+}

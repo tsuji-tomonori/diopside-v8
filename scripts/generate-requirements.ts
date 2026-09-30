@@ -1,6 +1,8 @@
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
 
+import { preserveCanonicalRequirements } from './requirement-preservation.ts';
+
 interface SourceRequirement {
   sourceId: string;
   priority: string;
@@ -36,7 +38,6 @@ const existingCatalog = existsSync(specPath)
 const existingRequirements = Array.isArray(existingCatalog?.requirements)
   ? existingCatalog.requirements.filter(hasStringId)
   : [];
-const existingById = new Map(existingRequirements.map((item) => [item.id as string, item]));
 
 const groupMap = {
   検索: 'SEARCH',
@@ -2289,11 +2290,7 @@ const issue465OverrideIds = new Set([
   'V8-OPS-023',
   'V8-OPS-026',
 ]);
-const issue465Requirements = existingRequirements.filter((item) => String(item.id).startsWith('V8-INGEST-'));
-const canonicalRequirements = [
-  ...generatedRequirements.map((item) => issue465OverrideIds.has(item.id) ? existingById.get(item.id) ?? item : item),
-  ...issue465Requirements,
-].sort((left, right) => String(left.id).localeCompare(String(right.id)));
+const canonicalRequirements = preserveCanonicalRequirements(generatedRequirements, existingRequirements, issue465OverrideIds);
 
 mkdirSync(path.dirname(specPath), { recursive: true });
 writeFileSync(specPath, `${JSON.stringify({

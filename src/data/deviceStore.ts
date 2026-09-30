@@ -47,6 +47,8 @@ const favoritesSchema = z.array(publicVideoSummarySchema.extend({ savedAt: z.iso
 const searchConditionSchema = z.object({
   query: z.string().max(200),
   tagIds: z.array(z.string()).max(30),
+  tagMatch: z.enum(['all', 'any']).optional(),
+  excludedTagIds: z.array(z.string()).max(30).optional(),
   publishedFrom: z.iso.date().optional(),
   publishedTo: z.iso.date().optional(),
   durationBucket: z.enum(['30分未満', '30分以上1時間未満', '1時間以上2時間未満', '2時間以上']).optional(),
@@ -226,6 +228,8 @@ function normalizeCondition(condition: SearchCondition): SearchCondition {
   return {
     query: condition.query.trim(),
     tagIds: [...new Set(condition.tagIds)].sort(),
+    ...(condition.tagMatch === 'any' ? { tagMatch: 'any' as const } : {}),
+    ...(condition.excludedTagIds?.length ? { excludedTagIds: [...new Set(condition.excludedTagIds)].sort() } : {}),
     ...(condition.publishedFrom ? { publishedFrom: condition.publishedFrom } : {}),
     ...(condition.publishedTo ? { publishedTo: condition.publishedTo } : {}),
     ...(condition.durationBucket ? { durationBucket: condition.durationBucket } : {}),

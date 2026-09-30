@@ -59,7 +59,8 @@
     "candidate:pr-body": "node --experimental-strip-types scripts/generate-video-pr-body.ts",
     "validate:video-pr-scope": "node --experimental-strip-types scripts/validate-video-pr-scope.ts",
     "migrate:legacy": "node --experimental-strip-types scripts/import-reference-taxonomy.ts && node --experimental-strip-types scripts/import-reference-videos.ts && node --experimental-strip-types scripts/import-legacy-content.ts",
-    "audit:guest-song-performances": "node --experimental-strip-types scripts/audit-guest-song-performances.ts"
+    "audit:guest-song-performances": "node --experimental-strip-types scripts/audit-guest-song-performances.ts",
+    "audit:content-coverage": "node --experimental-strip-types scripts/audit-content-coverage.ts"
   },
   "dependencies": {
     "lucide-react": "1.41.0",
