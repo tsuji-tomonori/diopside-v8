@@ -85,6 +85,10 @@ test('人物タグをキーボードで絞り込み、同名分類を区別し�
   await expect(page.locator(`.tag-composer-option[data-tag-id="${gameTag}"]`)).toContainText('内容 / 主ジャンル');
   await expect(page.locator('.tag-composer-option[data-tag-id="tag-content-secondary-164dbab60187"]')).toContainText('内容 / 副ジャンル');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+  await input.press('ArrowDown');
+  await expect(page.locator('.tag-composer-option[aria-selected="true"]')).toHaveCount(1);
+  await expectNoSeriousAccessibilityViolations(page);
+  await page.locator('.tag-composer-option').first().hover();
   await expectNoSeriousAccessibilityViolations(page);
 });
 

@@ -1,0 +1,169 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260930-tag-contrast
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: FAST-001
+  class: Invariant
+  result: pass
+  evidence: &id001
+  - path:src/styles.css
+  - path:tests/tag-composer-contrast.test.ts
+  - path:e2e/tag-composition.spec.ts
+  note: 変更はタグ候補の文字色と通常・選択・hover状態の回帰確認に限定する。公開データ・保存形式・安全基準を変更しない。
+- id: FAST-002
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 変更はタグ候補の文字色と通常・選択・hover状態の回帰確認に限定する。公開データ・保存形式・安全基準を変更しない。
+- id: FAST-003
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 変更はタグ候補の文字色と通常・選択・hover状態の回帰確認に限定する。公開データ・保存形式・安全基準を変更しない。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 通常・選択・hover背景の文字コントラストを4.5:1以上とする数値回帰試験を追加。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence: *id001
+  note: 実際のCSS変数から輝度比を計算し、色の後退を検出する。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 変更はタグ候補の文字色と通常・選択・hover状態の回帰確認に限定する。公開データ・保存形式・安全基準を変更しない。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 変更はタグ候補の文字色と通常・選択・hover状態の回帰確認に限定する。公開データ・保存形式・安全基準を変更しない。
+- id: FAST-013
+  class: Risk-selected
+  result: pass
+  evidence: *id001
+  note: 変更はタグ候補の文字色と通常・選択・hover状態の回帰確認に限定する。公開データ・保存形式・安全基準を変更しない。
+- id: FAST-014
+  class: Risk-selected
+  result: pass
+  evidence: *id001
+  note: 変更はタグ候補の文字色と通常・選択・hover状態の回帰確認に限定する。公開データ・保存形式・安全基準を変更しない。
+- id: FAST-018
+  class: Risk-selected
+  result: pass
+  evidence: *id001
+  note: 選択とhoverを明示したE2Eで既存axe基準を維持する。実ブラウザ合否はexact-head CIで確認する。
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 既存のアクセシビリティ基準を満たす色修正であり、要件は変更しない。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 変更はタグ候補の文字色と通常・選択・hover状態の回帰確認に限定する。公開データ・保存形式・安全基準を変更しない。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 変更はタグ候補の文字色と通常・選択・hover状態の回帰確認に限定する。公開データ・保存形式・安全基準を変更しない。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 所有者のマージ後確認の承認範囲で回復可能な不具合を修正し、検証後にマージ・公開を確認する。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 変更はタグ候補の文字色と通常・選択・hover状態の回帰確認に限定する。公開データ・保存形式・安全基準を変更しない。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260930-tag-contrast.yaml
+  note: 変更はタグ候補の文字色と通常・選択・hover状態の回帰確認に限定する。公開データ・保存形式・安全基準を変更しない。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 変更はタグ候補の文字色と通常・選択・hover状態の回帰確認に限定する。公開データ・保存形式・安全基準を変更しない。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 変更はタグ候補の文字色と通常・選択・hover状態の回帰確認に限定する。公開データ・保存形式・安全基準を変更しない。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence: *id001
+  note: 変更はタグ候補の文字色と通常・選択・hover状態の回帰確認に限定する。公開データ・保存形式・安全基準を変更しない。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260930-tag-contrast.yaml
+  note: 変更はタグ候補の文字色と通常・選択・hover状態の回帰確認に限定する。公開データ・保存形式・安全基準を変更しない。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260930-tag-contrast.yaml
+  note: 変更はタグ候補の文字色と通常・選択・hover状態の回帰確認に限定する。公開データ・保存形式・安全基準を変更しない。
+- id: REV-013
+  class: Risk-selected
+  result: pass
+  evidence: *id001
+  note: 色の判別を既存のモバイル・デスクトップE2Eで検証し、初見利用者実測と区別する。
+advisories: []
+residual_risks:
+- mainのモバイルE2Eで4.45:1のコントラスト不足を検出。修正後のexact-head CIで実ブラウザ検証する。
+- ローカルChromiumはsocket制限で起動不可。数値回帰試験と型・lintを確認し、ブラウザ判定を公式CIへ委ねる。
