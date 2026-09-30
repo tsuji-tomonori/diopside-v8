@@ -19,6 +19,10 @@
       "sha256": "89821f305ada29c1c0c38d60ef6021df310ab60ee623303706273eaaefc4e602"
     },
     {
+      "path": "scripts/audit-content-coverage.ts",
+      "sha256": "d04507fe1e6c34058e3304cc26b3b230f657b380171b1682ba9941c9cbaf3c3d"
+    },
+    {
       "path": "scripts/audit-game-tags.ts",
       "sha256": "1a0bb774bfc0528a9996aa54ec7079fe0bbecacde3d6c10579ac767c582079c4"
     },
@@ -55,6 +59,10 @@
       "sha256": "8652f211126f4c395bbe818e2769bf686e33f84992f189e18e71d4331723e379"
     },
     {
+      "path": "scripts/content-coverage.ts",
+      "sha256": "918a7e77f726f78f59fb7708c5e66bc27f4a14191ee43890747ac1238c049950"
+    },
+    {
       "path": "scripts/detect-video-candidates.ts",
       "sha256": "59a6cf1495884efea541c9fc380c6d5d2cb8f4341f59bfaf5ef246e33cabe928"
     },
@@ -68,7 +76,7 @@
     },
     {
       "path": "scripts/generate-requirements.ts",
-      "sha256": "bede8cf5d8c3eda593e803034e6bd4929c9c181599c0011e651d1e227e824940"
+      "sha256": "3391ff0c13b3faf1f554e3af784bf6a21b2a9359341405243750bf8de9b9015f"
     },
     {
       "path": "scripts/generate-video-pr-body.ts",
@@ -119,6 +127,10 @@
       "sha256": "425303165287d3a98c491354a7b8c34c184f997a4f529edeb6453eedc309da1f"
     },
     {
+      "path": "scripts/requirement-preservation.ts",
+      "sha256": "fc710698b7c0439f334efd4be7c6e71bfb0c64d823a336e8bf88198f812e7963"
+    },
+    {
       "path": "scripts/source-shards.ts",
       "sha256": "931dcc5b53ed28f6bf4fcd75af343e8ae925395dc9f24c71dedf4c2e550fdaa7"
     },
@@ -164,11 +176,11 @@
     },
     {
       "path": "src/data/deviceStore.test.ts",
-      "sha256": "a483955de84832844f8bb2625806475af1625c7ee19a5c0bf1a0ab36d7634e9d"
+      "sha256": "59dca137ee482700c9c78cf642f7b915f5b82ae22dffbfa87bc005ba72823d7d"
     },
     {
       "path": "src/data/deviceStore.ts",
-      "sha256": "af9d75f474c09a18bc190c1887428d6567ac9bf3cc404fb0b995b49dffbd6005"
+      "sha256": "58b25a0186e8a043cf11f793060ad20d6db75b5ed06ede9da89a876e3ce1f9dd"
     },
     {
       "path": "src/data/loadPublicData.test.ts",
@@ -220,11 +232,11 @@
     },
     {
       "path": "src/domain/search.test.ts",
-      "sha256": "65534c5450e35c00dc9e8e548af520d8626cc1d6b1f19109179c062522dc4284"
+      "sha256": "8772fe14f3609b10602d84d17284a94a1d2f1c909d2bd120d8b66f7ae03ea19b"
     },
     {
       "path": "src/domain/search.ts",
-      "sha256": "9a5ae0fa50152fcb9e36f91cacd4fbec614e24b6cbd0d1f57281da1db449cd19"
+      "sha256": "11d5b8cd866fa65283d02cc2f231506c626296b0109aa55731ed090558d71e20"
     },
     {
       "path": "src/domain/sequential-guest-audit.test.ts",
@@ -311,8 +323,12 @@
       "sha256": "7d19d66a8e37791a503b3690ae05f806212fe82233fd2330d208944a50b6fdd7"
     },
     {
+      "path": "src/features/library/DeviceLibraryPage.test.tsx",
+      "sha256": "fbc2149eea51fb6647a70e931c3c04bd65f28749f7b53b66808b0bbac5e76eae"
+    },
+    {
       "path": "src/features/library/DeviceLibraryPage.tsx",
-      "sha256": "70e219303f5c441543451088ad7f38bc36cc0498e21ef5af6670bbcda44034f9"
+      "sha256": "58b069a0787f33cdf42da8483f2f7f3f5acfbd581a1be2cfd18380c80fa32ef6"
     },
     {
       "path": "src/features/search/DateRangePicker.tsx",
@@ -328,11 +344,19 @@
     },
     {
       "path": "src/features/search/SearchPage.test.tsx",
-      "sha256": "452b520cfbf929d8e23842c8d2c5a00c12da94ad1acccf8da33bb7a560df4f6f"
+      "sha256": "8c57f554c78d99df7aee544bbd5f1768ca76b33ce449d8643edf90ef18a99fbb"
     },
     {
       "path": "src/features/search/SearchPage.tsx",
-      "sha256": "4379709303be83560156a0b72a98a4b7180f780162357df04b7a62b6ce4c1641"
+      "sha256": "59031272a38c3519a03b84110b02ee649036cf318996c0647e31ea908d86820d"
+    },
+    {
+      "path": "src/features/search/TagSearchControls.test.tsx",
+      "sha256": "4168b7b12474e1c72fa583b6f7a38514fb1b70cb524089dc087f431fb0162c4f"
+    },
+    {
+      "path": "src/features/search/TagSearchControls.tsx",
+      "sha256": "8c5631ac4372c8de587239f0b28888535cae9dab4cdf53739a6046517d298845"
     },
     {
       "path": "src/features/series/SeriesDetailPage.test.tsx",
@@ -429,6 +453,51 @@
       "kind": "FunctionDeclaration"
     },
     {
+      "file": "scripts/content-coverage.ts",
+      "name": "buildContentCoverage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/content-coverage.ts",
+      "name": "CoverageStatus",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "scripts/content-coverage.ts",
+      "name": "EnrichmentClaims",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "scripts/content-coverage.ts",
+      "name": "enrichmentClaimsSchema",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "scripts/content-coverage.ts",
+      "name": "EnrichmentFeature",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "scripts/content-coverage.ts",
+      "name": "enrichmentFeatures",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "scripts/content-coverage.ts",
+      "name": "FeatureCoverage",
+      "kind": "InterfaceDeclaration"
+    },
+    {
+      "file": "scripts/content-coverage.ts",
+      "name": "planEnrichment",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/content-coverage.ts",
+      "name": "videoFeatureCoverage",
+      "kind": "FunctionDeclaration"
+    },
+    {
       "file": "scripts/japanese-reading.ts",
       "name": "createJapaneseReadingNormalizer",
       "kind": "FunctionDeclaration"
@@ -521,6 +590,11 @@
     {
       "file": "scripts/lib.ts",
       "name": "sha256",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/requirement-preservation.ts",
+      "name": "preserveCanonicalRequirements",
       "kind": "FunctionDeclaration"
     },
     {
@@ -1180,6 +1254,11 @@
     },
     {
       "file": "src/domain/search.ts",
+      "name": "searchTagSuggestions",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
       "name": "SearchVideo",
       "kind": "TypeAliasDeclaration"
     },
@@ -1210,12 +1289,27 @@
     },
     {
       "file": "src/domain/search.ts",
+      "name": "TagMatch",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "TagSelection",
+      "kind": "TypeAliasDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
       "name": "tokenizeQuery",
       "kind": "FunctionDeclaration"
     },
     {
       "file": "src/domain/search.ts",
       "name": "validateCondition",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "src/domain/search.ts",
+      "name": "withTagSelection",
       "kind": "FunctionDeclaration"
     },
     {
@@ -1409,6 +1503,11 @@
       "kind": "FunctionDeclaration"
     },
     {
+      "file": "src/features/search/TagSearchControls.tsx",
+      "name": "TagSearchControls",
+      "kind": "FunctionDeclaration"
+    },
+    {
       "file": "src/features/series/SeriesDetailPage.tsx",
       "name": "SeriesDetailPage",
       "kind": "FunctionDeclaration"
@@ -1461,6 +1560,7 @@
     "e2e/library.spec.ts",
     "e2e/search.spec.ts",
     "e2e/song-index.spec.ts",
+    "e2e/tag-composition.spec.ts",
     "src/data/deviceStore.test.ts",
     "src/data/loadPublicData.test.ts",
     "src/domain/collaboration-group-audit.test.ts",
@@ -1475,8 +1575,10 @@
     "src/features/detail/wordCloudLayout.test.ts",
     "src/features/entities/EntityIndexPage.test.tsx",
     "src/features/games/GameIndexPage.test.tsx",
+    "src/features/library/DeviceLibraryPage.test.tsx",
     "src/features/search/SearchFilterControls.test.tsx",
     "src/features/search/SearchPage.test.tsx",
+    "src/features/search/TagSearchControls.test.tsx",
     "src/features/series/SeriesDetailPage.test.tsx",
     "src/features/songs/SongIndexPage.test.tsx",
     "src/features/works/WorkDetailPage.test.tsx"

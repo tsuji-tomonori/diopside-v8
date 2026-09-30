@@ -35,6 +35,7 @@
 | 分類 | 件数 |
 |---|---:|
 | COST | 5 |
+| COVERAGE | 2 |
 | DEVICE | 11 |
 | DISPLAY | 23 |
 | INGEST | 17 |
@@ -44,7 +45,7 @@
 | SEARCH | 22 |
 | TAG | 44 |
 | TIME | 38 |
-| **合計** | **196** |
+| **合計** | **198** |
 
 ## 公開データの流れ
 
@@ -66,6 +67,15 @@
 | `scripts/audit-guest-song-performances.ts` | VariableStatement | `guestSongAuditSchema` |
 | `scripts/canonical-store.ts` | InterfaceDeclaration | `CanonicalStoreOptions` |
 | `scripts/canonical-store.ts` | FunctionDeclaration | `readCanonicalVideos` |
+| `scripts/content-coverage.ts` | FunctionDeclaration | `buildContentCoverage` |
+| `scripts/content-coverage.ts` | TypeAliasDeclaration | `CoverageStatus` |
+| `scripts/content-coverage.ts` | TypeAliasDeclaration | `EnrichmentClaims` |
+| `scripts/content-coverage.ts` | VariableStatement | `enrichmentClaimsSchema` |
+| `scripts/content-coverage.ts` | TypeAliasDeclaration | `EnrichmentFeature` |
+| `scripts/content-coverage.ts` | VariableStatement | `enrichmentFeatures` |
+| `scripts/content-coverage.ts` | InterfaceDeclaration | `FeatureCoverage` |
+| `scripts/content-coverage.ts` | FunctionDeclaration | `planEnrichment` |
+| `scripts/content-coverage.ts` | FunctionDeclaration | `videoFeatureCoverage` |
 | `scripts/japanese-reading.ts` | FunctionDeclaration | `createJapaneseReadingNormalizer` |
 | `scripts/japanese-reading.ts` | VariableStatement | `japaneseReadingVersion` |
 | `scripts/japanese-reading.ts` | InterfaceDeclaration | `ReadingOverrides` |
@@ -85,6 +95,7 @@
 | `scripts/lib.ts` | FunctionDeclaration | `prettyJson` |
 | `scripts/lib.ts` | FunctionDeclaration | `readJson` |
 | `scripts/lib.ts` | FunctionDeclaration | `sha256` |
+| `scripts/requirement-preservation.ts` | FunctionDeclaration | `preserveCanonicalRequirements` |
 | `scripts/source-shards.ts` | FunctionDeclaration | `readSourceShards` |
 | `scripts/source-shards.ts` | FunctionDeclaration | `shardIdForKey` |
 | `scripts/source-shards.ts` | InterfaceDeclaration | `SourceShardEntry` |
@@ -216,14 +227,18 @@
 | `src/domain/search.ts` | InterfaceDeclaration | `SearchCondition` |
 | `src/domain/search.ts` | InterfaceDeclaration | `SearchResult` |
 | `src/domain/search.ts` | InterfaceDeclaration | `SearchSuggestions` |
+| `src/domain/search.ts` | FunctionDeclaration | `searchTagSuggestions` |
 | `src/domain/search.ts` | TypeAliasDeclaration | `SearchVideo` |
 | `src/domain/search.ts` | FunctionDeclaration | `serializeCondition` |
 | `src/domain/search.ts` | TypeAliasDeclaration | `SortOrder` |
 | `src/domain/search.ts` | InterfaceDeclaration | `SuggestionTag` |
 | `src/domain/search.ts` | InterfaceDeclaration | `SuggestionVideo` |
 | `src/domain/search.ts` | FunctionDeclaration | `tagCountsForResults` |
+| `src/domain/search.ts` | TypeAliasDeclaration | `TagMatch` |
+| `src/domain/search.ts` | TypeAliasDeclaration | `TagSelection` |
 | `src/domain/search.ts` | FunctionDeclaration | `tokenizeQuery` |
 | `src/domain/search.ts` | FunctionDeclaration | `validateCondition` |
+| `src/domain/search.ts` | FunctionDeclaration | `withTagSelection` |
 | `src/domain/sequential-guest-audit.ts` | FunctionDeclaration | `auditSequentialGuestTags` |
 | `src/domain/sequential-guest-audit.ts` | InterfaceDeclaration | `SequentialGuestRecord` |
 | `src/domain/tag-assignment-audit.ts` | FunctionDeclaration | `auditTagAssignmentCoverage` |
@@ -262,6 +277,7 @@
 | `src/features/search/DateRangePicker.tsx` | FunctionDeclaration | `DateRangePicker` |
 | `src/features/search/DurationRangeSlider.tsx` | FunctionDeclaration | `DurationRangeSlider` |
 | `src/features/search/SearchPage.tsx` | FunctionDeclaration | `SearchPage` |
+| `src/features/search/TagSearchControls.tsx` | FunctionDeclaration | `TagSearchControls` |
 | `src/features/series/SeriesDetailPage.tsx` | FunctionDeclaration | `SeriesDetailPage` |
 | `src/features/songs/SongIndexPage.tsx` | FunctionDeclaration | `SongIndexPage` |
 | `src/features/works/WorkDetailPage.tsx` | FunctionDeclaration | `WorkDetailPage` |
@@ -276,6 +292,7 @@
 - `e2e/library.spec.ts`
 - `e2e/search.spec.ts`
 - `e2e/song-index.spec.ts`
+- `e2e/tag-composition.spec.ts`
 - `src/data/deviceStore.test.ts`
 - `src/data/loadPublicData.test.ts`
 - `src/domain/collaboration-group-audit.test.ts`
@@ -290,12 +307,14 @@
 - `src/features/detail/wordCloudLayout.test.ts`
 - `src/features/entities/EntityIndexPage.test.tsx`
 - `src/features/games/GameIndexPage.test.tsx`
+- `src/features/library/DeviceLibraryPage.test.tsx`
 - `src/features/search/SearchFilterControls.test.tsx`
 - `src/features/search/SearchPage.test.tsx`
+- `src/features/search/TagSearchControls.test.tsx`
 - `src/features/series/SeriesDetailPage.test.tsx`
 - `src/features/songs/SongIndexPage.test.tsx`
 - `src/features/works/WorkDetailPage.test.tsx`
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力91ファイル、公開契約214件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力97ファイル、公開契約229件です。

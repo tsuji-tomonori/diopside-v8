@@ -1,0 +1,223 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260930-corpus-tag-search
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: true
+  migration: false
+  ui_change: true
+  interactive_ui_change: true
+  operational_impact: true
+  requirements_impact: true
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: true
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: FAST-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:package.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 既存buildを使って静的生成とbundleを検証する。
+- id: FAST-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:tsconfig.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: strict型検査を維持する。
+- id: FAST-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:eslint.config.mjs
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 既存lint契約を弱めず対象を検証する。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:tests/content-coverage.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 存在・不足・対象外・未計測、ゼロ件、決定性、正本更新、claims保留を試験する。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:tests/requirement-preservation.test.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 旧generatorが新しい正本revisionと追加要件を失う問題を再現し、再生成を試験する。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:docs/design/generated/inventory.gen.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 正本から要件表示とas-built設計を生成し、公開releaseは別工程とする。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:scripts/content-coverage.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 生素材、投稿者情報、秘密情報を新しい出力へ持ち込まない。claims入力はstrict schemaで制限する。
+- id: FAST-013
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 選択中、除外、該当なし、上限、条件解除を表示する。
+- id: FAST-014
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: React操作試験でラベル、キーボード、Escape、IME、フォーカスを検証する。ネイティブブラウザ起動は環境制限のため未確認であり、CIのE2E確認を要する。
+- id: FAST-015
+  class: Advisory
+  result: pass
+  evidence:
+  - path:operations/content-coverage.md
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 計画と実行を区別し、PR保留と再確認手順を文書化する。
+- id: FAST-018
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:e2e/tag-composition.spec.ts
+  - path:src/features/search/TagSearchControls.test.tsx
+  note: 含む・除外・方式・履歴の期待状態をassertするE2EとReact操作試験を追加する。Chromium起動はクラウド実行環境のsocket制限で阻まれたため、ブラウザ実行結果はCIで別途確認する。
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/requirements/requirements.json
+  note: V8-SEARCH-008/010とV8-COVERAGE-001/002を所有者指示へ追跡する。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:scripts/content-coverage.ts
+  note: 静的検索条件、端末内保存、決定的な不足計画と生成設計へ影響する。新サービスは追加しない。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/features/search/TagSearchControls.tsx
+  note: 複数module、重要UI、要件とgeneratorの変更のためassuredとする。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 所有者が下書きPRとしての公開を明示承認した範囲でbranch、push、draft PRを作成する。merge・deployは行わない。
+- id: IMP-007
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:src/data/deviceStore.test.ts
+  note: 任意項目として方式と除外を保存し、既存検索の復元を保つ。動画正本を変更しない。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-30-corpus-search.md
+  note: 動画整備の可視化と検索の第一段階に限定し、素材生成や公開を同梱しない。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260930-corpus-tag-search.yaml
+  note: 構造化Commit Commentへ目的・要件・設計・検証・残存リスクを記載する。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/requirements/requirements.json
+  note: 自由なタグ検索と未完了整備の監査に必要な意味差分だけを正本へ反映する。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:docs/design/generated/system.gen.md
+  note: コード由来の設計を再生成する。新しい公開実行時サービスやIaC変更はない。
+- id: REV-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:tests/content-coverage.test.ts
+  note: 整備状態と検索条件の要件から実装とテストへ追跡する。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:src/domain/search.test.ts
+  note: AND/OR/除外、組合せ、共有URL、件数の契約を試験する。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260930-corpus-tag-search.yaml
+  note: 選択したcheckだけをこのファイルへ保存する。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20260930-corpus-tag-search.yaml
+  note: 未選択項目をN/Aとして記録しない。
+- id: REV-013
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:src/features/search/SearchPage.test.tsx
+  note: 別ページへ遷移せずタグを組み合わせる利用課題を検証する。初見利用者実測の代替とはしない。
+- id: REV-014
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:operations/content-coverage.md
+  note: 有限計画、PR確保と完成の違い、原子的claim前の再検証を操作契約として残す。
+advisories: []
+residual_risks:
+- 文字起こしの全編品質、語彙と意味のハイブリッド検索、全動画の素材生成、新着自動処理は本変更では未実装・未有効化。
+- 母数は現行除外適用後の登録済み動画。別チャンネル出演と旧別視点除外167件は個別根拠の再確認を要する。
+- 既存PR snapshotはlockではない。実行前の最新PR、正本指紋、除外の確認と原子的claimが必要で、古いclaimを自動奪取しない。
+- クラウド環境のsocket制限でChromiumが起動せず、追加E2E6件を含むブラウザ検証は実行できていない。公式CIの結果を確認するまでready扱いしない。
+- 初見利用者の実測と月次請求確認は既存の許可済み未完了項目として残る。merge・deployは所有者が行う。

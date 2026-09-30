@@ -89,7 +89,8 @@ function Empty({ message }: { message: string }): React.JSX.Element {
 
 function describeCondition(item: RecentSearchEntry): string {
   const parts = [item.condition.query || 'タイトル指定なし'];
-  if (item.condition.tagIds.length > 0) parts.push(`タグ${item.condition.tagIds.length}件`);
+  if (item.condition.tagIds.length > 0) parts.push(`タグ${item.condition.tagIds.length}件（${item.condition.tagMatch === 'any' ? 'いずれか' : 'すべて'}を含む）`);
+  if (item.condition.excludedTagIds?.length) parts.push(`除外タグ${item.condition.excludedTagIds.length}件`);
   if (item.condition.publishedFrom || item.condition.publishedTo) parts.push('公開日指定');
   if (item.condition.durationBucket || item.condition.durationMinMinutes !== undefined || item.condition.durationMaxMinutes !== undefined) parts.push('動画長指定');
   return parts.join('・');

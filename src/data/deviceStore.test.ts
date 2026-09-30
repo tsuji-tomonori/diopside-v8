@@ -49,6 +49,24 @@ describe('端末内データ', () => {
     expect(new Set(entries.map((item) => item.key)).size).toBe(20);
   });
 
+  it('最近の検索はANY・除外を再読後も保持し、同値なタグ順と既定ALLを重複保存しない', async () => {
+    const store = new DeviceStore();
+    await store.saveRecentSearch({ query: '雑談', tagIds: ['tag-b', 'tag-a'], tagMatch: 'any', excludedTagIds: ['tag-d', 'tag-c', 'tag-c'] });
+    await store.saveRecentSearch({ query: '雑談', tagIds: ['tag-a', 'tag-b'], tagMatch: 'any', excludedTagIds: ['tag-c', 'tag-d'] });
+    const reloaded = new DeviceStore();
+    expect((await reloaded.listRecentSearches()).map((entry) => entry.condition)).toEqual([{ query: '雑談', tagIds: ['tag-a', 'tag-b'], tagMatch: 'any', excludedTagIds: ['tag-c', 'tag-d'] }]);
+    await reloaded.saveRecentSearch({ query: '雑談', tagIds: ['tag-a', 'tag-b'], tagMatch: 'all', excludedTagIds: [] });
+    await reloaded.saveRecentSearch({ query: '雑談', tagIds: ['tag-b', 'tag-a'] });
+    expect(await reloaded.listRecentSearches()).toHaveLength(2);
+  });
+
+  it('除外タグだけの検索を保存し、タグ未指定の旧形式も読み込める', async () => {
+    const store = new DeviceStore();
+    await store.saveRecentSearch({ query: '', tagIds: [], excludedTagIds: ['tag-a'] });
+    await store.saveRecentSearch({ query: '旧条件', tagIds: [] });
+    expect((await new DeviceStore().listRecentSearches()).map((entry) => entry.condition)).toEqual([{ query: '旧条件', tagIds: [] }, { query: '', tagIds: [], excludedTagIds: ['tag-a'] }]);
+  });
+
   it('一括削除は履歴、お気に入り、検索、公開キャッシュだけを消す', async () => {
     const store = new DeviceStore();
     await store.recordHistory(summary(1));

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "catalog_revision": 39,
+  "catalog_revision": 42,
   "product": "diopside v8",
-  "updated_at": "2026-09-06",
+  "updated_at": "2026-09-30",
   "requirements": [
     {
       "acceptance_criteria": [
@@ -266,6 +266,96 @@
       "verification": {
         "evidence": "tests/repository-policy.test.ts",
         "method": "運用手順確認"
+      }
+    },
+    {
+      "acceptance_criteria": [
+        {
+          "given": "登録済み正本と任意の実行中PR snapshotがある",
+          "id": "AC-V8-COVERAGE-001-1",
+          "then": "絵文字総数と推移を区別し、取得済みゼロ件を未取得としない。private文字起こしと索引の有無を公開正本から推定せず未計測とする。",
+          "when": "機能別監査と有限計画の決定的検証"
+        }
+      ],
+      "action": "satisfy",
+      "category": "functional",
+      "id": "V8-COVERAGE-001",
+      "last_changed_by": "CHG-20260930-corpus-tag-search",
+      "object": "登録済み動画のタイムスタンプ、あらすじ、タグ、ワードクラウド、絵文字総数、絵文字推移、文字起こし、ハイブリッド検索の状態を機能別に監査できなければならない。存在を全編品質・網羅性と読み替えてはならない。",
+      "rationale": "全対象を着実に整備し、不足を完成と誤認せず既存作業を重複させないため。",
+      "revision": 1,
+      "scope": "product",
+      "source_refs": [
+        "user:2026-09-30",
+        "spec/sources/owner-directive-2026-09-30-corpus-search.md"
+      ],
+      "status": "active",
+      "subject": "diopside v8のコンテンツ整備",
+      "title": "機能別の存在・未作成・対象外・未計測を区別しなければならない",
+      "traces": {
+        "design": [
+          "docs/design/generated/system.gen.md"
+        ],
+        "implementation": [
+          "scripts/content-coverage.ts",
+          "scripts/audit-content-coverage.ts"
+        ],
+        "standards": [
+          "dev-standard assured profile"
+        ],
+        "tests": [
+          "tests/content-coverage.test.ts"
+        ]
+      },
+      "type": "functional",
+      "verification": {
+        "evidence": "tests/content-coverage.test.ts",
+        "method": "欠損・対象外・未計測・指紋・保留機能の単体試験"
+      }
+    },
+    {
+      "acceptance_criteria": [
+        {
+          "given": "登録済み正本と任意の実行中PR snapshotがある",
+          "id": "AC-V8-COVERAGE-002-1",
+          "then": "正本変更は指紋へ反映され、完了済みは再計画しない。PR確保中・停止中・レビュー待ちの動画は、既存PRの対象機能と要求された保留機能を区別し、不足のまま保留表示する。計画は実行権限を持たず、実行前の最新PRと指紋確認・原子的claimを要求する。",
+          "when": "機能別監査と有限計画の決定的検証"
+        }
+      ],
+      "action": "satisfy",
+      "category": "functional",
+      "id": "V8-COVERAGE-002",
+      "last_changed_by": "CHG-20260930-corpus-tag-search",
+      "object": "登録済み動画の未作成機能を新着順または過去順で有限集合にし、同じ正本と条件で同じ計画を再生成できなければならない。実行中PRがある動画は別機能も同じ正本を変更するため重複計画せず、未計測と対象外を自動処理対象へ変えてはならない。",
+      "rationale": "全対象を着実に整備し、不足を完成と誤認せず既存作業を重複させないため。",
+      "revision": 2,
+      "scope": "product",
+      "source_refs": [
+        "user:2026-09-30",
+        "spec/sources/owner-directive-2026-09-30-corpus-search.md"
+      ],
+      "status": "active",
+      "subject": "diopside v8のコンテンツ整備",
+      "title": "未完了の整備対象を重複防止付きの有限計画にできなければならない",
+      "traces": {
+        "design": [
+          "docs/design/generated/system.gen.md"
+        ],
+        "implementation": [
+          "scripts/content-coverage.ts",
+          "scripts/audit-content-coverage.ts"
+        ],
+        "standards": [
+          "dev-standard assured profile"
+        ],
+        "tests": [
+          "tests/content-coverage.test.ts"
+        ]
+      },
+      "type": "functional",
+      "verification": {
+        "evidence": "tests/content-coverage.test.ts",
+        "method": "欠損・対象外・未計測・指紋・保留機能の単体試験"
       }
     },
     {
@@ -5239,17 +5329,40 @@
       "last_changed_by": "ISSUE-1-IMPLEMENTATION"
     },
     {
-      "id": "V8-SEARCH-008",
-      "revision": 4,
-      "status": "active",
-      "scope": "product",
-      "category": "functional",
-      "type": "functional",
-      "title": "検索欄のタグ候補と詳細なタグ絞り込みは、選択だけで検索し、分類ごとに折り畳めなければならない",
-      "subject": "diopside v8の検索",
+      "acceptance_criteria": [
+        {
+          "given": "検索欄へ登録済みタグ名またはその読みの一部を入力している",
+          "id": "AC-V8-SEARCH-008-1",
+          "then": "候補をタグと明示し、選択すると自由入力のタイトル語ではなく不変タグIDの絞り込み条件として適用して動画一覧を更新する。",
+          "when": "検索候補からタグを選択する画面試験"
+        },
+        {
+          "given": "タイトル・公開日・動画長・選択済みタグの現在条件があり、利用者が検索候補または詳細な候補タグを追加または解除する",
+          "id": "AC-V8-SEARCH-008-2",
+          "then": "追加後1件以上になる未選択タグと解除できる選択済みタグだけを日本語名と件数付きで示す。タグ選択だけで不変タグIDの検索条件と共有可能URLを更新し、タグ候補欄を滑らかに折り畳み、動画件数見出しへフォーカスと表示位置を移す。再度タグ候補欄を開くと選択状態を維持している。",
+          "when": "タグ選択から検索結果までの画面操作試験・件数契約試験・折り畳み操作試験"
+        },
+        {
+          "given": "多数のタグを持つ詳細絞り込みをモバイルまたはデスクトップで開いている",
+          "id": "AC-V8-SEARCH-008-3",
+          "then": "公開日と動画長を全タグ一覧より前で操作できる。選択中タグ、よく使う主ジャンル、タグ名または別名の入力は全分類を開かずに利用でき、全タグは大分類と小分類が閉じた状態から必要な分類だけを開ける。",
+          "when": "公開日・動画長またはタグを選ぶ画面操作試験・折り畳み構造試験"
+        },
+        {
+          "given": "検索画面でタグ名または別名を入力する",
+          "id": "AC-V8-SEARCH-008-4",
+          "then": "別ページへ移動せず条件と結果が更新され、適用中条件と方式が分かる。",
+          "when": "タグを含む・除外へ追加し個別解除する"
+        }
+      ],
       "action": "satisfy",
-      "object": "検索欄は登録済みタグを動画候補と区別して提示し、選択時に不変タグIDの絞り込み条件として適用しなければならない。詳細な絞り込みでは、公開日と動画長を全タグ一覧より前で操作できなければならない。タグ絞り込み欄は、選択中タグ、よく使う主ジャンル、タグ名または別名の入力を全タグの展開なしに提示し、全タグを大分類と小分類ごとに初期状態で折り畳まなければならない。選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。利用者が検索候補または詳細な候補タグを追加または解除した時点で、追加の確定操作なしに検索条件を反映し、タグ補助候補欄を折り畳み、動画一覧へ移動できなければならない。",
+      "category": "functional",
+      "id": "V8-SEARCH-008",
+      "last_changed_by": "CHG-20260930-corpus-tag-search",
+      "object": "検索欄は登録済みタグを動画候補と区別して提示し、選択時に不変タグIDの絞り込み条件として適用しなければならない。詳細な絞り込みでは、公開日と動画長を全タグ一覧より前で操作できなければならない。タグ絞り込み欄は、選択中タグ、よく使う主ジャンル、タグ名または別名の入力を全タグの展開なしに提示し、全タグを大分類と小分類ごとに初期状態で折り畳まなければならない。選択可能な日本語名と追加選択後の該当件数を表示し、現在の条件で0件になる未選択タグを隠し、折り畳み後も選択状態を維持しなければならない。利用者が検索候補または詳細な候補タグを追加または解除した時点で、追加の確定操作なしに検索条件を反映し、タグ補助候補欄を折り畳み、動画一覧へ移動できなければならない。 エンティティ詳細への候補導線とは別に、登録済みタグを現在画面の含む・除外条件へ直接追加する入力欄を持ち、選択条件を表示して個別解除できなければならない。",
       "rationale": "利用者が題名の断片や表記揺れから、意図した公開アーカイブを速く再発見できるようにするため。",
+      "revision": 5,
+      "scope": "product",
       "source_refs": [
         "Issue #1 V8-検索-008",
         "user:2026-08-03",
@@ -5258,32 +5371,13 @@
         "user:2026-08-20",
         "owner-directive:2026-08-20",
         "spec/sources/owner-directive-2026-08-28-search-filter-navigation.md",
-        "user:2026-08-28"
+        "user:2026-08-28",
+        "user:2026-09-30",
+        "spec/sources/owner-directive-2026-09-30-corpus-search.md"
       ],
-      "acceptance_criteria": [
-        {
-          "id": "AC-V8-SEARCH-008-1",
-          "given": "検索欄へ登録済みタグ名またはその読みの一部を入力している",
-          "when": "検索候補からタグを選択する画面試験",
-          "then": "候補をタグと明示し、選択すると自由入力のタイトル語ではなく不変タグIDの絞り込み条件として適用して動画一覧を更新する。"
-        },
-        {
-          "id": "AC-V8-SEARCH-008-2",
-          "given": "タイトル・公開日・動画長・選択済みタグの現在条件があり、利用者が検索候補または詳細な候補タグを追加または解除する",
-          "when": "タグ選択から検索結果までの画面操作試験・件数契約試験・折り畳み操作試験",
-          "then": "追加後1件以上になる未選択タグと解除できる選択済みタグだけを日本語名と件数付きで示す。タグ選択だけで不変タグIDの検索条件と共有可能URLを更新し、タグ候補欄を滑らかに折り畳み、動画件数見出しへフォーカスと表示位置を移す。再度タグ候補欄を開くと選択状態を維持している。"
-        },
-        {
-          "id": "AC-V8-SEARCH-008-3",
-          "given": "多数のタグを持つ詳細絞り込みをモバイルまたはデスクトップで開いている",
-          "when": "公開日・動画長またはタグを選ぶ画面操作試験・折り畳み構造試験",
-          "then": "公開日と動画長を全タグ一覧より前で操作できる。選択中タグ、よく使う主ジャンル、タグ名または別名の入力は全分類を開かずに利用でき、全タグは大分類と小分類が閉じた状態から必要な分類だけを開ける。"
-        }
-      ],
-      "verification": {
-        "method": "検索候補・タグ条件適用・件数契約・公開日到達順・大分類と小分類の折り畳み操作試験",
-        "evidence": "src/features/search/SearchPage.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts"
-      },
+      "status": "active",
+      "subject": "diopside v8の検索",
+      "title": "検索欄のタグ候補と詳細なタグ絞り込みは、選択だけで検索し、分類ごとに折り畳めなければならない",
       "traces": {
         "design": [
           "docs/design/generated/system.gen.md"
@@ -5292,17 +5386,21 @@
           "src/domain/search.ts",
           "src/features/search/SearchPage.tsx"
         ],
+        "standards": [
+          "Issue #1",
+          "dev-standard default profile"
+        ],
         "tests": [
           "src/domain/search.test.ts",
           "e2e/search.spec.ts",
           "src/features/search/SearchPage.test.tsx"
-        ],
-        "standards": [
-          "Issue #1",
-          "dev-standard default profile"
         ]
       },
-      "last_changed_by": "CHG-20260828-grouped-search-filters"
+      "type": "functional",
+      "verification": {
+        "evidence": "src/features/search/SearchPage.test.tsx, src/domain/search.test.ts, e2e/search.spec.ts",
+        "method": "検索候補・タグ条件適用・件数契約・公開日到達順・大分類と小分類の折り畳み操作試験"
+      }
     },
     {
       "id": "V8-SEARCH-009",
@@ -5352,33 +5450,31 @@
       "last_changed_by": "ISSUE-1-IMPLEMENTATION"
     },
     {
-      "id": "V8-SEARCH-010",
-      "revision": 1,
-      "status": "active",
-      "scope": "product",
-      "category": "functional",
-      "type": "functional",
-      "title": "複数タグを選択した場合は、選択したすべてのタグを持つ動画だけを表示しなければならない",
-      "subject": "diopside v8の検索",
-      "action": "satisfy",
-      "object": "複数タグを選択した場合は、選択したすべてのタグを持つ動画だけを表示しなければならない。",
-      "rationale": "利用者が題名の断片や表記揺れから、意図した公開アーカイブを速く再発見できるようにするため。",
-      "source_refs": [
-        "Issue #1 V8-検索-010",
-        "user:2026-08-03"
-      ],
       "acceptance_criteria": [
         {
+          "given": "複数の含むタグ、除外タグ、検索条件がある",
           "id": "AC-V8-SEARCH-010-1",
-          "given": "V8-検索-010の前提を満たす公開データまたは操作がある",
-          "when": "2件・3件・未知タグの積集合試験",
-          "then": "タグAとタグBの選択時に、AだけまたはBだけの動画を除外し、AとBの両方を持つ動画だけを残す。"
+          "then": "省略時は従来の積集合を保つ。いずれか一致は和集合とし、除外を常に適用する。含むタグなしの場合は全動画から他条件で絞る。復元後も同じ結果となる。",
+          "when": "全一致・いずれか一致・除外の組合せとURL・端末内保存の往復試験"
         }
       ],
-      "verification": {
-        "method": "2件・3件・未知タグの積集合試験",
-        "evidence": "src/domain/search.test.ts, e2e/search.spec.ts"
-      },
+      "action": "satisfy",
+      "category": "functional",
+      "id": "V8-SEARCH-010",
+      "last_changed_by": "CHG-20260930-corpus-tag-search",
+      "object": "複数タグを選択した場合は、初期状態では全タグ一致とし、利用者がいずれか一致へ切り替えられなければならない。除外タグを持つ動画は一致方式にかかわらず除外する。方式と除外タグは共有URLと端末内の最近の検索から復元できなければならない。",
+      "rationale": "利用者が題名の断片や表記揺れから、意図した公開アーカイブを速く再発見できるようにするため。",
+      "revision": 2,
+      "scope": "product",
+      "source_refs": [
+        "Issue #1 V8-検索-010",
+        "user:2026-08-03",
+        "user:2026-09-30",
+        "spec/sources/owner-directive-2026-09-30-corpus-search.md"
+      ],
+      "status": "active",
+      "subject": "diopside v8の検索",
+      "title": "タグ条件は全一致・いずれか一致・除外を選択し、URLと端末内保存から復元できなければならない",
       "traces": {
         "design": [
           "docs/design/generated/system.gen.md"
@@ -5387,16 +5483,20 @@
           "src/domain/search.ts",
           "src/features/search/SearchPage.tsx"
         ],
-        "tests": [
-          "src/domain/search.test.ts",
-          "e2e/search.spec.ts"
-        ],
         "standards": [
           "Issue #1",
           "dev-standard default profile"
+        ],
+        "tests": [
+          "src/domain/search.test.ts",
+          "e2e/search.spec.ts"
         ]
       },
-      "last_changed_by": "ISSUE-1-IMPLEMENTATION"
+      "type": "functional",
+      "verification": {
+        "evidence": "src/domain/search.test.ts, e2e/search.spec.ts",
+        "method": "2件・3件・未知タグの積集合試験"
+      }
     },
     {
       "id": "V8-SEARCH-011",

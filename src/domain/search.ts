@@ -1,11 +1,16 @@
 import type { SearchIndex } from './content.ts';
 
 export type DurationBucket = '30分未満' | '30分以上1時間未満' | '1時間以上2時間未満' | '2時間以上';
+export type TagMatch = 'all' | 'any';
+export type TagSelection = 'include' | 'exclude' | 'remove';
+
 export type SortOrder = '関連度順' | '公開日の新しい順' | '公開日の古い順' | '動画長の短い順' | '動画長の長い順';
 
 export interface SearchCondition {
   query: string;
   tagIds: string[];
+  tagMatch?: TagMatch;
+  excludedTagIds?: string[];
   publishedFrom?: string;
   publishedTo?: string;
   durationBucket?: DurationBucket;
@@ -36,6 +41,7 @@ export interface SuggestionTag {
   count: number;
   aliases: string[];
   entityId?: string;
+  categoryLabel?: string;
 }
 
 export interface SearchSuggestions {
@@ -44,7 +50,7 @@ export interface SearchSuggestions {
 }
 
 export interface ConditionError {
-  field: '公開日' | '動画長';
+  field: '公開日' | '動画長' | 'タグ';
   message: string;
 }
 
@@ -252,21 +258,30 @@ export function buildSearchSuggestions(
       || left.value.videoId.localeCompare(right.value.videoId))
     .slice(0, limitPerKind)
     .map(({ value }) => value);
-  const tagsRanked = tags
+  return { videos: videosRanked, tags: searchTagSuggestions(query, tags, limitPerKind) };
+}
+
+export function searchTagSuggestions(query: string, tags: SuggestionTag[], limit = 12): SuggestionTag[] {
+  const normalizedQuery = normalizeTitleForSearch(query);
+  if (!normalizedQuery) return [];
+  const terms = normalizedQuery.split(' ');
+  return tags
     .flatMap((tag) => {
-      const rank = suggestionRank(normalizedQuery, [
+      const texts = [
         normalizeTitleForSearch(tag.canonicalName),
         tag.normalizedReading,
         ...tag.aliases.map(normalizeTitleForSearch),
-      ]);
+      ];
+      const rank = suggestionRank(normalizedQuery, texts)
+        ?? (terms.every((term) => texts.some((text) => text.includes(term))) ? 4 : null);
       return rank === null ? [] : [{ value: tag, rank }];
     })
     .sort((left, right) => left.rank - right.rank
       || right.value.count - left.value.count
-      || left.value.canonicalName.localeCompare(right.value.canonicalName, 'ja'))
-    .slice(0, limitPerKind)
+      || left.value.canonicalName.localeCompare(right.value.canonicalName, 'ja')
+      || left.value.tagId.localeCompare(right.value.tagId))
+    .slice(0, Math.max(0, limit))
     .map(({ value }) => value);
-  return { videos: videosRanked, tags: tagsRanked };
 }
 
 function suggestionRank(query: string, texts: string[]): number | null {
@@ -282,6 +297,9 @@ function suggestionRank(query: string, texts: string[]): number | null {
 
 export function validateCondition(condition: SearchCondition): ConditionError[] {
   const errors: ConditionError[] = [];
+  if (new Set(condition.tagIds).size > 30 || new Set(condition.excludedTagIds ?? []).size > 30) {
+    errors.push({ field: 'タグ', message: '含めるタグ・除外するタグはそれぞれ30件までです。選択中のタグを解除してください。' });
+  }
   if (condition.publishedFrom && condition.publishedTo && condition.publishedFrom > condition.publishedTo) {
     errors.push({ field: '公開日', message: '公開日の開始日は終了日以前にしてください。' });
   }
@@ -310,11 +328,14 @@ export function applySearch(videos: SearchVideo[], condition: SearchCondition): 
   const normalizedQuery = normalizeTitleForSearch(condition.query);
   const requestedSort = condition.sort ?? (normalizedQuery ? '関連度順' : '公開日の新しい順');
   const selectedTags = [...new Set(condition.tagIds)].sort();
+  const excludedTags = [...new Set(condition.excludedTagIds ?? [])].sort();
   const cache = searchResultCache.get(videos) ?? new Map<string, SearchResult[]>();
   if (!searchResultCache.has(videos)) searchResultCache.set(videos, cache);
   const cacheKey = JSON.stringify({
     query: normalizedQuery,
     tagIds: selectedTags,
+    tagMatch: condition.tagMatch ?? 'all',
+    excludedTagIds: excludedTags,
     publishedFrom: condition.publishedFrom ?? null,
     publishedTo: condition.publishedTo ?? null,
     durationBucket: condition.durationBucket ?? null,
@@ -353,7 +374,10 @@ export function applySearch(videos: SearchVideo[], condition: SearchCondition): 
   for (const video of source) {
     const score = relevance(query, video);
     if (!score) continue;
-    if (!selectedTags.every((tagId) => video.tagIds.includes(tagId))) continue;
+    if (excludedTags.some((tagId) => video.tagIds.includes(tagId))) continue;
+    if (selectedTags.length > 0 && !(condition.tagMatch === 'any'
+      ? selectedTags.some((tagId) => video.tagIds.includes(tagId))
+      : selectedTags.every((tagId) => video.tagIds.includes(tagId)))) continue;
     if (condition.publishedFrom || condition.publishedTo) {
       const publishedDate = dateInJapan(video.publishedAt);
       if (condition.publishedFrom && publishedDate < condition.publishedFrom) continue;
@@ -407,7 +431,18 @@ export function additionalTagCounts(
   videos: SearchVideo[],
   condition: SearchCondition,
 ): Map<string, number> {
-  return tagCountsForResults(applySearch(videos, condition));
+  const matching = applySearch(videos, condition);
+  if (condition.tagMatch !== 'any' || condition.tagIds.length === 0) return tagCountsForResults(matching);
+  const matchingIds = new Set(matching.map((video) => video.videoId));
+  const baseResults = applySearch(videos, { ...condition, tagIds: [] });
+  const counts = new Map(videos.flatMap((video) => video.tagIds.map((tagId) => [tagId, matching.length] as const)));
+  for (const video of baseResults) {
+    for (const tagId of new Set(video.tagIds)) {
+      if (!counts.has(tagId)) counts.set(tagId, matching.length);
+      if (!matchingIds.has(video.videoId)) counts.set(tagId, counts.get(tagId)! + 1);
+    }
+  }
+  return counts;
 }
 
 export function tagCountsForResults(matching: SearchResult[]): Map<string, number> {
@@ -416,6 +451,19 @@ export function tagCountsForResults(matching: SearchResult[]): Map<string, numbe
     for (const tagId of new Set(video.tagIds)) counts.set(tagId, (counts.get(tagId) ?? 0) + 1);
   }
   return counts;
+}
+
+export function withTagSelection(condition: SearchCondition, tagId: string, selection: TagSelection): SearchCondition {
+  const { excludedTagIds: _excluded, ...rest } = condition;
+  const tagIds = condition.tagIds.filter((id) => id !== tagId);
+  const excludedTagIds = (condition.excludedTagIds ?? []).filter((id) => id !== tagId);
+  if (selection === 'include') tagIds.push(tagId);
+  if (selection === 'exclude') excludedTagIds.push(tagId);
+  return {
+    ...rest,
+    tagIds: [...new Set(tagIds)],
+    ...(excludedTagIds.length > 0 ? { excludedTagIds: [...new Set(excludedTagIds)] } : {}),
+  };
 }
 
 export function normalizeTagAlias(value: string): string {
@@ -479,6 +527,8 @@ export function serializeCondition(condition: SearchCondition): URLSearchParams 
   const params = new URLSearchParams();
   if (condition.query.trim()) params.set('q', condition.query.trim());
   for (const tagId of [...new Set(condition.tagIds)].sort()) params.append('tag', tagId);
+  if (condition.tagMatch === 'any') params.set('tagMatch', 'any');
+  for (const tagId of [...new Set(condition.excludedTagIds ?? [])].sort()) params.append('exclude', tagId);
   if (condition.publishedFrom) params.set('from', condition.publishedFrom);
   if (condition.publishedTo) params.set('to', condition.publishedTo);
   if (condition.durationBucket) params.set('length', condition.durationBucket);
@@ -491,9 +541,12 @@ export function serializeCondition(condition: SearchCondition): URLSearchParams 
 export function parseCondition(params: URLSearchParams): SearchCondition {
   const bucket = params.get('length');
   const sort = params.get('sort');
+  const excludedTagIds = [...new Set(params.getAll('exclude').filter(Boolean))].slice(0, 30);
   return {
     query: params.get('q')?.slice(0, 200) ?? '',
     tagIds: [...new Set(params.getAll('tag').filter(Boolean))].slice(0, 30),
+    ...(params.get('tagMatch') === 'any' ? { tagMatch: 'any' as const } : {}),
+    ...(excludedTagIds.length > 0 ? { excludedTagIds } : {}),
     ...(validDate(params.get('from')) ? { publishedFrom: params.get('from')! } : {}),
     ...(validDate(params.get('to')) ? { publishedTo: params.get('to')! } : {}),
     ...(durationBuckets.some((item) => item.label === bucket) ? { durationBucket: bucket as DurationBucket } : {}),
