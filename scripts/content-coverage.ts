@@ -16,6 +16,10 @@ export interface FeatureCoverage {
 export const enrichmentClaimsSchema = z.object({
   schemaVersion: z.literal('1.0.0'),
   checkedAt: z.iso.datetime({ offset: true }),
+  // Optional for legacy snapshots; readiness fails closed unless both are present.
+  corpusFingerprint: z.string().regex(/^[a-f0-9]{64}$/u).optional(),
+  complete: z.boolean().optional(),
+  unresolvedPullRequests: z.array(z.string().regex(/^https:\/\/github\.com\/[^/]+\/[^/]+\/pull\/[1-9]\d*$/u)).optional(),
   claims: z.array(z.object({
     videoId: z.string().regex(/^[A-Za-z0-9_-]{11}$/u),
     features: z.array(z.enum(enrichmentFeatures)).min(1),

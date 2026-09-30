@@ -76,6 +76,10 @@
 | `scripts/content-coverage.ts` | InterfaceDeclaration | `FeatureCoverage` |
 | `scripts/content-coverage.ts` | FunctionDeclaration | `planEnrichment` |
 | `scripts/content-coverage.ts` | FunctionDeclaration | `videoFeatureCoverage` |
+| `scripts/enrichment-readiness.ts` | FunctionDeclaration | `buildEnrichmentReadiness` |
+| `scripts/enrichment-readiness.ts` | VariableStatement | `readinessStatuses` |
+| `scripts/enrichment-readiness.ts` | TypeAliasDeclaration | `SourceInventory` |
+| `scripts/enrichment-readiness.ts` | VariableStatement | `sourceInventorySchema` |
 | `scripts/japanese-reading.ts` | FunctionDeclaration | `createJapaneseReadingNormalizer` |
 | `scripts/japanese-reading.ts` | VariableStatement | `japaneseReadingVersion` |
 | `scripts/japanese-reading.ts` | InterfaceDeclaration | `ReadingOverrides` |
@@ -317,4 +321,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力97ファイル、公開契約229件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力98ファイル、公開契約233件です。
