@@ -23,6 +23,10 @@
       "sha256": "6ddef299c7eb5843215605ee1d7bc8f19c102d22734614891dd34cac67f9cb94"
     },
     {
+      "path": "scripts/audit-content-preservation.ts",
+      "sha256": "b37284d86377e77126a270d94b8406ca2fe45da445fc71a2bf87b79f44d29aa0"
+    },
+    {
       "path": "scripts/audit-game-tags.ts",
       "sha256": "1a0bb774bfc0528a9996aa54ec7079fe0bbecacde3d6c10579ac767c582079c4"
     },
@@ -61,6 +65,10 @@
     {
       "path": "scripts/content-coverage.ts",
       "sha256": "d08da644ada37bd04b33f7ecdd8bbc67dbff96a85404c89ebae8ac26168853e9"
+    },
+    {
+      "path": "scripts/content-preservation.ts",
+      "sha256": "16935bd6f8f78f278e45fba63632512e5a38c292b06276941fca86b452518105"
     },
     {
       "path": "scripts/detect-video-candidates.ts",
@@ -503,6 +511,11 @@
     {
       "file": "scripts/content-coverage.ts",
       "name": "videoFeatureCoverage",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/content-preservation.ts",
+      "name": "auditContentPreservation",
       "kind": "FunctionDeclaration"
     },
     {
