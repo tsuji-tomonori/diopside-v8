@@ -27,7 +27,8 @@ export function auditContentPreservation(
   candidate: CanonicalVideo[],
   videoIds?: string[],
 ) {
-  // Validate both complete inputs before narrowing the selected scope.
+  // Reject duplicate IDs across both full inputs before narrowing the selected scope.
+  // Callers supply schema-validated records; the CLI uses readCanonicalVideos.
   const currentCoverage = buildContentCoverage(current);
   const candidateCoverage = buildContentCoverage(candidate);
   const currentById = new Map(current.map((video) => [video.videoId, video]));
