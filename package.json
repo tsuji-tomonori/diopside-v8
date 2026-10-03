@@ -59,7 +59,8 @@
     "migrate:legacy": "node --experimental-strip-types scripts/import-reference-taxonomy.ts && node --experimental-strip-types scripts/import-reference-videos.ts && node --experimental-strip-types scripts/import-legacy-content.ts",
     "audit:guest-song-performances": "node --experimental-strip-types scripts/audit-guest-song-performances.ts",
     "audit:content-coverage": "node --experimental-strip-types scripts/audit-content-coverage.ts",
-    "audit:legacy-review": "python governance/reviews/validate.py --root . --commit HEAD"
+    "audit:legacy-review": "python governance/reviews/validate.py --root . --commit HEAD",
+    "audit:content-preservation": "node --experimental-strip-types scripts/audit-content-preservation.ts"
   },
   "dependencies": {
     "lucide-react": "1.41.0",
