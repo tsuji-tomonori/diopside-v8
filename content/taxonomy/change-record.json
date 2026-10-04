@@ -1,17 +1,16 @@
 {
   "schemaVersion": "1.0.0",
   "changeType": "保守変更",
-  "previousTaxonomyVersion": "9.7.0",
-  "previousAliasVersion": "8.3.0",
-  "taxonomyVersion": "9.8.0",
+  "previousTaxonomyVersion": "9.8.0",
+  "previousAliasVersion": "8.4.0",
+  "taxonomyVersion": "9.9.0",
   "aliasVersion": "8.4.0",
   "rulesVersion": "9.4.0",
   "affectedTagIds": [
-    "tag-works-gameTitle-6d46f8a766df",
-    "tag-works-gameTitle-0a2921b44ca8",
-    "tag-works-gameTitle-01da1a2e8541"
+    "tag-works-songTitle-61ba05825065",
+    "tag-works-songTitle-6872780a70a2"
   ],
   "affectedVideoCount": 0,
-  "migration": "公開タイトルと承認済みゲームタグが一致する20動画を根拠に検索別名3件を追加する。既存の別名定義8.3.0を完全な互換履歴として保持し、追加だけの互換性を検証する。動画正本・タグ付与・人物の役割は変更しない。",
-  "reviewedAt": "2026-09-30T15:03:00Z"
+  "migration": "本人・外部公式チャンネルのダンスShortsで使用される「OBF」「にじたうんでまちあわせ」を、各公式MVの正式名に基づき楽曲名へ追加する。既存9.8.0を互換版として維持する。動画追加は各1動画の別PRで行い、白雪巴の歌唱実績は追加しない。",
+  "reviewedAt": "2026-10-04T13:22:00Z"
 }

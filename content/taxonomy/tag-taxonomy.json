@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0.0",
-  "taxonomyVersion": "9.8.0",
+  "taxonomyVersion": "9.9.0",
   "sourceVersion": "2.1.0",
   "aliasVersion": "8.4.0",
   "rulesVersion": "9.4.0",
-  "effectiveDate": "2026-09-30",
+  "effectiveDate": "2026-10-04",
   "compatibleCanonicalVideoTaxonomyVersions": [
     "8.6.0",
     "8.7.0",
@@ -15,7 +15,8 @@
     "9.3.0",
     "9.5.0",
     "9.6.0",
-    "9.7.0"
+    "9.7.0",
+    "9.8.0"
   ],
   "categoryCount": 7,
   "subcategoryCount": 28,
@@ -3364,6 +3365,20 @@
               "active": true,
               "inclusionCriteria": "公開動画または確認済みタイムスタンプから楽曲「革命デュアリズム」の歌唱・使用を確認できること",
               "exclusionCriteria": "曲名の推測、未確認のセットリスト、原作品名だけでは含めない"
+            },
+            {
+              "tagId": "tag-works-songTitle-61ba05825065",
+              "canonicalName": "OBF",
+              "active": true,
+              "inclusionCriteria": "公式公開で正式名「OBF」を確認でき、動画固有のタイトル・説明または映像・音声から同曲の使用を確認できること",
+              "exclusionCriteria": "推測、別曲、告知・リンクだけで本編に使われない楽曲は含めない。原曲の歌唱者・制作者を当該動画の出演者として扱わない"
+            },
+            {
+              "tagId": "tag-works-songTitle-6872780a70a2",
+              "canonicalName": "にじたうんでまちあわせ",
+              "active": true,
+              "inclusionCriteria": "公式公開で正式名「にじたうんでまちあわせ」を確認でき、動画固有のタイトル・説明または映像・音声から同曲の使用を確認できること",
+              "exclusionCriteria": "推測、別曲、告知・リンクだけで本編に使われない楽曲は含めない。原曲の歌唱者・制作者を当該動画の出演者として扱わない"
             }
           ],
           "valueKind": "entity-reference",
