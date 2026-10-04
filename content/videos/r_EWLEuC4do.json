@@ -1,0 +1,121 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "r_EWLEuC4do",
+  "title": "ジョー力一さんの『 OBF 』華麗に踊ってみました🌹✨️ #OBF #ジョー力一 #shorts",
+  "publishedAt": "2026-09-26T03:00:38Z",
+  "durationSeconds": 22,
+  "durationIso": "PT22S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/r_EWLEuC4do/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=r_EWLEuC4do",
+  "taxonomyVersion": "9.9.0",
+  "aliasVersion": "8.4.0",
+  "tagRulesVersion": "9.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公式公開動画のタイトル",
+      "inputFingerprint": "91818dee79df44ddb01057a88e1e64d99cef3019eae5692a2563c153634f5098"
+    },
+    {
+      "evidenceId": "evidence-description",
+      "type": "動画固有の説明",
+      "sourceLabel": "当該公式動画の固有概要欄",
+      "inputFingerprint": "cdf154ba030d3dd715499b1d7923651c9f31d4681d53a9f8a5b0aaf905cfdd3f"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "当該動画の公式公開チャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-metadata",
+      "type": "動画長",
+      "sourceLabel": "YouTube公開メタデータ（長さ・Shorts形式・縦横寸法）",
+      "inputFingerprint": "55b3ce517d1ec154ba865a91ab1bfde0fe9e465e91dac750c33587ee076ce3cb"
+    },
+    {
+      "evidenceId": "evidence-song",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "当該概要欄の参照先であるジョー・力一公式MV「OBF」",
+      "inputFingerprint": "5178bcc95307c58e5c535718ebc16357000d79cc2a27d34960d3ba41fa375cc9"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-0a9abf497e7e",
+      "reason": "公式タイトルが「OBF」を踊った動画と明記しており、主ジャンルはダンス。",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-10-04T13:26:00Z"
+    },
+    {
+      "tagId": "tag-works-songTitle-61ba05825065",
+      "reason": "公式タイトルが使用曲「OBF」を明記し、動画固有の概要欄から同名の公式MVへ直接参照されている。",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title",
+        "evidence-description",
+        "evidence-song"
+      ],
+      "reviewedAt": "2026-10-04T13:26:00Z"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開メタデータの投稿元は公式チャンネル「白雪 巴/Shirayuki Tomoe」。",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-10-04T13:26:00Z"
+    },
+    {
+      "tagId": "tag-format-media-03673af45dd7",
+      "reason": "公式YouTubeのShorts公開ページで提供されるShorts動画。",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-metadata"
+      ],
+      "reviewedAt": "2026-10-04T13:26:00Z"
+    },
+    {
+      "tagId": "tag-format-production-20130a560dac",
+      "reason": "公開動画メタデータの映像寸法は1080×1920で、縦型である。",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-metadata"
+      ],
+      "reviewedAt": "2026-10-04T13:26:00Z"
+    }
+  ],
+  "timestamps": {
+    "status": "未作成",
+    "reason": "短尺",
+    "detail": "30秒未満のダンスShortsであり、配信アーカイブ向けの移動用目次は作成しません。",
+    "updatedAt": "2026-10-04T13:26:00Z"
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "動画固有の公開概要欄が短く、20語以上の適格な本文を確保できないため未作成です。",
+    "updatedAt": "2026-10-04T13:26:00Z"
+  },
+  "provenance": {
+    "inputFingerprint": "55b3ce517d1ec154ba865a91ab1bfde0fe9e465e91dac750c33587ee076ce3cb",
+    "generatorVersion": "v8-public-dance-short-curation-1.0.0",
+    "generatedAt": "2026-10-04T13:26:00Z",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2730"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-10-04T13:44:23.595898+00:00",
+    "basis": "2026年10月4日の欠落補完・マージ・公開依頼に基づき、公式タイトル・固有説明・公開メタデータと既存タグ定義を確認。公開はPR2730の品質CI成功後のマージをゲートとする。"
+  }
+}

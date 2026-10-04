@@ -36,16 +36,16 @@
     {
       "evidenceId": "evidence-synopsis-transcript",
       "type": "公開の日本語原文字幕",
-      "sourceLabel": "YouTube公開日本語原文字幕（あらすじ確認用）",
-      "inputFingerprint": "c55fa8e2182353f0a28060daa93b60ad7ad62e18fcf8a2626ee655f9f52caeef",
+      "sourceLabel": "YouTube公開日本語原文字幕（全track照合・あらすじ確認用）",
+      "inputFingerprint": "7afbfb23ebe59d58cb060bbb3ca78fe2ba9a30f43f9ceb241dba2ce37327acd2",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 17512
     },
     {
       "evidenceId": "evidence-full-transcript",
-      "type": "公開の日本語字幕",
+      "type": "公開の日本語原文字幕",
       "sourceLabel": "公開の全編字幕",
-      "inputFingerprint": "c55fa8e2182353f0a28060daa93b60ad7ad62e18fcf8a2626ee655f9f52caeef",
+      "inputFingerprint": "7afbfb23ebe59d58cb060bbb3ca78fe2ba9a30f43f9ceb241dba2ce37327acd2",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 17512
     }
@@ -55,28 +55,37 @@
       "tagId": "tag-content-primary-0dbfa3115896",
       "reason": "公開タイトルと全編字幕から主ジャンル「ゲーム」を確認",
       "confidence": "高",
-      "evidenceRefs": ["evidence-title", "evidence-full-transcript"],
+      "evidenceRefs": [
+        "evidence-title",
+        "evidence-full-transcript"
+      ],
       "reviewedAt": "2026-10-02T08:24:17+09:00"
     },
     {
       "tagId": "tag-content-gameGenre-1cc53dc4a37d",
       "reason": "全編字幕で怪物を避けながら孤島を探索し、戦闘や謎解きを進めるホラーゲーム実況を確認",
       "confidence": "高",
-      "evidenceRefs": ["evidence-full-transcript"],
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ],
       "reviewedAt": "2026-10-02T08:24:17+09:00"
     },
     {
       "tagId": "tag-people-channel-e0fc18a727d8",
       "reason": "公開チャンネル「白雪 巴/Shirayuki Tomoe」を確認",
       "confidence": "高",
-      "evidenceRefs": ["evidence-channel"],
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
       "reviewedAt": "2026-10-02T08:24:17+09:00"
     },
     {
       "tagId": "tag-format-media-45323ed44f37",
       "reason": "公開済みライブアーカイブと動画長から公開形式「配信」を確認",
       "confidence": "高",
-      "evidenceRefs": ["evidence-duration"],
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
       "reviewedAt": "2026-10-02T08:24:17+09:00"
     }
   ],
@@ -84,70 +93,485 @@
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
     "items": [
-      {"timestampId": "timestamp-0-5349a58d", "startSeconds": 0, "label": "オープニングと作品紹介", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-240-397d9693", "startSeconds": 240, "label": "作品紹介と初見ルール", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-338-c64a854c", "startSeconds": 338, "label": "ニューゲームと難易度選択", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-565-15439ba8", "startSeconds": 565, "label": "サイモンに届く依頼", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-888-c19d0bbd", "startSeconds": 888, "label": "町役場から探索を開始", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-1202-f062017b", "startSeconds": 1202, "label": "封鎖された町の記録", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-1427-9562f8b8", "startSeconds": 1427, "label": "鳴り出した電話を追う", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-1591-1357b689", "startSeconds": 1591, "label": "沿岸警備隊との通話", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-2109-b32b1798", "startSeconds": 2109, "label": "電波を合わせて映像を確認", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-2300-698c7ce8", "startSeconds": 2300, "label": "日付を使う部屋の仕掛け", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-2750-900e8f29", "startSeconds": 2750, "label": "最初の怪物から逃れる", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-3500-ad09c0d2", "startSeconds": 3500, "label": "電話でセーブして探索再開", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-3934-5cbd928f", "startSeconds": 3934, "label": "ゾイに残されたメッセージ", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-4451-2e0ddf25", "startSeconds": 4451, "label": "止まった電気を復旧", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-4770-838b483e", "startSeconds": 4770, "label": "敵の位置を探りながら脱出", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-5190-e96435d6", "startSeconds": 5190, "label": "パソコンで手紙を確認", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-5637-31afc461", "startSeconds": 5637, "label": "診療所へ向かう手掛かり", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-6069-cc04f916", "startSeconds": 6069, "label": "海岸地区診療所に到着", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-6300-310e43fd", "startSeconds": 6300, "label": "復活パックの仕組み", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-6478-a8cc9915", "startSeconds": 6478, "label": "ジェシカの家を目指す", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-7211-d62f2c82", "startSeconds": 7211, "label": "天秤の仕掛けを調べる", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-7800-9948557a", "startSeconds": 7800, "label": "家の中を慎重に探索", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-8200-d8e9e72f", "startSeconds": 8200, "label": "金庫へつながる鍵", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-9016-6c0d3004", "startSeconds": 9016, "label": "薬局を探索", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-9300-93f4d7d9", "startSeconds": 9300, "label": "映像のノイズを読み解く", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-9631-5ca6f5b1", "startSeconds": 9631, "label": "処方薬から新たな手掛かり", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-9892-79510f4b", "startSeconds": 9892, "label": "公園へ戻る道を探す", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-10671-47d8c2a7", "startSeconds": 10671, "label": "ゾイの視点へ", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-10854-ad893cb5", "startSeconds": 10854, "label": "水道水の警告を読む", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-11716-11a90088", "startSeconds": 11716, "label": "庭の小屋で手掛かりを発見", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-12200-a0c55321", "startSeconds": 12200, "label": "町で患者と遭遇", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-12600-a3c50278", "startSeconds": 12600, "label": "鍵を手に入れて脱出", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-13100-b3bc3cdb", "startSeconds": 13100, "label": "医療拠点の状況を確認", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-14157-7b987f48", "startSeconds": 14157, "label": "サイモンの視点へ戻る", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-14346-64f0cd06", "startSeconds": 14346, "label": "遠距離武器を入手", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-15400-0cdb0a1b", "startSeconds": 15400, "label": "汚染された町を進む", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-16825-96f4c830", "startSeconds": 16825, "label": "手術室で二人が対面", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]},
-      {"timestampId": "timestamp-17000-2214204b", "startSeconds": 17000, "label": "初回プレイを振り返る", "confidence": "高", "evidenceRefs": ["evidence-full-transcript"]}
+      {
+        "timestampId": "timestamp-0-5349a58d",
+        "startSeconds": 0,
+        "label": "オープニングの挨拶",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-240-397d9693",
+        "startSeconds": 240,
+        "label": "作品紹介と初見ルール",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-338-c64a854c",
+        "startSeconds": 338,
+        "label": "ニューゲームと難易度選択",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-565-15439ba8",
+        "startSeconds": 565,
+        "label": "サイモンに届く依頼",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-888-c19d0bbd",
+        "startSeconds": 903,
+        "label": "町の探索を開始",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1202-f062017b",
+        "startSeconds": 1189,
+        "label": "封鎖された町の記録",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1427-9562f8b8",
+        "startSeconds": 1427,
+        "label": "鳴り出した電話を追う",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1591-1357b689",
+        "startSeconds": 1532,
+        "label": "沿岸警備隊との通話",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1694-77ec42bf",
+        "startSeconds": 1694,
+        "label": "暗い通路を探索",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2109-b32b1798",
+        "startSeconds": 2109,
+        "label": "電波を合わせて映像を確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2300-698c7ce8",
+        "startSeconds": 2300,
+        "label": "部屋の仕掛けを調べる",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2750-900e8f29",
+        "startSeconds": 2569,
+        "label": "危険を探る操作を確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3086-da6d896e",
+        "startSeconds": 3086,
+        "label": "町の掲示と歴史を読む",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3500-ad09c0d2",
+        "startSeconds": 3450,
+        "label": "電話でセーブして探索再開",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3934-5cbd928f",
+        "startSeconds": 3934,
+        "label": "家に残されたメッセージ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4451-2e0ddf25",
+        "startSeconds": 4451,
+        "label": "電力復旧の手掛かりを探す",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-4770-838b483e",
+        "startSeconds": 4770,
+        "label": "敵の位置を探りながら進む",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5019-93dd966d",
+        "startSeconds": 5019,
+        "label": "電源の復旧操作",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5190-e96435d6",
+        "startSeconds": 5190,
+        "label": "パソコンで手紙を確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-5637-31afc461",
+        "startSeconds": 5637,
+        "label": "診療所へ向かう手掛かり",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6069-cc04f916",
+        "startSeconds": 6069,
+        "label": "海岸地区診療所に到着",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6300-310e43fd",
+        "startSeconds": 6263,
+        "label": "回復アイテムの使い方",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-6478-a8cc9915",
+        "startSeconds": 6478,
+        "label": "ジェシカの家を目指す",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7211-d62f2c82",
+        "startSeconds": 7202,
+        "label": "装備を整えて路地を探索",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-7800-9948557a",
+        "startSeconds": 7785,
+        "label": "家の中を慎重に探索",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8200-d8e9e72f",
+        "startSeconds": 8191,
+        "label": "家の文書を確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-8776-fdc380a1",
+        "startSeconds": 8776,
+        "label": "診療所の仕掛けを考える",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9016-6c0d3004",
+        "startSeconds": 9069,
+        "label": "薬局を探索",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9300-93f4d7d9",
+        "startSeconds": 9362,
+        "label": "映像を手掛かりに仕掛けを調べる",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9631-5ca6f5b1",
+        "startSeconds": 9631,
+        "label": "薬局のメモを読む",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-9892-79510f4b",
+        "startSeconds": 9912,
+        "label": "公園へ戻る道を探す",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-10108-9fd0eb41",
+        "startSeconds": 10108,
+        "label": "難易度を見直して探索を続行",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-10671-47d8c2a7",
+        "startSeconds": 10671,
+        "label": "別の視点で探索",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-10854-ad893cb5",
+        "startSeconds": 10854,
+        "label": "注意書きを確認して町の道を探す",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-11716-11a90088",
+        "startSeconds": 11709,
+        "label": "庭の小屋を調べる",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-12200-a0c55321",
+        "startSeconds": 12076,
+        "label": "訪問先の家を調べる",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-12600-a3c50278",
+        "startSeconds": 12409,
+        "label": "出口の鍵を探す",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-12720-7433513b",
+        "startSeconds": 12720,
+        "label": "投げ物を使って進路を探す",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13100-b3bc3cdb",
+        "startSeconds": 13122,
+        "label": "医療拠点の通達を確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13300-cc4261c0",
+        "startSeconds": 13300,
+        "label": "電話の自動応答を聞く",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-13474-75b7e8bc",
+        "startSeconds": 13474,
+        "label": "敵を避けて敷地内の進路を探す",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-14157-7b987f48",
+        "startSeconds": 14157,
+        "label": "会話と無線の手掛かり",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-14346-64f0cd06",
+        "startSeconds": 14346,
+        "label": "装備を整えて町の進路を探す",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-15400-0cdb0a1b",
+        "startSeconds": 15400,
+        "label": "液体に覆われた場所を進む",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-15663-de4f2be9",
+        "startSeconds": 15663,
+        "label": "文書と写真を調べる",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-16120-cbed0f74",
+        "startSeconds": 16120,
+        "label": "建物内の通路を探す",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-16825-96f4c830",
+        "startSeconds": 16821,
+        "label": "終盤の会話",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-17000-2214204b",
+        "startSeconds": 17021,
+        "label": "初回プレイを振り返る",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-17321-a14bf3a2",
+        "startSeconds": 17321,
+        "label": "スーパーチャットのお礼と締め",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
     ],
-    "candidateHash": "fccfdc07adef4ad9723ac953ec2531ed25080f58780f70363f263545c40ebbfd",
-    "inputFingerprint": "c55fa8e2182353f0a28060daa93b60ad7ad62e18fcf8a2626ee655f9f52caeef",
+    "candidateHash": "d506d6d30b3a2c1a74fa2d498360a6e8477981168c4ed9ee3568593ca08b1345",
+    "inputFingerprint": "7afbfb23ebe59d58cb060bbb3ca78fe2ba9a30f43f9ceb241dba2ce37327acd2",
     "rulesVersion": "8.1.0",
-    "generatedAt": "2026-10-01T23:24:17+00:00",
-    "updatedAt": "2026-10-01T23:24:17+00:00",
+    "generatedAt": "2026-10-04T13:56:13.958250+00:00",
+    "updatedAt": "2026-10-04T14:08:57.473208+00:00",
     "review": {
       "factCheck": {
         "status": "合格",
-        "candidateHash": "fccfdc07adef4ad9723ac953ec2531ed25080f58780f70363f263545c40ebbfd",
+        "candidateHash": "d506d6d30b3a2c1a74fa2d498360a6e8477981168c4ed9ee3568593ca08b1345",
         "majorIssues": 0,
-        "reviewedAt": "2026-10-01T23:24:17+00:00",
-        "checks": {"evidenceRoute": true, "evidenceReferences": true, "boundaryContext": true, "labelSupport": true, "evidenceConflicts": true},
+        "reviewedAt": "2026-10-04T14:03:25.121634+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
         "route": "全編根拠による生成"
       },
       "editorialCheck": {
         "status": "合格",
-        "candidateHash": "fccfdc07adef4ad9723ac953ec2531ed25080f58780f70363f263545c40ebbfd",
+        "candidateHash": "d506d6d30b3a2c1a74fa2d498360a6e8477981168c4ed9ee3568593ca08b1345",
         "majorIssues": 0,
-        "reviewedAt": "2026-10-01T23:24:17+00:00",
-        "checks": {"navigationValue": true, "overSegmentation": true, "underSegmentation": true, "labelConsistency": true, "spoilerSafety": true},
+        "reviewedAt": "2026-10-04T14:08:57.473208+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
         "factCheckResultWasHidden": true
       },
       "publicationGate": {
         "mode": "pull-request-merge",
-        "candidateHash": "fccfdc07adef4ad9723ac953ec2531ed25080f58780f70363f263545c40ebbfd",
+        "candidateHash": "d506d6d30b3a2c1a74fa2d498360a6e8477981168c4ed9ee3568593ca08b1345",
         "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2726"
       }
     }
@@ -159,26 +583,30 @@
     "updatedAt": "2026-10-02T08:24:17+09:00"
   },
   "synopsis": {
-    "body": "白雪巴が『SILENT HILL: Townfall』を初見実況。孤島セント・アメリアを歩き、無線や電話、残された文書を手掛かりにサイモンとゾイを巡る謎を追います。暗い街で怪物をかわし、戦闘や探索、仕掛けに戸惑いながら物語の断片を集める配信です。",
-    "bodyEvidenceRefs": ["evidence-synopsis-transcript"],
+    "body": "白雪巴が『SILENT HILL: Townfall』を初見実況。セント・アメリアの町を歩き、無線や電話、残された文書を頼りに謎を追います。敵を避ける操作や仕掛けに戸惑い、ときには冗談を交えながら手探りで探索を進める配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
     "featuredQuote": {
       "text": "今からでも入れる保険ありますか？",
-      "atSeconds": 4824,
-      "evidenceRefs": ["evidence-synopsis-transcript"]
+      "atSeconds": 4827,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
     },
-    "inputFingerprint": "c55fa8e2182353f0a28060daa93b60ad7ad62e18fcf8a2626ee655f9f52caeef",
+    "inputFingerprint": "7afbfb23ebe59d58cb060bbb3ca78fe2ba9a30f43f9ceb241dba2ce37327acd2",
     "rulesVersion": "1.1.0",
-    "updatedAt": "2026-10-01T23:24:17+00:00"
+    "updatedAt": "2026-10-04T14:10:26.405459+00:00"
   },
   "provenance": {
-    "inputFingerprint": "c55fa8e2182353f0a28060daa93b60ad7ad62e18fcf8a2626ee655f9f52caeef",
-    "generatorVersion": "direct-work-reviewed-2026-10-02",
-    "generatedAt": "2026-10-01T23:24:17+00:00",
+    "inputFingerprint": "7afbfb23ebe59d58cb060bbb3ca78fe2ba9a30f43f9ceb241dba2ce37327acd2",
+    "generatorVersion": "v8-reviewed-public-caption-revision-2026-10-04",
+    "generatedAt": "2026-10-04T14:10:26.405459+00:00",
     "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2726"
   },
   "approval": {
     "status": "承認済み",
-    "approvedAt": "2026-10-01T23:24:17+00:00",
-    "basis": "2026-10-02の利用者による新着配信処理と1動画1Draft PR作成の明示依頼。同一候補hashの事実・編集・ネタバレ確認を実施。公開はPR #2726の人手マージをゲートとする。"
+    "approvedAt": "2026-10-04T14:10:26.405459+00:00",
+    "basis": "2026年10月4日の欠落補完・マージ・公開依頼に基づき、全編字幕と新候補hashの独立確認を実施。公開はPR2726の最新head品質CI成功後のマージをゲートとする。"
   }
 }
