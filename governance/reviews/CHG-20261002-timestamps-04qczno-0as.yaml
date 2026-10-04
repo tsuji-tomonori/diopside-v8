@@ -1,0 +1,159 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20261002-timestamps-04qczno-0as
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/04QCZNo-0as.json
+  note: 既存の有限batch・1動画1PR要件に従う正本追加である。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 既存schemaだけを使い公開契約を変更しない。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/04QCZNo-0as.json
+  note: 全編根拠、タイムスタンプの事実・編集確認、あらすじの事実・ネタバレ・編集確認を伴うためassuredを選択した。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 2026年10月4日の利用者による欠落補完・マージ・公開依頼に従い、この動画の既存PRを修正する。
+- id: IMP-007
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/videos/04QCZNo-0as.json
+  note: 可逆な1動画overrideでありmigrationや削除はない。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/04QCZNo-0as.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 正式validatorで49章の新候補hash、独立した事実・編集確認、51件の変更理由とPR公開ゲートを検証した。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:content/videos/04QCZNo-0as.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 公開ja-orig全3903cueを12意味区間mapで読み直し、49境界を独立照合。開始ずれ・誤った場所名・ネタバレ表現を局所修正し、持続する移動目的を補った。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/content-manifest.json
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 正本件数と決定的生成物のdriftを検証する。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 生字幕、音声、文字起こし、コメント、チャット、投稿者識別子、秘密情報を差分へ含めない。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:content/videos/04QCZNo-0as.json
+  - path:governance/reviews/CHG-20261002-timestamps-04qczno-0as.yaml
+  note: 最終差分を1動画正本、manifest、review YAMLへ限定する。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: 変更目的を日本語commitへ、具体的変更・検証・字幕主体の限界をPR本文へ記録する。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/requirements/requirements.json
+  - path:content/videos/04QCZNo-0as.json
+  note: 時刻の事実・編集と、あらすじの事実・ネタバレ・編集を別の文脈で同じ候補hashに対して確認し、正式validatorで検証した。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence:
+  - commit:self
+  note: schemaや画面を変えないため生成設計・ADRは不要である。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:scripts/validate-content.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 内容・1動画scope・生成差分をCIで検証する。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20261002-timestamps-04qczno-0as.yaml
+  note: 選択checkだけをreview YAMLへ保存する。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence:
+  - path:governance/reviews/CHG-20261002-timestamps-04qczno-0as.yaml
+  note: 未選択checkをN/Aとして登録しない。
+advisories: []
+residual_risks:
+- 公開ja-orig全3903cue、0–17512秒の全track処理範囲を確認。原字幕SHA-256 c55fa8e2182353f0a28060daa93b60ad7ad62e18fcf8a2626ee655f9f52caeef。正規化入力指紋7afbfb23ebe59d58cb060bbb3ca78fe2ba9a30f43f9ceb241dba2ce37327acd2。
+- 時刻候補hash d506d6d30b3a2c1a74fa2d498360a6e8477981168c4ed9ee3568593ca08b1345、あらすじ候補hash 1d271e36cb6798ce1330c4ab37a5c67fa4f299a7752e1ebd4990adc48c2125c2。旧候補の合格を流用しない。
+- 引用は4827.36秒cueの完全一致再発話を整数4827秒で記録。4824秒の異なる発話を黙って補正しない。本人の実況文脈で話者を確認し、語頭フレームや原音声を直接確認したとは扱わない。
+- 原音声・映像を全編視聴した検証ではない。字幕のない区間を無音と断定しない。
+- nativeの別文脈確認と正式validatorを使用した。codex exec、batch harness、Sol監査を実行したとは記録しない。生字幕・音声・投稿者識別子をGitへ保存しない。
+- 最新mainを保持した1動画差分を検証し、最新head品質CI成功後にのみマージする。公開用release PRと実サイトの検証は別途行う。
