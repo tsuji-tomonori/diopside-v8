@@ -1,0 +1,160 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "da0JvdWFfbs",
+  "title": "#にじたうんでまちあわせ #らぶスノ で #踊ってみた",
+  "publishedAt": "2026-10-02T06:46:16Z",
+  "durationSeconds": 29,
+  "durationIso": "PT29S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/da0JvdWFfbs/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=da0JvdWFfbs",
+  "taxonomyVersion": "9.9.0",
+  "aliasVersion": "8.4.0",
+  "tagRulesVersion": "9.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公式公開動画のタイトル",
+      "inputFingerprint": "66064040fafb968516f9a1f21d85cde949a232d2a1268f8cd26824ea39dd6797"
+    },
+    {
+      "evidenceId": "evidence-description",
+      "type": "動画固有の説明",
+      "sourceLabel": "当該公式動画の固有概要欄",
+      "inputFingerprint": "28ada14f6f8626ef136396ee2b1272c551fce14fefaab6d5d00b2790f23b7c33"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "当該動画の公式公開チャンネル",
+      "inputFingerprint": "b221cf01bc9dac1b0b75396399f1a766e900bf52d39b391a29a84d23de399ad2"
+    },
+    {
+      "evidenceId": "evidence-metadata",
+      "type": "動画長",
+      "sourceLabel": "YouTube公開メタデータ（長さ・Shorts形式・縦横寸法）",
+      "inputFingerprint": "84e082ebc3c73586d0687e284186581897202193fbd33c7e327363f49a53cebc"
+    },
+    {
+      "evidenceId": "evidence-unit",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "承認済みらぶスノ構成員・公式出典の確認",
+      "inputFingerprint": "1c7a901783ee917d656e45cd1e36b9fb2928b6b7fc8dc1a0eccb89e0c7257d1e"
+    },
+    {
+      "evidenceId": "evidence-song",
+      "type": "公式参加者・作品表記",
+      "sourceLabel": "にじさんじ公式MVと当該Shortsの使用サウンド表示",
+      "inputFingerprint": "f96cc3ca268c0a833f136cf833a9dc0d65e8a5527c5f395437b1d359a24862a9"
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-0a9abf497e7e",
+      "reason": "公式タイトルが「踊ってみた」と明記するダンス動画。",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title"
+      ],
+      "reviewedAt": "2026-10-04T13:26:00Z"
+    },
+    {
+      "tagId": "tag-works-songTitle-6872780a70a2",
+      "reason": "公式タイトルが使用曲「にじたうんでまちあわせ」を明記し、Shortsの使用サウンド表示も正式名と一致する。",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title",
+        "evidence-description",
+        "evidence-song"
+      ],
+      "reviewedAt": "2026-10-04T13:26:00Z"
+    },
+    {
+      "tagId": "tag-people-channel-272cc057a996",
+      "reason": "公開メタデータの投稿元は公式チャンネル「愛園 愛美/Aizono Manami」。",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-10-04T13:26:00Z"
+    },
+    {
+      "tagId": "tag-people-performer-c6b8ade39e95",
+      "reason": "動画固有のタイトルは「らぶスノ で 踊ってみた」、概要欄も同ユニットでの出演を明示する。承認済み構成員を照合し、白雪巴以外の共演者は愛園愛美。",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title",
+        "evidence-description",
+        "evidence-unit"
+      ],
+      "reviewedAt": "2026-10-04T13:26:00Z"
+    },
+    {
+      "tagId": "tag-people-unit-9b39bdef3a33",
+      "reason": "タイトルの「らぶスノ で 踊ってみた」と固有概要欄により、愛園愛美と白雪巴によるらぶスノが当該ダンスの共演単位と確認できる。",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title",
+        "evidence-description",
+        "evidence-unit"
+      ],
+      "reviewedAt": "2026-10-04T13:26:00Z"
+    },
+    {
+      "tagId": "tag-context-participation-a4911ea059bb",
+      "reason": "らぶスノ（愛園愛美・白雪巴）が共同で踊ることを当該動画の公式タイトル・固有概要欄が明示するためコラボ。",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-title",
+        "evidence-description",
+        "evidence-unit"
+      ],
+      "reviewedAt": "2026-10-04T13:26:00Z"
+    },
+    {
+      "tagId": "tag-format-media-03673af45dd7",
+      "reason": "公式YouTubeのShorts公開ページで提供されるShorts動画。",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-metadata"
+      ],
+      "reviewedAt": "2026-10-04T13:26:00Z"
+    },
+    {
+      "tagId": "tag-format-production-20130a560dac",
+      "reason": "公開動画メタデータの映像寸法は1080×1920で、縦型である。",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-metadata"
+      ],
+      "reviewedAt": "2026-10-04T13:26:00Z"
+    }
+  ],
+  "timestamps": {
+    "status": "未作成",
+    "reason": "短尺",
+    "detail": "30秒未満のダンスShortsであり、配信アーカイブ向けの移動用目次は作成しません。",
+    "updatedAt": "2026-10-04T13:26:00Z"
+  },
+  "wordCloud": {
+    "status": "未作成",
+    "reason": "資料不足",
+    "detail": "動画固有の公開概要欄が短く、20語以上の適格な本文を確保できないため未作成です。",
+    "updatedAt": "2026-10-04T13:26:00Z"
+  },
+  "provenance": {
+    "inputFingerprint": "84e082ebc3c73586d0687e284186581897202193fbd33c7e327363f49a53cebc",
+    "generatorVersion": "v8-public-dance-short-curation-1.0.0",
+    "generatedAt": "2026-10-04T13:26:00Z",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2729"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-10-04T13:44:23.595898+00:00",
+    "basis": "2026年10月4日の欠落補完・マージ・公開依頼に基づき、公式タイトル・固有説明・公開メタデータと既存タグ定義を確認。公開はPR2729の品質CI成功後のマージをゲートとする。"
+  }
+}

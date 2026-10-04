@@ -1,7 +1,7 @@
 schema_version: 2
 catalog_version: 3
 catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
-change_id: CHG-20261001-timestamps-9xkx4wwobiu
+change_id: CHG-20261003-timestamps-tt4kiotm7q0
 profile: assured
 source_ref: self
 completed_timings:
@@ -51,7 +51,7 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/9xkx4wWoBIU.json
+  - path:content/videos/tt4Kiotm7q0.json
   note: 既存の有限batch・1動画1PR要件に従う正本追加である。
 - id: IMP-002
   class: Invariant
@@ -63,34 +63,34 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/9xkx4wWoBIU.json
+  - path:content/videos/tt4Kiotm7q0.json
   note: 全編根拠、タイムスタンプの事実・編集確認、あらすじの事実・ネタバレ・編集確認を伴うためassuredを選択した。
 - id: IMP-004
   class: Invariant
   result: pass
   evidence:
   - commit:self
-  note: 2026年10月4日の利用者による欠落補完・マージ・公開依頼に従い、この動画の既存PRを修正する。
+  note: 2026-10-03の利用者の修正依頼に従い、既存PR2727の同一動画候補だけを更新する。ready化・merge・公開は含めない。
 - id: IMP-007
   class: Risk-selected
   result: pass
   evidence:
-  - path:content/videos/9xkx4wWoBIU.json
+  - path:content/videos/tt4Kiotm7q0.json
   note: 可逆な1動画overrideでありmigrationや削除はない。
 - id: FAST-004
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/9xkx4wWoBIU.json
+  - path:content/videos/tt4Kiotm7q0.json
   - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
-  note: 正式validatorで33章の新候補hash、独立した事実・編集確認、44件の差分理由とPR公開ゲートを検証した。
+  note: 正式validatorで新しい時刻候補hash、36境界の独立事実・編集確認、PR公開ゲートを検証した。
 - id: FAST-005
   class: Risk-selected
   result: pass
   evidence:
-  - path:content/videos/9xkx4wWoBIU.json
+  - path:content/videos/tt4Kiotm7q0.json
   - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
-  note: 公開ja-orig全2373cueを8意味区間mapで読み直し、33境界を独立照合。開始ずれ・場所の断定・ネタバレ表現を修正し、屋内追跡と終盤の演出へ移動できる入口を補った。
+  note: 公開ja-orig全4333cueを14意味区間mapで読み直し、36境界を照合した。旧44章の同一目標内の9章を統合し、セーブで探索を区切る1章を追加。旧hashの合格を流用しない。
 - id: FAST-006
   class: Invariant
   result: pass
@@ -108,22 +108,22 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:content/videos/9xkx4wWoBIU.json
-  - path:governance/reviews/CHG-20261001-timestamps-9xkx4wwobiu.yaml
+  - path:content/videos/tt4Kiotm7q0.json
+  - path:governance/reviews/CHG-20261003-timestamps-tt4kiotm7q0.yaml
   note: 最終差分を1動画正本、manifest、review YAMLへ限定する。
 - id: REV-002
   class: Invariant
   result: pass
   evidence:
   - commit:self
-  note: 変更目的を日本語commitへ、具体的変更・検証・字幕主体の限界をPR本文へ記録する。
+  note: 変更目的を日本語commitへ、具体的変更・検証・残る音声未確認をPR本文へ記録する。
 - id: REV-003
   class: Invariant
   result: pass
   evidence:
   - path:spec/requirements/requirements.json
-  - path:content/videos/9xkx4wWoBIU.json
-  note: 時刻の事実・編集と、あらすじの事実・ネタバレ・編集を別の文脈で同じ候補hashに対して確認し、正式validatorで検証した。
+  - path:content/videos/tt4Kiotm7q0.json
+  note: 時刻の事実・編集と、あらすじの事実・ネタバレ・編集を別文脈で新しい候補hashに対して実施し、各validatorで確認した。
 - id: REV-004
   class: Invariant
   result: pass
@@ -141,19 +141,18 @@ selected_checks:
   class: Invariant
   result: pass
   evidence:
-  - path:governance/reviews/CHG-20261001-timestamps-9xkx4wwobiu.yaml
+  - path:governance/reviews/CHG-20261003-timestamps-tt4kiotm7q0.yaml
   note: 選択checkだけをreview YAMLへ保存する。
 - id: REV-008
   class: Invariant
   result: pass
   evidence:
-  - path:governance/reviews/CHG-20261001-timestamps-9xkx4wwobiu.yaml
+  - path:governance/reviews/CHG-20261003-timestamps-tt4kiotm7q0.yaml
   note: 未選択checkをN/Aとして登録しない。
 advisories: []
 residual_risks:
-- 公開ja-orig全2373cue、0–10818秒の全track処理範囲を確認。原字幕SHA-256 b1207de805cc47d19366a7e0fb0a070f2890f9a810facc1e1af7171e6486d70f。正規化入力指紋5c3e79c0d2e0935666fd0b6f87727b8c2bd026d9d66d22409b544a669bbd822a。
-- 時刻候補hash 47715b8f9d26c5cb1b5b633ca37c031074137016bdee0b496603fa9a7cafd9dc、あらすじ候補hash 1662134f26d0414ef911ec89df73e15cdb01f37827a27f7663d320399cbb7226。旧候補の合格を流用しない。
-- 引用は10523.68秒と10526.96秒の連続cueに完全一致し、最初のcueを整数10523秒で記録。ゲーム終了後の本人の感想という文脈を確認。語頭フレームや原音声を直接確認したとは扱わない。
-- 原音声・映像を全編視聴した検証ではない。字幕のない区間を無音と断定しない。
-- 独立した別文脈の確認と正式validatorを使用した。codex exec、batch harness、Sol監査を実行したとは記録しない。生字幕・音声・投稿者識別子をGitへ保存しない。
-- 最新mainを保持した1動画差分を検証し、最新head品質CI成功後にのみマージする。公開用release PRと実サイトの検証は別途行う。
+- 公開ja-orig全trackのraw SHA-256 f60fa6f3d071ad0cbd816a49ff35dc20e72d2a7197696dd32b133e9dfeb66ffcは旧候補と一致。正規化後のinputFingerprintは38137a10f429b936b0386564aa8ea28cac009afebecfa71d8236a1c11d5a0d4c。4333cue、0–20687秒の全track処理範囲を確認した。
+- 修正時刻候補hash 0f6638df8295d4a89bd40201aa4169ea5b0a4c7bc2037d4a02bf0f8985d60c00。あらすじ候補hash 3a8190ea55c58586cc3f0c06edc9b26a26ffb34d6874b2d1885927d108d5f4bd。旧候補hashのレビュー結果は新候補へ転用していない。
+- 原音声は通常native/MP3取得が無効HTMLとなり確認できていない。1204秒の表記補正を要する引用を外し、967.920秒の字幕と完全一致する配信者発話へ変更。話者は前後の実況文脈で独立確認した。全編の音声・映像視聴を実施したとは扱わない。
+- 生字幕・音声・投稿者識別子をGitへ保存しない。冒頭・休憩・末尾の字幕空白を無音や映像の種類と断定しない。
+- 今回の独立確認はnativeの別文脈レビューと正式決定的validatorによる。codex exec、batch harness、Sol監査を実行したとは記録しない。Draftを維持し、ready化・merge・公開は行わない。
