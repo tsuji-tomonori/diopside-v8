@@ -1,1 +1,1 @@
-export const embeddedReleaseId = 'release-e96f2e7bb35405cb' as const;
+export const embeddedReleaseId = 'release-47a3b86ea40e72df' as const;
