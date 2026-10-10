@@ -76,6 +76,7 @@
 | `scripts/content-coverage.ts` | InterfaceDeclaration | `FeatureCoverage` |
 | `scripts/content-coverage.ts` | FunctionDeclaration | `planEnrichment` |
 | `scripts/content-coverage.ts` | FunctionDeclaration | `videoFeatureCoverage` |
+| `scripts/content-preservation.ts` | FunctionDeclaration | `auditContentPreservation` |
 | `scripts/enrichment-readiness.ts` | FunctionDeclaration | `buildEnrichmentReadiness` |
 | `scripts/enrichment-readiness.ts` | VariableStatement | `readinessStatuses` |
 | `scripts/enrichment-readiness.ts` | TypeAliasDeclaration | `SourceInventory` |
@@ -323,4 +324,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力99ファイル、公開契約235件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力101ファイル、公開契約236件です。
