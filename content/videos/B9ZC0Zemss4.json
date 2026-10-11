@@ -46,6 +46,14 @@
       "inputFingerprint": "a1aba1d2d7e5b686d39bca47698d8eba11b527da8a466b96e62aa39bee447f1c",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 8287
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "09a5d1ea3c2e6c28d277818900fa7659b88ff9b16619e2913cac6d51b80e914f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8287
     }
   ],
   "tagAssignments": [
@@ -111,6 +119,7 @@
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
   "wordCloud": {
+    "status": "作成済み",
     "words": [
       {
         "term": "かわいい",
@@ -293,9 +302,8 @@
     "inputFingerprint": "a1aba1d2d7e5b686d39bca47698d8eba11b527da8a466b96e62aa39bee447f1c",
     "exclusionRulesVersion": "9.2.0+editorial.1",
     "rulesVersion": "9.2.0",
-    "status": "作成済み",
-    "humanReview": "承認済み",
-    "updatedAt": "2026-09-12T08:57:40.803Z"
+    "updatedAt": "2026-09-12T08:57:40.803Z",
+    "humanReview": "承認済み"
   },
   "provenance": {
     "inputFingerprint": "c02899f09736cc372330a8741b5322573e2c68f48e0fe48085bf0a43d309d505",
@@ -307,5 +315,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『星のカービィ ディスカバリー』のステージを進み、仕掛けや能力を試しながら隠れた要素やミッションに挑むゲーム配信。カービィの愛らしさに反応し、視聴者との軽快なやり取りも交えながら、探索の楽しさを味わっていく。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "カービーの可愛さに免じていいですよ",
+      "atSeconds": 3,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "09a5d1ea3c2e6c28d277818900fa7659b88ff9b16619e2913cac6d51b80e914f",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T02:40:21.377075Z"
   }
 }

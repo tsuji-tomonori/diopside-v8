@@ -44,6 +44,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "b2a9301198fe26622941a8846d3e9e66ac61c68c4e40713ca7f9b7811dabc684"
+    },
+    {
+      "evidenceId": "evidence-synopsis-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "400381e595f3faff1e093ae4936acd774c2391a21815adf90fdeb98a46a497bd",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 15012
     }
   ],
   "tagAssignments": [
@@ -354,5 +362,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-23T16:00:00+09:00",
     "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  },
+  "synopsis": {
+    "body": "「こだわりラーメン館」で前回から続く店づくりに挑戦。売れ行きを見ながら麺やスープ、具材を組み合わせ、看板メニューを改良していきます。大会への挑戦や新店舗の整備、常連客とスタッフの成長を見守り、試食と営業を重ねながら店を整えていきます。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "最高の1杯を届けるんだよ",
+      "atSeconds": 8256,
+      "evidenceRefs": [
+        "evidence-synopsis-full-transcript"
+      ]
+    },
+    "inputFingerprint": "400381e595f3faff1e093ae4936acd774c2391a21815adf90fdeb98a46a497bd",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T09:08:09.807286Z"
   }
 }

@@ -46,6 +46,14 @@
       "inputFingerprint": "621b4a850c64e4568db52ea29d0bf9e98c1c3226d2fb1c2af8c321e89102084b",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 10532
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "ff089047200f8ba90f9aa7cb0fe013aff383cd1415f90ac9e843974ca7c664c2",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10532
     }
   ],
   "tagAssignments": [
@@ -111,6 +119,7 @@
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
   "wordCloud": {
+    "status": "作成済み",
     "words": [
       {
         "term": "使う",
@@ -317,9 +326,8 @@
     "inputFingerprint": "621b4a850c64e4568db52ea29d0bf9e98c1c3226d2fb1c2af8c321e89102084b",
     "exclusionRulesVersion": "9.2.0",
     "rulesVersion": "9.2.0",
-    "status": "作成済み",
-    "humanReview": "承認済み",
-    "updatedAt": "2026-09-12T08:57:40.803Z"
+    "updatedAt": "2026-09-12T08:57:40.803Z",
+    "humanReview": "承認済み"
   },
   "provenance": {
     "inputFingerprint": "186a993f5126ddb0a9ea32852cba002afcab29378146e7ac37bbf1def63db8a6",
@@ -331,5 +339,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が視聴者と相談しながら、スプラトゥーン2で長く付き合う武器を探す配信。チャージャーやバケツなどを試し、実戦の手応えや使いやすさを語りつつ、さまざまな候補を楽しげに比べていきます。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "バーチャルライバーの白雪ともです",
+      "atSeconds": 169,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "ff089047200f8ba90f9aa7cb0fe013aff383cd1415f90ac9e843974ca7c664c2",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T06:41:37.583408Z"
   }
 }
