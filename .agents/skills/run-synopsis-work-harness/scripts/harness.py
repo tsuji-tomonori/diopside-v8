@@ -43,6 +43,7 @@ EVIDENCE_SCRIPTS = ROOT / ".agents/skills/prepare-stream-evidence/scripts"
 HARNESS_SCRIPTS = ROOT / ".agents/skills/run-synopsis-work-harness/scripts"
 sys.path.insert(0, str(TIMESTAMP_SCRIPTS))
 from timestamp_common import load_canonical_videos, video_tags  # noqa: E402
+from devflow_cleanup import cleanup_completed_batch  # noqa: E402
 
 TERMINAL = {"complete", "blocked"}
 ORCHESTRATOR_MODEL = "gpt-5.6-sol"
@@ -321,6 +322,7 @@ def initialize_manifest(
     destination.mkdir(parents=True)
     (destination / "items").mkdir()
     atomic_json(destination / "manifest.json", manifest)
+    atomic_json(destination / "cleanup-owner.json", {"batchId": batch_id, "manifestHash": manifest["manifestHash"], "version": 1})
     atomic_json(
         item_path(batch_id, selected["videoId"]),
         {
@@ -993,19 +995,22 @@ def command_plan_sheet_update(args: argparse.Namespace) -> dict[str, Any]:
 def command_verify_sheet_update(args: argparse.Namespace) -> dict[str, Any]:
     snapshot = read_json(args.ledger_snapshot)
     manifest = load_manifest(args.batch_id)
+    if snapshot.get("spreadsheetId") != manifest["spreadsheetId"] or snapshot.get("sheetName") != "あらすじ作業台帳":
+        raise HarnessError("再読したspreadsheet IDがmanifestと一致しません。")
     item = load_item(args.batch_id, manifest["videoId"])
     verified = []
     if not item["sheetVerified"] and item["stage"] in {"sheet_pending", "blocked"}:
         _, row, current_hash = snapshot_row(snapshot, item["rowNumber"])
         desired = desired_sheet_values(args.batch_id, item, args.date)
-        if all(str(row.get(header) or "") == str(value) for header, value in desired.items()):
+        if row.get("動画ID") == item["videoId"] and all(str(row.get(header) or "") == str(value) for header, value in desired.items()):
             item["rowHash"] = current_hash
             item["sheetVerified"] = True
             if item["stage"] == "sheet_pending":
                 item["stage"] = "complete"
             write_item(args.batch_id, item)
             verified.append(item["videoId"])
-    return {"batchId": args.batch_id, "verified": verified, "status": command_status(args)}
+    cleanup = cleanup_completed_batch(ROOT, RUN_ROOT, args.batch_id)
+    return {"batchId": args.batch_id, "verified": verified, "cleanup": cleanup, "status": command_status(args)}
 
 
 def command_status(args: argparse.Namespace) -> dict[str, Any]:

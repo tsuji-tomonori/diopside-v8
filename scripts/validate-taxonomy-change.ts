@@ -3,6 +3,7 @@ import path from 'node:path';
 import { z } from 'zod';
 
 import { tagAliasesSchema, tagTaxonomySchema } from '../src/domain/content.ts';
+import { aliasHistorySnapshot } from '../src/domain/tag-alias-compatibility.ts';
 import { readCanonicalVideos } from './canonical-store.ts';
 import { canonicalJson, readJson } from './lib.ts';
 
@@ -67,6 +68,17 @@ function compareWithBase(baseRef: string): void {
   }
   const priorTaxonomy = comparableTaxonomySchema.parse(JSON.parse(priorTaxonomyText));
   const priorAliases = tagAliasesSchema.parse(JSON.parse(priorAliasesText));
+  for (const version of taxonomy.compatibleCanonicalVideoAliasVersions) {
+    const snapshot = aliasHistorySnapshot(version);
+    // An old registered snapshot must remain byte-equivalent to its committed baseline.
+    const priorSnapshotText = gitShow(baseRef, `content/taxonomy/alias-history/${version}.json`);
+    const priorSnapshot = version === priorAliases.aliasVersion
+      ? priorAliases
+      : priorSnapshotText ? tagAliasesSchema.parse(JSON.parse(priorSnapshotText)) : undefined;
+    if (!snapshot || !priorSnapshot || canonicalJson(snapshot) !== canonicalJson(priorSnapshot)) {
+      errors.push(`別名互換履歴 ${version} が比較元の確定済み定義と一致しません。`);
+    }
+  }
   const taxonomyChanged = canonicalJson(priorTaxonomy) !== canonicalJson(taxonomy);
   const aliasesChanged = canonicalJson(priorAliases) !== canonicalJson(aliases);
   if (!taxonomyChanged && !aliasesChanged) return;

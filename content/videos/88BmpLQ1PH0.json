@@ -46,18 +46,18 @@
       "inputFingerprint": "9aa4c7f983c3f802a04872364b92e2d1a1bf9f79a442e490b2a119b14ef5a6aa"
     },
     {
-      "evidenceId": "evidence-full-transcript",
-      "type": "公開の日本語原文字幕",
-      "sourceLabel": "公開の全編字幕",
-      "inputFingerprint": "8e06e28d9dc86d0a48c498ba1eba2d10661cc944afd42a9e3b72bd59c363d26f",
-      "coverageStartSeconds": 0,
-      "coverageEndSeconds": 5897
-    },
-    {
       "evidenceId": "evidence-synopsis-full-transcript",
       "type": "運用者提供の公開本文",
       "sourceLabel": "全編を処理した一時文字起こし",
       "inputFingerprint": "7bb49d0ce3ba3e6f9d0afb7131bebf71f6fcdcc8776a159eebff6463b9dd9fb0",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5897
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "8e06e28d9dc86d0a48c498ba1eba2d10661cc944afd42a9e3b72bd59c363d26f",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 5897
     }
@@ -127,6 +127,22 @@
       "reviewedAt": "2026-09-01T12:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "白雪巴が人狼RPGの第二夜に挑戦。夜に動ける仕組みや役職、アイテムを確認し、昼の議論では参加者の発言から状況を推理します。仲間を信じたい気持ちと疑う緊張感の間で判断を重ね、驚きや軽快なリアクションも交えながら駆け引きを楽しむ実況です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私は人狼やるときは自分が人狼であることを忘れる",
+      "atSeconds": 2973,
+      "evidenceRefs": [
+        "evidence-synopsis-full-transcript"
+      ]
+    },
+    "inputFingerprint": "7bb49d0ce3ba3e6f9d0afb7131bebf71f6fcdcc8776a159eebff6463b9dd9fb0",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:37:21.516410Z"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -631,7 +647,7 @@
   },
   "provenance": {
     "inputFingerprint": "a7d0cc7fefd90617f79b863086d40756141536f1f0ba91dc27131f39ca1c3a7e",
-    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
     "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
@@ -639,21 +655,5 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
-  },
-  "synopsis": {
-    "body": "白雪巴が人狼RPGの第二夜に挑戦。夜に動ける仕組みや役職、アイテムを確認し、昼の議論では参加者の発言から状況を推理します。仲間を信じたい気持ちと疑う緊張感の間で判断を重ね、驚きや軽快なリアクションも交えながら駆け引きを楽しむ実況です。",
-    "bodyEvidenceRefs": [
-      "evidence-synopsis-full-transcript"
-    ],
-    "featuredQuote": {
-      "text": "私は人狼やるときは自分が人狼であることを忘れる",
-      "atSeconds": 2973,
-      "evidenceRefs": [
-        "evidence-synopsis-full-transcript"
-      ]
-    },
-    "inputFingerprint": "7bb49d0ce3ba3e6f9d0afb7131bebf71f6fcdcc8776a159eebff6463b9dd9fb0",
-    "rulesVersion": "1.1.0",
-    "updatedAt": "2026-09-06T07:37:21.516410Z"
   }
 }

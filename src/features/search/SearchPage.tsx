@@ -4,6 +4,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { VideoCard } from '../../components/VideoCard.tsx';
 import { useBundle, useDeviceStore } from '../../contexts.ts';
 import {
+  additionalTagCounts,
   applySearch,
   buildSearchSuggestions,
   dateInJapan,
@@ -11,7 +12,7 @@ import {
   normalizeTagAlias,
   parseCondition,
   serializeCondition,
-  tagCountsForResults,
+  withTagSelection,
   validateCondition,
   type DurationBucket,
   type SearchCondition,
@@ -20,6 +21,7 @@ import {
 import { formatDate } from '../../format.ts';
 import { DateRangePicker } from './DateRangePicker.tsx';
 import { DurationRangeSlider } from './DurationRangeSlider.tsx';
+import { TagSearchControls } from './TagSearchControls.tsx';
 
 const sortOrders: SortOrder[] = ['関連度順', '公開日の新しい順', '公開日の古い順', '動画長の短い順', '動画長の長い順'];
 const pageSize = 24;
@@ -40,6 +42,7 @@ export function SearchPage(): React.JSX.Element {
   const [tagInput, setTagInput] = useState('');
   const [tagError, setTagError] = useState('');
   const [tagsExpanded, setTagsExpanded] = useState(true);
+  const [filtersExpanded, setFiltersExpanded] = useState(() => draft.tagIds.length > 0 || (draft.excludedTagIds?.length ?? 0) > 0);
   const [visibleCount, setVisibleCount] = useState(pageSize);
   const [resultAnnouncement, setResultAnnouncement] = useState('');
   const [suggestionsOpen, setSuggestionsOpen] = useState(false);
@@ -81,16 +84,18 @@ export function SearchPage(): React.JSX.Element {
       publishedAt: video.publishedAt,
     }] : [];
   }), [bundle.searchIndex.videos, summaries]);
-  const suggestionTags = useMemo(() => tags
-    .filter((tag) => tag.count > 0)
+  const tagCategoryLabels = useMemo(() => new Map(bundle.tagIndex.categories.flatMap((category) => category.subcategories.flatMap((subcategory) => subcategory.tags.map((tag) => [tag.tagId, `${category.name} / ${subcategory.name}`] as const)))), [bundle.tagIndex.categories]);
+  const tagSearchOptions = useMemo(() => tags
     .map((tag) => ({
       tagId: tag.tagId,
       canonicalName: tag.canonicalName,
       normalizedReading: tag.normalizedReading,
       count: tag.count,
       aliases: aliasesByTagId.get(tag.tagId) ?? [],
+      categoryLabel: tagCategoryLabels.get(tag.tagId) ?? '分類',
       ...(tag.entityId ? { entityId: tag.entityId } : {}),
-    })), [aliasesByTagId, tags]);
+    })), [aliasesByTagId, tags, tagCategoryLabels]);
+  const suggestionTags = useMemo(() => tagSearchOptions.filter((tag) => tag.count > 0), [tagSearchOptions]);
   const suggestions = useMemo(
     () => buildSearchSuggestions(draft.query, suggestionVideos, suggestionTags),
     [draft.query, suggestionTags, suggestionVideos],
@@ -122,13 +127,19 @@ export function SearchPage(): React.JSX.Element {
     for (const tag of tags) index.set(normalizeTagAlias(tag.canonicalName), tag.tagId);
     return index;
   }, [bundle.aliasIndex.aliases, tags]);
-  const urlCondition = useMemo(() => ({
-    ...parsedCondition,
-    tagIds: [...new Set(parsedCondition.tagIds.flatMap((value) => {
+  const urlCondition = useMemo(() => {
+    const resolveIds = (values: string[]): string[] => [...new Set(values.flatMap((value) => {
       const resolved = knownTagIds.has(value) ? value : tagInputIndex.get(normalizeTagAlias(value));
       return resolved ? [resolved] : [];
-    }))],
-  }), [knownTagIds, parsedCondition, tagInputIndex]);
+    }))];
+    const { excludedTagIds: _excluded, ...rest } = parsedCondition;
+    const excludedTagIds = resolveIds(parsedCondition.excludedTagIds ?? []);
+    return {
+      ...rest,
+      tagIds: resolveIds(parsedCondition.tagIds),
+      ...(excludedTagIds.length > 0 ? { excludedTagIds } : {}),
+    };
+  }, [knownTagIds, parsedCondition, tagInputIndex]);
   const condition = appliedCondition ?? urlCondition;
   const errors = validateCondition(condition);
   const results = useMemo(() => {
@@ -141,19 +152,21 @@ export function SearchPage(): React.JSX.Element {
   const tagFilterCondition = useMemo<SearchCondition>(() => ({
     query: draft.query,
     tagIds: draft.tagIds,
+    ...(draft.tagMatch ? { tagMatch: draft.tagMatch } : {}),
+    ...(draft.excludedTagIds ? { excludedTagIds: draft.excludedTagIds } : {}),
     ...(draft.publishedFrom ? { publishedFrom: draft.publishedFrom } : {}),
     ...(draft.publishedTo ? { publishedTo: draft.publishedTo } : {}),
     ...(draft.sort ? { sort: draft.sort } : {}),
     ...settledDurationFilter,
-  }), [draft.publishedFrom, draft.publishedTo, draft.query, draft.sort, draft.tagIds, settledDurationFilter]);
+  }), [draft.publishedFrom, draft.publishedTo, draft.query, draft.sort, draft.tagIds, draft.tagMatch, draft.excludedTagIds, settledDurationFilter]);
   const draftResults = useMemo(
     () => applySearch(bundle.searchIndex.videos, tagFilterCondition),
     [bundle.searchIndex.videos, tagFilterCondition],
   );
   const draftResultCount = draftResults.length;
-  const tagCounts = useMemo(() => tagCountsForResults(draftResults), [draftResults]);
+  const tagCounts = useMemo(() => additionalTagCounts(bundle.searchIndex.videos, tagFilterCondition), [bundle.searchIndex.videos, tagFilterCondition]);
   const availableTagIds = new Set(tags.flatMap((tag) => (
-    selected.has(tag.tagId) || (tagCounts.get(tag.tagId) ?? 0) > 0 ? [tag.tagId] : []
+    selected.has(tag.tagId) || (!draft.excludedTagIds?.includes(tag.tagId) && (tagCounts.get(tag.tagId) ?? 0) > 0) ? [tag.tagId] : []
   )));
   const selectedTags = tags.filter((tag) => selected.has(tag.tagId));
   const quickTags = (bundle.tagIndex.categories
@@ -198,7 +211,11 @@ export function SearchPage(): React.JSX.Element {
 
   const submit = (nextCondition: SearchCondition = draft): boolean => {
     const nextErrors = validateCondition(nextCondition);
-    if (nextErrors.length > 0) return false;
+    if (nextErrors.length > 0) {
+      setTagError(nextErrors.find((error) => error.field === 'タグ')?.message ?? '');
+      return false;
+    }
+    setTagError('');
     setSuggestionsOpen(false);
     setActiveSuggestionIndex(-1);
     searchStartedAt.current = performance.now();
@@ -213,6 +230,7 @@ export function SearchPage(): React.JSX.Element {
     if (!submit(nextCondition)) return;
 
     setTagsExpanded(false);
+    setFiltersExpanded(true);
     requestAnimationFrame(() => {
       resultsHeadingRef.current?.focus({ preventScroll: true });
       const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
@@ -246,7 +264,7 @@ export function SearchPage(): React.JSX.Element {
       navigate(`/songs/${tagId}`);
       return;
     }
-    const next = { ...draft, query: '', tagIds: [...new Set([...draft.tagIds, tagId])] };
+    const next = withTagSelection({ ...draft, query: '' }, tagId, 'include');
     closeTagsAndShowResults(next);
   };
 
@@ -293,17 +311,16 @@ export function SearchPage(): React.JSX.Element {
       return;
     }
     const alreadySelected = selected.has(tagId);
-    const nextTagIds = mode === 'toggle' && alreadySelected
-      ? draft.tagIds.filter((id) => id !== tagId)
-      : [...new Set([...draft.tagIds, tagId])];
+    const next = withTagSelection(draft, tagId, mode === 'toggle' && alreadySelected ? 'remove' : 'include');
     setTagInput('');
     setTagError('');
-    closeTagsAndShowResults({ ...draft, tagIds: nextTagIds });
+    closeTagsAndShowResults(next);
   };
 
   const clear = (): void => {
     const empty = { query: '', tagIds: [] };
     setDraft(empty);
+    setFiltersExpanded(false);
     setTagInput('');
     setTagError('');
     searchStartedAt.current = performance.now();
@@ -496,7 +513,16 @@ export function SearchPage(): React.JSX.Element {
             </button>
           </div>
 
-          <details className="filter-drawer" open={draft.tagIds.length > 0}>
+          {tagError && <p className="form-error" role="alert">{tagError}</p>}
+          <TagSearchControls
+            condition={draft}
+            countCondition={tagFilterCondition}
+            videos={bundle.searchIndex.videos}
+            tags={tagSearchOptions}
+            onChange={submit}
+          />
+
+          <details className="filter-drawer" open={filtersExpanded} onToggle={(event) => setFiltersExpanded(event.currentTarget.open)}>
             <summary>タグ・公開日・動画長で絞り込む</summary>
 
             <div className="filter-grid">
@@ -531,7 +557,7 @@ export function SearchPage(): React.JSX.Element {
             <fieldset className="tag-filter">
               <legend>タグ</legend>
               <div className="tag-filter-toolbar">
-                <p className="hint">よく使う主ジャンル、タグ名入力、分類一覧から選べます。複数選択は「すべて含む」です。</p>
+                <p className="hint">よく使う主ジャンル、タグ名入力、分類一覧から選べます。複数選択は上の「含めるタグの条件」で切り替えられます。</p>
                 <button
                   className="button secondary"
                   type="button"
@@ -560,7 +586,6 @@ export function SearchPage(): React.JSX.Element {
                     </datalist>
                     <button className="button secondary" type="button" onClick={addTagByName}>タグを追加</button>
                   </div>
-                  {tagError && <p className="form-error" role="alert">{tagError}</p>}
                   {selectedTags.length > 0 && (
                     <section className="tag-shortcut-group selected-tags" aria-labelledby="selected-tags-heading">
                       <div className="tag-shortcut-heading">

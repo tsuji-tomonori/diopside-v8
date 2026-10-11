@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "bc67c283dc081f3d69b64a347f823aae49af6b4aacb756cbeb15583153f2963f"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "a111558c859b565f3bf7fc49fa5dc50965ea37ab5d7c643a0e363e06ab536824",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9614
     }
   ],
   "tagAssignments": [
@@ -4637,5 +4645,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴とヘックスが、通訳を交えながら互いの印象や悩みを語り、イエス・ノークイズに挑戦。サプライズゲストや贈られたメッセージ、衣装を合わせた撮影も交え、言葉の壁を越えて家族のような温かさを分かち合うコラボです。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "全く英語がわからないです",
+      "atSeconds": 683,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "a111558c859b565f3bf7fc49fa5dc50965ea37ab5d7c643a0e363e06ab536824",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T21:09:31.256525+00:00"
   }
 }

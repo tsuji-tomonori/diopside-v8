@@ -46,6 +46,14 @@
       "inputFingerprint": "a40697e64993e178a602d5d2d96460d320c5b632b5bfd1f55002642492d8a72b"
     },
     {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "980b2e51f74ee76deafd32b267751c461817620e0907f1f0fa37ccca21861ce5",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 682
+    },
+    {
       "evidenceId": "evidence-full-transcript",
       "type": "全編ローカル音声認識",
       "sourceLabel": "全編を処理した一時文字起こし",
@@ -119,6 +127,22 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "白雪巴がホラーゲーム『PIEN』に挑戦。ビビったら即終了という条件のもと、恐怖を感じても感情を抑える作戦で暗い部屋を探索します。電池を温存しながらライトで仕掛けを探り、驚かせる演出に反応しつつも苦手なホラーを自分なりに攻略していく実況です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "感情をぶち殺す",
+      "atSeconds": 181,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "980b2e51f74ee76deafd32b267751c461817620e0907f1f0fa37ccca21861ce5",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T13:10:33.099447+00:00"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -636,7 +660,7 @@
   },
   "provenance": {
     "inputFingerprint": "17d37c2d6908e2c3e769a4a742eac19a734df355f3b1760aa908d7a7f4079a67",
-    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
     "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },

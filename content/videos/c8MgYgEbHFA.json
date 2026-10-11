@@ -58,6 +58,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "3788786edb84464577506fb8563cd7cb82cb1ba7dd144bf40287257e32566652"
+    },
+    {
+      "evidenceId": "evidence-timestamp-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "6837f7ce25dd1d112ebf674ea067779d996a74c2ba98d23e44356f27501a2ee3",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2712
     }
   ],
   "tagAssignments": [
@@ -196,10 +204,212 @@
     "updatedAt": "2026-08-22T16:34:44.291242Z"
   },
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-03dc5995",
+        "startSeconds": 0,
+        "label": "配信開始と音声・音量確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-529-b2647a39",
+        "startSeconds": 529,
+        "label": "チーム合流と試合・武器編成の確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-683-36df7d04",
+        "startSeconds": 683,
+        "label": "本番前の身支度と気持ちの確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-753-fef13fac",
+        "startSeconds": 753,
+        "label": "本番への心構えと武器相談・試合待機",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-901-27f9bab6",
+        "startSeconds": 901,
+        "label": "試合結果と武器・作戦の振り返り",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1092-3ddfcb3e",
+        "startSeconds": 1092,
+        "label": "連携とカバーの戦術確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1157-4d486b76",
+        "startSeconds": 1157,
+        "label": "次の試合に向けた参加準備",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1249-11468cd8",
+        "startSeconds": 1249,
+        "label": "参加者確認と進行トラブル対応",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1316-d948a507",
+        "startSeconds": 1316,
+        "label": "回線落ち後の試合再開",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1406-27f869e5",
+        "startSeconds": 1406,
+        "label": "運営・部屋の状況確認と立て直し",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1501-ba8465d7",
+        "startSeconds": 1501,
+        "label": "回線トラブル中の待機",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1600-6a4f9bf3",
+        "startSeconds": 1600,
+        "label": "接続回復と試合準備",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1652-cbd1ba1d",
+        "startSeconds": 1652,
+        "label": "報告・カバー連携と試合前確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1803-9a9ad4c6",
+        "startSeconds": 1803,
+        "label": "第1試合開始",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1973-c9049f37",
+        "startSeconds": 1973,
+        "label": "第1試合後の振り返りと次戦準備",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2095-12922ae1",
+        "startSeconds": 2095,
+        "label": "第2試合開始",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2273-c1a9ffae",
+        "startSeconds": 2273,
+        "label": "試合後の振り返りと今後の挑戦",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2524-2b5d0301",
+        "startSeconds": 2524,
+        "label": "応援への感謝と配信の締め",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "91823c8810e0b12b75d38f3b877e2068fb6d367ecbe9db81e99b959a784b1645",
+    "inputFingerprint": "6837f7ce25dd1d112ebf674ea067779d996a74c2ba98d23e44356f27501a2ee3",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-12T08:51:34.886136+00:00",
+    "updatedAt": "2026-09-12T08:54:20.293801+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "91823c8810e0b12b75d38f3b877e2068fb6d367ecbe9db81e99b959a784b1645",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T08:52:49.201845+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "91823c8810e0b12b75d38f3b877e2068fb6d367ecbe9db81e99b959a784b1645",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T08:54:20.293801+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "91823c8810e0b12b75d38f3b877e2068fb6d367ecbe9db81e99b959a784b1645",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2571"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -922,7 +1132,7 @@
     "inputFingerprint": "851ffc00bca55b373da3de064e64a2c5f4965d2338745386d523acec12ee7117",
     "generatorVersion": "v8-legacy-migration-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2571"
   },
   "approval": {
     "status": "承認済み",

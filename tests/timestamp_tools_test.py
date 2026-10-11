@@ -38,13 +38,37 @@ class TimestampToolsTest(unittest.TestCase):
         self.invoke(INIT, VIDEO_ID)
         self.work = self.work_root / VIDEO_ID
         self.inputs = json.loads((self.work / "inputs.json").read_text(encoding="utf-8"))
+        self.batch_videos_path = self.temp / "batch-videos.json"
+        template = json.loads((ROOT / "content/videos" / f"{VIDEO_ID}.json").read_text(encoding="utf-8"))
+        self.batch_videos = {
+            video_id: {
+                **template,
+                "videoId": video_id,
+                "timestamps": {"status": "未作成"},
+            }
+            for video_id in (VIDEO_ID, SECOND_VIDEO_ID, THIRD_VIDEO_ID, HYPHEN_VIDEO_ID)
+        }
+        json_file(self.batch_videos_path, self.batch_videos)
 
     def tearDown(self) -> None:
         self.temporary.cleanup()
 
     def invoke(self, script: Path, *arguments: str, success: bool = True) -> subprocess.CompletedProcess[str]:
+        command = ["python3", str(script), *arguments]
+        if script == BATCH_INIT:
+            # Control the canonical input, while executing the real CLI validation.
+            # Published content must not change the batch tests' initial state.
+            command = ["python3", "-c", "\n".join([
+                "import json, sys",
+                "from pathlib import Path",
+                "sys.path.insert(0, sys.argv.pop(1))",
+                "import init_batch",
+                "videos = json.loads(Path(sys.argv.pop(1)).read_text(encoding='utf-8'))",
+                "init_batch.load_canonical_videos = lambda: videos",
+                "raise SystemExit(init_batch.main())",
+            ]), str(BATCH_SCRIPTS), str(self.batch_videos_path), *arguments]
         completed = subprocess.run(
-            ["python3", str(script), *arguments], cwd=ROOT, env=self.env,
+            command, cwd=ROOT, env=self.env,
             text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False,
         )
         if success and completed.returncode != 0:
@@ -196,6 +220,12 @@ class TimestampToolsTest(unittest.TestCase):
             BATCH_INIT, "--max-concurrency", "1", "--", "hyphen-id-test", HYPHEN_VIDEO_ID,
         ).stdout)
         self.assertEqual(initialized["videoIds"], [HYPHEN_VIDEO_ID])
+
+    def test_batch_init_rejects_created_video(self) -> None:
+        self.batch_videos[THIRD_VIDEO_ID]["timestamps"] = {"status": "作成済み"}
+        json_file(self.batch_videos_path, self.batch_videos)
+        completed = self.invoke(BATCH_INIT, "created-test", THIRD_VIDEO_ID, success=False)
+        self.assertIn(f"作成済み動画は新規batchへ指定できません: {THIRD_VIDEO_ID}", completed.stderr)
 
     def test_ready_completion_upgrades_legacy_dossier_stage(self) -> None:
         self.invoke(BATCH_INIT, "legacy-ready", VIDEO_ID, "--max-concurrency", "1")

@@ -38,6 +38,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "04213608774592cb9d458daf04042e6baed05eb13839e47f83f3c8e991d05410"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "b0042b0dfcc86d10329c8ec16558d8b37fb555f36d93ed3063aedbbca2230b97",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7627
     }
   ],
   "tagAssignments": [
@@ -243,10 +251,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "異常",
+        "weight": 100
+      },
+      {
+        "term": "やばい",
+        "weight": 84
+      },
+      {
+        "term": "怖い",
+        "weight": 72
+      },
+      {
+        "term": "あと",
+        "weight": 63
+      },
+      {
+        "term": "わかる",
+        "weight": 61
+      },
+      {
+        "term": "ゲーム",
+        "weight": 47
+      },
+      {
+        "term": "音",
+        "weight": 45
+      },
+      {
+        "term": "待つ",
+        "weight": 44
+      },
+      {
+        "term": "辺",
+        "weight": 42
+      },
+      {
+        "term": "カメラ",
+        "weight": 39
+      },
+      {
+        "term": "確か",
+        "weight": 39
+      },
+      {
+        "term": "大丈夫",
+        "weight": 39
+      },
+      {
+        "term": "幽霊",
+        "weight": 39
+      },
+      {
+        "term": "すごい",
+        "weight": 36
+      },
+      {
+        "term": "違う",
+        "weight": 36
+      },
+      {
+        "term": "報告",
+        "weight": 36
+      },
+      {
+        "term": "開く",
+        "weight": 32
+      },
+      {
+        "term": "見逃す",
+        "weight": 30
+      },
+      {
+        "term": "人",
+        "weight": 30
+      },
+      {
+        "term": "物件",
+        "weight": 30
+      },
+      {
+        "term": "気",
+        "weight": 28
+      },
+      {
+        "term": "木",
+        "weight": 28
+      },
+      {
+        "term": "マジ",
+        "weight": 26
+      },
+      {
+        "term": "起きる",
+        "weight": 26
+      },
+      {
+        "term": "白",
+        "weight": 26
+      },
+      {
+        "term": "意外と",
+        "weight": 24
+      },
+      {
+        "term": "元々",
+        "weight": 24
+      },
+      {
+        "term": "分かる",
+        "weight": 24
+      },
+      {
+        "term": "ふん",
+        "weight": 21
+      },
+      {
+        "term": "部屋",
+        "weight": 21
+      },
+      {
+        "term": "椅子",
+        "weight": 19
+      },
+      {
+        "term": "雪",
+        "weight": 19
+      },
+      {
+        "term": "とこ",
+        "weight": 16
+      },
+      {
+        "term": "監視",
+        "weight": 14
+      },
+      {
+        "term": "顔",
+        "weight": 14
+      },
+      {
+        "term": "仕事",
+        "weight": 14
+      },
+      {
+        "term": "うわ",
+        "weight": 11
+      },
+      {
+        "term": "見える",
+        "weight": 8
+      },
+      {
+        "term": "見つける",
+        "weight": 8
+      },
+      {
+        "term": "絶対",
+        "weight": 8
+      },
+      {
+        "term": "特別",
+        "weight": 8
+      },
+      {
+        "term": "普通",
+        "weight": 8
+      },
+      {
+        "term": "いやあ",
+        "weight": 4
+      },
+      {
+        "term": "ドア",
+        "weight": 4
+      },
+      {
+        "term": "手当て",
+        "weight": 4
+      },
+      {
+        "term": "やめる",
+        "weight": 1
+      },
+      {
+        "term": "気づく",
+        "weight": 1
+      },
+      {
+        "term": "実際",
+        "weight": 1
+      },
+      {
+        "term": "終わる",
+        "weight": 1
+      },
+      {
+        "term": "探す",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "b0042b0dfcc86d10329c8ec16558d8b37fb555f36d93ed3063aedbbca2230b97",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "ec9fdb4f14ee50b30e95b58ce0486457a6338be3b1d0cdc00b62ed6c98d044f1",

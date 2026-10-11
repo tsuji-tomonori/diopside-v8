@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs';
+import os from 'node:os';
+
 import { expect, test, type Locator } from '@playwright/test';
 
 import { embeddedReleaseId } from '../src/generated/release.ts';
@@ -246,11 +249,107 @@ test.describe('動画検索', () => {
   });
 
   test('公開データ取得失敗を正常な0件と別の日本語状態にする', async ({ page }) => {
+    await preparePage(page);
     await page.route('**/data/latest.json', async (route) => route.fulfill({ status: 503, body: 'unavailable' }));
     await page.goto('/');
     await expect(page.getByRole('alert')).toContainText('取得失敗');
     await expect(page.getByRole('heading', { name: '動画一覧を表示できません' })).toBeVisible();
     await expect(page.getByRole('button', { name: '再読み込み' })).toBeVisible();
+    await page.unroute('**/data/latest.json');
+    await page.getByRole('button', { name: '再読み込み' }).click();
+    await expect(page.getByRole('heading', { name: allVideosHeading })).toBeVisible();
+    await expect(page.getByRole('alert')).toHaveCount(0);
+  });
+
+
+  test('実カタログの初期表示・タイトル検索・タグ絞り込みを端末条件付きで計測する', async ({ page }, testInfo) => {
+    test.setTimeout(120_000);
+    const index = JSON.parse(readFileSync(`public/data/releases/${embeddedReleaseId}/index.json`, 'utf8')) as {
+      videos: Array<{ videoId: string; title: string; tagIds: string[] }>;
+    };
+    const tagIndex = JSON.parse(readFileSync(`public/data/releases/${embeddedReleaseId}/tag-index.json`, 'utf8')) as {
+      categories: Array<{ subcategories: Array<{ tags: unknown[] }> }>;
+    };
+    const tagId = 'tag-context-participation-a4911ea059bb';
+    const taggedCount = index.videos.filter((video) => video.tagIds.includes(tagId)).length;
+    expect(taggedCount).toBeGreaterThan(0);
+    expect(taggedCount).toBeLessThan(index.videos.length);
+    await preparePage(page);
+    const cdp = await page.context().newCDPSession(page);
+    await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
+    // 新規contextでnavigation開始から先頭24件のDOMを確認した次のframeまで。
+    // 通信はlocalhost、画像はfixture。実機・回線・視覚paint完了の計測ではない。
+    await page.addInitScript(({ count }) => {
+      const check = (): void => {
+        if (document.querySelector('#results-heading')?.textContent === `${count}件の動画`
+          && document.querySelectorAll('.video-card').length === Math.min(count, 24)) {
+          requestAnimationFrame(() => performance.mark('ux02-initial-results-frame'));
+        } else {
+          requestAnimationFrame(check);
+        }
+      };
+      requestAnimationFrame(check);
+    }, { count: index.videos.length });
+    await openSearch(page);
+    await page.waitForFunction(() => performance.getEntriesByName('ux02-initial-results-frame').length > 0);
+    const initialResultsFrameMs = await page.evaluate(() => performance.getEntriesByName('ux02-initial-results-frame')[0]!.startTime);
+    const titleSamplesMs: number[] = [];
+    const tagSamplesMs: number[] = [];
+    const queryInput = page.getByRole('combobox', { name: '検索', exact: true });
+    const status = page.getByTestId('result-update-status');
+    const readUpdate = async (count: number): Promise<number> => {
+      await expect(status).toContainText(`${count}件の検索結果へ更新しました`);
+      const elapsed = Number((await status.textContent())?.match(/([\d.]+)ミリ秒/u)?.[1]);
+      expect(Number.isFinite(elapsed)).toBe(true);
+      return elapsed;
+    };
+    // 既存のタイトル完全一致と空結果を交互にし、前回のstatusを採らない。
+    const title = '【#白雪巴誕生日2026】ケーキを食べてパーッとお祝いしちゃおうかしら🎉🎉🎉【白雪巴/にじさんじ】';
+    expect(index.videos.some((video) => video.videoId === 'GoWhHtJmIbk' && video.title === title)).toBe(true);
+    for (let sample = 0; sample < 6; sample += 1) {
+      const query = sample % 2 === 0 ? title : '一致しない架空の動画タイトル';
+      const count = sample % 2 === 0 ? 1 : 0;
+      await queryInput.fill(query);
+      await page.getByRole('button', { name: 'この条件で探す' }).click();
+      await expect(page.locator('#results-heading')).toHaveText(`${count}件の動画`);
+      await expect(page).toHaveURL((url) => new URLSearchParams(url.hash.split('?')[1]).get('q') === query);
+      if (count === 1) await expect(page.locator('.video-card')).toHaveAttribute('data-video-id', 'GoWhHtJmIbk');
+      titleSamplesMs.push(await readUpdate(count));
+    }
+    await page.getByRole('button', { name: '条件をすべて解除' }).click();
+    await expect(page.locator('#results-heading')).toHaveText(allVideosHeading);
+    await page.getByText('タグ・公開日・動画長で絞り込む').click();
+    for (let sample = 0; sample < 6; sample += 1) {
+      if (sample > 0) await page.getByRole('button', { name: 'タグを開く（選択0件）' }).click();
+      await page.getByLabel('タグ名または別名から追加').fill('コラボ');
+      await expect(page.locator('#results-heading')).toHaveText(`${taggedCount}件の動画`);
+      await expect(page).toHaveURL((url) => new URLSearchParams(url.hash.split('?')[1]).get('tag') === tagId);
+      tagSamplesMs.push(await readUpdate(taggedCount));
+      await page.getByRole('button', { name: 'タグを開く（選択1件）' }).click();
+      await page.locator('.selected-tags').getByRole('button', { name: /^コラボ/u }).click();
+      await expect(page.locator('#results-heading')).toHaveText(allVideosHeading);
+      await expect(page).not.toHaveURL(/tag=/u);
+    }
+    const evidence = {
+      scope: '実カタログ・タイトルと分類タグ。全文検索・利用者評価は対象外',
+      releaseId: embeddedReleaseId,
+      videoCount: index.videos.length,
+      tagCount: tagIndex.categories.flatMap((category) => category.subcategories.flatMap((subcategory) => subcategory.tags)).length,
+      viewport: page.viewportSize(),
+      project: testInfo.project.name,
+      browser: page.context().browser()?.version(),
+      runner: { platform: process.platform, architecture: process.arch, cpu: os.cpus()[0]?.model, node: process.version },
+      cpuThrottlingRate: 4,
+      network: 'localhost; external images replaced; fresh browser context',
+      initialResultsFrameMs,
+      initialSampleCount: 1,
+      interactionMetric: 'submit開始からReact layout effectまで。paint完了を含まない',
+      titleSamplesMs,
+      tagSamplesMs,
+      threshold: '現状baselineのみ。既存2500動画の100ms gateは別testで維持',
+    };
+    testInfo.annotations.push({ type: 'UX02現状計測', description: JSON.stringify(evidence) });
+    process.stdout.write(`UX02現状計測: ${JSON.stringify(evidence)}\n`);
   });
 
   test('375×812・CPU4倍低速化・2,500動画の代表20検索で95パーセンタイルを100ミリ秒以内にする', async ({ page }, testInfo) => {
@@ -301,6 +400,10 @@ test.describe('動画検索', () => {
       query[0] = '9';
       await page.getByRole('combobox', { name: '検索', exact: true }).fill(query.join(''));
       await page.getByRole('button', { name: 'この条件で探す' }).click();
+      // 同じ1件という前回のstatusを再計測しないよう、今回の結果とURLまで確認する。
+      await expect(page.locator('.video-card')).toHaveCount(1);
+      await expect(page.locator('.video-card')).toHaveAttribute('data-video-id', `perf${String(target).padStart(7, '0')}`);
+      await expect(page).toHaveURL(new RegExp(`q=${query.join('')}`, 'u'));
       const status = page.getByTestId('result-update-status');
       await expect(status).toContainText('1件の検索結果へ更新しました');
       const value = Number((await status.textContent())?.match(/([\d.]+)ミリ秒/u)?.[1]);

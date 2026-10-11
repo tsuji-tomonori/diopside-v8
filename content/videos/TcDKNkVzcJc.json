@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "29b7126a99d1405117a5d3a8b75d6873e7804752a0ff226625b869d47def2f5a"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "保存済み全編字幕（0秒〜136秒）",
+      "inputFingerprint": "f388957bb2956cfa85950f22e91ed45468d27cc53668f52ac8b41d724040add5",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 136
     }
   ],
   "tagAssignments": [
@@ -508,5 +516,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "花畑チャイカと白雪巴が向き合い、好みをめぐる挑発から始まる濃密な掛け合いを展開。白雪巴が主導する実演では、反応を引き出す問いかけや制止、芝居がかったやり取りが重なり、二人の距離感と緊張感をコミカルに味わえる3D披露です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私は嘘は言わない",
+      "atSeconds": 44,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "f388957bb2956cfa85950f22e91ed45468d27cc53668f52ac8b41d724040add5",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:14:57.758447+00:00"
   }
 }

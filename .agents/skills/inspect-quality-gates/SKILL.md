@@ -1,6 +1,6 @@
 ---
 name: inspect-quality-gates
-description: Inspect only checks selected for the current change and timing. Record decisions in governance/reviews/<change-id>.yaml, keep CI results external, and use legacy phase gates only for regulated work.
+description: Inspect only checks selected for the current change and timing. Summarize important decisions in the PR, keep CI results external, and use legacy phase gates only for regulated work.
 ---
 
 # Inspect Quality Gates
@@ -9,10 +9,10 @@ description: Inspect only checks selected for the current change and timing. Rec
 
 ## 既定の証跡
 
-- review判断: `governance/reviews/<change-id>.yaml`
+- review判断: PRの指摘、対応、残存リスク。固定YAMLは任意の旧契約監査だけ
 - check定義の正本: `governance/checks/catalog.yaml`
 - automated result: GitHub Actions等の外部サービス
-- requirement / design impact: Commit Comment
+- requirement / design impact: PRまたはCommit Comment
 - implementation evidence: code、test、生成設計、ADR、Git diff
 
 変更ごとのtest report、implementation log、release reportは作らない。
@@ -30,7 +30,7 @@ triggerに該当した場合はPass必須。Failを残したままmergeしない
 - 認可境界を迂回しない
 - 未承認の不可逆操作を行わない
 - 生成物と生成元が一致する
-- Commit Commentに要件・設計影響がある
+- 重要な要件・設計影響が説明されている
 
 ### Risk-selected
 
@@ -90,8 +90,7 @@ triggerに該当した場合はPass必須。Failを残したままmergeしない
 - selected checkのresultと証拠がある
 - blocking failがない
 - advisoryの扱いが決まっている
-- review YAMLがschemaに適合する
-- Commit Commentの必須節が埋まっている
+- PRの説明から重要な影響と検証状況が分かる
 
 ### Merge前: Revision Integrity Check
 
@@ -151,10 +150,8 @@ selectorで選ばれた後、具体的事実により適用外と判明した場
 
 ## Completion
 
-- `python governance/reviews/validate.py --root . --commit HEAD`が成功する。
-- review YAMLがschemaに適合する。
 - trigger該当のInvariantがすべてPass。
 - 選択したblocking Risk-selectedがすべてPass。
 - Advisoryの扱いが決まっている。
 - CI結果をrepositoryへ複製していない。
-- Commit Commentの要件影響、設計影響、review path、検証契約が完成している。
+- 重要な影響、検証と残存リスクをPRまたはCommit Commentで確認できる。

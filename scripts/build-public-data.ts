@@ -36,6 +36,7 @@ import {
   validateSongPerformanceCatalog,
   validateTaxonomy,
 } from '../src/domain/validation.ts';
+import { buildTimestampNameCorrections, timestampNameCorrectionsSchema, timestampNameKey } from '../src/domain/timestamp-name-corrections.ts';
 import { readCanonicalVideos } from './canonical-store.ts';
 import {
   createJapaneseReadingNormalizer,
@@ -102,7 +103,13 @@ if (gameCatalogIssues.length > 0) {
   throw new Error(gameCatalogIssues.map((item) => `${item.code}:${item.path}:${item.message}`).join('\n'));
 }
 
+const timestampNameCorrections = timestampNameCorrectionsSchema.parse(
+  readJson(path.join(root, 'content/timestamps/name-corrections.json')),
+);
+const correctedTimestampLabels = buildTimestampNameCorrections(videos, timestampNameCorrections);
+
 const releaseSeed = {
+  timestampNameCorrections,
   taxonomy,
   aliases,
   workIntroductions,
@@ -512,14 +519,16 @@ function toDetail(video: CanonicalVideo, currentReleaseId: string): PublicVideoD
     : {
         status: '作成済み' as const,
         origin: video.timestamps.origin,
-        updatedAt: video.timestamps.updatedAt,
+        updatedAt: video.timestamps.items.some((item) => correctedTimestampLabels.has(timestampNameKey(video.videoId, item.timestampId)))
+          ? timestampNameCorrections.checkedAt
+          : video.timestamps.updatedAt,
         items: video.timestamps.items.map((item, index) => ({
           timestampId: item.timestampId,
           startSeconds: item.startSeconds,
           endSeconds: video.timestamps.status === '作成済み'
             ? (video.timestamps.items[index + 1]?.startSeconds ?? video.durationSeconds ?? item.startSeconds + 1)
             : item.startSeconds + 1,
-          label: item.label,
+          label: correctedTimestampLabels.get(timestampNameKey(video.videoId, item.timestampId)) ?? item.label,
           confidence: item.confidence,
           youtubeUrl: `https://www.youtube.com/watch?v=${video.videoId}&t=${item.startSeconds}s`,
         })),

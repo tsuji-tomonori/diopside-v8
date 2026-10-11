@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "d97ffd36068c4cd9a2b2381d3871b8949c967729030dfed1eb99e8851c61fdc6"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "39ede04e2ccec3efb327df4cebbcfe09e0401d363e869976ff70d936270ab515",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2325
     }
   ],
   "tagAssignments": [
@@ -300,10 +308,195 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "回答",
+        "weight": 100
+      },
+      {
+        "term": "カード",
+        "weight": 93
+      },
+      {
+        "term": "クリア",
+        "weight": 89
+      },
+      {
+        "term": "使う",
+        "weight": 77
+      },
+      {
+        "term": "題",
+        "weight": 77
+      },
+      {
+        "term": "次",
+        "weight": 61
+      },
+      {
+        "term": "ピンチ",
+        "weight": 49
+      },
+      {
+        "term": "ワイン",
+        "weight": 49
+      },
+      {
+        "term": "人",
+        "weight": 49
+      },
+      {
+        "term": "まず",
+        "weight": 42
+      },
+      {
+        "term": "回避",
+        "weight": 42
+      },
+      {
+        "term": "自転車",
+        "weight": 42
+      },
+      {
+        "term": "発表",
+        "weight": 42
+      },
+      {
+        "term": "バス",
+        "weight": 33
+      },
+      {
+        "term": "使用",
+        "weight": 33
+      },
+      {
+        "term": "挑戦",
+        "weight": 33
+      },
+      {
+        "term": "判定",
+        "weight": 33
+      },
+      {
+        "term": "本日",
+        "weight": 33
+      },
+      {
+        "term": "ふみ",
+        "weight": 24
+      },
+      {
+        "term": "小説",
+        "weight": 24
+      },
+      {
+        "term": "配る",
+        "weight": 24
+      },
+      {
+        "term": "いたす",
+        "weight": 14
+      },
+      {
+        "term": "ジャック",
+        "weight": 14
+      },
+      {
+        "term": "まいる",
+        "weight": 14
+      },
+      {
+        "term": "家",
+        "weight": 14
+      },
+      {
+        "term": "確認",
+        "weight": 14
+      },
+      {
+        "term": "強い",
+        "weight": 14
+      },
+      {
+        "term": "見える",
+        "weight": 14
+      },
+      {
+        "term": "鍵",
+        "weight": 14
+      },
+      {
+        "term": "大丈夫",
+        "weight": 14
+      },
+      {
+        "term": "かん",
+        "weight": 1
+      },
+      {
+        "term": "すごい",
+        "weight": 1
+      },
+      {
+        "term": "チャンネル",
+        "weight": 1
+      },
+      {
+        "term": "バイオリン",
+        "weight": 1
+      },
+      {
+        "term": "ヒット",
+        "weight": 1
+      },
+      {
+        "term": "やばい",
+        "weight": 1
+      },
+      {
+        "term": "ルイス",
+        "weight": 1
+      },
+      {
+        "term": "意味",
+        "weight": 1
+      },
+      {
+        "term": "音",
+        "weight": 1
+      },
+      {
+        "term": "願う",
+        "weight": 1
+      },
+      {
+        "term": "帰る",
+        "weight": 1
+      },
+      {
+        "term": "山",
+        "weight": 1
+      },
+      {
+        "term": "取る",
+        "weight": 1
+      },
+      {
+        "term": "書く",
+        "weight": 1
+      },
+      {
+        "term": "世界",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "39ede04e2ccec3efb327df4cebbcfe09e0401d363e869976ff70d936270ab515",
+    "exclusionRulesVersion": "9.2.0+editorial.1",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "64d7b60bd3726fe5bd2a621492bd4850418b7aa10df56c70ac36c598a223682a",

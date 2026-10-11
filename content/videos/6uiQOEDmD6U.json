@@ -40,6 +40,14 @@
       "inputFingerprint": "0ff3434ecbec231a5f24d634dbc7829f05cf305e71798a37e4cad48f444036df"
     },
     {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "621b4a850c64e4568db52ea29d0bf9e98c1c3226d2fb1c2af8c321e89102084b",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 10532
+    },
+    {
       "evidenceId": "evidence-full-transcript",
       "type": "運用者提供の公開本文",
       "sourceLabel": "全編を処理した一時文字起こし",
@@ -111,10 +119,215 @@
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "使う",
+        "weight": 100
+      },
+      {
+        "term": "強い",
+        "weight": 56
+      },
+      {
+        "term": "あと",
+        "weight": 52
+      },
+      {
+        "term": "すごい",
+        "weight": 52
+      },
+      {
+        "term": "射程",
+        "weight": 49
+      },
+      {
+        "term": "買う",
+        "weight": 47
+      },
+      {
+        "term": "武器",
+        "weight": 45
+      },
+      {
+        "term": "人",
+        "weight": 36
+      },
+      {
+        "term": "かわいい",
+        "weight": 33
+      },
+      {
+        "term": "好き",
+        "weight": 30
+      },
+      {
+        "term": "確か",
+        "weight": 26
+      },
+      {
+        "term": "別注",
+        "weight": 26
+      },
+      {
+        "term": "ザップ",
+        "weight": 22
+      },
+      {
+        "term": "ねる",
+        "weight": 22
+      },
+      {
+        "term": "バケツ",
+        "weight": 22
+      },
+      {
+        "term": "違う",
+        "weight": 22
+      },
+      {
+        "term": "月",
+        "weight": 22
+      },
+      {
+        "term": "濡れる",
+        "weight": 22
+      },
+      {
+        "term": "ジャンプ",
+        "weight": 17
+      },
+      {
+        "term": "スナイパー",
+        "weight": 17
+      },
+      {
+        "term": "慣れる",
+        "weight": 17
+      },
+      {
+        "term": "気",
+        "weight": 17
+      },
+      {
+        "term": "短い",
+        "weight": 17
+      },
+      {
+        "term": "負ける",
+        "weight": 17
+      },
+      {
+        "term": "ok",
+        "weight": 13
+      },
+      {
+        "term": "ギア",
+        "weight": 13
+      },
+      {
+        "term": "チャージャー",
+        "weight": 13
+      },
+      {
+        "term": "楽しい",
+        "weight": 13
+      },
+      {
+        "term": "気持ち",
+        "weight": 13
+      },
+      {
+        "term": "教える",
+        "weight": 13
+      },
+      {
+        "term": "高い",
+        "weight": 13
+      },
+      {
+        "term": "死ぬ",
+        "weight": 13
+      },
+      {
+        "term": "相手",
+        "weight": 13
+      },
+      {
+        "term": "me",
+        "weight": 7
+      },
+      {
+        "term": "うわ",
+        "weight": 7
+      },
+      {
+        "term": "サブ",
+        "weight": 7
+      },
+      {
+        "term": "ずっと",
+        "weight": 7
+      },
+      {
+        "term": "だめ",
+        "weight": 7
+      },
+      {
+        "term": "デュアル",
+        "weight": 7
+      },
+      {
+        "term": "一番",
+        "weight": 7
+      },
+      {
+        "term": "感度",
+        "weight": 7
+      },
+      {
+        "term": "場所",
+        "weight": 7
+      },
+      {
+        "term": "打つ",
+        "weight": 7
+      },
+      {
+        "term": "知る",
+        "weight": 7
+      },
+      {
+        "term": "長い",
+        "weight": 7
+      },
+      {
+        "term": "塗り",
+        "weight": 7
+      },
+      {
+        "term": "塗る",
+        "weight": 7
+      },
+      {
+        "term": "難しい",
+        "weight": 7
+      },
+      {
+        "term": "うまい",
+        "weight": 1
+      },
+      {
+        "term": "ゲーム",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "621b4a850c64e4568db52ea29d0bf9e98c1c3226d2fb1c2af8c321e89102084b",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "updatedAt": "2026-09-12T08:57:40.803Z",
+    "humanReview": "承認済み"
   },
   "provenance": {
     "inputFingerprint": "186a993f5126ddb0a9ea32852cba002afcab29378146e7ac37bbf1def63db8a6",

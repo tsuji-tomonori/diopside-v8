@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "e2360384aced622df8012a1c21754f1267d068270c5b83165c32fbe58ea376b0"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "abd23c00416473acb67949e31fdcc4cb58e166794a10c0cfdafe8502a950606c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 4344
     }
   ],
   "tagAssignments": [
@@ -285,10 +293,171 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "わかる",
+        "weight": 100
+      },
+      {
+        "term": "すごい",
+        "weight": 86
+      },
+      {
+        "term": "違う",
+        "weight": 63
+      },
+      {
+        "term": "子",
+        "weight": 63
+      },
+      {
+        "term": "女",
+        "weight": 63
+      },
+      {
+        "term": "こじらせる",
+        "weight": 58
+      },
+      {
+        "term": "音",
+        "weight": 58
+      },
+      {
+        "term": "ルール",
+        "weight": 52
+      },
+      {
+        "term": "女子",
+        "weight": 46
+      },
+      {
+        "term": "入れる",
+        "weight": 46
+      },
+      {
+        "term": "いやいや",
+        "weight": 39
+      },
+      {
+        "term": "やばい",
+        "weight": 39
+      },
+      {
+        "term": "皆さん",
+        "weight": 39
+      },
+      {
+        "term": "好き",
+        "weight": 39
+      },
+      {
+        "term": "人",
+        "weight": 39
+      },
+      {
+        "term": "選ぶ",
+        "weight": 39
+      },
+      {
+        "term": "前",
+        "weight": 39
+      },
+      {
+        "term": "大丈夫",
+        "weight": 39
+      },
+      {
+        "term": "友達",
+        "weight": 39
+      },
+      {
+        "term": "考える",
+        "weight": 31
+      },
+      {
+        "term": "かわいい",
+        "weight": 22
+      },
+      {
+        "term": "パパ",
+        "weight": 22
+      },
+      {
+        "term": "強い",
+        "weight": 22
+      },
+      {
+        "term": "決める",
+        "weight": 22
+      },
+      {
+        "term": "思い",
+        "weight": 22
+      },
+      {
+        "term": "ok",
+        "weight": 12
+      },
+      {
+        "term": "マイ",
+        "weight": 12
+      },
+      {
+        "term": "夏",
+        "weight": 12
+      },
+      {
+        "term": "関係",
+        "weight": 12
+      },
+      {
+        "term": "信じる",
+        "weight": 12
+      },
+      {
+        "term": "男",
+        "weight": 12
+      },
+      {
+        "term": "欲しい",
+        "weight": 12
+      },
+      {
+        "term": "いただく",
+        "weight": 1
+      },
+      {
+        "term": "くださる",
+        "weight": 1
+      },
+      {
+        "term": "つける",
+        "weight": 1
+      },
+      {
+        "term": "テーマ",
+        "weight": 1
+      },
+      {
+        "term": "どうぞ",
+        "weight": 1
+      },
+      {
+        "term": "はねる",
+        "weight": 1
+      },
+      {
+        "term": "メンバー",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "abd23c00416473acb67949e31fdcc4cb58e166794a10c0cfdafe8502a950606c",
+    "exclusionRulesVersion": "9.2.0+editorial.1",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "c6fc9a4101aef0a0476d6170d6d8559de34436aaa46264835e44708027e86300",

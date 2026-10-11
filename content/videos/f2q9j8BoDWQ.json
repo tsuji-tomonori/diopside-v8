@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "cd26af54964adba1d522781d466df535846851c6020ab4b9348062ee2c75852c"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "4ec05cef930596a3133841f2ef9533baf69e8184d7c05f5ba03da5833ec09ca8",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5138
     }
   ],
   "tagAssignments": [
@@ -244,10 +252,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "待つ",
+        "weight": 100
+      },
+      {
+        "term": "敵",
+        "weight": 94
+      },
+      {
+        "term": "すごい",
+        "weight": 81
+      },
+      {
+        "term": "船",
+        "weight": 67
+      },
+      {
+        "term": "行ける",
+        "weight": 65
+      },
+      {
+        "term": "早い",
+        "weight": 56
+      },
+      {
+        "term": "仲間",
+        "weight": 51
+      },
+      {
+        "term": "大丈夫",
+        "weight": 49
+      },
+      {
+        "term": "ゲーム",
+        "weight": 43
+      },
+      {
+        "term": "当たる",
+        "weight": 43
+      },
+      {
+        "term": "違う",
+        "weight": 37
+      },
+      {
+        "term": "スキル",
+        "weight": 33
+      },
+      {
+        "term": "確か",
+        "weight": 33
+      },
+      {
+        "term": "ごめん",
+        "weight": 30
+      },
+      {
+        "term": "星",
+        "weight": 30
+      },
+      {
+        "term": "逃げる",
+        "weight": 30
+      },
+      {
+        "term": "人",
+        "weight": 26
+      },
+      {
+        "term": "設定",
+        "weight": 26
+      },
+      {
+        "term": "後ろ",
+        "weight": 22
+      },
+      {
+        "term": "次",
+        "weight": 22
+      },
+      {
+        "term": "占領",
+        "weight": 22
+      },
+      {
+        "term": "コラボ",
+        "weight": 17
+      },
+      {
+        "term": "はねる",
+        "weight": 17
+      },
+      {
+        "term": "レベル",
+        "weight": 17
+      },
+      {
+        "term": "魚雷",
+        "weight": 17
+      },
+      {
+        "term": "強い",
+        "weight": 17
+      },
+      {
+        "term": "子",
+        "weight": 17
+      },
+      {
+        "term": "目",
+        "weight": 17
+      },
+      {
+        "term": "うまい",
+        "weight": 12
+      },
+      {
+        "term": "やばい",
+        "weight": 12
+      },
+      {
+        "term": "一緒",
+        "weight": 12
+      },
+      {
+        "term": "一旦",
+        "weight": 12
+      },
+      {
+        "term": "駆逐",
+        "weight": 12
+      },
+      {
+        "term": "知る",
+        "weight": 12
+      },
+      {
+        "term": "喋る",
+        "weight": 12
+      },
+      {
+        "term": "すいません",
+        "weight": 7
+      },
+      {
+        "term": "セリカ",
+        "weight": 7
+      },
+      {
+        "term": "プレイ",
+        "weight": 7
+      },
+      {
+        "term": "ほら",
+        "weight": 7
+      },
+      {
+        "term": "アーケード",
+        "weight": 1
+      },
+      {
+        "term": "たい",
+        "weight": 1
+      },
+      {
+        "term": "引く",
+        "weight": 1
+      },
+      {
+        "term": "皆さん",
+        "weight": 1
+      },
+      {
+        "term": "最初",
+        "weight": 1
+      },
+      {
+        "term": "参加",
+        "weight": 1
+      },
+      {
+        "term": "勝つ",
+        "weight": 1
+      },
+      {
+        "term": "送る",
+        "weight": 1
+      },
+      {
+        "term": "打つ",
+        "weight": 1
+      },
+      {
+        "term": "弾",
+        "weight": 1
+      },
+      {
+        "term": "入れる",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "4ec05cef930596a3133841f2ef9533baf69e8184d7c05f5ba03da5833ec09ca8",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "9185e03eec9a0955778e5054c6c0ff345a7d5f3a38b8e86a1b74e109749f3e43",

@@ -34,6 +34,22 @@
       "inputFingerprint": "a6bfc600a031783aafb5e992345e1f9ee9b4b8abe124f019252d7acd492c6053"
     },
     {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "公開動画の全編を処理した一時文字起こしの語頻度集計入力",
+      "inputFingerprint": "df35debc35239e77bee097165333c6123641f6a1575fb5fe74b1653ccb945118",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 20050
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "2e3d5249daa9ed423c9c5f56617285bea6dd122920f8bbb3cb53e438ea884af7",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 20050
+    },
+    {
       "evidenceId": "evidence-full-transcript",
       "type": "運用者提供の公開本文",
       "sourceLabel": "全編を処理した一時文字起こし",
@@ -125,6 +141,23 @@
       "reviewedAt": "2026-09-04T15:38:33Z"
     }
   ],
+  "synopsis": {
+    "body": "最終話では、都市伝説解体センターに持ち込まれた謎を追い、散らばった資料や証言を手がかりに、ジャスミンとイルミナカードをめぐる出来事へ踏み込む。白雪巴が推理を重ね、予想を揺さぶられながら物語の核心へ近づいていく長時間の初見プレイを味わえる。",
+    "bodyEvidenceRefs": [
+      "evidence-title",
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ソワソワ感結構好きなんだけど",
+      "atSeconds": 2163,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "2e3d5249daa9ed423c9c5f56617285bea6dd122920f8bbb3cb53e438ea884af7",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T20:51:02.521057+00:00"
+  },
   "timestamps": {
     "status": "作成済み",
     "origin": "diopsideで作成した時刻一覧",
@@ -541,10 +574,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "確認待ち",
-    "detail": "今回の絵文字集計範囲では公開本文からの語句候補をレビューしていません。",
-    "updatedAt": "2026-09-04T15:38:33Z"
+    "status": "作成済み",
+    "words": [
+      {
+        "term": "人",
+        "weight": 100
+      },
+      {
+        "term": "事件",
+        "weight": 93
+      },
+      {
+        "term": "管理",
+        "weight": 85
+      },
+      {
+        "term": "木",
+        "weight": 67
+      },
+      {
+        "term": "センター",
+        "weight": 63
+      },
+      {
+        "term": "分かる",
+        "weight": 57
+      },
+      {
+        "term": "情報",
+        "weight": 52
+      },
+      {
+        "term": "配信",
+        "weight": 44
+      },
+      {
+        "term": "ジャスミン",
+        "weight": 43
+      },
+      {
+        "term": "確か",
+        "weight": 39
+      },
+      {
+        "term": "黒沢",
+        "weight": 38
+      },
+      {
+        "term": "警察",
+        "weight": 37
+      },
+      {
+        "term": "白",
+        "weight": 36
+      },
+      {
+        "term": "カード",
+        "weight": 35
+      },
+      {
+        "term": "知る",
+        "weight": 35
+      },
+      {
+        "term": "資料",
+        "weight": 32
+      },
+      {
+        "term": "都市",
+        "weight": 31
+      },
+      {
+        "term": "伝説",
+        "weight": 30
+      },
+      {
+        "term": "調べる",
+        "weight": 29
+      },
+      {
+        "term": "調査",
+        "weight": 29
+      },
+      {
+        "term": "解体",
+        "weight": 27
+      },
+      {
+        "term": "雪",
+        "weight": 27
+      },
+      {
+        "term": "存在",
+        "weight": 27
+      },
+      {
+        "term": "マジ",
+        "weight": 26
+      },
+      {
+        "term": "噂",
+        "weight": 25
+      },
+      {
+        "term": "わかる",
+        "weight": 23
+      },
+      {
+        "term": "全部",
+        "weight": 23
+      },
+      {
+        "term": "予言",
+        "weight": 23
+      },
+      {
+        "term": "サメ",
+        "weight": 22
+      },
+      {
+        "term": "やばい",
+        "weight": 22
+      },
+      {
+        "term": "話",
+        "weight": 20
+      },
+      {
+        "term": "すごい",
+        "weight": 18
+      },
+      {
+        "term": "待つ",
+        "weight": 18
+      },
+      {
+        "term": "犯人",
+        "weight": 17
+      },
+      {
+        "term": "あみ",
+        "weight": 14
+      },
+      {
+        "term": "めぐる",
+        "weight": 14
+      },
+      {
+        "term": "怖い",
+        "weight": 13
+      },
+      {
+        "term": "違う",
+        "weight": 11
+      },
+      {
+        "term": "sns",
+        "weight": 10
+      },
+      {
+        "term": "消す",
+        "weight": 10
+      },
+      {
+        "term": "痕跡",
+        "weight": 9
+      },
+      {
+        "term": "書く",
+        "weight": 9
+      },
+      {
+        "term": "謎",
+        "weight": 8
+      },
+      {
+        "term": "前",
+        "weight": 6
+      },
+      {
+        "term": "野村",
+        "weight": 5
+      },
+      {
+        "term": "関係",
+        "weight": 2
+      },
+      {
+        "term": "口",
+        "weight": 2
+      },
+      {
+        "term": "大丈夫",
+        "weight": 2
+      },
+      {
+        "term": "答え",
+        "weight": 2
+      },
+      {
+        "term": "考える",
+        "weight": 1
+      }
+    ],
+    "inputType": "運用者提供の公開本文",
+    "inputFingerprint": "df35debc35239e77bee097165333c6123641f6a1575fb5fe74b1653ccb945118",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "updatedAt": "2026-09-12T09:21:23.454Z",
+    "humanReview": "承認済み"
   },
   "customEmojiUsage": {
     "status": "集計済み",
@@ -629,7 +867,7 @@
   },
   "provenance": {
     "inputFingerprint": "a5c6a3111548157fb59dd82a85b5593391e4f5b9e29befba2a201b335eeb1c2d",
-    "generatorVersion": "v8-timestamp-pipeline-1.0.0",
+    "generatorVersion": "archive-metadata-curation-1.0.0",
     "generatedAt": "2026-09-04T15:38:33Z",
     "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },

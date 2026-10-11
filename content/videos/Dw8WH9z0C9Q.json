@@ -52,6 +52,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "1ea5ff723d4ea66c8cbbb6bf8d0596c9722d57b7791ab837d2b335d8d986c36d"
+    },
+    {
+      "evidenceId": "evidence-timestamp-full-transcript-dw8-20260912",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "5dac220e41fa55389964447c168565743fa56c923755261b4c99e40bbe997558",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 92
     }
   ],
   "tagAssignments": [
@@ -109,10 +117,77 @@
     "updatedAt": "2026-08-23T02:53:12.796142Z"
   },
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-71e8d5c8",
+        "startSeconds": 0,
+        "label": "音楽明けの帰宅迎えロールプレイ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript-dw8-20260912"
+        ]
+      },
+      {
+        "timestampId": "timestamp-62-ac455f78",
+        "startSeconds": 62,
+        "label": "「おかえり」から帰宅後の選択を再演",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript-dw8-20260912"
+        ]
+      },
+      {
+        "timestampId": "timestamp-74-25e087b0",
+        "startSeconds": 74,
+        "label": "帰宅後の促しへ展開",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript-dw8-20260912"
+        ]
+      }
+    ],
+    "candidateHash": "f15acd160f86f4005363a63aeac8ebf1634c14d56b6c5801f4f998d3672f5ec4",
+    "inputFingerprint": "5dac220e41fa55389964447c168565743fa56c923755261b4c99e40bbe997558",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-12T12:55:00+09:00",
+    "updatedAt": "2026-09-12T13:01:00+09:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "f15acd160f86f4005363a63aeac8ebf1634c14d56b6c5801f4f998d3672f5ec4",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T13:00:00+09:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "f15acd160f86f4005363a63aeac8ebf1634c14d56b6c5801f4f998d3672f5ec4",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T13:01:00+09:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "f15acd160f86f4005363a63aeac8ebf1634c14d56b6c5801f4f998d3672f5ec4",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2567"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -549,7 +624,7 @@
     "inputFingerprint": "bdd01785530ccc517cc3609552e314cc57255fe08556e49e2f2bbf88caaf3621",
     "generatorVersion": "v8-legacy-migration-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2567"
   },
   "approval": {
     "status": "承認済み",

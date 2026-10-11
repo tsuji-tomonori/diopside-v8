@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "e3e2b88b0eabed1ebe0d9728675428fbf3070ea33a69c53f5b0a9171398efa4a"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "5b0267e55ddfafd70a186083a936e4f37763c29d3e4994fedb4b09c2e239c87a",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 6683
     }
   ],
   "tagAssignments": [
@@ -837,5 +845,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴がスプラトゥーン2の大会に向けて最終練習。塗りや立ち回り、武器とスペシャルの使い方を試し、味方と声を掛け合いながら実戦を重ねる。戦況に一喜一憂しつつ、コメントの助言も取り入れて本番への仕上がりを高める配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ここから今夜が本番になります",
+      "atSeconds": 6549,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "5b0267e55ddfafd70a186083a936e4f37763c29d3e4994fedb4b09c2e239c87a",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-06T07:55:10.190704Z"
   }
 }

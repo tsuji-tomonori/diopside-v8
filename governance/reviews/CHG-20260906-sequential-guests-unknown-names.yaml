@@ -1,0 +1,213 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20260906-sequential-guests-unknown-names
+profile: assured
+source_ref: self
+completed_timings:
+- impact
+- implementation
+- pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: false
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: true
+  typed_code_change: true
+  behavior_change: true
+  bug_fix: true
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: true
+  public_contract_change: true
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+- id: IMP-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: V8-TIME-038 rev2へ所有者の不明名省略指示を反映。確認済み内容・役割で案内し、疑義と対応はPRコメントまたはCommit Commentに残す。
+- id: IMP-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: 要件generator・生成要件・生成設計・3スキル参照を同期する。公開schema・時刻正本は変更しない。
+- id: IMP-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: 永続的な編集規則と複数スキルへ影響するためassured。
+- id: IMP-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: 所有者から名前省略・疑義の記録・マージを明示的に承認されている。
+- id: FAST-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: 既存CIで要件生成を含むbuildを検証する。
+- id: FAST-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: 要件generatorをTypeScript strictで検証する。
+- id: FAST-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: 変更した要件generatorを既存ESLintで検証する。
+- id: FAST-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: 生成要件のschema・受入条件・生成差分と3スキルの構造を検証する。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: 未知の名前の一律拒否・未支持秒の無条件維持を修正。匿名維持、境界根拠、独立同一hashレビューが残ることを確認する。
+- id: FAST-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: 動画正本・件数・タグ体系・既存公開データを変更しない。
+- id: FAST-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: 公開ページや字幕の原文・秘密情報を含めない。
+- id: REV-001
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: 要件・3スキル・所有者指示・生成設計と本reviewに範囲を限定する。
+- id: REV-002
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: Commit Commentへ目的・変更・要件設計影響・検証契約・疑義を記載する。
+- id: REV-003
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: V8-TIME-038を更新し、V8-TIME-027の全編根拠と独立確認を維持する。
+- id: REV-004
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: generatorから要件とas-built設計を生成する。
+- id: REV-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: 未確認の氏名を公開せず、全編再確認を実施したとの虚偽の承認を作らない。
+- id: REV-006
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: 要件検証、生成差分、typecheck、対象ESLint、review契約とCIを検証する。
+- id: REV-007
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: 選択されたcheckだけを記録する。
+- id: REV-008
+  class: Invariant
+  result: pass
+  evidence:
+  - path:spec/sources/owner-directive-2026-09-05-sequential-guests.md
+  - path:scripts/generate-requirements.ts
+  - path:governance/reviews/CHG-20260906-sequential-guests-unknown-names.yaml
+  note: 未選択checkをN/Aで追加しない。
+- id: REV-011
+  class: Risk-selected
+  result: pass
+  evidence:
+  - path:scripts/generate-requirements.ts
+  - path:src/domain/content.ts
+  - path:.agents/skills/compose-stream-chapters/references/genre-rules.md
+  note: 公開consumerのschema・URL・既存動画は変更しない。編集規則をV8-TIME-038 rev2として管理し、移行と非推奨化は不要。規則・generatorの差分をrevertして生成要件と設計を再生成すれば戻せる。全編根拠・独立確認の契約は維持する。
+advisories: []
+residual_risks:
+- 不明名を省く許可は、時刻の推測や未実施レビューの合格記録を許可しない。
+- 原資料を再取得できない場合、未反映の疑義をPRコメントに明記する。

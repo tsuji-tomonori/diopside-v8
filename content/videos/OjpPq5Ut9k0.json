@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "158c8627d25758d37c183694677335295f01f8df89e1bc06f79db9d8b2d5f927"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "a08846ce84ba6b4168c37467cf95965d9d6caf56836b6c4cd36e033720aa044c",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 7659
     }
   ],
   "tagAssignments": [
@@ -1854,5 +1862,23 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴がARKを初見で遊び、殺生を避ける平和主義を掲げて島を探索する配信です。操作や道具を手探りで覚え、仲間と合流しながら拠点を整え、恐竜との出会いとテイムに挑戦。驚きや戸惑いを交えた、穏やかでにぎやかな冒険を味わえます。",
+    "bodyEvidenceRefs": [
+      "evidence-title",
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "こんなに可愛い恐竜ちゃん達に会えて",
+      "atSeconds": 7617,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript",
+        "evidence-title"
+      ]
+    },
+    "inputFingerprint": "a08846ce84ba6b4168c37467cf95965d9d6caf56836b6c4cd36e033720aa044c",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T17:51:26.440095+00:00"
   }
 }

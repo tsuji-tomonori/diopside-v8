@@ -9,7 +9,7 @@ description: Select the smallest sufficient direct, assured, or regulated profil
 
 ## 出力
 
-通常は内部判断として次を保持し、PR前にreview YAMLへ必要部分だけ確定する。
+通常は内部判断として次を保持し、PR前に重要な検証と残存リスクだけをPRへ記載する。
 
 - `profile`: direct / assured / regulated
 - 変更成果物とrisk tag
@@ -62,8 +62,8 @@ description: Select the smallest sufficient direct, assured, or regulated profil
 4. 最小のcontext、tool、verificationで開始する。
 5. 検証失敗、新しい依存、契約影響、証拠不足が判明した場合だけ拡張する。
 6. 一回の判断では一軸だけを拡張する。同じ証拠が複数軸へ関係しても、各軸の必要性と変化を別々に記録して順次評価する。
-7. 成功条件を満たしたら、Commit Comment、review YAML、PR/CI確認以外の探索を停止する。
-8. PR前に実際のprofile、selected check、残存リスクをreview YAMLへ確定する。
+7. 成功条件を満たしたら、Commit Comment、PR/CI確認以外の探索を停止する。
+8. PR前に重要な検証と残存リスクをPRへ記載する。固定のreview YAMLは不要。
 
 ## Planning depth
 
@@ -112,8 +112,8 @@ context、tool call、search、reviewer、computeの予算は観測用のsoft li
 ## Completion
 
 - profileが実際の変更と一致する。
-- 要件影響と設計影響がCommit Commentへ記録される。
-- selected checkがreview YAMLへ記録される。
+- 重要な要件・設計影響がPRまたはCommit Commentで分かる。
+- selected checkの結果がCIとPRで確認できる。
 - required verificationがGitHub Actions等で実行される。
 - blocking failが残っていない。
 - 成功後の無目的な追加探索がない。

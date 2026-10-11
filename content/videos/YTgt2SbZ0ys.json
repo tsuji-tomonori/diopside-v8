@@ -1,0 +1,463 @@
+{
+  "schemaVersion": "1.0.0",
+  "videoId": "YTgt2SbZ0ys",
+  "title": "【雑談】目に穴が空くほど見ていいわよ【白雪 巴/にじさんじ】",
+  "publishedAt": "2020-10-29T13:07:00Z",
+  "durationSeconds": 3460,
+  "durationIso": "PT57M40S",
+  "thumbnail": {
+    "url": "https://i.ytimg.com/vi/YTgt2SbZ0ys/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+  },
+  "youtubeUrl": "https://www.youtube.com/watch?v=YTgt2SbZ0ys",
+  "taxonomyVersion": "8.6.0",
+  "aliasVersion": "8.3.0",
+  "tagRulesVersion": "8.4.0",
+  "evidence": [
+    {
+      "evidenceId": "evidence-title",
+      "type": "動画タイトル",
+      "sourceLabel": "公開動画タイトル",
+      "inputFingerprint": "cf561cd659c3c86c1a167f2a2f64440b63782d2ca76b30114b7643d90a8eb57e"
+    },
+    {
+      "evidenceId": "evidence-channel",
+      "type": "公開チャンネル",
+      "sourceLabel": "公開進捗台帳または旧正本のチャンネル",
+      "inputFingerprint": "d8ac5ab37924721493c2ce11a6c1543b2d5c99aa862da0ca696f79f77d315c84"
+    },
+    {
+      "evidenceId": "evidence-duration",
+      "type": "動画長",
+      "sourceLabel": "公開動画長",
+      "inputFingerprint": "c568d0677076ecf7da812381e94ca295513f6f0a4a68079d61783323fdee078f"
+    },
+    {
+      "evidenceId": "evidence-approved-tags",
+      "type": "既存の承認済みタグ",
+      "sourceLabel": "旧diopsideの承認済みタグ正本",
+      "inputFingerprint": "eca9622049c3046b80fedde577dd1a6d5f74009459449b6259764f22770ce70e"
+    },
+    {
+      "evidenceId": "evidence-approved-timestamps",
+      "type": "既存の承認済みタイムスタンプ",
+      "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
+      "inputFingerprint": "9796b352f639f53b29b9c89473cfe8358c77a44cb1b4bf1a2b4ede3bfba6d875"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "d5f9c7dd98af94c87021f50db3434328d9f5efcd5af509145c06976c143fd37b",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3460
+    }
+  ],
+  "tagAssignments": [
+    {
+      "tagId": "tag-content-primary-af7be42add09",
+      "reason": "公開タイトルと既存分類から主ジャンル「雑談」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-people-channel-e0fc18a727d8",
+      "reason": "公開台帳のチャンネル「白雪 巴/Shirayuki Tomoe」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-channel"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-format-media-45323ed44f37",
+      "reason": "動画長と既存形式から動画形式「配信」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-duration"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    },
+    {
+      "tagId": "tag-content-talkStyle-4691146b71bb",
+      "reason": "既存タグ「フリートーク」から雑談種別「フリートーク」を確認",
+      "confidence": "高",
+      "evidenceRefs": [
+        "evidence-approved-tags"
+      ],
+      "reviewedAt": "2026-08-04T15:00:00+09:00"
+    }
+  ],
+  "timestamps": {
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-4af729e3",
+        "startSeconds": 0,
+        "label": "配信開始・2.0告知",
+        "confidence": "中",
+        "evidenceRefs": []
+      },
+      {
+        "timestampId": "timestamp-253-18e6ee24",
+        "startSeconds": 253,
+        "label": "2.0比較用の全身・表情チェック",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1078-4febb863",
+        "startSeconds": 1078,
+        "label": "衣装・アクセサリー確認と視聴者トーク",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1604-a044ab57",
+        "startSeconds": 1604,
+        "label": "髪型とメイクの確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1845-5ce04920",
+        "startSeconds": 1845,
+        "label": "1.0卒業の話",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1989-cda5d0d8",
+        "startSeconds": 1989,
+        "label": "2.0お披露目の演出相談",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2148-b1af7fd8",
+        "startSeconds": 2148,
+        "label": "2.0比較用ポーズの実演",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2397-489997b2",
+        "startSeconds": 2397,
+        "label": "1.0送別会・これまでの思い出",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2648-222bb4b2",
+        "startSeconds": 2648,
+        "label": "最後の歌と明日のお披露目告知",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2755-e8fd4d53",
+        "startSeconds": 2755,
+        "label": "最後に歌う曲を選ぶ",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3002-4fcca463",
+        "startSeconds": 3002,
+        "label": "『およげたいやきくん』を歌う",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3381-87369c8a",
+        "startSeconds": 3381,
+        "label": "歌後の挨拶・明日のお披露目案内",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-approved-timestamps"
+        ]
+      }
+    ],
+    "candidateHash": "c392f222cfaff46540f6eb56ae0fa527b53aeea7ca347cc2ad3591c485b74eb7",
+    "inputFingerprint": "9796b352f639f53b29b9c89473cfe8358c77a44cb1b4bf1a2b4ede3bfba6d875",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-07-27T04:35:05Z",
+    "updatedAt": "2026-08-04T15:00:00+09:00",
+    "review": {
+      "mode": "既存承認済みデータ移行",
+      "candidateHash": "c392f222cfaff46540f6eb56ae0fa527b53aeea7ca347cc2ad3591c485b74eb7",
+      "source": {
+        "status": "approved",
+        "repository": "https://github.com/tsuji-tomonori/diopside-v7",
+        "revision": "0de21fbeb0a572d6d26f2a907c4856481c9281c8",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v7/pull/3",
+        "releaseId": "20260804-001",
+        "sourceKind": "get_archives_info_v1"
+      },
+      "checks": {
+        "sourceApproval": true,
+        "minimumItems": true,
+        "startsAtZero": true,
+        "ascendingOrder": true,
+        "minimumInterval": true,
+        "inDurationRange": true,
+        "allowedConfidence": true,
+        "publicLabels": true
+      },
+      "validatedAt": "2026-08-04T15:00:00+09:00",
+      "finalHumanCheck": {
+        "status": "承認済み",
+        "candidateHash": "c392f222cfaff46540f6eb56ae0fa527b53aeea7ca347cc2ad3591c485b74eb7",
+        "reviewedAt": "2026-08-04T15:00:00+09:00",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+      }
+    }
+  },
+  "wordCloud": {
+    "words": [
+      {
+        "term": "明日",
+        "weight": 100
+      },
+      {
+        "term": "大丈夫",
+        "weight": 74
+      },
+      {
+        "term": "動く",
+        "weight": 62
+      },
+      {
+        "term": "あと",
+        "weight": 59
+      },
+      {
+        "term": "かわいい",
+        "weight": 51
+      },
+      {
+        "term": "ねる",
+        "weight": 51
+      },
+      {
+        "term": "揺れる",
+        "weight": 51
+      },
+      {
+        "term": "普通",
+        "weight": 42
+      },
+      {
+        "term": "すごい",
+        "weight": 37
+      },
+      {
+        "term": "白",
+        "weight": 37
+      },
+      {
+        "term": "無理",
+        "weight": 37
+      },
+      {
+        "term": "お披露目",
+        "weight": 32
+      },
+      {
+        "term": "歌う",
+        "weight": 32
+      },
+      {
+        "term": "最後",
+        "weight": 32
+      },
+      {
+        "term": "人",
+        "weight": 32
+      },
+      {
+        "term": "知る",
+        "weight": 32
+      },
+      {
+        "term": "me",
+        "weight": 26
+      },
+      {
+        "term": "ダメ",
+        "weight": 26
+      },
+      {
+        "term": "ちっちゃい",
+        "weight": 26
+      },
+      {
+        "term": "バージョン",
+        "weight": 26
+      },
+      {
+        "term": "違う",
+        "weight": 26
+      },
+      {
+        "term": "家",
+        "weight": 26
+      },
+      {
+        "term": "皆さん",
+        "weight": 26
+      },
+      {
+        "term": "顔",
+        "weight": 26
+      },
+      {
+        "term": "終わる",
+        "weight": 26
+      },
+      {
+        "term": "ウィンク",
+        "weight": 19
+      },
+      {
+        "term": "一緒",
+        "weight": 19
+      },
+      {
+        "term": "横",
+        "weight": 19
+      },
+      {
+        "term": "歌",
+        "weight": 19
+      },
+      {
+        "term": "者",
+        "weight": 19
+      },
+      {
+        "term": "うい",
+        "weight": 11
+      },
+      {
+        "term": "かう",
+        "weight": 11
+      },
+      {
+        "term": "ごめん",
+        "weight": 11
+      },
+      {
+        "term": "まぁ",
+        "weight": 11
+      },
+      {
+        "term": "もしかして",
+        "weight": 11
+      },
+      {
+        "term": "わかる",
+        "weight": 11
+      },
+      {
+        "term": "頑張る",
+        "weight": 11
+      },
+      {
+        "term": "気",
+        "weight": 11
+      },
+      {
+        "term": "月",
+        "weight": 11
+      },
+      {
+        "term": "見える",
+        "weight": 11
+      },
+      {
+        "term": "見せる",
+        "weight": 11
+      },
+      {
+        "term": "雪",
+        "weight": 11
+      },
+      {
+        "term": "全身",
+        "weight": 11
+      },
+      {
+        "term": "全部",
+        "weight": 11
+      },
+      {
+        "term": "買う",
+        "weight": 11
+      },
+      {
+        "term": "分かる",
+        "weight": 11
+      },
+      {
+        "term": "変わる",
+        "weight": 11
+      },
+      {
+        "term": "ok",
+        "weight": 1
+      },
+      {
+        "term": "the",
+        "weight": 1
+      },
+      {
+        "term": "アップ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "d5f9c7dd98af94c87021f50db3434328d9f5efcd5af509145c06976c143fd37b",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
+  },
+  "provenance": {
+    "inputFingerprint": "e4f44cf3413238825dfb9cacd046edf16daba4f044b470df6b8240f04bf94776",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  }
+}

@@ -1,6 +1,6 @@
 ---
 name: chat-first-development
-description: Complete features, fixes, refactors, and design work from natural-language requests. Select the execution profile, maintain durable requirements, generate as-built design, record selected checks and a structured commit, and keep CI results external.
+description: Complete features, fixes, refactors, and design work from natural-language requests. Select the execution profile, maintain durable requirements, generate as-built design, summarize relevant review findings in the PR, and keep CI results external.
 ---
 
 # Chat-first Development
@@ -12,9 +12,10 @@ ordinary natural-language conversationを唯一の利用者インターフェー
 すべてのrepository変更で次を残す。
 
 1. 実際のコード、設定、テスト、要件、設計等の成果物
-2. `docs/reference/commit-message.md`に従うCommit Comment
-3. 選択チェック結果`governance/reviews/<change-id>.yaml`
-4. GitHub Actions等の外部サービスにあるCI結果
+2. 変更目的が分かるcommitと、重要な影響・検証・残存リスクを記載したPR
+3. GitHub Actions等の外部サービスにあるCI結果
+
+固定節・trailer・変更ごとのreview YAMLは必須にしない。過去のreview記録は任意監査用に保持する。
 
 恒久的な`work/<id>/`、変更ごとの実行計画、implementation log、test reportは既定では作らない。
 
@@ -29,8 +30,8 @@ ordinary natural-language conversationを唯一の利用者インターフェー
 5. `governance/checks/catalog.yaml`から変更固有のcheckを選択し、未選択項目をN/Aにしない。as-built設計、API、SQL、sample、E2E、coverage、定量閾値に触れる場合は`verify-against-engineering-standards/references/as-built-design-check-selection.md`を参照する。
 6. 実装し、repositoryのtask runnerから対象範囲のformat、lint、type、test、生成物checkと選択された整合checkを実行する。全gateを無条件に実行しない。
 7. FastAPI、CDKその他の宣言済み対象では`$generate-implementation-design`で`docs/design/generated/`のas-built設計を生成し、check modeでdriftを検査する。
-8. PR前に`$inspect-quality-gates`で選択checkを確認し、review YAMLを保存する。
-9. `$japanese-git-commit-gitmoji`で構造化Commit Commentを作成する。
+8. PR前に`$inspect-quality-gates`で選択checkを確認し、重要な指摘と残存リスクをPRへ記載する。
+9. `$japanese-git-commit-gitmoji`で簡潔なCommit Commentを作成する。
 10. PRを作成し、現在HEADのGitHub Actionsを確認する。CIログをrepositoryへ複製しない。
 11. blocking failを修正し、advisoryは修正、Issue化、残存リスクのいずれかへ収束させる。
 12. 成功後は追加探索を止める。
@@ -85,24 +86,24 @@ framework、language、database、architecture、tool、path、process、工程�
 
 今回だけの実装指示や可逆な選択はcurrent contextまたは実装へ委任する。長期architecture choiceはADR、実装済み構造は生成設計へ置く。exact technologyまたはproject processを永続化する場合は、必要性、authority、lifetime、scope、verificationを確認する。
 
-判定はCommit Commentへ必ず記録する。
+重要な判定はPRまたはCommit Commentへ記録する。
 
 ## Design impact
 
-実装由来生成設計、ADR、公開契約、data model、resource、恒久的な開発・運用構成への影響を判定し、Commit Commentへ必ず記録する。
+実装由来生成設計、ADR、公開契約、data model、resource、恒久的な開発・運用構成への影響を判定し、PRまたはCommit Commentへ必要な分だけ記録する。
 
 詳細設計を手書きで複製しない。コードから生成できない長期判断だけADRにする。
 
 ## Check result
 
-`governance/reviews/<change-id>.yaml`には選択されたcheckだけを保存する。
+選択したcheckの結果はCIとPRで確認する。review YAMLは旧契約の任意監査が必要な場合だけ使用する。
 
 - `Invariant`: trigger該当時はPass必須
 - `Risk-selected`: 選択された場合だけblocking
 - `Advisory`: 修正、Issue化、残存リスクとして明示できる
 - `Periodic`: 個別PRではなく定期監査で扱う
 
-CI実行結果は外部サービスを正本とし、YAMLにはcheck名や証拠pathだけを書く。
+CI実行結果は外部サービスを正本とし、PRには検証の要約とリンクだけを書く。
 
 ## Interaction contract
 

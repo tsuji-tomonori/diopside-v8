@@ -44,6 +44,14 @@
       "type": "既存の承認済みタイムスタンプ",
       "sourceLabel": "diopside-v7承認済み公開タイムスタンプ",
       "inputFingerprint": "36a403523f037cb6949c6ffb7c66fb184bd85f2dd462902f8ed25d37f5383cfe"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "fe4e4f959d1cbfc6f49858ba0e9c29d4a94d6dd265d4e3e27bed0bc877b0b827",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2534
     }
   ],
   "tagAssignments": [
@@ -267,10 +275,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "怖い",
+        "weight": 100
+      },
+      {
+        "term": "うわ",
+        "weight": 92
+      },
+      {
+        "term": "やばい",
+        "weight": 92
+      },
+      {
+        "term": "早い",
+        "weight": 86
+      },
+      {
+        "term": "待つ",
+        "weight": 86
+      },
+      {
+        "term": "すごい",
+        "weight": 60
+      },
+      {
+        "term": "ねる",
+        "weight": 60
+      },
+      {
+        "term": "確か",
+        "weight": 60
+      },
+      {
+        "term": "最後",
+        "weight": 60
+      },
+      {
+        "term": "難しい",
+        "weight": 55
+      },
+      {
+        "term": "麻雀",
+        "weight": 55
+      },
+      {
+        "term": "悩む",
+        "weight": 49
+      },
+      {
+        "term": "配信",
+        "weight": 44
+      },
+      {
+        "term": "ありがと",
+        "weight": 37
+      },
+      {
+        "term": "泣く",
+        "weight": 37
+      },
+      {
+        "term": "終わる",
+        "weight": 37
+      },
+      {
+        "term": "切る",
+        "weight": 37
+      },
+      {
+        "term": "大丈夫",
+        "weight": 37
+      },
+      {
+        "term": "めちゃくちゃ",
+        "weight": 30
+      },
+      {
+        "term": "リーチ",
+        "weight": 30
+      },
+      {
+        "term": "捨てる",
+        "weight": 30
+      },
+      {
+        "term": "上がる",
+        "weight": 30
+      },
+      {
+        "term": "惜しい",
+        "weight": 30
+      },
+      {
+        "term": "全部",
+        "weight": 30
+      },
+      {
+        "term": "ゴール",
+        "weight": 22
+      },
+      {
+        "term": "もも",
+        "weight": 22
+      },
+      {
+        "term": "わかる",
+        "weight": 22
+      },
+      {
+        "term": "わく",
+        "weight": 22
+      },
+      {
+        "term": "皆さん",
+        "weight": 22
+      },
+      {
+        "term": "時間",
+        "weight": 22
+      },
+      {
+        "term": "乗る",
+        "weight": 22
+      },
+      {
+        "term": "素晴らしい",
+        "weight": 22
+      },
+      {
+        "term": "待",
+        "weight": 22
+      },
+      {
+        "term": "牌",
+        "weight": 22
+      },
+      {
+        "term": "カルタ",
+        "weight": 12
+      },
+      {
+        "term": "かわいい",
+        "weight": 12
+      },
+      {
+        "term": "コメント",
+        "weight": 12
+      },
+      {
+        "term": "ツモ",
+        "weight": 12
+      },
+      {
+        "term": "みる",
+        "weight": 12
+      },
+      {
+        "term": "頑張る",
+        "weight": 12
+      },
+      {
+        "term": "緊張",
+        "weight": 12
+      },
+      {
+        "term": "見せる",
+        "weight": 12
+      },
+      {
+        "term": "手",
+        "weight": 12
+      },
+      {
+        "term": "収録",
+        "weight": 12
+      },
+      {
+        "term": "出す",
+        "weight": 12
+      },
+      {
+        "term": "白",
+        "weight": 12
+      },
+      {
+        "term": "あげる",
+        "weight": 1
+      },
+      {
+        "term": "あと",
+        "weight": 1
+      },
+      {
+        "term": "えぐい",
+        "weight": 1
+      },
+      {
+        "term": "おめでとう",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "fe4e4f959d1cbfc6f49858ba0e9c29d4a94d6dd265d4e3e27bed0bc877b0b827",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "db4503ed9316d33fafc875198b6ccadb47a00f52cc540c2aaf53a699b2e96850",

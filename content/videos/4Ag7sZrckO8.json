@@ -40,10 +40,18 @@
       "inputFingerprint": "1fa0e6511ec8091af2ebd687f469fa50e6194fc2f80278f0d7cee724eac38340"
     },
     {
-      "evidenceId": "evidence-full-transcript",
-      "type": "運用者提供の公開本文",
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "5ec56d0c6ed94eb1a3f32e241ac13d465cff20b9adbd51525fd21382beff02ca",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 12546
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
       "sourceLabel": "全編を処理した一時文字起こし",
-      "inputFingerprint": "a14f619c004b9698c0c8c9463218799ed3f12a5e70662e01f0ec1d2da7dfc108",
+      "inputFingerprint": "a912ba74b1c6aea486e89e9ae1dd24d091122d1d66a7ab77e5d1bc85d5bdbf64",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 12546
     }
@@ -111,10 +119,215 @@
     "updatedAt": "2026-08-04T15:00:00+09:00"
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "人",
+        "weight": 100
+      },
+      {
+        "term": "好き",
+        "weight": 93
+      },
+      {
+        "term": "ゲーム",
+        "weight": 85
+      },
+      {
+        "term": "配信",
+        "weight": 67
+      },
+      {
+        "term": "無言",
+        "weight": 63
+      },
+      {
+        "term": "すごい",
+        "weight": 53
+      },
+      {
+        "term": "買う",
+        "weight": 53
+      },
+      {
+        "term": "楽しい",
+        "weight": 44
+      },
+      {
+        "term": "知る",
+        "weight": 44
+      },
+      {
+        "term": "違う",
+        "weight": 42
+      },
+      {
+        "term": "あと",
+        "weight": 38
+      },
+      {
+        "term": "ごめん",
+        "weight": 36
+      },
+      {
+        "term": "嬉しい",
+        "weight": 36
+      },
+      {
+        "term": "はねる",
+        "weight": 34
+      },
+      {
+        "term": "ありがと",
+        "weight": 32
+      },
+      {
+        "term": "わかる",
+        "weight": 30
+      },
+      {
+        "term": "飲む",
+        "weight": 28
+      },
+      {
+        "term": "難しい",
+        "weight": 28
+      },
+      {
+        "term": "乾杯",
+        "weight": 26
+      },
+      {
+        "term": "大丈夫",
+        "weight": 24
+      },
+      {
+        "term": "月",
+        "weight": 21
+      },
+      {
+        "term": "無理",
+        "weight": 21
+      },
+      {
+        "term": "歌う",
+        "weight": 19
+      },
+      {
+        "term": "芝居",
+        "weight": 19
+      },
+      {
+        "term": "多い",
+        "weight": 19
+      },
+      {
+        "term": "コメント",
+        "weight": 16
+      },
+      {
+        "term": "スパ",
+        "weight": 16
+      },
+      {
+        "term": "デトロイト",
+        "weight": 16
+      },
+      {
+        "term": "絶対",
+        "weight": 16
+      },
+      {
+        "term": "面白い",
+        "weight": 16
+      },
+      {
+        "term": "話す",
+        "weight": 16
+      },
+      {
+        "term": "ねる",
+        "weight": 13
+      },
+      {
+        "term": "気",
+        "weight": 13
+      },
+      {
+        "term": "時間",
+        "weight": 13
+      },
+      {
+        "term": "前",
+        "weight": 13
+      },
+      {
+        "term": "最近",
+        "weight": 10
+      },
+      {
+        "term": "足",
+        "weight": 10
+      },
+      {
+        "term": "別",
+        "weight": 10
+      },
+      {
+        "term": "使う",
+        "weight": 7
+      },
+      {
+        "term": "誕生",
+        "weight": 7
+      },
+      {
+        "term": "ハザード",
+        "weight": 4
+      },
+      {
+        "term": "めちゃくちゃ",
+        "weight": 4
+      },
+      {
+        "term": "酒",
+        "weight": 4
+      },
+      {
+        "term": "全部",
+        "weight": 4
+      },
+      {
+        "term": "カラー",
+        "weight": 1
+      },
+      {
+        "term": "マジ",
+        "weight": 1
+      },
+      {
+        "term": "やれる",
+        "weight": 1
+      },
+      {
+        "term": "一つ",
+        "weight": 1
+      },
+      {
+        "term": "終わる",
+        "weight": 1
+      },
+      {
+        "term": "初めて",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "5ec56d0c6ed94eb1a3f32e241ac13d465cff20b9adbd51525fd21382beff02ca",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "5fd0cb4dc95014ee08999754b4540ef75f2474be43ab95b90415d6ff20bd6323",
@@ -128,19 +341,19 @@
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
   },
   "synopsis": {
-    "body": "久々の晩酌雑談で、白雪巴が梅味のお酒を片手に、体調や最近の配信を振り返る。ゲームの感想や遊びたい作品、歌枠・コラボの予定、運動の話まで、コメントを拾いながら話題を広げていく。",
+    "body": "白雪巴が久しぶりの雑談配信で、男梅サワーを味わいながら近況や体調、配信での出来事を語ります。視聴者からのメッセージを読み、好きな作品やゲーム、日々感じたことまで話題を広げ、ゆったり交流する時間です。",
     "bodyEvidenceRefs": [
-      "evidence-full-transcript"
+      "evidence-synopsis-transcript"
     ],
     "featuredQuote": {
-      "text": "私は雑談はね、なんかお家に帰ったよって感じがするの",
-      "atSeconds": 990,
+      "text": "久々のお酒うれしい",
+      "atSeconds": 392,
       "evidenceRefs": [
-        "evidence-full-transcript"
+        "evidence-synopsis-transcript"
       ]
     },
-    "inputFingerprint": "a14f619c004b9698c0c8c9463218799ed3f12a5e70662e01f0ec1d2da7dfc108",
+    "inputFingerprint": "a912ba74b1c6aea486e89e9ae1dd24d091122d1d66a7ab77e5d1bc85d5bdbf64",
     "rulesVersion": "1.1.0",
-    "updatedAt": "2026-09-05T05:44:38.478668Z"
+    "updatedAt": "2026-09-12T09:59:43.450901+00:00"
   }
 }

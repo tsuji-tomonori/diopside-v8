@@ -44,6 +44,22 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "b6144de93c3bcb58aa168e507e7c12464e753e23b82b6b5e68269fee3c8310d1"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "b6b92fec906bf05583e2150ec62c3e09ad4f9506e215761a5ac632606e080701",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2400
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "0fbd5358c196d2cf8dfc7ad94894fc6636c145ddd52e20b9b8291ebc832fdcc6",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 2400
     }
   ],
   "tagAssignments": [
@@ -276,10 +292,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "すごい",
+        "weight": 100
+      },
+      {
+        "term": "リズム",
+        "weight": 80
+      },
+      {
+        "term": "頑張る",
+        "weight": 80
+      },
+      {
+        "term": "ゲーム",
+        "weight": 69
+      },
+      {
+        "term": "タイミング",
+        "weight": 69
+      },
+      {
+        "term": "プレイヤー",
+        "weight": 69
+      },
+      {
+        "term": "始まる",
+        "weight": 69
+      },
+      {
+        "term": "変わる",
+        "weight": 69
+      },
+      {
+        "term": "ボイス",
+        "weight": 56
+      },
+      {
+        "term": "皆さん",
+        "weight": 56
+      },
+      {
+        "term": "疲れる",
+        "weight": 56
+      },
+      {
+        "term": "これから",
+        "weight": 41
+      },
+      {
+        "term": "ボール",
+        "weight": 41
+      },
+      {
+        "term": "確か",
+        "weight": 41
+      },
+      {
+        "term": "打つ",
+        "weight": 41
+      },
+      {
+        "term": "天国",
+        "weight": 41
+      },
+      {
+        "term": "投げる",
+        "weight": 41
+      },
+      {
+        "term": "デート",
+        "weight": 23
+      },
+      {
+        "term": "ヘッドホン",
+        "weight": 23
+      },
+      {
+        "term": "やばい",
+        "weight": 23
+      },
+      {
+        "term": "わかる",
+        "weight": 23
+      },
+      {
+        "term": "音楽",
+        "weight": 23
+      },
+      {
+        "term": "告知",
+        "weight": 23
+      },
+      {
+        "term": "正直",
+        "weight": 23
+      },
+      {
+        "term": "大人",
+        "weight": 23
+      },
+      {
+        "term": "飛ぶ",
+        "weight": 23
+      },
+      {
+        "term": "頼む",
+        "weight": 23
+      },
+      {
+        "term": "いく",
+        "weight": 1
+      },
+      {
+        "term": "いける",
+        "weight": 1
+      },
+      {
+        "term": "いつも",
+        "weight": 1
+      },
+      {
+        "term": "シンプル",
+        "weight": 1
+      },
+      {
+        "term": "たくさん",
+        "weight": 1
+      },
+      {
+        "term": "なんと",
+        "weight": 1
+      },
+      {
+        "term": "フォーク",
+        "weight": 1
+      },
+      {
+        "term": "プレイ",
+        "weight": 1
+      },
+      {
+        "term": "椅子",
+        "weight": 1
+      },
+      {
+        "term": "一番",
+        "weight": 1
+      },
+      {
+        "term": "飲む",
+        "weight": 1
+      },
+      {
+        "term": "音",
+        "weight": 1
+      },
+      {
+        "term": "結局",
+        "weight": 1
+      },
+      {
+        "term": "後ろ",
+        "weight": 1
+      },
+      {
+        "term": "公開",
+        "weight": 1
+      },
+      {
+        "term": "合わせる",
+        "weight": 1
+      },
+      {
+        "term": "左右",
+        "weight": 1
+      },
+      {
+        "term": "使う",
+        "weight": 1
+      },
+      {
+        "term": "視聴",
+        "weight": 1
+      },
+      {
+        "term": "集まる",
+        "weight": 1
+      },
+      {
+        "term": "乗る",
+        "weight": 1
+      },
+      {
+        "term": "信じる",
+        "weight": 1
+      },
+      {
+        "term": "遅延",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "b6b92fec906bf05583e2150ec62c3e09ad4f9506e215761a5ac632606e080701",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "05d24b6fcb89e5eccb9a590f9a12219d1d1d07afb1afc703bc238cc5011a677d",
@@ -291,5 +512,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T21:05:00+09:00",
     "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  },
+  "synopsis": {
+    "body": "3周年の夜王国が3Dを生かした『リズム天国』企画に挑戦。プレイヤーには音も映像も見せず、前に立つ仲間の身振りだけを頼りに操作する特殊ルールで、三人がタイミングを合わせながら難しい課題に挑む記念配信。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "結局私のボタンにかかってますから",
+      "atSeconds": 1185,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "0fbd5358c196d2cf8dfc7ad94894fc6636c145ddd52e20b9b8291ebc832fdcc6",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T10:35:44.677455+00:00"
   }
 }

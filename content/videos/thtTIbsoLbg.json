@@ -44,6 +44,22 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "335190f0c2f576ddd174fb4dab5c753587b9ca265fdae3377b3a2decd44293cf"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "61d94ec8120523f701a9f300e99641a3a75eccbf6efb97345799ad88686ea356",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 726
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "6d06ecfb7ea0ed24ab337929e6807e01c4370371384f9a91e03e3986f7402b83",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 726
     }
   ],
   "tagAssignments": [
@@ -213,10 +229,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "考える",
+        "weight": 100
+      },
+      {
+        "term": "好き",
+        "weight": 93
+      },
+      {
+        "term": "ゲスト",
+        "weight": 76
+      },
+      {
+        "term": "人",
+        "weight": 76
+      },
+      {
+        "term": "ゲーム",
+        "weight": 66
+      },
+      {
+        "term": "セリフ",
+        "weight": 66
+      },
+      {
+        "term": "先輩",
+        "weight": 66
+      },
+      {
+        "term": "配信",
+        "weight": 66
+      },
+      {
+        "term": "白",
+        "weight": 66
+      },
+      {
+        "term": "すごい",
+        "weight": 40
+      },
+      {
+        "term": "ストーリー",
+        "weight": 40
+      },
+      {
+        "term": "客観",
+        "weight": 40
+      },
+      {
+        "term": "子",
+        "weight": 40
+      },
+      {
+        "term": "雪",
+        "weight": 40
+      },
+      {
+        "term": "知る",
+        "weight": 40
+      },
+      {
+        "term": "読む",
+        "weight": 40
+      },
+      {
+        "term": "ガン",
+        "weight": 23
+      },
+      {
+        "term": "たくさん",
+        "weight": 23
+      },
+      {
+        "term": "つける",
+        "weight": 23
+      },
+      {
+        "term": "トーク",
+        "weight": 23
+      },
+      {
+        "term": "ボイス",
+        "weight": 23
+      },
+      {
+        "term": "マシン",
+        "weight": 23
+      },
+      {
+        "term": "月",
+        "weight": 23
+      },
+      {
+        "term": "阪神",
+        "weight": 23
+      },
+      {
+        "term": "思い",
+        "weight": 23
+      },
+      {
+        "term": "所属",
+        "weight": 23
+      },
+      {
+        "term": "早速",
+        "weight": 23
+      },
+      {
+        "term": "台本",
+        "weight": 23
+      },
+      {
+        "term": "日",
+        "weight": 23
+      },
+      {
+        "term": "物語",
+        "weight": 23
+      },
+      {
+        "term": "いっぱい",
+        "weight": 1
+      },
+      {
+        "term": "お話",
+        "weight": 1
+      },
+      {
+        "term": "ぎゃ",
+        "weight": 1
+      },
+      {
+        "term": "キャラクター",
+        "weight": 1
+      },
+      {
+        "term": "キリ",
+        "weight": 1
+      },
+      {
+        "term": "きる",
+        "weight": 1
+      },
+      {
+        "term": "ダメ",
+        "weight": 1
+      },
+      {
+        "term": "デビュー",
+        "weight": 1
+      },
+      {
+        "term": "なるべく",
+        "weight": 1
+      },
+      {
+        "term": "ぼる",
+        "weight": 1
+      },
+      {
+        "term": "メッセージ",
+        "weight": 1
+      },
+      {
+        "term": "もし",
+        "weight": 1
+      },
+      {
+        "term": "ラジオ",
+        "weight": 1
+      },
+      {
+        "term": "わかる",
+        "weight": 1
+      },
+      {
+        "term": "意識",
+        "weight": 1
+      },
+      {
+        "term": "違う",
+        "weight": 1
+      },
+      {
+        "term": "王国",
+        "weight": 1
+      },
+      {
+        "term": "下手",
+        "weight": 1
+      },
+      {
+        "term": "皆さん",
+        "weight": 1
+      },
+      {
+        "term": "使う",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "61d94ec8120523f701a9f300e99641a3a75eccbf6efb97345799ad88686ea356",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "e9e3df31f0b85ef1e44394449824bd85f5e2445f89dbf0ad1d088e9be2005a23",
@@ -228,5 +449,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-15T21:05:00+09:00",
     "basis": "利用者指示と添付コラボ正本v2を基に、人物名・コンビ名と凸待ち／継続ラジオの役割限定を確認"
+  },
+  "synopsis": {
+    "body": "白雪巴が節目のラジオでゲストを迎え、配信で意識していることやゲームの腕前について語り合う。さらに台詞や物語を考えるときの工夫、聞き手を置いていかない表現への思いにも話題が広がり、距離感を探りながら語り合う二人の掛け合いを楽しめる。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "距離感を保ってお話してきましたよね",
+      "atSeconds": 182,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "6d06ecfb7ea0ed24ab337929e6807e01c4370371384f9a91e03e3986f7402b83",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:41:50.668517+00:00"
   }
 }

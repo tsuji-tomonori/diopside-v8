@@ -35,6 +35,7 @@
 | 分類 | 件数 |
 |---|---:|
 | COST | 5 |
+| COVERAGE | 2 |
 | DEVICE | 11 |
 | DISPLAY | 23 |
 | INGEST | 17 |
@@ -44,7 +45,7 @@
 | SEARCH | 22 |
 | TAG | 44 |
 | TIME | 38 |
-| **合計** | **196** |
+| **合計** | **198** |
 
 ## 公開データの流れ
 
@@ -60,11 +61,26 @@
 | `scripts/aggregate-word-cloud.ts` | FunctionDeclaration | `aggregateWordCloud` |
 | `scripts/aggregate-word-cloud.ts` | TypeAliasDeclaration | `AudienceWordCloudInputType` |
 | `scripts/aggregate-word-cloud.ts` | InterfaceDeclaration | `WordCloudCandidate` |
+| `scripts/aggregate-word-cloud.ts` | TypeAliasDeclaration | `WordCloudSourceInputType` |
 | `scripts/audit-guest-song-performances.ts` | FunctionDeclaration | `auditGuestSongPerformances` |
 | `scripts/audit-guest-song-performances.ts` | FunctionDeclaration | `guestSongAuditCandidates` |
 | `scripts/audit-guest-song-performances.ts` | VariableStatement | `guestSongAuditSchema` |
 | `scripts/canonical-store.ts` | InterfaceDeclaration | `CanonicalStoreOptions` |
 | `scripts/canonical-store.ts` | FunctionDeclaration | `readCanonicalVideos` |
+| `scripts/content-coverage.ts` | FunctionDeclaration | `buildContentCoverage` |
+| `scripts/content-coverage.ts` | TypeAliasDeclaration | `CoverageStatus` |
+| `scripts/content-coverage.ts` | TypeAliasDeclaration | `EnrichmentClaims` |
+| `scripts/content-coverage.ts` | VariableStatement | `enrichmentClaimsSchema` |
+| `scripts/content-coverage.ts` | TypeAliasDeclaration | `EnrichmentFeature` |
+| `scripts/content-coverage.ts` | VariableStatement | `enrichmentFeatures` |
+| `scripts/content-coverage.ts` | InterfaceDeclaration | `FeatureCoverage` |
+| `scripts/content-coverage.ts` | FunctionDeclaration | `planEnrichment` |
+| `scripts/content-coverage.ts` | FunctionDeclaration | `videoFeatureCoverage` |
+| `scripts/content-preservation.ts` | FunctionDeclaration | `auditContentPreservation` |
+| `scripts/enrichment-readiness.ts` | FunctionDeclaration | `buildEnrichmentReadiness` |
+| `scripts/enrichment-readiness.ts` | VariableStatement | `readinessStatuses` |
+| `scripts/enrichment-readiness.ts` | TypeAliasDeclaration | `SourceInventory` |
+| `scripts/enrichment-readiness.ts` | VariableStatement | `sourceInventorySchema` |
 | `scripts/japanese-reading.ts` | FunctionDeclaration | `createJapaneseReadingNormalizer` |
 | `scripts/japanese-reading.ts` | VariableStatement | `japaneseReadingVersion` |
 | `scripts/japanese-reading.ts` | InterfaceDeclaration | `ReadingOverrides` |
@@ -84,6 +100,7 @@
 | `scripts/lib.ts` | FunctionDeclaration | `prettyJson` |
 | `scripts/lib.ts` | FunctionDeclaration | `readJson` |
 | `scripts/lib.ts` | FunctionDeclaration | `sha256` |
+| `scripts/requirement-preservation.ts` | FunctionDeclaration | `preserveCanonicalRequirements` |
 | `scripts/source-shards.ts` | FunctionDeclaration | `readSourceShards` |
 | `scripts/source-shards.ts` | FunctionDeclaration | `shardIdForKey` |
 | `scripts/source-shards.ts` | InterfaceDeclaration | `SourceShardEntry` |
@@ -215,21 +232,31 @@
 | `src/domain/search.ts` | InterfaceDeclaration | `SearchCondition` |
 | `src/domain/search.ts` | InterfaceDeclaration | `SearchResult` |
 | `src/domain/search.ts` | InterfaceDeclaration | `SearchSuggestions` |
+| `src/domain/search.ts` | FunctionDeclaration | `searchTagSuggestions` |
 | `src/domain/search.ts` | TypeAliasDeclaration | `SearchVideo` |
 | `src/domain/search.ts` | FunctionDeclaration | `serializeCondition` |
 | `src/domain/search.ts` | TypeAliasDeclaration | `SortOrder` |
 | `src/domain/search.ts` | InterfaceDeclaration | `SuggestionTag` |
 | `src/domain/search.ts` | InterfaceDeclaration | `SuggestionVideo` |
 | `src/domain/search.ts` | FunctionDeclaration | `tagCountsForResults` |
+| `src/domain/search.ts` | TypeAliasDeclaration | `TagMatch` |
+| `src/domain/search.ts` | TypeAliasDeclaration | `TagSelection` |
 | `src/domain/search.ts` | FunctionDeclaration | `tokenizeQuery` |
 | `src/domain/search.ts` | FunctionDeclaration | `validateCondition` |
+| `src/domain/search.ts` | FunctionDeclaration | `withTagSelection` |
 | `src/domain/sequential-guest-audit.ts` | FunctionDeclaration | `auditSequentialGuestTags` |
 | `src/domain/sequential-guest-audit.ts` | InterfaceDeclaration | `SequentialGuestRecord` |
+| `src/domain/tag-alias-compatibility.ts` | FunctionDeclaration | `aliasCompatibilityErrors` |
+| `src/domain/tag-alias-compatibility.ts` | FunctionDeclaration | `aliasHistorySnapshot` |
 | `src/domain/tag-assignment-audit.ts` | FunctionDeclaration | `auditTagAssignmentCoverage` |
 | `src/domain/tag-assignment-audit.ts` | InterfaceDeclaration | `TagAssignmentAuditResult` |
 | `src/domain/tag-assignment-audit.ts` | InterfaceDeclaration | `TagAssignmentAuditRow` |
 | `src/domain/tag-assignment-audit.ts` | TypeAliasDeclaration | `TagAssignmentAuditSource` |
 | `src/domain/tag-assignment-audit.ts` | VariableStatement | `tagAssignmentAuditSourceSchema` |
+| `src/domain/timestamp-name-corrections.ts` | FunctionDeclaration | `buildTimestampNameCorrections` |
+| `src/domain/timestamp-name-corrections.ts` | TypeAliasDeclaration | `TimestampNameCorrections` |
+| `src/domain/timestamp-name-corrections.ts` | VariableStatement | `timestampNameCorrectionsSchema` |
+| `src/domain/timestamp-name-corrections.ts` | FunctionDeclaration | `timestampNameKey` |
 | `src/domain/validation.ts` | FunctionDeclaration | `scanPublicBoundary` |
 | `src/domain/validation.ts` | FunctionDeclaration | `validateCanonicalVideo` |
 | `src/domain/validation.ts` | FunctionDeclaration | `validateChannelPersonMappings` |
@@ -257,6 +284,7 @@
 | `src/features/search/DateRangePicker.tsx` | FunctionDeclaration | `DateRangePicker` |
 | `src/features/search/DurationRangeSlider.tsx` | FunctionDeclaration | `DurationRangeSlider` |
 | `src/features/search/SearchPage.tsx` | FunctionDeclaration | `SearchPage` |
+| `src/features/search/TagSearchControls.tsx` | FunctionDeclaration | `TagSearchControls` |
 | `src/features/series/SeriesDetailPage.tsx` | FunctionDeclaration | `SeriesDetailPage` |
 | `src/features/songs/SongIndexPage.tsx` | FunctionDeclaration | `SongIndexPage` |
 | `src/features/works/WorkDetailPage.tsx` | FunctionDeclaration | `WorkDetailPage` |
@@ -271,6 +299,7 @@
 - `e2e/library.spec.ts`
 - `e2e/search.spec.ts`
 - `e2e/song-index.spec.ts`
+- `e2e/tag-composition.spec.ts`
 - `src/data/deviceStore.test.ts`
 - `src/data/loadPublicData.test.ts`
 - `src/domain/collaboration-group-audit.test.ts`
@@ -279,17 +308,20 @@
 - `src/domain/search.test.ts`
 - `src/domain/sequential-guest-audit.test.ts`
 - `src/domain/tag-assignment-audit.test.ts`
+- `src/domain/timestamp-name-corrections.test.ts`
 - `src/domain/validation.test.ts`
 - `src/features/collaborations/CollaborationDetailPages.test.tsx`
 - `src/features/detail/wordCloudLayout.test.ts`
 - `src/features/entities/EntityIndexPage.test.tsx`
 - `src/features/games/GameIndexPage.test.tsx`
+- `src/features/library/DeviceLibraryPage.test.tsx`
 - `src/features/search/SearchFilterControls.test.tsx`
 - `src/features/search/SearchPage.test.tsx`
+- `src/features/search/TagSearchControls.test.tsx`
 - `src/features/series/SeriesDetailPage.test.tsx`
 - `src/features/songs/SongIndexPage.test.tsx`
 - `src/features/works/WorkDetailPage.test.tsx`
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力89ファイル、公開契約209件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力101ファイル、公開契約236件です。

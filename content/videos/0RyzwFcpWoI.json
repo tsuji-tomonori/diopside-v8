@@ -40,10 +40,26 @@
       "inputFingerprint": "2a1bdc22b46a3371afe405b6376ebdd4dddb1e39b5af8f3d9186304f1f3abf17"
     },
     {
-      "evidenceId": "evidence-full-transcript",
-      "type": "運用者提供の公開本文",
-      "sourceLabel": "全編を処理した一時文字起こし",
-      "inputFingerprint": "16b747b09cbd824165902c4128de7433af1edc03efb93fb3830090436ae661ca",
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "21879cc2ee1b75e7f2fe5ab92c4b6b2e0007caf41fba4898365c0ca69545b67e",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3794
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "保存済み全編字幕（0秒〜3794秒）",
+      "inputFingerprint": "c3238eaa39da82ca3c7397057e38db5b6936ff1014d815b90def29a3c43bd553",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 3794
+    },
+    {
+      "evidenceId": "evidence-timestamp-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "c3238eaa39da82ca3c7397057e38db5b6936ff1014d815b90def29a3c43bd553",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 3794
     }
@@ -87,16 +103,434 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-1c18c50d",
+        "startSeconds": 0,
+        "label": "学力テストに挑戦開始",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-447-7f2e704d",
+        "startSeconds": 447,
+        "label": "四字熟語の漢字問題へ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-567-9d93bb37",
+        "startSeconds": 567,
+        "label": "動物ことわざ・四字熟語の問題へ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-804-c3843e0e",
+        "startSeconds": 804,
+        "label": "四字熟語の意味を考える",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-872-887ea419",
+        "startSeconds": 872,
+        "label": "算数の立体問題へ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1024-706c441a",
+        "startSeconds": 1024,
+        "label": "台形の面積公式を確認",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1299-cb217d6a",
+        "startSeconds": 1299,
+        "label": "円の計算と図形公式を復習",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1388-5dad0f04",
+        "startSeconds": 1388,
+        "label": "分数計算の問題へ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-1891-4e886d7e",
+        "startSeconds": 1891,
+        "label": "単位換算の問題に挑戦",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2035-4b6275f3",
+        "startSeconds": 2035,
+        "label": "英単語の日本語訳を確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2268-fbe67adf",
+        "startSeconds": 2268,
+        "label": "日本語を英語に訳す問題へ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2525-0856444e",
+        "startSeconds": 2525,
+        "label": "英文の日本語訳に挑戦",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-2914-652b2ba7",
+        "startSeconds": 2914,
+        "label": "英文の内容を考える",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3118-e7ba98b2",
+        "startSeconds": 3118,
+        "label": "理科の生物・空気の問題へ",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3282-2d6e2d46",
+        "startSeconds": 3282,
+        "label": "太陽と月の表面を比べる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3324-0547c6bb",
+        "startSeconds": 3324,
+        "label": "花のつくりと受粉の問題",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3625-971fc98c",
+        "startSeconds": 3625,
+        "label": "実験器具の名前を確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-3727-47875ea2",
+        "startSeconds": 3727,
+        "label": "テストを終えて感想",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-timestamp-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "0bf1ca6048d479e024e1fe4cb533593ba44d4a73abb4cba7d837ff1524322d9a",
+    "inputFingerprint": "c3238eaa39da82ca3c7397057e38db5b6936ff1014d815b90def29a3c43bd553",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-12T00:00:00+00:00",
+    "updatedAt": "2026-09-12T00:06:00+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "0bf1ca6048d479e024e1fe4cb533593ba44d4a73abb4cba7d837ff1524322d9a",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T00:05:00+00:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "0bf1ca6048d479e024e1fe4cb533593ba44d4a73abb4cba7d837ff1524322d9a",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T00:06:00+00:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "0bf1ca6048d479e024e1fe4cb533593ba44d4a73abb4cba7d837ff1524322d9a",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2564"
+      }
+    }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "かける",
+        "weight": 100
+      },
+      {
+        "term": "わかる",
+        "weight": 97
+      },
+      {
+        "term": "バーチャル",
+        "weight": 69
+      },
+      {
+        "term": "違う",
+        "weight": 61
+      },
+      {
+        "term": "世界",
+        "weight": 58
+      },
+      {
+        "term": "すごい",
+        "weight": 54
+      },
+      {
+        "term": "高い",
+        "weight": 54
+      },
+      {
+        "term": "忘れる",
+        "weight": 51
+      },
+      {
+        "term": "植物",
+        "weight": 47
+      },
+      {
+        "term": "動物",
+        "weight": 47
+      },
+      {
+        "term": "漢字",
+        "weight": 43
+      },
+      {
+        "term": "底辺",
+        "weight": 43
+      },
+      {
+        "term": "全部",
+        "weight": 39
+      },
+      {
+        "term": "意味",
+        "weight": 34
+      },
+      {
+        "term": "簡単",
+        "weight": 34
+      },
+      {
+        "term": "次",
+        "weight": 34
+      },
+      {
+        "term": "書く",
+        "weight": 34
+      },
+      {
+        "term": "子",
+        "weight": 29
+      },
+      {
+        "term": "人",
+        "weight": 29
+      },
+      {
+        "term": "待つ",
+        "weight": 29
+      },
+      {
+        "term": "日本語",
+        "weight": 29
+      },
+      {
+        "term": "分かる",
+        "weight": 29
+      },
+      {
+        "term": "問題",
+        "weight": 29
+      },
+      {
+        "term": "お父さん",
+        "weight": 23
+      },
+      {
+        "term": "覚える",
+        "weight": 23
+      },
+      {
+        "term": "月",
+        "weight": 23
+      },
+      {
+        "term": "合う",
+        "weight": 23
+      },
+      {
+        "term": "作る",
+        "weight": 23
+      },
+      {
+        "term": "勉強",
+        "weight": 23
+      },
+      {
+        "term": "保つ",
+        "weight": 23
+      },
+      {
+        "term": "考える",
+        "weight": 17
+      },
+      {
+        "term": "受粉",
+        "weight": 17
+      },
+      {
+        "term": "先生",
+        "weight": 17
+      },
+      {
+        "term": "台形",
+        "weight": 17
+      },
+      {
+        "term": "きっと",
+        "weight": 9
+      },
+      {
+        "term": "ねる",
+        "weight": 9
+      },
+      {
+        "term": "ペット",
+        "weight": 9
+      },
+      {
+        "term": "一つ",
+        "weight": 9
+      },
+      {
+        "term": "一番",
+        "weight": 9
+      },
+      {
+        "term": "確か",
+        "weight": 9
+      },
+      {
+        "term": "時間",
+        "weight": 9
+      },
+      {
+        "term": "大きい",
+        "weight": 9
+      },
+      {
+        "term": "入れる",
+        "weight": 9
+      },
+      {
+        "term": "買う",
+        "weight": 9
+      },
+      {
+        "term": "文字",
+        "weight": 9
+      },
+      {
+        "term": "無理",
+        "weight": 9
+      },
+      {
+        "term": "by",
+        "weight": 1
+      },
+      {
+        "term": "ok",
+        "weight": 1
+      },
+      {
+        "term": "いく",
+        "weight": 1
+      },
+      {
+        "term": "おっ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "21879cc2ee1b75e7f2fe5ab92c4b6b2e0007caf41fba4898365c0ca69545b67e",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
+  },
+  "provenance": {
+    "inputFingerprint": "beb4b68485767e4cce891578f8fd4b46bfcdd884808275bb6535a1df4c6da527",
+    "generatorVersion": "v8-legacy-migration-1.0.0",
+    "generatedAt": "2026-08-04T15:00:00+09:00",
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2564"
+  },
+  "approval": {
+    "status": "承認済み",
+    "approvedAt": "2026-08-04T15:00:00+09:00",
+    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
   },
   "customEmojiUsage": {
     "status": "集計済み",
@@ -179,31 +613,20 @@
     "rulesVersion": "2.0.0",
     "updatedAt": "2026-09-05T00:00:00Z"
   },
-  "provenance": {
-    "inputFingerprint": "beb4b68485767e4cce891578f8fd4b46bfcdd884808275bb6535a1df4c6da527",
-    "generatorVersion": "v8-legacy-migration-1.0.0",
-    "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
-  },
-  "approval": {
-    "status": "承認済み",
-    "approvedAt": "2026-08-04T15:00:00+09:00",
-    "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
   "synopsis": {
-    "body": "白雪巴が、250点満点の学力テストに挑戦。漢字や四字熟語から算数の図形・分数、英単語、理科まで、記憶をたどりながら一問ずつ回答していく。得意分野で手応えを見せる一方、曖昧な知識には迷い、勘や勢いも交えて珍回答を重ねる、笑いの絶えない配信。",
+    "body": "白雪巴が、小学生範囲の国語・算数・英語・理科に挑む学力テスト。漢字や四字熟語、図形、分数、単位、英単語、生物まで、記憶を手探りで呼び戻しながら一問ずつ向き合い、迷いや勘違いも率直にこぼしていく過程を味わえる。",
     "bodyEvidenceRefs": [
-      "evidence-full-transcript"
+      "evidence-synopsis-transcript"
     ],
     "featuredQuote": {
-      "text": "小学生が偉いわ",
-      "atSeconds": 321,
+      "text": "私たちに足りないのは時間ですね",
+      "atSeconds": 3738,
       "evidenceRefs": [
-        "evidence-full-transcript"
+        "evidence-synopsis-transcript"
       ]
     },
-    "inputFingerprint": "16b747b09cbd824165902c4128de7433af1edc03efb93fb3830090436ae661ca",
+    "inputFingerprint": "c3238eaa39da82ca3c7397057e38db5b6936ff1014d815b90def29a3c43bd553",
     "rulesVersion": "1.1.0",
-    "updatedAt": "2026-09-05T03:33:33.241560Z"
+    "updatedAt": "2026-09-12T08:51:29.025506+00:00"
   }
 }

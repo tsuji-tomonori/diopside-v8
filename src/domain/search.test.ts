@@ -2,6 +2,7 @@ import evaluation from '../../tests/fixtures/search-evaluation-v1.json';
 
 import type { SearchIndex } from './content.ts';
 import {
+  additionalTagCounts,
   applySearch,
   buildSearchSuggestions,
   bucketRange,
@@ -10,7 +11,9 @@ import {
   dateInJapan,
   normalizeTitleForSearch,
   parseCondition,
+  searchTagSuggestions,
   serializeCondition,
+  withTagSelection,
   validateCondition,
 } from './search.ts';
 
@@ -115,6 +118,50 @@ describe('複合絞り込み', () => {
     expect(countWithAdditionalTag(videos, { query: '', tagIds: ['tag-a'] }, 'tag-b')).toBe(1);
   });
 
+  it('明示したANYは和集合、除外は選択モードに関係なく適用する', () => {
+    expect(applySearch(videos, { query: '', tagIds: ['tag-a', 'tag-b'], tagMatch: 'any' }).map((item) => item.videoId)).toEqual(['video000003', 'video000002', 'video000001']);
+    expect(applySearch(videos, { query: '', tagIds: ['tag-a', 'tag-b'], tagMatch: 'any', excludedTagIds: ['tag-b'] }).map((item) => item.videoId)).toEqual(['video000002']);
+    expect(applySearch(videos, { query: '', tagIds: ['tag-a'], excludedTagIds: ['tag-a'] })).toEqual([]);
+    expect(applySearch(videos, { query: '', tagIds: [], tagMatch: 'any', excludedTagIds: ['tag-b'] }).map((item) => item.videoId)).toEqual(['video000002']);
+    expect(applySearch(videos, { query: '', tagIds: ['tag-unknown'], tagMatch: 'any' })).toEqual([]);
+    expect(applySearch(videos, { query: '', tagIds: [], excludedTagIds: ['tag-unknown'] })).toHaveLength(3);
+  });
+
+  it('ALL・ANY・除外をタイトル・期間・長さと同時適用し、異なる条件をキャッシュで混同しない', () => {
+    const base = { query: '雑談', tagIds: ['tag-a', 'tag-b'], publishedFrom: '2025-01-02', durationMinMinutes: 30 };
+    expect(applySearch(videos, base)).toEqual([]);
+    expect(applySearch(videos, { ...base, tagMatch: 'any' }).map((item) => item.videoId)).toEqual(['video000002']);
+    expect(applySearch(videos, { ...base, tagMatch: 'any', excludedTagIds: ['tag-a'] })).toEqual([]);
+    expect(applySearch(videos, { ...base, tagMatch: 'any' })).toHaveLength(1);
+    expect(applySearch(videos, base)).toEqual([]);
+  });
+
+  it('追加後件数はANYで既存結果と候補の重複を二重計上せず、期間と除外を維持する', () => {
+    for (const tagMatch of ['all', 'any'] as const) {
+      for (const tagIds of [[], ['tag-a'], ['tag-a', 'tag-b']]) {
+        for (const excludedTagIds of [[], ['tag-b']]) {
+          for (const query of ['', '雑談']) {
+            const condition = { query, tagIds, tagMatch, excludedTagIds };
+            const counts = additionalTagCounts(videos, condition);
+            for (const tagId of ['tag-a', 'tag-b']) {
+              expect(counts.get(tagId) ?? 0).toBe(countWithAdditionalTag(videos, condition, tagId));
+            }
+          }
+        }
+      }
+    }
+    expect(additionalTagCounts(videos, { query: '', tagIds: ['tag-a'], tagMatch: 'any', durationMinMinutes: 30 }).get('tag-b')).toBe(1);
+  });
+
+  it('タグ条件の編集は含める・除外を相互に移し、他の条件を保持する', () => {
+    const original = { query: '雑談', tagIds: ['tag-a', 'tag-b'], tagMatch: 'any' as const, durationMinMinutes: 30 };
+    const excluded = withTagSelection(original, 'tag-a', 'exclude');
+    expect(excluded).toEqual({ ...original, tagIds: ['tag-b'], excludedTagIds: ['tag-a'] });
+    expect(withTagSelection(excluded, 'tag-a', 'include')).toEqual({ ...original, tagIds: ['tag-b', 'tag-a'] });
+    expect(withTagSelection(excluded, 'tag-a', 'remove')).toEqual({ ...original, tagIds: ['tag-b'] });
+    expect(original.tagIds).toEqual(['tag-a', 'tag-b']);
+  });
+
   it('日本標準時の日付として両端を含める', () => {
     expect(dateInJapan('2025-01-01T15:00:00Z')).toBe('2025-01-02');
     expect(applySearch(videos, { query: '', tagIds: [], publishedFrom: '2025-01-02', publishedTo: '2025-01-02' }).map((item) => item.videoId)).toEqual(['video000002']);
@@ -139,6 +186,42 @@ describe('複合絞り込み', () => {
     expect(parseCondition(serializeCondition(condition))).toEqual({
       query: '雑談', tagIds: ['tag-a', 'tag-b'], publishedFrom: '2025-01-01', sort: '公開日の古い順',
     });
+  });
+});
+
+describe('タグ検索条件のURL互換性', () => {
+  it('ANYと除外を重複なく安定したURLで往復する', () => {
+    const condition = { query: ' 雑談 ', tagIds: ['tag-b', 'tag-a', 'tag-a'], tagMatch: 'any' as const, excludedTagIds: ['tag-d', 'tag-c', 'tag-d'] };
+    const params = serializeCondition(condition);
+    expect(params.toString()).toBe('q=%E9%9B%91%E8%AB%87&tag=tag-a&tag=tag-b&tagMatch=any&exclude=tag-c&exclude=tag-d');
+    expect(parseCondition(params)).toEqual({ query: '雑談', tagIds: ['tag-a', 'tag-b'], tagMatch: 'any', excludedTagIds: ['tag-c', 'tag-d'] });
+  });
+
+  it('31件のタグ条件は保存・URL更新の前に共通検証で拒否する', () => {
+    const tagIds = Array.from({ length: 31 }, (_, index) => `tag-${index}`);
+    expect(validateCondition({ query: '', tagIds })[0]?.field).toBe('タグ');
+    expect(validateCondition({ query: '', tagIds: [], excludedTagIds: tagIds })[0]?.field).toBe('タグ');
+    expect(validateCondition({ query: '', tagIds: tagIds.slice(0, 30), excludedTagIds: tagIds.slice(0, 30) })).toEqual([]);
+  });
+
+  it('既存URLと未知のモードはALLを維持し、タグ配列の上限を守る', () => {
+    expect(parseCondition(new URLSearchParams('tag=tag-a&tag=tag-b&tagMatch=unknown&exclude='))).toEqual({ query: '', tagIds: ['tag-a', 'tag-b'] });
+    expect(serializeCondition({ query: '', tagIds: [], tagMatch: 'all', excludedTagIds: [] }).toString()).toBe('');
+    const params = new URLSearchParams();
+    for (let index = 0; index < 40; index += 1) { params.append('tag', `tag-${index}`); params.append('exclude', `other-${index}`); }
+    expect(parseCondition(params).tagIds).toHaveLength(30);
+    expect(parseCondition(params).excludedTagIds).toHaveLength(30);
+  });
+});
+
+describe('タグの独立した探索', () => {
+  it('正規名・読み・別名・複数語から登録済みタグを検索し、動画文字検索へ混入しない', () => {
+    const tags = [{ tagId: 'tag-a', canonicalName: 'マインクラフト', normalizedReading: 'まいんくらふと', aliases: ['マイクラ 建築'], count: 5 }, { tagId: 'tag-b', canonicalName: '朝の雑談', normalizedReading: 'あさのざつだん', aliases: [], count: 10 }];
+    expect(searchTagSuggestions('まいくら', tags).map((tag) => tag.tagId)).toEqual(['tag-a']);
+    expect(searchTagSuggestions('建築 マイクラ', tags).map((tag) => tag.tagId)).toEqual(['tag-a']);
+    expect(searchTagSuggestions('あさ', tags).map((tag) => tag.tagId)).toEqual(['tag-b']);
+    expect(searchTagSuggestions('', tags)).toEqual([]);
+    expect(applySearch([video('video000001', '配信', undefined, undefined, ['tag-a'])], { query: 'マイクラ', tagIds: [] })).toEqual([]);
   });
 });
 

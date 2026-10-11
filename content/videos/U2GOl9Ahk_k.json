@@ -50,6 +50,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "35965871d42f70487adc5838a136ba9bd152a9a50a0dc868166b784b945cc383"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "0c073e8d49aaadec7465d4c8b1f86f77ce9531a9035d8bc06e9da0ba102baa33",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 12451
     }
   ],
   "tagAssignments": [
@@ -925,5 +933,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が相方と挑む、二人用の協力型謎解き脱出ゲーム。別々の画面に映る情報を声で伝え合い、時計や暗号、カラスの手掛かりを頼りに、食い違う視線を重ねながら仕掛けを進める。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "別に脱出できなくていいと思ってる",
+      "atSeconds": 208,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "0c073e8d49aaadec7465d4c8b1f86f77ce9531a9035d8bc06e9da0ba102baa33",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T18:18:08.869516+00:00"
   }
 }

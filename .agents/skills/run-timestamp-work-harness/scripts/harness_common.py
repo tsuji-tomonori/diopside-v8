@@ -7,12 +7,15 @@ import hashlib
 import json
 import os
 import re
+import sys
 import tempfile
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[4]
+sys.path.insert(0, str(ROOT / "scripts"))
+from devflow_cleanup import state_directory  # noqa: E402
 RUN_ROOT = Path(
     os.environ.get(
         "DIOPSIDE_TIMESTAMP_HARNESS_ROOT",
@@ -81,7 +84,7 @@ def validate_video_id(video_id: str) -> str:
 
 
 def batch_dir(batch_id: str) -> Path:
-    return RUN_ROOT / validate_batch_id(batch_id)
+    return state_directory(RUN_ROOT, validate_batch_id(batch_id))
 
 
 def item_path(batch_id: str, video_id: str) -> Path:

@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "13434a3743da9860bc60ed70137c309172b3b9632485f32b9fb275147d33327f"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "fecd7b432f1b3417fd5322d2ca9731cb90b930239c2c87a33ec94f9a32650fb6",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 8328
     }
   ],
   "tagAssignments": [
@@ -453,10 +461,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "やばい",
+        "weight": 100
+      },
+      {
+        "term": "大丈夫",
+        "weight": 97
+      },
+      {
+        "term": "すごい",
+        "weight": 95
+      },
+      {
+        "term": "左",
+        "weight": 84
+      },
+      {
+        "term": "ねる",
+        "weight": 68
+      },
+      {
+        "term": "頑張る",
+        "weight": 68
+      },
+      {
+        "term": "塗る",
+        "weight": 62
+      },
+      {
+        "term": "わかる",
+        "weight": 53
+      },
+      {
+        "term": "ok",
+        "weight": 50
+      },
+      {
+        "term": "右",
+        "weight": 46
+      },
+      {
+        "term": "強い",
+        "weight": 43
+      },
+      {
+        "term": "使う",
+        "weight": 43
+      },
+      {
+        "term": "落ちる",
+        "weight": 43
+      },
+      {
+        "term": "人",
+        "weight": 39
+      },
+      {
+        "term": "しま",
+        "weight": 34
+      },
+      {
+        "term": "死ぬ",
+        "weight": 34
+      },
+      {
+        "term": "いく",
+        "weight": 30
+      },
+      {
+        "term": "上",
+        "weight": 30
+      },
+      {
+        "term": "前",
+        "weight": 30
+      },
+      {
+        "term": "おっ",
+        "weight": 25
+      },
+      {
+        "term": "子",
+        "weight": 25
+      },
+      {
+        "term": "終わる",
+        "weight": 25
+      },
+      {
+        "term": "乗る",
+        "weight": 25
+      },
+      {
+        "term": "ゲーム",
+        "weight": 20
+      },
+      {
+        "term": "チーム",
+        "weight": 20
+      },
+      {
+        "term": "取る",
+        "weight": 20
+      },
+      {
+        "term": "買う",
+        "weight": 20
+      },
+      {
+        "term": "後ろ",
+        "weight": 14
+      },
+      {
+        "term": "水",
+        "weight": 14
+      },
+      {
+        "term": "早い",
+        "weight": 14
+      },
+      {
+        "term": "濡れる",
+        "weight": 14
+      },
+      {
+        "term": "戻る",
+        "weight": 14
+      },
+      {
+        "term": "me",
+        "weight": 8
+      },
+      {
+        "term": "あと",
+        "weight": 8
+      },
+      {
+        "term": "はいる",
+        "weight": 8
+      },
+      {
+        "term": "わぁ",
+        "weight": 8
+      },
+      {
+        "term": "皆さん",
+        "weight": 8
+      },
+      {
+        "term": "開く",
+        "weight": 8
+      },
+      {
+        "term": "確か",
+        "weight": 8
+      },
+      {
+        "term": "最後",
+        "weight": 8
+      },
+      {
+        "term": "生きる",
+        "weight": 8
+      },
+      {
+        "term": "中央",
+        "weight": 8
+      },
+      {
+        "term": "塗り",
+        "weight": 8
+      },
+      {
+        "term": "名前",
+        "weight": 8
+      },
+      {
+        "term": "かわいい",
+        "weight": 1
+      },
+      {
+        "term": "くださる",
+        "weight": 1
+      },
+      {
+        "term": "ステージ",
+        "weight": 1
+      },
+      {
+        "term": "ダメ",
+        "weight": 1
+      },
+      {
+        "term": "ねぇ",
+        "weight": 1
+      },
+      {
+        "term": "はぁ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "fecd7b432f1b3417fd5322d2ca9731cb90b930239c2c87a33ec94f9a32650fb6",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "7f16e28801afcb1edda559a3da8aa228f91612502efaae09d59caf7f16bcc66e",

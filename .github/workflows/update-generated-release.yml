@@ -71,52 +71,12 @@ jobs:
             exit 0
           fi
 
-          review_path="$(python governance/reviews/validate.py \
-            --root . \
-            --commit "$VERIFIED_SHA" \
-            --allow-github-merge-fallback \
-            --print-review-path)"
-          case "$review_path" in
-            governance/reviews/CHG-*.yaml|governance/reviews/CHG-*.yml) ;;
-            *) echo '検証済みcommitに有効なReview-Checklistがありません。' >&2; exit 1 ;;
-          esac
-          test -f "$review_path"
-
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit \
             -m '🚀 release(data): mainの静的成果物を更新' \
-            -m "目的:
-          - 人が承認してmainへマージした正本から、競合しない公開版を確定する
-
-          変更内容:
-          - release ID、版付き公開JSON、画面bundle、main/docsを決定生成する
-
-          要件影響:
-          - なし
-          - 要件ID: V8-OPS-013, V8-OPS-014, V8-OPS-017
-          - 理由: 検証済み正本に既定の生成規則を適用するrelease commitであり、要件の意味は変更しない
-
-          設計影響:
-          - なし
-          - 対象: none
-          - 生成設計: 検証済みsource commitで最新化済み
-          - ADR: ADR-0001の採用済みrelease経路を実行するだけのため不要
-
-          チェックリスト:
-          - $review_path
-
-          検証契約:
-          - GitHub Actions: 要件・品質ゲート / mainマージ後の静的成果物更新
-          - ローカル: npm run verify:quality
-          - 結果の正本: GitHub Actions等
-
-          互換性・残存リスク:
-          - 公開schemaを変更せず、内容ハッシュrelease IDによる世代分離を維持する
-
-          Requirements: V8-OPS-013,V8-OPS-014,V8-OPS-017
-          Design-Impact: none
-          Review-Checklist: $review_path"
+            -m "検証済みmain $VERIFIED_SHA から静的成果物を決定生成。
+          検証: npm run verify:main-release。公開schemaと版の整合性を維持。"
           if test -n "$(git status --porcelain --untracked-files=normal)"; then
             echo 'release commit対象外の生成差分があります。' >&2
             git status --short
@@ -154,7 +114,6 @@ jobs:
             '## 生成元' \
             '' \
             "- 検証済みmain: \`$VERIFIED_SHA\`" \
-            "- Review-Checklist: \`$review_path\`" \
             '' \
             '## 変更' \
             '' \

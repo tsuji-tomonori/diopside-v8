@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "44ad2b6d3630c05ffa92ef237c31b07b5c1e0579011a4678d6aa8390af93122b"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "62adbe5a2ae11681f569222269117b1f700db33a6104cdecf879ff1d933c040f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5722
     }
   ],
   "tagAssignments": [
@@ -291,10 +299,179 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "切る",
+        "weight": 100
+      },
+      {
+        "term": "かわいい",
+        "weight": 86
+      },
+      {
+        "term": "わかる",
+        "weight": 83
+      },
+      {
+        "term": "確か",
+        "weight": 74
+      },
+      {
+        "term": "うまい",
+        "weight": 70
+      },
+      {
+        "term": "ok",
+        "weight": 60
+      },
+      {
+        "term": "ダメ",
+        "weight": 60
+      },
+      {
+        "term": "すごい",
+        "weight": 55
+      },
+      {
+        "term": "形",
+        "weight": 55
+      },
+      {
+        "term": "買う",
+        "weight": 55
+      },
+      {
+        "term": "頑張る",
+        "weight": 49
+      },
+      {
+        "term": "使う",
+        "weight": 43
+      },
+      {
+        "term": "難しい",
+        "weight": 43
+      },
+      {
+        "term": "卵",
+        "weight": 43
+      },
+      {
+        "term": "逆",
+        "weight": 36
+      },
+      {
+        "term": "前",
+        "weight": 36
+      },
+      {
+        "term": "子",
+        "weight": 29
+      },
+      {
+        "term": "着る",
+        "weight": 29
+      },
+      {
+        "term": "分かる",
+        "weight": 29
+      },
+      {
+        "term": "ごめん",
+        "weight": 21
+      },
+      {
+        "term": "悪い",
+        "weight": 21
+      },
+      {
+        "term": "夏",
+        "weight": 21
+      },
+      {
+        "term": "甘い",
+        "weight": 21
+      },
+      {
+        "term": "頭",
+        "weight": 21
+      },
+      {
+        "term": "いける",
+        "weight": 11
+      },
+      {
+        "term": "ゲーム",
+        "weight": 11
+      },
+      {
+        "term": "コメント",
+        "weight": 11
+      },
+      {
+        "term": "違う",
+        "weight": 11
+      },
+      {
+        "term": "姉",
+        "weight": 11
+      },
+      {
+        "term": "人",
+        "weight": 11
+      },
+      {
+        "term": "大丈夫",
+        "weight": 11
+      },
+      {
+        "term": "得意",
+        "weight": 11
+      },
+      {
+        "term": "無理",
+        "weight": 11
+      },
+      {
+        "term": "優しい",
+        "weight": 11
+      },
+      {
+        "term": "アップ",
+        "weight": 1
+      },
+      {
+        "term": "だめ",
+        "weight": 1
+      },
+      {
+        "term": "なぜ",
+        "weight": 1
+      },
+      {
+        "term": "めちゃくちゃ",
+        "weight": 1
+      },
+      {
+        "term": "簡単",
+        "weight": 1
+      },
+      {
+        "term": "月",
+        "weight": 1
+      },
+      {
+        "term": "取る",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "62adbe5a2ae11681f569222269117b1f700db33a6104cdecf879ff1d933c040f",
+    "exclusionRulesVersion": "9.2.0+editorial.1",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "034f24b57c9edd0dc3cae0778e41e049d63ded93b87b6882fd35b8d7aa269b8a",

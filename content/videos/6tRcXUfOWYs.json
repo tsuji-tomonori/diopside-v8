@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "1c83854ca8592c62ee4c7540362c23221659f269fb37408cbc6cf5b61a250442"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "fb6662540614462999f2ad1aa51fef0e20ef5098b8dcff61027078cdebf4c00b",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 12828
     }
   ],
   "tagAssignments": [
@@ -832,5 +840,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『崩壊：スターレイル』ピノコニー編の続きを進め、サンデーとロビンをめぐる選択に向き合う。鳥かごの物語では命を守る責任と自由の間で悩み、別の夢の物語では登場人物の心情を読み解きながら、迷いと考察を交えて物語を味わっていく。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "絶対絶対ちゃんと飛べるまでは面倒見ます",
+      "atSeconds": 244,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "fb6662540614462999f2ad1aa51fef0e20ef5098b8dcff61027078cdebf4c00b",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T10:21:41.155436+00:00"
   }
 }

@@ -44,6 +44,22 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "85b4b50dca2f98a78229f44c926577e813a00f9135fc9dc47100a25d6012660f"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "dbca55b792b5bff997ec2ae9a560e5025f184d987955bd86f1c8aaa2bfc6b82f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 103
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "dbca55b792b5bff997ec2ae9a560e5025f184d987955bd86f1c8aaa2bfc6b82f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 103
     }
   ],
   "tagAssignments": [
@@ -103,10 +119,77 @@
     }
   ],
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-7d6924f8",
+        "startSeconds": 0,
+        "label": "たまきさんの可愛らしさを振り返る",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-32-54d15760",
+        "startSeconds": 32,
+        "label": "たまきさんの眠そうな様子を気遣う",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-64-98781566",
+        "startSeconds": 64,
+        "label": "たまきさんが肩を背もたれにして眠る",
+        "confidence": "中",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "690ad0796442ca693be0c66709c7bcc70c053f5d7838a05358023da0f61efb7c",
+    "inputFingerprint": "dbca55b792b5bff997ec2ae9a560e5025f184d987955bd86f1c8aaa2bfc6b82f",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-12T11:30:00+09:00",
+    "updatedAt": "2026-09-12T11:36:00+09:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "690ad0796442ca693be0c66709c7bcc70c053f5d7838a05358023da0f61efb7c",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T11:35:00+09:00",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        },
+        "route": "全編根拠による生成"
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "690ad0796442ca693be0c66709c7bcc70c053f5d7838a05358023da0f61efb7c",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-12T11:36:00+09:00",
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        },
+        "factCheckResultWasHidden": true
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "690ad0796442ca693be0c66709c7bcc70c053f5d7838a05358023da0f61efb7c",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2569"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -313,11 +396,27 @@
     "inputFingerprint": "4d969f0b4c91d66971e5c81b606d068032226c760ad690dc5d55a9a849293261",
     "generatorVersion": "v8-legacy-migration-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2569"
   },
   "approval": {
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "控え室で文野環と合流した白雪巴が、眠そうに現れた相手との距離を少しずつ縮めていく様子を振り返る。気遣いから始まる会話が、思いがけない甘え方への驚きと愛らしさの実感へ変わっていく、短いエピソードです。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "めっちゃ可愛いけどめっちゃふてぶてしくないこの猫って思って",
+      "atSeconds": 69,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "dbca55b792b5bff997ec2ae9a560e5025f184d987955bd86f1c8aaa2bfc6b82f",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T08:59:50.179149+00:00"
   }
 }

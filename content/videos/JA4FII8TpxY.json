@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "c74a421bf75d8d427b459232a8b37c72f24b6d6cc420fcbc5ec1c34626476687"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕",
+      "inputFingerprint": "30c05c1af8509ca82e07873cbcec816ab0e123cda1a775633f0fe08977dffba0",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 101
     }
   ],
   "tagAssignments": [
@@ -404,5 +412,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、好きな配信者や憧れの存在について語る雑談。推しへの熱い思いから鬼や眷属への願望まで、独特の想像を交えながら、好みの理由や魅力を楽しそうに言葉にしていく、テンポのよいトークです。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "眷属になりたいね",
+      "atSeconds": 40,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "30c05c1af8509ca82e07873cbcec816ab0e123cda1a775633f0fe08977dffba0",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T09:03:32.567301+00:00"
   }
 }

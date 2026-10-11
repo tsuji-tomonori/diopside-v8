@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "69a273ce8fc2f24d72fe6cff7f6afff84ec50c6a8518b62a1a5816368ddc84b8"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "474e51bc11beb51032c4603e558ae6146c8dfa2d1d3bc46627238c871e476dc4",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9993
     }
   ],
   "tagAssignments": [
@@ -391,10 +399,215 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "確か",
+        "weight": 100
+      },
+      {
+        "term": "大丈夫",
+        "weight": 84
+      },
+      {
+        "term": "食べる",
+        "weight": 76
+      },
+      {
+        "term": "違う",
+        "weight": 59
+      },
+      {
+        "term": "すごい",
+        "weight": 55
+      },
+      {
+        "term": "待つ",
+        "weight": 55
+      },
+      {
+        "term": "お金",
+        "weight": 50
+      },
+      {
+        "term": "人",
+        "weight": 50
+      },
+      {
+        "term": "わかる",
+        "weight": 48
+      },
+      {
+        "term": "顔",
+        "weight": 40
+      },
+      {
+        "term": "怖い",
+        "weight": 40
+      },
+      {
+        "term": "ダメ",
+        "weight": 37
+      },
+      {
+        "term": "鍵",
+        "weight": 37
+      },
+      {
+        "term": "入れる",
+        "weight": 37
+      },
+      {
+        "term": "ごめん",
+        "weight": 34
+      },
+      {
+        "term": "男",
+        "weight": 34
+      },
+      {
+        "term": "温泉",
+        "weight": 24
+      },
+      {
+        "term": "頑張る",
+        "weight": 24
+      },
+      {
+        "term": "店",
+        "weight": 24
+      },
+      {
+        "term": "かわいい",
+        "weight": 20
+      },
+      {
+        "term": "やばい",
+        "weight": 20
+      },
+      {
+        "term": "悪い",
+        "weight": 20
+      },
+      {
+        "term": "掃除",
+        "weight": 20
+      },
+      {
+        "term": "あと",
+        "weight": 16
+      },
+      {
+        "term": "とこ",
+        "weight": 16
+      },
+      {
+        "term": "一緒",
+        "weight": 16
+      },
+      {
+        "term": "見える",
+        "weight": 16
+      },
+      {
+        "term": "銭湯",
+        "weight": 16
+      },
+      {
+        "term": "駄菓子",
+        "weight": 16
+      },
+      {
+        "term": "働く",
+        "weight": 16
+      },
+      {
+        "term": "一旦",
+        "weight": 11
+      },
+      {
+        "term": "皆さん",
+        "weight": 11
+      },
+      {
+        "term": "子",
+        "weight": 11
+      },
+      {
+        "term": "終わる",
+        "weight": 11
+      },
+      {
+        "term": "人間",
+        "weight": 11
+      },
+      {
+        "term": "雪",
+        "weight": 11
+      },
+      {
+        "term": "前",
+        "weight": 11
+      },
+      {
+        "term": "知る",
+        "weight": 11
+      },
+      {
+        "term": "白",
+        "weight": 11
+      },
+      {
+        "term": "ゴミ",
+        "weight": 6
+      },
+      {
+        "term": "飲む",
+        "weight": 6
+      },
+      {
+        "term": "姉ちゃん",
+        "weight": 6
+      },
+      {
+        "term": "絶対",
+        "weight": 6
+      },
+      {
+        "term": "話",
+        "weight": 6
+      },
+      {
+        "term": "いく",
+        "weight": 1
+      },
+      {
+        "term": "マジ",
+        "weight": 1
+      },
+      {
+        "term": "やめる",
+        "weight": 1
+      },
+      {
+        "term": "金",
+        "weight": 1
+      },
+      {
+        "term": "仕事",
+        "weight": 1
+      },
+      {
+        "term": "時間",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "474e51bc11beb51032c4603e558ae6146c8dfa2d1d3bc46627238c871e476dc4",
+    "exclusionRulesVersion": "9.2.0",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "cd23781bfb92ad6395618975e045f9005e0f9d67d47af4e1b80f7cf8ff3bd39f",

@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "c057aaf7d1d8bb34c532b520b62ff93fa274b2cc592fd6deab5e358915248718"
+    },
+    {
+      "evidenceId": "evidence-caption-word-cloud-9-2",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "公開の全編字幕から抽出した語頻度集計入力",
+      "inputFingerprint": "06952eaafb08fcacaaa85da674b84b8b20d8da3be315c13cda2d52989f19ef07",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 630
     }
   ],
   "tagAssignments": [
@@ -222,10 +230,143 @@
     }
   },
   "wordCloud": {
-    "status": "未作成",
-    "reason": "資料不足",
-    "detail": "承認可能な公開字幕、公開概要欄、または運用者提供の公開本文がありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "words": [
+      {
+        "term": "文字",
+        "weight": 100
+      },
+      {
+        "term": "終わる",
+        "weight": 84
+      },
+      {
+        "term": "記念",
+        "weight": 63
+      },
+      {
+        "term": "カイエン",
+        "weight": 38
+      },
+      {
+        "term": "ジェイソン",
+        "weight": 38
+      },
+      {
+        "term": "しゃべる",
+        "weight": 38
+      },
+      {
+        "term": "リーク",
+        "weight": 38
+      },
+      {
+        "term": "意外と",
+        "weight": 38
+      },
+      {
+        "term": "王国",
+        "weight": 38
+      },
+      {
+        "term": "誤差",
+        "weight": 38
+      },
+      {
+        "term": "雑談",
+        "weight": 38
+      },
+      {
+        "term": "線",
+        "weight": 38
+      },
+      {
+        "term": "喋る",
+        "weight": 38
+      },
+      {
+        "term": "超える",
+        "weight": 38
+      },
+      {
+        "term": "文字数",
+        "weight": 38
+      },
+      {
+        "term": "あっという間",
+        "weight": 1
+      },
+      {
+        "term": "アナログ",
+        "weight": 1
+      },
+      {
+        "term": "ありがと",
+        "weight": 1
+      },
+      {
+        "term": "あんま",
+        "weight": 1
+      },
+      {
+        "term": "いっぱい",
+        "weight": 1
+      },
+      {
+        "term": "おい",
+        "weight": 1
+      },
+      {
+        "term": "オス",
+        "weight": 1
+      },
+      {
+        "term": "おめでたい",
+        "weight": 1
+      },
+      {
+        "term": "カーブ",
+        "weight": 1
+      },
+      {
+        "term": "カウント",
+        "weight": 1
+      },
+      {
+        "term": "きつい",
+        "weight": 1
+      },
+      {
+        "term": "グエル",
+        "weight": 1
+      },
+      {
+        "term": "これから",
+        "weight": 1
+      },
+      {
+        "term": "すいません",
+        "weight": 1
+      },
+      {
+        "term": "すっごい",
+        "weight": 1
+      },
+      {
+        "term": "タイピング",
+        "weight": 1
+      },
+      {
+        "term": "ダメ",
+        "weight": 1
+      }
+    ],
+    "inputType": "公開字幕",
+    "inputFingerprint": "06952eaafb08fcacaaa85da674b84b8b20d8da3be315c13cda2d52989f19ef07",
+    "exclusionRulesVersion": "9.2.0+editorial.1",
+    "rulesVersion": "9.2.0",
+    "status": "作成済み",
+    "humanReview": "承認済み",
+    "updatedAt": "2026-09-12T08:57:40.803Z"
   },
   "provenance": {
     "inputFingerprint": "7027e17d76518c41657d86ee12e239df3aca920b2c7e5c6ad89cfd8090ac81cd",

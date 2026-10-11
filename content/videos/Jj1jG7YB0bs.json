@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "7a4e25f84e4edf2640e6ed5a550cfe6c97d8dabf09912ce5d464da98f5adbd60"
+    },
+    {
+      "evidenceId": "evidence-synopsis-transcript",
+      "type": "公開の日本語原文字幕",
+      "sourceLabel": "stored-public-transcript",
+      "inputFingerprint": "34abea305159ded1dcc0d67f66615935802cb449fda5ffba5f7aaa6a5df1464b",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 4123
     }
   ],
   "tagAssignments": [
@@ -774,5 +782,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が、独特なルールに囲まれた家を舞台にしたホラーゲームを初見で探索。村の様子や友人宅を調べ、画面酔いにも耐えながら、散りばめられた手がかりと不穏な出来事に驚き、考察を交えて進めていく配信です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "ストローでね水飲んでんの可愛いでしょ",
+      "atSeconds": 706,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "34abea305159ded1dcc0d67f66615935802cb449fda5ffba5f7aaa6a5df1464b",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T19:06:45.471781+00:00"
   }
 }
