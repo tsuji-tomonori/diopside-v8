@@ -100,6 +100,7 @@
 | `scripts/lib.ts` | FunctionDeclaration | `prettyJson` |
 | `scripts/lib.ts` | FunctionDeclaration | `readJson` |
 | `scripts/lib.ts` | FunctionDeclaration | `sha256` |
+| `scripts/preserve-content-enrichment.ts` | FunctionDeclaration | `preserveContentEnrichment` |
 | `scripts/requirement-preservation.ts` | FunctionDeclaration | `preserveCanonicalRequirements` |
 | `scripts/source-shards.ts` | FunctionDeclaration | `readSourceShards` |
 | `scripts/source-shards.ts` | FunctionDeclaration | `shardIdForKey` |
@@ -324,4 +325,4 @@
 
 ## 入力指紋
 
-machine-readableな完全一覧は `inventory.gen.json` に保存します。入力101ファイル、公開契約236件です。
+machine-readableな完全一覧は `inventory.gen.json` に保存します。入力103ファイル、公開契約237件です。
