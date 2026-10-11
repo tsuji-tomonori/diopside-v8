@@ -8,6 +8,7 @@ const signalSchema = z.object({
   signalId: z.string().regex(/^[a-z0-9-]+$/u),
   pattern: z.string().min(1),
   reason: z.string().min(1),
+  evidenceFields: z.array(evidenceFieldSchema).min(1).optional(),
 }).strict();
 const fixtureSchema = z.object({
   videoId: videoIdSchema,
@@ -94,7 +95,7 @@ export function auditTagAssignmentCoverage(input: {
       const reviewMatches = matchSignals(video, rule.reviewEvidenceFields, includeSignals);
       const exclusionMatches = matchSignals(video, rule.reviewEvidenceFields, excludeSignals);
       const isExcluded = exclusionMatches.length > 0;
-      const candidateLevel: TagAssignmentAuditRow['candidateLevel'] = isExcluded
+      const detectedLevel: TagAssignmentAuditRow['candidateLevel'] = isExcluded
         ? 'none'
         : blockingMatches.length > 0
           ? 'blocking'
@@ -104,6 +105,9 @@ export function auditTagAssignmentCoverage(input: {
       const actual = video.tagAssignments.some((assignment) => assignment.tagId === rule.tagId);
       const requiredReason = required.get(video.videoId);
       const forbiddenReason = forbidden.get(video.videoId);
+      // Reviewed exclusions resolve weak keyword candidates, while a conflicting
+      // explicit title still fails the audit and requires renewed review.
+      const candidateLevel = forbiddenReason && detectedLevel === 'review' ? 'none' : detectedLevel;
       const expected: TagAssignmentAuditRow['expected'] = requiredReason
         ? 'required'
         : forbiddenReason
@@ -148,9 +152,9 @@ export function auditTagAssignmentCoverage(input: {
 
 function compileSignals(
   ruleId: string,
-  signals: Array<{ signalId: string; pattern: string; reason: string }>,
+  signals: Array<z.infer<typeof signalSchema>>,
   errors: string[],
-): Array<{ signalId: string; regex: RegExp; reason: string }> {
+): Array<Omit<z.infer<typeof signalSchema>, 'pattern'> & { regex: RegExp }> {
   return signals.flatMap((signal) => {
     try {
       return [{ ...signal, regex: new RegExp(signal.pattern, 'u') }];
@@ -164,11 +168,12 @@ function compileSignals(
 function matchSignals(
   video: CanonicalVideo,
   fields: EvidenceField[],
-  signals: Array<{ signalId: string; regex: RegExp; reason: string }>,
+  signals: Array<Omit<z.infer<typeof signalSchema>, 'pattern'> & { regex: RegExp }>,
 ): string[] {
   const values = evidenceValues(video, fields);
   return signals.flatMap((signal) => values.flatMap(({ field, value }) => (
-    signal.regex.test(value) ? [`${field}:${signal.signalId}（${signal.reason}）`] : []
+    (!signal.evidenceFields || signal.evidenceFields.includes(field)) && signal.regex.test(value)
+      ? [`${field}:${signal.signalId}（${signal.reason}）`] : []
   )));
 }
 
