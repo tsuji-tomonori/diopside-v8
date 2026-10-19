@@ -44,6 +44,14 @@
       "type": "公開チャット",
       "sourceLabel": "YouTube公開チャット（正規化済み）",
       "inputFingerprint": "e9208b6cc402c0669ae54260457710ecb9ac44d434c64d56fb84a2ba11822079"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "2d171347503364e8409c3feadc49c337a997d0c4f7dd0ac459f52348a5dabc65",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 13110
     }
   ],
   "tagAssignments": [
@@ -1137,5 +1145,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
+  },
+  "synopsis": {
+    "body": "白雪巴が『崩壊：スターレイル』オンパロス編の開拓クエストを進める。記憶を収めた遺跡を探索し、断片的な物語や暗号を手がかりに、仲間たちの旅と世界に隠された謎を追う。謎解きに悩み、登場人物たちの強い思いを受け止めながら、幾重もの記憶に向き合うゲームシリーズ回。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "私たちも諦めない",
+      "atSeconds": 3709,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "2d171347503364e8409c3feadc49c337a997d0c4f7dd0ac459f52348a5dabc65",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T03:09:43.765434Z"
   }
 }

@@ -44,6 +44,14 @@
       "type": "公式参加者・作品表記",
       "sourceLabel": "添付コラボ正本v2（YouTube公開情報・にじさんじ非公式Wiki照合）",
       "inputFingerprint": "a5cc5871fb6ede4b895a012667dbacd3740f14c6bf9cd1396bc75d65c15ba7d5"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "d9d23e0782e1f2a5624fad0434b7509de775403b2252e6a574863cc29b26881f",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 9322
     }
   ],
   "tagAssignments": [
@@ -336,5 +344,21 @@
     "status": "承認済み",
     "approvedAt": "2026-09-01T12:00:00+09:00",
     "basis": "意味境界の再監査により、作品・イベント・受付手段・関係の分類を確認"
+  },
+  "synopsis": {
+    "body": "黛灰を中心に八人が集まり、Among Usに不慣れな参加者も交えて賑やかに開始。タスクや停電、通報を手がかりに、互いの移動と証言を照らし合わせて議論を重ねる。連戦では妨害への対応や集団行動を相談し、接続トラブルも挟みながら、軽快な読み合いを味わえる配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "白いのは見た目だけだよ",
+      "atSeconds": 266,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "d9d23e0782e1f2a5624fad0434b7509de775403b2252e6a574863cc29b26881f",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T04:18:02.685906Z"
   }
 }

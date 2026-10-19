@@ -123,12 +123,20 @@
       "sha256": "0fa1ded4294e25b7b8ff8c7ae4854f4186718534a4fbae760a9171c7a7f75c16"
     },
     {
+      "path": "scripts/plan-content-enrichment.ts",
+      "sha256": "0b5c56b2df8c6f68eecf994c3fe7962797f617d7c23167de7bd5c13ee2e6f921"
+    },
+    {
       "path": "scripts/postbuild.ts",
       "sha256": "a68e16f043390ce886cce6e4466629d00d42736c14d765f317ce6d48cc681a0e"
     },
     {
       "path": "scripts/prepare-site.ts",
       "sha256": "49346a97de9a3fb8623c2d389b0854f7df39899fe558c8ebb9147f23094c33f0"
+    },
+    {
+      "path": "scripts/preserve-content-enrichment.ts",
+      "sha256": "33d870e06312cfcaf839bd07411a0a72e833f228da494fdcd3ea3945a06deda1"
     },
     {
       "path": "scripts/reanalyze-emoji-density.ts",
@@ -264,11 +272,11 @@
     },
     {
       "path": "src/domain/tag-assignment-audit.test.ts",
-      "sha256": "da7d55d69aba5a01d155f1bcb60c0b8c550cc3d462dc7529b19072d054c2f9ac"
+      "sha256": "660a0ba39712fbec56f7eb06d860786cafc71dc55640eab631a0e5186cd1b6dc"
     },
     {
       "path": "src/domain/tag-assignment-audit.ts",
-      "sha256": "b6bd8c1820f8b47f3601bacb01b58f696d14e1d48575792cf79ed8fedeefd93c"
+      "sha256": "88e8d1094efcf0d76201de8590708bc8297d71cf390cbbb00aa710a768b87d2e"
     },
     {
       "path": "src/domain/timestamp-name-corrections.test.ts",
@@ -631,6 +639,11 @@
     {
       "file": "scripts/lib.ts",
       "name": "sha256",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/preserve-content-enrichment.ts",
+      "name": "preserveContentEnrichment",
       "kind": "FunctionDeclaration"
     },
     {

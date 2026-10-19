@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "reviewedAt": "2026-09-04",
+  "reviewedAt": "2026-10-10",
   "rules": [
     {
       "ruleId": "occasion-new-outfit-reveal",
@@ -43,7 +43,26 @@
         {
           "signalId": "official-new-outfit-label",
           "pattern": "(?:#白雪(?:巴)?新衣装|#フルトイ新衣装|新衣装で|新衣装にじ3D|新衣装・ニューヘアー)",
-          "reason": "公開タイトルが新衣装を主題として明示する"
+          "reason": "公開タイトルが新衣装を主題として明示する（あらすじ・時刻一覧の単なる話題は対象外）",
+          "evidenceFields": [
+            "title"
+          ]
+        },
+        {
+          "signalId": "new-visual-reveal",
+          "pattern": "新ビジュ(?:アル)?.{0,16}(?:お披露目|披露)",
+          "reason": "公開タイトルが包含基準にある新ビジュアルの実披露を明示する",
+          "evidenceFields": [
+            "title"
+          ]
+        },
+        {
+          "signalId": "new-outfit-heading",
+          "pattern": "【新衣装】",
+          "reason": "公開タイトルの見出しが新衣装を主題として明示する",
+          "evidenceFields": [
+            "title"
+          ]
         }
       ],
       "excludeSignals": [
@@ -69,6 +88,14 @@
         {
           "videoId": "PzElYLiF1J8",
           "reason": "公開タイトルが3D共通衣装の実披露を明示する"
+        },
+        {
+          "videoId": "GTO-h9V9b-k",
+          "reason": "新ビジュアルはtaxonomy包含基準の対象。公開タイトルと承認済みあらすじがパズルでの実披露を明示する"
+        },
+        {
+          "videoId": "KQI2YU_hyGU",
+          "reason": "公開タイトル【新衣装】と時刻一覧346秒の確認・3285秒の比較・5359秒の披露の締めが配信者の実披露を示す"
         }
       ],
       "forbiddenAssignments": [
@@ -87,6 +114,14 @@
         {
           "videoId": "IunOLWghdC4",
           "reason": "3Dお披露目決定の告知を伴うゲーム配信で実披露ではない"
+        },
+        {
+          "videoId": "B6D1F1PMMHw",
+          "reason": "7321秒の水着姿のお披露目はワガママハイスペックのゲーム内キャラクター。タイトルと承認済みあらすじが対象を特定し、配信者の新衣装ではない"
+        },
+        {
+          "videoId": "vwdDTJu22WA",
+          "reason": "3016秒の新衣装で挑戦したいゲームは今後のゲームの話題。公開タイトル・承認済みあらすじは療養と復帰の雑談で、新衣装の披露・撮影・振り返りを支持しない"
         }
       ]
     }

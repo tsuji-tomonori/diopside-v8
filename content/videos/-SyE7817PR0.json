@@ -50,6 +50,14 @@
       "type": "動画タイトル",
       "sourceLabel": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）",
       "inputFingerprint": "21a5e019d8d704d5e5f596e98f98d90e007c4212a8eb1023e784825399b1a269"
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "運用者提供の公開本文",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "9805f9be2731fffbe87dbf2e1a31b93f8e55a92111de20ddf7ea301eedbfc625",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 5118
     }
   ],
   "tagAssignments": [
@@ -360,5 +368,21 @@
     "status": "承認済み",
     "approvedAt": "2026-08-16T12:05:00+09:00",
     "basis": "ゲームタグ横断監査（公開タイトル・承認済みタイムスタンプ・公式作品情報）を反映"
+  },
+  "synopsis": {
+    "body": "白雪巴が安土桃、緑仙、えま★おうがすとと『マリオパーティ8』に挑戦。操作説明や自己紹介から始まり、協力と対戦が入り交じるミニゲームを次々に進める。えまをめぐる軽妙な掛け合いと、驚きや悔しさのリアクションが弾むコラボ配信。",
+    "bodyEvidenceRefs": [
+      "evidence-full-transcript"
+    ],
+    "featuredQuote": {
+      "text": "声も大きい、胸も大きい、身長も大きい",
+      "atSeconds": 340,
+      "evidenceRefs": [
+        "evidence-full-transcript"
+      ]
+    },
+    "inputFingerprint": "9805f9be2731fffbe87dbf2e1a31b93f8e55a92111de20ddf7ea301eedbfc625",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-05T02:58:37.644049Z"
   }
 }

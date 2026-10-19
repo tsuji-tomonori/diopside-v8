@@ -52,6 +52,14 @@
       "inputFingerprint": "980b2e51f74ee76deafd32b267751c461817620e0907f1f0fa37ccca21861ce5",
       "coverageStartSeconds": 0,
       "coverageEndSeconds": 682
+    },
+    {
+      "evidenceId": "evidence-full-transcript",
+      "type": "全編ローカル音声認識",
+      "sourceLabel": "全編を処理した一時文字起こし",
+      "inputFingerprint": "9e1603e141872bf62f7a26a678063bce491dc888b3b6e179e87a9097ad623e91",
+      "coverageStartSeconds": 0,
+      "coverageEndSeconds": 682
     }
   ],
   "tagAssignments": [
@@ -119,11 +127,157 @@
       "reviewedAt": "2026-08-04T15:00:00+09:00"
     }
   ],
+  "synopsis": {
+    "body": "白雪巴がホラーゲーム『PIEN』に挑戦。ビビったら即終了という条件のもと、恐怖を感じても感情を抑える作戦で暗い部屋を探索します。電池を温存しながらライトで仕掛けを探り、驚かせる演出に反応しつつも苦手なホラーを自分なりに攻略していく実況です。",
+    "bodyEvidenceRefs": [
+      "evidence-synopsis-transcript"
+    ],
+    "featuredQuote": {
+      "text": "感情をぶち殺す",
+      "atSeconds": 181,
+      "evidenceRefs": [
+        "evidence-synopsis-transcript"
+      ]
+    },
+    "inputFingerprint": "980b2e51f74ee76deafd32b267751c461817620e0907f1f0fa37ccca21861ce5",
+    "rulesVersion": "1.1.0",
+    "updatedAt": "2026-09-12T13:10:33.099447+00:00"
+  },
   "timestamps": {
-    "status": "未作成",
-    "reason": "全編確認不足",
-    "detail": "承認済みの全編タイムスタンプが移行元にありません。",
-    "updatedAt": "2026-08-04T15:00:00+09:00"
+    "status": "作成済み",
+    "origin": "diopsideで作成した時刻一覧",
+    "items": [
+      {
+        "timestampId": "timestamp-0-c17f4530",
+        "startSeconds": 0,
+        "label": "挨拶とゲーム開始前の準備",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-153-45425762",
+        "startSeconds": 153,
+        "label": "驚かないための作戦を立てる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-258-64c0529c",
+        "startSeconds": 258,
+        "label": "操作方法とライト・バッテリーを確認",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-309-d209c3ed",
+        "startSeconds": 309,
+        "label": "ゲームを進めながら怖さに強がる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-344-c22dc2e6",
+        "startSeconds": 344,
+        "label": "光と声で反応するギミックを試す",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-399-597cabc5",
+        "startSeconds": 399,
+        "label": "ギミック攻略とバッテリー不足",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-438-0ca4cfe8",
+        "startSeconds": 438,
+        "label": "進行不能でゲームをやり直す",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-490-814ef260",
+        "startSeconds": 490,
+        "label": "再挑戦でライトと音声ギミックを攻略",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-545-d979f76a",
+        "startSeconds": 545,
+        "label": "敵と赤文字の演出に反応",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      },
+      {
+        "timestampId": "timestamp-656-1ffe62ff",
+        "startSeconds": 656,
+        "label": "ゲーム中への復帰を確認して締めくくる",
+        "confidence": "高",
+        "evidenceRefs": [
+          "evidence-full-transcript"
+        ]
+      }
+    ],
+    "candidateHash": "20ff4bc90b047dcbab70a38b67e6bc0e3722c5cbe64168a09247f75d887e7688",
+    "inputFingerprint": "9e1603e141872bf62f7a26a678063bce491dc888b3b6e179e87a9097ad623e91",
+    "rulesVersion": "8.1.0",
+    "generatedAt": "2026-09-05T04:50:56.541413+00:00",
+    "updatedAt": "2026-09-05T04:52:13.319014+00:00",
+    "review": {
+      "factCheck": {
+        "status": "合格",
+        "candidateHash": "20ff4bc90b047dcbab70a38b67e6bc0e3722c5cbe64168a09247f75d887e7688",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T04:51:39.363037+00:00",
+        "route": "全編根拠による生成",
+        "checks": {
+          "evidenceRoute": true,
+          "evidenceReferences": true,
+          "boundaryContext": true,
+          "labelSupport": true,
+          "evidenceConflicts": true
+        }
+      },
+      "editorialCheck": {
+        "status": "合格",
+        "candidateHash": "20ff4bc90b047dcbab70a38b67e6bc0e3722c5cbe64168a09247f75d887e7688",
+        "majorIssues": 0,
+        "reviewedAt": "2026-09-05T04:52:13.319014+00:00",
+        "factCheckResultWasHidden": true,
+        "checks": {
+          "navigationValue": true,
+          "overSegmentation": true,
+          "underSegmentation": true,
+          "labelConsistency": true,
+          "spoilerSafety": true
+        }
+      },
+      "publicationGate": {
+        "mode": "pull-request-merge",
+        "candidateHash": "20ff4bc90b047dcbab70a38b67e6bc0e3722c5cbe64168a09247f75d887e7688",
+        "pullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
+      }
+    }
   },
   "wordCloud": {
     "status": "作成済み",
@@ -508,27 +662,11 @@
     "inputFingerprint": "17d37c2d6908e2c3e769a4a742eac19a734df355f3b1760aa908d7a7f4079a67",
     "generatorVersion": "v8-legacy-migration-1.0.0",
     "generatedAt": "2026-08-04T15:00:00+09:00",
-    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/2"
+    "reviewPullRequest": "https://github.com/tsuji-tomonori/diopside-v8/pull/1824"
   },
   "approval": {
     "status": "承認済み",
     "approvedAt": "2026-08-04T15:00:00+09:00",
     "basis": "ユーザー指示に基づく既存承認済みデータ移行とv8公開境界の再検証"
-  },
-  "synopsis": {
-    "body": "白雪巴がホラーゲーム『PIEN』に挑戦。ビビったら即終了という条件のもと、恐怖を感じても感情を抑える作戦で暗い部屋を探索します。電池を温存しながらライトで仕掛けを探り、驚かせる演出に反応しつつも苦手なホラーを自分なりに攻略していく実況です。",
-    "bodyEvidenceRefs": [
-      "evidence-synopsis-transcript"
-    ],
-    "featuredQuote": {
-      "text": "感情をぶち殺す",
-      "atSeconds": 181,
-      "evidenceRefs": [
-        "evidence-synopsis-transcript"
-      ]
-    },
-    "inputFingerprint": "980b2e51f74ee76deafd32b267751c461817620e0907f1f0fa37ccca21861ce5",
-    "rulesVersion": "1.1.0",
-    "updatedAt": "2026-09-12T13:10:33.099447+00:00"
   }
 }
