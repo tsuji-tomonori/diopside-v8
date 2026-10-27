@@ -90,7 +90,7 @@ selected_checks:
     evidence:
       - path:content/videos/jAJCo1w_ht0.json
       - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
-    note: 全編字幕と開始秒を照合し、晩酌、国際交流、朗読、仕事の失敗談、恋愛相談を30章へ整理した。
+    note: 全編字幕と開始秒を照合し、晩酌、国際交流、朗読、仕事の失敗談、恋愛相談を33章へ整理した。
   - id: FAST-006
     class: Invariant
     result: pass
@@ -151,6 +151,10 @@ selected_checks:
     note: 未選択checkをN/Aとして登録しない。
 advisories: []
 residual_risks:
-  - 公開字幕には誤認識の可能性がある。全編確認と事実・編集・ネタバレ・プライバシー確認を実施。タイムスタンプ候補hash 88396a1ef8376ee6050438e3e1c6babcbaad8deec485bfbd6276d1c18535db8c、あらすじ候補hash 3b7f579840fe8801a51171e04d454009f8a79e3b7b0b5ebbb15ebde7bbe70cb4。
-  - codex execとハーネス前提のyt-dlpは利用できず、Workから直接処理した。ハーネス実行や別エージェント監査を実行したとは扱わない。
-  - mainの正本要件と検証が「いっ杯晩酌」を14動画に固定しており、15軒目の追加でCIが失敗する。通常の1動画PRでは要件・検証変更を同梱できないため、別の保守変更で15動画へ更新後に品質ゲートを再実行する。
+  - 公開字幕全1200行を2026-10-27にYouTubeの「文字起こしを表示」から再取得・確認した。入力fingerprintは4c85d85e59e038f6f661649fe8fc5b2dea58d51308b5d7f97587eea4ed18b7ed（UTF-8 JSON.stringify(rows,null,2)と末尾LF）。元の6002e01cの取得bytesを検証したとは扱わない。
+  - 修正候補のタイムスタンプhashは9297ec6ae78b2d8e4789cf354f9d8f1396fd81f8e8128079daaf5a0e3349f7cb、あらすじhashは8bdb467110aa9eb0c7509ba64f94add2f092a6f263b03f567307e664c113e36e。あらすじは引用符込み123文字。
+  - 事実確認はverify_diopside_video_evidence、編集確認はreview_final_video_editorialの別コンテキストで重大指摘0件。編集者へ事実確認結果と内容変更理由は渡していない。既存IDを保持する機械的な理由のみ伝達したため、全ての著者理由を隠したとの主張はしない。
+  - 公開字幕に基づく確認であり、全編の音声・映像の通視聴や声による本人認証は行っていない。引用7886秒は当該発言を含む最初の字幕cue開始秒であり、単語単位の発声開始時刻を確認したとは扱わない。字幕の無い区間を音声確認済みの無音と断定しない。
+  - 本修正は有限の直接作業であり、codex execや専用ハーネスを実行したとは扱わない。生字幕・視聴者識別子・内部review原文は一時領域のみで、Gitや公開成果物には残さない。
+  - 固定総数問題は別保守PR2740で既存14ID保持と新着全件検証へ分離済み。件数を15へ固定し直したり14以上へ弱めていない。内容PR2739の同一head品質ゲート成功をマージ前に確認する。
+  - あらすじは別コンテキストで事実・ネタバレ/プライバシー・編集確認を実施し同一hashで合格。ネタバレ/プライバシー担当review_diopside_video_editorialは最終候補の他review結果を未読だが、旧候補の埋込みfact status/hashは以前見ているためstrict fresh contextを主張しない。最終編集担当には旧・最終の他review結果を開示していない。
