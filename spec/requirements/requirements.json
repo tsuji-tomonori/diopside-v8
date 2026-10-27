@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "catalog_revision": 42,
+  "catalog_revision": 43,
   "product": "diopside v8",
-  "updated_at": "2026-09-30",
+  "updated_at": "2026-10-27",
   "requirements": [
     {
       "acceptance_criteria": [
@@ -7826,7 +7826,7 @@
     },
     {
       "id": "V8-TAG-036",
-      "revision": 1,
+      "revision": 2,
       "status": "active",
       "scope": "product",
       "category": "functional",
@@ -7845,17 +7845,23 @@
           "id": "AC-V8-TAG-036-1",
           "given": "公開タイトルに「#いっ杯晩酌」が明示された動画がある",
           "when": "承認済みタグ正本を全件検査する",
-          "then": "対象14動画すべてが定期・連続企画名「いっ杯晩酌」を持つ。"
+          "then": "既存確認済み14動画のIDと定期・連続企画名「いっ杯晩酌」を保持し、新着を含め公開タイトルに明示された対象動画すべてが同じタグを持つ。既存14動画は保持確認の固定集合であり、現在の総動画件数の上限ではない。"
         },
         {
           "id": "AC-V8-TAG-036-2",
           "given": "定期・連続企画名そのものに「杯」の文字が含まれる",
           "when": "旧タグから論理タグを再生成する",
           "then": "名称の部分一致だけを理由にイベント・大会名「いっ杯晩酌」を追加しない。"
+        },
+        {
+          "id": "AC-V8-TAG-036-3",
+          "given": "既存確認済み動画と新しいシリーズ対象動画がある",
+          "when": "既存動画の欠落、シリーズタグ欠落、イベントへの誤分類を含む候補を検査する",
+          "then": "いずれの欠落・誤分類も不合格となる。正しく分類された新着追加は総件数の増加だけを理由に不合格にしない。"
         }
       ],
       "verification": {
-        "method": "正本全件タグ網羅・重複分類試験、旧タグ再生成回帰試験",
+        "method": "既存ID保持・新着を含む正本全件タグ網羅・重複分類・異常系回帰試験、旧タグ再生成回帰試験",
         "evidence": "tests/content-validation.test.ts"
       },
       "traces": {
@@ -7868,14 +7874,15 @@
           "content/videos"
         ],
         "tests": [
-          "tests/content-validation.test.ts"
+          "tests/content-validation.test.ts",
+          "tests/recurring-series.test.ts"
         ],
         "standards": [
           "spec/sources/owner-directive-2026-08-25-recurring-series-pages.md",
           "dev-standard default profile"
         ]
       },
-      "last_changed_by": "CHG-20260825-recurring-series-pages"
+      "last_changed_by": "CHG-20261027-recurring-series-growth"
     },
     {
       "id": "V8-TAG-037",

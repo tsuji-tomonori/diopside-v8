@@ -25,6 +25,8 @@ import {
 } from '../src/domain/validation.ts';
 import { readCanonicalVideos } from '../scripts/canonical-store.ts';
 import { classifyLegacyVideo } from '../scripts/legacy-content.ts';
+import recurringSeriesBaseline from './fixtures/recurring-series-baseline.json';
+import { recurringSeriesIssues } from './helpers/recurring-series.ts';
 import { readSourceShards } from '../scripts/source-shards.ts';
 
 const root = process.cwd();
@@ -227,23 +229,18 @@ describe('タグ・動画正本と公開境界', () => {
       .find((category) => category.categoryId === 'program')
       ?.subcategories.find((subcategory) => subcategory.subcategoryId === 'event')
       ?.tags.find((tag) => tag.canonicalName === 'いっ杯晩酌')?.tagId;
-    const cases = [
-      { name: 'いっ杯晩酌', titleFragment: '#いっ杯晩酌', expectedCount: 14 },
-      { name: 'バーチャル3分劇場', titleFragment: 'バーチャル3分劇場', expectedCount: 14 },
-    ];
+    const cases = recurringSeriesBaseline.series;
+    expect(cases.map((item) => item.videoIds.length)).toEqual([14, 14]);
     expect(falseEventTagId, '誤分類を検出するイベントタグ').toBeDefined();
 
     for (const item of cases) {
       const tagId = recurringSeries?.tags.find((tag) => tag.canonicalName === item.name)?.tagId;
       expect(tagId, `${item.name}の定期・連続企画タグ`).toBeDefined();
-      const seriesVideos = videos.filter((video) => video.title.includes(item.titleFragment));
-      expect(seriesVideos, `${item.name}の動画件数`).toHaveLength(item.expectedCount);
-      for (const video of seriesVideos) {
-        expect(video.tagAssignments.some((assignment) => assignment.tagId === tagId), video.videoId).toBe(true);
-        if (item.name === 'いっ杯晩酌') {
-          expect(video.tagAssignments.some((assignment) => assignment.tagId === falseEventTagId), video.videoId).toBe(false);
-        }
-      }
+      expect(recurringSeriesIssues(videos, {
+        ...item,
+        tagId: tagId!,
+        forbiddenTagIds: item.name === 'いっ杯晩酌' ? [falseEventTagId!] : [],
+      })).toEqual([]);
     }
   });
 
