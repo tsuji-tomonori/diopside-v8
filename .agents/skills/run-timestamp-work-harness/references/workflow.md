@@ -237,7 +237,9 @@ acknowledged write.
 
 For a draft PR:
 
-- `作成済み`: `FALSE` until a separate merge reconciliation confirms publication.
+- `作成済み`: `FALSE` until public index and detail confirmation; the parent continues to the
+  [publication reconciliation](../../../../operations/archive-publication-reconciliation.md) in the
+  same request, or records why the PR cannot proceed and when to resume.
 - `処理状態`: `PR作成済み（レビュー待ち）`.
 - `Git commit`: final pushed commit SHA.
 - `最終更新日`: Work execution date in `Asia/Tokyo`.

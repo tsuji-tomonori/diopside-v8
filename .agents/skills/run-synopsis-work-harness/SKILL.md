@@ -1,9 +1,12 @@
 ---
 name: run-synopsis-work-harness
-description: Run a human-triggered finite diopside v8 synopsis campaign with one GPT-5.6 Sol parent orchestrating ten GPT-5.6 Luna workers from canonical videos and a Google Sheets work ledger through temporary full-video evidence, independent fact/spoiler/editorial checks, Sol final review, one-video draft PRs, and verified ledger reconciliation. Use in ChatGPT Work when the operator asks to create missing video synopses at scale or resume that campaign; never regenerate existing synopses, merge, or publish.
+description: Run a human-triggered finite diopside v8 synopsis campaign with one GPT-5.6 Sol parent orchestrating ten GPT-5.6 Luna workers from canonical videos and a Google Sheets work ledger through temporary full-video evidence, independent fact/spoiler/editorial checks, Sol final review, one-video draft PRs, and verified ledger reconciliation. Use in ChatGPT Work when the operator asks to create missing video synopses at scale or resume that campaign; never regenerate existing synopses; only the parent continues to publication under the current AGENTS.md and user authorization.
 ---
 
 # Synopsis Work harness
+
+A draft is an intermediate state. Before closing the batch the parent follows
+[archive publication reconciliation](../../../operations/archive-publication-reconciliation.md).
 
 Run missing-synopsis work to terminal results without per-video approval. Read
 `references/workflow.md` and `$generate-video-synopses` before starting or
