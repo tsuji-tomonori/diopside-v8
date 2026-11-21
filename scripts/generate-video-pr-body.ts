@@ -72,19 +72,15 @@ ${video.evidence.map((evidence) => `- \`${evidence.evidenceId}\` ${evidence.type
 - [x] 静的画面・検索索引の決定的生成
 - [x] PR本文に字幕・transcript・コメント・chat等の生資料を含めない
 
-## 人によるマージ承認チェックリスト
+## データPRの公開確認
 
 - [ ] 対象動画のYouTubeリンクを開き、動画IDと内容が一致する
 - [ ] 候補ハッシュが事実確認・編集確認・publication gateで一致する
 - [ ] 事実確認と編集確認が独立に合格し、重大指摘が0件である
 - [ ] 根拠メタデータとタイムスタンプ候補を確認し、生資料がPRに含まれていない
 - [ ] 通常の1動画PRのscopeだけであり、保守変更を同梱していない
-- [ ] このPRのmergeをタイムスタンプ公開承認として扱う
+- 完成したデータPRはChatGPTが現HEADを確認してマージし、公開版への反映を確認する
 
-## 画面確認
-
-- [検索画面（モバイル）](../blob/HEAD/reports/screenshots/search-mobile.png)
-- [動画詳細（デスクトップ）](../blob/HEAD/reports/screenshots/detail-desktop.png)
 `;
 writeFileSync(path.resolve(process.cwd(), outputArg), body);
 console.log(`${outputArg} に${video.videoId}の確認本文を生成しました。`);

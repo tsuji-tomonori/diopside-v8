@@ -15,7 +15,53 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  scope:
+    name: 公開差分を判定
+    runs-on: ubuntu-latest
+    outputs:
+      kind: ${{ steps.diff.outputs.kind }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: diff
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          kind="$(python3 .github/scripts/publication-scope.py "$BASE_SHA" HEAD)"
+          echo "kind=$kind" >> "$GITHUB_OUTPUT"
+
+  archive:
+    name: 公開データの整合性
+    needs: scope
+    if: needs.scope.outputs.kind == 'archive'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.0
+      - run: npm ci
+      - run: npm run validate:content
+
+  generated:
+    name: 公開版の再現性
+    needs: scope
+    if: needs.scope.outputs.kind == 'generated' && (github.event_name != 'pull_request' || (github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'automation/generated-release-main' && github.event.pull_request.user.login == 'github-actions[bot]'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.0
+      - run: npm ci
+      - run: npm run build
+      - name: 公開用の追跡・未追跡差分を検査
+        run: test -z "$(git status --porcelain --untracked-files=all -- docs public/data src/generated/release.ts)"
+
   verify:
+    needs: scope
+    if: needs.scope.outputs.kind == 'full' || (needs.scope.outputs.kind == 'generated' && github.event_name == 'pull_request' && (github.event.pull_request.head.repo.full_name != github.repository || github.head_ref != 'automation/generated-release-main' || github.event.pull_request.user.login != 'github-actions[bot]'))
     name: TypeScript・単体・E2E・生成差分
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -86,6 +132,8 @@ jobs:
         run: npm run audit:requirements
 
   ingestion-infra:
+    needs: scope
+    if: needs.scope.outputs.kind == 'full'
     name: 有限private backfill（Python・uv・CDK）
     runs-on: ubuntu-latest
     timeout-minutes: 25
