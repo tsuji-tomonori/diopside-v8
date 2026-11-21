@@ -143,6 +143,10 @@
       "sha256": "c254d3fdaab24ffbd1df140bd8f48dcca7d2f30510ab9629e92cf092e0b3a681"
     },
     {
+      "path": "scripts/reconcile-archive-publication.ts",
+      "sha256": "724d6f3b88d7231b7dea9bb43fad70f2c40464c27240b9f5924a66a08e03f922"
+    },
+    {
       "path": "scripts/refresh-person-icons.ts",
       "sha256": "425303165287d3a98c491354a7b8c34c184f997a4f529edeb6453eedc309da1f"
     },
@@ -644,6 +648,21 @@
     {
       "file": "scripts/preserve-content-enrichment.ts",
       "name": "preserveContentEnrichment",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/reconcile-archive-publication.ts",
+      "name": "archiveAuditInput",
+      "kind": "VariableStatement"
+    },
+    {
+      "file": "scripts/reconcile-archive-publication.ts",
+      "name": "readPublishedArchives",
+      "kind": "FunctionDeclaration"
+    },
+    {
+      "file": "scripts/reconcile-archive-publication.ts",
+      "name": "reconcileArchives",
       "kind": "FunctionDeclaration"
     },
     {
