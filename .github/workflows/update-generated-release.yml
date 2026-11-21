@@ -35,11 +35,24 @@ jobs:
           node-version: 22.13.0
       - name: 固定依存を導入
         run: npm ci
+      - name: 正本差分を分類
+        id: scope
+        env:
+          BASE_SHA: ${{ github.event.before }}
+        run: |
+          kind="$(python3 .github/scripts/publication-scope.py "$BASE_SHA" HEAD)"
+          echo "kind=$kind" >> "$GITHUB_OUTPUT"
+      - name: 動画更新の正本検証と公開版生成
+        if: steps.scope.outputs.kind == 'archive'
+        run: npm run validate:content && npm run build
       - name: 品質ゲートのPython依存を導入
+        if: steps.scope.outputs.kind != 'archive'
         run: python -m pip install --requirement governance/reviews/requirements.txt
       - name: Chromiumを導入
+        if: steps.scope.outputs.kind != 'archive'
         run: npx playwright install --with-deps chromium
       - name: 公開版を生成して検証
+        if: steps.scope.outputs.kind != 'archive'
         run: npm run verify:main-release
       - name: 検証スクリーンショットの一時差分を破棄
         run: |
@@ -76,7 +89,7 @@ jobs:
           git commit \
             -m '🚀 release(data): mainの静的成果物を更新' \
             -m "検証済みmain $VERIFIED_SHA から静的成果物を決定生成。
-          検証: npm run verify:main-release。公開schemaと版の整合性を維持。"
+          正本と生成物の検証は生成元commitのActions実行に記録。"
           if test -n "$(git status --porcelain --untracked-files=normal)"; then
             echo 'release commit対象外の生成差分があります。' >&2
             git status --short
@@ -119,7 +132,7 @@ jobs:
             '' \
             '- 正本から決定生成したrelease ID、版付き公開JSON、画面bundle、`main/docs`だけを更新します。' \
             '- main保護ルールを維持し、このPRのmergeでrelease commitをmainへ追加します。' \
-            '- 自動merge、独自Pages deploy、Pages build API呼び出しは行いません。' \
+            '- 生成元と生成差分を確認後、公開担当がrelease PRをマージし、既存のPagesへ公開します。' \
             > "$pr_body"
           if test -z "$release_pr_url"; then
             release_pr_url="$(gh pr create \
