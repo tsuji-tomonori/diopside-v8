@@ -4,6 +4,7 @@ import path from 'node:path';
 import { expect, test } from '@playwright/test';
 
 import { videoShardId } from '../src/domain/content.ts';
+import { readCanonicalVideos } from '../scripts/canonical-store.ts';
 
 import {
   capture,
@@ -317,7 +318,15 @@ test.describe('動画詳細', () => {
     await seriesLink.click();
     await expect(page).toHaveURL(/#\/series\/tag-program-recurringSeries-4eb7f61b38ea$/u);
     await expect(page.getByRole('heading', { level: 1, name: 'いっ杯晩酌' })).toBeVisible();
-    await expect(page.locator('.series-results .video-card')).toHaveCount(14);
+    const expectedVideoIds = readCanonicalVideos(root)
+      .filter((video) => video.tagAssignments.some((assignment) => assignment.tagId === 'tag-program-recurringSeries-4eb7f61b38ea'))
+      .map((video) => video.videoId)
+      .sort();
+    expect(expectedVideoIds).toContain('9AG7wO0Ua0w');
+    // Compare membership, not a frozen total: this detects missing, extra and duplicate cards.
+    await expect.poll(async () => page.locator('.series-results .video-card').evaluateAll((cards) => (
+      cards.map((card) => card.getAttribute('data-video-id')).sort()
+    ))).toEqual(expectedVideoIds);
     expectOnlyAllowedRequests(requests);
     await expectNoSeriousAccessibilityViolations(page);
   });

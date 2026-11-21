@@ -1,8 +1,8 @@
 <!-- specflow.pyによる自動生成。spec/requirements/requirements.jsonを編集すること。 -->
 # diopside v8 要件一覧
 
-- カタログ版: 42
-- 更新日: 2026-09-30
+- カタログ版: 44
+- 更新日: 2026-11-21
 - 正本: `spec/requirements/requirements.json`
 
 | ID | 版 | 状態 | 種別 | 原子的な義務 | 検証方法 |
@@ -71,17 +71,17 @@
 | `V8-OPS-004` | 1 | 有効 | 運用 | diopside v8の運用は、ChatGPT／Codexの利用は、運用者が契約済みの画面上の利用範囲に限定しなければならない。を**satisfy** | 構成確認・秘密情報確認 |
 | `V8-OPS-005` | 3 | 有効 | 運用 | diopside v8の運用は、1回の明示要求で固定した有限の適格タイムスタンプ対象集合は、各動画が1動画だけを対象とするdraft PRの作成・最終commitのpush・台帳反映確認を完了した状態、または根拠を示した処理不能状態のいずれかへ到達するまで処理しなければならない。ある動画の失敗を理由に、集合内の未処理動画を停止してはならない。を**satisfy** | 対象集合の固定データ・一括処理の終端・失敗分離試験 |
 | `V8-OPS-006` | 1 | 有効 | 運用 | diopside v8の運用は、対象候補が0件の場合は、生成物、ブランチ、プルリクエストを作成してはならない。を**satisfy** | 否定試験 |
-| `V8-OPS-007` | 2 | 有効 | 運用 | diopside v8の運用は、通常の動画追加プルリクエストは、正本動画データを1件だけ変更対象とし、公開用のrelease ID、版付きJSON、画面bundle、`main/docs`を含めてはならない。静的公開成果物は人が当該プルリクエストをmainへマージした後に生成しなければならない。を**satisfy** | 変更範囲試験 |
+| `V8-OPS-007` | 3 | 有効 | 運用 | diopside v8の運用は、通常の動画追加プルリクエストは、正本動画データを1件だけ変更対象とし、公開用のrelease ID、版付きJSON、画面bundle、`main/docs`を含めてはならない。静的公開成果物はChatGPTが検証済みの当該プルリクエストをmainへマージした後に生成しなければならない。を**satisfy** | 変更範囲試験 |
 | `V8-OPS-008` | 1 | 有効 | 運用 | diopside v8の運用は、通常の動画追加プルリクエストでは、スキル、生成規則、タグ体系、構造定義、検証スクリプト、画面実装、Pages設定を変更してはならない。を**satisfy** | 変更範囲の否定試験 |
 | `V8-OPS-009` | 2 | 有効 | 運用 | diopside v8の運用は、プルリクエスト作成前に、構造、タグ、タイムスタンプ、ワードクラウド、検索索引、公開禁止情報、静的画面を動画ごとに決定的スクリプトで検証しなければならない。不合格は当該動画のプルリクエスト作成だけを止め、理由付き処理不能として記録し、同じ有限集合の他の動画の処理を止めてはならない。を**satisfy** | 不正データ試験・動画単位の失敗分離試験・手順試験 |
 | `V8-OPS-010` | 2 | 有効 | 運用 | diopside v8の運用は、PRレビュー可能な動画のプルリクエスト本文は、対象動画、タグ候補、タイムスタンプ候補、ワードクラウド語句、根拠、検証結果、YouTube確認リンクを日本語で示さなければならない。処理不能の動画は、失敗した段階と根拠を含む理由を日本語で示さなければならない。を**satisfy** | プルリクエスト・一括処理結果の表示確認 |
-| `V8-OPS-011` | 1 | 有効 | 運用 | diopside v8の運用は、生成候補は、人が確認してマージするまで公開してはならない。を**satisfy** | ブランチ境界試験 |
+| `V8-OPS-011` | 2 | 有効 | 運用 | diopside v8の運用は、検証済みの動画データPRをChatGPTが個別承認なしでマージし公開する。作業中の候補、実装・権限・設定を含む変更はこの包括承認の対象外とする。を**satisfy** | ブランチ境界試験 |
 | `V8-OPS-012` | 1 | 有効 | 運用 | diopside v8の運用は、GitHub Pagesは、`main` ブランチの `/docs` にコミット済みの静的成果物だけを公開しなければならない。を**satisfy** | リポジトリ設定確認・公開確認 |
 | `V8-OPS-013` | 1 | 有効 | 運用 | diopside v8の運用は、静的成果物は正本データから決定的に生成し、手作業で直接編集してはならない。を**satisfy** | 再現性試験 |
 | `V8-OPS-014` | 1 | 有効 | 運用 | diopside v8の運用は、公開データと画面は、同じ公開版の識別子を持たなければならない。を**satisfy** | 契約試験 |
 | `V8-OPS-015` | 1 | 有効 | 運用 | diopside v8の運用は、承認済み変更の取り消しによって、直前の正しい公開状態を再生成できなければならない。を**satisfy** | 復元訓練 |
 | `V8-OPS-016` | 1 | 有効 | 運用 | diopside v8の運用は、更新頻度は自動の日次保証とせず、最終更新日時を画面で確認できなければならない。を**satisfy** | 画面試験 |
-| `V8-OPS-017` | 1 | 有効 | 運用 | diopside v8の運用は、release ID、版付き公開JSON、画面bundle、`main/docs`は、mainの品質ゲートに合格した人承認済み正本から決定的に生成し、差分がある場合だけmainへrelease commitしなければならない。生成中にmainが更新された場合は古い結果をcommitしてはならない。を**satisfy** | post-merge生成workflow契約試験・Pages公開経路試験 |
+| `V8-OPS-017` | 2 | 有効 | 運用 | diopside v8の運用は、release ID、版付き公開JSON、画面bundle、`main/docs`は、mainの品質ゲートに合格した正本から決定的に生成し、差分がある場合だけmainへrelease commitしなければならない。生成中にmainが更新された場合は古い結果をcommitしてはならない。を**satisfy** | post-merge生成workflow契約試験・Pages公開経路試験 |
 | `V8-OPS-018` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ChatGPT Workから開始するタイムスタンプ処理は、PythonでGoogle Sheetsの対象動画台帳を列名で読み、作成済み・除外・既存PRを除いた適格対象を行番号と行指紋を含む有限集合として固定し、同じbatch IDでは集合を変更せず中断後も再開できなければならない。を**satisfy** | 台帳snapshot・immutable manifest・再開・0件試験 |
 | `V8-OPS-019` | 2 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ハーネスは作成者時刻一覧または公開日本語字幕を優先し、必要時に公開音声と無償ローカル音声認識、匿名化したチャット補助信号を取得し、章構成・事実確認・編集確認の意味判断を役割ごとに独立した非対話のcodex execで実行して、同じ候補hashへの決定的検証合格を必須としなければならない。有限private backfillで同じ動画のprivate S3 manifestが検証済みなら、外部素材を再取得せずmanifestを優先しなければならない。を**satisfy** | Codex実行契約・role分離・候補hash・匿名chat・公開境界試験 |
 | `V8-OPS-020` | 1 | 有効 | 運用 | diopside v8のタイムスタンプ運用は、ハーネスは合格した各動画について1動画branchをcommit・pushしてdraft PRを作成し、実在PR URLを正本候補へ記録して最終commitをpushした後、PR URL・commit SHA・レビュー待ち状態を対象台帳行へ反映して再読確認しなければならない。処理不能動画も安全な理由と再開条件を台帳へ反映し、行指紋が変わった場合は上書きしてはならない。を**satisfy** | 1動画PR scope・PR URL gate・行指紋競合・exact range write・更新後再読試験 |
@@ -158,7 +158,7 @@
 | `V8-TAG-033` | 1 | 有効 | データ | diopside v8のタグは、動画詳細は承認済みタグを大分類ごとにまとめ、同名異義タグには小分類の文脈を示さなければならない。を**satisfy** | 画面・アクセシビリティ試験 |
 | `V8-TAG-034` | 1 | 有効 | データ | diopside v8のタグは、タグ表示名は公式な日本語名がある場合は日本語を用い、公式固有名詞と一般に定着した略称は出典表記を保たなければならない。を**satisfy** | 文言一覧・人手確認 |
 | `V8-TAG-035` | 1 | 有効 | データ | diopside v8のタグは、人物・グループ分類を除くタグが1動画あたり12件を超える候補は、過剰付与の確認待ちにしなければならない。を**satisfy** | 基数集計・人手確認 |
-| `V8-TAG-036` | 1 | 有効 | データ | diopside v8の定期・連続企画タグは、公開タイトルまたは承認済み既存タグから定期・連続企画名を直接確認できる動画は当該定期・連続企画名タグを持ち、名称中の「杯」等の部分一致だけでイベント・大会名へ重複分類してはならない。を**satisfy** | 正本全件タグ網羅・重複分類試験、旧タグ再生成回帰試験 |
+| `V8-TAG-036` | 2 | 有効 | データ | diopside v8の定期・連続企画タグは、公開タイトルまたは承認済み既存タグから定期・連続企画名を直接確認できる動画は当該定期・連続企画名タグを持ち、名称中の「杯」等の部分一致だけでイベント・大会名へ重複分類してはならない。を**satisfy** | 既存ID保持・新着を含む正本全件タグ網羅・重複分類・異常系回帰試験、旧タグ再生成回帰試験 |
 | `V8-TAG-037` | 2 | 有効 | 機能 | diopside v8の歌唱実績と楽曲タグは、楽曲名と白雪巴の歌唱参加を確認できた各実績は、歌ってみた、オリジナル曲、歌枠、配信内歌唱、鼻歌の種別と楽曲エンティティIDを持たなければならない。楽曲は動画ジャンルから独立し、原アーティストとのcreatedBy関係を持ち、互換用の楽曲タグIDを公開一覧・検索索引・タグ索引・動画詳細で同じエンティティへ解決しなければならない。を**satisfy** | 歌唱正本構造、非歌ジャンル鼻歌、公開索引の楽曲タグ反映試験 |
 | `V8-TAG-038` | 1 | 有効 | 品質 | diopside v8の歌唱実績検証と公開境界は、各歌唱実績は既知動画、白雪巴本人の参加、動画長内の開始秒、動画内で解決できる根拠参照を持たなければならない。承認済みタイムスタンプを参照する場合は開始秒が一致し、鼻歌は終了秒も持たなければならない。公開データには内部の根拠参照・判定理由を含めてはならない。を**satisfy** | 未知動画・根拠・時刻・タイムスタンプ不整合・鼻歌範囲・公開境界試験 |
 | `V8-TAG-039` | 2 | 有効 | データ | diopside v8のゲーム作品とゲームジャンルは、特定のゲーム作品は、Steam、公式ストアまたは対象作品の公式サイトを確認元として、1〜3件のゲームジャンルをゲーム単位の正本に持たなければならない。同じゲームを指す表記違いは一つのゲーム単位へ統合し、その全公開動画へ同じジャンルを導出しなければならない。動画単位の移行前ジャンルを公開分類として使わず、特定作品ではない一般ラベルをゲーム作品一覧へ含めてはならない。を**satisfy** | ゲーム正本構造・全作品網羅・公開ジャンル導出・対象作品回帰・一般ラベル除外試験 |
@@ -195,7 +195,7 @@
 | `V8-TIME-026` | 1 | 有効 | データ | diopside v8の時刻は、根拠が競合する境界、音声認識が不明瞭な境界、時刻が一意に定まらない境界は確定せず、確認待ち理由を残さなければならない。を**satisfy** | 曖昧入力試験 |
 | `V8-TIME-027` | 2 | 有効 | データ | diopside v8の時刻は、候補の事実確認では、適用経路が作成者一覧の採用または全編根拠による生成のいずれかであること、根拠参照、境界前後、章名の裏付け、根拠競合を確認しなければならない。 新規・変更候補にはIssue #1の独立確認を適用する。既存承認済みデータは、承認元・入力指紋・同一候補ハッシュ・v8決定的検証・現在の所有者承認を解決できる場合に限り移行できる。を**satisfy** | 独立レビュー確認 |
 | `V8-TIME-028` | 2 | 有効 | データ | diopside v8の時刻は、候補の編集確認では、移動価値、過分割、分割不足、名称統一、ネタバレを事実確認とは別に確認しなければならない。 新規・変更候補にはIssue #1の独立確認を適用する。既存承認済みデータは、承認元・入力指紋・同一候補ハッシュ・v8決定的検証・現在の所有者承認を解決できる場合に限り移行できる。を**satisfy** | 入力記録・独立レビュー確認 |
-| `V8-TIME-029` | 3 | 有効 | データ | diopside v8の時刻は、新規・変更候補は、事実確認と編集確認の両方が同じ候補版へ合格した場合だけ、1動画だけを対象とするPRのレビュー可能状態へ進めなければならない。対象集合を固定した後に動画ごとの追加チャット承認を要求してはならず、人が当該PRを確認してマージする操作を公開の最終承認としなければならない。既存承認済みデータは、承認元・入力指紋・同一候補ハッシュ・v8決定的検証・現在の所有者承認を解決できる場合に限り移行できる。を**satisfy** | 候補版・状態遷移・PR範囲・承認境界・公開境界試験 |
+| `V8-TIME-029` | 4 | 有効 | データ | diopside v8の時刻は、新規・変更候補は、事実確認と編集確認の両方が同じ候補版へ合格した場合だけ、1動画だけを対象とするPRのレビュー可能状態へ進めなければならない。対象集合を固定した後に動画ごとの追加チャット承認を要求してはならず、ChatGPTがデータPRの現在のHEADと内容検証結果を確認してマージする。既存承認済みデータは、承認元・入力指紋・同一候補ハッシュ・v8決定的検証・現在の所有者承認を解決できる場合に限り移行できる。を**satisfy** | 候補版・状態遷移・PR範囲・承認境界・公開境界試験 |
 | `V8-TIME-030` | 2 | 有効 | データ | diopside v8の時刻は、決定的検証は、0秒開始、3件以上、整数、昇順、10秒以上、動画長内、全区間網羅、非空名、許可確度、根拠参照、未解決重大指摘なしを動画ごとにすべて確認しなければならない。いずれかの不合格は当該動画の作成済みへの遷移とプルリクエスト作成を止め、理由付き処理不能とし、同じ有限集合の他の動画の処理を止めてはならない。を**satisfy** | 不正データ総当たり・動画単位の失敗分離試験 |
 | `V8-TIME-031` | 1 | 有効 | データ | diopside v8の時刻は、動画詳細の各タイムスタンプは、対象動画の同じ開始秒をYouTubeで開く確認リンクを持たなければならない。を**satisfy** | リンク契約試験 |
 | `V8-TIME-032` | 1 | 有効 | データ | diopside v8の時刻は、タイムスタンプの章名をタイトル文字検索へ混入してはならない。を**satisfy** | 検索除外試験 |
@@ -1194,16 +1194,16 @@ diopside v8の運用は、対象候補が0件の場合は、生成物、ブラ�
 
 ## V8-OPS-007: 通常の動画追加プルリクエストは、1動画だけを内容確認の対象としなければならない
 
-diopside v8の運用は、通常の動画追加プルリクエストは、正本動画データを1件だけ変更対象とし、公開用のrelease ID、版付きJSON、画面bundle、`main/docs`を含めてはならない。静的公開成果物は人が当該プルリクエストをmainへマージした後に生成しなければならない。を**satisfy**。
+diopside v8の運用は、通常の動画追加プルリクエストは、正本動画データを1件だけ変更対象とし、公開用のrelease ID、版付きJSON、画面bundle、`main/docs`を含めてはならない。静的公開成果物はChatGPTが検証済みの当該プルリクエストをmainへマージした後に生成しなければならない。を**satisfy**。
 
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+根拠: 候補の検証と公開成果物の生成を分け、誤公開を防ぐため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
 - `AC-V8-OPS-007-1` 前提: V8-運用-007の前提を満たす公開データまたは操作がある。条件: 変更範囲試験。期待結果: 1件の正本動画データと、その正本件数・更新日時を持つmanifestおよび確認用資料だけを変更し、release ID、版付き公開JSON、画面bundle、`main/docs`を差分に含めない。。
 
-要求源: Issue #1 V8-運用-007, user:2026-08-03, spec/sources/owner-directive-2026-08-08-post-merge-release.md
+要求源: Issue #1 V8-運用-007, user:2026-08-03, spec/sources/owner-directive-2026-08-08-post-merge-release.md, user:2026-11-21
 検証証跡: tests/operations.test.ts, tests/generated.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,scripts/validate-video-pr-scope.ts,scripts/validate-release-pr-scope.ts,.github/workflows/update-generated-release.yml; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
@@ -1253,18 +1253,18 @@ diopside v8の運用は、PRレビュー可能な動画のプルリクエスト�
 検証証跡: tests/operations.test.ts, tests/timestamp_tools_test.py
 トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts,.agents/skills/generate-stream-timestamps; テスト=tests/operations.test.ts,tests/generated.test.ts,tests/timestamp_tools_test.py; 参照資料=Issue #1,dev-standard default profile
 
-## V8-OPS-011: 生成候補は、人が確認してマージするまで公開してはならない
+## V8-OPS-011: 検証済みの動画データPRをChatGPTが個別承認なしでマージし公開する
 
-diopside v8の運用は、生成候補は、人が確認してマージするまで公開してはならない。を**satisfy**。
+diopside v8の運用は、検証済みの動画データPRをChatGPTが個別承認なしでマージし公開する。作業中の候補、実装・権限・設定を含む変更はこの包括承認の対象外とする。を**satisfy**。
 
-根拠: 候補生成と公開の間に決定的検証と人の承認を置き、誤公開を防ぐため。
+根拠: 公開する内容の整合性を保ちながら、完成した動画の承認待ちをなくすため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
 - `AC-V8-OPS-011-1` 前提: V8-運用-011の前提を満たす公開データまたは操作がある。条件: ブランチ境界試験。期待結果: 未マージ、却下、終了済み未マージの差分がPagesの公開元に含まれない。。
 
-要求源: Issue #1 V8-運用-011, user:2026-08-03
+要求源: Issue #1 V8-運用-011, user:2026-08-03, user:2026-11-21
 検証証跡: tests/operations.test.ts, tests/generated.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=scripts/detect-video-candidates.ts,scripts/validate-content.ts,scripts/build-public-data.ts; テスト=tests/operations.test.ts,tests/generated.test.ts; 参照資料=Issue #1,dev-standard default profile
 
@@ -1345,17 +1345,17 @@ diopside v8の運用は、更新頻度は自動の日次保証とせず、最終
 
 ## V8-OPS-017: 静的公開成果物は、検証済みmainマージ後にだけ自動生成してrelease commitしなければならない
 
-diopside v8の運用は、release ID、版付き公開JSON、画面bundle、`main/docs`は、mainの品質ゲートに合格した人承認済み正本から決定的に生成し、差分がある場合だけmainへrelease commitしなければならない。生成中にmainが更新された場合は古い結果をcommitしてはならない。を**satisfy**。
+diopside v8の運用は、release ID、版付き公開JSON、画面bundle、`main/docs`は、mainの品質ゲートに合格した正本から決定的に生成し、差分がある場合だけmainへrelease commitしなければならない。生成中にmainが更新された場合は古い結果をcommitしてはならない。を**satisfy**。
 
-根拠: 内容レビュー対象の正本と機械生成される公開版を分離し、通常プルリクエストごとの全公開物差分とrelease ID競合をなくしながら、人のマージ承認後だけ一貫した静的版を公開するため。
+根拠: 最新の正本から一貫した公開版を生成するため。
 
 分類: `project` / `nonfunctional`
 
 受入条件:
-- `AC-V8-OPS-017-1` 前提: 人が正本変更をmainへマージし、そのmain commitの品質ゲートが合格した。条件: post-merge生成workflow契約試験。期待結果: 同じ検証済みcommitから静的成果物を生成・検証し、後続main更新がなく生成差分がある場合だけrelease commitする。。
-- `AC-V8-OPS-017-2` 前提: release commitがmainへ追加された。条件: Pages公開経路試験。期待結果: 独自deploy artifactを使わず、既存のmain/docs branch方式Pages buildを要求する。。
+- `AC-V8-OPS-017-1` 前提: 正本変更をmainへマージし、そのmain commitの品質ゲートが合格した。条件: post-merge生成workflow契約試験。期待結果: 同じ検証済みcommitから静的成果物を生成・検証し、後続main更新がなく生成差分がある場合だけrelease commitする。。
+- `AC-V8-OPS-017-2` 前提: release commitがmainへ追加された。条件: Pages公開経路試験。期待結果: ChatGPTが現在の生成元と差分を確認し、専用の生成物PRをマージする。既存のmain/docs方式で公開し、HTTPで最新データを確認する。。
 
-要求源: spec/sources/owner-directive-2026-08-08-post-merge-release.md, user:2026-08-08
+要求源: spec/sources/owner-directive-2026-08-08-post-merge-release.md, user:2026-08-08, user:2026-11-21
 検証証跡: tests/repository-policy.test.ts, tests/operations.test.ts, tests/generated.test.ts
 トレース: 設計=docs/decisions/ADR-0001-zero-cost-static-pages.md,docs/design/generated/system.gen.md; 実装=.github/workflows/update-generated-release.yml,scripts/build-public-data.ts,scripts/validate-video-pr-scope.ts,scripts/validate-release-pr-scope.ts,scripts/verify-generated-source.ts; テスト=tests/repository-policy.test.ts,tests/operations.test.ts,tests/generated.test.ts; 参照資料=spec/sources/owner-directive-2026-08-08-post-merge-release.md,dev-standard default profile
 
@@ -2537,12 +2537,13 @@ diopside v8の定期・連続企画タグは、公開タイトルまたは承認
 分類: `product` / `functional`
 
 受入条件:
-- `AC-V8-TAG-036-1` 前提: 公開タイトルに「#いっ杯晩酌」が明示された動画がある。条件: 承認済みタグ正本を全件検査する。期待結果: 対象14動画すべてが定期・連続企画名「いっ杯晩酌」を持つ。。
+- `AC-V8-TAG-036-1` 前提: 公開タイトルに「#いっ杯晩酌」が明示された動画がある。条件: 承認済みタグ正本を全件検査する。期待結果: 既存確認済み14動画のIDと定期・連続企画名「いっ杯晩酌」を保持し、新着を含め公開タイトルに明示された対象動画すべてが同じタグを持つ。既存14動画は保持確認の固定集合であり、現在の総動画件数の上限ではない。。
 - `AC-V8-TAG-036-2` 前提: 定期・連続企画名そのものに「杯」の文字が含まれる。条件: 旧タグから論理タグを再生成する。期待結果: 名称の部分一致だけを理由にイベント・大会名「いっ杯晩酌」を追加しない。。
+- `AC-V8-TAG-036-3` 前提: 既存確認済み動画と新しいシリーズ対象動画がある。条件: 既存動画の欠落、シリーズタグ欠落、イベントへの誤分類を含む候補を検査する。期待結果: いずれの欠落・誤分類も不合格となる。正しく分類された新着追加は総件数の増加だけを理由に不合格にしない。。
 
 要求源: spec/sources/owner-directive-2026-08-25-recurring-series-pages.md, user:2026-08-25
 検証証跡: tests/content-validation.test.ts
-トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=scripts/legacy-content.ts,content/videos; テスト=tests/content-validation.test.ts; 参照資料=spec/sources/owner-directive-2026-08-25-recurring-series-pages.md,dev-standard default profile
+トレース: 設計=docs/design/generated/system.gen.md,content/taxonomy/tag-taxonomy.json; 実装=scripts/legacy-content.ts,content/videos; テスト=tests/content-validation.test.ts,tests/recurring-series.test.ts; 参照資料=spec/sources/owner-directive-2026-08-25-recurring-series-pages.md,dev-standard default profile
 
 ## V8-TAG-037: 確認済みの各歌唱実績は動画ジャンルと独立した楽曲エンティティとして検索できなければならない
 
@@ -3091,9 +3092,9 @@ diopside v8の時刻は、候補の編集確認では、移動価値、過分割
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts
 トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts; 参照資料=Issue #1,dev-standard default profile
 
-## V8-TIME-029: 事実確認と編集確認が同じ候補版へ合格した動画だけをPRレビュー可能とし、人のマージを公開承認としなければならない
+## V8-TIME-029: 事実確認と編集確認が同じ候補版へ合格した動画をChatGPTがマージして公開する
 
-diopside v8の時刻は、新規・変更候補は、事実確認と編集確認の両方が同じ候補版へ合格した場合だけ、1動画だけを対象とするPRのレビュー可能状態へ進めなければならない。対象集合を固定した後に動画ごとの追加チャット承認を要求してはならず、人が当該PRを確認してマージする操作を公開の最終承認としなければならない。既存承認済みデータは、承認元・入力指紋・同一候補ハッシュ・v8決定的検証・現在の所有者承認を解決できる場合に限り移行できる。を**satisfy**。
+diopside v8の時刻は、新規・変更候補は、事実確認と編集確認の両方が同じ候補版へ合格した場合だけ、1動画だけを対象とするPRのレビュー可能状態へ進めなければならない。対象集合を固定した後に動画ごとの追加チャット承認を要求してはならず、ChatGPTがデータPRの現在のHEADと内容検証結果を確認してマージする。既存承認済みデータは、承認元・入力指紋・同一候補ハッシュ・v8決定的検証・現在の所有者承認を解決できる場合に限り移行できる。を**satisfy**。
 
 根拠: 見どころ偏重ではなく、動画全体を安全に移動できる目次を提供するため。
 
@@ -3101,10 +3102,10 @@ diopside v8の時刻は、新規・変更候補は、事実確認と編集確認
 
 受入条件:
 - `AC-V8-TIME-029-1` 前提: 新規・変更タイムスタンプ候補に事実確認と編集確認の結果がある。条件: 候補版・状態遷移・PR範囲試験。期待結果: 同じ候補版への両確認合格時だけ1動画のPRをレビュー可能にし、候補修正後は旧確認を無効にして両方を再実施する。。
-- `AC-V8-TIME-029-2` 前提: 1回の明示要求で対象集合を固定し、動画の候補がレビュー可能になった。条件: 承認境界・公開境界試験。期待結果: 動画ごとの追加チャット承認なしでPRレビュー可能状態まで進み、人が当該PRをマージするまで公開されず、自動マージまたは自動公開されない。。
+- `AC-V8-TIME-029-2` 前提: 1回の明示要求で対象集合を固定し、動画の候補がレビュー可能になった。条件: 承認境界・公開境界試験。期待結果: ChatGPTは個別承認を待たず、検証済みのPRをマージして公開版への反映を確認する。。
 - `AC-V8-TIME-029-3` 前提: 承認済み旧データを移行する。条件: 移行経路の版・状態遷移試験。期待結果: 承認元、同一候補ハッシュ、決定的検証、現在の所有者承認をすべて持つ。。
 
-要求源: Issue #1 V8-時刻-029, user:2026-08-03, owner-directive:2026-08-04, owner-directive:2026-08-08-timestamp-batch
+要求源: Issue #1 V8-時刻-029, user:2026-08-03, owner-directive:2026-08-04, owner-directive:2026-08-08-timestamp-batch, user:2026-11-21
 検証証跡: src/domain/validation.test.ts, tests/pilot-timestamps.test.ts, tests/timestamp_tools_test.py
 トレース: 設計=docs/design/generated/system.gen.md,docs/operations/manual-content-update.md; 実装=src/domain/content.ts,scripts/diff-timestamps.ts,scripts/import-legacy-content.ts,.agents/skills/generate-stream-timestamps; テスト=src/domain/validation.test.ts,tests/pilot-timestamps.test.ts,tests/timestamp_tools_test.py; 参照資料=Issue #1,dev-standard default profile
 
