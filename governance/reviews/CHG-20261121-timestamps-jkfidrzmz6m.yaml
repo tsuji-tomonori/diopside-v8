@@ -1,0 +1,158 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20261121-timestamps-jkfidrzmz6m
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/videos/JkfidRZmz6M.json
+    note: 既存の有限batch・1動画1PR要件に従う正本追加である。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 既存schemaだけを使い公開契約を変更しない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/videos/JkfidRZmz6M.json
+    note: 全編根拠と事実・境界・編集・ネタバレ確認を伴うためassuredを選択した。
+  - id: IMP-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 利用者の有限batch要求がbranch、Draft PR、台帳更新を許可している。
+  - id: IMP-007
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/videos/JkfidRZmz6M.json
+    note: 可逆な1動画overrideでありmigrationや削除はない。
+  - id: FAST-004
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/videos/JkfidRZmz6M.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 正本schema、全編根拠、review hash、PR gateを検証する。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/videos/JkfidRZmz6M.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: ガチヤグラ、ガチエリア、武器変更、S＋昇格戦、振り返りを39章へ整理した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/content-manifest.json
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 正本件数と決定的生成物のdriftを検証する。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 生字幕、音声、文字起こし、コメント、チャット、投稿者識別子、秘密情報を差分へ含めない。
+  - id: REV-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/videos/JkfidRZmz6M.json
+      - path:governance/reviews/CHG-20261121-timestamps-jkfidrzmz6m.yaml
+    note: 最終差分を1動画正本、manifest、review YAMLへ限定する。
+  - id: REV-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: change_idを規定形式に揃え、影響・検証・リスクを記録する。
+  - id: REV-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:spec/requirements/requirements.json
+      - path:content/videos/JkfidRZmz6M.json
+    note: 有限batchと根拠付きreviewの受入条件を満たす。
+  - id: REV-004
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: schemaや画面を変えないため生成設計・ADRは不要である。
+  - id: REV-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:scripts/validate-content.ts
+      - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+    note: 内容・1動画scope・生成差分をCIで検証する。
+  - id: REV-007
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20261121-timestamps-jkfidrzmz6m.yaml
+    note: 選択checkだけをreview YAMLへ保存する。
+  - id: REV-008
+    class: Invariant
+    result: pass
+    evidence:
+      - path:governance/reviews/CHG-20261121-timestamps-jkfidrzmz6m.yaml
+    note: 未選択checkをN/Aとして登録しない。
+advisories: []
+residual_risks:
+  - 公開字幕全編を2026-11-21にYouTubeの「文字起こしを表示」から再取得・確認した。入力fingerprintは3945b7dd275b0bcc31e4c23486a9a9cf66af3baab2b3160b0b7bd64aadb30056。
+  - タイムスタンプ候補hashは6218cbc139cd47c13eb7e00835364a18277ba03fc3edd4a97c7a56c0c68b5a64、あらすじhashは007add9735cf17f4b77f2f72e4450e159ae912c1142cf0d8e6196ec00242f6db。
+  - 公開字幕に基づく確認であり、全編の音声・映像の通視聴や声による本人認証は行っていない。字幕cue開始秒を採用し、単語単位の発声開始時刻を確認したとは扱わない。
+  - 専用ハーネスが利用できなかったため現在のWorkセッションで事実・境界・編集・ネタバレ確認を順次実施した。生字幕・コメント・投稿者識別子は一時領域のみで、Gitや公開成果物には残さない。
+  - 自動マージ・公開は行わず、同一headの品質ゲート成功と人手マージを公開条件とする。
