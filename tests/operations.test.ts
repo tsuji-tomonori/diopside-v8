@@ -69,6 +69,7 @@ describe('手動動画更新運用', () => {
       'governance/reviews/CHG-20260808-video-c9TnpjK3ZZE.yaml',
     ]);
     expect(allowed.valid).toBe(true);
+    expect(validateVideoPrScopeFiles(['content/videos/c9TnpjK3ZZE.json']).valid).toBe(true);
     expect(validateVideoPrScopeFiles([
       'content/videos/c9TnpjK3ZZE.json',
       'content/content-manifest.json',
@@ -169,8 +170,8 @@ describe('手動動画更新運用', () => {
     expect(body).toContain('公開ゲート: pull-request-merge');
     expect(body).toContain('https://github.com/tsuji-tomonori/diopside-v8/pull/1');
     expect(body).toContain(`https://www.youtube.com/watch?v=${video.videoId}`);
-    expect(body).toContain('人によるマージ承認チェックリスト');
-    expect(body).toContain('このPRのmergeをタイムスタンプ公開承認として扱う');
+    expect(body).toContain('データPRの公開確認');
+    expect(body).toContain('ChatGPTが現HEADを確認してマージ');
     expect(body).toContain('根拠メタデータ（生資料なし）');
     expect(body).not.toContain('transcriptText');
   });

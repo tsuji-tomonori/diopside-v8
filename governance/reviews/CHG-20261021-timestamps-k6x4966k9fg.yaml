@@ -1,0 +1,89 @@
+schema_version: 2
+catalog_version: 3
+catalog_digest: sha256:a1b61465fdf7b1e98e31398ba06182d6a8fe9d7a9cacee4d17a49eabfda43a28
+change_id: CHG-20261021-timestamps-k6x4966k9fg
+profile: assured
+source_ref: self
+completed_timings:
+  - impact
+  - implementation
+  - pre-pr
+impact_flags:
+  external_write: true
+  irreversible_operation: false
+  auth_change: false
+  data_change: true
+  public_api_change: false
+  iac_change: false
+  dependency_change: false
+  code_change: false
+  typed_code_change: false
+  behavior_change: true
+  bug_fix: false
+  generated_change: true
+  sql_change: false
+  e2e_change: false
+  migration: false
+  ui_change: false
+  interactive_ui_change: false
+  operational_impact: false
+  requirements_impact: false
+  public_contract_change: false
+  critical_change: false
+  important_ui_change: false
+  long_term_decision: false
+  squash: false
+  external_side_effect: true
+  production_deploy: false
+  major_incident: false
+  periodic_cycle: false
+  monthly_cycle: false
+  recheck_due: false
+  as_built_standard_change: false
+  as_built_adoption: false
+  quality_threshold_change: false
+impact_details:
+  as_built_adoption:
+    scope: []
+    exclusions: []
+selected_checks:
+  - id: IMP-001
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/videos/k6X4966k9Fg.json
+    note: 既存の有限batch・1動画1PR要件に従う正本追加である。
+  - id: IMP-002
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 既存schemaだけを使い公開契約を変更しない。
+  - id: IMP-003
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/videos/k6X4966k9Fg.json
+    note: 公開字幕855cueの全編根拠、タイムスタンプとあらすじの事実・編集・ネタバレ確認を実施した。
+  - id: FAST-005
+    class: Risk-selected
+    result: pass
+    evidence:
+      - path:content/videos/k6X4966k9Fg.json
+    note: 全編字幕と開始秒を照合し、各ゲーム、リミックス、パーフェクト挑戦、全メダル回収を35章へ整理した。
+  - id: FAST-006
+    class: Invariant
+    result: pass
+    evidence:
+      - path:content/content-manifest.json
+    note: 正本件数と決定的生成物の整合を確認した。
+  - id: FAST-007
+    class: Invariant
+    result: pass
+    evidence:
+      - commit:self
+    note: 生字幕、音声、コメント、チャット、投稿者識別子、秘密情報を差分へ含めない。
+advisories: []
+residual_risks:
+  - 公開自動生成字幕には誤認識の可能性がある。全編確認と事実・境界・編集・ネタバレ確認を実施。タイムスタンプ候補hash df56862727fb6cf8255b6913b9ffe6b433ba856e4f6e866dc351ffeb8db3890f、あらすじ候補hash 4c70d528bd85b206d2604ba5cd3c584aa0e52e4c1787f1b7db46dfff0615d003。
+  - harnessはGitHub code searchで入口を特定できず、ChatGPT Workから直接処理した。別エージェント監査を実行したとは扱わない。
