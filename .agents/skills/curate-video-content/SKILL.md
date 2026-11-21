@@ -45,7 +45,7 @@ Record only evidence type, a safe source label, input fingerprint, and coverage 
 
 Read `references/tag-assignment-authority.md` before assigning or reviewing tags. Resolve IDs, display names, and the final inclusion/exclusion decision from the current taxonomy; use `spec/sources/tag-assignment-audit-v1.json` only for deterministic candidates and regression examples. Do not treat legacy aliases, the daily audit sheet, or a title keyword by itself as a competing semantic authority.
 
-Preserve official display names. Every assignment needs a tag-specific reason containing the canonical name or explicit deciding fact, confidence `高` or `中`, resolvable evidence references, and review time. Run `npm run audit:tag-assignments` after a tag change. A blocking candidate without its tag or an explicit fixed exclusion stops approval; review-only candidates require video-specific evidence and a recorded reason.
+Preserve official display names. Every assignment needs a tag-specific reason containing the canonical name or explicit deciding fact, confidence `高` or `中`, resolvable evidence references, and review time. Inspect the assignments changed on this video against the canonical rules. A blocking candidate without its tag or an explicit fixed exclusion stops approval; review-only candidates require video-specific evidence and a recorded reason.
 
 Enforce all cardinality and conditional rules in Issue #1. Do not publish `低`, pending, prohibited placeholders, duplicate IDs, unknown IDs, or 13+ non-person/group tags without an explicit over-tag human review reason.
 
@@ -53,7 +53,7 @@ Enforce all cardinality and conditional rules in Issue #1. Do not publish `低`,
 
 Prefer a valid creator-authored list. Otherwise generate only after evidence covers 0 seconds through the video end. Partial transcripts, comments, chat, and reaction peaks cannot fill missing intervals. If coverage is unavailable, use a defined Japanese `未作成` reason.
 
-For created timestamps, require 0-second start, at least three entries, integer unique ascending starts, 10-second spacing, start below duration, meaningful Japanese labels, evidence for every nonzero boundary, spoiler-safe public labels, and full derived coverage. Run fact and editorial reviews independently against the same candidate hash; hide the fact result from the editorial review. Any edit invalidates both earlier results. Human final approval follows two zero-major-issue passes.
+For created timestamps, require 0-second start, at least three entries, integer unique ascending starts, 10-second spacing, start below duration, meaningful Japanese labels, evidence for every nonzero boundary, spoiler-safe public labels, and full derived coverage. Run fact and editorial reviews independently against the same candidate hash; hide the fact result from the editorial review. Any edit invalidates both earlier results. After both checks pass with zero major issues, ChatGPT can merge the data PR under the owner's standing instruction.
 
 Prepare a reason file matching `references/timestamp-change-reasons.schema.json`, then run `node --experimental-strip-types scripts/diff-timestamps.ts --before <old.json> --after <new.json> --reasons <reasons.json>` for updates. Explain every addition, deletion, move, and rename; a missing or extra reason stops the update.
 
@@ -67,14 +67,14 @@ Use only public subtitles, the public video-specific description, or operator-pr
 
 ## 7. Validate and preview
 
-Run `npm run verify`. One failure stops PR creation. Generate and inspect mobile and desktop screenshots under `reports/screenshots/`; confirm Japanese text, 44px targets, focus, screen-reader status, search, tag context, timestamps, word cloud, favorites, history, no-login/no-tracking behavior, and YouTube links.
+For ordinary archive data changes, run `npm run validate:content` and inspect the changed video. UI and infrastructure suites run when their implementation changes.
 
-Generate the human review body:
+Generate the PR summary:
 
 `npm run candidate:pr-body -- --video content/videos/<video-id>.json --output /tmp/diopside-pr.md`
 
 Validate one-video scope against the base branch with `npm run validate:video-pr-scope -- --base origin/main`.
 
-## 8. Hand off for human approval
+## 8. Publish verified data
 
-The PR body must show the target video, tag candidates, timestamp state/candidates, word-cloud state/terms, safe evidence references, validation results, YouTube review link, and screenshots in Japanese. Do not merge or publish on behalf of the operator unless they explicitly authorize that separate action.
+The PR body must show the target video, tag candidates, timestamp state/candidates, word-cloud state/terms, safe evidence references, a YouTube link, and concise Japanese verification results. For a completed data-only PR, merge the checked head, follow the trusted release PR from current main, and verify the published video.
