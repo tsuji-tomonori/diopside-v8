@@ -35,7 +35,12 @@ describe('0円・無認証・非追跡・静的公開方針', () => {
     expect(workflow).toMatch(/container:\s*\n\s+image: mcr\.microsoft\.com\/playwright:v1\.62\.1-noble/u);
     expect(workflow).toMatch(/PLAYWRIGHT_BROWSERS_PATH:\s*\/ms-playwright/u);
     expect(workflow).toMatch(/Git worktreeを信頼済みに設定[\s\S]*git config --global --add safe\.directory "\$GITHUB_WORKSPACE"/u);
-    expect(workflow).toMatch(/actions\/setup-python@v5/u);
+    const containerJob = workflow.split(/^ {2}ingestion-infra:/mu)[0] ?? '';
+    expect(containerJob).toMatch(/uses: astral-sh\/setup-uv@v5/u);
+    expect(containerJob).toMatch(/uv venv --managed-python --python 3\.12/u);
+    expect(containerJob).toMatch(/"\$quality_venv\/bin\/python" -c 'import ssl'/u);
+    expect(containerJob).toMatch(/uv pip install --python "\$quality_venv\/bin\/python" --requirement governance\/reviews\/requirements\.txt/u);
+    expect(containerJob).toMatch(/"\$quality_venv\/bin" >> "\$GITHUB_PATH"/u);
     expect(workflow).not.toMatch(/ref: \$\{\{ github\.event\.pull_request\.head\.sha \|\| github\.sha \}\}/u);
     expect(workflow).toMatch(/(?:^|\n)\s+- name: PR・非main通常変更の品質ゲートを実行[\s\S]*github\.ref != 'refs\/heads\/main'[\s\S]*verify:local:base[\s\S]*test:e2e:run/u);
     expect(workflow).toMatch(/(?:^|\n)\s+- name: main通常変更の品質ゲートを実行[\s\S]*github\.ref == 'refs\/heads\/main'[\s\S]*run: npm run verify:main-release/u);
