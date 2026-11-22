@@ -1,6 +1,6 @@
 ---
 name: run-timestamp-work-harness
-description: Run or resume a human-triggered durable diopside v8 timestamp campaign of up to 1000 fixed videos with one GPT-5.6 Sol parent orchestrating ten GPT-5.6 Luna workers, persistent safe checkpoints, temporary evidence, independent checks, one-video draft PRs, and verified ledger reconciliation. Use in ChatGPT Work for end-to-end, long-running, parallel, interrupted, or resumed timestamp work; never merge or publish.
+description: Run or resume a human-triggered durable diopside v8 timestamp campaign of up to 1000 fixed videos with one GPT-5.6 Sol parent orchestrating ten GPT-5.6 Luna workers, persistent safe checkpoints, temporary evidence, independent checks, one-video draft PRs, and verified ledger reconciliation. Use in ChatGPT Work for end-to-end, long-running, parallel, interrupted, or resumed timestamp work; only the parent continues to publication under the current AGENTS.md and user authorization.
 ---
 
 # Timestamp Work harness
@@ -68,7 +68,8 @@ repository or pass them to `codex exec`.
    candidate cannot be materialized without this matching Sol attestation.
 6. Continue with `materialize`, one-video scope validation, commit, push,
    `record-push`, exact-row Sheets update, reread, and `verify-sheet-update` in the
-   parent Sol only. Keep one video per PR.
+   parent Sol only. Keep one video per PR. A draft is an intermediate state;
+   before closing the batch, follow [archive publication reconciliation](../../../operations/archive-publication-reconciliation.md).
 7. After all ten lane slots are terminal or inactive, reread the ledger and run
    `checkpoint-campaign`. Create or update `agent/timestamp-campaign-<campaign-id>`
    only when its observed parent commit matches `expectedParentCommit`; on conflict,
