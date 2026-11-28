@@ -82,14 +82,14 @@ selected_checks:
   result: pass
   evidence:
   - path:content/videos/9Q7h40VZ_ik.json
-  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 正本schema、全編根拠、review hash、PR gateを検証する。
 - id: FAST-006
   class: Invariant
   result: pass
   evidence:
   - path:content/content-manifest.json
-  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 正本件数と決定的生成物のdriftを検証する。
 - id: FAST-007
   class: Invariant
@@ -128,7 +128,7 @@ selected_checks:
   result: pass
   evidence:
   - path:scripts/validate-content.ts
-  - workflow:要件・品質ゲート#要件の品質ゲートを実行
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 内容・1動画scope・生成差分をCIで検証する。
 - id: REV-007
   class: Invariant
@@ -144,5 +144,5 @@ selected_checks:
   note: 未選択checkをN/Aとして登録しない。
 advisories: []
 residual_risks:
-- 候補hash 5dc6c0a809d8d13eb8dbfed20e3c73e1cc6a65850f66ea4821f5b515469c1ecc はデータPRの
-  現HEAD検証とマージ完了まで公開されない。
+- 候補hash 5dc6c0a809d8d13eb8dbfed20e3c73e1cc6a65850f66ea4821f5b515469c1ecc はデータPR
+  #2762の現HEAD検証とマージ完了まで公開されない。
