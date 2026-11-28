@@ -19,7 +19,7 @@ impact_flags:
   code_change: false
   typed_code_change: false
   behavior_change: true
-  bug_fix: false
+  bug_fix: true
   generated_change: true
   sql_change: false
   e2e_change: false
@@ -84,6 +84,13 @@ selected_checks:
   - path:content/videos/9Q7h40VZ_ik.json
   - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
   note: 正本schema、全編根拠、review hash、PR gateを検証する。
+- id: FAST-005
+  class: Risk-selected
+  result: pass
+  evidence:
+  - test:scripts/audit-collaboration-tags.ts
+  - workflow:要件・品質ゲート#PR・非main通常変更の品質ゲートを実行
+  note: 構成員以外を含むタイトル一致企画でユニットタグを付けると横断監査が失敗する条件を再現した。
 - id: FAST-006
   class: Invariant
   result: pass
@@ -146,3 +153,5 @@ advisories: []
 residual_risks:
 - 候補hash 5dc6c0a809d8d13eb8dbfed20e3c73e1cc6a65850f66ea4821f5b515469c1ecc はデータPR
   #2762の現HEAD検証とマージ完了まで公開されない。
+- タイトル内の夜王国は構成員以外を含む対決企画のためユニットタグを付けず、横断監査の除外根拠を
+  同じ動画PRに記録する。
